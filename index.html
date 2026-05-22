@@ -1596,7 +1596,7 @@ let S = {
   // smoothies
   smoothieCat:"all", servings:1, activeSmoothie:null,
   // vital extras
-  vitalCat:"freshjuice", activeOats:null, activeMuffin:null, activeRaw:null, activeFermented:null,
+  vitalCat:"freshjuice", activeOats:null, activeMuffin:null, activeRaw:null, activeFermented:null, fermentPlan:[], fermentView:null, fermentBatches:1,
   healthPlan:[], checkedHealthItems:{}, healthPlanView:false,
   // furry
   furryPet:"dog",
@@ -1696,13 +1696,10 @@ function shopSortKey(name){
     .toLowerCase()
     .trim();
 }
-function tierAllows(t){ return t==="free"||(t==="plus"&&USER_TIER==="pro")||(t==="pro"&&USER_TIER==="pro"); }
+function tierAllows(t){ return true; } // All features unlocked
 function maxMeats(){ return USER_TIER==="free"?2:99; }
 
-function tierBadgeSmall(t){
-  if(t==="plus"||t==="pro") return `<span style="background:#181008;border:1px solid #c0a020;border-radius:5px;padding:1px 5px;font-size:9px;color:#f5c842;">👑 Pro</span>`;
-  return "";
-}
+function tierBadgeSmall(t){ return ""; } // No tier badges shown
 
 function recipeBtn(type,id,returnStep){
   return `<div style="margin-top:6px;"><button style="background:#c06020;border:none;border-radius:6px;padding:5px 12px;font-size:11px;color:#fff;cursor:pointer;font-family:Georgia,serif;" onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${returnStep}}})">📖 See Recipe & Method</button></div>`;
@@ -3242,74 +3239,74 @@ const RAW_AND_REAL = [
 
 // ── FERMENTED & LIVING FOODS DATA ────────────────────────────
 const FERMENTED_RECIPES = [
-  { id:"basicsauerkraut", tier:"free", name:"Basic Sauerkraut", emoji:"🥬", kcal:25,
+  { id:"basicsauerkraut", batchLabel:"1kg cabbage = 1 batch · yields ~800g sauerkraut", tier:"free", name:"Basic Sauerkraut", emoji:"🥬", kcal:25,
     badges:["🧫 Probiotic","🌿 Lacto-Fermented","💪 Gut Health"],
     saltNote:"25g salt per kg cabbage • 25g salt per litre brine",
-    base300:[{n:"Green cabbage",a:"1 kg"},{n:"Fine non-iodised salt",a:"25g"},],
-    method:["Remove outer cabbage leaves. Shred cabbage very finely.","Weigh cabbage. Add 25g salt per kg. Massage 10 min until brine releases.","Pack tightly into clean glass jar. Push cabbage below its own brine.","If brine is insufficient, make extra: 25g salt dissolved in 1L water.","Weigh cabbage down (zip-lock bag filled with brine works well).","Cover with cloth. Ferment at room temperature 5–21 days. Taste from day 5.","Store in fridge once tangy to your liking. Enjoy! 😊"],
+    base300:[{n:"Green cabbage (shredded)",pp:1000,u:"g"},{n:"Fine non-iodised salt",pp:25,u:"g"}],
+    method:["Remove outer cabbage leaves — keep 1 or 2 whole leaves aside. Shred remaining cabbage very finely.","Weigh cabbage. Add 25g salt per kg. Massage firmly for 10 min until brine releases naturally.","Pack tightly into a clean glass jar, pushing cabbage below its own brine.","If brine is insufficient, make extra: 25g salt dissolved in 1L water.","SUBMERGING — critical: cabbage MUST stay below the brine at all times or it will turn rotten. Options: (1) Fold a reserved whole cabbage leaf on top as a plug. (2) Fill a zip-lock bag with brine and lay it on top as a weight. (3) Use a small clean jar as a weight.","VESSEL: Best practice is a jar with an airlock lid. No airlock: close lid loosely or cover with cloth. The jar WILL bubble and may overflow in the first 2–4 days — completely normal. Place jar on a plate. If using a sealed lid, burp it (open briefly) once or twice a day.","Ferment at room temperature 5–21 days. Taste from day 5. Longer = more sour and probiotic-rich.","Once tangy to your liking, seal and refrigerate. Keeps for months. Enjoy! 😊"],
     tip:"The ONLY tools you need: cabbage, salt, a jar, and time. Keep it submerged — that’s the only rule.",
     troubleshooting:["WHITE KAHM YEAST on top: totally normal, just skim it off. It’s not mold.","PINK/BLACK/FUZZY MOLD: discard and start again. Real mold has fur.","TOO SALTY: rinse before eating. Use less salt next time.","NOT FERMENTING: move somewhere warmer (22–26°C is ideal).","FIZZING: great! That’s CO2 — it’s actively fermenting."],
     benefits:"Lactobacillus, vitamin C, digestive enzymes, B vitamins, immune support" },
-  { id:"amazi", tier:"free", name:"Amazi (Traditional Fermented Milk)", emoji:"🥛", kcal:80,
+  { id:"amazi", batchLabel:"500ml milk = 1 batch · yields ~500ml amazi", tier:"free", name:"Amazi (Traditional Fermented Milk)", emoji:"🥛", kcal:80,
     badges:["🇿🇦 Zulu Heritage","🧫 Probiotic","👶 Gentle"],
     saltNote:"No salt needed — naturally lacto-fermented",
-    base300:[{n:"Full cream raw or pasteurised milk",a:"1 litre"},{n:"Previous batch of amazi (as starter)",a:"2 tbsp (or leave to ferment naturally)"}],
+    base300:[{n:"Full cream milk",pp:500,u:"ml"},{n:"Active amazi culture or plain yoghurt (starter)",pp:2,u:"tbsp"}],
     method:["Pour milk into a clean clay pot or glass container (NOT metal).","For first batch: leave uncovered in warm spot 24–48 hours.","For subsequent batches: add 2 tbsp previous amazi. Ferment 12–24 hours.","When thickened and pleasantly sour, it’s ready.","Refrigerate and eat within 5 days. Enjoy! 😊"],
     tip:"Traditional amazi is made in a clay pot and can ferment for days. The older the amazi, the sharper the flavour.",
     benefits:"Probiotics, calcium, protein, B vitamins, traditionally given to weaning babies and the elderly" },
-  { id:"kimchikraut", tier:"plus", name:"Kimchi-Kraut", emoji:"🌶️", kcal:30,
+  { id:"kimchikraut", batchLabel:"1kg combined veg = 1 batch", tier:"plus", name:"Kimchi-Kraut", emoji:"🌶️", kcal:30,
     badges:["🌶️ Kimchi-Style","🍏 Apple","🔥 Fermented"],
     saltNote:"25g salt per kg combined vegetables",
-    base300:[{n:"Green cabbage",a:"500g"},{n:"Purple cabbage",a:"500g"},{n:"Granny Smith apple",a:"200g"},{n:"Radishes",a:"150g"},{n:"Carrots",a:"500g"},{n:"Garlic (minced)",a:"50g"},{n:"Fresh ginger (grated)",a:"50g"},{n:"Dried chilis",a:"20g"},{n:"Fine non-iodised salt",a:"25g per kg veg"}],
-    method:["Shred both cabbages finely. Grate carrots and radishes. Slice apple into matchsticks.","Weigh total vegetables. Add 25g salt per kg. Massage 10–15 min.","Mix in garlic, ginger and chilis. Pack into jars, pressing firmly.","Ensure vegetables are submerged under brine.","Ferment at room temperature 3—7 days, tasting daily from day 3.","Move to fridge when tangy and spicy to your liking. Enjoy! 😊"],
+    base300:[{n:"Green cabbage",pp:500,u:"g"},{n:"Red cabbage",pp:250,u:"g"},{n:"Carrots (grated)",pp:200,u:"g"},{n:"Ginger (grated)",pp:10,u:"g"},{n:"Garlic (minced)",pp:10,u:"g"},{n:"Apple (grated — natural sweetness)",pp:100,u:"g"},{n:"Non-iodised salt",pp:25,u:"g"}],
+    method:["Shred all vegetables finely. Keep 1-2 whole cabbage leaves aside.","Combine cabbage, red cabbage, carrot, ginger, garlic and apple. Add salt. Massage firmly for 10 min until brine releases.","Pack tightly into a clean glass jar, pushing the mixture below the brine.","SUBMERGING — critical: all veg must stay below the brine or it will rot. Use a folded whole cabbage leaf pressed on top, or a zip-lock bag filled with brine as a weight.","VESSEL: Best practice is a jar with an airlock lid. No airlock: close loosely or cover with cloth. Expect active bubbling and possible overflow in the first 2–4 days — this is natural and healthy. Place jar on a plate. Burp sealed lids once or twice a day.","Ferment 5–14 days at room temperature. Taste from day 5. More complex flavour develops with time.","Seal and refrigerate once you're happy with the flavour. Keeps for months."],
     tip:"The apple adds a natural sweetness that balances the chili heat beautifully.",
     benefits:"Probiotics, beta-carotene, vitamin C, anti-inflammatory ginger and garlic, capsaicin" },
-  { id:"waterkefir", tier:"plus", name:"Water Kefir", emoji:"💧", kcal:35,
+  { id:"waterkefir", batchLabel:"1L water = 1 batch · yields ~1L kefir", tier:"plus", name:"Water Kefir", emoji:"💧", kcal:35,
     badges:["🍫 Fizzy","🧫 Probiotic","🌳 Dairy Free"],
     saltNote:"No salt — uses sugar as fermentation fuel",
-    base300:[{n:"Water kefir grains",a:"3 tbsp"},{n:"Filtered water",a:"1 litre"},{n:"White sugar",a:"4 tbsp (grains eat the sugar)"},{n:"Dried figs or apricots",a:"2 pieces"},{n:"Lemon slice",a:"1"}],
+    base300:[{n:"Water (filtered, non-chlorinated)",pp:1000,u:"ml"},{n:"White sugar (food for the grains)",pp:60,u:"g"},{n:"Water kefir grains (live)",pp:60,u:"g"},{n:"Dried fig or apricot (mineral source)",pp:1,u:""},{n:"Lemon juice (fresh)",pp:15,u:"ml"}],
     method:["Dissolve sugar in 250ml warm water. Top up with 750ml cool water.","Add kefir grains, dried fruit and lemon slice to jar.","Cover with cloth. Ferment 24–48 hours at room temperature.","Strain out grains (save them for next batch!).","SECOND FERMENT: Bottle with fruit juice. Leave 24 hours for fizz. Enjoy! 😊"],
     tip:"Your grains will multiply. Share them with friends! The sugar feeds the grains, not the drinker.",
     benefits:"Broad probiotic spectrum, B vitamins, enzymes, dairy-free fermented drink" },
-  { id:"milkkefir", tier:"plus", name:"Milk Kefir", emoji:"🍼", kcal:110,
+  { id:"milkkefir", batchLabel:"500ml milk = 1 batch · yields ~500ml kefir", tier:"plus", name:"Milk Kefir", emoji:"🍼", kcal:110,
     badges:["🧫 40+ Strains","🥛 Creamy","💪 Probiotic Powerhouse"],
     saltNote:"No salt — naturally fermented",
-    base300:[{n:"Milk kefir grains",a:"1 tbsp"},{n:"Full cream milk (not UHT ideally)",a:"500ml"}],
+    base300:[{n:"Full cream milk (unhomogenised best)",pp:500,u:"ml"},{n:"Milk kefir grains (live)",pp:15,u:"g"}],
     method:["Place kefir grains in a clean glass jar.","Add milk. Stir gently. Cover with cloth — not a lid (needs to breathe).","Ferment 12–24 hours at room temperature. Stir after 12 hours.","When thickened and tangy, strain out grains with plastic strainer (not metal!).","Grains go straight back into fresh milk. Drink kefir immediately or refrigerate. Enjoy! 😊"],
     tip:"Metal damages kefir grains — always use plastic or wooden tools for straining.",
     benefits:"40+ probiotic strains, complete protein, calcium, B12, K2, digestive healing" },
-  { id:"classicsourdough", tier:"plus", name:"Classic Sourdough Starter (Method)", emoji:"🍞", kcal:0,
+  { id:"classicsourdough", batchLabel:"100g flour starter = 1 batch", tier:"plus", name:"Classic Sourdough Starter (Method)", emoji:"🍞", kcal:0,
     badges:["🍞 Wild Yeast","🌱 Living Culture","🕑 7 Day Process"],
     saltNote:"No salt in the starter itself",
-    base300:[{n:"Bread flour (or whole wheat for faster results)",a:"50g per feeding"},{n:"Filtered or dechlorinated water",a:"50ml per feeding"}],
+    base300:[{n:"Strong white bread flour or whole wheat",pp:100,u:"g"},{n:"Water (unchlorinated, room temperature)",pp:100,u:"ml"}],
     method:["DAY 1: Mix 50g flour + 50g water in clean jar. Cover loosely. Leave 24 hours.","DAY 2–4: Discard half. Feed with 50g flour + 50g water each day.","Watch for bubbles — this means wild yeast is growing.","DAY 5–7: Starter doubles in size 4–8 hours after feeding. It’s ready!","TEST: Drop 1 tsp in water. If it floats, it’s active!","Maintain: Feed daily at room temp OR weekly in fridge. Enjoy! 😊"],
     tip:"Whole wheat flour jump-starts fermentation faster than white flour. Name your starter — it’s alive!",
     benefits:"Wild yeast, lactobacillus, reduced gluten structure, improved digestibility vs commercial bread" },
-  { id:"curtido", tier:"pro", name:"Curtido (Salvadoran Fermented Slaw)", emoji:"🌱", kcal:20,
+  { id:"curtido", batchLabel:"500g cabbage = 1 batch", tier:"pro", name:"Curtido (Salvadoran Fermented Slaw)", emoji:"🌱", kcal:20,
     badges:["🇸🇻 Central American","🌿 Lacto-Fermented","🔥 Quick Ferment"],
     saltNote:"25g salt per kg vegetables",
-    base300:[{n:"Green cabbage (finely shredded)",a:"500g"},{n:"Carrots (grated)",a:"500g"},{n:"White onion (sliced thin)",a:"1 small"},{n:"Dried oreganum",a:"20g"},{n:"Fine non-iodised salt",a:"25g per kg veg"},{n:"Apple cider vinegar (optional)",a:"2 tbsp"}],
-    method:["Pour boiling water over cabbage and carrot. Leave 5 minutes, then drain.","Add onion, oreganum and salt. Massage well.","Pack into jar. Liquid should cover vegetables.","Ferment 1–3 days at room temperature (much quicker than sauerkraut).","Or skip ferment entirely: add vinegar and eat fresh as a quick pickle. Enjoy! 😊"],
+    base300:[{n:"Green cabbage (finely shredded)",pp:500,u:"g"},{n:"Carrot (grated)",pp:150,u:"g"},{n:"Red onion (thinly sliced)",pp:100,u:"g"},{n:"Dried oreganum",pp:2,u:"g"},{n:"Non-iodised salt",pp:15,u:"g"},{n:"White wine vinegar",pp:30,u:"ml"}],
+    method:["Shred cabbage finely. Keep 1-2 whole leaves aside.","Combine cabbage, carrot and red onion. Add salt. Massage for 5 min until brine begins to release. Add oreganum and vinegar. Mix well.","Pack tightly into a clean jar, pushing vegetables below the brine.","SUBMERGING — critical: all veg must stay under the brine. Use a folded cabbage leaf pressed on top as a plug, or a brine-filled zip-lock bag as a weight.","VESSEL: Best practice is a jar with an airlock lid. No airlock: close loosely. Expect bubbling and possible overflow in the first 1–3 days — completely normal. Place jar on a plate. Burp sealed lids daily.","Curtido ferments quickly — taste from day 2. It's ready when pleasantly tangy and the veg has softened slightly.","Seal and refrigerate. Curtido is typically eaten fresh or lightly fermented — keeps 2–3 weeks in fridge."],
     tip:"Traditional curtido served with pupusas. The oreganum is non-negotiable — it defines the dish.",
     benefits:"Probiotics, beta-carotene, vitamin C, oreganum for antimicrobial properties" },
-  { id:"kombucha", tier:"pro", name:"Kombucha (with SCOBY)", emoji:"🍵", kcal:30,
+  { id:"kombucha", batchLabel:"1L tea = 1 batch · yields ~1L kombucha", tier:"pro", name:"Kombucha (with SCOBY)", emoji:"🍵", kcal:30,
     badges:["🍵 SCOBY","🧫 Probiotic","💧 Fizzy"],
     saltNote:"No salt — sweetened tea fermented by SCOBY",
-    base300:[{n:"SCOBY + 100ml starter liquid",a:"1 SCOBY"},{n:"Filtered water",a:"1 litre"},{n:"Black tea bags",a:"4"},{n:"White sugar",a:"80g"},{n:"White vinegar (if no starter)",a:"2 tbsp"}],
+    base300:[{n:"Filtered water",pp:1000,u:"ml"},{n:"Black or green tea (loose leaf or bags)",pp:4,u:"g"},{n:"White sugar",pp:70,u:"g"},{n:"SCOBY (Symbiotic Culture of Bacteria and Yeast)",pp:null,u:""},{n:"Starter liquid (from previous batch)",pp:100,u:"ml"}],
     method:["Brew tea. Dissolve sugar in hot tea. Cool to room temperature COMPLETELY.","Add SCOBY and starter liquid (or vinegar). Pour into glass vessel.","Cover with cloth. Ferment 7–14 days at room temperature, tasting from day 7.","When pleasantly tart, remove SCOBY (save for next batch + 100ml liquid).","SECOND FERMENT: Bottle with fruit juice for 2–3 days to build carbonation. Enjoy! 😊"],
     tip:"SCOBY = Symbiotic Culture of Bacteria and Yeast. Source locally or online. Never let metal touch it.",
     benefits:"Organic acids, enzymes, B vitamins, probiotics, acetic acid, liver support" },
-  { id:"juntea", tier:"pro", name:"Jun Tea (Green Tea Kombucha)", emoji:"🍵", kcal:20,
+  { id:"juntea", batchLabel:"1L green tea = 1 batch", tier:"pro", name:"Jun Tea (Green Tea Kombucha)", emoji:"🍵", kcal:20,
     badges:["🍵 Green Tea","🍯 Honey Fermented","✨ Delicate"],
     saltNote:"No salt — honey is the fermentation fuel",
-    base300:[{n:"Jun SCOBY + 100ml starter",a:"1 SCOBY"},{n:"Filtered water",a:"1 litre"},{n:"Green tea bags",a:"4"},{n:"Raw honey (NOT heated honey)",a:"60g"}],
+    base300:[{n:"Green tea",pp:4,u:"g"},{n:"Filtered water",pp:1000,u:"ml"},{n:"Raw honey (NOT white sugar — feeds different culture)",pp:70,u:"g"},{n:"Jun SCOBY",pp:null,u:""},{n:"Starter liquid",pp:100,u:"ml"}],
     method:["Brew green tea. Cool to below 35°C (honey’s enzymes die above this!).","Stir in raw honey until dissolved.","Add Jun SCOBY and starter liquid.","Cover with cloth. Ferment 7–10 days — Jun ferments faster than kombucha.","Bottle for second ferment 1–2 days. Enjoy! 😊"],
     tip:"Jun requires a Jun SCOBY (not regular kombucha SCOBY) and raw honey specifically. It’s more delicate and expensive but exquisite.",
     benefits:"EGCG from green tea, enzymes from raw honey, probiotics, antioxidants" },
-  { id:"potatosourdough", tier:"pro", name:"Potato Sourdough Starter", emoji:"🥕", kcal:0,
+  { id:"potatosourdough", batchLabel:"100g flour starter = 1 batch", tier:"pro", name:"Potato Sourdough Starter", emoji:"🥕", kcal:0,
     badges:["🥕 Potato Yeast","🍞 Gluten-Free Option","🌱 Wild"],
     saltNote:"No salt in starter",
-    base300:[{n:"Potato (medium, peeled and grated)",a:"1"},{n:"Sugar",a:"1 tsp"},{n:"Warm water",a:"250ml"},{n:"Plain flour (optional after day 3)",a:"50g"}],
+    base300:[{n:"Potato (boiled and mashed — no salt)",pp:150,u:"g"},{n:"Bread flour",pp:100,u:"g"},{n:"Water (from boiling the potato)",pp:100,u:"ml"},{n:"Sugar (food for wild yeast)",pp:5,u:"g"}],
     method:["Grate raw potato into clean jar.","Add sugar and warm water. Stir well.","Cover loosely. Ferment 3–5 days, stirring daily.","Bubbles appear by day 2–3 — that’s wild yeast from the potato starch.","From day 3 onwards, add 1 tbsp flour daily if desired.","Ready when doubling after each stir. Enjoy! 😊"],
     tip:"Potato starters are beloved in Eastern European baking. They produce a softer crumb than flour-only starters.",
     benefits:"Wild yeast, no added commercial yeast, unique microbiome from potato environment" },
@@ -6405,7 +6402,6 @@ function healthToggleById(id, type, servings){
   else if(type==='smoothie') item = SMOOTHIES.find(x=>x.id===id);
   else if(type==='oats') item = OVERNIGHT_OATS.find(x=>x.id===id);
   else if(type==='muffin') item = HEALTHY_MUFFINS.find(x=>x.id===id);
-      + '<div onclick="'+openFn+'(\''+item.id+'\')" style="display:flex;align-items:center;gap:12px;flex:1;cursor:pointer;">'
   if(!item) return;
   set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type,kcal:item.kcal,shopping:item.shopping||[],servings}]});
 }
@@ -6655,7 +6651,6 @@ function smoothiesHTML(){
     {id:"muffins",    label:"🧁 Muffins",            desc:"Healthy bakes"},
     {id:"raw",        label:"🥗 Raw Foods",          desc:"Unprocessed snacks & meals"},
     {id:"fermented",  label:"🫙 Fermented Foods",    desc:"Probiotics & living cultures"},
-    {id:"myplan",     label:"📋 My Plan",            desc:"Shopping list & quantities"},
   ];
 
   const vc = vitalCat;
@@ -6723,69 +6718,159 @@ function smoothiesHTML(){
 // ── FERMENTED TAB RENDER ──────────────────────────────────────────
 function fermentedTabHTML(){
   const af = S.activeFermented;
+  const batches = S.fermentBatches||1;
+  const fermentPlan = S.fermentPlan||[];
+
+  // ── RECIPE VIEW ──
   if(af){
+    const ri = FERMENTED_RECIPES.findIndex(x=>x.id===af.id);
+    const inPlan = fermentPlan.includes(af.id);
+
+    // Scale ingredients by batches
+    function fmtAmt(raw, unit){
+      if(!raw&&raw!==0) return unit||'';
+      if((unit==='g'||unit==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(unit==='g'?'kg':'L');
+      return Math.round(raw*10)/10+(unit||'');
+    }
+
     return `<div>
       <div style="background:#0f1a18;border-bottom:1px solid #207060;padding:14px 20px;">
-        <button onclick="set({activeFermented:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+        <button onclick="setQuiet({activeFermented:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Fermented Foods</button>
         <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${af.emoji} ${af.name}</h1>
-        <div style="font-size:11px;color:#30c090;font-style:italic;">Fermented Foods</div>
+        <div style="font-size:11px;color:#30c090;font-style:italic;">${af.batchLabel||'Per batch'}</div>
       </div>
       <div class="content">
         ${af.saltNote?`<div style="background:#0a2018;border:1px solid #1a4030;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#40d0a0;">⚖️ ${af.saltNote}</div>`:''}
-        <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">
-          <div style="font-size:10px;letter-spacing:2px;color:#208060;text-transform:uppercase;margin-bottom:8px;">Ingredients</div>
-          ${af.base300.map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a2818;"><span style="font-size:13px;color:#c0d4b0;">${i.n}</span><span style="font-size:13px;color:#40d0a0;font-weight:bold;">${i.a}</span></div>`).join('')}
+
+        <!-- Batch scaler -->
+        <div style="display:flex;align-items:center;gap:12px;background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;color:#30c090;text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Batches</div>
+          <button onclick="setQuiet({fermentBatches:Math.max(1,S.fermentBatches-1)})" style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #30c090;color:#30c090;font-size:18px;cursor:pointer;">−</button>
+          <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${batches}</span>
+          <button onclick="setQuiet({fermentBatches:Math.min(10,S.fermentBatches+1)})" style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #30c090;color:#30c090;font-size:18px;cursor:pointer;">+</button>
+          <div style="font-size:11px;color:#206050;flex:1;">${af.batchLabel||'1 batch'} × ${batches}</div>
         </div>
+
+        <!-- Ingredients -->
+        <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#208060;text-transform:uppercase;margin-bottom:8px;">Ingredients — ${batches} batch${batches>1?'es':''}</div>
+          ${(af.base300||[]).map(i=>{
+            if(!i.pp) return `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a2818;"><span style="font-size:13px;color:#c0d4b0;">${i.n}</span><span style="font-size:12px;color:#406050;font-style:italic;">${i.a||'as needed'}</span></div>`;
+            const raw = i.pp * batches;
+            return `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a2818;">
+              <span style="font-size:13px;color:#c0d4b0;">${i.n}</span>
+              <span style="font-size:13px;color:#f5c842;font-weight:bold;">${fmtAmt(raw,i.u)}</span>
+            </div>`;
+          }).join('')}
+        </div>
+
+        <!-- Method -->
         <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">
           <div style="font-size:10px;letter-spacing:2px;color:#208060;text-transform:uppercase;margin-bottom:8px;">Method</div>
-          ${af.method.map((s,i)=>`<div style="display:flex;gap:10px;margin-bottom:8px;"><div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid #20c080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#20c080;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0d0b0;line-height:1.5;">${s}</div></div>`).join('')}
+          ${(af.method||[]).map((s,i)=>`<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid #20c080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#20c080;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0d0b0;line-height:1.6;">${s}</div></div>`).join('')}
         </div>
+
         ${af.tip?`<div style="background:#0a1a10;border:1px solid #1a4020;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><span style="color:#20d080;font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#90d090;">${af.tip}</span></div>`:''}
-        ${af.troubleshooting?`<div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">
-          <div style="font-size:10px;letter-spacing:2px;color:#208060;text-transform:uppercase;margin-bottom:8px;">Troubleshooting Guide</div>
-          ${af.troubleshooting.map(t=>`<div style="padding:6px 0;border-bottom:1px solid #1a2818;font-size:12px;color:#90d090;">${t}</div>`).join('')}
-        </div>`:''}
-        ${af.benefits?`<div style="font-size:11px;color:#208060;font-style:italic;padding:8px 0;">🌿 Benefits: ${af.benefits}</div>`:''}
+        ${af.benefits?`<div style="font-size:11px;color:#208060;font-style:italic;padding:8px 0;margin-bottom:8px;">🌿 ${af.benefits}</div>`:''}
+
+        <!-- Add to plan -->
+        <button onclick="setQuiet({fermentPlan:toggle(S.fermentPlan||[],'${af.id}'),activeFermented:null})" style="width:100%;padding:14px;border-radius:10px;border:2px solid ${inPlan?'#30c090':'#1a4030'};background:${inPlan?'#0a2018':'#0f1a18'};color:${inPlan?'#40d0a0':'#206050'};font-size:14px;cursor:pointer;margin-bottom:10px;">${inPlan?'✓ In My Plan — tap to remove':'+ Add to My Fermented Plan'}</button>
+
+        <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #4060a0;background:#0f1020;color:#8090d0;font-size:13px;cursor:pointer;">🖨️ Print Recipe</button>
+        <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🫙 *${af.name}*\n${af.batchLabel||'1 batch'}\n\n'+(af.base300||[]).filter(i=>i.pp).map(i=>{const r=i.pp*${batches};return '• '+i.n+': '+((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));}).join('\n')+'\n\nMade with Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share via WhatsApp</button>
       </div>
     </div>`;
   }
 
-  const freeOnes = FERMENTED_RECIPES.filter(r=>r.tier==='free');
-  const plusOnes = FERMENTED_RECIPES.filter(r=>r.tier==='plus');
-  const proOnes  = FERMENTED_RECIPES.filter(r=>r.tier==='pro');
+  // ── MY PLAN VIEW ──
+  if(S.fermentView==='myplan'){
+    const planRecipes = FERMENTED_RECIPES.filter(r=>fermentPlan.includes(r.id));
 
-  function renderFermentCard(r){
-    const allowed = tierAllows(r.tier||'free');
-    if(!allowed) return `<div onclick="alert('Upgrade to ${r.tier==='plus'?'Tinza Pro R99/month':'Tinza Pro R99/month'} to unlock this ferment!')" style="background:#0f0e0c;border:1px solid #1a1808;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;opacity:0.6;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:44px;height:44px;border-radius:10px;background:#1a1808;display:flex;align-items:center;justify-content:center;font-size:24px;">🔒</div>
-        <div style="flex:1;"><div style="font-size:15px;color:#4a3020;">${r.name} ${tierBadgeSmall(r.tier)}</div><div style="font-size:11px;color:#3a2010;margin-top:2px;">Tap to unlock</div></div>
-      </div></div>`;
-    return `<div onclick="set({activeFermented:${JSON.stringify(r).replace(/"/g,'&quot;')}})" style="background:#0f1a18;border:1px solid #1a4035;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:44px;height:44px;border-radius:10px;background:#0a2018;border:1px solid #1a4030;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">${r.emoji}</div>
-        <div style="flex:1;">
-          <div style="font-size:15px;color:#e0d4b8;margin-bottom:4px;">${r.name} ${tierBadgeSmall(r.tier)}</div>
-          <div style="font-size:11px;color:#30c090;">${r.saltNote||''}</div>
-          <div style="margin-top:4px;">${r.badges.map(b=>`<span style="background:#0a2018;border:1px solid #1a4030;border-radius:10px;font-size:9px;color:#30a070;padding:2px 6px;margin:1px;display:inline-block;">${b}</span>`).join('')}</div>
+    function fmtS(raw,unit){
+      if(!raw) return unit||'';
+      if((unit==='g'||unit==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(unit==='g'?'kg':'L');
+      return Math.round(raw*10)/10+(unit||'');
+    }
+
+    const map = {};
+    planRecipes.forEach(r=>{
+      (r.base300||[]).forEach(i=>{
+        if(!i||!i.n||!i.pp) return;
+        const key = i.n.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
+        if(map[key]){ map[key].raw+=i.pp; if(!map[key].dishes.includes(r.name)) map[key].dishes.push(r.name); }
+        else map[key]={name:i.n,raw:i.pp,unit:i.u,dishes:[r.name]};
+      });
+    });
+    const allItems = Object.values(map).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
+    const waText = '🫙 *Fermented Foods Shopping List*\n\n'+allItems.map(i=>'• '+i.name+': '+fmtS(i.raw,i.unit)).join('\n');
+
+    return `<div>
+      <div style="background:#0f1a18;border-bottom:1px solid #207060;padding:14px 20px;">
+        <button onclick="setQuiet({fermentView:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Recipes</button>
+        <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 My Fermented Plan</h1>
+        <p style="margin:0;font-size:11px;color:#208060;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} selected · all scaled per single batch</p>
+      </div>
+      <div class="content">
+        <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:4px 12px;margin-bottom:14px;">
+          ${planRecipes.length===0?'<p style="font-size:13px;color:#1a4030;font-style:italic;padding:8px 0;">No recipes selected yet.</p>':
+            planRecipes.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #1a2818;">
+              <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">${r.emoji}</span><div><div style="font-size:14px;color:#e0d4b8;">${r.name}</div><div style="font-size:11px;color:#30c090;">${r.batchLabel||'1 batch'}</div></div></div>
+              <button onclick="setQuiet({fermentPlan:(S.fermentPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#406050;font-size:11px;cursor:pointer;">✕ Remove</button>
+            </div>`).join('')}
         </div>
-        <span style="color:#30c090;font-size:18px;">→</span>
-      </div></div>`;
+        <div style="font-size:10px;letter-spacing:2px;color:#208060;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List — 1 batch each</div>
+        <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
+          ${allItems.length===0?'<p style="font-size:13px;color:#1a4030;font-style:italic;padding:8px 0;">Add recipes to generate list.</p>':
+            allItems.map(i=>{
+              const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
+              const inCart=(S.fingerShopCart||{})[key];
+              return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a2818;cursor:pointer;opacity:${inCart?0.35:1};">
+                <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#30c090':'#1a4030'};background:${inCart?'#30c090':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#0f0e0c;">${inCart?'✓':''}</div>
+                <span style="flex:1;font-size:13px;color:${inCart?'#1a3020':'#c0d4b0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?` <span style="font-size:10px;color:#206050;">· ${i.dishes.length} recipes</span>`:''}</span>
+                <span style="font-size:13px;color:${inCart?'#1a3020':'#f5c842'};font-weight:bold;">${fmtS(i.raw,i.unit)}</span>
+              </div>`;
+            }).join('')}
+        </div>
+        <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #4060a0;background:#0f1020;color:#8090d0;font-size:13px;cursor:pointer;">🖨️ Print / Save as PDF</button>
+        <a href="https://wa.me/?text=${encodeURIComponent(waText)}" target="_blank" style="display:block;width:100%;padding:13px;margin-bottom:8px;border-radius:10px;border:2px solid #25d366;background:#0a1a0a;color:#25d366;font-size:13px;text-align:center;text-decoration:none;box-sizing:border-box;">📲 Send Shopping List via WhatsApp</a>
+        <button onclick="set({fermentPlan:[],fermentView:null})" style="width:100%;padding:12px;margin-bottom:20px;border-radius:10px;border:2px solid #30c090;background:#0a1a10;color:#40d0a0;font-size:13px;cursor:pointer;">🔄 Start a New Plan</button>
+      </div>
+    </div>`;
   }
 
+  // ── LIST VIEW ──
+  const planBtn = fermentPlan.length>0 ? `
+    <div onclick="setQuiet({fermentView:'myplan',activeFermented:null})"
+      style="position:sticky;bottom:12px;margin:12px 0;background:#0a2018;border:2px solid #30c090;border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:14px;color:#40d0a0;font-weight:bold;">📋 Go to My Plan & Shopping List →</div>
+        <div style="font-size:11px;color:#1a5030;margin-top:2px;">${fermentPlan.length} recipe${fermentPlan.length>1?'s':''} selected</div>
+      </div>
+      <span style="font-size:22px;">🛒</span>
+    </div>` : '';
+
   return `
-    <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Living foods. Ancient wisdom. Modern gut science. 🫙</p>
-    <div style="font-size:10px;letter-spacing:2px;color:#20d080;text-transform:uppercase;margin-bottom:8px;">🆓 Free</div>
-    ${freeOnes.map(renderFermentCard).join('')}
-    <div style="font-size:10px;letter-spacing:2px;color:#f0a020;text-transform:uppercase;margin:12px 0 8px;">😊 Plus</div>
-    ${plusOnes.map(renderFermentCard).join('')}
-    <div style="font-size:10px;letter-spacing:2px;color:#d040d0;text-transform:uppercase;margin:12px 0 8px;">👑 Pro</div>
-    ${proOnes.map(renderFermentCard).join('')}
-    <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:12px;padding:14px;margin-top:16px;">
+    <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Living foods. Ancient wisdom. Modern gut science. 🫙 All recipes scale per batch.</p>
+    ${FERMENTED_RECIPES.map((r,i)=>`
+      <div style="background:#0f1a18;border:1px solid ${fermentPlan.includes(r.id)?'#30c090':'#1a4035'};border-radius:12px;padding:14px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:22px;height:22px;border-radius:5px;border:2px solid ${fermentPlan.includes(r.id)?'#30c090':'#1a4035'};background:${fermentPlan.includes(r.id)?'#30c090':'transparent'};display:flex;align-items:center;justify-content:center;font-size:12px;color:#0f0e0c;cursor:pointer;flex-shrink:0;" onclick="setQuiet({fermentPlan:toggle(S.fermentPlan||[],'${r.id}')})">${fermentPlan.includes(r.id)?'✓':''}</div>
+          <div style="width:40px;height:40px;border-radius:10px;background:#0a2018;border:1px solid #1a4030;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">${r.emoji}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:15px;color:#e0d4b8;margin-bottom:2px;">${r.name}</div>
+            <div style="font-size:11px;color:#30c090;margin-bottom:4px;">${r.batchLabel||'per batch'} · ${r.saltNote||''}</div>
+            <div>${(r.badges||[]).map(b=>`<span style="background:#0a2018;border:1px solid #1a4030;border-radius:10px;font-size:9px;color:#30a070;padding:2px 6px;margin:1px;display:inline-block;">${b}</span>`).join('')}</div>
+          </div>
+          <button onclick="setQuiet({activeFermented:FERMENTED_RECIPES[${i}],fermentBatches:S.fermentBatches||1})" style="background:#1a4030;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#30c090;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
+        </div>
+      </div>`).join('')}
+    <div style="background:#0f1a18;border:1px solid #1a4030;border-radius:12px;padding:14px;margin-top:8px;margin-bottom:60px;">
       <div style="font-size:13px;color:#40d0a0;margin-bottom:10px;">🔍 Fermentation Troubleshooting</div>
       ${FERMENT_TROUBLESHOOT.map(t=>`<div style="margin-bottom:10px;"><div style="font-size:12px;color:#e0d4b8;font-weight:bold;margin-bottom:3px;">${t.q}</div><div style="font-size:11px;color:#90d090;line-height:1.5;">${t.a}</div></div>`).join('')}
-    </div>`;
+    </div>
+    ${planBtn}`;
 }
+
 
 // ── BUFFET STEP FLOW ──────────────────────────────────────────────
 const BC = '#d04080'; // buffet colour
