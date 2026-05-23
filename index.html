@@ -1597,7 +1597,10 @@ let S = {
   // smoothies
   smoothieCat:"all", servings:1, activeSmoothie:null,
   // mood
-  moodSelected:null, moodRecipes:null, moodLoading:false, moodActiveRecipe:null, moodServings:4,
+  moodSelected:null, moodRecipes:null, moodLoading:false, moodActiveRecipe:null, moodServings:4, moodPage:0, moodAIRecipes:null, moodAILoading:false,
+  // budget paged
+  _budgetResults:null, _budgetLoading:false, _budgetError:null, _budgetActiveRecipe:null,
+  _budgetPage:0, _budgetDBBank:null, _budgetAIRecipes:null, _budgetAILoading:false,
   // vital extras
   vitalCat:"freshjuice", activeOats:null, activeMuffin:null, activeRaw:null, activeFermented:null, fermentPlan:[], fermentView:null, fermentBatches:1,
   healthPlan:[], checkedHealthItems:{}, healthPlanView:false,
@@ -2924,239 +2927,1010 @@ const BAKES_RECIPES = [
 // Recipes are practical, filling, family-friendly
 
 const BUDGET_RECIPES = [
-  // ── UNDER R10 PP ──────────────────────────────────────────────
-  { id:"bud_pap_chakalaka", name:"Pap & Chakalaka", emoji:"🌽", costPP:4, serves:4, time:30,
-    tags:["vegetarian","south african","filling","quick"],
+
+  // ── R40 BUDGET (costPP ~R10) ──────────────────────────────────
+  { id:"bud_pilchard_pap", name:"Curried Pilchard Stew with Pap", emoji:"🐟", costPP:10, serves:4, time:30,
+    tags:["fish","pap","budget","south african","filling"],
     ingredients:[
-      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Tinned pilchards in tomato sauce",pp:100,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:100,u:"g",userHas:false},
       {n:"Water",pp:300,u:"ml",userHas:false},
-      {n:"Tinned baked beans",pp:50,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
-      {n:"Tinned tomatoes",pp:40,u:"g",userHas:false},
-      {n:"Curry powder",pp:1,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Carrot (grated)",pp:30,u:"g",userHas:false},
+      {n:"Curry powder",pp:2,u:"g",userHas:false},
       {n:"Oil",pp:5,u:"ml",userHas:false},
       {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["Boil water. Whisk in maize meal slowly. Cook on low heat 15 min stirring regularly until thick and smooth.","Fry onion in oil until soft. Add curry powder 1 min. Add tomatoes and baked beans. Simmer 10 min. Season.","Serve chakalaka over pap."],
-    tip:"One of South Africa's most affordable and satisfying meals. Add a fried egg on top for extra protein at minimal cost.",
-    storage:"Fridge 3 days." },
+    method:["Fry onion in oil until soft. Add grated carrot and curry powder. Cook 2 min.","Add pilchards with sauce. Mash fish into the sauce. Simmer 8 min.","Meanwhile: boil water, whisk in maize meal slowly. Cook on low heat 15 min stirring until thick and smooth.","Serve pilchard curry over stiff pap."],
+    tip:"Grate the carrot into the sauce — it adds volume and nutrition and completely disappears. The starch water from boiling pap thickens any gravy naturally.",
+    nutrition:{kcal:420,protein_g:22,carbs_g:55,fat_g:10},
+    storage:"Fridge 2 days." },
 
-  { id:"bud_rice_lentils", name:"Yellow Rice & Red Lentils", emoji:"🍚", costPP:5, serves:4, time:30,
-    tags:["vegetarian","healthy","filling","vegan"],
+  { id:"bud_samp_beans", name:"Sugar Bean Samp", emoji:"🫘", costPP:8, serves:4, time:90,
+    tags:["vegetarian","south african","filling","vegan","traditional"],
     ingredients:[
-      {n:"White rice",pp:80,u:"g",userHas:false},
-      {n:"Red lentils (rinsed)",pp:50,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
-      {n:"Garlic (minced)",pp:2,u:"g",userHas:false},
-      {n:"Turmeric",pp:0.5,u:"g",userHas:false},
-      {n:"Cumin",pp:0.5,u:"g",userHas:false},
-      {n:"Vegetable stock or water",pp:200,u:"ml",userHas:false},
+      {n:"Samp & beans mix",pp:125,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Stock cube",pp:0.25,u:"",userHas:false},
+      {n:"Water",pp:500,u:"ml",userHas:false},
       {n:"Oil",pp:5,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["Fry onion and garlic in oil until soft. Add turmeric and cumin. Cook 1 min.","Add rice, lentils and stock. Bring to boil. Reduce to low. Cover and cook 18 min.","Fluff with fork. Season. Serve with any vegetable or chutney."],
-    tip:"Red lentils cook in the same time as rice — no pre-soaking needed. Complete protein when combined. Very filling and deeply nutritious.",
-    storage:"Fridge 3 days." },
-
-  { id:"bud_egg_fried_rice", name:"Egg Fried Rice", emoji:"🍳", costPP:6, serves:4, time:15,
-    tags:["eggs","quick","leftover rice","filling","family"],
-    ingredients:[
-      {n:"Cooked leftover rice (cold)",pp:100,u:"g",userHas:false},
-      {n:"Eggs",pp:1,u:"egg",userHas:false},
-      {n:"Frozen peas or mixed veg",pp:30,u:"g",userHas:false},
-      {n:"Spring onions or onion",pp:15,u:"g",userHas:false},
-      {n:"Soy sauce",pp:8,u:"ml",userHas:false},
-      {n:"Oil",pp:10,u:"ml",userHas:false},
-      {n:"Garlic (minced)",pp:2,u:"g",userHas:false},
-    ],
-    method:["Heat wok or pan until very hot. Add oil.","Fry garlic 30 sec. Add cold rice — spread flat and let it fry undisturbed 2 min.","Push to side. Scramble eggs in the space. Mix into rice.","Add peas and soy sauce. Toss everything 2 min. Top with spring onions."],
-    tip:"Cold day-old rice is essential — fresh warm rice goes mushy. This is the perfect way to use up leftover rice.",
-    storage:"Eat immediately." },
-
-  { id:"bud_bean_curry", name:"Bean & Potato Curry", emoji:"🍛", costPP:7, serves:4, time:35,
-    tags:["vegetarian","filling","curry","south african","vegan"],
-    ingredients:[
-      {n:"Tinned kidney or sugar beans (drained)",pp:80,u:"g",userHas:false},
-      {n:"Potatoes (cubed)",pp:100,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
-      {n:"Garlic",pp:2,u:"g",userHas:false},
-      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
-      {n:"Curry powder",pp:3,u:"g",userHas:false},
-      {n:"Turmeric",pp:0.5,u:"g",userHas:false},
-      {n:"Oil",pp:8,u:"ml",userHas:false},
-    ],
-    method:["Fry onion and garlic until golden. Add curry powder and turmeric — fry 2 min in oil.","Add tomatoes. Cook 5 min. Add potatoes. Cover and cook 15 min.","Add beans. Cook 5 more min until potatoes are soft and sauce is thick. Season.","Serve with rice or bread."],
-    tip:"One of the cheapest filling meals you can make. Potatoes and beans together give complete nutrition. The curry powder does all the flavour work.",
+    method:["Soak samp and beans in cold water overnight if possible (or 2 hours minimum).","Drain. Boil with fresh water and stock cube for 60–75 min until very soft and creamy.","Fry onion in oil until golden. Stir into samp.","Season. The high starch content makes it naturally very thick and filling."],
+    tip:"The overnight soak cuts cooking time in half and makes the beans more digestible. A classic South African staple — very filling and high in protein.",
+    nutrition:{kcal:380,protein_g:18,carbs_g:70,fat_g:4},
     storage:"Fridge 4 days. Freezer 2 months." },
 
-  { id:"bud_oat_porridge", name:"Creamy Oat Porridge", emoji:"🥣", costPP:3, serves:4, time:10,
-    tags:["breakfast","healthy","quick","vegetarian","cheap"],
+  { id:"bud_soya_cabbage", name:"Soya Mince & Cabbage", emoji:"🥬", costPP:7, serves:4, time:25,
+    tags:["vegetarian","budget","filling","south african"],
     ingredients:[
-      {n:"Rolled oats",pp:60,u:"g",userHas:false},
-      {n:"Full cream milk",pp:150,u:"ml",userHas:false},
-      {n:"Water",pp:50,u:"ml",userHas:false},
-      {n:"Sugar or honey",pp:8,u:"g",userHas:false},
-      {n:"Cinnamon",pp:0.3,u:"g",userHas:false},
-      {n:"Banana (sliced, optional)",pp:0.5,u:"",userHas:false},
+      {n:"Soya mince (dry)",pp:50,u:"g",userHas:false},
+      {n:"Cabbage (shredded)",pp:125,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Water",pp:400,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["Combine oats, milk and water in pot. Cook over medium heat stirring 5–7 min until creamy.","Add sugar and cinnamon. Top with banana if using."],
-    tip:"The most cost-effective hot breakfast possible. A banana on top adds potassium and natural sweetness. Make a big batch and refrigerate.",
-    storage:"Fridge 2 days. Add milk when reheating." },
+    method:["Rehydrate soya mince in boiling water for 10 min. Drain and squeeze dry.","Fry onion in oil until golden. Add curry powder and cook 1 min.","Add soya mince. Fry 3 min. Add shredded cabbage. Stir-fry 5 min until tender.","Make stiff pap separately. Serve soya and cabbage over pap."],
+    tip:"Frying the cabbage with the soya doubles the volume of the dish. Soya mince is one of the highest protein budget ingredients available.",
+    nutrition:{kcal:360,protein_g:20,carbs_g:50,fat_g:8},
+    storage:"Fridge 3 days." },
 
-  // ── UNDER R20 PP ──────────────────────────────────────────────
-  { id:"bud_frikkadels_pap", name:"Frikkadels with Pap & Tomato Gravy", emoji:"🍖", costPP:14, serves:4, time:40,
-    tags:["south african","mince","family","filling","classic"],
+  { id:"bud_egg_potato_curry", name:"Egg & Potato Curry", emoji:"🥚", costPP:9, serves:4, time:35,
+    tags:["eggs","vegetarian","curry","filling","budget"],
     ingredients:[
-      {n:"Beef mince",pp:100,u:"g",userHas:false},
-      {n:"Onion (grated)",pp:15,u:"g",userHas:false},
-      {n:"White bread (soaked in milk)",pp:20,u:"g",userHas:false},
-      {n:"Egg",pp:0.25,u:"egg",userHas:false},
-      {n:"Maize meal (for pap)",pp:80,u:"g",userHas:false},
-      {n:"Tinned tomatoes (for gravy)",pp:80,u:"g",userHas:false},
-      {n:"Onion (for gravy, diced)",pp:15,u:"g",userHas:false},
-      {n:"Oil",pp:10,u:"ml",userHas:false},
-      {n:"Salt and pepper",pp:null,u:"",userHas:false},
+      {n:"Eggs",pp:1,u:"",userHas:false},
+      {n:"Potato (cubed)",pp:125,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:50,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Turmeric",pp:1,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["MIX frikkadels: mince, grated onion, squeezed bread, egg. Season. Shape into balls. Pan-fry until golden and cooked through.","GRAVY: Fry diced onion. Add tomatoes. Simmer 10 min. Season.","PAP: Boil water, whisk in maize meal, cook 15 min until thick.","Serve frikkadels in tomato gravy over pap."],
-    tip:"A complete South African budget meal. The bread in the frikkadels stretches the mince and keeps them light. Use the cheapest beef mince available.",
+    method:["Hard-boil eggs 10 min. Cool under cold water. Peel and halve.","Fry onion in oil until golden. Add curry powder and turmeric — cook 2 min.","Add potatoes and tomatoes. Add 100ml water per person. Simmer 20 min until potatoes are soft.","Carefully lower egg halves into the curry for the last 5 min. Serve with pap."],
+    tip:"Halving the eggs and simmering in the curry sauce means every bite has egg flavour throughout. This classic budget meal is surprisingly satisfying.",
+    nutrition:{kcal:400,protein_g:16,carbs_g:55,fat_g:12},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_lentil_meatball", name:"Lentil Meatballs in Tomato Gravy", emoji:"🍲", costPP:8, serves:4, time:45,
+    tags:["vegetarian","lentils","budget","filling"],
+    ingredients:[
+      {n:"Brown lentils (cooked)",pp:80,u:"g",userHas:false},
+      {n:"Flour",pp:25,u:"g",userHas:false},
+      {n:"Onion (finely diced)",pp:20,u:"g",userHas:false},
+      {n:"Tinned tomatoes (for gravy)",pp:80,u:"g",userHas:false},
+      {n:"Curry powder",pp:2,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil lentils until very soft. Drain and mash. Mix with flour, onion, curry powder and seasoning.","Shape into small balls. Fry in oil until golden on all sides.","Make tomato gravy: fry onion, add tomatoes and simmer 10 min.","Add lentil balls to gravy. Simmer 5 min. Serve with pap."],
+    tip:"The starch water from boiling pasta or potatoes is a free thickener for any gravy — use it instead of flour.",
+    nutrition:{kcal:350,protein_g:15,carbs_g:55,fat_g:8},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_tomato_onion_pasta", name:"Tomato & Onion Macaroni", emoji:"🍝", costPP:6, serves:4, time:25,
+    tags:["pasta","vegetarian","quick","budget","family"],
+    ingredients:[
+      {n:"Macaroni or any pasta",pp:100,u:"g",userHas:false},
+      {n:"Onion (finely sliced)",pp:40,u:"g",userHas:false},
+      {n:"Tinned tomato & onion mix",pp:80,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Sugar",pp:2,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook pasta in salted water until al dente. Reserve 50ml pasta water before draining.","Fry sliced onion in oil very slowly until deeply golden and sweet — 10–12 min.","Add garlic and cook 1 min. Add tinned tomato mix, sugar and seasoning. Simmer 5 min.","Toss pasta in sauce, adding pasta water if needed. Serve immediately."],
+    tip:"Caramelising the onion slowly is what makes this dish — bulk with extra fried onions to add sweetness and volume. It turns a simple pasta into something genuinely satisfying.",
+    nutrition:{kcal:380,protein_g:10,carbs_g:65,fat_g:8},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_peri_livers", name:"Peri-Peri Chicken Livers with Pap", emoji:"🌶️", costPP:9, serves:4, time:25,
+    tags:["chicken","liver","south african","budget","spicy"],
+    ingredients:[
+      {n:"Chicken livers (cleaned)",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Fresh chilli or chilli flakes",pp:3,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:50,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:100,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Make stiff pap: boil water, whisk in maize meal, cook 15 min.","Fry onion and garlic until golden. Add chilli and cook 1 min.","Add livers. Slice small to stretch further. Fry 5–6 min — do not overcook or they go tough.","Add tomatoes. Simmer 5 min to make a long onion gravy. Season.","Serve over pap."],
+    tip:"Slice the livers small and make a 'long' onion gravy to stretch the meat further. Chicken livers are one of the most nutritious and affordable proteins available.",
+    nutrition:{kcal:380,protein_g:24,carbs_g:48,fat_g:10},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_carrot_pea_stew", name:"Curried Carrot & Pea Stew", emoji:"🥕", costPP:6, serves:4, time:30,
+    tags:["vegetarian","vegan","budget","curry","filling"],
+    ingredients:[
+      {n:"Carrots (half grated, half diced)",pp:125,u:"g",userHas:false},
+      {n:"Tinned peas (drained)",pp:60,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Water",pp:300,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion in oil until soft. Add curry powder and cook 1 min.","Add diced carrot. Cook 5 min. Add grated carrot — this thickens the sauce naturally.","Add water and peas. Simmer 15 min until carrots are completely tender.","Make pap separately. Serve stew over pap."],
+    tip:"Always grate root vegetables into sauces to add volume and act as a natural thickener. Grating half the carrots into the sauce works much better than all diced.",
+    nutrition:{kcal:320,protein_g:8,carbs_g:55,fat_g:7},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_rice_baked_beans", name:"Savoury Rice & Baked Beans", emoji:"🫘", costPP:7, serves:4, time:20,
+    tags:["vegetarian","quick","budget","filling","family"],
+    ingredients:[
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Tinned baked beans",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Carrot (grated)",pp:30,u:"g",userHas:false},
+      {n:"Oil",pp:5,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice in salted water.","Fry onion and carrot in oil until soft and golden.","Add baked beans and heat through 3 min.","Serve bean mixture over rice."],
+    tip:"Fry onion and carrot first — this small step makes a huge difference. Beans and rice together provide complete protein — a nutritionally balanced budget meal.",
+    nutrition:{kcal:360,protein_g:14,carbs_g:62,fat_g:6},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_sweet_potato_eggs", name:"Sweet Potato Mash with Fried Eggs", emoji:"🍠", costPP:8, serves:4, time:25,
+    tags:["eggs","vegetarian","healthy","budget","quick"],
+    ingredients:[
+      {n:"Sweet potato",pp:250,u:"g",userHas:false},
+      {n:"Eggs",pp:1,u:"",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Butter",pp:10,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil or steam sweet potato until soft. Drain and mash with butter, salt and pepper.","Fry onion in oil until golden. Set aside.","Fry eggs to your liking in the same pan.","Serve sweet potato mash topped with fried onion and egg."],
+    tip:"Sweet potato is exceptionally high in Vitamin A and is one of the most nutritious root vegetables. Serve one fried egg per person for a complete, balanced meal.",
+    nutrition:{kcal:380,protein_g:12,carbs_g:55,fat_g:12},
+    storage:"Mash fridge 2 days." },
+
+  // ── R50 BUDGET (costPP ~R12) ──────────────────────────────────
+  { id:"bud_creamy_livers", name:"Creamy Chicken Livers with Pap", emoji:"🍗", costPP:12, serves:4, time:25,
+    tags:["chicken","liver","south african","creamy","budget"],
+    ingredients:[
+      {n:"Chicken livers (cleaned)",pp:125,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Full cream milk",pp:50,u:"ml",userHas:false},
+      {n:"Flour",pp:10,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:100,u:"g",userHas:false},
+      {n:"Butter",pp:10,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion in butter until soft. Add garlic. Add livers and cook 5 min.","Sprinkle flour over. Stir. Gradually add milk — cook stirring until creamy sauce forms.","Season well. Serve over stiff pap."],
+    tip:"Use milk and flour to create a creamy sauce that makes this feel like a luxury dish. Don't overcook the livers — they should be slightly pink inside.",
+    nutrition:{kcal:420,protein_g:28,carbs_g:48,fat_g:12},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_wors_chakalaka", name:"Wors Coins with Chakalaka & Pap", emoji:"🌀", costPP:12, serves:4, time:25,
+    tags:["boerewors","south african","budget","family","classic"],
+    ingredients:[
+      {n:"Boerewors or pork sausage",pp:50,u:"g",userHas:false},
+      {n:"Tinned chakalaka",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:100,u:"g",userHas:false},
+      {n:"Oil",pp:5,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Slice wors into coins — small so every bite has meat flavour.","Fry wors coins until golden. Remove. Fry onion in the same pan.","Add chakalaka and heat through with onion. Return wors.","Make stiff pap. Serve everything together."],
+    tip:"Slicing wors into tiny coins is the trick — you use less meat but every single bite has the flavour. A tin of chakalaka is an excellent budget flavour booster.",
+    nutrition:{kcal:420,protein_g:18,carbs_g:50,fat_g:14},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_tinned_beef_potato", name:"Tinned Beef & Potato Hash", emoji:"🥩", costPP:13, serves:4, time:30,
+    tags:["beef","potato","budget","filling","hash"],
+    ingredients:[
+      {n:"Tinned corned beef",pp:40,u:"g",userHas:false},
+      {n:"Potato (diced small)",pp:125,u:"g",userHas:false},
+      {n:"Carrot (diced)",pp:50,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion in oil until golden. Add diced potato and carrot.","Cook 12–15 min until potatoes are soft and slightly crispy.","Dice corned beef small. Add to pan. Fry together 5 min until a thick hash forms.","Season. Serve with pap."],
+    tip:"Dice the meat very small — it fries with the potatoes until they form a thick, flavourful hash. Using less meat this way still gives a meaty taste throughout.",
+    nutrition:{kcal:400,protein_g:16,carbs_g:58,fat_g:10},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_split_pea_soup_meat", name:"Split Pea & Beef Trimming Stew", emoji:"🫘", costPP:12, serves:4, time:60,
+    tags:["beef","peas","budget","filling","south african"],
+    ingredients:[
+      {n:"Beef trimmings or soup bones",pp:50,u:"g",userHas:false},
+      {n:"Split peas (yellow or green)",pp:65,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Carrot (diced)",pp:40,u:"g",userHas:false},
+      {n:"Stock cube",pp:0.25,u:"",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Water",pp:400,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Simmer beef trimmings in water with stock cube for 30 min.","Add split peas, onion and carrot. Simmer 25 min until peas dissolve into a thick sauce.","The peas create a meaty-tasting thick sauce — meat flavour is throughout.","Serve with stiff pap."],
+    tip:"Split peas dissolve into a thick 'meat' sauce, making the meat feel like much more. They are exceptionally high in protein and very cheap.",
+    nutrition:{kcal:380,protein_g:20,carbs_g:58,fat_g:6},
     storage:"Fridge 3 days. Freezer 2 months." },
 
-  { id:"bud_spaghetti_mince", name:"Spaghetti with Mince Sauce", emoji:"🍝", costPP:12, serves:4, time:40,
-    tags:["pasta","mince","family","italian","filling"],
+  { id:"bud_peanut_butter_spinach", name:"Peanut Butter Spinach with Rice", emoji:"🥜", costPP:10, serves:4, time:20,
+    tags:["vegetarian","vegan","south african","traditional","healthy"],
     ingredients:[
-      {n:"Spaghetti or pasta",pp:100,u:"g",userHas:false},
-      {n:"Beef mince",pp:75,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
-      {n:"Garlic (minced)",pp:2,u:"g",userHas:false},
-      {n:"Tinned tomatoes",pp:80,u:"g",userHas:false},
-      {n:"Tomato paste",pp:10,u:"g",userHas:false},
-      {n:"Mixed herbs",pp:0.5,u:"g",userHas:false},
-      {n:"Oil",pp:5,u:"ml",userHas:false},
+      {n:"Spinach or morogo (roughly chopped)",pp:100,u:"g",userHas:false},
+      {n:"Peanut butter",pp:30,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Water",pp:50,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["Brown mince with onion and garlic. Drain excess fat.","Add tomato paste, tinned tomatoes and herbs. Simmer 20 min.","Cook pasta in salted water until al dente. Toss with sauce."],
-    tip:"Use less mince and bulk out the sauce with grated carrot and celery — it disappears into the sauce, adds nutrition, and stretches the mince further.",
-    storage:"Sauce fridge 4 days. Freezer 3 months." },
+    method:["Cook rice in salted water.","Fry onion in oil until golden. Add spinach. Cook 3 min until wilted.","Stir in peanut butter and water. Mix well — it creates a thick sauce. Cook 3 min.","Season. Serve over rice."],
+    tip:"A traditional South African nutritious dish. Peanut butter adds protein, healthy fat and a rich nutty flavour. High in iron from the spinach. Morogo (wild spinach) is ideal.",
+    nutrition:{kcal:440,protein_g:16,carbs_g:55,fat_g:16},
+    storage:"Fridge 2 days." },
 
-  { id:"bud_chicken_veg_soup", name:"Chicken & Vegetable Soup", emoji:"🍲", costPP:15, serves:6, time:60,
-    tags:["chicken","soup","winter","family","comforting"],
+  { id:"bud_double_bean_curry", name:"Double Bean Curry with Rice", emoji:"🍛", costPP:11, serves:4, time:25,
+    tags:["vegetarian","vegan","budget","curry","filling"],
     ingredients:[
-      {n:"Chicken pieces (thighs or drumsticks)",pp:120,u:"g",userHas:false},
-      {n:"Carrots (sliced)",pp:30,u:"g",userHas:false},
-      {n:"Potatoes (cubed)",pp:60,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
-      {n:"Celery",pp:15,u:"g",userHas:false},
-      {n:"Egg noodles or pasta",pp:20,u:"g",userHas:false},
-      {n:"Chicken stock cube",pp:0.5,u:"",userHas:false},
-      {n:"Water",pp:300,u:"ml",userHas:false},
-      {n:"Mixed herbs",pp:0.5,u:"g",userHas:false},
+      {n:"Tinned baked beans",pp:80,u:"g",userHas:false},
+      {n:"Tinned butter beans (drained)",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:50,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["Place chicken in pot with water, stock cube and herbs. Bring to boil. Skim foam. Simmer 30 min.","Remove chicken. Shred meat off bones. Discard bones.","Add carrots, potatoes, onion and celery to broth. Cook 15 min.","Add noodles and shredded chicken. Cook 8 min until noodles are tender. Season."],
-    tip:"Chicken thighs and drumsticks are much cheaper than breasts and give more flavour. The bones make a better broth.",
-    storage:"Fridge 4 days. Freeze broth separately." },
+    method:["Cook rice.","Fry onion in oil until golden. Add curry powder — cook 1 min.","Add both types of beans and tomatoes. Simmer 10 min.","Season. Serve over rice."],
+    tip:"Mixing two types of beans — baked beans and butter beans — provides variety in texture and a more complete protein profile. This is a genuinely complete nutritional meal.",
+    nutrition:{kcal:420,protein_g:18,carbs_g:68,fat_g:6},
+    storage:"Fridge 3 days. Freezer 2 months." },
 
-  { id:"bud_vetkoek_mince", name:"Vetkoek with Curried Mince", emoji:"🍞", costPP:13, serves:4, time:60,
+  { id:"bud_fried_rice_veg_egg", name:"Fried Rice with Veg & Eggs", emoji:"🍳", costPP:11, serves:4, time:15,
+    tags:["eggs","quick","budget","vegetarian","family"],
+    ingredients:[
+      {n:"Cooked rice (cold, leftover)",pp:150,u:"g",userHas:false},
+      {n:"Frozen mixed vegetables",pp:65,u:"g",userHas:false},
+      {n:"Eggs",pp:1,u:"",userHas:false},
+      {n:"Spring onion (sliced)",pp:10,u:"g",userHas:false},
+      {n:"Soy sauce or salt + vinegar",pp:10,u:"ml",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+    ],
+    method:["Heat pan or wok until very hot. Add oil.","Fry garlic 30 sec. Add frozen veg — stir-fry 3 min.","Add cold rice. Press flat and fry 2 min without stirring.","Push to side. Scramble eggs. Mix everything together.","Add soy sauce and spring onion. Serve immediately."],
+    tip:"Plenty of rice ensures everyone is full. Use cold day-old rice for best results. This is a quick healthy meal that uses up whatever you have.",
+    nutrition:{kcal:420,protein_g:14,carbs_g:62,fat_g:10},
+    storage:"Eat immediately." },
+
+  { id:"bud_potato_cheese_pap", name:"Potato & Cheese Pap", emoji:"🧀", costPP:10, serves:4, time:30,
+    tags:["vegetarian","comfort","budget","filling","family"],
+    ingredients:[
+      {n:"Maize meal (pap)",pp:100,u:"g",userHas:false},
+      {n:"Potato (boiled, cubed)",pp:75,u:"g",userHas:false},
+      {n:"Cheddar (grated)",pp:25,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Full cream milk",pp:30,u:"ml",userHas:false},
+      {n:"Butter",pp:10,u:"g",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil potatoes until soft. Drain.","Make pap: boil water, whisk in maize meal, cook 15 min. Add potatoes to the pap and mash together.","Stir in milk and butter. Fold in grated cheese.","Fry onion separately and serve on top."],
+    tip:"Boiling potatoes into the pap gives a mashed potato texture. The cheese stirred in makes this feel like a comforting luxury meal on a very small budget.",
+    nutrition:{kcal:440,protein_g:14,carbs_g:65,fat_g:12},
+    storage:"Fridge 2 days." },
+
+  // ── R60 BUDGET (costPP ~R15) ──────────────────────────────────
+  { id:"bud_mince_cabbage", name:"Beef Mince & Cabbage Sizzle", emoji:"🥬", costPP:15, serves:4, time:25,
+    tags:["beef","mince","cabbage","budget","family"],
+    ingredients:[
+      {n:"Beef mince",pp:65,u:"g",userHas:false},
+      {n:"Cabbage (shredded)",pp:125,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice.","Brown mince with onion and garlic until cooked through.","Add shredded cabbage. Stir-fry on high heat 5 min — let it catch some colour.","Season well. Serve over rice."],
+    tip:"Bulking mince with cabbage keeps the meal meaty but high-volume. The high heat on the cabbage caramelises it slightly and adds real flavour.",
+    nutrition:{kcal:460,protein_g:24,carbs_g:58,fat_g:12},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_chicken_neck_stew", name:"Chicken Neck Stew with Pap", emoji:"🍗", costPP:14, serves:4, time:75,
+    tags:["chicken","stew","budget","south african","filling"],
+    ingredients:[
+      {n:"Chicken necks",pp:250,u:"g",userHas:false},
+      {n:"Potato (diced)",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Carrot (sliced)",pp:40,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion and garlic until golden. Brown chicken necks in batches.","Add tomatoes, potatoes and carrots. Add water to cover.","Simmer 60 min until meat falls off the bone.","Make stiff pap. Serve stew over pap."],
+    tip:"Chicken necks are very cheap. Slow-cooking is essential — they need a full hour before the meat becomes tender and falls off. The bones give the gravy incredible depth.",
+    nutrition:{kcal:460,protein_g:28,carbs_g:50,fat_g:14},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_sardine_pasta_bake", name:"Sardine Pasta Bake", emoji:"🐟", costPP:14, serves:4, time:35,
+    tags:["fish","pasta","budget","bake","family"],
+    ingredients:[
+      {n:"Tinned sardines (drained, flaked)",pp:60,u:"g",userHas:false},
+      {n:"Macaroni or pasta",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Full cream milk",pp:80,u:"ml",userHas:false},
+      {n:"Flour",pp:10,u:"g",userHas:false},
+      {n:"Butter",pp:10,u:"g",userHas:false},
+      {n:"Cheese (grated)",pp:20,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook pasta. Drain.","Make white sauce: melt butter, add flour, cook 1 min. Gradually add milk, stirring constantly until thick.","Fry onion. Add sardines and flake into onion. Mix with white sauce.","Combine with pasta. Pour into baking dish. Top with cheese.","Bake 200°C for 15 min until golden."],
+    tip:"Flaking sardines into a white sauce completely transforms tinned fish — the result is a creamy, satisfying pasta bake with excellent omega-3 content.",
+    nutrition:{kcal:480,protein_g:26,carbs_g:55,fat_g:16},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_curried_mince_peas", name:"Curried Mince & Peas with Rice", emoji:"🍛", costPP:16, serves:4, time:30,
+    tags:["beef","mince","curry","peas","south african","family"],
+    ingredients:[
+      {n:"Beef mince",pp:65,u:"g",userHas:false},
+      {n:"Tinned peas (drained)",pp:60,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice.","Brown mince with onion and garlic. Add curry powder — cook 2 min.","Add tomatoes. Simmer 15 min. Add peas last 5 min.","Season. Serve over rice."],
+    tip:"Classic South African comfort food. Peas add sweetness and nutrients without cost. Add grated carrot to the mince to stretch it further.",
+    nutrition:{kcal:460,protein_g:24,carbs_g:58,fat_g:12},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_butternut_lentils", name:"Roasted Butternut & Lentil Potjie", emoji:"🎃", costPP:13, serves:4, time:45,
+    tags:["vegetarian","vegan","budget","lentils","butternut","south african"],
+    ingredients:[
+      {n:"Butternut (cubed)",pp:250,u:"g",userHas:false},
+      {n:"Brown lentils",pp:65,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion and garlic. Add curry powder — cook 2 min.","Add butternut, lentils and tomatoes. Add 300ml water per person.","Simmer 30 min until butternut is soft and lentils are cooked.","Make pap. Serve butternut and lentil curry over pap."],
+    tip:"Roasted butternut and lentils provide an earthy, filling meal. Butternut is one of the cheapest nutritious vegetables in SA and in season most of the year.",
+    nutrition:{kcal:400,protein_g:16,carbs_g:62,fat_g:8},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  // ── R70 BUDGET (costPP ~R17) ──────────────────────────────────
+  { id:"bud_savoury_mince_vetkoek", name:"Savoury Mince Vetkoek", emoji:"🍞", costPP:18, serves:4, time:70,
     tags:["south african","mince","bread","street food","family"],
     ingredients:[
       {n:"Bread flour",pp:60,u:"g",userHas:false},
       {n:"Instant yeast",pp:1,u:"g",userHas:false},
       {n:"Sugar",pp:2,u:"g",userHas:false},
-      {n:"Salt",pp:0.5,u:"g",userHas:false},
       {n:"Lukewarm water",pp:40,u:"ml",userHas:false},
       {n:"Oil for frying",pp:null,u:"",userHas:false},
       {n:"Beef mince",pp:60,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:15,u:"g",userHas:false},
-      {n:"Curry powder",pp:1,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Carrot (grated)",pp:30,u:"g",userHas:false},
+      {n:"Curry powder",pp:2,u:"g",userHas:false},
       {n:"Tinned tomatoes",pp:40,u:"g",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
     ],
-    method:["MIX dough: flour, yeast, sugar, salt, water. Knead 5 min. Prove 30 min.","MINCE: Fry onion, add mince, brown completely. Add curry powder and tomatoes. Simmer 10 min.","Fry vetkoek at 170°C until deep golden — 4 min per side. Split and fill with mince."],
-    tip:"The vetkoek dough can prove overnight in the fridge — make it the night before for quicker cooking.",
+    method:["DOUGH: Mix flour, yeast, sugar, salt and lukewarm water. Knead 5 min. Prove 30 min.","MINCE: Fry onion and garlic. Brown mince. Add grated carrot, curry powder and tomatoes. Simmer 10 min.","Fry golf-ball-sized vetkoek in 170°C oil — 4 min per side until deep golden.","Split and fill with curried mince."],
+    tip:"Grate carrot into the mince to double the volume at almost no extra cost. Vetkoek dough can prove overnight in the fridge — make it the night before.",
+    nutrition:{kcal:500,protein_g:22,carbs_g:65,fat_g:14},
     storage:"Vetkoek best fresh. Mince fridge 3 days." },
+
+  { id:"bud_sausage_lentil_casserole", name:"Pork Sausage & Lentil Casserole", emoji:"🌭", costPP:17, serves:4, time:45,
+    tags:["pork","sausage","lentils","budget","one pot"],
+    ingredients:[
+      {n:"Pork sausages",pp:60,u:"g",userHas:false},
+      {n:"Brown lentils",pp:65,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Carrot (sliced)",pp:40,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Slice sausages into rounds. Brown in oil. Remove.","Fry onion and garlic. Add lentils, carrots, tomatoes and 300ml water.","Simmer 25 min. Return sausages. Cook 5 min until lentils are completely soft.","Make pap. Serve casserole over pap."],
+    tip:"Slicing sausages and cooking with lentils creates a thick, meaty sauce. The lentils bulk out the sausage while adding protein and making it much more filling.",
+    nutrition:{kcal:480,protein_g:24,carbs_g:58,fat_g:14},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_chicken_wings_rice", name:"Sticky Chicken Wings & Rice", emoji:"🍗", costPP:17, serves:4, time:45,
+    tags:["chicken","wings","rice","budget","family"],
+    ingredients:[
+      {n:"Chicken wings",pp:125,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Tinned mixed veg",pp:50,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Paprika",pp:2,u:"g",userHas:false},
+      {n:"Soy sauce",pp:10,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Season wings with garlic, paprika and salt.","Fry wings until golden on all sides. Add soy sauce — let it caramelise and coat.","Meanwhile cook rice with tinned veg mixed in.","Serve wings over vegetable rice. Use pan juices as sauce."],
+    tip:"Fry wings for flavour first, then simmer with rice so the rice absorbs all the chicken juices. This makes the rice taste rich and satisfying.",
+    nutrition:{kcal:490,protein_g:30,carbs_g:52,fat_g:16},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_trotters_beans", name:"Trotters & Butter Beans", emoji:"🦶", costPP:16, serves:4, time:120,
+    tags:["pork","trotters","beans","south african","traditional","slow cook"],
+    ingredients:[
+      {n:"Pork trotters",pp:250,u:"g",userHas:false},
+      {n:"Tinned butter beans (drained)",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Stock cube",pp:0.25,u:"",userHas:false},
+      {n:"Water",pp:400,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion and garlic. Brown trotters.","Add stock cube and water. Bring to boil. Cover and simmer 90 min until very tender.","Add butter beans. Simmer 20 min — smash some beans slightly to thicken the sauce.","Make pap. Serve."],
+    tip:"Classic South African slow-cooked meal. The collagen from the trotters makes a rich gelatinous sauce that is deeply satisfying. The beans thicken the gravy naturally.",
+    nutrition:{kcal:500,protein_g:32,carbs_g:50,fat_g:18},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_veggie_burger_steaks", name:"Mince & Lentil Burger Steaks", emoji:"🍔", costPP:17, serves:4, time:35,
+    tags:["beef","mince","lentils","budget","family"],
+    ingredients:[
+      {n:"Beef mince",pp:65,u:"g",userHas:false},
+      {n:"Brown lentils (cooked)",pp:65,u:"g",userHas:false},
+      {n:"Onion (grated)",pp:20,u:"g",userHas:false},
+      {n:"Egg",pp:0.25,u:"",userHas:false},
+      {n:"Breadcrumbs",pp:15,u:"g",userHas:false},
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Mash lentils. Mix with mince, grated onion, egg and breadcrumbs. Season well.","Shape into flat patties.","Fry in oil 4–5 min per side until cooked through.","Make pap. Serve patties over pap with tomato gravy."],
+    tip:"Mixing mince and lentils 50/50 doubles the number of steaks you can make — and you genuinely cannot taste the difference.",
+    nutrition:{kcal:470,protein_g:28,carbs_g:52,fat_g:14},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  // ── R80 BUDGET (costPP ~R20) ──────────────────────────────────
+  { id:"bud_chicken_thigh_potato", name:"Roast Chicken Thighs & Potato", emoji:"🍗", costPP:20, serves:4, time:55,
+    tags:["chicken","roast","potato","budget","family"],
+    ingredients:[
+      {n:"Chicken thighs (bone-in, skin-on)",pp:185,u:"g",userHas:false},
+      {n:"Potato (quartered)",pp:200,u:"g",userHas:false},
+      {n:"Onion (quartered)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Paprika",pp:2,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Preheat oven to 200°C.","Toss potatoes and onion in oil. Season. Spread in roasting pan.","Season chicken thighs with paprika, garlic and salt. Place on top of potatoes.","Roast 40–45 min until chicken is golden and potatoes are cooked through.","The potatoes absorb the chicken fat — they become crispy and deeply flavoured."],
+    tip:"One whole chicken thigh per person with a large portion of sweet roast potato. Chicken thighs are much better value than breast and more flavourful.",
+    nutrition:{kcal:560,protein_g:38,carbs_g:45,fat_g:24},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_tuna_corn_pasta", name:"Tuna & Corn Pasta Bake", emoji:"🐟", costPP:17, serves:4, time:30,
+    tags:["tuna","pasta","bake","budget","family"],
+    ingredients:[
+      {n:"Tinned tuna (in brine, drained)",pp:60,u:"g",userHas:false},
+      {n:"Tinned corn (drained)",pp:50,u:"g",userHas:false},
+      {n:"Macaroni",pp:100,u:"g",userHas:false},
+      {n:"Cheese (grated)",pp:25,u:"g",userHas:false},
+      {n:"Tinned cream of mushroom soup",pp:80,u:"ml",userHas:false},
+      {n:"Milk",pp:30,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook macaroni in salted water. Drain.","Mix cream of mushroom soup with milk to thin slightly.","Combine pasta, tuna, corn and soup mixture. Season.","Pour into baking dish. Top with grated cheese.","Bake 200°C for 15 min until golden and bubbling."],
+    tip:"Tinned cream of mushroom soup is one of South Africa's great budget cooking shortcuts — instant creamy sauce. Flake tuna into macaroni with corn for excellent value.",
+    nutrition:{kcal:480,protein_g:28,carbs_g:58,fat_g:14},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_pork_steak_mash", name:"Pork Steaks & Sweet Mash", emoji:"🐷", costPP:20, serves:4, time:35,
+    tags:["pork","mash","budget","family","comfort"],
+    ingredients:[
+      {n:"Pork loin steaks",pp:100,u:"g",userHas:false},
+      {n:"Potato (boiled)",pp:300,u:"g",userHas:false},
+      {n:"Apple (diced)",pp:50,u:"g",userHas:false},
+      {n:"Butter",pp:15,u:"g",userHas:false},
+      {n:"Milk",pp:50,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil potatoes until soft. Mash with butter, milk and diced apple. Season.","Season pork steaks and fry in oil 4–5 min per side until cooked through.","Make a quick pan gravy: add 100ml water to the hot pan, scrape up the bits, season.","Serve pork over sweet potato-apple mash with pan gravy."],
+    tip:"Pork is often cheaper than beef and pairs beautifully with apple. The sweet apple mash is a classic combination — don't skip it, it makes the dish.",
+    nutrition:{kcal:520,protein_g:34,carbs_g:50,fat_g:18},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_chicken_breast_stir_fry", name:"Chicken Breast Stir-Fry & Rice", emoji:"🥢", costPP:20, serves:4, time:25,
+    tags:["chicken","stir-fry","rice","budget","healthy"],
+    ingredients:[
+      {n:"Chicken breast (thinly sliced)",pp:125,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Frozen stir-fry vegetables",pp:125,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Soy sauce",pp:10,u:"ml",userHas:false},
+      {n:"Cornflour",pp:5,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice.","Toss sliced chicken in cornflour and soy sauce.","Heat wok until smoking hot. Fry chicken 5–6 min until golden.","Add garlic and frozen veg. Stir-fry 3 min on high heat.","Serve over rice."],
+    tip:"Thin slices of chicken stretch much further — you use less but it goes across a large portion of fried rice. Cornflour gives the chicken a lovely golden coating.",
+    nutrition:{kcal:480,protein_g:36,carbs_g:58,fat_g:10},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_stewing_beef_dumplings", name:"Stewing Beef & Dombolo Dumplings", emoji:"🥘", costPP:22, serves:4, time:100,
+    tags:["beef","stew","dumplings","south african","winter","family"],
+    ingredients:[
+      {n:"Beef stew meat (chuck or shin)",pp:100,u:"g",userHas:false},
+      {n:"Cake flour (for dumplings)",pp:30,u:"g",userHas:false},
+      {n:"Baking powder",pp:0.5,u:"g",userHas:false},
+      {n:"Milk (for dumplings)",pp:20,u:"ml",userHas:false},
+      {n:"Carrot (chunked)",pp:50,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Flour for dusting",pp:8,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Dust beef in flour. Brown in hot oil in batches. Add onion.","Add enough water to cover. Simmer 60 min covered.","Add carrots. Cook 20 more min.","DUMPLINGS: Mix cake flour, baking powder, salt and milk to a soft dough.","Drop spoonfuls onto the stew. Cover tightly. Cook 15 min — do not open the lid."],
+    tip:"Dombolo dumplings steam on top of the stew and become soft, fluffy bread that absorbs all the gravy. NEVER open the lid during the 15 min steam.",
+    nutrition:{kcal:510,protein_g:28,carbs_g:52,fat_g:18},
+    storage:"Fridge 3 days. Freeze stew separately without dumplings." },
+
+  // ── R90 BUDGET (costPP ~R22) ──────────────────────────────────
+  { id:"bud_chicken_drumstick_curry", name:"Chicken Drumstick Curry & Rice", emoji:"🍛", costPP:22, serves:4, time:55,
+    tags:["chicken","curry","south african","family","budget"],
+    ingredients:[
+      {n:"Chicken drumsticks",pp:200,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Potato (quartered)",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Curry powder",pp:4,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion until golden — this is important for depth of flavour. Add garlic and curry powder.","Brown drumsticks. Add tomatoes and potatoes.","Add 150ml water per person. Simmer 35–40 min until chicken is cooked and sauce is thick.","Serve over rice."],
+    tip:"Two drumsticks per person with a thick potato curry sauce. Drumsticks on the bone give far more flavour than boneless chicken. Buy the whole pack — best value.",
+    nutrition:{kcal:520,protein_g:36,carbs_g:56,fat_g:14},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_shepherd_pie", name:"Beef Mince Shepherd's Pie", emoji:"🥧", costPP:22, serves:4, time:55,
+    tags:["beef","mince","pie","family","comfort","south african"],
+    ingredients:[
+      {n:"Beef mince",pp:125,u:"g",userHas:false},
+      {n:"Potato (boiled, mashed)",pp:250,u:"g",userHas:false},
+      {n:"Tinned peas (drained)",pp:50,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Butter (for mash)",pp:15,u:"g",userHas:false},
+      {n:"Milk (for mash)",pp:30,u:"ml",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Brown mince with onion and garlic. Add tomatoes and peas. Season. Simmer 10 min.","Make creamy mash: boil potatoes, drain, mash with butter and milk. Season.","Pour mince into a baking dish. Spread mash thickly over the top.","Bake 200°C for 20 min until golden and bubbling."],
+    tip:"Layer mince with plenty of mash to feed 4 comfortably. Run a fork over the mash before baking to create ridges that crisp up beautifully.",
+    nutrition:{kcal:540,protein_g:30,carbs_g:58,fat_g:18},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_hake_rice", name:"Steamed Hake Fillet & Rice", emoji:"🐟", costPP:20, serves:4, time:30,
+    tags:["fish","hake","rice","healthy","budget","south african"],
+    ingredients:[
+      {n:"Frozen hake fillet",pp:125,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Frozen vegetables (mixed)",pp:80,u:"g",userHas:false},
+      {n:"Lemon juice",pp:15,u:"ml",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Butter",pp:10,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice with frozen veg mixed in.","Season hake with garlic, lemon, salt and pepper.","Pan-fry in butter 3–4 min per side, or bake 200°C for 15 min.","Serve hake over vegetable rice with extra lemon."],
+    tip:"Steam fish over the rice in a steamer or colander to preserve all juices. Hake is one of SA's most affordable quality fish — always a good choice.",
+    nutrition:{kcal:430,protein_g:34,carbs_g:52,fat_g:10},
+    storage:"Eat immediately." },
+
+  { id:"bud_spaghetti_bol", name:"Spaghetti Bolognese", emoji:"🍝", costPP:22, serves:4, time:40,
+    tags:["beef","mince","pasta","family","classic"],
+    ingredients:[
+      {n:"Beef mince",pp:125,u:"g",userHas:false},
+      {n:"Spaghetti",pp:100,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Carrot (finely grated)",pp:30,u:"g",userHas:false},
+      {n:"Tomato paste",pp:10,u:"g",userHas:false},
+      {n:"Mixed herbs",pp:1,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Brown mince with onion and garlic. Add tomato paste — cook 2 min.","Add tinned tomatoes, grated carrot and herbs. Simmer 20 min.","Cook spaghetti in salted water until al dente.","Serve sauce over pasta."],
+    tip:"Bulk the sauce with grated carrots — they completely disappear into the sauce, add nutrition and sweetness, and stretch the mince much further.",
+    nutrition:{kcal:520,protein_g:30,carbs_g:60,fat_g:14},
+    storage:"Sauce fridge 4 days. Freezer 3 months." },
+
+  { id:"bud_chicken_a_la_king", name:"Chicken à la King with Rice", emoji:"🍗", costPP:22, serves:4, time:35,
+    tags:["chicken","creamy","south african","family","comfort"],
+    ingredients:[
+      {n:"Chicken breast (cubed)",pp:125,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Mushrooms (sliced)",pp:60,u:"g",userHas:false},
+      {n:"Full cream milk",pp:80,u:"ml",userHas:false},
+      {n:"Flour",pp:10,u:"g",userHas:false},
+      {n:"Butter",pp:15,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice.","Fry chicken in butter until golden. Remove.","Fry mushrooms and garlic in same pan. Add flour — stir 1 min.","Gradually add milk stirring constantly until creamy sauce forms.","Return chicken to sauce. Simmer 5 min. Season.","Serve over rice."],
+    tip:"Creamy and filling. Use flour to thicken the sauce properly. Add a pinch of paprika or mustard powder to the sauce for extra flavour depth.",
+    nutrition:{kcal:520,protein_g:36,carbs_g:52,fat_g:16},
+    storage:"Fridge 2 days." },
+
+  // ── R100 BUDGET (costPP ~R25) ──────────────────────────────────
+  { id:"bud_beef_chuck_roast", name:"Slow Roast Beef Chuck", emoji:"🥩", costPP:25, serves:4, time:150,
+    tags:["beef","roast","family","budget special","sunday"],
+    ingredients:[
+      {n:"Beef chuck roast",pp:150,u:"g",userHas:false},
+      {n:"Potato (chunked)",pp:200,u:"g",userHas:false},
+      {n:"Carrot (chunked)",pp:100,u:"g",userHas:false},
+      {n:"Onion (quartered)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:8,u:"g",userHas:false},
+      {n:"Beef stock cube",pp:0.25,u:"",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Preheat oven to 160°C.","Season and sear beef all over in hot oil. Place in roasting pan.","Add vegetables, garlic and stock cube dissolved in 200ml water per person.","Cover tightly with foil. Slow roast 2–2.5 hours until beef pulls apart easily.","Uncover last 20 min to brown. Rest 15 min before slicing."],
+    tip:"Slow roasting the beef with root veggies gives a Sunday lunch feel. Cut beef small and cook low and slow for melt-tender results. Use pan juices as gravy.",
+    nutrition:{kcal:580,protein_g:40,carbs_g:48,fat_g:22},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_chicken_quarter_roast", name:"Roast Chicken Quarter & Butternut", emoji:"🎃", costPP:24, serves:4, time:60,
+    tags:["chicken","roast","butternut","budget","family"],
+    ingredients:[
+      {n:"Chicken leg quarters",pp:250,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Butternut (cubed)",pp:250,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Paprika",pp:2,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Preheat oven to 200°C.","Rub chicken with garlic, paprika, oil, salt and pepper.","Toss butternut in oil and season. Place in roasting pan with chicken on top.","Roast 45 min until chicken is golden and butternut is caramelised.","Cook rice. Serve chicken quarter with butternut and rice."],
+    tip:"One whole quarter per person with sweet roast butternut. The chicken fat bastes the butternut as it roasts — incredibly flavourful. Butternut is cheap and very nutritious.",
+    nutrition:{kcal:560,protein_g:40,carbs_g:52,fat_g:18},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_boerewors_mash", name:"Boerewors & Creamy Mash", emoji:"🌀", costPP:25, serves:4, time:30,
+    tags:["boerewors","south african","mash","comfort","family"],
+    ingredients:[
+      {n:"Boerewors",pp:150,u:"g",userHas:false},
+      {n:"Potato (boiled, mashed)",pp:375,u:"g",userHas:false},
+      {n:"Tinned peas (drained)",pp:60,u:"g",userHas:false},
+      {n:"Butter",pp:20,u:"g",userHas:false},
+      {n:"Full cream milk",pp:50,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil potatoes until soft. Drain. Mash with butter and milk until creamy. Season.","Fry or grill boerewors 15–20 min on medium heat — don't pierce it.","Heat peas through.","Serve whole sausage over a large portion of creamy mash with peas alongside."],
+    tip:"Serve whole sausages with a large portion of creamy mash. Make the mash generously — it should be the centrepiece. Never pierce boerewors or all the juices escape.",
+    nutrition:{kcal:600,protein_g:30,carbs_g:58,fat_g:26},
+    storage:"Mash fridge 2 days." },
+
+  { id:"bud_home_fish_chips", name:"Home-Style Fish & Chips", emoji:"🍟", costPP:24, serves:4, time:45,
+    tags:["fish","hake","chips","south african","family","treat"],
+    ingredients:[
+      {n:"Frozen hake fillet",pp:200,u:"g",userHas:false},
+      {n:"Potato (cut into chips)",pp:375,u:"g",userHas:false},
+      {n:"Flour",pp:40,u:"g",userHas:false},
+      {n:"Egg",pp:0.5,u:"",userHas:false},
+      {n:"Cold water",pp:40,u:"ml",userHas:false},
+      {n:"Oil for frying",pp:null,u:"",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Parboil chips in salted water 5 min. Drain and dry completely — this is key for crispiness.","Make batter: mix flour, egg and cold water to a thin consistency. Season.","Fry chips in hot oil 8–10 min until golden and crispy. Drain on paper towel. Season immediately with salt.","Dip fish in batter. Fry 4–5 min per side until batter is golden and crispy. Drain.","Serve immediately with chips, lemon wedges and vinegar."],
+    tip:"Batter the fish at home for a huge family portion far cheaper than takeout. The secret to crispy batter is very cold water. Parboiling chips first means they cook faster and stay fluffy inside.",
+    nutrition:{kcal:580,protein_g:36,carbs_g:62,fat_g:18},
+    storage:"Eat immediately." },
+
+  { id:"bud_pork_chops_rice", name:"Pan-Fried Pork Chops with Rice & Gravy", emoji:"🐷", costPP:25, serves:4, time:30,
+    tags:["pork","chops","rice","budget","family"],
+    ingredients:[
+      {n:"Pork loin chops",pp:150,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Frozen mixed veg",pp:80,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Flour (for gravy)",pp:8,u:"g",userHas:false},
+      {n:"Beef stock cube dissolved in water",pp:150,u:"ml",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook rice with veg mixed in.","Season chops and fry in oil 4 min per side until golden. Remove.","Make gravy in same pan: sprinkle flour, cook 1 min. Gradually add stock, scraping up bits. Simmer 3 min.","Return chops to gravy. Heat through 2 min.","Serve one chop per person with rice and gravy."],
+    tip:"Fry chops and make a gravy in the same pan — all the flavour stuck to the bottom goes into the gravy. One chop per person is enough with generous rice.",
+    nutrition:{kcal:560,protein_g:36,carbs_g:52,fat_g:18},
+    storage:"Fridge 2 days." },
+
+  // ── R110 BUDGET (costPP ~R27) ──────────────────────────────────
+  { id:"bud_chicken_schnitzel", name:"Chicken Schnitzel with Mash & Peas", emoji:"🍗", costPP:28, serves:4, time:35,
+    tags:["chicken","schnitzel","mash","family","comfort"],
+    ingredients:[
+      {n:"Chicken breast (flattened)",pp:150,u:"g",userHas:false},
+      {n:"Breadcrumbs",pp:30,u:"g",userHas:false},
+      {n:"Egg",pp:0.5,u:"",userHas:false},
+      {n:"Flour",pp:15,u:"g",userHas:false},
+      {n:"Potato (boiled, mashed)",pp:350,u:"g",userHas:false},
+      {n:"Tinned peas (drained)",pp:60,u:"g",userHas:false},
+      {n:"Butter",pp:15,u:"g",userHas:false},
+      {n:"Milk",pp:40,u:"ml",userHas:false},
+      {n:"Oil for frying",pp:null,u:"",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Flatten chicken breast to 1cm with a rolling pin or heavy pan.","Coat in flour, then beaten egg, then breadcrumbs.","Fry in shallow oil 3–4 min per side until golden and crispy.","Make creamy mash. Heat peas.","Serve schnitzel on mash with peas alongside."],
+    tip:"Flattening the breast makes it look huge and cook evenly. The crumbing adds bulk and crunch. This is a restaurant-quality meal at a budget price.",
+    nutrition:{kcal:560,protein_g:40,carbs_g:58,fat_g:18},
+    storage:"Fridge 2 days (schnitzel best fresh)." },
+
+  { id:"bud_mutton_curry", name:"SA Mutton Curry with Rice", emoji:"🍛", costPP:27, serves:4, time:75,
+    tags:["mutton","curry","south african","family","slow cook"],
+    ingredients:[
+      {n:"Mutton (bone-in pieces)",pp:125,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Potato (quartered)",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:30,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Curry powder",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Fry onion until very golden. Add garlic and curry powder — cook 2 min.","Brown mutton pieces well. Add tomatoes and potatoes.","Add water to cover. Simmer 50–60 min until meat is very tender and falling off the bone.","Season. Serve over rice."],
+    tip:"Rich mutton flavour bulked with soft potatoes. Mutton needs time — don't rush it. The longer it simmers the more tender the meat. Bone-in pieces are always cheaper and more flavourful.",
+    nutrition:{kcal:560,protein_g:34,carbs_g:58,fat_g:18},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_bacon_mushroom_pasta", name:"Creamy Bacon & Mushroom Pasta", emoji:"🥓", costPP:27, serves:4, time:25,
+    tags:["bacon","mushroom","pasta","creamy","family","treat"],
+    ingredients:[
+      {n:"Streaky bacon",pp:62,u:"g",userHas:false},
+      {n:"Mushrooms (sliced)",pp:62,u:"g",userHas:false},
+      {n:"Pasta (any shape)",pp:100,u:"g",userHas:false},
+      {n:"Fresh cream",pp:62,u:"ml",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Parmesan or cheddar (grated)",pp:15,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook pasta in salted water. Reserve pasta water before draining.","Fry bacon until crispy. Remove and chop.","Fry mushrooms and garlic in bacon fat 4 min.","Add cream. Simmer 3 min until slightly thickened.","Toss pasta in sauce with a splash of pasta water. Top with bacon and cheese."],
+    tip:"A small amount of bacon gives huge flavour to the whole dish. The bacon fat is the best oil for this recipe — don't drain it. Pasta water is the secret to a silky sauce.",
+    nutrition:{kcal:580,protein_g:24,carbs_g:55,fat_g:28},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_beef_stir_fry_noodles", name:"Beef Stir-Fry with Noodles", emoji:"🥢", costPP:26, serves:4, time:25,
+    tags:["beef","noodles","stir-fry","budget","healthy"],
+    ingredients:[
+      {n:"Beef strips (rump or chuck)",pp:125,u:"g",userHas:false},
+      {n:"Noodles (egg or rice noodles)",pp:100,u:"g",userHas:false},
+      {n:"Stir-fry vegetables (frozen or fresh)",pp:200,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Soy sauce",pp:15,u:"ml",userHas:false},
+      {n:"Cornflour",pp:5,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook noodles per packet instructions. Drain.","Toss beef in cornflour and soy sauce.","Stir-fry beef in very hot oil 3–4 min. Add garlic and veg. Cook 3 min.","Add noodles. Toss everything together. Season."],
+    tip:"High veg-to-meat ratio makes this very healthy and very filling. Use cornflour to coat the beef — it gives a lovely golden coating and thickens the sauce slightly.",
+    nutrition:{kcal:540,protein_g:32,carbs_g:60,fat_g:16},
+    storage:"Fridge 2 days." },
+
+  // ── R120 BUDGET (costPP ~R30) ──────────────────────────────────
+  { id:"bud_whole_roast_chicken", name:"Whole Roast Chicken with Roast Veg", emoji:"🍗", costPP:30, serves:4, time:90,
+    tags:["chicken","roast","sunday","family","budget special"],
+    ingredients:[
+      {n:"Whole chicken",pp:350,u:"g",userHas:false},
+      {n:"Potato (quartered)",pp:250,u:"g",userHas:false},
+      {n:"Seasonal vegetables (carrots, butternut, onion)",pp:200,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:8,u:"g",userHas:false},
+      {n:"Butter or olive oil",pp:15,u:"g",userHas:false},
+      {n:"Mixed dried herbs",pp:2,u:"g",userHas:false},
+      {n:"Lemon juice",pp:15,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Preheat oven to 200°C.","Mix butter/oil with garlic, herbs, lemon, salt and pepper. Rub over chicken inside and out.","Toss vegetables in oil and season. Place in roasting pan.","Place chicken on top of vegetables. Roast 20 min per 500g of chicken + 20 min extra.","Rest 15 min. Carve. Use pan juices as gravy."],
+    tip:"The king of Sunday lunches — provides leftovers for sandwiches. Potatoes roast in the chicken fat and become incredibly flavourful. Always rest a roast before carving.",
+    nutrition:{kcal:620,protein_g:48,carbs_g:48,fat_g:24},
+    storage:"Fridge 3 days. Use carcass for soup stock." },
+
+  { id:"bud_beef_stroganoff", name:"Beef Stroganoff with Pasta", emoji:"🥩", costPP:30, serves:4, time:30,
+    tags:["beef","mushroom","cream","pasta","special","family"],
+    ingredients:[
+      {n:"Beef strips (rump or sirloin)",pp:150,u:"g",userHas:false},
+      {n:"Pasta (egg noodles or tagliatelle)",pp:100,u:"g",userHas:false},
+      {n:"Mushrooms (sliced)",pp:62,u:"g",userHas:false},
+      {n:"Sour cream or fresh cream",pp:62,u:"ml",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Beef stock",pp:60,u:"ml",userHas:false},
+      {n:"Flour",pp:8,u:"g",userHas:false},
+      {n:"Butter",pp:15,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Cook pasta.","Sear beef strips in hot butter 2 min. Remove — they should be medium-rare.","Fry onion and mushrooms in same pan. Add garlic. Add flour — cook 1 min.","Add stock. Simmer 3 min. Add sour cream. Heat through — don't boil.","Return beef to sauce. Serve over pasta."],
+    tip:"A luxury meal with tender beef and a rich, tangy sauce. Sour cream is traditional and gives the characteristic flavour. Don't boil after adding cream or it will split.",
+    nutrition:{kcal:620,protein_g:40,carbs_g:55,fat_g:25},
+    storage:"Fridge 2 days." },
+
+  { id:"bud_pork_crackling", name:"Pork Shoulder Roast with Crackling", emoji:"🐷", costPP:30, serves:4, time:150,
+    tags:["pork","roast","crackling","sunday","family","special"],
+    ingredients:[
+      {n:"Pork shoulder (score the skin)",pp:250,u:"g",userHas:false},
+      {n:"Potato (halved)",pp:250,u:"g",userHas:false},
+      {n:"Butternut (cubed)",pp:200,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:8,u:"g",userHas:false},
+      {n:"Mixed herbs",pp:2,u:"g",userHas:false},
+      {n:"Coarse salt for skin",pp:5,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Preheat oven to 230°C (high heat for crackling).","Score pork skin deeply with a sharp knife. Rub skin with coarse salt. Rub meat with garlic and herbs.","Roast at 230°C for 30 min — skin blisters and crackles. Reduce to 180°C.","Add vegetables to the pan. Roast 90 min until pork is cooked through.","Rest 20 min before carving."],
+    tip:"The high heat at the start is non-negotiable for proper crackling — the skin must blister. Score deeply so the salt penetrates. Roast pork with high heat at the end if crackling needs more colour.",
+    nutrition:{kcal:640,protein_g:44,carbs_g:45,fat_g:30},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_lasagne", name:"Full Lasagne", emoji:"🍝", costPP:30, serves:4, time:80,
+    tags:["beef","mince","lasagne","pasta","bake","family","special"],
+    ingredients:[
+      {n:"Beef mince",pp:150,u:"g",userHas:false},
+      {n:"Lasagne sheets",pp:75,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Full cream milk (for white sauce)",pp:100,u:"ml",userHas:false},
+      {n:"Flour (for white sauce)",pp:12,u:"g",userHas:false},
+      {n:"Butter (for white sauce)",pp:12,u:"g",userHas:false},
+      {n:"Cheese (grated)",pp:50,u:"g",userHas:false},
+      {n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["MEAT SAUCE: Brown mince with onion and garlic. Add tomatoes. Simmer 20 min. Season.","WHITE SAUCE: Melt butter. Add flour — cook 1 min. Gradually add milk, stirring until thick. Season.","ASSEMBLE: Layer lasagne sheets, meat sauce, white sauce, repeat. Top with white sauce and cheese.","Bake 180°C for 35 min until golden and bubbling.","Rest 10 min before cutting."],
+    tip:"A dense, multi-layered classic that feeds 4 very well. Make extra meat sauce — it freezes perfectly for next time. Rest before cutting or it falls apart.",
+    nutrition:{kcal:640,protein_g:38,carbs_g:58,fat_g:26},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_meatballs_tomato", name:"Jumbo Meatballs in Rich Tomato Sauce", emoji:"🍖", costPP:30, serves:4, time:50,
+    tags:["beef","mince","meatballs","pasta","family","special"],
+    ingredients:[
+      {n:"Beef mince",pp:200,u:"g",userHas:false},
+      {n:"Breadcrumbs",pp:20,u:"g",userHas:false},
+      {n:"Egg",pp:0.25,u:"",userHas:false},
+      {n:"Garlic (crushed)",pp:5,u:"g",userHas:false},
+      {n:"Tinned tomatoes (for sauce)",pp:100,u:"g",userHas:false},
+      {n:"Onion (diced, for sauce)",pp:25,u:"g",userHas:false},
+      {n:"Spaghetti",pp:100,u:"g",userHas:false},
+      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Mixed herbs",pp:1,u:"g",userHas:false},
+      {n:"Salt & pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["Mix mince, breadcrumbs, egg, half the garlic, herbs, salt and pepper. Shape into large balls.","Brown meatballs all over in oil. Remove.","Fry onion and remaining garlic. Add tomatoes and herbs. Simmer 10 min.","Return meatballs to sauce. Cover and simmer 20 min.","Cook spaghetti. Serve meatballs in rich sauce over pasta."],
+    tip:"Large, juicy meatballs in a rich red sauce. The breadcrumbs keep meatballs light and tender — without them they go dense and tough. Brown well before simmering.",
+    nutrition:{kcal:640,protein_g:40,carbs_g:60,fat_g:22},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  // ── EXISTING CLASSICS (kept from original database) ──────────────
+  { id:"bud_pap_chakalaka", name:"Pap & Chakalaka", emoji:"🌽", costPP:4, serves:4, time:30,
+    tags:["vegetarian","south african","filling","quick"],
+    ingredients:[
+      {n:"Maize meal (pap)",pp:80,u:"g",userHas:false},{n:"Water",pp:300,u:"ml",userHas:false},
+      {n:"Tinned baked beans",pp:50,u:"g",userHas:false},{n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:40,u:"g",userHas:false},{n:"Curry powder",pp:1,u:"g",userHas:false},
+      {n:"Oil",pp:5,u:"ml",userHas:false},{n:"Salt",pp:null,u:"",userHas:false},
+    ],
+    method:["Boil water. Whisk in maize meal slowly. Cook on low heat 15 min stirring regularly until thick and smooth.","Fry onion in oil until soft. Add curry powder 1 min. Add tomatoes and baked beans. Simmer 10 min. Season.","Serve chakalaka over pap."],
+    tip:"One of South Africa's most affordable and satisfying meals. Add a fried egg on top for extra protein at minimal cost.",
+    nutrition:{kcal:340,protein_g:10,carbs_g:58,fat_g:6},
+    storage:"Fridge 3 days." },
+
+  { id:"bud_oat_porridge", name:"Creamy Oat Porridge", emoji:"🥣", costPP:3, serves:4, time:10,
+    tags:["breakfast","healthy","quick","vegetarian","cheap"],
+    ingredients:[
+      {n:"Rolled oats",pp:60,u:"g",userHas:false},{n:"Full cream milk",pp:150,u:"ml",userHas:false},
+      {n:"Water",pp:50,u:"ml",userHas:false},{n:"Sugar or honey",pp:8,u:"g",userHas:false},
+      {n:"Cinnamon",pp:0.3,u:"g",userHas:false},{n:"Banana (sliced, optional)",pp:0.5,u:"",userHas:false},
+    ],
+    method:["Combine oats, milk and water in pot. Cook over medium heat stirring 5–7 min until creamy.","Add sugar and cinnamon. Top with banana if using."],
+    tip:"The most cost-effective hot breakfast possible. Make a big batch and refrigerate.",
+    nutrition:{kcal:320,protein_g:10,carbs_g:55,fat_g:6},
+    storage:"Fridge 2 days. Add milk when reheating." },
+
+  { id:"bud_frikkadels_pap", name:"Frikkadels with Pap & Tomato Gravy", emoji:"🍖", costPP:14, serves:4, time:40,
+    tags:["south african","mince","family","filling","classic"],
+    ingredients:[
+      {n:"Beef mince",pp:100,u:"g",userHas:false},{n:"Onion (grated)",pp:15,u:"g",userHas:false},
+      {n:"White bread (soaked in milk)",pp:20,u:"g",userHas:false},{n:"Egg",pp:0.25,u:"",userHas:false},
+      {n:"Maize meal (for pap)",pp:80,u:"g",userHas:false},{n:"Tinned tomatoes (for gravy)",pp:80,u:"g",userHas:false},
+      {n:"Onion (for gravy, diced)",pp:15,u:"g",userHas:false},{n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Salt and pepper",pp:null,u:"",userHas:false},
+    ],
+    method:["MIX frikkadels: mince, grated onion, squeezed bread, egg. Season. Shape into balls. Pan-fry until golden and cooked through.","GRAVY: Fry diced onion. Add tomatoes. Simmer 10 min. Season.","PAP: Boil water, whisk in maize meal, cook 15 min until thick.","Serve frikkadels in tomato gravy over pap."],
+    tip:"The bread in the frikkadels stretches the mince and keeps them light. Use the cheapest beef mince available.",
+    nutrition:{kcal:480,protein_g:28,carbs_g:55,fat_g:14},
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"bud_bean_curry", name:"Bean & Potato Curry with Rice", emoji:"🍛", costPP:7, serves:4, time:35,
+    tags:["vegetarian","filling","curry","south african","vegan"],
+    ingredients:[
+      {n:"Tinned kidney or sugar beans (drained)",pp:80,u:"g",userHas:false},{n:"Potatoes (cubed)",pp:80,u:"g",userHas:false},
+      {n:"Onion (diced)",pp:25,u:"g",userHas:false},{n:"Garlic",pp:2,u:"g",userHas:false},
+      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},{n:"Curry powder",pp:3,u:"g",userHas:false},
+      {n:"Turmeric",pp:0.5,u:"g",userHas:false},{n:"Oil",pp:8,u:"ml",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},
+    ],
+    method:["Cook rice in salted water.","Fry onion and garlic until golden. Add curry powder and turmeric — fry 2 min in oil.","Add tomatoes. Cook 5 min. Add potatoes. Cover and cook 15 min.","Add beans. Cook 5 more min until potatoes are soft and sauce is thick. Season.","Serve bean curry over rice."],
+    tip:"Potatoes and beans together give complete protein. The curry powder does all the flavour work. Grate an extra carrot into the sauce to bulk it out further — it disappears completely.",
+    nutrition:{kcal:440,protein_g:15,carbs_g:78,fat_g:7},
+    storage:"Fridge 4 days. Freezer 2 months." },
 
   { id:"bud_bobotie_budget", name:"Budget Bobotie", emoji:"🍛", costPP:18, serves:6, time:60,
     tags:["south african","mince","cape malay","bake","classic"],
     ingredients:[
-      {n:"Beef mince (economy)",pp:100,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:20,u:"g",userHas:false},
-      {n:"Garlic",pp:2,u:"g",userHas:false},
-      {n:"Curry powder",pp:2,u:"g",userHas:false},
-      {n:"Apricot jam",pp:10,u:"g",userHas:false},
-      {n:"Chutney",pp:10,u:"g",userHas:false},
-      {n:"White bread (soaked in milk)",pp:20,u:"g",userHas:false},
-      {n:"Egg (for topping)",pp:0.5,u:"egg",userHas:false},
-      {n:"Milk (for topping)",pp:30,u:"ml",userHas:false},
-      {n:"Raisins",pp:8,u:"g",userHas:false},
+      {n:"Beef mince (economy)",pp:100,u:"g",userHas:false},{n:"Onion (diced)",pp:20,u:"g",userHas:false},
+      {n:"Garlic",pp:2,u:"g",userHas:false},{n:"Curry powder",pp:2,u:"g",userHas:false},
+      {n:"Apricot jam",pp:10,u:"g",userHas:false},{n:"Chutney",pp:10,u:"g",userHas:false},
+      {n:"White bread (soaked in milk)",pp:20,u:"g",userHas:false},{n:"Egg (for topping)",pp:0.5,u:"",userHas:false},
+      {n:"Milk (for topping)",pp:30,u:"ml",userHas:false},{n:"Raisins",pp:8,u:"g",userHas:false},
+      {n:"White rice",pp:80,u:"g",userHas:false},{n:"Turmeric (for yellow rice)",pp:0.5,u:"g",userHas:false},
     ],
-    method:["Fry onion and garlic. Add curry powder. Add mince — brown completely.","Add jam, chutney, raisins and squeezed bread. Mix. Pour into baking dish.","Beat egg and milk. Pour over. Bake 180°C for 35 min.","Serve with rice."],
-    tip:"Economy mince works perfectly in bobotie — the spices and sweet sauce carry the flavour. Serve with yellow rice made by adding turmeric and raisins to white rice.",
+    method:["Fry onion and garlic. Add curry powder. Add mince — brown completely.","Add jam, chutney, raisins and squeezed bread. Mix well. Pour into baking dish.","Beat egg and milk. Pour over top. Bake 180°C for 35 min.","YELLOW RICE: Cook rice with turmeric and a handful of raisins. Serve bobotie over yellow rice."],
+    tip:"Economy mince works perfectly — the spices and sweet sauce carry the flavour. The bread stretches the mince further and keeps it soft. Yellow rice is non-negotiable with bobotie.",
+    nutrition:{kcal:560,protein_g:30,carbs_g:65,fat_g:16},
     storage:"Fridge 3 days. Freezes well." },
 
-  // ── UNDER R30 PP ──────────────────────────────────────────────
   { id:"bud_chicken_curry_rice", name:"SA Chicken Curry with Rice", emoji:"🍛", costPP:22, serves:4, time:50,
     tags:["chicken","curry","south african","family","rice"],
     ingredients:[
-      {n:"Chicken drumsticks or thighs",pp:180,u:"g",userHas:false},
-      {n:"Onion (diced)",pp:25,u:"g",userHas:false},
-      {n:"Garlic",pp:3,u:"g",userHas:false},
-      {n:"Curry powder",pp:4,u:"g",userHas:false},
-      {n:"Turmeric",pp:0.5,u:"g",userHas:false},
-      {n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
-      {n:"Potatoes (quartered)",pp:60,u:"g",userHas:false},
-      {n:"White rice",pp:80,u:"g",userHas:false},
+      {n:"Chicken drumsticks or thighs",pp:180,u:"g",userHas:false},{n:"Onion (diced)",pp:25,u:"g",userHas:false},
+      {n:"Garlic",pp:3,u:"g",userHas:false},{n:"Curry powder",pp:4,u:"g",userHas:false},
+      {n:"Turmeric",pp:0.5,u:"g",userHas:false},{n:"Tinned tomatoes",pp:60,u:"g",userHas:false},
+      {n:"Potatoes (quartered)",pp:60,u:"g",userHas:false},{n:"White rice",pp:80,u:"g",userHas:false},
       {n:"Oil",pp:8,u:"ml",userHas:false},
     ],
-    method:["Fry onion until golden — don't rush this. Add garlic and spices. Fry 2 min.","Brown chicken pieces. Add tomatoes. Simmer covered 20 min.","Add potatoes. Cook uncovered 20 min until thick. Serve with rice."],
-    tip:"Chicken on the bone is always cheaper than boneless and gives far more flavour to the curry. Buy the whole pack of drumsticks — best value.",
+    method:["Fry onion until golden. Add garlic and spices. Fry 2 min.","Brown chicken pieces. Add tomatoes. Simmer covered 20 min.","Add potatoes. Cook uncovered 20 min until thick. Serve with rice."],
+    tip:"Chicken on the bone is always cheaper than boneless and gives far more flavour. Buy the whole pack of drumsticks — best value.",
+    nutrition:{kcal:520,protein_g:35,carbs_g:55,fat_g:14},
     storage:"Fridge 3 days. Freezer 2 months." },
 
-  { id:"bud_beef_stew", name:"Hearty Beef Stew with Dumplings", emoji:"🥘", costPP:25, serves:4, time:120,
+  { id:"bud_beef_stew_dumplings", name:"Hearty Beef Stew with Dumbolo", emoji:"🥘", costPP:25, serves:4, time:120,
     tags:["beef","stew","winter","family","comfort"],
     ingredients:[
-      {n:"Beef stew meat (chuck or shin)",pp:130,u:"g",userHas:false},
-      {n:"Onion",pp:25,u:"g",userHas:false},
-      {n:"Carrots",pp:40,u:"g",userHas:false},
-      {n:"Potatoes",pp:80,u:"g",userHas:false},
-      {n:"Beef stock cube",pp:0.5,u:"",userHas:false},
-      {n:"Flour (for dusting)",pp:8,u:"g",userHas:false},
-      {n:"Cake flour (for dumplings)",pp:30,u:"g",userHas:false},
-      {n:"Baking powder (for dumplings)",pp:0.5,u:"g",userHas:false},
-      {n:"Milk (for dumplings)",pp:20,u:"ml",userHas:false},
-      {n:"Oil",pp:10,u:"ml",userHas:false},
+      {n:"Beef stew meat (chuck or shin)",pp:130,u:"g",userHas:false},{n:"Onion",pp:25,u:"g",userHas:false},
+      {n:"Carrots",pp:40,u:"g",userHas:false},{n:"Potatoes",pp:80,u:"g",userHas:false},
+      {n:"Beef stock cube",pp:0.5,u:"",userHas:false},{n:"Flour (for dusting)",pp:8,u:"g",userHas:false},
+      {n:"Cake flour (for dumplings)",pp:30,u:"g",userHas:false},{n:"Baking powder (for dumplings)",pp:0.5,u:"g",userHas:false},
+      {n:"Milk (for dumplings)",pp:20,u:"ml",userHas:false},{n:"Oil",pp:10,u:"ml",userHas:false},
     ],
     method:["Dust beef in flour. Brown in batches in hot oil. Remove.","Fry onion. Add beef and stock (dissolved in water). Simmer 1 hour covered.","Add carrots and potatoes. Cook 25 min.","DUMPLINGS: Mix flour, baking powder, pinch salt and milk to soft dough. Drop spoonfuls into stew. Cover and cook 15 min — do not open lid."],
-    tip:"Shin and chuck are the cheapest cuts and become melt-tender with long slow cooking. Never use expensive steak for stew — it dries out. The dumplings soak up the gravy and make it incredibly filling.",
+    tip:"Shin and chuck are the cheapest cuts and become melt-tender with long slow cooking. The dombolo dumplings soak up the gravy and make it incredibly filling.",
+    nutrition:{kcal:520,protein_g:30,carbs_g:55,fat_g:16},
     storage:"Fridge 4 days. Freezer 3 months." },
 
-  { id:"bud_pasta_tuna", name:"Creamy Tuna Pasta", emoji:"🍝", costPP:16, serves:4, time:20,
-    tags:["pasta","tuna","quick","family","easy"],
-    ingredients:[
-      {n:"Pasta (any shape)",pp:100,u:"g",userHas:false},
-      {n:"Tinned tuna (in oil or brine)",pp:60,u:"g",userHas:false},
-      {n:"Tinned cream of mushroom soup",pp:80,u:"ml",userHas:false},
-      {n:"Onion (diced)",pp:15,u:"g",userHas:false},
-      {n:"Frozen peas",pp:30,u:"g",userHas:false},
-      {n:"Cheese (grated)",pp:20,u:"g",userHas:false},
-      {n:"Milk",pp:30,u:"ml",userHas:false},
-      {n:"Oil",pp:5,u:"ml",userHas:false},
-    ],
-    method:["Cook pasta in salted water. Drain.","Fry onion in oil. Add tuna and peas. Cook 2 min.","Add cream of mushroom soup and milk. Heat through.","Toss with pasta. Top with cheese. Serve immediately."],
-    tip:"Tinned cream of mushroom soup is one of South Africa's great budget cooking shortcuts. It makes an instant creamy sauce. Keep several tins in the pantry.",
-    storage:"Fridge 2 days." },
-
-  // ── UNDER R40 PP ──────────────────────────────────────────────
   { id:"bud_roast_chicken_veg", name:"Roast Chicken with Roast Veg", emoji:"🍗", costPP:35, serves:4, time:90,
     tags:["chicken","roast","sunday","family","budget special"],
     ingredients:[
-      {n:"Whole chicken",pp:400,u:"g",userHas:false},
-      {n:"Potatoes (quartered)",pp:100,u:"g",userHas:false},
-      {n:"Sweet potato (cubed)",pp:80,u:"g",userHas:false},
-      {n:"Carrots (chunked)",pp:40,u:"g",userHas:false},
-      {n:"Onion (quartered)",pp:25,u:"g",userHas:false},
-      {n:"Garlic",pp:3,u:"g",userHas:false},
-      {n:"Olive or sunflower oil",pp:15,u:"ml",userHas:false},
-      {n:"Dried herbs",pp:1,u:"g",userHas:false},
+      {n:"Whole chicken",pp:400,u:"g",userHas:false},{n:"Potatoes (quartered)",pp:100,u:"g",userHas:false},
+      {n:"Sweet potato (cubed)",pp:80,u:"g",userHas:false},{n:"Carrots (chunked)",pp:40,u:"g",userHas:false},
+      {n:"Onion (quartered)",pp:25,u:"g",userHas:false},{n:"Garlic",pp:3,u:"g",userHas:false},
+      {n:"Olive or sunflower oil",pp:15,u:"ml",userHas:false},{n:"Dried herbs",pp:1,u:"g",userHas:false},
       {n:"Salt and pepper",pp:null,u:"",userHas:false},
     ],
     method:["Preheat oven to 200°C. Pat chicken dry. Rub with oil, garlic and herbs. Season well.","Toss vegetables in oil. Season. Place in roasting pan.","Put chicken on top of vegetables. Roast 20 min per 500g + 20 min extra.","Rest 15 min. Serve with pan juices."],
     tip:"A whole chicken feeds 4–6 people and is much better value than buying chicken pieces. The vegetables roast in the chicken fat — no extra seasoning needed.",
+    nutrition:{kcal:580,protein_g:42,carbs_g:45,fat_g:22},
     storage:"Fridge 3 days. Use carcass for soup stock." },
 ];
 
@@ -3974,44 +4748,77 @@ function recipeResultCard(r, onClickFn, color){
 }
 
 function recipeDetailFromResult(r, backAction, servings, color, bg, border){
-  function fmt(pp, u, isUserHas){
+  // servings is always read live from state so scaler works
+  const sv = servings;
+  function fmt(pp, u){
     if(!pp) return u||'';
-    const raw = pp * servings;
+    const raw = pp * sv;
     if(u==='egg') return Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'');
     if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
     return Math.round(raw*10)/10+(u||'');
   }
-  // Only show ingredients user does NOT have
   const needToBuy = (r.ingredients||[]).filter(i=>!i.userHas && i.pp);
   const userHasIngs = (r.ingredients||[]).filter(i=>i.userHas);
+
+  // Build WhatsApp text safely as a JS string (no template literal nesting)
+  const waIngLines = needToBuy.map(i=>{
+    const raw = i.pp * sv;
+    const u = i.u||'';
+    const d = (raw>=1000&&(u==='g'||u==='ml'))
+      ? (Math.round(raw/100)/10)+(u==='g'?'kg':'L')
+      : (Math.round(raw*10)/10)+u;
+    return '• '+i.n+': '+d;
+  }).join('\n');
+  const waText = encodeURIComponent(
+    '🍽️ *'+r.name+'*\nFor '+sv+' people\n\nShopping list:\n'+waIngLines+'\n\nFrom Tinza 😊 tinza.netlify.app'
+  );
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
       <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
       <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</h1>
-      <div style="font-size:11px;color:${color};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="font-size:11px;color:${color};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
+
+      <!-- Servings scaler — svKey auto-detects correct state variable -->
       <div style="display:flex;align-items:center;gap:12px;background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:11px;color:${color};text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
-        <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">−</button>
-        <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
-        <button onclick="setQuiet({searchServings:Math.min(200,(S.searchServings||4)+1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#3a3030;">people</span>
+        <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">−</button>
+        <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${sv}</span>
+        <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
+        <span style="font-size:11px;color:#3a3030;">people · all quantities scale</span>
       </div>
 
-      ${userHasIngs.length?`<div style="background:#0a1808;border:1px solid #1a4025;border-radius:10px;padding:12px;margin-bottom:12px;">
+      ${userHasIngs.length ? `<div style="background:#0a1808;border:1px solid #1a4025;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#25a050;text-transform:uppercase;margin-bottom:8px;">✓ You already have</div>
-        ${userHasIngs.map(i=>`<div style="font-size:13px;color:#408060;padding:4px 0;border-bottom:1px solid #1a3020;">✓ ${i.n} — ${fmt(i.pp,i.u,true)}</div>`).join('')}
-      </div>`:''}
+        ${userHasIngs.map(i=>`<div style="font-size:13px;color:#408060;padding:4px 0;border-bottom:1px solid #1a3020;">✓ ${i.n} — ${fmt(i.pp,i.u)}</div>`).join('')}
+      </div>` : ''}
 
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">🛒 Still Need to Buy${needToBuy.length===0?' — Nothing! You have everything':''}</div>
-        ${needToBuy.length===0?`<div style="font-size:13px;color:#25a050;padding:8px 0;">You have all the ingredients!</div>`:''}
+        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">🛒 Shopping List — ${sv} ${sv===1?'person':'people'}${needToBuy.length===0?' · Nothing to buy!':''}</div>
+        ${needToBuy.length===0 ? `<div style="font-size:13px;color:#25a050;padding:8px 0;">You have all the ingredients!</div>` : ''}
         ${needToBuy.map(i=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a1810;">
           <span style="font-size:13px;color:#c8c0b0;flex:1;">${i.n}</span>
           <span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span>
         </div>`).join('')}
+        ${needToBuy.length>0 ? (()=>{
+          // Calculate approx cooked plate weight
+          const plateG = (r.ingredients||[]).filter(i=>i.pp).reduce((sum,i)=>{
+            const raw = i.pp * sv;
+            const n = (i.n||'').toLowerCase();
+            const factor = (n.includes('rice')||n.includes('maize')||n.includes('pap')||n.includes('pasta')||n.includes('oat')) ? 2.8
+              : (n.includes('mince')||n.includes('chicken')||n.includes('beef')||n.includes('pork')||n.includes('lamb')||n.includes('fish')||n.includes('liver')||n.includes('prawn')) ? 0.75
+              : (n.includes('water')||n.includes('stock')||n.includes('milk')||n.includes('cream')) ? 0
+              : 0.85;
+            return sum + (raw * factor);
+          }, 0);
+          const plateRounded = Math.round(plateG/10)*10;
+          return `<div style="margin-top:10px;padding-top:8px;border-top:1px solid #1a1810;font-size:10px;color:#4a4040;line-height:1.6;">
+            📏 <em>Weights shown are raw/dry — what you buy before cooking.</em><br>
+            🍽️ <em>Cooked plate approx. <strong style="color:#506040;">${plateRounded}g per person</strong> — rice + pap grow 3x, meat shrinks ~25%.</em>
+          </div>`;
+        })() : ''}
       </div>
 
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
@@ -4019,9 +4826,22 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0808;border:1px solid ${color};color:${color};">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c8c0b0;line-height:1.7;">${step}</p></div>`).join('')}
       </div>
 
-      ${r.tip?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:${color};font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#908880;">${r.tip}</span></div>`:''}
+      ${r.nutrition ? `<div style="background:#0a1008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:6px;">📊 Nutrition — per serving</div>
+        <div style="font-size:9px;color:#2a5030;font-style:italic;margin-bottom:8px;">Approx. based on raw ingredient weights before cooking</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#f5c842;">${r.nutrition.kcal}</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">kcal</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#60c090;">${r.nutrition.protein_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">protein</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#80a0e0;">${r.nutrition.carbs_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">carbs</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#c08060;">${r.nutrition.fat_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">fat</div></div>
+        </div>
+      </div>` : ''}
 
-      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${r.name}*\nFor ${servings} people\n\nStill need to buy:\n'+${JSON.stringify(needToBuy)}.filter(i=>i.pp).map(i=>{const raw=i.pp*${servings};return '• '+i.n+': '+((raw>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(raw/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(raw*10)/10)+(i.u||''));}).join('\n')+'\n\nFrom Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share Shopping List via WhatsApp</button>
+      ${r.tip ? `<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:${color};font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#908880;">${r.tip}</span></div>` : ''}
+
+      ${r.storage ? `<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#607060;">📦 ${r.storage}</div>` : ''}
+
+      <button onclick="window.open('https://wa.me/?text=${waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share Shopping List via WhatsApp</button>
     </div>
   </div>`;
 }
@@ -4035,7 +4855,7 @@ function fourIngredientsHTML(){
   const color = '#a04080', bg = '#150010', border = '#2a1030';
 
   if(active){
-    return recipeDetailFromResult(active, "setQuiet({_fourActiveRecipe:null})", servings, color, bg, border);
+    return recipeDetailFromResult(active, "setQuiet({_fourActiveRecipe:null})", S.searchServings||4, color, bg, border);
   }
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
@@ -4074,7 +4894,7 @@ function anchorIngredientHTML(){
   const color = '#c08020', bg = '#1a1000', border = '#3a2800';
 
   if(active){
-    return recipeDetailFromResult(active, "setQuiet({_anchorActiveRecipe:null})", servings, color, bg, border);
+    return recipeDetailFromResult(active, "setQuiet({_anchorActiveRecipe:null})", S.searchServings||4, color, bg, border);
   }
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
@@ -4112,69 +4932,133 @@ function anchorIngredientHTML(){
 
 
 // ── BUDGET PLANNER ────────────────────────────────────────────────
-async function findBudgetRecipes(){
-  const budget = parseFloat(S.budgetAmount||0);
-  const people = parseInt(S.budgetPeople||4);
-  if(!budget || budget < 10){
-    setQuiet({_budgetError:'Please enter a budget of at least R10', _budgetResults:null, _budgetLoading:false});
-    return;
-  }
+// ── BUDGET PAGED SYSTEM ──────────────────────────────────────────
+// Page 0 = first 3 DB results shown instantly.
+// AI fires in background immediately. Each "Show more" reveals next 3.
 
-  setQuiet({_budgetLoading:true, _budgetResults:null, _budgetError:null});
-  const budgetPP = budget / people;
-
-  // Search database first - find recipes within budget
-  const dbMatches = BUDGET_RECIPES.filter(r => r.costPP <= budgetPP)
-    .sort((a,b) => b.costPP - a.costPP) // best value first (closest to budget)
-    .slice(0, 5);
-
-  if(dbMatches.length >= 3){
-    setQuiet({_budgetResults:dbMatches, _budgetLoading:false, _budgetError:null});
-    return;
-  }
-
-  // If few matches, ask Tinza Chef for more
+async function startBudgetAIFetch(budgetPP, people) {
+  if (S._budgetAILoading || S._budgetAIRecipes) return;
+  S._budgetAILoading = true;
   try {
+    const budgetTier = budgetPP <= 15 ? 'very tight' : budgetPP <= 25 ? 'budget' : budgetPP <= 50 ? 'moderate' : budgetPP <= 100 ? 'comfortable' : 'generous/celebratory';
+    const stretchNote = budgetPP <= 25 ? `
+STRETCHING RULES for R${budgetPP.toFixed(0)}pp:
+- Use meat as FLAVOURING not the main component at lower budgets
+- Always include a bulking starch (pap, rice, pasta, potato) IN the ingredients list
+- Add grated carrot, onion, cabbage or lentils to bulk out meat dishes
+- The full plate must feel satisfying — not just a main without a side
+- Bread, eggs, lentils and beans are your protein heroes at this level` : '';
+
     const prompt = `You are Tinza Chef, a South African budget recipe assistant.
-Budget: R${budget} total for ${people} people (R${budgetPP.toFixed(0)} per person).
-South African ingredient prices apply (Checkers/Spar 2025).
+Budget: R${(budgetPP * people).toFixed(0)} total for ${people} people (R${budgetPP.toFixed(0)} per person). Budget tier: ${budgetTier}.
+SA ingredient prices 2025 (Checkers/Pick n Pay/Spar).
+${stretchNote}
 
-Generate ${5 - dbMatches.length} budget-friendly recipes that fit within R${budgetPP.toFixed(0)} per person.
-Use affordable SA ingredients: mince, chicken pieces, eggs, lentils, beans, maize meal, bread flour, rice, pasta, seasonal veg, tinned tomatoes.
+Generate 9 different complete meal recipes within R${budgetPP.toFixed(0)} per person.
+CRITICAL: Every recipe must be a COMPLETE MEAL — the starch/side (rice, pap, mash, pasta, chips) MUST be included in the ingredients list with gram amounts. Never say "serve with rice" without listing rice as an ingredient.
 
-Return ONLY a JSON array (no markdown, no backticks):
-[{
-  "name": "Recipe Name",
-  "emoji": "single emoji",
-  "costPP": 15,
-  "time": 30,
-  "serves": ${people},
-  "cuisine": "South African",
-  "ingredients": [
-    {"n": "ingredient", "pp": 100, "u": "g", "userHas": false}
-  ],
-  "method": ["Step 1", "Step 2"],
-  "tip": "Budget tip",
-  "storage": "Storage info"
-}]
+${budgetPP >= 100 ? 'At this budget level, suggest impressive dishes worthy of entertaining or celebration.' : 'Use affordable SA ingredients: mince, chicken pieces, eggs, lentils, beans, maize meal, bread flour, rice, pasta, seasonal veg, tinned tomatoes, tinned fish.'}
 
-Rules: all amounts in g or ml, pp = per person, costPP must be under R${budgetPP.toFixed(0)}`;
+Return ONLY a JSON array of 9 recipes (no markdown, no backticks):
+[{"name":"Recipe Name (with side e.g. '& Rice' or 'with Pap')","emoji":"single emoji","costPP":12,"time":30,"serves":1,"cuisine":"South African",
+"ingredients":[{"n":"ingredient","pp":100,"u":"g","userHas":false}],
+"method":["Step 1 — make the main","Step 2","Step 3 — make the starch","Step 4 — serve"],
+"tip":"Stretching tip or technique",
+"nutrition":{"kcal":450,"protein_g":22,"carbs_g":55,"fat_g":12},
+"storage":"Fridge X days"}]
+
+Rules: pp = per 1 person (serves=1 always). costPP must be under R${budgetPP.toFixed(0)}. Vary proteins and cooking methods across the 9 recipes.`;
 
     const resp = await fetch('/.netlify/functions/claude', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:5000,
         messages:[{role:'user',content:prompt}]})
     });
     const data = await resp.json();
     const text = (data.content||[]).map(b=>b.text||'').join('');
     const clean = text.replace(/```json|```/g,'').trim();
-    const chefRecipes = JSON.parse(clean);
-    chefRecipes.forEach(r=>{ r._source='chef'; });
-    setQuiet({_budgetResults:[...dbMatches,...chefRecipes], _budgetLoading:false, _budgetError:null});
-  } catch(e){
-    setQuiet({_budgetResults:dbMatches, _budgetLoading:false,
-      _budgetError:dbMatches.length===0?'No recipes found for this budget. Try increasing your amount.':null});
+    const recipes = JSON.parse(clean);
+    S._budgetAIRecipes = Array.isArray(recipes) ? recipes.map(r=>({...r,_fromAI:true})) : [];
+    S._budgetAILoading = false;
+    draw();
+  } catch(e) {
+    S._budgetAILoading = false;
   }
+}
+
+async function findBudgetRecipes(){
+  const budget = parseFloat(S.budgetAmount||0);
+  const people = parseInt(S.budgetPeople||4);
+  if(!budget || budget < 1){
+    setQuiet({_budgetError:'Please enter a budget amount', _budgetResults:null, _budgetLoading:false});
+    return;
+  }
+
+  // Reset all paging state
+  S._budgetPage = 0;
+  S._budgetAIRecipes = null;
+  S._budgetAILoading = false;
+  setQuiet({_budgetLoading:true, _budgetResults:null, _budgetError:null});
+
+  const budgetPP = budget / people;
+
+  // Build full sorted DB bank for this budget
+  const allDB = BUDGET_RECIPES.filter(r => r.costPP <= budgetPP)
+    .sort((a,b) => b.costPP - a.costPP);
+  S._budgetDBBank = allDB;
+
+  // Show first 3 instantly
+  const first3 = allDB.slice(0, 3);
+  setQuiet({_budgetResults: first3.length > 0 ? first3 : [],
+            _budgetLoading: false,
+            _budgetError: first3.length === 0 ? 'No DB recipes found at this level — Tinza Chef is generating custom ones for you!' : null});
+
+  // Fire AI in background immediately
+  startBudgetAIFetch(budgetPP, people);
+}
+
+function getMoreBudgetRecipes() {
+  const budget = parseFloat(S.budgetAmount||0);
+  const people = parseInt(S.budgetPeople||4);
+  const budgetPP = budget / people;
+  const nextPage = (S._budgetPage || 0) + 1;
+  S._budgetPage = nextPage;
+
+  const dbBank = S._budgetDBBank || [];
+  const dbStart = nextPage * 3;
+  const dbSlice = dbBank.slice(dbStart, dbStart + 3);
+
+  if (dbSlice.length >= 1) {
+    // More DB recipes available
+    setQuiet({_budgetResults: dbSlice});
+    return;
+  }
+
+  // DB exhausted — use AI bank
+  const aiOffset = (nextPage - Math.ceil(dbBank.length / 3)) * 3;
+  const aiBank = S._budgetAIRecipes || [];
+
+  if (aiBank.length > aiOffset) {
+    setQuiet({_budgetResults: aiBank.slice(aiOffset, aiOffset + 3)});
+    return;
+  }
+
+  // AI still loading
+  if (S._budgetAILoading) {
+    setQuiet({_budgetResults: [{_waiting:true}]});
+    const poll = setInterval(() => {
+      if (!S._budgetAILoading) {
+        clearInterval(poll);
+        const off = ((S._budgetPage||0) - Math.ceil((S._budgetDBBank||[]).length/3)) * 3;
+        const slice = (S._budgetAIRecipes||[]).slice(Math.max(0,off), Math.max(0,off)+3);
+        setQuiet({_budgetResults: slice.length > 0 ? slice : [{_error:true,_msg:'No more recipes. Try a different budget.'}]});
+      }
+    }, 800);
+    return;
+  }
+
+  // No more recipes — offer to restart
+  setQuiet({_budgetResults: [{_nomore:true}]});
 }
 
 function budgetPlannerHTML(){
@@ -4188,14 +5072,14 @@ function budgetPlannerHTML(){
 
   if(active){
     // Shopping list = only what they need to buy (all ingredients - userHas:false)
-    return recipeDetailFromResult(active, "setQuiet({_budgetActiveRecipe:null})", people, color, bg, border);
+    return recipeDetailFromResult(active, "setQuiet({_budgetActiveRecipe:null})", S.budgetPeople||4, color, bg, border);
   }
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
       <button onclick="set({screen:'home'})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">💰 I've Got R${budget||'?'}</h1>
-      <p style="margin:4px 0 0;font-size:11px;color:${color};opacity:0.8;">Find recipes that fit your budget</p>
+      <p style="margin:4px 0 0;font-size:11px;color:${color};opacity:0.8;">${budget>=500?'🎉 Party & event planning mode':'Find recipes that fit your budget'}</p>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
@@ -4216,16 +5100,16 @@ function budgetPlannerHTML(){
             <div style="display:flex;align-items:center;gap:8px;">
               <button onclick="setQuiet({budgetPeople:Math.max(1,(S.budgetPeople||4)-1)})" style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">−</button>
               <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${people}</span>
-              <button onclick="setQuiet({budgetPeople:Math.min(20,(S.budgetPeople||4)+1)})" style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
+              <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})" style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
             </div>
           </div>
         </div>
 
-        ${budget && people ? `<div style="font-size:12px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person</div>` : ''}
+        ${budget && people ? `<div style="font-size:12px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person${budget>=500?' · 🎉 Party/event mode':' · '+people+' people'}</div>` : ''}
 
         <!-- Quick budget buttons -->
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-          ${[40,60,80,100,150,200].map(amt=>`<button onclick="S.budgetAmount=${amt};setQuiet({budgetAmount:${amt}})" style="padding:6px 14px;border-radius:20px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?color:'#3a6030'};font-size:12px;cursor:pointer;">R${amt}</button>`).join('')}
+          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="S.budgetAmount=${amt};setQuiet({budgetAmount:${amt}})" style="padding:5px 10px;border-radius:16px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?color:'#3a6030'};font-size:11px;cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
         </div>
 
         <button onclick="findBudgetRecipes()" style="width:100%;padding:14px;border-radius:10px;background:#061008;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
@@ -4241,23 +5125,48 @@ function budgetPlannerHTML(){
         <div style="font-size:11px;color:#3a6030;margin-top:6px;">R${(budget/people).toFixed(0)} per person</div>
       </div>`:''}
 
-      ${results&&results.length>0?`
-        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">${results.length} recipes within your budget</div>
+      ${results&&results.length>0&&results[0]._waiting?`
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:40px;margin-bottom:12px;">👨‍🍳</div>
+          <div style="font-size:14px;color:${color};margin-bottom:6px;">Tinza Chef is finding more ideas...</div>
+          <div style="font-size:11px;color:#3a6030;">Just a moment</div>
+        </div>
+      `:''}
+
+      ${results&&results.length>0&&results[0]._nomore?`
+        <div style="text-align:center;padding:30px 20px;">
+          <div style="font-size:13px;color:#3a6030;margin-bottom:12px;">That's all the recipes for this budget!</div>
+          <button onclick="findBudgetRecipes()" style="padding:10px 20px;background:${bg};border:2px solid ${color};border-radius:10px;color:${color};font-size:13px;cursor:pointer;">🔄 Start again</button>
+        </div>
+      `:''}
+
+      ${results&&results.length>0&&!results[0]._waiting&&!results[0]._nomore&&!results[0]._error?`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
+          ${S._budgetAILoading ? `<div style="font-size:10px;color:#3a6030;font-style:italic;">✨ Finding more...</div>` : ''}
+        </div>
         ${results.map((r,i)=>`
-          <div onclick="setQuiet({_budgetActiveRecipe:S._budgetResults[${i}]})" style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+          <div onclick="setQuiet({_budgetActiveRecipe:${JSON.stringify(r).replace(/"/g,'&quot;')}})" style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
             <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
-              <div style="font-size:11px;color:${color};">⏱️ ${r.time||'?'} min · ${r.cuisine||''}</div>
+              <div style="font-size:11px;color:${color};">⏱️ ${r.time||'?'} min${r.cuisine?' · '+r.cuisine:''}</div>
               <div style="margin-top:4px;">
-                <span style="background:#061008;border:1px solid #25a050;border-radius:8px;font-size:11px;color:#25a050;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp · R${Math.round((r.costPP||0)*people)} total</span>
+                <span style="background:#061008;border:1px solid #25a050;border-radius:8px;font-size:11px;color:#25a050;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp</span>
+                ${r._fromAI?`<span style="font-size:9px;color:#3a6030;margin-left:6px;">✨ Chef</span>`:''}
               </div>
             </div>
             <span style="color:${color};font-size:14px;flex-shrink:0;">→</span>
           </div>`).join('')}
-        <div style="margin-top:8px;padding:12px;background:${bg};border:1px solid ${border};border-radius:10px;text-align:center;">
-          <div style="font-size:11px;color:#3a6030;margin-bottom:8px;">Want more options?</div>
-          <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
+        <button onclick="getMoreBudgetRecipes()" style="width:100%;padding:11px;border-radius:10px;background:#061008;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
+          ✨ Show me 3 more recipes
+        </button>
+      `:''}
+
+      ${results&&results.length>0&&results[0]._error?`
+        <div style="text-align:center;padding:20px;">
+          <div style="font-size:13px;color:#3a6030;">${results[0]._msg||'No more recipes found.'}</div>
+          <button onclick="findBudgetRecipes()" style="padding:10px 20px;background:${bg};border:2px solid ${color};border-radius:10px;color:${color};font-size:13px;cursor:pointer;margin-top:12px;">🔄 Start again</button>
         </div>
       `:''}
 
@@ -4420,21 +5329,628 @@ function scaleAmt(str,mult){ if(!str) return str; const m=str.match(/^([0-9.]+)(
 // ── MOOD FEATURE ─────────────────────────────────────────────────────
 
 const MOODS = [
-  { id:"exhausted",  e:"😴", label:"I'm exhausted",        sub:"Minimal effort · Max comfort",          colour:"#6060a0", bg:"#0a0a18", prompt:"extremely quick and easy comfort food recipe requiring minimal effort, ideally one pot or one pan, under 20 minutes, no complicated steps, South African home cooking style" },
-  { id:"sad",        e:"😢", label:"I'm feeling low",       sub:"Comfort food · Warm & soothing",        colour:"#a06040", bg:"#180e08", prompt:"comforting soul food, warm and soothing, emotionally satisfying, classic comfort food that feels like a hug, South African or international classics" },
-  { id:"sick",       e:"🤒", label:"I'm not well",          sub:"Light & gentle · Easy to digest",       colour:"#40a060", bg:"#081808", prompt:"gentle, light, easy to digest food for someone who is sick or not feeling well, soothing, not heavy, good for upset stomach or mild illness" },
-  { id:"impress",    e:"🔥", label:"I want to impress",     sub:"Something special · Show off a little", colour:"#c06020", bg:"#1a0e08", prompt:"impressive dinner party recipe that looks and tastes spectacular, something special to wow guests, can be a bit more effort, restaurant quality at home" },
-  { id:"healthy",    e:"🌿", label:"I want to be healthy",  sub:"Nutritious · Light · Energising",       colour:"#20a060", bg:"#081a10", prompt:"healthy, nutritious, balanced meal, lots of vegetables, lean protein, wholesome ingredients, energising and good for you, not boring" },
-  { id:"quick",      e:"⚡", label:"Need it fast",           sub:"Under 20 minutes · No fuss",           colour:"#c0a020", bg:"#181200", prompt:"very fast recipe ready in under 20 minutes, quick weeknight dinner, minimal prep, simple ingredients most people have at home" },
-  { id:"onepot",     e:"🍲", label:"One pot only",           sub:"Less dishes · Less stress",             colour:"#8040a0", bg:"#100818", prompt:"one pot or one pan meal only, minimal dishes, everything cooked in a single pot or pan, easy cleanup, hearty and satisfying" },
-  { id:"fussy",     e:"😤", label:"Fussy little ones",      sub:"Picky eaters · Hidden veg · No drama",  colour:"#d04080", bg:"#1a0810", prompt:"recipe for picky fussy children, familiar safe flavours, nothing too spicy or weird, can have hidden vegetables, something kids will actually eat without a battle, fun and approachable" },
-  { id:"cold",      e:"🌧️", label:"It's cold & cloudy",   sub:"Soups · Stews · Warm & hearty",         colour:"#4080a0", bg:"#080e18", prompt:"warming winter comfort food, thick soups, hearty stews, something that warms you from the inside out on a cold rainy day, South African or international winter warmers" },
-  { id:"sweet",      e:"🍰", label:"I need something sweet", sub:"Baking · Dessert · Treat yourself",    colour:"#d06080", bg:"#1a0810", prompt:"baking or dessert recipe, something sweet and indulgent, could be a cake, tart, pudding or biscuits, South African bakes preferred" },
-  { id:"simple",    e:"🥔", label:"Simple food please",    sub:"Basic · Unfussy · Just good food",      colour:"#a09060", bg:"#181408", prompt:"simple unfussy food using basic everyday ingredients, nothing fancy or complicated, honest home cooking that just tastes good without any effort or special shopping" },
-  { id:"hangover",   e:"🙈", label:"Rough morning",          sub:"Filling · Restorative · No judgment",  colour:"#707070", bg:"#101010", prompt:"hearty restorative meal for a rough morning, filling comfort food, classic breakfast or brunch, something greasy and satisfying that makes you feel human again" },
+  { id:"exhausted",    e:"😴", label:"I'm exhausted",           sub:"Low effort · Quick · Comfort",          colour:"#6060a0", bg:"#0a0a18", prompt:"extremely quick and easy comfort food recipe requiring minimal effort, ideally one pot or one pan, under 20 minutes, no complicated steps, South African home cooking style" },
+  { id:"pickmeup",     e:"😊", label:"I need a pick-me-up",     sub:"Comfort · Treat · Lift your mood",       colour:"#a06040", bg:"#180e08", prompt:"comforting, mood-lifting food — something warm and satisfying that feels like a treat, emotionally uplifting, South African comfort classics or a balanced treat meal" },
+  { id:"sick",         e:"🤒", label:"I'm not feeling well",    sub:"Light · Nourishing · Easy to digest",   colour:"#40a060", bg:"#081808", prompt:"gentle, light, easy to digest food for someone who is sick — soothing broth, soft textures, nothing heavy, good for an upset stomach or mild illness" },
+  { id:"impress",      e:"🔥", label:"I want to impress",       sub:"Special · Impressive · Worth the effort",colour:"#c06020", bg:"#1a0e08", prompt:"impressive dinner party recipe that looks and tastes spectacular, something special to wow guests, can be a bit more effort, restaurant quality at home" },
+  { id:"healthy",      e:"🌿", label:"I want to be healthy",    sub:"Nutritious · Balanced · Energising",     colour:"#20a060", bg:"#081a10", prompt:"healthy, nutritious, balanced meal — lots of vegetables, lean protein, wholesome ingredients, energising and genuinely good for you, not boring" },
+  { id:"quick",        e:"⚡", label:"Need it fast",             sub:"Under 20 minutes · No fuss",             colour:"#c0a020", bg:"#181200", prompt:"very fast recipe ready in under 20 minutes, quick weeknight dinner, minimal prep, simple ingredients most people have at home" },
+  { id:"lazy",         e:"🛋️", label:"I'm feeling lazy",        sub:"Minimal effort · Dump & go · One pot",  colour:"#8040a0", bg:"#100818", prompt:"a proper lazy meal — one pot or one pan, everything thrown in together, minimal chopping and washing up, still hearty and satisfying" },
+  { id:"fussy",        e:"😤", label:"Fussy little ones",        sub:"Kid friendly · Hidden veg · No drama",   colour:"#d04080", bg:"#1a0810", prompt:"recipe for picky fussy children — familiar safe flavours, nothing too spicy or weird, hidden vegetables welcome, something kids will actually eat without a battle" },
+  { id:"cold",         e:"🌧️", label:"It's cold & cloudy",     sub:"Soup · Stew · Warm from the inside",     colour:"#4080a0", bg:"#080e18", prompt:"warming winter comfort food — thick soups, hearty stews, something that warms you from the inside out on a cold rainy South African day" },
+  { id:"sweet",        e:"🍰", label:"I need something sweet",  sub:"Dessert · Bake · Treat yourself",        colour:"#d06080", bg:"#1a0810", prompt:"baking or dessert recipe — something sweet and indulgent, a cake, tart, pudding or biscuits, South African bakes preferred" },
+  { id:"adventurous",  e:"🌍", label:"I'm feeling adventurous", sub:"New flavours · Bold · Explore",          colour:"#a09060", bg:"#181408", prompt:"an adventurous recipe with bold or exotic flavours — try a new technique or cuisine, something interesting and different from everyday cooking" },
+  { id:"celebrating",  e:"🎉", label:"I'm hosting/celebrating", sub:"Crowd pleaser · Impressive · High volume", colour:"#c0a020", bg:"#181200", prompt:"a show-stopping recipe for hosting or celebrating — feeds a crowd, impressive presentation, family-style or platter sharing, a real celebration meal" },
 ];
 
+// ── MOOD RECIPE DATABASE — instant load, no API wait ─────────────────
+// All amounts are per 1 person (pp). Scales automatically.
+// nutrition: {kcal, protein_g, carbs_g, fat_g} per serving
+const MOOD_DB = {
+
+  exhausted: [
+    { name:"One-Pan Garlic Butter Chicken & Veg", emoji:"🍗", time:25, why:"Everything in one pan — dinner sorted with almost no effort",
+      photo:"",
+      ingredients:[
+        {n:"Chicken thighs (bone-in)",pp:150,u:"g"},{n:"Potato (chopped 2cm)",pp:200,u:"g"},
+        {n:"Carrot (chopped)",pp:100,u:"g"},{n:"Butter",pp:10,u:"g"},
+        {n:"Garlic (crushed)",pp:10,u:"g"},{n:"Baby spinach",pp:50,u:"g"},
+        {n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Preheat oven to 200°C.","Place chicken, potatoes and carrots in a baking dish. Dot with butter and add crushed garlic. Season well.","Bake 20–22 min. Stir in spinach for the last 3 min.","Serve straight from the dish."],
+      tip:"No washing up the pan — serve it straight to the table. Swap potato for sweet potato if you like.",
+      nutrition:{kcal:520,protein_g:35,carbs_g:45,fat_g:22} },
+
+    { name:"Egg & Spinach Rice Bowl", emoji:"🍳", time:15, why:"Fast, filling, uses what you have — no shopping needed",
+      photo:"",
+      ingredients:[
+        {n:"Cooked rice (leftover is perfect)",pp:100,u:"g"},{n:"Eggs",pp:2,u:""},
+        {n:"Baby spinach",pp:100,u:"g"},{n:"Tomato (diced)",pp:100,u:"g"},
+        {n:"Sunflower oil",pp:10,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Heat oil in a pan. Fry tomato and spinach 2 min until wilted.","Add rice and stir to warm through.","Push everything to the side. Scramble eggs in the gap, then mix everything together.","Season. Serve immediately."],
+      tip:"Cold leftover rice works best here — it fries rather than steams. Top with fresh chilli if you have it.",
+      nutrition:{kcal:420,protein_g:18,carbs_g:50,fat_g:15} },
+
+    { name:"Banana Peanut Butter Oat Bowl", emoji:"🍌", time:10, why:"Zero cooking, maximum energy — ready in 10 minutes flat",
+      photo:"",
+      ingredients:[
+        {n:"Rolled oats",pp:50,u:"g"},{n:"Full cream milk",pp:150,u:"ml"},
+        {n:"Banana (mashed)",pp:120,u:"g"},{n:"Peanut butter",pp:30,u:"g"},
+        {n:"Cinnamon",pp:2,u:"g"},{n:"Pumpkin seeds (optional)",pp:10,u:"g"}
+      ],
+      method:["Mash banana in a bowl.","Add oats, milk, peanut butter and cinnamon. Stir well.","Let it sit 5 min to soften — or eat immediately for a chewier texture.","Top with pumpkin seeds."],
+      tip:"Make this the night before and refrigerate — overnight oats need zero morning effort. Swap milk for yoghurt for extra protein.",
+      nutrition:{kcal:480,protein_g:15,carbs_g:65,fat_g:18} },
+  ],
+
+  pickmeup: [
+    { name:"Berry Yoghurt Smoothie Bowl", emoji:"🍓", time:10, why:"Antioxidant-rich and beautiful — feels like a treat but is genuinely good for you",
+      photo:"",
+      ingredients:[
+        {n:"Banana",pp:120,u:"g"},{n:"Mixed berries (frozen works perfectly)",pp:150,u:"g"},
+        {n:"Plain yoghurt",pp:150,u:"g"},{n:"Rolled oats",pp:30,u:"g"},
+        {n:"Mixed nuts (chopped)",pp:30,u:"g"},{n:"Honey (optional)",pp:10,u:"g"}
+      ],
+      method:["Blend banana, berries and yoghurt until smooth.","Pour into a bowl.","Top with oats and chopped nuts.","Drizzle with honey if using."],
+      tip:"Frozen berries are cheaper and work just as well as fresh. The oats and nuts add crunch and keep you full longer.",
+      nutrition:{kcal:420,protein_g:15,carbs_g:55,fat_g:15} },
+
+    { name:"Mango Chilli Chicken Wraps", emoji:"🌯", time:20, why:"Sweet heat — the kind of meal that genuinely lifts your spirits",
+      photo:"",
+      ingredients:[
+        {n:"Chicken breast (sliced into strips)",pp:150,u:"g"},{n:"Ripe mango (diced)",pp:80,u:"g"},
+        {n:"Flour tortilla",pp:60,u:"g"},{n:"Fresh chilli (sliced)",pp:5,u:"g"},
+        {n:"Fresh coriander",pp:10,u:"g"},{n:"Lime juice",pp:15,u:"ml"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Heat oil in a pan over high heat. Season chicken and fry 8–10 min until golden and cooked through.","Add mango and chilli for the last 3 min.","Warm tortilla in a dry pan 30 sec per side.","Fill with chicken mixture and scatter over coriander. Squeeze lime juice over. Roll up."],
+      tip:"Can't find mango? Tinned peach works surprisingly well. Make your own tortilla with 100g flour, 60ml water, pinch salt — fry in a dry pan.",
+      nutrition:{kcal:450,protein_g:30,carbs_g:45,fat_g:12} },
+
+    { name:"Turmeric Golden Milk Oat Porridge", emoji:"🌟", time:12, why:"Anti-inflammatory and warming — feel-good food from the inside out",
+      photo:"",
+      ingredients:[
+        {n:"Rolled oats",pp:50,u:"g"},{n:"Full cream milk",pp:300,u:"ml"},
+        {n:"Ground turmeric",pp:5,u:"g"},{n:"Fresh ginger (grated)",pp:5,u:"g"},
+        {n:"Banana (sliced)",pp:120,u:"g"},{n:"Mixed nuts (roughly chopped)",pp:30,u:"g"},
+        {n:"Honey",pp:10,u:"g"},{n:"Cinnamon",pp:1,u:"g"}
+      ],
+      method:["Combine oats, milk, turmeric, ginger and cinnamon in a small pot.","Simmer over medium heat stirring regularly for 7–8 min until thick and creamy.","Pour into a bowl. Top with sliced banana and nuts.","Drizzle with honey."],
+      tip:"The turmeric and ginger are genuinely anti-inflammatory. Use plant milk if preferred. Make a big batch — reheats perfectly with a splash of milk.",
+      nutrition:{kcal:460,protein_g:14,carbs_g:60,fat_g:18} },
+  ],
+
+  sick: [
+    { name:"Healing Chicken Ginger Broth", emoji:"🍜", time:35, why:"The ultimate sick-day soup — soothing, hydrating, deeply nourishing",
+      photo:"",
+      ingredients:[
+        {n:"Chicken thigh (bone-in)",pp:150,u:"g"},{n:"Carrot (sliced)",pp:100,u:"g"},
+        {n:"Onion (quartered)",pp:80,u:"g"},{n:"Fresh ginger (sliced)",pp:30,u:"g"},
+        {n:"Garlic cloves (crushed)",pp:10,u:"g"},{n:"Fresh thyme",pp:5,u:"g"},
+        {n:"Water",pp:500,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Place all ingredients in a pot. Bring to the boil. Skim any foam off the top.","Reduce heat. Simmer gently for 30 min.","Remove chicken. Shred meat off the bone and return to the pot. Discard bone.","Taste and season with salt. Sip as soup or serve over rice."],
+      tip:"The ginger and garlic have genuine antibacterial properties. The more you simmer, the deeper the flavour and the more nourishing the broth. Can be made in advance and reheated.",
+      nutrition:{kcal:250,protein_g:28,carbs_g:15,fat_g:8} },
+
+    { name:"Turmeric Coconut Lentil Soup", emoji:"🥣", time:30, why:"Gut-friendly, anti-inflammatory, easy to digest — gentle on a sick stomach",
+      photo:"",
+      ingredients:[
+        {n:"Red lentils (rinsed)",pp:100,u:"g"},{n:"Carrot (diced)",pp:100,u:"g"},
+        {n:"Coconut milk",pp:200,u:"ml"},{n:"Ground turmeric",pp:5,u:"g"},
+        {n:"Garlic (minced)",pp:10,u:"g"},{n:"Lemon juice",pp:15,u:"ml"},
+        {n:"Water",pp:400,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Fry garlic and turmeric in a small amount of oil for 1 min.","Add red lentils, carrot, coconut milk and water. Bring to the boil.","Simmer 20 min until lentils are completely soft.","Squeeze in lemon juice. Season. Blend smooth if desired."],
+      tip:"Red lentils dissolve into the soup as they cook — no soaking needed and they're extremely easy to digest. Blend for a silky smooth texture.",
+      nutrition:{kcal:380,protein_g:15,carbs_g:40,fat_g:15} },
+
+    { name:"Ginger Honey Oats with Lemon Tea", emoji:"🫖", time:15, why:"The gentlest possible meal — soothing for throat, stomach and soul",
+      photo:"",
+      ingredients:[
+        {n:"Rolled oats",pp:50,u:"g"},{n:"Full cream milk",pp:200,u:"ml"},
+        {n:"Water",pp:100,u:"ml"},{n:"Honey",pp:15,u:"g"},
+        {n:"Fresh ginger (grated)",pp:10,u:"g"},{n:"Lemon juice",pp:15,u:"ml"},
+        {n:"Cinnamon",pp:1,u:"g"}
+      ],
+      method:["Cook oats in milk and water over medium heat, stirring, for 5–7 min until creamy.","Stir in ginger and cinnamon.","Pour into a bowl. Drizzle over honey.","Make a separate mug of hot water with lemon juice and a little honey to sip alongside."],
+      tip:"Honey has mild antibacterial properties and is genuinely soothing for a sore throat. The ginger helps with nausea. Eat this warm, not hot.",
+      nutrition:{kcal:280,protein_g:8,carbs_g:55,fat_g:4} },
+  ],
+
+  impress: [
+    { name:"Rosemary Garlic Lamb Chops with Roasted Veg", emoji:"🍖", time:35, why:"Restaurant quality, minimal technique — always gets compliments",
+      photo:"",
+      ingredients:[
+        {n:"Lamb loin chops",pp:180,u:"g"},{n:"Fresh rosemary (chopped)",pp:10,u:"g"},
+        {n:"Garlic (crushed)",pp:15,u:"g"},{n:"Potato (halved)",pp:200,u:"g"},
+        {n:"Asparagus",pp:150,u:"g"},{n:"Olive oil",pp:15,u:"ml"},
+        {n:"Lemon (for serving)",pp:0.25,u:""},{n:"Salt & black pepper",pp:null,u:""}
+      ],
+      method:["Rub lamb chops with garlic, rosemary, olive oil, salt and pepper. Rest 10 min.","Toss potatoes in oil and season. Roast at 200°C for 15 min.","Add lamb to the roasting pan. Roast 12–15 min (pink inside) or 18 min (well done).","Steam or griddle asparagus 4–5 min. Serve with a lemon wedge."],
+      tip:"Rest the lamb 5 min under foil before serving — it makes a real difference. Serve with a simple mint yoghurt: plain yoghurt + fresh mint + pinch of salt.",
+      nutrition:{kcal:580,protein_g:42,carbs_g:38,fat_g:28} },
+
+    { name:"Creamy Garlic Prawn Linguine", emoji:"🦐", time:28, why:"Looks like fine dining, comes together in under 30 minutes",
+      photo:"",
+      ingredients:[
+        {n:"Prawns (peeled, deveined)",pp:160,u:"g"},{n:"Linguine or spaghetti",pp:100,u:"g"},
+        {n:"Garlic (finely sliced)",pp:20,u:"g"},{n:"Fresh cream",pp:150,u:"ml"},
+        {n:"Butter",pp:20,u:"g"},{n:"Fresh parsley (chopped)",pp:10,u:"g"},
+        {n:"Red chilli (sliced)",pp:5,u:"g"},{n:"Lemon juice",pp:20,u:"ml"},
+        {n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Cook pasta in salted boiling water until al dente. Reserve 50ml pasta water before draining.","Melt butter in a wide pan. Fry garlic and chilli 1 min — don't let it burn.","Add prawns. Cook 3–4 min until pink. Remove prawns and set aside.","Add cream and lemon juice to the pan. Simmer 3 min until slightly reduced.","Toss pasta in the sauce, adding a splash of pasta water if needed. Return prawns.","Finish with parsley and black pepper."],
+      tip:"The secret is pasta water — the starch makes the sauce silky and helps it cling to the pasta. Don't skip this step.",
+      nutrition:{kcal:620,protein_g:35,carbs_g:52,fat_g:28} },
+
+    { name:"Pan-Seared Steak with Mushroom Cream Sauce", emoji:"🥩", time:30, why:"A classic that never fails to impress — learn this one recipe and use it forever",
+      photo:"",
+      ingredients:[
+        {n:"Sirloin or rump steak",pp:180,u:"g"},{n:"Mixed mushrooms (sliced)",pp:150,u:"g"},
+        {n:"Butter",pp:15,u:"g"},{n:"Garlic (crushed)",pp:10,u:"g"},
+        {n:"Fresh cream",pp:100,u:"ml"},{n:"Fresh thyme",pp:3,u:"g"},
+        {n:"Olive oil",pp:10,u:"ml"},{n:"Salt & black pepper",pp:null,u:""}
+      ],
+      method:["Take steak out of fridge 20 min before cooking. Pat dry with paper towel. Season generously.","Heat oil in a heavy pan until almost smoking. Sear steak 3–4 min per side. Add butter and baste last 2 min.","Rest steak on a board, loosely covered, for 5 min.","In the same pan, fry mushrooms and garlic 4 min. Add cream and thyme. Simmer 3–4 min until thickened.","Slice steak against the grain. Pour mushroom sauce over."],
+      tip:"NEVER press the steak down with a spatula — you're squeezing out the juices. The resting period is non-negotiable. Cutting against the grain makes it tender.",
+      nutrition:{kcal:550,protein_g:45,carbs_g:8,fat_g:38} },
+  ],
+
+  healthy: [
+    { name:"Lemon Herb Grilled Chicken Quinoa Bowl", emoji:"🥗", time:30, why:"High protein, complex carbs, genuinely delicious — not sad diet food",
+      photo:"",
+      ingredients:[
+        {n:"Chicken breast",pp:150,u:"g"},{n:"Quinoa (uncooked)",pp:60,u:"g"},
+        {n:"Cucumber (diced)",pp:100,u:"g"},{n:"Tomato (diced)",pp:100,u:"g"},
+        {n:"Avocado (sliced)",pp:70,u:"g"},{n:"Lemon juice",pp:30,u:"ml"},
+        {n:"Fresh herbs (parsley or coriander)",pp:10,u:"g"},
+        {n:"Olive oil",pp:15,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Cook quinoa: rinse, then simmer in double the volume of water for 15 min. Fluff with a fork.","Season chicken with salt, pepper and half the lemon juice. Grill or pan-fry 6–7 min per side.","Let chicken rest 3 min. Slice.","Assemble bowl: quinoa base, sliced chicken, cucumber, tomato and avocado.","Whisk remaining lemon juice with olive oil and herbs. Drizzle over."],
+      tip:"Quinoa is a complete protein — it contains all essential amino acids. Cook a big batch on Sunday for quick healthy meals all week.",
+      nutrition:{kcal:480,protein_g:42,carbs_g:45,fat_g:18} },
+
+    { name:"Mediterranean Chickpea & Feta Salad", emoji:"🫘", time:20, why:"No cooking required, packed with protein and fibre, genuinely satisfying",
+      photo:"",
+      ingredients:[
+        {n:"Cooked or tinned chickpeas (drained)",pp:200,u:"g"},
+        {n:"Feta cheese (crumbled)",pp:50,u:"g"},
+        {n:"Cucumber (diced)",pp:100,u:"g"},{n:"Tomato (diced)",pp:100,u:"g"},
+        {n:"Red onion (finely diced)",pp:20,u:"g"},{n:"Olive oil",pp:30,u:"ml"},
+        {n:"Lemon juice",pp:20,u:"ml"},{n:"Dried oreganum",pp:2,u:"g"},
+        {n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Drain and rinse chickpeas thoroughly.","Combine chickpeas, cucumber, tomato and red onion in a bowl.","Whisk olive oil, lemon juice and oreganum together.","Pour dressing over salad. Toss well.","Crumble feta over the top. Season with pepper."],
+      tip:"This gets better as it sits — make it 30 min ahead and let the flavours marry. Add pitted olives and roasted peppers if you want to push it further.",
+      nutrition:{kcal:420,protein_g:18,carbs_g:38,fat_g:22} },
+
+    { name:"Baked Hake with Sweet Potato & Broccoli", emoji:"🐟", time:32, why:"Omega-3s, complex carbs and greens in one simple bake",
+      photo:"",
+      ingredients:[
+        {n:"Hake fillet",pp:160,u:"g"},{n:"Sweet potato (cubed)",pp:200,u:"g"},
+        {n:"Broccoli (florets)",pp:150,u:"g"},{n:"Garlic (minced)",pp:10,u:"g"},
+        {n:"Olive oil",pp:20,u:"ml"},{n:"Lemon juice",pp:20,u:"ml"},
+        {n:"Paprika",pp:2,u:"g"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Preheat oven to 200°C.","Toss sweet potato in oil, salt and paprika. Roast 15 min.","Add broccoli and garlic to the tray. Push to the sides.","Place hake in the centre. Drizzle with olive oil and lemon juice. Season.","Bake a further 15 min until fish flakes easily."],
+      tip:"Frozen hake works perfectly here — defrost overnight in the fridge. The sweet potato absorbs all the lemon and garlic from the fish. White fish is one of the leanest proteins available.",
+      nutrition:{kcal:410,protein_g:35,carbs_g:42,fat_g:12} },
+  ],
+
+  quick: [
+    { name:"Garlic Egg Fried Rice", emoji:"🍳", time:15, why:"15 minutes from cold pan to hot plate — uses what everyone has at home",
+      photo:"",
+      ingredients:[
+        {n:"Cooked rice (cold, leftover)",pp:200,u:"g"},{n:"Eggs",pp:2,u:""},
+        {n:"Frozen peas",pp:80,u:"g"},{n:"Garlic (minced)",pp:15,u:"g"},
+        {n:"Spring onion (sliced)",pp:15,u:"g"},{n:"Oil",pp:10,u:"ml"},
+        {n:"Soy sauce (or salt + dash vinegar)",pp:15,u:"ml"}
+      ],
+      method:["Heat oil in a wok or large pan until very hot.","Fry garlic 30 sec. Add cold rice — press flat and let it fry undisturbed 2 min.","Push rice to the side. Crack eggs into the gap. Scramble, then mix into rice.","Add peas and soy sauce. Toss 2 min. Scatter spring onion over. Serve immediately."],
+      tip:"This only works with cold day-old rice — fresh warm rice goes soggy. Keep leftover rice in the fridge exactly for this purpose.",
+      nutrition:{kcal:430,protein_g:16,carbs_g:65,fat_g:12} },
+
+    { name:"Speedy Lemon Chicken Strips", emoji:"🍋", time:18, why:"Fast, lean, flavourful — proper protein in under 20 minutes",
+      photo:"",
+      ingredients:[
+        {n:"Chicken breast (sliced into strips)",pp:150,u:"g"},
+        {n:"Lemon juice",pp:30,u:"ml"},{n:"Garlic (minced)",pp:15,u:"g"},
+        {n:"Baby spinach",pp:100,u:"g"},{n:"Oil",pp:10,u:"ml"},
+        {n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Season chicken strips with salt, pepper and half the lemon juice.","Heat oil in a pan over high heat. Fry chicken and garlic 8–10 min until golden and cooked through.","Add remaining lemon juice and spinach. Toss until spinach wilts, about 1 min.","Serve over rice or with bread."],
+      tip:"Slice chicken thinner and it cooks faster. The lemon juice deglazes the pan and picks up all the flavour stuck to the bottom.",
+      nutrition:{kcal:320,protein_g:38,carbs_g:8,fat_g:14} },
+
+    { name:"Quick Veggie Omelette", emoji:"🥚", time:12, why:"The fastest hot meal — 3 eggs and whatever is in the fridge",
+      photo:"",
+      ingredients:[
+        {n:"Eggs",pp:3,u:""},{n:"Tomato (diced)",pp:100,u:"g"},
+        {n:"Baby spinach",pp:80,u:"g"},{n:"Cheddar or any cheese (grated)",pp:40,u:"g"},
+        {n:"Oil or butter",pp:10,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Beat eggs with salt and pepper.","Heat oil in a non-stick pan over medium heat. Pour in eggs.","As the edges set, lift them and tilt the pan to let raw egg flow underneath.","When mostly set, scatter tomato, spinach and cheese over one half.","Fold in half. Serve immediately."],
+      tip:"The perfect omelette is pale yellow outside, just barely set inside. Medium heat, not high. Any veg or leftovers work as a filling.",
+      nutrition:{kcal:380,protein_g:24,carbs_g:10,fat_g:26} },
+  ],
+
+  lazy: [
+    { name:"Dump & Bake Chicken & Rice", emoji:"🍚", time:40, why:"Everything goes in one dish — 8 minutes of effort, the oven does the rest",
+      photo:"",
+      ingredients:[
+        {n:"Chicken thighs (bone-in)",pp:150,u:"g"},{n:"White rice (uncooked)",pp:70,u:"g"},
+        {n:"Chicken stock",pp:200,u:"ml"},{n:"Carrot (sliced)",pp:100,u:"g"},
+        {n:"Garlic (crushed)",pp:15,u:"g"},{n:"Paprika",pp:2,u:"g"},
+        {n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Preheat oven to 190°C.","Put rice in the base of a baking dish. Pour stock over.","Place carrot and garlic on top of rice. Season.","Place chicken thighs on top. Sprinkle with paprika. Season well.","Cover tightly with foil. Bake 35 min. Remove foil last 5 min to brown skin."],
+      tip:"The rice absorbs all the chicken juices as it cooks — it's incredibly flavourful. Do NOT lift the foil before 35 min or the steam escapes and rice won't cook.",
+      nutrition:{kcal:480,protein_g:35,carbs_g:52,fat_g:14} },
+
+    { name:"One-Pot Lentil & Vegetable Stew", emoji:"🫘", time:35, why:"One pot, rough chop, walk away — warm hearty food with minimal effort",
+      photo:"",
+      ingredients:[
+        {n:"Brown or green lentils",pp:100,u:"g"},{n:"Potato (cubed)",pp:150,u:"g"},
+        {n:"Carrot (sliced)",pp:100,u:"g"},{n:"Onion (roughly chopped)",pp:80,u:"g"},
+        {n:"Garlic (crushed)",pp:10,u:"g"},{n:"Tinned tomatoes",pp:100,u:"g"},
+        {n:"Vegetable stock or water",pp:400,u:"ml"},{n:"Curry powder",pp:3,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Heat oil in a pot. Fry onion and garlic 3 min — just soften, don't stress about colour.","Add curry powder, stir 1 min.","Add everything else. Bring to boil.","Reduce heat, cover, simmer 25 min until lentils and potatoes are soft. Season."],
+      tip:"Brown lentils hold their shape better than red lentils if you prefer texture. This freezes perfectly — make double and freeze half.",
+      nutrition:{kcal:390,protein_g:22,carbs_g:65,fat_g:5} },
+
+    { name:"Cheesy Broccoli Baked Potatoes", emoji:"🥔", time:38, why:"Microwave the potatoes, the oven does the rest — ultimate lazy comfort food",
+      photo:"",
+      ingredients:[
+        {n:"Large potatoes",pp:300,u:"g"},{n:"Broccoli (florets)",pp:150,u:"g"},
+        {n:"Cheddar (grated)",pp:60,u:"g"},{n:"Milk",pp:100,u:"ml"},
+        {n:"Butter",pp:15,u:"g"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Pierce potatoes with a fork. Microwave 8–10 min until soft (or bake at 200°C for 45 min).","Steam broccoli 5 min until just tender.","Cut potatoes in half. Scoop out flesh into a bowl.","Mash with butter, milk, salt and pepper. Mix in broccoli.","Spoon back into potato skins. Top with cheese.","Grill 3–4 min until cheese is bubbling and golden."],
+      tip:"If you don't have a microwave, pierce the potato and wrap in damp paper towel — it speeds up oven cooking. Any leftover cheese and veg works as filling.",
+      nutrition:{kcal:460,protein_g:18,carbs_g:68,fat_g:14} },
+  ],
+
+  fussy: [
+    { name:"Hidden Veg Mini Meatballs with Pasta", emoji:"🍝", time:30, why:"Kids eat the veg without knowing — sneaky nutrition in every bite",
+      photo:"",
+      ingredients:[
+        {n:"Beef mince",pp:150,u:"g"},{n:"Carrot (finely grated)",pp:40,u:"g"},
+        {n:"Zucchini / baby marrow (finely grated)",pp:40,u:"g"},
+        {n:"Breadcrumbs",pp:25,u:"g"},{n:"Egg",pp:0.5,u:""},
+        {n:"Pasta (any shape kids like)",pp:80,u:"g"},
+        {n:"Tinned tomatoes (for sauce)",pp:100,u:"g"},
+        {n:"Garlic (crushed)",pp:5,u:"g"},{n:"Oil",pp:10,u:"ml"},
+        {n:"Salt",pp:null,u:""}
+      ],
+      method:["Squeeze moisture out of grated zucchini with your hands. Mix with mince, carrot, breadcrumbs and egg. Season.","Roll into small balls (2cm diameter).","Brown meatballs in oil 6–8 min. Remove and set aside.","In the same pan, fry garlic 1 min. Add tomatoes. Simmer 8 min. Return meatballs to sauce.","Cook pasta separately. Serve meatballs and sauce over pasta."],
+      tip:"The grated vegetables completely disappear into the meatballs — kids will never know. The moisture from the veg also keeps meatballs tender and juicy.",
+      nutrition:{kcal:520,protein_g:32,carbs_g:55,fat_g:16} },
+
+    { name:"Cheesy Chicken Quesadillas", emoji:"🧀", time:18, why:"Crispy, cheesy, easy to eat — kids always say yes to quesadillas",
+      photo:"",
+      ingredients:[
+        {n:"Chicken breast (cooked, shredded)",pp:120,u:"g"},
+        {n:"Cheddar or mozzarella (grated)",pp:60,u:"g"},
+        {n:"Flour tortillas (small)",pp:60,u:"g"},
+        {n:"Mild tomato or tomato sauce",pp:30,u:"g"},
+        {n:"Oil",pp:5,u:"ml"}
+      ],
+      method:["Spread tomato sauce on one tortilla.","Top with shredded chicken and cheese. Place second tortilla on top.","Heat a dry pan over medium heat. Place quesadilla in pan.","Cook 2–3 min until golden. Carefully flip. Cook 2 min more.","Remove and cut into triangles with scissors or a knife."],
+      tip:"Use leftover roast chicken, rotisserie chicken, or poach a breast for 15 min. Cut into triangles with kitchen scissors — kids love picking up the points.",
+      nutrition:{kcal:480,protein_g:35,carbs_g:42,fat_g:20} },
+
+    { name:"Smiley Face Veggie Mini Pizzas", emoji:"🍕", time:28, why:"Kids make their own smiley faces — they always eat what they create",
+      photo:"",
+      ingredients:[
+        {n:"Pizza bases or English muffins",pp:100,u:"g"},
+        {n:"Tinned tomato or pizza sauce",pp:40,u:"g"},
+        {n:"Mozzarella or cheddar (grated)",pp:60,u:"g"},
+        {n:"Cherry tomatoes (halved)",pp:30,u:"g"},
+        {n:"Olive slices (eyes)",pp:10,u:"g"},
+        {n:"Bell pepper strips (mouth)",pp:20,u:"g"},
+        {n:"Mushrooms sliced (optional extras)",pp:20,u:"g"}
+      ],
+      method:["Preheat oven to 200°C.","Spread tomato sauce on bases. Scatter cheese over.","Set out the toppings and let kids make their own smiley faces.","Bake 10–12 min until cheese is melted and bases are golden."],
+      tip:"The golden rule: kids eat what they make themselves. Lay out the toppings in small bowls and step back. Even the fussiest eaters engage with food they've assembled.",
+      nutrition:{kcal:450,protein_g:18,carbs_g:65,fat_g:14} },
+  ],
+
+  cold: [
+    { name:"Hearty Beef & Root Vegetable Stew", emoji:"🥘", time:90, why:"The ultimate cold-day pot — beef falls apart, house smells incredible",
+      photo:"",
+      ingredients:[
+        {n:"Beef stew meat (chuck or shin, cubed)",pp:180,u:"g"},
+        {n:"Carrot (chunked)",pp:100,u:"g"},{n:"Potato (quartered)",pp:150,u:"g"},
+        {n:"Onion (diced)",pp:100,u:"g"},{n:"Garlic (crushed)",pp:10,u:"g"},
+        {n:"Beef stock",pp:300,u:"ml"},{n:"Flour (for dusting)",pp:10,u:"g"},
+        {n:"Tomato paste",pp:15,u:"g"},{n:"Fresh thyme",pp:3,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Dust beef cubes in flour. Season well.","Brown beef in hot oil in batches — don't overcrowd. Remove and set aside.","Fry onion and garlic in the same pot 3 min. Add tomato paste. Cook 1 min.","Return beef. Add stock and thyme. Bring to boil. Cover, simmer 45 min.","Add carrots and potatoes. Cook uncovered 30 min until beef is tender and sauce is thick.","Season well. Serve with bread to mop up the gravy."],
+      tip:"Browning the beef in batches is the most important step — it builds the flavour base. If you skip this the stew tastes flat. Shin takes longer to cook than chuck but has more collagen and makes a richer gravy.",
+      nutrition:{kcal:520,protein_g:38,carbs_g:45,fat_g:18} },
+
+    { name:"Thick Tomato & Lentil Soup with Bread", emoji:"🍅", time:40, why:"Cheap, filling, warming — this is what cold days were made for",
+      photo:"",
+      ingredients:[
+        {n:"Red lentils (rinsed)",pp:80,u:"g"},{n:"Tinned tomatoes",pp:200,u:"g"},
+        {n:"Onion (diced)",pp:60,u:"g"},{n:"Garlic (crushed)",pp:10,u:"g"},
+        {n:"Carrot (diced)",pp:60,u:"g"},{n:"Vegetable or chicken stock",pp:400,u:"ml"},
+        {n:"Smoked paprika",pp:3,u:"g"},{n:"Cumin",pp:2,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Fry onion, garlic and carrot in oil 5 min until soft.","Add paprika and cumin. Fry 1 min.","Add tomatoes, lentils and stock. Bring to boil.","Simmer 25 min until lentils have dissolved into the soup.","Blend partially for a thick, chunky texture — or fully for smooth.","Season well. Serve with crusty bread."],
+      tip:"Smoked paprika is the secret weapon here — it adds depth and a slight smokiness that tastes like it took hours. A swirl of cream or a drizzle of olive oil to serve makes it feel special.",
+      nutrition:{kcal:380,protein_g:18,carbs_g:55,fat_g:8} },
+
+    { name:"Warm Butternut & Lentil Curry", emoji:"🎃", time:40, why:"Thick, spiced, warming — a vegetarian pot that satisfies like meat",
+      photo:"",
+      ingredients:[
+        {n:"Butternut (cubed)",pp:200,u:"g"},{n:"Red lentils",pp:80,u:"g"},
+        {n:"Onion (diced)",pp:60,u:"g"},{n:"Garlic (crushed)",pp:10,u:"g"},
+        {n:"Coconut milk",pp:150,u:"ml"},{n:"Vegetable stock",pp:200,u:"ml"},
+        {n:"Curry powder",pp:5,u:"g"},{n:"Ground ginger",pp:2,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Fry onion and garlic in oil 3 min. Add curry powder and ginger — fry 2 min.","Add butternut and stir to coat with spices.","Add lentils, coconut milk and stock. Bring to boil.","Simmer uncovered 25 min until butternut is tender and lentils have broken down.","Season. Serve with rice or bread."],
+      tip:"Butternut is one of the cheapest and most nutritious vegetables in SA. When it's in season, buy a whole one — it keeps for weeks on the counter.",
+      nutrition:{kcal:430,protein_g:16,carbs_g:58,fat_g:14} },
+  ],
+
+  sweet: [
+    { name:"Baked Cinnamon Apples with Vanilla Yoghurt", emoji:"🍎", time:25, why:"Feels completely indulgent, genuinely healthy — warm, fragrant, satisfying",
+      photo:"",
+      ingredients:[
+        {n:"Apple (large)",pp:200,u:"g"},{n:"Butter",pp:15,u:"g"},
+        {n:"Honey",pp:15,u:"g"},{n:"Cinnamon",pp:3,u:"g"},
+        {n:"Walnuts or pecan nuts (roughly chopped)",pp:20,u:"g"},
+        {n:"Plain yoghurt",pp:150,u:"g"},{n:"Vanilla essence",pp:2,u:"ml"}
+      ],
+      method:["Preheat oven to 180°C.","Core each apple from the top, leaving the base intact.","Mix butter, honey, cinnamon and nuts. Press into the hollow of each apple.","Place in a baking dish with 2 tbsp water in the base.","Bake 20 min until apples are soft and caramelised.","Mix yoghurt with vanilla. Serve baked apple with yoghurt alongside."],
+      tip:"Granny Smith apples hold their shape better when baked. Golden Delicious go softer and sweeter. Both are excellent. The yoghurt and honey are a better pairing than cream.",
+      nutrition:{kcal:320,protein_g:6,carbs_g:48,fat_g:12} },
+
+    { name:"Banana Oat Pancakes", emoji:"🥞", time:20, why:"3 ingredients, no flour, no sugar — tastes like a proper treat",
+      photo:"",
+      ingredients:[
+        {n:"Banana (ripe, mashed)",pp:120,u:"g"},{n:"Rolled oats",pp:60,u:"g"},
+        {n:"Eggs",pp:1,u:""},{n:"Full cream milk",pp:50,u:"ml"},
+        {n:"Cinnamon",pp:2,u:"g"},{n:"Oil or butter",pp:10,u:"ml"},
+        {n:"Honey or maple syrup to serve",pp:15,u:"g"}
+      ],
+      method:["Mash banana thoroughly in a bowl.","Add oats, egg, milk and cinnamon. Mix well. Let sit 2 min.","Heat a little oil in a non-stick pan over medium heat.","Drop spoonfuls of batter in. Cook 2–3 min until bubbles form and edges look dry.","Flip carefully. Cook 2 min more.","Serve with a drizzle of honey."],
+      tip:"The riper the banana, the sweeter and more banana-flavoured the pancakes. Black-spotted bananas are ideal. These freeze well — pop in the toaster to reheat.",
+      nutrition:{kcal:380,protein_g:12,carbs_g:58,fat_g:10} },
+
+    { name:"Chocolate Chia Pudding with Strawberries", emoji:"🍫", time:10, why:"10 minutes prep, then it sets itself — a make-ahead treat with zero guilt",
+      photo:"",
+      ingredients:[
+        {n:"Chia seeds",pp:30,u:"g"},{n:"Full cream milk",pp:200,u:"ml"},
+        {n:"Cocoa powder (unsweetened)",pp:15,u:"g"},{n:"Honey",pp:15,u:"g"},
+        {n:"Strawberries (sliced)",pp:100,u:"g"},{n:"Vanilla essence",pp:2,u:"ml"}
+      ],
+      method:["Whisk milk, cocoa powder, honey and vanilla together until smooth.","Add chia seeds and stir well.","Stir again after 5 min to prevent clumping.","Refrigerate at least 30 min (or overnight) until thick and pudding-like.","Top with sliced strawberries before serving."],
+      tip:"This must be made ahead — it needs at least 30 min to set but overnight is better. Chia seeds are nutritionally exceptional: omega-3, protein and fibre. Use coconut milk for a richer flavour.",
+      nutrition:{kcal:290,protein_g:10,carbs_g:35,fat_g:14} },
+  ],
+
+  adventurous: [
+    { name:"Thai Basil Beef Stir-Fry", emoji:"🌿", time:22, why:"Bold, aromatic, completely different from everyday cooking",
+      photo:"",
+      ingredients:[
+        {n:"Beef strips (rump or sirloin)",pp:150,u:"g"},
+        {n:"Fresh basil (large handful)",pp:20,u:"g"},
+        {n:"Garlic (thinly sliced)",pp:15,u:"g"},{n:"Fresh ginger (grated)",pp:15,u:"g"},
+        {n:"Red chilli (sliced)",pp:10,u:"g"},{n:"Green beans (trimmed)",pp:100,u:"g"},
+        {n:"Oil",pp:15,u:"ml"},{n:"Lime juice",pp:20,u:"ml"},
+        {n:"Soy sauce",pp:15,u:"ml"},{n:"Fish sauce (optional)",pp:5,u:"ml"}
+      ],
+      method:["Get a wok or large pan VERY hot. Add oil.","Fry garlic, ginger and chilli 30 sec — it should sizzle loudly.","Add beef strips. Stir-fry on high heat 3–4 min. Don't stir constantly — let it catch some colour.","Add green beans. Toss 2 min.","Remove from heat. Add basil, lime juice, soy and fish sauce. Toss.","Serve immediately over jasmine rice."],
+      tip:"High heat is non-negotiable for stir-fry — without it you get a steam rather than a fry. Add the basil off the heat so it doesn't go black. Thai basil is different from Italian basil but both work.",
+      nutrition:{kcal:390,protein_g:35,carbs_g:12,fat_g:22} },
+
+    { name:"Moroccan Chickpea Tagine", emoji:"🫙", time:40, why:"North African spices, dried fruit, depth of flavour — truly different",
+      photo:"",
+      ingredients:[
+        {n:"Tinned chickpeas (drained)",pp:200,u:"g"},
+        {n:"Butternut or sweet potato (cubed)",pp:150,u:"g"},
+        {n:"Tinned tomatoes",pp:100,u:"g"},{n:"Onion (diced)",pp:60,u:"g"},
+        {n:"Dried apricots (halved)",pp:30,u:"g"},
+        {n:"Chicken or vegetable stock",pp:150,u:"ml"},
+        {n:"Ground cumin",pp:3,u:"g"},{n:"Ground coriander",pp:2,u:"g"},
+        {n:"Cinnamon",pp:1,u:"g"},{n:"Smoked paprika",pp:2,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Fry onion in oil 5 min. Add all spices — fry 2 min, stirring constantly.","Add butternut, tomatoes, stock and dried apricots. Stir well.","Bring to boil. Cover and simmer 20 min.","Add chickpeas. Simmer uncovered 10 min until sauce thickens and butternut is soft.","Season. Serve with couscous or bread."],
+      tip:"The combination of spiced vegetables, sweet dried fruit and chickpeas is a genuine North African flavour profile. Serve with couscous: pour 150ml boiling water over 80g couscous per person, cover 5 min, fluff.",
+      nutrition:{kcal:420,protein_g:18,carbs_g:68,fat_g:8} },
+
+    { name:"Korean-Style Beef Rice Bowl", emoji:"🍚", time:25, why:"Sticky, caramelised, umami-rich — completely addictive",
+      photo:"",
+      ingredients:[
+        {n:"Beef mince or thin strips",pp:150,u:"g"},
+        {n:"Soy sauce",pp:20,u:"ml"},{n:"Honey",pp:15,u:"g"},
+        {n:"Garlic (minced)",pp:15,u:"g"},{n:"Ginger (grated)",pp:10,u:"g"},
+        {n:"Sesame oil",pp:5,u:"ml"},{n:"White rice (uncooked)",pp:80,u:"g"},
+        {n:"Baby spinach",pp:80,u:"g"},{n:"Spring onion (sliced)",pp:15,u:"g"},
+        {n:"Sesame seeds",pp:5,u:"g"},{n:"Chilli flakes (optional)",pp:1,u:"g"}
+      ],
+      method:["Cook rice.","Mix soy sauce, honey, garlic, ginger and sesame oil together.","Fry beef in a hot pan 5 min. Add marinade sauce. Cook 3–4 min until caramelised and sticky.","Wilt spinach in the pan with the beef for 1 min.","Serve over rice. Top with spring onion, sesame seeds and chilli flakes."],
+      tip:"Sesame oil is the key flavour here — a little goes a long way. Don't substitute it. The honey and soy together create the characteristic sticky glaze. Gochujang paste (Korean chilli paste) is an excellent addition if available.",
+      nutrition:{kcal:480,protein_g:32,carbs_g:55,fat_g:15} },
+  ],
+
+  celebrating: [
+    { name:"Roast Garlic Rosemary Leg of Lamb", emoji:"🍖", time:90, why:"The centrepiece of any South African celebration — nothing says special like lamb",
+      photo:"",
+      ingredients:[
+        {n:"Leg or shoulder of lamb",pp:350,u:"g"},
+        {n:"Fresh rosemary",pp:10,u:"g"},{n:"Garlic cloves",pp:15,u:"g"},
+        {n:"Olive oil",pp:15,u:"ml"},{n:"Potato (halved)",pp:200,u:"g"},
+        {n:"Carrot (chunked)",pp:100,u:"g"},{n:"Lemon juice",pp:20,u:"ml"},
+        {n:"Salt & black pepper",pp:null,u:""}
+      ],
+      method:["Preheat oven to 200°C. Make small cuts all over the lamb with a knife.","Push slices of garlic and small rosemary sprigs into the cuts.","Rub all over with olive oil, lemon juice, salt and pepper.","Place potatoes and carrots in the roasting pan. Place lamb on top.","Roast 20 min per 500g for medium, plus 20 min extra (approx 70–90 min for a 2kg leg).","Rest 20 min covered with foil before carving."],
+      tip:"The garlic and rosemary pushed into the cuts perfume the entire joint. Resting is non-negotiable — a well-rested leg will be more juicy. Use the pan juices to make gravy by deglazing with a little stock.",
+      nutrition:{kcal:620,protein_g:45,carbs_g:42,fat_g:30} },
+
+    { name:"Seafood Rice (Paella Style)", emoji:"🦐", time:45, why:"A spectacular sharing dish — colourful, fragrant, looks like a feast",
+      photo:"",
+      ingredients:[
+        {n:"White rice",pp:80,u:"g"},{n:"Prawns (peeled)",pp:100,u:"g"},
+        {n:"Mussels",pp:80,u:"g"},{n:"Tinned tomatoes",pp:100,u:"g"},
+        {n:"Onion (diced)",pp:30,u:"g"},{n:"Garlic (crushed)",pp:10,u:"g"},
+        {n:"Chicken or fish stock",pp:300,u:"ml"},
+        {n:"Turmeric",pp:2,u:"g"},{n:"Smoked paprika",pp:2,u:"g"},
+        {n:"Oil",pp:10,u:"ml"},{n:"Lemon (for serving)",pp:0.25,u:""},
+        {n:"Fresh parsley",pp:5,u:"g"},{n:"Salt",pp:null,u:""}
+      ],
+      method:["Heat oil in a wide pan. Fry onion and garlic 3 min.","Add tomatoes, turmeric and paprika. Cook 3 min.","Add rice. Stir to coat. Add stock. Bring to boil.","Simmer uncovered 15 min, DO NOT stir.","Add mussels and prawns on top of the rice. Cover with foil.","Steam 8–10 min until rice has absorbed all liquid and seafood is cooked.","Scatter parsley. Serve with lemon wedges."],
+      tip:"Do NOT stir paella-style rice after adding the stock — you want a crust to form on the bottom called 'socarrat'. It's considered the best part. Add a pinch of saffron if you have it.",
+      nutrition:{kcal:480,protein_g:32,carbs_g:58,fat_g:12} },
+
+    { name:"Herb Butter Roast Chicken", emoji:"🍗", time:90, why:"The ultimate crowd-pleaser — everyone loves a perfect roast chicken",
+      photo:"",
+      ingredients:[
+        {n:"Whole chicken",pp:400,u:"g"},{n:"Softened butter",pp:40,u:"g"},
+        {n:"Garlic (minced)",pp:10,u:"g"},
+        {n:"Mixed fresh herbs (rosemary, thyme, parsley)",pp:10,u:"g"},
+        {n:"Lemon",pp:0.25,u:""},{n:"Potato (quartered)",pp:150,u:"g"},
+        {n:"Olive oil",pp:10,u:"ml"},{n:"Salt & pepper",pp:null,u:""}
+      ],
+      method:["Preheat oven to 200°C.","Mix butter with garlic, herbs, lemon zest, salt and pepper.","Carefully push butter under the chicken skin over the breast using your fingers.","Rub remaining butter over the outside. Season well.","Place lemon halves inside the cavity.","Toss potatoes in olive oil and season. Place in roasting pan. Put chicken on top.","Roast 20 min per 500g + 20 min extra. Juices run clear when done.","Rest 15 min before carving."],
+      tip:"Butter under the skin is the game-changer — it bastes the breast meat from inside as it cooks, keeping it moist. Always rest a roast chicken or the juices will run out when carved.",
+      nutrition:{kcal:580,protein_g:48,carbs_g:25,fat_g:32} },
+  ],
+};
+
+// ── MOOD PAGED SYSTEM ────────────────────────────────────────────
+// DB has 6 recipes per mood. Page 0 = first 3, Page 1 = next 3, Page 2+ = AI results.
+// AI starts fetching in background the moment a mood is selected.
+
+function getMoodPageRecipes(moodId, page) {
+  const db = MOOD_DB[moodId] || [];
+  const start = page * 3;
+  const slice = db.slice(start, start + 3);
+  if (slice.length === 0) return null;
+  return slice.map(r => ({...r, serves:1, _fromDB:true}));
+}
+
+async function startMoodAIFetch(mood) {
+  // Fire and forget — AI fetches 6 more recipes in background
+  if (S.moodAILoading || S.moodAIRecipes) return;
+  S.moodAILoading = true;
+  try {
+    const prompt = `You are Tinza Chef, a South African recipe assistant.
+Mood: "${mood.label}". Generate 6 different recipe suggestions for: ${mood.prompt}.
+
+Return ONLY a JSON array of exactly 6 recipes (no markdown, no backticks):
+[{"name":"Recipe name","emoji":"single emoji","serves":1,"time":25,"why":"One sentence why this fits the mood","ingredients":[{"n":"Ingredient","pp":100,"u":"g"}],"method":["Step 1","Step 2","Step 3"],"tip":"One practical tip","nutrition":{"kcal":400,"protein_g":25,"carbs_g":40,"fat_g":12}}]
+
+Rules: pp = amount per 1 person. Serves = 1. All grams or ml. SA ingredients. Vary suggestions well.`;
+
+    const resp = await fetch('/.netlify/functions/claude', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:4000,
+        messages:[{role:'user',content:prompt}]})
+    });
+    const data = await resp.json();
+    const text = (data.content||[]).map(b=>b.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const recipes = JSON.parse(clean);
+    S.moodAIRecipes = Array.isArray(recipes) ? recipes.map(r=>({...r,_fromAI:true})) : [];
+    S.moodAILoading = false;
+    draw(); // redraw silently when AI finishes
+  } catch(e) {
+    S.moodAILoading = false;
+  }
+}
+
+async function callMoodChef(mood) {
+  // Reset paging state
+  S.moodPage = 0;
+  S.moodAIRecipes = null;
+  S.moodAILoading = false;
+
+  // Show first 3 from DB instantly
+  const firstPage = getMoodPageRecipes(mood.id, 0);
+  S.moodRecipes = firstPage || [];
+  S.moodLoading = false;
+  draw();
+
+  // Start AI fetch in background immediately
+  startMoodAIFetch(mood);
+}
+
+function getMoreMoodRecipes(moodId) {
+  const mood = MOODS.find(m => m.id === moodId);
+  const nextPage = (S.moodPage || 0) + 1;
+  S.moodPage = nextPage;
+
+  // DB page 1 (recipes 4-6)
+  const dbPage = getMoodPageRecipes(moodId, nextPage);
+  if (dbPage) {
+    S.moodRecipes = dbPage;
+    draw();
+    return;
+  }
+
+  // DB exhausted — use AI recipes if ready
+  const aiOffset = (nextPage - 2) * 3; // pages 2,3 use AI bank
+  if (S.moodAIRecipes && S.moodAIRecipes.length > aiOffset) {
+    S.moodRecipes = S.moodAIRecipes.slice(aiOffset, aiOffset + 3);
+    draw();
+    return;
+  }
+
+  // AI still loading — show a waiting state and fire new AI call if needed
+  if (S.moodAILoading) {
+    S.moodRecipes = [{_waiting:true}];
+    draw();
+    // Poll until AI is done
+    const poll = setInterval(() => {
+      if (!S.moodAILoading) {
+        clearInterval(poll);
+        const aiOff = ((S.moodPage||0) - 2) * 3;
+        S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
+        if (S.moodRecipes.length === 0) {
+          S.moodRecipes = [{_error:true, _msg:'No more recipes found. Try a different mood.'}];
+        }
+        draw();
+      }
+    }, 800);
+    return;
+  }
+
+  // AI not started yet — fire it now and wait
+  if (mood) {
+    S.moodRecipes = [{_waiting:true}];
+    draw();
+    startMoodAIFetch(mood).then(() => {
+      const aiOff = ((S.moodPage||0) - 2) * 3;
+      S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
+      if (S.moodRecipes.length === 0) {
+        S.moodRecipes = [{_error:true, _msg:'No more recipes right now. Try again shortly.'}];
+      }
+      draw();
+    });
+  }
+}
+
 async function callMoodChef(mood){
+  // ── Try instant database first ──
+  const dbRecipes = getMoodRecipes(mood.id);
+  if(dbRecipes && dbRecipes.length > 0){
+    S.moodRecipes = dbRecipes;
+    S.moodLoading = false;
+    draw();
+    return;
+  }
+  // ── Fallback to AI for any mood not yet in DB ──
   S.moodLoading = true;
   S.moodRecipes = null;
   draw();
@@ -4443,16 +5959,16 @@ async function callMoodChef(mood){
 The user says: "${mood.label}". Generate 3 different recipe suggestions for: ${mood.prompt}.
 
 Return ONLY a JSON array (no markdown, no backticks, no explanation) of exactly 3 recipes:
-[{"name":"Recipe name","emoji":"single emoji","serves":4,"time":25,"why":"One short sentence why this fits the mood","ingredients":[{"n":"Ingredient name","pp":100,"u":"g"}],"method":["Step 1","Step 2","Step 3"],"tip":"One practical tip"}]
+[{"name":"Recipe name","emoji":"single emoji","serves":1,"time":25,"why":"One short sentence why this fits the mood","ingredients":[{"n":"Ingredient name","pp":100,"u":"g"}],"method":["Step 1","Step 2","Step 3"],"tip":"One practical tip","nutrition":{"kcal":400,"protein_g":25,"carbs_g":40,"fat_g":12}}]
 
-Rules: All amounts in grams (g) or millilitres (ml) only. pp = amount per 1 person. Use SA ingredients where appropriate. Vary the 3 suggestions.`;
+Rules: All amounts in grams (g) or millilitres (ml) only. pp = amount per 1 person. serves = 1. Use SA ingredients where appropriate. Vary the 3 suggestions. Include nutrition per serving.`;
 
     const resp = await fetch('/.netlify/functions/claude', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
+        max_tokens:3000,
         messages:[{role:'user',content:prompt}]
       })
     });
@@ -4531,6 +6047,29 @@ function moodHTML(){
             </div>`).join('')}
         </div>
 
+        <!-- Nutrition -->
+        ${r.nutrition?`<div style="background:#0a1008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:10px;">📊 Nutrition — per serving</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
+            <div style="background:#061008;border-radius:8px;padding:8px 4px;">
+              <div style="font-size:16px;font-weight:bold;color:#f5c842;">${r.nutrition.kcal}</div>
+              <div style="font-size:9px;color:#40a060;text-transform:uppercase;letter-spacing:0.5px;">kcal</div>
+            </div>
+            <div style="background:#061008;border-radius:8px;padding:8px 4px;">
+              <div style="font-size:16px;font-weight:bold;color:#60c090;">${r.nutrition.protein_g}g</div>
+              <div style="font-size:9px;color:#40a060;text-transform:uppercase;letter-spacing:0.5px;">protein</div>
+            </div>
+            <div style="background:#061008;border-radius:8px;padding:8px 4px;">
+              <div style="font-size:16px;font-weight:bold;color:#80a0e0;">${r.nutrition.carbs_g}g</div>
+              <div style="font-size:9px;color:#40a060;text-transform:uppercase;letter-spacing:0.5px;">carbs</div>
+            </div>
+            <div style="background:#061008;border-radius:8px;padding:8px 4px;">
+              <div style="font-size:16px;font-weight:bold;color:#c08060;">${r.nutrition.fat_g}g</div>
+              <div style="font-size:9px;color:#40a060;text-transform:uppercase;letter-spacing:0.5px;">fat</div>
+            </div>
+          </div>
+        </div>`:''}
+
         <!-- Tip -->
         ${r.tip?`<div style="background:#0a1008;border:1px solid #2a4020;border-radius:10px;padding:12px;margin-bottom:12px;">
           <div style="font-size:10px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:6px;">💡 Tinza Tip</div>
@@ -4576,14 +6115,22 @@ function moodHTML(){
         ${recipes && recipes[0]?._error ? `
           <div style="text-align:center;padding:40px 20px;">
             <div style="font-size:32px;margin-bottom:12px;">😕</div>
-            <div style="font-size:14px;color:#f5e8cc;margin-bottom:8px;">Couldn't load recipes right now</div>
-            <div style="font-size:11px;color:#4a3060;margin-bottom:4px;">Check your connection and try again</div>
-            ${recipes[0]._msg?`<div style="font-size:10px;color:#3a2050;margin-bottom:16px;font-family:monospace;">${recipes[0]._msg}</div>`:''}
-            <button onclick="callMoodChef(MOODS.find(m=>m.id==='${mood.id}'))" style="padding:12px 24px;background:#100818;border:2px solid ${mood.colour};border-radius:10px;color:${mood.colour};font-size:13px;cursor:pointer;">Try again</button>
+            <div style="font-size:14px;color:#f5e8cc;margin-bottom:8px;">${recipes[0]._msg||"Couldn't load recipes right now"}</div>
+            <button onclick="callMoodChef(MOODS.find(m=>m.id==='${mood.id}'))" style="padding:12px 24px;background:#100818;border:2px solid ${mood.colour};border-radius:10px;color:${mood.colour};font-size:13px;cursor:pointer;margin-top:12px;">← Start again</button>
           </div>` : ''}
 
-        ${recipes && !recipes[0]?._error ? `
-          <div style="font-size:10px;letter-spacing:2px;color:#4a3060;text-transform:uppercase;margin-bottom:12px;">3 recipes for your mood</div>
+        ${recipes && recipes[0]?._waiting ? `
+          <div style="text-align:center;padding:50px 20px;">
+            <div style="font-size:48px;margin-bottom:16px;">${mood.e}</div>
+            <div style="font-size:15px;color:#f5e8cc;margin-bottom:8px;">Tinza Chef is finding more ideas...</div>
+            <div style="font-size:12px;color:#4a3060;">Just a moment</div>
+          </div>` : ''}
+
+        ${recipes && !recipes[0]?._error && !recipes[0]?._waiting ? `
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:2px;color:#4a3060;text-transform:uppercase;">3 recipes for your mood</div>
+            ${S.moodAILoading ? `<div style="font-size:10px;color:#4a3060;font-style:italic;">✨ Finding more...</div>` : ''}
+          </div>
           ${recipes.map((r,i)=>`
             <div onclick="setQuiet({moodActiveRecipe:${JSON.stringify(r).replace(/"/g,'&quot;')}})"
               style="background:${mood.bg};border:1px solid ${mood.colour};border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;">
@@ -4594,16 +6141,15 @@ function moodHTML(){
                   <div style="font-size:11px;color:${mood.colour};font-style:italic;margin-bottom:6px;">${r.why||''}</div>
                   <div style="display:flex;gap:8px;flex-wrap:wrap;">
                     <span style="background:#0a0812;border:1px solid #2a1840;border-radius:12px;padding:3px 8px;font-size:10px;color:#6a5080;">⏱️ ${r.time} min</span>
-                    <span style="background:#0a0812;border:1px solid #2a1840;border-radius:12px;padding:3px 8px;font-size:10px;color:#6a5080;">🍽️ ${r.serves||4} servings</span>
                   </div>
                 </div>
                 <span style="color:${mood.colour};font-size:16px;flex-shrink:0;margin-top:4px;">→</span>
               </div>
             </div>`).join('')}
 
-          <button onclick="callMoodChef(MOODS.find(m=>m.id==='${mood.id}'))"
-            style="width:100%;padding:11px;border-radius:10px;background:#0a0812;border:1px solid #2a1840;color:#6a5080;font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
-            🔄 Different suggestions for this mood
+          <button onclick="getMoreMoodRecipes('${mood.id}')"
+            style="width:100%;padding:11px;border-radius:10px;background:#0a0812;border:1px solid ${mood.colour};color:${mood.colour};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
+            ✨ Show me 3 more ideas
           </button>` : ''}
       </div>
     </div>`;
