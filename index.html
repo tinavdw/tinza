@@ -3374,7 +3374,7 @@ Rules:
 - Use South African ingredients and context where appropriate
 - Keep it practical and delicious`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -3864,7 +3864,7 @@ Rules:
 - Keep it practical and South African-friendly
 - Generate exactly 4 recipes`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
@@ -3941,7 +3941,7 @@ Return ONLY a JSON array (no markdown, no backticks):
 
 Rules: all amounts in g or ml, pp = per serving, userHas true only for ${ingredient}`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
         messages:[{role:'user',content:prompt}]})
@@ -4160,7 +4160,7 @@ Return ONLY a JSON array (no markdown, no backticks):
 
 Rules: all amounts in g or ml, pp = per person, costPP must be under R${budgetPP.toFixed(0)}`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
         messages:[{role:'user',content:prompt}]})
@@ -4447,7 +4447,7 @@ Return ONLY a JSON array (no markdown, no backticks, no explanation) of exactly 
 
 Rules: All amounts in grams (g) or millilitres (ml) only. pp = amount per 1 person. Use SA ingredients where appropriate. Vary the 3 suggestions.`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -12444,4 +12444,4 @@ function eventsHTML(){
 draw();
 </script>
 </body>
-</html>
+</html>A
