@@ -9,15 +9,20 @@ exports.handler = async function(event) {
       },
       body: event.body
     });
-    const data = await response.json();
+    const text = await response.text();
     return {
-      statusCode: 200,
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data)
+      statusCode: response.status,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      body: text
     };
   } catch(e) {
     return {
       statusCode: 500,
+      headers: {"Access-Control-Allow-Origin": "*"},
       body: JSON.stringify({error: e.message})
     };
   }
