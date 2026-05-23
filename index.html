@@ -4439,51 +4439,34 @@ async function callMoodChef(mood){
   S.moodRecipes = null;
   draw();
   try {
-    const prompt = `You are Tinza Chef, a South African recipe assistant. 
+    const prompt = `You are Tinza Chef, a South African recipe assistant.
 The user says: "${mood.label}". Generate 3 different recipe suggestions for: ${mood.prompt}.
 
-Return ONLY a JSON array (no markdown, no backticks, no explanation) of exactly 3 recipes in this format:
-[
-  {
-    "name": "Recipe name",
-    "emoji": "single emoji",
-    "serves": 4,
-    "time": 25,
-    "why": "One short sentence why this fits the mood (max 12 words)",
-    "ingredients": [
-      {"n": "Ingredient name", "pp": 100, "u": "g"},
-      {"n": "Another ingredient", "pp": 15, "u": "ml"}
-    ],
-    "method": ["Step 1", "Step 2", "Step 3", "Step 4"],
-    "tip": "One practical tip"
-  }
-]
+Return ONLY a JSON array (no markdown, no backticks, no explanation) of exactly 3 recipes:
+[{"name":"Recipe name","emoji":"single emoji","serves":4,"time":25,"why":"One short sentence why this fits the mood","ingredients":[{"n":"Ingredient name","pp":100,"u":"g"}],"method":["Step 1","Step 2","Step 3"],"tip":"One practical tip"}]
 
-Rules:
-- All amounts in grams (g) or millilitres (ml) — no cups, tablespoons, teaspoons
-- pp = amount per 1 person/serving
-- Use South African ingredients and context where appropriate
-- Keep recipes realistic and achievable
-- Vary the 3 suggestions (don't give 3 similar dishes)`;
+Rules: All amounts in grams (g) or millilitres (ml) only. pp = amount per 1 person. Use SA ingredients where appropriate. Vary the 3 suggestions.`;
 
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:2000,
-        messages:[{role:'user', content:prompt}]
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
       })
     });
     const data = await resp.json();
+    if(data.error){ throw new Error(data.error.message); }
     const text = (data.content||[]).map(b=>b.text||'').join('');
     const clean = text.replace(/```json|```/g,'').trim();
     const recipes = JSON.parse(clean);
-    S.moodRecipes = recipes;
+    S.moodRecipes = Array.isArray(recipes) ? recipes : [recipes];
     S.moodLoading = false;
     draw();
   } catch(e){
-    S.moodRecipes = [{_error:true}];
+    console.error('Mood chef error:', e);
+    S.moodRecipes = [{_error:true, _msg: e.message||''}];
     S.moodLoading = false;
     draw();
   }
@@ -4594,7 +4577,8 @@ function moodHTML(){
           <div style="text-align:center;padding:40px 20px;">
             <div style="font-size:32px;margin-bottom:12px;">😕</div>
             <div style="font-size:14px;color:#f5e8cc;margin-bottom:8px;">Couldn't load recipes right now</div>
-            <div style="font-size:12px;color:#4a3060;margin-bottom:20px;">Check your connection and try again</div>
+            <div style="font-size:11px;color:#4a3060;margin-bottom:4px;">Check your connection and try again</div>
+            ${recipes[0]._msg?`<div style="font-size:10px;color:#3a2050;margin-bottom:16px;font-family:monospace;">${recipes[0]._msg}</div>`:''}
             <button onclick="callMoodChef(MOODS.find(m=>m.id==='${mood.id}'))" style="padding:12px 24px;background:#100818;border:2px solid ${mood.colour};border-radius:10px;color:${mood.colour};font-size:13px;cursor:pointer;">Try again</button>
           </div>` : ''}
 
