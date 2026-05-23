@@ -301,7 +301,7 @@ const SIDES_GROUPS = [
       recipe:{ coalType:"Stovetop — make ahead", ingredients:["Waxy potatoes — 100g per person","Mayonnaise — 25g per person","Spring onion — 10g per person (sliced)","Hard-boiled eggs — 1 per 3 people","Dijon mustard — 3g per person","White vinegar — 5ml per person","Salt — 2g per person","Black pepper — 1g per person"],
         method:["Boil potatoes until just tender — 15 min. Cool completely.","Hard-boil eggs 10 min. Cool, peel and chop.","Mix mayo, mustard, vinegar. Toss with potatoes, eggs, onion.","Refrigerate 1+ hour. Enjoy! 😊"],
         tip:"Always start with cold potatoes — warm potatoes go gluey." }},
-    { id:"threebeans", name:"Three Bean Salad", emoji:"🫘", tier:"free", perPerson:60, unit:"g", note:"Make the day before", pantryP:6, stdP:8, indulgeP:8,
+    { id:"threebeans", name:"Three Bean Salad", emoji:"🥙", tier:"free", perPerson:60, unit:"g", note:"Make the day before", pantryP:6, stdP:8, indulgeP:8,
       shopping:[{name:"Mixed bean salad (tin)",per:0.2,unit:"tin"},{name:"White vinegar",per:5,unit:"ml"},{name:"Onion",per:10,unit:"g"},{name:"Sugar",per:2,unit:"g"}],
       recipe:{ coalType:"No fire needed", ingredients:["Mixed bean salad (tinned, drained) — 0.2 tin per person (60g drained)","Red onion — 10g per person (finely diced)","White vinegar — 5ml per person","Sugar — 2g per person","Salt — 1g per person","Black pepper — 1g per person"],
         method:["Drain and rinse beans. Mix vinegar, sugar and seasoning.","Toss beans with onion and dressing.","Refrigerate overnight — must be made day before. Enjoy! 😊"],
@@ -1589,6 +1589,7 @@ let S = {
   braaiView:'browse',
   // baby
   babyFilter:"all", activeBaby:null, babyBatches:1, babyPlan:[],
+  searchQuery:"", chefRecipe:null, mealSort:"popular", mealActiveRecipe:null, chefLoading:false, searchServings:4, _popularRecipe:null, worldKitchenCat:"sa", worldKitchenRegion:"sa", worldKitchenMeal:"all", worldKitchenSort:"popular", _wkRecipe:null,
   // dog
   dogSection:"biscuits", dogSize:"medium", dogCount:1, dogAge:"adult", dogPlan:[], dogBatches:1, activeDog:null,
   // cat
@@ -1628,6 +1629,2229 @@ function setQuiet(upd){
   Object.assign(S,upd);
   draw();
 }
+const POPULAR_RECIPES = {
+
+  sa:[
+    // ── SA CLASSICS ──────────────────────────────────────────────
+    { id:"pr_bobotie", name:"Bobotie", emoji:"🍛", cuisine:"South African", time:75, serves:6,
+      tags:["cape malay","mince","curry","bakes","dinner"],
+      ingredients:[
+        {n:"Beef or lamb mince",pp:150,u:"g"},
+        {n:"Onion (finely diced)",pp:25,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Curry powder",pp:3,u:"g"},
+        {n:"Turmeric",pp:1,u:"g"},
+        {n:"Apricot jam",pp:15,u:"g"},
+        {n:"Chutney (Mrs Ball's style)",pp:15,u:"g"},
+        {n:"White bread (soaked in milk)",pp:30,u:"g"},
+        {n:"Milk (for soaking bread)",pp:30,u:"ml"},
+        {n:"Egg",pp:0.3,u:"egg"},
+        {n:"Lemon juice",pp:5,u:"ml"},
+        {n:"Raisins",pp:15,u:"g"},
+        {n:"Almonds (flaked)",pp:10,u:"g"},
+        {n:"Bay leaves",pp:null,u:""},
+        // Topping
+        {n:"Eggs (for topping)",pp:0.5,u:"egg"},
+        {n:"Milk (for topping)",pp:30,u:"ml"},
+        {n:"Turmeric (for topping)",pp:0.5,u:"g"},
+      ],
+      method:["Preheat oven to 180°C.","Sauté onion and garlic until soft. Add curry powder and turmeric, cook 1 min.","Add mince. Brown completely — no pink remaining.","Add jam, chutney, lemon juice and raisins. Mix well.","Squeeze bread dry and crumble into mince. Mix. Season well.","Spoon into greased baking dish. Press bay leaves on top.","Beat eggs with milk and turmeric. Pour over the mince.","Bake 35–40 min until topping is set and golden.","Remove bay leaves before serving. Serve with yellow rice and chutney."],
+      tip:"The bread is what makes Bobotie uniquely South African — it absorbs the spices and gives the dish its characteristic moist texture. Don't skip the apricot jam — it's the secret sweetness that balances the curry.",
+      storage:"Fridge 3 days. Freezes well without the egg topping." },
+
+    { id:"pr_malvapudding", name:"Malva Pudding", emoji:"🍮", cuisine:"South African", time:60, serves:8,
+      tags:["dessert","bakes","sweet","classic","pudding"],
+      ingredients:[
+        {n:"Sugar",pp:30,u:"g"},
+        {n:"Egg",pp:0.25,u:"egg"},
+        {n:"Apricot jam",pp:15,u:"g"},
+        {n:"Butter (melted)",pp:8,u:"g"},
+        {n:"Cake flour",pp:30,u:"g"},
+        {n:"Bicarbonate of soda",pp:0.5,u:"g"},
+        {n:"Vinegar",pp:3,u:"ml"},
+        {n:"Milk",pp:30,u:"ml"},
+        // Sauce
+        {n:"Cream",pp:45,u:"ml"},
+        {n:"Butter (for sauce)",pp:15,u:"g"},
+        {n:"Sugar (for sauce)",pp:20,u:"g"},
+        {n:"Hot water",pp:15,u:"ml"},
+        {n:"Vanilla essence",pp:1,u:"ml"},
+      ],
+      method:["Preheat oven to 180°C. Grease a baking dish well.","Beat sugar and egg until pale and fluffy — about 3 min.","Add jam, melted butter, vinegar and milk. Mix well.","Sift flour and bicarb together. Fold into wet mixture.","Pour into greased dish. Bake 30–35 min until deep golden brown and a skewer comes out clean.","SAUCE: Combine cream, butter, sugar, hot water and vanilla in a small pot. Heat until butter melts and sugar dissolves — do not boil.","While pudding is still hot and fresh from the oven, poke holes all over with a skewer.","Pour ALL the warm sauce over the hot pudding. It will absorb completely — don't panic.","Serve immediately with extra cream or vanilla ice cream."],
+      tip:"The sauce must go on while the pudding is HOT — this is non-negotiable. Cold pudding won't absorb the sauce. The pudding should look almost sticky and glossy when done correctly.",
+      storage:"Fridge 3 days. Reheat in microwave with a splash of cream." },
+
+    { id:"pr_koeksisters", name:"Koeksisters", emoji:"🍩", cuisine:"South African", time:90, serves:12,
+      tags:["dessert","sweet","fried","afrikaner","syrup"],
+      ingredients:[
+        {n:"Cake flour",pp:25,u:"g"},
+        {n:"Baking powder",pp:0.5,u:"g"},
+        {n:"Salt",pp:0.2,u:"g"},
+        {n:"Butter (cold)",pp:4,u:"g"},
+        {n:"Egg",pp:0.1,u:"egg"},
+        {n:"Milk",pp:15,u:"ml"},
+        {n:"Oil (for deep frying)",pp:null,u:""},
+        // Syrup
+        {n:"Sugar (for syrup)",pp:50,u:"g"},
+        {n:"Water (for syrup)",pp:25,u:"ml"},
+        {n:"Cream of tartar",pp:0.2,u:"g"},
+        {n:"Lemon juice",pp:2,u:"ml"},
+      ],
+      method:["SYRUP (make the day before — must be ice cold): Dissolve sugar in water over low heat. Add cream of tartar and lemon juice. Boil 10 min. Cool completely. Refrigerate overnight — MUST be ice cold.","Sift flour, baking powder and salt. Rub in cold butter until breadcrumb texture.","Add egg and milk. Mix to a soft dough. Rest 10 min.","Roll out 5mm thick. Cut into 8cm × 2cm strips. Cut each strip almost through lengthways to create two strands joined at one end. Plait.","Heat oil to 180°C. Fry in batches until golden brown — about 3 min.","IMMEDIATELY drop hot koeksisters into the ice-cold syrup. They must go from boiling oil directly into freezing syrup — the temperature shock is what makes them crispy outside and syrupy inside.","Remove after 30 seconds. Place on wire rack."],
+      tip:"Two things make perfect koeksisters: (1) syrup must be ice cold — put it in the freezer 30 min before frying. (2) They go straight from hot oil into cold syrup. The thermal shock creates that signature crispy-sticky texture.",
+      storage:"Room temperature 3 days. Do not refrigerate — they go soggy." },
+
+    { id:"pr_frikkadels", name:"Frikkadels", emoji:"🍖", cuisine:"South African", time:40, serves:4,
+      tags:["mince","meatballs","dinner","afrikaner","family"],
+      ingredients:[
+        {n:"Beef mince",pp:125,u:"g"},
+        {n:"Onion (very finely grated)",pp:20,u:"g"},
+        {n:"White bread (crusts removed, soaked in milk)",pp:25,u:"g"},
+        {n:"Milk (for soaking)",pp:30,u:"ml"},
+        {n:"Egg",pp:0.25,u:"egg"},
+        {n:"Worcestershire sauce",pp:3,u:"ml"},
+        {n:"Fresh parsley (finely chopped)",pp:5,u:"g"},
+        {n:"Salt and pepper",pp:null,u:""},
+        {n:"Oil or butter (for frying)",pp:10,u:"ml"},
+      ],
+      method:["Squeeze bread dry. Combine all ingredients except oil. Mix well — hands are best.","Shape into slightly flattened balls — about 4cm diameter.","Heat oil in pan over medium heat. Fry in batches — don't crowd the pan.","Fry 4 min per side until deep golden brown and cooked through.","Rest 5 min before serving."],
+      tip:"Grated onion rather than diced — it disappears into the meat and adds moisture without chunks. Soaked bread is what makes frikkadels light rather than dense. Flatten slightly so they cook evenly.",
+      storage:"Fridge 3 days. Freezer 2 months." },
+
+    { id:"pr_vetkoek", name:"Vetkoek with Mince", emoji:"🍞", cuisine:"South African", time:60, serves:6,
+      tags:["bread","fried","mince","street food","afrikaner"],
+      ingredients:[
+        {n:"Bread flour",pp:60,u:"g"},
+        {n:"Instant yeast",pp:1,u:"g"},
+        {n:"Salt",pp:0.5,u:"g"},
+        {n:"Sugar",pp:2,u:"g"},
+        {n:"Lukewarm water",pp:40,u:"ml"},
+        {n:"Oil for deep frying",pp:null,u:""},
+        // Mince filling
+        {n:"Beef mince",pp:60,u:"g"},
+        {n:"Onion (diced)",pp:15,u:"g"},
+        {n:"Tomato (diced)",pp:20,u:"g"},
+        {n:"Curry powder",pp:1,u:"g"},
+        {n:"Salt and pepper",pp:null,u:""},
+      ],
+      method:["Mix flour, yeast, salt and sugar. Add water gradually — mix to a soft dough.","Knead 8 min until smooth. Cover and prove 1 hour until doubled.","MINCE: Fry onion until soft. Add mince, brown completely. Add tomato and curry powder. Simmer 10 min. Season well.","Knock dough back. Divide into balls (about 70g each). Flatten slightly.","Heat oil to 170°C. Fry vetkoek in batches, 4–5 min per side until deep golden brown and hollow-sounding when tapped.","Split open immediately and fill with curry mince."],
+      tip:"Oil temperature is critical — too hot and they're raw inside, too cool and they're greasy. Test with a small piece of dough first. The dough should float and bubble immediately.",
+      storage:"Vetkoek best eaten fresh. Mince fridge 3 days." },
+
+    { id:"pr_sosaties", name:"Sosaties", emoji:"🍢", cuisine:"South African", time:240, serves:6,
+      tags:["braai","skewer","cape malay","lamb","marinade"],
+      ingredients:[
+        {n:"Lamb (shoulder or leg, cubed 3cm)",pp:150,u:"g"},
+        {n:"Dried apricots",pp:15,u:"g"},
+        {n:"Onion (cut in wedges)",pp:20,u:"g"},
+        // Marinade
+        {n:"Onion (finely diced — for marinade)",pp:15,u:"g"},
+        {n:"Garlic",pp:2,u:"g"},
+        {n:"Curry powder",pp:3,u:"g"},
+        {n:"Turmeric",pp:0.5,u:"g"},
+        {n:"Apricot jam",pp:20,u:"g"},
+        {n:"White wine vinegar",pp:10,u:"ml"},
+        {n:"Bay leaves",pp:null,u:""},
+        {n:"Oil",pp:5,u:"ml"},
+      ],
+      method:["MARINADE: Fry onion and garlic in oil until soft. Add curry powder and turmeric — cook 1 min. Add jam and vinegar. Cool completely.","Combine lamb cubes with marinade. Add bay leaves. Marinate minimum 4 hours — overnight is best.","Thread lamb onto skewers alternating with dried apricots and onion wedges.","Braai over medium-hot coals — about 12–15 min, turning regularly.","Baste with remaining marinade while cooking.","Rest 5 min before serving."],
+      tip:"The sweet-sour-spicy marinade is what makes sosaties Cape Malay. Overnight marinating is worth it — the apricot jam tenderises the lamb. Don't grill too hot — the jam burns easily.",
+      storage:"Raw marinated meat fridge 2 days. Cooked 3 days." },
+
+    { id:"pr_potjiekos", name:"Potjiekos — Lamb Neck", emoji:"🥘", cuisine:"South African", time:180, serves:6,
+      tags:["potjie","braai","slow cook","lamb","stew"],
+      ingredients:[
+        {n:"Lamb neck pieces",pp:200,u:"g"},
+        {n:"Onion (roughly chopped)",pp:25,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Carrots (cut in chunks)",pp:30,u:"g"},
+        {n:"Potatoes (quartered)",pp:60,u:"g"},
+        {n:"Butternut (cubed)",pp:40,u:"g"},
+        {n:"Green beans",pp:20,u:"g"},
+        {n:"Tomato paste",pp:10,u:"g"},
+        {n:"Red wine",pp:40,u:"ml"},
+        {n:"Beef stock",pp:40,u:"ml"},
+        {n:"Dried thyme",pp:0.5,u:"g"},
+        {n:"Bay leaves",pp:null,u:""},
+        {n:"Oil",pp:8,u:"ml"},
+      ],
+      method:["Heat oil in potjie over hot coals. Brown lamb neck in batches — deep colour means deep flavour.","Add onion and garlic. Cook until soft.","Add tomato paste. Stir and cook 2 min.","Add wine and stock. Season well.","LAYER — do not stir: add carrots, then potatoes, then butternut on top.","Cover with lid. Simmer over low coals 2–2.5 hours. Manage coals to maintain gentle simmer.","Add green beans on top in last 20 min.","THE RULE: do not stir. Serve by spooning layers from top to bottom."],
+      tip:"The no-stir rule is sacred in potjiekos. Each layer steams and cooks in sequence. Stirring breaks the layers and makes it a stew. Trust the process.",
+      storage:"Fridge 3 days. Tastes better the next day." },
+
+    { id:"pr_melktert", name:"Melktert", emoji:"🥧", cuisine:"South African", time:60, serves:8,
+      tags:["dessert","bakes","sweet","afrikaner","tart","milk tart"],
+      ingredients:[
+        // Pastry
+        {n:"Butter (cold, cubed)",pp:15,u:"g"},
+        {n:"Cake flour",pp:25,u:"g"},
+        {n:"Icing sugar",pp:5,u:"g"},
+        {n:"Egg yolk",pp:0.1,u:"egg"},
+        {n:"Cold water",pp:5,u:"ml"},
+        // Filling
+        {n:"Full cream milk",pp:90,u:"ml"},
+        {n:"Sugar",pp:15,u:"g"},
+        {n:"Flour",pp:8,u:"g"},
+        {n:"Cornflour",pp:5,u:"g"},
+        {n:"Egg",pp:0.25,u:"egg"},
+        {n:"Butter",pp:5,u:"g"},
+        {n:"Vanilla essence",pp:0.5,u:"ml"},
+        {n:"Cinnamon (for dusting)",pp:null,u:""},
+      ],
+      method:["PASTRY: Rub cold butter into flour and icing sugar until breadcrumbs. Add egg yolk and water. Press into tart tin. Refrigerate 20 min. Blind bake at 190°C for 15 min.","FILLING: Heat milk until just below boiling.","Whisk sugar, flour and cornflour together. Add eggs. Whisk smooth.","Slowly pour hot milk into egg mixture, whisking continuously.","Return to pot over low heat. Stir continuously until thick — about 5 min.","Remove from heat. Add butter and vanilla.","Pour into baked shell. Cool. Dust generously with cinnamon.","Refrigerate 2 hours before serving."],
+      tip:"The filling thickens quickly once it starts — don't stop stirring or you'll get lumps. A perfectly set melktert should wobble slightly in the centre when the tin is shaken.",
+      storage:"Fridge 3 days." },
+
+    { id:"pr_peppermintcrisptart", name:"Peppermint Crisp Tart", emoji:"🍫", cuisine:"South African", time:20, serves:10,
+      tags:["dessert","no bake","sweet","chocolate","cream","easy"],
+      ingredients:[
+        {n:"Tennis biscuits (or similar)",pp:25,u:"g"},
+        {n:"Whipping cream",pp:60,u:"ml"},
+        {n:"Caramel treat (tin)",pp:40,u:"g"},
+        {n:"Peppermint Crisp chocolate bar (grated)",pp:15,u:"g"},
+      ],
+      method:["Whip cream to soft peaks — not stiff.","Fold caramel treat into whipped cream until combined and smooth.","Layer tennis biscuits in a dish in a single layer.","Spread caramel cream mixture over biscuits.","Repeat layers: biscuits, cream mixture, biscuits, cream mixture.","Top with grated Peppermint Crisp chocolate.","Refrigerate minimum 4 hours — overnight best. The biscuits soften to a cake-like texture."],
+      tip:"South Africa's most iconic no-bake dessert. It MUST be made the day before — the biscuits need time to absorb the cream and soften. Grate the Peppermint Crisp while still cold from the fridge so it doesn't melt.",
+      storage:"Fridge 3 days." },
+
+    { id:"pr_chakalaka", name:"Chakalaka", emoji:"🫙", cuisine:"South African", time:30, serves:6,
+      tags:["relish","spicy","veg","braai side","township"],
+      ingredients:[
+        {n:"Onion (finely diced)",pp:20,u:"g"},
+        {n:"Garlic (minced)",pp:2,u:"g"},
+        {n:"Green pepper (diced)",pp:20,u:"g"},
+        {n:"Carrots (grated)",pp:30,u:"g"},
+        {n:"Tinned baked beans",pp:50,u:"g"},
+        {n:"Tinned tomatoes (chopped)",pp:40,u:"g"},
+        {n:"Curry powder",pp:2,u:"g"},
+        {n:"Paprika",pp:1,u:"g"},
+        {n:"Chilli (optional)",pp:null,u:""},
+        {n:"Oil",pp:5,u:"ml"},
+        {n:"Salt",pp:null,u:""},
+      ],
+      method:["Heat oil. Fry onion until soft and beginning to colour.","Add garlic, green pepper and carrots. Cook 5 min.","Add curry powder and paprika. Stir and cook 1 min.","Add tinned tomatoes. Simmer 10 min.","Add baked beans. Simmer 5 min more. Season well.","Serve hot or cold as a braai side."],
+      tip:"Every family has their own chakalaka recipe — this is the classic township version. Some add cabbage, some add more chilli. It improves overnight as flavours develop. Non-negotiable braai side.",
+      storage:"Fridge 5 days. Freezer 2 months." },
+
+    { id:"pr_bunny_chow", name:"Bunny Chow — Lamb Curry", emoji:"🍞", cuisine:"South African", time:90, serves:4,
+      tags:["durban","curry","bread","street food","lamb"],
+      ingredients:[
+        {n:"Lamb shoulder (bone-in, chunked)",pp:200,u:"g"},
+        {n:"Onion (finely diced)",pp:30,u:"g"},
+        {n:"Garlic (minced)",pp:4,u:"g"},
+        {n:"Ginger (grated)",pp:4,u:"g"},
+        {n:"Tinned tomatoes",pp:60,u:"g"},
+        {n:"Potatoes (quartered)",pp:80,u:"g"},
+        {n:"Durban curry powder (hot)",pp:5,u:"g"},
+        {n:"Turmeric",pp:1,u:"g"},
+        {n:"Cumin seeds",pp:1,u:"g"},
+        {n:"Curry leaves (fresh or dried)",pp:null,u:""},
+        {n:"Oil",pp:8,u:"ml"},
+        {n:"White bread loaf (quarter loaf per person)",pp:1,u:"quarter loaf"},
+      ],
+      method:["Heat oil. Fry cumin seeds until they pop. Add onion — cook until deep golden, not just soft.","Add garlic, ginger and curry leaves. Fry 1 min.","Add curry powder and turmeric. Stir and cook 2 min — the spices must bloom in the oil.","Add lamb. Brown on all sides.","Add tomatoes. Reduce heat. Simmer covered 45 min.","Add potatoes. Cook 20 min until soft and curry is thick.","BUNNY: Cut the top off a quarter loaf. Hollow out the inside (keep bread for dipping). Fill with curry. Replace top.","Serve immediately with the scooped bread for dipping."],
+      tip:"Authentic Durban bunny chow uses a quarter loaf of white bread — no rolls, no fancy bread. The bread is the bowl AND the utensil. Durban curry is hot — adjust curry powder to your heat tolerance.",
+      storage:"Curry fridge 3 days. Assemble bunnies fresh only." },
+
+    { id:"pr_rusks", name:"Buttermilk Rusks", emoji:"🍪", cuisine:"South African", time:480, serves:20,
+      tags:["bakes","breakfast","dip","afrikaner","coffee"],
+      ingredients:[
+        {n:"Cake flour",pp:30,u:"g"},
+        {n:"Sugar",pp:8,u:"g"},
+        {n:"Baking powder",pp:0.5,u:"g"},
+        {n:"Salt",pp:0.2,u:"g"},
+        {n:"Butter (melted)",pp:10,u:"g"},
+        {n:"Buttermilk",pp:25,u:"ml"},
+        {n:"Egg",pp:0.1,u:"egg"},
+      ],
+      method:["Preheat oven to 180°C. Grease rusk pan or loaf tin.","Sift flour, sugar, baking powder and salt.","Mix buttermilk, melted butter and egg.","Combine wet and dry — mix until just combined. Do not overmix.","Press into pan. Bake 45 min until golden and a skewer comes out clean.","Cool completely. Cut into fingers.","DRYING: Place on oven racks. Set oven to 70°C. Dry overnight (8–10 hours) until completely dry and hard."],
+      tip:"The drying step is what makes a rusk — biscotti's South African cousin. They must be completely dry to keep for months. Test by tapping — should sound hollow. Dip in coffee before eating.",
+      storage:"Airtight container 2–3 months." },
+
+    { id:"pr_stampkoring", name:"Stampkoring & Bacon", emoji:"🌾", cuisine:"South African", time:45, serves:4,
+      tags:["starch","afrikaner","wheat","hearty","side"],
+      ingredients:[
+        {n:"Pearl wheat (stampkoring)",pp:80,u:"g"},
+        {n:"Bacon (diced)",pp:30,u:"g"},
+        {n:"Onion (diced)",pp:20,u:"g"},
+        {n:"Butter",pp:8,u:"g"},
+        {n:"Chicken stock",pp:120,u:"ml"},
+        {n:"Salt and pepper",pp:null,u:""},
+      ],
+      method:["Rinse pearl wheat. Soak in cold water 30 min (optional but speeds cooking).","Fry bacon until crispy. Remove. Fry onion in bacon fat until golden.","Add drained wheat. Toast 2 min stirring.","Add stock. Bring to boil. Reduce to low simmer.","Cook covered 30–35 min stirring occasionally, adding more stock if needed.","Wheat should be tender but still have bite — like al dente pasta.","Add butter. Season. Top with crispy bacon."],
+      tip:"Pearl wheat is one of South Africa's most underrated ingredients. It has a nutty, satisfying flavour and holds up beautifully. It's the starch that every Afrikaner grandmother makes for Sunday lunch.",
+      storage:"Fridge 3 days." },
+
+    { id:"pr_waterblommetjiebredie", name:"Waterblommetjie Bredie", emoji:"🌸", cuisine:"South African", time:120, serves:4,
+      tags:["cape","lamb","stew","waterblommetjie","seasonal"],
+      ingredients:[
+        {n:"Lamb shoulder or rib (bone-in)",pp:200,u:"g"},
+        {n:"Waterblommetjies (tinned or fresh)",pp:80,u:"g"},
+        {n:"Onion (sliced)",pp:25,u:"g"},
+        {n:"Potatoes (quartered)",pp:80,u:"g"},
+        {n:"Sorrel or lemon juice",pp:10,u:"ml"},
+        {n:"White wine",pp:30,u:"ml"},
+        {n:"Water or light stock",pp:80,u:"ml"},
+        {n:"Oil",pp:8,u:"ml"},
+        {n:"Salt and pepper",pp:null,u:""},
+      ],
+      method:["Brown lamb in batches in hot oil — good colour is essential.","Fry onion in same pot until soft.","Return lamb. Add wine and stock. Season.","Simmer covered 45 min on low heat.","Add potatoes and waterblommetjies.","Cook 30 min until potatoes are soft and stew is rich.","Add sorrel or lemon juice. Adjust seasoning.","Serve with white rice."],
+      tip:"Waterblommetjies (Cape pondweed flowers) are uniquely South African — available fresh in winter or tinned year-round. They taste like a cross between asparagus and artichoke. A Cape kitchen icon.",
+      storage:"Fridge 3 days. Improves overnight." },
+
+    { id:"pr_amarula_cheesecake", name:"Amarula Cheesecake", emoji:"🎂", cuisine:"South African", time:30, serves:10,
+      tags:["dessert","no bake","cheesecake","amarula","cream"],
+      ingredients:[
+        {n:"Tennis biscuits (crushed)",pp:25,u:"g"},
+        {n:"Butter (melted — for base)",pp:10,u:"g"},
+        {n:"Cream cheese",pp:60,u:"g"},
+        {n:"Whipping cream",pp:50,u:"ml"},
+        {n:"Icing sugar",pp:15,u:"g"},
+        {n:"Amarula liqueur",pp:15,u:"ml"},
+        {n:"Gelatine (1 tsp dissolved in 2 tbsp hot water)",pp:1,u:"g"},
+      ],
+      method:["BASE: Mix crushed biscuits with melted butter. Press into springform tin. Refrigerate 20 min.","Dissolve gelatine in 2 tbsp hot water. Cool slightly.","Beat cream cheese and icing sugar until smooth.","Whip cream to soft peaks.","Add Amarula to cream cheese mixture. Mix well. Fold in whipped cream.","Add cooled gelatine. Mix quickly and thoroughly.","Pour over biscuit base. Refrigerate minimum 4 hours.","Drizzle extra Amarula over before serving."],
+      tip:"Amarula is South Africa's gift to the world. The caramel and marula fruit notes make this cheesecake instantly recognisable as South African. Set the gelatine by refrigerating overnight for best results.",
+      storage:"Fridge 3 days." },
+
+    { id:"pr_snoek_pate", name:"Smoked Snoek Pâté", emoji:"🐟", cuisine:"South African", time:15, serves:8,
+      tags:["starter","fish","cape","snoek","spread"],
+      ingredients:[
+        {n:"Smoked snoek (flaked, all bones removed)",pp:50,u:"g"},
+        {n:"Cream cheese",pp:30,u:"g"},
+        {n:"Butter (softened)",pp:10,u:"g"},
+        {n:"Lemon juice",pp:5,u:"ml"},
+        {n:"Chilli flakes (optional)",pp:null,u:""},
+        {n:"Fresh parsley or chives",pp:3,u:"g"},
+      ],
+      method:["CRITICAL: Remove every single bone from the snoek. Feel through the flesh carefully.","Blend or mash snoek, cream cheese, butter and lemon juice until smooth.","Add chilli flakes if using. Season — snoek is already salty so taste first.","Fold in chopped herbs.","Refrigerate 30 min before serving.","Serve with roosterkoek, vetkoek or crackers."],
+      tip:"Smoked snoek is one of the Cape's most distinctive flavours — oily, smoky, intense. The cream cheese softens the saltiness. This pâté is a non-negotiable at any Cape beach braai.",
+      storage:"Fridge 3 days." },
+  ],
+
+  international:[
+    // ── ITALIAN ──
+    { id:"pr_spag_bol", name:"Spaghetti Bolognese", emoji:"🍝", cuisine:"Italian", time:60, serves:4,
+      tags:["pasta","italian","mince","beef","dinner","family"],
+      ingredients:[
+        {n:"Spaghetti",pp:100,u:"g"},
+        {n:"Beef mince",pp:100,u:"g"},
+        {n:"Onion (finely diced)",pp:30,u:"g"},
+        {n:"Garlic (minced)",pp:4,u:"g"},
+        {n:"Carrot (finely diced)",pp:20,u:"g"},
+        {n:"Celery (finely diced)",pp:15,u:"g"},
+        {n:"Tinned whole tomatoes",pp:100,u:"g"},
+        {n:"Tomato paste",pp:15,u:"g"},
+        {n:"Red wine",pp:30,u:"ml"},
+        {n:"Beef stock",pp:30,u:"ml"},
+        {n:"Olive oil",pp:8,u:"ml"},
+        {n:"Dried oreganum",pp:1,u:"g"},
+        {n:"Parmesan (grated, to serve)",pp:15,u:"g"},
+      ],
+      method:["Heat olive oil. Fry onion, carrot and celery over medium heat 8 min until soft — this is the soffritto base.","Add garlic. Cook 1 min.","Add mince. Break up and brown completely — this takes 10 min properly done.","Add tomato paste. Cook 2 min stirring.","Add wine. Let it bubble and reduce by half.","Add tinned tomatoes, stock and oreganum. Break up tomatoes.","Simmer uncovered 30 min until rich and thick.","Cook spaghetti in well-salted boiling water until al dente. Reserve 1 cup pasta water.","Toss pasta with sauce. Add pasta water if needed to loosen.","Serve topped with parmesan."],
+      tip:"The soffritto (onion, carrot, celery cooked slowly) is the flavour foundation. Don't rush it. The sauce improves dramatically if made the day before.",
+      storage:"Sauce fridge 4 days. Freezer 3 months." },
+
+    { id:"pr_chicken_tikka", name:"Chicken Tikka Masala", emoji:"🍛", cuisine:"Indian", time:60, serves:4,
+      tags:["curry","indian","chicken","creamy","dinner"],
+      ingredients:[
+        {n:"Chicken thighs (boneless, cubed)",pp:150,u:"g"},
+        {n:"Plain yoghurt (for marinade)",pp:30,u:"g"},
+        {n:"Garam masala",pp:2,u:"g"},
+        {n:"Turmeric",pp:0.5,u:"g"},
+        {n:"Ginger (grated)",pp:5,u:"g"},
+        {n:"Garlic (minced)",pp:4,u:"g"},
+        {n:"Tinned tomatoes",pp:80,u:"g"},
+        {n:"Cream",pp:40,u:"ml"},
+        {n:"Onion (finely diced)",pp:30,u:"g"},
+        {n:"Butter",pp:10,u:"g"},
+        {n:"Tikka masala paste or powder",pp:8,u:"g"},
+        {n:"Oil",pp:5,u:"ml"},
+        {n:"Fresh coriander (to serve)",pp:5,u:"g"},
+      ],
+      method:["MARINADE: Mix yoghurt, half the ginger, half the garlic, garam masala and turmeric. Coat chicken. Marinate 30 min minimum.","Grill or pan-fry marinated chicken until charred at edges — this char is the tikka character.","SAUCE: Melt butter in pan. Fry onion 8 min until golden.","Add remaining garlic and ginger. Cook 1 min.","Add tikka paste. Cook 2 min.","Add tomatoes. Simmer 15 min until reduced.","Add cream. Simmer 5 min.","Add grilled chicken pieces. Simmer 5 min.","Serve with basmati rice. Top with coriander."],
+      tip:"The char on the chicken from the grill is essential — it gives the smoky note that separates tikka masala from a plain curry. Don't skip marinating.",
+      storage:"Fridge 3 days. Freezer 2 months." },
+
+    { id:"pr_lasagne", name:"Classic Beef Lasagne", emoji:"🥘", cuisine:"Italian", time:90, serves:6,
+      tags:["pasta","italian","beef","bakes","family","dinner"],
+      ingredients:[
+        {n:"Lasagne sheets (dried)",pp:30,u:"g"},
+        {n:"Beef mince",pp:100,u:"g"},
+        {n:"Onion (diced)",pp:25,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Tinned tomatoes",pp:80,u:"g"},
+        {n:"Tomato paste",pp:10,u:"g"},
+        {n:"Red wine",pp:20,u:"ml"},
+        // Béchamel
+        {n:"Butter (for béchamel)",pp:12,u:"g"},
+        {n:"Flour",pp:12,u:"g"},
+        {n:"Full cream milk",pp:120,u:"ml"},
+        {n:"Nutmeg",pp:null,u:""},
+        {n:"Mozzarella (grated)",pp:30,u:"g"},
+        {n:"Parmesan (grated)",pp:15,u:"g"},
+      ],
+      method:["MEAT SAUCE: Brown mince with onion and garlic. Add tomato paste, wine and tinned tomatoes. Simmer 30 min until thick.","BÉCHAMEL: Melt butter. Add flour, stir 1 min. Gradually whisk in milk. Cook stirring until thick. Season with nutmeg, salt and pepper.","LAYER in baking dish: béchamel, lasagne sheets, meat sauce, béchamel, lasagne sheets, meat sauce, béchamel on top.","Top with mozzarella and parmesan.","Bake at 180°C for 35–40 min until bubbling and golden.","REST 15 min before cutting — essential for clean slices."],
+      tip:"The resting time after baking is the most ignored step — cutting immediately means it falls apart. 15 min rest gives it time to set into proper slices.",
+      storage:"Fridge 4 days. Freezer 3 months." },
+
+    { id:"pr_butter_chicken", name:"Butter Chicken", emoji:"🍗", cuisine:"Indian", time:50, serves:4,
+      tags:["curry","indian","chicken","mild","creamy","dinner"],
+      ingredients:[
+        {n:"Chicken thighs (boneless)",pp:150,u:"g"},
+        {n:"Butter",pp:20,u:"g"},
+        {n:"Onion (finely diced)",pp:30,u:"g"},
+        {n:"Garlic (minced)",pp:4,u:"g"},
+        {n:"Ginger (grated)",pp:4,u:"g"},
+        {n:"Tinned tomatoes",pp:100,u:"g"},
+        {n:"Cream",pp:60,u:"ml"},
+        {n:"Garam masala",pp:2,u:"g"},
+        {n:"Cumin",pp:1,u:"g"},
+        {n:"Coriander powder",pp:1,u:"g"},
+        {n:"Turmeric",pp:0.5,u:"g"},
+        {n:"Chilli powder (mild)",pp:1,u:"g"},
+        {n:"Sugar",pp:3,u:"g"},
+        {n:"Salt",pp:null,u:""},
+      ],
+      method:["Season and pan-fry chicken in butter until golden. Remove and set aside.","In same pan, fry onion in butter until very soft — 10 min.","Add garlic and ginger. Cook 2 min.","Add all spices. Stir and cook 2 min until fragrant.","Add tomatoes. Simmer 15 min.","Blend sauce smooth with stick blender.","Return to heat. Add cream and sugar. Simmer 5 min.","Add chicken. Simmer 10 min until cooked through.","Serve with basmati rice and naan."],
+      tip:"Blending the sauce is what creates butter chicken's signature velvety texture. The sugar balances the tomato acidity — don't skip it.",
+      storage:"Fridge 3 days. Freezer 2 months." },
+
+    { id:"pr_pad_thai", name:"Pad Thai", emoji:"🍜", cuisine:"Thai", time:25, serves:2,
+      tags:["thai","noodles","quick","prawn","stir fry"],
+      ingredients:[
+        {n:"Rice noodles (flat, 3mm)",pp:80,u:"g"},
+        {n:"Prawns (shelled) or chicken strips",pp:80,u:"g"},
+        {n:"Egg",pp:1,u:"egg"},
+        {n:"Bean sprouts",pp:40,u:"g"},
+        {n:"Spring onions (sliced)",pp:15,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Fish sauce",pp:10,u:"ml"},
+        {n:"Tamarind paste",pp:10,u:"g"},
+        {n:"Palm or brown sugar",pp:8,u:"g"},
+        {n:"Soy sauce",pp:5,u:"ml"},
+        {n:"Oil",pp:15,u:"ml"},
+        {n:"Roasted peanuts (crushed)",pp:15,u:"g"},
+        {n:"Lime (to serve)",pp:0.5,u:""},
+      ],
+      method:["Soak rice noodles in cold water 30 min. Drain.","Mix fish sauce, tamarind paste and sugar — this is your pad thai sauce.","Heat wok until smoking. Add oil.","Stir-fry prawns or chicken 2 min. Push to side.","Add garlic. Cook 30 sec.","Add noodles and sauce. Toss 2 min.","Push everything to side. Scramble egg in the space. Fold into noodles.","Add bean sprouts and spring onions. Toss 30 sec — keep crunch.","Serve topped with peanuts, lime and extra fish sauce."],
+      tip:"Wok heat is everything. If your wok isn't smoking hot, you get steamed noodles not stir-fried. Cook in small batches if needed.",
+      storage:"Best eaten immediately." },
+
+    { id:"pr_beef_stew", name:"Classic Beef Stew", emoji:"🥘", cuisine:"International", time:150, serves:6,
+      tags:["stew","beef","comfort","winter","dinner"],
+      ingredients:[
+        {n:"Beef chuck (cubed 4cm)",pp:150,u:"g"},
+        {n:"Onion (roughly chopped)",pp:25,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Carrots (chunked)",pp:30,u:"g"},
+        {n:"Celery (chunked)",pp:20,u:"g"},
+        {n:"Potatoes (quartered)",pp:60,u:"g"},
+        {n:"Tomato paste",pp:10,u:"g"},
+        {n:"Beef stock",pp:80,u:"ml"},
+        {n:"Red wine",pp:40,u:"ml"},
+        {n:"Flour (for dusting)",pp:8,u:"g"},
+        {n:"Thyme and bay leaves",pp:null,u:""},
+        {n:"Oil",pp:10,u:"ml"},
+      ],
+      method:["Dust beef cubes in flour, salt and pepper.","Brown in hot oil in batches — don't crowd. Real colour = real flavour.","Fry onion and garlic in same pot.","Add tomato paste. Cook 2 min.","Add wine. Bubble and scrape up the brown bits.","Add stock, thyme and bay leaves. Return beef.","Simmer covered low heat 1.5 hours.","Add carrots, celery and potatoes. Cook 30 min until tender.","Adjust seasoning. Remove bay leaves."],
+      tip:"Browning the beef in batches is the most important step — crowding the pan causes steaming not browning, and you lose all the flavour. The flour coating helps thicken the stew naturally.",
+      storage:"Fridge 4 days. Freezer 3 months. Better next day." },
+
+    { id:"pr_chicken_soup", name:"Chicken Noodle Soup", emoji:"🍲", cuisine:"International", time:90, serves:6,
+      tags:["soup","chicken","comfort","winter","noodles","family"],
+      ingredients:[
+        {n:"Whole chicken or chicken pieces",pp:150,u:"g"},
+        {n:"Onion (halved)",pp:25,u:"g"},
+        {n:"Carrots (sliced)",pp:30,u:"g"},
+        {n:"Celery (sliced)",pp:20,u:"g"},
+        {n:"Garlic (whole cloves)",pp:3,u:"g"},
+        {n:"Egg noodles or pasta",pp:30,u:"g"},
+        {n:"Fresh parsley",pp:5,u:"g"},
+        {n:"Bay leaves",pp:null,u:""},
+        {n:"Peppercorns",pp:null,u:""},
+        {n:"Salt",pp:null,u:""},
+      ],
+      method:["Place chicken in large pot. Cover with cold water. Add onion, garlic, bay leaves and peppercorns.","Bring to boil. Skim foam from surface.","Reduce to gentle simmer. Cook 1 hour.","Remove chicken. Strain broth — this is liquid gold.","Shred chicken meat. Discard skin and bones.","Return broth to pot. Add carrots and celery. Cook 15 min.","Add noodles. Cook until tender.","Return shredded chicken. Add parsley. Season generously."],
+      tip:"Starting with cold water extracts maximum flavour from the bones. Skimming the foam in the first 10 minutes gives a clear, clean broth. This soup genuinely does make you feel better.",
+      storage:"Fridge 4 days. Broth freezes 3 months." },
+
+    { id:"pr_shakshuka", name:"Shakshuka", emoji:"🍳", cuisine:"Middle Eastern", time:30, serves:3,
+      tags:["eggs","breakfast","brunch","middle eastern","tomato","vegetarian"],
+      ingredients:[
+        {n:"Eggs",pp:2,u:"egg"},
+        {n:"Tinned tomatoes (whole peeled)",pp:120,u:"g"},
+        {n:"Onion (diced)",pp:25,u:"g"},
+        {n:"Red pepper (diced)",pp:30,u:"g"},
+        {n:"Garlic (minced)",pp:3,u:"g"},
+        {n:"Cumin",pp:1,u:"g"},
+        {n:"Paprika",pp:1,u:"g"},
+        {n:"Chilli flakes",pp:0.5,u:"g"},
+        {n:"Olive oil",pp:8,u:"ml"},
+        {n:"Fresh parsley or coriander",pp:5,u:"g"},
+        {n:"Feta cheese (crumbled, optional)",pp:15,u:"g"},
+      ],
+      method:["Heat olive oil in wide pan. Fry onion and red pepper 8 min until soft.","Add garlic, cumin, paprika and chilli. Cook 1 min.","Add tomatoes. Break up. Simmer 10 min until sauce thickens. Season well.","Make wells in the sauce. Crack eggs into the wells.","Cover. Cook 5–8 min until whites are set but yolks still runny.","Top with feta and parsley. Serve immediately from the pan with crusty bread."],
+      tip:"The egg yolks should still be runny — they continue cooking in the residual heat. Remove from heat when whites are just set. Serve directly from the pan.",
+      storage:"Best eaten immediately. Sauce alone fridge 3 days." },
+
+    { id:"pr_roast_chicken", name:"Roast Chicken", emoji:"🍗", cuisine:"International", time:90, serves:4,
+      tags:["roast","chicken","sunday lunch","family","classic"],
+      ingredients:[
+        {n:"Whole chicken",pp:400,u:"g"},
+        {n:"Butter (softened)",pp:20,u:"g"},
+        {n:"Garlic (minced)",pp:4,u:"g"},
+        {n:"Lemon (halved)",pp:0.25,u:""},
+        {n:"Fresh thyme or rosemary",pp:5,u:"g"},
+        {n:"Olive oil",pp:10,u:"ml"},
+        {n:"Salt (coarse)",pp:null,u:""},
+        {n:"Black pepper",pp:null,u:""},
+        {n:"Onion (quartered — for roasting pan)",pp:25,u:"g"},
+        {n:"Carrots (chunked — for roasting pan)",pp:30,u:"g"},
+      ],
+      method:["Preheat oven to 200°C.","Pat chicken completely dry — moisture is the enemy of crispy skin.","Mix butter with garlic and thyme. Gently loosen skin over breast. Push butter mixture under the skin.","Rub outside with olive oil. Season generously with salt and pepper inside and out.","Stuff cavity with lemon halves and remaining herbs.","Place on bed of onion and carrots in roasting tin.","Roast 20 min per 500g PLUS 20 min extra. Internal temperature 75°C at thickest part.","REST 15 min before carving — non-negotiable."],
+      tip:"Completely dry skin before roasting. Butter under the skin bastes the breast from inside. Resting lets juices redistribute — cut too soon and they all run out.",
+      storage:"Fridge 3 days." },
+
+    { id:"pr_chocolate_cake", name:"Classic Chocolate Cake", emoji:"🎂", cuisine:"International", time:60, serves:10,
+      tags:["dessert","cake","chocolate","bakes","birthday","sweet"],
+      ingredients:[
+        {n:"Cake flour",pp:20,u:"g"},
+        {n:"Cocoa powder",pp:5,u:"g"},
+        {n:"Sugar",pp:20,u:"g"},
+        {n:"Baking powder",pp:0.4,u:"g"},
+        {n:"Bicarbonate of soda",pp:0.2,u:"g"},
+        {n:"Salt",pp:0.1,u:"g"},
+        {n:"Egg",pp:0.2,u:"egg"},
+        {n:"Buttermilk",pp:20,u:"ml"},
+        {n:"Oil",pp:10,u:"ml"},
+        {n:"Hot water or coffee",pp:20,u:"ml"},
+        // Ganache
+        {n:"Dark chocolate (70%)",pp:15,u:"g"},
+        {n:"Cream (for ganache)",pp:10,u:"ml"},
+      ],
+      method:["Preheat oven to 180°C. Grease and flour two cake tins.","Sift dry ingredients together.","Whisk eggs, buttermilk and oil.","Combine wet and dry. Add hot water or coffee — batter will be thin. This is correct.","Divide between tins. Bake 30–35 min until skewer comes out clean.","Cool completely before frosting.","GANACHE: Heat cream until just boiling. Pour over chopped chocolate. Stir until smooth. Cool until spreadable.","Sandwich and frost with ganache."],
+      tip:"Hot coffee intensifies the chocolate flavour dramatically without making it taste like coffee. The thin batter is correct — it bakes into a moist, dense cake.",
+      storage:"Room temperature 3 days. Fridge 5 days." },
+  ]
+};
+
+
+// ── MEAL SECTION RECIPES ──────────────────────────────────────────
+// All amounts are pp (per person). Scale by servings.
+// Tags: meal type + cuisine + key ingredients
+
+const BREAKFAST_RECIPES = [
+  { id:"br_scrambledeggs", name:"Creamy Scrambled Eggs", emoji:"🍳", time:10, cuisine:"Classic",
+    tags:["eggs","quick","vegetarian","protein"],
+    ingredients:[
+      {n:"Large eggs",pp:2,u:"egg"},
+      {n:"Butter",pp:8,u:"g"},
+      {n:"Full cream milk or cream",pp:20,u:"ml"},
+      {n:"Salt and white pepper",pp:null,u:""},
+      {n:"Fresh chives (optional)",pp:3,u:"g"},
+    ],
+    method:["Whisk eggs and milk together. Season with salt and white pepper.","Melt butter in non-stick pan over VERY low heat — lower than you think.","Pour in egg mixture. Let it sit 20 seconds. Then gently fold with a spatula — don't stir.","Keep folding slowly every 20–30 seconds. Remove from heat when still slightly underdone.","Rest in pan 30 seconds — residual heat finishes them. Top with chives."],
+    tip:"Low and slow is everything. The moment eggs touch high heat they become rubbery. Remove from heat slightly underdone — they finish cooking in the pan.",
+    storage:"Eat immediately." },
+
+  { id:"br_fullenglish", name:"Full SA Breakfast", emoji:"🍳", time:25, cuisine:"South African",
+    tags:["eggs","bacon","sausage","hearty","weekend"],
+    ingredients:[
+      {n:"Bacon rashers",pp:2,u:""},
+      {n:"Boerewors or breakfast sausage",pp:80,u:"g"},
+      {n:"Eggs",pp:2,u:"egg"},
+      {n:"Tomato (halved)",pp:0.5,u:""},
+      {n:"Butter (for frying)",pp:10,u:"g"},
+      {n:"Mushrooms (sliced)",pp:50,u:"g"},
+      {n:"Toast (to serve)",pp:1,u:"slice"},
+    ],
+    method:["Fry bacon in dry pan until crispy. Remove. Keep warm.","Fry boerewors in same pan until cooked through. Remove.","Fry mushrooms in bacon fat until golden. Season.","Halve tomato. Fry cut-side down until caramelised.","Fry eggs in butter — sunny side up or to your liking.","Serve everything together with toast and strong tea or coffee."],
+    tip:"The secret is cooking everything in the same pan — the bacon fat flavours everything else. Never wash the pan between items.",
+    storage:"Eat immediately." },
+
+  { id:"br_shakshuka", name:"Shakshuka", emoji:"🍅", time:30, cuisine:"Middle Eastern",
+    tags:["eggs","vegetarian","spicy","brunch","tomato"],
+    ingredients:[
+      {n:"Eggs",pp:2,u:"egg"},
+      {n:"Tinned chopped tomatoes",pp:120,u:"g"},
+      {n:"Onion (diced)",pp:25,u:"g"},
+      {n:"Red pepper (diced)",pp:30,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Cumin",pp:1,u:"g"},
+      {n:"Paprika",pp:1,u:"g"},
+      {n:"Chilli flakes",pp:0.5,u:"g"},
+      {n:"Olive oil",pp:8,u:"ml"},
+      {n:"Feta cheese (crumbled)",pp:15,u:"g"},
+      {n:"Fresh parsley",pp:5,u:"g"},
+    ],
+    method:["Heat olive oil. Fry onion and pepper 8 min until soft.","Add garlic, cumin, paprika, chilli. Cook 1 min.","Add tomatoes. Simmer 10 min until thick. Season well.","Make wells in the sauce. Crack eggs into the wells.","Cover. Cook 5–8 min until whites are set but yolks still runny.","Top with feta and parsley. Serve from the pan with bread."],
+    tip:"Remove from heat when whites are just set — yolks continue cooking in residual heat. Serve immediately from the pan.",
+    storage:"Sauce keeps 3 days. Assemble fresh." },
+
+  { id:"br_frenchtoast", name:"French Toast", emoji:"🍞", time:15, cuisine:"Classic",
+    tags:["bread","sweet","eggs","quick","weekend"],
+    ingredients:[
+      {n:"Thick bread slices (brioche or white)",pp:2,u:"slice"},
+      {n:"Eggs",pp:1,u:"egg"},
+      {n:"Full cream milk",pp:30,u:"ml"},
+      {n:"Vanilla essence",pp:1,u:"ml"},
+      {n:"Cinnamon",pp:0.5,u:"g"},
+      {n:"Sugar",pp:5,u:"g"},
+      {n:"Butter (for frying)",pp:10,u:"g"},
+      {n:"Maple syrup or honey (to serve)",pp:15,u:"ml"},
+    ],
+    method:["Whisk eggs, milk, vanilla, cinnamon and sugar together in a shallow dish.","Dip bread slices in egg mixture — 20 seconds per side. Let it soak in.","Melt butter in pan over medium heat.","Fry 2–3 min per side until deep golden and caramelised.","Serve with maple syrup, fresh fruit or a dusting of icing sugar."],
+    tip:"Brioche makes the best French toast — its richness absorbs the custard beautifully. Day-old bread works better than fresh.",
+    storage:"Eat immediately." },
+
+  { id:"br_oatmeal", name:"Stovetop Oats with Banana & Honey", emoji:"🥣", time:10, cuisine:"Classic",
+    tags:["oats","healthy","quick","vegetarian","fruit"],
+    ingredients:[
+      {n:"Rolled oats",pp:60,u:"g"},
+      {n:"Full cream milk",pp:150,u:"ml"},
+      {n:"Water",pp:50,u:"ml"},
+      {n:"Ripe banana (sliced)",pp:0.5,u:""},
+      {n:"Honey",pp:15,u:"ml"},
+      {n:"Cinnamon",pp:0.5,u:"g"},
+      {n:"Salt (pinch)",pp:null,u:""},
+    ],
+    method:["Combine oats, milk, water and salt in a small pot.","Cook over medium heat stirring regularly for 5–7 min until creamy.","The oats should be thick and creamy — add more milk if too stiff.","Serve topped with sliced banana, honey and cinnamon."],
+    tip:"A pinch of salt is the secret — it balances the sweetness and brings out the oat flavour. Always add it.",
+    storage:"Fridge 2 days. Add milk when reheating." },
+
+  { id:"br_avodatoast", name:"Avocado Toast", emoji:"🥑", time:10, cuisine:"Modern",
+    tags:["avocado","vegetarian","quick","healthy","brunch"],
+    ingredients:[
+      {n:"Sourdough or rye bread",pp:2,u:"slice"},
+      {n:"Ripe avocado",pp:0.5,u:""},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"Chilli flakes",pp:0.5,u:"g"},
+      {n:"Flaky sea salt",pp:null,u:""},
+      {n:"Eggs (poached — optional)",pp:1,u:"egg"},
+      {n:"Olive oil (drizzle)",pp:5,u:"ml"},
+    ],
+    method:["Toast bread until golden and crisp.","Mash avocado with lemon juice and a pinch of salt. Keep chunky — not a paste.","Spread on toast. Top with chilli flakes and olive oil drizzle.","Optional: top with a poached egg. Bring water to simmer, add a splash of vinegar, swirl, crack egg in. Cook 3 min."],
+    tip:"The avocado must be perfectly ripe — press the skin gently, it should give slightly. Underripe avocado is hard and tasteless. Lemon juice prevents browning and adds brightness.",
+    storage:"Assemble fresh only." },
+
+  { id:"br_pancakes", name:"Fluffy Pancakes", emoji:"🥞", time:20, cuisine:"Classic",
+    tags:["sweet","weekend","family","quick","batter"],
+    ingredients:[
+      {n:"Cake flour",pp:40,u:"g"},
+      {n:"Baking powder",pp:1,u:"g"},
+      {n:"Sugar",pp:8,u:"g"},
+      {n:"Salt (pinch)",pp:null,u:""},
+      {n:"Egg",pp:0.5,u:"egg"},
+      {n:"Full cream milk",pp:60,u:"ml"},
+      {n:"Butter (melted)",pp:8,u:"g"},
+      {n:"Butter (for frying)",pp:5,u:"g"},
+      {n:"Maple syrup or honey (to serve)",pp:20,u:"ml"},
+    ],
+    method:["Sift flour, baking powder, sugar and salt together.","Whisk egg, milk and melted butter. Add to dry ingredients. Mix until JUST combined — lumps are fine. Do not overmix.","Rest batter 5 min.","Heat pan over medium-low heat. Melt a small knob of butter.","Drop ladlefuls of batter. Cook until bubbles appear on top and edges look dry — about 2 min. Flip. Cook 1 min.","Serve with maple syrup, honey or fresh fruit."],
+    tip:"Do not overmix — lumps in pancake batter are good. Overmixing develops gluten and makes pancakes tough. The resting time lets the baking powder activate.",
+    storage:"Fridge 1 day. Reheat in toaster." },
+
+  { id:"br_samaize", name:"SA Maize Porridge (Pap)", emoji:"🌽", time:20, cuisine:"South African",
+    tags:["pap","maize","traditional","gluten free","hearty"],
+    ingredients:[
+      {n:"Fine maize meal",pp:60,u:"g"},
+      {n:"Water",pp:200,u:"ml"},
+      {n:"Full cream milk",pp:50,u:"ml"},
+      {n:"Butter",pp:10,u:"g"},
+      {n:"Salt (pinch)",pp:null,u:""},
+      {n:"Sugar (optional)",pp:5,u:"g"},
+    ],
+    method:["Bring water and milk to a gentle boil.","Whisk in maize meal slowly and continuously — no lumps.","Reduce to low heat. Stir every 2 min for 12–15 min until thick and smooth.","Add butter and salt. Stir through.","Serve sweet (with sugar and more butter) or savoury (with eggs or tomato relish)."],
+    tip:"The key is continuous whisking when adding the maize meal — add it in a slow stream while whisking hard. Once in, low and slow makes it smooth.",
+    storage:"Fridge 2 days. Add milk when reheating." },
+
+  { id:"br_eggs_benedict", name:"Eggs Benedict", emoji:"🍳", time:25, cuisine:"Classic",
+    tags:["eggs","bacon","brunch","weekend","special"],
+    ingredients:[
+      {n:"English muffin or bread roll",pp:1,u:""},
+      {n:"Bacon or ham (grilled)",pp:2,u:"slice"},
+      {n:"Eggs (poached)",pp:2,u:"egg"},
+      {n:"Butter (for hollandaise)",pp:40,u:"g"},
+      {n:"Egg yolks (for hollandaise)",pp:1,u:"egg"},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"White wine vinegar (for poaching)",pp:5,u:"ml"},
+    ],
+    method:["HOLLANDAISE: Melt butter. Whisk egg yolks and lemon juice in a bowl over simmering water (double boiler) until pale. Slowly drizzle in melted butter whisking constantly. Season.","POACHED EGGS: Bring water to simmer. Add vinegar. Swirl water. Crack egg into a cup, slide into swirling water. Cook 3 min. Remove with slotted spoon.","Toast muffin. Top with bacon, then poached egg, then hollandaise.","Serve immediately."],
+    tip:"Hollandaise waits for no one — serve immediately. Have everything ready before you start poaching eggs.",
+    storage:"Eat immediately." },
+
+  { id:"br_muesli", name:"Toasted Muesli with Yoghurt", emoji:"🥣", time:25, cuisine:"Classic",
+    tags:["healthy","oats","fruit","vegetarian","prep ahead"],
+    ingredients:[
+      {n:"Rolled oats",pp:50,u:"g"},
+      {n:"Mixed nuts (roughly chopped)",pp:20,u:"g"},
+      {n:"Sunflower or pumpkin seeds",pp:10,u:"g"},
+      {n:"Honey",pp:15,u:"ml"},
+      {n:"Coconut oil (melted)",pp:8,u:"ml"},
+      {n:"Cinnamon",pp:0.5,u:"g"},
+      {n:"Dried cranberries or raisins",pp:15,u:"g"},
+      {n:"Plain Greek yoghurt (to serve)",pp:80,u:"g"},
+      {n:"Fresh fruit (to serve)",pp:80,u:"g"},
+    ],
+    method:["Preheat oven to 160°C.","Mix oats, nuts and seeds with honey, coconut oil and cinnamon.","Spread on baking tray. Bake 20 min, stirring once, until golden.","Add dried fruit when out of the oven. Cool completely.","Serve with Greek yoghurt and fresh fruit."],
+    tip:"Make a big batch — it keeps for 2 weeks in an airtight jar. The lower oven temperature toasts slowly without burning. Don't skip stirring halfway through.",
+    storage:"Airtight jar 2 weeks." },
+
+  { id:"br_smoothiebowl", name:"Smoothie Bowl", emoji:"🍓", time:10, cuisine:"Modern",
+    tags:["healthy","fruit","vegetarian","quick","colourful"],
+    ingredients:[
+      {n:"Frozen banana",pp:1,u:""},
+      {n:"Frozen mixed berries",pp:80,u:"g"},
+      {n:"Plain yoghurt",pp:60,u:"g"},
+      {n:"Milk or coconut milk",pp:30,u:"ml"},
+      {n:"Granola or toasted oats (topping)",pp:30,u:"g"},
+      {n:"Fresh fruit (topping)",pp:50,u:"g"},
+      {n:"Honey (drizzle)",pp:10,u:"ml"},
+      {n:"Chia seeds (optional)",pp:5,u:"g"},
+    ],
+    method:["Blend frozen banana, frozen berries, yoghurt and milk until thick and smooth. It should be thicker than a drinkable smoothie.","Pour into a bowl — the mixture should hold a spoon upright.","Top with granola, fresh fruit, honey and chia seeds.","Eat immediately before it melts."],
+    tip:"The frozen fruit is essential — fresh fruit makes it too thin and liquid. Blend as little as possible to keep it thick.",
+    storage:"Eat immediately." },
+
+  { id:"br_vetkoek_egg", name:"Vetkoek with Egg & Cheese", emoji:"🫓", time:45, cuisine:"South African",
+    tags:["bread","fried","eggs","traditional","hearty"],
+    ingredients:[
+      {n:"Bread flour",pp:60,u:"g"},
+      {n:"Instant yeast",pp:1,u:"g"},
+      {n:"Salt",pp:0.5,u:"g"},
+      {n:"Sugar",pp:2,u:"g"},
+      {n:"Lukewarm water",pp:40,u:"ml"},
+      {n:"Oil for deep frying",pp:null,u:""},
+      {n:"Eggs (fried or scrambled)",pp:2,u:"egg"},
+      {n:"Cheddar cheese (grated)",pp:30,u:"g"},
+    ],
+    method:["Mix flour, yeast, salt, sugar. Add water gradually to form soft dough. Knead 5 min.","Cover and prove 30 min.","Divide into balls. Flatten slightly.","Fry at 170°C — 4 min per side until deep golden.","Split open while hot. Fill with fried egg and melted cheese."],
+    tip:"SA's ultimate breakfast street food. Oil temperature is critical — too hot and they're raw inside. Test with a small piece of dough first.",
+    storage:"Eat fresh. Dough can be proved overnight in fridge." },
+];
+
+const LIGHTLUNCH_RECIPES = [
+  { id:"ll_chickenwrap", name:"Chicken & Avo Wrap", emoji:"🌯", time:15, cuisine:"Modern",
+    tags:["chicken","avocado","quick","healthy","wrap"],
+    ingredients:[
+      {n:"Large flour tortilla",pp:1,u:""},
+      {n:"Cooked chicken breast (shredded or sliced)",pp:100,u:"g"},
+      {n:"Ripe avocado (sliced)",pp:0.5,u:""},
+      {n:"Baby spinach or lettuce",pp:20,u:"g"},
+      {n:"Cherry tomatoes (halved)",pp:40,u:"g"},
+      {n:"Cream cheese or mayo",pp:20,u:"g"},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"Salt and pepper",pp:null,u:""},
+    ],
+    method:["Warm tortilla in dry pan 30 seconds per side.","Spread cream cheese over tortilla.","Layer spinach, chicken, avocado and tomatoes.","Squeeze lemon juice over. Season.","Fold sides in, roll tightly. Cut diagonally."],
+    tip:"Warm the tortilla before filling — it becomes pliable and won't crack when rolling. Roll tightly so fillings don't fall out.",
+    storage:"Assemble fresh. Filling keeps 2 days in fridge." },
+
+  { id:"ll_greeksalad", name:"Greek Salad", emoji:"🥗", time:10, cuisine:"Greek",
+    tags:["salad","vegetarian","quick","feta","fresh","no cook"],
+    ingredients:[
+      {n:"English cucumber (chunked)",pp:80,u:"g"},
+      {n:"Ripe tomatoes (chunked)",pp:100,u:"g"},
+      {n:"Red onion (thinly sliced)",pp:20,u:"g"},
+      {n:"Kalamata olives",pp:20,u:"g"},
+      {n:"Feta cheese (chunked)",pp:40,u:"g"},
+      {n:"Extra virgin olive oil",pp:15,u:"ml"},
+      {n:"Red wine vinegar",pp:5,u:"ml"},
+      {n:"Dried oreganum",pp:0.5,u:"g"},
+      {n:"Salt and pepper",pp:null,u:""},
+    ],
+    method:["Combine cucumber, tomatoes, red onion and olives.","Drizzle with olive oil and vinegar. Season with oreganum, salt and pepper.","Toss gently.","Place feta on top — do not mix it in or it crumbles too much.","Rest 5 min before serving so vegetables absorb the dressing."],
+    tip:"The feta goes on top, not mixed in. Resting 5 min lets the salt draw juices from the tomatoes and cucumber which becomes the dressing.",
+    storage:"Fridge 1 day (gets watery after that)." },
+
+  { id:"ll_tomatosoup", name:"Roasted Tomato Soup", emoji:"🍅", time:50, cuisine:"Classic",
+    tags:["soup","vegetarian","warm","comfort","tomato"],
+    ingredients:[
+      {n:"Ripe tomatoes (halved)",pp:200,u:"g"},
+      {n:"Onion (quartered)",pp:30,u:"g"},
+      {n:"Garlic cloves (whole)",pp:3,u:"g"},
+      {n:"Olive oil",pp:15,u:"ml"},
+      {n:"Vegetable stock",pp:100,u:"ml"},
+      {n:"Fresh basil",pp:5,u:"g"},
+      {n:"Cream (optional)",pp:30,u:"ml"},
+      {n:"Sugar (pinch)",pp:2,u:"g"},
+      {n:"Salt and pepper",pp:null,u:""},
+    ],
+    method:["Preheat oven to 200°C.","Place tomatoes, onion and garlic on a baking tray. Drizzle with olive oil. Season.","Roast 30 min until caramelised and slightly charred at edges.","Transfer to blender with stock and basil. Blend smooth.","Return to pot. Add cream if using. Heat through. Adjust seasoning with salt, pepper and a pinch of sugar.","Serve with crusty bread."],
+    tip:"Roasting is what separates great tomato soup from mediocre — it concentrates the flavour and adds a smoky depth that you can't get from tinned tomatoes.",
+    storage:"Fridge 4 days. Freezer 3 months." },
+
+  { id:"ll_caesarsalad", name:"Caesar Salad", emoji:"🥬", time:15, cuisine:"Classic",
+    tags:["salad","chicken","classic","quick","lunch"],
+    ingredients:[
+      {n:"Cos or romaine lettuce (torn)",pp:80,u:"g"},
+      {n:"Cooked chicken breast (sliced)",pp:80,u:"g"},
+      {n:"Parmesan (shaved or grated)",pp:20,u:"g"},
+      {n:"Bread (torn, fried in olive oil — croutons)",pp:30,u:"g"},
+      {n:"Anchovy fillets (optional)",pp:2,u:""},
+      {n:"Mayonnaise",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:1,u:"g"},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"Worcestershire sauce",pp:3,u:"ml"},
+      {n:"Olive oil",pp:5,u:"ml"},
+    ],
+    method:["DRESSING: Whisk mayo, garlic, lemon juice and Worcestershire sauce. Add a little olive oil. Season.","CROUTONS: Tear bread into chunks. Fry in olive oil until golden and crispy.","Toss lettuce with dressing — coat every leaf.","Top with chicken, parmesan and croutons.","Serve immediately — dressed salad wilts quickly."],
+    tip:"Dress the salad right before serving. The anchovy in the dressing is traditional and adds depth without tasting fishy — don't skip it.",
+    storage:"Undressed salad fridge 1 day. Dress fresh." },
+
+  { id:"ll_lentilsoup", name:"Red Lentil Soup", emoji:"🍲", time:35, cuisine:"Middle Eastern",
+    tags:["soup","vegan","healthy","lentils","quick","hearty"],
+    ingredients:[
+      {n:"Red lentils (rinsed)",pp:60,u:"g"},
+      {n:"Onion (diced)",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Carrot (diced)",pp:30,u:"g"},
+      {n:"Tinned tomatoes",pp:60,u:"g"},
+      {n:"Vegetable stock",pp:200,u:"ml"},
+      {n:"Cumin",pp:1,u:"g"},
+      {n:"Turmeric",pp:0.5,u:"g"},
+      {n:"Smoked paprika",pp:0.5,u:"g"},
+      {n:"Olive oil",pp:8,u:"ml"},
+      {n:"Lemon juice",pp:8,u:"ml"},
+    ],
+    method:["Fry onion, garlic and carrot in olive oil 5 min.","Add cumin, turmeric and paprika. Cook 1 min.","Add rinsed lentils, tomatoes and stock. Bring to boil.","Simmer uncovered 20 min until lentils are completely soft.","Blend partially — half smooth, half chunky for texture.","Add lemon juice. Season. Serve with bread."],
+    tip:"Red lentils are the only lentil that needs no soaking and cooks in 20 min. The lemon juice at the end is essential — it brightens the whole soup.",
+    storage:"Fridge 4 days. Freezer 3 months." },
+
+  { id:"ll_nicoise", name:"Tuna Niçoise Salad", emoji:"🐟", time:20, cuisine:"French",
+    tags:["salad","tuna","protein","healthy","french"],
+    ingredients:[
+      {n:"Tinned tuna (in olive oil, drained)",pp:80,u:"g"},
+      {n:"Baby potatoes (boiled, halved)",pp:80,u:"g"},
+      {n:"Green beans (blanched)",pp:50,u:"g"},
+      {n:"Cherry tomatoes (halved)",pp:60,u:"g"},
+      {n:"Eggs (hard boiled, quartered)",pp:1,u:"egg"},
+      {n:"Kalamata olives",pp:15,u:"g"},
+      {n:"Olive oil",pp:15,u:"ml"},
+      {n:"Dijon mustard",pp:5,u:"g"},
+      {n:"Red wine vinegar",pp:5,u:"ml"},
+      {n:"Capers",pp:5,u:"g"},
+    ],
+    method:["Boil potatoes in salted water until tender — 12 min. Drain and cool.","Blanch green beans 2 min in boiling water. Plunge into ice water. Drain.","Hard boil eggs 10 min. Cool in ice water. Peel and quarter.","DRESSING: Whisk olive oil, mustard, vinegar. Season.","Arrange all elements on a platter. Drizzle with dressing."],
+    tip:"Arrange elements separately — don't toss. Each component should be identifiable. Tuna in olive oil is far superior to brine for this salad.",
+    storage:"Undressed keeps 1 day. Dress fresh." },
+
+  { id:"ll_clubsandwich", name:"Classic Club Sandwich", emoji:"🥪", time:15, cuisine:"Classic",
+    tags:["sandwich","chicken","bacon","quick","hearty"],
+    ingredients:[
+      {n:"White or wholewheat bread",pp:3,u:"slice"},
+      {n:"Cooked chicken breast (sliced)",pp:60,u:"g"},
+      {n:"Bacon (crispy)",pp:2,u:"slice"},
+      {n:"Tomato (sliced)",pp:40,u:"g"},
+      {n:"Lettuce",pp:15,u:"g"},
+      {n:"Mayonnaise",pp:20,u:"g"},
+      {n:"Butter (softened)",pp:8,u:"g"},
+    ],
+    method:["Toast all bread slices until golden.","Spread butter on first slice. Add lettuce and tomato.","Spread mayo on second slice. Add chicken.","Spread mayo on third slice. Add bacon.","Stack: bread, lettuce/tomato, bread, chicken, bread, bacon — in that order.","Secure with toothpicks. Cut diagonally into 4 triangles."],
+    tip:"Toast is non-negotiable for a club sandwich — untoasted bread collapses under the triple layer. Cut on the diagonal so you can see all the beautiful layers.",
+    storage:"Assemble fresh." },
+
+  { id:"ll_minestrone", name:"Minestrone Soup", emoji:"🍲", time:45, cuisine:"Italian",
+    tags:["soup","vegetable","italian","hearty","healthy"],
+    ingredients:[
+      {n:"Onion (diced)",pp:25,u:"g"},
+      {n:"Carrot (diced)",pp:30,u:"g"},
+      {n:"Celery (diced)",pp:20,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Tinned tomatoes",pp:80,u:"g"},
+      {n:"Vegetable stock",pp:200,u:"ml"},
+      {n:"Tinned cannellini beans (drained)",pp:50,u:"g"},
+      {n:"Small pasta (macaroni or stars)",pp:30,u:"g"},
+      {n:"Zucchini (diced)",pp:40,u:"g"},
+      {n:"Baby spinach",pp:20,u:"g"},
+      {n:"Olive oil",pp:8,u:"ml"},
+      {n:"Parmesan rind (optional)",pp:null,u:""},
+      {n:"Dried oreganum",pp:0.5,u:"g"},
+    ],
+    method:["Heat olive oil. Fry onion, carrot and celery 8 min until soft — the soffritto base.","Add garlic and oreganum. Cook 1 min.","Add tomatoes and stock. Add parmesan rind if using.","Simmer 15 min.","Add beans, pasta and zucchini. Cook 10 min until pasta is tender.","Add spinach in last 2 min. Remove parmesan rind. Season."],
+    tip:"A parmesan rind simmered in the soup adds incredible depth — save your parmesan rinds in the freezer. The soup is even better the next day.",
+    storage:"Fridge 4 days (pasta absorbs liquid — add stock when reheating)." },
+
+  { id:"ll_hummus_platter", name:"Hummus & Veggie Platter", emoji:"🥙", time:15, cuisine:"Middle Eastern",
+    tags:["vegetarian","dip","healthy","no cook","sharing"],
+    ingredients:[
+      {n:"Tinned chickpeas (drained, rinsed)",pp:80,u:"g"},
+      {n:"Tahini",pp:20,u:"g"},
+      {n:"Lemon juice",pp:10,u:"ml"},
+      {n:"Garlic (minced)",pp:1,u:"g"},
+      {n:"Olive oil",pp:10,u:"ml"},
+      {n:"Cumin",pp:0.5,u:"g"},
+      {n:"Paprika (for serving)",pp:null,u:""},
+      {n:"Carrot sticks",pp:40,u:"g"},
+      {n:"Cucumber sticks",pp:40,u:"g"},
+      {n:"Pita bread or flatbread",pp:1,u:""},
+    ],
+    method:["Blend chickpeas, tahini, lemon juice, garlic and most of the olive oil until very smooth — at least 3 min. Add ice water 1 tbsp at a time to reach creamy consistency.","Season well. Taste — it should be tangy and nutty.","Spread on plate. Make a well in the centre. Drizzle olive oil into the well. Dust with paprika.","Serve with carrot, cucumber and warmed pita."],
+    tip:"The secret to smooth hummus is blending for much longer than you think — 3 full minutes with ice water added gradually. Warm chickpeas blend smoother.",
+    storage:"Fridge 5 days." },
+
+  { id:"ll_quiche", name:"Quiche Lorraine", emoji:"🥧", time:60, cuisine:"French",
+    tags:["eggs","bacon","bake","french","lunch"],
+    ingredients:[
+      {n:"Shortcrust pastry (store-bought or homemade)",pp:60,u:"g"},
+      {n:"Bacon (diced)",pp:40,u:"g"},
+      {n:"Onion (finely diced)",pp:20,u:"g"},
+      {n:"Eggs",pp:1,u:"egg"},
+      {n:"Cream",pp:60,u:"ml"},
+      {n:"Gruyère or cheddar (grated)",pp:25,u:"g"},
+      {n:"Butter",pp:5,u:"g"},
+      {n:"Salt, pepper, nutmeg",pp:null,u:""},
+    ],
+    method:["Line tart tin with pastry. Refrigerate 20 min. Blind bake at 190°C for 15 min.","Fry bacon and onion in butter until cooked. Cool slightly.","Whisk eggs and cream. Season with salt, pepper and nutmeg.","Scatter bacon and onion in pastry case. Pour over egg mixture. Top with cheese.","Bake at 170°C for 25–30 min until just set — it should wobble slightly in the centre.","Rest 10 min before slicing."],
+    tip:"The quiche must come out of the oven while still slightly wobbly — it firms up as it rests. Overbaked quiche is rubbery.",
+    storage:"Fridge 3 days. Serve at room temperature." },
+];
+
+const SUPPER_RECIPES = [
+  { id:"su_spagbol", name:"Spaghetti Bolognese", emoji:"🍝", time:60, cuisine:"Italian",
+    tags:["pasta","beef","family","classic","italian"],
+    ingredients:[
+      {n:"Spaghetti",pp:100,u:"g"},
+      {n:"Beef mince",pp:100,u:"g"},
+      {n:"Onion (finely diced)",pp:30,u:"g"},
+      {n:"Garlic (minced)",pp:4,u:"g"},
+      {n:"Carrot (finely diced)",pp:20,u:"g"},
+      {n:"Celery (finely diced)",pp:15,u:"g"},
+      {n:"Tinned whole tomatoes",pp:100,u:"g"},
+      {n:"Tomato paste",pp:15,u:"g"},
+      {n:"Red wine",pp:30,u:"ml"},
+      {n:"Beef stock",pp:30,u:"ml"},
+      {n:"Olive oil",pp:8,u:"ml"},
+      {n:"Dried oreganum",pp:1,u:"g"},
+      {n:"Parmesan (grated)",pp:15,u:"g"},
+    ],
+    method:["Heat olive oil. Fry onion, carrot and celery 8 min — the soffritto. Don't rush.","Add garlic. Cook 1 min. Add mince — brown completely. Takes 10 min properly done.","Add tomato paste. Cook 2 min stirring. Add wine. Reduce by half.","Add tomatoes, stock and oreganum. Simmer uncovered 30 min until rich and thick.","Cook spaghetti in well-salted water until al dente. Reserve 1 cup pasta water.","Toss pasta with sauce. Add pasta water to loosen if needed. Top with parmesan."],
+    tip:"The soffritto and properly browning the mince are the two most important steps. Don't combine the pasta and sauce too early — do it just before serving.",
+    storage:"Sauce fridge 4 days. Freezer 3 months." },
+
+  { id:"su_chickencurry", name:"SA Chicken Curry", emoji:"🍛", time:50, cuisine:"South African",
+    tags:["curry","chicken","family","spicy","south african"],
+    ingredients:[
+      {n:"Chicken pieces (bone-in thighs or drumsticks)",pp:180,u:"g"},
+      {n:"Onion (finely diced)",pp:30,u:"g"},
+      {n:"Garlic (minced)",pp:4,u:"g"},
+      {n:"Ginger (grated)",pp:4,u:"g"},
+      {n:"Curry powder (medium)",pp:5,u:"g"},
+      {n:"Turmeric",pp:1,u:"g"},
+      {n:"Tinned tomatoes",pp:80,u:"g"},
+      {n:"Potatoes (quartered)",pp:80,u:"g"},
+      {n:"Curry leaves",pp:null,u:""},
+      {n:"Oil",pp:8,u:"ml"},
+      {n:"Salt",pp:null,u:""},
+    ],
+    method:["Heat oil. Fry onion until deep golden — about 10 min. This is the flavour base.","Add garlic, ginger and curry leaves. Fry 1 min.","Add curry powder and turmeric. Stir and cook 2 min — spices must bloom in oil.","Add chicken. Brown on all sides.","Add tomatoes. Season. Simmer covered 20 min.","Add potatoes. Cook uncovered 20 min until potatoes are soft and sauce is thick.","Serve with rice and roti."],
+    tip:"Frying the onions until truly golden (not just soft) is what gives SA curry its characteristic depth. The spices must fry in oil — not steam — to bloom properly.",
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"su_beefstew", name:"Hearty Beef Stew", emoji:"🥘", time:150, cuisine:"Classic",
+    tags:["beef","stew","winter","comfort","slow cook"],
+    ingredients:[
+      {n:"Beef chuck (cubed 4cm)",pp:150,u:"g"},
+      {n:"Onion (roughly chopped)",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Carrots (chunked)",pp:40,u:"g"},
+      {n:"Celery (chunked)",pp:20,u:"g"},
+      {n:"Potatoes (quartered)",pp:80,u:"g"},
+      {n:"Tomato paste",pp:10,u:"g"},
+      {n:"Beef stock",pp:100,u:"ml"},
+      {n:"Red wine",pp:40,u:"ml"},
+      {n:"Flour (for dusting)",pp:8,u:"g"},
+      {n:"Thyme and bay leaves",pp:null,u:""},
+      {n:"Oil",pp:10,u:"ml"},
+    ],
+    method:["Dust beef cubes in flour, salt and pepper. Brown in batches in hot oil — real colour needed.","Fry onion and garlic in same pot.","Add tomato paste. Cook 2 min. Add wine — scrape up all brown bits.","Add stock, thyme and bay leaves. Return beef. Simmer covered low heat 1.5 hours.","Add carrots, celery and potatoes. Cook uncovered 30 min until tender and sauce thickens.","Remove bay leaves. Adjust seasoning."],
+    tip:"Browning beef in small batches without crowding is the single most important step. Crowded meat steams instead of browns and you lose all the flavour.",
+    storage:"Fridge 4 days. Freezer 3 months. Better next day." },
+
+  { id:"su_lasagne", name:"Classic Beef Lasagne", emoji:"🥘", time:90, cuisine:"Italian",
+    tags:["pasta","beef","italian","bake","family"],
+    ingredients:[
+      {n:"Lasagne sheets (dried)",pp:30,u:"g"},
+      {n:"Beef mince",pp:100,u:"g"},
+      {n:"Onion (diced)",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Tinned tomatoes",pp:80,u:"g"},
+      {n:"Tomato paste",pp:10,u:"g"},
+      {n:"Red wine",pp:20,u:"ml"},
+      {n:"Butter (for béchamel)",pp:12,u:"g"},
+      {n:"Flour (for béchamel)",pp:12,u:"g"},
+      {n:"Full cream milk",pp:120,u:"ml"},
+      {n:"Mozzarella (grated)",pp:30,u:"g"},
+      {n:"Parmesan (grated)",pp:15,u:"g"},
+      {n:"Nutmeg",pp:null,u:""},
+    ],
+    method:["MEAT SAUCE: Brown mince with onion and garlic. Add tomato paste, wine and tomatoes. Simmer 30 min until thick.","BÉCHAMEL: Melt butter. Add flour, stir 1 min. Whisk in milk gradually. Stir until thick. Season with nutmeg.","LAYER: béchamel, lasagne sheets, meat sauce, béchamel, lasagne sheets, meat sauce, béchamel on top.","Top with mozzarella and parmesan. Bake at 180°C for 35–40 min until bubbling and golden.","REST 15 min before cutting — essential."],
+    tip:"The 15 min rest after baking is non-negotiable — cutting immediately makes it collapse. It needs time to set into proper slices.",
+    storage:"Fridge 4 days. Freezer 3 months." },
+
+  { id:"su_roastchicken", name:"Roast Chicken", emoji:"🍗", time:90, cuisine:"Classic",
+    tags:["chicken","roast","sunday","family","classic"],
+    ingredients:[
+      {n:"Whole chicken",pp:400,u:"g"},
+      {n:"Butter (softened)",pp:20,u:"g"},
+      {n:"Garlic (minced)",pp:4,u:"g"},
+      {n:"Fresh thyme or rosemary",pp:5,u:"g"},
+      {n:"Lemon (halved)",pp:0.25,u:""},
+      {n:"Olive oil",pp:10,u:"ml"},
+      {n:"Onion (quartered — for pan)",pp:25,u:"g"},
+      {n:"Carrots (chunked — for pan)",pp:30,u:"g"},
+    ],
+    method:["Preheat oven to 200°C. Pat chicken completely dry with paper towel.","Mix butter, garlic and thyme. Push under skin over breast. Rub outside with olive oil. Season generously.","Stuff cavity with lemon and remaining herbs. Place on bed of onion and carrots.","Roast 20 min per 500g PLUS 20 min extra. Internal temp 75°C.","REST 15 min before carving — juices redistribute.","Deglaze roasting pan with a little water for the best gravy."],
+    tip:"Completely dry skin before roasting — moisture is the enemy of crispy skin. Butter under the skin bastes the breast from inside while roasting.",
+    storage:"Fridge 3 days." },
+
+  { id:"su_butterchicken", name:"Butter Chicken", emoji:"🍗", time:50, cuisine:"Indian",
+    tags:["curry","chicken","mild","creamy","indian","family"],
+    ingredients:[
+      {n:"Chicken thighs (boneless)",pp:150,u:"g"},
+      {n:"Butter",pp:20,u:"g"},
+      {n:"Onion (finely diced)",pp:30,u:"g"},
+      {n:"Garlic (minced)",pp:4,u:"g"},
+      {n:"Ginger (grated)",pp:4,u:"g"},
+      {n:"Tinned tomatoes",pp:100,u:"g"},
+      {n:"Cream",pp:60,u:"ml"},
+      {n:"Garam masala",pp:2,u:"g"},
+      {n:"Cumin",pp:1,u:"g"},
+      {n:"Coriander powder",pp:1,u:"g"},
+      {n:"Turmeric",pp:0.5,u:"g"},
+      {n:"Chilli powder (mild)",pp:1,u:"g"},
+      {n:"Sugar",pp:3,u:"g"},
+    ],
+    method:["Pan-fry chicken in butter until golden. Remove.","Fry onion in butter until very soft — 10 min. Add garlic and ginger. Cook 2 min.","Add all spices. Stir and cook 2 min until fragrant.","Add tomatoes. Simmer 15 min. Blend sauce smooth.","Return to heat. Add cream and sugar. Simmer 5 min. Add chicken. Simmer 10 min.","Serve with basmati rice and naan."],
+    tip:"Blending the sauce is what creates butter chicken's signature velvety texture. The sugar balances the tomato acidity.",
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"su_frikkadels", name:"Frikkadels in Tomato Sauce", emoji:"🍖", time:45, cuisine:"South African",
+    tags:["mince","meatballs","south african","family","comfort"],
+    ingredients:[
+      {n:"Beef mince",pp:120,u:"g"},
+      {n:"Onion (very finely grated)",pp:20,u:"g"},
+      {n:"White bread (soaked in milk)",pp:25,u:"g"},
+      {n:"Milk (for soaking)",pp:30,u:"ml"},
+      {n:"Egg",pp:0.25,u:"egg"},
+      {n:"Worcestershire sauce",pp:3,u:"ml"},
+      {n:"Fresh parsley (chopped)",pp:5,u:"g"},
+      {n:"Tinned tomatoes (for sauce)",pp:100,u:"g"},
+      {n:"Onion (for sauce, diced)",pp:20,u:"g"},
+      {n:"Garlic (for sauce)",pp:2,u:"g"},
+      {n:"Oil",pp:10,u:"ml"},
+    ],
+    method:["Squeeze bread dry. Mix with mince, grated onion, egg, Worcestershire, parsley. Shape into balls.","Brown frikkadels in oil — 4 min per side. Remove.","Fry diced onion and garlic in same pan. Add tomatoes. Simmer 10 min.","Return frikkadels to sauce. Simmer covered 15 min.","Serve with pap, rice or mashed potato."],
+    tip:"Grated onion is essential — it disappears into the meat giving moisture and flavour without chunks. Soaked bread is what makes them light.",
+    storage:"Fridge 3 days. Freezer 2 months." },
+
+  { id:"su_padthai", name:"Pad Thai", emoji:"🍜", time:25, cuisine:"Thai",
+    tags:["noodles","thai","quick","prawn","stir fry"],
+    ingredients:[
+      {n:"Rice noodles (flat, 3mm)",pp:80,u:"g"},
+      {n:"Prawns or chicken strips",pp:80,u:"g"},
+      {n:"Egg",pp:1,u:"egg"},
+      {n:"Bean sprouts",pp:40,u:"g"},
+      {n:"Spring onions (sliced)",pp:15,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Fish sauce",pp:10,u:"ml"},
+      {n:"Tamarind paste",pp:10,u:"g"},
+      {n:"Brown sugar",pp:8,u:"g"},
+      {n:"Oil",pp:15,u:"ml"},
+      {n:"Roasted peanuts (crushed)",pp:15,u:"g"},
+      {n:"Lime (to serve)",pp:0.5,u:""},
+    ],
+    method:["Soak rice noodles in cold water 30 min. Drain.","Mix fish sauce, tamarind and sugar — your pad thai sauce.","Heat wok until smoking. Add oil. Stir-fry protein 2 min. Push to side.","Add garlic 30 sec. Add noodles and sauce. Toss 2 min.","Push everything aside. Scramble egg. Fold into noodles.","Add bean sprouts and spring onions. Toss 30 sec — keep crunch.","Top with peanuts and lime. Serve immediately."],
+    tip:"Wok heat is everything — if it isn't smoking hot you get steamed soggy noodles. Cook in small batches if needed.",
+    storage:"Best eaten immediately." },
+
+  { id:"su_lambchops_rosemary", name:"Rosemary & Garlic Lamb Chops", emoji:"🍖", time:20, cuisine:"South African",
+    tags:["lamb","quick","elegant","dinner","garlic"],
+    ingredients:[
+      {n:"Lamb loin chops",pp:2,u:""},
+      {n:"Fresh rosemary",pp:3,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Olive oil",pp:10,u:"ml"},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"Salt and pepper",pp:null,u:""},
+      {n:"Butter (for basting)",pp:10,u:"g"},
+    ],
+    method:["Mix garlic, rosemary, olive oil and lemon juice. Coat chops. Marinate 30 min minimum.","Heat pan until very hot — almost smoking.","Season chops with salt and pepper just before cooking.","Sear 3 min per side for medium. Add butter and baste in last minute.","REST 5 min — non-negotiable for lamb."],
+    tip:"Lamb chops are thin — they cook fast. High heat for a short time gives the perfect crust with a pink centre. Never pierce with a fork while cooking.",
+    storage:"Fridge 2 days raw (marinated). Cooked 3 days." },
+
+  { id:"su_mushroomrisotto", name:"Mushroom Risotto", emoji:"🍚", time:45, cuisine:"Italian",
+    tags:["vegetarian","rice","italian","creamy","dinner"],
+    ingredients:[
+      {n:"Arborio or risotto rice",pp:80,u:"g"},
+      {n:"Button mushrooms (sliced)",pp:80,u:"g"},
+      {n:"Onion (finely diced)",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"White wine",pp:40,u:"ml"},
+      {n:"Warm vegetable or chicken stock",pp:250,u:"ml"},
+      {n:"Butter",pp:20,u:"g"},
+      {n:"Parmesan (grated)",pp:25,u:"g"},
+      {n:"Olive oil",pp:8,u:"ml"},
+      {n:"Fresh thyme",pp:2,u:"g"},
+    ],
+    method:["Keep stock warm in a separate pot throughout.","Fry mushrooms in butter until golden. Season. Remove.","Fry onion and garlic in olive oil 5 min. Add rice — toast 2 min stirring.","Add wine — stir until absorbed.","Add warm stock one ladle at a time, stirring until each is absorbed before adding the next. Takes 18–20 min.","Stir in mushrooms, remaining butter and parmesan. Season. Rest 2 min.","Serve immediately — risotto waits for no one."],
+    tip:"The stirring is what makes risotto — it releases the starch that creates the creamy texture without cream. Warm stock is essential — cold stock stops the cooking process.",
+    storage:"Fridge 2 days. Reheat with a splash of stock." },
+
+  { id:"su_chickennoodlesoup", name:"Chicken Noodle Soup", emoji:"🍲", time:90, cuisine:"Classic",
+    tags:["soup","chicken","comfort","winter","family"],
+    ingredients:[
+      {n:"Chicken pieces or whole chicken",pp:150,u:"g"},
+      {n:"Onion (halved)",pp:25,u:"g"},
+      {n:"Carrots (sliced)",pp:40,u:"g"},
+      {n:"Celery (sliced)",pp:25,u:"g"},
+      {n:"Garlic (whole cloves)",pp:3,u:"g"},
+      {n:"Egg noodles or pasta",pp:30,u:"g"},
+      {n:"Fresh parsley",pp:5,u:"g"},
+      {n:"Bay leaves and peppercorns",pp:null,u:""},
+    ],
+    method:["Place chicken in large pot. Cover with cold water. Add onion, garlic, bay leaves and peppercorns.","Bring to boil. Skim foam from surface — important for clear broth.","Simmer gently 1 hour. Remove chicken. Strain broth.","Shred chicken meat. Discard bones and skin.","Return broth to pot. Add carrots and celery. Cook 15 min.","Add noodles. Cook until tender. Return chicken. Add parsley. Season."],
+    tip:"Starting with cold water extracts maximum flavour from the bones. Skimming the foam gives a clear, clean golden broth. This soup genuinely makes you feel better.",
+    storage:"Fridge 4 days. Freeze broth 3 months." },
+
+  { id:"su_bobotie", name:"Bobotie", emoji:"🍛", time:75, cuisine:"Cape Malay",
+    tags:["mince","curry","cape malay","bake","south african","classic"],
+    ingredients:[
+      {n:"Beef or lamb mince",pp:150,u:"g"},
+      {n:"Onion (finely diced)",pp:25,u:"g"},
+      {n:"Garlic (minced)",pp:3,u:"g"},
+      {n:"Curry powder",pp:3,u:"g"},
+      {n:"Turmeric",pp:1,u:"g"},
+      {n:"Apricot jam",pp:15,u:"g"},
+      {n:"Chutney",pp:15,u:"g"},
+      {n:"White bread (soaked in milk)",pp:30,u:"g"},
+      {n:"Milk (for soaking)",pp:30,u:"ml"},
+      {n:"Egg",pp:0.3,u:"egg"},
+      {n:"Lemon juice",pp:5,u:"ml"},
+      {n:"Raisins",pp:15,u:"g"},
+      {n:"Almonds (flaked)",pp:10,u:"g"},
+      {n:"Bay leaves",pp:null,u:""},
+      {n:"Eggs (for topping)",pp:0.5,u:"egg"},
+      {n:"Milk (for topping)",pp:30,u:"ml"},
+      {n:"Turmeric (for topping)",pp:0.5,u:"g"},
+    ],
+    method:["Preheat oven to 180°C.","Fry onion and garlic until soft. Add curry powder and turmeric, cook 1 min.","Add mince. Brown completely.","Add jam, chutney, lemon juice and raisins. Squeeze bread dry and crumble in. Mix.","Spoon into greased baking dish. Press bay leaves on top.","Beat eggs with milk and turmeric. Pour over. Scatter almonds.","Bake 35–40 min until topping is set and golden.","Serve with yellow rice and chutney."],
+    tip:"The bread soaked in milk is what makes Bobotie uniquely SA — it gives a moist, custard-like texture to the mince. Don't skip the apricot jam — it's the secret sweet note.",
+    storage:"Fridge 3 days. Freezes well." },
+];
+
+const BAKES_RECIPES = [
+  { id:"bk_choccake", name:"Classic Chocolate Cake", emoji:"🎂", time:60, cuisine:"Classic",
+    tags:["cake","chocolate","dessert","birthday","bake"],
+    ingredients:[
+      {n:"Cake flour",pp:20,u:"g"},
+      {n:"Cocoa powder",pp:5,u:"g"},
+      {n:"Sugar",pp:20,u:"g"},
+      {n:"Baking powder",pp:0.4,u:"g"},
+      {n:"Bicarbonate of soda",pp:0.2,u:"g"},
+      {n:"Egg",pp:0.2,u:"egg"},
+      {n:"Buttermilk",pp:20,u:"ml"},
+      {n:"Oil",pp:10,u:"ml"},
+      {n:"Hot coffee or water",pp:20,u:"ml"},
+      {n:"Dark chocolate (70%)",pp:15,u:"g"},
+      {n:"Cream (for ganache)",pp:10,u:"ml"},
+    ],
+    method:["Preheat oven to 180°C. Grease and line two tins.","Sift all dry ingredients together.","Whisk eggs, buttermilk and oil. Combine with dry. Add hot coffee — batter will be thin. This is correct.","Divide between tins. Bake 30–35 min until skewer comes out clean.","Cool completely.","GANACHE: Heat cream until just boiling. Pour over chopped chocolate. Stir until smooth. Cool until spreadable.","Sandwich and frost with ganache."],
+    tip:"Hot coffee intensifies the chocolate flavour dramatically without tasting of coffee. The thin batter is correct — it bakes into a moist, dense cake.",
+    storage:"Room temperature 3 days. Fridge 5 days." },
+
+  { id:"bk_malvapudding", name:"Malva Pudding", emoji:"🍮", time:60, cuisine:"South African",
+    tags:["south african","dessert","bake","classic","warm"],
+    ingredients:[
+      {n:"Sugar",pp:30,u:"g"},
+      {n:"Egg",pp:0.25,u:"egg"},
+      {n:"Apricot jam",pp:15,u:"g"},
+      {n:"Butter (melted)",pp:8,u:"g"},
+      {n:"Cake flour",pp:30,u:"g"},
+      {n:"Bicarbonate of soda",pp:0.5,u:"g"},
+      {n:"Vinegar",pp:3,u:"ml"},
+      {n:"Milk",pp:30,u:"ml"},
+      {n:"Cream (for sauce)",pp:45,u:"ml"},
+      {n:"Butter (for sauce)",pp:15,u:"g"},
+      {n:"Sugar (for sauce)",pp:20,u:"g"},
+      {n:"Hot water",pp:15,u:"ml"},
+      {n:"Vanilla essence",pp:1,u:"ml"},
+    ],
+    method:["Preheat oven to 180°C. Grease baking dish.","Beat sugar and egg until pale and fluffy.","Add jam, melted butter, vinegar and milk.","Sift and fold in flour and bicarb.","Bake 30–35 min until deep golden.","SAUCE: Heat cream, butter, sugar, water and vanilla until butter melts.","While pudding is hot, poke holes all over. Pour ALL warm sauce over. It absorbs completely.","Serve immediately with cream or ice cream."],
+    tip:"Sauce MUST go on while pudding is still hot from the oven. Cold pudding won't absorb the sauce. This is the most loved South African dessert for good reason.",
+    storage:"Fridge 3 days. Reheat with a splash of cream." },
+
+  { id:"bk_rusks", name:"Buttermilk Rusks", emoji:"🍪", time:480, cuisine:"South African",
+    tags:["south african","bake","breakfast","coffee","dip"],
+    ingredients:[
+      {n:"Cake flour",pp:30,u:"g"},
+      {n:"Sugar",pp:8,u:"g"},
+      {n:"Baking powder",pp:0.5,u:"g"},
+      {n:"Salt",pp:0.2,u:"g"},
+      {n:"Butter (melted)",pp:10,u:"g"},
+      {n:"Buttermilk",pp:25,u:"ml"},
+      {n:"Egg",pp:0.1,u:"egg"},
+    ],
+    method:["Preheat oven to 180°C.","Sift flour, sugar, baking powder and salt.","Mix buttermilk, butter and egg. Combine wet and dry — do not overmix.","Press into loaf tin. Bake 45 min until golden.","Cool completely. Cut into fingers.","DRYING: Place on oven racks at 70°C overnight (8–10 hours) until completely dry and hard.","Tap to test — should sound hollow."],
+    tip:"The overnight drying at very low temperature is what makes them rusks. They must be completely dry to last for months. Dip in coffee before eating.",
+    storage:"Airtight container 2–3 months." },
+
+  { id:"bk_bananabread", name:"Banana Bread", emoji:"🍌", time:65, cuisine:"Classic",
+    tags:["bake","banana","breakfast","sweet","easy"],
+    ingredients:[
+      {n:"Very ripe bananas (mashed)",pp:0.5,u:""},
+      {n:"Cake flour",pp:30,u:"g"},
+      {n:"Sugar",pp:15,u:"g"},
+      {n:"Baking powder",pp:0.4,u:"g"},
+      {n:"Bicarbonate of soda",pp:0.2,u:"g"},
+      {n:"Egg",pp:0.2,u:"egg"},
+      {n:"Butter (melted)",pp:10,u:"g"},
+      {n:"Buttermilk or plain yoghurt",pp:15,u:"ml"},
+      {n:"Vanilla essence",pp:0.5,u:"ml"},
+      {n:"Cinnamon",pp:0.3,u:"g"},
+      {n:"Walnuts or chocolate chips (optional)",pp:10,u:"g"},
+    ],
+    method:["Preheat oven to 170°C. Grease loaf tin.","Mash bananas very well — no lumps. The riper the better.","Whisk egg, butter and buttermilk. Add mashed banana.","Sift dry ingredients. Fold into wet — mix until JUST combined.","Pour into tin. Bake 55–60 min until a skewer comes out clean.","Cool in tin 10 min. Turn out. Cool completely before slicing."],
+    tip:"Overripe black bananas are the best — they have maximum sweetness and moisture. Banana bread should be moist and dense, not dry and crumbly. Don't overbake.",
+    storage:"Room temperature 3 days. Fridge 5 days. Freezer 3 months." },
+
+  { id:"bk_koeksisters", name:"Koeksisters", emoji:"🍩", time:90, cuisine:"South African",
+    tags:["south african","fried","sweet","afrikaner","bake"],
+    ingredients:[
+      {n:"Cake flour",pp:25,u:"g"},
+      {n:"Baking powder",pp:0.5,u:"g"},
+      {n:"Butter (cold)",pp:4,u:"g"},
+      {n:"Egg",pp:0.1,u:"egg"},
+      {n:"Milk",pp:15,u:"ml"},
+      {n:"Oil (for deep frying)",pp:null,u:""},
+      {n:"Sugar (for syrup)",pp:50,u:"g"},
+      {n:"Water (for syrup)",pp:25,u:"ml"},
+      {n:"Cream of tartar",pp:0.2,u:"g"},
+      {n:"Lemon juice",pp:2,u:"ml"},
+    ],
+    method:["SYRUP (day before): Boil sugar, water, cream of tartar and lemon juice 10 min. Cool completely. Refrigerate — must be ice cold.","Rub cold butter into flour and baking powder until breadcrumbs. Add egg and milk. Form soft dough.","Roll 5mm thick. Cut 8cm × 2cm strips. Split each almost through to create two strands. Plait.","Fry at 180°C until golden — about 3 min.","IMMEDIATELY drop hot koeksisters into ice-cold syrup. The thermal shock is the secret.","Remove after 30 sec. Place on wire rack."],
+    tip:"Two rules: syrup must be ICE COLD (put in freezer before frying) and koeksisters go from boiling oil into freezing syrup. The temperature shock creates the crispy-sticky texture.",
+    storage:"Room temperature 3 days. Never refrigerate — they go soggy." },
+
+  { id:"bk_melktert", name:"Melktert", emoji:"🥧", time:60, cuisine:"South African",
+    tags:["south african","dessert","bake","milk tart","afrikaner"],
+    ingredients:[
+      {n:"Butter (cold)",pp:15,u:"g"},
+      {n:"Cake flour",pp:25,u:"g"},
+      {n:"Icing sugar",pp:5,u:"g"},
+      {n:"Egg yolk",pp:0.1,u:"egg"},
+      {n:"Cold water",pp:5,u:"ml"},
+      {n:"Full cream milk",pp:90,u:"ml"},
+      {n:"Sugar",pp:15,u:"g"},
+      {n:"Flour",pp:8,u:"g"},
+      {n:"Cornflour",pp:5,u:"g"},
+      {n:"Egg",pp:0.25,u:"egg"},
+      {n:"Butter",pp:5,u:"g"},
+      {n:"Vanilla essence",pp:0.5,u:"ml"},
+      {n:"Cinnamon (for dusting)",pp:null,u:""},
+    ],
+    method:["PASTRY: Rub cold butter into flour and icing sugar. Add egg yolk and water. Press into tart tin. Refrigerate 20 min. Blind bake at 190°C for 15 min.","FILLING: Heat milk until just below boiling.","Whisk sugar, flour, cornflour and eggs until smooth.","Slowly pour hot milk into egg mixture, whisking continuously.","Return to pot. Stir continuously over low heat until very thick — about 5 min.","Remove from heat. Add butter and vanilla. Pour into pastry shell.","Refrigerate 2 hours. Dust generously with cinnamon before serving."],
+    tip:"The filling thickens quickly once it starts — don't stop stirring or you get lumps. A properly set melktert wobbles slightly in the centre when the tin is shaken.",
+    storage:"Fridge 3 days." },
+
+  { id:"bk_sourdoughbread", name:"Sourdough Bread", emoji:"🍞", time:480, cuisine:"Classic",
+    tags:["bread","bake","sourdough","long ferment","classic"],
+    ingredients:[
+      {n:"Bread flour (strong white)",pp:100,u:"g"},
+      {n:"Active sourdough starter (bubbly)",pp:20,u:"g"},
+      {n:"Lukewarm water (36°C)",pp:75,u:"ml"},
+      {n:"Fine salt",pp:2,u:"g"},
+    ],
+    method:["Mix flour and water. Rest 30 min (autolyse — develops gluten without kneading).","Add starter and salt. Mix thoroughly.","STRETCH & FOLD: Wet hand, grab dough, stretch up and fold over. Rotate 90°. Repeat 4 times every 30 min for 4 sets over 2 hours.","BULK FERMENT: Cover. Leave at room temperature 4–6 hours until doubled and bubbly.","Shape into round or oval. Place in floured banneton or bowl. Cover.","COLD PROOF: Refrigerate overnight (8–16 hours).","Preheat oven to 250°C with Dutch oven inside for 45 min.","Score cold dough. Drop into hot Dutch oven. Bake covered 20 min, uncovered 25 min.","Cool 1 hour before slicing.","The sourdough starter recipe is in Health Hub → Fermented Foods."],
+    tip:"Cold overnight proof develops the characteristic sourdough flavour — the longer the better. This bread is better on day 2 and 3. Never cut before it's completely cool.",
+    storage:"Room temperature (paper bag) 4 days. Freezer 3 months." },
+
+  { id:"bk_lemondrizzle", name:"Lemon Drizzle Cake", emoji:"🍋", time:55, cuisine:"British",
+    tags:["cake","lemon","bake","afternoon tea","british"],
+    ingredients:[
+      {n:"Butter (softened)",pp:12,u:"g"},
+      {n:"Sugar",pp:12,u:"g"},
+      {n:"Egg",pp:0.2,u:"egg"},
+      {n:"Cake flour",pp:15,u:"g"},
+      {n:"Baking powder",pp:0.3,u:"g"},
+      {n:"Lemon zest",pp:0.3,u:"g"},
+      {n:"Lemon juice (for cake)",pp:3,u:"ml"},
+      {n:"Milk",pp:8,u:"ml"},
+      {n:"Icing sugar (for drizzle)",pp:10,u:"g"},
+      {n:"Lemon juice (for drizzle)",pp:5,u:"ml"},
+    ],
+    method:["Preheat oven to 180°C. Grease loaf tin.","Beat butter and sugar until pale and fluffy — 4 min.","Add eggs one at a time. Beat well.","Fold in sifted flour and baking powder alternating with milk and lemon juice.","Add lemon zest. Pour into tin.","Bake 45–50 min until golden and a skewer comes out clean.","DRIZZLE: Mix icing sugar and lemon juice to a thin syrup.","While cake is still hot and in the tin, poke holes all over. Pour drizzle over — it soaks in as the cake cools."],
+    tip:"The drizzle goes on hot — it soaks in and creates a moist, tangy crust as it cools. Don't skip this step.",
+    storage:"Room temperature 4 days. Fridge 1 week." },
+
+  { id:"bk_garlicbread", name:"Garlic Butter Bread", emoji:"🥖", time:15, cuisine:"Italian",
+    tags:["bread","garlic","side","quick","bake"],
+    ingredients:[
+      {n:"Ciabatta or French loaf",pp:60,u:"g"},
+      {n:"Butter (softened)",pp:20,u:"g"},
+      {n:"Garlic (minced or pressed)",pp:3,u:"g"},
+      {n:"Fresh parsley (finely chopped)",pp:3,u:"g"},
+      {n:"Salt",pp:null,u:""},
+    ],
+    method:["Preheat oven to 200°C or turn on the grill.","Mix butter, garlic, parsley and a pinch of salt until smooth.","Cut bread in half lengthways. Spread garlic butter generously over cut surfaces.","Bake 8–10 min until edges are crispy and golden. Or grill for 3–4 min.","Serve immediately — garlic bread waits for no one."],
+    tip:"The garlic must be minced very finely or pressed — chunky garlic burns before the bread crisps. Fresh parsley keeps it bright green and fresh.",
+    storage:"Assemble ahead. Bake fresh." },
+
+  { id:"bk_scones", name:"Classic Scones", emoji:"🫐", time:30, cuisine:"British",
+    tags:["bake","british","afternoon tea","quick","cream"],
+    ingredients:[
+      {n:"Cake flour",pp:40,u:"g"},
+      {n:"Baking powder",pp:1,u:"g"},
+      {n:"Salt (pinch)",pp:null,u:""},
+      {n:"Sugar",pp:5,u:"g"},
+      {n:"Butter (cold, cubed)",pp:8,u:"g"},
+      {n:"Buttermilk or milk",pp:25,u:"ml"},
+      {n:"Egg (for brushing)",pp:0.1,u:"egg"},
+      {n:"Jam and cream (to serve)",pp:30,u:"g"},
+    ],
+    method:["Preheat oven to 220°C.","Sift flour, baking powder, salt and sugar. Rub in cold butter until breadcrumb texture. Work quickly — butter must stay cold.","Add buttermilk. Mix until JUST combined — do not overmix.","Turn onto floured surface. Pat gently to 2.5cm thick. Do not roll.","Cut with sharp cutter dipped in flour. Do not twist — press straight down.","Brush tops with egg. Bake 12–15 min until golden.","Serve warm with jam and whipped cream."],
+    tip:"Cold butter, minimal mixing, straight-down cutting — these three things separate good scones from bad ones. Overworked dough = tough scones. Twisted cutter = scones that won't rise straight.",
+    storage:"Best eaten same day. Freeze unbaked." },
+];
+
+
+// ── SEARCH ENGINE ─────────────────────────────────────────────────
+function buildSearchIndex(){
+  const idx = [];
+  function add(name, emoji, section, sectionLabel, color, navAction, tags){
+    idx.push({name, emoji, section, sectionLabel, color, navAction, tags:(tags||[]).map(t=>t.toLowerCase())});
+  }
+
+  // Braai
+  (typeof BRAAI_MEATS!=='undefined'?BRAAI_MEATS:[]).forEach(r=>add(r.name,r.emoji||'🔥','braai','Braai & Shisanyama','#c06020',`set({screen:'braai',braiStep:2,braiCat:'meaty',braaiView:null})`,[r.name]));
+  (typeof SIDES_GROUPS!=='undefined'?SIDES_GROUPS:[]).forEach(g=>(g.items||[]).forEach(r=>add(r.name,r.emoji||'🥗','braai','Braai · '+g.label,'#c06020',`set({screen:'braai',braiStep:3,braiCat:'${g.id}'})`,[r.name,g.label])));
+
+  // Events - Finger Foods
+  Object.values(typeof EVENTS_FINGER_FOODS!=='undefined'?EVENTS_FINGER_FOODS:{}).flat().forEach(r=>add(r.name,r.emoji||'🍽️','events','Finger Foods','#d04080',`set({screen:'events',eventTab:'fingerfoods',fingerSection:'savoury',fingerView:'browse'})`,[r.name]));
+
+  // Events - Buffet
+  [...(typeof EVENTS_BIG_COOKING_MAINS!=='undefined'?EVENTS_BIG_COOKING_MAINS:[]),
+   ...(typeof EVENTS_BIG_COOKING_SIDES!=='undefined'?EVENTS_BIG_COOKING_SIDES:[]),
+   ...(typeof EVENTS_BIG_COOKING_SALADS!=='undefined'?EVENTS_BIG_COOKING_SALADS:[]),
+   ...(typeof EVENTS_STARTERS!=='undefined'?EVENTS_STARTERS:[]),
+   ...(typeof EVENTS_DESSERTS!=='undefined'?EVENTS_DESSERTS:[]),
+  ].forEach(r=>add(r.name,r.emoji||'🍽️','events','Events · Buffet','#d04080',`set({screen:'events',eventTab:'bigcooking'})`,[r.name]));
+
+  // Cultural
+  (typeof EVENTS_CULTURAL!=='undefined'?EVENTS_CULTURAL:[]).forEach(g=>(g.dishes||[]).forEach(r=>add(r.name,r.emoji||'🌍','events','Cultural · '+g.name,'#d04080',`set({screen:'events',eventTab:'cultural'})`,[r.name,g.name])));
+
+  // Health Hub
+  [...(typeof FRESH_JUICES!=='undefined'?FRESH_JUICES:[]),
+   ...(typeof SMOOTHIES!=='undefined'?SMOOTHIES:[]),
+   ...(typeof OVERNIGHT_OATS!=='undefined'?OVERNIGHT_OATS:[]),
+   ...(typeof HEALTHY_MUFFINS!=='undefined'?HEALTHY_MUFFINS:[]),
+   ...(typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[]),
+  ].forEach(r=>add(r.name,r.emoji||'🌿','smoothies','Health Hub','#20a080',`set({screen:'smoothies'})`,[r.name,...(r.badges||[])]));
+
+  // Fermented
+  (typeof FERMENTED_RECIPES!=='undefined'?FERMENTED_RECIPES:[]).forEach(r=>add(r.name,r.emoji||'🫙','smoothies','Health Hub · Fermented','#20a080',`set({screen:'smoothies',vitalCat:'fermented'})`,[r.name,...(r.badges||[])]));
+
+  // Tiny Tummies
+  (typeof BABY_RECIPES!=='undefined'?BABY_RECIPES:[]).forEach(r=>add(r.name,r.emoji||'🍼','babyapp','Tiny Tummies · '+r.stageLabel,'#e07090',`set({screen:'babyapp',activeBaby:null})`,[r.name,...(r.badges||[]),(r.stageLabel||'')]));
+
+  // Dogs
+  Object.values(typeof DOG_RECIPES!=='undefined'?DOG_RECIPES:{}).flat().forEach(r=>add(r.name,r.emoji||'🐕','furryapp','Furry Friends · Dogs','#9060d0',`set({screen:'furryapp',furryPet:'dog'})`,[r.name,...(r.ages||[])]));
+
+  // Meal sections
+  [...(BREAKFAST_RECIPES||[])].forEach(r=>add(r.name,r.emoji,'breakfast','Breakfast',r.color||'#d0a020','set({screen:\'breakfast\'})',[r.name,...(r.tags||[])]));
+  [...(LIGHTLUNCH_RECIPES||[])].forEach(r=>add(r.name,r.emoji,'lightlunch','Light Lunch','#40a060','set({screen:\'lightlunch\'})',[r.name,...(r.tags||[])]));
+  [...(SUPPER_RECIPES||[])].forEach(r=>add(r.name,r.emoji,'supper','Supper','#8040c0','set({screen:\'supper\'})',[r.name,...(r.tags||[])]));
+  [...(BAKES_RECIPES||[])].forEach(r=>add(r.name,r.emoji,'bakes','Bakes & Cakes','#d06080','set({screen:\'bakes\'})',[r.name,...(r.tags||[])]));
+
+  // Popular Recipes
+  [...(POPULAR_RECIPES.sa||[]),...(POPULAR_RECIPES.international||[])].forEach(r=>
+    add(r.name,r.emoji||'🍽️','search','Popular · '+r.cuisine,'#4080d0',
+      `setQuiet({_popularRecipe:${JSON.stringify({id:r.id})}})`,
+      [r.name,r.cuisine,...(r.tags||[])])
+  );
+
+  // Cats
+  Object.values(typeof CAT_RECIPES!=='undefined'?CAT_RECIPES:{}).flat().forEach(r=>add(r.name,r.emoji||'🐱','furryapp','Furry Friends · Cats','#e08040',`set({screen:'furryapp',furryPet:'cat'})`,[r.name,...(r.ages||[])]));
+
+  return idx;
+}
+
+// Debounce timer for search
+var _searchTimer = null;
+
+function doSearch(q){
+  // Update state quietly without full redraw - just update results panel
+  S.searchQuery = q;
+  
+  // Clear previous timer
+  if(_searchTimer) clearTimeout(_searchTimer);
+  
+  if(!q||q.trim().length<2){
+    S.chefRecipe=null; S.chefLoading=false; S._searchResults=[];
+    updateSearchResults();
+    return;
+  }
+  
+  // Search immediately for in-app results
+  const terms = q.toLowerCase().trim().split(/\s+/);
+  const idx = buildSearchIndex();
+  const results = idx.filter(item=>{
+    const haystack = (item.name+' '+item.sectionLabel+' '+item.tags.join(' ')).toLowerCase();
+    return terms.every(t=>haystack.includes(t));
+  });
+  
+  S._searchResults = results;
+  S.chefRecipe = null;
+  updateSearchResults();
+  
+  // If no results, wait 800ms then call Tinza Chef
+  if(results.length===0){
+    S.chefLoading = true;
+    updateSearchResults();
+    _searchTimer = setTimeout(()=>{ callTinzaChef(q); }, 800);
+  }
+}
+
+function updateSearchResults(){
+  // Only update the results panel — don't rebuild the whole page
+  const panel = document.getElementById('search-results-panel');
+  if(panel) panel.innerHTML = buildSearchResultsHTML();
+}
+
+function buildSearchResultsHTML(){
+  const q = S.searchQuery||'';
+  const results = S._searchResults||[];
+  const chef = S.chefRecipe;
+  const loading = S.chefLoading;
+
+  if(!q) return `<div style="text-align:center;padding:30px 0;">
+    <div style="font-size:48px;margin-bottom:16px;">🔍</div>
+    <div style="font-size:14px;color:#2040a0;margin-bottom:24px;">Search across all sections</div>
+    <div style="text-align:left;">
+      <div style="font-size:10px;letter-spacing:2px;color:#2040a0;text-transform:uppercase;margin-bottom:10px;">Try searching for...</div>
+      ${['chicken','malva pudding','gluten free','baby 6 months','dog biscuit','kombucha','smoothie','braai salad'].map(s=>`<button onclick="document.getElementById('search-input').value='${s}';doSearch('${s}')" style="display:inline-block;margin:4px;padding:6px 12px;border-radius:20px;border:1px solid #2040a0;background:#0a0f20;color:#4080d0;font-size:12px;cursor:pointer;">${s}</button>`).join('')}
+    </div>
+  </div>
+  <div style="margin-top:20px;">
+    <div style="font-size:10px;letter-spacing:2px;color:#2040a0;text-transform:uppercase;margin-bottom:12px;">🇿🇦 SA Classics</div>
+    ${(POPULAR_RECIPES.sa||[]).map(r=>`<div onclick="setQuiet({_popularRecipe:{id:'${r.id}'}})" style="background:#0f1020;border:1px solid #1a2a40;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+      <span style="font-size:22px;">${r.emoji}</span>
+      <div style="flex:1;"><div style="font-size:13px;color:#e0e8f0;">${r.name}</div><div style="font-size:10px;color:#2040a0;margin-top:2px;">${r.cuisine} · ⏱️ ${r.time} min</div></div>
+      <span style="color:#4080d0;font-size:14px;">→</span>
+    </div>`).join('')}
+    <div style="font-size:10px;letter-spacing:2px;color:#2040a0;text-transform:uppercase;margin:16px 0 12px;">🌍 International Favourites</div>
+    ${(POPULAR_RECIPES.international||[]).map(r=>`<div onclick="setQuiet({_popularRecipe:{id:'${r.id}'}})" style="background:#0f1020;border:1px solid #1a2a40;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+      <span style="font-size:22px;">${r.emoji}</span>
+      <div style="flex:1;"><div style="font-size:13px;color:#e0e8f0;">${r.name}</div><div style="font-size:10px;color:#2040a0;margin-top:2px;">${r.cuisine} · ⏱️ ${r.time} min</div></div>
+      <span style="color:#4080d0;font-size:14px;">→</span>
+    </div>`).join('')}
+  </div>`;
+
+  if(loading) return `<div style="text-align:center;padding:40px 0;">
+    <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
+    <div style="font-size:14px;color:#4080d0;">Finding the perfect recipe for you...</div>
+    <div style="font-size:11px;color:#2040a0;margin-top:6px;">Just a moment</div>
+  </div>`;
+
+  let html = '';
+
+  if(results.length>0){
+    html += `<div style="font-size:10px;letter-spacing:2px;color:#4080d0;text-transform:uppercase;margin-bottom:10px;">${results.length} recipe${results.length!==1?'s':''} found</div>`;
+    html += results.map(r=>`<div onclick="${r.navAction}" style="background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:28px;">${r.emoji}</span>
+      <div style="flex:1;">
+        <div style="font-size:14px;color:#f5e8cc;">${r.name}</div>
+        <div style="font-size:11px;color:#4060a0;margin-top:2px;">${r.sectionLabel}</div>
+      </div>
+      <span style="color:#4080d0;font-size:16px;">→</span>
+    </div>`).join('');
+  }
+
+  if(chef && !chef._error){
+    const servings = S.searchServings||4;
+    function fmt(pp,u){ const r=pp*servings; if((u==='g'||u==='ml')&&r>=1000) return (Math.round(r/100)/10)+(u==='g'?'kg':'L'); return Math.round(r*10)/10+(u||''); }
+    html += `<div style="background:#0f1020;border:2px solid #4080d0;border-radius:12px;padding:16px;margin-top:${results.length?'16px':'0'};">
+      <div style="font-size:11px;color:#4060a0;margin-bottom:6px;">✨ Recipe found for you</div>
+      <div style="font-size:18px;color:#f5e8cc;font-weight:bold;margin-bottom:4px;">${chef.emoji} ${chef.name}</div>
+      <div style="font-size:11px;color:#4060a0;margin-bottom:12px;">⏱️ ${chef.time} min</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});updateSearchResults()" style="width:28px;height:28px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:16px;cursor:pointer;">−</button>
+        <span style="font-size:20px;color:#f5c842;font-weight:bold;min-width:24px;text-align:center;">${servings}</span>
+        <button onclick="setQuiet({searchServings:Math.min(500,(S.searchServings||4)+1)});updateSearchResults()" style="width:28px;height:28px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:16px;cursor:pointer;">+</button>
+        <span style="font-size:11px;color:#2040a0;">people · quantities scale</span>
+      </div>
+      <div style="margin-bottom:10px;">${(chef.ingredients||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a2030;font-size:12px;"><span style="color:#c0c8e0;">${i.n}</span><span style="color:#f5c842;font-weight:bold;">${fmt(i.pp,i.u)}</span></div>`).join('')}</div>
+      <button onclick="set({screen:'search',chefRecipe:S.chefRecipe,_searchResults:S._searchResults,searchQuery:S.searchQuery,_showChefFull:true})" style="width:100%;padding:10px;border-radius:8px;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:13px;cursor:pointer;margin-bottom:8px;">See Full Recipe & Method →</button>
+      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${chef.name}*\nFor ${servings} people\n\n'+chef.ingredients.map(i=>{const r=i.pp*${servings};return '• '+i.n+': '+((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));}).join('\n')+'\n\nFound with Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:10px;border-radius:8px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;">📱 Share via WhatsApp</button>
+    </div>`;
+  }
+
+  if(chef&&chef._error) html += `<div style="background:#1a0f10;border:1px solid #4a2020;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:13px;color:#c07070;">Couldn't find a recipe — try a different search term</div></div>`;
+
+  return html || `<div style="text-align:center;padding:20px;color:#2040a0;font-size:13px;">No recipes found for "${q}"</div>`;
+}
+
+async function callTinzaChef(query){
+  try {
+    const prompt = `You are Tinza Chef, a South African recipe assistant. Generate a recipe for: "${query}"
+
+Return ONLY a JSON object (no markdown, no backticks) in this exact format:
+{
+  "name": "Recipe name",
+  "emoji": "single emoji",
+  "serves": 4,
+  "time": 30,
+  "ingredients": [
+    {"n": "Ingredient name", "pp": 100, "u": "g"},
+    {"n": "Another ingredient", "pp": 15, "u": "ml"}
+  ],
+  "method": ["Step 1", "Step 2", "Step 3"],
+  "tip": "One useful tip",
+  "section": "appropriate section name"
+}
+
+Rules:
+- All amounts in grams (g) or millilitres (ml) only - no cups, tablespoons etc
+- pp = amount per 1 person/serving
+- Use South African ingredients and context where appropriate
+- Keep it practical and delicious`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await resp.json();
+    const text = (data.content||[]).map(b=>b.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const recipe = JSON.parse(clean);
+    recipe._isChef = true;
+    recipe._query = query;
+    set({chefRecipe:recipe, chefLoading:false});
+  } catch(e){
+    set({chefRecipe:{_error:true, _query:query}, chefLoading:false});
+  }
+}
+
+function searchHTML(){
+  const q = S.searchQuery||'';
+  const chef = S.chefRecipe;
+  const servings = S.searchServings||4;
+
+  // Popular recipe detail view
+  if(S._popularRecipe){
+    const allPop = [...(POPULAR_RECIPES.sa||[]),...(POPULAR_RECIPES.international||[])];
+    const pr = allPop.find(r=>r.id===S._popularRecipe.id);
+    if(pr){
+      function fmt(pp,u){ const r=pp*servings; if((u==='g'||u==='ml')&&r>=1000) return (Math.round(r/100)/10)+(u==='g'?'kg':'L'); return Math.round(r*10)/10+(u||''); }
+      return `<div style="min-height:100vh;background:#0f0e0c;">
+        <div style="background:#0f1020;border-bottom:1px solid #2040a0;padding:14px 20px;">
+          <button onclick="setQuiet({_popularRecipe:null})" style="background:none;border:none;color:#4080d0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+          <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${pr.emoji} ${pr.name}</h1>
+          <div style="font-size:11px;color:#4060a0;">${pr.cuisine} · ⏱️ ${pr.time} min</div>
+        </div>
+        <div class="content">
+          <div style="display:flex;align-items:center;gap:12px;background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="font-size:11px;color:#4080d0;text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
+            <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:18px;cursor:pointer;">−</button>
+            <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
+            <button onclick="setQuiet({searchServings:Math.min(500,(S.searchServings||4)+1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:18px;cursor:pointer;">+</button>
+            <span style="font-size:11px;color:#2040a0;">people · all quantities scale</span>
+          </div>
+          <div style="background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:14px;margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:2px;color:#4080d0;text-transform:uppercase;margin-bottom:10px;">Ingredients — ${servings} serving${servings!==1?'s':''}</div>
+            ${(pr.ingredients||[]).map(i=>!i.pp?`<div style="padding:5px 0;border-bottom:1px solid #1a2030;font-size:12px;color:#4060a0;font-style:italic;">• ${i.n} — to taste</div>`:
+              `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a2030;"><span style="font-size:13px;color:#c0c8e0;flex:1;">${i.n}</span><span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span></div>`).join('')}
+          </div>
+          <div style="background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:14px;margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:2px;color:#4080d0;text-transform:uppercase;margin-bottom:10px;">Method</div>
+            ${(pr.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0f20;border:1px solid #4080d0;color:#4080d0;">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c0c8e0;line-height:1.7;">${step}</p></div>`).join('')}
+          </div>
+          ${pr.tip?`<div style="background:#0a0f20;border:1px solid #2040a0;border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:#4080d0;font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#8090c0;">${pr.tip}</span></div>`:''}
+          ${pr.storage?`<div style="background:#0a0f20;border:1px solid #2040a0;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><span style="color:#4080d0;font-size:11px;">🧊 STORAGE: </span><span style="font-size:12px;color:#8090c0;">${pr.storage}</span></div>`:''}
+          <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${pr.name}*\nFor ${servings} people\n\nIngredients:\n'+(pr.ingredients||[]).filter(i=>i.pp).map(i=>{const r=i.pp*${servings};return '• '+i.n+': '+((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));}).join('\n')+'\n\nFound with Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share via WhatsApp</button>
+        </div>
+      </div>`;
+    }
+  }
+
+  // Full recipe view
+  if(chef && !chef._error && S._showChefFull){
+    const servings = S.searchServings||4;
+    function fmt(pp,u){ const r=pp*servings; if((u==='g'||u==='ml')&&r>=1000) return (Math.round(r/100)/10)+(u==='g'?'kg':'L'); return Math.round(r*10)/10+(u||''); }
+    return `<div style="min-height:100vh;background:#0f0e0c;">
+      <div style="background:#0f1020;border-bottom:1px solid #2040a0;padding:14px 20px;">
+        <button onclick="setQuiet({_showChefFull:false})" style="background:none;border:none;color:#4080d0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Search</button>
+        <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${chef.emoji} ${chef.name}</h1>
+        <div style="font-size:11px;color:#4060a0;">⏱️ ${chef.time} min</div>
+      </div>
+      <div class="content">
+        <div style="display:flex;align-items:center;gap:12px;background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;color:#4080d0;text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
+          <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});updateSearchResults()" style="width:32px;height:32px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:18px;cursor:pointer;">−</button>
+          <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
+          <button onclick="setQuiet({searchServings:Math.min(500,(S.searchServings||4)+1)});updateSearchResults()" style="width:32px;height:32px;border-radius:50%;background:#0a0f20;border:2px solid #4080d0;color:#4080d0;font-size:18px;cursor:pointer;">+</button>
+          <span style="font-size:11px;color:#2040a0;">people · all quantities scale</span>
+        </div>
+        <div style="background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#4080d0;text-transform:uppercase;margin-bottom:10px;">Ingredients — ${servings} serving${servings!==1?'s':''}</div>
+          ${(chef.ingredients||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a2030;"><span style="font-size:13px;color:#c0c8e0;flex:1;">${i.n}</span><span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span></div>`).join('')}
+        </div>
+        <div style="background:#0f1020;border:1px solid #2040a0;border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#4080d0;text-transform:uppercase;margin-bottom:10px;">Method</div>
+          ${(chef.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0f20;border:1px solid #4080d0;color:#4080d0;">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c0c8e0;line-height:1.7;">${step}</p></div>`).join('')}
+        </div>
+        ${chef.tip?`<div style="background:#0a0f20;border:1px solid #2040a0;border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:#4080d0;font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#8090c0;">${chef.tip}</span></div>`:''}
+        <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${chef.name}*\nFor ${servings} people\n\nIngredients:\n'+chef.ingredients.map(i=>{const r=i.pp*${servings};return '• '+i.n+': '+((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));}).join('\n')+'\n\nFound with Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share via WhatsApp</button>
+      </div>
+    </div>`;
+  }
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:#0f1020;border-bottom:1px solid #2040a0;padding:14px 20px;">
+      <button onclick="set({screen:'home',searchQuery:'',chefRecipe:null,_searchResults:[],chefLoading:false,_showChefFull:false})" style="background:none;border:none;color:#4080d0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🔍 Search & Discover</h1>
+      <p style="margin:4px 0 10px;font-size:11px;color:#4060a0;font-style:italic;">Search every recipe in Tinza</p>
+      <div style="position:relative;">
+        <input
+          id="search-input"
+          type="text"
+          value="${q}"
+          placeholder="Try: chicken, malva pudding, baby 6 months..."
+          oninput="doSearch(this.value)"
+          autocomplete="off"
+          style="width:100%;padding:12px 40px 12px 14px;border-radius:10px;border:2px solid ${q?'#4080d0':'#2040a0'};background:#0a0f20;color:#f5e8cc;font-size:14px;font-family:Georgia,serif;box-sizing:border-box;outline:none;"
+        />
+        ${q?`<button onclick="S.searchQuery='';S._searchResults=[];S.chefRecipe=null;S.chefLoading=false;document.getElementById('search-input').value='';updateSearchResults()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#4060a0;font-size:18px;cursor:pointer;">✕</button>`:''}
+      </div>
+    </div>
+    <div class="content">
+      <div id="search-results-panel">${buildSearchResultsHTML()}</div>
+    </div>
+  </div>`;
+}
+
+
+function comingSoonHTML(emoji, title, sub){
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:#1a1208;border-bottom:1px solid #4a3520;padding:14px 20px;">
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${emoji} ${title}</h1>
+      <p style="margin:4px 0 0;font-size:11px;color:#7a6a50;">${sub}</p>
+    </div>
+    <div style="padding:40px 20px;text-align:center;">
+      <div style="font-size:60px;margin-bottom:20px;">${emoji}</div>
+      <div style="font-size:18px;color:#f5e8cc;margin-bottom:10px;">${title}</div>
+      <div style="font-size:13px;color:#7a6a50;margin-bottom:30px;line-height:1.6;">This section is being built.<br>Check back soon!</div>
+      <div style="font-size:11px;color:#4a3520;">In the meantime, use <strong style="color:#4080d0;">Search & Discover</strong><br>to find any recipe — or let Tinza Chef generate one for you.</div>
+      <button onclick="set({screen:'search'})" style="margin-top:20px;padding:12px 24px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Go to Search</button>
+    </div>
+  </div>`;
+}
+
+// ── WORLD KITCHEN DATA ────────────────────────────────────────────
+// Meal categories
+const WK_MEALS = [
+  {id:"all",       l:"All",           e:"🍽️"},
+  {id:"breakfast", l:"Breakfast",     e:"🍳"},
+  {id:"lunch",     l:"Light Lunch",   e:"🥗"},
+  {id:"supper",    l:"Supper",        e:"🍲"},
+  {id:"starter",   l:"Starters",      e:"🥙"},
+  {id:"side",      l:"Side Dishes",   e:"🥦"},
+  {id:"salad",     l:"Salads",        e:"🥬"},
+  {id:"dessert",   l:"Desserts",      e:"🍮"},
+  {id:"bakes",     l:"Bakes",         e:"🍞"},
+  {id:"condiment", l:"Condiments",    e:"🫙"},
+  {id:"beverage",  l:"Beverages",     e:"🍹"},
+];
+
+// Tag popular recipes with meal category and region
+// sa = South African, int = International
+const WK_RECIPES = [
+  // ── SOUTH AFRICAN ──
+  {id:"wk_bobotie",         region:"sa", meal:"supper",    pop:1,  name:"Bobotie",                    emoji:"🍛", time:75,  cuisine:"Cape Malay",    tags:["mince","curry","bakes","classic"]},
+  {id:"wk_malvapudding",    region:"sa", meal:"dessert",   pop:2,  name:"Malva Pudding",              emoji:"🍮", time:60,  cuisine:"Afrikaner",     tags:["dessert","sweet","bakes","classic"]},
+  {id:"wk_koeksisters",     region:"sa", meal:"bakes",     pop:4,  name:"Koeksisters",                emoji:"🍩", time:90,  cuisine:"Afrikaner",     tags:["sweet","fried","syrup","bakes"]},
+  {id:"wk_melktert",        region:"sa", meal:"dessert",   pop:5,  name:"Melktert",                   emoji:"🥧", time:60,  cuisine:"Afrikaner",     tags:["tart","dessert","milk tart"]},
+  {id:"wk_frikkadels",      region:"sa", meal:"supper",    pop:6,  name:"Frikkadels",                 emoji:"🍖", time:40,  cuisine:"Afrikaner",     tags:["mince","meatballs","family"]},
+  {id:"wk_vetkoek",         region:"sa", meal:"lunch",     pop:7,  name:"Vetkoek with Mince",         emoji:"🍞", time:60,  cuisine:"Afrikaner",     tags:["bread","fried","street food"]},
+  {id:"wk_bunnychow",       region:"sa", meal:"lunch",     pop:9,  name:"Bunny Chow",                 emoji:"🍞", time:90,  cuisine:"Durban Indian", tags:["curry","bread","street food"]},
+  {id:"wk_peppermintcrisp", region:"sa", meal:"dessert",   pop:10, name:"Peppermint Crisp Tart",      emoji:"🍫", time:20,  cuisine:"South African", tags:["no bake","dessert","chocolate"]},
+  {id:"wk_chakalaka",       region:"sa", meal:"condiment", pop:11, name:"Chakalaka",                  emoji:"🫙", time:30,  cuisine:"Township",      tags:["relish","spicy","braai side"]},
+  {id:"wk_rusks",           region:"sa", meal:"bakes",     pop:12, name:"Buttermilk Rusks",           emoji:"🍪", time:480, cuisine:"Afrikaner",     tags:["bakes","dip","coffee","bakes"]},
+  {id:"wk_stampkoring",     region:"sa", meal:"side",      pop:13, name:"Stampkoring & Bacon",        emoji:"🌾", time:45,  cuisine:"Afrikaner",     tags:["starch","side","wheat"]},
+  {id:"wk_snoekpate",       region:"sa", meal:"starter",   pop:14, name:"Smoked Snoek Pâté",          emoji:"🐟", time:15,  cuisine:"Cape",          tags:["fish","starter","spread"]},
+  {id:"wk_amarulacheesecake",region:"sa",meal:"dessert",   pop:15, name:"Amarula Cheesecake",         emoji:"🎂", time:30,  cuisine:"South African", tags:["dessert","no bake","amarula"]},
+  {id:"wk_waterblommetjie",  region:"sa",meal:"supper",    pop:16, name:"Waterblommetjie Bredie",     emoji:"🌸", time:120, cuisine:"Cape",          tags:["lamb","stew","cape","seasonal"]},
+  // Cultural SA dishes from Events
+  {id:"wk_durban_curry",    region:"sa", meal:"supper",    pop:17, name:"Durban Lamb Curry",          emoji:"🍛", time:90,  cuisine:"Durban Indian", tags:["curry","lamb","spicy"]},
+  {id:"wk_bobotie2",        region:"sa", meal:"supper",    pop:18, name:"Cape Malay Bobotie",         emoji:"🥘", time:75,  cuisine:"Cape Malay",    tags:["mince","cape malay","bakes"]},
+  {id:"wk_umngqusho",       region:"sa", meal:"side",      pop:19, name:"Umngqusho",                  emoji:"🌽", time:60,  cuisine:"Xhosa",         tags:["beans","maize","traditional"]},
+  {id:"wk_samoosas",        region:"sa", meal:"starter",   pop:20, name:"Samoosas",                   emoji:"🥟", time:60,  cuisine:"Cape Malay",    tags:["starter","fried","snack"]},
+  {id:"wk_denningvleis",    region:"sa", meal:"supper",    pop:21, name:"Denningvleis",               emoji:"🥩", time:120, cuisine:"Cape Malay",    tags:["lamb","tamarind","cape"]},
+  {id:"wk_breyani",         region:"sa", meal:"supper",    pop:22, name:"Cape Malay Breyani",         emoji:"🍚", time:120, cuisine:"Cape Malay",    tags:["rice","lamb","spiced"]},
+
+  // ── INTERNATIONAL ──
+  {id:"wk_spagbol",         region:"int", meal:"supper",   pop:1,  name:"Spaghetti Bolognese",        emoji:"🍝", time:60,  cuisine:"Italian",       tags:["pasta","beef","classic"]},
+  {id:"wk_lasagne",         region:"int", meal:"supper",   pop:2,  name:"Classic Beef Lasagne",       emoji:"🥘", time:90,  cuisine:"Italian",       tags:["pasta","beef","bakes"]},
+  {id:"wk_chickentikka",    region:"int", meal:"supper",   pop:3,  name:"Chicken Tikka Masala",       emoji:"🍛", time:60,  cuisine:"Indian",        tags:["curry","chicken","creamy"]},
+  {id:"wk_butterchicken",   region:"int", meal:"supper",   pop:4,  name:"Butter Chicken",             emoji:"🍗", time:50,  cuisine:"Indian",        tags:["curry","chicken","mild"]},
+  {id:"wk_roastchicken",    region:"int", meal:"supper",   pop:5,  name:"Roast Chicken",              emoji:"🍗", time:90,  cuisine:"Classic",       tags:["roast","chicken","sunday"]},
+  {id:"wk_beefstew",        region:"int", meal:"supper",   pop:6,  name:"Classic Beef Stew",          emoji:"🥘", time:150, cuisine:"Classic",       tags:["beef","stew","winter"]},
+  {id:"wk_chickensoup",     region:"int", meal:"lunch",    pop:7,  name:"Chicken Noodle Soup",        emoji:"🍲", time:90,  cuisine:"Classic",       tags:["soup","chicken","comfort"]},
+  {id:"wk_shakshuka",       region:"int", meal:"breakfast",pop:8,  name:"Shakshuka",                  emoji:"🍳", time:30,  cuisine:"Middle Eastern",tags:["eggs","breakfast","brunch"]},
+  {id:"wk_padthai",         region:"int", meal:"supper",   pop:9,  name:"Pad Thai",                   emoji:"🍜", time:25,  cuisine:"Thai",          tags:["noodles","quick","prawn"]},
+  {id:"wk_choccake",        region:"int", meal:"dessert",  pop:10, name:"Classic Chocolate Cake",     emoji:"🎂", time:60,  cuisine:"Classic",       tags:["cake","dessert","chocolate","bakes"]},
+  {id:"wk_greeksalad",      region:"int", meal:"salad",    pop:11, name:"Greek Salad",                emoji:"🥗", time:10,  cuisine:"Greek",         tags:["salad","feta","olive","fresh"]},
+  {id:"wk_caesarsalad",     region:"int", meal:"salad",    pop:12, name:"Caesar Salad",               emoji:"🥬", time:15,  cuisine:"American",      tags:["salad","chicken","classic"]},
+  {id:"wk_guacamole",       region:"int", meal:"condiment",pop:13, name:"Guacamole",                  emoji:"🥑", time:10,  cuisine:"Mexican",       tags:["dip","avocado","condiment"]},
+  {id:"wk_hummus",          region:"int", meal:"condiment",pop:14, name:"Hummus",                     emoji:"🥙", time:10,  cuisine:"Middle Eastern",tags:["dip","chickpea","condiment"]},
+  {id:"wk_pancakes",        region:"int", meal:"breakfast",pop:15, name:"Fluffy Pancakes",            emoji:"🥞", time:20,  cuisine:"Classic",       tags:["breakfast","sweet","quick"]},
+  {id:"wk_frenchomelette",  region:"int", meal:"breakfast",pop:16, name:"French Omelette",            emoji:"🍳", time:10,  cuisine:"French",        tags:["breakfast","eggs","quick"]},
+  {id:"wk_mushroomrisotto", region:"int", meal:"supper",   pop:17, name:"Mushroom Risotto",           emoji:"🍚", time:45,  cuisine:"Italian",       tags:["rice","vegetarian","creamy"]},
+  {id:"wk_tomatsoup",       region:"int", meal:"lunch",    pop:18, name:"Roasted Tomato Soup",        emoji:"🍅", time:50,  cuisine:"Classic",       tags:["soup","vegetarian","warm"]},
+  {id:"wk_tiramisu",        region:"int", meal:"dessert",  pop:19, name:"Tiramisu",                   emoji:"☕", time:30,  cuisine:"Italian",       tags:["dessert","no bake","coffee"]},
+  {id:"wk_lemondrizzle",    region:"int", meal:"bakes",    pop:20, name:"Lemon Drizzle Cake",         emoji:"🍋", time:55,  cuisine:"British",       tags:["cake","lemon","bakes"]},
+  {id:"wk_tacos",           region:"int", meal:"supper",   pop:21, name:"Beef Tacos",                 emoji:"🌮", time:30,  cuisine:"Mexican",       tags:["beef","quick","family"]},
+  {id:"wk_creamytomato",    region:"int", meal:"supper",   pop:22, name:"Creamy Tomato Pasta",        emoji:"🍝", time:25,  cuisine:"Italian",       tags:["pasta","quick","vegetarian"]},
+  {id:"wk_garlicbread",     region:"int", meal:"bakes",    pop:23, name:"Garlic Bread",               emoji:"🥖", time:15,  cuisine:"Italian",       tags:["bread","side","bakes","garlic"]},
+  {id:"wk_bananabread",     region:"int", meal:"bakes",    pop:24, name:"Banana Bread",               emoji:"🍌", time:65,  cuisine:"Classic",       tags:["bakes","breakfast","sweet"]},
+  {id:"wk_lentilsoup",      region:"int", meal:"lunch",    pop:25, name:"Red Lentil Soup",            emoji:"🍲", time:35,  cuisine:"Middle Eastern",tags:["soup","vegan","healthy"]},
+];
+
+function worldKitchenHTML(){
+  // Recipe detail view
+  if(S._wkRecipe){
+    const wkr = WK_RECIPES.find(r=>r.id===S._wkRecipe);
+    // Try to find full recipe data in POPULAR_RECIPES
+    const allPop = [...(POPULAR_RECIPES.sa||[]),...(POPULAR_RECIPES.international||[])];
+    // Match by name similarity
+    const fullRecipe = wkr ? allPop.find(p=>p.name===wkr.name||p.id==='pr_'+wkr.id.replace('wk_','')) : null;
+    const servings = S.searchServings||4;
+
+    if(wkr && fullRecipe){
+      function fmt(pp,u){ const r=pp*servings; if((u==='g'||u==='ml')&&r>=1000) return (Math.round(r/100)/10)+(u==='g'?'kg':'L'); return Math.round(r*10)/10+(u||''); }
+      const rc = S.worldKitchenRegion==='sa' ? '#30a070' : '#6090e0';
+      const rbg = S.worldKitchenRegion==='sa' ? '#0a1810' : '#0a1020';
+      return `<div style="min-height:100vh;background:#0f0e0c;">
+        <div style="background:${rbg};border-bottom:1px solid #1a3040;padding:14px 20px;">
+          <button onclick="setQuiet({_wkRecipe:null})" style="background:none;border:none;color:${rc};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+          <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${wkr.emoji} ${wkr.name}</h1>
+          <div style="font-size:11px;color:${rc};">${wkr.cuisine} · ⏱️ ${wkr.time} min</div>
+        </div>
+        <div style="padding:16px;max-width:600px;margin:0 auto;">
+          <div style="display:flex;align-items:center;gap:12px;background:${rbg};border:1px solid #1a3040;border-radius:10px;padding:12px;margin-bottom:12px;">
+            <div style="font-size:11px;color:${rc};text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
+            <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0f10;border:2px solid ${rc};color:${rc};font-size:18px;cursor:pointer;">−</button>
+            <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
+            <button onclick="setQuiet({searchServings:Math.min(500,(S.searchServings||4)+1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0f10;border:2px solid ${rc};color:${rc};font-size:18px;cursor:pointer;">+</button>
+            <span style="font-size:11px;color:#2a3a40;">people · all quantities scale</span>
+          </div>
+          <div style="background:${rbg};border:1px solid #1a3040;border-radius:10px;padding:14px;margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:2px;color:${rc};text-transform:uppercase;margin-bottom:10px;">Ingredients — ${servings} serving${servings!==1?'s':''}</div>
+            ${(fullRecipe.ingredients||[]).map(i=>!i.pp?`<div style="padding:5px 0;border-bottom:1px solid #1a2830;font-size:12px;color:#3a4a50;font-style:italic;">• ${i.n} — to taste</div>`:
+              `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a2830;"><span style="font-size:13px;color:#c0d0c8;flex:1;">${i.n}</span><span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span></div>`).join('')}
+          </div>
+          <div style="background:${rbg};border:1px solid #1a3040;border-radius:10px;padding:14px;margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:2px;color:${rc};text-transform:uppercase;margin-bottom:10px;">Method</div>
+            ${(fullRecipe.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0f10;border:1px solid ${rc};color:${rc};">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c0d0c8;line-height:1.7;">${step}</p></div>`).join('')}
+          </div>
+          ${fullRecipe.tip?`<div style="background:#0a0f10;border:1px solid #1a3040;border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:${rc};font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#8090a0;">${fullRecipe.tip}</span></div>`:''}
+          ${fullRecipe.storage?`<div style="background:#0a0f10;border:1px solid #1a3040;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><span style="color:${rc};font-size:11px;">🧊 STORAGE: </span><span style="font-size:12px;color:#8090a0;">${fullRecipe.storage}</span></div>`:''}
+          <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${wkr.name}*\nFor ${servings} people\n\nIngredients:\n'+(fullRecipe.ingredients||[]).filter(i=>i.pp).map(i=>{const r=i.pp*${servings};return '• '+i.n+': '+((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));}).join('\n')+'\n\nFrom Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share via WhatsApp</button>
+        </div>
+      </div>`;
+    }
+    // Recipe exists in WK but no full data yet — show Tinza Chef
+    if(wkr && !fullRecipe){
+      callTinzaChef(wkr.name);
+      return comingSoonHTML(wkr.emoji, wkr.name, 'Loading recipe...');
+    }
+  }
+
+  const region = S.worldKitchenRegion||'sa';
+  const meal = S.worldKitchenMeal||'all';
+  const sort = S.worldKitchenSort||'popular';
+
+  // Filter recipes
+  let recipes = WK_RECIPES.filter(r=>r.region===region);
+  if(meal!=='all') recipes = recipes.filter(r=>r.meal===meal || (r.tags||[]).includes(meal));
+
+  // Sort
+  if(sort==='az') recipes = [...recipes].sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sort==='time') recipes = [...recipes].sort((a,b)=>a.time-b.time);
+  else recipes = [...recipes].sort((a,b)=>a.pop-b.pop);
+
+  const regionColor = region==='sa' ? '#208060' : '#4060c0';
+  const regionBg = region==='sa' ? '#0a1810' : '#0a1020';
+  const borderColor = region==='sa' ? '#1a4030' : '#1a2050';
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:${regionBg};border-bottom:1px solid ${borderColor};padding:14px 20px;">
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${regionColor};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin-bottom:10px;">🌍 World Kitchen</h1>
+
+      <!-- Region toggle -->
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <button onclick="setQuiet({worldKitchenRegion:'sa',worldKitchenMeal:'all'})" style="flex:1;padding:9px;border-radius:10px;border:2px solid ${region==='sa'?'#30a070':'#1a3020'};background:${region==='sa'?'#0a2018':'transparent'};color:${region==='sa'?'#40d090':'#206040'};font-size:13px;cursor:pointer;font-weight:${region==='sa'?'bold':'normal'};">🇿🇦 South African</button>
+        <button onclick="setQuiet({worldKitchenRegion:'int',worldKitchenMeal:'all'})" style="flex:1;padding:9px;border-radius:10px;border:2px solid ${region==='int'?'#4080d0':'#1a2040'};background:${region==='int'?'#0a1028':'transparent'};color:${region==='int'?'#6090e0':'#2040a0'};font-size:13px;cursor:pointer;font-weight:${region==='int'?'bold':'normal'};">🌍 International</button>
+      </div>
+
+      <!-- Meal category filter — horizontal scroll -->
+      <div style="display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px;scrollbar-width:none;">
+        ${WK_MEALS.map(m=>`<button onclick="setQuiet({worldKitchenMeal:'${m.id}'})" style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${meal===m.id?regionColor:borderColor};background:${meal===m.id?regionBg:'transparent'};color:${meal===m.id?regionColor:'#4a5060'};font-size:11px;cursor:pointer;white-space:nowrap;">${m.e} ${m.l}</button>`).join('')}
+      </div>
+
+      <!-- Sort toggle -->
+      <div style="display:flex;gap:5px;">
+        ${[{id:'popular',l:'⭐ Popular'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️ Quickest'}].map(s=>`<button onclick="setQuiet({worldKitchenSort:'${s.id}'})" style="padding:5px 12px;border-radius:20px;border:1px solid ${sort===s.id?regionColor:borderColor};background:${sort===s.id?regionBg:'transparent'};color:${sort===s.id?regionColor:'#4a5060'};font-size:11px;cursor:pointer;">${s.l}</button>`).join('')}
+      </div>
+    </div>
+
+    <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:11px;color:#4a5060;margin-bottom:10px;">${recipes.length} recipe${recipes.length!==1?'s':''} ${meal!=='all'?'· '+WK_MEALS.find(m=>m.id===meal)?.l:''}</div>
+
+      ${recipes.length===0?`<div style="text-align:center;padding:40px;color:#3a4050;font-size:13px;">No recipes in this category yet.<br><br><button onclick="set({screen:'search'})" style="padding:10px 20px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Search for it</button></div>`:''}
+
+      ${recipes.map(r=>`<div onclick="setQuiet({_wkRecipe:'${r.id}'})" style="background:${regionBg};border:1px solid ${borderColor};border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <span style="font-size:28px;flex-shrink:0;">${r.emoji}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
+          <div style="font-size:11px;color:${regionColor};">${r.cuisine} · ⏱️ ${r.time} min</div>
+          <div style="margin-top:4px;">${(r.tags||[]).slice(0,3).map(t=>`<span style="background:#0a0f10;border:1px solid ${borderColor};border-radius:8px;font-size:9px;color:#4a5060;padding:2px 6px;margin-right:3px;display:inline-block;">${t}</span>`).join('')}</div>
+        </div>
+        <span style="color:${regionColor};font-size:14px;flex-shrink:0;">→</span>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+
+// ── MEAL SECTION RENDERER ─────────────────────────────────────────
+function mealSectionHTML(sectionKey){
+  const configs = {
+    breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#1a1500", border:"#3a2800", recipes:BREAKFAST_RECIPES,  sub:"Morning meals · Start your day right"},
+    lightlunch: {title:"Light Lunch",        emoji:"🥗", color:"#40a060", bg:"#0a1a10", border:"#1a4025", recipes:LIGHTLUNCH_RECIPES, sub:"Salads · Wraps · Soups · Quick meals"},
+    supper:     {title:"Supper",             emoji:"🍲", color:"#8040c0", bg:"#100818", border:"#2a1040", recipes:SUPPER_RECIPES,     sub:"Family meals · Comfort food · Dinners"},
+    bakes:      {title:"Bakes, Cakes & Breads",emoji:"🍰",color:"#d06080",bg:"#1a0810",border:"#401020",recipes:BAKES_RECIPES,      sub:"Cakes · Biscuits · Breads · Desserts"},
+  };
+  const cfg = configs[sectionKey];
+  if(!cfg) return comingSoonHTML("🍽️","Section","Coming soon");
+
+  const sort = S.mealSort||'popular';
+  const activeRecipe = S.mealActiveRecipe;
+  const servings = S.searchServings||4;
+
+  // Recipe detail view
+  if(activeRecipe && activeRecipe._section===sectionKey){
+    const r = activeRecipe;
+    function fmt(pp,u){
+      if(!pp) return u||'';
+      const raw = pp*servings;
+      if(u==='egg') return Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'');
+      if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
+      return Math.round(raw*10)/10+(u||'');
+    }
+    return `<div style="min-height:100vh;background:#0f0e0c;">
+      <div style="background:${cfg.bg};border-bottom:1px solid ${cfg.border};padding:14px 20px;">
+        <button onclick="setQuiet({mealActiveRecipe:null})" style="background:none;border:none;color:${cfg.color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to ${cfg.title}</button>
+        <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji} ${r.name}</h1>
+        <div style="font-size:11px;color:${cfg.color};">${r.cuisine} · ⏱️ ${r.time} min</div>
+      </div>
+      <div style="padding:16px;max-width:600px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:12px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;color:${cfg.color};text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
+          <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${cfg.color};color:${cfg.color};font-size:18px;cursor:pointer;">−</button>
+          <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
+          <button onclick="setQuiet({searchServings:Math.min(200,(S.searchServings||4)+1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${cfg.color};color:${cfg.color};font-size:18px;cursor:pointer;">+</button>
+          <span style="font-size:11px;color:#3a3030;">people · all quantities scale</span>
+        </div>
+
+        <div style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">Ingredients — ${servings} serving${servings!==1?'s':''}</div>
+          ${(r.ingredients||[]).map(i=>{
+            if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:12px;color:#3a3530;font-style:italic;">• ${i.n} — to taste</div>`;
+            return `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a1810;">
+              <span style="font-size:13px;color:#c8c0b0;flex:1;">${i.n}</span>
+              <span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span>
+            </div>`;
+          }).join('')}
+        </div>
+
+        <div style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:10px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">Method</div>
+          ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0808;border:1px solid ${cfg.color};color:${cfg.color};">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c8c0b0;line-height:1.7;">${step}</p></div>`).join('')}
+        </div>
+
+        ${r.tip?`<div style="background:#0a0808;border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:${cfg.color};font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#908880;">${r.tip}</span></div>`:''}
+        ${r.storage?`<div style="background:#0a0808;border:1px solid ${cfg.border};border-radius:10px;padding:10px 12px;margin-bottom:12px;"><span style="color:${cfg.color};font-size:11px;">🧊 STORAGE: </span><span style="font-size:12px;color:#908880;">${r.storage}</span></div>`:''}
+
+        <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #4060a0;background:#0a0f18;color:#8090c0;font-size:13px;cursor:pointer;">🖨️ Print Recipe</button>
+        <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('${r.emoji} *${r.name}*\nFor ${servings} people · ${r.time} min\n\nIngredients:\n'+(r.ingredients||[]).filter(i=>i.pp).map(i=>{const raw=i.pp*${servings};const u=i.u||'';let d=u==='egg'?Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':''):(raw>=1000&&(u==='g'||u==='ml'))?(Math.round(raw/100)/10)+(u==='g'?'kg':'L'):(Math.round(raw*10)/10)+u;return '• '+i.n+': '+d;}).join('\n')+'\n\nFound with Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share via WhatsApp</button>
+      </div>
+    </div>`;
+  }
+
+  // List view
+  let recipes = [...(cfg.recipes||[])];
+  if(sort==='az') recipes.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sort==='time') recipes.sort((a,b)=>a.time-b.time);
+  // popular = default order
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:${cfg.bg};border-bottom:1px solid ${cfg.border};padding:14px 20px;">
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${cfg.color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${cfg.emoji} ${cfg.title}</h1>
+      <p style="margin:4px 0 10px;font-size:11px;color:${cfg.color};font-style:italic;opacity:0.8;">${cfg.sub}</p>
+      <div style="display:flex;gap:5px;">
+        ${[{id:'popular',l:'⭐ Popular'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️ Quickest'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 12px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?cfg.bg:'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:11px;cursor:pointer;">${s.l}</button>`).join('')}
+      </div>
+    </div>
+    <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:11px;color:#4a4a40;margin-bottom:10px;">${recipes.length} recipes</div>
+      ${recipes.map((r,i)=>`
+        <div onclick="setQuiet({mealActiveRecipe:Object.assign({},cfg.recipes[${i}],{_section:'${sectionKey}'})})" style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+          <span style="font-size:28px;flex-shrink:0;">${r.emoji}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
+            <div style="font-size:11px;color:${cfg.color};">${r.cuisine} · ⏱️ ${r.time} min</div>
+            <div style="margin-top:4px;">${(r.tags||[]).slice(0,3).map(t=>`<span style="background:#0a0808;border:1px solid ${cfg.border};border-radius:8px;font-size:9px;color:#5a5040;padding:2px 6px;margin-right:3px;display:inline-block;">${t}</span>`).join('')}</div>
+          </div>
+          <span style="color:${cfg.color};font-size:14px;flex-shrink:0;">→</span>
+        </div>`).join('')}
+      <div style="margin-top:16px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
+        <div style="font-size:12px;color:#4a4a40;margin-bottom:8px;">Can't find what you're looking for?</div>
+        <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function breakfastHTML(){ return mealSectionHTML('breakfast'); }
+function lightlunchHTML(){ return mealSectionHTML('lightlunch'); }
+function supperHTML(){ return mealSectionHTML('supper'); }
+function bakesHTML(){ return mealSectionHTML('bakes'); }
+
+
+// ── 4 INGREDIENTS & ANCHOR INGREDIENT ────────────────────────────
+
+async function findFourIngredients(){
+  const ing = [
+    S.ing1||'', S.ing2||'', S.ing3||'', S.ing4||''
+  ].map(i=>i.trim()).filter(Boolean);
+
+  if(ing.length < 2){
+    setQuiet({_fourError:'Please enter at least 2 ingredients', _fourResults:null, _fourLoading:false});
+    return;
+  }
+
+  setQuiet({_fourLoading:true, _fourResults:null, _fourError:null});
+
+  // First search the app database
+  const allRecipes = [
+    ...(BREAKFAST_RECIPES||[]), ...(LIGHTLUNCH_RECIPES||[]),
+    ...(SUPPER_RECIPES||[]), ...(BAKES_RECIPES||[]),
+    ...(POPULAR_RECIPES.sa||[]), ...(POPULAR_RECIPES.international||[]),
+    ...(WK_RECIPES||[]).filter(r=>r.ingredients),
+  ];
+
+  const ingLower = ing.map(i=>i.toLowerCase());
+  const dbMatches = [];
+  allRecipes.forEach(r=>{
+    const recipeText = JSON.stringify(r).toLowerCase();
+    const matched = ingLower.filter(i=>recipeText.includes(i));
+    if(matched.length >= 2){
+      dbMatches.push({...r, _matchCount:matched.length, _matched:matched, _source:'db'});
+    }
+  });
+  dbMatches.sort((a,b)=>b._matchCount-a._matchCount);
+
+  // Call Tinza Chef for generated recipes
+  try {
+    const prompt = `You are Tinza Chef, a South African recipe assistant.
+The user has these ingredients: ${ing.join(', ')}
+
+Generate 4 different recipe ideas that use most or all of these ingredients.
+For each recipe, note which of the user's ingredients it uses.
+
+Return ONLY a JSON array (no markdown, no backticks):
+[
+  {
+    "name": "Recipe Name",
+    "emoji": "single emoji",
+    "time": 30,
+    "cuisine": "cuisine type",
+    "uses": ["ingredient1", "ingredient2"],
+    "missing": ["other ingredient needed"],
+    "serves": 4,
+    "ingredients": [
+      {"n": "ingredient name", "pp": 100, "u": "g", "userHas": true},
+      {"n": "another ingredient", "pp": 15, "u": "ml", "userHas": false}
+    ],
+    "method": ["Step 1", "Step 2", "Step 3"],
+    "tip": "One useful tip"
+  }
+]
+
+Rules:
+- All amounts in grams (g) or millilitres (ml) only
+- pp = amount per 1 serving
+- userHas = true if this ingredient was provided by the user
+- Keep it practical and South African-friendly
+- Generate exactly 4 recipes`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})
+    });
+    const data = await resp.json();
+    const text = (data.content||[]).map(b=>b.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const chefRecipes = JSON.parse(clean);
+    chefRecipes.forEach(r=>{ r._source='chef'; r._matchCount=(r.uses||[]).length; });
+
+    // Combine: db matches first, then chef recipes
+    const combined = [...dbMatches.slice(0,2), ...chefRecipes];
+    setQuiet({_fourResults:combined, _fourLoading:false, _fourError:null});
+  } catch(e){
+    // Even if chef fails, show db results
+    setQuiet({_fourResults:dbMatches.length>0?dbMatches:[], _fourLoading:false,
+      _fourError:dbMatches.length===0?'No recipes found. Try different ingredients.':null});
+  }
+}
+
+async function findAnchorIngredient(){
+  const raw = (S.anchorInput||'').trim();
+  if(!raw){
+    setQuiet({_anchorError:'Please enter an ingredient', _anchorResults:null, _anchorLoading:false});
+    return;
+  }
+
+  setQuiet({_anchorLoading:true, _anchorResults:null, _anchorError:null});
+
+  // Parse quantity if given e.g. "beef mince 300g" or "whole chicken 1.1kg"
+  const qtyMatch = raw.match(/([\d.]+)\s*(g|kg|ml|L|l)/i);
+  const ingredient = raw.replace(/([\d.]+)\s*(g|kg|ml|L|l)/gi,'').trim();
+  const userQty = qtyMatch ? parseFloat(qtyMatch[1]) * (qtyMatch[2].toLowerCase()==='kg'?1000:qtyMatch[2].toLowerCase()==='l'?1000:1) : null;
+  const userUnit = qtyMatch ? (qtyMatch[2].toLowerCase()==='kg'?'g':qtyMatch[2].toLowerCase()==='l'?'ml':qtyMatch[2].toLowerCase()) : null;
+
+  // Search database
+  const allRecipes = [
+    ...(BREAKFAST_RECIPES||[]), ...(LIGHTLUNCH_RECIPES||[]),
+    ...(SUPPER_RECIPES||[]), ...(BAKES_RECIPES||[]),
+    ...(POPULAR_RECIPES.sa||[]), ...(POPULAR_RECIPES.international||[]),
+  ];
+  const ingLower = ingredient.toLowerCase();
+  const dbMatches = allRecipes.filter(r=>JSON.stringify(r).toLowerCase().includes(ingLower))
+    .map(r=>({...r, _source:'db', _userQty:userQty, _userUnit:userUnit, _ingredient:ingredient}));
+
+  // Call Tinza Chef
+  try {
+    const qtyNote = userQty ? ` The user has exactly ${userQty}${userUnit} of ${ingredient}.` : '';
+    const prompt = `You are Tinza Chef, a South African recipe assistant.
+The user has: ${raw}.${qtyNote}
+
+Generate 4 different recipes that use ${ingredient} as the main ingredient.
+${userQty ? `Scale each recipe to use approximately ${userQty}${userUnit} of ${ingredient}.` : ''}
+
+Return ONLY a JSON array (no markdown, no backticks):
+[
+  {
+    "name": "Recipe Name",
+    "emoji": "single emoji",
+    "time": 30,
+    "cuisine": "cuisine type",
+    "serves": 4,
+    "mainIngredientPP": 150,
+    "mainIngredientUnit": "g",
+    "ingredients": [
+      {"n": "${ingredient}", "pp": 150, "u": "g", "userHas": true},
+      {"n": "other ingredient", "pp": 20, "u": "g", "userHas": false}
+    ],
+    "method": ["Step 1", "Step 2", "Step 3"],
+    "tip": "One useful tip"
+  }
+]
+
+Rules: all amounts in g or ml, pp = per serving, userHas true only for ${ingredient}`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
+        messages:[{role:'user',content:prompt}]})
+    });
+    const data = await resp.json();
+    const text = (data.content||[]).map(b=>b.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const chefRecipes = JSON.parse(clean);
+    chefRecipes.forEach(r=>{ r._source='chef'; r._userQty=userQty; r._userUnit=userUnit; r._ingredient=ingredient; });
+
+    setQuiet({_anchorResults:[...dbMatches.slice(0,2),...chefRecipes], _anchorLoading:false, _anchorError:null});
+  } catch(e){
+    setQuiet({_anchorResults:dbMatches, _anchorLoading:false,
+      _anchorError:dbMatches.length===0?'No recipes found. Try a different ingredient.':null});
+  }
+}
+
+function recipeResultCard(r, onClickFn, color){
+  const matchBadge = r._matchCount ? `<span style="background:#0a1808;border:1px solid #25a050;border-radius:8px;font-size:9px;color:#25a050;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
+  const sourceBadge = r._source==='db' ? `<span style="background:#0a1020;border:1px solid #4080d0;border-radius:8px;font-size:9px;color:#4080d0;padding:2px 6px;">In Tinza</span>` : '';
+  return `<div onclick="${onClickFn}" style="background:#141210;border:1px solid #2a2820;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:14px;color:#f5e8cc;margin-bottom:3px;">${r.name}</div>
+      <div style="font-size:11px;color:${color||'#4080d0'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="margin-top:4px;">${matchBadge}${sourceBadge}</div>
+    </div>
+    <span style="color:${color||'#4080d0'};font-size:14px;flex-shrink:0;">→</span>
+  </div>`;
+}
+
+function recipeDetailFromResult(r, backAction, servings, color, bg, border){
+  function fmt(pp, u, isUserHas){
+    if(!pp) return u||'';
+    const raw = pp * servings;
+    if(u==='egg') return Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'');
+    if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
+    return Math.round(raw*10)/10+(u||'');
+  }
+  // Only show ingredients user does NOT have
+  const needToBuy = (r.ingredients||[]).filter(i=>!i.userHas && i.pp);
+  const userHasIngs = (r.ingredients||[]).filter(i=>i.userHas);
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
+      <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</h1>
+      <div style="font-size:11px;color:${color};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+    </div>
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:12px;background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:11px;color:${color};text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Servings</div>
+        <button onclick="setQuiet({searchServings:Math.max(1,(S.searchServings||4)-1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">−</button>
+        <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${servings}</span>
+        <button onclick="setQuiet({searchServings:Math.min(200,(S.searchServings||4)+1)});draw()" style="width:32px;height:32px;border-radius:50%;background:#0a0808;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
+        <span style="font-size:11px;color:#3a3030;">people</span>
+      </div>
+
+      ${userHasIngs.length?`<div style="background:#0a1808;border:1px solid #1a4025;border-radius:10px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#25a050;text-transform:uppercase;margin-bottom:8px;">✓ You already have</div>
+        ${userHasIngs.map(i=>`<div style="font-size:13px;color:#408060;padding:4px 0;border-bottom:1px solid #1a3020;">✓ ${i.n} — ${fmt(i.pp,i.u,true)}</div>`).join('')}
+      </div>`:''}
+
+      <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">🛒 Still Need to Buy${needToBuy.length===0?' — Nothing! You have everything':''}</div>
+        ${needToBuy.length===0?`<div style="font-size:13px;color:#25a050;padding:8px 0;">You have all the ingredients!</div>`:''}
+        ${needToBuy.map(i=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a1810;">
+          <span style="font-size:13px;color:#c8c0b0;flex:1;">${i.n}</span>
+          <span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span>
+        </div>`).join('')}
+      </div>
+
+      <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Method</div>
+        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#0a0808;border:1px solid ${color};color:${color};">${si+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c8c0b0;line-height:1.7;">${step}</p></div>`).join('')}
+      </div>
+
+      ${r.tip?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;"><span style="color:${color};font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#908880;">${r.tip}</span></div>`:''}
+
+      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🍽️ *${r.name}*\nFor ${servings} people\n\nStill need to buy:\n'+${JSON.stringify(needToBuy)}.filter(i=>i.pp).map(i=>{const raw=i.pp*${servings};return '• '+i.n+': '+((raw>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(raw/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(raw*10)/10)+(i.u||''));}).join('\n')+'\n\nFrom Tinza 😊 tinza.netlify.app'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share Shopping List via WhatsApp</button>
+    </div>
+  </div>`;
+}
+
+function fourIngredientsHTML(){
+  const results = S._fourResults;
+  const loading = S._fourLoading;
+  const error = S._fourError;
+  const active = S._fourActiveRecipe;
+  const servings = S.searchServings||4;
+  const color = '#a04080', bg = '#150010', border = '#2a1030';
+
+  if(active){
+    return recipeDetailFromResult(active, "setQuiet({_fourActiveRecipe:null})", servings, color, bg, border);
+  }
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🧅 4 Ingredients</h1>
+      <p style="margin:4px 0 0;font-size:11px;color:${color};opacity:0.8;">Enter what you have — we'll find recipes that use them</p>
+    </div>
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+      ${['1','2','3','4'].map(n=>`<div style="margin-bottom:10px;">
+        <div style="font-size:10px;color:#5a3050;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Ingredient ${n}</div>
+        <input id="ing${n}" type="text" value="${S['ing'+n]||''}" placeholder="${n==='1'?'e.g. chicken breast':n==='2'?'e.g. mushrooms':n==='3'?'e.g. cream':n==='4'?'e.g. garlic':''}"
+          oninput="S.ing${n}=this.value"
+          style="width:100%;padding:12px 14px;border-radius:10px;border:2px solid ${border};background:#0a0010;color:#f5e8cc;font-size:14px;font-family:Georgia,serif;box-sizing:border-box;outline:none;" />
+      </div>`).join('')}
+      <button onclick="findFourIngredients()" style="width:100%;padding:14px;border-radius:10px;background:${bg};border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;margin-bottom:16px;font-family:Georgia,serif;">
+        ${loading?'👨‍🍳 Finding recipes...':'🔍 Find Recipes'}
+      </button>
+      ${error?`<div style="background:#1a0010;border:1px solid #4a1030;border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c07090;text-align:center;">${error}</div>`:''}
+      ${loading?`<div style="text-align:center;padding:30px;"><div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div><div style="font-size:14px;color:${color};">Finding the best recipes for your ingredients...</div></div>`:''}
+      ${results&&results.length>0?`
+        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">${results.length} recipes found</div>
+        ${results.map((r,i)=>recipeResultCard(r, `setQuiet({_fourActiveRecipe:S._fourResults[${i}]})`, color)).join('')}
+      `:''}
+      ${results&&results.length===0&&!loading?`<div style="text-align:center;padding:20px;color:#5a3050;font-size:13px;">No recipes found with those ingredients.<br>Try changing one ingredient.</div>`:''}
+    </div>
+  </div>`;
+}
+
+function anchorIngredientHTML(){
+  const results = S._anchorResults;
+  const loading = S._anchorLoading;
+  const error = S._anchorError;
+  const active = S._anchorActiveRecipe;
+  const servings = S.searchServings||4;
+  const color = '#c08020', bg = '#1a1000', border = '#3a2800';
+
+  if(active){
+    return recipeDetailFromResult(active, "setQuiet({_anchorActiveRecipe:null})", servings, color, bg, border);
+  }
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🐔 I Have...</h1>
+      <p style="margin:4px 0 0;font-size:11px;color:${color};opacity:0.8;">Tell us what you have — we'll suggest recipes</p>
+    </div>
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:11px;color:#6a4020;margin-bottom:8px;">You can include the quantity if you want smart scaling</div>
+      <div style="position:relative;margin-bottom:8px;">
+        <input id="anchor-input" type="text" value="${S.anchorInput||''}"
+          placeholder="e.g.  chicken breast  or  beef mince 300g  or  whole chicken 1.1kg"
+          oninput="S.anchorInput=this.value"
+          onkeydown="if(event.key==='Enter') findAnchorIngredient()"
+          style="width:100%;padding:12px 14px;border-radius:10px;border:2px solid ${border};background:#0a0800;color:#f5e8cc;font-size:14px;font-family:Georgia,serif;box-sizing:border-box;outline:none;" />
+      </div>
+      <div style="font-size:10px;color:#5a3010;margin-bottom:14px;">Tip: include weight like "300g" and Tinza scales the recipe to use exactly that amount</div>
+      <button onclick="findAnchorIngredient()" style="width:100%;padding:14px;border-radius:10px;background:${bg};border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;margin-bottom:16px;font-family:Georgia,serif;">
+        ${loading?'👨‍🍳 Finding recipes...':'🔍 Find Recipes'}
+      </button>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+        ${['chicken breast','beef mince','lamb chops','eggs','salmon','mushrooms','sweet potato','lentils'].map(s=>`<button onclick="S.anchorInput='${s}';document.getElementById('anchor-input').value='${s}'" style="padding:5px 12px;border-radius:20px;border:1px solid ${border};background:transparent;color:${color};font-size:11px;cursor:pointer;">${s}</button>`).join('')}
+      </div>
+      ${error?`<div style="background:#1a0800;border:1px solid #4a2010;border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c08040;text-align:center;">${error}</div>`:''}
+      ${loading?`<div style="text-align:center;padding:30px;"><div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div><div style="font-size:14px;color:${color};">Finding recipes for ${S.anchorInput||'your ingredient'}...</div></div>`:''}
+      ${results&&results.length>0?`
+        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">${results.length} recipes using ${S.anchorInput||'your ingredient'}</div>
+        ${results.map((r,i)=>recipeResultCard(r, `setQuiet({_anchorActiveRecipe:S._anchorResults[${i}]})`, color)).join('')}
+      `:''}
+      ${results&&results.length===0&&!loading?`<div style="text-align:center;padding:20px;color:#6a4020;font-size:13px;">No recipes found. Try a different ingredient.</div>`:''}
+    </div>
+  </div>`;
+}
+
+
 function draw(){
   const root = document.getElementById("root");
   if(!root) return;
@@ -1651,6 +3875,16 @@ function draw(){
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
   else if(S.screen==="babyapp"){ content=S.babyView==='myplan'?babyMyPlanView():S.activeBaby?babyRecipeHTML_screen():babyListHTML(); }
+  else if(S.screen==="search"){ content=searchHTML(); }
+  else if(S.screen==="worldkitchen"){ content=worldKitchenHTML(); }
+  else if(S.screen==="breakfast"){ content=breakfastHTML(); }
+  else if(S.screen==="lightlunch"){ content=lightlunchHTML(); }
+  else if(S.screen==="supper"){ content=supperHTML(); }
+  else if(S.screen==="bakes"){ content=bakesHTML(); }
+  else if(S.screen==="budget"){ content=comingSoonHTML("💰","I've Got R100","Budget planner coming soon"); }
+  else if(S.screen==="ingredient"){ content=anchorIngredientHTML(); }
+  else if(S.screen==="fourIngredients"){ content=fourIngredientsHTML(); }
+  else if(S.screen==="weekplanner"){ content=comingSoonHTML("📅","Weekly Meal Planner","7-day planner coming soon"); }
   else if(S.screen==="furryapp"){ content=furryHTML(); }
   else if(S.screen==="smoothies"){ content=smoothiesHTML(); }
   else if(S.screen==="events"){ content=eventsHTML(); }
@@ -1758,13 +3992,33 @@ function scaleAmt(str,mult){ if(!str) return str; const m=str.match(/^([0-9.]+)(
 // ── DRAW ──────────────────────────────────────────────────────────
 
 function homeHTML(){
-  const secs=[
-    {s:"braai",    e:"🔥",t:"Braai & Shisanyama",      sub:"Planner · Recipes · Shopping list",                    b:"#c06020",bg:"#1a1008"},
-    {s:"smoothies",e:"🌿",t:"Health Hub",               sub:"All things healthy",                                    b:"#20a080",bg:"#0f1a18"},
-    {s:"babyapp",  e:"🍼",t:"Tiny Tummies",             sub:"Age-appropriate recipes for every stage",               b:"#e07090",bg:"#1a1018"},
-    {s:"furryapp", e:"🐾",t:"Furry Friends Kitchen",    sub:"Dogs & Cats · Meals · Treats · Special Diets",          b:"#9060d0",bg:"#120f1a"},
-    {s:"events",   e:"🎉",t:"Events & Celebrations",    sub:"Buffet · Finger Foods · Cultural · Wedding Cake",       b:"#d04080",bg:"#1a0814"},
+  // ── HOME SCREEN ──────────────────────────────────────────────────
+  // Two types of blocks: RECIPE SECTIONS (go to recipes) and FEATURE TOOLS (do something)
+
+  const recipeSections = [
+    // Row 1 — core cooking
+    {s:"braai",      e:"🔥", t:"Braai & Shisanyama",     sub:"Planner · Meats · Sides · Shopping list",      b:"#c06020", bg:"#1a1008"},
+    {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · Cultural",        b:"#208060", bg:"#0a1810"},
+    // Row 2 — meal types
+    {s:"breakfast",  e:"🍳", t:"Breakfast",               sub:"Eggs · Oats · Pancakes · Smoothies",           b:"#d0a020", bg:"#1a1500"},
+    {s:"lightlunch", e:"🥗", t:"Light Lunch",             sub:"Salads · Wraps · Soups · Quick meals",         b:"#40a060", bg:"#0a1a10"},
+    {s:"supper",     e:"🍲", t:"Supper",                  sub:"Family meals · Pasta · Curries · Stews",       b:"#8040c0", bg:"#100818"},
+    {s:"bakes",      e:"🍰", t:"Bakes, Cakes & Breads",   sub:"Cakes · Biscuits · Breads · Rusks",            b:"#d06080", bg:"#1a0810"},
+    // Row 3 — speciality
+    {s:"smoothies",  e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",         b:"#20a080", bg:"#0f1a18"},
+    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",    b:"#d04080", bg:"#1a0814"},
+    {s:"babyapp",    e:"🍼", t:"Tiny Tummies",            sub:"Age-appropriate baby recipes",                  b:"#e07090", bg:"#1a1018"},
+    {s:"furryapp",   e:"🐾", t:"Furry Friends",           sub:"Dogs & Cats · Meals · Treats",                 b:"#9060d0", bg:"#120f1a"},
   ];
+
+  const featureTools = [
+    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"#4080d0", bg:"#0a1020"},
+    {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"#40c060", bg:"#0a1a08"},
+    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"#c08020", bg:"#1a1000"},
+    {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"#a04080", bg:"#150010"},
+    {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"#2080c0", bg:"#081020"},
+  ];
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:linear-gradient(135deg,#1a1208,#2d1f0a);border-bottom:1px solid #4a3520;padding:16px 20px;">
       <div style="display:flex;align-items:center;gap:10px;">
@@ -1776,19 +4030,36 @@ function homeHTML(){
       </div>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
-      ${secs.map(o=>`
+
+      <!-- Recipe Sections -->
+      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
+      ${recipeSections.map(o=>`
         <button onclick="set({screen:'${o.s}'})"
-          style="width:100%;display:flex;align-items:center;gap:14px;padding:16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:10px;cursor:pointer;text-align:left;">
-          <span style="font-size:34px;flex-shrink:0;">${o.e}</span>
+          style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
+          <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:3px;">${o.t}</div>
+            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
             <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
           </div>
-          <span style="font-size:18px;color:${o.b};">→</span>
+          <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join("")}
+
+      <!-- Feature Tools -->
+      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin:16px 0 10px;">⚡ Smart Features</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+        ${featureTools.map(o=>`
+          <button onclick="set({screen:'${o.s}'})"
+            style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;cursor:pointer;text-align:left;">
+            <span style="font-size:26px;margin-bottom:6px;">${o.e}</span>
+            <div style="font-size:13px;color:#f5e8cc;margin-bottom:3px;font-weight:bold;">${o.t}</div>
+            <div style="font-size:10px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+          </button>`).join("")}
+      </div>
+
     </div>
   </div>`;
 }
+
 
 // ── RECIPE VIEW ───────────────────────────────────────────────────
 function recipeView(){
@@ -3379,7 +5650,7 @@ const EVENTS_BIG_COOKING_MAINS = [
     base300:[{n:"Cooked chicken (rotisserie or poached, shredded)",a:"150g per person"},{n:"Butter",a:"5g per person"},{n:"Flour (for sauce)",a:"5g per person"},{n:"Chicken stock",a:"100ml per person"},{n:"Cream",a:"40ml per person"},{n:"Mushrooms (sliced)",a:"60g per person"},{n:"Green pepper (diced)",a:"10g per person"},{n:"Red pepper (diced)",a:"10g per person"},{n:"Paprika",a:"1g per person"},{n:"Fresh parsley",a:"2.5g per person"}],
     method:["Make white sauce: melt butter, add flour, whisk in stock and cream until thick and smooth.","Sauté mushrooms and peppers in butter until soft.","Add chicken and vegetables to sauce. Season well.","Simmer gently 5 min to heat through — do not boil.","Serve in rolls, over rice, or in vol-au-vent cases.","For large groups: keep warm in a bain-marie."],
     tip:"Best use of leftover roast chicken. Scales effortlessly. Reheat gently, never boil." },
-  { id:"potjiekos", name:"Mutton Potjiekos", emoji:"🫕", costPP:40,
+  { id:"potjiekos", name:"Mutton Potjiekos", emoji:"🥘", costPP:40,
     perPerson:{meat:200,unit:"g"},
     base300:[{n:"Mutton neck or shoulder (bone-in)",a:"200g per person"},{n:"Potatoes (quartered)",a:"100g per person"},{n:"Carrots (cut into chunks)",a:"50g per person"},{n:"Green beans",a:"30g per person"},{n:"Onion (quartered)",a:"25g per person"},{n:"Garlic cloves",a:"1 clove per person"},{n:"Tinned tomatoes",a:"65g per person"},{n:"Red wine or beer",a:"20ml per person"},{n:"Potjiekos spice blend",a:"2g per person"},{n:"Sunflower oil",a:"15ml per person"}],
     method:["Heat oil in potjie. Brown meat in batches over medium coals.","Add onion and garlic. Cook until soft.","Layer vegetables on top of meat — do NOT stir.","Add wine and seasoning. Cover and cook low and slow 3-4 hours.","Resist the urge to open and stir — the steam does the work.","Serve straight from the pot with bread or pap."],
@@ -3742,7 +6013,7 @@ const EVENTS_BIG_COOKING_SALADS = [
       "Refrigerate minimum 2 hours. Before service: fold in diced hard-boiled eggs if using, and check consistency — potato salad drinks its dressing. Add a little extra mayo if needed to restore gloss."
     ],
     tip:"Make the day before — potatoes absorb the dressing overnight and taste dramatically richer. Pro twist: add a teaspoon of gherkin brine to the dressing per 30 people — guests can't identify it but find it irresistible." },
-  { id:"threebeans", name:"3 Bean Salad", emoji:"🫘", costPP:12,
+  { id:"threebeans", name:"3 Bean Salad", emoji:"🥙", costPP:12,
     perPerson:{meat:120,unit:"g"},
     base300:[
       {n:"Mixed tinned beans — kidney, cannellini and chickpeas (drained weight)",a:"120g per person"},
@@ -4966,7 +7237,7 @@ pastry:[
   ],
 
   starchy:[
-    { id:"vetkoekfinger", name:"Mini Vetkoek with Fillings", emoji:"🫓", makes:"24 mini", perPerson:2,
+    { id:"vetkoekfinger", name:"Mini Vetkoek with Fillings", emoji:"🍞", makes:"24 mini", perPerson:2,
       base300:[{n:"Beef mince (for filling)",a:"500g per batch"},{n:"Curry powder",a:"30ml per batch"},{n:"Cooked chicken (for filling)",a:"400g per batch"},{n:"Mayonnaise",a:"60ml per batch"},{n:"Sweetcorn (tinned)",a:"100g per batch"}],
       method:["Make vetkoek dough. Make smaller golf-ball portions for mini vetkoek.","Fry at 170°C 4-5 min per side.","Curried mince: brown mince with onion, curry, tomatoes. Simmer 20 min.","Chicken mayo: mix shredded chicken with mayo, sweetcorn and spring onion.","Cut mini vetkoek in half and fill."],
       tip:"Keep fillings warm in slow cooker for self-service at large events." },
@@ -5810,7 +8081,7 @@ const EVENTS_SAUCES = [
     ],
     tip:"Toum is potent — serve at 20g pp (about 1 tablespoon), not scooped like a dip. Always remove the green sprout from each clove — it causes harsh, bitter flavour. The ice water step is magic: it transforms a dense paste into a fluffy white cream." },
 
-  { id:"hummus", name:"Hummus", emoji:"🫘", ppG:60,
+  { id:"hummus", name:"Hummus", emoji:"🥙", ppG:60,
     base300:[
       {n:"Chickpeas (cooked or canned, drained, optionally peeled)",u:"g",pp:40},
       {n:"Tahini (light-coloured, runny)",u:"g",pp:10},
