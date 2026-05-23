@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/api/claude"
+  to = "https://api.anthropic.com/v1/messages"
+  status = 200
+  force = true
+  [redirects.headers]
+    x-api-key = ":ANTHROPIC_KEY"
+    anthropic-version = "2023-06-01"
+    content-type = "application/json"
