@@ -4750,6 +4750,24 @@ function recipeResultCard(r, onClickFn, color){
 function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   // servings is always read live from state so scaler works
   const sv = servings;
+
+  // Pre-compute cooked plate weight (outside template literal to avoid nesting issues)
+  function calcPlateWeight(ings, numSv) {
+    const g = (ings||[]).filter(i=>i.pp).reduce((sum,i)=>{
+      const raw = i.pp * numSv;
+      const n = (i.n||'').toLowerCase();
+      const factor = (n.includes('rice')||n.includes('maize')||n.includes('pap')||n.includes('pasta')||n.includes('oat')) ? 2.8
+        : (n.includes('mince')||n.includes('chicken')||n.includes('beef')||n.includes('pork')||n.includes('lamb')||n.includes('fish')||n.includes('liver')||n.includes('prawn')||n.includes('wors')||n.includes('sausage')) ? 0.75
+        : (n.includes('water')||n.includes('stock')||n.includes('milk')||n.includes('cream')) ? 0
+        : 0.85;
+      return sum + (raw * factor);
+    }, 0);
+    return Math.round(g/10)*10;
+  }
+  const plateWeight = calcPlateWeight(r.ingredients, sv);
+  const plateNote = plateWeight > 0
+    ? '📏 Raw/dry weights — what you buy before cooking. 🍽️ Cooked plate approx. ' + plateWeight + 'g per person (rice+pap grow 3x, meat shrinks ~25%).'
+    : '📏 Weights shown are raw/dry — what you buy and measure before cooking.';
   function fmt(pp, u){
     if(!pp) return u||'';
     const raw = pp * sv;
@@ -4802,23 +4820,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <span style="font-size:13px;color:#c8c0b0;flex:1;">${i.n}</span>
           <span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${fmt(i.pp,i.u)}</span>
         </div>`).join('')}
-        ${needToBuy.length>0 ? (()=>{
-          // Calculate approx cooked plate weight
-          const plateG = (r.ingredients||[]).filter(i=>i.pp).reduce((sum,i)=>{
-            const raw = i.pp * sv;
-            const n = (i.n||'').toLowerCase();
-            const factor = (n.includes('rice')||n.includes('maize')||n.includes('pap')||n.includes('pasta')||n.includes('oat')) ? 2.8
-              : (n.includes('mince')||n.includes('chicken')||n.includes('beef')||n.includes('pork')||n.includes('lamb')||n.includes('fish')||n.includes('liver')||n.includes('prawn')) ? 0.75
-              : (n.includes('water')||n.includes('stock')||n.includes('milk')||n.includes('cream')) ? 0
-              : 0.85;
-            return sum + (raw * factor);
-          }, 0);
-          const plateRounded = Math.round(plateG/10)*10;
-          return `<div style="margin-top:10px;padding-top:8px;border-top:1px solid #1a1810;font-size:10px;color:#4a4040;line-height:1.6;">
-            📏 <em>Weights shown are raw/dry — what you buy before cooking.</em><br>
-            🍽️ <em>Cooked plate approx. <strong style="color:#506040;">${plateRounded}g per person</strong> — rice + pap grow 3x, meat shrinks ~25%.</em>
-          </div>`;
-        })() : ''}
+        ${needToBuy.length>0 ? `<div style="margin-top:10px;padding-top:8px;border-top:1px solid #1a1810;font-size:10px;color:#4a4040;line-height:1.6;">${plateNote}</div>` : ''}
       </div>
 
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
@@ -5140,13 +5142,18 @@ function budgetPlannerHTML(){
         </div>
       `:''}
 
+      ${(()=>{
+        // Store results in window so onclick can reference by index safely
+        window._tinzaBudgetResults = results||[];
+        return '';
+      })()}
       ${results&&results.length>0&&!results[0]._waiting&&!results[0]._nomore&&!results[0]._error?`
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
           ${S._budgetAILoading ? `<div style="font-size:10px;color:#3a6030;font-style:italic;">✨ Finding more...</div>` : ''}
         </div>
         ${results.map((r,i)=>`
-          <div onclick="setQuiet({_budgetActiveRecipe:${JSON.stringify(r).replace(/"/g,'&quot;')}})" style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+          <div onclick="setQuiet({_budgetActiveRecipe:window._tinzaBudgetResults[${i}]})" style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
             <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
