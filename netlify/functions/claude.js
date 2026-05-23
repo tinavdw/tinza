@@ -1,5 +1,8 @@
 exports.handler = async function(event) {
   try {
+    const parsed = JSON.parse(event.body);
+    parsed.model = "claude-sonnet-4-20250514";
+    
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -7,7 +10,7 @@ exports.handler = async function(event) {
         "x-api-key": process.env.ANTHROPIC_KEY,
         "anthropic-version": "2023-06-01"
       },
-      body: event.body
+      body: JSON.stringify(parsed)
     });
     const text = await response.text();
     return {
