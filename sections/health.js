@@ -256,6 +256,39 @@ const PLANTBASED_RECIPES = [
    tip:'Brown lentils hold their shape better than red. Both work — texture preference only.'},
 ];
 
+const VEGETARIAN_RECIPES = [
+  {id:'veg_omelette',    tier:'free',  emoji:'🍳', name:'Veggie Cheese Omelette',       kcal:340, feel:'Golden and pillowy — proper eggs done right, no apologies needed.',
+   badges:['🥚 High-Protein','🧀 Satisfying','⚡ 10 min'],
+   base300:[{n:'Eggs',pp:2,u:''},{n:'Cheddar cheese (grated)',pp:40,u:'g'},{n:'Baby spinach',pp:80,u:'g'},{n:'Mushrooms (sliced)',pp:60,u:'g'},{n:'Red pepper (diced)',pp:50,u:'g'},{n:'Garlic (minced)',pp:2,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Heat olive oil in a non-stick pan over medium. Sauté garlic, mushrooms and pepper 4 min.','Add spinach — cook until wilted, about 1 min.','Beat eggs with salt and pepper. Pour over the veg.','Sprinkle cheese. Cook 3–4 min, fold omelette and cook 1 min more. Serve hot.'],
+   tip:'Don\'t rush the veg — properly cooked mushrooms add deep savoury flavour. Wet mushrooms = watery omelette.'},
+  {id:'veg_shakshuka',   tier:'free',  emoji:'🍅', name:'Shakshuka with Feta',          kcal:280, feel:'Smoky, bubbling and aromatic — the whole kitchen smells like a North African kitchen.',
+   badges:['🥚 Protein','🌶️ Spiced','🍅 One-Pan'],
+   base300:[{n:'Eggs',pp:2,u:''},{n:'Canned tomatoes',pp:150,u:'g'},{n:'Feta cheese (crumbled)',pp:40,u:'g'},{n:'Red pepper (diced)',pp:80,u:'g'},{n:'Onion (diced)',pp:60,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Cumin',pp:2,u:'g'},{n:'Smoked paprika',pp:2,u:'g'},{n:'Olive oil',pp:10,u:'ml'}],
+   method:['Sauté onion and pepper in olive oil 5 min. Add garlic, cumin and paprika — 1 min.','Add tomatoes. Simmer 8–10 min until thick. Season generously.','Make wells and crack eggs in. Cover and cook on low 5–7 min until whites are just set.','Crumble feta over the top. Serve straight from the pan with bread.'],
+   tip:'Runny yolks are the goal — pull off heat while still wobbly. The residual heat finishes them.'},
+  {id:'veg_caprese',     tier:'free',  emoji:'🧀', name:'Caprese Chickpea Salad',       kcal:295, feel:'Summer on a plate — fresh mozzarella and basil smell like a garden.',
+   badges:['🧀 Protein','🌿 Fresh','🥗 No-Cook'],
+   base300:[{n:'Buffalo mozzarella (torn)',pp:80,u:'g'},{n:'Cooked chickpeas',pp:100,u:'g'},{n:'Cherry tomatoes (halved)',pp:150,u:'g'},{n:'Fresh basil leaves',pp:10,u:'g'},{n:'Extra virgin olive oil',pp:15,u:'ml'},{n:'Balsamic vinegar',pp:10,u:'ml'}],
+   method:['Halve tomatoes. Drain and rinse chickpeas.','Arrange tomatoes, chickpeas and torn mozzarella on a plate.','Scatter fresh basil leaves.','Drizzle generously with olive oil and balsamic. Season and serve immediately.'],
+   tip:'Real buffalo mozzarella makes a difference here. If all you have is the rubbery block, drain it and tear it — it works.'},
+  {id:'veg_stuffedpep',  tier:'free',  emoji:'🫑', name:'Ricotta-Spinach Stuffed Peppers', kcal:320, feel:'Melt-in-the-mouth filling inside a sweet roasted shell — comfort vegetarian.',
+   badges:['🧀 Creamy','🥚 Protein','🫑 Baked'],
+   base300:[{n:'Bell peppers (large, halved)',pp:1,u:''},{n:'Ricotta cheese',pp:120,u:'g'},{n:'Baby spinach (chopped)',pp:100,u:'g'},{n:'Mozzarella (grated)',pp:40,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Tomato sauce',pp:80,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Preheat oven 190°C. Brush pepper halves with oil. Bake 10 min.','Sauté garlic and spinach 2 min. Mix with ricotta, salt and pepper.','Spoon filling into peppers. Top with tomato sauce and mozzarella.','Bake 18–22 min until cheese is golden and bubbling. Serve hot.'],
+   tip:'The par-bake is important — raw peppers with filling need too long and the filling overcooks.'},
+  {id:'veg_paneer',      tier:'plus',  emoji:'🍛', name:'Paneer Tikka Skewers',         kcal:310, feel:'Charred edges, creamy centre — the braai recipe that converts meat-eaters.',
+   badges:['🧀 High-Protein','🌶️ Spiced','🔥 Braai-Friendly'],
+   base300:[{n:'Paneer (cubed)',pp:150,u:'g'},{n:'Red and yellow pepper (chunked)',pp:150,u:'g'},{n:'Plain yoghurt',pp:50,u:'g'},{n:'Turmeric',pp:1,u:'g'},{n:'Cumin',pp:2,u:'g'},{n:'Garam masala',pp:2,u:'g'},{n:'Ginger (grated)',pp:3,u:'g'},{n:'Garlic (minced)',pp:3,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Sunflower oil',pp:10,u:'ml'}],
+   method:['Mix yoghurt, spices, ginger, garlic, lemon and oil into a marinade.','Toss paneer and peppers in marinade. Rest at least 30 min (longer is better).','Thread onto skewers, alternating paneer and pepper.','Grill or bake at 200°C for 12–15 min, turning halfway, until charred at edges.'],
+   tip:'Paneer doesn\'t melt — it gets golden and holds its shape. Perfect for braaing. Buy firm paneer, not the soft block.'},
+  {id:'veg_halloumisalad',tier:'free', emoji:'🥗', name:'Halloumi & Quinoa Salad',      kcal:370, feel:'Salty, golden halloumi against nutty quinoa — a proper main course salad.',
+   badges:['🧀 Protein','🌾 Wholesome','🥗 Filling'],
+   base300:[{n:'Halloumi (sliced)',pp:80,u:'g'},{n:'Cooked quinoa',pp:100,u:'g'},{n:'Mixed greens',pp:80,u:'g'},{n:'Cherry tomatoes (halved)',pp:80,u:'g'},{n:'Cucumber (sliced)',pp:60,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+   method:['Cook quinoa per packet. Cool slightly.','Slice halloumi 1cm thick. Grill or pan-fry in a dry pan 2 min per side until golden.','Whisk olive oil and lemon juice for dressing.','Build salad: greens, quinoa, tomatoes, cucumber. Top with warm halloumi. Drizzle dressing.'],
+   tip:'Halloumi must be eaten hot — it becomes rubbery when cold. Time it so it goes straight from pan to plate.'},
+];
+
 const GUTHEALTH_RECIPES = [
   {id:'gh_kimchi_rice',  tier:'free',  emoji:'🍚', name:'Kimchi Fried Rice',           kcal:380, feel:'Funky, warming and alive — your gut flora will love you for it.',
    badges:['🦠 Probiotics','🌶️ Fermented','🍚 Satisfying'],
@@ -423,14 +456,15 @@ function extHealthRecipeHTML(r, mult) {
 
 // Map category id to recipe array + description
 const EXT_HEALTH_MAP = {
-  keto:       {recipes:typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[], desc:'High-fat, low-carb — your body runs on ketones not glucose. 🥑'},
-  weightloss: {recipes:typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[], desc:'Low-calorie, high-volume — full without the excess. 🥗'},
-  highprotein:{recipes:typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[], desc:'Build muscle, recover faster, stay full longer. 💪'},
-  plantbased: {recipes:typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[], desc:'Whole-food, plant-powered — no animals harmed, full flavour. 🌱'},
-  guthealth:  {recipes:typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[], desc:'Feed your microbiome — fibre, ferments and probiotics. 🦠'},
-  diabetic:   {recipes:typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[], desc:'Low GI, blood-sugar balanced — no spikes, no crashes. 🩸'},
-  antiinflam: {recipes:typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[], desc:'Reduce chronic inflammation with targeted whole foods. 🌿'},
-  immunity:   {recipes:typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[], desc:'Fortify your defences from the inside out. 🛡️'},
+  keto:         {recipes:typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[], desc:'High-fat, low-carb — your body runs on ketones not glucose. 🥑'},
+  weightloss:   {recipes:typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[], desc:'Low-calorie, high-volume — full without the excess. 🥗'},
+  highprotein:  {recipes:typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[], desc:'Build muscle, recover faster, stay full longer. 💪'},
+  vegan:        {recipes:typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[], desc:'100% plant-powered — whole foods, full flavour. 🌱'},
+  vegetarian:   {recipes:typeof VEGETARIAN_RECIPES!=='undefined'?VEGETARIAN_RECIPES:[], desc:'Eggs, dairy & plants — comforting, satisfying, no meat. 🧀'},
+  guthealth:    {recipes:typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[], desc:'Feed your microbiome — fibre, ferments and probiotics. 🦠'},
+  diabetic:     {recipes:typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[], desc:'Low GI, blood-sugar balanced — no spikes, no crashes. 🩸'},
+  antiinflam:   {recipes:typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[], desc:'Reduce chronic inflammation with targeted whole foods. 🌿'},
+  immunity:     {recipes:typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[], desc:'Fortify your defences from the inside out. 🛡️'},
 };
 
 function smoothiesHTML(){
@@ -629,37 +663,71 @@ function smoothiesHTML(){
     </div>`;
   }
 
-  const VITAL_CATS = [
-    {id:"freshjuice",      label:"🍋 Fresh Juice",        desc:"Cold-pressed & freshly squeezed"},
-    {id:"smoothie",        label:"🥤 Smoothies",           desc:"Blended & nourishing"},
-    {id:"oats",            label:"🌙 Overnight Collection", desc:"Overnight oats & warm bowls"},
-    {id:"muffins",         label:"🧁 Muffins",             desc:"Healthy bakes"},
-    {id:"raw",             label:"🥗 Raw Foods",           desc:"Unprocessed snacks & meals"},
-    {id:"fermented",       label:"🫙 Fermented Foods",     desc:"Probiotics & living cultures"},
-    {id:"keto",            label:"🥑 Keto / Low-Carb",     desc:"Fat-fuelled, carb-free"},
-    {id:"weightloss",      label:"🥗 Weight Loss",         desc:"Low-cal, high-satisfaction"},
-    {id:"highprotein",     label:"💪 High-Protein",        desc:"Build and recover"},
-    {id:"plantbased",      label:"🌱 Plant-Based",         desc:"Vegan & whole-food"},
-    {id:"guthealth",       label:"🦠 Gut Health",          desc:"Fibre, prebiotics & probiotics"},
-    {id:"diabetic",        label:"🩸 Diabetic-Friendly",   desc:"Low GI, blood-sugar balanced"},
-    {id:"antiinflam",      label:"🌿 Anti-Inflammatory",   desc:"Reduce inflammation naturally"},
-    {id:"immunity",        label:"🛡️ Immunity Boost",      desc:"Fortify from the inside"},
+  // ── ACCORDION GROUPS ──────────────────────────────────────────────
+  const HEALTH_GROUPS = [
+    { id:'lifestyle',  label:'🌱 Lifestyle',        subtitle:'Vegan · Raw · Vegetarian',
+      cats:[
+        {id:'vegan',       label:'🌱 Vegan',          desc:'100% plant-powered — whole foods, full flavour.'},
+        {id:'raw',         label:'🥗 Raw Foods',       desc:'Unprocessed. Enzyme-rich. Real food as nature intended.'},
+        {id:'vegetarian',  label:'🥚 Vegetarian',      desc:'Eggs, dairy & plants — no meat, full satisfaction.'},
+      ]},
+    { id:'drinks',     label:'🥤 Drinks',            subtitle:'Juices · Smoothies',
+      cats:[
+        {id:'freshjuice',  label:'🍋 Fresh Juice',     desc:'Cold-pressed and freshly squeezed — pure fruit and veg.'},
+        {id:'smoothie',    label:'🥤 Smoothies',        desc:'Blended, nourishing, quick.'},
+      ]},
+    { id:'gut',        label:'🦠 Gut & Living Foods', subtitle:'Gut Health · Fermented',
+      cats:[
+        {id:'guthealth',   label:'🦠 Gut Health',      desc:'Fibre, prebiotics and probiotics for your microbiome.'},
+        {id:'fermented',   label:'🫙 Fermented Foods',  desc:'Living cultures, ancient wisdom, modern gut science.'},
+      ]},
+    { id:'fresheasy',  label:'🥗 Fresh & Easy',      subtitle:'Oats · Muffins · Salads',
+      cats:[
+        {id:'oats',        label:'🌙 Overnight Oats',  desc:'Prep the night before — wake up to a ready breakfast.'},
+        {id:'muffins',     label:'🧁 Muffins',          desc:'No refined sugar · Wholesome · Meal prep friendly.'},
+        {id:'salads',      label:'🥗 Salads',           desc:'Fresh, flexible — add any protein you like.'},
+      ]},
+    { id:'bodygoals',  label:'💪 Body Goals',         subtitle:'Keto · Weight Loss · High-Protein',
+      cats:[
+        {id:'keto',        label:'🥑 Keto / Low-Carb', desc:'High-fat, low-carb — your body runs on ketones.'},
+        {id:'weightloss',  label:'⚖️ Weight Loss',      desc:'Low-calorie, high-volume — full without the excess.'},
+        {id:'highprotein', label:'💪 High-Protein',     desc:'Build muscle, recover faster, stay full longer.'},
+      ]},
+    { id:'wellness',   label:'🩺 Wellness',           subtitle:'Diabetic · Immunity · Anti-Inflammatory',
+      cats:[
+        {id:'diabetic',    label:'🩸 Diabetic-Friendly',desc:'Low GI, blood-sugar balanced — no spikes, no crashes.'},
+        {id:'immunity',    label:'🛡️ Immunity Boost',   desc:'Fortify your defences from the inside out.'},
+        {id:'antiinflam',  label:'🌿 Anti-Inflammatory',desc:'Reduce chronic inflammation with targeted whole foods.'},
+      ]},
   ];
+
+  // Find which group the active tab belongs to (for auto-expanding)
+  const activeGroup = HEALTH_GROUPS.find(g => g.cats.some(c => c.id === vitalCat));
+  const openGroup = S.healthGroupOpen !== undefined ? S.healthGroupOpen : (activeGroup ? activeGroup.id : 'lifestyle');
 
   const vc = vitalCat;
 
   // Shared per-person / serving counter used across all Health Hub tabs
+  // Serving counter — 3 quick-pick groups + fine-tune
   const isMuffins = vc==="muffins";
-  const counterLabel = isMuffins ? "batches" : (S.servings===1?"person":"persons");
-  const counterMin  = 1;
+  const counterLabel = isMuffins ? "batches" : "servings";
+  const srv = S.servings||1;
   const hubCounter = `
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;background:#0f1a18;border:1px solid #1a3028;border-radius:10px;padding:12px;">
-      <button onclick="set({servings:Math.max(${counterMin},S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;cursor:pointer;">−</button>
-      <div style="flex:1;text-align:center;">
-        <div style="font-size:32px;color:#40d0a0;font-weight:bold;">${S.servings}</div>
-        <div style="font-size:10px;color:#208060;">${counterLabel}</div>
+    <div style="background:#0f1a18;border:1px solid #1a3028;border-radius:10px;padding:12px;margin-bottom:16px;">
+      <div style="font-size:10px;color:#208060;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">${isMuffins?'🧁 Batches':'👥 Servings'}</div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <button onclick="set({servings:1})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv<=2?'#20c080':'#1a3028'};background:${srv<=2?'#0a2018':'transparent'};color:${srv<=2?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">🧍 Just me<br><span style="font-size:10px;opacity:0.7;">1–2</span></button>
+        <button onclick="set({servings:4})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=3&&srv<=6?'#20c080':'#1a3028'};background:${srv>=3&&srv<=6?'#0a2018':'transparent'};color:${srv>=3&&srv<=6?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">👨‍👩‍👧 Family<br><span style="font-size:10px;opacity:0.7;">3–6</span></button>
+        <button onclick="set({servings:10})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=7?'#20c080':'#1a3028'};background:${srv>=7?'#0a2018':'transparent'};color:${srv>=7?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">🎉 Crowd<br><span style="font-size:10px;opacity:0.7;">7+</span></button>
       </div>
-      <button onclick="set({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;cursor:pointer;">+</button>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onclick="set({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
+        <div style="flex:1;text-align:center;">
+          <span style="font-size:28px;color:#40d0a0;font-weight:bold;">${srv}</span>
+          <span style="font-size:11px;color:#208060;margin-left:4px;">${counterLabel}</span>
+        </div>
+        <button onclick="set({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
+      </div>
     </div>`;
 
   const healthHowOpen = S.healthHowOpen || false;
@@ -697,7 +765,7 @@ function smoothiesHTML(){
           ${healthHowOpen?`
             <div onclick="set({healthHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
             <div style="position:relative;z-index:10;background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#90c0a0;line-height:1.6;">
-              <strong style="color:#30c090;">1. Pick a category</strong> — Juices, Smoothies, Oats, Muffins, Raw or Fermented.<br>
+              <strong style="color:#30c090;">1. Pick a group</strong> — tap any group to expand it, then pick a category inside.<br>
               <strong style="color:#30c090;">2. Set servings</strong> — all ingredient quantities scale automatically.<br>
               <strong style="color:#30c090;">3. Add to My Plan</strong> — build your weekly health routine.<br>
               <strong style="color:#30c090;">4. Generate shopping list</strong> — everything you need in one list.<br>
@@ -718,59 +786,95 @@ function smoothiesHTML(){
         </div>
       </div>
 
-      <!-- Tab strip -->
-      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-top:12px;-webkit-overflow-scrolling:touch;">
-        ${VITAL_CATS.map(c=>`<button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})"
-          style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${vc===c.id?'#20c080':'#1a3028'};background:${vc===c.id?'#0a2018':'transparent'};color:${vc===c.id?'#30d090':'#408060'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${c.label}</button>`).join("")}
+      <!-- Accordion Groups -->
+      <div style="margin-top:12px;">
+        ${HEALTH_GROUPS.map(g => {
+          const isOpen = openGroup === g.id;
+          const hasActive = g.cats.some(c => c.id === vitalCat);
+          return `
+          <div style="margin-bottom:6px;">
+            <button onclick="set({healthGroupOpen:'${isOpen ? '' : g.id}',extHealthRecipe:null})"
+              style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:${isOpen?'10px 10px 0 0':'10px'};border:1px solid ${hasActive?'#20c080':'#1a3028'};background:${isOpen?'#0a2018':hasActive?'#071510':'transparent'};cursor:pointer;text-align:left;">
+              <div>
+                <span style="font-size:13px;color:${hasActive?'#40d0a0':'#c0d4b0'};font-weight:${hasActive?'bold':'normal'};">${g.label}</span>
+                <span style="font-size:10px;color:#406050;margin-left:8px;">${g.subtitle}</span>
+              </div>
+              <span style="color:${hasActive?'#30c090':'#406050'};font-size:12px;">${isOpen?'▲':'▼'}</span>
+            </button>
+            ${isOpen ? `
+            <div style="border:1px solid #1a3028;border-top:none;border-radius:0 0 10px 10px;background:#080f0c;padding:6px 8px;">
+              ${g.cats.map(c => `
+                <button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})"
+                  style="width:100%;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;border:none;background:${vitalCat===c.id?'#0a2018':'transparent'};cursor:pointer;text-align:left;margin-bottom:2px;">
+                  <div style="width:3px;height:28px;border-radius:2px;background:${vitalCat===c.id?'#20c080':'#1a3028'};flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;color:${vitalCat===c.id?'#40d0a0':'#90b0a0'};">${c.label}</div>
+                    <div style="font-size:10px;color:#306050;margin-top:1px;">${c.desc}</div>
+                  </div>
+                  ${vitalCat===c.id?'<span style="color:#20c080;font-size:14px;">●</span>':''}
+                </button>`).join('')}
+            </div>` : ''}
+          </div>`;
+        }).join('')}
       </div>
     </div>
 
-    <div class="content">
-    ${vc==="freshjuice"?`
-      <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
-      ${hubCounter}
-            ${renderHealthList(FRESH_JUICES,"juice","healthOpenJuice",isPro)}
-    `:""}
-    ${vc==="smoothie"?`
-      ${hubCounter}
-      <div class="pill-row">
-        ${SMOOTHIE_CATS.map(c=>`<button class="pill" onclick="set({smoothieCat:'${c.id}'})" style="background:${S.smoothieCat===c.id?"#0a2018":"transparent"};border-color:${S.smoothieCat===c.id?"#20c080":"#1a3028"};color:${S.smoothieCat===c.id?"#30d090":"#408060"};">${c.emoji} ${c.label}</button>`).join("")}
-      </div>
-      ${renderHealthList(SMOOTHIES.filter(sm=>S.smoothieCat==="all"||sm.cat===S.smoothieCat),"smoothie","healthOpenSmoothie",isPro)}
-    `:""}
-    ${vc==="oats"?`
-      <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Prep the night before — wake up to a ready breakfast 🌅</p>
-      ${hubCounter}
-      ${renderHealthList(OVERNIGHT_OATS,"oats","healthOpenOats",isPro)}
-    `:""}
-    ${vc==="muffins"?`
-      <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">No refined sugar · Wholesome ingredients · Meal prep friendly 🧁</p>
-      ${hubCounter}
-      ${renderHealthList(HEALTHY_MUFFINS,"muffin","healthOpenMuffin",isPro)}
-    `:""}
-    ${vc==="raw"?`
-      <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Unprocessed. Enzyme-rich. Real food as nature intended 🌿</p>
-      ${hubCounter}
-      ${renderHealthList(RAW_AND_REAL,"raw","healthOpenRaw",isPro)}
-    `:""}
-    ${vc==="fermented"?`
-      ${fermentedTabHTML()}
-    `:""}
-    ${vc==="myplan"?renderHealthMyPlan(isPro):""}
     ${(()=>{
-      // Extended health categories — check if extHealthRecipe is set first (recipe detail view)
+      // Extended health categories — recipe detail view breaks OUT of the wrapper
       if(S.extHealthRecipe && EXT_HEALTH_MAP[vc]) {
-        return extHealthRecipeHTML(S.extHealthRecipe, S.servings||1);
+        return `</div>${extHealthRecipeHTML(S.extHealthRecipe, S.servings||1)}`;
       }
+      return '';
+    })()}
+    ${(()=>{
+      if(S.extHealthRecipe && EXT_HEALTH_MAP[vc]) return ''; // already rendered above
       const extCat = EXT_HEALTH_MAP[vc];
-      if(!extCat) return '';
-      return `
+      const isExt = !!extCat;
+      const listContent = isExt ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">${extCat.desc}</p>
         ${hubCounter}
         ${renderExtHealthList(extCat.recipes, isPro)}
-      `;
+      ` : (
+        vc==="freshjuice" ? `
+          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
+          ${hubCounter}
+          ${renderHealthList(FRESH_JUICES,"juice","healthOpenJuice",isPro)}
+        ` :
+        vc==="smoothie" ? `
+          ${hubCounter}
+          <div class="pill-row">
+            ${SMOOTHIE_CATS.map(c=>`<button class="pill" onclick="set({smoothieCat:'${c.id}'})" style="background:${S.smoothieCat===c.id?"#0a2018":"transparent"};border-color:${S.smoothieCat===c.id?"#20c080":"#1a3028"};color:${S.smoothieCat===c.id?"#30d090":"#408060"};">${c.emoji} ${c.label}</button>`).join("")}
+          </div>
+          ${renderHealthList(SMOOTHIES.filter(sm=>S.smoothieCat==="all"||sm.cat===S.smoothieCat),"smoothie","healthOpenSmoothie",isPro)}
+        ` :
+        vc==="oats" ? `
+          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Prep the night before — wake up to a ready breakfast 🌅</p>
+          ${hubCounter}
+          ${renderHealthList(OVERNIGHT_OATS,"oats","healthOpenOats",isPro)}
+        ` :
+        vc==="muffins" ? `
+          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">No refined sugar · Wholesome ingredients · Meal prep friendly 🧁</p>
+          ${hubCounter}
+          ${renderHealthList(HEALTHY_MUFFINS,"muffin","healthOpenMuffin",isPro)}
+        ` :
+        vc==="raw" ? `
+          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Unprocessed. Enzyme-rich. Real food as nature intended 🌿</p>
+          ${hubCounter}
+          ${renderHealthList(RAW_AND_REAL,"raw","healthOpenRaw",isPro)}
+        ` :
+        vc==="fermented" ? fermentedTabHTML() :
+        vc==="salads" ? `
+          <div style="text-align:center;padding:40px 20px;">
+            <div style="font-size:48px;margin-bottom:16px;">🥗</div>
+            <div style="font-size:18px;color:#40d0a0;margin-bottom:8px;">Salads — Coming Soon</div>
+            <div style="font-size:13px;color:#208060;line-height:1.6;">Fresh, flexible salads with any protein you like.<br>Recipes loading soon!</div>
+          </div>
+        ` :
+        vc==="myplan" ? renderHealthMyPlan(isPro) :
+        ''
+      );
+      return `<div class="content">${listContent}</div>`;
     })()}
-    </div>
   </div>`;
 };
 
