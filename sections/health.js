@@ -37,12 +37,13 @@ function healthToggleById(id, type, servings){
   const inPlan = plan.some(x=>x.id===id);
   if(inPlan){ set({healthPlan:plan.filter(x=>x.id!==id)}); return; }
   let item;
-  if(type==='juice') item = FRESH_JUICES.find(x=>x.id===id);
-  else if(type==='smoothie') item = SMOOTHIES.find(x=>x.id===id);
-  else if(type==='oats') item = OVERNIGHT_OATS.find(x=>x.id===id);
-  else if(type==='muffin') item = HEALTHY_MUFFINS.find(x=>x.id===id);
+  if(type==='juice') item = (typeof FRESH_JUICES!=='undefined'?FRESH_JUICES:[]).find(x=>x.id===id);
+  else if(type==='smoothie') item = (typeof SMOOTHIES!=='undefined'?SMOOTHIES:[]).find(x=>x.id===id);
+  else if(type==='oats') item = (typeof OVERNIGHT_OATS!=='undefined'?OVERNIGHT_OATS:[]).find(x=>x.id===id);
+  else if(type==='muffin') item = (typeof HEALTHY_MUFFINS!=='undefined'?HEALTHY_MUFFINS:[]).find(x=>x.id===id);
+  else if(type==='raw') item = (typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[]).find(x=>x.id===id);
   if(!item) return;
-  set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type,kcal:item.kcal,shopping:item.shopping||[],servings}]});
+  set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type,kcal:item.kcal,shopping:item.shopping||item.base300||[],servings}]});
 }
 
 function healthToggleExtById(id){
@@ -78,11 +79,11 @@ function renderHealthList(items, type, openFn, isPro){
       : type==='muffin' ? item.kcal+' kcal each \u00b7 '+(srv*(item.makes||12))+' muffins'
       : (item.kcal*srv)+' kcal';
     var onclk = disabled
-      ? 'alert(\u0022\ud83d\udc51 Upgrade to Pro to unlock\u0022)'
-      : 'healthToggleById(\u0022'+item.id+'\u0022,\u0022'+type+'\u0022,S.servings)';
+      ? "alert('\ud83d\udc51 Upgrade to Pro to unlock')"
+      : 'healthToggleById(\''+item.id+'\',\''+type+'\',S.servings)';
     var recipeBtn = disabled
       ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">\ud83d\udc51 PRO</span>'
-      : '<button onclick="event.stopPropagation();'+openFn+'(\u0022'+item.id+'\u0022)" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe \u2192</button>';
+      : '<button onclick="event.stopPropagation();'+openFn+'(\''+item.id+'\')" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe \u2192</button>';
     return '<div style="background:'+(sel?'#0a2018':disabled?'#0f0e0c':'#0f1a18')+';border:1px solid '+(sel?'#30c090':disabled?'#1a2018':'#1a4035')+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.45:1)+';">'
       +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
       +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'\u2713':'')+'</div>'
@@ -653,8 +654,8 @@ function renderExtHealthList(recipes, isPro) {
     var sel = (S.healthPlan||[]).some(function(x){return x.id===r.id;});
     var disabled = !canView;
     var onclk = disabled
-      ? 'alert(\u0022\ud83d\udc51 Upgrade to Pro to unlock\u0022)'
-      : 'healthToggleExtById(\u0022'+r.id+'\u0022)';
+      ? "alert('\ud83d\udc51 Upgrade to Pro to unlock')"
+      : 'healthToggleExtById(\''+r.id+'\')';
     var safeR = JSON.stringify(r).replace(/"/g,"'");
     var recipeBtn = disabled
       ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">\ud83d\udc51 PRO</span>'
@@ -720,6 +721,7 @@ function extHealthRecipeHTML(r, mult) {
       <button onclick="(function(){const lines=S.extHealthRecipe.base300.map(i=>{ const t=Math.round((i.pp||0)*(S.servings||1)*10)/10; return '• '+i.n+': '+(t>0?(t+(i.u||'')):'to taste'); }).join('\\n'); window.open('https://wa.me/?text='+encodeURIComponent('${r.emoji} *${r.name}*\\nFor '+(S.servings||1)+' serving'+((S.servings||1)>1?'s':'')+'\\n\\n'+lines+'\\n\\nFrom Tinza'),'_blank');})()"
         style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Shopping List via WhatsApp</button>` : `
       <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px;text-align:center;color:#208060;font-size:12px;margin-bottom:12px;">👑 Share shopping list — Pro feature</div>`}
+      <button onclick="(function(){var id=S.extHealthRecipe.id;var plan=S.healthPlan||[];var inPlan=plan.some(function(x){return x.id===id;});if(inPlan){set({healthPlan:plan.filter(function(x){return x.id!==id;})});}else{var r=S.extHealthRecipe;set({healthPlan:[...plan,{id:r.id,name:r.name,emoji:r.emoji,type:'health',kcal:r.kcal,shopping:r.base300||[],servings:S.servings||1}]});}})()" style="width:100%;padding:13px;background:${(S.healthPlan||[]).some(x=>x.id===r.id)?'#0a2018':'#0f1a18'};border:2px solid ${(S.healthPlan||[]).some(x=>x.id===r.id)?'#30c090':'#1a4035'};border-radius:10px;color:${(S.healthPlan||[]).some(x=>x.id===r.id)?'#40d0a0':'#208060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${(S.healthPlan||[]).some(x=>x.id===r.id)?'✓ In My Plan — tap to remove':'+ Add to My Plan'}</button>
       <button onclick="set({extHealthRecipe:null})" style="width:100%;padding:12px;background:#0a2018;border:1px solid #1a4035;border-radius:10px;color:#30c090;font-size:14px;cursor:pointer;margin-bottom:20px;">← Back to Health Hub</button>
     </div>
   </div>`;
