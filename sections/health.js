@@ -994,7 +994,6 @@ function smoothiesHTML(){
     const extCat = EXT_HEALTH_MAP[vc];
     const listContent = extCat ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">${extCat.desc}</p>
-        ${hubCounter}
         ${renderExtHealthList(extCat.recipes, isPro)}
       ` :
       vc==="freshjuice" ? `
@@ -1135,13 +1134,13 @@ function smoothiesHTML(){
     <!-- ══ 6 CATEGORY CARDS — same as Braai ══ -->
     <div class="content">
       <p style="font-size:11px;color:#208060;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">What are you looking for?</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
         ${HEALTH_GROUPS.map(g=>`
           <div onclick="set({healthGroup:'${g.id}',vitalCat:null,extHealthRecipe:null})"
-            style="background:#0f1a18;border:1px solid #1a4030;border-radius:14px;padding:18px 14px;cursor:pointer;text-align:center;position:relative;">
-            <div style="font-size:36px;margin-bottom:8px;">${g.emoji}</div>
-            <div style="font-size:15px;color:#e0d4b8;margin-bottom:4px;font-family:Georgia,serif;font-weight:bold;">${g.label}</div>
-            <div style="font-size:10px;color:#406050;line-height:1.4;">${g.sub}</div>
+            style="background:#0f1a18;border:1px solid #1a4030;border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
+            <div style="font-size:26px;margin-bottom:5px;">${g.emoji}</div>
+            <div style="font-size:12px;color:#e0d4b8;font-weight:bold;margin-bottom:2px;">${g.label}</div>
+            <div style="font-size:9px;color:#406050;line-height:1.3;">${g.sub}</div>
           </div>`).join('')}
       </div>
       <!-- My Plan shortcut -->
