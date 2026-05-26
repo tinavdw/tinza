@@ -26,15 +26,54 @@ function mealSectionHTML(sectionKey){
   if(sort==='az') recipes.sort((a,b)=>a.name.localeCompare(b.name));
   else if(sort==='time') recipes.sort((a,b)=>a.time-b.time);
 
+  const mealHowOpen = S.mealHowOpen || false;
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:${cfg.bg};border-bottom:1px solid ${cfg.border};padding:14px 20px;">
-      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${cfg.color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${cfg.emoji} ${cfg.title}</h1>
-      <p style="margin:4px 0 10px;font-size:11px;color:${cfg.color};font-style:italic;opacity:0.8;">${cfg.sub}</p>
-      <div style="display:flex;gap:5px;">
-        ${[{id:'popular',l:'⭐ Popular'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️ Quickest'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 12px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?cfg.bg:'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:11px;cursor:pointer;">${s.l}</button>`).join('')}
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${cfg.bg} 0%,#0f0e0c 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${cfg.emoji} ${cfg.title}</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:${cfg.color};font-style:italic;opacity:0.9;">${cfg.sub}</p>
+        <div style="display:flex;align-items:center;background:rgba(12,10,8,0.85);border:1px solid ${cfg.border};border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:${cfg.color};margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search ${cfg.title.toLowerCase()} recipes…"
+            oninput="set({mealSearch:this.value})"
+            value="${S.mealSearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#e0d0c0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.mealSearch?`<button onclick="set({mealSearch:''})" style="background:none;border:none;color:${cfg.border};font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
       </div>
     </div>
+
+    <!-- ══ HOW IT WORKS + SORT ══ -->
+    <div style="background:${cfg.bg};border-bottom:1px solid ${cfg.border};padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;">
+        <div style="flex:1;">
+          <button onclick="set({mealHowOpen:!S.mealHowOpen})"
+            style="background:none;border:none;color:${cfg.color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${mealHowOpen?'▲':'▼'} How it works
+          </button>
+          ${mealHowOpen?`
+            <div onclick="set({mealHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+            <div style="position:relative;z-index:10;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#b0a080;line-height:1.6;">
+              <strong style="color:${cfg.color};">1. Browse recipes</strong> — sort by popular, A–Z or quickest.<br>
+              <strong style="color:${cfg.color};">2. Tap Recipe →</strong> — full ingredients, method and scaling.<br>
+              <strong style="color:${cfg.color};">3. Add to My Plan</strong> — build your weekly meal plan.<br>
+              <span style="color:#4a4a40;font-size:11px;">All quantities scale automatically per person.</span>
+            </div>
+          `:''}
+        </div>
+        <!-- Sort pills -->
+        <div style="display:flex;gap:5px;flex-shrink:0;">
+          ${[{id:'popular',l:'⭐'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 10px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?'rgba(255,255,255,0.1)':'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:11px;cursor:pointer;">${s.l}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+
     <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
       <div style="font-size:11px;color:#4a4a40;margin-bottom:10px;">${recipes.length} recipes</div>
       ${recipes.map((r,i)=>{
