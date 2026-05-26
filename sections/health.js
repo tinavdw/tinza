@@ -662,15 +662,69 @@ function smoothiesHTML(){
       <button onclick="set({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;cursor:pointer;">+</button>
     </div>`;
 
+  const healthHowOpen = S.healthHowOpen || false;
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#0f1a18;border-bottom:1px solid #207060;padding:14px 20px;">
-      <button onclick="set({screen:'home'})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">🌿 Health Hub</h1>
-      <p style="margin:4px 0 10px;font-size:11px;color:#208060;font-style:italic;">All things healthy</p>
-      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;">
-        ${VITAL_CATS.map(c=>`<button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})" style="flex-shrink:0;padding:8px 12px;border-radius:10px;border:1px solid ${vc===c.id?'#20c080':'#1a3028'};background:${vc===c.id?'#0a2018':'transparent'};color:${vc===c.id?'#30d090':'#408060'};font-size:11px;cursor:pointer;font-family:Georgia,serif;">${c.label}</button>`).join("")}
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1a10 0%,#0f2818 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,14,8,0.3) 0%,rgba(4,14,8,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #208060;border-radius:20px;color:#30c090;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌿 Health Hub</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#60c090;font-style:italic;">Juices · Smoothies · Oats · Raw food · Fermented · Meal plans</p>
+        <div style="display:flex;align-items:center;background:rgba(8,24,16,0.85);border:1px solid #208060;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#30c090;margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search recipes, ingredients…"
+            oninput="set({healthSearch:this.value})"
+            value="${S.healthSearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#c0e8d0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.healthSearch?`<button onclick="set({healthSearch:''})" style="background:none;border:none;color:#208060;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
       </div>
     </div>
+
+    <!-- ══ HOW IT WORKS + SERVINGS SLIDER ══ -->
+    <div style="background:#0f1a18;border-bottom:1px solid #1a3028;padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+
+        <div style="flex:1;">
+          <button onclick="set({healthHowOpen:!S.healthHowOpen})"
+            style="background:none;border:none;color:#30c090;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${healthHowOpen?'▲':'▼'} How it works
+          </button>
+          ${healthHowOpen?`
+            <div onclick="set({healthHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+            <div style="position:relative;z-index:10;background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#90c0a0;line-height:1.6;">
+              <strong style="color:#30c090;">1. Pick a category</strong> — Juices, Smoothies, Oats, Muffins, Raw or Fermented.<br>
+              <strong style="color:#30c090;">2. Set servings</strong> — all ingredient quantities scale automatically.<br>
+              <strong style="color:#30c090;">3. Add to My Plan</strong> — build your weekly health routine.<br>
+              <strong style="color:#30c090;">4. Generate shopping list</strong> — everything you need in one list.<br>
+              <span style="color:#208060;font-size:11px;">All recipes use grams and ml — no guesswork.</span>
+            </div>
+          `:''}
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button onclick="set({servings:Math.max(1,S.servings-1)})"
+            style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">−</button>
+          <div style="text-align:center;min-width:52px;">
+            <div style="font-size:22px;color:#30d090;font-weight:bold;line-height:1;">${S.servings||1}</div>
+            <div style="font-size:9px;color:#208060;letter-spacing:1px;text-transform:uppercase;">servings</div>
+          </div>
+          <button onclick="set({servings:Math.min(50,S.servings+1)})"
+            style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+
+      <!-- Tab strip -->
+      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-top:12px;-webkit-overflow-scrolling:touch;">
+        ${VITAL_CATS.map(c=>`<button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})"
+          style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${vc===c.id?'#20c080':'#1a3028'};background:${vc===c.id?'#0a2018':'transparent'};color:${vc===c.id?'#30d090':'#408060'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${c.label}</button>`).join("")}
+      </div>
+    </div>
+
     <div class="content">
     ${vc==="freshjuice"?`
       <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
