@@ -178,17 +178,16 @@ function renderHealthMyPlan(isPro){
           +'</div>';
       }).join('');
 
-  // Calories per person = sum of (recipe kcal * servings) / total servings
+  // Calories per person = sum of all selected recipe kcal values (each is already per person)
+  var kcalPerPerson = plan.reduce(function(sum,i){return sum+(i.kcal||0);},0);
   var totalServings = plan.reduce(function(sum,i){return sum+(i.servings||1);},0) || 1;
-  var totalKcal = plan.reduce(function(sum,i){return sum+(i.kcal||0)*(i.servings||1);},0);
-  var kcalPerPerson = Math.round(totalKcal / totalServings);
   var waLines = shopItems.map(function(i){
     var t = i.total>=1000&&i.unit==='g'?(i.total/1000).toFixed(1)+'kg':i.total>=1000&&i.unit==='ml'?(i.total/1000).toFixed(1)+'L':Math.round(i.total*10)/10+(i.unit||'');
     return '• '+i.name+': '+t;
   }).join('\n');
 
   return '<div style="font-size:16px;color:#40d0a0;font-weight:bold;margin-bottom:4px;">&#x1F4CB; My Health Plan</div>'
-    +'<div style="font-size:12px;color:#208060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' selected</div>'
+    +'<div style="font-size:12px;color:#208060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' · '+(S.servings||1)+' person'+((S.servings||1)!==1?'s':'')+' · '+kcalPerPerson+' kcal/person</div>'
 
     +'<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
 
@@ -202,23 +201,21 @@ function renderHealthMyPlan(isPro){
       : '<div style="background:#081808;border:1px dashed #162016;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;">'
         +'<div style="font-size:12px;color:#208060;">&#x1F525; Calorie counter — <strong style="color:#30c090;">Tinza Pro R99/month</strong></div></div>')
 
-    // Cost estimate — same style as Braai
-    +(isPro
-      ? '<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">'
-        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">'
-        +'<div style="font-size:13px;color:#a09040;">&#x1F4B0; Estimated cost (whole foods)</div>'
-        +'<div style="font-size:26px;color:#f5c842;font-weight:bold;">R25–R80</div>'
-        +'</div>'
-        +'<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">'
-        +'<div style="font-size:12px;color:#6a6030;">Per person, per recipe</div>'
-        +'<div style="font-size:14px;color:#c0a030;font-weight:bold;">varies</div>'
-        +'</div>'
-        +'<div style="margin-top:8px;font-size:10px;color:#4a5820;line-height:1.5;">Whole foods · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>'
-        +'</div>'
-      : '<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
-        +'<div style="font-size:22px;color:#2a1808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>'
-        +'<div style="font-size:12px;color:#6a3020;">&#x1F4B0; Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>'
-        +'</div>')
+    // Cost and portion note
+    +'<div style="background:#1a1a08;border:1px solid #3a3010;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      +'<div style="font-size:10px;letter-spacing:2px;color:#8a8030;text-transform:uppercase;margin-bottom:8px;">&#x1F4B0; Cost Estimate</div>'
+      +'<div style="font-size:14px;color:#6a6030;font-style:italic;">Ingredient pricing coming soon</div>'
+      +'<div style="font-size:10px;color:#4a5820;margin-top:6px;line-height:1.5;">Checkers/retail prices · May 2026 · Always buy 10% extra</div>'
+      +'</div>'
+    +'<div style="background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">'
+      +'<div style="font-size:11px;color:#30c090;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
+      +'<div style="font-size:11px;color:#406050;line-height:1.8;">'
+        +'<b style="color:#60c090;">Drinks & smoothies</b> — fixed portion (200–300ml). Standalone.<br>'
+        +'<b style="color:#60c090;">Muffins</b> — 1 muffin per person. Fixed.<br>'
+        +'<b style="color:#60c090;">Meals & salads</b> — pizza rule: 1 dish = full plate. 2 dishes = half each. 3 = a third each.<br>'
+        +'<span style="color:#208060;font-size:10px;">Tip: for a full day, plan 1 drink + 1–2 meals.</span>'
+      +'</div>'
+    +'</div>'
 
     +'<div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">&#x1F6D2; Shopping List</div>'
     +(isPro
