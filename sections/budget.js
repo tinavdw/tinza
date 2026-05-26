@@ -16,12 +16,63 @@ function budgetPlannerHTML(){
     return recipeDetailFromResult(active, "setQuiet({_budgetActiveRecipe:null})", S.budgetPeople||4, color, bg, border);
   }
 
+  const budgetHowOpen = S.budgetHowOpen || false;
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
-      <button onclick="set({screen:'home'})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">💰 I've Got R${budget||'?'}</h1>
-      <p style="margin:4px 0 0;font-size:11px;color:${color};opacity:0.8;">${budget>=500?'🎉 Party & event planning mode':'Find recipes that fit your budget'}</p>
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#061008 0%,#0a1a08 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,8,2,0.3) 0%,rgba(2,8,2,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #1a4025;border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">💰 Budget Meals</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#60a050;font-style:italic;">${budget>=500?'🎉 Party & event planning mode':'R40 – R500 · Real food · Real savings'}</p>
+        <div style="display:flex;align-items:center;background:rgba(6,16,8,0.85);border:1px solid #1a4025;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:${color};margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search budget recipes…"
+            oninput="set({budgetSearch:this.value})"
+            value="${S.budgetSearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#c0d8b0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.budgetSearch?`<button onclick="set({budgetSearch:''})" style="background:none;border:none;color:#3a6030;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
+      </div>
     </div>
+
+    <!-- ══ HOW IT WORKS + PEOPLE SLIDER ══ -->
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+
+        <div style="flex:1;">
+          <button onclick="set({budgetHowOpen:!S.budgetHowOpen})"
+            style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${budgetHowOpen?'▲':'▼'} How it works
+          </button>
+          ${budgetHowOpen?`
+            <div onclick="set({budgetHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+            <div style="position:relative;z-index:10;background:#061008;border:1px solid #1a4025;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#80b880;line-height:1.6;">
+              <strong style="color:${color};">1. Enter your budget</strong> — type any amount from R40 upwards.<br>
+              <strong style="color:${color};">2. Set people count</strong> — we calculate cost per person automatically.<br>
+              <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza Chef finds real meals within your budget.<br>
+              <strong style="color:${color};">4. Want more?</strong> — tap "Show me 3 more" for extra ideas.<br>
+              <span style="color:#3a6030;font-size:11px;">R500+ unlocks party & event planning mode.</span>
+            </div>
+          `:''}
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button onclick="setQuiet({budgetPeople:Math.max(1,(S.budgetPeople||4)-1)})"
+            style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">−</button>
+          <div style="text-align:center;min-width:52px;">
+            <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${people}</div>
+            <div style="font-size:9px;color:#3a6030;letter-spacing:1px;text-transform:uppercase;">people</div>
+          </div>
+          <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})"
+            style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+    </div>
+
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
       <!-- Budget input -->
@@ -37,12 +88,8 @@ function budgetPlannerHTML(){
             </div>
           </div>
           <div>
-            <div style="font-size:10px;color:#3a6030;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">For how many people</div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <button onclick="setQuiet({budgetPeople:Math.max(1,(S.budgetPeople||4)-1)})" style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">−</button>
-              <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${people}</span>
-              <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})" style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;cursor:pointer;">+</button>
-            </div>
+            <div style="font-size:10px;color:#3a6030;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">People count</div>
+            <div style="font-size:18px;color:#f5c842;font-weight:bold;padding:10px 0;">${people} people</div>
           </div>
         </div>
 
