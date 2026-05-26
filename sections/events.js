@@ -1053,15 +1053,74 @@ function eventsHTML(){
     {id:'beverages',  label:'🍹 Beverages'},
   ];
 
+  const howItWorksOpen = S.eventsHowOpen || false;
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#1a0814;border-bottom:1px solid #803060;padding:14px 20px;">
-      <button onclick="set({screen:'home'})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">🎉 Events & Celebrations</h1>
-      <p style="margin:4px 0 10px;font-size:11px;color:#803060;font-style:italic;">Weddings · Funerals · Baptisms · Birthdays · Company events · 10 to 350 guests</p>
-      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;">
-        ${tabs.map(t=>`<button onclick="set({eventTab:'${t.id}',eventShowShopList:false})" style="flex-shrink:0;padding:8px 12px;border-radius:10px;border:1px solid ${et===t.id?'#d04080':'#3a1020'};background:${et===t.id?'#2a0818':'transparent'};color:${et===t.id?'#f070a0':'#703050'};font-size:11px;cursor:pointer;font-family:Georgia,serif;">${t.label}</button>`).join('')}
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a0814 0%,#2a0828 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.3) 0%,rgba(10,4,14,0.75) 100%);z-index:1;"></div>
+      <!-- Back button -->
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #803060;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <!-- Title + search overlaid -->
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🎉 Events & Celebrations</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#d090b0;font-style:italic;">Weddings · Birthdays · Funerals · Baptisms · Company events · 10–350 guests</p>
+        <!-- Search bar -->
+        <div style="display:flex;align-items:center;background:rgba(30,8,24,0.85);border:1px solid #803060;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#d04080;margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search dishes, cakes, snacks…"
+            oninput="set({eventsSearch:this.value})"
+            value="${S.eventsSearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#f0d0e0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.eventsSearch?`<button onclick="set({eventsSearch:''})" style="background:none;border:none;color:#803060;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
       </div>
     </div>
+
+    <!-- ══ HOW IT WORKS + GUEST SLIDER ══ -->
+    <div style="background:#1a0814;border-bottom:1px solid #401030;padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+
+        <!-- How it works collapsible -->
+        <div style="flex:1;">
+          <button onclick="set({eventsHowOpen:!S.eventsHowOpen})"
+            style="background:none;border:none;color:#d04080;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${howItWorksOpen?'▲':'▼'} How it works
+          </button>
+          ${howItWorksOpen?`
+            <div onclick="set({eventsHowOpen:false})" style="position:fixed;inset:0;z-index:9;" ></div>
+            <div style="position:relative;z-index:10;background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c0a0b0;line-height:1.6;">
+              <strong style="color:#f070a0;">1. Pick your tab</strong> — Buffet, Finger Foods, Cakes, Kiddies or Beverages.<br>
+              <strong style="color:#f070a0;">2. Set your guest count</strong> — use the ± slider here.<br>
+              <strong style="color:#f070a0;">3. Select dishes</strong> — portions auto-scale as you add more.<br>
+              <strong style="color:#f070a0;">4. Generate shopping list</strong> — sorted by supermarket aisle.<br>
+              <span style="color:#803060;font-size:11px;">Pro tip: The more dishes you add, the smaller each individual portion — your total plate stays constant.</span>
+            </div>
+          `:''}
+        </div>
+
+        <!-- Guest count ± -->
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})"
+            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">−</button>
+          <div style="text-align:center;min-width:52px;">
+            <div style="font-size:22px;color:#f070a0;font-weight:bold;line-height:1;">${guests}</div>
+            <div style="font-size:9px;color:#803060;letter-spacing:1px;text-transform:uppercase;">guests</div>
+          </div>
+          <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})"
+            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+
+      <!-- Tab strip -->
+      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-top:12px;-webkit-overflow-scrolling:touch;">
+        ${tabs.map(t=>`<button onclick="set({eventTab:'${t.id}',eventShowShopList:false})"
+          style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${et===t.id?'#d04080':'#3a1020'};background:${et===t.id?'#2a0818':'transparent'};color:${et===t.id?'#f070a0':'#703050'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${t.label}</button>`).join('')}
+      </div>
+    </div>
+
     <div class="content">
 
     ${et==='beverages'?`
