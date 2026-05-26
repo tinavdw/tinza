@@ -3805,7 +3805,7 @@ function homeHTML(){
       <!-- Recipe Sections -->
       <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
       ${recipeSections.map(o=>`
-        <button onclick="set({screen:'${o.s}'})"
+        <button onclick="set({screen:'${o.s}'${o.s==='smoothies'?',vitalCat:null,healthGroup:null,extHealthRecipe:null':''}})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
