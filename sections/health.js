@@ -45,46 +45,54 @@ function healthToggleById(id, type, servings){
   set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type,kcal:item.kcal,shopping:item.shopping||[],servings}]});
 }
 
-function renderHealthList(items, type, openFn, isPro){
-  return items.map(function(item){
-    if(!tierAllows(item.tier||'free')){
-      return '<div onclick="alert(\'Upgrade to Pro to unlock!\')" style="background:#0f0e0c;border:1px solid #1a1808;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;opacity:0.6;">'
-        +'<div style="display:flex;align-items:center;gap:12px;">'
-        +'<div style="width:44px;height:44px;border-radius:10px;background:#1a1808;display:flex;align-items:center;justify-content:center;font-size:24px;">&#x1F512;</div>'
-        +'<div style="flex:1;"><div style="font-size:15px;color:#4a3020;">'+item.name+'</div></div>'
-        +'</div></div>';
-    }
-    var inPlan = (S.healthPlan||[]).some(function(x){return x.id===item.id;});
-    var bg = inPlan ? '#0a2018' : '#0f1a18';
-    var br = inPlan ? '#30c090' : '#1a4035';
-    var cb = isPro
-      ? '<div onclick="healthToggleById(\''+item.id+'\',\''+type+'\',S.servings)" style="width:24px;height:24px;border-radius:6px;background:'+(inPlan?'#30c090':'transparent')+';border:2px solid '+(inPlan?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:#0f0e0c;">'+(inPlan?'&#x2713;':'')+'</div>'
-      : '';
-    var bdg = item.badges.map(function(b){
-      return '<span style="background:#0a2018;border:1px solid #1a4030;border-radius:10px;font-size:9px;color:#30a070;padding:2px 6px;margin:1px;display:inline-block;">'+b+'</span>';
-    }).join('');
-    var info = type==='juice' ? '~'+(item.kcal*S.servings)+' kcal &middot; '+(S.servings*300)+'ml &middot; ~R'+(item.costPP*S.servings)+'/pp'
-      : type==='smoothie' ? '~'+(item.kcal*S.servings)+' kcal &middot; '+(S.servings*300)+'ml'+(item.costPP?' &middot; ~R'+(item.costPP*S.servings)+'/pp':'')
-      : type==='oats' ? '~'+(item.kcal*S.servings)+' kcal &middot; '+S.servings+' serving'+(S.servings>1?'s':'')+(item.costPP?' &middot; ~R'+(item.costPP*S.servings)+'/pp':'')
-      : type==='muffin' ? '~'+item.kcal+' kcal each &middot; '+(S.servings*(item.makes||12))+' muffins'+(item.costPP?' &middot; ~R'+item.costPP+' each':'')
-      : '~'+(item.kcal*S.servings)+' kcal &middot; '+S.servings+' serving'+(S.servings>1?'s':'')+(item.costPP?' &middot; ~R'+(item.costPP*S.servings)+'/pp':'');
-    var iconBg = type==='juice' ? '#0a2818' : '#1a3020';
-    var iconBr = type==='juice' ? '#1a5030' : '#2a5040';
-    var iconStyle = type==='smoothie' ? 'background:'+item.colour+'22;border:1px solid '+item.colour+'44;' : 'background:'+iconBg+';border:1px solid '+iconBr+';';
-    return '<div style="background:'+bg+';border:1px solid '+br+';border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">'
-      + cb
-      + '<div onclick="'+openFn+'(\''+item.id+'\')" style="display:flex;align-items:center;gap:12px;flex:1;cursor:pointer;">'
-      + '<div style="width:44px;height:44px;border-radius:10px;'+iconStyle+'display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">'+item.emoji+'</div>'
-      + '<div style="flex:1;">'
-      + '<div style="font-size:15px;color:#e0d4b8;margin-bottom:4px;">'+item.name+'</div>'
-      + '<div style="font-size:11px;color:#30c090;">'+info+'</div>'
-      + '<div style="margin-top:4px;">'+bdg+'</div>'
-      + '</div>'
-      + '<span style="color:#30c090;font-size:18px;">&#x2192;</span>'
-      + '</div></div>';
-  }).join('');
+function healthToggleExtById(id){
+  const plan = S.healthPlan||[];
+  const inPlan = plan.some(x=>x.id===id);
+  if(inPlan){ set({healthPlan:plan.filter(x=>x.id!==id)}); return; }
+  const allExt = [
+    ...(typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[]),
+    ...(typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[]),
+    ...(typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[]),
+    ...(typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[]),
+    ...(typeof VEGETARIAN_RECIPES!=='undefined'?VEGETARIAN_RECIPES:[]),
+    ...(typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[]),
+    ...(typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[]),
+    ...(typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[]),
+    ...(typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[]),
+  ];
+  const item = allExt.find(x=>x.id===id);
+  if(!item) return;
+  const srv = S.servings||1;
+  set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type:'health',kcal:item.kcal,shopping:item.base300||[],servings:srv}]});
 }
 
+function renderHealthList(items, type, openFn, isPro){
+  return items.map(function(item){
+    var canView = tierAllows(item.tier||'free');
+    var sel = (S.healthPlan||[]).some(function(x){return x.id===item.id;});
+    var disabled = !canView;
+    var srv = S.servings||1;
+    var info = type==='juice' ? (item.kcal*srv)+' kcal · '+(srv*300)+'ml'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='smoothie' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='muffin' ? item.kcal+' kcal each · '+(srv*(item.makes||12))+' muffins'
+      : (item.kcal*srv)+' kcal';
+    return '<div style="background:'+(sel?'#0a2018':disabled?'#0f0e0c':'#0f1a18')+';border:1px solid '+(sel?'#30c090':disabled?'#1a2018':'#1a4035')+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.45:1)+';">'
+      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+(disabled?'alert('👑 Upgrade to Pro to unlock')':'healthToggleById(''+item.id+'',''+type+'',S.servings)')+'">'
+      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'✓':'')+'</div>'
+      +'<span style="font-size:20px;">'+item.emoji+'</span>'
+      +'<div style="flex:1;min-width:0;">'
+        +'<div style="font-size:14px;color:'+(sel?'#f5e8cc':'#c0d4b0')+';font-weight:'+(sel?'bold':'normal')+';">'+item.name+'</div>'
+        +'<div style="font-size:10px;color:'+(sel?'#30c090':'#406050')+';margin-top:2px;">'+info+'</div>'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;flex-shrink:0;">'
+        +(!disabled
+          ? '<button onclick="event.stopPropagation();'+openFn+'(''+item.id+'')" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>'
+          : '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>')
+      +'</div>'
+      +'</div></div>';
+  }).join('');
+}
 function renderHealthMyPlan(isPro){
   const plan = S.healthPlan||[];
   const checked = S.checkedHealthItems||{};
@@ -638,24 +646,28 @@ const IMMUNITY_RECIPES = [
 
 // ── GENERIC RENDER FOR EXTENDED HEALTH CATEGORIES ────────────────────────────
 function renderExtHealthList(recipes, isPro) {
-  return recipes.map(r => {
-    const isFree = r.tier === 'free';
-    const canView = isFree || isPro;
-    return `<div onclick="${canView ? `set({extHealthRecipe:${JSON.stringify(r)}})` : `alert('👑 Pro feature — unlock all recipes')`}"
-      style="background:#0f1a18;border:1px solid ${isFree?'#1a4035':'#2a3028'};border-radius:12px;padding:14px;margin-bottom:12px;cursor:pointer;position:relative;">
-      ${!isFree ? `<span style="position:absolute;top:10px;right:10px;font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:2px 6px;">👑 PRO</span>` : ''}
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:28px;">${r.emoji}</span>
-        <div style="flex:1;">
-          <div style="font-size:15px;color:#f5e8cc;font-family:Georgia,serif;">${r.name}</div>
-          <div style="font-size:11px;color:#208060;margin-top:2px;">${r.kcal} kcal pp</div>
-          <div style="margin-top:6px;">${r.badges.map(b=>`<span style="background:#0a2018;border:1px solid #1a4030;border-radius:10px;font-size:10px;color:#30a070;padding:2px 7px;margin-right:4px;display:inline-block;margin-bottom:3px;">${b}</span>`).join('')}</div>
-        </div>
-      </div>
-      <p style="margin:8px 0 0;font-size:12px;color:#80a090;font-style:italic;line-height:1.5;">${r.feel}</p>
-    </div>`;
+  return recipes.map(function(r) {
+    var canView = r.tier==='free' || isPro;
+    var sel = (S.healthPlan||[]).some(function(x){return x.id===r.id;});
+    var disabled = !canView;
+    var rStr = JSON.stringify(r).replace(/'/g,"\\'");
+    return '<div style="background:'+(sel?'#0a2018':disabled?'#0f0e0c':'#0f1a18')+';border:1px solid '+(sel?'#30c090':disabled?'#1a2018':'#1a4035')+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.45:1)+';">'
+      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+(disabled?'alert('👑 Upgrade to Pro to unlock')':'healthToggleExtById(''+r.id+'')')+'">'
+      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'✓':'')+'</div>'
+      +'<span style="font-size:20px;">'+r.emoji+'</span>'
+      +'<div style="flex:1;min-width:0;">'
+        +'<div style="font-size:14px;color:'+(sel?'#f5e8cc':'#c0d4b0')+';font-weight:'+(sel?'bold':'normal')+';">'+r.name+'</div>'
+        +'<div style="font-size:10px;color:'+(sel?'#30c090':'#406050')+';margin-top:2px;">'+r.kcal+' kcal · '+r.feel+'</div>'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;flex-shrink:0;">'
+        +(!disabled
+          ? '<button onclick="event.stopPropagation();set({extHealthRecipe:'+JSON.stringify(r).replace(/"/g,"'")+',vitalCat:S.vitalCat})" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>'
+          : '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>')
+      +'</div>'
+      +'</div></div>';
   }).join('');
 }
+
 
 function extHealthRecipeHTML(r, mult) {
   const isPro = tierAllows('pro');
@@ -998,11 +1010,9 @@ function smoothiesHTML(){
       ` :
       vc==="freshjuice" ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
-        ${hubCounter}
         ${renderHealthList(FRESH_JUICES,"juice","healthOpenJuice",isPro)}
       ` :
       vc==="smoothie" ? `
-        ${hubCounter}
         <div class="pill-row">
           ${SMOOTHIE_CATS.map(c=>`<button class="pill" onclick="set({smoothieCat:'${c.id}'})" style="background:${S.smoothieCat===c.id?"#0a2018":"transparent"};border-color:${S.smoothieCat===c.id?"#20c080":"#1a3028"};color:${S.smoothieCat===c.id?"#30d090":"#408060"};">${c.emoji} ${c.label}</button>`).join("")}
         </div>
@@ -1010,17 +1020,14 @@ function smoothiesHTML(){
       ` :
       vc==="oats" ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Prep the night before — wake up to a ready breakfast 🌅</p>
-        ${hubCounter}
         ${renderHealthList(OVERNIGHT_OATS,"oats","healthOpenOats",isPro)}
       ` :
       vc==="muffins" ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">No refined sugar · Wholesome ingredients · Meal prep friendly 🧁</p>
-        ${hubCounter}
         ${renderHealthList(HEALTHY_MUFFINS,"muffin","healthOpenMuffin",isPro)}
       ` :
       vc==="raw" ? `
         <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Unprocessed. Enzyme-rich. Real food as nature intended 🌿</p>
-        ${hubCounter}
         ${renderHealthList(RAW_AND_REAL,"raw","healthOpenRaw",isPro)}
       ` :
       vc==="fermented" ? fermentedTabHTML() :
