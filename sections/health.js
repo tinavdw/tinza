@@ -178,7 +178,10 @@ function renderHealthMyPlan(isPro){
           +'</div>';
       }).join('');
 
+  // Calories per person = sum of (recipe kcal * servings) / total servings
+  var totalServings = plan.reduce(function(sum,i){return sum+(i.servings||1);},0) || 1;
   var totalKcal = plan.reduce(function(sum,i){return sum+(i.kcal||0)*(i.servings||1);},0);
+  var kcalPerPerson = Math.round(totalKcal / totalServings);
   var waLines = shopItems.map(function(i){
     var t = i.total>=1000&&i.unit==='g'?(i.total/1000).toFixed(1)+'kg':i.total>=1000&&i.unit==='ml'?(i.total/1000).toFixed(1)+'L':Math.round(i.total*10)/10+(i.unit||'');
     return '• '+i.name+': '+t;
@@ -189,14 +192,30 @@ function renderHealthMyPlan(isPro){
 
     +'<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
 
-    +(isPro?''
-      +'<div style="background:#0f1a08;border:1px solid #208050;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">'
-      +'<div style="font-size:13px;color:#208060;">&#x1F525; Total calories</div>'
-      +'<div style="font-size:22px;color:#40d0a0;font-weight:bold;">'+totalKcal+' <span style="font-size:12px;">kcal</span></div>'
-      +'</div></div>'
-      : '<div style="background:#0f1808;border:1px dashed #1a4020;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;">'
-      +'<div style="font-size:12px;color:#208060;">&#x1F525; Calorie counter — <strong style="color:#30c090;">Tinza Pro R99/month</strong></div></div>')
+    +(isPro
+      ? '<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
+        +'<div><div style="font-size:13px;color:#409070;">&#x1F525; Calories per person</div>'
+        +'<div style="font-size:10px;color:#306050;margin-top:2px;">All selected recipes combined</div></div>'
+        +'<div style="font-size:26px;color:#40d0a0;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:12px;"> kcal</span></div>'
+        +'</div>'
+        +'<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #1a3028;">'
+        +'<div style="font-size:11px;color:#306050;">Total across all servings</div>'
+        +'<div style="font-size:14px;color:#30c090;font-weight:bold;">'+totalKcal+' kcal</div>'
+        +'</div></div>'
+      : '<div style="background:#081808;border:1px dashed #162016;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;">'
+        +'<div style="font-size:12px;color:#208060;">&#x1F525; Calorie counter — <strong style="color:#30c090;">Tinza Pro R99/month</strong></div></div>')
+
+    // Cost estimate — same style as Braai
+    +(isPro
+      ? '<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">'
+        +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">&#x1F4B0; Cost Estimate</div>'
+        +'<div style="font-size:10px;color:#4a5820;line-height:1.5;font-style:italic;">Health Hub recipes use whole foods — typical cost R25–R80 per serving depending on ingredients.<br>Checkers/retail prices · May 2026 · Always buy 10% extra.</div>'
+        +'</div>'
+      : '<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+        +'<div style="font-size:22px;color:#2a1808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>'
+        +'<div style="font-size:12px;color:#6a3020;">&#x1F4B0; Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>'
+        +'</div>')
 
     +'<div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">&#x1F6D2; Shopping List</div>'
     +(isPro
