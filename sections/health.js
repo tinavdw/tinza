@@ -663,68 +663,64 @@ function smoothiesHTML(){
     </div>`;
   }
 
-  // ── ACCORDION GROUPS ──────────────────────────────────────────────
+  // ── HEALTH GROUPS — same pattern as Braai "What are you planning?" ──
   const HEALTH_GROUPS = [
-    { id:'lifestyle',  label:'🌱 Lifestyle',        subtitle:'Vegan · Raw · Vegetarian',
+    { id:'lifestyle',  emoji:'🌱', label:'Lifestyle',         sub:'Vegan · Raw · Vegetarian',
       cats:[
-        {id:'vegan',       label:'🌱 Vegan',          desc:'100% plant-powered — whole foods, full flavour.'},
-        {id:'raw',         label:'🥗 Raw Foods',       desc:'Unprocessed. Enzyme-rich. Real food as nature intended.'},
-        {id:'vegetarian',  label:'🥚 Vegetarian',      desc:'Eggs, dairy & plants — no meat, full satisfaction.'},
+        {id:'vegan',       emoji:'🌱', label:'Vegan',           desc:'100% plant-powered — whole foods, full flavour.'},
+        {id:'raw',         emoji:'🥗', label:'Raw Foods',        desc:'Unprocessed. Enzyme-rich. Real food as nature intended.'},
+        {id:'vegetarian',  emoji:'🥚', label:'Vegetarian',       desc:'Eggs, dairy & plants — no meat, full satisfaction.'},
       ]},
-    { id:'drinks',     label:'🥤 Drinks',            subtitle:'Juices · Smoothies',
+    { id:'drinks',     emoji:'🥤', label:'Drinks',             sub:'Juices · Smoothies',
       cats:[
-        {id:'freshjuice',  label:'🍋 Fresh Juice',     desc:'Cold-pressed and freshly squeezed — pure fruit and veg.'},
-        {id:'smoothie',    label:'🥤 Smoothies',        desc:'Blended, nourishing, quick.'},
+        {id:'freshjuice',  emoji:'🍋', label:'Fresh Juice',      desc:'Cold-pressed and freshly squeezed — pure fruit and veg.'},
+        {id:'smoothie',    emoji:'🥤', label:'Smoothies',         desc:'Blended, nourishing, quick.'},
       ]},
-    { id:'gut',        label:'🦠 Gut & Living Foods', subtitle:'Gut Health · Fermented',
+    { id:'gut',        emoji:'🦠', label:'Gut & Living Foods', sub:'Gut Health · Fermented',
       cats:[
-        {id:'guthealth',   label:'🦠 Gut Health',      desc:'Fibre, prebiotics and probiotics for your microbiome.'},
-        {id:'fermented',   label:'🫙 Fermented Foods',  desc:'Living cultures, ancient wisdom, modern gut science.'},
+        {id:'guthealth',   emoji:'🦠', label:'Gut Health',       desc:'Fibre, prebiotics and probiotics for your microbiome.'},
+        {id:'fermented',   emoji:'🫙', label:'Fermented Foods',   desc:'Living cultures, ancient wisdom, modern gut science.'},
       ]},
-    { id:'fresheasy',  label:'🥗 Fresh & Easy',      subtitle:'Oats · Muffins · Salads',
+    { id:'fresheasy',  emoji:'🥗', label:'Fresh & Easy',       sub:'Oats · Muffins · Salads',
       cats:[
-        {id:'oats',        label:'🌙 Overnight Oats',  desc:'Prep the night before — wake up to a ready breakfast.'},
-        {id:'muffins',     label:'🧁 Muffins',          desc:'No refined sugar · Wholesome · Meal prep friendly.'},
-        {id:'salads',      label:'🥗 Salads',           desc:'Fresh, flexible — add any protein you like.'},
+        {id:'oats',        emoji:'🌙', label:'Overnight Oats',   desc:'Prep the night before — wake up to a ready breakfast.'},
+        {id:'muffins',     emoji:'🧁', label:'Muffins',           desc:'No refined sugar · Wholesome · Meal prep friendly.'},
+        {id:'salads',      emoji:'🥗', label:'Salads',            desc:'Fresh, flexible — add any protein you like.'},
       ]},
-    { id:'bodygoals',  label:'💪 Body Goals',         subtitle:'Keto · Weight Loss · High-Protein',
+    { id:'bodygoals',  emoji:'💪', label:'Body Goals',          sub:'Keto · Weight Loss · High-Protein',
       cats:[
-        {id:'keto',        label:'🥑 Keto / Low-Carb', desc:'High-fat, low-carb — your body runs on ketones.'},
-        {id:'weightloss',  label:'⚖️ Weight Loss',      desc:'Low-calorie, high-volume — full without the excess.'},
-        {id:'highprotein', label:'💪 High-Protein',     desc:'Build muscle, recover faster, stay full longer.'},
+        {id:'keto',        emoji:'🥑', label:'Keto / Low-Carb',  desc:'High-fat, low-carb — your body runs on ketones.'},
+        {id:'weightloss',  emoji:'⚖️', label:'Weight Loss',       desc:'Low-calorie, high-volume — full without the excess.'},
+        {id:'highprotein', emoji:'💪', label:'High-Protein',      desc:'Build muscle, recover faster, stay full longer.'},
       ]},
-    { id:'wellness',   label:'🩺 Wellness',           subtitle:'Diabetic · Immunity · Anti-Inflammatory',
+    { id:'wellness',   emoji:'🩺', label:'Wellness',            sub:'Diabetic · Immunity · Anti-Inflammatory',
       cats:[
-        {id:'diabetic',    label:'🩸 Diabetic-Friendly',desc:'Low GI, blood-sugar balanced — no spikes, no crashes.'},
-        {id:'immunity',    label:'🛡️ Immunity Boost',   desc:'Fortify your defences from the inside out.'},
-        {id:'antiinflam',  label:'🌿 Anti-Inflammatory',desc:'Reduce chronic inflammation with targeted whole foods.'},
+        {id:'diabetic',    emoji:'🩸', label:'Diabetic-Friendly', desc:'Low GI, blood-sugar balanced — no spikes, no crashes.'},
+        {id:'immunity',    emoji:'🛡️', label:'Immunity Boost',    desc:'Fortify your defences from the inside out.'},
+        {id:'antiinflam',  emoji:'🌿', label:'Anti-Inflammatory', desc:'Reduce chronic inflammation with targeted whole foods.'},
       ]},
   ];
 
-  // Find which group the active tab belongs to (for auto-expanding)
-  const activeGroup = HEALTH_GROUPS.find(g => g.cats.some(c => c.id === vitalCat));
-  const openGroup = S.healthGroupOpen !== undefined ? S.healthGroupOpen : (activeGroup ? activeGroup.id : 'lifestyle');
-
   const vc = vitalCat;
+  const activeGroup = HEALTH_GROUPS.find(g => g.cats.some(c => c.id === vc));
+  const healthGroup = S.healthGroup || null; // which group card was tapped
 
-  // Shared per-person / serving counter used across all Health Hub tabs
-  // Serving counter — 3 quick-pick groups + fine-tune
+  // Serving counter
   const isMuffins = vc==="muffins";
-  const counterLabel = isMuffins ? "batches" : "servings";
   const srv = S.servings||1;
   const hubCounter = `
     <div style="background:#0f1a18;border:1px solid #1a3028;border-radius:10px;padding:12px;margin-bottom:16px;">
       <div style="font-size:10px;color:#208060;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">${isMuffins?'🧁 Batches':'👥 Servings'}</div>
       <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <button onclick="set({servings:1})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv<=2?'#20c080':'#1a3028'};background:${srv<=2?'#0a2018':'transparent'};color:${srv<=2?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">🧍 Just me<br><span style="font-size:10px;opacity:0.7;">1–2</span></button>
-        <button onclick="set({servings:4})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=3&&srv<=6?'#20c080':'#1a3028'};background:${srv>=3&&srv<=6?'#0a2018':'transparent'};color:${srv>=3&&srv<=6?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">👨‍👩‍👧 Family<br><span style="font-size:10px;opacity:0.7;">3–6</span></button>
-        <button onclick="set({servings:10})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=7?'#20c080':'#1a3028'};background:${srv>=7?'#0a2018':'transparent'};color:${srv>=7?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.2;">🎉 Crowd<br><span style="font-size:10px;opacity:0.7;">7+</span></button>
+        <button onclick="set({servings:1})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv<=2?'#20c080':'#1a3028'};background:${srv<=2?'#0a2018':'transparent'};color:${srv<=2?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.3;">🧍 Just me<br><span style="font-size:10px;opacity:0.7;">1–2</span></button>
+        <button onclick="set({servings:4})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=3&&srv<=6?'#20c080':'#1a3028'};background:${srv>=3&&srv<=6?'#0a2018':'transparent'};color:${srv>=3&&srv<=6?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.3;">👨‍👩‍👧 Family<br><span style="font-size:10px;opacity:0.7;">3–6</span></button>
+        <button onclick="set({servings:10})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${srv>=7?'#20c080':'#1a3028'};background:${srv>=7?'#0a2018':'transparent'};color:${srv>=7?'#30d090':'#406050'};font-size:12px;cursor:pointer;line-height:1.3;">🎉 Crowd<br><span style="font-size:10px;opacity:0.7;">7+</span></button>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <button onclick="set({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
         <div style="flex:1;text-align:center;">
           <span style="font-size:28px;color:#40d0a0;font-weight:bold;">${srv}</span>
-          <span style="font-size:11px;color:#208060;margin-left:4px;">${counterLabel}</span>
+          <span style="font-size:11px;color:#208060;margin-left:4px;">${isMuffins?'batches':'servings'}</span>
         </div>
         <button onclick="set({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
       </div>
@@ -732,6 +728,106 @@ function smoothiesHTML(){
 
   const healthHowOpen = S.healthHowOpen || false;
 
+  // ── RECIPE DETAIL VIEW (ext categories) ───────────────────────────
+  if(S.extHealthRecipe && EXT_HEALTH_MAP[vc]) {
+    return extHealthRecipeHTML(S.extHealthRecipe, S.servings||1);
+  }
+
+  // ── RECIPE LIST VIEW (inside a category) ─────────────────────────
+  // If a vitalCat is set AND we know which group it belongs to, show the recipe list
+  if(vc && activeGroup) {
+    const extCat = EXT_HEALTH_MAP[vc];
+    const listContent = extCat ? `
+        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">${extCat.desc}</p>
+        ${hubCounter}
+        ${renderExtHealthList(extCat.recipes, isPro)}
+      ` :
+      vc==="freshjuice" ? `
+        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
+        ${hubCounter}
+        ${renderHealthList(FRESH_JUICES,"juice","healthOpenJuice",isPro)}
+      ` :
+      vc==="smoothie" ? `
+        ${hubCounter}
+        <div class="pill-row">
+          ${SMOOTHIE_CATS.map(c=>`<button class="pill" onclick="set({smoothieCat:'${c.id}'})" style="background:${S.smoothieCat===c.id?"#0a2018":"transparent"};border-color:${S.smoothieCat===c.id?"#20c080":"#1a3028"};color:${S.smoothieCat===c.id?"#30d090":"#408060"};">${c.emoji} ${c.label}</button>`).join("")}
+        </div>
+        ${renderHealthList(SMOOTHIES.filter(sm=>S.smoothieCat==="all"||sm.cat===S.smoothieCat),"smoothie","healthOpenSmoothie",isPro)}
+      ` :
+      vc==="oats" ? `
+        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Prep the night before — wake up to a ready breakfast 🌅</p>
+        ${hubCounter}
+        ${renderHealthList(OVERNIGHT_OATS,"oats","healthOpenOats",isPro)}
+      ` :
+      vc==="muffins" ? `
+        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">No refined sugar · Wholesome ingredients · Meal prep friendly 🧁</p>
+        ${hubCounter}
+        ${renderHealthList(HEALTHY_MUFFINS,"muffin","healthOpenMuffin",isPro)}
+      ` :
+      vc==="raw" ? `
+        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Unprocessed. Enzyme-rich. Real food as nature intended 🌿</p>
+        ${hubCounter}
+        ${renderHealthList(RAW_AND_REAL,"raw","healthOpenRaw",isPro)}
+      ` :
+      vc==="fermented" ? fermentedTabHTML() :
+      vc==="salads" ? `
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">🥗</div>
+          <div style="font-size:18px;color:#40d0a0;margin-bottom:8px;">Salads — Coming Soon</div>
+          <div style="font-size:13px;color:#208060;line-height:1.6;">Fresh, flexible salads with any protein you like.<br>Recipes loading soon!</div>
+        </div>
+      ` :
+      vc==="myplan" ? renderHealthMyPlan(isPro) : '';
+
+    // Find the active cat details for the sub-header
+    const activeCat = activeGroup.cats.find(c => c.id === vc);
+
+    return `<div style="min-height:100vh;background:#0f0e0c;">
+      <!-- Sub-section header -->
+      <div style="background:#0f1a18;border-bottom:1px solid #1a4030;padding:14px 16px;">
+        <button onclick="set({vitalCat:null,healthGroup:null,extHealthRecipe:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;padding:0;display:block;margin-bottom:10px;">← ${activeGroup.emoji} ${activeGroup.label}</button>
+        <h2 style="margin:0 0 2px;font-size:20px;color:#f5e8cc;font-family:Georgia,serif;">${activeCat?activeCat.emoji:''} ${activeCat?activeCat.label:''}</h2>
+        <p style="margin:0 0 10px;font-size:11px;color:#60c090;">${activeCat?activeCat.desc:''}</p>
+        <!-- pill tabs for sibling cats in this group -->
+        <div style="display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;">
+          ${activeGroup.cats.map(c=>`
+            <button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})"
+              style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${vc===c.id?'#20c080':'#1a3028'};background:${vc===c.id?'#0a2018':'transparent'};color:${vc===c.id?'#30d090':'#408060'};font-size:11px;cursor:pointer;white-space:nowrap;">
+              ${c.emoji} ${c.label}
+            </button>`).join('')}
+        </div>
+      </div>
+      <div class="content">${listContent}</div>
+    </div>`;
+  }
+
+  // ── GROUP CARD VIEW (tapped a group, show its cats) ───────────────
+  if(healthGroup) {
+    const grp = HEALTH_GROUPS.find(g => g.id === healthGroup);
+    if(grp) {
+      return `<div style="min-height:100vh;background:#0f0e0c;">
+        <div style="background:#0f1a18;border-bottom:1px solid #1a4030;padding:14px 16px;">
+          <button onclick="set({healthGroup:null,vitalCat:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;padding:0;display:block;margin-bottom:10px;">← Health Hub</button>
+          <h2 style="margin:0 0 4px;font-size:22px;color:#f5e8cc;font-family:Georgia,serif;">${grp.emoji} ${grp.label}</h2>
+          <p style="margin:0;font-size:11px;color:#60c090;">${grp.sub}</p>
+        </div>
+        <div class="content">
+          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:16px;">What are you looking for?</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            ${grp.cats.map(c=>`
+              <div onclick="set({vitalCat:'${c.id}',healthGroup:'${grp.id}',extHealthRecipe:null})"
+                style="background:#0f1a18;border:1px solid #1a4030;border-radius:14px;padding:18px 14px;cursor:pointer;text-align:center;">
+                <div style="font-size:32px;margin-bottom:8px;">${c.emoji}</div>
+                <div style="font-size:14px;color:#e0d4b8;margin-bottom:4px;font-family:Georgia,serif;">${c.label}</div>
+                <div style="font-size:10px;color:#406050;line-height:1.4;">${c.desc}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    }
+  }
+
+  // ── HOME SCREEN — 6 big cards, exactly like Braai ────────────────
   return `<div style="min-height:100vh;background:#0f0e0c;">
 
     <!-- ══ V33 PHOTO HEADER ══ -->
@@ -740,7 +836,7 @@ function smoothiesHTML(){
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #208060;border-radius:20px;color:#30c090;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌿 Health Hub</h1>
-        <p style="margin:0 0 10px;font-size:11px;color:#60c090;font-style:italic;">Juices · Smoothies · Oats · Raw food · Fermented · Meal plans</p>
+        <p style="margin:0 0 10px;font-size:11px;color:#60c090;font-style:italic;">Nourish · Heal · Energise</p>
         <div style="display:flex;align-items:center;background:rgba(8,24,16,0.85);border:1px solid #208060;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:#30c090;margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search recipes, ingredients…"
@@ -753,128 +849,56 @@ function smoothiesHTML(){
       </div>
     </div>
 
-    <!-- ══ HOW IT WORKS + SERVINGS SLIDER ══ -->
-    <div style="background:#0f1a18;border-bottom:1px solid #1a3028;padding:12px 16px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-
-        <div style="flex:1;">
-          <button onclick="set({healthHowOpen:!S.healthHowOpen})"
-            style="background:none;border:none;color:#30c090;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
-            ${healthHowOpen?'▲':'▼'} How it works
-          </button>
-          ${healthHowOpen?`
-            <div onclick="set({healthHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-            <div style="position:relative;z-index:10;background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#90c0a0;line-height:1.6;">
-              <strong style="color:#30c090;">1. Pick a group</strong> — tap any group to expand it, then pick a category inside.<br>
-              <strong style="color:#30c090;">2. Set servings</strong> — all ingredient quantities scale automatically.<br>
-              <strong style="color:#30c090;">3. Add to My Plan</strong> — build your weekly health routine.<br>
-              <strong style="color:#30c090;">4. Generate shopping list</strong> — everything you need in one list.<br>
-              <span style="color:#208060;font-size:11px;">All recipes use grams and ml — no guesswork.</span>
-            </div>
-          `:''}
-        </div>
-
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-          <button onclick="set({servings:Math.max(1,S.servings-1)})"
-            style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">−</button>
-          <div style="text-align:center;min-width:52px;">
-            <div style="font-size:22px;color:#30d090;font-weight:bold;line-height:1;">${S.servings||1}</div>
-            <div style="font-size:9px;color:#208060;letter-spacing:1px;text-transform:uppercase;">servings</div>
+    <!-- ══ HOW IT WORKS + COUNTER ══ -->
+    <div style="background:#0f1a18;border-bottom:1px solid #1a3028;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="flex:1;">
+        <button onclick="set({healthHowOpen:!S.healthHowOpen})"
+          style="background:none;border:none;color:#30c090;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+          ${healthHowOpen?'▲':'▼'} How it works
+        </button>
+        ${healthHowOpen?`
+          <div onclick="set({healthHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+          <div style="position:relative;z-index:10;background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#90c0a0;line-height:1.6;">
+            <strong style="color:#30c090;">1. Pick a category</strong> — tap any card below.<br>
+            <strong style="color:#30c090;">2. Set servings</strong> — all quantities scale automatically.<br>
+            <strong style="color:#30c090;">3. Add to My Plan</strong> — build your weekly health routine.<br>
+            <strong style="color:#30c090;">4. Shopping list</strong> — everything in one list, ready to share.<br>
+            <span style="color:#208060;font-size:11px;">All recipes in grams and ml — no guesswork.</span>
           </div>
-          <button onclick="set({servings:Math.min(50,S.servings+1)})"
-            style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">+</button>
-        </div>
+        `:''}
       </div>
-
-      <!-- Accordion Groups -->
-      <div style="margin-top:12px;">
-        ${HEALTH_GROUPS.map(g => {
-          const isOpen = openGroup === g.id;
-          const hasActive = g.cats.some(c => c.id === vitalCat);
-          return `
-          <div style="margin-bottom:6px;">
-            <button onclick="set({healthGroupOpen:'${isOpen ? '' : g.id}',extHealthRecipe:null})"
-              style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:${isOpen?'10px 10px 0 0':'10px'};border:1px solid ${hasActive?'#20c080':'#1a3028'};background:${isOpen?'#0a2018':hasActive?'#071510':'transparent'};cursor:pointer;text-align:left;">
-              <div>
-                <span style="font-size:13px;color:${hasActive?'#40d0a0':'#c0d4b0'};font-weight:${hasActive?'bold':'normal'};">${g.label}</span>
-                <span style="font-size:10px;color:#406050;margin-left:8px;">${g.subtitle}</span>
-              </div>
-              <span style="color:${hasActive?'#30c090':'#406050'};font-size:12px;">${isOpen?'▲':'▼'}</span>
-            </button>
-            ${isOpen ? `
-            <div style="border:1px solid #1a3028;border-top:none;border-radius:0 0 10px 10px;background:#080f0c;padding:6px 8px;">
-              ${g.cats.map(c => `
-                <button onclick="set({vitalCat:'${c.id}',extHealthRecipe:null})"
-                  style="width:100%;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;border:none;background:${vitalCat===c.id?'#0a2018':'transparent'};cursor:pointer;text-align:left;margin-bottom:2px;">
-                  <div style="width:3px;height:28px;border-radius:2px;background:${vitalCat===c.id?'#20c080':'#1a3028'};flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div style="font-size:13px;color:${vitalCat===c.id?'#40d0a0':'#90b0a0'};">${c.label}</div>
-                    <div style="font-size:10px;color:#306050;margin-top:1px;">${c.desc}</div>
-                  </div>
-                  ${vitalCat===c.id?'<span style="color:#20c080;font-size:14px;">●</span>':''}
-                </button>`).join('')}
-            </div>` : ''}
-          </div>`;
-        }).join('')}
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <button onclick="set({servings:Math.max(1,S.servings-1)})" style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">−</button>
+        <div style="text-align:center;min-width:44px;">
+          <div style="font-size:22px;color:#30d090;font-weight:bold;line-height:1;">${S.servings||1}</div>
+          <div style="font-size:9px;color:#208060;letter-spacing:1px;text-transform:uppercase;">people</div>
+        </div>
+        <button onclick="set({servings:Math.min(50,S.servings+1)})" style="width:32px;height:32px;border-radius:50%;background:#0a2018;border:2px solid #20c080;color:#20c080;font-size:18px;line-height:1;cursor:pointer;">+</button>
       </div>
     </div>
 
-    ${(()=>{
-      // Extended health categories — recipe detail view breaks OUT of the wrapper
-      if(S.extHealthRecipe && EXT_HEALTH_MAP[vc]) {
-        return `</div>${extHealthRecipeHTML(S.extHealthRecipe, S.servings||1)}`;
-      }
-      return '';
-    })()}
-    ${(()=>{
-      if(S.extHealthRecipe && EXT_HEALTH_MAP[vc]) return ''; // already rendered above
-      const extCat = EXT_HEALTH_MAP[vc];
-      const isExt = !!extCat;
-      const listContent = isExt ? `
-        <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">${extCat.desc}</p>
-        ${hubCounter}
-        ${renderExtHealthList(extCat.recipes, isPro)}
-      ` : (
-        vc==="freshjuice" ? `
-          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Cold-pressed and freshly squeezed — pure fruit and veg 🍋</p>
-          ${hubCounter}
-          ${renderHealthList(FRESH_JUICES,"juice","healthOpenJuice",isPro)}
-        ` :
-        vc==="smoothie" ? `
-          ${hubCounter}
-          <div class="pill-row">
-            ${SMOOTHIE_CATS.map(c=>`<button class="pill" onclick="set({smoothieCat:'${c.id}'})" style="background:${S.smoothieCat===c.id?"#0a2018":"transparent"};border-color:${S.smoothieCat===c.id?"#20c080":"#1a3028"};color:${S.smoothieCat===c.id?"#30d090":"#408060"};">${c.emoji} ${c.label}</button>`).join("")}
-          </div>
-          ${renderHealthList(SMOOTHIES.filter(sm=>S.smoothieCat==="all"||sm.cat===S.smoothieCat),"smoothie","healthOpenSmoothie",isPro)}
-        ` :
-        vc==="oats" ? `
-          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Prep the night before — wake up to a ready breakfast 🌅</p>
-          ${hubCounter}
-          ${renderHealthList(OVERNIGHT_OATS,"oats","healthOpenOats",isPro)}
-        ` :
-        vc==="muffins" ? `
-          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">No refined sugar · Wholesome ingredients · Meal prep friendly 🧁</p>
-          ${hubCounter}
-          ${renderHealthList(HEALTHY_MUFFINS,"muffin","healthOpenMuffin",isPro)}
-        ` :
-        vc==="raw" ? `
-          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:14px;">Unprocessed. Enzyme-rich. Real food as nature intended 🌿</p>
-          ${hubCounter}
-          ${renderHealthList(RAW_AND_REAL,"raw","healthOpenRaw",isPro)}
-        ` :
-        vc==="fermented" ? fermentedTabHTML() :
-        vc==="salads" ? `
-          <div style="text-align:center;padding:40px 20px;">
-            <div style="font-size:48px;margin-bottom:16px;">🥗</div>
-            <div style="font-size:18px;color:#40d0a0;margin-bottom:8px;">Salads — Coming Soon</div>
-            <div style="font-size:13px;color:#208060;line-height:1.6;">Fresh, flexible salads with any protein you like.<br>Recipes loading soon!</div>
-          </div>
-        ` :
-        vc==="myplan" ? renderHealthMyPlan(isPro) :
-        ''
-      );
-      return `<div class="content">${listContent}</div>`;
-    })()}
+    <!-- ══ 6 CATEGORY CARDS — same as Braai ══ -->
+    <div class="content">
+      <p style="font-size:11px;color:#208060;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">What are you looking for?</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        ${HEALTH_GROUPS.map(g=>`
+          <div onclick="set({healthGroup:'${g.id}',vitalCat:null,extHealthRecipe:null})"
+            style="background:#0f1a18;border:1px solid #1a4030;border-radius:14px;padding:18px 14px;cursor:pointer;text-align:center;position:relative;">
+            <div style="font-size:36px;margin-bottom:8px;">${g.emoji}</div>
+            <div style="font-size:15px;color:#e0d4b8;margin-bottom:4px;font-family:Georgia,serif;font-weight:bold;">${g.label}</div>
+            <div style="font-size:10px;color:#406050;line-height:1.4;">${g.sub}</div>
+          </div>`).join('')}
+      </div>
+      <!-- My Plan shortcut -->
+      <div onclick="set({vitalCat:'myplan',healthGroup:'myplan'})"
+        style="background:#0a1a10;border:2px solid #1a4030;border-radius:14px;padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <div>
+          <div style="font-size:15px;color:#40d0a0;font-weight:bold;">📋 My Health Plan</div>
+          <div style="font-size:11px;color:#208060;margin-top:2px;">Saved recipes · Shopping list</div>
+        </div>
+        <span style="font-size:22px;">🛒</span>
+      </div>
+    </div>
   </div>`;
 };
 
