@@ -66,16 +66,44 @@ window.COUNTRY_TO_REGION = {
   const selectedRegion = S.wkSelectedRegion || null;
   const sel = selectedRegion ? REGIONS[selectedRegion] : null;
 
+  const wkHowOpen = S.wkHowOpen || false;
+
   return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
 
-    <!-- Header -->
-    <div style="background:#0a1810;border-bottom:1px solid #1a3020;padding:14px 20px;">
-      <button onclick="set({screen:'home',wkSelectedRegion:null})" style="background:none;border:none;color:#30a878;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← Home</button>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-        <span style="font-size:22px;">🌍</span>
-        <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;margin:0;">World Kitchen</h1>
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1810 0%,#0f2818 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.3) 0%,rgba(4,12,8,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home',wkSelectedRegion:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #1a4030;border-radius:20px;color:#30a878;font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌍 World Kitchen</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#50a878;font-style:italic;">Explore cuisines from every corner of the globe</p>
+        <div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #1a4030;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#30a878;margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search cuisines, dishes, countries…"
+            oninput="set({wkSearch:this.value})"
+            value="${S.wkSearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#b0d8c0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.wkSearch?`<button onclick="set({wkSearch:''})" style="background:none;border:none;color:#1a4030;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
       </div>
-      <p style="font-size:12px;color:#4a7060;margin:0;">Tap any country or region to explore its cuisine</p>
+    </div>
+
+    <!-- ══ HOW IT WORKS ══ -->
+    <div style="background:#0a1810;border-bottom:1px solid #1a3020;padding:12px 16px;">
+      <button onclick="set({wkHowOpen:!S.wkHowOpen})"
+        style="background:none;border:none;color:#30a878;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">
+        ${wkHowOpen?'▲':'▼'} How it works
+      </button>
+      ${wkHowOpen?`
+        <div onclick="set({wkHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+        <div style="position:relative;z-index:10;background:#061008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#80b898;line-height:1.6;">
+          <strong style="color:#30a878;">1. Tap 🇿🇦 South African Kitchens</strong> — explore our own rich food heritage.<br>
+          <strong style="color:#30a878;">2. Tap any country on the map</strong> — discover that region's cuisine.<br>
+          <strong style="color:#30a878;">3. Browse dishes</strong> — tap any recipe for full ingredients and method.<br>
+          <span style="color:#1a4030;font-size:11px;">Going global — new cuisines added regularly.</span>
+        </div>
+      `:''}
     </div>
 
     <!-- SA Kitchens feature tile -->
