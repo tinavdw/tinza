@@ -96,6 +96,34 @@ function renderHealthList(items, type, openFn, isPro){
       +'</div></div>';
   }).join('');
 }
+
+
+function healthSharePlan(){
+  var plan = S.healthPlan||[];
+  var txt = plan.map(function(i){return i.emoji+' '+i.name+' ('+i.servings+' serving'+(i.servings!==1?'s':'')+')';}).join('\n');
+  window.open('https://wa.me/?text='+encodeURIComponent('📋 *My Health Plan*\n\n'+txt+'\n\nFrom Tinza tinza.netlify.app'),'_blank');
+}
+function healthShareShoppingList(){
+  var plan = S.healthPlan||[];
+  var map = {};
+  plan.forEach(function(item){
+    (item.shopping||[]).forEach(function(ing){
+      if(!ing||!ing.n||!ing.pp) return;
+      var k = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20);
+      var t = Math.round((ing.pp||0)*(item.servings||1)*10)/10;
+      if(!map[k]){map[k]={n:ing.n,t:0,u:ing.u||''};}
+      map[k].t += t;
+    });
+  });
+  var lines = Object.values(map).map(function(i){
+    var s = i.t>=1000&&i.u==='g'?(i.t/1000).toFixed(1)+'kg':i.t>=1000&&i.u==='ml'?(i.t/1000).toFixed(1)+'L':(Math.round(i.t*10)/10)+(i.u||'');
+    return '• '+i.n+': '+s;
+  }).join('\n');
+  window.open('https://wa.me/?text='+encodeURIComponent('🛒 *Health Shopping List*\n\n'+lines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');
+}
+function healthRemoveFromPlan(id){
+  set({healthPlan:(S.healthPlan||[]).filter(function(x){return x.id!==id;})});
+}
 function renderHealthMyPlan(isPro){
   const plan = S.healthPlan||[];
   const checked = S.checkedHealthItems||{};
@@ -103,51 +131,101 @@ function renderHealthMyPlan(isPro){
     return '<div style="text-align:center;padding:40px 20px;">'
       +'<div style="font-size:40px;margin-bottom:16px;">&#x1F4CB;</div>'
       +'<div style="font-size:16px;color:#40d0a0;margin-bottom:8px;">Your Health Plan is empty</div>'
-      +'<div style="font-size:13px;color:#208060;">Tap any recipe and press "Add to My Plan"</div>'
+      +'<div style="font-size:13px;color:#208060;margin-bottom:20px;">Tap any recipe checkbox to add to your plan</div>'
+      +'<button onclick="set({vitalCat:null,healthGroup:null})" style="padding:12px 24px;background:#0a2018;border:2px solid #30c090;border-radius:10px;color:#40d0a0;font-size:14px;cursor:pointer;">← Browse Recipes</button>'
       +'</div>';
   }
+
+  // Build shopping list from plan
   const shopMap = {};
   plan.forEach(function(item){
-    (item.shopping||[]).forEach(function(ing){
+    var shoppingArr = item.shopping||[];
+    shoppingArr.forEach(function(ing){
       if(!ing||!ing.n) return;
-      var skip = ['water','ice'].some(function(w){return ing.n.toLowerCase().indexOf(w)>=0;});
+      var skip = ['water','ice','salt','pepper'].some(function(w){return ing.n.toLowerCase().indexOf(w)>=0;});
       if(skip) return;
-      var total = Math.round((ing.pp||0) * item.servings * 10)/10;
+      var total = Math.round(((ing.pp||0) * (item.servings||1)) * 10)/10;
       if(!total) return;
-      var key = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'');
+      var key = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20);
       if(shopMap[key]){ shopMap[key].total += total; }
-      else { shopMap[key] = {name:ing.n, total:total, unit:ing.u||'', source:item.name}; }
+      else { shopMap[key] = {name:ing.n, total:total, unit:ing.u||'', source:item.name, key:key}; }
     });
   });
-  var shopItems = Object.values(shopMap);
+  var shopItems = Object.values(shopMap).sort(function(a,b){return a.name.localeCompare(b.name);});
+
   var planHtml = plan.map(function(item){
-    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a2a25;">'
-      +'<div><div style="font-size:14px;color:#e0d4b8;">'+item.emoji+' '+item.name+'</div>'
-      +'<div style="font-size:11px;color:#30c090;margin-top:2px;">'+item.servings+' serving'+(item.servings!==1?'s':'')+' &middot; '+item.type+'</div></div>'
-      +'<button onclick="set({healthPlan:(S.healthPlan||[]).filter(function(x){return x.id!==\''+item.id+'\';})});" style="background:#0a2018;border:1px solid #1a4035;border-radius:6px;padding:4px 10px;color:#208060;font-size:11px;cursor:pointer;">Remove</button>'
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #1a2a25;">'
+      +'<div style="display:flex;align-items:center;gap:10px;">'
+      +'<span style="font-size:20px;">'+item.emoji+'</span>'
+      +'<div><div style="font-size:14px;color:#e0d4b8;">'+item.name+'</div>'
+      +'<div style="font-size:11px;color:#30c090;margin-top:2px;">'+(item.servings||1)+' serving'+((item.servings||1)!==1?'s':'')+' · '+item.type+'</div></div></div>'
+      +'<button onclick="healthRemoveFromPlan(\''+item.id+'\')" style="background:#0a2018;border:1px solid #1a4035;border-radius:6px;padding:4px 10px;color:#208060;font-size:11px;cursor:pointer;">Remove</button>'
       +'</div>';
   }).join('');
+
   var shopHtml = shopItems.length===0
-    ? '<div style="color:#208060;font-size:12px;">Add items with shopping arrays to see the list</div>'
+    ? '<div style="color:#208060;font-size:12px;padding:8px 0;">Add recipes with ingredients to see your list</div>'
     : shopItems.map(function(item){
-        var ck = checked['h_'+item.name.replace(/\s/g,'_')];
+        var ck = checked['h_'+item.key] || false;
         var totalStr = item.total>=1000&&item.unit==='g'?(item.total/1000).toFixed(1)+'kg'
           :item.total>=1000&&item.unit==='ml'?(item.total/1000).toFixed(1)+'L'
-          :item.total+(item.unit||'');
-        return '<div onclick="healthToggleShopItem(\'h_'+item.name.replace(/[^a-z0-9]/gi,'_')+'\')" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #0a1a15;cursor:pointer;opacity:'+( ck?0.35:1)+';">'
-          +'style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #0a1a15;cursor:pointer;opacity:'+(ck?0.35:1)+';">'
+          :Math.round(item.total*10)/10+(item.unit||'');
+        return '<div onclick="healthToggleShopItem(&quot;h_'+item.key+'&quot;)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #0a1a15;cursor:pointer;opacity:'+(ck?0.35:1)+';">'
           +'<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(ck?'#30c090':'#1a4035')+';background:'+(ck?'#30c090':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(ck?'<span style="color:#0f0e0c;font-size:11px;">&#x2713;</span>':'')+'</div>'
           +'<div style="flex:1;"><div style="font-size:13px;color:'+(ck?'#1a3028':'#e0d4b8')+';">'+item.name+'</div>'
           +'<div style="font-size:10px;color:#208060;">'+item.source+'</div></div>'
           +'<div style="font-size:13px;color:'+(ck?'#1a3028':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
           +'</div>';
       }).join('');
-  return '<div style="font-size:16px;color:#40d0a0;margin-bottom:4px;">&#x1F4CB; My Health Plan</div>'
-    +'<div style="font-size:12px;color:#208060;margin-bottom:14px;">'+plan.length+' item'+(plan.length!==1?'s':'')+' selected</div>'
-    +'<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:14px;">'+planHtml+'</div>'
+
+  var totalKcal = plan.reduce(function(sum,i){return sum+(i.kcal||0)*(i.servings||1);},0);
+  var waLines = shopItems.map(function(i){
+    var t = i.total>=1000&&i.unit==='g'?(i.total/1000).toFixed(1)+'kg':i.total>=1000&&i.unit==='ml'?(i.total/1000).toFixed(1)+'L':Math.round(i.total*10)/10+(i.unit||'');
+    return '• '+i.name+': '+t;
+  }).join('\n');
+
+  return '<div style="font-size:16px;color:#40d0a0;font-weight:bold;margin-bottom:4px;">&#x1F4CB; My Health Plan</div>'
+    +'<div style="font-size:12px;color:#208060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' selected</div>'
+
+    +'<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
+
+    +(isPro?''
+      +'<div style="background:#0f1a08;border:1px solid #208050;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">'
+      +'<div style="font-size:13px;color:#208060;">&#x1F525; Total calories</div>'
+      +'<div style="font-size:22px;color:#40d0a0;font-weight:bold;">'+totalKcal+' <span style="font-size:12px;">kcal</span></div>'
+      +'</div></div>'
+      : '<div style="background:#0f1808;border:1px dashed #1a4020;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;">'
+      +'<div style="font-size:12px;color:#208060;">&#x1F525; Calorie counter — <strong style="color:#30c090;">Tinza Pro R99/month</strong></div></div>')
+
     +'<div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">&#x1F6D2; Shopping List</div>'
-    +'<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:14px;">'+shopHtml+'</div>'
-    +'<button onclick="set({healthPlan:[],checkedHealthItems:{}})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;margin-bottom:10px;">&#x1F504; Clear Plan</button>';
+    +(isPro
+      ? '<div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:12px;margin-bottom:12px;">'
+        +'<div style="font-size:11px;color:#208060;margin-bottom:8px;">Tap items you already have</div>'
+        +shopHtml
+        +(shopItems.length>0?'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #1a2818;display:flex;justify-content:space-between;">'
+          +'<span style="font-size:11px;color:#208060;">'+shopItems.filter(function(i){return !checked['h_'+i.key];}).length+' of '+shopItems.length+' items remaining</span>'
+          +'<button onclick="set({checkedHealthItems:{}})" style="background:none;border:none;color:#208060;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button>'
+          +'</div>':'')
+        +'</div>'
+      : '<div style="background:#0f1808;border:1px dashed #1a4020;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+        +'<div style="font-size:32px;margin-bottom:8px;">&#x1F512;</div>'
+        +'<div style="font-size:14px;color:#208060;font-weight:bold;margin-bottom:6px;">Full Shopping List</div>'
+        +'<div style="font-size:12px;color:#1a4030;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div>'
+        +'<div style="font-size:13px;color:#30c090;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>')
+
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
+    +'<button onclick="healthSharePlan()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;">&#x1F4F1; Share Plan<br><span style="font-size:9px;opacity:0.7;">Free</span></button>'
+    +(isPro
+      ? '<button onclick="healthShareShoppingList()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;">&#x1F4F1; Share + Shopping List<br><span style="font-size:9px;opacity:0.7;">Pro</span></button>'
+      : '<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a2018;color:#1a4030;font-size:12px;line-height:1.4;">&#x1F512; Full Shopping List<br><span style="font-size:9px;">Pro only</span></button>')
+    +'</div>'
+
+    +(isPro?'<button onclick="window.print()" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0a1a10;border:2px solid #30c090;color:#40d0a0;font-size:13px;font-weight:bold;margin-bottom:10px;">&#x1F5A8;&#xFE0F; Print / Save as PDF &#x1F451; Pro</button>':
+      '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a2018;color:#1a4030;font-size:13px;margin-bottom:10px;">&#x1F512; Print / Save as PDF — Pro only</button>')
+
+    +'<button onclick="set({healthPlan:[],checkedHealthItems:{},vitalCat:null,healthGroup:null})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0a1a10;border:2px solid #30c090;color:#40d0a0;font-size:13px;margin-bottom:10px;font-weight:bold;">&#x1F504; Start a New Health Plan</button>'
+    +'<button onclick="set({vitalCat:null,healthGroup:null})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;margin-bottom:20px;">&#8592; Back to Health Hub</button>';
 }
 
 function healthToggleShopItem(key){
@@ -1079,14 +1157,14 @@ function smoothiesHTML(){
           <p style="margin:0;font-size:11px;color:#60c090;">${grp.sub}</p>
         </div>
         <div class="content">
-          <p style="font-size:12px;color:#208060;font-style:italic;margin-bottom:16px;">What are you looking for?</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <p style="font-size:11px;color:#208060;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">What are you looking for?</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
             ${grp.cats.map(c=>`
               <div onclick="set({vitalCat:'${c.id}',healthGroup:'${grp.id}',extHealthRecipe:null})"
-                style="background:#0f1a18;border:1px solid #1a4030;border-radius:14px;padding:18px 14px;cursor:pointer;text-align:center;">
-                <div style="font-size:32px;margin-bottom:8px;">${c.emoji}</div>
-                <div style="font-size:14px;color:#e0d4b8;margin-bottom:4px;font-family:Georgia,serif;">${c.label}</div>
-                <div style="font-size:10px;color:#406050;line-height:1.4;">${c.desc}</div>
+                style="background:#0f1a18;border:1px solid #1a4030;border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
+                <div style="font-size:26px;margin-bottom:5px;">${c.emoji}</div>
+                <div style="font-size:11px;color:#e0d4b8;font-weight:bold;margin-bottom:2px;">${c.label}</div>
+                <div style="font-size:9px;color:#406050;line-height:1.3;">${c.desc}</div>
               </div>`).join('')}
           </div>
         </div>
