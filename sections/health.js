@@ -194,23 +194,26 @@ function renderHealthMyPlan(isPro){
 
     +(isPro
       ? '<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">'
-        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;">'
         +'<div><div style="font-size:13px;color:#409070;">&#x1F525; Calories per person</div>'
-        +'<div style="font-size:10px;color:#306050;margin-top:2px;">All selected recipes combined</div></div>'
+        +'<div style="font-size:10px;color:#306050;margin-top:2px;">All selected dishes combined</div></div>'
         +'<div style="font-size:26px;color:#40d0a0;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:12px;"> kcal</span></div>'
-        +'</div>'
-        +'<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #1a3028;">'
-        +'<div style="font-size:11px;color:#306050;">Total across all servings</div>'
-        +'<div style="font-size:14px;color:#30c090;font-weight:bold;">'+totalKcal+' kcal</div>'
         +'</div></div>'
       : '<div style="background:#081808;border:1px dashed #162016;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;">'
         +'<div style="font-size:12px;color:#208060;">&#x1F525; Calorie counter — <strong style="color:#30c090;">Tinza Pro R99/month</strong></div></div>')
 
     // Cost estimate — same style as Braai
     +(isPro
-      ? '<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">'
-        +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">&#x1F4B0; Cost Estimate</div>'
-        +'<div style="font-size:10px;color:#4a5820;line-height:1.5;font-style:italic;">Health Hub recipes use whole foods — typical cost R25–R80 per serving depending on ingredients.<br>Checkers/retail prices · May 2026 · Always buy 10% extra.</div>'
+      ? '<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">'
+        +'<div style="font-size:13px;color:#a09040;">&#x1F4B0; Estimated cost (whole foods)</div>'
+        +'<div style="font-size:26px;color:#f5c842;font-weight:bold;">R25–R80</div>'
+        +'</div>'
+        +'<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">'
+        +'<div style="font-size:12px;color:#6a6030;">Per person, per recipe</div>'
+        +'<div style="font-size:14px;color:#c0a030;font-weight:bold;">varies</div>'
+        +'</div>'
+        +'<div style="margin-top:8px;font-size:10px;color:#4a5820;line-height:1.5;">Whole foods · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>'
         +'</div>'
       : '<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
         +'<div style="font-size:22px;color:#2a1808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>'
