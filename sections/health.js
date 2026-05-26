@@ -818,6 +818,47 @@ const EXT_HEALTH_MAP = {
   immunity:     {recipes:typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[], desc:'Fortify your defences from the inside out. 🛡️'},
 };
 
+
+// ── HEALTH HUB NAVIGATION — exact copy of braai pattern ──────────
+function healthQuickNav(activeCat){
+  const plan = S.healthPlan||[];
+  const total = plan.length;
+  const sections = [
+    {id:'lifestyle',  emoji:'🌱', label:'Lifestyle',   count:0},
+    {id:'drinks',     emoji:'🥤', label:'Drinks',      count:0},
+    {id:'gut',        emoji:'🦠', label:'Gut',         count:0},
+    {id:'fresheasy',  emoji:'🥗', label:'Fresh',       count:0},
+    {id:'bodygoals',  emoji:'💪', label:'Body Goals',  count:0},
+    {id:'wellness',   emoji:'🩺', label:'Wellness',    count:0},
+    {id:'myplan',     emoji:'📋', label:'My Plan',     count:total, highlight:true},
+  ];
+  return `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;">
+    ${sections.map(s=>{
+      const isActive = activeCat===s.id;
+      const borderCol = isActive?(s.highlight?'#20c080':'#30c090'):s.count>0?(s.highlight?'#1a6040':'#1a4030'):'#1a2818';
+      const bgCol = isActive?(s.highlight?'#0a2018':'#0a2018'):s.count>0?'#0a1a10':'transparent';
+      const textCol = isActive?'#40d0a0':s.count>0?'#30c090':'#208060';
+      return `<button onclick="set({healthGroup:'${s.id}',vitalCat:s.id==='myplan'?'myplan':null,extHealthRecipe:null})"
+        style="padding:8px 4px;border-radius:10px;border:1px solid ${borderCol};
+               background:${bgCol};cursor:pointer;text-align:center;position:relative;">
+        <div style="font-size:18px;">${s.emoji}</div>
+        <div style="font-size:9px;color:${textCol};margin-top:3px;font-weight:${isActive?'bold':'normal'};">${s.label}</div>
+        ${s.count>0?`<div style="position:absolute;top:2px;right:2px;background:${s.highlight?'#20c080':'#30c090'};color:#0f0e0c;border-radius:5px;font-size:8px;padding:1px 3px;">${s.count}</div>`:''}
+      </button>`;
+    }).join('')}
+  </div>`;
+}
+
+function healthMyPlanBtn(){
+  const plan = S.healthPlan||[];
+  const total = plan.length;
+  if(!total) return '';
+  return `<button onclick="set({vitalCat:'myplan',healthGroup:'myplan',extHealthRecipe:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #30c090;background:#0a2018;color:#40d0a0;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+    📋 See my Health Plan & Shopping List →
+    <div style="font-size:11px;color:#208060;margin-top:3px;">${total} recipe${total!==1?'s':''} selected</div>
+  </button>`;
+}
+
 function smoothiesHTML(){
   const isPro = tierAllows('pro');
   const vitalCat = S.vitalCat || null;
@@ -1084,6 +1125,17 @@ function smoothiesHTML(){
     return extHealthRecipeHTML(S.extHealthRecipe, S.servings||1);
   }
 
+  // ── MY PLAN direct access ────────────────────────────────────────
+  if(vc==='myplan' || S.healthGroup==='myplan') {
+    return `<div style="min-height:100vh;background:#0f0e0c;">
+      <div style="background:#0f1a18;border-bottom:1px solid #1a4030;padding:14px 16px;">
+        <button onclick="set({vitalCat:null,healthGroup:null,extHealthRecipe:null})" style="background:none;border:none;color:#30c090;font-size:13px;cursor:pointer;padding:0;display:block;margin-bottom:10px;">← Health Hub</button>
+        <h2 style="margin:0;font-size:20px;color:#f5e8cc;font-family:Georgia,serif;">📋 My Health Plan</h2>
+      </div>
+      <div class="content">${renderHealthMyPlan(isPro)}</div>
+    </div>`;
+  }
+
   // ── RECIPE LIST VIEW (inside a category) ─────────────────────────
   // If a vitalCat is set AND we know which group it belongs to, show the recipe list
   if(vc && activeGroup) {
@@ -1122,7 +1174,7 @@ function smoothiesHTML(){
           <div style="font-size:13px;color:#208060;line-height:1.6;">Fresh, flexible salads with any protein you like.<br>Recipes loading soon!</div>
         </div>
       ` :
-      vc==="myplan" ? renderHealthMyPlan(isPro) : '';
+      vc==="myplan" || S.healthGroup==="myplan" ? renderHealthMyPlan(isPro) : '';
 
     // Find the active cat details for the sub-header
     const activeCat = activeGroup.cats.find(c => c.id === vc);
@@ -1142,7 +1194,7 @@ function smoothiesHTML(){
             </button>`).join('')}
         </div>
       </div>
-      <div class="content">${listContent}</div>
+      <div class="content">${listContent}${healthMyPlanBtn()}</div>
     </div>`;
   }
 
