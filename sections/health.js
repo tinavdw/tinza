@@ -72,24 +72,26 @@ function renderHealthList(items, type, openFn, isPro){
     var sel = (S.healthPlan||[]).some(function(x){return x.id===item.id;});
     var disabled = !canView;
     var srv = S.servings||1;
-    var info = type==='juice' ? (item.kcal*srv)+' kcal · '+(srv*300)+'ml'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
-      : type==='smoothie' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
-      : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
-      : type==='muffin' ? item.kcal+' kcal each · '+(srv*(item.makes||12))+' muffins'
+    var info = type==='juice' ? (item.kcal*srv)+' kcal \u00b7 '+(srv*300)+'ml'+(item.costPP?' \u00b7 ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='smoothie' ? (item.kcal*srv)+' kcal'+(item.costPP?' \u00b7 ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' \u00b7 ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='muffin' ? item.kcal+' kcal each \u00b7 '+(srv*(item.makes||12))+' muffins'
       : (item.kcal*srv)+' kcal';
+    var onclk = disabled
+      ? 'alert(\u0022\ud83d\udc51 Upgrade to Pro to unlock\u0022)'
+      : 'healthToggleById(\u0022'+item.id+'\u0022,\u0022'+type+'\u0022,S.servings)';
+    var recipeBtn = disabled
+      ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">\ud83d\udc51 PRO</span>'
+      : '<button onclick="event.stopPropagation();'+openFn+'(\u0022'+item.id+'\u0022)" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe \u2192</button>';
     return '<div style="background:'+(sel?'#0a2018':disabled?'#0f0e0c':'#0f1a18')+';border:1px solid '+(sel?'#30c090':disabled?'#1a2018':'#1a4035')+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.45:1)+';">'
-      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+(disabled?'alert('👑 Upgrade to Pro to unlock')':'healthToggleById(''+item.id+'',''+type+'',S.servings)')+'">'
-      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'✓':'')+'</div>'
+      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
+      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'\u2713':'')+'</div>'
       +'<span style="font-size:20px;">'+item.emoji+'</span>'
       +'<div style="flex:1;min-width:0;">'
         +'<div style="font-size:14px;color:'+(sel?'#f5e8cc':'#c0d4b0')+';font-weight:'+(sel?'bold':'normal')+';">'+item.name+'</div>'
         +'<div style="font-size:10px;color:'+(sel?'#30c090':'#406050')+';margin-top:2px;">'+info+'</div>'
       +'</div>'
-      +'<div style="display:flex;align-items:center;flex-shrink:0;">'
-        +(!disabled
-          ? '<button onclick="event.stopPropagation();'+openFn+'(''+item.id+'')" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>'
-          : '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>')
-      +'</div>'
+      +'<div style="display:flex;align-items:center;flex-shrink:0;">'+recipeBtn+'</div>'
       +'</div></div>';
   }).join('');
 }
@@ -650,20 +652,22 @@ function renderExtHealthList(recipes, isPro) {
     var canView = r.tier==='free' || isPro;
     var sel = (S.healthPlan||[]).some(function(x){return x.id===r.id;});
     var disabled = !canView;
-    var rStr = JSON.stringify(r).replace(/'/g,"\\'");
+    var onclk = disabled
+      ? 'alert(\u0022\ud83d\udc51 Upgrade to Pro to unlock\u0022)'
+      : 'healthToggleExtById(\u0022'+r.id+'\u0022)';
+    var safeR = JSON.stringify(r).replace(/"/g,"'");
+    var recipeBtn = disabled
+      ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">\ud83d\udc51 PRO</span>'
+      : '<button onclick="event.stopPropagation();set({extHealthRecipe:'+safeR+',vitalCat:S.vitalCat})" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe \u2192</button>';
     return '<div style="background:'+(sel?'#0a2018':disabled?'#0f0e0c':'#0f1a18')+';border:1px solid '+(sel?'#30c090':disabled?'#1a2018':'#1a4035')+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.45:1)+';">'
-      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+(disabled?'alert('👑 Upgrade to Pro to unlock')':'healthToggleExtById(''+r.id+'')')+'">'
-      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'✓':'')+'</div>'
+      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
+      +'<div style="width:22px;height:22px;border-radius:6px;background:'+(sel?'#30c090':'transparent')+';border:2px solid '+(sel?'#30c090':'#1a4035')+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#0f0e0c;">'+(sel?'\u2713':'')+'</div>'
       +'<span style="font-size:20px;">'+r.emoji+'</span>'
       +'<div style="flex:1;min-width:0;">'
         +'<div style="font-size:14px;color:'+(sel?'#f5e8cc':'#c0d4b0')+';font-weight:'+(sel?'bold':'normal')+';">'+r.name+'</div>'
-        +'<div style="font-size:10px;color:'+(sel?'#30c090':'#406050')+';margin-top:2px;">'+r.kcal+' kcal · '+r.feel+'</div>'
+        +'<div style="font-size:10px;color:'+(sel?'#30c090':'#406050')+';margin-top:2px;">'+r.kcal+' kcal \u00b7 '+r.feel+'</div>'
       +'</div>'
-      +'<div style="display:flex;align-items:center;flex-shrink:0;">'
-        +(!disabled
-          ? '<button onclick="event.stopPropagation();set({extHealthRecipe:'+JSON.stringify(r).replace(/"/g,"'")+',vitalCat:S.vitalCat})" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>'
-          : '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>')
-      +'</div>'
+      +'<div style="display:flex;align-items:center;flex-shrink:0;">'+recipeBtn+'</div>'
       +'</div></div>';
   }).join('');
 }
