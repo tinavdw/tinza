@@ -1047,7 +1047,6 @@ function eventsHTML(){
   const tabs = [
     {id:'bigcooking', label:'🍽️ Buffet'},
     {id:'fingerfoods',label:'🥪 Finger Foods & Snacks'},
-    {id:'cultural',   label:'🌍 Cultural'},
     {id:'weddingcake',label:'🎂 Celebration Cakes'},
     {id:'kiddies',    label:'🎂 Kiddies Parties'},
     {id:'beverages',  label:'🍹 Beverages'},
@@ -1092,7 +1091,7 @@ function eventsHTML(){
           ${howItWorksOpen?`
             <div onclick="set({eventsHowOpen:false})" style="position:fixed;inset:0;z-index:9;" ></div>
             <div style="position:relative;z-index:10;background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c0a0b0;line-height:1.6;">
-              <strong style="color:#f070a0;">1. Pick your tab</strong> — Buffet, Finger Foods, Cakes, Kiddies or Beverages.<br>
+              <strong style="color:#f070a0;">1. Pick your tab</strong> — Buffet, Finger Foods, Celebration Cakes, Kiddies Parties or Beverages.<br>
               <strong style="color:#f070a0;">2. Set your guest count</strong> — use the ± slider here.<br>
               <strong style="color:#f070a0;">3. Select dishes</strong> — portions auto-scale as you add more.<br>
               <strong style="color:#f070a0;">4. Generate shopping list</strong> — sorted by supermarket aisle.<br>
@@ -1114,10 +1113,17 @@ function eventsHTML(){
         </div>
       </div>
 
-      <!-- Tab strip -->
-      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-top:12px;-webkit-overflow-scrolling:touch;">
-        ${tabs.map(t=>`<button onclick="set({eventTab:'${t.id}',eventShowShopList:false})"
-          style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${et===t.id?'#d04080':'#3a1020'};background:${et===t.id?'#2a0818':'transparent'};color:${et===t.id?'#f070a0':'#703050'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${t.label}</button>`).join('')}
+      <!-- Tab grid — braai v33 style boxes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+        ${tabs.map(t=>{
+          const isActive = et===t.id;
+          return `<div onclick="set({eventTab:'${t.id}',eventShowShopList:false})"
+            style="background:${isActive?'#2a0818':'#140010'};border:1px solid ${isActive?'#d04080':'#2a1020'};border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;"
+            onmouseover="this.style.borderColor='#803060'" onmouseout="this.style.borderColor='${isActive?'#d04080':'#2a1020'}'">
+            <div style="font-size:20px;margin-bottom:4px;">${t.label.split(' ')[0]}</div>
+            <div style="font-size:11px;color:${isActive?'#f070a0':'#c0a0b0'};font-family:Georgia,serif;font-weight:${isActive?'bold':'normal'};">${t.label.replace(/^\S+\s*/,'')}</div>
+          </div>`;
+        }).join('')}
       </div>
     </div>
 
