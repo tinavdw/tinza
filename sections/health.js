@@ -213,12 +213,140 @@ function renderHealthMyPlan(isPro){
     +'</div>';
 }
 
+// ══════════════════════════════════════════════════════════════
+// HEALTH RECIPE DETAIL — v33 template with photo header
+// ══════════════════════════════════════════════════════════════
+function healthImgUrl(name){
+  // Encode name for URL — matches "Recipe Name .jpg" or "Recipe Name.jpg"
+  const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
+  return base + encodeURIComponent(name) + '.jpg';
+}
+
+function healthRecipeDetail(recipe, backState){
+  if(!recipe) return '';
+  const isPro = tierAllows('pro');
+  const srv = S.servings||1;
+  const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
+  const imgUrl = healthImgUrl(recipe.name);
+  const backBtn = JSON.stringify(backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null});
+
+  // Build ingredients scaled to servings
+  const ings = (recipe.base300||recipe.shopping||[]);
+  const ingsHTML = ings.map(i=>{
+    if(!i||!i.n) return '';
+    let amt = '';
+    if(i.pp && i.u && i.u!=='pinch'){
+      const total = Math.round(i.pp * srv * 10)/10;
+      amt = total>=1000&&i.u==='g'?`${(total/1000).toFixed(1)}kg`:
+            total>=1000&&i.u==='ml'?`${(total/1000).toFixed(1)}L`:
+            `${total}${i.u}`;
+    } else if(i.pp && !i.u){
+      amt = `${Math.round(i.pp*srv)}`;
+    } else if(i.u==='pinch'){
+      amt = 'pinch';
+    }
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a2820;font-size:13px;">
+      <span style="color:#c0d8c0;">${i.n}</span>
+      <span style="color:#40d0a0;font-weight:bold;flex-shrink:0;margin-left:8px;">${amt}</span>
+    </div>`;
+  }).join('');
+
+  // Method steps
+  const steps = recipe.method||[];
+  const stepsHTML = steps.map((step,i)=>`
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2820;">
+      <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#1a3028;border:1px solid #30c090;display:flex;align-items:center;justify-content:center;font-size:12px;color:#40d0a0;font-weight:bold;">${i+1}</div>
+      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}</div>
+    </div>`).join('');
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <!-- Photo header -->
+    <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
+      <img src="${imgUrl}" 
+           onerror="this.style.display='none'" 
+           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;"></div>
+      <button onclick="set(${backBtn})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
+        <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
+        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${recipe.name}</h1>
+        ${recipe.feel?`<p style="margin:0;font-size:12px;color:#d090b0;font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
+      </div>
+    </div>
+
+    <!-- Badges -->
+    ${(recipe.badges||[]).length?`
+    <div style="padding:12px 16px 0;display:flex;flex-wrap:wrap;gap:6px;">
+      ${(recipe.badges||[]).map(b=>`<span style="background:#1a2820;border:1px solid #2a4838;border-radius:20px;padding:4px 10px;font-size:11px;color:#60c090;">${b}</span>`).join('')}
+    </div>`:``}
+
+    <!-- Quantity box -->
+    <div style="margin:12px 16px 0;background:#0a2018;border:1px solid #30c090;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:11px;color:#208060;letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
+          <div style="font-size:26px;color:#40d0a0;font-weight:bold;line-height:1;">${srv} person${srv!==1?'s':''}</div>
+          ${recipe.kcal?`<div style="font-size:11px;color:#30c090;margin-top:2px;">${recipe.kcal*srv} kcal total</div>`:''}
+          ${recipe.costPP?`<div style="font-size:11px;color:#208060;">~R${recipe.costPP*srv} total</div>`:''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">−</button>
+          <button onclick="setQuiet({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 16px 100px;">
+      <!-- Ingredients -->
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">🛒 Ingredients — ${srv} person${srv!==1?'s':''}</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${ingsHTML||'<div style="color:#208060;font-size:12px;">No ingredients listed.</div>'}
+        </div>
+      </div>
+
+      <!-- Method -->
+      ${stepsHTML?`
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">👨‍🍳 Method</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${stepsHTML}
+        </div>
+      </div>`:''}
+
+      <!-- Tip -->
+      ${recipe.tip?`
+      <div style="margin-top:12px;background:#0a1a10;border-left:3px solid #30c090;border-radius:0 8px 8px 0;padding:12px 14px;">
+        <div style="font-size:10px;color:#30c090;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">💡 Tip</div>
+        <div style="font-size:13px;color:#a0c8a0;line-height:1.5;">${recipe.tip}</div>
+      </div>`:''}
+
+      <!-- Actions -->
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
+        <button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" 
+          style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
+          ${inPlan?'✅ Added to Plan — tap to remove':'＋ Add to My Plan'}
+        </button>
+        <button onclick="set(${backBtn})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back to Health Hub</button>
+        <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="width:100%;padding:12px;background:none;border:none;color:#403050;font-size:12px;cursor:pointer;">Home</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function healthHTML(){
   const isPro = tierAllows('pro');
   const srv = S.servings||1;
   const howOpen = S.healthHowOpen||false;
   const activeTab = S.healthTab||'smoothies';
   const searchVal = S.healthSearch||'';
+
+  // ── Recipe detail screens ──────────────────────────────────
+  if(S.activeSmoothie) return healthRecipeDetail(S.activeSmoothie, {activeSmoothie:null});
+  if(S.activeOats)     return healthRecipeDetail(S.activeOats,     {activeOats:null});
+  if(S.activeMuffin)   return healthRecipeDetail(S.activeMuffin,   {activeMuffin:null});
+  if(S.activeRaw)      return healthRecipeDetail(S.activeRaw,      {activeRaw:null});
+
 
   if(S.healthShowPlan) return `
     <div style="min-height:100vh;background:#0f0e0c;">
