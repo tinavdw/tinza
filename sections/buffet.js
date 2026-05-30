@@ -1,27 +1,27 @@
+// ── EVENTS COLOUR CONSTANTS ───────────────────────────────────────
+const BC    = '#d04080';   // primary pink/magenta border & text
+const BCbg  = '#1a0814';   // dark background for events header
+
 // ── PORTION BRAIN — calcPortions ─────────────────────────────────
-// Takes a filtered array of recipes, a category type, and guest count.
-// Returns the array with gPerPerson and totalKg added to each recipe.
 function calcPortions(recipes, type, guests){
   const count = recipes.length;
   if(!count) return [];
   return recipes.map(r => {
     let gpp;
     if(type === 'mains'){
-      // Meat: 1=350g, 2=175g, 3=117g, 4+=88g floor
       const base = [350, 175, 117, 88];
       gpp = base[Math.min(count-1, 3)];
     } else if(type === 'starters'){
       gpp = count === 1 ? 150 : count === 2 ? 100 : 75;
     } else if(type === 'salads' || type === 'sides'){
-      // Sides: 1=100%, 2=80%, 3=67%, 4=57%, 5+=50% floor
       const pct = [1, 0.8, 0.67, 0.57, 0.5];
       gpp = Math.round(100 * pct[Math.min(count-1, 4)]);
     } else if(type === 'desserts'){
-      gpp = 120; // desserts never shrink
+      gpp = 120;
     } else {
       gpp = r.perPerson ? r.perPerson.meat : 100;
     }
-    const totalG  = Math.round(gpp * guests * 1.1); // +10% buffer
+    const totalG  = Math.round(gpp * guests * 1.1);
     const totalKg = (totalG / 1000).toFixed(2);
     return { ...r, gPerPerson: gpp, totalKg, totalG };
   });
@@ -32,8 +32,6 @@ function shopListHTML(mains, sides, salads, starters, desserts){
   const g = S.eventGuests;
   const all = [...(starters||[]), ...(mains||[]), ...(sides||[]), ...(salads||[]), ...(desserts||[])];
   if(!all.length) return '<div style="font-size:12px;color:#803060;padding:10px;">No dishes selected yet.</div>';
-
-  // Aggregate ingredients
   const map = {};
   for(const r of all){
     if(!r.ingredients) continue;
@@ -41,12 +39,11 @@ function shopListHTML(mains, sides, salads, starters, desserts){
       if(!ing || !ing.n) continue;
       const key = ing.n.toLowerCase().trim();
       if(!map[key]) map[key] = { n: ing.n, total: 0, u: ing.u||'' };
-      if(ing.pp && ing.u && (ing.u==='g'||ing.u==='ml'||ing.u==='kg'||ing.u==='l')){
+      if(ing.pp && (ing.u==='g'||ing.u==='ml'||ing.u==='kg'||ing.u==='l')){
         map[key].total += ing.pp * g * 1.1;
       }
     }
   }
-
   const items = Object.values(map);
   const listHTML = items.map(i => {
     const amt = i.total > 0 ? (i.u==='g'||i.u==='ml') ? `${Math.round(i.total)}${i.u}` : `${(i.total/1000).toFixed(1)}${i.u==='g'?'kg':'L'}` : '';
@@ -55,7 +52,6 @@ function shopListHTML(mains, sides, salads, starters, desserts){
       <span style="color:#f070a0;flex-shrink:0;margin-left:8px;">${amt}</span>
     </div>`;
   }).join('');
-
   return `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-top:10px;">
     <div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:10px;">🛒 Shopping List — ${g} guests (+10% buffer)</div>
     ${listHTML}
