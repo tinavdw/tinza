@@ -310,6 +310,9 @@ function draw(){
   else if(S.screen==="furryapp"){ content=furryHTML(); }
   else if(S.screen==="smoothies"){ content=smoothiesHTML(); }
   else if(S.screen==="events"){ content=eventsHTML(); }
+  else if(S.screen==="health"){ content=healthHTML(); }
+  else if(S.screen==="tinyTummies"){ content=tinyTummiesHTML(); }
+  else if(S.screen==="kiddies"){ content=kiddiesHTML(); }
   else{ content=homeHTML(); }
 
   root.innerHTML = tierBar + content;
@@ -1280,7 +1283,7 @@ function homeHTML(){
     {s:"supper",     e:"🍲", t:"Supper",                  sub:"Family meals · Pasta · Curries · Stews",            b:"#8040c0", bg:"#100818"},
     {s:"bakes",      e:"🍰", t:"Bakes, Cakes & Breads",   sub:"Cakes · Biscuits · Breads · Rusks",                 b:"#d06080", bg:"#1a0810"},
     // Row 3 — speciality
-    {s:"smoothies",  e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#20a080", bg:"#0f1a18"},
+    {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#20a080", bg:"#0f1a18"},
     {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"#d04080", bg:"#1a0814"},
     {s:"babyapp",    e:"🍼", t:"Tiny Tummies",            sub:"Age-appropriate baby & toddler recipes",             b:"#e07090", bg:"#1a1018"},
     {s:"furryapp",   e:"🐾", t:"Furry Friends",           sub:"Dogs & Cats · Meals · Treats & Biscuits",           b:"#9060d0", bg:"#120f1a"},
@@ -1310,7 +1313,7 @@ function homeHTML(){
       <!-- Recipe Sections -->
       <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
       ${recipeSections.map(o=>`
-        <button onclick="set({screen:'${o.s}'${o.s==='smoothies'?',vitalCat:null,healthGroup:null,extHealthRecipe:null':''}})"
+        <button onclick="set({screen:'${o.s}'})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
@@ -1728,5 +1731,4 @@ function braaiMyPlanBtn(){
     <div style="font-size:11px;color:#7a4020;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
   </button>`;
 }
-
 
