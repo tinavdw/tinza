@@ -219,7 +219,9 @@ function renderHealthMyPlan(isPro){
 function healthImgUrl(name){
   // Encode name for URL — matches "Recipe Name .jpg" or "Recipe Name.jpg"
   const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
-  return base + encodeURIComponent(name) + '.jpg';
+  const variants = [name, name + ' ', name.trim()];
+  // Try name as-is first, then with trailing space (some files have it)
+  return base + encodeURIComponent(name.trim()) + '.jpg';
 }
 
 function healthRecipeDetail(recipe, backState){
@@ -228,7 +230,8 @@ function healthRecipeDetail(recipe, backState){
   const srv = S.servings||1;
   const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
   const imgUrl = healthImgUrl(recipe.name);
-  const backBtn = JSON.stringify(backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null});
+  const _bs = backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null};
+  const backBtn = Object.entries(_bs).map(([k,v])=>k+":"+JSON.stringify(v)).join(",");
 
   // Build ingredients scaled to servings
   const ings = (recipe.base300||recipe.shopping||[]);
@@ -263,10 +266,10 @@ function healthRecipeDetail(recipe, backState){
     <!-- Photo header -->
     <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
       <img src="${imgUrl}" 
-           onerror="this.style.display='none'" 
+           onerror="this.src=this.src.replace('.jpg',' .jpg');this.onerror=function(){this.style.display='none'}" 
            style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;"></div>
-      <button onclick="set(${backBtn})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
         <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
         <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${recipe.name}</h1>
@@ -327,7 +330,7 @@ function healthRecipeDetail(recipe, backState){
           style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
           ${inPlan?'✅ Added to Plan — tap to remove':'＋ Add to My Plan'}
         </button>
-        <button onclick="set(${backBtn})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back to Health Hub</button>
+        <button onclick="set({${backBtn}})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back to Health Hub</button>
         <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="width:100%;padding:12px;background:none;border:none;color:#403050;font-size:12px;cursor:pointer;">Home</button>
       </div>
     </div>
