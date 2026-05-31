@@ -1,0 +1,779 @@
+const SMOOTHIES = [
+  {id:'sm_green',    tier:'free', emoji:'🥬', name:'Green Power Smoothie',      kcal:220, costPP:18,
+   howItFeels:'Grassy, bright and alive — your body knows this is the real thing.',
+   shopping:[{n:'Spinach',pp:80,u:'g'},{n:'Banana',pp:80,u:'g'},{n:'Apple',pp:80,u:'g'},{n:'Ginger (fresh)',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Water or coconut water',pp:200,u:'ml'}],
+   method:['Add all ingredients to blender.','Blend on high 60 seconds until completely smooth.','Taste — add more lemon or ginger to preference.','Serve immediately over ice.'],
+   tip:'Use frozen banana for a thicker, colder smoothie without ice.'},
+  {id:'sm_berry',    tier:'free', emoji:'🫐', name:'Berry Blast Smoothie',       kcal:195, costPP:22,
+   howItFeels:'Tart, sweet, deep purple — antioxidants you can actually taste.',
+   shopping:[{n:'Mixed frozen berries',pp:150,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Milk or almond milk',pp:150,u:'ml'}],
+   method:['Blend all ingredients until smooth.','Add more milk if too thick.','Serve chilled.'],
+   tip:'Frozen berries give better colour and thickness than fresh.'},
+  {id:'sm_mango',    tier:'free', emoji:'🥭', name:'Tropical Mango Smoothie',    kcal:240, costPP:20,
+   howItFeels:'Pure sunshine — like a holiday in a glass on a Tuesday morning.',
+   shopping:[{n:'Mango (frozen or fresh)',pp:150,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Coconut milk',pp:100,u:'ml'},{n:'Pineapple juice',pp:80,u:'ml'},{n:'Lime juice',pp:10,u:'ml'}],
+   method:['Blend all ingredients until smooth and creamy.','Serve over ice with a lime wedge.'],
+   tip:'Fresh mango works — just freeze it overnight first for the best texture.'},
+  {id:'sm_choc',     tier:'free', emoji:'🍫', name:'Chocolate Protein Smoothie', kcal:310, costPP:24,
+   howItFeels:'Tastes like dessert, works like a meal — guilt is not invited.',
+   shopping:[{n:'Banana (frozen)',pp:100,u:'g'},{n:'Unsweetened cocoa powder',pp:15,u:'g'},{n:'Peanut butter',pp:30,u:'g'},{n:'Milk or oat milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'}],
+   method:['Blend all ingredients until completely smooth.','Taste — add more cocoa for intensity or honey for sweetness.','Serve immediately.'],
+   tip:'Add a handful of oats for extra staying power.'},
+  {id:'sm_avo',      tier:'free', emoji:'🥑', name:'Avocado Banana Smoothie',    kcal:280, costPP:20,
+   howItFeels:'Creamy, rich and deeply satisfying — like a meal disguised as a drink.',
+   shopping:[{n:'Avocado (ripe, half)',pp:75,u:'g'},{n:'Banana',pp:80,u:'g'},{n:'Spinach',pp:40,u:'g'},{n:'Milk or almond milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Lime juice',pp:5,u:'ml'}],
+   method:['Blend all ingredients until silky smooth.','Serve immediately — avocado oxidises quickly.'],
+   tip:'The lime juice slows browning. Drink within 30 minutes.'},
+  {id:'sm_beetroot',  tier:'plus', emoji:'🫀', name:'Beetroot & Berry Smoothie',  kcal:175, costPP:14,
+   howItFeels:'Earthy, bright red, a little bit medical — in the best possible way.',
+   shopping:[{n:'Cooked beetroot',pp:80,u:'g'},{n:'Frozen berries',pp:80,u:'g'},{n:'Apple',pp:60,u:'g'},{n:'Ginger',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Water',pp:150,u:'ml'}],
+   method:['Blend all ingredients until smooth.','Strain if you prefer a smoother texture.','Serve chilled.'],
+   tip:'Wear gloves when handling beetroot — it stains everything permanently.'},
+];
+const FRESH_JUICES = [
+  {id:'fj_classic',  tier:'free', emoji:'🍊', name:'Classic Orange & Carrot',    kcal:120, costPP:12,
+   howItFeels:'Bright, sweet, the smell of Sunday mornings.',
+   shopping:[{n:'Oranges',pp:200,u:'g'},{n:'Carrots',pp:150,u:'g'},{n:'Fresh ginger',pp:5,u:'g'}],
+   method:['Peel oranges. Wash carrots and ginger.','Juice all ingredients together.','Serve immediately over ice.'],
+   tip:'Juice carrots first, then orange — easier on the juicer.'},
+  {id:'fj_green',    tier:'free', emoji:'🥒', name:'Green Detox Juice',          kcal:90,  costPP:18,
+   howItFeels:'Tastes like the colour green — clean, sharp, unapologetically healthy.',
+   shopping:[{n:'Cucumber',pp:150,u:'g'},{n:'Celery (stalks)',pp:80,u:'g'},{n:'Green apple',pp:100,u:'g'},{n:'Spinach',pp:60,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Ginger',pp:5,u:'g'}],
+   method:['Wash all ingredients. Core the apple.','Juice in order: cucumber, celery, apple, spinach, lemon, ginger.','Stir and serve over ice.'],
+   tip:'Lemon and ginger mask the green flavour significantly — don\'t skip them.'},
+  {id:'fj_beetroot',  tier:'free', emoji:'🫀', name:'Beetroot & Apple Juice',    kcal:110, costPP:14,
+   howItFeels:'Deep red, earthy, slightly sweet — your blood pressure just relaxed.',
+   shopping:[{n:'Raw beetroot',pp:150,u:'g'},{n:'Apple',pp:150,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Ginger',pp:5,u:'g'}],
+   method:['Peel beetroot. Wash and core apple.','Juice all together.','Serve immediately — colour fades quickly.'],
+   tip:'Raw beetroot is more nutritious than cooked. Wear gloves.'},
+  {id:'fj_watermelon',tier:'free', emoji:'🍉', name:'Watermelon Mint Cooler',    kcal:80,  costPP:8,
+   howItFeels:'Summer in a glass — ice cold, rosy, completely effortless.',
+   shopping:[{n:'Watermelon (flesh, no rind)',pp:300,u:'g'},{n:'Fresh mint leaves',pp:8,u:'g'},{n:'Lime juice',pp:15,u:'ml'}],
+   method:['Blend watermelon until smooth. Strain through a sieve.','Add lime juice and torn mint leaves.','Serve over ice.'],
+   tip:'Watermelon is 92% water — barely needs a juicer. A blender and sieve works perfectly.'},
+  {id:'fj_pineapple', tier:'plus', emoji:'🍍', name:'Pineapple & Turmeric Juice', kcal:130, costPP:16,
+   howItFeels:'Tropical fire — sweet pineapple with golden anti-inflammatory heat.',
+   shopping:[{n:'Fresh pineapple',pp:200,u:'g'},{n:'Turmeric (fresh or ½ tsp powder)',pp:3,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Black pepper (pinch)',pp:0.2,u:'g'}],
+   method:['Core and cube pineapple. Peel fresh turmeric.','Juice pineapple and turmeric together.','Add lemon juice. Add a tiny pinch of black pepper.','Stir and serve.'],
+   tip:'Black pepper increases turmeric absorption by 2000%. Don\'t skip it.'},
+];
+const OVERNIGHT_OATS = [
+  {id:'oa_classic',  tier:'free', emoji:'🌾', name:'Classic Overnight Oats',     kcal:380, costPP:12,
+   howItFeels:'Quietly satisfying — breakfast that waited patiently for you.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk or almond milk',pp:150,u:'ml'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Honey',pp:15,u:'g'},{n:'Banana (sliced)',pp:60,u:'g'},{n:'Chia seeds',pp:10,u:'g'}],
+   method:['Combine oats, milk, yoghurt, honey and chia seeds in a jar.','Stir well. Seal and refrigerate overnight (minimum 6 hours).','Top with sliced banana before serving cold.'],
+   tip:'The ratio is 1:1.5 oats to liquid for the right texture. Too thick — add more milk.'},
+  {id:'oa_berry',    tier:'free', emoji:'🫐', name:'Berry & Chia Overnight Oats', kcal:355, costPP:18,
+   howItFeels:'Bright and jammy — fruit that sank overnight into creamy oats.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Chia seeds',pp:15,u:'g'},{n:'Mixed berries (fresh or frozen)',pp:100,u:'g'},{n:'Honey',pp:12,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'}],
+   method:['Mix oats, milk, chia seeds, honey and vanilla. Stir well.','Fold in half the berries.','Refrigerate overnight.','Top with remaining berries before serving.'],
+   tip:'Frozen berries break down overnight and create a jammy layer — better than fresh.'},
+  {id:'oa_pb',       tier:'free', emoji:'🥜', name:'Peanut Butter Banana Oats',  kcal:430, costPP:14,
+   howItFeels:'Rich, indulgent, filling — the PB&J of breakfast jars.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Peanut butter',pp:30,u:'g'},{n:'Banana (mashed + sliced)',pp:80,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Cinnamon (pinch)',pp:0.5,u:'g'}],
+   method:['Mash half the banana with the oats, milk, peanut butter, honey and cinnamon.','Stir well. Refrigerate overnight.','Top with sliced banana before serving.'],
+   tip:'Mashing banana into the oats makes the whole jar creamy and naturally sweet.'},
+  {id:'oa_choc',     tier:'plus', emoji:'🍫', name:'Chocolate Hazelnut Oats',    kcal:410, costPP:16,
+   howItFeels:'Breakfast that tastes like dessert — and that\'s completely fine.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Cocoa powder',pp:10,u:'g'},{n:'Milk',pp:160,u:'ml'},{n:'Honey',pp:15,u:'g'},{n:'Hazelnuts (chopped)',pp:20,u:'g'},{n:'Banana',pp:60,u:'g'}],
+   method:['Whisk cocoa into milk until dissolved.','Add oats, honey and banana. Stir well.','Refrigerate overnight.','Top with chopped hazelnuts before serving.'],
+   tip:'Toast the hazelnuts in a dry pan for 3 minutes — completely transforms the flavour.'},
+];
+const HEALTHY_MUFFINS = [
+  {id:'mu_banana',   tier:'free', emoji:'🍌', name:'Banana Oat Muffins',         kcal:145, costPP:8, makes:12,
+   howItFeels:'Soft, gently sweet, smells like a proper kitchen — the muffin that replaces the sugary one.',
+   shopping:[{n:'Ripe bananas (mashed)',pp:0.25,u:''},{n:'Rolled oats',pp:20,u:'g'},{n:'Cake flour',pp:15,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Honey',pp:8,u:'g'},{n:'Oil or melted butter',pp:5,u:'ml'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Cinnamon',pp:0.3,u:'g'}],
+   method:['Preheat oven 180°C. Line a 12-hole muffin tin.','Mash bananas well. Mix in egg, honey and oil.','Add oats, flour, baking powder and cinnamon. Mix until just combined.','Fill muffin holes ¾ full. Bake 18–22 min until golden and a skewer comes out clean.','Cool 5 min before removing.'],
+   tip:'The riper the banana, the sweeter the muffin — no added sugar needed.'},
+  {id:'mu_blueberry', tier:'free', emoji:'🫐', name:'Blueberry Yoghurt Muffins',  kcal:160, costPP:12, makes:12,
+   howItFeels:'Bursting pockets of berry in a tender crumb — the muffin that feels like a treat.',
+   shopping:[{n:'Cake flour',pp:20,u:'g'},{n:'Plain yoghurt',pp:20,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Honey or sugar',pp:10,u:'g'},{n:'Oil',pp:5,u:'ml'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Blueberries (fresh or frozen)',pp:15,u:'g'},{n:'Vanilla',pp:0.3,u:'ml'}],
+   method:['Preheat oven 180°C. Grease muffin tin.','Whisk egg, yoghurt, oil, honey and vanilla.','Fold in flour and baking powder until just combined — lumps are fine.','Gently fold in blueberries.','Fill ¾ full. Bake 20–25 min.'],
+   tip:'Toss blueberries in a teaspoon of flour before folding in — they won\'t sink.'},
+  {id:'mu_carrot',   tier:'free', emoji:'🥕', name:'Carrot & Cinnamon Muffins',  kcal:155, costPP:9, makes:12,
+   howItFeels:'Warm spice, sweet carrot — all the joy of carrot cake in a portable muffin.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Carrots (grated)',pp:25,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Brown sugar or honey',pp:10,u:'g'},{n:'Cinnamon',pp:0.5,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Milk',pp:10,u:'ml'}],
+   method:['Preheat oven 180°C. Line muffin tin.','Whisk egg, oil, sugar and milk.','Gently mix in flour, baking powder and cinnamon.','Fold in grated carrot.','Fill ¾ full. Bake 20–22 min.'],
+   tip:'Squeeze excess moisture from grated carrot before adding — prevents soggy muffins.'},
+  {id:'mu_choc',     tier:'plus', emoji:'🍫', name:'Dark Choc & Beetroot Muffins', kcal:170, costPP:11, makes:12,
+   howItFeels:'Rich, dark and deeply satisfying — the muffin that has no business being healthy.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Cooked beetroot (grated)',pp:25,u:'g'},{n:'Cocoa powder',pp:5,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Dark chocolate chips',pp:10,u:'g'}],
+   method:['Preheat oven 180°C.','Mix egg, oil and honey. Add grated beetroot.','Fold in flour, cocoa and baking powder.','Add chocolate chips.','Fill muffin tin ¾ full. Bake 20–24 min.'],
+   tip:'Beetroot keeps these muffins moist for 3+ days. Wrap individually for lunchboxes.'},
+];
+const RAW_AND_REAL = [
+  {id:'rr_powerball',  tier:'free', emoji:'⚡', name:'Peanut Butter Power Balls', kcal:110, costPP:8,
+   howItFeels:'One ball, five minutes, kept in the fridge all week — your afternoon snack sorted.',
+   shopping:[{n:'Rolled oats',pp:20,u:'g'},{n:'Peanut butter',pp:25,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Chia seeds',pp:5,u:'g'},{n:'Dark chocolate chips',pp:8,u:'g'}],
+   method:['Mix all ingredients together in a bowl until combined.','Refrigerate the mixture 30 min until firm enough to roll.','Roll into balls — about 25g each.','Store in the fridge for up to 1 week.'],
+   tip:'Wet hands prevent sticking. If too dry, add a little more honey.'},
+  {id:'rr_acai',       tier:'free', emoji:'🫐', name:'Açaí Smoothie Bowl',        kcal:280, costPP:28,
+   howItFeels:'Like the Instagram version of breakfast — except you made it yourself.',
+   shopping:[{n:'Frozen açaí (or mixed dark berries)',pp:100,u:'g'},{n:'Banana (frozen)',pp:80,u:'g'},{n:'Almond milk',pp:60,u:'ml'},{n:'Granola',pp:30,u:'g'},{n:'Fresh berries',pp:50,u:'g'},{n:'Honey',pp:8,u:'g'},{n:'Coconut flakes',pp:8,u:'g'}],
+   method:['Blend frozen açaí and banana with just enough almond milk to move — keep it thick.','Pour into a bowl immediately.','Top with granola, fresh berries, coconut flakes and honey.','Eat immediately — it melts fast.'],
+   tip:'The key is keeping it thick — add milk one tablespoon at a time.'},
+  {id:'rr_chia',       tier:'free', emoji:'🫙', name:'Vanilla Chia Pudding',      kcal:190, costPP:12,
+   howItFeels:'Creamy, speckled, quietly exotic — tastes like something from a wellness café.',
+   shopping:[{n:'Chia seeds',pp:25,u:'g'},{n:'Coconut milk or almond milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'},{n:'Fresh mango or berries (to serve)',pp:60,u:'g'}],
+   method:['Whisk chia seeds, milk, honey and vanilla together.','Stir well — then stir again 5 minutes later.','Refrigerate overnight or minimum 4 hours.','Serve topped with fresh mango or berries.'],
+   tip:'Must be stirred within the first 10 minutes to prevent clumping at the bottom.'},
+  {id:'rr_granola',    tier:'free', emoji:'🥣', name:'SA Honey Nut Granola',      kcal:260, costPP:9,
+   howItFeels:'Crunchy, golden, smells like your oven just hugged you — eat it on everything.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Mixed nuts (chopped)',pp:20,u:'g'},{n:'Honey',pp:15,u:'g'},{n:'Coconut oil',pp:8,u:'ml'},{n:'Cinnamon',pp:1,u:'g'},{n:'Pumpkin seeds',pp:10,u:'g'},{n:'Dried cranberries or raisins',pp:10,u:'g'}],
+   method:['Preheat oven 160°C.','Mix oats, nuts and seeds. Warm honey and coconut oil together.','Pour over oat mixture. Add cinnamon. Stir well to coat.','Spread on baking sheet. Bake 20–25 min, stirring once halfway.','Cool COMPLETELY before adding dried fruit. Store airtight.'],
+   tip:'Do NOT stir while cooling — the clusters form as it cools. Resist.'},
+  {id:'rr_fruitbowl',  tier:'plus', emoji:'🍓', name:'SA Fruit Salad with Honey Lime', kcal:130, costPP:18,
+   howItFeels:'All the best fruit of summer, dressed simply — nothing needs to be complicated.',
+   shopping:[{n:'Watermelon (cubed)',pp:100,u:'g'},{n:'Mango (cubed)',pp:80,u:'g'},{n:'Strawberries (halved)',pp:80,u:'g'},{n:'Banana (sliced)',pp:60,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Lime juice',pp:10,u:'ml'},{n:'Fresh mint',pp:5,u:'g'}],
+   method:['Combine all fruit in a bowl.','Whisk honey and lime juice together. Pour over fruit.','Tear mint leaves over the top.','Refrigerate 15 min before serving.'],
+   tip:'Add the banana just before serving — it browns quickly.'},
+];
+
+function healthOpenJuice(id){
+  const j = FRESH_JUICES.find(x=>x.id===id);
+  if(j) set({activeSmoothie:{...j, colour:'#f070a0', cat:'freshjuice'}});
+}
+function healthOpenSmoothie(id){
+  const sm = SMOOTHIES.find(x=>x.id===id);
+  if(sm) set({activeSmoothie:sm});
+}
+function healthOpenOats(id){
+  const oa = OVERNIGHT_OATS.find(x=>x.id===id);
+  if(oa) set({activeOats:oa});
+}
+function healthOpenMuffin(id){
+  const mu = HEALTHY_MUFFINS.find(x=>x.id===id);
+  if(mu) set({activeMuffin:mu});
+}
+function healthOpenRaw(id){
+  const rw = RAW_AND_REAL.find(x=>x.id===id);
+  if(rw) set({activeRaw:rw});
+}
+
+function healthTogglePlan(id, name, emoji, type, kcal, shopping, servings){
+  const plan = S.healthPlan||[];
+  const inPlan = plan.some(x=>x.id===id);
+  set({healthPlan: inPlan ? plan.filter(x=>x.id!==id) : [...plan, {id,name,emoji,type,kcal,shopping:shopping||[],servings}]});
+}
+
+function healthCheckbox(id, type){
+  const inPlan = (S.healthPlan||[]).some(x=>x.id===id);
+  const bg = inPlan ? '#d04080' : 'transparent';
+  const br = inPlan ? '#d04080' : '#601040';
+  const tick = inPlan ? '&#x2713;' : '';
+  return '<div onclick="healthToggleById(\''+id+'\',\''+type+'\',S.servings)" style="width:24px;height:24px;border-radius:6px;background:'+bg+';border:2px solid '+br+';display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:#f5e8cc;">'+tick+'</div>';
+}
+
+function healthToggleById(id, type, servings){
+  const plan = S.healthPlan||[];
+  const inPlan = plan.some(x=>x.id===id);
+  if(inPlan){ set({healthPlan:plan.filter(x=>x.id!==id)}); return; }
+  let item;
+  if(type==='juice') item = (typeof FRESH_JUICES!=='undefined'?FRESH_JUICES:[]).find(x=>x.id===id);
+  else if(type==='smoothie') item = (typeof SMOOTHIES!=='undefined'?SMOOTHIES:[]).find(x=>x.id===id);
+  else if(type==='oats') item = (typeof OVERNIGHT_OATS!=='undefined'?OVERNIGHT_OATS:[]).find(x=>x.id===id);
+  else if(type==='muffin') item = (typeof HEALTHY_MUFFINS!=='undefined'?HEALTHY_MUFFINS:[]).find(x=>x.id===id);
+  else if(type==='raw') item = (typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[]).find(x=>x.id===id);
+  if(!item) return;
+  set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type,kcal:item.kcal,shopping:item.shopping||item.base300||[],servings}]});
+}
+
+function healthToggleExtById(id){
+  const plan = S.healthPlan||[];
+  const inPlan = plan.some(x=>x.id===id);
+  if(inPlan){ set({healthPlan:plan.filter(x=>x.id!==id)}); return; }
+  const allExt = [
+    ...(typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[]),
+    ...(typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[]),
+    ...(typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[]),
+    ...(typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[]),
+    ...(typeof VEGETARIAN_RECIPES!=='undefined'?VEGETARIAN_RECIPES:[]),
+    ...(typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[]),
+    ...(typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[]),
+    ...(typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[]),
+    ...(typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[]),
+  ];
+  const item = allExt.find(x=>x.id===id);
+  if(!item) return;
+  const srv = S.servings||1;
+  set({healthPlan:[...plan,{id,name:item.name,emoji:item.emoji,type:'health',kcal:item.kcal,shopping:item.base300||[],servings:srv}]});
+}
+
+function renderHealthList(items, type, openFn, isPro){
+  return items.map(function(item){
+    var canView = tierAllows(item.tier||'free');
+    var sel = (S.healthPlan||[]).some(function(x){return x.id===item.id;});
+    var disabled = !canView;
+    var srv = S.servings||1;
+    var info = type==='juice' ? (item.kcal*srv)+' kcal · '+(srv*300)+'ml'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='smoothie' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+      : type==='muffin' ? item.kcal+' kcal each · '+(srv*(item.makes||12))+' muffins'
+      : (item.kcal*srv)+' kcal';
+    var cardBg   = sel ? '#2a0832' : disabled ? '#120810' : '#1a0820';
+    var cardBdr  = sel ? '#d04080' : disabled ? '#2a1020' : '#601040';
+    var cbBg     = sel ? '#d04080' : 'transparent';
+    var cbBdr    = sel ? '#d04080' : '#601040';
+    var nameCl   = sel ? '#f5e8cc' : '#e0c4d4';
+    var infoCl   = sel ? '#f070a0' : '#a03060';
+    var onclk = disabled
+      ? "alert('👑 Upgrade to Pro to unlock')"
+      : 'healthToggleById(\''+item.id+'\',\''+type+'\',S.servings)';
+    var recipeBtn = disabled
+      ? '<span style="font-size:10px;background:#1a0820;border:1px solid #803060;border-radius:6px;color:#a03060;padding:3px 7px;">👑 PRO</span>'
+      : '<button onclick="event.stopPropagation();'+openFn+'(\''+item.id+'\')" style="background:#2a0818;border:1px solid #d04080;border-radius:6px;padding:5px 10px;font-size:11px;color:#f070a0;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;">Recipe →</button>';
+    return '<div style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.5:1)+';">'
+      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
+      +'<div style="width:22px;height:22px;border-radius:6px;background:'+cbBg+';border:2px solid '+cbBdr+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#f5e8cc;">'+(sel?'✓':'')+'</div>'
+      +'<span style="font-size:20px;">'+item.emoji+'</span>'
+      +'<div style="flex:1;min-width:0;">'
+        +'<div style="font-size:14px;color:'+nameCl+';font-weight:'+(sel?'bold':'normal')+';font-family:Georgia,serif;">'+item.name+'</div>'
+        +'<div style="font-size:10px;color:'+infoCl+';margin-top:2px;">'+info+'</div>'
+        +(item.howItFeels?'<div style="font-size:10px;color:#803060;margin-top:1px;font-style:italic;">'+item.howItFeels+'</div>':'')
+      +'</div>'
+      +'<div style="display:flex;align-items:center;flex-shrink:0;">'+recipeBtn+'</div>'
+      +'</div></div>';
+  }).join('');
+}
+
+function healthSharePlan(){
+  var plan = S.healthPlan||[];
+  var txt = plan.map(function(i){return i.emoji+' '+i.name+' ('+i.servings+' serving'+(i.servings!==1?'s':'')+')';}).join('\n');
+  window.open('https://wa.me/?text='+encodeURIComponent('📋 *My Health Plan*\n\n'+txt+'\n\nFrom Tinza tinza.netlify.app'),'_blank');
+}
+function healthShareShoppingList(){
+  var plan = S.healthPlan||[];
+  var map = {};
+  plan.forEach(function(item){
+    (item.shopping||[]).forEach(function(ing){
+      if(!ing||!ing.n||!ing.pp) return;
+      var k = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20);
+      var t = Math.round((ing.pp||0)*(item.servings||1)*10)/10;
+      if(!map[k]){map[k]={n:ing.n,t:0,u:ing.u||''};}
+      map[k].t += t;
+    });
+  });
+  var lines = Object.values(map).map(function(i){
+    var s = i.t>=1000&&i.u==='g'?(i.t/1000).toFixed(1)+'kg':i.t>=1000&&i.u==='ml'?(i.t/1000).toFixed(1)+'L':(Math.round(i.t*10)/10)+(i.u||'');
+    return '• '+i.n+': '+s;
+  }).join('\n');
+  window.open('https://wa.me/?text='+encodeURIComponent('🛒 *Health Shopping List*\n\n'+lines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');
+}
+
+function healthRemoveFromPlan(id){
+  set({healthPlan:(S.healthPlan||[]).filter(function(x){return x.id!==id;})});
+}
+
+function healthToggleShopItem(key){
+  var c = Object.assign({},S.checkedHealthItems||{});
+  c[key] = !c[key];
+  set({checkedHealthItems:c});
+}
+
+function renderHealthMyPlan(isPro){
+  const plan = S.healthPlan||[];
+  const checked = S.checkedHealthItems||{};
+  if(plan.length===0){
+    return '<div style="text-align:center;padding:40px 20px;">'
+      +'<div style="font-size:40px;margin-bottom:16px;">📋</div>'
+      +'<div style="font-size:16px;color:#f070a0;margin-bottom:8px;font-family:Georgia,serif;">Your Health Plan is empty</div>'
+      +'<div style="font-size:13px;color:#a03060;margin-bottom:20px;">Tap any recipe checkbox to add to your plan</div>'
+      +'<button onclick="set({vitalCat:null,healthGroup:null})" style="padding:12px 24px;background:#1a0820;border:2px solid #d04080;border-radius:10px;color:#f070a0;font-size:14px;cursor:pointer;font-family:Georgia,serif;">← Browse Recipes</button>'
+      +'</div>';
+  }
+  const shopMap = {};
+  plan.forEach(function(item){
+    (item.shopping||[]).forEach(function(ing){
+      if(!ing||!ing.n) return;
+      var skip = ['water','ice','salt','pepper'].some(function(w){return ing.n.toLowerCase().indexOf(w)>=0;});
+      if(skip) return;
+      var total = Math.round(((ing.pp||0) * (item.servings||1)) * 10)/10;
+      if(!total) return;
+      var key = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20);
+      if(shopMap[key]){ shopMap[key].total += total; }
+      else { shopMap[key] = {name:ing.n, total:total, unit:ing.u||'', source:item.name, key:key}; }
+    });
+  });
+  var shopItems = Object.values(shopMap).sort(function(a,b){return a.name.localeCompare(b.name);});
+  var planHtml = plan.map(function(item){
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a0818;">'
+      +'<div style="display:flex;align-items:center;gap:10px;">'
+      +'<span style="font-size:20px;">'+item.emoji+'</span>'
+      +'<div><div style="font-size:14px;color:#e0c4d4;font-family:Georgia,serif;">'+item.name+'</div>'
+      +'<div style="font-size:11px;color:#f070a0;margin-top:2px;">'+(item.servings||1)+' serving'+((item.servings||1)!==1?'s':'')+' · '+item.type+'</div></div></div>'
+      +'<button onclick="healthRemoveFromPlan(\''+item.id+'\')" style="background:#1a0820;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d04080;font-size:11px;cursor:pointer;font-family:Georgia,serif;">Remove</button>'
+      +'</div>';
+  }).join('');
+  var shopHtml = shopItems.length===0
+    ? '<div style="color:#a03060;font-size:12px;padding:8px 0;">Add recipes with ingredients to see your list</div>'
+    : shopItems.map(function(item){
+        var ck = checked['h_'+item.key] || false;
+        var totalStr = item.total>=1000&&item.unit==='g'?(item.total/1000).toFixed(1)+'kg'
+          :item.total>=1000&&item.unit==='ml'?(item.total/1000).toFixed(1)+'L'
+          :Math.round(item.total*10)/10+(item.unit||'');
+        return '<div onclick="healthToggleShopItem(&quot;h_'+item.key+'&quot;)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0818;cursor:pointer;opacity:'+(ck?0.35:1)+';">'
+          +'<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(ck?'#d04080':'#601040')+';background:'+(ck?'#d04080':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(ck?'<span style="color:#f5e8cc;font-size:11px;">✓</span>':'')+'</div>'
+          +'<div style="flex:1;"><div style="font-size:13px;color:'+(ck?'#3a1020':'#e0c4d4')+';">'+item.name+'</div>'
+          +'<div style="font-size:10px;color:#803060;">'+item.source+'</div></div>'
+          +'<div style="font-size:13px;color:'+(ck?'#3a1020':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
+          +'</div>';
+      }).join('');
+  var kcalPerPerson = plan.reduce(function(sum,i){return sum+(i.kcal||0);},0);
+  return '<div style="font-size:16px;color:#f070a0;font-weight:bold;margin-bottom:4px;font-family:Georgia,serif;">📋 My Health Plan</div>'
+    +'<div style="font-size:12px;color:#a03060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' · '+(S.servings||1)+' person'+((S.servings||1)!==1?'s':'')+' · '+kcalPerPerson+' kcal/person</div>'
+    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
+    +(isPro
+      ? '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#d04080;">🔥 Calories per person</div><div style="font-size:10px;color:#803060;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#f070a0;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:12px;"> kcal</span></div></div></div>'
+      : '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:#a03060;">🔥 Calorie counter — <strong style="color:#f070a0;">Tinza Pro R99/month</strong></div></div>')
+    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      +'<div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
+      +'<div style="font-size:14px;color:#603040;font-style:italic;">Ingredient pricing coming soon</div>'
+      +'<div style="font-size:10px;color:#401020;margin-top:6px;line-height:1.5;">Based on current Checkers/retail prices · Always buy 10% extra</div>'
+    +'</div>'
+    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">'
+      +'<div style="font-size:11px;color:#f070a0;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
+      +'<div style="font-size:11px;color:#a07080;line-height:1.8;font-family:Georgia,serif;"><b style="color:#e0c4d4;">Drinks & smoothies</b> — fixed portion (200–300ml).<br><b style="color:#e0c4d4;">Muffins</b> — 1 muffin per person.<br><b style="color:#e0c4d4;">Meals & salads</b> — pizza rule: 1 dish = full plate. 2 = half each.<br><span style="color:#803060;font-size:10px;">Tip: plan 1 drink + 1–2 meals for a full day.</span></div>'
+    +'</div>'
+    +'<div style="font-size:10px;letter-spacing:2px;color:#f070a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>'
+    +(isPro
+      ? '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:11px;color:#a03060;margin-bottom:8px;">Tap items you already have to tick them off</div>'+shopHtml+(shopItems.length>0?'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #2a0818;display:flex;justify-content:space-between;"><span style="font-size:11px;color:#a03060;">'+shopItems.filter(function(i){return !checked['h_'+i.key];}).length+' of '+shopItems.length+' items remaining</span><button onclick="set({checkedHealthItems:{}})" style="background:none;border:none;color:#d04080;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>':'')+'</div>'
+      : '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#f070a0;font-weight:bold;margin-bottom:6px;font-family:Georgia,serif;">Full Shopping List</div><div style="font-size:12px;color:#803060;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div><div style="font-size:13px;color:#d04080;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>')
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
+    +'<button onclick="healthSharePlan()" style="padding:14px;border-radius:10px;border:1px solid #601040;background:#1a0820;color:#d04080;font-size:12px;cursor:pointer;font-family:Georgia,serif;">📲 Share Plan</button>'
+    +(isPro?'<button onclick="healthShareShoppingList()" style="padding:14px;border-radius:10px;border:2px solid #d04080;background:#2a0818;color:#f070a0;font-size:12px;cursor:pointer;font-family:Georgia,serif;">📲 Share List</button>':'<div></div>')
+    +'</div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// HEALTH RECIPE DETAIL — v33 template with photo header
+// ══════════════════════════════════════════════════════════════
+function healthImgUrl(name){
+  // Encode name for URL — matches "Recipe Name .jpg" or "Recipe Name.jpg"
+  const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
+  const variants = [name, name + ' ', name.trim()];
+  // Try name as-is first, then with trailing space (some files have it)
+  return base + encodeURIComponent(name.trim()) + '.jpg';
+}
+
+function healthRecipeDetail(recipe, backState){
+  if(!recipe) return '';
+  const isPro = tierAllows('pro');
+  const srv = S.servings||1;
+  const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
+  const imgUrl = healthImgUrl(recipe.name);
+  const _bs = backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null};
+  const backBtn = Object.entries(_bs).map(([k,v])=>k+":"+JSON.stringify(v)).join(",");
+
+  // Build ingredients scaled to servings
+  const ings = (recipe.base300||recipe.shopping||[]);
+  const ingsHTML = ings.map(i=>{
+    if(!i||!i.n) return '';
+    let amt = '';
+    if(i.pp && i.u && i.u!=='pinch'){
+      const total = Math.round(i.pp * srv * 10)/10;
+      amt = total>=1000&&i.u==='g'?`${(total/1000).toFixed(1)}kg`:
+            total>=1000&&i.u==='ml'?`${(total/1000).toFixed(1)}L`:
+            `${total}${i.u}`;
+    } else if(i.pp && !i.u){
+      amt = `${Math.round(i.pp*srv)}`;
+    } else if(i.u==='pinch'){
+      amt = 'pinch';
+    }
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a2820;font-size:13px;">
+      <span style="color:#c0d8c0;">${i.n}</span>
+      <span style="color:#40d0a0;font-weight:bold;flex-shrink:0;margin-left:8px;">${amt}</span>
+    </div>`;
+  }).join('');
+
+  // Method steps
+  const steps = recipe.method||[];
+  const stepsHTML = steps.map((step,i)=>`
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2820;">
+      <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#1a3028;border:1px solid #30c090;display:flex;align-items:center;justify-content:center;font-size:12px;color:#40d0a0;font-weight:bold;">${i+1}</div>
+      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}</div>
+    </div>`).join('');
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <!-- Photo header -->
+    <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
+      <img src="${imgUrl}"
+           onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;">
+        <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
+        <span style="font-size:11px;color:#256040;">📷 Photo coming soon</span>
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;"></div>
+      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
+        <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
+        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${recipe.name}</h1>
+        ${recipe.feel?`<p style="margin:0;font-size:12px;color:#d090b0;font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
+      </div>
+    </div>
+
+    <!-- Badges -->
+    ${(recipe.badges||[]).length?`
+    <div style="padding:12px 16px 0;display:flex;flex-wrap:wrap;gap:6px;">
+      ${(recipe.badges||[]).map(b=>`<span style="background:#1a2820;border:1px solid #2a4838;border-radius:20px;padding:4px 10px;font-size:11px;color:#60c090;">${b}</span>`).join('')}
+    </div>`:``}
+
+    <!-- Quantity box -->
+    <div style="margin:12px 16px 0;background:#0a2018;border:1px solid #30c090;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:11px;color:#208060;letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
+          <div style="font-size:26px;color:#40d0a0;font-weight:bold;line-height:1;">${srv} person${srv!==1?'s':''}</div>
+          ${recipe.kcal?`<div style="font-size:11px;color:#30c090;margin-top:2px;">${recipe.kcal*srv} kcal total</div>`:''}
+          ${recipe.costPP?`<div style="font-size:11px;color:#208060;">~R${recipe.costPP*srv} total</div>`:''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">−</button>
+          <button onclick="setQuiet({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 16px 100px;">
+      <!-- Ingredients -->
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">🛒 Ingredients — ${srv} person${srv!==1?'s':''}</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${ingsHTML||'<div style="color:#208060;font-size:12px;">No ingredients listed.</div>'}
+        </div>
+      </div>
+
+      <!-- Method -->
+      ${stepsHTML?`
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">👨‍🍳 Method</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${stepsHTML}
+        </div>
+      </div>`:''}
+
+      <!-- Tip -->
+      ${recipe.tip?`
+      <div style="margin-top:12px;background:#0a1a10;border-left:3px solid #30c090;border-radius:0 8px 8px 0;padding:12px 14px;">
+        <div style="font-size:10px;color:#30c090;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">💡 Tip</div>
+        <div style="font-size:13px;color:#a0c8a0;line-height:1.5;">${recipe.tip}</div>
+      </div>`:''}
+
+      <!-- Actions -->
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
+        <button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" 
+          style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
+          ${inPlan?'✅ Added to Plan — tap to remove':'＋ Add to My Plan'}
+        </button>
+        <button onclick="set({${backBtn}})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back to Health Hub</button>
+        <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="width:100%;padding:12px;background:none;border:none;color:#403050;font-size:12px;cursor:pointer;">Home</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function healthHTML(){
+  const isPro = tierAllows('pro');
+  const srv = S.servings||1;
+  const howOpen = S.healthHowOpen||false;
+  const activeTab = S.healthTab||'smoothies';
+  const searchVal = S.healthSearch||'';
+
+  // ── Recipe detail screens ──────────────────────────────────
+  if(S.activeSmoothie) return healthRecipeDetail(S.activeSmoothie, {activeSmoothie:null});
+  if(S.activeOats)     return healthRecipeDetail(S.activeOats,     {activeOats:null});
+  if(S.activeMuffin)   return healthRecipeDetail(S.activeMuffin,   {activeMuffin:null});
+  if(S.activeRaw)      return healthRecipeDetail(S.activeRaw,      {activeRaw:null});
+
+
+  if(S.healthShowPlan) return `
+    <div style="min-height:100vh;background:#0f0e0c;">
+      <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1008 0%,#1a2810 100%);">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.3) 0%,rgba(10,4,14,0.75) 100%);z-index:1;"></div>
+        <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #803060;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+        <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 14px;">
+          <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌿 Health Hub</h1>
+          <p style="margin:0;font-size:11px;color:#d090b0;font-style:italic;">My Plan</p>
+        </div>
+      </div>
+      <div style="background:#1a0814;border-bottom:1px solid #401030;padding:10px 16px;">
+        <button onclick="set({healthShowPlan:false})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;padding:0;font-family:Georgia,serif;">← Back to Browse</button>
+      </div>
+      <div class="content">${renderHealthMyPlan(isPro)}</div>
+    </div>`;
+
+  const tabs = [
+    {id:'smoothies', label:'🥤 Smoothies'},
+    {id:'juices',    label:'🍊 Fresh Juices'},
+    {id:'oats',      label:'🌾 Overnight Oats'},
+    {id:'muffins',   label:'🧁 Muffins'},
+    {id:'raw',       label:'🥗 Raw & Real'},
+    {id:'plans',     label:'💪 Meal Plans'},
+  ];
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1008 0%,#182814 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.3) 0%,rgba(10,4,14,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #803060;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌿 Health Hub</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#d090b0;font-style:italic;">Juices · Smoothies · Oats · Healthy bakes · Meal plans</p>
+        <div style="display:flex;align-items:center;background:rgba(30,8,24,0.85);border:1px solid #803060;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#d04080;margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search health recipes…" oninput="set({healthSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:#f0d0e0;font-size:13px;font-family:Georgia,serif;"/>
+          ${searchVal?`<button onclick="set({healthSearch:''})" style="background:none;border:none;color:#803060;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
+      </div>
+    </div>
+    <div style="background:#1a0814;border-bottom:1px solid #401030;padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="flex:1;">
+          <button onclick="set({healthHowOpen:!S.healthHowOpen})" style="background:none;border:none;color:#d04080;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${howOpen?'▲':'▼'} How it works
+          </button>
+          ${howOpen?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c0a0b0;line-height:1.6;font-family:Georgia,serif;"><strong style="color:#f070a0;">1. Pick a category</strong> — Smoothies, Juices, Oats, Muffins or Meal Plans.<br><strong style="color:#f070a0;">2. Set servings</strong> — use the ± control. All quantities scale automatically.<br><strong style="color:#f070a0;">3. Add to plan</strong> — tap any recipe checkbox.<br><strong style="color:#f070a0;">4. Shopping list</strong> — all ingredients in My Plan (Pro).<br><span style="color:#803060;font-size:11px;">Tip: plan 1 drink + 1–2 meals for a balanced day.</span></div>`:''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">−</button>
+          <div style="text-align:center;min-width:52px;">
+            <div style="font-size:22px;color:#f070a0;font-weight:bold;line-height:1;">${srv}</div>
+            <div style="font-size:9px;color:#803060;letter-spacing:1px;text-transform:uppercase;">${srv===1?'person':'people'}</div>
+          </div>
+          <button onclick="setQuiet({servings:Math.min(20,S.servings+1)})" style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-top:12px;-webkit-overflow-scrolling:touch;">
+        ${tabs.map(t=>`<button onclick="set({healthTab:'${t.id}'})" style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${activeTab===t.id?'#d04080':'#3a1020'};background:${activeTab===t.id?'#2a0818':'transparent'};color:${activeTab===t.id?'#f070a0':'#703050'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${t.label}</button>`).join('')}
+      </div>
+      ${(S.healthPlan||[]).length>0?`<button onclick="set({healthShowPlan:true})" style="width:100%;margin-top:10px;padding:10px;background:#2a0818;border:2px solid #d04080;border-radius:8px;color:#f070a0;font-size:13px;cursor:pointer;font-family:Georgia,serif;">📋 My Plan (${(S.healthPlan||[]).length} recipe${(S.healthPlan||[]).length!==1?'s':''}) →</button>`:''}
+    </div>
+    <div class="content">
+      ${activeTab==='smoothies'?`<div style="margin-bottom:4px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin:14px 0 8px;">🥤 Smoothies</div>${renderHealthList(typeof SMOOTHIES!=='undefined'?SMOOTHIES:[], 'smoothie', 'healthOpenSmoothie', isPro)}</div>`:''}
+      ${activeTab==='juices'?`<div style="margin-bottom:4px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin:14px 0 8px;">🍊 Fresh Juices</div>${renderHealthList(typeof FRESH_JUICES!=='undefined'?FRESH_JUICES:[], 'juice', 'healthOpenJuice', isPro)}</div>`:''}
+      ${activeTab==='oats'?`<div style="margin-bottom:4px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin:14px 0 8px;">🌾 Overnight Oats</div>${renderHealthList(typeof OVERNIGHT_OATS!=='undefined'?OVERNIGHT_OATS:[], 'oats', 'healthOpenOats', isPro)}</div>`:''}
+      ${activeTab==='muffins'?`<div style="margin-bottom:4px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin:14px 0 8px;">🧁 Healthy Muffins</div>${renderHealthList(typeof HEALTHY_MUFFINS!=='undefined'?HEALTHY_MUFFINS:[], 'muffin', 'healthOpenMuffin', isPro)}</div>`:''}
+      ${activeTab==='raw'?`<div style="margin-bottom:4px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin:14px 0 8px;">🥗 Raw & Real</div>${renderHealthList(typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[], 'raw', 'healthOpenRaw', isPro)}</div>`:''}
+      ${activeTab==='plans'?`<div style="background:#1a0820;border:1px solid #601040;border-radius:12px;padding:20px;text-align:center;margin-top:20px;"><div style="font-size:36px;margin-bottom:10px;">💪</div><div style="font-size:15px;color:#f070a0;margin-bottom:8px;font-family:Georgia,serif;">Meal Plans</div><div style="font-size:12px;color:#803060;line-height:1.6;">Keto · Weight Loss · High Protein · Plant-Based · Gut Health — coming soon!</div></div>`:''}
+    </div>
+  </div>`;
+}
+// ══════════════════════════════════════════════════════════════
+// HEALTH HUB — RECIPE ARRAYS (with costPP — May 2026 SA pricing)
+// ══════════════════════════════════════════════════════════════
+
+const KETO_RECIPES = [
+  {id:'ketobowl',       tier:'free',  emoji:'🥑', name:'Avocado Egg Bowl',          kcal:520, costPP:32, feel:'Rich, filling — like a proper grown-up breakfast that holds you till dinner.',
+   badges:['🥑 Keto','🥚 High-Fat','⚡ Quick'],
+   base300:[{n:'Avocado (ripe, halved)',pp:1,u:''},{n:'Eggs',pp:2,u:''},{n:'Feta cheese',pp:30,u:'g'},{n:'Cherry tomatoes',pp:60,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Salt & black pepper',pp:1,u:'pinch'}],
+   method:['Halve avocado and remove pip. Drizzle with olive oil.','Fry eggs in olive oil — sunny side up or scrambled.','Place eggs in avocado hollow. Top with crumbled feta and cherry tomatoes.','Season with salt and plenty of black pepper. Serve immediately.'],
+   tip:'Add a drizzle of chilli flakes for heat. Works as breakfast, lunch or a quick supper.'},
+  {id:'ketocourgetti',  tier:'free',  emoji:'🥒', name:'Zoodles with Creamy Pesto',  kcal:410, costPP:42, feel:'Light but rich — your fork keeps going back.',
+   badges:['🥒 Low-Carb','🌿 Keto','🧀 Satisfying'],
+   base300:[{n:'Baby marrow / zucchini (spiralised)',pp:300,u:'g'},{n:'Cream cheese',pp:60,u:'g'},{n:'Basil pesto',pp:30,u:'g'},{n:'Parmesan (grated)',pp:20,u:'g'},{n:'Pine nuts',pp:15,u:'g'},{n:'Garlic clove (minced)',pp:1,u:''}],
+   method:['Spiralise zucchini. Sprinkle with salt, leave 5 min, then pat dry.','Sauté garlic in butter 1 min. Add cream cheese and pesto — stir to combine.','Toss zoodles in the sauce over low heat, 2–3 min max (keep crunch).','Plate. Top with parmesan and toasted pine nuts.'],
+   tip:'Do NOT overcook the zoodles — they turn watery. 2 min in the pan is plenty.'},
+  {id:'ketobolognese',  tier:'free',  emoji:'🍖', name:'Beef & Cauliflower Mince',   kcal:580, costPP:40, feel:'Proper comfort food that happens to be carb-free. Your body won\'t miss a thing.',
+   badges:['🥩 Keto','💪 High-Protein','🍽️ Hearty'],
+   base300:[{n:'Beef mince',pp:200,u:'g'},{n:'Cauliflower (blitzed to rice)',pp:200,u:'g'},{n:'Chopped tomatoes (tinned)',pp:100,u:'g'},{n:'Onion (diced)',pp:60,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Olive oil',pp:15,u:'ml'},{n:'Dried oregano',pp:2,u:'g'}],
+   method:['Sauté onion in olive oil 4 min. Add garlic, cook 1 min.','Add mince. Brown well, breaking up lumps — about 7 min.','Add tomatoes and oregano. Simmer uncovered 15 min.','Meanwhile, microwave cauliflower rice 3 min. Serve mince on cauli rice.'],
+   tip:'Add a splash of cream at the end for extra richness — still keto.'},
+  {id:'ketosalmon',     tier:'plus',  emoji:'🐟', name:'Butter-Baked Salmon',        kcal:490, costPP:131, feel:'Golden edges, soft centre — smells like it came from a restaurant kitchen.',
+   badges:['🐟 Omega-3','🧈 Keto','⏱️ 20 min'],
+   base300:[{n:'Salmon fillet',pp:180,u:'g'},{n:'Butter',pp:20,u:'g'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Garlic (minced)',pp:3,u:'g'},{n:'Fresh dill or parsley',pp:5,u:'g'},{n:'Salt & pepper',pp:1,u:'pinch'}],
+   method:['Preheat oven 200°C. Place salmon in baking dish.','Mix melted butter, lemon juice and garlic. Pour over salmon.','Season with salt and pepper. Bake 12–15 min until just cooked through.','Finish with fresh herbs. Serve with steamed greens or salad.'],
+   tip:'Pull salmon at 12 min if thicker fillets — residual heat finishes it. Overcooked salmon is dry.'},
+  {id:'ketocheesecake', tier:'plus',  emoji:'🍰', name:'Keto Cheesecake Cups',       kcal:360, costPP:16, feel:'Silky and indulgent — you won\'t believe it has almost no sugar.',
+   badges:['🍰 Keto Dessert','🧀 Creamy','🍓 Low-Sugar'],
+   base300:[{n:'Cream cheese',pp:120,u:'g'},{n:'Heavy cream (whipped)',pp:80,u:'ml'},{n:'Erythritol or xylitol sweetener',pp:20,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'},{n:'Lemon zest',pp:2,u:'g'},{n:'Fresh berries (for topping)',pp:40,u:'g'}],
+   method:['Beat cream cheese and sweetener until smooth.','Fold in whipped cream gently. Add vanilla and lemon zest.','Spoon into glasses or ramekins. Refrigerate at least 1 hour.','Top with fresh berries and serve cold.'],
+   tip:'Use a hand mixer for the cream cheese — lumps are nearly impossible to remove by hand.'},
+  {id:'keto_egg_muffins',tier:'free', emoji:'🧁', name:'Spinach Mushroom Egg Muffins', kcal:300, costPP:34, feel:'Savoury, portable and filling — the keto breakfast that travels.',
+   badges:['🥑 Keto','🥚 High-Protein','⚡ Meal Prep'],
+   base300:[{n:'Eggs',pp:2,u:''},{n:'Fresh spinach (chopped)',pp:50,u:'g'},{n:'Mushrooms (diced)',pp:50,u:'g'},{n:'Cheddar cheese (grated)',pp:30,u:'g'},{n:'Heavy cream',pp:10,u:'ml'},{n:'Butter (for greasing)',pp:5,u:'g'}],
+   method:['Preheat oven to 190°C. Grease a muffin tin with butter.','Sauté mushrooms and spinach in butter 3–4 minutes until softened.','Whisk eggs, heavy cream, cheese, salt, pepper and garlic powder.','Stir in sautéed vegetables. Divide into muffin cups. Bake 18–22 minutes until golden.'],
+   tip:'Bake a large batch and refrigerate up to 4 days. Reheat in microwave or oven. Freeze up to 2 months.'},
+  {id:'keto_shrimp',    tier:'free',  emoji:'🦐', name:'Garlic Butter Prawn Zoodles',  kcal:330, costPP:66, feel:'Light but decadent — butter-glossed prawns over silky zucchini ribbons.',
+   badges:['🥑 Keto','🦐 Omega-3','⚡ 15 min'],
+   base300:[{n:'Prawns (peeled, deveined)',pp:150,u:'g'},{n:'Zucchini/baby marrow (spiralised)',pp:150,u:'g'},{n:'Butter',pp:15,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Fresh parsley',pp:5,u:'g'}],
+   method:['Heat olive oil and butter in a large pan over medium-high.','Add minced garlic and prawns — cook 2–3 minutes per side until pink.','Add zucchini, lemon juice and parsley — stir-fry 3–4 minutes until zucchini is tender-crisp.','Serve immediately hot.'],
+   tip:'Use a large skillet for big batches. Not ideal for freezing — best eaten fresh.'},
+  {id:'keto_chicken_salad',tier:'free',emoji:'🥗',name:'Chicken Avocado Bacon Salad',  kcal:400, costPP:31, feel:'Rich, satisfying and completely keto — the salad that replaced lunch forever.',
+   badges:['🥑 Keto','🥓 High-Fat','🍗 Protein'],
+   base300:[{n:'Cooked chicken breast (diced)',pp:120,u:'g'},{n:'Avocado (diced)',pp:75,u:'g'},{n:'Bacon (cooked, crumbled)',pp:40,u:'g'},{n:'Mixed greens',pp:50,u:'g'},{n:'Cherry tomatoes (halved)',pp:50,u:'g'},{n:'Olive oil',pp:15,u:'ml'},{n:'Apple cider vinegar',pp:5,u:'ml'}],
+   method:['Cook and crumble bacon — dice cooked chicken.','Whisk olive oil, vinegar, salt and pepper for dressing.','In a bowl, combine greens, chicken, avocado, tomatoes and bacon.','Drizzle dressing and toss gently. Serve chilled.'],
+   tip:'Prep components separately for gatherings — assemble fresh to prevent sogginess.'},
+  {id:'keto_broccoli_soup',tier:'free',emoji:'🥦',name:'Creamy Broccoli Cheese Soup',  kcal:360, costPP:56, feel:'Velvety, rich and warming — all the comfort, none of the carbs.',
+   badges:['🥑 Keto','🧀 Creamy','🥦 High-Fat'],
+   base300:[{n:'Broccoli florets',pp:200,u:'g'},{n:'Heavy cream',pp:150,u:'ml'},{n:'Cheddar cheese (grated)',pp:40,u:'g'},{n:'Butter',pp:20,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Chicken or vegetable broth',pp:200,u:'ml'}],
+   method:['Melt butter in a pot — sauté garlic 1 minute.','Add broccoli and broth — simmer 8–10 minutes until tender.','Stir in heavy cream and cheese until melted and smooth.','Blend partially with immersion blender for creaminess. Season and serve hot.'],
+   tip:'Use a large pot or slow cooker for batches. Refrigerates 4 days. Freezes up to 2 months.'},
+  {id:'keto_choc_mousse',tier:'plus', emoji:'🍫', name:'Keto Chocolate Avocado Mousse', kcal:240, costPP:8, feel:'Silky, rich and genuinely surprising — healthy fat masquerading as dessert.',
+   badges:['🥑 Keto Dessert','🍫 Low-Sugar','🥥 Healthy Fat'],
+   base300:[{n:'Ripe avocado',pp:75,u:'g'},{n:'Unsweetened cocoa powder',pp:15,u:'g'},{n:'Heavy cream',pp:30,u:'ml'},{n:'Coconut oil (melted)',pp:10,u:'g'},{n:'Vanilla extract',pp:5,u:'ml'},{n:'Stevia or monk fruit sweetener (to taste)',pp:2,u:'g'}],
+   method:['Blend avocado, cocoa, cream, melted coconut oil, vanilla, salt and sweetener until smooth.','Taste and adjust sweetness.','Chill in bowls or jars for 30+ minutes.','Serve cold.'],
+   tip:'Portion into small cups for dessert table at gatherings. Refrigerates up to 3 days. Do not freeze.'},
+];
+
+const WEIGHTLOSS_RECIPES = [
+  {id:'wl_greekbowl',   tier:'free',  emoji:'🫙', name:'Greek Yoghurt Power Bowl',   kcal:280, costPP:23, feel:'Cool, tangy and strangely satisfying — fills you up without the guilt.',
+   badges:['🥗 Low-Cal','💪 Protein','⚡ 5 min'],
+   base300:[{n:'Low-fat Greek yoghurt',pp:200,u:'g'},{n:'Cucumber (diced)',pp:80,u:'g'},{n:'Cherry tomatoes (halved)',pp:80,u:'g'},{n:'Kalamata olives',pp:20,u:'g'},{n:'Feta cheese (crumbled)',pp:20,u:'g'},{n:'Olive oil drizzle',pp:5,u:'ml'}],
+   method:['Spoon yoghurt into bowl.','Top with cucumber, tomatoes and olives.','Crumble feta over the top. Drizzle with olive oil.','Season with black pepper. Eat immediately.'],
+   tip:'Swap feta for hummus to drop calories further. Keeps well — prep the veg ahead.'},
+  {id:'wl_eggsoup',     tier:'free',  emoji:'🥚', name:'Egg Drop Vegetable Soup',    kcal:190, costPP:38, feel:'Warm and gentle — like a reset button in a bowl.',
+   badges:['🍵 Low-Cal','🥦 Veg','⚡ Quick'],
+   base300:[{n:'Vegetable stock',pp:400,u:'ml'},{n:'Baby spinach',pp:80,u:'g'},{n:'Eggs (beaten)',pp:2,u:''},{n:'Spring onions (sliced)',pp:30,u:'g'},{n:'Fresh ginger (grated)',pp:3,u:'g'},{n:'Soy sauce (low sodium)',pp:10,u:'ml'}],
+   method:['Bring stock to a gentle boil. Add ginger and soy sauce.','Add spinach — it wilts in 1 min.','Slowly drizzle in beaten eggs while stirring gently — they cook in ribbons.','Serve hot, topped with spring onions.'],
+   tip:'Do not boil vigorously when adding egg — you want wispy ribbons, not scrambled egg shreds.'},
+  {id:'wl_turkey',      tier:'free',  emoji:'🍗', name:'Turkey Lettuce Wraps',       kcal:240, costPP:34, feel:'Crunchy, fresh and fun to eat — no one misses the tortilla.',
+   badges:['🥬 Low-Cal','🍗 Lean Protein','🌶️ Flavourful'],
+   base300:[{n:'Turkey mince',pp:150,u:'g'},{n:'Iceberg lettuce leaves (large)',pp:4,u:''},{n:'Red pepper (diced)',pp:60,u:'g'},{n:'Spring onions',pp:30,u:'g'},{n:'Soy sauce',pp:10,u:'ml'},{n:'Sesame oil',pp:5,u:'ml'},{n:'Garlic (minced)',pp:3,u:'g'}],
+   method:['Cook turkey mince in a pan with sesame oil, breaking apart — 6 min.','Add garlic, red pepper and spring onion. Cook 3 min.','Add soy sauce. Stir and remove from heat.','Spoon into lettuce cups. Serve immediately.'],
+   tip:'Finish with a drizzle of chilli sauce if you like heat. Serve on a platter — people love assembling their own.'},
+  {id:'wl_broccolisoup', tier:'free',  emoji:'🥦', name:'Broccoli & Leek Soup',      kcal:175, costPP:32, feel:'Smooth and velvety — hard to believe it\'s mostly vegetables.',
+   badges:['🥦 Low-Cal','🌱 Vegan','💚 Filling'],
+   base300:[{n:'Broccoli florets',pp:250,u:'g'},{n:'Leek (sliced)',pp:100,u:'g'},{n:'Vegetable stock',pp:500,u:'ml'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Salt & pepper',pp:1,u:'pinch'}],
+   method:['Sauté leek and garlic in olive oil 4 min.','Add broccoli and stock. Bring to boil, simmer 12 min.','Blend until smooth. Season generously with salt and pepper.','Serve hot with a squeeze of lemon if available.'],
+   tip:'Add a tablespoon of Greek yoghurt for creaminess without the calories. Freezes perfectly.'},
+  {id:'wl_tuna',        tier:'plus',  emoji:'🐟', name:'Tuna-Stuffed Baby Peppers',  kcal:195, costPP:36, feel:'Snappy bite of colour and protein — perfect for meal prep.',
+   badges:['🫑 Low-Cal','🐟 Protein','🌶️ Finger Food'],
+   base300:[{n:'Baby peppers (halved, deseeded)',pp:6,u:''},{n:'Canned tuna (drained)',pp:120,u:'g'},{n:'Low-fat cottage cheese',pp:60,u:'g'},{n:'Celery (finely diced)',pp:30,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Chives or spring onion',pp:10,u:'g'}],
+   method:['Mix tuna, cottage cheese, celery, lemon juice and chives together.','Season with salt and pepper to taste.','Spoon filling into halved peppers.','Serve cold. Keeps in fridge 2 days.'],
+   tip:'Swap cottage cheese for Greek yoghurt if preferred. Makes a great lunchbox filler.'},
+  {id:'wl_egg_white',   tier:'free',  emoji:'🥚', name:'Lemon Herb Egg White Scramble',kcal:200, costPP:56, feel:'Light and fresh — high protein without the yolk calories.',
+   badges:['⚖️ Low-Cal','🥚 High-Protein','⚡ Quick'],
+   base300:[{n:'Egg whites',pp:200,u:'g'},{n:'Fresh spinach',pp:100,u:'g'},{n:'Mushrooms (sliced)',pp:80,u:'g'},{n:'Bell pepper (diced)',pp:80,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Heat olive oil in a non-stick pan over medium.','Sauté garlic, mushrooms and bell pepper for 4–5 minutes.','Add spinach and cook until wilted (1–2 minutes).','Pour in egg whites, lemon juice, herbs and pepper. Stir gently until set.'],
+   tip:'Prep veggies ahead for fast morning meals. Pairs well with sliced tomatoes.'},
+  {id:'wl_tuna_boats',  tier:'free',  emoji:'🥒', name:'Tuna Cucumber Boat Salad',    kcal:180, costPP:26, feel:'Cool, crunchy and clever — a meal disguised as a snack.',
+   badges:['⚖️ Low-Cal','🥒 Hydrating','🐟 Lean Protein'],
+   base300:[{n:'Canned tuna in water (drained)',pp:100,u:'g'},{n:'Cucumbers (halved, scooped)',pp:400,u:'g'},{n:'Cherry tomatoes (halved)',pp:100,u:'g'},{n:'Celery (diced)',pp:50,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Mix tuna, diced celery, tomatoes, lemon juice, olive oil, dill and pepper in a bowl.','Scoop seeds from cucumber halves to create boats.','Fill generously with tuna mixture.','Chill 10 minutes before serving cold.'],
+   tip:'Perfect portable lunch for busy days. Keep filling separate for longer storage.'},
+  {id:'wl_cabbage_soup', tier:'free', emoji:'🥬', name:'Spicy Cabbage Lentil Soup',   kcal:210, costPP:16, feel:'Hearty, filling and incredibly low-calorie — soup that actually satisfies.',
+   badges:['⚖️ Low-Cal','🌶️ Spiced','🥬 High-Fibre'],
+   base300:[{n:'Dry red lentils (rinsed)',pp:60,u:'g'},{n:'Low-sodium vegetable broth',pp:300,u:'ml'},{n:'Cabbage (shredded)',pp:150,u:'g'},{n:'Carrots (sliced)',pp:100,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'},{n:'Ground turmeric',pp:2,u:'g'}],
+   method:['Heat oil in a pot. Sauté garlic, ginger and chilli for 1 minute.','Add carrots, cabbage and lentils — stir 2 minutes.','Pour in broth and turmeric. Bring to boil, then simmer 20–25 minutes until lentils soften.','Serve hot, optionally partially blended.'],
+   tip:'Make a big batch on weekends for easy weekday lunches. Freezes up to 3 months.'},
+  {id:'wl_grilled_chicken',tier:'free',emoji:'🍗',name:'Grilled Lemon Chicken & Asparagus',kcal:230, costPP:19, feel:'Clean and perfectly seasoned — lean protein with zero compromise.',
+   badges:['⚖️ Low-Cal','🍗 Lean Protein','💪 Muscle-Friendly'],
+   base300:[{n:'Chicken breast (thin sliced)',pp:120,u:'g'},{n:'Asparagus spears',pp:200,u:'g'},{n:'Lemon juice + zest',pp:15,u:'ml'},{n:'Olive oil',pp:5,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Fresh rosemary',pp:2,u:'g'}],
+   method:['Mix lemon juice, zest, olive oil, garlic, rosemary and pepper.','Marinate chicken and asparagus for 10–15 minutes.','Grill or pan-sear chicken 4–5 minutes per side and asparagus 6–8 minutes.','Serve hot with a large mixed green salad.'],
+   tip:'Batch grill for multiple meals. Refrigerates up to 3 days.'},
+  {id:'wl_cauliflower_stew',tier:'free',emoji:'🥦',name:'Cauliflower Chickpea Stew',   kcal:210, costPP:30, feel:'Surprisingly filling for the calories — fibre-rich food doing its job.',
+   badges:['⚖️ Low-Cal','🥦 High-Fibre','🌿 Spiced'],
+   base300:[{n:'Cauliflower florets',pp:150,u:'g'},{n:'Cooked chickpeas',pp:80,u:'g'},{n:'Vegetable broth',pp:300,u:'ml'},{n:'Chopped tomatoes (canned)',pp:100,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Ground cumin and turmeric',pp:3,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Heat oil — sauté garlic and spices 1 minute.','Add cauliflower, chickpeas and tomatoes.','Pour in broth and simmer 15–18 minutes until tender.','Serve hot.'],
+   tip:'Slow cooker friendly. Refrigerates up to 4 days. Freezes up to 3 months.'},
+  {id:'wl_chia_apple',   tier:'free', emoji:'🫙', name:'Apple Cinnamon Chia Pudding', kcal:180, costPP:3, feel:'Naturally sweet, creamy and filling — a dessert that earns its place.',
+   badges:['⚖️ Low-Cal','🌾 High-Fibre','⏱️ Make Ahead'],
+   base300:[{n:'Chia seeds',pp:15,u:'g'},{n:'Unsweetened almond milk',pp:200,u:'ml'},{n:'Apple (grated)',pp:80,u:'g'},{n:'Ground cinnamon (pinch)',pp:0.5,u:'g'},{n:'Lemon juice',pp:5,u:'ml'}],
+   method:['Mix chia seeds, almond milk, lemon juice and cinnamon in a jar.','Stir well and let sit 5 minutes — stir again.','Fold in grated apple.','Refrigerate overnight. Serve cold.'],
+   tip:'Make jars in advance. Refrigerates up to 4 days. Add extra cinnamon to serve.'},
+];
+
+const HIGHPROTEIN_RECIPES = [
+  {id:'hp_chickenchest',tier:'free',  emoji:'🍗', name:'Herb-Grilled Chicken Breast', kcal:310, costPP:24, feel:'Clean, satisfying, and perfectly seasoned — protein that doesn\'t feel like a punishment.',
+   badges:['💪 High-Protein','🍗 Lean','⚡ Quick'],
+   base300:[{n:'Chicken breast',pp:200,u:'g'},{n:'Olive oil',pp:15,u:'ml'},{n:'Garlic powder',pp:2,u:'g'},{n:'Smoked paprika',pp:2,u:'g'},{n:'Dried thyme',pp:1,u:'g'},{n:'Salt & pepper',pp:1,u:'pinch'}],
+   method:['Pound chicken to even thickness — about 2cm — so it cooks evenly.','Mix oil and all spices. Coat chicken thoroughly.','Grill or pan-fry 4–5 min per side over medium-high heat.','Rest 3 min before slicing. Serves with salad or veg.'],
+   tip:'Do not skip resting — it keeps the juices in. Cold leftover chicken slices are great in wraps.'},
+  {id:'hp_eggs',        tier:'free',  emoji:'🥚', name:'Scrambled Eggs with Cottage Cheese', kcal:290, costPP:13, feel:'Creamier than you expect — the cottage cheese melts right in.',
+   badges:['🥚 High-Protein','🧀 Creamy','⚡ 8 min'],
+   base300:[{n:'Eggs',pp:3,u:''},{n:'Cottage cheese',pp:80,u:'g'},{n:'Butter',pp:10,u:'g'},{n:'Chives (chopped)',pp:5,u:'g'},{n:'Salt & white pepper',pp:1,u:'pinch'}],
+   method:['Beat eggs with cottage cheese. Season.','Melt butter in pan over low heat.','Add egg mixture. Stir gently and continuously — low and slow.','Remove from heat while still slightly underdone — residual heat finishes them. Top with chives.'],
+   tip:'The key is LOW heat. High heat toughens eggs. 3–4 min of patient stirring beats 1 min of rubbery scramble.'},
+  {id:'hp_lentil',      tier:'free',  emoji:'🫘', name:'Red Lentil Dhal',             kcal:380, costPP:19, feel:'Deeply warming and earthy — a bowl that feels like a hug.',
+   badges:['🫘 Plant Protein','💪 High-Protein','🌱 Vegan'],
+   base300:[{n:'Red lentils (dried)',pp:100,u:'g'},{n:'Canned tomatoes',pp:100,u:'g'},{n:'Vegetable stock',pp:400,u:'ml'},{n:'Onion (diced)',pp:80,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Ground cumin',pp:3,u:'g'},{n:'Turmeric',pp:2,u:'g'},{n:'Coconut oil',pp:10,u:'ml'}],
+   method:['Sauté onion in coconut oil 5 min. Add garlic, cumin and turmeric — 1 min.','Rinse lentils. Add to pot with tomatoes and stock.','Bring to boil, reduce heat, simmer 20 min stirring occasionally.','Season generously. Serve with rice or flatbread.'],
+   tip:'Red lentils break down and thicken naturally — no need to blend. Goes further with a squeeze of lemon.'},
+  {id:'hp_biltong',     tier:'free',  emoji:'🥩', name:'Biltong & Bean Protein Plate', kcal:420, costPP:71, feel:'Proudly South African and powerfully nutritious. No excuses for a bad gym session.',
+   badges:['🇿🇦 SA Classic','💪 High-Protein','🥩 Iron-Rich'],
+   base300:[{n:'Sliced biltong',pp:80,u:'g'},{n:'Canned chickpeas (drained)',pp:120,u:'g'},{n:'Baby spinach',pp:60,u:'g'},{n:'Red onion (thinly sliced)',pp:40,u:'g'},{n:'Lemon dressing (oil + lemon)',pp:20,u:'ml'},{n:'Feta cheese',pp:30,u:'g'}],
+   method:['Combine chickpeas, spinach and red onion in bowl.','Drizzle with lemon dressing. Toss gently.','Arrange biltong strips on top.','Crumble feta over. Serve immediately.'],
+   tip:'Wet biltong works better here — adds moisture. Droëwors bits are great stirred through for crunch.'},
+  {id:'hp_grilled_chicken',tier:'free',emoji:'🍗',name:'Lemon Garlic Grilled Chicken & Broccoli',kcal:300, costPP:42, feel:'Clean, lean and properly seasoned — protein that doesn\'t feel like a compromise.',
+   badges:['💪 High-Protein','🍗 Lean','⚡ Quick'],
+   base300:[{n:'Chicken breast (boneless)',pp:150,u:'g'},{n:'Broccoli florets',pp:200,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice + zest',pp:15,u:'ml'},{n:'Olive oil',pp:5,u:'ml'},{n:'Fresh herbs (rosemary/thyme)',pp:3,u:'g'}],
+   method:['Mix lemon juice, zest, olive oil, minced garlic, herbs and pepper for marinade.','Coat chicken and broccoli in the marinade — let sit 10–15 minutes.','Grill or pan-sear chicken 5–6 minutes per side until cooked through (75°C internal).','Grill or steam broccoli 6–8 minutes until tender-crisp. Serve hot.'],
+   tip:'Prepare marinade in advance. Cold leftover chicken slices are great in wraps.'},
+  {id:'hp_tuna_yogurt',  tier:'free', emoji:'🫙', name:'Tuna Greek Yogurt Salad Bowl', kcal:280, costPP:41, feel:'Creamy, tangy and packed with protein — a bowl that actually keeps you full.',
+   badges:['💪 High-Protein','🥛 Probiotics','🥗 Quick'],
+   base300:[{n:'Canned tuna in water (drained)',pp:120,u:'g'},{n:'Plain Greek yogurt (5% fat)',pp:150,u:'g'},{n:'Cucumber (diced)',pp:100,u:'g'},{n:'Cherry tomatoes (halved)',pp:80,u:'g'},{n:'Celery (diced)',pp:50,u:'g'},{n:'Lemon juice',pp:5,u:'ml'},{n:'Fresh dill',pp:3,u:'g'}],
+   method:['In a bowl, mix Greek yogurt, lemon juice, dill and black pepper.','Add drained tuna and break apart while mixing.','Gently fold in diced cucumber, tomatoes and celery.','Chill for 10–15 minutes. Serve cold.'],
+   tip:'Great for meal prep — portion into jars for grab-and-go lunches. Refrigerates up to 2 days.'},
+  {id:'hp_turkey_meatballs',tier:'free',emoji:'🍗',name:'Baked Turkey Meatballs & Spinach',kcal:310, costPP:43, feel:'Tender, herby and satisfying — lean meatballs that don\'t compromise on flavour.',
+   badges:['💪 High-Protein','🍗 Lean Turkey','🌿 Iron-Rich'],
+   base300:[{n:'Lean ground turkey',pp:150,u:'g'},{n:'Fresh spinach (chopped)',pp:100,u:'g'},{n:'Egg',pp:1,u:''},{n:'Onion (finely chopped)',pp:10,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'},{n:'Dried oregano and parsley',pp:2,u:'g'}],
+   method:['Preheat oven to 200°C. Line baking tray with parchment.','Sauté onion and garlic in olive oil 2 minutes. Add spinach and wilt.','Combine turkey, egg, sautéed mixture, herbs and pepper. Mix well.','Form into meatballs and bake 18–22 minutes. Serve hot.'],
+   tip:'Double the batch and freeze half. Pairs well with zucchini noodles or a simple tomato sauce.'},
+  {id:'hp_salmon_chickpea',tier:'plus',emoji:'🐟',name:'Salmon Chickpea Salad',        kcal:330, costPP:38, feel:'Omega-3s meet plant protein — two of the best ingredients you can eat, together.',
+   badges:['💪 High-Protein','🐟 Omega-3','🫘 Plant Protein'],
+   base300:[{n:'Cooked salmon (flaked)',pp:100,u:'g'},{n:'Cooked chickpeas',pp:100,u:'g'},{n:'Mixed greens',pp:100,u:'g'},{n:'Cucumber and cherry tomatoes',pp:80,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:5,u:'ml'},{n:'Fresh parsley',pp:3,u:'g'}],
+   method:['Whisk olive oil, lemon juice, parsley and pepper for dressing.','In a large bowl, combine flaked salmon, chickpeas, greens, cucumber and tomatoes.','Drizzle dressing and toss gently just before serving.','Serve chilled.'],
+   tip:'Ideal for high-protein lunch platters at events. Refrigerate undressed components up to 2 days.'},
+  {id:'hp_lentil_chili',  tier:'free', emoji:'🫘', name:'Lentil Turkey Chilli',         kcal:340, costPP:20, feel:'Rich, spiced and deeply filling — a chilli that\'s actually good for you.',
+   badges:['💪 High-Protein','🫘 Plant Protein','🌶️ Warming'],
+   base300:[{n:'Lean ground turkey',pp:100,u:'g'},{n:'Dry green lentils (rinsed)',pp:60,u:'g'},{n:'Low-sodium broth',pp:300,u:'ml'},{n:'Chopped tomatoes',pp:100,u:'g'},{n:'Bell pepper and onion',pp:80,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Chilli powder and ground cumin',pp:4,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],
+   method:['Heat oil in a pot. Brown turkey with garlic, onion and spices for 5 minutes.','Add bell pepper, tomatoes, lentils and broth.','Bring to boil, then simmer 25–30 minutes until lentils are tender.','Adjust seasoning and serve hot.'],
+   tip:'Use a slow cooker on low for 6–8 hours for effortless large batches. Add a dollop of Greek yogurt to serve.'},
+  {id:'hp_cottage',     tier:'plus',  emoji:'🫙', name:'High-Protein Cottage Bowls',  kcal:340, costPP:20, feel:'Building-block eating — satisfying in the most practical way.',
+   badges:['🧀 High-Protein','🥗 Low-Carb','⚡ 5 min'],
+   base300:[{n:'Cottage cheese',pp:200,u:'g'},{n:'Cucumber (sliced)',pp:100,u:'g'},{n:'Sundried tomatoes',pp:30,u:'g'},{n:'Pumpkin seeds',pp:20,u:'g'},{n:'Olive oil drizzle',pp:5,u:'ml'},{n:'Fresh basil',pp:3,u:'g'}],
+   method:['Spoon cottage cheese into bowl.','Arrange cucumber and sundried tomatoes around and on top.','Scatter pumpkin seeds. Drizzle with olive oil.','Finish with fresh basil and cracked pepper.'],
+   tip:'Add a soft-boiled egg for extra protein. Works as breakfast, snack or light meal.'},
+];
+
+const PLANTBASED_RECIPES = [
+  {id:'pb_buddha',      tier:'free',  emoji:'🥣', name:'Rainbow Buddha Bowl',         kcal:420, costPP:22, feel:'Colourful and alive — like eating sunshine on a plate.',badges:['🌱 Vegan','🥣 Whole-Food','🌈 Nourishing'],base300:[{n:'Cooked brown rice or quinoa',pp:150,u:'g'},{n:'Roasted chickpeas',pp:80,u:'g'},{n:'Roasted sweet potato (cubed)',pp:100,u:'g'},{n:'Shredded red cabbage',pp:60,u:'g'},{n:'Avocado (sliced)',pp:60,u:'g'},{n:'Tahini dressing',pp:30,u:'ml'}],method:['Roast cubed sweet potato at 200°C for 20 min with olive oil and salt.','Roast chickpeas same tray — add at the 10-min mark.','Build bowl: rice base, then arrange sweet potato, chickpeas, cabbage, avocado.','Drizzle with tahini dressing. Eat while still warm.'],tip:'Tahini dressing: 2 tbsp tahini, 1 tbsp lemon juice, 1 tsp garlic, enough water to drizzle.'},
+  {id:'pb_tofu',        tier:'free',  emoji:'🟡', name:'Crispy Tofu Stir-Fry',        kcal:370, costPP:20, feel:'Golden crispy tofu — this might convert the sceptics.',badges:['🌱 Vegan','🟡 Protein','🥢 Asian-Inspired'],base300:[{n:'Firm tofu (pressed, cubed)',pp:180,u:'g'},{n:'Broccoli florets',pp:120,u:'g'},{n:'Carrot (sliced thin)',pp:60,u:'g'},{n:'Soy sauce',pp:20,u:'ml'},{n:'Sesame oil',pp:10,u:'ml'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Garlic (minced)',pp:3,u:'g'}],method:['Press tofu in a clean cloth for 15 min to remove moisture.','Cube and pan-fry in hot oil 3–4 min per side until golden. Remove.','Stir-fry ginger and garlic 30 sec. Add veg — 4 min.','Return tofu. Add soy sauce and sesame oil. Toss. Serve with rice.'],tip:'Pressing tofu is non-negotiable for crispiness.'},
+  {id:'pb_chakalaka',   tier:'free',  emoji:'🌶️', name:'Chakalaka Stuffed Gems',     kcal:295, costPP:20, feel:'Fiery, saucy, unmistakably South African.',badges:['🇿🇦 SA Classic','🌱 Vegan','🌶️ Spicy'],base300:[{n:'Baby gem squash',pp:2,u:''},{n:'Canned baked beans',pp:120,u:'g'},{n:'Canned tomatoes',pp:80,u:'g'},{n:'Carrot (grated)',pp:60,u:'g'},{n:'Onion (finely diced)',pp:60,u:'g'},{n:'Green pepper (diced)',pp:40,u:'g'},{n:'Curry powder',pp:4,u:'g'},{n:'Sunflower oil',pp:10,u:'ml'}],method:['Halve and boil gem squash 15 min until just tender. Scoop out seeds.','Sauté onion, carrot and green pepper in oil — 6 min.','Add curry powder 1 min, then tomatoes and beans. Simmer 10 min.','Spoon chakalaka into gem squash halves. Serve hot.'],tip:'Make the chakalaka a day ahead — it tastes better.'},
+  {id:'pb_lentilcurry', tier:'plus',  emoji:'🍛', name:'Coconut Lentil Curry',        kcal:440, costPP:42, feel:'Rich, creamy, fragrant — the kind of curry you make again the next week.',badges:['🌱 Vegan','🫘 Protein','🥥 Rich'],base300:[{n:'Green or brown lentils (dried)',pp:100,u:'g'},{n:'Coconut milk',pp:150,u:'ml'},{n:'Vegetable stock',pp:300,u:'ml'},{n:'Canned tomatoes',pp:100,u:'g'},{n:'Onion (diced)',pp:80,u:'g'},{n:'Garlic (3 cloves)',pp:9,u:'g'},{n:'Curry powder',pp:8,u:'g'},{n:'Spinach',pp:60,u:'g'}],method:['Sauté onion in oil 5 min. Add garlic and curry powder — 1 min.','Add lentils, tomatoes, stock. Bring to boil, simmer 25 min.','Stir in coconut milk. Simmer 5 min more.','Add spinach, cook 1 min until wilted. Season and serve with rice.'],tip:'Brown lentils hold their shape better than red.'},
+  {id:'pb_chickpea_bowl',tier:'free', emoji:'🥣', name:'Chickpea Avocado Power Bowl',  kcal:340, costPP:45, feel:'Colourful and alive — like eating sunshine in a bowl.',badges:['🌱 Vegan','🥣 Whole-Food','💪 Plant Protein'],base300:[{n:'Cooked chickpeas',pp:120,u:'g'},{n:'Avocado (diced)',pp:75,u:'g'},{n:'Mixed greens',pp:100,u:'g'},{n:'Cherry tomatoes and cucumber (diced)',pp:100,u:'g'},{n:'Red onion (sliced)',pp:40,u:'g'},{n:'Extra virgin olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],method:['Whisk olive oil, lemon juice, parsley and black pepper for dressing.','In a large bowl, combine chickpeas, diced avocado, greens, tomatoes, cucumber and onion.','Drizzle dressing and toss gently just before serving.','Serve chilled.'],tip:'Prep ingredients separately for customisable bowls at gatherings.'},
+  {id:'pb_lentil_soup',  tier:'free', emoji:'🍲', name:'Spicy Lentil Vegetable Soup',  kcal:260, costPP:33, feel:'Warming and deeply filling — plant protein that keeps you going all afternoon.',badges:['🌱 Vegan','🫘 High-Protein','🌶️ Spiced'],base300:[{n:'Dry red lentils (rinsed)',pp:70,u:'g'},{n:'Vegetable broth',pp:350,u:'ml'},{n:'Carrots (sliced)',pp:100,u:'g'},{n:'Zucchini/baby marrow (diced)',pp:100,u:'g'},{n:'Spinach',pp:80,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'},{n:'Ground cumin',pp:2,u:'g'},{n:'Chilli flakes',pp:1,u:'g'}],method:['Heat oil in a pot. Sauté garlic, ginger and spices for 1 minute.','Add carrots, zucchini and lentils — stir 2 minutes.','Pour in broth and bring to boil, then simmer 20–25 minutes.','Stir in spinach for last 3 minutes. Serve hot with lemon wedges.'],tip:'Freezes up to 3 months.'},
+  {id:'pb_tofu_skewers', tier:'free', emoji:'🍢', name:'Marinated Tofu Veggie Skewers', kcal:280, costPP:20, feel:'Charred edges and juicy centres — even the braai crowd will come back for seconds.',badges:['🌱 Vegan','🟡 Plant Protein','🔥 Grill-Friendly'],base300:[{n:'Firm tofu (cubed)',pp:150,u:'g'},{n:'Bell peppers and zucchini (chunked)',pp:150,u:'g'},{n:'Cherry tomatoes',pp:100,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Low-sodium tamari',pp:10,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Smoked paprika',pp:2,u:'g'}],method:['Mix olive oil, tamari, garlic and herbs for marinade.','Toss tofu and vegetables in marinade — let sit 15–20 minutes.','Thread onto skewers.','Grill or bake at 200°C for 12–15 minutes, turning halfway.'],tip:'Assemble skewers ahead for quick grilling at gatherings.'},
+  {id:'pb_quinoa_salad', tier:'free', emoji:'🥗', name:'Quinoa Black Bean Salad',       kcal:330, costPP:28, feel:'Hearty, filling and colourful — a plant salad that actually satisfies.',badges:['🌱 Vegan','🌾 Complete Protein','🥗 Crowd Pleaser'],base300:[{n:'Cooked quinoa',pp:80,u:'g'},{n:'Cooked black beans',pp:100,u:'g'},{n:'Corn kernels (fresh or thawed)',pp:100,u:'g'},{n:'Cherry tomatoes and avocado (diced)',pp:100,u:'g'},{n:'Mixed greens',pp:80,u:'g'},{n:'Extra virgin olive oil',pp:10,u:'ml'},{n:'Lime juice',pp:10,u:'ml'},{n:'Ground cumin',pp:2,u:'g'}],method:['Whisk olive oil, lime juice, fresh coriander and cumin for dressing.','Combine quinoa, black beans, corn, tomatoes, avocado and greens.','Toss with dressing just before serving.','Serve chilled.'],tip:'Excellent for potlucks — scales easily.'},
+  {id:'pb_cauliflower_curry',tier:'plus',emoji:'🍛',name:'Creamy Cauliflower Chickpea Curry',kcal:300, costPP:48, feel:'Velvety, spiced and rich — plant-based comfort at its best.',badges:['🌱 Vegan','🥥 Creamy','🌶️ Warming'],base300:[{n:'Cooked chickpeas',pp:100,u:'g'},{n:'Cauliflower florets',pp:200,u:'g'},{n:'Light coconut milk',pp:150,u:'ml'},{n:'Chopped tomatoes (canned)',pp:100,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Curry powder',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],method:['Heat oil — sauté garlic, ginger and spices for 1 minute.','Add cauliflower and tomatoes — cook 4 minutes.','Add chickpeas and coconut milk — simmer 12–15 minutes until tender.','Serve hot with brown rice or greens.'],tip:'Refrigerates up to 4 days. Freezes up to 2 months.'},
+  {id:'pb_stuffed_peppers',tier:'free',emoji:'🫑',name:'Mushroom Lentil Stuffed Peppers',kcal:280, costPP:49, feel:'Vibrant, earthy and satisfying — a meal that looks as good as it tastes.',badges:['🌱 Vegan','🫘 Plant Protein','🫑 Colourful'],base300:[{n:'Bell peppers (halved)',pp:2,u:''},{n:'Cooked lentils',pp:80,u:'g'},{n:'Mushrooms (chopped)',pp:100,u:'g'},{n:'Spinach and onion',pp:50,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'},{n:'Dried mixed herbs',pp:2,u:'g'}],method:['Preheat oven to 200°C. Brush peppers with oil and bake 10 minutes.','Sauté onion, garlic, mushrooms and spinach — mix with cooked lentils and herbs.','Stuff peppers with the mixture.','Bake another 15–20 minutes. Serve hot.'],tip:'Prepare filling ahead. Refrigerates up to 3 days.'},
+  {id:'pb_chia_flax',    tier:'free', emoji:'🫙', name:'Berry Chia Flax Pudding',       kcal:240, costPP:14, feel:'Creamy, nutty and berry-bright — omega-3s and fibre working quietly overnight.',badges:['🌱 Vegan','🌾 Omega-3','⏱️ Make Ahead'],base300:[{n:'Chia seeds',pp:20,u:'g'},{n:'Ground flaxseeds',pp:10,u:'g'},{n:'Unsweetened almond milk',pp:200,u:'ml'},{n:'Mixed berries',pp:100,u:'g'},{n:'Ground cinnamon (pinch)',pp:0.5,u:'g'},{n:'Lemon juice',pp:5,u:'ml'}],method:['Mix chia seeds, flaxseeds, almond milk, cinnamon and lemon juice in a jar.','Stir well and rest 5 minutes — stir again.','Fold in berries.','Refrigerate overnight. Serve cold.'],tip:'Refrigerates up to 4 days.'},
+];
+
+const VEGETARIAN_RECIPES = [
+  {id:'veg_omelette',    tier:'free',  emoji:'🍳', name:'Veggie Cheese Omelette',       kcal:340, costPP:49, feel:'Golden and pillowy — proper eggs done right, no apologies needed.',badges:['🥚 High-Protein','🧀 Satisfying','⚡ 10 min'],base300:[{n:'Eggs',pp:2,u:''},{n:'Cheddar cheese (grated)',pp:40,u:'g'},{n:'Baby spinach',pp:80,u:'g'},{n:'Mushrooms (sliced)',pp:60,u:'g'},{n:'Red pepper (diced)',pp:50,u:'g'},{n:'Garlic (minced)',pp:2,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],method:['Heat olive oil in a non-stick pan over medium. Sauté garlic, mushrooms and pepper 4 min.','Add spinach — cook until wilted, about 1 min.','Beat eggs with salt and pepper. Pour over the veg.','Sprinkle cheese. Cook 3–4 min, fold omelette and cook 1 min more.'],tip:'Don\'t rush the veg — properly cooked mushrooms add deep savoury flavour.'},
+  {id:'veg_shakshuka',   tier:'free',  emoji:'🍅', name:'Shakshuka with Feta',          kcal:280, costPP:40, feel:'Smoky, bubbling and aromatic — the whole kitchen smells incredible.',badges:['🥚 Protein','🌶️ Spiced','🍅 One-Pan'],base300:[{n:'Eggs',pp:2,u:''},{n:'Canned tomatoes',pp:150,u:'g'},{n:'Feta cheese (crumbled)',pp:40,u:'g'},{n:'Red pepper (diced)',pp:80,u:'g'},{n:'Onion (diced)',pp:60,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Cumin',pp:2,u:'g'},{n:'Smoked paprika',pp:2,u:'g'},{n:'Olive oil',pp:10,u:'ml'}],method:['Sauté onion and pepper in olive oil 5 min. Add garlic, cumin and paprika — 1 min.','Add tomatoes. Simmer 8–10 min until thick. Season generously.','Make wells and crack eggs in. Cover and cook on low 5–7 min until whites are just set.','Crumble feta over the top. Serve straight from the pan with bread.'],tip:'Runny yolks are the goal — pull off heat while still wobbly.'},
+  {id:'veg_caprese',     tier:'free',  emoji:'🧀', name:'Caprese Chickpea Salad',       kcal:295, costPP:18, feel:'Summer on a plate — fresh mozzarella and basil smell like a garden.',badges:['🧀 Protein','🌿 Fresh','🥗 No-Cook'],base300:[{n:'Buffalo mozzarella (torn)',pp:80,u:'g'},{n:'Cooked chickpeas',pp:100,u:'g'},{n:'Cherry tomatoes (halved)',pp:150,u:'g'},{n:'Fresh basil leaves',pp:10,u:'g'},{n:'Extra virgin olive oil',pp:15,u:'ml'},{n:'Balsamic vinegar',pp:10,u:'ml'}],method:['Halve tomatoes. Drain and rinse chickpeas.','Arrange tomatoes, chickpeas and torn mozzarella on a plate.','Scatter fresh basil leaves.','Drizzle generously with olive oil and balsamic. Season and serve immediately.'],tip:'Real buffalo mozzarella makes a difference here.'},
+  {id:'veg_stuffedpep',  tier:'free',  emoji:'🫑', name:'Ricotta-Spinach Stuffed Peppers', kcal:320, costPP:53, feel:'Melt-in-the-mouth filling inside a sweet roasted shell.',badges:['🧀 Creamy','🥚 Protein','🫑 Baked'],base300:[{n:'Bell peppers (large, halved)',pp:1,u:''},{n:'Ricotta cheese',pp:120,u:'g'},{n:'Baby spinach (chopped)',pp:100,u:'g'},{n:'Mozzarella (grated)',pp:40,u:'g'},{n:'Garlic (2 cloves)',pp:6,u:'g'},{n:'Tomato sauce',pp:80,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],method:['Preheat oven 190°C. Brush pepper halves with oil. Bake 10 min.','Sauté garlic and spinach 2 min. Mix with ricotta, salt and pepper.','Spoon filling into peppers. Top with tomato sauce and mozzarella.','Bake 18–22 min until cheese is golden and bubbling.'],tip:'The par-bake is important — raw peppers need too long.'},
+  {id:'veg_paneer',      tier:'plus',  emoji:'🍛', name:'Paneer Tikka Skewers',         kcal:310, costPP:26, feel:'Charred edges, creamy centre — the braai recipe that converts meat-eaters.',badges:['🧀 High-Protein','🌶️ Spiced','🔥 Braai-Friendly'],base300:[{n:'Paneer (cubed)',pp:150,u:'g'},{n:'Red and yellow pepper (chunked)',pp:150,u:'g'},{n:'Plain yoghurt',pp:50,u:'g'},{n:'Turmeric',pp:1,u:'g'},{n:'Cumin',pp:2,u:'g'},{n:'Garam masala',pp:2,u:'g'},{n:'Ginger (grated)',pp:3,u:'g'},{n:'Garlic (minced)',pp:3,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Sunflower oil',pp:10,u:'ml'}],method:['Mix yoghurt, spices, ginger, garlic, lemon and oil into a marinade.','Toss paneer and peppers in marinade. Rest at least 30 min.','Thread onto skewers, alternating paneer and pepper.','Grill or bake at 200°C for 12–15 min, turning halfway.'],tip:'Paneer doesn\'t melt — it gets golden and holds its shape.'},
+  {id:'veg_halloumisalad',tier:'free', emoji:'🥗', name:'Halloumi & Quinoa Salad',      kcal:370, costPP:31, feel:'Salty, golden halloumi against nutty quinoa — a proper main course salad.',badges:['🧀 Protein','🌾 Wholesome','🥗 Filling'],base300:[{n:'Halloumi (sliced)',pp:80,u:'g'},{n:'Cooked quinoa',pp:100,u:'g'},{n:'Mixed greens',pp:80,u:'g'},{n:'Cherry tomatoes (halved)',pp:80,u:'g'},{n:'Cucumber (sliced)',pp:60,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],method:['Cook quinoa per packet. Cool slightly.','Slice halloumi 1cm thick. Grill or pan-fry in a dry pan 2 min per side until golden.','Whisk olive oil and lemon juice for dressing.','Build salad: greens, quinoa, tomatoes, cucumber. Top with warm halloumi. Drizzle dressing.'],tip:'Halloumi must be eaten hot — it becomes rubbery when cold.'},
+  {id:'veg_chickpea_salad',tier:'free',emoji:'🫙',name:'Greek Yogurt Chickpea Salad',   kcal:300, costPP:33, feel:'Cool, tangy and satisfying — probiotics and protein in one bowl.',badges:['🧀 Protein','🦠 Probiotics','🥗 Refreshing'],base300:[{n:'Plain Greek yogurt',pp:150,u:'g'},{n:'Cooked chickpeas',pp:100,u:'g'},{n:'Cucumber and cherry tomatoes (diced)',pp:100,u:'g'},{n:'Red onion (sliced)',pp:50,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:5,u:'ml'},{n:'Fresh dill',pp:3,u:'g'}],method:['Whisk olive oil, lemon juice, dill and pepper.','In a bowl, combine chickpeas, cucumber, tomatoes and onion.','Fold in Greek yogurt and dressing gently.','Chill 10 minutes before serving cold.'],tip:'Refrigerates up to 2 days. Pairs well with pita bread.'},
+  {id:'veg_broccoli_lentil',tier:'free',emoji:'🥦',name:'Cheesy Broccoli Lentil Bake', kcal:310, costPP:36, feel:'Golden, bubbling and deeply comforting — the kind of bake you go back to twice.',badges:['🧀 Calcium','🫘 Plant Protein','🥦 High-Fibre'],base300:[{n:'Cooked lentils',pp:80,u:'g'},{n:'Broccoli florets (steamed)',pp:150,u:'g'},{n:'Cheddar cheese (grated)',pp:50,u:'g'},{n:'Milk',pp:100,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'}],method:['Preheat oven to 200°C. Steam broccoli 5 minutes.','Mix lentils, broccoli, milk, garlic, herbs and half the cheese.','Transfer to baking dish, top with remaining cheese.','Bake 18–22 minutes until bubbly and golden.'],tip:'Refrigerates up to 4 days. Freezes up to 2 months.'},
+  {id:'veg_avocado_toast',tier:'free', emoji:'🥑', name:'Egg & Avocado Toast Bowl',     kcal:330, costPP:19, feel:'A simple breakfast that punches well above its ingredients.',badges:['🥚 Protein','🥑 Healthy Fats','⚡ 15 min'],base300:[{n:'Eggs (hard-boiled, sliced)',pp:2,u:''},{n:'Avocado (mashed)',pp:75,u:'g'},{n:'Cherry tomatoes',pp:80,u:'g'},{n:'Cucumber',pp:50,u:'g'},{n:'Whole grain bread (toasted)',pp:60,u:'g'},{n:'Lemon juice',pp:5,u:'ml'}],method:['Hard-boil eggs for 8–10 minutes, cool and slice.','Mash avocado with lemon juice and fresh herbs.','Chop vegetables.','Layer on toasted bread or in bowls. Serve cold.'],tip:'Refrigerate components up to 2 days.'},
+  {id:'veg_stuffed_shells',tier:'plus',emoji:'🍝',name:'Spinach Ricotta Stuffed Shells', kcal:360, costPP:37, feel:'Creamy, saucy and Italian-comforting — the vegetarian showstopper.',badges:['🧀 Creamy','🌿 Iron-Rich','🍝 Comfort Food'],base300:[{n:'Large pasta shells (cooked)',pp:80,u:'g'},{n:'Ricotta cheese',pp:120,u:'g'},{n:'Spinach (chopped)',pp:100,u:'g'},{n:'Mozzarella (grated)',pp:40,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Tomato sauce',pp:80,u:'ml'}],method:['Preheat oven to 190°C. Sauté garlic and spinach.','Mix spinach with ricotta, herbs and pepper.','Stuff shells and place in baking dish with tomato sauce.','Top with mozzarella and bake 20–25 minutes.'],tip:'Refrigerates up to 3 days.'},
+  {id:'veg_mushroom_rice',tier:'free', emoji:'🍄', name:'Mushroom Egg Fried Rice',      kcal:330, costPP:31, feel:'Umami-rich and deeply savoury — proper fried rice energy without the guilt.',badges:['🍄 Umami','🥚 Protein','🍚 Satisfying'],base300:[{n:'Cooked brown rice',pp:100,u:'g'},{n:'Eggs',pp:2,u:''},{n:'Mushrooms (sliced)',pp:100,u:'g'},{n:'Peas and carrots (mixed)',pp:80,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Fresh ginger (grated)',pp:3,u:'g'},{n:'Low-sodium soy sauce',pp:5,u:'ml'},{n:'Sunflower oil',pp:5,u:'ml'}],method:['Scramble eggs in a little oil — set aside.','Stir-fry garlic, ginger and mushrooms in oil.','Add vegetables, cold rice and soy sauce. Stir-fry 4 minutes on high heat.','Mix in scrambled eggs. Serve hot.'],tip:'Use leftover or day-old rice — fresh rice is too wet for frying.'},
+  {id:'veg_quesadilla',  tier:'free',  emoji:'🫓', name:'Cheese & Vegetable Quesadilla',kcal:350, costPP:40, feel:'Melty, crispy and satisfying — one of those meals that disappears too quickly.',badges:['🧀 Protein','🌶️ Flavourful','⚡ 10 min'],base300:[{n:'Whole wheat tortillas',pp:2,u:''},{n:'Cheddar cheese (grated)',pp:50,u:'g'},{n:'Black beans (canned, drained)',pp:80,u:'g'},{n:'Bell pepper and spinach (sautéed)',pp:80,u:'g'},{n:'Sunflower oil',pp:5,u:'ml'}],method:['Sauté vegetables in a little oil.','Fill tortilla with cheese, beans and veggies.','Fold and cook in pan 3 minutes per side until golden and cheese melts.','Serve hot, cut into wedges.'],tip:'Reheat in pan to restore crispiness.'},
+  {id:'veg_shakshuka_pdf',tier:'free', emoji:'🍅', name:'Baked Egg & Feta Shakshuka',  kcal:280, costPP:33, feel:'Smoky tomato, salty feta, runny yolk — one-pan magic.',badges:['🥚 Protein','🧀 Feta','🍅 One-Pan'],base300:[{n:'Eggs',pp:2,u:''},{n:'Tomato sauce (canned or homemade)',pp:150,u:'g'},{n:'Feta cheese (crumbled)',pp:40,u:'g'},{n:'Bell pepper and onion (sautéed)',pp:80,u:'g'},{n:'Ground cumin',pp:2,u:'g'},{n:'Smoked paprika',pp:1,u:'g'}],method:['Sauté onion, pepper and spices until soft.','Add tomato sauce and simmer 5 minutes.','Make wells and crack eggs into them.','Top with feta and bake 8–10 minutes at 200°C.'],tip:'Pull from oven while still wobbly — residual heat finishes them.'},
+  {id:'veg_berry_ricotta',tier:'free', emoji:'🫙', name:'Berry Ricotta Parfait',        kcal:260, costPP:14, feel:'Light, creamy and beautiful — a dessert that doubles as a healthy breakfast.',badges:['🧀 Protein','🫐 Antioxidants','⚡ 5 min'],base300:[{n:'Ricotta cheese',pp:150,u:'g'},{n:'Mixed berries (fresh)',pp:100,u:'g'},{n:'Chia seeds',pp:10,u:'g'},{n:'Ground cinnamon (pinch)',pp:0.5,u:'g'}],method:['Layer ricotta, berries and chia seeds in glasses.','Sprinkle cinnamon between layers.','Chill 15 minutes before serving cold.','Finish with extra berries and a drizzle of honey if desired.'],tip:'Beautiful layered presentation for gatherings.'},
+];
+
+const GUTHEALTH_RECIPES = [
+  {id:'gh_kimchi_rice',  tier:'free',  emoji:'🍚', name:'Kimchi Fried Rice',           kcal:380, costPP:28, feel:'Funky, warming and alive — your gut flora will love you for it.',badges:['🦠 Probiotics','🌶️ Fermented','🍚 Satisfying'],base300:[{n:'Cooked rice (day-old is best)',pp:200,u:'g'},{n:'Kimchi (chopped)',pp:80,u:'g'},{n:'Eggs',pp:2,u:''},{n:'Spring onions',pp:30,u:'g'},{n:'Sesame oil',pp:10,u:'ml'},{n:'Soy sauce',pp:10,u:'ml'}],method:['Heat sesame oil in wok over high heat. Add cold rice — fry 3 min.','Push rice aside. Scramble eggs in centre, then mix through.','Add kimchi and soy sauce — stir-fry 2 min.','Serve topped with spring onions.'],tip:'Day-old rice fries best — fresh rice is too wet.'},
+  {id:'gh_kefir_bowl',   tier:'free',  emoji:'🥛', name:'Kefir & Flaxseed Breakfast',  kcal:310, costPP:14, feel:'Tangy and nourishing — starts your digestive system gently.',badges:['🦠 Probiotics','🌾 Fibre','⚡ 5 min'],base300:[{n:'Plain kefir or Bulgarian yoghurt',pp:250,u:'ml'},{n:'Ground flaxseed',pp:15,u:'g'},{n:'Rolled oats',pp:30,u:'g'},{n:'Banana (sliced)',pp:80,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Blueberries',pp:60,u:'g'}],method:['Pour kefir into bowl.','Stir in flaxseed and oats. Let stand 5 min to soften.','Top with banana slices, blueberries and honey.','Eat immediately.'],tip:'Ground flaxseed beats whole — your gut absorbs the omega-3 far better.'},
+  {id:'gh_fibre_soup',   tier:'free',  emoji:'🍲', name:'Black Bean & Veg Soup',       kcal:320, costPP:27, feel:'Thick, hearty and incredibly filling — prebiotic fuel in a bowl.',badges:['🫘 Prebiotic','🌿 High-Fibre','🥘 Warming'],base300:[{n:'Canned black beans (drained)',pp:150,u:'g'},{n:'Vegetable stock',pp:400,u:'ml'},{n:'Canned tomatoes',pp:100,u:'g'},{n:'Onion (diced)',pp:60,u:'g'},{n:'Carrot (diced)',pp:60,u:'g'},{n:'Celery (sliced)',pp:40,u:'g'},{n:'Cumin',pp:3,u:'g'},{n:'Smoked paprika',pp:2,u:'g'}],method:['Sauté onion, carrot and celery in oil — 6 min.','Add cumin and paprika — 1 min.','Add beans, tomatoes and stock. Simmer 20 min.','Blend a third of the soup for creaminess, stir back through.'],tip:'Beans are one of the best prebiotic sources. Do not skip.'},
+  {id:'gh_miso_salmon',  tier:'plus',  emoji:'🍜', name:'Miso Soup with Tofu & Nori',  kcal:180, costPP:7, feel:'Umami, soothing and deeply restorative — your gut knows this is good.',badges:['🦠 Probiotics','🌊 Umami','⚡ 10 min'],base300:[{n:'Dashi or vegetable stock',pp:400,u:'ml'},{n:'White miso paste',pp:20,u:'g'},{n:'Silken tofu (cubed)',pp:100,u:'g'},{n:'Dried wakame seaweed',pp:5,u:'g'},{n:'Spring onions (sliced)',pp:20,u:'g'}],method:['Soak wakame in cold water 5 min. Drain.','Heat stock to just below boiling. Do NOT boil miso.','Dissolve miso paste in a ladle of warm stock, stir back into pot.','Add tofu and wakame. Serve topped with spring onions.'],tip:'NEVER boil miso after adding it — high heat kills all the beneficial bacteria.'},
+  {id:'gh_kefir_oats',   tier:'free',  emoji:'🥛', name:'Apple Cinnamon Kefir Oats',   kcal:250, costPP:2, feel:'Tangy, sweet and quietly alive — your gut bacteria are having breakfast too.',badges:['🦠 Probiotics','🌾 Prebiotic','⏱️ Make Ahead'],base300:[{n:'Plain kefir (unsweetened, live cultures)',pp:200,u:'ml'},{n:'Rolled oats',pp:40,u:'g'},{n:'Apple (grated)',pp:80,u:'g'},{n:'Ground flaxseeds',pp:5,u:'g'},{n:'Ground cinnamon (pinch)',pp:0.5,u:'g'},{n:'Lemon juice',pp:5,u:'ml'}],method:['In a jar, combine kefir, rolled oats, grated apple, flaxseeds, cinnamon and lemon juice.','Stir thoroughly for 1 minute.','Cover and refrigerate overnight (minimum 6 hours).','Stir gently before serving cold.'],tip:'Refrigerates up to 4 days.'},
+  {id:'gh_bone_broth',   tier:'free',  emoji:'🍲', name:'Turmeric Ginger Bone Broth',  kcal:140, costPP:19, feel:'Ancient and restorative — your gut lining is thanking you with every sip.',badges:['🦠 Gut-Healing','🌿 Anti-Inflam','🍲 Collagen'],base300:[{n:'Bone broth (homemade or low-sodium)',pp:400,u:'ml'},{n:'Mixed vegetables (carrots, celery, spinach)',pp:100,u:'g'},{n:'Fresh ginger (grated)',pp:8,u:'g'},{n:'Ground turmeric',pp:2,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Olive oil',pp:5,u:'ml'},{n:'Fresh parsley',pp:5,u:'g'}],method:['Heat olive oil in a pot over medium. Sauté garlic, ginger and turmeric for 1–2 minutes.','Add chopped carrots and celery — cook 4 minutes.','Pour in bone broth and bring to a gentle simmer for 15 minutes.','Add spinach in the last 3 minutes. Stir in fresh parsley before serving hot.'],tip:'Freeze up to 3 months.'},
+  {id:'gh_tempeh_slaw',  tier:'free',  emoji:'🥗', name:'Tempeh Cabbage Slaw',         kcal:270, costPP:19, feel:'Crunchy, nutty and probiotic-rich — a gut-health meal that actually tastes exciting.',badges:['🦠 Probiotics','🌿 Prebiotic','🥗 Fermented'],base300:[{n:'Tempeh (steamed and crumbled)',pp:100,u:'g'},{n:'Shredded cabbage (green or red)',pp:150,u:'g'},{n:'Carrot (grated)',pp:80,u:'g'},{n:'Cucumber (sliced)',pp:50,u:'g'},{n:'Tahini',pp:15,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'}],method:['Steam tempeh for 8–10 minutes, then crumble.','In a large bowl, combine shredded cabbage, grated carrot, cucumber and crumbled tempeh.','Whisk tahini, lemon juice, garlic and a splash of water for a smooth dressing.','Toss salad with dressing and fresh herbs just before serving.'],tip:'Refrigerate undressed components up to 3 days.'},
+  {id:'gh_yogurt_lentil',tier:'free',  emoji:'🫘', name:'Spinach Garlic Yogurt Lentils',kcal:260, costPP:34, feel:'Earthy and comforting — one of those meals that feeds you on every level.',badges:['🦠 Probiotics','🌾 Prebiotic','🫘 High-Fibre'],base300:[{n:'Dry green or brown lentils (rinsed)',pp:70,u:'g'},{n:'Vegetable broth',pp:350,u:'ml'},{n:'Fresh spinach',pp:100,u:'g'},{n:'Garlic (minced)',pp:8,u:'g'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Plain Greek yogurt (stirred in at end)',pp:50,u:'g'}],method:['Heat oil in a pot. Sauté garlic and ginger for 1 minute.','Add lentils and broth — bring to boil, then simmer 20–25 minutes.','Stir in spinach for the last 5 minutes until wilted.','Remove from heat and stir in Greek yogurt. Serve hot.'],tip:'Stir yogurt in OFF the heat to preserve live cultures.'},
+  {id:'gh_tempeh_bake',  tier:'plus',  emoji:'🥦', name:'Broccoli Mushroom Tempeh Bake',kcal:280, costPP:36, feel:'Golden, hearty and deeply satisfying — your gut microbiome loves every bite.',badges:['🦠 Probiotics','🥦 Prebiotic','🌿 High-Fibre'],base300:[{n:'Tempeh (cubed)',pp:100,u:'g'},{n:'Broccoli florets',pp:150,u:'g'},{n:'Mushrooms (sliced)',pp:100,u:'g'},{n:'Garlic (minced)',pp:10,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Low-sodium tamari',pp:5,u:'ml'}],method:['Preheat oven to 200°C. Line a baking tray with parchment.','Toss tempeh cubes, broccoli and mushrooms with olive oil, garlic, tamari and herbs.','Spread evenly on the tray.','Bake 18–22 minutes, stirring halfway, until tempeh is golden.'],tip:'Pairs well with sauerkraut or a simple green salad.'},
+];
+
+const DIABETIC_RECIPES = [
+  {id:'db_oatpancake',   tier:'free',  emoji:'🥞', name:'Oat & Egg Pancakes',          kcal:270, costPP:15, feel:'Hearty and subtly sweet — steady energy, no spike, no crash.',badges:['🩸 Low-GI','🌾 Fibre','⚡ Quick'],base300:[{n:'Rolled oats (blitzed to flour)',pp:60,u:'g'},{n:'Eggs',pp:2,u:''},{n:'Low-fat milk or oat milk',pp:100,u:'ml'},{n:'Cinnamon',pp:2,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'},{n:'Coconut oil for frying',pp:5,u:'ml'}],method:['Blend oats to fine flour. Whisk with eggs, milk, cinnamon and vanilla.','Rest batter 5 min.','Fry in a light-oiled pan over medium heat — 2 min per side.','Serve with fresh berries.'],tip:'Berries are low GI. Use them instead of banana or syrup.'},
+  {id:'db_sweetpot',     tier:'free',  emoji:'🍠', name:'Sweet Potato & Chickpea Bowl', kcal:360, costPP:39, feel:'Grounding and filling — the kind of meal that sustains without the afternoon slump.',badges:['🩸 Low-GI','🌱 Plant-Based','🍠 Nutritious'],base300:[{n:'Sweet potato (cubed, roasted)',pp:200,u:'g'},{n:'Canned chickpeas (drained)',pp:120,u:'g'},{n:'Baby spinach',pp:60,u:'g'},{n:'Olive oil',pp:15,u:'ml'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Cumin',pp:2,u:'g'},{n:'Feta',pp:25,u:'g'}],method:['Toss sweet potato and chickpeas in oil, cumin, salt. Roast 200°C for 25 min.','Wilt spinach in a warm pan 1 min. Season.','Build bowl: spinach base, sweet potato, chickpeas on top.','Drizzle with lemon. Crumble feta.'],tip:'Sweet potato has a lower GI than white potato.'},
+  {id:'db_lentilsoup',   tier:'free',  emoji:'🍲', name:'Green Lentil Soup',            kcal:295, costPP:18, feel:'Steady, earthy warmth — energy that lasts for hours.',badges:['🩸 Low-GI','🫘 Fibre','🌿 Protein'],base300:[{n:'Green lentils (dried)',pp:80,u:'g'},{n:'Vegetable stock',pp:500,u:'ml'},{n:'Carrot (diced)',pp:80,u:'g'},{n:'Celery (sliced)',pp:60,u:'g'},{n:'Onion (diced)',pp:60,u:'g'},{n:'Turmeric',pp:2,u:'g'},{n:'Cumin',pp:2,u:'g'},{n:'Olive oil',pp:10,u:'ml'}],method:['Sauté onion in oil 4 min. Add carrot, celery, spices — 2 min.','Rinse lentils, add with stock. Bring to boil, simmer 25 min.','Season generously. Serve with a squeeze of lemon.','Blend half if you prefer a smoother texture.'],tip:'Green lentils have a GI of around 30 — among the lowest of any food.'},
+  {id:'db_eggveg',       tier:'plus',  emoji:'🍳', name:'Vegetable Omelette',           kcal:250, costPP:50, feel:'Light but filling — a breakfast that doesn\'t lie to you.',badges:['🩸 Low-GI','🥚 Protein','⚡ 10 min'],base300:[{n:'Eggs',pp:3,u:''},{n:'Baby spinach',pp:60,u:'g'},{n:'Mushrooms (sliced)',pp:80,u:'g'},{n:'Red pepper (diced)',pp:60,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Feta or goat cheese',pp:25,u:'g'}],method:['Sauté mushrooms and red pepper in oil 4 min. Add spinach — 1 min.','Beat eggs, season. Pour over veg.','Cook on low-medium heat, lifting edges as it sets — 3 min.','Fold. Crumble cheese over.'],tip:'Eggs are essentially zero GI — an ideal diabetic protein.'},
+  {id:'db_spinach_eggs', tier:'free',  emoji:'🥬', name:'Lemon Garlic Spinach Egg Scramble',kcal:240, costPP:41, feel:'Fresh, bright and sustaining — exactly what mornings should taste like.',badges:['🩸 Low-GI','🥚 High-Protein','⚡ Quick'],base300:[{n:'Eggs',pp:2,u:''},{n:'Fresh spinach',pp:100,u:'g'},{n:'Mushrooms (sliced)',pp:50,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Extra virgin olive oil',pp:5,u:'ml'},{n:'Black pepper and herbs',pp:1,u:'pinch'}],method:['Heat olive oil in a non-stick pan over medium heat.','Add minced garlic and mushrooms — sauté 3–4 minutes.','Add spinach and cook 1–2 minutes until wilted.','Whisk eggs with lemon juice, pepper and herbs. Pour into pan. Stir gently until just set.'],tip:'Pairs well with sliced avocado.'},
+  {id:'db_tuna_wraps',   tier:'free',  emoji:'🥬', name:'Avocado Tuna Lettuce Wraps',   kcal:260, costPP:31, feel:'Crunchy, cool and satisfying — no energy crash afterward.',badges:['🩸 Low-GI','🐟 Omega-3','🥗 Low-Carb'],base300:[{n:'Canned tuna in water (drained)',pp:100,u:'g'},{n:'Avocado (mashed)',pp:75,u:'g'},{n:'Cherry tomatoes (halved)',pp:100,u:'g'},{n:'Cucumber (diced)',pp:50,u:'g'},{n:'Large lettuce leaves',pp:80,u:'g'},{n:'Lemon juice',pp:5,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],method:['In a bowl, mix tuna, mashed avocado, tomatoes, cucumber, lemon juice, olive oil and dill.','Gently combine until well incorporated.','Spoon mixture evenly into lettuce leaves.','Roll or fold into wraps. Serve chilled.'],tip:'Keep filling and lettuce separate until ready to eat.'},
+  {id:'db_salmon_asparagus',tier:'plus',emoji:'🐟',name:'Baked Salmon with Asparagus',  kcal:305, costPP:89, feel:'Clean, elegant and quietly powerful — your blood sugar will thank you.',badges:['🩸 Low-GI','🐟 Omega-3','💪 High-Protein'],base300:[{n:'Salmon fillet',pp:120,u:'g'},{n:'Asparagus spears',pp:150,u:'g'},{n:'Extra virgin olive oil',pp:5,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Black pepper and dried rosemary',pp:1,u:'pinch'}],method:['Preheat oven to 200°C. Line a baking tray with parchment paper.','Place salmon and asparagus on tray. Drizzle with olive oil and lemon juice.','Sprinkle minced garlic, pepper and rosemary evenly.','Bake for 12–15 minutes until salmon flakes easily. Rest 1 minute.'],tip:'Pairs well with cauliflower rice or a green salad.'},
+];
