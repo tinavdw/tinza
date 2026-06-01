@@ -1700,8 +1700,7 @@ function braaiNavGo(id){
   else if(id==='desserts')  { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'}); }
   else if(id==='breads')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'}); }
   else if(id==='myplan')   { 
-    if(USER_TIER==='pro') set({braaiView:'myplan',viewingRecipe:null,recipeServings:null});
-    else alert('📋 My Plan is a Tinza Pro feature — upgrade for R99/month');
+    set({braaiView:'myplan',viewingRecipe:null,recipeServings:null});
   }
 }
 
