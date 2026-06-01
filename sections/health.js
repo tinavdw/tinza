@@ -1,3 +1,134 @@
+const SMOOTHIES = [
+  {id:'sm_green',    tier:'free', emoji:'🥬', name:'Green Power Smoothie',      kcal:220, costPP:18,
+   howItFeels:'Grassy, bright and alive — your body knows this is the real thing.',
+   shopping:[{n:'Spinach',pp:80,u:'g'},{n:'Banana',pp:80,u:'g'},{n:'Apple',pp:80,u:'g'},{n:'Ginger (fresh)',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Water or coconut water',pp:200,u:'ml'}],
+   method:['Add all ingredients to blender.','Blend on high 60 seconds until completely smooth.','Taste — add more lemon or ginger to preference.','Serve immediately over ice.'],
+   tip:'Use frozen banana for a thicker, colder smoothie without ice.'},
+  {id:'sm_berry',    tier:'free', emoji:'🫐', name:'Berry Blast Smoothie',       kcal:195, costPP:22,
+   howItFeels:'Tart, sweet, deep purple — antioxidants you can actually taste.',
+   shopping:[{n:'Mixed frozen berries',pp:150,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Milk or almond milk',pp:150,u:'ml'}],
+   method:['Blend all ingredients until smooth.','Add more milk if too thick.','Serve chilled.'],
+   tip:'Frozen berries give better colour and thickness than fresh.'},
+  {id:'sm_mango',    tier:'free', emoji:'🥭', name:'Tropical Mango Smoothie',    kcal:240, costPP:20,
+   howItFeels:'Pure sunshine — like a holiday in a glass on a Tuesday morning.',
+   shopping:[{n:'Mango (frozen or fresh)',pp:150,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Coconut milk',pp:100,u:'ml'},{n:'Pineapple juice',pp:80,u:'ml'},{n:'Lime juice',pp:10,u:'ml'}],
+   method:['Blend all ingredients until smooth and creamy.','Serve over ice with a lime wedge.'],
+   tip:'Fresh mango works — just freeze it overnight first for the best texture.'},
+  {id:'sm_choc',     tier:'free', emoji:'🍫', name:'Chocolate Protein Smoothie', kcal:310, costPP:24,
+   howItFeels:'Tastes like dessert, works like a meal — guilt is not invited.',
+   shopping:[{n:'Banana (frozen)',pp:100,u:'g'},{n:'Unsweetened cocoa powder',pp:15,u:'g'},{n:'Peanut butter',pp:30,u:'g'},{n:'Milk or oat milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'}],
+   method:['Blend all ingredients until completely smooth.','Taste — add more cocoa for intensity or honey for sweetness.','Serve immediately.'],
+   tip:'Add a handful of oats for extra staying power.'},
+  {id:'sm_avo',      tier:'free', emoji:'🥑', name:'Avocado Banana Smoothie',    kcal:280, costPP:20,
+   howItFeels:'Creamy, rich and deeply satisfying — like a meal disguised as a drink.',
+   shopping:[{n:'Avocado (ripe, half)',pp:75,u:'g'},{n:'Banana',pp:80,u:'g'},{n:'Spinach',pp:40,u:'g'},{n:'Milk or almond milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Lime juice',pp:5,u:'ml'}],
+   method:['Blend all ingredients until silky smooth.','Serve immediately — avocado oxidises quickly.'],
+   tip:'The lime juice slows browning. Drink within 30 minutes.'},
+  {id:'sm_beetroot',  tier:'plus', emoji:'🫀', name:'Beetroot & Berry Smoothie',  kcal:175, costPP:14,
+   howItFeels:'Earthy, bright red, a little bit medical — in the best possible way.',
+   shopping:[{n:'Cooked beetroot',pp:80,u:'g'},{n:'Frozen berries',pp:80,u:'g'},{n:'Apple',pp:60,u:'g'},{n:'Ginger',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Water',pp:150,u:'ml'}],
+   method:['Blend all ingredients until smooth.','Strain if you prefer a smoother texture.','Serve chilled.'],
+   tip:'Wear gloves when handling beetroot — it stains everything permanently.'},
+];
+const FRESH_JUICES = [
+  {id:'fj_classic',  tier:'free', emoji:'🍊', name:'Classic Orange & Carrot',    kcal:120, costPP:12,
+   howItFeels:'Bright, sweet, the smell of Sunday mornings.',
+   shopping:[{n:'Oranges',pp:200,u:'g'},{n:'Carrots',pp:150,u:'g'},{n:'Fresh ginger',pp:5,u:'g'}],
+   method:['Peel oranges. Wash carrots and ginger.','Juice all ingredients together.','Serve immediately over ice.'],
+   tip:'Juice carrots first, then orange — easier on the juicer.'},
+  {id:'fj_green',    tier:'free', emoji:'🥒', name:'Green Detox Juice',          kcal:90,  costPP:18,
+   howItFeels:'Tastes like the colour green — clean, sharp, unapologetically healthy.',
+   shopping:[{n:'Cucumber',pp:150,u:'g'},{n:'Celery (stalks)',pp:80,u:'g'},{n:'Green apple',pp:100,u:'g'},{n:'Spinach',pp:60,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Ginger',pp:5,u:'g'}],
+   method:['Wash all ingredients. Core the apple.','Juice in order: cucumber, celery, apple, spinach, lemon, ginger.','Stir and serve over ice.'],
+   tip:'Lemon and ginger mask the green flavour significantly — don\'t skip them.'},
+  {id:'fj_beetroot',  tier:'free', emoji:'🫀', name:'Beetroot & Apple Juice',    kcal:110, costPP:14,
+   howItFeels:'Deep red, earthy, slightly sweet — your blood pressure just relaxed.',
+   shopping:[{n:'Raw beetroot',pp:150,u:'g'},{n:'Apple',pp:150,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Ginger',pp:5,u:'g'}],
+   method:['Peel beetroot. Wash and core apple.','Juice all together.','Serve immediately — colour fades quickly.'],
+   tip:'Raw beetroot is more nutritious than cooked. Wear gloves.'},
+  {id:'fj_watermelon',tier:'free', emoji:'🍉', name:'Watermelon Mint Cooler',    kcal:80,  costPP:8,
+   howItFeels:'Summer in a glass — ice cold, rosy, completely effortless.',
+   shopping:[{n:'Watermelon (flesh, no rind)',pp:300,u:'g'},{n:'Fresh mint leaves',pp:8,u:'g'},{n:'Lime juice',pp:15,u:'ml'}],
+   method:['Blend watermelon until smooth. Strain through a sieve.','Add lime juice and torn mint leaves.','Serve over ice.'],
+   tip:'Watermelon is 92% water — barely needs a juicer. A blender and sieve works perfectly.'},
+  {id:'fj_pineapple', tier:'plus', emoji:'🍍', name:'Pineapple & Turmeric Juice', kcal:130, costPP:16,
+   howItFeels:'Tropical fire — sweet pineapple with golden anti-inflammatory heat.',
+   shopping:[{n:'Fresh pineapple',pp:200,u:'g'},{n:'Turmeric (fresh or ½ tsp powder)',pp:3,u:'g'},{n:'Lemon',pp:30,u:'g'},{n:'Black pepper (pinch)',pp:0.2,u:'g'}],
+   method:['Core and cube pineapple. Peel fresh turmeric.','Juice pineapple and turmeric together.','Add lemon juice. Add a tiny pinch of black pepper.','Stir and serve.'],
+   tip:'Black pepper increases turmeric absorption by 2000%. Don\'t skip it.'},
+];
+const OVERNIGHT_OATS = [
+  {id:'oa_classic',  tier:'free', emoji:'🌾', name:'Classic Overnight Oats',     kcal:380, costPP:12,
+   howItFeels:'Quietly satisfying — breakfast that waited patiently for you.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk or almond milk',pp:150,u:'ml'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Honey',pp:15,u:'g'},{n:'Banana (sliced)',pp:60,u:'g'},{n:'Chia seeds',pp:10,u:'g'}],
+   method:['Combine oats, milk, yoghurt, honey and chia seeds in a jar.','Stir well. Seal and refrigerate overnight (minimum 6 hours).','Top with sliced banana before serving cold.'],
+   tip:'The ratio is 1:1.5 oats to liquid for the right texture. Too thick — add more milk.'},
+  {id:'oa_berry',    tier:'free', emoji:'🫐', name:'Berry & Chia Overnight Oats', kcal:355, costPP:18,
+   howItFeels:'Bright and jammy — fruit that sank overnight into creamy oats.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Chia seeds',pp:15,u:'g'},{n:'Mixed berries (fresh or frozen)',pp:100,u:'g'},{n:'Honey',pp:12,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'}],
+   method:['Mix oats, milk, chia seeds, honey and vanilla. Stir well.','Fold in half the berries.','Refrigerate overnight.','Top with remaining berries before serving.'],
+   tip:'Frozen berries break down overnight and create a jammy layer — better than fresh.'},
+  {id:'oa_pb',       tier:'free', emoji:'🥜', name:'Peanut Butter Banana Oats',  kcal:430, costPP:14,
+   howItFeels:'Rich, indulgent, filling — the PB&J of breakfast jars.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Peanut butter',pp:30,u:'g'},{n:'Banana (mashed + sliced)',pp:80,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Cinnamon (pinch)',pp:0.5,u:'g'}],
+   method:['Mash half the banana with the oats, milk, peanut butter, honey and cinnamon.','Stir well. Refrigerate overnight.','Top with sliced banana before serving.'],
+   tip:'Mashing banana into the oats makes the whole jar creamy and naturally sweet.'},
+  {id:'oa_choc',     tier:'plus', emoji:'🍫', name:'Chocolate Hazelnut Oats',    kcal:410, costPP:16,
+   howItFeels:'Breakfast that tastes like dessert — and that\'s completely fine.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Cocoa powder',pp:10,u:'g'},{n:'Milk',pp:160,u:'ml'},{n:'Honey',pp:15,u:'g'},{n:'Hazelnuts (chopped)',pp:20,u:'g'},{n:'Banana',pp:60,u:'g'}],
+   method:['Whisk cocoa into milk until dissolved.','Add oats, honey and banana. Stir well.','Refrigerate overnight.','Top with chopped hazelnuts before serving.'],
+   tip:'Toast the hazelnuts in a dry pan for 3 minutes — completely transforms the flavour.'},
+];
+const HEALTHY_MUFFINS = [
+  {id:'mu_banana',   tier:'free', emoji:'🍌', name:'Banana Oat Muffins',         kcal:145, costPP:8, makes:12,
+   howItFeels:'Soft, gently sweet, smells like a proper kitchen — the muffin that replaces the sugary one.',
+   shopping:[{n:'Ripe bananas (mashed)',pp:0.25,u:''},{n:'Rolled oats',pp:20,u:'g'},{n:'Cake flour',pp:15,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Honey',pp:8,u:'g'},{n:'Oil or melted butter',pp:5,u:'ml'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Cinnamon',pp:0.3,u:'g'}],
+   method:['Preheat oven 180°C. Line a 12-hole muffin tin.','Mash bananas well. Mix in egg, honey and oil.','Add oats, flour, baking powder and cinnamon. Mix until just combined.','Fill muffin holes ¾ full. Bake 18–22 min until golden and a skewer comes out clean.','Cool 5 min before removing.'],
+   tip:'The riper the banana, the sweeter the muffin — no added sugar needed.'},
+  {id:'mu_blueberry', tier:'free', emoji:'🫐', name:'Blueberry Yoghurt Muffins',  kcal:160, costPP:12, makes:12,
+   howItFeels:'Bursting pockets of berry in a tender crumb — the muffin that feels like a treat.',
+   shopping:[{n:'Cake flour',pp:20,u:'g'},{n:'Plain yoghurt',pp:20,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Honey or sugar',pp:10,u:'g'},{n:'Oil',pp:5,u:'ml'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Blueberries (fresh or frozen)',pp:15,u:'g'},{n:'Vanilla',pp:0.3,u:'ml'}],
+   method:['Preheat oven 180°C. Grease muffin tin.','Whisk egg, yoghurt, oil, honey and vanilla.','Fold in flour and baking powder until just combined — lumps are fine.','Gently fold in blueberries.','Fill ¾ full. Bake 20–25 min.'],
+   tip:'Toss blueberries in a teaspoon of flour before folding in — they won\'t sink.'},
+  {id:'mu_carrot',   tier:'free', emoji:'🥕', name:'Carrot & Cinnamon Muffins',  kcal:155, costPP:9, makes:12,
+   howItFeels:'Warm spice, sweet carrot — all the joy of carrot cake in a portable muffin.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Carrots (grated)',pp:25,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Brown sugar or honey',pp:10,u:'g'},{n:'Cinnamon',pp:0.5,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Milk',pp:10,u:'ml'}],
+   method:['Preheat oven 180°C. Line muffin tin.','Whisk egg, oil, sugar and milk.','Gently mix in flour, baking powder and cinnamon.','Fold in grated carrot.','Fill ¾ full. Bake 20–22 min.'],
+   tip:'Squeeze excess moisture from grated carrot before adding — prevents soggy muffins.'},
+  {id:'mu_choc',     tier:'plus', emoji:'🍫', name:'Dark Choc & Beetroot Muffins', kcal:170, costPP:11, makes:12,
+   howItFeels:'Rich, dark and deeply satisfying — the muffin that has no business being healthy.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Cooked beetroot (grated)',pp:25,u:'g'},{n:'Cocoa powder',pp:5,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Dark chocolate chips',pp:10,u:'g'}],
+   method:['Preheat oven 180°C.','Mix egg, oil and honey. Add grated beetroot.','Fold in flour, cocoa and baking powder.','Add chocolate chips.','Fill muffin tin ¾ full. Bake 20–24 min.'],
+   tip:'Beetroot keeps these muffins moist for 3+ days. Wrap individually for lunchboxes.'},
+];
+const RAW_AND_REAL = [
+  {id:'rr_powerball',  tier:'free', emoji:'⚡', name:'Peanut Butter Power Balls', kcal:110, costPP:8,
+   howItFeels:'One ball, five minutes, kept in the fridge all week — your afternoon snack sorted.',
+   shopping:[{n:'Rolled oats',pp:20,u:'g'},{n:'Peanut butter',pp:25,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Chia seeds',pp:5,u:'g'},{n:'Dark chocolate chips',pp:8,u:'g'}],
+   method:['Mix all ingredients together in a bowl until combined.','Refrigerate the mixture 30 min until firm enough to roll.','Roll into balls — about 25g each.','Store in the fridge for up to 1 week.'],
+   tip:'Wet hands prevent sticking. If too dry, add a little more honey.'},
+  {id:'rr_acai',       tier:'free', emoji:'🫐', name:'Açaí Smoothie Bowl',        kcal:280, costPP:28,
+   howItFeels:'Like the Instagram version of breakfast — except you made it yourself.',
+   shopping:[{n:'Frozen açaí (or mixed dark berries)',pp:100,u:'g'},{n:'Banana (frozen)',pp:80,u:'g'},{n:'Almond milk',pp:60,u:'ml'},{n:'Granola',pp:30,u:'g'},{n:'Fresh berries',pp:50,u:'g'},{n:'Honey',pp:8,u:'g'},{n:'Coconut flakes',pp:8,u:'g'}],
+   method:['Blend frozen açaí and banana with just enough almond milk to move — keep it thick.','Pour into a bowl immediately.','Top with granola, fresh berries, coconut flakes and honey.','Eat immediately — it melts fast.'],
+   tip:'The key is keeping it thick — add milk one tablespoon at a time.'},
+  {id:'rr_chia',       tier:'free', emoji:'🫙', name:'Vanilla Chia Pudding',      kcal:190, costPP:12,
+   howItFeels:'Creamy, speckled, quietly exotic — tastes like something from a wellness café.',
+   shopping:[{n:'Chia seeds',pp:25,u:'g'},{n:'Coconut milk or almond milk',pp:200,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Vanilla extract',pp:2,u:'ml'},{n:'Fresh mango or berries (to serve)',pp:60,u:'g'}],
+   method:['Whisk chia seeds, milk, honey and vanilla together.','Stir well — then stir again 5 minutes later.','Refrigerate overnight or minimum 4 hours.','Serve topped with fresh mango or berries.'],
+   tip:'Must be stirred within the first 10 minutes to prevent clumping at the bottom.'},
+  {id:'rr_granola',    tier:'free', emoji:'🥣', name:'SA Honey Nut Granola',      kcal:260, costPP:9,
+   howItFeels:'Crunchy, golden, smells like your oven just hugged you — eat it on everything.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Mixed nuts (chopped)',pp:20,u:'g'},{n:'Honey',pp:15,u:'g'},{n:'Coconut oil',pp:8,u:'ml'},{n:'Cinnamon',pp:1,u:'g'},{n:'Pumpkin seeds',pp:10,u:'g'},{n:'Dried cranberries or raisins',pp:10,u:'g'}],
+   method:['Preheat oven 160°C.','Mix oats, nuts and seeds. Warm honey and coconut oil together.','Pour over oat mixture. Add cinnamon. Stir well to coat.','Spread on baking sheet. Bake 20–25 min, stirring once halfway.','Cool COMPLETELY before adding dried fruit. Store airtight.'],
+   tip:'Do NOT stir while cooling — the clusters form as it cools. Resist.'},
+  {id:'rr_fruitbowl',  tier:'plus', emoji:'🍓', name:'SA Fruit Salad with Honey Lime', kcal:130, costPP:18,
+   howItFeels:'All the best fruit of summer, dressed simply — nothing needs to be complicated.',
+   shopping:[{n:'Watermelon (cubed)',pp:100,u:'g'},{n:'Mango (cubed)',pp:80,u:'g'},{n:'Strawberries (halved)',pp:80,u:'g'},{n:'Banana (sliced)',pp:60,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Lime juice',pp:10,u:'ml'},{n:'Fresh mint',pp:5,u:'g'}],
+   method:['Combine all fruit in a bowl.','Whisk honey and lime juice together. Pour over fruit.','Tear mint leaves over the top.','Refrigerate 15 min before serving.'],
+   tip:'Add the banana just before serving — it browns quickly.'},
+];
+
 function healthOpenJuice(id){
   const j = FRESH_JUICES.find(x=>x.id===id);
   if(j) set({activeSmoothie:{...j, colour:'#f070a0', cat:'freshjuice'}});
@@ -213,12 +344,147 @@ function renderHealthMyPlan(isPro){
     +'</div>';
 }
 
+// ══════════════════════════════════════════════════════════════
+// HEALTH RECIPE DETAIL — v33 template with photo header
+// ══════════════════════════════════════════════════════════════
+function healthImgUrl(name){
+  // Encode name for URL — matches "Recipe Name .jpg" or "Recipe Name.jpg"
+  const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
+  const variants = [name, name + ' ', name.trim()];
+  // Try name as-is first, then with trailing space (some files have it)
+  return base + encodeURIComponent(name.trim()) + '.jpg';
+}
+
+function healthRecipeDetail(recipe, backState){
+  if(!recipe) return '';
+  const isPro = tierAllows('pro');
+  const srv = S.servings||1;
+  const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
+  const imgUrl = healthImgUrl(recipe.name);
+  const _bs = backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null};
+  const backBtn = Object.entries(_bs).map(([k,v])=>k+":"+JSON.stringify(v)).join(",");
+
+  // Build ingredients scaled to servings
+  const ings = (recipe.base300||recipe.shopping||[]);
+  const ingsHTML = ings.map(i=>{
+    if(!i||!i.n) return '';
+    let amt = '';
+    if(i.pp && i.u && i.u!=='pinch'){
+      const total = Math.round(i.pp * srv * 10)/10;
+      amt = total>=1000&&i.u==='g'?`${(total/1000).toFixed(1)}kg`:
+            total>=1000&&i.u==='ml'?`${(total/1000).toFixed(1)}L`:
+            `${total}${i.u}`;
+    } else if(i.pp && !i.u){
+      amt = `${Math.round(i.pp*srv)}`;
+    } else if(i.u==='pinch'){
+      amt = 'pinch';
+    }
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a2820;font-size:13px;">
+      <span style="color:#c0d8c0;">${i.n}</span>
+      <span style="color:#40d0a0;font-weight:bold;flex-shrink:0;margin-left:8px;">${amt}</span>
+    </div>`;
+  }).join('');
+
+  // Method steps
+  const steps = recipe.method||[];
+  const stepsHTML = steps.map((step,i)=>`
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2820;">
+      <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#1a3028;border:1px solid #30c090;display:flex;align-items:center;justify-content:center;font-size:12px;color:#40d0a0;font-weight:bold;">${i+1}</div>
+      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}</div>
+    </div>`).join('');
+
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <!-- Photo header -->
+    <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
+      <img src="${imgUrl}"
+           onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+           style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
+      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;z-index:0;">
+        <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
+        <span style="font-size:11px;color:#256040;">📷 Photo coming soon</span>
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
+      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
+        <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
+        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${recipe.name}</h1>
+        ${recipe.feel?`<p style="margin:0;font-size:12px;color:#d090b0;font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
+      </div>
+    </div>
+
+    <!-- Badges -->
+    ${(recipe.badges||[]).length?`
+    <div style="padding:12px 16px 0;display:flex;flex-wrap:wrap;gap:6px;">
+      ${(recipe.badges||[]).map(b=>`<span style="background:#1a2820;border:1px solid #2a4838;border-radius:20px;padding:4px 10px;font-size:11px;color:#60c090;">${b}</span>`).join('')}
+    </div>`:``}
+
+    <!-- Quantity box -->
+    <div style="margin:12px 16px 0;background:#0a2018;border:1px solid #30c090;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:11px;color:#208060;letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
+          <div style="font-size:26px;color:#40d0a0;font-weight:bold;line-height:1;">${srv} person${srv!==1?'s':''}</div>
+          ${recipe.kcal?`<div style="font-size:11px;color:#30c090;margin-top:2px;">${recipe.kcal*srv} kcal total</div>`:''}
+          ${recipe.costPP?`<div style="font-size:11px;color:#208060;">~R${recipe.costPP*srv} total</div>`:''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">−</button>
+          <button onclick="setQuiet({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:#1a3028;border:2px solid #30c090;color:#40d0a0;font-size:20px;cursor:pointer;">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 16px 100px;">
+      <!-- Ingredients -->
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">🛒 Ingredients — ${srv} person${srv!==1?'s':''}</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${ingsHTML||'<div style="color:#208060;font-size:12px;">No ingredients listed.</div>'}
+        </div>
+      </div>
+
+      <!-- Method -->
+      ${stepsHTML?`
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">👨‍🍳 Method</div>
+        <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
+          ${stepsHTML}
+        </div>
+      </div>`:''}
+
+      <!-- Tip -->
+      ${recipe.tip?`
+      <div style="margin-top:12px;background:#0a1a10;border-left:3px solid #30c090;border-radius:0 8px 8px 0;padding:12px 14px;">
+        <div style="font-size:10px;color:#30c090;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">💡 Tip</div>
+        <div style="font-size:13px;color:#a0c8a0;line-height:1.5;">${recipe.tip}</div>
+      </div>`:''}
+
+      <!-- Actions -->
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
+        <button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" 
+          style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
+          ${inPlan?'✅ Added to Plan — tap to remove':'＋ Add to My Plan'}
+        </button>
+        <button onclick="set({${backBtn}})" style="width:100%;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back to Health Hub</button>
+        <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="width:100%;padding:12px;background:none;border:none;color:#403050;font-size:12px;cursor:pointer;">Home</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function healthHTML(){
   const isPro = tierAllows('pro');
   const srv = S.servings||1;
   const howOpen = S.healthHowOpen||false;
   const activeTab = S.healthTab||'smoothies';
   const searchVal = S.healthSearch||'';
+
+  // ── Recipe detail screens ──────────────────────────────────
+  if(S.activeSmoothie) return healthRecipeDetail(S.activeSmoothie, {activeSmoothie:null});
+  if(S.activeOats)     return healthRecipeDetail(S.activeOats,     {activeOats:null});
+  if(S.activeMuffin)   return healthRecipeDetail(S.activeMuffin,   {activeMuffin:null});
+  if(S.activeRaw)      return healthRecipeDetail(S.activeRaw,      {activeRaw:null});
+
 
   if(S.healthShowPlan) return `
     <div style="min-height:100vh;background:#0f0e0c;">

@@ -191,10 +191,21 @@ function babyRecipeHTML_screen(){
   const inPlan = (S.babyPlan||[]).includes(b.id);
   const batches = S.babyBatches||1;
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
-      <button onclick="setQuiet({activeBaby:null,babyView:null})" style="background:none;border:none;color:#e07090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Tiny Tummies</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${b.emoji} ${b.name}</h1>
-      <div style="font-size:11px;color:#c06080;font-style:italic;">${b.stageLabel} · ⏱️ ${b.time} min</div>
+    <!-- Photo header -->
+    <div style="position:relative;height:220px;overflow:hidden;background:#1a0f18;">
+      <img src="${'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/'+encodeURIComponent(b.name.trim())+'.jpg'}"
+           onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0f18;">
+        <span style="font-size:48px;">${b.emoji}</span>
+        <span style="font-size:11px;color:#6a4050;">📷 Photo coming soon</span>
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
+      <button onclick="setQuiet({activeBaby:null,babyView:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #e07090;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back to Tiny Tummies</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
+        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${b.emoji} ${b.name}</h1>
+        <div style="font-size:11px;color:#c06080;font-style:italic;">${b.stageLabel} · ⏱️ ${b.time} min</div>
+      </div>
     </div>
     <div class="content">
       <div style="margin-bottom:12px;">${(b.badges||[]).map(badge=>`<span style="background:#2a1020;border:1px solid #5a2040;border-radius:12px;font-size:10px;color:#c07090;padding:3px 8px;margin:2px;display:inline-block;">${badge}</span>`).join("")}</div>

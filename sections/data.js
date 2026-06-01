@@ -1,3 +1,106 @@
+let S = {
+  screen: 'home',
+  people: 4,
+  appetite: 'normal',
+  servings: 1,
+
+  // Braai
+  braiStep: 1,
+  braaiView: 'browse',
+  braaiSidesFilter: 'all',
+  selectedMeats: [],
+  selectedSides: [],
+  braaiMeatRecipe: null,
+  braiCat: null,
+  activeCat: null,
+  howItWorksOpen: false,
+  portionHelpOpen: false,
+
+  // Health
+  healthTab: 'smoothies',
+  healthGroup: null,
+  vitalCat: null,
+  activeSmoothie: null,
+  healthOpenSmoothie: null,
+  healthOpenJuice: null,
+  activeOats: null,
+  activeMuffin: null,
+  activeRaw: null,
+  healthPlan: [],
+  healthPlanOpen: false,
+
+  // Events
+  eventTab: 'mains',
+  eventGuests: 20,
+  eventActiveRecipe: null,
+  eventStep: 1,
+  buffetStep: 1,
+
+  // Budget
+  budget: 150,
+  budgetAmount: 150,
+  budgetPeople: 4,
+  budgetPlanView: false,
+  budgetStep: 1,
+
+  // World Kitchen
+  wkScreen: null,
+  wkCountry: null,
+  wkSelectedRegion: null,
+  wkActiveCountry: null,
+  wkTab: 'starters',
+  wkSACulture: null,
+  wkRecipeDetail: null,
+  wkSearch: '',
+  wkHowOpen: false,
+  wkPortionOpen: false,
+  wkPlan: [],
+
+  // Furry Friends
+  furryPet: 'dog',
+  furryHowOpen: false,
+  dogView: 'browse',
+  catView: 'browse',
+  activeDog: null,
+  activeCat2: null,
+  dogSize: 'medium',
+  dogAge: 'adult',
+  catAge: 'adult',
+  dogPlan: [],
+  catPlan: [],
+
+  // Tiny Tummies / Kiddies
+  babyView: 'browse',
+  activeBaby: null,
+  kiddiesView: 'browse',
+
+  // Mood / Surprise
+  moodSelected: [],
+  moodRecipes: [],
+  moodAIRecipes: [],
+  moodLoading: false,
+  moodAILoading: false,
+  moodPage: 1,
+  moodPlan: [],
+  moodPlanView: false,
+  moodServings: 2,
+  moodActiveRecipe: null,
+
+  // Meals / Search
+  find: '',
+  recipeServings: 2,
+  recipeAdjustments: {},
+
+  // Finger Foods
+  fingerSection: null,
+  fingerView: 'browse',
+  fingerShopCart: [],
+
+  // Misc
+  checkedShopItems: [],
+  recentlyViewed: [],
+};
+
 
 let USER_TIER = "free";
 
@@ -185,7 +288,7 @@ const MEAT_GROUPS = [
       recipe:{ coalType:"High heat — very fast", ingredients:["Large prawns (shelled, deveined) — 30g each","Firm white fish (yellowtail or hake, cubed 4cm) — 30g per person","Calamari tubes (sliced into rings) — 20g per person","Baby marrows (sliced) — 15g per person","Cherry tomatoes — 2 per person","— MARINADE:","Olive oil — 20ml per person","Lemon juice — 15ml per person","Garlic — 5g per person (crushed)","Fresh parsley — 5g per person (chopped)","Coarse salt — 3g per person","Black pepper — 2g per person"],
         method:["Mix marinade ingredients. Coat all seafood gently. 30 min maximum — acid cooks seafood!","Soak wooden skewers 30 min. Thread: prawn, fish, calamari ring, cherry tomato, marrow. Repeat.","SCORCHING heat. Turn gently only once — after 3–4 min.","Total cook time: 6–8 min. Do not overcook — seafood is done when just opaque.","Squeeze fresh lemon over immediately. Serve. Enjoy! 😊"],
         tip:"Seafood overcooks in seconds. 6–8 min total is all it needs. The moment it turns opaque, it's done. Calamari goes rubbery after 2 min — skewer it between more forgiving pieces." }},
-    { id:"espetada", name:"Espetada (Beef & Seafood)", emoji:"🍢", unit:"pcs", soloG:320, sharedG:160, gramEach:100, soloPcs:3, sharedPcs:2, note:"Portuguese-style — massive salt, bay leaves",
+    { id:"espetada", name:"Seafood Espetada", emoji:"🍢", unit:"pcs", soloG:320, sharedG:160, gramEach:100, soloPcs:3, sharedPcs:2, note:"Portuguese-style — massive salt, bay leaves",
       recipe:{ coalType:"High heat", ingredients:["Beef sirloin — 100g per person (large 5cm cubes)","Coarse sea salt — 10g per person (very generous)","Fresh bay leaves — 4 per person","Garlic — 5g per person (crushed)","Olive oil — 15ml per person","Black pepper — 2g per person"],
         method:["Thread large cubes onto skewers with bay leaves between.","Rub with salt, garlic, oil and pepper.","High heat. 3–4 min per side. Medium-rare.","Enjoy! 😊"],
         tip:"Large chunks, tons of salt, bay leaves — simplicity IS the genius." }},

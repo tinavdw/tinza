@@ -345,7 +345,7 @@ function wkSAKitchensHTML(){
           ${active===c.key?`
             <div style="border-top:1px solid #1a3020;padding-top:10px;">
               <p style="font-size:12px;color:#50a878;font-style:italic;margin:0 0 10px;">${c.feel}</p>
-              <button onclick="event.stopPropagation();setQuiet({wkScreen:'country',wkCountry:c.key,wkSACulture:'${c.key}'});draw();window.scrollTo(0,0);"
+              <button onclick="event.stopPropagation();setQuiet({wkScreen:'country',wkCountry:'${c.key}',wkSACulture:'${c.key}'});draw();window.scrollTo(0,0);"
                       style="width:100%;padding:10px;border-radius:8px;background:#0a2018;border:2px solid #30a878;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
                 Explore ${c.name} recipes →
               </button>
@@ -888,6 +888,63 @@ function wkCountryHTML(){
       trivia:"The hāngī — a Māori earth oven feast — involves heating stones in a pit fire, placing meat and vegetables in baskets, lowering them onto the hot stones, covering with earth and steaming for 3–4 hours. It is a communal event for celebrations and tangihanga (funerals). New Zealand lamb is considered the world's finest for flavour — grass-fed year-round in clean mountain pastures. The pavlova dispute with Australia remains diplomatically unresolved.",
       grows:'Lamb, dairy, kiwifruit (world leader), apples, wine grapes, cervena (farmed venison), Pacific oysters',
       cookStyle:'Māori cooking is communal — the hāngī is prepared by men and women together. Modern NZ cooking is relaxed and outdoor-oriented. The bach (holiday home) BBQ is a national institution.'
+    },
+    'boerekos': {
+      starters:  ['Braaibroodjie','Biltong Board','Boerewors with Tomato Relish','Oxtail Soup','Sousboontjies'],
+      mains:     ['Potjiekos (Lamb & Vegetable Stew)','Boerewors with Tomato Relish','Tomato Bredie','Bobotie','Oxtail Stew','Chicken Pie (Hoenderpastei)','Frikkadels (Meatballs)','Herderspastei (Shepherd\'s Pie)','Cabbage Bredie (Koolbredie)'],
+      sides:     ['Yellow Rice with Raisins','Roosterkoek','Potato Bake (Aartappelgereg)','Sousboontjies (Sweet-Sour Green Beans)','Braai Broodjies'],
+      desserts:  ['Malva Pudding','Milk Tart (Melktert)','Pumpkin Fritters (Pampoenkoekies)','Koeksisters','Peppermint Crisp Tart','Date Loaf','Baked Custard','Soetkoekies (Ginger Biscuits)','Buttermilk Rusks (Beskuit)','Hertzoggie','Mosbolletjie Bread'],
+      drinks:    ['Homemade Ginger Beer','Karringmelk (Buttermilk Drink)'],
+      trivia:'Boerekos (farmer\'s food) is the backbone of Afrikaner food culture, born from trekboer hardship and the Great Trek. Potjiekos — slow-cooked in a cast-iron pot over coals — originated with the Voortrekkers who carried their black three-legged pots across the continent. Koeksisters were introduced to the Cape in the 17th century and every farm family guarded their own recipe. The braai is the great unifier — on 24 September (Heritage Day), millions of South Africans fire up the grid.',
+      grows:'Maize, wheat, deciduous fruit, wine grapes, rooibos, fynbos honey, pumpkin, sunflowers, deciduous stone fruit in the Boland',
+      cookStyle:'The kitchen was the ouma\'s domain — recipes passed by watching, never written down. The braai is male territory. Potjiekos is traditionally the man\'s pot. Beskuit (rusks) are baked in enormous batches every autumn.'
+    },
+    'capemalay': {
+      starters:  ['Samoosas','Sosaties','Pickled Fish'],
+      mains:     ['Bobotie','Cape Malay Chicken Curry','Denningvleis (Tangy Lamb Stew)','Tomato Bredie','Chicken Breyani','Lamb Breyani','Snoek Curry','Green Bean Bredie (Snyboontjies)','Waterblommetjie Bredie','Frikkadels'],
+      sides:     ['Cape Malay Yellow Rice','Flaky Roti','Tomato-Onion Sambal'],
+      desserts:  ['Koesisters (Cape Malay style)','Milk Tart','Boeber (Vermicelli Pudding)','Hertzoggie','Date Balls','Peppermint Crisp Tart'],
+      trivia:'Cape Malay cuisine is one of the oldest and most layered food cultures in South Africa, born from the forced migration of enslaved people from the Indonesian archipelago, India, Sri Lanka and East Africa to the Cape Colony from the 17th century onward. Bobotie — now considered a national dish — dates to 1609 and was brought by slaves from Batavia. The Bo-Kaap neighbourhood in Cape Town remains the living heart of this cuisine. The flavour profile — warm spice, sweet dried fruit, tangy vinegar — is unlike anything else in the world.',
+      grows:'Snoek (seasonal, from the Atlantic), waterblommetjies (foraged from dams in spring), apricots, raisins, dried fruit — all central to Cape Malay cooking',
+      cookStyle:'Historically and still today — women. The Cape Malay kitchen is the most matriarchal food tradition in South Africa. Recipes are passed through daughters. Koesisters are made by women early Sunday mornings for church.'
+    },
+    'indian': {
+      starters:  ['Durban Samosas','Chilli Bites (Bhajia)','Masala Chips','Seekh Kebabs'],
+      mains:     ['Bunny Chow','Durban Chicken Curry','Durban Mutton Curry','Lamb Biryani','Sugar Bean Curry','Durban Fish Curry','Sugar Beans & Potato Curry','Vegetable Biryani','Prawn Curry','Aloo Curry (Spicy Potato)','Dhal Curry'],
+      sides:     ['Durban Roti','Mango Atchar'],
+      desserts:  ['Gulab Jamun','Carrot Halwa (Gajar Halwa)','Soji Halwa','Ras Malai'],
+      trivia:'South African Indian cuisine centres on Durban — home to the largest Indian population outside India. The community traces back to 1860 when indentured labourers were brought to KwaZulu-Natal to work the sugar cane fields. Bunny chow — curry in a hollowed bread loaf — was invented in Durban\'s Grey Street in the 1940s and is now one of South Africa\'s most iconic street foods. Durban curry is distinctively hotter and simpler than North Indian curry — bone-in meat, minimal cream, maximum chilli.',
+      grows:'Sugar cane (the crop that brought the community to SA), mango, banana, roti wheat, curry leaf trees planted in every yard',
+      cookStyle:'Women dominate the home kitchen. The dhal and curry are cooked daily. Breyani for weddings and Eid can take two days to prepare. The tawa (flat griddle) is the engine of the Indian kitchen — roti is made fresh for every meal in traditional homes.'
+    },
+    'zulu': {
+      starters:  ['Amasi (Fermented Milk)','Mageu (Fermented Maize Drink)'],
+      mains:     ['Umngqusho (Samp & Sugar Beans)','Inyama Yenkukhu (Chicken Stew)','Beef Stew with Cabbage','Ulusu (Tripe Stew)','Isigwaqane (Maize with Spinach)','Imifino (Wild Greens Stew)'],
+      sides:     ['Phuthu (Stiff Maize Porridge)','Uphuthu (Crumbly Maize Porridge)','Dombolo (Steamed Dumplings)','Ujeqe (Steamed Yeast Bread)','Chakalaka'],
+      desserts:  ['Isijabane (Roasted Maize & Peanut Mix)'],
+      drinks:    ['Amasi (Fermented Milk)','Mageu (Fermented Maize Drink)'],
+      trivia:'Zulu cuisine is ancient, nourishing and deeply tied to the land. Umngqusho — samp and sugar beans cooked together until creamy — was famously Nelson Mandela\'s favourite dish (he was Xhosa but the dish is beloved across cultures). Amasi (fermented milk) was drunk by Zulu warriors for strength and is still consumed daily. Cooking pots (izimbiza) are central to Zulu ceremony. The traditional inkukhu (chicken stew) is prepared for important guests — serving chicken is an act of significant respect.',
+      grows:'Maize (impila), sorghum (used for amahewu and traditional beer), wild greens (imifino foraged from the veld), sugar beans, sweet potato',
+      cookStyle:'Women cook — this is unambiguous in traditional Zulu culture. The act of cooking for others is an expression of love, care and status. A daughter who cannot cook is considered ill-prepared for adulthood. Slaughtering animals for ceremony is male territory.'
+    },
+    'sotho': {
+      starters:  ['Motoho (Fermented Sorghum Porridge)','Ting (Fermented Maize Porridge)'],
+      mains:     ['Bean & Sorghum Stew (Likhobe/Dikgobe)','Seswaa/Tshotlo (Shredded Meat)','Beef Tripe Stew (Mala)','Chicken Feet Stew','Pumpkin & Peanut Butter Stew','Dried Meat Stew (Lekhala)'],
+      sides:     ['Stiff Maize Porridge (Papa)','Wild Greens (Morogo)','Steamed Bread (Borotho)','Sorghum Dumplings (Dipone)'],
+      desserts:  ['Deep-Fried Doughnuts (Makoenya/Vetkoek)','Sweet Sorghum Porridge (Mabele a Aledi)','Fermented Maize Porridge (Ting)'],
+      trivia:'Sotho cuisine spans both North and South Sotho communities and extends into Lesotho and the Free State. Seswaa — slow-cooked, pounded meat — is the signature dish for weddings and celebrations: the meat cooks for hours until it falls from the bone, then is pounded in a mortar until it shreds. Papa (stiff maize porridge) is the daily anchor of every Sotho meal. Morogo (wild greens) reflects a deep connection to the land — specific varieties are foraged seasonally and considered superior to cultivated spinach.',
+      grows:'Sorghum (mabele — the original grain before maize), maize, pumpkin, beans, wild greens, peanuts',
+      cookStyle:'Women cook in the home exclusively. Seswaa preparation is communal — women cook, men may pound. The three-legged pot (pitsa) over an open fire is the symbol of Sotho cooking. Older women are the keepers of fermentation knowledge — ting and motoho timing requires experience passed through generations.'
+    },
+    'xhosa': {
+      starters:  ['Amasi (Sour Milk)','Amahewu (Fermented Maize Drink)'],
+      mains:     ['Samp & Beans (Umngqusho)','Chicken Stew (Isityu seNkukhu)','Beef Stew (Isityu Senyama)','Tripe Stew (Usu)','Fish Stew (Isityu seNtlantla)','Pumpkin Stew (Isityu seThanga)','Cabbage Stew (Isityu seKhabhishi)','Wild Greens (Imifino)'],
+      sides:     ['Crumbly Maize Porridge (Umphuphu)','Steamed Bread (Idombolo)','Sorghum Porridge (Umphothulo)'],
+      drinks:    ['Amasi (Sour Milk)','Amahewu (Fermented Maize Drink)'],
+      desserts:  ['Fried Dough (Magwinya/Vetkoek)'],
+      trivia:'Xhosa cuisine is one of the oldest living food traditions in South Africa, rooted in the Eastern Cape. Umngqusho — samp and beans — was Nelson Mandela\'s most-loved dish, the food of his childhood home in Qunu. Amasi (fermented milk) is not just food but cultural identity — Xhosa warriors and elders drank it for health and strength, and refusing amasi in a Xhosa home is a serious social slight. The cooking of food for ceremony (ulwaluko initiation, weddings, ukubuyisa) is governed by strict protocol — certain dishes are made only on certain occasions.',
+      grows:'Maize, sorghum, wild greens (imifino — foraged), samp, beans, pumpkin, coastal fish along the Eastern Cape seaboard',
+      cookStyle:'Women cook — without exception in traditional households. The Eastern Cape rural kitchen is built around the three-legged pot over an open fire. Xhosa grandmothers are the custodians of all real recipes. Food for ceremony is prepared by specific women in the family, following ancestral protocol.'
     },
   };
 
