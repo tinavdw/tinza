@@ -1695,7 +1695,7 @@ function braaiNavGo(id){
   else if(id==='desserts')  { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'}); }
   else if(id==='breads')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'}); }
   else if(id==='myplan')   { 
-    if(USER_TIER==='pro') set({braaiView:'myplan'});
+    if(USER_TIER==='pro') set({braaiView:'myplan',viewingRecipe:null,recipeServings:null});
     else alert('📋 My Plan is a Tinza Pro feature — upgrade for R99/month');
   }
 }
@@ -1735,7 +1735,7 @@ function braaiMyPlanBtn(){
   const total = meatCount + sideCount;
   if(!total) return '';
   if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:12px;color:#6a3020;">📋 My Plan — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`;
-  return `<button onclick="set({braaiView:'myplan'})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+  return `<button onclick="set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:11px;color:#7a4020;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
   </button>`;
