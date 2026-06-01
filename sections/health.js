@@ -670,7 +670,7 @@ function healthOpenExt(id, arrName, grp, tab){
   const arr = arrMap[arrName]||[];
   const item = arr.find(x=>x.id===id);
   if(!item) return;
-  set({activeHealthExt:{...item, feel:item.feel||item.howItFeels||'', base300:item.base300||item.shopping||[]}, activeHealthExtBack:{healthGroup:grp,healthGroupTab:tab}});
+  set({activeHealthExt:{...item, feel:item.feel||item.howItFeels||'', base300:item.base300||item.shopping||[]}, activeHealthExtBack:{healthGroup:grp,healthGroupTab:tab}, healthGroup:grp, healthGroupTab:tab});
 }
 
 function healthHTML(){
