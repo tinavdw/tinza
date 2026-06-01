@@ -564,7 +564,7 @@ function healthRecipeDetail(recipe, backState){
     <!-- Photo header -->
     <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
       <img src="${imgUrl}"
-           onerror="this.style.display='none';if(this.nextSibling)this.nextSibling.style.display='flex'"
+           onerror="this.style.display='none';var ns=this.nextElementSibling;if(ns)ns.style.display='flex';"
            style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;z-index:0;">
         <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
@@ -979,7 +979,7 @@ function healthExtDetail(recipe){
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <!-- Photo header -->
     <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
-      <img src="${imgUrl}" onerror="this.style.display='none';if(this.nextSibling)this.nextSibling.style.display='flex'"
+      <img src="${imgUrl}" onerror="this.style.display='none';var ns=this.nextElementSibling;if(ns)ns.style.display='flex';"
            style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;z-index:0;">
         <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
