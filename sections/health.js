@@ -78,6 +78,27 @@ const OVERNIGHT_OATS = [
    shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Cocoa powder',pp:10,u:'g'},{n:'Milk',pp:160,u:'ml'},{n:'Honey',pp:15,u:'g'},{n:'Hazelnuts (chopped)',pp:20,u:'g'},{n:'Banana',pp:60,u:'g'}],
    method:['Whisk cocoa into milk until dissolved.','Add oats, honey and banana. Stir well.','Refrigerate overnight.','Top with chopped hazelnuts before serving.'],
    tip:'Toast the hazelnuts in a dry pan for 3 minutes — completely transforms the flavour.'},
+,
+  {id:'oa_bircher',     tier:'free',  emoji:'🍎', name:'Bircher Muesli',               kcal:340, costPP:18, makes:1,
+   howItFeels:'Classic Swiss breakfast energy — creamy, apple-bright and clean.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Apple juice',pp:120,u:'ml'},{n:'Apple (grated)',pp:80,u:'g'},{n:'Plain yoghurt',pp:50,u:'g'},{n:'Honey',pp:8,u:'g'},{n:'Mixed nuts (chopped)',pp:15,u:'g'}],
+   method:['Soak oats in apple juice overnight in fridge.','Morning: stir in grated apple, yoghurt and honey.','Top with chopped nuts. Serve cold.'],
+   tip:'Dr Bircher-Benner invented this in 1900. Use apple juice not milk for a lighter, fruitier result.'},
+  {id:'oa_cocoban',     tier:'free',  emoji:'🍫', name:'Cocoa Banana Dream',           kcal:320, costPP:12, makes:1,
+   howItFeels:'Chocolate for breakfast that you do not have to feel guilty about.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Cocoa powder',pp:10,u:'g'},{n:'Banana (mashed)',pp:60,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Chia seeds',pp:5,u:'g'}],
+   method:['Mash banana well. Mix all ingredients in a jar. Stir thoroughly.','Cover and refrigerate overnight.','Top with banana slices before serving.'],
+   tip:'Riper banana = sweeter oats. Black-spotted bananas are perfect here.'},
+  {id:'oa_fruitcomp',   tier:'free',  emoji:'🍑', name:'Spiced Dried Fruit Compote',   kcal:310, costPP:16, makes:1,
+   howItFeels:'Warm, sticky and fragrant — feels like a winter pudding disguised as breakfast.',
+   shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk',pp:150,u:'ml'},{n:'Mixed dried fruit',pp:40,u:'g'},{n:'Ground cinnamon',pp:1,u:'g'},{n:'Ground ginger',pp:0.3,u:'g'},{n:'Honey',pp:8,u:'g'}],
+   method:['Soak dried fruit in warm water 10 min. Drain and chop.','Mix oats, milk, cinnamon, ginger, honey and fruit.','Refrigerate overnight. Add splash of milk if too thick.'],
+   tip:'SA dried apricots give incredible flavour — use Ceres or Montagu brand.'},
+  {id:'oa_kheer',       tier:'plus',  emoji:'🥥', name:'Chia Coconut Kheer',           kcal:290, costPP:22, makes:1,
+   howItFeels:'Lightly spiced, coconut-creamy — overnight oats gone beautifully Indian.',
+   shopping:[{n:'Rolled oats',pp:40,u:'g'},{n:'Chia seeds',pp:15,u:'g'},{n:'Coconut milk',pp:120,u:'ml'},{n:'Milk',pp:60,u:'ml'},{n:'Cardamom (ground)',pp:0.5,u:'g'},{n:'Pistachios (chopped)',pp:10,u:'g'},{n:'Honey',pp:8,u:'g'}],
+   method:['Combine all ingredients except pistachios.','Stir well. Refrigerate overnight.','Top with pistachios before serving cold.'],
+   tip:'Add 3ml rose water in the morning for something truly special. Find it at Indian spice shops (~R25).'}
 ];
 const HEALTHY_MUFFINS = [
   {id:'mu_banana',   tier:'free', emoji:'🍌', name:'Banana Oat Muffins',         kcal:145, costPP:8, makes:12,
@@ -100,6 +121,27 @@ const HEALTHY_MUFFINS = [
    shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Cooked beetroot (grated)',pp:25,u:'g'},{n:'Cocoa powder',pp:5,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Dark chocolate chips',pp:10,u:'g'}],
    method:['Preheat oven 180°C.','Mix egg, oil and honey. Add grated beetroot.','Fold in flour, cocoa and baking powder.','Add chocolate chips.','Fill muffin tin ¾ full. Bake 20–24 min.'],
    tip:'Beetroot keeps these muffins moist for 3+ days. Wrap individually for lunchboxes.'},
+,
+  {id:'mu_appleoat',    tier:'free',  emoji:'🍎', name:'Spiced Apple & Oat',          kcal:155, costPP:9, makes:12,
+   howItFeels:'Warm spice and apple — smells like autumn, tastes like a good decision.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Rolled oats',pp:15,u:'g'},{n:'Apple (grated)',pp:25,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Brown sugar',pp:10,u:'g'},{n:'Cinnamon',pp:0.8,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Milk',pp:10,u:'ml'}],
+   method:['Preheat oven 180C. Line muffin tin.','Mix dry. Mix wet. Fold in grated apple.','Fill 3/4 full. Bake 18-22 min until golden.'],
+   tip:'Grate apple with skin on — adds fibre. Squeeze out excess moisture before folding in.'},
+  {id:'mu_zucchlem',    tier:'free',  emoji:'🥒', name:'Zucchini & Lemon',             kcal:145, costPP:11, makes:12,
+   howItFeels:'Light, moist and almost savoury — the muffin that surprises everyone.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Baby marrow (grated)',pp:25,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Sugar',pp:8,u:'g'},{n:'Lemon zest',pp:1,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Milk',pp:10,u:'ml'}],
+   method:['Preheat 180C. Grate baby marrow and squeeze out ALL moisture.','Mix dry. Mix wet + lemon zest + marrow. Combine gently.','Fill 3/4. Bake 18-20 min.'],
+   tip:'Squeezing moisture from baby marrow is non-negotiable — wet = sunken muffins.'},
+  {id:'mu_spinachfeta', tier:'plus',  emoji:'🧀', name:'Savoury Spinach & Feta',       kcal:135, costPP:16, makes:12,
+   howItFeels:'Salty, herby and filling — the muffin that belongs at breakfast with eggs.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Baby spinach (chopped)',pp:20,u:'g'},{n:'Feta (crumbled)',pp:15,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Milk',pp:15,u:'ml'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Dried oregano',pp:0.3,u:'g'}],
+   method:['Preheat 180C. Mix dry. Mix wet with spinach and feta.','Combine. Fill 3/4 full. Bake 18-20 min.'],
+   tip:'Freeze individually — microwave from frozen 60 seconds for a perfect fast breakfast.'},
+  {id:'mu_banwalt',     tier:'free',  emoji:'🍌', name:'Banana & Walnut',              kcal:170, costPP:13, makes:12,
+   howItFeels:'Dense, banana-sweet and satisfying — the classic that never disappoints.',
+   shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Ripe banana (mashed)',pp:0.25,u:''},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Brown sugar',pp:8,u:'g'},{n:'Walnuts (chopped)',pp:10,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Cinnamon',pp:0.3,u:'g'}],
+   method:['Preheat 180C. Mash bananas very well.','Combine all. Fold in walnuts. Fill 3/4.','Bake 20-22 min until golden.'],
+   tip:'Black-spotted bananas = the sweetest muffins. Never use a green banana here.'}
 ];
 const RAW_AND_REAL = [
   {id:'rr_powerball',  tier:'free', emoji:'⚡', name:'Peanut Butter Power Balls', kcal:110, costPP:8,
@@ -612,7 +654,7 @@ function healthGroupScreen(isPro, srv){
       label:'🦠 Gut & Living Foods', sub:'Feed your microbiome',
       tabs:[
         {id:'guthealth', emoji:'🦠', label:'Gut Health',      arr:'GUTHEALTH_RECIPES', type:'ext'},
-        {id:'fermented', emoji:'🫙', label:'Fermented Foods',  arr:'GUTHEALTH_RECIPES', type:'ext'},
+        {id:'fermented', emoji:'🫙', label:'Fermented Foods',  arr:'FERMENTED_RECIPES', type:'ext'},
       ]
     },
     prep: {
@@ -634,8 +676,8 @@ function healthGroupScreen(isPro, srv){
       label:'🩺 Wellness', sub:'Manage · Protect · Thrive',
       tabs:[
         {id:'diabetic',     emoji:'🩸', label:'Diabetic-Friendly', arr:'DIABETIC_RECIPES',    type:'ext'},
-        {id:'immunity',     emoji:'🛡️', label:'Immunity Boost',    arr:null,                  type:'ext', coming:true},
-        {id:'antiinflam',   emoji:'🌿', label:'Anti-Inflammatory', arr:null,                  type:'ext', coming:true},
+        {id:'immunity',     emoji:'🛡️', label:'Immunity Boost',    arr:'IMMUNITY_RECIPES',    type:'ext', coming:true},
+        {id:'antiinflam',   emoji:'🌿', label:'Anti-Inflammatory', arr:'ANTIINFLAM_RECIPES',   type:'ext', coming:true},
       ]
     },
   };
@@ -676,11 +718,24 @@ function healthGroupScreen(isPro, srv){
   const tabDef = gDef.tabs.find(t=>t.id===activeTab);
   if(!tabDef) return healthHTML();
 
-  let items = [];
-  if(tabDef.arr && typeof window !== 'undefined' && window[tabDef.arr]) items = window[tabDef.arr];
-  else if(tabDef.arr){
-    try{ items = eval('typeof '+tabDef.arr+'!=="undefined"?'+tabDef.arr+':[]; '); } catch(e){ items=[]; }
-  }
+  const arrMap = {
+    'FRESH_JUICES':         typeof FRESH_JUICES!=='undefined'        ? FRESH_JUICES        : [],
+    'SMOOTHIES':            typeof SMOOTHIES!=='undefined'           ? SMOOTHIES           : [],
+    'OVERNIGHT_OATS':       typeof OVERNIGHT_OATS!=='undefined'      ? OVERNIGHT_OATS      : [],
+    'HEALTHY_MUFFINS':      typeof HEALTHY_MUFFINS!=='undefined'     ? HEALTHY_MUFFINS     : [],
+    'RAW_AND_REAL':         typeof RAW_AND_REAL!=='undefined'        ? RAW_AND_REAL        : [],
+    'KETO_RECIPES':         typeof KETO_RECIPES!=='undefined'        ? KETO_RECIPES        : [],
+    'WEIGHTLOSS_RECIPES':   typeof WEIGHTLOSS_RECIPES!=='undefined'  ? WEIGHTLOSS_RECIPES  : [],
+    'HIGHPROTEIN_RECIPES':  typeof HIGHPROTEIN_RECIPES!=='undefined' ? HIGHPROTEIN_RECIPES : [],
+    'PLANTBASED_RECIPES':   typeof PLANTBASED_RECIPES!=='undefined'  ? PLANTBASED_RECIPES  : [],
+    'VEGETARIAN_RECIPES':   typeof VEGETARIAN_RECIPES!=='undefined'  ? VEGETARIAN_RECIPES  : [],
+    'GUTHEALTH_RECIPES':    typeof GUTHEALTH_RECIPES!=='undefined'   ? GUTHEALTH_RECIPES   : [],
+    'DIABETIC_RECIPES':     typeof DIABETIC_RECIPES!=='undefined'    ? DIABETIC_RECIPES    : [],
+    'FERMENTED_RECIPES':    typeof FERMENTED_RECIPES!=='undefined'   ? FERMENTED_RECIPES   : [],
+    'IMMUNITY_RECIPES':     typeof IMMUNITY_RECIPES!=='undefined'    ? IMMUNITY_RECIPES    : [],
+    'ANTIINFLAM_RECIPES':   typeof ANTIINFLAM_RECIPES!=='undefined'  ? ANTIINFLAM_RECIPES  : [],
+  };
+  let items = tabDef.arr ? (arrMap[tabDef.arr]||[]) : [];
 
   // Search filter
   const sv = (S.healthSearch||'').toLowerCase();
@@ -1110,4 +1165,108 @@ const DIABETIC_RECIPES = [
   {id:'db_spinach_eggs', tier:'free',  emoji:'🥬', name:'Lemon Garlic Spinach Egg Scramble',kcal:240, costPP:41, feel:'Fresh, bright and sustaining — exactly what mornings should taste like.',badges:['🩸 Low-GI','🥚 High-Protein','⚡ Quick'],base300:[{n:'Eggs',pp:2,u:''},{n:'Fresh spinach',pp:100,u:'g'},{n:'Mushrooms (sliced)',pp:50,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice',pp:10,u:'ml'},{n:'Extra virgin olive oil',pp:5,u:'ml'},{n:'Black pepper and herbs',pp:1,u:'pinch'}],method:['Heat olive oil in a non-stick pan over medium heat.','Add minced garlic and mushrooms — sauté 3–4 minutes.','Add spinach and cook 1–2 minutes until wilted.','Whisk eggs with lemon juice, pepper and herbs. Pour into pan. Stir gently until just set.'],tip:'Pairs well with sliced avocado.'},
   {id:'db_tuna_wraps',   tier:'free',  emoji:'🥬', name:'Avocado Tuna Lettuce Wraps',   kcal:260, costPP:31, feel:'Crunchy, cool and satisfying — no energy crash afterward.',badges:['🩸 Low-GI','🐟 Omega-3','🥗 Low-Carb'],base300:[{n:'Canned tuna in water (drained)',pp:100,u:'g'},{n:'Avocado (mashed)',pp:75,u:'g'},{n:'Cherry tomatoes (halved)',pp:100,u:'g'},{n:'Cucumber (diced)',pp:50,u:'g'},{n:'Large lettuce leaves',pp:80,u:'g'},{n:'Lemon juice',pp:5,u:'ml'},{n:'Olive oil',pp:5,u:'ml'}],method:['In a bowl, mix tuna, mashed avocado, tomatoes, cucumber, lemon juice, olive oil and dill.','Gently combine until well incorporated.','Spoon mixture evenly into lettuce leaves.','Roll or fold into wraps. Serve chilled.'],tip:'Keep filling and lettuce separate until ready to eat.'},
   {id:'db_salmon_asparagus',tier:'plus',emoji:'🐟',name:'Baked Salmon with Asparagus',  kcal:305, costPP:89, feel:'Clean, elegant and quietly powerful — your blood sugar will thank you.',badges:['🩸 Low-GI','🐟 Omega-3','💪 High-Protein'],base300:[{n:'Salmon fillet',pp:120,u:'g'},{n:'Asparagus spears',pp:150,u:'g'},{n:'Extra virgin olive oil',pp:5,u:'ml'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Lemon juice',pp:15,u:'ml'},{n:'Black pepper and dried rosemary',pp:1,u:'pinch'}],method:['Preheat oven to 200°C. Line a baking tray with parchment paper.','Place salmon and asparagus on tray. Drizzle with olive oil and lemon juice.','Sprinkle minced garlic, pepper and rosemary evenly.','Bake for 12–15 minutes until salmon flakes easily. Rest 1 minute.'],tip:'Pairs well with cauliflower rice or a green salad.'},
+];
+
+// ══════════════════════════════════════════════════════════════
+// FERMENTED FOODS — split from Gut Health
+// ══════════════════════════════════════════════════════════════
+const FERMENTED_RECIPES = [
+  {id:'fer_sauerkraut',  tier:'free',  emoji:'🫙', name:'Classic Sauerkraut',          kcal:25,  costPP:4,  feel:'Sharp, tangy and alive — the original gut health food.',
+   badges:['🦠 Probiotic','🥬 Fermented','⏱️ Make Ahead'],
+   base300:[{n:'White cabbage (shredded)',pp:300,u:'g'},{n:'Salt (non-iodised)',pp:7,u:'g'}],
+   method:['Shred cabbage finely. Weigh it.','Add 2% salt by weight (7g per 300g cabbage). Massage 10 min until very wet.','Pack tightly into a clean jar — liquid must cover cabbage.','Cover loosely. Leave at room temperature 5–7 days. Taste daily from day 3.','Refrigerate when sour enough. Keeps months.'],
+   tip:'Use non-iodised salt — iodine kills the bacteria. The cabbage MUST stay submerged under brine or it goes mouldy.'},
+  {id:'fer_kombucha',    tier:'free',  emoji:'🍵', name:'Kombucha (Basic Brew)',        kcal:30,  costPP:3,  feel:'Fizzy, slightly sour, alive — like drinking something that actually does something.',
+   badges:['🦠 Probiotic','🍵 Fermented','⏱️ 7–14 days'],
+   base300:[{n:'Black or green tea bags',pp:2,u:''},{n:'Sugar',pp:50,u:'g'},{n:'Water (boiled, cooled)',pp:800,u:'ml'},{n:'SCOBY + starter liquid',pp:100,u:'ml'}],
+   method:['Brew tea. Add sugar and stir to dissolve. Cool completely to room temperature.','Add SCOBY and starter liquid to a clean jar. Pour in cooled sweet tea.','Cover with a cloth. Leave at room temperature 7–14 days — taste from day 7.','When pleasantly sour, bottle it. Refrigerate.'],
+   tip:'Never add hot tea to your SCOBY — it kills it. The starter liquid (from previous batch or store-bought raw kombucha) makes it acidic enough to be safe.'},
+  {id:'fer_kefir',       tier:'free',  emoji:'🥛', name:'Milk Kefir',                   kcal:60,  costPP:5,  feel:'Tangy, creamy and slightly fizzy — dairy milk transformed by billions of bacteria.',
+   badges:['🦠 Probiotic','🥛 Fermented','⚡ 24 hours'],
+   base300:[{n:'Full cream milk',pp:250,u:'ml'},{n:'Kefir grains',pp:1,u:'tbsp'}],
+   method:['Place kefir grains in a clean jar. Add milk.','Cover loosely with cloth. Leave at room temperature 24–48 hours.','When thick and tangy, strain out the grains.','Drink the kefir. Rinse grains and start again with fresh milk.'],
+   tip:'Kefir grains are alive — never use metal utensils or hot water near them. They grow over time; share the extras.'},
+  {id:'fer_kimchi',      tier:'plus',  emoji:'🌶️', name:'Quick Kimchi',                kcal:20,  costPP:8,  feel:'Fiery, funky and complex — South Korea\'s greatest contribution to gut health.',
+   badges:['🦠 Probiotic','🌶️ Spicy','🥬 Fermented'],
+   base300:[{n:'Napa cabbage / Chinese cabbage (chopped)',pp:300,u:'g'},{n:'Salt',pp:15,u:'g'},{n:'Gochugaru (Korean chilli flakes) or red chilli flakes',pp:10,u:'g'},{n:'Garlic (minced)',pp:8,u:'g'},{n:'Fresh ginger (grated)',pp:5,u:'g'},{n:'Spring onions (sliced)',pp:30,u:'g'},{n:'Fish sauce or soy sauce',pp:10,u:'ml'}],
+   method:['Salt cabbage — toss with salt and leave 1–2 hours until wilted. Rinse and squeeze dry.','Mix chilli flakes, garlic, ginger and fish sauce into a paste.','Combine cabbage, spring onions and paste. Mix well with gloved hands.','Pack into jars. Leave at room temperature 1–2 days then refrigerate.','Gets better with age — try it fresh, at 1 week, and at 1 month.'],
+   tip:'Gochugaru (Korean chilli flakes) gives authentic flavour — find it at Asian stores. Regular chilli flakes work but taste different. Wear gloves — the paste stains everything.'},
+  {id:'fer_amazi',       tier:'free',  emoji:'🥛', name:'Amazi (Fermented Milk)',       kcal:55,  costPP:4,  feel:'Sour, thick and deeply nourishing — a Zulu tradition that predates refrigeration.',
+   badges:['🇿🇦 SA Traditional','🦠 Probiotic','🥛 Fermented'],
+   base300:[{n:'Full cream milk (raw or pasteurised)',pp:500,u:'ml'}],
+   method:['Pour milk into a clean calabash or ceramic container — NOT plastic or metal.','Cover loosely with cloth. Leave at room temperature 2–3 days.','Milk sours and thickens naturally from wild bacteria.','Stir and serve. Keeps refrigerated 5 days.'],
+   tip:'Amazi is one of South Africa\'s oldest foods. The wild fermentation creates natural probiotics specific to your environment. Every batch is slightly different — that\'s the point.'},
+,
+  {id:'fer_juntea',     tier:'plus',  emoji:'🍵', name:'Jun Tea',                      kcal:20,  costPP:4,  feel:'Lighter and more floral than kombucha — green tea honey magic.',
+   badges:['🦠 Probiotic','🍵 Fermented','🍯 Honey'],
+   base300:[{n:'Green tea bags',pp:2,u:''},{n:'Raw honey (not heated)',pp:50,u:'g'},{n:'Filtered water (boiled, cooled)',pp:800,u:'ml'},{n:'Jun SCOBY + starter liquid',pp:100,u:'ml'}],
+   method:['Brew green tea. Cool completely — must be below 30C before adding honey.','Stir in raw honey until dissolved. Do NOT use boiling water — it kills the enzymes.','Add Jun SCOBY and starter. Pour into clean jar.','Cover with cloth. Ferment 7–14 days at room temperature. Refrigerate when ready.'],
+   tip:'Jun uses honey instead of sugar and green tea instead of black — lighter and more floral more delicate than kombucha. The SCOBY looks similar but is a different culture. Find Jun starter at health stores or online.'},
+  {id:'fer_beetkvass',  tier:'free',  emoji:'🫙', name:'Beet Kvass',                   kcal:30,  costPP:5,  feel:'Dark, earthy and medicinal — an acquired taste that your liver adores.',
+   badges:['🦠 Probiotic','🫙 Fermented','🩸 Liver Tonic'],
+   base300:[{n:'Raw beetroot (cubed, not peeled)',pp:200,u:'g'},{n:'Non-iodised salt',pp:3,u:'g'},{n:'Filtered water',pp:500,u:'ml'}],
+   method:['Wash beetroot well but do NOT peel — the wild bacteria live on the skin.','Cut into small cubes. Place in a clean jar.','Dissolve salt in water. Pour over beetroot — must be submerged.','Cover loosely. Leave at room temperature 3–5 days. Taste daily.','Strain and refrigerate when pleasantly sour. Drink 30–60ml per day.'],
+   tip:'Beet kvass is one of the most powerful liver tonics in traditional Eastern European medicine. The colour is extraordinary. Start with small amounts — it can cause detox reactions.'}
+];
+
+// ══════════════════════════════════════════════════════════════
+// IMMUNITY BOOST RECIPES
+// ══════════════════════════════════════════════════════════════
+const IMMUNITY_RECIPES = [
+  {id:'im_turmericshot', tier:'free',  emoji:'🫙', name:'Turmeric & Ginger Shot',      kcal:25,  costPP:6,  feel:'Sharp, warming and fierce — 30ml that wakes up your immune system.',
+   badges:['🛡️ Immunity','🌿 Anti-Inflam','⚡ 2 min'],
+   base300:[{n:'Fresh turmeric (grated) or 1 tsp powder',pp:5,u:'g'},{n:'Fresh ginger (grated)',pp:10,u:'g'},{n:'Lemon juice',pp:30,u:'ml'},{n:'Black pepper (pinch)',pp:0.2,u:'g'},{n:'Honey',pp:5,u:'g'}],
+   method:['Combine all ingredients in a small jar. Stir well.','Strain if using fresh turmeric/ginger.','Drink in one shot. Chase with water.','Store remainder in fridge up to 3 days.'],
+   tip:'Black pepper is essential — it increases turmeric absorption by 2000%. Never skip it.'},
+  {id:'im_vitc_salad',   tier:'free',  emoji:'🥗', name:'Vitamin C Power Salad',       kcal:180, costPP:28, feel:'Bright, crunchy and energising — your immune system eating well.',
+   badges:['🛡️ Immunity','🍊 Vitamin C','🥗 Fresh'],
+   base300:[{n:'Red and yellow bell peppers (sliced)',pp:150,u:'g'},{n:'Broccoli florets (raw)',pp:100,u:'g'},{n:'Strawberries or kiwi (sliced)',pp:80,u:'g'},{n:'Spinach',pp:60,u:'g'},{n:'Sunflower seeds',pp:20,u:'g'},{n:'Olive oil + lemon dressing',pp:15,u:'ml'}],
+   method:['Combine all vegetables and fruit in a bowl.','Scatter sunflower seeds.','Drizzle with olive oil and lemon juice.','Season and serve immediately — eat raw to preserve vitamin C.'],
+   tip:'Bell peppers have more vitamin C than oranges. Red peppers have the most. Raw is best — cooking destroys vitamin C.'},
+  {id:'im_garlic_soup',  tier:'free',  emoji:'🍲', name:'Roasted Garlic & Veg Soup',   kcal:195, costPP:22, feel:'Deep, warming and healing — the soup your body asks for when you feel run-down.',
+   badges:['🛡️ Immunity','🧄 Allicin','🍲 Warming'],
+   base300:[{n:'Garlic (whole bulb, roasted)',pp:1,u:''},{n:'Onion (diced)',pp:60,u:'g'},{n:'Carrots (diced)',pp:80,u:'g'},{n:'Sweet potato (cubed)',pp:100,u:'g'},{n:'Vegetable stock',pp:400,u:'ml'},{n:'Olive oil',pp:10,u:'ml'},{n:'Fresh thyme',pp:3,u:'g'}],
+   method:['Roast whole garlic bulb at 200°C for 35 min until soft. Squeeze out cloves.','Sauté onion and carrots in olive oil 5 min.','Add sweet potato, roasted garlic and stock. Simmer 20 min.','Blend until smooth. Season generously. Top with fresh thyme.'],
+   tip:'Roasting garlic transforms it — mellow, sweet and deeply flavourful. The allicin compounds survive cooking and support immune function.'},
+  {id:'im_elderberry',   tier:'plus',  emoji:'🫐', name:'Berry & Elderflower Smoothie', kcal:210, costPP:35, feel:'Deep purple, antioxidant-loaded — beautiful and functional.',
+   badges:['🛡️ Immunity','🫐 Antioxidants','🥤 Smoothie'],
+   base300:[{n:'Mixed frozen berries (blueberries, blackberries)',pp:150,u:'g'},{n:'Elderflower cordial',pp:20,u:'ml'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Ginger (fresh, small piece)',pp:3,u:'g'},{n:'Water or milk',pp:100,u:'ml'}],
+   method:['Add all ingredients to blender.','Blend on high 60 seconds until smooth.','Taste — add honey if needed.','Serve immediately over ice.'],
+   tip:'Elderflower cordial is widely available at Checkers. The combination of dark berries and ginger gives a serious antioxidant hit.'},
+  {id:'im_zinc_bowl',    tier:'free',  emoji:'🥣', name:'Zinc & Selenium Grain Bowl',   kcal:380, costPP:31, feel:'Nutty, satisfying and quietly powerful — micronutrients you can actually taste.',
+   badges:['🛡️ Immunity','🌾 Zinc','💪 Selenium'],
+   base300:[{n:'Cooked brown rice or quinoa',pp:100,u:'g'},{n:'Pumpkin seeds',pp:30,u:'g'},{n:'Sunflower seeds',pp:20,u:'g'},{n:'Canned chickpeas (drained)',pp:80,u:'g'},{n:'Baby spinach',pp:60,u:'g'},{n:'Cherry tomatoes',pp:80,u:'g'},{n:'Lemon tahini dressing',pp:20,u:'ml'}],
+   method:['Cook grain and cool slightly.','Toast pumpkin and sunflower seeds in dry pan 3 min until fragrant.','Build bowl: grain base, chickpeas, spinach, tomatoes, seeds.','Drizzle with tahini dressing. Season well.'],
+   tip:'Pumpkin seeds are one of the richest sources of zinc — essential for immune function. Toast them yourself for far better flavour than pre-toasted.'},
+];
+
+// ══════════════════════════════════════════════════════════════
+// ANTI-INFLAMMATORY RECIPES
+// ══════════════════════════════════════════════════════════════
+const ANTIINFLAM_RECIPES = [
+  {id:'ai_turmeric_latte',tier:'free', emoji:'🥛', name:'Golden Milk Latte',            kcal:130, costPP:8,  feel:'Warm, earthy and gently spiced — the evening drink that calms everything down.',
+   badges:['🌿 Anti-Inflam','🥛 Warming','🌙 Evening'],
+   base300:[{n:'Milk or oat milk',pp:250,u:'ml'},{n:'Ground turmeric',pp:2,u:'g'},{n:'Ground cinnamon',pp:1,u:'g'},{n:'Ground ginger',pp:0.5,u:'g'},{n:'Black pepper (pinch)',pp:0.2,u:'g'},{n:'Honey',pp:10,u:'g'}],
+   method:['Heat milk in a small pot over low heat — do not boil.','Whisk in turmeric, cinnamon, ginger and black pepper.','Sweeten with honey. Froth if desired.','Serve warm. Drink before bed.'],
+   tip:'Black pepper + turmeric is one of nature\'s most powerful anti-inflammatory combinations. The piperine in pepper makes curcumin up to 2000% more bioavailable.'},
+  {id:'ai_salmon_bowl',  tier:'plus',  emoji:'🐟', name:'Omega-3 Salmon Quinoa Bowl',   kcal:420, costPP:95, feel:'Rich, clean and deeply nourishing — omega-3s doing their quiet anti-inflammatory work.',
+   badges:['🌿 Anti-Inflam','🐟 Omega-3','💪 Protein'],
+   base300:[{n:'Salmon fillet',pp:150,u:'g'},{n:'Cooked quinoa',pp:100,u:'g'},{n:'Avocado (sliced)',pp:60,u:'g'},{n:'Baby spinach',pp:60,u:'g'},{n:'Cherry tomatoes',pp:60,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+   method:['Pan-fry salmon in olive oil 4 min per side. Rest 2 min.','Build bowl: quinoa base, spinach, tomatoes, avocado.','Flake salmon over the top.','Drizzle with olive oil and lemon juice. Season well.'],
+   tip:'Salmon, avocado, olive oil and spinach are all top anti-inflammatory foods. This bowl is essentially a medicine cabinet in disguise.'},
+  {id:'ai_berrysalad',   tier:'free',  emoji:'🫐', name:'Berry Walnut Spinach Salad',   kcal:260, costPP:38, feel:'Sweet, crunchy and alive — antioxidants you can see in the colours.',
+   badges:['🌿 Anti-Inflam','🫐 Antioxidants','🥗 Fresh'],
+   base300:[{n:'Baby spinach',pp:80,u:'g'},{n:'Mixed berries (blueberries, strawberries)',pp:100,u:'g'},{n:'Walnuts (roughly chopped)',pp:30,u:'g'},{n:'Red onion (thinly sliced)',pp:20,u:'g'},{n:'Feta cheese (crumbled)',pp:30,u:'g'},{n:'Balsamic vinegar + olive oil',pp:15,u:'ml'}],
+   method:['Combine spinach, berries, onion and walnuts in a bowl.','Crumble feta over the top.','Drizzle with balsamic and olive oil dressing.','Toss gently. Serve immediately.'],
+   tip:'Walnuts are the most anti-inflammatory nut — higher omega-3 than any other nut. The deeper the berry colour, the higher the antioxidant content.'},
+  {id:'ai_ginger_stir',  tier:'free',  emoji:'🥦', name:'Ginger Broccoli Stir-Fry',    kcal:220, costPP:24, feel:'Sharp, green and energising — anti-inflammatory vegetables at their crunchiest.',
+   badges:['🌿 Anti-Inflam','🥦 Sulforaphane','⚡ 15 min'],
+   base300:[{n:'Broccoli florets',pp:200,u:'g'},{n:'Fresh ginger (grated)',pp:8,u:'g'},{n:'Garlic (minced)',pp:5,u:'g'},{n:'Carrot (sliced)',pp:60,u:'g'},{n:'Sesame oil',pp:10,u:'ml'},{n:'Soy sauce',pp:10,u:'ml'},{n:'Sesame seeds',pp:5,u:'g'}],
+   method:['Heat sesame oil in wok over high heat.','Add garlic and ginger — stir-fry 30 seconds.','Add broccoli and carrot — stir-fry 5 min keeping crunch.','Add soy sauce. Toss. Serve topped with sesame seeds.'],
+   tip:'Broccoli contains sulforaphane — one of the most researched anti-inflammatory compounds. Don\'t overcook it; crunch = more nutrients retained.'},
+  {id:'ai_cherry_oats',  tier:'free',  emoji:'🍒', name:'Cherry Almond Overnight Oats', kcal:310, costPP:24, feel:'Sweet, slightly tart, deeply satisfying — inflammation fighting while you sleep.',
+   badges:['🌿 Anti-Inflam','🍒 Anthocyanins','⏱️ Make Ahead'],
+   base300:[{n:'Rolled oats',pp:60,u:'g'},{n:'Milk or almond milk',pp:150,u:'ml'},{n:'Tart cherries (fresh, frozen or dried)',pp:60,u:'g'},{n:'Almonds (slivered)',pp:20,u:'g'},{n:'Honey',pp:10,u:'g'},{n:'Ground cinnamon',pp:0.5,u:'g'}],
+   method:['Combine oats and milk in a jar. Stir well.','Add cherries, honey and cinnamon.','Cover and refrigerate overnight.','Top with slivered almonds before serving.'],
+   tip:'Tart cherries contain some of the highest levels of anthocyanins of any food — potent anti-inflammatory compounds. Frozen tart cherries work perfectly and are cheaper.'},
 ];
