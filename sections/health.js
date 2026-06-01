@@ -397,7 +397,7 @@ function healthRecipeDetail(recipe, backState){
     <!-- Photo header -->
     <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
       <img src="${imgUrl}"
-           onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+           onerror="this.style.display='none';if(this.nextSibling)this.nextSibling.style.display='flex'"
            style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;z-index:0;">
         <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
@@ -564,7 +564,7 @@ function healthHTML(){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
         ${groups.map(g=>`
         <div onclick="set({healthGroup:'${g.id}',healthGroupTab:null})"
-          style="background:#0f1a10;border:1px solid #1a4030;border-radius:14px;padding:16px 14px;cursor:pointer;position:relative;overflow:hidden;min-height:100px;">
+          style="background:#0f1a10;border:1px solid #1a4030;border-radius:14px;padding:14px;cursor:pointer;position:relative;overflow:hidden;">
           <div style="font-size:30px;margin-bottom:8px;">${g.emoji}</div>
           <div style="font-size:14px;color:#c0e8c0;font-weight:bold;margin-bottom:4px;">${g.label}</div>
           <div style="font-size:10px;color:#406050;line-height:1.4;">${g.sub}</div>
@@ -612,7 +612,7 @@ function healthGroupScreen(isPro, srv){
       label:'🦠 Gut & Living Foods', sub:'Feed your microbiome',
       tabs:[
         {id:'guthealth', emoji:'🦠', label:'Gut Health',      arr:'GUTHEALTH_RECIPES', type:'ext'},
-        {id:'fermented', emoji:'🫙', label:'Fermented Foods',  arr:null,                type:'ext', coming:true},
+        {id:'fermented', emoji:'🫙', label:'Fermented Foods',  arr:'GUTHEALTH_RECIPES', type:'ext'},
       ]
     },
     prep: {
@@ -662,7 +662,7 @@ function healthGroupScreen(isPro, srv){
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           ${gDef.tabs.map(t=>`
           <div onclick="${t.coming?'':' set({healthGroupTab:\''+t.id+'\'})'}"
-            style="background:${t.coming?'#0a1208':'#0f1a10'};border:1px solid ${t.coming?'#1a2818':'#1a4030'};border-radius:14px;padding:16px 14px;cursor:${t.coming?'default':'pointer'};opacity:${t.coming?0.5:1};min-height:80px;">
+            style="background:${t.coming?'#0a1208':'#0f1a10'};border:1px solid ${t.coming?'#1a2818':'#1a4030'};border-radius:14px;padding:14px;cursor:${t.coming?'default':'pointer'};opacity:${t.coming?0.5:1};">
             <div style="font-size:28px;margin-bottom:6px;">${t.emoji}</div>
             <div style="font-size:13px;color:${t.coming?'#306040':'#c0e8c0'};font-weight:bold;">${t.label}</div>
             ${t.coming?'<div style="font-size:10px;color:#204030;margin-top:4px;">Coming soon</div>':''}
@@ -692,13 +692,14 @@ function healthGroupScreen(isPro, srv){
         const canView = tierAllows(item.tier||'free');
         const sel = (S.healthPlan||[]).some(x=>x.id===item.id);
         const disabled = !canView;
-        const info = (item.kcal?item.kcal*srv+' kcal':'')+
+        const info = (item.kcal?(item.makes?item.kcal+' kcal each · '+(srv*item.makes)+' total':item.kcal*srv+' kcal'):'')+
                      (item.costPP?' · ~R'+Math.round(item.costPP*srv)+'/pp':'');
+        const feel = item.feel || item.howItFeels || '';
         const openCall = tabDef.openFn
           ? tabDef.openFn+'(\''+item.id+'\')'
-          : 'set({activeHealthExt:'+JSON.stringify(item)+',activeHealthExtBack:{healthGroup:\''+grp+'\',healthGroupTab:\''+activeTab+'\'}})';
+          : 'set({activeHealthExt:'+JSON.stringify({...item, feel: item.feel||item.howItFeels||'', base300: item.base300||item.shopping||[]})+',activeHealthExtBack:{healthGroup:\''+grp+'\',healthGroupTab:\''+activeTab+'\'}})';
         const onclk = disabled ? "alert('👑 Upgrade to Pro to unlock')" :
-          'healthToggleExtById(\''+item.id+'\')';
+          tabDef.openFn ? tabDef.openFn+'(\''+item.id+'\')' : 'healthToggleExtById(\''+item.id+'\')';
         const btn = disabled
           ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>'
           : '<button onclick="event.stopPropagation();'+openCall+'" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>';
@@ -709,6 +710,7 @@ function healthGroupScreen(isPro, srv){
             <div style="flex:1;min-width:0;">
               <div style="font-size:14px;color:${sel?'#f5e8cc':'#c0d4b0'};font-weight:${sel?'bold':'normal'};">${item.name}</div>
               <div style="font-size:10px;color:${sel?'#30c090':'#406050'};margin-top:2px;">${info}</div>
+              ${feel?`<div style="font-size:10px;color:#304840;font-style:italic;margin-top:2px;">${feel}</div>`:''}
             </div>
             <div style="flex-shrink:0;">${btn}</div>
           </div>
@@ -778,7 +780,7 @@ function healthExtDetail(recipe){
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <!-- Photo header -->
     <div style="position:relative;height:220px;overflow:hidden;background:#0a1a14;">
-      <img src="${imgUrl}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+      <img src="${imgUrl}" onerror="this.style.display='none';if(this.nextSibling)this.nextSibling.style.display='flex'"
            style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#0a1a14;z-index:0;">
         <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
