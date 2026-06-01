@@ -1687,6 +1687,11 @@ function culturalGroupGo(id){
   set({activeCulturalGroup:id, activeCulturalRecipe:null});
 }
 
+function braaiRecipeAction(type){
+  if(type==='kitchen') alert('💾 Save to My Kitchen — coming with Pro!');
+  else if(type==='download') alert('⬇️ Download Recipe — coming with Pro!');
+}
+
 function braaiNavGo(id){
   if(id==='mains')   { set({braiStep:2,braaiView:'browse'}); }
   else if(id==='salads')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'salads'}); }
