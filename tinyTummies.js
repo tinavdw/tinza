@@ -14,12 +14,54 @@ function babyListHTML(){
       <span style="font-size:22px;">🛒</span>
     </div>` : '';
 
+  const tinyHowOpen = S.tinyHowOpen || false;
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
-      <button class="back-btn" onclick="set({screen:'home',activeBaby:null})" style="color:#e07090;">← Home</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍼 Tiny Tummies</h1>
-      <p style="margin:0;font-size:11px;color:#a06070;font-style:italic;">Safe, nutritious recipes for every stage</p>
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a0f18 0%,#2a0a20 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,6,12,0.3) 0%,rgba(14,6,12,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home',activeBaby:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #5a2040;border-radius:20px;color:#e07090;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼 Tiny Tummies</h1>
+        <p style="margin:0 0 10px;font-size:11px;color:#c07090;font-style:italic;">Safe, nutritious recipes for every stage of your baby's journey</p>
+        <div style="display:flex;align-items:center;background:rgba(26,15,24,0.85);border:1px solid #5a2040;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#e07090;margin-right:8px;font-size:14px;">🔍</span>
+          <input type="text" placeholder="Search baby recipes…"
+            oninput="set({tinySearch:this.value})"
+            value="${S.tinySearch||''}"
+            style="flex:1;background:none;border:none;outline:none;color:#f0c0d0;font-size:13px;font-family:Georgia,serif;"
+          />
+          ${S.tinySearch?`<button onclick="set({tinySearch:''})" style="background:none;border:none;color:#5a2040;font-size:16px;cursor:pointer;">×</button>`:''}
+        </div>
+      </div>
     </div>
+
+    <!-- ══ HOW IT WORKS + STAGE FILTER ══ -->
+    <div style="background:#1a0f18;border-bottom:1px solid #3a1030;padding:12px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+        <div style="flex:1;">
+          <button onclick="set({tinyHowOpen:!S.tinyHowOpen})"
+            style="background:none;border:none;color:#e07090;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            ${tinyHowOpen?'▲':'▼'} How it works
+          </button>
+          ${tinyHowOpen?`
+            <div onclick="set({tinyHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+            <div style="position:relative;z-index:10;background:#120a10;border:1px solid #4a1030;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c090a0;line-height:1.6;">
+              <strong style="color:#e07090;">1. Filter by stage</strong> — 4–6 months, 6–9 months, or 9–12m+.<br>
+              <strong style="color:#e07090;">2. Tap any recipe</strong> — ingredients scale by batch size.<br>
+              <strong style="color:#e07090;">3. Add to My Plan</strong> — build your weekly meal prep list.<br>
+              <span style="color:#5a2040;font-size:11px;">⚠️ Always consult your paediatrician before introducing new foods.</span>
+            </div>
+          `:''}
+        </div>
+      </div>
+      <!-- Stage filter pills -->
+      <div style="display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+        ${[{id:"all",label:"All Ages",emoji:"👶"},{id:"stage1",label:"4–6 months",emoji:"🌱"},{id:"stage2",label:"6–9 months",emoji:"🌿"},{id:"stage3",label:"9–12m+",emoji:"🌳"}].map(f=>`<button onclick="setQuiet({babyFilter:'${f.id}'})"
+          style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${S.babyFilter===f.id?'#c04070':'#3a1030'};background:${S.babyFilter===f.id?'#2a0818':'transparent'};color:${S.babyFilter===f.id?'#f07090':'#6a3050'};font-size:11px;cursor:pointer;white-space:nowrap;">${f.emoji} ${f.label}</button>`).join("")}
+      </div>
+    </div>
+
     <div class="content">
       <div style="background:#1a0810;border:1px solid #6a1030;border-radius:10px;padding:12px;margin-bottom:14px;">
         <p style="margin:0 0 4px;font-size:11px;color:#e07090;font-weight:bold;">⚠️ Medical Disclaimer</p>
@@ -149,10 +191,21 @@ function babyRecipeHTML_screen(){
   const inPlan = (S.babyPlan||[]).includes(b.id);
   const batches = S.babyBatches||1;
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
-      <button onclick="setQuiet({activeBaby:null,babyView:null})" style="background:none;border:none;color:#e07090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Tiny Tummies</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${b.emoji} ${b.name}</h1>
-      <div style="font-size:11px;color:#c06080;font-style:italic;">${b.stageLabel} · ⏱️ ${b.time} min</div>
+    <!-- Photo header -->
+    <div style="position:relative;height:220px;overflow:hidden;background:#1a0f18;">
+      <img src="${'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/'+encodeURIComponent(b.name.trim())+'.jpg'}"
+           onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0f18;">
+        <span style="font-size:48px;">${b.emoji}</span>
+        <span style="font-size:11px;color:#6a4050;">📷 Photo coming soon</span>
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
+      <button onclick="setQuiet({activeBaby:null,babyView:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #e07090;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back to Tiny Tummies</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
+        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${b.emoji} ${b.name}</h1>
+        <div style="font-size:11px;color:#c06080;font-style:italic;">${b.stageLabel} · ⏱️ ${b.time} min</div>
+      </div>
     </div>
     <div class="content">
       <div style="margin-bottom:12px;">${(b.badges||[]).map(badge=>`<span style="background:#2a1020;border:1px solid #5a2040;border-radius:12px;font-size:10px;color:#c07090;padding:3px 8px;margin:2px;display:inline-block;">${badge}</span>`).join("")}</div>
