@@ -16,7 +16,7 @@ function braaiStep1(){
     {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Bread',    action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
     {id:'sauces',  emoji:'🫙', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
-    {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:USER_TIER==='pro'?"set({braaiView:'myplan'})":"alert('👑 Pro feature')", count:total, highlight:false, planBox:true},
+    {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})", count:total, highlight:false, planBox:true},
   ];
   return `<div>
     <div class="header" style="padding:0;overflow:hidden;">
