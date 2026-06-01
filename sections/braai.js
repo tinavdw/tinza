@@ -206,7 +206,7 @@ function braaiStep4(){
     <div class="header">
       <button class="back-btn" onclick="set({braaiView:'browse',braiStep:1})" style="color:#c06020;">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Braai Plan</h1>
-      <p style="margin:0;font-size:11px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${S.budget.charAt(0).toUpperCase()+S.budget.slice(1)}</p>
+      <p style="margin:0;font-size:11px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${(S.budget||"standard").charAt(0).toUpperCase()+(S.budget||"standard").slice(1)}</p>
     </div>
     <div class="content">
       ${braaiQuickNav('myplan')}
