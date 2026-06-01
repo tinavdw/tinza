@@ -951,9 +951,7 @@ function healthExtDetail(recipe){
   const isPro = tierAllows('pro');
   const srv = S.servings||1;
   const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
-  const _bg = (S.activeHealthExtBack&&S.activeHealthExtBack.healthGroup)||S.healthGroup||null;
-  const _bt = (S.activeHealthExtBack&&S.activeHealthExtBack.healthGroupTab)||S.healthGroupTab||null;
-  const backCall = 'activeHealthExt:null,healthGroup:'+JSON.stringify(_bg)+',healthGroupTab:'+JSON.stringify(_bt);
+  const backCall = 'activeHealthExt:null,healthGroup:'+JSON.stringify(S.healthGroup||null)+',healthGroupTab:'+JSON.stringify(S.healthGroupTab||null);
   const imgUrl = healthImgUrl(recipe.name);
 
   const ings = (recipe.base300||[]);
