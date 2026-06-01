@@ -951,8 +951,9 @@ function healthExtDetail(recipe){
   const isPro = tierAllows('pro');
   const srv = S.servings||1;
   const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
-  const backState = S.activeHealthExtBack||{healthGroup:null,healthGroupTab:null};
-  const backCall = Object.entries(backState).map(([k,v])=>k+':'+JSON.stringify(v)).join(',');
+  const _bg = (S.activeHealthExtBack&&S.activeHealthExtBack.healthGroup)||S.healthGroup||null;
+  const _bt = (S.activeHealthExtBack&&S.activeHealthExtBack.healthGroupTab)||S.healthGroupTab||null;
+  const backCall = 'activeHealthExt:null,healthGroup:'+JSON.stringify(_bg)+',healthGroupTab:'+JSON.stringify(_bt);
   const imgUrl = healthImgUrl(recipe.name);
 
   const ings = (recipe.base300||[]);
@@ -987,7 +988,7 @@ function healthExtDetail(recipe){
         <span style="font-size:11px;color:#256040;">📷 Photo coming soon</span>
       </div>
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
-      <button onclick="set({activeHealthExt:null,${backCall}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #30c090;border-radius:20px;color:#40d0a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <button onclick="set({${backCall}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #30c090;border-radius:20px;color:#40d0a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
         <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
         <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;">${recipe.name}</h1>
@@ -1062,7 +1063,7 @@ function healthExtDetail(recipe){
              <button onclick="window.print()" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0a1a10;border:1px solid #1a4030;color:#208060;font-size:13px;">🖨️ Print / Save as PDF 👑</button>`
           : `<button onclick="alert('👑 Upgrade to Pro for shopping list, cost totals & download')" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0f1208;border:2px dashed #1a4020;color:#206030;font-size:13px;">🔒 Shopping List + PDF — Pro only</button>`}
         <div style="display:flex;gap:8px;">
-          <button onclick="set({activeHealthExt:null,${backCall}})" style="flex:1;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back</button>
+          <button onclick="set({${backCall}})" style="flex:1;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back</button>
           <button onclick="set({screen:'home',activeHealthExt:null,healthGroup:null,healthGroupTab:null})" style="flex:1;padding:12px;background:none;border:1px solid #1a2018;border-radius:10px;color:#304030;font-size:12px;cursor:pointer;">Home</button>
         </div>
       </div>
