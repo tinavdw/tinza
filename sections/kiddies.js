@@ -20,13 +20,20 @@ function kidsScaleRows(base,k){
 // braai-style large ingredient rows for the recipe detail screen
 function kidsScaleRowsBig(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
+    const label=key.replace(/_/g,' ');
     const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
-    let total;
-    if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=m[3]||'';const sc=Math.round(n*k/12*10)/10;total=`${sc}${u}${rest}`;}
-    else total=val;
+    if(m){
+      const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();
+      const pp=Math.round(n/12*10)/10;        // per child (base is for 12)
+      const tot=Math.round(n*k/12*10)/10;     // total for k kids
+      return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
+        <span style="font-size:14px;color:#f5e8cc;">${label}${rest?` <span style="color:#7a5030;font-size:12px;">${rest}</span>`:''}</span>
+        <span style="font-size:13px;color:#7a5030;white-space:nowrap;text-align:right;">${pp}${u} pp · <b style="color:#f5c842;">${tot}${u} total</b></span>
+      </div>`;
+    }
     return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
-      <span style="font-size:14px;color:#f5e8cc;">${key.replace(/_/g,' ')}</span>
-      <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${total}</span>
+      <span style="font-size:14px;color:#f5e8cc;">${label}</span>
+      <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${val}</span>
     </div>`;
   }).join('');
 }
@@ -100,6 +107,7 @@ function kidsCategoryDefs(th){
     {id:'cake',    emoji:'🎂', label:'The Cake',  sub:'Showstopper',         count:th.cake?1:0},
     {id:'drinks',  emoji:'🥤', label:'Drinks',    sub:'& Crisps add-on',     count:th.drink?1:0},
     {id:'planner', emoji:'🎉', label:'Planner',   sub:'Decor · Games · Time',count:0},
+    {id:'plan',    emoji:'📋', label:'My Plan',   sub:'List · Cost · Shop',  count:0, plan:true},
   ];
 }
 
@@ -109,6 +117,7 @@ function kidsPartyHTML(){
   const budget = S.kidsBudget||'easy';
 
   if(S.kidsShowMasterSnacks) return kidsAddDeleteSnacksHTML(k);
+  if(S.kidsTheme && S.kidsScreen==='plan')        return kidsPlanHTML(S.kidsTheme,k,budget);
   if(S.kidsTheme && S.kidsScreen==='recipe')      return kidsRecipeDetailHTML(S.kidsTheme,S.kidsCategory||'savoury',S.kidsRecipe,k);
   if(S.kidsTheme && S.kidsScreen==='category')   return kidsCategoryHTML(S.kidsTheme,S.kidsCategory||'savoury',k,budget);
   if(S.kidsTheme && S.kidsScreen==='categories')  return kidsThemeCategoriesHTML(S.kidsTheme,k,budget);
@@ -139,7 +148,7 @@ function kidsPartyHTML(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
         ${filteredThemes.length===0?`<div style="grid-column:1/-1;text-align:center;padding:30px 16px;background:#161210;border:1px solid #3a2010;border-radius:12px;"><div style="font-size:32px;margin-bottom:8px;">🎈</div><div style="font-size:13px;color:#a07050;">No themes match "${searchVal}"</div></div>`:''}
         ${filteredThemes.map(th=>`
-          <div onclick="set({kidsTheme:'${th.id}',kidsScreen:'categories'})" style="background:#161210;border:1px solid #3a2010;border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
+          <div onclick="set({kidsTheme:'${th.id}',kidsScreen:'categories',kidsRemoved:[]})" style="background:#161210;border:1px solid #3a2010;border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:24px;margin-bottom:5px;">${th.emoji}</div>
             <div style="font-size:11px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${th.name}</div>
             <div style="display:flex;gap:3px;justify-content:center;">${(th.colours||[]).slice(0,4).map(c=>`<div style="width:8px;height:8px;border-radius:50%;background:${c};"></div>`).join('')}</div>
@@ -172,7 +181,7 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
       <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
         ${cats.map(c=>`
-          <div onclick="set({kidsScreen:'category',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
+          <div onclick="set({kidsScreen:'${c.plan?'plan':'category'}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#3a2010'};border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:20px;margin-bottom:3px;">${c.emoji}</div>
             <div style="font-size:10px;color:#f5e8cc;font-weight:bold;margin-bottom:1px;">${c.label}</div>
             <div style="font-size:8px;color:#6a4020;line-height:1.3;">${c.sub}</div>
@@ -213,7 +222,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
               <div style="font-size:15px;color:#f5e8cc;">${r.name}${inMenu?` <span style="font-size:8px;color:#c0a020;border:1px solid #c0a020;border-radius:6px;padding:1px 5px;margin-left:4px;">${budget} menu</span>`:''}</div>
               <div style="font-size:11px;color:#7a5030;margin-top:3px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
             </div>
-            <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Open →</span>
+            <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
           </div>`;
       }).join('');
   }
@@ -223,7 +232,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       <div onclick="set({kidsScreen:'recipe'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
         <span style="font-size:22px;">🎂</span>
         <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${c.name}</div><div style="font-size:11px;color:#7a5030;margin-top:3px;">🎂 The Cake${c.kcal?` · ~${c.kcal} kcal per slice`:''}</div></div>
-        <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Open →</span>
+        <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
       </div>`;
   }
   else if(catId==='drinks'){
@@ -384,6 +393,157 @@ function kidsAddDeleteSnacksHTML(k){
         </div>`;
       }).join('')}
       <button onclick="set({kidsShowMasterSnacks:false})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#6a4020;font-size:13px;margin:10px 0 20px;">← Back to Themes</button>
+    </div>
+  </div>`;
+}
+
+// ── MY PLAN · SHOPPING LIST · COSTING ─────────────────────────────
+// Reuses the app's lookupPrice / normIngredientKey / aisleCategory.
+// Costs weight/volume items (g·kg·ml·l) that exist in PRICE_DB.
+// Count items, store-bought packs and anything without a price are
+// flagged "price needed" rather than shown as R0.
+
+function kidsToggleRemoved(key){
+  const r = S.kidsRemoved || [];
+  S.kidsRemoved = r.includes(key) ? r.filter(x=>x!==key) : [...r, key];
+  draw();
+}
+
+// gather the items currently in the plan (budget menu + cake + drink + crisps), minus removed
+function kidsPlanItems(th, budget){
+  const removed = S.kidsRemoved || [];
+  const menu = (th.foods && (th.foods[budget] || th.foods.easy)) || [];
+  const items = [];
+  menu.forEach(n=>{
+    const r = (th.recipes||[]).find(x=>x.name===n);
+    if(r) items.push({key:r.name, label:r.name, emoji:r.emoji||'🍽️', base12:r.base12, removed:removed.includes(r.name)});
+  });
+  if(th.cake)  items.push({key:'CAKE',  label:th.cake.name,  emoji:'🎂', base12:th.cake.base12,  removed:removed.includes('CAKE')});
+  if(th.drink) items.push({key:'DRINK', label:th.drink.name, emoji:'🥤', base12:th.drink.base12, removed:removed.includes('DRINK')});
+  return items;
+}
+
+// helper: safe price lookup (app provides lookupPrice; fall back to null)
+function kidsPrice(name){ try { return (typeof lookupPrice==='function') ? lookupPrice(name) : null; } catch(e){ return null; } }
+function kidsAisle(name){ try { return (typeof aisleCategory==='function') ? aisleCategory(name) : '🧂 Other'; } catch(e){ return '🧂 Other'; } }
+function kidsNorm(name){ try { return (typeof normIngredientKey==='function') ? normIngredientKey(name) : name.toLowerCase().trim(); } catch(e){ return name.toLowerCase().trim(); } }
+
+// consolidate ingredients across the selected plan items, scaled to k kids
+function kidsConsolidate(items, k){
+  const map = {};
+  items.filter(it=>!it.removed).forEach(it=>{
+    Object.entries(it.base12||{}).forEach(([key,val])=>{
+      String(val).split(/\s*\+\s*/).forEach(part=>{
+        part = part.trim(); if(!part) return;
+        const m = part.match(/^([\d.]+)\s*(g|kg|ml|l)?\s*(.*)$/i);
+        let amt=null, unit='', name=part;
+        if(m && m[1]!==undefined){ amt=parseFloat(m[1]); unit=(m[2]||'').toLowerCase(); name=(m[3]||'').trim() || key.replace(/_/g,' '); }
+        else { name = part || key.replace(/_/g,' '); }
+        let grams=null, count=null;
+        if(amt!=null){
+          const sc = amt * k / 12;
+          if(unit==='kg'||unit==='l') grams = sc*1000;
+          else if(unit==='ml'||unit==='g') grams = sc;
+          else count = sc;                       // no weight unit → counted item
+        }
+        const nk = kidsNorm(name) || name.toLowerCase();
+        if(!map[nk]) map[nk] = {name:name, grams:0, count:0, hasGrams:false, hasCount:false};
+        if(grams!=null){ map[nk].grams += grams; map[nk].hasGrams=true; }
+        if(count!=null){ map[nk].count += count; map[nk].hasCount=true; }
+      });
+    });
+  });
+  // crisps add-on (scales by packets, not /12)
+  const packets = Math.ceil(k/4);
+  map['__crisps'] = {name:'crisp packets (120g)', grams:0, count:packets, hasGrams:false, hasCount:true, packet:true};
+  return Object.values(map);
+}
+
+function kidsFmtAmt(row){
+  if(row.hasGrams){
+    const g = Math.round(row.grams);
+    return g>=1000 ? (g/1000).toFixed(g%1000?1:0)+'kg' : g+'g';
+  }
+  if(row.hasCount){ const c=Math.round(row.count*10)/10; return (row.packet? c+' × 120g' : c+'×'); }
+  return '';
+}
+
+function kidsPlanHTML(themeId, k, budget){
+  const th = KIDS_THEMES.find(t=>t.id===themeId);
+  if(!th) return `<div style="padding:20px;color:#f5e8cc;">Theme not found.</div>`;
+  const tint = (th.colours&&th.colours[0]) ? th.colours[0]+'33' : '#2a1808';
+  const isOpen = S.kidsCatHowOpen || false;
+  const howHTML = `Your theme's menu is loaded automatically. <strong style="color:#f5c842;">Tap ✕ to remove</strong> anything you won't make — the shopping list and cost update instantly. Everything scales to <b style="color:#f5c842;">${k} kids</b>.`;
+
+  const items = kidsPlanItems(th, budget);
+  const rows = kidsConsolidate(items, k);
+
+  // cost each row
+  let total = 0; let unpriced = [];
+  rows.forEach(r=>{
+    let cost = null;
+    if(r.hasGrams){
+      const p = kidsPrice(r.name);
+      if(p!=null && r.grams>0){ cost = (r.grams/1000)*p; total += cost; }
+    }
+    r.cost = cost;
+    r.aisle = kidsAisle(r.name);
+    if(cost==null) unpriced.push(r.name);
+  });
+  total = Math.round(total);
+  const perChild = k>0 ? Math.round(total/k) : 0;
+
+  // menu list with remove toggles
+  const menuList = items.map(it=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;margin-bottom:6px;background:${it.removed?'#0f0c08':'#161210'};border:1px solid ${it.removed?'#1e1a10':'#2a1a10'};border-radius:10px;opacity:${it.removed?0.55:1};">
+      <span style="font-size:18px;">${it.emoji}</span>
+      <div style="flex:1;font-size:14px;color:${it.removed?'#6a4020':'#f5e8cc'};${it.removed?'text-decoration:line-through;':''}">${it.label}</div>
+      <button onclick="kidsToggleRemoved('${it.key.replace(/'/g,"\\'")}')" style="flex-shrink:0;background:${it.removed?'#1a1408':'#2a1808'};border:1px solid ${it.removed?'#c0a020':'#c06020'};color:${it.removed?'#f5c842':'#c06020'};font-size:11px;border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap;">${it.removed?'＋ Add back':'✕ Remove'}</button>
+    </div>`).join('');
+
+  // shopping list grouped by aisle
+  const aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
+  rows.sort((a,b)=> aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle) || a.name.localeCompare(b.name));
+  let shopHTML=''; let lastAisle=null;
+  rows.forEach(r=>{
+    if(r.aisle!==lastAisle){ shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#6a4020;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${r.aisle}</div>`; lastAisle=r.aisle; }
+    const costTag = r.cost!=null
+      ? `<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;">R${Math.round(r.cost)}</span>`
+      : `<span style="font-size:9px;color:#a07050;border:1px solid #4a3020;border-radius:6px;padding:2px 6px;white-space:nowrap;">price needed</span>`;
+    shopHTML += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;">
+      <span style="font-size:13px;color:#c8b898;">${r.name} <b style="color:#f5e8cc;">${kidsFmtAmt(r)}</b></span>${costTag}
+    </div>`;
+  });
+
+  return `<div>
+    ${kidsHeader('📋 '+th.name+' — Plan', 'Menu · shopping list · cost for '+k+' kids', "set({kidsScreen:'categories'})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
+    <div class="content">
+      ${kidsControlBar(k,'kidsCatHowOpen',isOpen,howHTML)}
+
+      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">🎈 Your party menu</div>
+      ${menuList}
+
+      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:16px 0 6px;">🛒 Shopping list</div>
+      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:6px 14px 12px;margin-bottom:12px;">
+        ${shopHTML || '<p style="font-size:13px;color:#4a3020;font-style:italic;">Nothing selected.</p>'}
+      </div>
+
+      <div style="background:#1a1408;border:1px solid #c0a020;border-radius:12px;padding:16px;margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+          <div>
+            <div style="font-size:10px;letter-spacing:1px;color:#8a7030;text-transform:uppercase;">Estimated cost</div>
+            <div style="font-size:30px;color:#f5c842;font-weight:bold;line-height:1.1;">from R${total}</div>
+            <div style="font-size:11px;color:#8a7030;">≈ R${perChild} per child</div>
+          </div>
+          <div style="font-size:28px;">🎂</div>
+        </div>
+        ${unpriced.length?`<div style="margin-top:10px;padding:8px 10px;background:#120c08;border-radius:6px;font-size:10px;color:#a07050;line-height:1.5;">⚠️ ${unpriced.length} item${unpriced.length>1?'s':''} not yet priced (counted items &amp; party extras). Add them to your price list and the total fills in automatically.</div>`:''}
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:22px;">
+        <button onclick="set({kidsScreen:'categories'})" style="flex:1;padding:12px 8px;border-radius:10px;background:#161210;border:1px solid #3a2010;color:#c07040;font-size:12px;cursor:pointer;line-height:1.3;">← ${th.name} menu</button>
+        <button onclick="set({kidsScreen:'themes',kidsTheme:null,kidsRemoved:[]})" style="flex:1;padding:12px 8px;border-radius:10px;background:#1a1408;border:1px solid #c0a020;color:#f5c842;font-size:12px;cursor:pointer;line-height:1.3;">🎂 Kiddies Party</button>
+      </div>
     </div>
   </div>`;
 }
