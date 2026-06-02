@@ -322,6 +322,23 @@ const PRICE_DB = {
   "blueberry cordial": 60,    // R45/750ml
   "soda water": 15,           // ESTIMATE - confirm price
   "lemonade": 10,             // ESTIMATE - confirm price
+
+  // ── KIDDIES PIRATE/MERMAID/CONSTRUCTION (Jun 2026) ──
+  "bbq sauce": 107,           // R40/375ml
+  "lemon juice": 30,          // ESTIMATE - confirm price
+  "blue lemonade": 12,        // ESTIMATE - confirm (fizzy)
+  "pineapple juice": 40,      // ESTIMATE - confirm price
+  "shell pasta": 30,          // ESTIMATE - confirm price
+  "tuna": 120,                // ESTIMATE - confirm (tinned)
+  "jelly powder": 60,         // ESTIMATE - confirm price
+  "desiccated coconut": 90,   // ESTIMATE - confirm price
+  "ice cream cones": 40,      // ESTIMATE - confirm price
+  "smarties": 200,            // ESTIMATE - confirm price
+  "taco shells": 200,         // R67/12 shells (~335g)
+  "kidney beans": 35,         // ESTIMATE - confirm (tinned)
+  "orange juice": 25,         // ESTIMATE - confirm price
+  "blue fizzy drink": 12,     // ESTIMATE - confirm price
+  "hummus": 333,              // R40/120g
 };
 
 const MEAT_COSTS = {

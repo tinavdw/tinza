@@ -439,16 +439,18 @@ function kidsConsolidate(items, k){
         let amt=null, unit='', name=part;
         if(m && m[1]!==undefined){ amt=parseFloat(m[1]); unit=(m[2]||'').toLowerCase(); name=(m[3]||'').trim() || key.replace(/_/g,' '); }
         else { name = part || key.replace(/_/g,' '); }
-        let grams=null, count=null;
+        let grams=null, count=null, liquid=false;
         if(amt!=null){
           const sc = amt * k / 12;
-          if(unit==='kg'||unit==='l') grams = sc*1000;
-          else if(unit==='ml'||unit==='g') grams = sc;
+          if(unit==='kg'){ grams = sc*1000; }
+          else if(unit==='l'){ grams = sc*1000; liquid=true; }
+          else if(unit==='ml'){ grams = sc; liquid=true; }
+          else if(unit==='g'){ grams = sc; }
           else count = sc;                       // no weight unit → counted item
         }
         const nk = kidsNorm(name) || name.toLowerCase();
-        if(!map[nk]) map[nk] = {name:name, grams:0, count:0, hasGrams:false, hasCount:false};
-        if(grams!=null){ map[nk].grams += grams; map[nk].hasGrams=true; }
+        if(!map[nk]) map[nk] = {name:name, grams:0, count:0, hasGrams:false, hasCount:false, liquid:false};
+        if(grams!=null){ map[nk].grams += grams; map[nk].hasGrams=true; if(liquid) map[nk].liquid=true; }
         if(count!=null){ map[nk].count += count; map[nk].hasCount=true; }
       });
     });
@@ -461,8 +463,9 @@ function kidsConsolidate(items, k){
 
 function kidsFmtAmt(row){
   if(row.hasGrams){
-    const g = Math.round(row.grams);
-    return g>=1000 ? (g/1000).toFixed(g%1000?1:0)+'kg' : g+'g';
+    const v = Math.round(row.grams);
+    if(row.liquid) return v>=1000 ? (v/1000).toFixed(v%1000?1:0)+'L' : v+'ml';
+    return v>=1000 ? (v/1000).toFixed(v%1000?1:0)+'kg' : v+'g';
   }
   if(row.hasCount){ const c=Math.round(row.count*10)/10; return (row.packet? c+' × 120g' : c+'×'); }
   return '';
