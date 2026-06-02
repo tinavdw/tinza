@@ -339,6 +339,32 @@ const PRICE_DB = {
   "orange juice": 25,         // ESTIMATE - confirm price
   "blue fizzy drink": 12,     // ESTIMATE - confirm price
   "hummus": 333,              // R40/120g
+
+  // ── KIDDIES FRUIT/SNACKS (Jun 2026) ──
+  "grapes": 100,              // R50/500g
+  "melon": 110,               // cut melon R35/320g (whole ~R50 each)
+  "crisps": 192,              // R23/120g packet
+
+  // ── KIDDIES SAFARI/RAINBOW/PRINCESS/FARMYARD/BRAAI/BIG5 (Jun 2026) — many ESTIMATES, confirm at Checkers ──
+  "worcester sauce": 60,      // ESTIMATE
+  "guava juice": 35,          // ESTIMATE
+  "vetkoek": 40,              // ESTIMATE (flour-based, per kg)
+  "instant yeast": 200,       // ESTIMATE (R20/100g)
+  "cornmeal": 30,             // ESTIMATE
+  "chow mein noodles": 60,    // ESTIMATE
+  "rice krispies": 80,        // ESTIMATE
+  "kefir": 60,                // ESTIMATE
+  "mixed berries": 120,       // ESTIMATE (frozen)
+  "bananas": 25,              // ESTIMATE
+  "mango": 40,                // ESTIMATE
+  "pawpaw": 30,               // ESTIMATE
+  "granadilla": 120,          // ESTIMATE (pulp)
+  "mushrooms": 90,            // ESTIMATE
+  "rooibos": 8,               // ESTIMATE (brewed, per L)
+  "koeksisters": 120,         // ESTIMATE
+  "syrup": 50,                // ESTIMATE
+  "ketchup": 45,              // ESTIMATE
+  "vinegar": 25,              // ESTIMATE
 };
 
 const MEAT_COSTS = {
