@@ -295,6 +295,33 @@ const PRICE_DB = {
   // ── CEREAL ──
   "oats": 50,                 // per kg
   "muesli": 107,              // R80/750g → R107/kg
+
+  // ── KIDDIES PARTY (added Jun 2026, per kg unless noted) ──
+  "breadcrumbs": 150,         // R30/200g
+  "instant chocolate pudding": 167, // R15/90g
+  "chocolate biscuits": 225,  // R45/200g
+  "jelly babies": 280,        // R35/125g
+  "sprinkles": 453,           // R34/75g
+  "dark chocolate": 313,      // R25/80g
+  "chocolate bar": 226,       // R19/84g
+  "marshmallows": 169,        // R22/130g
+  "food colouring": 15,       // R15 per 40ml bottle (per-item, tiny amounts used)
+
+  // ── KIDDIES UNICORN (Jun 2026) ──
+  "tortillas": 139,           // R50/8 wraps (~360g)
+  "white chocolate": 313,     // R25/80g
+  "fruit cocktail": 98,       // R40/410g tin
+  "apple juice": 40,          // R40/1L
+  "strawberry juice": 54,     // R27/500ml
+  "popcorn kernels": 30,      // ESTIMATE - confirm price
+
+  // ── KIDDIES SPACE (Jun 2026) ──
+  "hot dog rolls": 35,        // R3.50 each (~100g)
+  "pretzels": 175,            // R35/200g
+  "cocktail buns": 60,        // ESTIMATE - confirm price
+  "blueberry cordial": 60,    // R45/750ml
+  "soda water": 15,           // ESTIMATE - confirm price
+  "lemonade": 10,             // ESTIMATE - confirm price
 };
 
 const MEAT_COSTS = {
