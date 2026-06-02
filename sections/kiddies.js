@@ -127,7 +127,7 @@ function kidsPartyHTML(){
     5 · Add or remove extras from <strong style="color:#f5c842;">Add/Delete Snacks</strong>`;
 
   return `<div>
-    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · Easy, Medium or Fancy',"set({eventTab:'bigcooking'})",'← Events','kiddies')}
+    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · Easy, Medium or Fancy',"set({eventTab:'bigcooking',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
     <div class="content">
       <div style="display:flex;align-items:center;background:#161210;border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
@@ -313,6 +313,7 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
   if(!rec) return `<div style="padding:20px;color:#f5e8cc;">Recipe not found. <button onclick="set({kidsScreen:'category'})" style="color:#c06020;background:none;border:none;cursor:pointer;">← Back</button></div>`;
 
   const slug=kidsSlug(rec.name);
+  const photoEmoji = rec.emoji || (rec.type==='cake'?'🎂':rec.type==='savoury'?'🍢':rec.type==='healthy'?'🥗':'🍬');
   const typeLabel=rec.type==='savoury'?'🥩 Savoury':rec.type==='sweet'?'🍬 Sweet':rec.type==='healthy'?'🥗 Healthy':'🎂 Cake';
   const meta=[typeLabel, rec.per?rec.per+' per child':'', rec.time?rec.time+' min':'', rec.kcal?'~'+rec.kcal+' kcal':''].filter(Boolean).join(' · ');
   const steps=(rec.method||'').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(Boolean);
@@ -324,9 +325,9 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
     : `<div style="font-size:13px;color:#4a3020;font-style:italic;">No method steps yet.</div>`;
 
   return `<div>
-    ${kidsHeader(rec.emoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
+    ${kidsHeader(photoEmoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
     <div class="content">
-      ${kidsPhotoBox(slug,rec.emoji,160)}
+      ${kidsPhotoBox(slug,photoEmoji,110)}
 
       <div style="background:#0d1a0a;border:1px solid #2a5020;border-radius:12px;padding:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>
