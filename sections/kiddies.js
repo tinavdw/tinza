@@ -12,8 +12,22 @@ function kidsScaleRows(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
     const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
     if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=m[3]||'';const sc=Math.round(n*k/12*10)/10;
-      return `<div style="font-size:11px;color:#c8b898;line-height:1.8;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${sc}${u}${rest}</b></div>`;}
-    return `<div style="font-size:11px;color:#c8b898;line-height:1.8;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${val}</b></div>`;
+      return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${sc}${u}${rest}</b></div>`;}
+    return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${val}</b></div>`;
+  }).join('');
+}
+
+// braai-style large ingredient rows for the recipe detail screen
+function kidsScaleRowsBig(base,k){
+  return Object.entries(base||{}).map(([key,val])=>{
+    const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
+    let total;
+    if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=m[3]||'';const sc=Math.round(n*k/12*10)/10;total=`${sc}${u}${rest}`;}
+    else total=val;
+    return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
+      <span style="font-size:14px;color:#f5e8cc;">${key.replace(/_/g,' ')}</span>
+      <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${total}</span>
+    </div>`;
   }).join('');
 }
 
@@ -95,6 +109,7 @@ function kidsPartyHTML(){
   const budget = S.kidsBudget||'easy';
 
   if(S.kidsShowMasterSnacks) return kidsAddDeleteSnacksHTML(k);
+  if(S.kidsTheme && S.kidsScreen==='recipe')      return kidsRecipeDetailHTML(S.kidsTheme,S.kidsCategory||'savoury',S.kidsRecipe,k);
   if(S.kidsTheme && S.kidsScreen==='category')   return kidsCategoryHTML(S.kidsTheme,S.kidsCategory||'savoury',k,budget);
   if(S.kidsTheme && S.kidsScreen==='categories')  return kidsThemeCategoriesHTML(S.kidsTheme,k,budget);
 
@@ -189,43 +204,26 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const menu=(th.foods&&(th.foods[budget]||th.foods.easy))||[];
     body = list.length===0 ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No recipes in this category yet.</p>`
       : list.map(r=>{
-        const slug=kidsSlug(r.name);
-        const open=S.kidsOpenRecipe===r.name;
         const inMenu=menu.includes(r.name);
         const typeLabel=r.type==='savoury'?'🥩 Savoury':r.type==='sweet'?'🍬 Sweet':'🥗 Healthy';
         const nameEsc=r.name.replace(/'/g,"\\'");
-        return `<div style="background:${open?'#2a1808':'#161210'};border:1px solid ${open?'#c06020':'#2a1a10'};border-radius:10px;margin-bottom:6px;overflow:hidden;">
-          <div onclick="set({kidsOpenRecipe:${open?'null':`'${nameEsc}'`}})" style="display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;">
-            <span style="font-size:20px;">${r.emoji||'🍽️'}</span>
+        return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
+            <span style="font-size:22px;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;">
-              <div style="font-size:14px;color:${open?'#f5e8cc':'#7a5030'};font-weight:${open?'bold':'normal'};">${r.name}${inMenu?` <span style="font-size:8px;color:#c0a020;border:1px solid #c0a020;border-radius:6px;padding:1px 5px;margin-left:4px;">${budget} menu</span>`:''}</div>
-              <div style="font-size:10px;color:${open?'#c06020':'#4a3020'};margin-top:2px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
+              <div style="font-size:15px;color:#f5e8cc;">${r.name}${inMenu?` <span style="font-size:8px;color:#c0a020;border:1px solid #c0a020;border-radius:6px;padding:1px 5px;margin-left:4px;">${budget} menu</span>`:''}</div>
+              <div style="font-size:11px;color:#7a5030;margin-top:3px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
             </div>
-            <span style="font-size:11px;color:#c06020;">${open?'▲':'▼'}</span>
-          </div>
-          ${open?`<div onclick="event.stopPropagation()" style="padding:0 12px 12px;">
-            ${kidsPhotoBox(slug,r.emoji)}
-            <div style="background:#120c08;border-radius:6px;padding:10px;">
-              <div style="font-size:10px;color:#6a4020;margin-bottom:6px;">For <b style="color:#f5c842;">${k} kids</b>:</div>
-              ${kidsScaleRows(r.base12,k)}
-            </div>
-            ${r.method?`<div style="font-size:11px;color:#c8b898;margin-top:8px;font-style:italic;line-height:1.6;">${r.method}</div>`:''}
-          </div>`:''}
-        </div>`;
+            <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Open →</span>
+          </div>`;
       }).join('');
   }
   else if(catId==='cake'){
     const c=th.cake;
     body = !c ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No cake for this theme yet.</p>` : `
-      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
-        <div style="font-size:14px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;margin-bottom:8px;">🎂 ${c.name}</div>
-        ${kidsPhotoBox(kidsSlug(c.name),'🎂',140)}
-        <div style="background:#120c08;border-radius:6px;padding:10px;">
-          <div style="font-size:10px;color:#6a4020;margin-bottom:6px;">Scaled for <b style="color:#f5c842;">${k} kids</b>:</div>
-          ${kidsScaleRows(c.base12,k)}
-        </div>
-        ${c.method?`<div style="font-size:11px;color:#c8b898;margin-top:8px;font-style:italic;line-height:1.6;">${c.method}</div>`:''}
-        ${c.kcal?`<div style="font-size:9px;color:#4a3020;margin-top:6px;">~${c.kcal} kcal per slice</div>`:''}
+      <div onclick="set({kidsScreen:'recipe'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
+        <span style="font-size:22px;">🎂</span>
+        <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${c.name}</div><div style="font-size:11px;color:#7a5030;margin-top:3px;">🎂 The Cake${c.kcal?` · ~${c.kcal} kcal per slice`:''}</div></div>
+        <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Open →</span>
       </div>`;
   }
   else if(catId==='drinks'){
@@ -299,7 +297,68 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   </div>`;
 }
 
-// ── Add / Delete Snacks (was Master Snacks) ───────────────────────
+// ── LAYER 4: braai-style recipe detail ────────────────────────────
+function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
+  const th = KIDS_THEMES.find(t=>t.id===themeId);
+  if(!th) return `<div style="padding:20px;color:#f5e8cc;">Theme not found.</div>`;
+  const tint = (th.colours&&th.colours[0])?th.colours[0]+'33':'#2a1808';
+  let rec;
+  if(catId==='cake'){
+    const c=th.cake;
+    if(!c) return `<div style="padding:20px;color:#f5e8cc;">No cake here.</div>`;
+    rec={name:c.name,base12:c.base12,method:c.method,kcal:c.kcal,emoji:'🎂',type:'cake',per:'1 slice',time:''};
+  } else {
+    rec=(th.recipes||[]).find(r=>r.name===recipeName);
+  }
+  if(!rec) return `<div style="padding:20px;color:#f5e8cc;">Recipe not found. <button onclick="set({kidsScreen:'category'})" style="color:#c06020;background:none;border:none;cursor:pointer;">← Back</button></div>`;
+
+  const slug=kidsSlug(rec.name);
+  const typeLabel=rec.type==='savoury'?'🥩 Savoury':rec.type==='sweet'?'🍬 Sweet':rec.type==='healthy'?'🥗 Healthy':'🎂 Cake';
+  const meta=[typeLabel, rec.per?rec.per+' per child':'', rec.time?rec.time+' min':'', rec.kcal?'~'+rec.kcal+' kcal':''].filter(Boolean).join(' · ');
+  const steps=(rec.method||'').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(Boolean);
+  const methodHTML = steps.length
+    ? steps.map((s,i)=>`<div style="display:flex;gap:10px;margin-bottom:11px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:2px solid #c06020;color:#c06020;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;">${i+1}</div>
+        <div style="font-size:14px;color:#c8b898;line-height:1.55;padding-top:1px;">${s}</div>
+      </div>`).join('')
+    : `<div style="font-size:13px;color:#4a3020;font-style:italic;">No method steps yet.</div>`;
+
+  return `<div>
+    ${kidsHeader(rec.emoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
+    <div class="content">
+      ${kidsPhotoBox(slug,rec.emoji,160)}
+
+      <div style="background:#0d1a0a;border:1px solid #2a5020;border-radius:12px;padding:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:10px;letter-spacing:1px;color:#5a8040;text-transform:uppercase;">Serves</div>
+          <div style="font-size:30px;color:#f5c842;font-weight:bold;line-height:1;">${k} <span style="font-size:16px;color:#6aaa50;">kids</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="set({kidsCount:Math.max(4,(S.kidsCount||12)-1)})" style="width:34px;height:34px;border-radius:50%;background:transparent;border:2px solid #4a8040;color:#6aaa50;font-size:18px;line-height:1;cursor:pointer;">−</button>
+          <span style="font-size:24px;color:#f5e8cc;font-weight:bold;min-width:30px;text-align:center;">${k}</span>
+          <button onclick="set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})" style="width:34px;height:34px;border-radius:50%;background:transparent;border:2px solid #4a8040;color:#6aaa50;font-size:18px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+
+      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:4px;">🧺 Ingredients</div>
+      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:6px 14px 12px;margin-bottom:16px;">
+        ${kidsScaleRowsBig(rec.base12,k)}
+      </div>
+
+      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">👩‍🍳 Method</div>
+      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:16px;">
+        ${methodHTML}
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:22px;">
+        <button onclick="set({kidsScreen:'categories',kidsRecipe:null})" style="flex:1;padding:12px 8px;border-radius:10px;background:#161210;border:1px solid #3a2010;color:#c07040;font-size:12px;cursor:pointer;line-height:1.3;">← ${th.name} menu</button>
+        <button onclick="set({kidsScreen:'themes',kidsTheme:null,kidsRecipe:null})" style="flex:1;padding:12px 8px;border-radius:10px;background:#1a1408;border:1px solid #c0a020;color:#f5c842;font-size:12px;cursor:pointer;line-height:1.3;">🎂 Kiddies Party</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+
 function kidsAddDeleteSnacksHTML(k){
   const tc={savoury:'#c06020',sweet:'#f5c842',healthy:'#c0a020'};
   const isOpen=S.kidsSnackHowOpen||false;
