@@ -237,7 +237,49 @@ function kidsSnackExtras(id){
     big5:        {pop:['Bushveld Gold Popcorn','caramel'],  dips:[['Sunset Dip','BBQ'],['Bushveld Dip','guacamole'],['Watering Hole Dip','tzatziki']]}
   };
   const t=M[id]||M.braai, p=POP[t.pop[1]];
-  return {popName:t.pop[0], popFlav:p.flav, popHow:p.how, dips:t.dips};
+  return {popName:t.pop[0], popKey:t.pop[1], popFlav:p.flav, popHow:p.how, dips:t.dips};
+}
+
+// Build full v33-template recipe objects for the homemade popcorn + themed dips,
+// so they open exactly like every other recipe (photo, Serves box, ingredients, method).
+function kidsPopcornRecipe(id){
+  const sx=kidsSnackExtras(id);
+  const BASE={kernels:'120g popcorn kernels', oil:'40ml sunflower oil'};
+  const F={
+    butter:  {type:'savoury',kcal:95, add:{butter:'50g butter',salt:'5g fine salt'},                                 finish:'Melt the butter and pour over, tossing well. Sprinkle over the fine salt and toss again.'},
+    cinnamon:{type:'sweet',  kcal:130,add:{butter:'50g butter',sugar:'60g sugar',cinnamon:'10g ground cinnamon'},    finish:'Melt the butter and toss through the warm popcorn. Mix the sugar and cinnamon, dust over and toss to coat.'},
+    caramel: {type:'sweet',  kcal:155,add:{sugar:'120g sugar',butter:'70g butter',syrup:'40ml golden syrup'},        finish:'Boil the sugar, butter and golden syrup together until light gold, about 4 minutes. Pour over the popcorn and stir, then spread on baking paper to set.'},
+    cheesy:  {type:'savoury',kcal:120,add:{butter:'40g butter',cheese:'60g grated cheddar',salt:'3g fine salt'},     finish:'Melt the butter and toss through. Sprinkle over the grated cheese and salt while hot, tossing until coated.'},
+    choc:    {type:'sweet',  kcal:165,add:{chocolate:'150g white or milk chocolate',sprinkles:'30g sprinkles'},      finish:'Melt the chocolate gently. Drizzle over the popcorn, scatter the sprinkles, and leave 10 minutes to set.'},
+    jelly:   {type:'sweet',  kcal:135,add:{butter:'40g butter',jelly:'80g jelly powder'},                            finish:'Melt the butter and toss through. Dust over the jelly powder while warm, tossing to colour — blue for ocean, or split into colours for rainbow.'}
+  };
+  const f=F[sx.popKey]||F.butter;
+  return {name:sx.popName, type:f.type, emoji:'🍿', per:'1 cup', time:15, kcal:f.kcal,
+    base12:Object.assign({}, BASE, f.add),
+    method:'Pop the kernels in the oil in a large pot with the lid on over medium heat, shaking now and then, until the popping slows. Tip into a big bowl. '+f.finish};
+}
+function kidsDipsRecipe(id){
+  const sx=kidsSnackExtras(id);
+  const ADD={
+    'guacamole':'2 ripe avocados, mashed, + lemon','tomato salsa':'200g chopped tomato + ½ onion',
+    'onion & chive':'1 packet onion soup powder + chives','sweet chilli':'60ml sweet chilli sauce',
+    'cheesy':'80g grated cheddar','cheese & chive':'80g cream cheese + chives',
+    'BBQ':'60ml BBQ sauce + pinch paprika','garlic & herb':'2 cloves garlic + mixed herbs',
+    'tzatziki':'½ cucumber grated + garlic + dill','creamy mustard':'30ml wholegrain mustard + honey',
+    'thousand island':'30ml mayo + tomato sauce + relish'
+  };
+  const niceName=sx.dips.map(d=>d[0].replace(/ Dip$/,'')).join(', ').replace(/, ([^,]+)$/,' & $1')+' Dips';
+  const base12={sour_cream:'600g sour cream or plain yoghurt'};
+  sx.dips.forEach(d=>{ base12[d[0].replace(/ /g,'_')]=ADD[d[1]]||d[1]; });
+  const method='Split the sour cream or yoghurt evenly into three bowls. '+
+    sx.dips.map(d=>`For ${d[0]}, stir ${ADD[d[1]]||d[1]} into one bowl.`).join(' ')+
+    ' Chill for 15 minutes before serving.';
+  return {name:niceName, type:'savoury', emoji:'🥣', per:'2 tbsp', time:10, kcal:60, base12, method};
+}
+function kidsSyntheticRecipe(th,name){
+  const pop=kidsPopcornRecipe(th.id); if(name===pop.name) return pop;
+  const dip=kidsDipsRecipe(th.id); if(name===dip.name) return dip;
+  return null;
 }
 
 // ── LAYER 3: recipe rows for one category ─────────────────────────
@@ -286,9 +328,9 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const crispType=S.kidsCrispType||'regular';
     const crispPackets=Math.ceil(k/4);
     const veggie=Math.round(k*40)+'g carrot/cucumber sticks';
-    const sx=kidsSnackExtras(th.id);
-    const kernels=Math.round(k*10);
-    const dipStr=sx.dips.map(x=>`<b style="color:#f5e8cc;">${x[0]}</b> <span style="color:#6a4020;">(${x[1]})</span>`).join(' · ');
+    const popRec=kidsPopcornRecipe(th.id), dipRec=kidsDipsRecipe(th.id);
+    const popEsc=popRec.name.replace(/'/g,"\\'"), dipEsc=dipRec.name.replace(/'/g,"\\'");
+    const recCard=(emoji,nm,sub,esc)=>`<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${esc}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;"><span style="font-size:22px;">${emoji}</span><div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${nm}</div><div style="font-size:11px;color:#7a5030;margin-top:3px;">${sub}</div></div><span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span></div>`;
     const tog=(active,val,key,label)=>`<button onclick="set({${key}:'${val}'})" style="padding:4px 10px;border-radius:12px;border:1px solid ${active?'#c06020':'#3a2010'};background:${active?'#2a1008':'#0f0c08'};color:${active?'#f5c842':'#6a4020'};font-size:9px;cursor:pointer;font-family:Georgia,serif;">${label}</button>`;
     body = `
       ${d?`<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
@@ -301,25 +343,19 @@ function kidsCategoryHTML(themeId,catId,k,budget){
           ${drinkType==='storebought'?`<div style="font-size:11px;color:#f5e8cc;">${d.storebought||'Buy ready-made.'}</div>`:`${kidsScaleRows(d.base12,k)}${d.method?`<div style="font-size:11px;color:#c8b898;margin-top:6px;font-style:italic;">${d.method}</div>`:''}`}
         </div>
       </div>`:''}
-      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
+      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:10px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;">🥔 Crisps &amp; Dips</div>
+          <div style="font-size:13px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;">🥔 Crisps</div>
           <div style="display:flex;gap:4px;">${tog(crispType==='regular','regular','kidsCrispType','Regular')}${tog(crispType==='healthy','healthy','kidsCrispType','Healthy')}</div>
         </div>
         <div style="background:#120c08;border-radius:6px;padding:10px;">
           ${crispType==='regular'
-            ?`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Crisps: <b style="color:#f5e8cc;">${crispPackets} × 120g packet${crispPackets>1?'s':''}</b> <span style="color:#6a4020;">(1 per 4 kids)</span></div><div style="font-size:11px;color:#c8b898;line-height:1.8;">· Dips: ${dipStr}</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Make-your-own base: 250ml sour cream or plain yoghurt + your flavour (onion soup powder, crushed garlic, sweet chilli…).</div>`
-            :`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Swap for: <b style="color:#f5e8cc;">${veggie}</b> + rice cakes</div><div style="font-size:11px;color:#c8b898;line-height:1.8;">· Lighter dips: ${dipStr}</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Make-your-own base: 250ml plain yoghurt + garlic + lemon + dill.</div>`}
+            ?`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· <b style="color:#f5e8cc;">${crispPackets} × 120g packet${crispPackets>1?'s':''}</b> <span style="color:#6a4020;">(1 per 4 kids)</span></div>`
+            :`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Swap for <b style="color:#f5e8cc;">${veggie}</b> + rice cakes</div>`}
         </div>
       </div>
-      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
-        <div style="font-size:13px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;margin-bottom:8px;">🍿 ${sx.popName}</div>
-        <div style="background:#120c08;border-radius:6px;padding:10px;">
-          <div style="font-size:11px;color:#c8b898;line-height:1.8;">· Pop <b style="color:#f5e8cc;">${kernels}g popcorn kernels</b> in 30ml oil, lid on, over medium heat until the popping slows.</div>
-          <div style="font-size:11px;color:#c8b898;line-height:1.8;">· Flavour: <b style="color:#f5c842;">${sx.popFlav}</b></div>
-          <div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">${sx.popHow} (Homemade — no store-bought.)</div>
-        </div>
-      </div>`;
+      ${recCard('🥣',dipRec.name,'3 homemade dips · ~'+dipRec.kcal+' kcal · '+dipRec.time+' min',dipEsc)}
+      ${recCard('🍿',popRec.name,(popRec.type==='savoury'?'🥩 Savoury':'🍬 Sweet')+' popcorn · homemade · ~'+popRec.kcal+' kcal',popEsc)}`;
   }
   else { // planner
     const dShow=S.kidsShowDecor, tShow=S.kidsShowTimeline;
@@ -373,7 +409,7 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
     if(!c) return `<div style="padding:20px;color:#f5e8cc;">No cake here.</div>`;
     rec={name:c.name,base12:c.base12,method:c.method,kcal:c.kcal,emoji:'🎂',type:'cake',per:'1 slice',time:''};
   } else {
-    rec=(th.recipes||[]).find(r=>r.name===recipeName);
+    rec=(th.recipes||[]).find(r=>r.name===recipeName) || kidsSyntheticRecipe(th,recipeName);
   }
   if(!rec) return `<div style="padding:20px;color:#f5e8cc;">Recipe not found. <button onclick="set({kidsScreen:'category'})" style="color:#c06020;background:none;border:none;cursor:pointer;">← Back</button></div>`;
 
@@ -476,6 +512,10 @@ function kidsPlanItems(th, budget){
   });
   if(th.cake)  items.push({key:'CAKE',  label:th.cake.name,  emoji:'🎂', base12:th.cake.base12,  removed:removed.includes('CAKE')});
   if(th.drink) items.push({key:'DRINK', label:th.drink.name, emoji:'🥤', base12:th.drink.base12, removed:removed.includes('DRINK')});
+  const pop = kidsPopcornRecipe(th.id);
+  items.push({key:'POPCORN', label:pop.name, emoji:'🍿', base12:pop.base12, removed:removed.includes('POPCORN')});
+  const dip = kidsDipsRecipe(th.id);
+  items.push({key:'DIPS', label:dip.name, emoji:'🥣', base12:dip.base12, removed:removed.includes('DIPS')});
   return items;
 }
 
