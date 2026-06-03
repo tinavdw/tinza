@@ -210,6 +210,36 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   </div>`;
 }
 
+// ── Themed Crisps & Dips + homemade Popcorn ───────────────────────
+// 6 homemade popcorn methods (no store-bought), each used by 2 themes.
+// All start from kernels: pop ~10g kernels per kid in a little oil, lid on.
+function kidsSnackExtras(id){
+  const POP={
+    butter:  {flav:'butter & sea salt', how:'Toss hot popcorn in melted butter + a little fine salt.'},
+    cinnamon:{flav:'cinnamon-sugar',     how:'Toss in melted butter, then dust with sugar + cinnamon (3:1).'},
+    caramel: {flav:'golden caramel',     how:'Boil sugar + butter + a splash of golden syrup to light gold, pour over, spread to set.'},
+    cheesy:  {flav:'cheesy',             how:'Toss hot popcorn in a little melted butter + grated cheddar or parmesan + pinch salt.'},
+    choc:    {flav:'chocolate drizzle',  how:'Drizzle melted white/milk chocolate over, scatter sprinkles, leave 10 min to set.'},
+    jelly:   {flav:'jelly-dusted',       how:'Toss in melted butter, dust with 1 sachet jelly powder (blue for ocean / split into colours for rainbow).'}
+  };
+  const M={
+    dino:        {pop:['Dino Crunch Popcorn','cheesy'],     dips:[['Swamp Dip','guacamole'],['Lava Dip','tomato salsa'],['Fossil Dip','onion & chive']]},
+    unicorn:     {pop:['Unicorn Cloud Popcorn','choc'],     dips:[['Rainbow Dip','sweet chilli'],['Cloud Dip','cheesy'],['Garden Dip','garlic & herb']]},
+    space:       {pop:['Moon Rock Popcorn','cheesy'],       dips:[['Alien Dip','guacamole'],['Meteor Dip','BBQ'],['Cosmic Dip','cheese & chive']]},
+    pirate:      {pop:['Treasure Gold Popcorn','caramel'],  dips:[['Treasure Dip','cheesy'],['Shark Bite Dip','sweet chilli'],['Sea Salt Dip','onion & chive']]},
+    mermaid:     {pop:['Ocean Foam Popcorn','jelly'],       dips:[['Ocean Dip','tzatziki'],['Coral Dip','sweet chilli'],['Pearl Dip','cheese & chive']]},
+    construction:{pop:['Cement Mixer Popcorn','butter'],    dips:[['Cement Dip','onion & chive'],['Brick Dip','BBQ'],['Digger Dip','cheesy']]},
+    safari:      {pop:['Safari Trail Popcorn','cinnamon'],  dips:[['Jungle Dip','guacamole'],['Watering Hole Dip','tzatziki'],['Roar Dip','sweet chilli']]},
+    rainbow:     {pop:['Rainbow Popcorn','jelly'],          dips:[['Red Dip','tomato salsa'],['Yellow Dip','cheesy'],['Green Dip','guacamole']]},
+    princess:    {pop:['Princess Pink Popcorn','choc'],     dips:[['Royal Dip','garlic & herb'],['Tea Party Dip','creamy mustard'],['Rose Dip','thousand island']]},
+    farmyard:    {pop:['Haystack Popcorn','cinnamon'],      dips:[['Barn Dip','onion & chive'],['Hay Dip','cheesy'],['Mud Dip','guacamole']]},
+    braai:       {pop:['Braai Butter Popcorn','butter'],    dips:[['Smoky Dip','BBQ'],['Chakalaka Dip','tomato salsa'],['Boere Dip','onion & chive']]},
+    big5:        {pop:['Bushveld Gold Popcorn','caramel'],  dips:[['Sunset Dip','BBQ'],['Bushveld Dip','guacamole'],['Watering Hole Dip','tzatziki']]}
+  };
+  const t=M[id]||M.braai, p=POP[t.pop[1]];
+  return {popName:t.pop[0], popFlav:p.flav, popHow:p.how, dips:t.dips};
+}
+
 // ── LAYER 3: recipe rows for one category ─────────────────────────
 function kidsCategoryHTML(themeId,catId,k,budget){
   const th = KIDS_THEMES.find(t=>t.id===themeId);
@@ -256,6 +286,9 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const crispType=S.kidsCrispType||'regular';
     const crispPackets=Math.ceil(k/4);
     const veggie=Math.round(k*40)+'g carrot/cucumber sticks';
+    const sx=kidsSnackExtras(th.id);
+    const kernels=Math.round(k*10);
+    const dipStr=sx.dips.map(x=>`<b style="color:#f5e8cc;">${x[0]}</b> <span style="color:#6a4020;">(${x[1]})</span>`).join(' · ');
     const tog=(active,val,key,label)=>`<button onclick="set({${key}:'${val}'})" style="padding:4px 10px;border-radius:12px;border:1px solid ${active?'#c06020':'#3a2010'};background:${active?'#2a1008':'#0f0c08'};color:${active?'#f5c842':'#6a4020'};font-size:9px;cursor:pointer;font-family:Georgia,serif;">${label}</button>`;
     body = `
       ${d?`<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
@@ -275,8 +308,16 @@ function kidsCategoryHTML(themeId,catId,k,budget){
         </div>
         <div style="background:#120c08;border-radius:6px;padding:10px;">
           ${crispType==='regular'
-            ?`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Crisps: <b style="color:#f5e8cc;">${crispPackets} × 120g packet${crispPackets>1?'s':''}</b> <span style="color:#6a4020;">(1 per 4 kids)</span></div><div style="font-size:11px;color:#c8b898;">· Dips: French onion · Cheese &amp; chive · Guacamole · Salsa</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Easy dip: 250ml sour cream + 1 packet onion soup powder.</div>`
-            :`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Swap for: <b style="color:#f5e8cc;">${veggie}</b> + popcorn + rice cakes</div><div style="font-size:11px;color:#c8b898;">· Healthy dips: Hummus · Yoghurt dip · Tzatziki</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Quick dip: 250ml plain yoghurt + garlic + lemon + dill.</div>`}
+            ?`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Crisps: <b style="color:#f5e8cc;">${crispPackets} × 120g packet${crispPackets>1?'s':''}</b> <span style="color:#6a4020;">(1 per 4 kids)</span></div><div style="font-size:11px;color:#c8b898;line-height:1.8;">· Dips: ${dipStr}</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Make-your-own base: 250ml sour cream or plain yoghurt + your flavour (onion soup powder, crushed garlic, sweet chilli…).</div>`
+            :`<div style="font-size:11px;color:#c8b898;line-height:1.8;">· Swap for: <b style="color:#f5e8cc;">${veggie}</b> + rice cakes</div><div style="font-size:11px;color:#c8b898;line-height:1.8;">· Lighter dips: ${dipStr}</div><div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">Make-your-own base: 250ml plain yoghurt + garlic + lemon + dill.</div>`}
+        </div>
+      </div>
+      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;">
+        <div style="font-size:13px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;margin-bottom:8px;">🍿 ${sx.popName}</div>
+        <div style="background:#120c08;border-radius:6px;padding:10px;">
+          <div style="font-size:11px;color:#c8b898;line-height:1.8;">· Pop <b style="color:#f5e8cc;">${kernels}g popcorn kernels</b> in 30ml oil, lid on, over medium heat until the popping slows.</div>
+          <div style="font-size:11px;color:#c8b898;line-height:1.8;">· Flavour: <b style="color:#f5c842;">${sx.popFlav}</b></div>
+          <div style="font-size:10px;color:#6a4020;margin-top:6px;font-style:italic;">${sx.popHow} (Homemade — no store-bought.)</div>
         </div>
       </div>`;
   }

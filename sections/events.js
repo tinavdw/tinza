@@ -1,5 +1,6 @@
 function eventsHTML(){
   const et = S.eventTab;
+  if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;
   const guests = S.eventGuests;
   const aer = S.eventActiveRecipe;
   const isPro = tierAllows('pro');
