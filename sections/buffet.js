@@ -150,11 +150,11 @@ function buffetStep1(){
       <div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:8px;">How many guests?</div>
       <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:14px;">
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
-          <button onclick="set({buffetGuests:Math.max(6,S.buffetGuests-(S.buffetGuests<=20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#2a0818;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">−</button>
-          <div style="flex:1;text-align:center;"><div style="font-size:52px;color:#f070a0;font-weight:bold;">${S.buffetGuests}</div><div style="font-size:11px;color:#803060;margin-top:-4px;">guests</div></div>
-          <button onclick="set({buffetGuests:Math.min(350,S.buffetGuests+(S.buffetGuests<20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#2a0818;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">+</button>
+          <button onclick="set({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#2a0818;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">−</button>
+          <div style="flex:1;text-align:center;"><div style="font-size:52px;color:#f070a0;font-weight:bold;">${S.eventGuests}</div><div style="font-size:11px;color:#803060;margin-top:-4px;">guests</div></div>
+          <button onclick="set({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#2a0818;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">+</button>
         </div>
-        <input type="range" min="6" max="350" step="1" value="${S.buffetGuests}" oninput="set({buffetGuests:parseInt(this.value)})" style="accent-color:${BC};width:100%;cursor:pointer;display:block;">
+        <input type="range" min="6" max="350" step="1" value="${S.eventGuests}" oninput="set({eventGuests:parseInt(this.value)})" style="accent-color:${BC};width:100%;cursor:pointer;display:block;">
         <div style="display:flex;justify-content:space-between;font-size:10px;color:#601040;margin-top:4px;">${[6,20,50,100,150,200,350].map(n=>`<span>${n}</span>`).join('')}</div>
       </div>
       <div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:10px;">Choose your courses</div>
@@ -179,7 +179,7 @@ function buffetStep1(){
   </div>`;
 }
 function buffetStep2(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   const isPro = tierAllows('pro');
   const selCount = S.eventSelectedStarters.length;
   return `<div>
@@ -199,7 +199,7 @@ function buffetStep2(){
 }
 
 function buffetStep3(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   const n = S.eventSelectedMains.length;
   const scale = ['PORTION_RULES.mains.scale'][0];
   return `<div>
@@ -221,7 +221,7 @@ function buffetStep3(){
 }
 
 function buffetStep4(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:3})" style="color:${BC};">← Overview</button>
@@ -238,7 +238,7 @@ function buffetStep4(){
 }
 
 function buffetStep5(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:4})" style="color:${BC};">← Overview</button>
@@ -255,7 +255,7 @@ function buffetStep5(){
 }
 
 function buffetStep6(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:5})" style="color:${BC};">← Overview</button>
@@ -272,7 +272,7 @@ function buffetStep6(){
 }
 
 function buffetStep7(){
-  const g = S.buffetGuests;
+  const g = S.eventGuests;
   const isPro = tierAllows('pro');
   const starters = calcPortions(EVENTS_STARTERS.filter(r=>S.eventSelectedStarters.includes(r.id)),         'starters', g);
   const mains    = calcPortions(EVENTS_BIG_COOKING_MAINS.filter(r=>S.eventSelectedMains.includes(r.id)),   'mains',    g);
