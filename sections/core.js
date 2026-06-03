@@ -279,7 +279,8 @@ function draw(){
   const prevContext = root._lastContext||'';
   const currContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'');
   const sameContext = prevContext === currContext;
-  const scrollToRestore = root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0);
+  const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
+  const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
   root._savedScroll = null;
 
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
@@ -324,6 +325,7 @@ function draw(){
   const peopleSlider = document.querySelector('input[type=range][min="1"]');
   if(peopleSlider) peopleSlider.value = S.people;
   root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'');
+  root._lastScreen = S.screen;
 
   window.scrollTo(0, scrollToRestore);
   requestAnimationFrame(()=>{ window.scrollTo(0, scrollToRestore); });

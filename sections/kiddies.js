@@ -7,12 +7,26 @@
 // ── shared helpers ────────────────────────────────────────────────
 function kidsSlug(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
 
+// clean display name: never show the word twice. Returns {name, extra}.
+// equal -> just label; descriptor fuller (e.g. "rainbow pasta") -> use it;
+// label fuller (e.g. "icing butter" vs "butter") -> keep label; otherwise both.
+function kidsName(label,rest){
+  label=String(label||'').trim(); rest=String(rest||'').trim();
+  if(!rest) return {name:label,extra:''};
+  const l=label.toLowerCase(), r=rest.toLowerCase();
+  if(l===r) return {name:label,extra:''};
+  if(r.includes(l)) return {name:rest,extra:''};
+  if(l.includes(r)) return {name:label,extra:''};
+  return {name:label,extra:rest};
+}
+
 // scaled ingredient rows from a base12 object (base of 12, scale to k kids)
 function kidsScaleRows(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
     const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
-    if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=m[3]||'';const sc=Math.round(n*k/12*10)/10;
-      return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${sc}${u}${rest}</b></div>`;}
+    if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();const sc=Math.round(n*k/12*10)/10;
+      const nm=kidsName(key.replace(/_/g,' '),rest);
+      return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${nm.name}: <b style="color:#f5e8cc;">${sc}${u}</b>${nm.extra?` <span style="color:#7a5030;">${nm.extra}</span>`:''}</div>`;}
     return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${val}</b></div>`;
   }).join('');
 }
@@ -24,10 +38,11 @@ function kidsScaleRowsBig(base,k){
     const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
     if(m){
       const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();
+      const nm=kidsName(label,rest);
       const pp=Math.round(n/12*10)/10;        // per child (base is for 12)
       const tot=Math.round(n*k/12*10)/10;     // total for k kids
       return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
-        <span style="font-size:14px;color:#f5e8cc;">${label}${rest?` <span style="color:#7a5030;font-size:12px;">${rest}</span>`:''}</span>
+        <span style="font-size:14px;color:#f5e8cc;">${nm.name}${nm.extra?` <span style="color:#7a5030;font-size:12px;">${nm.extra}</span>`:''}</span>
         <span style="font-size:13px;color:#7a5030;white-space:nowrap;text-align:right;">${pp}${u} pp · <b style="color:#f5c842;">${tot}${u} total</b></span>
       </div>`;
     }
