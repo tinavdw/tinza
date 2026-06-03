@@ -281,6 +281,8 @@ function draw(){
   const sameContext = prevContext === currContext;
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
   const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
+  // Stage 1 scroll-to-content: on an in-section navigation (new tab/category/list — not a quiet toggle/slider), land on the content instead of the banner
+  const jumpToContent = !screenChanged && root._savedScroll == null && !sameContext;
   root._savedScroll = null;
 
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
@@ -327,8 +329,14 @@ function draw(){
   root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'');
   root._lastScreen = S.screen;
 
-  window.scrollTo(0, scrollToRestore);
-  requestAnimationFrame(()=>{ window.scrollTo(0, scrollToRestore); });
+  if(jumpToContent){
+    const ct = ()=>{ const el=root.querySelector('.content'); return el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - 8) : 0; };
+    window.scrollTo(0, ct());
+    requestAnimationFrame(()=>{ window.scrollTo(0, ct()); });
+  } else {
+    window.scrollTo(0, scrollToRestore);
+    requestAnimationFrame(()=>{ window.scrollTo(0, scrollToRestore); });
+  }
 }
 
 function openEvent(id,t){
