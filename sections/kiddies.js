@@ -104,13 +104,8 @@ function kidsControlBar(k,openKey,isOpen,howHTML){
   </div>`;
 }
 
-// budget pills (easy / medium / fancy)
-function kidsBudgetPills(budget){
-  const opts={easy:'🌿 Easy',medium:'🎈 Medium',fancy:'✨ Fancy'};
-  return `<div style="display:flex;gap:6px;margin-bottom:14px;">
-    ${['easy','medium','fancy'].map(b=>`<button onclick="set({kidsBudget:'${b}'})" style="flex:1;padding:7px 8px;border-radius:20px;border:1px solid ${budget===b?'#c06020':'#3a2010'};background:${budget===b?'#2a1008':'#0f0c08'};color:${budget===b?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">${opts[b]}</button>`).join('')}
-  </div>`;
-}
+// budget pills removed (Easy/Medium/Fancy dropped — single menu per theme)
+function kidsBudgetPills(budget){ return ''; }
 
 // the 5 categories for a theme
 function kidsCategoryDefs(th){
@@ -147,11 +142,10 @@ function kidsPartyHTML(){
     1 · Pick a <strong style="color:#f5c842;">theme</strong> from the 12 boxes below<br>
     2 · Open a <strong style="color:#f5c842;">category</strong> — Savoury, Sweet, Cake, Drinks or Planner<br>
     3 · Set your <strong style="color:#f5c842;">kid count</strong> — every recipe scales automatically<br>
-    4 · Switch <strong style="color:#f5c842;">Easy / Medium / Fancy</strong> for simpler or fancier menus<br>
-    5 · Add or remove extras from <strong style="color:#f5c842;">Add/Delete Snacks</strong>`;
+    4 · Add extras with <strong style="color:#f5c842;">+ Add more snacks</strong> on the Savoury &amp; Sweet pages`;
 
   return `<div>
-    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · Easy, Medium or Fancy',"set({eventTab:'bigcooking',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
+    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · scales automatically',"set({eventTab:'bigcooking',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
     <div class="content">
       <div style="display:flex;align-items:center;background:#161210;border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
@@ -188,7 +182,7 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   const isOpen = S.kidsCatHowOpen||false;
   const tint = (th.colours&&th.colours[0])?th.colours[0]+'33':'#2a1808';
   const cats = kidsCategoryDefs(th);
-  const howHTML = `Each box opens its own recipes. <strong style="color:#f5c842;">Everything scales</strong> to your kid count. Switch <strong style="color:#f5c842;">Easy / Medium / Fancy</strong> to see simpler or fancier menus.`;
+  const howHTML = `Each box opens its own recipes. <strong style="color:#f5c842;">Everything scales</strong> to your kid count. Add extra snacks with <strong style="color:#f5c842;">+ Add more snacks</strong> on the Savoury &amp; Sweet pages.`;
 
   return `<div>
     ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← All Themes', 'kiddies-'+th.id, tint)}
@@ -287,12 +281,49 @@ function kidsCrispsRecipe(){
     base12:{crisps:'360g crisps'},
     method:'Buy one large (120g) packet of crisps for every 4 kids and tip into bowls. For a healthy table, swap the crisps for carrot and cucumber sticks plus rice cakes.'};
 }
+// ── Extra snacks pulled from the costed Finger Foods recipes ───────
+const KIDS_EXTRA_SNACKS = {
+  savoury:['pz_margherita','sausagerolls','crumbedchickenstrips','baconviennas','minibeefmeatballs','ribletbites','rumpbites','worspineappleskewers'],
+  sweet:['vanillacupcakes','fudgybrownies','chocdippedstrawberries','minilamingtons','peppermentcups','datecoconutballs','minimalavpudding','fruitskewers']
+};
+function kidsFingerById(id){
+  if(typeof EVENTS_FINGER_FOODS==='undefined') return null;
+  for(const g of Object.values(EVENTS_FINGER_FOODS)){
+    if(Array.isArray(g)){ const f=g.find(x=>x&&x.id===id); if(f) return f; }
+  }
+  return null;
+}
+// convert a Finger Food into the kiddies recipe shape (per-child amounts + method + cost)
+function kidsFingerToRecipe(id,type){
+  const f=kidsFingerById(id); if(!f) return null;
+  const base12={};
+  (f.base300||[]).forEach(ing=>{ if(ing&&ing.pp!=null){ base12[ing.n]=(Math.round(ing.pp*12*100)/100)+(ing.u||''); } });
+  const method=Array.isArray(f.method)?f.method.join(' '):(f.method||'');
+  return {name:f.name, type:type||'savoury', emoji:f.emoji||'🍽️', per:'1 piece', kcal:f.kcal||null, costPP:f.costPP||0, base12, method, _finger:true};
+}
+function kidsExtraRecipeByName(name){
+  for(const type of ['savoury','sweet']){
+    for(const id of KIDS_EXTRA_SNACKS[type]){
+      const f=kidsFingerById(id);
+      if(f && f.name===name) return kidsFingerToRecipe(id,type);
+    }
+  }
+  return null;
+}
+function kidsAddedSnacks(themeId){ return (S.kidsAddedSnacks&&S.kidsAddedSnacks[themeId])||[]; }
+function kidsToggleSnack(themeId,id){
+  var m=Object.assign({},S.kidsAddedSnacks||{});
+  var arr=(m[themeId]||[]).slice();
+  var i=arr.indexOf(id);
+  if(i>=0) arr.splice(i,1); else arr.push(id);
+  m[themeId]=arr; set({kidsAddedSnacks:m});
+}
 function kidsSyntheticRecipe(th,name){
   const pop=kidsPopcornRecipe(th.id); if(name===pop.name) return pop;
   const dip=kidsDipsRecipe(th.id); if(name===dip.name) return dip;
   if(th.drink && name===th.drink.name) return kidsDrinkRecipe(th);
   if(name==='Crisps') return kidsCrispsRecipe();
-  return null;
+  return kidsExtraRecipeByName(name);
 }
 
 // ── LAYER 3: recipe rows for one category ─────────────────────────
@@ -311,7 +342,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   if(catId==='savoury'||catId==='sweet'){
     const list=(th.recipes||[]).filter(r=> catId==='savoury' ? r.type==='savoury' : (r.type==='sweet'||r.type==='healthy'));
     const menu=(th.foods&&(th.foods[budget]||th.foods.easy))||[];
-    body = list.length===0 ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No recipes in this category yet.</p>`
+    const recipeCards = list.length===0 ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No recipes in this category yet.</p>`
       : list.map(r=>{
         const inMenu=menu.includes(r.name);
         const typeLabel=r.type==='savoury'?'🥩 Savoury':r.type==='sweet'?'🍬 Sweet':'🥗 Healthy';
@@ -319,12 +350,39 @@ function kidsCategoryHTML(themeId,catId,k,budget){
         return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
             <span style="font-size:22px;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;">
-              <div style="font-size:15px;color:#f5e8cc;">${r.name}${inMenu?` <span style="font-size:8px;color:#c0a020;border:1px solid #c0a020;border-radius:6px;padding:1px 5px;margin-left:4px;">${budget} menu</span>`:''}</div>
+              <div style="font-size:15px;color:#f5e8cc;">${r.name}</div>
               <div style="font-size:11px;color:#7a5030;margin-top:3px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
             </div>
             <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
           </div>`;
       }).join('');
+    const stype = catId==='savoury'?'savoury':'sweet';
+    const added = kidsAddedSnacks(themeId);
+    const extraIds = KIDS_EXTRA_SNACKS[stype]||[];
+    const addedCards = extraIds.filter(id=>added.includes(id)).map(id=>{
+      const r=kidsFingerToRecipe(id,stype); if(!r) return '';
+      const nameEsc=r.name.replace(/'/g,"\\'");
+      return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #4a3015;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
+          <span style="font-size:22px;">${r.emoji}</span>
+          <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${r.name} <span style="font-size:8px;color:#6aaa50;border:1px solid #4a8040;border-radius:6px;padding:1px 5px;margin-left:4px;">added</span></div>
+            <div style="font-size:11px;color:#7a5030;margin-top:3px;">🍽️ Finger food · ~R${r.costPP}/child</div></div>
+          <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
+        </div>`;
+    }).join('');
+    const showAdd = S.kidsShowAddSnacks||false;
+    const pickerRows = extraIds.map(id=>{
+      const f=kidsFingerById(id); if(!f) return '';
+      const on=added.includes(id);
+      return `<div onclick="kidsToggleSnack('${themeId}','${id}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #1e1a10;cursor:pointer;">
+          <span style="font-size:16px;">${f.emoji||'🍽️'}</span>
+          <div style="flex:1;font-size:13px;color:${on?'#6aaa50':'#c8b898'};">${f.name} <span style="color:#6a4020;">~R${f.costPP}/pp</span></div>
+          <span style="font-size:11px;color:${on?'#6aaa50':'#c06020'};border:1px solid ${on?'#4a8040':'#c06020'};border-radius:6px;padding:3px 9px;white-space:nowrap;">${on?'✓ Added':'+ Add'}</span>
+        </div>`;
+    }).join('');
+    const picker = `
+      <button onclick="set({kidsShowAddSnacks:${showAdd?'false':'true'}})" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;cursor:pointer;background:#1a1408;border:1px dashed #c0a020;color:#f5c842;font-size:13px;font-family:Georgia,serif;">+ Add more snacks ${showAdd?'▲':'▼'}</button>
+      ${showAdd?`<div style="background:#120c08;border:1px solid #2a1a10;border-radius:10px;margin-top:6px;overflow:hidden;">${pickerRows}</div>`:''}`;
+    body = recipeCards + addedCards + picker;
   }
   else if(catId==='cake'){
     const c=th.cake;
@@ -512,6 +570,14 @@ function kidsPlanItems(th, budget){
   items.push({key:'POPCORN', label:pop.name, emoji:'🍿', base12:pop.base12, removed:removed.includes('POPCORN')});
   const dip = kidsDipsRecipe(th.id);
   items.push({key:'DIPS', label:dip.name, emoji:'🥣', base12:dip.base12, removed:removed.includes('DIPS')});
+  const added=kidsAddedSnacks(th.id);
+  ['savoury','sweet'].forEach(type=>{
+    (KIDS_EXTRA_SNACKS[type]||[]).forEach(id=>{
+      if(!added.includes(id)) return;
+      const f=kidsFingerById(id); if(!f) return;
+      items.push({key:'X_'+id, label:f.name, emoji:f.emoji||'🍽️', base12:{}, costPP:f.costPP||0, snack:true, removed:removed.includes('X_'+id)});
+    });
+  });
   return items;
 }
 
@@ -585,6 +651,7 @@ function kidsPlanHTML(themeId, k, budget){
     r.aisle = kidsAisle(r.name);
     if(cost==null) unpriced.push(r.name);
   });
+  items.filter(it=>it.snack && !it.removed).forEach(it=>{ total += (it.costPP||0)*k; });
   total = Math.round(total);
   const perChild = k>0 ? Math.round(total/k) : 0;
 
@@ -609,6 +676,16 @@ function kidsPlanHTML(themeId, k, budget){
       <span style="font-size:13px;color:#c8b898;">${r.name} <b style="color:#f5e8cc;">${kidsFmtAmt(r)}</b></span>${costTag}
     </div>`;
   });
+  const snackItems = items.filter(it=>it.snack && !it.removed);
+  if(snackItems.length){
+    shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#6a4020;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">🎉 Party Snacks (see recipe for ingredients)</div>`;
+    snackItems.forEach(it=>{
+      shopHTML += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;">
+        <span style="font-size:13px;color:#c8b898;">${it.emoji} ${it.label} <b style="color:#f5e8cc;">× ${k} kids</b></span>
+        <span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;">R${Math.round((it.costPP||0)*k)}</span>
+      </div>`;
+    });
+  }
 
   return `<div>
     ${kidsHeader('📋 '+th.name+' — Plan', 'Menu · shopping list · cost for '+k+' kids', "set({kidsScreen:'categories'})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
