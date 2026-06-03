@@ -196,7 +196,7 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
       <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
         ${cats.map(c=>`
-          <div onclick="set({kidsScreen:'${c.plan?'plan':'category'}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#3a2010'};border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
+          <div onclick="set({kidsScreen:'${c.id==='cake'?'recipe':(c.plan?'plan':'category')}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#3a2010'};border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:20px;margin-bottom:3px;">${c.emoji}</div>
             <div style="font-size:10px;color:#f5e8cc;font-weight:bold;margin-bottom:1px;">${c.label}</div>
             <div style="font-size:8px;color:#6a4020;line-height:1.3;">${c.sub}</div>
@@ -220,7 +220,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   const labels={savoury:'🍢 Savoury Snacks',sweet:'🍬 Sweet Treats',cake:'🎂 The Cake',drinks:'🥤 Drinks & Crisps',planner:'🎉 Party Planner'};
   const howHTML = `Tap any recipe to open its <strong style="color:#f5c842;">ingredients, method &amp; photo</strong>. Quantities are already scaled to <b style="color:#f5c842;">${k} kids</b>.`;
 
-  const pills = cats.map(c=>`<button onclick="set({kidsCategory:'${c.id}'})" style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${catId===c.id?'#c06020':'#3a2010'};background:${catId===c.id?'#2a1008':'#0f0c08'};color:${catId===c.id?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;white-space:nowrap;">${c.emoji} ${c.label}</button>`).join('');
+  const pills = cats.map(c=>`<button onclick="set({kidsCategory:'${c.id}'${c.id==='cake'?",kidsScreen:'recipe'":''}})" style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${catId===c.id?'#c06020':'#3a2010'};background:${catId===c.id?'#2a1008':'#0f0c08'};color:${catId===c.id?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;white-space:nowrap;">${c.emoji} ${c.label}</button>`).join('');
 
   let body='';
   if(catId==='savoury'||catId==='sweet'){
