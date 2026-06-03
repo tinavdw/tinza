@@ -64,7 +64,7 @@ const PRICE_DB = {
   "bacon streaky": 250,       // R50/200g → R250/kg
   "bacon shoulder": 250,      // R50/200g → R250/kg
   "bacon": 250,
-  "viennas": 94,              // R47/500g → R94/kg
+  "viennas": 134,             // R47/350g → R134/kg (cocktail viennas, processed/boiled)
   "russians": 170,            // R85/500g → R170/kg
   "ham": 140,
   "hickory ham": 179,
@@ -217,7 +217,7 @@ const PRICE_DB = {
   "white sugar": 35,          // per kg
   "brown sugar": 35,
   "castor sugar": 84,         // R42/500g → R84/kg
-  "icing sugar": 90,          // R45/500g → R90/kg
+  "icing sugar": 100,         // R50/500g → R100/kg
   "baking powder": 76,        // R38/200g → R190/kg... use smaller R76
   "bicarbonate of soda": 72,  // R36/500g → R72/kg
   "vanilla essence": 320,     // R32/100ml → R320/kg-approx
@@ -365,6 +365,24 @@ const PRICE_DB = {
   "syrup": 50,                // ESTIMATE
   "ketchup": 45,              // ESTIMATE
   "vinegar": 25,              // ESTIMATE
+
+  // ── KIDDIES ADDITIONS (Jun 3 2026) ──
+  "cocoa": 680,               // R85/125g → R680/kg
+  "icing cocoa": 680,         // = cocoa (used in choc icing)
+  "crackers": 165,            // R66/400g → R165/kg
+  "gummies": 280,             // R28/100g → R280/kg
+  "oranges": 15,              // R30/2kg → R15/kg
+  "oreos": 130,               // R130/kg
+  "strawberries": 200,        // R80/400g → R200/kg
+  "yogurt": 45,               // alias of yoghurt (per kg)
+  "sugar": 35,                // alias of white sugar (per kg)
+  "golden sugar": 35,         // = sugar + trace gold luster dust / yellow colouring
+  "pink colouring": 15,       // = food colouring (R15/40ml bottle, tiny amounts)
+  "sausage": 130,             // sausage-roll filling / sausage meat (≈ boerewors)
+  "cocktail sausage": 180,    // R135/750g → R180/kg (braai-able, NOT viennas)
+  "english muffins": 55,      // interim — placeholder pizzas, to be swapped to Finger Foods mini-pizzas
+  "cold water": 0,            // free
+  "hot water": 0,             // free
 };
 
 const MEAT_COSTS = {
