@@ -1188,7 +1188,7 @@ meaty:[
         {n:"Worcestershire sauce",a:"21ml",u:"ml",pp:0.5},
         {n:"Apple cider vinegar",a:"10.5ml",u:"ml",pp:0.25},
         {n:"Sugar",a:"21g",u:"g",pp:0.5},
-        {n:"Fresh garlic (minced)",a:"21 cloves",u:"",pp:0},
+        {n:"Fresh garlic (minced)",u:"g",pp:0.5},
         {n:"Fresh parsley (chopped)",a:"31.5g",u:"g",pp:0.75},
         {n:"Smoked paprika",a:"10.5g",u:"g",pp:0.25},
         {n:"— STICKY GLAZE:",a:"",u:"",pp:null},
