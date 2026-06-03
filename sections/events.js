@@ -37,7 +37,7 @@ function eventsHTML(){
     const bg = isSelected ? '#2a0832' : '#1a0820';
     const border = isSelected ? '#d04080' : '#601040';
     const check = isSelected ? '<span style="color:#d04080;font-size:12px;margin-right:4px;">✓</span>' : '';
-    return `<button onclick="set({${category}:toggle(S.${category},'${id}')})" style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 10px;font-size:11px;color:#e0c4d4;cursor:pointer;margin:2px;">${check}${label}</button>`;
+    return `<button onclick="set({${category}:toggle(S.${category}||[],'${id}')})" style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 10px;font-size:11px;color:#e0c4d4;cursor:pointer;margin:2px;">${check}${label}</button>`;
   }
 
   // ── PLANNING SUMMARY PANEL (Pro only) ──
@@ -1006,7 +1006,7 @@ function eventsHTML(){
     const bg = isSelected ? '#2a0832' : '#1a0820';
     const border = isSelected ? '#d04080' : '#601040';
     const check = isSelected ? '<span style="color:#d04080;font-size:16px;margin-right:6px;">✓</span>' : '';
-    const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category},'${r.id}')})` : `openEvent('${r.id}','${type}')`;
+    const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : `openEvent('${r.id}','${type}')`;
     const openAction = `openEvent('${r.id}','${type}')`;
 
     // Cost badge — removed fixed /pp, shows portion context for Pro
@@ -1291,7 +1291,7 @@ function eventsHTML(){
             </div>`:''}
             ${(()=>{
               const isSel = (S.eventSelectedCultural||[]).includes(r.id);
-              return isPro ? `<button onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural,'${r.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>` : `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#803060;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`;
+              return isPro ? `<button onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural||[],'${r.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>` : `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#803060;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`;
             })()}
             <button onclick="set({activeCulturalRecipe:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d04080;font-size:14px;cursor:pointer;">← Back to ${activeGroup?.label||'Cultural'}</button>
           `;
@@ -1308,7 +1308,7 @@ function eventsHTML(){
                 const isSel = selCultural.includes(r.id);
                 return `
                 <div style="background:${isSel?'#2a0818':'#1a0820'};border:1px solid ${isSel?'#d04080':'#601040'};border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
-                  ${isPro?`<div onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural,'${r.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'#d04080':'transparent'};border:2px solid ${isSel?'#d04080':'#601040'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
+                  ${isPro?`<div onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural||[],'${r.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'#d04080':'transparent'};border:2px solid ${isSel?'#d04080':'#601040'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
                   <div onclick="(function(){const pi={id:'${r.id}',name:'${r.name.replace(/'/g,'')}',emoji:'${r.emoji||'🌍'}',time:${r.time||0},ingredients:[],serves:1};togglePlanItem('wkPlan',pi);})()" style="width:26px;height:26px;border-radius:6px;border:2px solid ${isPlanItem('wkPlan','${r.id}')?rc:'#3a3030'};background:${isPlanItem('wkPlan','${r.id}')?rc:'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#fff;">${isPlanItem('wkPlan','${r.id}')?'✓':''}</div>
               <div onclick="openWorldRecipe('${r.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
                     <div>
