@@ -1375,9 +1375,11 @@ function homeHTML(){
 // ── Shared recipe photo box — ONE source of truth for every section ──
 // Looks for Images/Image/<exact recipe name>.jpg; falls back to emoji + "Photo coming soon".
 // Any section (current or new) can call recipePhoto(name, emoji) and get the same box.
+// Strip accents so "Purée" matches a plain "Puree.jpg" file — one cleaner for all photo lookups
+function cleanPhotoName(s){ return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
 function recipePhoto(name, emoji, height){
   height = height || 200;
-  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(String(name||'').trim()) + '.jpg';
+  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(name)) + '.jpg';
   return `<div style="position:relative;height:${height}px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
     <img src="${url}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;display:block;" />
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">

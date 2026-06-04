@@ -57,7 +57,7 @@ function kidsScaleRowsBig(base,k){
 function kidsPhotoBox(name,emoji,h){
   h=h||120;
   return `<div style="position:relative;width:100%;height:${h}px;border-radius:8px;overflow:hidden;margin-bottom:8px;background:#0f0c08;">
-    <img src="Images/Image/${encodeURIComponent(String(name||'').trim())}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <img src="Images/Image/${encodeURIComponent(cleanPhotoName(name))}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:40px;background:#161210;border:1px dashed #3a2010;">${emoji||'🎂'}</div>
   </div>`;
 }
