@@ -149,7 +149,7 @@ function kidsPartyHTML(){
     <div class="content">
       <div style="display:flex;align-items:center;background:#161210;border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
-        <input type="text" placeholder="Search themes…" oninput="set({kidsSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:#f5e8cc;font-size:13px;font-family:Georgia,serif;"/>
+        <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="set({kidsSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:#f5e8cc;font-size:13px;font-family:Georgia,serif;"/>
         ${searchVal?`<button onclick="set({kidsSearch:''})" style="background:none;border:none;color:#6a4020;font-size:16px;cursor:pointer;">×</button>`:''}
       </div>
 
@@ -479,9 +479,13 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
     : `<div style="font-size:13px;color:#4a3020;font-style:italic;">No method steps yet.</div>`;
 
   return `<div>
-    ${kidsHeader(photoEmoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), th.name, tint)}
+    <div class="header" style="background:#161210;border-bottom:1px solid #3a2010;">
+      <button onclick="set({kidsScreen:'category',kidsRecipe:null})" style="background:rgba(0,0,0,0.4);border:1px solid #c06020;color:#c06020;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;margin-bottom:8px;">← ${th.emoji} ${th.name}</button>
+      <h1 style="font-size:20px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;font-family:Georgia,serif;">${photoEmoji} ${rec.name}</h1>
+      <p style="margin:0;font-size:11px;color:#c07040;font-style:italic;">${meta}</p>
+    </div>
     <div class="content">
-      ${kidsPhotoBox(rec.name,photoEmoji,110)}
+      ${recipePhoto(rec.name,photoEmoji)}
 
       <div style="background:#0d1a0a;border:1px solid #2a5020;border-radius:12px;padding:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>

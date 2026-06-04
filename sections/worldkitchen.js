@@ -1130,18 +1130,15 @@ function wkRecipeDetailHTML(regionData){
 
   return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
 
-    <!-- Photo header -->
-    <div style="position:relative;height:200px;background:${bg};overflow:hidden;">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;opacity:0.12;">${det.emoji}</div>
-      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,#0a0f0c 100%);"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px;">
-        <button onclick="setQuiet({wkRecipeDetail:null});draw();window.scrollTo(0,0);" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← ${rd.title||'World Kitchen'}</button>
-        <div style="font-size:22px;font-weight:normal;color:#f5e8cc;">${det.emoji} ${det.name}</div>
-        <div style="font-size:11px;color:${color};font-style:italic;margin-top:3px;opacity:0.8;">Full recipe · ${det.tab}</div>
-      </div>
+    <!-- Text header (Braai pattern) -->
+    <div style="background:#0f1a14;border-bottom:1px solid ${border};padding:14px 16px;">
+      <button onclick="setQuiet({wkRecipeDetail:null});draw();window.scrollTo(0,0);" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← ${rd.title||'World Kitchen'}</button>
+      <div style="font-size:22px;font-weight:normal;color:#f5e8cc;">${det.emoji} ${det.name}</div>
+      <div style="font-size:11px;color:${color};font-style:italic;margin-top:3px;opacity:0.8;">Full recipe · ${det.tab}</div>
     </div>
 
     <div style="padding:0 16px;max-width:600px;margin:0 auto;">
+      ${recipePhoto(det.name, det.emoji)}
 
       <!-- Quantity box -->
       <div style="background:#0a2018;border:1px solid ${color};border-radius:12px;padding:12px 14px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;">

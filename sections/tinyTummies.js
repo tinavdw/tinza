@@ -155,6 +155,7 @@ function babyRecipeHTML_screen(){
       <div style="font-size:11px;color:#c06080;font-style:italic;">${b.stageLabel} · ⏱️ ${b.time} min</div>
     </div>
     <div class="content">
+      ${recipePhoto(b.name, b.emoji)}
       <div style="margin-bottom:12px;">${(b.badges||[]).map(badge=>`<span style="background:#2a1020;border:1px solid #5a2040;border-radius:12px;font-size:10px;color:#c07090;padding:3px 8px;margin:2px;display:inline-block;">${badge}</span>`).join("")}</div>
 
       <div style="display:flex;align-items:center;gap:12px;background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:12px;margin-bottom:12px;">
@@ -391,6 +392,7 @@ function dogRecipeHTML_screen(){
       <div style="font-size:11px;color:#7060a0;">⏱️ ${d.time} min · ${size} dog · ${age}</div>
     </div>
     <div class="content">
+      ${recipePhoto(d.name, d.emoji)}
       <div style="background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#7060a0;">${DOG_AGE_NOTES[age]||''}</div>
 
       ${isBatch?`<div style="display:flex;align-items:center;gap:12px;background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:12px;margin-bottom:12px;">
@@ -613,6 +615,7 @@ function catRecipeHTML_screen(){
       <div style="font-size:11px;color:#a06030;">⏱️ ${c.time} min · ${age} cat · ${count} cat${count>1?'s':''}</div>
     </div>
     <div class="content">
+      ${recipePhoto(c.name, c.emoji)}
       <div style="background:#1a1008;border:1px solid #503010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#a06030;">${CAT_AGE_NOTES[age]||''}</div>
 
       ${isBatch?`<div style="display:flex;align-items:center;gap:12px;background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:12px;margin-bottom:12px;">

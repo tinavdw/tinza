@@ -328,7 +328,18 @@ function draw(){
     </div>`;
   }
 
+  // Preserve focus + caret across re-renders so typing in inputs (e.g. search boxes) survives the redraw
+  const _ae = document.activeElement;
+  const _aeId = _ae && _ae.id ? _ae.id : null;
+  const _aeStart = _ae ? _ae.selectionStart : null;
+  const _aeEnd = _ae ? _ae.selectionEnd : null;
+
   root.innerHTML = tierBar + content;
+
+  if(_aeId){
+    const _ne = document.getElementById(_aeId);
+    if(_ne){ try{ _ne.focus({preventScroll:true}); if(_aeStart!=null) _ne.setSelectionRange(_aeStart, _aeEnd); }catch(_e){} }
+  }
   if(S.screen==="worldkitchen" && !S.wkScreen){ setTimeout(initWKMap, 50); }
 
   // Sync sliders
@@ -1361,6 +1372,21 @@ function homeHTML(){
 
 
 // ── RECIPE VIEW ───────────────────────────────────────────────────
+// ── Shared recipe photo box — ONE source of truth for every section ──
+// Looks for Images/Image/<exact recipe name>.jpg; falls back to emoji + "Photo coming soon".
+// Any section (current or new) can call recipePhoto(name, emoji) and get the same box.
+function recipePhoto(name, emoji, height){
+  height = height || 200;
+  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(String(name||'').trim()) + '.jpg';
+  return `<div style="position:relative;height:${height}px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
+    <img src="${url}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">
+      <span style="font-size:48px;">${emoji||'🍽️'}</span>
+      <span style="font-size:11px;color:#4a3010;">📷 Photo coming soon</span>
+    </div>
+  </div>`;
+}
+
 function recipeView(){
   const vr=S.viewingRecipe;
   let item, recipe;
@@ -1517,19 +1543,7 @@ function recipeView(){
     </div>
     <div class="content">
       <!-- Photo header -->
-      ${(()=>{
-        const photoBase = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/';
-        const photoUrl = photoBase + encodeURIComponent(item.name.trim()) + '.jpg';
-        return `<div style="position:relative;height:200px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
-          <img src="${photoUrl}"
-               onerror="this.style.display='none';this.nextSibling.style.display='flex'"
-               style="width:100%;height:100%;object-fit:cover;display:block;" />
-          <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">
-            <span style="font-size:48px;">${item.emoji}</span>
-            <span style="font-size:11px;color:#4a3010;">📷 Photo coming soon</span>
-          </div>
-        </div>`;
-      })()}
+      ${recipePhoto(item.name, item.emoji)}
       ${quantityBlock}
       ${(()=>{
         const ct = recipe.coalType||'';
