@@ -6,6 +6,7 @@ function furryHTML(){
 
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#120f1a 0%,#1a1028 100%);">
+      <img src="Images/Image%20header/furry.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,14,0.3) 0%,rgba(8,6,14,0.75) 100%);z-index:1;"></div>
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #6040b0;border-radius:20px;color:#9060d0;font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
