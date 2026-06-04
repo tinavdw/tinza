@@ -311,10 +311,10 @@ function dogListHTML(){
       </div>
       <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">Number of Dogs</div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
-        <button onclick="setQuiet({dogCount:Math.max(1,S.dogCount-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">−</button>
-        <div style="flex:1;text-align:center;font-size:28px;color:#c0a0ff;font-weight:bold;">${S.dogCount}</div>
-        <button onclick="setQuiet({dogCount:Math.min(10,S.dogCount+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#6040a0;">${S.dogCount} dog${S.dogCount>1?'s':''}</span>
+        <button onclick="setQuiet({dogCount:Math.max(1,(S.dogCount||1)-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">−</button>
+        <div style="flex:1;text-align:center;font-size:28px;color:#c0a0ff;font-weight:bold;">${S.dogCount||1}</div>
+        <button onclick="setQuiet({dogCount:Math.min(10,(S.dogCount||1)+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">+</button>
+        <span style="font-size:11px;color:#6040a0;">${S.dogCount||1} dog${(S.dogCount||1)>1?'s':''}</span>
       </div>
     </div>
     <div class="content">
@@ -532,10 +532,10 @@ function catListHTML(){
       </div>
       <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">Number of Cats</div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
-        <button onclick="setQuiet({catCount:Math.max(1,S.catCount-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">−</button>
-        <div style="flex:1;text-align:center;font-size:28px;color:#f0a060;font-weight:bold;">${S.catCount}</div>
-        <button onclick="setQuiet({catCount:Math.min(10,S.catCount+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#804020;">${S.catCount} cat${S.catCount>1?'s':''}</span>
+        <button onclick="setQuiet({catCount:Math.max(1,(S.catCount||1)-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">−</button>
+        <div style="flex:1;text-align:center;font-size:28px;color:#f0a060;font-weight:bold;">${S.catCount||1}</div>
+        <button onclick="setQuiet({catCount:Math.min(10,(S.catCount||1)+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">+</button>
+        <span style="font-size:11px;color:#804020;">${S.catCount||1} cat${(S.catCount||1)>1?'s':''}</span>
       </div>
     </div>
     <div class="content">
