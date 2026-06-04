@@ -181,7 +181,7 @@ function buffetStep1(){
 function buffetStep2(){
   const g = S.eventGuests;
   const isPro = tierAllows('pro');
-  const selCount = S.eventSelectedStarters.length;
+  const selCount = (S.eventSelectedStarters||[]).length;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
@@ -200,7 +200,7 @@ function buffetStep2(){
 
 function buffetStep3(){
   const g = S.eventGuests;
-  const n = S.eventSelectedMains.length;
+  const n = (S.eventSelectedMains||[]).length;
   const scale = ['PORTION_RULES.mains.scale'][0];
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
@@ -226,7 +226,7 @@ function buffetStep4(){
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:3})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥘 Side Dishes</h1>
-      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${S.eventSelectedSides.length} selected · ${g} guests</p>
+      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${(S.eventSelectedSides||[]).length} selected · ${g} guests</p>
     </div>
     <div class="content">
       ${buffetQuickNav(4)}
@@ -243,7 +243,7 @@ function buffetStep5(){
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:4})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥙 Salads</h1>
-      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${S.eventSelectedSalads.length} selected · ${g} guests</p>
+      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${(S.eventSelectedSalads||[]).length} selected · ${g} guests</p>
     </div>
     <div class="content">
       ${buffetQuickNav(5)}
@@ -260,7 +260,7 @@ function buffetStep6(){
     <div class="header" style="background:${BCbg};border-bottom:1px solid #803060;">
       <button class="back-btn" onclick="set({buffetStep:5})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🎂 Desserts</h1>
-      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${S.eventSelectedDesserts.length} selected · ${g} guests</p>
+      <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${(S.eventSelectedDesserts||[]).length} selected · ${g} guests</p>
     </div>
     <div class="content">
       ${buffetQuickNav(6)}
@@ -274,11 +274,11 @@ function buffetStep6(){
 function buffetStep7(){
   const g = S.eventGuests;
   const isPro = tierAllows('pro');
-  const starters = calcPortions(EVENTS_STARTERS.filter(r=>S.eventSelectedStarters.includes(r.id)),         'starters', g);
-  const mains    = calcPortions(EVENTS_BIG_COOKING_MAINS.filter(r=>S.eventSelectedMains.includes(r.id)),   'mains',    g);
-  const sides    = calcPortions(EVENTS_BIG_COOKING_SIDES.filter(r=>S.eventSelectedSides.includes(r.id)),   'sides',    g);
-  const salads   = calcPortions(EVENTS_BIG_COOKING_SALADS.filter(r=>S.eventSelectedSalads.includes(r.id)), 'salads',   g);
-  const desserts = calcPortions(EVENTS_DESSERTS.filter(r=>S.eventSelectedDesserts.includes(r.id)),         'desserts', g);
+  const starters = calcPortions(EVENTS_STARTERS.filter(r=>(S.eventSelectedStarters||[]).includes(r.id)),         'starters', g);
+  const mains    = calcPortions(EVENTS_BIG_COOKING_MAINS.filter(r=>(S.eventSelectedMains||[]).includes(r.id)),   'mains',    g);
+  const sides    = calcPortions(EVENTS_BIG_COOKING_SIDES.filter(r=>(S.eventSelectedSides||[]).includes(r.id)),   'sides',    g);
+  const salads   = calcPortions(EVENTS_BIG_COOKING_SALADS.filter(r=>(S.eventSelectedSalads||[]).includes(r.id)), 'salads',   g);
+  const desserts = calcPortions(EVENTS_DESSERTS.filter(r=>(S.eventSelectedDesserts||[]).includes(r.id)),         'desserts', g);
   const allPortioned = [...starters,...mains,...sides,...salads,...desserts];
   const totalCost = allPortioned.reduce((s,r)=>s+((r.costPP||0)*g),0);
   const costPP    = allPortioned.reduce((s,r)=>s+(r.costPP||0),0);

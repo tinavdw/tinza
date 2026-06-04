@@ -53,11 +53,11 @@ function kidsScaleRowsBig(base,k){
   }).join('');
 }
 
-// photo box with graceful emoji fallback (Images/recipe/<slug>.jpg)
-function kidsPhotoBox(slug,emoji,h){
+// photo box with graceful emoji fallback (Images/Image/<Exact Recipe Name>.jpg)
+function kidsPhotoBox(name,emoji,h){
   h=h||120;
   return `<div style="position:relative;width:100%;height:${h}px;border-radius:8px;overflow:hidden;margin-bottom:8px;background:#0f0c08;">
-    <img src="Images/recipe/${slug}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <img src="Images/Image/${encodeURIComponent(String(name||'').trim())}.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:40px;background:#161210;border:1px dashed #3a2010;">${emoji||'🎂'}</div>
   </div>`;
 }
@@ -67,7 +67,7 @@ function kidsHeader(title,subtitle,backAction,backLabel,headerImg,tint){
   tint = tint || '#2a1808';
   return `<div class="header" style="padding:0;overflow:hidden;">
     <div style="position:relative;height:155px;background:linear-gradient(135deg,#1a0f06 0%,${tint} 100%);">
-      <img src="Images/headers/${headerImg}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
+      <img src="Images/Image%20header/${encodeURIComponent(headerImg)}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
       <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
@@ -185,7 +185,7 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   const howHTML = `Each box opens its own recipes. <strong style="color:#f5c842;">Everything scales</strong> to your kid count. Add extra snacks with <strong style="color:#f5c842;">+ Add more snacks</strong> on the Savoury &amp; Sweet pages.`;
 
   return `<div>
-    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← All Themes', 'kiddies-'+th.id, tint)}
+    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← All Themes', th.name, tint)}
     <div class="content">
       <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
@@ -441,7 +441,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   }
 
   return `<div>
-    ${kidsHeader(th.emoji+' '+th.name, labels[catId]||'', "set({kidsScreen:'categories',kidsCategory:null,kidsOpenRecipe:null})", '← '+th.name, 'kiddies-'+th.id, tint)}
+    ${kidsHeader(th.emoji+' '+th.name, labels[catId]||'', "set({kidsScreen:'categories',kidsCategory:null,kidsOpenRecipe:null})", '← '+th.name, th.name, tint)}
     <div class="content">
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;">${pills}</div>
       ${kidsControlBar(k,'kidsCatHowOpen',isOpen,howHTML)}
@@ -467,7 +467,6 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
   }
   if(!rec) return `<div style="padding:20px;color:#f5e8cc;">Recipe not found. <button onclick="set({kidsScreen:'category'})" style="color:#c06020;background:none;border:none;cursor:pointer;">← Back</button></div>`;
 
-  const slug=kidsSlug(rec.name);
   const photoEmoji = rec.emoji || (rec.type==='cake'?'🎂':rec.type==='savoury'?'🍢':rec.type==='healthy'?'🥗':'🍬');
   const typeLabel=rec.type==='savoury'?'🥩 Savoury':rec.type==='sweet'?'🍬 Sweet':rec.type==='healthy'?'🥗 Healthy':rec.type==='drink'?'🥤 Drink':rec.type==='crisps'?'🥔 Crisps':'🎂 Cake';
   const meta=[typeLabel, rec.per?rec.per+' per child':'', rec.time?rec.time+' min':'', rec.kcal?'~'+rec.kcal+' kcal':''].filter(Boolean).join(' · ');
@@ -480,9 +479,9 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
     : `<div style="font-size:13px;color:#4a3020;font-style:italic;">No method steps yet.</div>`;
 
   return `<div>
-    ${kidsHeader(photoEmoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
+    ${kidsHeader(photoEmoji+' '+rec.name, meta, "set({kidsScreen:'category',kidsRecipe:null})", '← '+(th.emoji+' '+th.name), th.name, tint)}
     <div class="content">
-      ${kidsPhotoBox(slug,photoEmoji,110)}
+      ${kidsPhotoBox(rec.name,photoEmoji,110)}
 
       <div style="background:#0d1a0a;border:1px solid #2a5020;border-radius:12px;padding:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>
@@ -533,7 +532,7 @@ function kidsAddDeleteSnacksHTML(k){
             <span style="font-size:11px;color:#c06020;">${open?'▲':'▼'}</span>
           </div>
           ${open?`<div onclick="event.stopPropagation()" style="padding:0 12px 12px;">
-            ${kidsPhotoBox(kidsSlug(s.name),s.emoji)}
+            ${kidsPhotoBox(s.name,s.emoji)}
             <div style="background:#120c08;border-radius:6px;padding:10px;"><div style="font-size:10px;color:#6a4020;margin-bottom:6px;">For <b style="color:#f5c842;">${k} kids</b>:</div>${kidsScaleRows(s.base12,k)}</div>
           </div>`:''}
         </div>`;
@@ -688,7 +687,7 @@ function kidsPlanHTML(themeId, k, budget){
   }
 
   return `<div>
-    ${kidsHeader('📋 '+th.name+' — Plan', 'Menu · shopping list · cost for '+k+' kids', "set({kidsScreen:'categories'})", '← '+(th.emoji+' '+th.name), 'kiddies-'+th.id, tint)}
+    ${kidsHeader('📋 '+th.name+' — Plan', 'Menu · shopping list · cost for '+k+' kids', "set({kidsScreen:'categories'})", '← '+(th.emoji+' '+th.name), th.name, tint)}
     <div class="content">
       ${kidsControlBar(k,'kidsCatHowOpen',isOpen,howHTML)}
 

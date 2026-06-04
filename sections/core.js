@@ -294,6 +294,7 @@ function draw(){
   </div>`;
 
   let content="";
+  try{
   if(S.viewingRecipe){ content=recipeView(); }
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
@@ -317,6 +318,15 @@ function draw(){
   else if(S.screen==="tinyTummies"){ content=tinyTummiesHTML(); }
   else if(S.screen==="kiddies"){ content=kiddiesHTML(); }
   else{ content=homeHTML(); }
+  }catch(_err){
+    console.error('[Tinza] Render error on screen "'+(S.screen||'?')+'" (tab:'+(S.eventTab||'-')+', step:'+(S.buffetStep||'-')+'):', _err);
+    content=`<div style="padding:56px 24px;text-align:center;color:#f5e8cc;font-family:Georgia,serif;">
+      <div style="font-size:42px;margin-bottom:12px;">🛠️</div>
+      <div style="font-size:18px;margin-bottom:8px;">This part hit a snag</div>
+      <div style="font-size:13px;color:#c0a0b0;line-height:1.6;max-width:320px;margin:0 auto 20px;">The <strong>${S.screen||'section'}</strong> screen couldn't finish loading, so the rest of the app stayed where it was. Head home and pick another section — nothing is lost.</div>
+      <button onclick="set({screen:'home',viewingRecipe:false,eventTab:null,buffetStep:1,activeCake:null,cakeCat:null,eventActiveRecipe:null})" style="background:#2a1808;border:1px solid #c06020;border-radius:20px;color:#f5c842;font-size:14px;padding:10px 24px;cursor:pointer;font-family:Georgia,serif;">← Back to Home</button>
+    </div>`;
+  }
 
   root.innerHTML = tierBar + content;
   if(S.screen==="worldkitchen" && !S.wkScreen){ setTimeout(initWKMap, 50); }
@@ -1508,7 +1518,7 @@ function recipeView(){
     <div class="content">
       <!-- Photo header -->
       ${(()=>{
-        const photoBase = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
+        const photoBase = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/';
         const photoUrl = photoBase + encodeURIComponent(item.name.trim()) + '.jpg';
         return `<div style="position:relative;height:200px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
           <img src="${photoUrl}"
