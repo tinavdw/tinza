@@ -67,7 +67,7 @@ function kidsHeader(title,subtitle,backAction,backLabel,headerImg,tint){
   tint = tint || '#2a1808';
   return `<div class="header" style="padding:0;overflow:hidden;">
     <div style="position:relative;height:155px;background:linear-gradient(135deg,#1a0f06 0%,${tint} 100%);">
-      <img src="Images/Image%20header/${encodeURIComponent(headerImg)}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
+      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image%20header/${encodeURIComponent(headerImg)}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
       <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
@@ -126,7 +126,6 @@ function kidsPartyHTML(){
   const k = S.kidsCount||12;
   const budget = S.kidsBudget||'easy';
 
-  if(S.kidsShowMasterSnacks) return kidsAddDeleteSnacksHTML(k);
   if(S.kidsTheme && S.kidsScreen==='plan')        return kidsPlanHTML(S.kidsTheme,k,budget);
   if(S.kidsTheme && S.kidsScreen==='recipe')      return kidsRecipeDetailHTML(S.kidsTheme,S.kidsCategory||'savoury',S.kidsRecipe,k);
   if(S.kidsTheme && S.kidsScreen==='category')   return kidsCategoryHTML(S.kidsTheme,S.kidsCategory||'savoury',k,budget);
@@ -145,7 +144,7 @@ function kidsPartyHTML(){
     4 · Add extras with <strong style="color:#f5c842;">+ Add more snacks</strong> on the Savoury &amp; Sweet pages`;
 
   return `<div>
-    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · scales automatically',"set({eventTab:'bigcooking',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
+    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · scales automatically',"set({eventTab:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
     <div class="content">
       <div style="display:flex;align-items:center;background:#161210;border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
@@ -166,11 +165,6 @@ function kidsPartyHTML(){
 
       ${kidsControlBar(k,'kidsHowOpen',isOpen,howHTML)}
       ${kidsBudgetPills(budget)}
-
-      <div onclick="set({kidsShowMasterSnacks:true})" style="background:#1a1408;border:2px solid #c0a020;border-radius:12px;padding:14px;text-align:center;cursor:pointer;margin-bottom:20px;">
-        <div style="font-size:15px;margin-bottom:4px;color:#f5c842;font-family:Georgia,serif;">🍿 Add / Delete Snacks</div>
-        <div style="font-size:11px;color:#6a4020;">12 reusable building blocks — add to any theme, all scaled to your kid count</div>
-      </div>
     </div>
   </div>`;
 }
@@ -185,7 +179,7 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   const howHTML = `Each box opens its own recipes. <strong style="color:#f5c842;">Everything scales</strong> to your kid count. Add extra snacks with <strong style="color:#f5c842;">+ Add more snacks</strong> on the Savoury &amp; Sweet pages.`;
 
   return `<div>
-    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← All Themes', th.name, tint)}
+    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← 12 Themes', th.name, tint)}
     <div class="content">
       <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
@@ -518,34 +512,6 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
 }
 
 
-function kidsAddDeleteSnacksHTML(k){
-  const tc={savoury:'#c06020',sweet:'#f5c842',healthy:'#c0a020'};
-  const isOpen=S.kidsSnackHowOpen||false;
-  const howHTML=`These are reusable building blocks. <strong style="color:#f5c842;">Add any to a theme</strong> or remove what you don't want — all quantities scale to <b style="color:#f5c842;">${k} kids</b>.`;
-  return `<div>
-    ${kidsHeader('🍿 Add / Delete Snacks','12 reusable building blocks · scaled to your kid count',"set({kidsShowMasterSnacks:false})",'← Back','kiddies-snacks')}
-    <div class="content">
-      ${kidsControlBar(k,'kidsSnackHowOpen',isOpen,howHTML)}
-      ${MASTER_SNACKS.map(s=>{
-        const open=String(S.kidsOpenSnack)===String(s.id);
-        return `<div style="background:${open?'#2a1808':'#161210'};border:1px solid ${open?'#c06020':'#2a1a10'};border-radius:10px;margin-bottom:6px;overflow:hidden;">
-          <div onclick="set({kidsOpenSnack:${open?'null':`'${s.id}'`}})" style="display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;">
-            <span style="font-size:18px;">${s.emoji||'🍿'}</span>
-            <div style="flex:1;"><div style="font-size:13px;color:${open?'#f5e8cc':'#7a5030'};font-weight:${open?'bold':'normal'};">${s.name}</div><div style="font-size:10px;color:${open?'#c06020':'#4a3020'};margin-top:2px;">Per child: ${s.perPerson||''} · ~${s.kcal||'?'} kcal</div></div>
-            <span style="font-size:9px;padding:2px 7px;border-radius:8px;background:#0f0c08;color:${tc[s.type]||'#c8b898'};border:1px solid ${tc[s.type]||'#3a2010'};">${s.type}</span>
-            <span style="font-size:11px;color:#c06020;">${open?'▲':'▼'}</span>
-          </div>
-          ${open?`<div onclick="event.stopPropagation()" style="padding:0 12px 12px;">
-            ${kidsPhotoBox(s.name,s.emoji)}
-            <div style="background:#120c08;border-radius:6px;padding:10px;"><div style="font-size:10px;color:#6a4020;margin-bottom:6px;">For <b style="color:#f5c842;">${k} kids</b>:</div>${kidsScaleRows(s.base12,k)}</div>
-          </div>`:''}
-        </div>`;
-      }).join('')}
-      <button onclick="set({kidsShowMasterSnacks:false})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#6a4020;font-size:13px;margin:10px 0 20px;">← Back to Themes</button>
-    </div>
-  </div>`;
-}
-
 // ── MY PLAN · SHOPPING LIST · COSTING ─────────────────────────────
 // Reuses the app's lookupPrice / normIngredientKey / aisleCategory.
 // Costs weight/volume items (g·kg·ml·l) that exist in PRICE_DB.
@@ -636,6 +602,24 @@ function kidsPlanHTML(themeId, k, budget){
   const th = KIDS_THEMES.find(t=>t.id===themeId);
   if(!th) return `<div style="padding:20px;color:#f5e8cc;">Theme not found.</div>`;
   const tint = (th.colours&&th.colours[0]) ? th.colours[0]+'33' : '#2a1808';
+
+  // ── Pro gate: My Plan, shopping list & costing are a Pro feature ──
+  const kidsIsPro = (typeof tierAllows==='function') ? tierAllows('pro') : false;
+  if(!kidsIsPro){
+    return `<div>
+      ${kidsHeader('📋 '+th.name+' — Plan', 'Menu · shopping list · cost', "set({kidsScreen:'categories'})", '← '+(th.emoji+' '+th.name), th.name, tint)}
+      <div class="content">
+        <div style="background:#1a1408;border:1px solid #3a2010;border-radius:12px;padding:26px 18px;margin:8px 0 12px;text-align:center;">
+          <div style="font-size:34px;margin-bottom:8px;">🔒</div>
+          <div style="font-size:15px;color:#f5c842;margin-bottom:6px;font-family:Georgia,serif;">Party Plan &amp; Shopping List</div>
+          <div style="font-size:12px;color:#c8b898;line-height:1.6;margin-bottom:14px;">Get your whole party menu auto-scaled to <b style="color:#f5c842;">${k} kids</b>, consolidated into one aisle-sorted shopping list with a live cost estimate.</div>
+          <div style="font-size:13px;color:#fff;background:#c06020;border-radius:8px;padding:9px 18px;display:inline-block;">Unlock with Tinza Pro — R99/month</div>
+        </div>
+        <button onclick="set({kidsScreen:'categories'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#6a4020;font-size:13px;margin:4px 0 20px;">← Back to ${th.name}</button>
+      </div>
+    </div>`;
+  }
+
   const isOpen = S.kidsCatHowOpen || false;
   const howHTML = `Your theme's menu is loaded automatically. <strong style="color:#f5c842;">Tap ✕ to remove</strong> anything you won't make — the shopping list and cost update instantly. Everything scales to <b style="color:#f5c842;">${k} kids</b>.`;
 

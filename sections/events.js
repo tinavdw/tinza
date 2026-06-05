@@ -1044,6 +1044,9 @@ function eventsHTML(){
   // ── Route recipe detail view ──
   if(aer){ return eventsRecipeView(aer, guests); }
 
+  // ── Kiddies opens as its own page (Model B) — bypasses the tab wrapper ──
+  if(et==='kiddies') return kidsPartyHTML();
+
   // ── Buffet step flow — returns standalone, bypasses tab wrapper ──
   const tabs = [
     {id:'bigcooking', label:'🍽️ Buffet'},
@@ -1118,7 +1121,10 @@ function eventsHTML(){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
         ${tabs.map(t=>{
           const isActive = et===t.id;
-          return `<div onclick="set({eventTab:'${t.id}',eventShowShopList:false})"
+          const onClick = t.id==='kiddies'
+            ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null})`
+            : `set({eventTab:'${t.id}',eventShowShopList:false})`;
+          return `<div onclick="${onClick}"
             style="background:${isActive?'#2a0818':'#140010'};border:1px solid ${isActive?'#d04080':'#2a1020'};border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;"
             onmouseover="this.style.borderColor='#803060'" onmouseout="this.style.borderColor='${isActive?'#d04080':'#2a1020'}'">
             <div style="font-size:20px;margin-bottom:4px;">${t.label.split(' ')[0]}</div>
@@ -1137,8 +1143,6 @@ function eventsHTML(){
         <div style="font-size:12px;color:#803060;line-height:1.6;">Bulk spirits, wines, beers, shooters, cocktails and punches — coming soon!</div>
       </div>
     `:''}
-
-    ${et==='kiddies'?kidsPartyHTML():''}
 
     ${et==='bigcooking'?`
       ${(()=>{
@@ -1443,6 +1447,7 @@ function eventsHTML(){
           const slicesOver = (batchesNeeded * servesNum) - cakeGuests;
           return `
             <button onclick="set({activeCake:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${catObj?.label||'Cakes'}</button>
+            ${recipePhoto(cake.name, cake.emoji||'🎂')}
             <div style="background:#1a0820;border:1px solid #601040;border-radius:12px;padding:14px;margin-bottom:12px;">
               <div style="font-size:20px;color:#f0c0d0;margin-bottom:4px;">${cake.emoji} ${cake.name}</div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
