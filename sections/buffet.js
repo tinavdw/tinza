@@ -954,6 +954,7 @@ function eventsRecipeView(aer, guests){
       <div style="font-size:11px;color:#a03060;margin-top:2px;">${aer.region||''}</div>
     </div>
     <div class="content">
+      ${recipePhoto(aer.name, aer.emoji||'🍽️')}
       ${quantityBlock}
       ${hasPantry&&!isTrayDish?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:8px;">Ingredients (per recipe — scale to your guest count)</div>

@@ -23,7 +23,7 @@ function kidsName(label,rest){
 // scaled ingredient rows from a base12 object (base of 12, scale to k kids)
 function kidsScaleRows(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
-    const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
+    const m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
     if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();const sc=Math.round(n*k/12*10)/10;
       const nm=kidsName(key.replace(/_/g,' '),rest);
       return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${nm.name}: <b style="color:#f5e8cc;">${sc}${u}</b>${nm.extra?` <span style="color:#7a5030;">${nm.extra}</span>`:''}</div>`;}
@@ -35,7 +35,7 @@ function kidsScaleRows(base,k){
 function kidsScaleRowsBig(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
     const label=key.replace(/_/g,' ');
-    const m=String(val).match(/^([\d.]+)\s*(g|ml|kg|L)?(.*)$/i);
+    const m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
     if(m){
       const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();
       const nm=kidsName(label,rest);
@@ -562,7 +562,7 @@ function kidsConsolidate(items, k){
     Object.entries(it.base12||{}).forEach(([key,val])=>{
       String(val).split(/\s*\+\s*/).forEach(part=>{
         part = part.trim(); if(!part) return;
-        const m = part.match(/^([\d.]+)\s*(g|kg|ml|l)?\s*(.*)$/i);
+        const m = part.match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?\s*(.*)$/i);
         let amt=null, unit='', name=part;
         if(m && m[1]!==undefined){ amt=parseFloat(m[1]); unit=(m[2]||'').toLowerCase(); name=(m[3]||'').trim() || key.replace(/_/g,' '); }
         else { name = part || key.replace(/_/g,' '); }
