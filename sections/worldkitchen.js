@@ -7,8 +7,12 @@ function worldKitchenHTML(){
   if(S.wkScreen === 'country' || S.wkRecipeDetail){
     return wkCountryHTML();
   }
+  if(S.wkScreen === 'wkdata'){
+    return wkDataCountryHTML();
+  }
+  return wkWorldHome();
 
-  // ── MAP SCREEN ────────────────────────────────────────────────────
+  // ── OLD MAP SCREEN (no longer reached — kept for reference) ─────────
   const mapColor = '#30a878';
   const mapBg    = '#0a1810';
 
@@ -1226,3 +1230,254 @@ function wkRecipeDetailHTML(regionData){
 
 
 // ── MEAL SECTION RENDERER ─────────────────────────────────────────
+
+
+/* ============================================================
+   NEW World Kitchen navigation (Jun 2026)
+   Continent -> Region -> Country -> Recipe, driven by the
+   WK_AFRICA / WK_EUROPE data files. Static map header (no d3).
+   Self-contained: adds new functions only. The old SA Kitchens
+   path (wkSAKitchensHTML / wkCountryHTML / COUNTRY_RECIPES) is
+   left completely untouched.
+   ============================================================ */
+
+/* Combined recipe pool from the data modules. */
+function wkPool(){
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || []);
+}
+
+/* country -> [continent, region] using the UN geoscheme.
+   Grouping is by COUNTRY, so the data's own cuisine tags don't
+   need to match — new recipes file themselves by country name. */
+var WK_COUNTRY_GEO = {
+  "Egypt":["Africa","Northern Africa"], "Morocco":["Africa","Northern Africa"], "Tunisia":["Africa","Northern Africa"],
+  "Ghana":["Africa","Western Africa"], "Nigeria":["Africa","Western Africa"], "Senegal":["Africa","Western Africa"],
+  "Ethiopia":["Africa","Eastern Africa"], "Kenya":["Africa","Eastern Africa"], "Tanzania":["Africa","Eastern Africa"],
+  "Mozambique":["Africa","Eastern Africa"], "Zimbabwe":["Africa","Eastern Africa"],
+  "Belgium":["Europe","Western Europe"],
+  "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"],
+  "Denmark":["Europe","Northern Europe"], "Finland":["Europe","Northern Europe"],
+  "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"]
+};
+
+/* The six continent boxes, each with its UN regions in display order. */
+var WK_CONTINENTS = [
+  { key:"Africa",        emoji:"🌍", regions:["Northern Africa","Western Africa","Middle Africa","Eastern Africa","Southern Africa"] },
+  { key:"Europe",        emoji:"🥐", regions:["Northern Europe","Western Europe","Southern Europe","Eastern Europe"] },
+  { key:"Asia",          emoji:"🥢", regions:["Eastern Asia","South-eastern Asia","Southern Asia","Western Asia","Central Asia"] },
+  { key:"North America", emoji:"🌮", regions:["Northern America","Central America","Caribbean"] },
+  { key:"South America", emoji:"🔥", regions:["South America"] },
+  { key:"Oceania",       emoji:"🌺", regions:["Australia & New Zealand","Pacific Islands"] }
+];
+
+/* Distinct countries in the data that map to a given continent+region. */
+function wkCountriesIn(continent, region){
+  var pool = wkPool(), seen = {}, out = [];
+  for(var i=0;i<pool.length;i++){
+    var c = pool[i].country, g = WK_COUNTRY_GEO[c];
+    if(g && g[0]===continent && g[1]===region && !seen[c]){ seen[c]=1; out.push(c); }
+  }
+  return out.sort();
+}
+
+/* Regions of a continent that actually have at least one recipe. */
+function wkRegionsWithData(continent){
+  var def = null;
+  for(var i=0;i<WK_CONTINENTS.length;i++){ if(WK_CONTINENTS[i].key===continent) def = WK_CONTINENTS[i]; }
+  if(!def) return [];
+  return def.regions.filter(function(r){ return wkCountriesIn(continent, r).length > 0; });
+}
+
+/* course value -> tab id */
+function wkCourseToTab(course){
+  switch((course||"").toLowerCase()){
+    case "starter": return "starters";
+    case "side":    return "sides";
+    case "dessert": return "desserts";
+    default:        return "mains";
+  }
+}
+
+/* A tappable recipe card (used in country lists and search results). */
+function wkRecipeCard(r){
+  var disp = (typeof tinzaDisplayName === 'function')
+    ? tinzaDisplayName(r)
+    : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+  return '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+r.country+'\',wkDataRecipe:\''+r.id+'\'});window.scrollTo(0,0);" '
+    + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
+    + '<div style="flex:1;"><div style="font-size:14px;color:#c8b898;">'+disp+'</div>'
+    + '<div style="font-size:10px;color:#3a5040;margin-top:2px;">'+r.country+(r.cookTime?(' · '+r.cookTime):'')+'</div></div>'
+    + '<span style="color:#30a878;font-size:16px;margin-left:8px;">›</span></div>';
+}
+
+/* ── HOME: static map + 6 continent boxes (+ SA Kitchens, + search) ── */
+function wkWorldHome(){
+  var green = '#30a878', cream = '#f5e8cc';
+  var mapImg = 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Image%20header/world-map.jpg';
+  var search = (S.wkSearch || '').trim();
+
+  var header = ''
+    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#0a1810 0%,#0f2818 100%);">'
+    +   '<div style="position:absolute;inset:0;background-image:url(\''+mapImg+'\');background-size:cover;background-position:center;opacity:0.55;"></div>'
+    +   '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.35) 0%,rgba(4,12,8,0.85) 100%);z-index:1;"></div>'
+    +   '<button onclick="set({screen:\'home\',wkContinent:null,wkRegion:null,wkSearch:\'\'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>'
+    +   '<div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">'
+    +     '<h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:'+cream+';font-family:Georgia,serif;">🌍 World Kitchen</h1>'
+    +     '<p style="margin:0 0 10px;font-size:11px;color:#50a878;font-style:italic;">Tap a continent, then a region, then a country</p>'
+    +     '<div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #1a4030;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
+    +       '<span style="color:'+green+';margin-right:8px;font-size:14px;">🔍</span>'
+    +       '<input type="text" placeholder="Search dishes, countries…" oninput="set({wkSearch:this.value})" value="'+(S.wkSearch||'').replace(/"/g,'&quot;')+'" style="flex:1;background:none;border:none;outline:none;color:#b0d8c0;font-size:13px;font-family:Georgia,serif;" />'
+    +       (S.wkSearch ? '<button onclick="set({wkSearch:\'\'})" style="background:none;border:none;color:#1a4030;font-size:16px;cursor:pointer;">×</button>' : '')
+    +     '</div>'
+    +   '</div>'
+    + '</div>';
+
+  // ── SEARCH MODE ──
+  if(search){
+    var results = (typeof tinzaSearch === 'function') ? tinzaSearch(search, wkPool()) : [];
+    var rbody = '<div style="padding:14px 16px;max-width:600px;margin:0 auto;">'
+      + '<div style="font-size:11px;color:#3a6050;margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
+      + (results.length ? results.slice(0,80).map(wkRecipeCard).join('')
+         : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:24px;text-align:center;color:#4a7060;font-size:13px;">No dishes found. Try another word.</div>')
+      + '</div>';
+    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+rbody+'</div>';
+  }
+
+  // ── SA Kitchens featured card ──
+  var saCard = '<div style="padding:14px 16px 0;max-width:600px;margin:0 auto;">'
+    + '<div onclick="set({wkScreen:\'sa\'})" style="background:linear-gradient(135deg,#0a2018,#0f2a1c);border:1px solid #30a878;border-radius:12px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+    +   '<span style="font-size:26px;">🇿🇦</span>'
+    +   '<div style="flex:1;"><div style="font-size:15px;color:'+cream+';font-weight:bold;">South African Kitchens</div>'
+    +   '<div style="font-size:11px;color:#50a878;font-style:italic;margin-top:2px;">Our own heritage — Boerekos, Cape Malay, Indian, Zulu, Sotho, Xhosa</div></div>'
+    +   '<span style="color:'+green+';font-size:18px;">›</span></div></div>';
+
+  // ── Continent accordions ──
+  var boxes = WK_CONTINENTS.map(function(c){
+    var open = S.wkContinent === c.key;
+    var regions = wkRegionsWithData(c.key);
+    var count = 0; regions.forEach(function(r){ count += wkCountriesIn(c.key, r).length; });
+
+    var head = '<div onclick="set({wkContinent: S.wkContinent===\''+c.key+'\' ? null : \''+c.key+'\', wkRegion:null})" '
+      + 'style="background:'+(open?'#0a2018':'#0f1a14')+';border:1px solid '+(open?green:'#1a3020')+';border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+      + '<span style="font-size:24px;">'+c.emoji+'</span>'
+      + '<div style="flex:1;"><div style="font-size:15px;color:'+(open?green:cream)+';font-weight:bold;">'+c.key+'</div>'
+      + '<div style="font-size:11px;color:#3a6050;margin-top:2px;">'+(count?count+' countries · '+(c.key==='Africa'||c.key==='Europe'?'tap to explore':''):'Coming soon')+'</div></div>'
+      + '<span style="color:'+(count?green:'#2a4030')+';font-size:16px;">'+(open?'▾':(count?'›':'○'))+'</span></div>';
+
+    if(!open) return head;
+
+    var inner = '';
+    if(!regions.length){
+      inner = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:18px;margin:-2px 0 10px;text-align:center;color:#4a7060;font-size:12px;">🌍 Recipes being added — coming soon</div>';
+    } else {
+      inner = '<div style="margin:-2px 0 10px;padding-left:10px;">' + regions.map(function(reg){
+        var ropen = S.wkRegion === reg;
+        var countries = wkCountriesIn(c.key, reg);
+        var rhead = '<div onclick="set({wkRegion: S.wkRegion===\''+reg.replace(/'/g,"\\'")+'\' ? null : \''+reg.replace(/'/g,"\\'")+'\'})" '
+          + 'style="background:'+(ropen?'#0a2018':'#0b140f')+';border:1px solid '+(ropen?green:'#15281c')+';border-radius:9px;padding:11px 12px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
+          + '<span style="font-size:13px;color:'+(ropen?green:'#c8b898')+';">'+reg+'</span>'
+          + '<span style="font-size:11px;color:#3a6050;">'+countries.length+' '+(ropen?'▾':'›')+'</span></div>';
+        var clist = '';
+        if(ropen){
+          clist = '<div style="padding-left:10px;margin-bottom:6px;">' + countries.map(function(ct){
+            return '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+ct+'\',wkDataTab:\'mains\',wkDataRecipe:null});window.scrollTo(0,0);" '
+              + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:10px 12px;margin-bottom:5px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
+              + '<span style="font-size:13px;color:#c8b898;">'+ct+'</span><span style="color:'+green+';font-size:15px;">›</span></div>';
+          }).join('') + '</div>';
+        }
+        return rhead + clist;
+      }).join('') + '</div>';
+    }
+    return head + inner;
+  }).join('');
+
+  var body = '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+boxes+'</div>';
+  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+saCard+body+'</div>';
+}
+
+/* ── COUNTRY recipe list + RECIPE detail (data-driven) ── */
+function wkDataCountryHTML(){
+  var green = '#30a878', cream = '#f5e8cc';
+  var pool = wkPool();
+  var country = S.wkDataCountry;
+
+  // ── DETAIL ──
+  if(S.wkDataRecipe){
+    var r = null;
+    for(var i=0;i<pool.length;i++){ if(pool[i].id === S.wkDataRecipe){ r = pool[i]; break; } }
+    if(!r){
+      return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;padding:20px;color:#c8b898;">'
+        + '<button onclick="set({wkDataRecipe:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
+        + '<p style="margin-top:20px;">Recipe not found.</p></div>';
+    }
+    var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+    var ingList = (r.ingredients||'').split('·').map(function(x){return x.trim();}).filter(Boolean);
+    var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
+
+    var metaBox = '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
+      + (r.cookTime ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">⏱ '+r.cookTime+'</span>' : '')
+      + (r.kcal ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">🔥 '+r.kcal+'</span>' : '')
+      + '</div>';
+
+    var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · per serving</div>'
+      + ingList.map(function(x){return '<div style="font-size:13px;color:#c0d0c4;padding:5px 0;border-bottom:1px solid #14241a;">• '+x+'</div>';}).join('')
+      + (r.ingredients12 ? '<div style="font-size:11px;color:#3a6050;margin-top:10px;font-style:italic;">For 12 servings: '+r.ingredients12+'</div>' : '')
+      + '</div>';
+
+    var methodBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">Method</div>'
+      + steps.map(function(s,si){return '<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div><div style="font-size:13px;color:#c0d0c4;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')+'</div></div>';}).join('')
+      + '</div>';
+
+    function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:11px;">'+label+': </span><span style="font-size:12px;color:#a0b8a8;">'+val+'</span></div>' : ''; }
+    var extra = (r.chefNotes||r.pairsWith||r.nutrition||r.storage||r.trivia)
+      ? '<div style="background:#0b140f;border:1px solid #15281c;border-radius:10px;padding:14px;margin-bottom:12px;font-family:Georgia,serif;">'
+        + infoRow('👩‍🍳 Chef notes', r.chefNotes)
+        + infoRow('🍷 Pairs with', r.pairsWith)
+        + infoRow('📊 Nutrition', r.nutrition)
+        + infoRow('🧊 Storage', r.storage)
+        + infoRow('💡 Did you know', r.trivia)
+        + '</div>'
+      : '';
+
+    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
+      + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
+      +   '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← '+country+'</button>'
+      +   '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+disp+'</h1>'
+      +   '<div style="font-size:11px;color:#2a6040;margin-top:2px;">'+r.country+'</div>'
+      + '</div>'
+      + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+metaBox+ingBox+methodBox+extra
+      +   '<div style="display:flex;justify-content:space-between;padding:6px 0 30px;border-top:1px solid #1a3020;font-size:12px;">'
+      +     '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
+      +     '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:#3a5040;cursor:pointer;font-family:Georgia,serif;">World Kitchen</button>'
+      +   '</div></div></div>';
+  }
+
+  // ── COUNTRY LIST ──
+  var tab = S.wkDataTab || 'mains';
+  var TABS = [{id:'starters',e:'🥗',l:'Starters'},{id:'mains',e:'🍽️',l:'Mains'},{id:'sides',e:'🥘',l:'Sides'},{id:'desserts',e:'🍮',l:'Desserts'}];
+  var recipes = pool.filter(function(x){ return x.country === country; });
+  var inTab = recipes.filter(function(x){ return wkCourseToTab(x.course) === tab; });
+
+  var tabsBar = '<div style="display:flex;gap:4px;margin-bottom:12px;">'
+    + TABS.map(function(t){
+        var n = recipes.filter(function(x){return wkCourseToTab(x.course)===t.id;}).length;
+        var sel = tab===t.id;
+        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#1a3020')+';background:'+(sel?'#0a2018':'#0a0f0c')+';color:'+(sel?green:'#3a5040')+';font-size:10px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')</button>';
+      }).join('')
+    + '</div>';
+
+  var list = inTab.length
+    ? inTab.map(wkRecipeCard).join('')
+    : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#4a7060;font-size:13px;">No '+tab+' for '+country+' yet.</div>';
+
+  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
+    + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
+    +   '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
+    +   '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+country+'</h1>'
+    +   '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p>'
+    + '</div>'
+    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
+    + '</div>';
+}
