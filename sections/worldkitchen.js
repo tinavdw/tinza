@@ -1335,7 +1335,20 @@ function wkRecipeCard(r){
     + '</div>';
 }
 
-/* ── HOME: static map + 6 continent boxes (+ SA Kitchens, + search) ── */
+/* braai-style grid tile: emoji on top, bold title, subtitle. dim = coming-soon, accent = green-featured. */
+function wkGridCard(emoji, title, sub, onclick, dim, accent){
+  var green='#30a878', cream='#f5e8cc';
+  var bg = dim ? '#0c130f' : (accent ? '#0a2018' : '#0f1a14');
+  var bd = dim ? '#142018' : (accent ? green   : '#1a3020');
+  return '<div'+(dim?'':' onclick="'+onclick+'"')+' '
+    + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:12px;padding:16px 8px;text-align:center;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;">'
+    +   '<div style="font-size:26px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
+    +   '<div style="font-size:13px;color:'+(dim?'#5a7060':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
+    +   (sub ? '<div style="font-size:10px;color:'+(dim?'#3a5040':'#50a878')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
+    + '</div>';
+}
+
+/* ── HOME / drill-down: continents → regions → countries (braai-style grids) ── */
 function wkWorldHome(){
   var green = '#30a878', cream = '#f5e8cc';
   var mapImg = 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Image%20header/world-map.jpg';
@@ -1357,7 +1370,13 @@ function wkWorldHome(){
     +   '</div>'
     + '</div>';
 
-  // ── SEARCH MODE ──
+  var wrap = function(inner){ return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+inner+'</div>'; };
+  var pad  = function(inner){ return '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+inner+'</div>'; };
+  var backRow = function(label, action){ return '<div onclick="'+action+'" style="display:inline-block;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:12px;font-family:Georgia,serif;">'+label+'</div>'; };
+  var heading = function(t){ return '<h2 style="font-size:19px;font-weight:normal;color:'+cream+';margin:0 0 10px;font-family:Georgia,serif;">'+t+'</h2>'; };
+  var contEmoji = function(key){ for(var i=0;i<WK_CONTINENTS.length;i++){ if(WK_CONTINENTS[i].key===key) return WK_CONTINENTS[i].emoji; } return '🌍'; };
+
+  // ── SEARCH MODE (works from any level) ──
   if(search){
     var results = (typeof tinzaSearch === 'function') ? tinzaSearch(search, wkPool()) : [];
     var rbody = '<div style="padding:14px 16px;max-width:600px;margin:0 auto;">'
@@ -1365,59 +1384,52 @@ function wkWorldHome(){
       + (results.length ? results.slice(0,80).map(wkRecipeCard).join('')
          : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:24px;text-align:center;color:#4a7060;font-size:13px;">No dishes found. Try another word.</div>')
       + '</div>';
-    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+rbody+'</div>';
+    return wrap(rbody);
   }
 
-  // ── SA Kitchens featured card ──
-  var saCard = '<div style="padding:14px 16px 0;max-width:600px;margin:0 auto;">'
-    + '<div onclick="set({wkScreen:\'sa\'})" style="background:linear-gradient(135deg,#0a2018,#0f2a1c);border:1px solid #30a878;border-radius:12px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
-    +   '<span style="font-size:26px;">🇿🇦</span>'
-    +   '<div style="flex:1;"><div style="font-size:15px;color:'+cream+';font-weight:bold;">South African Kitchens</div>'
-    +   '<div style="font-size:11px;color:#50a878;font-style:italic;margin-top:2px;">Our own heritage — Boerekos, Cape Malay, Indian, Zulu, Sotho, Xhosa</div></div>'
-    +   '<span style="color:'+green+';font-size:18px;">›</span></div></div>';
+  // ── LEVEL 3: COUNTRIES grid (continent + region chosen) ──
+  if(S.wkContinent && S.wkRegion){
+    var l3countries = wkCountriesIn(S.wkContinent, S.wkRegion);
+    var l3grid = l3countries.length
+      ? '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">'
+        + l3countries.map(function(ct){
+            var dishes = wkPool().filter(function(x){return x.country===ct;}).length;
+            return wkGridCard('🍲', ct, dishes+' dish'+(dishes===1?'':'es'),
+              "set({wkScreen:'wkdata',wkDataCountry:'"+ct.replace(/'/g,"\\'")+"',wkDataTab:'mains',wkDataRecipe:null});window.scrollTo(0,0)", false);
+          }).join('')
+        + '</div>'
+      : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#4a7060;font-size:13px;">No countries here yet.</div>';
+    return wrap(pad( backRow('← '+S.wkContinent, "set({wkRegion:null});window.scrollTo(0,0)") + heading(S.wkRegion) + l3grid ));
+  }
 
-  // ── Continent accordions ──
-  var boxes = WK_CONTINENTS.map(function(c){
-    var open = S.wkContinent === c.key;
-    var regions = wkRegionsWithData(c.key);
-    var count = 0; regions.forEach(function(r){ count += wkCountriesIn(c.key, r).length; });
+  // ── LEVEL 2: REGIONS grid (continent chosen) ──
+  if(S.wkContinent){
+    var l2regions = wkRegionsWithData(S.wkContinent);
+    var ce = contEmoji(S.wkContinent);
+    var l2grid = l2regions.length
+      ? '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">'
+        + l2regions.map(function(reg){
+            var nc = wkCountriesIn(S.wkContinent, reg).length;
+            return wkGridCard(ce, reg, nc+' '+(nc===1?'country':'countries'),
+              "set({wkRegion:'"+reg.replace(/'/g,"\\'")+"'});window.scrollTo(0,0)", false);
+          }).join('')
+        + '</div>'
+      : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#4a7060;font-size:13px;">🌍 Recipes being added — coming soon</div>';
+    return wrap(pad( backRow('← World Kitchen', "set({wkContinent:null,wkRegion:null});window.scrollTo(0,0)") + heading(S.wkContinent) + l2grid ));
+  }
 
-    var head = '<div onclick="set({wkContinent: S.wkContinent===\''+c.key+'\' ? null : \''+c.key+'\', wkRegion:null})" '
-      + 'style="background:'+(open?'#0a2018':'#0f1a14')+';border:1px solid '+(open?green:'#1a3020')+';border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
-      + '<span style="font-size:24px;">'+c.emoji+'</span>'
-      + '<div style="flex:1;"><div style="font-size:15px;color:'+(open?green:cream)+';font-weight:bold;">'+c.key+'</div>'
-      + '<div style="font-size:11px;color:#3a6050;margin-top:2px;">'+(count?count+' countries · '+(c.key==='Africa'||c.key==='Europe'?'tap to explore':''):'Coming soon')+'</div></div>'
-      + '<span style="color:'+(count?green:'#2a4030')+';font-size:16px;">'+(open?'▾':(count?'›':'○'))+'</span></div>';
+  // ── LEVEL 1: HOME — SA + 6 continents in one 4-wide grid (braai-style: 4 on top, 3 under) ──
+  var saTile = wkGridCard('🇿🇦', 'SA Kitchens', 'Our heritage', "set({wkScreen:'sa'})", false, true);
+  var contTiles = WK_CONTINENTS.map(function(c){
+        var regions = wkRegionsWithData(c.key);
+        var count = 0; regions.forEach(function(r){ count += wkCountriesIn(c.key, r).length; });
+        var live = count > 0;
+        return wkGridCard(c.emoji, c.key, live ? (count+' countries') : 'Coming soon',
+          "set({wkContinent:'"+c.key.replace(/'/g,"\\'")+"',wkRegion:null});window.scrollTo(0,0)", !live, false);
+      }).join('');
+  var contGrid = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">' + saTile + contTiles + '</div>';
 
-    if(!open) return head;
-
-    var inner = '';
-    if(!regions.length){
-      inner = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:18px;margin:-2px 0 10px;text-align:center;color:#4a7060;font-size:12px;">🌍 Recipes being added — coming soon</div>';
-    } else {
-      inner = '<div style="margin:-2px 0 10px;padding-left:10px;">' + regions.map(function(reg){
-        var ropen = S.wkRegion === reg;
-        var countries = wkCountriesIn(c.key, reg);
-        var rhead = '<div onclick="set({wkRegion: S.wkRegion===\''+reg.replace(/'/g,"\\'")+'\' ? null : \''+reg.replace(/'/g,"\\'")+'\'})" '
-          + 'style="background:'+(ropen?'#0a2018':'#0b140f')+';border:1px solid '+(ropen?green:'#15281c')+';border-radius:9px;padding:11px 12px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
-          + '<span style="font-size:13px;color:'+(ropen?green:'#c8b898')+';">'+reg+'</span>'
-          + '<span style="font-size:11px;color:#3a6050;">'+countries.length+' '+(ropen?'▾':'›')+'</span></div>';
-        var clist = '';
-        if(ropen){
-          clist = '<div style="padding-left:10px;margin-bottom:6px;">' + countries.map(function(ct){
-            return '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+ct+'\',wkDataTab:\'mains\',wkDataRecipe:null});window.scrollTo(0,0);" '
-              + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:10px 12px;margin-bottom:5px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
-              + '<span style="font-size:13px;color:#c8b898;">'+ct+'</span><span style="color:'+green+';font-size:15px;">›</span></div>';
-          }).join('') + '</div>';
-        }
-        return rhead + clist;
-      }).join('') + '</div>';
-    }
-    return head + inner;
-  }).join('');
-
-  var body = '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+boxes+'</div>';
-  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+saCard+body+'</div>';
+  return wrap( pad(contGrid) );
 }
 
 /* ── COUNTRY recipe list + RECIPE detail (data-driven) ── */

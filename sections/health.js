@@ -589,7 +589,7 @@ function healthRecipeDetail(recipe, backState){
   const stepsHTML = steps.map((step,i)=>`
     <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2820;">
       <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#1a3028;border:1px solid #30c090;display:flex;align-items:center;justify-content:center;font-size:12px;color:#40d0a0;font-weight:bold;">${i+1}</div>
-      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}</div>
+      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}${hcStepTimer(step)?`<div style="margin-top:6px;"><span style="display:inline-block;background:#1a3028;border:1px solid #30c090;border-radius:6px;color:#40d0a0;font-size:11px;padding:3px 9px;">${hcStepTimer(step)}</span></div>`:''}</div>
     </div>`).join('');
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
@@ -645,7 +645,10 @@ function healthRecipeDetail(recipe, backState){
       <!-- Method -->
       ${stepsHTML?`
       <div style="margin-top:16px;">
-        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">👨‍🍳 Method</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;">👨‍🍳 Method</div>
+          <button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:#1a3028;border:1px solid #30c090;border-radius:8px;color:#40d0a0;font-size:12px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>
+        </div>
         <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">
           ${stepsHTML}
         </div>
@@ -670,6 +673,18 @@ function healthRecipeDetail(recipe, backState){
           return `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price estimate coming soon</div>`;
         })()}
       </div>
+
+      <!-- Goes Well With -->
+      ${(function(){
+        var g = recipe.goesWith||recipe.pairsWith;
+        if(!g) return '';
+        var list = Array.isArray(g) ? g : String(g).split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean);
+        if(!list.length) return '';
+        return `<div style="margin-top:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:14px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">${list.slice(0,5).map(function(x){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #1a4035;color:#80c8a0;font-size:12px;">'+x+'</span>';}).join('')}</div>
+        </div>`;
+      })()}
 
       <!-- Actions -->
       <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
@@ -710,11 +725,73 @@ function healthOpenExt(id, arrName, grp, tab){
   set({activeHealthExt:{...item, feel:item.feel||item.howItFeels||'', base300:item.base300||item.shopping||[]}, activeHealthExtBack:{healthGroup:grp,healthGroupTab:tab}, healthGroup:grp, healthGroupTab:tab});
 }
 
+// ── braai/World-parity helpers (timer pills, cooking mode, grid tiles) ──
+function hcStepTimer(txt){
+  txt = String(txt||'');
+  var m = txt.match(/(\d+(?:\s*[\u2013-]\s*\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)\b/i);
+  if(m){ return '\u23f2 ' + m[1].replace(/\s+/g,'') + ' ' + (/h/i.test(m[2]) ? 'hr' : 'min'); }
+  if(/overnight/i.test(txt)) return '\u23f2 overnight';
+  return '';
+}
+
+function hcGridCard(emoji, label, sub, onclick, accent){
+  var acc='#30c090', cream='#f5e8cc';
+  var bg = accent ? '#0a2018' : '#0f1a10';
+  var bd = accent ? acc : '#1a4030';
+  return '<div onclick="'+onclick+'" style="background:'+bg+';border:1px solid '+bd+';border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;">'
+    + '<div style="font-size:28px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
+    + '<div style="font-size:13px;color:'+cream+';font-weight:bold;line-height:1.2;">'+label+'</div>'
+    + (sub ? '<div style="font-size:9px;color:#5a8068;margin-top:4px;line-height:1.3;">'+sub+'</div>' : '')
+    + '</div>';
+}
+
+// fullscreen step-by-step cooking mode (self-contained, health green)
+function healthCookingView(recipe){
+  var acc='#30c090', bright='#40d0a0', cream='#f5e8cc';
+  var steps = (recipe && recipe.method) || [];
+  if(!steps.length){
+    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#c0d8c0;">'
+      + '<button onclick="set({healthCooking:null})" style="background:none;border:none;color:'+acc+';cursor:pointer;font-size:13px;">\u2715 Exit cooking mode</button>'
+      + '<p style="margin-top:20px;">No method steps for this recipe yet.</p></div>';
+  }
+  var c = S.healthCooking || {step:0};
+  var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
+  var step = String(steps[idx]||'');
+  var tp = hcStepTimer(step);
+  var pct = Math.round(((idx+1)/steps.length)*100);
+  var last = idx === steps.length-1;
+  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
+    + '<div style="background:#0a1a10;border-bottom:1px solid #1a4030;padding:14px 16px;">'
+    +   '<button onclick="set({healthCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+acc+';font-size:13px;cursor:pointer;padding:0;">\u2715 Exit cooking mode</button>'
+    +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;font-weight:bold;">'+(recipe.emoji?recipe.emoji+' ':'')+recipe.name+'</div>'
+    +   '<div style="font-size:11px;color:#208060;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+acc+';"></div></div>'
+    + '</div>'
+    + '<div style="flex:1;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   '<div style="width:46px;height:46px;border-radius:50%;background:#1a3028;border:2px solid '+acc+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+bright+';margin-bottom:18px;">'+(idx+1)+'</div>'
+    +   '<div style="font-size:20px;color:#dce8de;line-height:1.65;">'+step+'</div>'
+    +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:#1a3028;border:1px solid '+acc+';border-radius:8px;color:'+bright+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
+    + '</div>'
+    + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   (idx>0 ? '<button onclick="set({healthCooking:{step:'+(idx-1)+'}});window.scrollTo(0,0);" style="flex:1;padding:14px;border-radius:12px;background:#0a1a10;border:1px solid '+acc+';color:'+bright+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
+    +   (last
+        ? '<button onclick="set({healthCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+acc+';border:1px solid '+acc+';color:#04120a;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
+        : '<button onclick="set({healthCooking:{step:'+(idx+1)+'}});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+acc+';border:1px solid '+acc+';color:#04120a;font-size:15px;font-weight:bold;cursor:pointer;">Next \u2192</button>')
+    + '</div>'
+    + '</div>';
+}
+
 function healthHTML(){
   const isPro = tierAllows('pro');
   const srv = S.servings||1;
   const howOpen = S.healthHowOpen||false;
   const searchVal = S.healthSearch||'';
+
+  // ── Cooking mode (overlays any health screen) ──
+  if(S.healthCooking){
+    const _cookRecipe = S.activeSmoothie||S.activeOats||S.activeMuffin||S.activeRaw||S.activeHealthExt;
+    if(_cookRecipe) return healthCookingView(_cookRecipe);
+  }
 
   // ── My Plan screen ──────────────────────────────────────────
   if(S.healthShowPlan) return healthPlanScreen(isPro);
@@ -785,24 +862,9 @@ function healthHTML(){
     <!-- 6 Group cards — 2×3 grid like braai -->
     <div style="padding:16px;">
       <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:12px;">What are you eating for?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-        ${groups.map(g=>`
-        <div onclick="set({healthGroup:'${g.id}',healthGroupTab:null})"
-          style="background:#0f1a10;border:1px solid #1a4030;border-radius:14px;padding:14px;cursor:pointer;position:relative;overflow:hidden;">
-          <div style="font-size:30px;margin-bottom:8px;">${g.emoji}</div>
-          <div style="font-size:14px;color:#c0e8c0;font-weight:bold;margin-bottom:4px;">${g.label}</div>
-          <div style="font-size:10px;color:#406050;line-height:1.4;">${g.sub}</div>
-        </div>`).join('')}
-      </div>
-
-      <!-- My Health Plan shortcut -->
-      <div onclick="${isPro?'set({healthShowPlan:true})':'alert(\'👑 Upgrade to Pro for full plan features\')'}"
-        style="background:#0a1a10;border:2px solid ${planCount>0?'#30c090':'#1a4030'};border-radius:14px;padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <div>
-          <div style="font-size:15px;color:#40d0a0;font-weight:bold;">📋 My Health Plan</div>
-          <div style="font-size:11px;color:#208060;margin-top:2px;">${planCount>0?planCount+' recipe'+(planCount!==1?'s':'')+' saved · Shopping list':'Saved recipes · Shopping list'}</div>
-        </div>
-        <span style="font-size:22px;">🛒</span>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">
+        ${groups.map(g=>hcGridCard(g.emoji, g.label, g.sub, "set({healthGroup:'"+g.id+"',healthGroupTab:null})", false)).join('')}
+        ${hcGridCard('\ud83d\uded2', 'My Plan', planCount>0?(planCount+' saved'):'Shopping list', isPro?"set({healthShowPlan:true})":"alert('\ud83d\udc51 Upgrade to Pro for full plan features')", true)}
       </div>
     </div>
   </div>`;
@@ -1011,7 +1073,7 @@ function healthExtDetail(recipe){
   const stepsHTML = (recipe.method||[]).map((step,i)=>`
     <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #1a2820;">
       <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#1a3028;border:1px solid #30c090;display:flex;align-items:center;justify-content:center;font-size:12px;color:#40d0a0;font-weight:bold;">${i+1}</div>
-      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}</div>
+      <div style="font-size:13px;color:#c0d0b8;line-height:1.6;padding-top:4px;">${step}${hcStepTimer(step)?`<div style="margin-top:6px;"><span style="display:inline-block;background:#1a3028;border:1px solid #30c090;border-radius:6px;color:#40d0a0;font-size:11px;padding:3px 9px;">${hcStepTimer(step)}</span></div>`:''}</div>
     </div>`).join('');
 
   const totalCost = recipe.costPP ? '~R'+Math.round(recipe.costPP*srv)+' total (R'+recipe.costPP+'/pp)' : null;
@@ -1072,7 +1134,10 @@ function healthExtDetail(recipe){
 
       <!-- Method -->
       ${stepsHTML?`<div style="margin-top:16px;">
-        <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">👨‍🍳 Method</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;">👨‍🍳 Method</div>
+          <button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:#1a3028;border:1px solid #30c090;border-radius:8px;color:#40d0a0;font-size:12px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>
+        </div>
         <div style="background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:10px 14px;">${stepsHTML}</div>
       </div>`:''}
 
@@ -1094,6 +1159,18 @@ function healthExtDetail(recipe){
           return `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price estimate coming soon</div>`;
         })()}
       </div>
+
+      <!-- Goes Well With -->
+      ${(function(){
+        var g = recipe.goesWith||recipe.pairsWith;
+        if(!g) return '';
+        var list = Array.isArray(g) ? g : String(g).split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean);
+        if(!list.length) return '';
+        return `<div style="margin-top:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;padding:14px;">
+          <div style="font-size:10px;letter-spacing:2px;color:#30c090;text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">${list.slice(0,5).map(function(x){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #1a4035;color:#80c8a0;font-size:12px;">'+x+'</span>';}).join('')}</div>
+        </div>`;
+      })()}
 
       <!-- Bottom actions -->
       <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
