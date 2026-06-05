@@ -1,3 +1,44 @@
+// ── COSTING ───────────────────────────────────────────────────────
+// Reuses the app's lookupPrice (R/kg for g·ml, R/kg·L for kg·l). Only
+// weight/volume items are priced; count items (egg, tin, each, tbsp)
+// are flagged "price needed" rather than mispriced — same rule as
+// kiddies.js so totals stay consistent across the app.
+function ttLineCost(name, raw, unit){
+  if(!(raw>0)) return null;
+  var p=null;
+  try { p=(typeof lookupPrice==='function')?lookupPrice(name):null; } catch(e){ p=null; }
+  if(p==null) return null;
+  if(unit==='g'||unit==='ml') return (raw/1000)*p;
+  if(unit==='kg'||unit==='l'||unit==='L') return raw*p;
+  return null;
+}
+// Cost card for a consolidated plan list [{name,raw,unit}] — mutates each
+// row with .cost so the shopping list can show it. Returns '' if nothing priced.
+function ttCostCard(items, colour){
+  var total=0, matched=0;
+  (items||[]).forEach(function(i){ var c=ttLineCost(i.name,i.raw,i.unit); i.cost=c; if(c!=null){ total+=c; matched++; } });
+  total=Math.round(total);
+  if(matched===0) return '';
+  return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
+    +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:24px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
+    +'<div style="font-size:10px;color:#5a7020;margin-top:8px;line-height:1.5;">'+matched+'/'+items.length+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'</div>';
+}
+// Cost card for a single recipe's base[] scaled by mult. Pro-gated (matches braai).
+function ttRecipeCostCard(base, mult, isPro, colour){
+  if(!isPro) return '<div style="background:#120f0a;border:1px dashed '+(colour||'#5a3010')+';border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#3a2808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#7a6020;">💰 Cost estimate — <strong style="color:#c0a020;">Tinza Pro R99/month</strong></div></div>';
+  var total=0, matched=0, n=0;
+  (base||[]).forEach(function(i){ if(!i||!i.n||!i.pp||typeof i.pp!=='number') return; n++; var c=ttLineCost(i.n, i.pp*mult, i.u); if(c!=null){ total+=c; matched++; } });
+  total=Math.round(total);
+  if(matched===0) return '';
+  return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
+    +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:22px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
+    +'<div style="font-size:10px;color:#5a7020;margin-top:8px;line-height:1.5;">'+matched+'/'+n+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'</div>';
+}
+
 function babyListHTML(){
   const isPro = tierAllows('pro');
   const filtered = S.babyFilter==="all" ? BABY_RECIPES : BABY_RECIPES.filter(b=>b.stage===S.babyFilter);
@@ -75,6 +116,7 @@ function babyMyPlanView(){
     return Math.round(raw*10)/10+(unit||'');
   }
   const allItems = Object.values(map).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
+  const costCardHTML = ttCostCard(allItems, '#5a8010');
   const cart = S.fingerShopCart||{};
 
   const waText = '🍼 *Tiny Tummies Shopping List — '+batches+' batch'+(batches>1?'es':'')+'*\n\n'
@@ -113,6 +155,7 @@ function babyMyPlanView(){
         <span style="font-size:12px;color:#6a4050;">All shopping quantities multiply</span>
       </div>
 
+      ${costCardHTML}
       <!-- Shopping list -->
       <div style="font-size:10px;letter-spacing:2px;color:#6a2040;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#161210;border:1px solid #4a2035;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
@@ -125,7 +168,10 @@ function babyMyPlanView(){
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #2a1020;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#c04070':'#5a2040'};background:${inCart?'#c04070':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
               <span style="flex:1;font-size:13px;color:${inCart?'#4a2030':'#c0a0b0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${shared}</span>
-              <span style="font-size:13px;color:${inCart?'#4a2030':'#f5c842'};font-weight:bold;flex-shrink:0;">${fmt(i.raw,i.unit)}</span>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:13px;color:${inCart?'#4a2030':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2030':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+              </div>
             </div>`;
           }).join('')}
         ${allItems.length>0?`<div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="font-size:11px;color:#6a4050;">${allItems.filter(i=>!(S.fingerShopCart||{})[ i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18)]).length} of ${allItems.length} items remaining</span><button onclick="setQuiet({fingerShopCart:{}})" style="background:none;border:none;color:#8a3050;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:''}
@@ -176,6 +222,8 @@ function babyRecipeHTML_screen(){
           return `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid #2a1520;"><span style="font-size:13px;color:#e0d4b8;flex:1;">${ing.n}</span><span style="font-size:13px;color:#f5c842;font-weight:bold;flex-shrink:0;margin-left:8px;">${display}</span></div>`;
         }).join("")}
       </div>
+
+      ${ttRecipeCostCard(b.base, batches, isPro, '#5a8010')}
 
       <div style="background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#e07090;text-transform:uppercase;margin-bottom:10px;">Method</div>
@@ -248,6 +296,7 @@ function dogMyPlanView(){
     return Math.round(raw*10)/10+(unit||'');
   }
   const allItems = Object.values(map).filter(i=>i.raw>0).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
+  const costCardHTML = ttCostCard(allItems, '#5a8010');
   const waText = '🐾 *Dog Shopping List*\n${size} dog · ${age} · ${count} dog${count>1?"s":""}\n\n'
     + allItems.map(i=>'• '+i.name+': '+fmt(i.raw,i.unit)).join('\n');
 
@@ -269,6 +318,7 @@ function dogMyPlanView(){
           </div>`).join('')}
       </div>
       <div style="font-size:11px;color:#7060a0;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:10px;margin-bottom:14px;">${DOG_AGE_NOTES[age]||''}</div>
+      ${costCardHTML}
       <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
         <div style="font-size:11px;color:#6040a0;padding:8px 0 4px;">✅ Tap items you already have</div>
@@ -279,7 +329,10 @@ function dogMyPlanView(){
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f30;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#9070e0':'#4030a0'};background:${inCart?'#9070e0':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
               <span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c0a0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#6040a0;">· '+i.dishes.length+' recipes</span>':''}</span>
-              <span style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;flex-shrink:0;">${fmt(i.raw,i.unit)}</span>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+              </div>
             </div>`;
           }).join('')}
       </div>
@@ -415,6 +468,8 @@ function dogRecipeHTML_screen(){
         }).join('')}
       </div>
 
+      ${ttRecipeCostCard(d.base, totalMult, isPro, '#5a8010')}
+
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#9070e0;text-transform:uppercase;margin-bottom:10px;">Method</div>
         ${(d.method||[]).map((step,i)=>`<div style="display:flex;gap:12px;margin-bottom:12px;"><div class="step-num" style="background:#1a1030;border:1px solid #9070e0;color:#9070e0;">${i+1}</div><p style="margin:2px 0 0;font-size:13px;color:#c0a0e0;line-height:1.7;">${step}</p></div>`).join('')}
@@ -473,6 +528,7 @@ function catMyPlanView(){
     return Math.round(raw*10)/10+(unit||'');
   }
   const allItems = Object.values(map).filter(i=>i.raw>0).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
+  const costCardHTML = ttCostCard(allItems, '#5a8010');
   const waText = '🐱 *Cat Shopping List*\n${age} cat · ${count} cat${count>1?"s":""}\n\n'
     + allItems.map(i=>'• '+i.name+': '+fmt(i.raw,i.unit)).join('\n');
 
@@ -494,6 +550,7 @@ function catMyPlanView(){
           </div>`).join('')}
       </div>
       <div style="font-size:11px;color:#a06030;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:10px;margin-bottom:14px;">${CAT_AGE_NOTES[age]||''}</div>
+      ${costCardHTML}
       <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
         <div style="font-size:11px;color:#804020;padding:8px 0 4px;">✅ Tap items you already have</div>
@@ -504,7 +561,10 @@ function catMyPlanView(){
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f08;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#e08040':'#6a3010'};background:${inCart?'#e08040':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
               <span style="flex:1;font-size:13px;color:${inCart?'#4a2010':'#d0a080'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#804020;">· '+i.dishes.length+' recipes</span>':''}</span>
-              <span style="font-size:13px;color:${inCart?'#4a2010':'#f5c842'};font-weight:bold;flex-shrink:0;">${fmt(i.raw,i.unit)}</span>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:13px;color:${inCart?'#4a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+              </div>
             </div>`;
           }).join('')}
       </div>
@@ -637,6 +697,8 @@ function catRecipeHTML_screen(){
           </div>`;
         }).join('')}
       </div>
+
+      ${ttRecipeCostCard(c.base, totalMult, isPro, '#5a8010')}
 
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#e08040;text-transform:uppercase;margin-bottom:10px;">Method</div>

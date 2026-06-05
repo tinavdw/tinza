@@ -437,6 +437,21 @@ function healthToggleShopItem(key){
   set({checkedHealthItems:c});
 }
 
+// ── COSTING ───────────────────────────────────────────────────────
+// Reuses the app's lookupPrice (R/kg for g·ml, R/kg·L for kg·l).
+// Only weight/volume items are priced — count items (egg, tin, each,
+// tbsp) are flagged "price needed" rather than mispriced. Same rule
+// as kiddies.js, so totals stay consistent across the app.
+function hcLineCost(name, raw, unit){
+  if(!(raw>0)) return null;
+  var p=null;
+  try { p=(typeof lookupPrice==='function')?lookupPrice(name):null; } catch(e){ p=null; }
+  if(p==null) return null;
+  if(unit==='g'||unit==='ml') return (raw/1000)*p;
+  if(unit==='kg'||unit==='l'||unit==='L') return raw*p;
+  return null; // egg / '' / tin / tbsp etc → price needed
+}
+
 function renderHealthMyPlan(isPro){
   const plan = S.healthPlan||[];
   const checked = S.checkedHealthItems||{};
@@ -462,6 +477,16 @@ function renderHealthMyPlan(isPro){
     });
   });
   var shopItems = Object.values(shopMap).sort(function(a,b){return a.name.localeCompare(b.name);});
+  // cost each consolidated ingredient
+  var planCostTotal=0, planCostMatched=0;
+  shopItems.forEach(function(it){
+    var c = hcLineCost(it.name, it.total, it.unit);
+    it.cost = c;
+    if(c!=null){ planCostTotal += c; planCostMatched++; }
+  });
+  planCostTotal = Math.round(planCostTotal);
+  var planPeople = S.servings||1;
+  var planCostPP = planPeople>0 ? Math.round(planCostTotal/planPeople) : planCostTotal;
   var planHtml = plan.map(function(item){
     return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a0818;">'
       +'<div style="display:flex;align-items:center;gap:10px;">'
@@ -482,7 +507,9 @@ function renderHealthMyPlan(isPro){
           +'<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(ck?'#d04080':'#601040')+';background:'+(ck?'#d04080':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(ck?'<span style="color:#f5e8cc;font-size:11px;">✓</span>':'')+'</div>'
           +'<div style="flex:1;"><div style="font-size:13px;color:'+(ck?'#3a1020':'#e0c4d4')+';">'+item.name+'</div>'
           +'<div style="font-size:10px;color:#803060;">'+item.source+'</div></div>'
-          +'<div style="font-size:13px;color:'+(ck?'#3a1020':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
+          +'<div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:'+(ck?'#3a1020':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
+          +(item.cost!=null?'<div style="font-size:11px;color:'+(ck?'#3a1020':'#40d0a0')+';">R'+Math.round(item.cost)+'</div>':'<div style="font-size:9px;color:#6a6030;">price needed</div>')
+          +'</div>'
           +'</div>';
       }).join('');
   var kcalPerPerson = plan.reduce(function(sum,i){return sum+(i.kcal||0);},0);
@@ -494,8 +521,13 @@ function renderHealthMyPlan(isPro){
       : '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:#a03060;">🔥 Calorie counter — <strong style="color:#f070a0;">Tinza Pro R99/month</strong></div></div>')
     +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:12px;">'
       +'<div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
-      +'<div style="font-size:14px;color:#603040;font-style:italic;">Ingredient pricing coming soon</div>'
-      +'<div style="font-size:10px;color:#401020;margin-top:6px;line-height:1.5;">Based on current Checkers/retail prices · Always buy 10% extra</div>'
+      +(isPro
+        ? (planCostMatched>0
+            ? '<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#a03060;">Total for '+planPeople+' person'+(planPeople!==1?'s':'')+'</div><div style="font-size:24px;color:#f5c842;font-weight:bold;">R'+planCostTotal.toLocaleString()+'</div></div>'
+                +'<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:8px;border-top:1px solid #2a0818;"><div style="font-size:12px;color:#803060;">Per person</div><div style="font-size:16px;color:#f070a0;font-weight:bold;">R'+planCostPP+'</div></div>'
+                +'<div style="font-size:10px;color:#603040;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · Checkers/retail prices · Always buy 10% extra</div>'
+            : '<div style="font-size:13px;color:#603040;font-style:italic;">No priced ingredients yet — add recipes with weighed ingredients to see a cost.</div>')
+        : '<div style="font-size:12px;color:#a03060;">💰 Cost totals — <strong style="color:#f070a0;">Tinza Pro R99/month</strong></div>')
     +'</div>'
     +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">'
       +'<div style="font-size:11px;color:#f070a0;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
@@ -629,9 +661,14 @@ function healthRecipeDetail(recipe, backState){
       <!-- Cost estimate box -->
       <div style="margin-top:12px;background:#1a1a08;border:1px solid #3a3010;border-radius:10px;padding:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8a8030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
-        ${recipe.costPP
-          ? `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`
-          : `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price not yet listed — update in prices.js</div>`}
+        ${(function(){
+          if(recipe.costPP) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`;
+          let t=0, m=0, n=0;
+          (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
+          t=Math.round(t);
+          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">${m}/${n} ingredients priced · Checkers/retail · Buy 10% extra</div>`;
+          return `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price estimate coming soon</div>`;
+        })()}
       </div>
 
       <!-- Actions -->
@@ -1045,9 +1082,14 @@ function healthExtDetail(recipe){
       <!-- Cost estimate box -->
       <div style="margin-top:12px;background:#1a1a08;border:1px solid #3a3010;border-radius:10px;padding:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8a8030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
-        ${totalCost
-          ? `<div style="font-size:18px;color:#f5c842;font-weight:bold;">${totalCost}</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`
-          : `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price not yet listed — update in prices.js</div>`}
+        ${(function(){
+          if(totalCost) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">${totalCost}</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`;
+          let t=0, m=0, n=0;
+          (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
+          t=Math.round(t);
+          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:10px;color:#4a5820;margin-top:4px;">${m}/${n} ingredients priced · Checkers/retail · Buy 10% extra</div>`;
+          return `<div style="font-size:13px;color:#6a6030;font-style:italic;">Price estimate coming soon</div>`;
+        })()}
       </div>
 
       <!-- Bottom actions -->
