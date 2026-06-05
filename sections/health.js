@@ -298,7 +298,7 @@ const RAW_AND_REAL = [
 
 function healthOpenJuice(id){
   const j = FRESH_JUICES.find(x=>x.id===id);
-  if(j) set({activeSmoothie:{...j, colour:'#f070a0', cat:'freshjuice'}});
+  if(j) set({activeSmoothie:{...j, colour:'#40d0a0', cat:'freshjuice'}});
 }
 function healthOpenSmoothie(id){
   const sm = SMOOTHIES.find(x=>x.id===id);
@@ -325,8 +325,8 @@ function healthTogglePlan(id, name, emoji, type, kcal, shopping, servings){
 
 function healthCheckbox(id, type){
   const inPlan = (S.healthPlan||[]).some(x=>x.id===id);
-  const bg = inPlan ? '#d04080' : 'transparent';
-  const br = inPlan ? '#d04080' : '#601040';
+  const bg = inPlan ? '#30c090' : 'transparent';
+  const br = inPlan ? '#30c090' : '#1a4030';
   const tick = inPlan ? '&#x2713;' : '';
   return '<div onclick="healthToggleById(\''+id+'\',\''+type+'\',S.servings)" style="width:24px;height:24px;border-radius:6px;background:'+bg+';border:2px solid '+br+';display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:#f5e8cc;">'+tick+'</div>';
 }
@@ -377,18 +377,18 @@ function renderHealthList(items, type, openFn, isPro){
       : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
       : type==='muffin' ? item.kcal+' kcal each · '+(srv*(item.makes||12))+' muffins'
       : (item.kcal*srv)+' kcal';
-    var cardBg   = sel ? '#2a0832' : disabled ? '#120810' : '#1a0820';
-    var cardBdr  = sel ? '#d04080' : disabled ? '#2a1020' : '#601040';
-    var cbBg     = sel ? '#d04080' : 'transparent';
-    var cbBdr    = sel ? '#d04080' : '#601040';
-    var nameCl   = sel ? '#f5e8cc' : '#e0c4d4';
-    var infoCl   = sel ? '#f070a0' : '#a03060';
+    var cardBg   = sel ? '#0a2018' : disabled ? '#120810' : '#0f1a10';
+    var cardBdr  = sel ? '#30c090' : disabled ? '#2a1020' : '#1a4030';
+    var cbBg     = sel ? '#30c090' : 'transparent';
+    var cbBdr    = sel ? '#30c090' : '#1a4030';
+    var nameCl   = sel ? '#f5e8cc' : '#c0e8c0';
+    var infoCl   = sel ? '#40d0a0' : '#208060';
     var onclk = disabled
       ? "alert('👑 Upgrade to Pro to unlock')"
       : 'healthToggleById(\''+item.id+'\',\''+type+'\',S.servings)';
     var recipeBtn = disabled
-      ? '<span style="font-size:10px;background:#1a0820;border:1px solid #803060;border-radius:6px;color:#a03060;padding:3px 7px;">👑 PRO</span>'
-      : '<button onclick="event.stopPropagation();'+openFn+'(\''+item.id+'\')" style="background:#2a0818;border:1px solid #d04080;border-radius:6px;padding:5px 10px;font-size:11px;color:#f070a0;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;">Recipe →</button>';
+      ? '<span style="font-size:10px;background:#0f1a10;border:1px solid #2a7058;border-radius:6px;color:#208060;padding:3px 7px;">👑 PRO</span>'
+      : '<button onclick="event.stopPropagation();'+openFn+'(\''+item.id+'\')" style="background:#14241a;border:1px solid #30c090;border-radius:6px;padding:5px 10px;font-size:11px;color:#40d0a0;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;">Recipe →</button>';
     return '<div style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.5:1)+';">'
       +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
       +'<div style="width:22px;height:22px;border-radius:6px;background:'+cbBg+';border:2px solid '+cbBdr+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#f5e8cc;">'+(sel?'✓':'')+'</div>'
@@ -396,7 +396,7 @@ function renderHealthList(items, type, openFn, isPro){
       +'<div style="flex:1;min-width:0;">'
         +'<div style="font-size:14px;color:'+nameCl+';font-weight:'+(sel?'bold':'normal')+';font-family:Georgia,serif;">'+item.name+'</div>'
         +'<div style="font-size:10px;color:'+infoCl+';margin-top:2px;">'+info+'</div>'
-        +(item.howItFeels?'<div style="font-size:10px;color:#803060;margin-top:1px;font-style:italic;">'+item.howItFeels+'</div>':'')
+        +(item.howItFeels?'<div style="font-size:10px;color:#2a7058;margin-top:1px;font-style:italic;">'+item.howItFeels+'</div>':'')
       +'</div>'
       +'<div style="display:flex;align-items:center;flex-shrink:0;">'+recipeBtn+'</div>'
       +'</div></div>';
@@ -458,9 +458,9 @@ function renderHealthMyPlan(isPro){
   if(plan.length===0){
     return '<div style="text-align:center;padding:40px 20px;">'
       +'<div style="font-size:40px;margin-bottom:16px;">📋</div>'
-      +'<div style="font-size:16px;color:#f070a0;margin-bottom:8px;font-family:Georgia,serif;">Your Health Plan is empty</div>'
-      +'<div style="font-size:13px;color:#a03060;margin-bottom:20px;">Tap any recipe checkbox to add to your plan</div>'
-      +'<button onclick="set({vitalCat:null,healthGroup:null})" style="padding:12px 24px;background:#1a0820;border:2px solid #d04080;border-radius:10px;color:#f070a0;font-size:14px;cursor:pointer;font-family:Georgia,serif;">← Browse Recipes</button>'
+      +'<div style="font-size:16px;color:#40d0a0;margin-bottom:8px;font-family:Georgia,serif;">Your Health Plan is empty</div>'
+      +'<div style="font-size:13px;color:#208060;margin-bottom:20px;">Tap any recipe checkbox to add to your plan</div>'
+      +'<button onclick="set({vitalCat:null,healthGroup:null})" style="padding:12px 24px;background:#0f1a10;border:2px solid #30c090;border-radius:10px;color:#40d0a0;font-size:14px;cursor:pointer;font-family:Georgia,serif;">← Browse Recipes</button>'
       +'</div>';
   }
   const shopMap = {};
@@ -488,59 +488,66 @@ function renderHealthMyPlan(isPro){
   var planPeople = S.servings||1;
   var planCostPP = planPeople>0 ? Math.round(planCostTotal/planPeople) : planCostTotal;
   var planHtml = plan.map(function(item){
-    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a0818;">'
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #14241a;">'
       +'<div style="display:flex;align-items:center;gap:10px;">'
       +'<span style="font-size:20px;">'+item.emoji+'</span>'
-      +'<div><div style="font-size:14px;color:#e0c4d4;font-family:Georgia,serif;">'+item.name+'</div>'
-      +'<div style="font-size:11px;color:#f070a0;margin-top:2px;">'+(item.servings||1)+' serving'+((item.servings||1)!==1?'s':'')+' · '+item.type+'</div></div></div>'
-      +'<button onclick="healthRemoveFromPlan(\''+item.id+'\')" style="background:#1a0820;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d04080;font-size:11px;cursor:pointer;font-family:Georgia,serif;">Remove</button>'
+      +'<div><div style="font-size:14px;color:#c0e8c0;font-family:Georgia,serif;">'+item.name+'</div>'
+      +'<div style="font-size:11px;color:#40d0a0;margin-top:2px;">'+(item.servings||1)+' serving'+((item.servings||1)!==1?'s':'')+' · '+item.type+'</div></div></div>'
+      +'<button onclick="healthRemoveFromPlan(\''+item.id+'\')" style="background:#0f1a10;border:1px solid #1a4030;border-radius:6px;padding:4px 10px;color:#30c090;font-size:11px;cursor:pointer;font-family:Georgia,serif;">Remove</button>'
       +'</div>';
   }).join('');
   var shopHtml = shopItems.length===0
-    ? '<div style="color:#a03060;font-size:12px;padding:8px 0;">Add recipes with ingredients to see your list</div>'
+    ? '<div style="color:#208060;font-size:12px;padding:8px 0;">Add recipes with ingredients to see your list</div>'
     : shopItems.map(function(item){
         var ck = checked['h_'+item.key] || false;
         var totalStr = item.total>=1000&&item.unit==='g'?(item.total/1000).toFixed(1)+'kg'
           :item.total>=1000&&item.unit==='ml'?(item.total/1000).toFixed(1)+'L'
           :Math.round(item.total*10)/10+(item.unit||'');
-        return '<div onclick="healthToggleShopItem(&quot;h_'+item.key+'&quot;)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0818;cursor:pointer;opacity:'+(ck?0.35:1)+';">'
-          +'<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(ck?'#d04080':'#601040')+';background:'+(ck?'#d04080':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(ck?'<span style="color:#f5e8cc;font-size:11px;">✓</span>':'')+'</div>'
-          +'<div style="flex:1;"><div style="font-size:13px;color:'+(ck?'#3a1020':'#e0c4d4')+';">'+item.name+'</div>'
-          +'<div style="font-size:10px;color:#803060;">'+item.source+'</div></div>'
-          +'<div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:'+(ck?'#3a1020':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
-          +(item.cost!=null?'<div style="font-size:11px;color:'+(ck?'#3a1020':'#40d0a0')+';">R'+Math.round(item.cost)+'</div>':'<div style="font-size:9px;color:#6a6030;">price needed</div>')
+        return '<div onclick="healthToggleShopItem(&quot;h_'+item.key+'&quot;)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #0f1a10;cursor:pointer;opacity:'+(ck?0.35:1)+';">'
+          +'<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(ck?'#30c090':'#1a4030')+';background:'+(ck?'#30c090':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(ck?'<span style="color:#f5e8cc;font-size:11px;">✓</span>':'')+'</div>'
+          +'<div style="flex:1;"><div style="font-size:13px;color:'+(ck?'#1a3020':'#c0e8c0')+';">'+item.name+'</div>'
+          +'<div style="font-size:10px;color:#2a7058;">'+item.source+'</div></div>'
+          +'<div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:'+(ck?'#1a3020':'#f5c842')+';font-weight:bold;">'+totalStr+'</div>'
+          +(item.cost!=null?'<div style="font-size:11px;color:'+(ck?'#1a3020':'#40d0a0')+';">R'+Math.round(item.cost)+'</div>':'<div style="font-size:9px;color:#6a6030;">price needed</div>')
           +'</div>'
           +'</div>';
       }).join('');
   var kcalPerPerson = plan.reduce(function(sum,i){return sum+(i.kcal||0);},0);
-  return '<div style="font-size:16px;color:#f070a0;font-weight:bold;margin-bottom:4px;font-family:Georgia,serif;">📋 My Health Plan</div>'
-    +'<div style="font-size:12px;color:#a03060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' · '+(S.servings||1)+' person'+((S.servings||1)!==1?'s':'')+' · '+kcalPerPerson+' kcal/person</div>'
-    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
+  return '<div style="font-size:16px;color:#40d0a0;font-weight:bold;margin-bottom:4px;font-family:Georgia,serif;">📋 My Health Plan</div>'
+    +'<div style="font-size:12px;color:#208060;margin-bottom:14px;">'+plan.length+' recipe'+(plan.length!==1?'s':'')+' · '+(S.servings||1)+' person'+((S.servings||1)!==1?'s':'')+' · '+kcalPerPerson+' kcal/person</div>'
+    +'<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
     +(isPro
-      ? '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#d04080;">🔥 Calories per person</div><div style="font-size:10px;color:#803060;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#f070a0;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:12px;"> kcal</span></div></div></div>'
-      : '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:#a03060;">🔥 Calorie counter — <strong style="color:#f070a0;">Tinza Pro R99/month</strong></div></div>')
-    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      +'<div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
+      ? '<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#30c090;">🔥 Calories per person</div><div style="font-size:10px;color:#2a7058;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#40d0a0;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:12px;"> kcal</span></div></div></div>'
+      : '<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:#208060;">🔥 Calorie counter — <strong style="color:#40d0a0;">Tinza Pro R99/month</strong></div></div>')
+    +'<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      +'<div style="font-size:10px;letter-spacing:2px;color:#2a7058;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
       +(isPro
         ? (planCostMatched>0
-            ? '<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#a03060;">Total for '+planPeople+' person'+(planPeople!==1?'s':'')+'</div><div style="font-size:24px;color:#f5c842;font-weight:bold;">R'+planCostTotal.toLocaleString()+'</div></div>'
-                +'<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:8px;border-top:1px solid #2a0818;"><div style="font-size:12px;color:#803060;">Per person</div><div style="font-size:16px;color:#f070a0;font-weight:bold;">R'+planCostPP+'</div></div>'
-                +'<div style="font-size:10px;color:#603040;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · Checkers/retail prices · Always buy 10% extra</div>'
-            : '<div style="font-size:13px;color:#603040;font-style:italic;">No priced ingredients yet — add recipes with weighed ingredients to see a cost.</div>')
-        : '<div style="font-size:12px;color:#a03060;">💰 Cost totals — <strong style="color:#f070a0;">Tinza Pro R99/month</strong></div>')
+            ? '<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#208060;">Total for '+planPeople+' person'+(planPeople!==1?'s':'')+'</div><div style="font-size:24px;color:#f5c842;font-weight:bold;">R'+planCostTotal.toLocaleString()+'</div></div>'
+                +'<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:8px;border-top:1px solid #14241a;"><div style="font-size:12px;color:#2a7058;">Per person</div><div style="font-size:16px;color:#40d0a0;font-weight:bold;">R'+planCostPP+'</div></div>'
+                +'<div style="font-size:10px;color:#2a6048;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · Checkers/retail prices · Always buy 10% extra</div>'
+            : '<div style="font-size:13px;color:#2a6048;font-style:italic;">No priced ingredients yet — add recipes with weighed ingredients to see a cost.</div>')
+        : '<div style="font-size:12px;color:#208060;">💰 Cost totals — <strong style="color:#40d0a0;">Tinza Pro R99/month</strong></div>')
     +'</div>'
-    +'<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">'
-      +'<div style="font-size:11px;color:#f070a0;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
-      +'<div style="font-size:11px;color:#a07080;line-height:1.8;font-family:Georgia,serif;"><b style="color:#e0c4d4;">Drinks & smoothies</b> — fixed portion (200–300ml).<br><b style="color:#e0c4d4;">Muffins</b> — 1 muffin per person.<br><b style="color:#e0c4d4;">Meals & salads</b> — pizza rule: 1 dish = full plate. 2 = half each.<br><span style="color:#803060;font-size:10px;">Tip: plan 1 drink + 1–2 meals for a full day.</span></div>'
+    +'<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;">'
+      +'<div style="font-size:11px;color:#40d0a0;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
+      +'<div style="font-size:11px;color:#80b890;line-height:1.8;font-family:Georgia,serif;"><b style="color:#c0e8c0;">Drinks & smoothies</b> — fixed portion (200–300ml).<br><b style="color:#c0e8c0;">Muffins</b> — 1 muffin per person.<br><b style="color:#c0e8c0;">Meals & salads</b> — pizza rule: 1 dish = full plate. 2 = half each.<br><span style="color:#2a7058;font-size:10px;">Tip: plan 1 drink + 1–2 meals for a full day.</span></div>'
     +'</div>'
-    +'<div style="font-size:10px;letter-spacing:2px;color:#f070a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>'
+    +'<div style="font-size:10px;letter-spacing:2px;color:#40d0a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>'
     +(isPro
-      ? '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:11px;color:#a03060;margin-bottom:8px;">Tap items you already have to tick them off</div>'+shopHtml+(shopItems.length>0?'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #2a0818;display:flex;justify-content:space-between;"><span style="font-size:11px;color:#a03060;">'+shopItems.filter(function(i){return !checked['h_'+i.key];}).length+' of '+shopItems.length+' items remaining</span><button onclick="set({checkedHealthItems:{}})" style="background:none;border:none;color:#d04080;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>':'')+'</div>'
-      : '<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#f070a0;font-weight:bold;margin-bottom:6px;font-family:Georgia,serif;">Full Shopping List</div><div style="font-size:12px;color:#803060;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div><div style="font-size:13px;color:#d04080;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>')
+      ? '<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:11px;color:#208060;margin-bottom:8px;">Tap items you already have to tick them off</div>'+shopHtml+(shopItems.length>0?'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #14241a;display:flex;justify-content:space-between;"><span style="font-size:11px;color:#208060;">'+shopItems.filter(function(i){return !checked['h_'+i.key];}).length+' of '+shopItems.length+' items remaining</span><button onclick="set({checkedHealthItems:{}})" style="background:none;border:none;color:#30c090;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>':'')+'</div>'
+      : '<div style="background:#0f1a10;border:1px solid #1a4030;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#40d0a0;font-weight:bold;margin-bottom:6px;font-family:Georgia,serif;">Full Shopping List</div><div style="font-size:12px;color:#2a7058;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div><div style="font-size:13px;color:#30c090;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>')
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
-    +'<button onclick="healthSharePlan()" style="padding:14px;border-radius:10px;border:1px solid #601040;background:#1a0820;color:#d04080;font-size:12px;cursor:pointer;font-family:Georgia,serif;">📲 Share Plan</button>'
-    +(isPro?'<button onclick="healthShareShoppingList()" style="padding:14px;border-radius:10px;border:2px solid #d04080;background:#2a0818;color:#f070a0;font-size:12px;cursor:pointer;font-family:Georgia,serif;">📲 Share List</button>':'<div></div>')
-    +'</div>';
+    +'<button onclick="healthSharePlan()" style="padding:14px;border-radius:10px;border:2px solid #25d366;background:#0a1f12;color:#25d366;font-size:12px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;line-height:1.4;">📲 Share Plan<br><span style="font-size:9px;opacity:0.7;">🆓 Free</span></button>'
+    +(isPro
+      ? '<button onclick="healthShareShoppingList()" style="padding:14px;border-radius:10px;border:2px solid #25d366;background:#0a1f12;color:#25d366;font-size:12px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;line-height:1.4;">📲 Share + Shopping List<br><span style="font-size:9px;opacity:0.7;">👑 Pro</span></button>'
+      : '<button style="padding:14px;border-radius:10px;border:2px solid #1a1808;background:#0f0e0c;color:#2a4030;font-size:12px;cursor:not-allowed;line-height:1.4;">🔒 Full List<br><span style="font-size:9px;">👑 Pro only</span></button>')
+    +'</div>'
+    +(isPro
+      ? '<button onclick="window.print()" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181408;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">🖨️ Print / Save as PDF <span style="font-size:10px;opacity:0.7;">👑 Pro</span></button>'
+      : '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1808;color:#2a4030;font-size:13px;margin-bottom:10px;">🔒 Print / Save as PDF — Pro only</button>')
+    +'<button onclick="set({healthPlan:[],checkedHealthItems:{},healthShowPlan:false})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0a2018;border:2px solid #30c090;color:#40d0a0;font-size:13px;margin-bottom:10px;font-weight:bold;">🔄 Start a New Health Plan</button>'
+    +'<button onclick="set({healthShowPlan:false})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0f0e0c;border:1px solid #1a4030;color:#208060;font-size:13px;margin-bottom:20px;">← Back to Browse</button>';
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -603,11 +610,11 @@ function healthRecipeDetail(recipe, backState){
         <span style="font-size:11px;color:#256040;">📷 Photo coming soon</span>
       </div>
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
-      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #d04080;border-radius:20px;color:#f070a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid #30c090;border-radius:20px;color:#40d0a0;font-size:12px;padding:5px 12px;cursor:pointer;">← Back</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
         <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
         <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${recipe.name}</h1>
-        ${recipe.feel?`<p style="margin:0;font-size:12px;color:#d090b0;font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
+        ${recipe.feel?`<p style="margin:0;font-size:12px;color:#80c8a0;font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
       </div>
     </div>
 
@@ -686,19 +693,17 @@ function healthRecipeDetail(recipe, backState){
         </div>`;
       })()}
 
-      <!-- Actions -->
-      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
-        <button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)"
-          style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
-          ${inPlan?'✅ In Plan — tap to remove':'＋ Add to My Health Plan'}
-        </button>
-        ${isPro
-          ? `<button onclick="set({healthShowPlan:true})" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0a1a10;border:2px solid #1a4030;color:#30c090;font-size:13px;">🛒 View My Plan & Shopping List</button>
-             <button onclick="window.print()" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0a1a10;border:1px solid #1a4030;color:#208060;font-size:13px;">🖨️ Print / Save as PDF 👑</button>`
-          : `<button onclick="alert('👑 Upgrade to Pro for shopping list, cost totals & download')" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0f1208;border:2px dashed #1a4020;color:#206030;font-size:13px;">🔒 Shopping List + PDF — Pro only</button>`}
-        <div style="display:flex;gap:8px;">
-          <button onclick="set({${backBtn}})" style="flex:1;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back</button>
-          <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="flex:1;padding:12px;background:none;border:1px solid #1a2018;border-radius:10px;color:#304030;font-size:12px;cursor:pointer;">Home</button>
+      <!-- Actions (braai pattern) -->
+      <div style="margin-top:20px;">
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:bold;${inPlan?'background:#0a2018;border:1px solid #40d0a0;color:#40d0a0;':'background:#30c090;border:1px solid #30c090;color:#04120a;'}">${inPlan?'✅ In Plan':'📋 Add to Plan'}</button>
+          <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a4030;color:#50a878;font-size:12px;cursor:pointer;">💾 My Kitchen</button>
+          <button onclick="alert('Download — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a4030;color:#50a878;font-size:12px;cursor:pointer;">⬇️ Download</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid #1a4030;font-size:12px;">
+          <button onclick="set({${backBtn}})" style="background:none;border:none;color:#40d0a0;cursor:pointer;">← Back</button>
+          <button onclick="set({healthShowPlan:true})" style="background:none;border:none;color:#40d0a0;cursor:pointer;">🛒 My Plan</button>
+          <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="background:none;border:none;color:#304030;cursor:pointer;">Home</button>
         </div>
       </div>
     </div>
@@ -1172,19 +1177,17 @@ function healthExtDetail(recipe){
         </div>`;
       })()}
 
-      <!-- Bottom actions -->
-      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
-        <button onclick="healthToggleExtById('${recipe.id}')"
-          style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:${inPlan?'#0a2018':'#1a3028'};border:2px solid ${inPlan?'#40d0a0':'#30c090'};color:${inPlan?'#40d0a0':'#c0e8c0'};font-size:14px;font-weight:bold;">
-          ${inPlan?'✅ In Plan — tap to remove':'＋ Add to My Health Plan'}
-        </button>
-        ${isPro
-          ? `<button onclick="set({healthShowPlan:true})" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0a1a10;border:2px solid #1a4030;color:#30c090;font-size:13px;">🛒 View My Plan & Shopping List</button>
-             <button onclick="window.print()" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0a1a10;border:1px solid #1a4030;color:#208060;font-size:13px;">🖨️ Print / Save as PDF 👑</button>`
-          : `<button onclick="alert('👑 Upgrade to Pro for shopping list, cost totals & download')" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#0f1208;border:2px dashed #1a4020;color:#206030;font-size:13px;">🔒 Shopping List + PDF — Pro only</button>`}
-        <div style="display:flex;gap:8px;">
-          <button onclick="if(S.healthGroup){set({activeHealthExt:null})}else{set({activeHealthExt:null,screen:'health'})}" style="flex:1;padding:12px;background:#0f1a18;border:1px solid #1a4035;border-radius:10px;color:#208060;font-size:13px;cursor:pointer;">← Back</button>
-          <button onclick="set({screen:'home',activeHealthExt:null,healthGroup:null,healthGroupTab:null})" style="flex:1;padding:12px;background:none;border:1px solid #1a2018;border-radius:10px;color:#304030;font-size:12px;cursor:pointer;">Home</button>
+      <!-- Bottom actions (braai pattern) -->
+      <div style="margin-top:20px;">
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button onclick="healthToggleExtById('${recipe.id}')" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:bold;${inPlan?'background:#0a2018;border:1px solid #40d0a0;color:#40d0a0;':'background:#30c090;border:1px solid #30c090;color:#04120a;'}">${inPlan?'✅ In Plan':'📋 Add to Plan'}</button>
+          <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a4030;color:#50a878;font-size:12px;cursor:pointer;">💾 My Kitchen</button>
+          <button onclick="alert('Download — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a4030;color:#50a878;font-size:12px;cursor:pointer;">⬇️ Download</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid #1a4030;font-size:12px;">
+          <button onclick="if(S.healthGroup){set({activeHealthExt:null})}else{set({activeHealthExt:null,screen:'health'})}" style="background:none;border:none;color:#40d0a0;cursor:pointer;">← Back</button>
+          <button onclick="set({healthShowPlan:true})" style="background:none;border:none;color:#40d0a0;cursor:pointer;">🛒 My Plan</button>
+          <button onclick="set({screen:'home',activeHealthExt:null,healthGroup:null,healthGroupTab:null})" style="background:none;border:none;color:#304030;cursor:pointer;">Home</button>
         </div>
       </div>
     </div>
