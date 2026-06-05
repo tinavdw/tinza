@@ -372,8 +372,8 @@ function openEvent(id,t){
   const r = all.find(x=>x.id===id);
   if(r){
     const root=document.getElementById("root");
-    if(root) root._savedScroll = window.scrollY;
-    const obj=Object.assign({},r,{_type:t}); setQuiet({eventActiveRecipe:obj});
+    if(root) root._savedScroll = 0;   // open recipe scrolled to the top, not the list position
+    const obj=Object.assign({},r,{_type:t}); set({eventActiveRecipe:obj});
   }
 }
 function toggle(arr,id){ return arr.includes(id)?arr.filter(x=>x!==id):[...arr,id]; }
