@@ -1306,7 +1306,7 @@ function wkRecipeCard(r){
   var disp = (typeof tinzaDisplayName === 'function')
     ? tinzaDisplayName(r)
     : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
-  return '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+r.country+'\',wkDataRecipe:\''+r.id+'\'});window.scrollTo(0,0);" '
+  return '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\')" '
     + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">'
     + '<div style="flex:1;"><div style="font-size:14px;color:#c8b898;">'+disp+'</div>'
     + '<div style="font-size:10px;color:#3a5040;margin-top:2px;">'+r.country+(r.cookTime?(' · '+r.cookTime):'')+'</div></div>'
@@ -1609,6 +1609,23 @@ function wkPlanSetServings(id, servings){
   if(i > -1){ p[i] = { id:id, servings:Math.max(1,servings) }; set({ wkPlan:p }); }
 }
 
+/* ── scroll-aware recipe nav: remember list position, restore on back ──
+   feeds draw()'s _savedScroll (same mechanism openEvent uses) so we work
+   WITH the core scroll logic, never against it. No core.js changes. */
+function wkOpenRecipe(country, id, servings){
+  var root = document.getElementById('root');
+  S.wkListScroll = window.scrollY;            // remember where the list was
+  if(root) root._savedScroll = 0;             // recipe opens at the top
+  var upd = { wkScreen:'wkdata', wkDataCountry:country, wkDataRecipe:id };
+  if(servings) upd.wkServings = servings;
+  set(upd);
+}
+function wkBackFromRecipe(){
+  var root = document.getElementById('root');
+  if(root) root._savedScroll = (S.wkListScroll || 0);   // land back where we were
+  set({ wkDataRecipe:null });
+}
+
 /* ── v33 RECIPE DETAIL ── */
 function wkDetailV33(r, country){
   var green='#30a878', cream='#f5e8cc';
@@ -1704,14 +1721,14 @@ function wkDetailV33(r, country){
   return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
     + '<div style="position:relative;">'
     +   photo
-    +   '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
+    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
     + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
     +   '<div style="font-size:11px;color:#2a6040;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
     +   metaBox + stepper + costBox + planBtn + ingBox + subsBox + methodBox + extra
     +   '<div style="display:flex;justify-content:space-between;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
-    +     '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
+    +     '<button onclick="wkBackFromRecipe()" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
     +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
     +   '</div></div></div>';
 }
@@ -1788,7 +1805,7 @@ function wkMyPlanView(){
     var c = wkCostRecipe(r, n);
     return '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
-      +   '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+r.country+'\',wkDataRecipe:\''+r.id+'\',wkServings:'+n+'});window.scrollTo(0,0);" style="flex:1;cursor:pointer;">'
+      +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+n+')" style="flex:1;cursor:pointer;">'
       +     '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
       +     '<div style="font-size:10px;color:#3a6050;margin-top:2px;">'+r.country+(c.priced?(' · ~R'+c.total):'')+'</div>'
       +   '</div>'
