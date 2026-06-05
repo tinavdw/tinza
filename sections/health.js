@@ -935,8 +935,11 @@ function healthGroupScreen(isPro, srv){
         const openCall = tabDef.openFn
           ? tabDef.openFn+'(\''+item.id+'\')'
           : 'healthOpenExt(\''+item.id+'\',\''+tabDef.arr+'\',\''+grp+'\',\''+activeTab+'\')';
-        const onclk = disabled ? "alert('👑 Upgrade to Pro to unlock')" :
-          tabDef.openFn ? tabDef.openFn+'(\''+item.id+'\')' : 'healthToggleExtById(\''+item.id+'\')';
+        const typeMap = {FRESH_JUICES:'juice',SMOOTHIES:'smoothie',OVERNIGHT_OATS:'oats',HEALTHY_MUFFINS:'muffin',RAW_AND_REAL:'raw'};
+        const toggleCall = typeMap[tabDef.arr]
+          ? 'healthToggleById(\''+item.id+'\',\''+typeMap[tabDef.arr]+'\',S.servings)'
+          : 'healthToggleExtById(\''+item.id+'\')';
+        const onclk = disabled ? "alert('👑 Upgrade to Pro to unlock')" : toggleCall;
         const btn = disabled
           ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>'
           : '<button onclick="event.stopPropagation();'+openCall+'" style="background:#208060;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>';

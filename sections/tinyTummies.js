@@ -268,6 +268,7 @@ function dogPlanBtn(){
 }
 
 function dogMyPlanView(){
+  if(S.furryCombined) return furryCombinedPlanView();
   const planIds = S.dogPlan||[];
   const size = S.dogSize||'medium';
   const age = S.dogAge||'adult';
@@ -318,6 +319,7 @@ function dogMyPlanView(){
           </div>`).join('')}
       </div>
       <div style="font-size:11px;color:#7060a0;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:10px;margin-bottom:14px;">${DOG_AGE_NOTES[age]||''}</div>
+      ${(S.catPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#7060a0;margin-top:2px;">${(S.catPlan||[]).length} cat recipe${(S.catPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
       ${costCardHTML}
       <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
@@ -502,6 +504,7 @@ function catPlanBtn(){
 }
 
 function catMyPlanView(){
+  if(S.furryCombined) return furryCombinedPlanView();
   const planIds = S.catPlan||[];
   const age = S.catAge||'adult';
   const count = S.catCount||1;
@@ -550,6 +553,7 @@ function catMyPlanView(){
           </div>`).join('')}
       </div>
       <div style="font-size:11px;color:#a06030;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:10px;margin-bottom:14px;">${CAT_AGE_NOTES[age]||''}</div>
+      ${(S.dogPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#7060a0;margin-top:2px;">${(S.dogPlan||[]).length} dog recipe${(S.dogPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
       ${costCardHTML}
       <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
@@ -717,3 +721,77 @@ function catRecipeHTML_screen(){
   </div>`;
 }
 
+// ── COMBINED DOG + CAT PLAN ───────────────────────────────────────
+// One shopping trip for households with both pets. Reuses each pet's
+// own multipliers, then merges identical ingredients into one line.
+function furryBuildPetItems(planIds, recipesObj, totalMult){
+  const all = Object.values(recipesObj).flat();
+  const chosen = all.filter(r=>planIds.includes(r.id));
+  const map = {};
+  chosen.forEach(r=>{
+    (r.base||[]).forEach(i=>{
+      if(!i||!i.n||!i.pp||typeof i.pp!=='number') return;
+      const key = i.n.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
+      const amt = i.pp * totalMult;
+      if(map[key]){ map[key].raw+=amt; if(!map[key].dishes.includes(r.name)) map[key].dishes.push(r.name); }
+      else map[key]={name:i.n,raw:amt,unit:i.u,dishes:[r.name]};
+    });
+  });
+  return {recipes:chosen, map};
+}
+function furryCombinedPlanView(){
+  const dSize=S.dogSize||'medium', dAge=S.dogAge||'adult', dCount=S.dogCount||1;
+  const dMult=(DOG_SIZE_MULT[dSize]||1)*(DOG_AGE_MULT[dAge]||1)*dCount;
+  const cAge=S.catAge||'adult', cCount=S.catCount||1;
+  const cMult=(CAT_AGE_MULT[cAge]||1)*cCount;
+  const dog = furryBuildPetItems(S.dogPlan||[], DOG_RECIPES, dMult);
+  const cat = furryBuildPetItems(S.catPlan||[], CAT_RECIPES, cMult);
+  const merged = {};
+  function fold(map, pet){
+    Object.keys(map).forEach(k=>{
+      const it=map[k];
+      if(merged[k]){ merged[k].raw+=it.raw; it.dishes.forEach(d=>{ if(!merged[k].dishes.includes(d)) merged[k].dishes.push(d); }); if(!merged[k].pets.includes(pet)) merged[k].pets.push(pet); }
+      else merged[k]={name:it.name,raw:it.raw,unit:it.unit,dishes:it.dishes.slice(),pets:[pet]};
+    });
+  }
+  fold(dog.map,'🐾'); fold(cat.map,'🐱');
+  function fmt(raw,unit){
+    if(!raw) return unit||'';
+    if(unit==='egg') return Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'');
+    if((unit==='g'||unit==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(unit==='g'?'kg':'L');
+    return Math.round(raw*10)/10+(unit||'');
+  }
+  const allItems = Object.values(merged).filter(i=>i.raw>0).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
+  const costCardHTML = ttCostCard(allItems, '#5a8010');
+  const dN=dog.recipes.length, cN=cat.recipes.length;
+  const waText = '🐾🐱 *Combined Pet Shopping List*\n'+dCount+' '+dSize+' dog'+(dCount>1?'s':'')+' · '+cCount+' cat'+(cCount>1?'s':'')+'\n\n'+allItems.map(i=>'• '+i.name+': '+fmt(i.raw,i.unit)).join('\n');
+  function recipeRows(recipes, planKey, removeColor){
+    return recipes.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #241830;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">${r.emoji}</span><div style="font-size:14px;color:#f5e8cc;">${r.name}</div></div><button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:${removeColor};font-size:11px;cursor:pointer;">✕ Remove</button></div>`).join('');
+  }
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+    <div style="background:#140f1c;border-bottom:1px solid #6040b0;padding:14px 20px;">
+      <button onclick="setQuiet({furryCombined:false})" style="background:none;border:none;color:#b090f0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to single plans</button>
+      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🐾🐱 Combined Pet Plan</h1>
+      <p style="margin:0;font-size:11px;color:#9080b0;">${dCount} ${dSize} dog${dCount>1?'s':''} · ${cCount} cat${cCount>1?'s':''} · ${dN+cN} recipe${(dN+cN)!==1?'s':''}</p>
+    </div>
+    <div class="content">
+      ${dN>0?`<div style="font-size:10px;letter-spacing:2px;color:#7060c0;text-transform:uppercase;margin:4px 0 6px;">🐾 Dog recipes</div><div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(dog.recipes,'dogPlan','#8a5080')}</div>`:''}
+      ${cN>0?`<div style="font-size:10px;letter-spacing:2px;color:#a06030;text-transform:uppercase;margin:4px 0 6px;">🐱 Cat recipes</div><div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(cat.recipes,'catPlan','#8a5020')}</div>`:''}
+      ${(dN+cN)===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">Add dog and cat recipes to build a combined list.</p>':''}
+      ${costCardHTML}
+      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">🛒 Combined Shopping List</div>
+      <div style="background:#120f14;border:1px solid #4a3060;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
+        <div style="font-size:11px;color:#7060a0;padding:8px 0 4px;">✅ Tap items you already have · one trip for both pets</div>
+        ${allItems.length===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':allItems.map(i=>{
+            const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
+            const inCart=(S.fingerShopCart||{})[key];
+            const petTag=' <span style="font-size:10px;color:#7060a0;">'+i.pets.join('')+'</span>';
+            return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f20;cursor:pointer;opacity:${inCart?0.35:1};"><div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#9070e0':'#4a3060'};background:${inCart?'#9070e0':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div><span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c8b0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${petTag}</span><div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}</div></div>`;
+          }).join('')}
+      </div>
+      <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #6060c0;background:#1a1a2e;color:#a0a0f0;font-size:13px;cursor:pointer;">🖨️ Print / Save as PDF</button>
+      <a href="https://wa.me/?text=${encodeURIComponent(waText)}" target="_blank" style="display:block;width:100%;padding:13px;margin-bottom:8px;border-radius:10px;border:2px solid #25d366;background:#0a1a0a;color:#25d366;font-size:13px;text-align:center;text-decoration:none;box-sizing:border-box;">📲 Send Combined List via WhatsApp</a>
+      <button onclick="setQuiet({furryCombined:false})" style="width:100%;padding:12px;margin-bottom:20px;border-radius:10px;border:2px solid #9070e0;background:#120f1a;color:#b090f0;font-size:13px;cursor:pointer;">← Back to single plans</button>
+    </div>
+  </div>`;
+}
