@@ -10,6 +10,9 @@ function worldKitchenHTML(){
   if(S.wkScreen === 'wkdata'){
     return wkDataCountryHTML();
   }
+  if(S.wkScreen === 'wkplan'){
+    return wkMyPlanView();
+  }
   return wkWorldHome();
 
   // ── OLD MAP SCREEN (no longer reached — kept for reference) ─────────
@@ -1410,48 +1413,7 @@ function wkDataCountryHTML(){
         + '<button onclick="set({wkDataRecipe:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
         + '<p style="margin-top:20px;">Recipe not found.</p></div>';
     }
-    var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
-    var ingList = (r.ingredients||'').split('·').map(function(x){return x.trim();}).filter(Boolean);
-    var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
-
-    var metaBox = '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-      + (r.cookTime ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">⏱ '+r.cookTime+'</span>' : '')
-      + (r.kcal ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">🔥 '+r.kcal+'</span>' : '')
-      + '</div>';
-
-    var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · per serving</div>'
-      + ingList.map(function(x){return '<div style="font-size:13px;color:#c0d0c4;padding:5px 0;border-bottom:1px solid #14241a;">• '+x+'</div>';}).join('')
-      + (r.ingredients12 ? '<div style="font-size:11px;color:#3a6050;margin-top:10px;font-style:italic;">For 12 servings: '+r.ingredients12+'</div>' : '')
-      + '</div>';
-
-    var methodBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">Method</div>'
-      + steps.map(function(s,si){return '<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div><div style="font-size:13px;color:#c0d0c4;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')+'</div></div>';}).join('')
-      + '</div>';
-
-    function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:11px;">'+label+': </span><span style="font-size:12px;color:#a0b8a8;">'+val+'</span></div>' : ''; }
-    var extra = (r.chefNotes||r.pairsWith||r.nutrition||r.storage||r.trivia)
-      ? '<div style="background:#0b140f;border:1px solid #15281c;border-radius:10px;padding:14px;margin-bottom:12px;font-family:Georgia,serif;">'
-        + infoRow('👩‍🍳 Chef notes', r.chefNotes)
-        + infoRow('🍷 Pairs with', r.pairsWith)
-        + infoRow('📊 Nutrition', r.nutrition)
-        + infoRow('🧊 Storage', r.storage)
-        + infoRow('💡 Did you know', r.trivia)
-        + '</div>'
-      : '';
-
-    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
-      + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
-      +   '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← '+country+'</button>'
-      +   '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+disp+'</h1>'
-      +   '<div style="font-size:11px;color:#2a6040;margin-top:2px;">'+r.country+'</div>'
-      + '</div>'
-      + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+metaBox+ingBox+methodBox+extra
-      +   '<div style="display:flex;justify-content:space-between;padding:6px 0 30px;border-top:1px solid #1a3020;font-size:12px;">'
-      +     '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
-      +     '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:#3a5040;cursor:pointer;font-family:Georgia,serif;">World Kitchen</button>'
-      +   '</div></div></div>';
+    return wkDetailV33(r, country);
   }
 
   // ── COUNTRY LIST ──
@@ -1475,9 +1437,389 @@ function wkDataCountryHTML(){
   return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
     + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
     +   '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
-    +   '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+country+'</h1>'
-    +   '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p>'
+    +   '<div style="display:flex;justify-content:space-between;align-items:flex-end;">'
+    +     '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+country+'</h1>'
+    +     '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p></div>'
+    +     '<button onclick="set({wkScreen:\'wkplan\'});window.scrollTo(0,0);" style="background:#0a1a10;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
+    +   '</div>'
     + '</div>'
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
     + '</div>';
+}
+
+
+/* ============================================================
+   Tinza — World Kitchen · Stage 2 engine  (appended to worldkitchen.js)
+   v33 recipe detail · per-person serving stepper · partial PRICE_DB
+   costing · "to taste" handling · SA substitutions · My Plan + shopping.
+   Self-contained. No core.js dependency except recipePhoto() & set()/S.
+   ============================================================ */
+
+/* ── SA substitution notes (handoff: niter kibbeh → ghee, etc.) ──
+   Keyed by a lowercase substring that may appear in an ingredient name.
+   Surfaced as a "🇿🇦 SA swaps" box on any recipe that uses them.        */
+var WK_SUBS = {
+  "niter kibbeh": "Niter kibbeh → use ghee (or clarified butter) simmered 2 min with a pinch of cardamom, cumin & turmeric.",
+  "berbere":      "Berbere → mix paprika + cayenne + a pinch each of cumin, coriander, ginger & cinnamon.",
+  "injera":       "Injera → a thin sourdough wrap or store pancake works as a scoop if teff isn't available.",
+  "teff":         "Teff flour → swap with a 50/50 wholewheat + cake flour mix (texture differs slightly).",
+  "harissa":      "Harissa → blend tomato paste + chilli + garlic + a little olive oil & cumin.",
+  "ras el hanout":"Ras el hanout → cumin + coriander + cinnamon + paprika + a pinch of ginger & nutmeg.",
+  "scotch bonnet":"Scotch bonnet → habanero, or any fiery chilli (use less — they're milder here).",
+  "scent leaves": "Scent leaves (uziza/utazi) → fresh basil is the closest easy swap.",
+  "crayfish":     "Ground crayfish → a little anchovy paste or fish sauce gives the same umami, or simply omit.",
+  "egusi":        "Egusi (melon seed) → ground pumpkin seeds or ground sunflower seeds.",
+  "fufu":         "Fufu → mashed potato or polenta-style maize meal makes an easy stand-in.",
+  "orzo":         "Orzo → any tiny pasta, or a handful of broken spaghetti / rice.",
+  "fava bean":    "Fava (broad) beans → tinned butter beans are the easiest local swap.",
+  "black-eyed pea":"Black-eyed peas → available at most SA shops; sugar beans work in a pinch.",
+  "plantain":     "Plantain → use a firm, very-green (under-ripe) banana, fried.",
+  "millet flour": "Millet flour → maize meal / corn flour works for tuo zaafi-style dishes."
+};
+
+/* ── parse a per-person ingredient string into structured items ──
+   handles: "40g rice" · "10ml veg oil" · "3g cardamom + cinnamon"
+            "1/4 egg (scale accordingly)" · "Pinch salt"
+            "cumin, salt, chilli" (comma list → separate to-taste lines)      */
+function wkParseQty(t){
+  t = String(t).trim();
+  var uni = {"¼":0.25,"½":0.5,"¾":0.75,"⅓":0.333,"⅔":0.667,"⅛":0.125};
+  if(uni[t] != null) return uni[t];
+  if(/^\d+\/\d+$/.test(t)){ var p=t.split('/'); return parseFloat(p[0])/parseFloat(p[1]); }
+  var f = parseFloat(t);
+  return isNaN(f) ? null : f;
+}
+
+function wkParseIngredients(str){
+  var out = [];
+  if(!str) return out;
+  str.split('·').forEach(function(chunk){
+    chunk = chunk.trim();
+    if(!chunk) return;
+
+    // pull out a parenthetical note, keep the rest for parsing
+    var note = '';
+    var nm = chunk.match(/\(([^)]*)\)/);
+    if(nm) note = nm[1].trim();
+    var body = chunk.replace(/\([^)]*\)/g,'').trim();
+
+    // leading quantity? "40g rice", "1/4 egg", "3g cardamom + cinnamon"
+    var m = body.match(/^([0-9]+\/[0-9]+|[0-9]+(?:\.[0-9]+)?|[¼½¾⅓⅔⅛])\s*(kg|g|ml|l)?\s*(.*)$/i);
+    if(m && wkParseQty(m[1]) != null && (m[2] || m[3])){
+      var qty  = wkParseQty(m[1]);
+      var unit = m[2] ? m[2].toLowerCase() : null;     // null => countable (eggs etc.)
+      var name = (m[3]||'').trim();
+      if(name){ out.push({ qty:qty, unit:unit, name:name, note:note, toTaste:false }); return; }
+    }
+
+    // no parseable amount — treat as "to taste".
+    // comma list of bare spices → split into separate lines.
+    var parts = (body.indexOf(',') > -1 && !/[0-9]/.test(body)) ? body.split(',') : [body];
+    parts.forEach(function(p){
+      p = p.trim().replace(/^(pinch of|pinch|a dash of|dash of|zest of|handful of)\s+/i,'').trim();
+      if(p) out.push({ qty:null, unit:null, name:p, note:note, toTaste:true });
+    });
+  });
+  return out;
+}
+
+/* ── display one scaled ingredient line for N servings ── */
+function wkFmtAmount(qty, unit){
+  if(unit === 'g'){  return qty >= 1000 ? (Math.round(qty/100)/10)+'kg' : (Math.round(qty*10)/10)+'g'; }
+  if(unit === 'ml'){ return qty >= 1000 ? (Math.round(qty/100)/10)+'L'  : (Math.round(qty*10)/10)+'ml'; }
+  if(unit === 'kg'){ return (Math.round(qty*100)/100)+'kg'; }
+  if(unit === 'l'){  return (Math.round(qty*100)/100)+'L'; }
+  // countable
+  var v = Math.round(qty*100)/100;
+  return (Number.isInteger(v) ? v : v);
+}
+function wkScaleLine(item, n){
+  if(item.toTaste || item.qty == null){
+    return { amt:'to taste', name:item.name, note:item.note, faded:true };
+  }
+  var scaled = item.qty * n;
+  var amt = wkFmtAmount(scaled, item.unit);
+  if(item.unit == null) amt = amt + '×';     // countable, e.g. eggs
+  return { amt:amt, name:item.name, note:item.note, faded:false };
+}
+
+/* ── PRICE_DB lookup: longest whole-word key contained in the name ── */
+function wkCleanName(name){
+  return String(name||'').toLowerCase()
+    .split('/')[0]                              // "goat meat/fish" → "goat meat"
+    .replace(/[^a-z0-9\s]/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function wkIsWater(name){ return /^(water|tap water|boiling water|warm water|cold water|ice water)$/.test(wkCleanName(name)); }
+var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil" };
+function wkPriceLookup(name){
+  if(typeof PRICE_DB === 'undefined') return null;
+  var n = wkCleanName(name);
+  if(!n) return null;
+  if(/\beggs?\b/.test(n)) return { key:'egg', price:(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7), per:'count' };
+  if(PRICE_DB[n] != null) return { key:n, price:PRICE_DB[n], per:'weight' };
+  // deplural
+  if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)] != null) return { key:n.slice(0,-1), price:PRICE_DB[n.slice(0,-1)], per:'weight' };
+  if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null) return { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' };
+  // longest key that appears as a whole word inside the name
+  var best=null;
+  for(var k in PRICE_DB){
+    if(typeof PRICE_DB[k] !== 'number') continue;
+    var re = new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
+    if(re.test(n) && (!best || k.length > best.length)) best = k;
+  }
+  if(best) return { key:best, price:PRICE_DB[best], per:'weight' };
+  return null;
+}
+
+/* ── cost one recipe for N servings · returns {total, priced, missing[]} ── */
+function wkCostRecipe(recipe, n){
+  var items = wkParseIngredients(recipe.ingredients);
+  var total = 0, priced = 0, missing = [];
+  items.forEach(function(it){
+    if(it.toTaste || it.qty == null) return;          // spices/seasoning — skip
+    if(wkIsWater(it.name)) return;                       // water — not bought
+    var pr = wkPriceLookup(it.name);
+    if(!pr){ missing.push(it.name); return; }
+    var q = it.qty * n, c = 0;
+    if(pr.per === 'count')      c = Math.ceil(q) * pr.price;          // eggs
+    else if(it.unit === 'g')    c = (q/1000) * pr.price;
+    else if(it.unit === 'kg')   c = q * pr.price;
+    else if(it.unit === 'ml')   c = (q/1000) * pr.price;             // R per L
+    else if(it.unit === 'l')    c = q * pr.price;
+    else { missing.push(it.name); return; }            // countable but not egg → unpriced
+    total += c; priced++;
+  });
+  return { total:Math.round(total), priced:priced, missing:missing };
+}
+
+/* ── My Plan state (its own list — never touches braai's plan) ── */
+function wkPlanFind(id){ var p=S.wkPlan||[]; for(var i=0;i<p.length;i++) if(p[i].id===id) return i; return -1; }
+function wkInPlan(id){ return wkPlanFind(id) > -1; }
+function wkPlanToggle(id, servings){
+  var p = (S.wkPlan||[]).slice();
+  var i = wkPlanFind(id);
+  if(i > -1) p.splice(i,1);
+  else p.push({ id:id, servings: Math.max(1, servings||1) });
+  set({ wkPlan:p });
+}
+function wkPlanSetServings(id, servings){
+  var p = (S.wkPlan||[]).slice();
+  var i = wkPlanFind(id);
+  if(i > -1){ p[i] = { id:id, servings:Math.max(1,servings) }; set({ wkPlan:p }); }
+}
+
+/* ── v33 RECIPE DETAIL ── */
+function wkDetailV33(r, country){
+  var green='#30a878', cream='#f5e8cc';
+  var n = Math.max(1, S.wkServings || 1);
+  var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+  var items = wkParseIngredients(r.ingredients);
+  var cost  = wkCostRecipe(r, n);
+  var inPlan = wkInPlan(r.id);
+
+  // photo header (graceful placeholder until photos uploaded)
+  var photo = (typeof recipePhoto === 'function') ? recipePhoto(r.name, '🍽️', 200) : '';
+
+  // serving stepper
+  var stepper = ''
+    + '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">'
+    +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Servings</div>'
+    +   '<div style="font-size:10px;color:#3a6050;margin-top:2px;">amounts scale per person</div></div>'
+    +   '<div style="display:flex;align-items:center;gap:10px;">'
+    +     '<button onclick="set({wkServings:Math.max(1,(S.wkServings||1)-1)})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">−</button>'
+    +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:30px;text-align:center;">'+n+'</span>'
+    +     '<button onclick="set({wkServings:(S.wkServings||1)+1})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">+</button>'
+    +   '</div>'
+    + '</div>';
+
+  // meta chips
+  var metaBox = '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
+    + (r.cookTime ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">⏱ '+r.cookTime+'</span>' : '')
+    + (r.kcal ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">🔥 '+r.kcal+'</span>' : '')
+    + '</div>';
+
+  // ingredients (scaled)
+  var ingRows = items.map(function(it){
+    var s = wkScaleLine(it, n);
+    var nameHTML = s.name + (s.note ? ' <span style="color:#3a6050;font-size:11px;">('+s.note+')</span>' : '');
+    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #14241a;">'
+      + '<span style="color:#c0d0c4;">'+nameHTML+'</span>'
+      + '<span style="color:'+(s.faded?'#3a6050':green)+';font-style:'+(s.faded?'italic':'normal')+';white-space:nowrap;">'+s.amt+'</span></div>';
+  }).join('');
+  var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · for '+n+' '+(n===1?'person':'people')+'</div>'
+    + ingRows
+    + (r.ingredients12 ? '<div style="font-size:11px;color:#3a6050;margin-top:10px;font-style:italic;">Catering anchor (12 people): '+r.ingredients12+'</div>' : '')
+    + '</div>';
+
+  // estimated cost (honest / partial)
+  var costNote = cost.missing.length
+    ? '<div style="font-size:10px;color:#6a7a40;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
+    : '<div style="font-size:10px;color:#3a6050;margin-top:6px;">all ingredients priced</div>';
+  var costBox = '<div style="background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+    +   '<div style="font-size:12px;color:#80b898;">💰 Estimated cost · '+n+' '+(n===1?'serving':'servings')+'</div>'
+    +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'—')+'</div>'
+    + '</div>'
+    + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #143024;"><span style="font-size:11px;color:#3a6050;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
+    + costNote
+    + '</div>';
+
+  // SA substitution swaps (only if any ingredient triggers one)
+  var hay = (r.ingredients||'').toLowerCase();
+  var swaps = [];
+  for(var key in WK_SUBS){ if(hay.indexOf(key) > -1) swaps.push(WK_SUBS[key]); }
+  var subsBox = swaps.length
+    ? '<div style="background:#10180c;border:1px solid #3a4a1a;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="font-size:10px;letter-spacing:0.08em;color:#9ac84b;text-transform:uppercase;margin-bottom:8px;">🇿🇦 SA swaps</div>'
+      + swaps.map(function(s){return '<div style="font-size:12px;color:#bcd49a;line-height:1.5;padding:4px 0;">• '+s+'</div>';}).join('')
+      + '</div>'
+    : '';
+
+  // method
+  var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
+  var methodBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">Method</div>'
+    + steps.map(function(s,si){return '<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div><div style="font-size:13px;color:#c0d0c4;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')+'</div></div>';}).join('')
+    + '</div>';
+
+  // extras
+  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:11px;">'+label+': </span><span style="font-size:12px;color:#a0b8a8;">'+val+'</span></div>' : ''; }
+  var extra = (r.chefNotes||r.pairsWith||r.nutrition||r.storage||r.trivia)
+    ? '<div style="background:#0b140f;border:1px solid #15281c;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + infoRow('👩‍🍳 Chef notes', r.chefNotes)
+      + infoRow('🍷 Pairs with', r.pairsWith)
+      + infoRow('📊 Nutrition', r.nutrition)
+      + infoRow('🧊 Storage', r.storage)
+      + infoRow('💡 Did you know', r.trivia)
+      + '</div>'
+    : '';
+
+  // add-to-plan
+  var planBtn = '<button onclick="wkPlanToggle(\''+r.id+'\','+n+')" style="width:100%;padding:14px;border-radius:10px;cursor:pointer;font-family:Georgia,serif;font-size:14px;font-weight:bold;margin-bottom:12px;'
+    + (inPlan ? 'background:#0a1a10;border:2px solid '+green+';color:'+green+';' : 'background:'+green+';border:2px solid '+green+';color:#04120a;')
+    + '">'+(inPlan ? '✓ In My Plan — tap to remove' : '＋ Add to My Plan')+'</button>';
+
+  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
+    + '<div style="position:relative;">'
+    +   photo
+    +   '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
+    + '</div>'
+    + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
+    +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
+    +   '<div style="font-size:11px;color:#2a6040;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
+    +   metaBox + stepper + costBox + planBtn + ingBox + subsBox + methodBox + extra
+    +   '<div style="display:flex;justify-content:space-between;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
+    +     '<button onclick="set({wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
+    +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
+    +   '</div></div></div>';
+}
+
+/* ── consolidated, costed shopping list across the whole WK plan ──
+   aggregates parsed ingredients (scaled per recipe servings), +10% buffer. */
+function wkBuildPlanShopping(){
+  var pool = wkPool();
+  var map = {}, missing = {};
+  (S.wkPlan||[]).forEach(function(entry){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
+    if(!r) return;
+    var n = Math.max(1, entry.servings||1);
+    wkParseIngredients(r.ingredients).forEach(function(it){
+      if(it.toTaste || it.qty==null){
+        var tk = wkCleanName(it.name) || it.name;
+        if(!map['~'+tk]) map['~'+tk] = { name:it.name, toTaste:true };
+        return;
+      }
+      if(wkIsWater(it.name)) return;                    // water — not bought
+      var pr = wkPriceLookup(it.name);
+      var key = (pr ? pr.key : wkCleanName(it.name)) + '|' + (pr&&pr.per==='count'?'count':(it.unit==='kg'?'g':it.unit==='l'?'ml':it.unit));
+      var qty = it.qty * n;
+      // normalise to base unit g / ml / count
+      var unit = it.unit, amt = qty;
+      if(unit==='kg'){ unit='g'; amt=qty*1000; }
+      if(unit==='l'){  unit='ml'; amt=qty*1000; }
+      if(pr && pr.per==='count'){ unit='count'; }
+      if(!map[key]) map[key] = { name:(pr?it.name:it.name), unit:unit, amt:0, price:pr?pr.price:null, per:pr?pr.per:null };
+      map[key].amt += amt;
+      if(!pr) missing[wkCleanName(it.name)] = 1;
+    });
+  });
+
+  var out = [], total = 0;
+  Object.keys(map).forEach(function(k){
+    var e = map[k];
+    if(e.toTaste){ out.push({ name:e.name, amt:'to taste', cost:null, aisle:(typeof aisleCategory==='function'?aisleCategory(e.name):'🧂 Other'), faded:true }); return; }
+    var buffered = e.amt * 1.10;   // +10% buffer (Tinza standard)
+    var amtStr, cost=null;
+    if(e.unit==='count'){ var c=Math.ceil(buffered); amtStr=c+'×'; if(e.price!=null){ cost=Math.round(c*e.price); } }
+    else if(e.unit==='ml'){ amtStr = buffered>=1000?(Math.round(buffered/100)/10)+'L':(Math.round(buffered))+'ml'; if(e.price!=null) cost=Math.round((buffered/1000)*e.price); }
+    else { amtStr = buffered>=1000?(Math.round(buffered/100)/10)+'kg':(Math.round(buffered))+'g'; if(e.price!=null) cost=Math.round((buffered/1000)*e.price); }
+    if(cost!=null) total += cost;
+    out.push({ name:e.name, amt:amtStr, cost:cost, aisle:(typeof aisleCategory==='function'?aisleCategory(e.name):'🧂 Other'), faded:false });
+  });
+
+  var order=['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
+  out.sort(function(a,b){ var ai=order.indexOf(a.aisle), bi=order.indexOf(b.aisle); if(ai!==bi) return ai-bi; return a.name.localeCompare(b.name); });
+  return { items:out, total:Math.round(total), missing:Object.keys(missing) };
+}
+
+/* ── MY PLAN screen ── */
+function wkMyPlanView(){
+  var green='#30a878', cream='#f5e8cc';
+  var pool = wkPool();
+  var plan = S.wkPlan||[];
+
+  var header = '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
+    + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
+    + '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">🧺 My World Kitchen Plan</h1>'
+    + '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>';
+
+  if(!plan.length){
+    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
+      + '<div style="padding:40px 20px;text-align:center;color:#4a7060;font-size:13px;">Your plan is empty.<br>Open any dish and tap <span style="color:'+green+';">＋ Add to My Plan</span>.</div></div>';
+  }
+
+  var dishes = plan.map(function(entry){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
+    if(!r) return '';
+    var n = Math.max(1, entry.servings||1);
+    var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+    var c = wkCostRecipe(r, n);
+    return '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
+      +   '<div onclick="set({wkScreen:\'wkdata\',wkDataCountry:\''+r.country+'\',wkDataRecipe:\''+r.id+'\',wkServings:'+n+'});window.scrollTo(0,0);" style="flex:1;cursor:pointer;">'
+      +     '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
+      +     '<div style="font-size:10px;color:#3a6050;margin-top:2px;">'+r.country+(c.priced?(' · ~R'+c.total):'')+'</div>'
+      +   '</div>'
+      +   '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#6a3030;font-size:16px;cursor:pointer;">✕</button>'
+      + '</div>'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;">'
+      +   '<span style="font-size:11px;color:#3a6050;">Servings</span>'
+      +   '<button onclick="wkPlanSetServings(\''+r.id+'\','+Math.max(1,n-1)+')" style="width:24px;height:24px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:14px;line-height:1;cursor:pointer;">−</button>'
+      +   '<span style="font-size:15px;color:'+cream+';min-width:20px;text-align:center;">'+n+'</span>'
+      +   '<button onclick="wkPlanSetServings(\''+r.id+'\','+(n+1)+')" style="width:24px;height:24px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:14px;line-height:1;cursor:pointer;">＋</button>'
+      + '</div></div>';
+  }).join('');
+
+  var shop = wkBuildPlanShopping();
+  var curAisle='', shopRows='';
+  shop.items.forEach(function(it){
+    if(it.aisle!==curAisle){ curAisle=it.aisle; shopRows += '<div style="font-size:10px;letter-spacing:0.06em;color:'+green+';text-transform:uppercase;margin:12px 0 4px;">'+curAisle+'</div>'; }
+    shopRows += '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #14241a;">'
+      + '<span style="color:'+(it.faded?'#3a6050':'#c0d0c4')+';font-style:'+(it.faded?'italic':'normal')+';">'+it.name+'</span>'
+      + '<span style="color:'+(it.faded?'#3a6050':green)+';white-space:nowrap;">'+it.amt+(it.cost!=null?' · R'+it.cost:'')+'</span></div>';
+  });
+  var missNote = shop.missing.length
+    ? '<div style="font-size:10px;color:#6a7a40;margin-top:8px;">≈ estimate — not yet priced: '+shop.missing.slice(0,8).join(', ')+(shop.missing.length>8?'…':'')+'</div>' : '';
+
+  var shopBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
+    +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">🛒 Shopping list <span style="color:#3a6050;text-transform:none;">(+10% buffer)</span></div>'
+    +   '<div style="font-size:20px;color:'+green+';font-weight:bold;">~R'+shop.total+'</div>'
+    + '</div>'
+    + shopRows + missNote + '</div>';
+
+  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
+    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+dishes+shopBox+'</div></div>';
 }
