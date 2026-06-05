@@ -116,6 +116,7 @@ const PRICE_DB = {
   "brie": 400,                // R50/125g → R400/kg
   "camembert": 456,           // R57/125g → R456/kg
   "cream cheese": 180,        // R45/250g → R180/kg
+  "mozzarella": 300,          // R150/500g → R300/kg
   "yoghurt": 45,              // per kg
   "ice cream": 45,            // R82/1.8L ≈ R45/kg
   "chocolate": 313,           // R25/80g → R313/kg
@@ -300,6 +301,8 @@ const PRICE_DB = {
   "breadcrumbs": 150,         // R30/200g
   "instant chocolate pudding": 167, // R15/90g
   "chocolate biscuits": 225,  // R45/200g
+  "marie biscuits": 90,       // R18/200g → R90/kg
+  "tennis biscuits": 115,     // R23/200g → R115/kg
   "jelly babies": 280,        // R35/125g
   "sprinkles": 453,           // R34/75g
   "dark chocolate": 313,      // R25/80g
