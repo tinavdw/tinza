@@ -728,6 +728,9 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
   const plan = S[planKey]||[];
   const shopItems = buildCombinedShoppingList(plan, people);
   const isPro = tierAllows('pro');
+  const planCost   = plan.reduce((s,r)=> s + (r.costPP||0)*people, 0);
+  const planCostPP = plan.reduce((s,r)=> s + (r.costPP||0), 0);
+  const planCals   = plan.reduce((s,r)=> s + ((r.nutrition&&r.nutrition.kcal)||0), 0);
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
@@ -765,6 +768,28 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
         }).join('')}
         <div style="margin-top:10px;font-size:10px;color:#4a4040;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
       </div>
+
+      <!-- Cost + calorie totals (Braai-style) -->
+      ${plan.length ? `<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:13px;color:#a09040;">💰 Estimated total</div>
+          <div style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(planCost).toLocaleString()}</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">
+          <div style="font-size:12px;color:#6a6030;">Per person</div>
+          <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
+        </div>
+        <div style="font-size:9px;color:#5a5020;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
+      </div>
+      <div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:13px;color:#409070;">🔥 Calories per person</div>
+            <div style="font-size:10px;color:#306050;margin-top:2px;">All selected dishes combined</div>
+          </div>
+          <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:12px;"> kcal</span></div>
+        </div>
+      </div>` : ''}
 
       <!-- Share buttons -->
       ${isPro ? `<button onclick="(function(){const sh=window._sectionPlanForShare||[];const sv=${people};const shLines=buildCombinedShoppingList(sh,sv).map(i=>'• '+i.n+': '+formatAmount(i.total,i.u)).join('\n');window.open('https://wa.me/?text='+encodeURIComponent('${emoji} ${title}\n${people} people\n\n🛒 Shopping List:\n'+shLines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');})()" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:10px;">📱 Share Shopping List via WhatsApp</button>` 
