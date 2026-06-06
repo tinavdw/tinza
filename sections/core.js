@@ -302,6 +302,7 @@ function draw(){
   else if(S.screen==="babyapp"){ content=S.babyView==='myplan'?babyMyPlanView():S.activeBaby?babyRecipeHTML_screen():babyListHTML(); }
   else if(S.screen==="search"){ content=searchHTML(); }
   else if(S.screen==="worldkitchen"){ content=worldKitchenHTML(); }
+  else if(S.screen==="feedfamily"){ content=feedingFamilyHTML(); }
   else if(S.screen==="breakfast"){ content=breakfastHTML(); }
   else if(S.screen==="lightlunch"){ content=lightlunchHTML(); }
   else if(S.screen==="supper"){ content=supperHTML(); }
@@ -312,6 +313,7 @@ function draw(){
   else if(S.screen==="mood"){ content=moodHTML(); }
   else if(S.screen==="weekplanner"){ content=comingSoonHTML("📅","Weekly Meal Planner","7-day planner coming soon"); }
   else if(S.screen==="furryapp"){ content=furryHTML(); }
+  else if(S.screen==="tinyfurry"){ content=tinyFurryHTML(); }
   else if(S.screen==="smoothies"){ content=smoothiesHTML(); }
   else if(S.screen==="events"){ content=eventsHTML(); }
   else if(S.screen==="health"){ content=healthHTML(); }
@@ -1308,16 +1310,12 @@ function homeHTML(){
     // Row 1 — core cooking
     {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"#c06020", bg:"#1a1008"},
     {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"#208060", bg:"#0a1810"},
-    // Row 2 — meal types
-    {s:"breakfast",  e:"🍳", t:"Breakfast",               sub:"Eggs · Oats · Pancakes · Smoothies",                b:"#d0a020", bg:"#1a1500"},
-    {s:"lightlunch", e:"🥗", t:"Light Lunch",             sub:"Salads · Wraps · Soups · Quick meals",              b:"#40a060", bg:"#0a1a10"},
-    {s:"supper",     e:"🍲", t:"Supper",                  sub:"Family meals · Pasta · Curries · Stews",            b:"#8040c0", bg:"#100818"},
-    {s:"bakes",      e:"🍰", t:"Bakes, Cakes & Breads",   sub:"Cakes · Biscuits · Breads · Rusks",                 b:"#d06080", bg:"#1a0810"},
+    // Row 2 — everyday family cooking (Breakfast · Light Lunch · Supper · Bakes live inside)
+    {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"#c08040", bg:"#1a1208"},
     // Row 3 — speciality
     {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#20a080", bg:"#0f1a18"},
     {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"#d04080", bg:"#1a0814"},
-    {s:"babyapp",    e:"🍼", t:"Tiny Tummies",            sub:"Age-appropriate baby & toddler recipes",             b:"#e07090", bg:"#1a1018"},
-    {s:"furryapp",   e:"🐾", t:"Furry Friends",           sub:"Dogs & Cats · Meals · Treats & Biscuits",           b:"#9060d0", bg:"#120f1a"},
+    {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"#b060b0", bg:"#160f18"},
   ];
 
   const featureTools = [

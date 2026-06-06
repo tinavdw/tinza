@@ -33,7 +33,7 @@ function mealSectionHTML(sectionKey){
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${cfg.bg} 0%,#0f0e0c 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'feedfamily'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:12px;padding:5px 12px;cursor:pointer;">← Family Meals</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${cfg.emoji} ${cfg.title}</h1>
         <p style="margin:0 0 10px;font-size:11px;color:${cfg.color};font-style:italic;opacity:0.9;">${cfg.sub}</p>
@@ -101,11 +101,87 @@ function mealSectionHTML(sectionKey){
   </div>`;
 }
 
+// ── TINY & FURRY — front door to Tiny Tummies + Furry Friends (braai v33 template) ──
+function tinyFurryHTML(){
+  const ONES = [
+    {s:'babyapp',  e:'🍼', t:'Tiny Tummies',  sub:'Age-appropriate baby & toddler recipes',  b:'#e07090', bg:'#1a1018'},
+    {s:'furryapp', e:'🐾', t:'Furry Friends',  sub:'Dogs & Cats · Meals · Treats & Biscuits', b:'#9060d0', bg:'#120f1a'},
+  ];
+  const HEAD = '#c878c8', HBG = '#160f18', HBORDER = '#3a2a40';
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
+      <img src="Images/Image%20header/tinyfurry.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,10,0.3) 0%,rgba(8,6,10,0.78) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼🐾 Tiny & Furry</h1>
+        <p style="margin:0;font-size:11px;color:${HEAD};font-style:italic;opacity:0.9;">The littlest and furriest mouths — fed with the same love</p>
+      </div>
+    </div>
+
+    <!-- ══ SECTION BOXES (braai v33 list rows) ══ -->
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">Who are we feeding?</div>
+      ${ONES.map(o=>`
+        <button onclick="set({screen:'${o.s}'})"
+          style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
+          <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
+          <div style="flex:1;">
+            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
+            <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+          </div>
+          <span style="font-size:16px;color:${o.b};">→</span>
+        </button>`).join('')}
+    </div>
+  </div>`;
+}
+
 
 function breakfastHTML(){ return mealSectionHTML('breakfast'); }
 function lightlunchHTML(){ return mealSectionHTML('lightlunch'); }
 function supperHTML(){ return mealSectionHTML('supper'); }
 function bakesHTML(){ return mealSectionHTML('bakes'); }
+
+// ── FEEDING MY FAMILY — front door to the 4 everyday-cooking sections (braai v33 template) ──
+function feedingFamilyHTML(){
+  const MEALS = [
+    {s:'breakfast',  e:'🍳', t:'Breakfast',             sub:'Eggs · Oats · Pancakes · Smoothies',    b:'#d0a020', bg:'#1a1500'},
+    {s:'lightlunch', e:'🥗', t:'Light Lunch',           sub:'Salads · Wraps · Soups · Quick meals',  b:'#40a060', bg:'#0a1a10'},
+    {s:'supper',     e:'🍲', t:'Supper',                sub:'Family meals · Pasta · Curries · Stews', b:'#8040c0', bg:'#100818'},
+    {s:'bakes',      e:'🍰', t:'Bakes, Cakes & Breads', sub:'Cakes · Biscuits · Breads · Rusks',     b:'#d06080', bg:'#1a0810'},
+  ];
+  const HEAD = '#c08040', HBG = '#1a1208', HBORDER = '#4a3520';
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
+      <img src="Images/Image%20header/feedfamily.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.78) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
+        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍽️ Feeding My Family</h1>
+        <p style="margin:0;font-size:11px;color:${HEAD};font-style:italic;opacity:0.9;">Everyday cooking — morning to night, and something sweet</p>
+      </div>
+    </div>
+
+    <!-- ══ MEAL-TYPE BOXES (braai v33 list rows) ══ -->
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
+      ${MEALS.map(o=>`
+        <button onclick="set({screen:'${o.s}'})"
+          style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
+          <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
+          <div style="flex:1;">
+            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
+            <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+          </div>
+          <span style="font-size:16px;color:${o.b};">→</span>
+        </button>`).join('')}
+    </div>
+  </div>`;
+}
 
 
 // ── 4 INGREDIENTS & ANCHOR INGREDIENT ────────────────────────────

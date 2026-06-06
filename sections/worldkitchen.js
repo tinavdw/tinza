@@ -1,3 +1,30 @@
+/* ---- Flag headers (flagcdn placeholders until real food photos) ---- */
+var WK_FLAG = {
+  usa:'us', canada:'ca', mexico:'mx', guatemala:'gt',
+  jamaica:'jm', trinidad:'tt', cuba:'cu',
+  brazil:'br', colombia:'co', peru:'pe',
+  argentina:'ar', chile:'cl',
+  france:'fr', italy:'it', spain:'es', germany:'de',
+  england:'gb-eng', scotland:'gb-sct', wales:'gb-wls', nireland:'gb-nir',
+  greece:'gr', portugal:'pt',
+  russia:'ru', poland:'pl', ukraine:'ua',
+  sweden:'se', norway:'no', denmark:'dk',
+  turkey:'tr',
+  morocco:'ma', egypt:'eg', tunisia:'tn',
+  nigeria:'ng', ghana:'gh', senegal:'sn',
+  ethiopia:'et', kenya:'ke', tanzania:'tz',
+  sa:'za', mozambique:'mz', zimbabwe:'zw',
+  lebanon:'lb', israel:'il', jordan:'jo',
+  uae:'ae', saudi:'sa',
+  iran:'ir',
+  india:'in', pakistan:'pk', srilanka:'lk',
+  uzbekistan:'uz', kazakhstan:'kz',
+  china:'cn', japan:'jp', korea:'kr',
+  thailand:'th', vietnam:'vn', indonesia:'id', malaysia:'my',
+  australia:'au', newzealand:'nz', fiji:'fj'
+};
+function wkFlagUrl(id){ var c = WK_FLAG[id]; return c ? ('https://flagcdn.com/' + c + '.svg') : ''; }
+
 function worldKitchenHTML(){
 
   // ── COOKING MODE (overlays any WK screen) ───────────────────────
@@ -1010,6 +1037,22 @@ function wkCountryHTML(){
     ? "setQuiet({wkScreen:'sa',wkSACulture:null})"
     : "setQuiet({wkScreen:null,wkSelectedRegion:null,wkCountry:null});draw();window.scrollTo(0,0);";
 
+  // Flag hero banner for the selected country (real flag via flagcdn, graceful fallback)
+  var flagHeroHTML = '';
+  if(selectedCountry){
+    var _co = countries.find(function(x){ return x.id === selectedCountry; }) || { name:selectedCountry, feel:'' };
+    var _fu = wkFlagUrl(selectedCountry);
+    flagHeroHTML = `
+    <div style="position:relative;height:160px;overflow:hidden;background:${bg};max-width:600px;margin:0 auto;">
+      ${_fu ? `<img src="${_fu}" onerror="this.style.display='none'" alt="${_co.name} flag" style="width:100%;height:100%;object-fit:cover;display:block;" />` : ''}
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.30) 0%,rgba(4,12,8,0.85) 100%);"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:14px 18px;">
+        <h2 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:0;font-family:Georgia,serif;text-shadow:0 1px 4px rgba(0,0,0,0.6);">${_co.name}</h2>
+        <p style="font-size:12px;color:#d8c8a8;margin:3px 0 0;font-style:italic;text-shadow:0 1px 3px rgba(0,0,0,0.6);">${_co.feel || ''}</p>
+      </div>
+    </div>`;
+  }
+
   return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
 
     <!-- Header -->
@@ -1043,6 +1086,8 @@ function wkCountryHTML(){
         }).join('')}
       </div>
     </div>
+
+    ${flagHeroHTML}
 
     ${selectedCountry && countryRecipes ? `
     <!-- Recipe Section -->

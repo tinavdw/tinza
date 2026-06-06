@@ -57,7 +57,7 @@ function babyListHTML(){
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
-      <button class="back-btn" onclick="set({screen:'home',activeBaby:null})" style="color:#e07090;">← Home</button>
+      <button class="back-btn" onclick="set({screen:'tinyfurry',activeBaby:null})" style="color:#e07090;">← Tiny & Furry</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍼 Tiny Tummies</h1>
       <p style="margin:0;font-size:11px;color:#a06070;font-style:italic;">Safe, nutritious recipes for every stage</p>
     </div>
