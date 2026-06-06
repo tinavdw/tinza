@@ -1367,9 +1367,16 @@ function wkRecipeCard(r){
   var emoji = wkCourseEmoji(r.course);
   var note  = r.country + (r.cookTime ? (' · '+r.cookTime) : '');
   var open  = "wkOpenRecipe('"+r.country+"','"+r.id+"')";
+  var checked = (typeof wkInPlan === 'function') && wkInPlan(r.id);
+  var box = '<div onclick="event.stopPropagation();wkPlanToggle(\''+r.id+'\',4)" '
+    + 'title="'+(checked?'In plan — tap to remove':'Add to plan')+'" '
+    + 'style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid '+green+';'
+    + 'background:'+(checked?green:'transparent')+';color:#04120a;display:flex;align-items:center;'
+    + 'justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">'+(checked?'✓':'')+'</div>';
   return '<div onclick="'+open+'" '
     + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;">'
     +   '<div style="display:flex;align-items:center;gap:10px;">'
+    +     box
     +     '<span style="font-size:20px;flex-shrink:0;">'+emoji+'</span>'
     +     '<div style="flex:1;min-width:0;">'
     +       '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
@@ -1839,7 +1846,7 @@ function wkDetailV33(r, country){
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
     +   '<div style="font-size:11px;color:#2a6040;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
-    +   metaBox + stepper + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + actionsRow + extra
+    +   metaBox + stepper + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
     +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
     +     '<button onclick="wkBackFromRecipe()" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
     +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
