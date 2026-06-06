@@ -1296,7 +1296,7 @@ function wkRecipeDetailHTML(regionData){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
@@ -1310,7 +1310,8 @@ var WK_COUNTRY_GEO = {
   "Belgium":["Europe","Western Europe"],
   "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"],
   "Denmark":["Europe","Northern Europe"], "Finland":["Europe","Northern Europe"],
-  "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"]
+  "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"],
+  "India":["Asia","Southern Asia"], "Pakistan":["Asia","Southern Asia"], "Sri Lanka":["Asia","Southern Asia"]
 };
 
 /* The six continent boxes, each with its UN regions in display order. */
