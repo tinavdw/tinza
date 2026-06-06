@@ -1,3 +1,13 @@
+function eventsTopNav(accent){
+  accent = accent || '#d04080';
+  var eAct = "set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
+  var hAct = "set({screen:'home',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
+  return '<div style="display:flex;gap:8px;margin-bottom:12px;">'
+    + '<button onclick="'+eAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:12px;cursor:pointer;font-family:Georgia,serif;">\u2190 Events</button>'
+    + '<button onclick="'+hAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:12px;cursor:pointer;font-family:Georgia,serif;">\uD83C\uDFE0 Home</button>'
+    + '</div>';
+}
+
 function eventsHTML(){
   const et = S.eventTab;
   if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;

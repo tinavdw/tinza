@@ -65,7 +65,7 @@ function kidsPhotoBox(name,emoji,h){
 // braai-style photo header
 function kidsHeader(title,subtitle,backAction,backLabel,headerImg,tint){
   tint = tint || '#2a1808';
-  return `<div class="header" style="padding:0;overflow:hidden;">
+  return `${eventsTopNav('#c06020')}<div class="header" style="padding:0;overflow:hidden;">
     <div style="position:relative;height:155px;background:linear-gradient(135deg,#1a0f06 0%,${tint} 100%);">
       <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image%20header/${encodeURIComponent(headerImg)}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
@@ -474,6 +474,7 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
 
   return `<div>
     <div class="header" style="background:#161210;border-bottom:1px solid #3a2010;">
+      ${eventsTopNav('#c06020')}
       <button onclick="set({kidsScreen:'category',kidsRecipe:null})" style="background:rgba(0,0,0,0.4);border:1px solid #c06020;color:#c06020;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;margin-bottom:8px;">← ${th.emoji} ${th.name}</button>
       <h1 style="font-size:20px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;font-family:Georgia,serif;">${photoEmoji} ${rec.name}</h1>
       <p style="margin:0;font-size:11px;color:#c07040;font-style:italic;">${meta}</p>

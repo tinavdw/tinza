@@ -104,7 +104,7 @@ function buffetItemCard(r, selArr, stateKey){
       {step:8,emoji:'🫙',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
       {step:7,emoji:'📋',label:'My Plan',  count:null},
     ];
-    return '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
+    return eventsTopNav() + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
       + secs.map(s=>{
           const isActive = activeStep===s.step;
           const hasSel = s.count>0;
@@ -147,6 +147,7 @@ function buffetStep1(){
       <p style="margin:0;font-size:11px;color:#803060;font-style:italic;">${isPro?'Build your full menu — quantities, cost, shopping list':'Browse recipes and see quantities'}</p>
     </div>
     <div class="content">
+      ${eventsTopNav()}
       <div style="font-size:10px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin-bottom:8px;">How many guests?</div>
       <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:14px;margin-bottom:14px;">
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
@@ -954,6 +955,7 @@ function eventsRecipeView(aer, guests){
       <div style="font-size:11px;color:#a03060;margin-top:2px;">${aer.region||''}</div>
     </div>
     <div class="content">
+      ${eventsTopNav()}
       ${recipePhoto(aer.name, aer.emoji||'🍽️')}
       ${quantityBlock}
       ${hasPantry&&!isTrayDish?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
