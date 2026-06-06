@@ -698,6 +698,13 @@ function isPlanItem(planKey, id){
   return (S[planKey]||[]).some(x=>x.id===id);
 }
 
+function packSizeNote(accent){
+  accent = accent || '#c0a040';
+  return '<div style="background:rgba(255,255,255,0.03);border:1px dashed '+accent+';border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:11px;color:#9a8a7a;line-height:1.5;">'
+    + '\uD83D\uDCA1 <b style="color:'+accent+';">Buying vs cooking:</b> the amounts are what the recipes actually use. In the shop you buy in packs (a 1kg bag of carrots for a 150g need), so you\'ll have a little left over \u2014 the per-person cost is the true cost of what you use, not the whole pack.'
+    + '</div>';
+}
+
 function buildCombinedShoppingList(plan, people){
   // Combine and deduplicate all ingredients across all plan recipes
   const totals = {};
@@ -770,7 +777,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
       </div>
 
       <!-- Cost + calorie totals (Braai-style) -->
-      ${plan.length ? `<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">
+      ${planCost>0 ? `<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
           <div style="font-size:13px;color:#a09040;">💰 Estimated total</div>
           <div style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(planCost).toLocaleString()}</div>
@@ -780,8 +787,8 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
           <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
         </div>
         <div style="font-size:9px;color:#5a5020;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
-      </div>
-      <div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
+      </div>` : ''}
+      ${planCals>0 ? `<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
             <div style="font-size:13px;color:#409070;">🔥 Calories per person</div>
@@ -790,6 +797,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
           <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:12px;"> kcal</span></div>
         </div>
       </div>` : ''}
+      ${plan.length ? packSizeNote('#c0a040') : ''}
 
       <!-- Share buttons -->
       ${isPro ? `<button onclick="(function(){const sh=window._sectionPlanForShare||[];const sv=${people};const shLines=buildCombinedShoppingList(sh,sv).map(i=>'• '+i.n+': '+formatAmount(i.total,i.u)).join('\n');window.open('https://wa.me/?text='+encodeURIComponent('${emoji} ${title}\n${people} people\n\n🛒 Shopping List:\n'+shLines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');})()" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:10px;">📱 Share Shopping List via WhatsApp</button>` 
@@ -859,7 +867,7 @@ function toggleMealPlan(id){
   };
   const r = (sectionRecipes[sec]||[]).find(x=>x.id===id);
   if(!r) return;
-  togglePlanItem('mealPlan', {id:r.id, name:r.name, emoji:r.emoji||'🍽️', time:r.time||0, ingredients:r.ingredients||[], serves:1});
+  togglePlanItem('mealPlan', {id:r.id, name:r.name, emoji:r.emoji||'🍽️', time:r.time||0, ingredients:r.ingredients||[], costPP:r.costPP||0, nutrition:r.nutrition||null, serves:1});
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe

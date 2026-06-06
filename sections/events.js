@@ -742,17 +742,16 @@ function eventsHTML(){
     }
 
     const byDishHTML = `<div style="margin-bottom:16px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:10px;">📖 By Dish — Cooking Reference</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:10px;">🍽️ Selected Snacks</div>
       ${selectedItems.map(r=>{
         const totalPcs = piecesPerType * guests;
-        return `<div style="background:#1a0820;border:1px solid #401030;border-radius:10px;padding:12px;margin-bottom:8px;">
-          <div style="font-size:14px;color:#f070a0;font-weight:bold;margin-bottom:8px;">${r.emoji||'🍽️'} ${r.name}</div>
-          <div style="font-size:11px;color:#803060;margin-bottom:8px;">${piecesPerType} pieces pp · ${totalPcs} total</div>
-          ${(r.base300||[]).map(i=>{
-            if(!i||!i.n||i.pp==null) return '';
-            const tot=fmtAmt(i.pp,i.u,totalPcs);
-            return `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #1a0010;"><span style="color:#a07080;">${i.n}</span><span style="color:#f5c842;font-weight:bold;">${tot}</span></div>`;
-          }).join('')}
+        return `<div style="background:#1a0820;border:1px solid #401030;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:22px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
+          <div style="flex:1;">
+            <div style="font-size:14px;color:#f070a0;font-weight:bold;">${r.name}</div>
+            <div style="font-size:11px;color:#803060;margin-top:2px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
+          </div>
+          <button onclick="openEvent('${r.id}','finger')" style="background:none;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d04080;font-size:11px;cursor:pointer;flex-shrink:0;">Recipe →</button>
         </div>`;
       }).join('')}
     </div>`;
@@ -849,6 +848,7 @@ function eventsHTML(){
 
       ${byDishHTML}
       ${shopHTML}
+      ${allShopItems.length ? packSizeNote('#d04080') : ''}
 
       ${(()=>{
         if(!allShopItems.length) return '';
