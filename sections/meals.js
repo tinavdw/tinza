@@ -1,9 +1,162 @@
+// ════════════════════════════════════════════════════════════════
+//  BREAKFAST RECIPE LIBRARY — seeded across the 5 locked pills
+//  cat: savoury | warm | sweet | fresh | go
+//  ingredient shape: {n: buy-name, pp: per-person amount, u: g|ml|egg|''}
+// ════════════════════════════════════════════════════════════════
+var BREAKFAST_RECIPES = [
+  // ── 🍳 SAVOURY & COOKED ──
+  {id:'bf-bacon-eggs', cat:'savoury', name:'Bacon & Eggs', emoji:'🍳', cuisine:'South African', time:15, costPP:26,
+    feel:'The smell that pulls everyone out of bed.',
+    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'streaky bacon',pp:60,u:'g'},{n:'tomatoes',pp:80,u:'g'},{n:'white bread',pp:2,u:''},{n:'butter',pp:10,u:'g'},{n:'salt & pepper'}],
+    method:['Fry the bacon in a dry pan over medium heat until crisp, then set aside on paper towel.','Halve the tomatoes and fry cut-side down in the bacon fat until soft and caramelised.','Fry the eggs to your liking in the same pan.','Toast and butter the bread, plate everything together, season and serve hot.'],
+    tip:'Cook the eggs last so the yolks stay runny and warm on the plate.',
+    nutrition:{kcal:430,protein_g:24,carbs_g:22,fat_g:28}, storage:'Best fresh; cooked bacon keeps 2 days in the fridge.'},
+  {id:'bf-shakshuka', cat:'savoury', name:'Shakshuka', emoji:'🍅', cuisine:'North African / Middle Eastern', time:25, costPP:22,
+    feel:'Eggs poached in a bubbling, spiced tomato hug.',
+    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:40,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'tomato paste',pp:15,u:'g'},{n:'olive oil',pp:8,u:'ml'},{n:'paprika & cumin'}],
+    method:['Soften the chopped onion and pepper in olive oil over medium heat, about 5 minutes.','Stir in the tomato paste, paprika and cumin, then add the chopped tomatoes. Simmer 10 minutes until thick.','Make wells in the sauce and crack in the eggs. Cover and cook until the whites set but the yolks stay soft.','Serve straight from the pan with bread for dipping.'],
+    tip:'A handful of crumbled feta over the top just before serving is never a mistake.',
+    nutrition:{kcal:310,protein_g:16,carbs_g:18,fat_g:20}, storage:'Sauce keeps 3 days; add fresh eggs when reheating.'},
+
+  // ── 🥣 WARM & COMFORTING ──
+  {id:'bf-creamy-oats', cat:'warm', name:'Creamy Oats', emoji:'🥣', cuisine:'Global', time:10, costPP:9,
+    feel:'A warm bowl that quietly says the day can wait.',
+    ingredients:[{n:'rolled oats',pp:50,u:'g'},{n:'milk',pp:250,u:'ml'},{n:'honey',pp:15,u:'g'},{n:'cinnamon'},{n:'salt'}],
+    method:['Combine the oats, milk and a pinch of salt in a pot.','Cook over medium heat, stirring often, for 5 to 6 minutes until thick and creamy.','Stir through the honey and a pinch of cinnamon.','Spoon into bowls and top with fruit or a splash more milk.'],
+    tip:'Swap half the milk for water if you like it lighter, or use all milk for extra creaminess.',
+    nutrition:{kcal:290,protein_g:11,carbs_g:48,fat_g:7}, storage:'Keeps 2 days; loosen with milk when reheating.'},
+  {id:'bf-mealie-pap', cat:'warm', name:'Mealie Pap & Milk', emoji:'🌽', cuisine:'South African', time:20, costPP:6,
+    feel:'The taste of a thousand farm mornings.',
+    ingredients:[{n:'maize meal',pp:60,u:'g'},{n:'water',pp:250,u:'ml'},{n:'milk',pp:120,u:'ml'},{n:'sugar',pp:10,u:'g'},{n:'salt'}],
+    method:['Bring the water and a pinch of salt to the boil.','Rain in the maize meal while stirring to avoid lumps.','Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.','Serve in bowls with cold milk and a sprinkle of sugar.'],
+    tip:'For stiff pap use less water; for soft breakfast pap keep it loose and pourable.',
+    nutrition:{kcal:250,protein_g:6,carbs_g:52,fat_g:3}, storage:'Keeps 3 days; reheat with a splash of water.'},
+
+  // ── 🥐 SWEET & BAKED ──
+  {id:'bf-pancakes', cat:'sweet', name:'Fluffy Pancakes', emoji:'🥞', cuisine:'American', time:20, costPP:11,
+    feel:'A lazy Sunday stack with syrup running down the sides.',
+    ingredients:[{n:'cake flour',pp:50,u:'g'},{n:'milk',pp:90,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'sugar',pp:8,u:'g'},{n:'baking powder',pp:3,u:'g'},{n:'butter',pp:8,u:'g'},{n:'maple syrup'}],
+    method:['Whisk the flour, sugar and baking powder in a bowl.','Beat in the egg and milk until just combined — a few lumps are fine.','Cook spoonfuls in a buttered pan over medium heat until bubbles form, then flip and cook the other side.','Stack and serve with maple syrup.'],
+    tip:'Avoid overmixing — a few lumps in the batter make fluffier pancakes.',
+    nutrition:{kcal:340,protein_g:9,carbs_g:52,fat_g:11}, storage:'Keep 2 days; reheat in a toaster or dry pan.'},
+  {id:'bf-french-toast', cat:'sweet', name:'Cinnamon French Toast', emoji:'🍞', cuisine:'French / Global', time:15, costPP:12,
+    feel:'Day-old bread, reborn as something special.',
+    ingredients:[{n:'thick white bread',pp:2,u:''},{n:'large eggs',pp:1,u:'egg'},{n:'milk',pp:60,u:'ml'},{n:'sugar',pp:8,u:'g'},{n:'butter',pp:10,u:'g'},{n:'cinnamon'}],
+    method:['Whisk the eggs, milk, sugar and a pinch of cinnamon in a shallow dish.','Soak each slice of bread for a few seconds per side.','Fry in butter over medium heat until golden on both sides.','Serve dusted with cinnamon sugar or a drizzle of syrup.'],
+    tip:'Slightly stale bread soaks up the custard best without going soggy.',
+    nutrition:{kcal:360,protein_g:13,carbs_g:44,fat_g:15}, storage:'Best fresh; eat the same morning.'},
+
+  // ── 🍓 FRESH & LIGHT ──
+  {id:'bf-yoghurt-granola', cat:'fresh', name:'Yoghurt & Granola Bowl', emoji:'🥛', cuisine:'Global', time:5, costPP:14,
+    feel:'Cool, crunchy and bright — breakfast without the fuss.',
+    ingredients:[{n:'plain yoghurt',pp:150,u:'g'},{n:'granola',pp:40,u:'g'},{n:'mixed berries',pp:60,u:'g'},{n:'honey',pp:10,u:'g'}],
+    method:['Spoon the yoghurt into a bowl.','Top with granola and berries.','Drizzle with honey and serve straight away so the granola stays crunchy.'],
+    tip:'Layer it in a glass jar the night before, granola on top, for a grab-and-go version.',
+    nutrition:{kcal:280,protein_g:12,carbs_g:42,fat_g:8}, storage:'Assemble fresh; keep components separate.'},
+  {id:'bf-avo-toast', cat:'fresh', name:'Smashed Avo Toast', emoji:'🥑', cuisine:'Global', time:8, costPP:16,
+    feel:'Creamy, green and a little bit smug — in the best way.',
+    ingredients:[{n:'avocado',pp:0.5,u:''},{n:'sourdough bread',pp:1,u:''},{n:'olive oil',pp:5,u:'ml'},{n:'lemon juice'},{n:'salt & pepper'},{n:'chilli flakes'}],
+    method:['Toast the bread until golden.','Mash the avocado with a squeeze of lemon, salt and pepper.','Spread thickly onto the toast.','Finish with a drizzle of olive oil and a pinch of chilli flakes.'],
+    tip:'A poached egg on top turns this into a proper meal.',
+    nutrition:{kcal:300,protein_g:7,carbs_g:28,fat_g:19}, storage:'Best fresh; avocado browns quickly.'},
+
+  // ── 🥤 ON THE GO ──
+  {id:'bf-berry-smoothie', cat:'go', name:'Berry Banana Smoothie', emoji:'🥤', cuisine:'Global', time:5, costPP:13,
+    feel:'Breakfast you can drink with one hand on the car keys.',
+    ingredients:[{n:'banana',pp:0.5,u:''},{n:'mixed berries',pp:80,u:'g'},{n:'plain yoghurt',pp:80,u:'g'},{n:'milk',pp:120,u:'ml'},{n:'honey',pp:8,u:'g'}],
+    method:['Add the banana, berries, yoghurt, milk and honey to a blender.','Blend until smooth, about 30 seconds.','Pour into a glass or travel bottle and go.'],
+    tip:'Freeze the banana and berries first for a thicker, colder smoothie.',
+    nutrition:{kcal:220,protein_g:9,carbs_g:38,fat_g:4}, storage:'Drink fresh; keeps a few hours chilled.'},
+  {id:'bf-egg-wrap', cat:'go', name:'Breakfast Egg Wrap', emoji:'🌯', cuisine:'Global', time:12, costPP:18,
+    feel:'A whole fry-up, rolled up and running out the door.',
+    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'tortilla wrap',pp:1,u:''},{n:'cheddar',pp:25,u:'g'},{n:'tomatoes',pp:40,u:'g'},{n:'butter',pp:6,u:'g'},{n:'salt & pepper'}],
+    method:['Scramble the eggs softly in butter, seasoning as you go.','Warm the tortilla in a dry pan for a few seconds.','Pile the eggs down the middle, top with grated cheddar and chopped tomato.','Roll up tightly, slice in half and go.'],
+    tip:'Wrap it in foil to keep it warm and hold it together on the road.',
+    nutrition:{kcal:390,protein_g:21,carbs_g:26,fat_g:22}, storage:'Best fresh; eat within a few hours.'},
+];
+
+// ════════════════════════════════════════════════════════════════
+//  SUPPER RECIPE LIBRARY — seeded across the 5 locked pills
+//  cat: plates | pastapizza | stewscurries | ovenbakes | roasts
+// ════════════════════════════════════════════════════════════════
+var SUPPER_RECIPES = [
+  // ── 🍳 HOMESTYLE PLATES ──
+  {id:'sp-bangers-mash', cat:'plates', name:'Bangers & Mash', emoji:'🌭', cuisine:'British / South African', time:35, costPP:32,
+    feel:'Soft mash, sticky onion gravy — the supper that feels like a hug.',
+    ingredients:[{n:'pork sausages',pp:150,u:'g'},{n:'potatoes',pp:250,u:'g'},{n:'onion',pp:60,u:'g'},{n:'beef stock',pp:120,u:'ml'},{n:'butter',pp:15,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'frozen peas',pp:60,u:'g'}],
+    method:['Boil the peeled, chopped potatoes in salted water until tender, about 15 minutes.','Meanwhile fry the sausages over medium heat until browned all over, then set aside.','Soften the sliced onion in the same pan, add the stock and simmer into a glossy gravy.','Mash the potatoes with butter and milk. Plate the mash, sausages and peas, and pour over the onion gravy.'],
+    tip:'Prick the sausages once or twice so they brown evenly without bursting.',
+    nutrition:{kcal:620,protein_g:26,carbs_g:52,fat_g:34}, storage:'Keeps 2 days; reheat with a splash of milk in the mash.'},
+  {id:'sp-fish-chips', cat:'plates', name:'Fish & Chips', emoji:'🐟', cuisine:'British', time:40, costPP:46,
+    feel:'Crispy batter, soft chips, a squeeze of lemon — Friday on a plate.',
+    ingredients:[{n:'hake fillets',pp:160,u:'g'},{n:'potatoes',pp:280,u:'g'},{n:'cake flour',pp:50,u:'g'},{n:'sunflower oil',pp:40,u:'ml'},{n:'frozen peas',pp:70,u:'g'},{n:'lemon',pp:0.25,u:''},{n:'salt & pepper'}],
+    method:['Cut the potatoes into chips, par-boil 4 minutes, then drain and dry well.','Make a batter with the flour, a pinch of salt and enough cold water for a smooth coating.','Fry the chips in hot oil until golden, drain on paper towel and keep warm.','Dip the fish in batter and fry until crisp and golden. Serve with chips, peas and a wedge of lemon.'],
+    tip:'Dry the chips thoroughly before frying — wet potatoes never go crisp.',
+    nutrition:{kcal:680,protein_g:34,carbs_g:62,fat_g:32}, storage:'Best fresh; the batter softens on standing.'},
+
+  // ── 🍝 PASTA & PIZZA ──
+  {id:'sp-lasagne', cat:'pastapizza', name:'Beef Lasagne', emoji:'🍝', cuisine:'Italian', time:75, costPP:38,
+    feel:'Layers of meaty, cheesy comfort that pull the whole table in.',
+    ingredients:[{n:'lasagne sheets',pp:60,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'milk',pp:120,u:'ml'},{n:'cake flour',pp:15,u:'g'},{n:'butter',pp:15,u:'g'},{n:'cheddar',pp:40,u:'g'}],
+    method:['Brown the mince with the chopped onion, add the tomatoes and simmer 20 minutes into a rich ragu.','Make a white sauce: melt the butter, stir in the flour, then whisk in the milk until thick and smooth.','Layer ragu, lasagne sheets and white sauce in a dish, repeating and finishing with sauce and grated cheddar.','Bake at 180C for 35 to 40 minutes until golden. Rest 10 minutes before slicing.'],
+    tip:'Let it rest before cutting so the layers hold instead of sliding apart.',
+    nutrition:{kcal:590,protein_g:30,carbs_g:48,fat_g:30}, storage:'Keeps 3 days; freezes well in portions for up to 2 months.'},
+  {id:'sp-spag-bol', cat:'pastapizza', name:'Spaghetti Bolognese', emoji:'🍝', cuisine:'Italian', time:45, costPP:34,
+    feel:'The weeknight rescue everyone already knows how to twirl.',
+    ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'garlic'},{n:'cheddar',pp:20,u:'g'}],
+    method:['Soften the chopped onion, carrot and garlic in a little oil.','Add the mince and brown well, breaking up any lumps.','Stir in the tomatoes and simmer gently for 25 minutes until thick and glossy.','Cook the spaghetti, drain, and serve topped with the sauce and grated cheddar.'],
+    tip:'A long, slow simmer is the whole secret — give the sauce time and it rewards you.',
+    nutrition:{kcal:540,protein_g:28,carbs_g:64,fat_g:18}, storage:'Sauce keeps 3 days and freezes 2 months.'},
+
+  // ── 🍛 STEWS & CURRIES ──
+  {id:'sp-capemalay-curry', cat:'stewscurries', name:'Cape Malay Chicken Curry', emoji:'🍛', cuisine:'Cape Malay', time:55, costPP:36,
+    feel:'Warm, gently spiced and fragrant — the smell that fills the whole house.',
+    ingredients:[{n:'chicken pieces',pp:180,u:'g'},{n:'onion',pp:70,u:'g'},{n:'tomatoes',pp:80,u:'g'},{n:'potatoes',pp:100,u:'g'},{n:'curry powder',pp:8,u:'g'},{n:'rice',pp:75,u:'g'},{n:'oil',pp:10,u:'ml'}],
+    method:['Fry the sliced onion in oil until soft and golden.','Stir in the curry powder and cook a minute until fragrant.','Add the chicken, tomatoes and potatoes with a little water, cover and simmer 35 minutes until tender.','Cook the rice separately and serve the curry spooned over the top.'],
+    tip:'Toast the curry powder in the oil first — it wakes up all the spice.',
+    nutrition:{kcal:560,protein_g:32,carbs_g:58,fat_g:20}, storage:'Even better next day; keeps 3 days, freezes 2 months.'},
+  {id:'sp-beef-stew', cat:'stewscurries', name:'Beef Stew', emoji:'🥘', cuisine:'South African', time:120, costPP:42,
+    feel:'Low, slow and unhurried — a pot that quietly looks after you.',
+    ingredients:[{n:'beef stewing meat',pp:160,u:'g'},{n:'potatoes',pp:150,u:'g'},{n:'carrots',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'beef stock',pp:200,u:'ml'},{n:'cake flour',pp:10,u:'g'}],
+    method:['Toss the beef in seasoned flour and brown in batches in a heavy pot.','Add the onion and soften, then pour in the stock and scrape the base.','Add the carrots and potatoes, cover, and simmer gently 1.5 to 2 hours until the beef is fork-tender.','Check the seasoning and serve with bread or over rice or pap.'],
+    tip:'Brown the meat properly first — that colour is where the deep flavour lives.',
+    nutrition:{kcal:480,protein_g:34,carbs_g:34,fat_g:22}, storage:'Improves overnight; keeps 3 days, freezes 3 months.'},
+
+  // ── 🥧 PIES & OVEN BAKES ──
+  {id:'sp-cottage-pie', cat:'ovenbakes', name:'Cottage Pie', emoji:'🥧', cuisine:'British', time:65, costPP:34,
+    feel:'A golden mash lid over savoury mince — proper comfort food.',
+    ingredients:[{n:'beef mince',pp:120,u:'g'},{n:'potatoes',pp:300,u:'g'},{n:'onion',pp:50,u:'g'},{n:'carrots',pp:60,u:'g'},{n:'frozen peas',pp:50,u:'g'},{n:'beef stock',pp:100,u:'ml'},{n:'butter',pp:15,u:'g'},{n:'cheddar',pp:20,u:'g'}],
+    method:['Brown the mince with the chopped onion and carrot.','Add the stock and peas and simmer until thickened, then spoon into an oven dish.','Boil and mash the potatoes with butter, and spread over the mince.','Top with grated cheddar and bake at 190C for 25 to 30 minutes until golden.'],
+    tip:'Rough up the mash with a fork before baking for extra crispy peaks.',
+    nutrition:{kcal:560,protein_g:26,carbs_g:52,fat_g:28}, storage:'Keeps 3 days; assembles ahead and freezes 2 months.'},
+  {id:'sp-chicken-pie', cat:'ovenbakes', name:'Chicken & Mushroom Pie', emoji:'🥧', cuisine:'British', time:60, costPP:40,
+    feel:'Flaky pastry giving way to a creamy, savoury filling.',
+    ingredients:[{n:'chicken fillets',pp:140,u:'g'},{n:'puff pastry',pp:80,u:'g'},{n:'mushrooms',pp:60,u:'g'},{n:'onion',pp:40,u:'g'},{n:'milk',pp:80,u:'ml'},{n:'cake flour',pp:12,u:'g'},{n:'butter',pp:12,u:'g'}],
+    method:['Cook the diced chicken, onion and sliced mushrooms in butter until just done.','Stir in the flour, then the milk, and simmer into a creamy sauce. Season and cool slightly.','Spoon into a pie dish and top with the rolled-out puff pastry, sealing the edges.','Brush with a little milk and bake at 200C for 25 to 30 minutes until puffed and golden.'],
+    tip:'Cut a small slit in the pastry lid so steam escapes and the top stays crisp.',
+    nutrition:{kcal:520,protein_g:30,carbs_g:34,fat_g:28}, storage:'Keeps 2 days; best reheated in the oven to re-crisp the pastry.'},
+
+  // ── 🍗 ROASTS ──
+  {id:'sp-roast-chicken', cat:'roasts', name:'Roast Chicken & Veg', emoji:'🍗', cuisine:'Global', time:90, costPP:38,
+    feel:'The Sunday smell that means everyone comes to the table on time.',
+    ingredients:[{n:'whole chicken',pp:280,u:'g'},{n:'potatoes',pp:200,u:'g'},{n:'carrots',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'mixed herbs'},{n:'salt & pepper'}],
+    method:['Rub the chicken with oil, salt, pepper and herbs and place in a roasting tin.','Surround with the potatoes, carrots and onion, tossed in a little oil.','Roast at 190C, allowing roughly 45 minutes per kilogram plus 20 minutes, until the juices run clear.','Rest the chicken 10 minutes before carving, and serve with the roast veg.'],
+    tip:'Rest the bird before carving so the juices settle back into the meat.',
+    nutrition:{kcal:610,protein_g:42,carbs_g:38,fat_g:30}, storage:'Keeps 3 days; leftovers are gold for sandwiches and soup.'},
+  {id:'sp-roast-beef', cat:'roasts', name:'Roast Beef', emoji:'🥩', cuisine:'British', time:110, costPP:56,
+    feel:'A proper centrepiece — pink in the middle, everyone crowding the carving board.',
+    ingredients:[{n:'beef roasting joint',pp:180,u:'g'},{n:'potatoes',pp:200,u:'g'},{n:'carrots',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'beef stock',pp:100,u:'ml'},{n:'salt & pepper'}],
+    method:['Bring the beef to room temperature, rub with oil, salt and pepper, and sear all over in a hot pan.','Transfer to a roasting tin with the veg and roast at 200C, about 15 minutes per 500g for medium.','Rest the beef under foil 15 minutes while you make gravy from the pan juices and stock.','Carve thinly across the grain and serve with the roast veg and gravy.'],
+    tip:'A meat thermometer removes the guesswork — about 55C for medium-rare.',
+    nutrition:{kcal:560,protein_g:40,carbs_g:32,fat_g:28}, storage:'Keeps 3 days; slice cold for the best roast-beef sandwiches.'},
+];
+
 function mealSectionHTML(sectionKey){
   const configs = {
-    breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right"},
-    lightlunch: {title:"Light Lunch",       emoji:"🥗", color:"#30a070", bg:"#081810", border:"#1a4025", recipes:typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],sub:"Salads · Wraps · Soups · Quick meals"},
-    supper:     {title:"Supper",            emoji:"🍽️", color:"#6080d0", bg:"#080f18", border:"#1a2840", recipes:typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],        sub:"Evening meals · Family dinners"},
-    bakes:      {title:"Bakes & Cakes",     emoji:"🧁", color:"#d06080", bg:"#180810", border:"#401020", recipes:typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],          sub:"Cakes · Biscuits · Breads · Desserts"},
+    breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:'savoury',e:'🍳',l:'Savoury & Cooked'},{id:'warm',e:'🥣',l:'Warm & Comforting'},{id:'sweet',e:'🥐',l:'Sweet & Baked'},{id:'fresh',e:'🍓',l:'Fresh & Light'},{id:'go',e:'🥤',l:'On the Go'}]},
+    lightlunch: {title:"Light Lunch",       emoji:"🥗", color:"#30a070", bg:"#081810", border:"#1a4025", recipes:typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],sub:"Salads · Wraps · Soups · Quick meals", cats:[{id:'salads',e:'🥗',l:'Salads & Bowls'},{id:'handhelds',e:'🥪',l:'Sandwiches & Wraps'},{id:'soups',e:'🍲',l:'Soups'},{id:'savbakes',e:'🥧',l:'Savoury Bakes'},{id:'quick',e:'⚡',l:'Quick & Light'}]},
+    supper:     {title:"Supper",            emoji:"🍽️", color:"#6080d0", bg:"#080f18", border:"#1a2840", recipes:typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],        sub:"Evening meals · Family dinners", cats:[{id:'plates',e:'🍳',l:'Homestyle Plates'},{id:'pastapizza',e:'🍝',l:'Pasta & Pizza'},{id:'stewscurries',e:'🍛',l:'Stews & Curries'},{id:'ovenbakes',e:'🥧',l:'Pies & Oven Bakes'},{id:'roasts',e:'🍗',l:'Roasts'}]},
+    bakes:      {title:"Bakes & Cakes",     emoji:"🧁", color:"#d06080", bg:"#180810", border:"#401020", recipes:typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],          sub:"Cakes · Biscuits · Breads · Desserts", cats:[{id:'breads',e:'🍞',l:'Breads & Rolls'},{id:'flatbreads',e:'🫓',l:'Flatbreads'},{id:'quickbreads',e:'🧁',l:'Muffins & Quick Breads'},{id:'biscuits',e:'🍪',l:'Biscuits & Rusks'},{id:'cakes',e:'🎂',l:'Cakes & Cupcakes'},{id:'pastries',e:'🥐',l:'Pastries & Tarts'}]},
   };
   const cfg = configs[sectionKey];
   if(!cfg) return comingSoonHTML("🍽️","Section","Coming soon");
@@ -23,8 +176,24 @@ function mealSectionHTML(sectionKey){
   // List view
   const sort = S.mealSort||'popular';
   let recipes = [...(cfg.recipes||[])];
+
+  // Category pills (braai-style) — only for sections that define cfg.cats
+  const cats = cfg.cats || null;
+  let activeCat = null, activeCatObj = null;
+  if(cats){
+    activeCat = cats.find(c=>c.id===S.mealCat) ? S.mealCat : cats[0].id;
+    activeCatObj = cats.find(c=>c.id===activeCat);
+    recipes = recipes.filter(r=>r.cat===activeCat);
+  }
+
+  // Search filter
+  if(S.mealSearch){
+    const q = S.mealSearch.toLowerCase();
+    recipes = recipes.filter(r=>(r.name+' '+(r.cuisine||'')+' '+(r.feel||'')).toLowerCase().includes(q));
+  }
+
   if(sort==='az') recipes.sort((a,b)=>a.name.localeCompare(b.name));
-  else if(sort==='time') recipes.sort((a,b)=>a.time-b.time);
+  else if(sort==='time') recipes.sort((a,b)=>(a.time||0)-(b.time||0));
 
   const mealHowOpen = S.mealHowOpen || false;
 
@@ -75,15 +244,23 @@ function mealSectionHTML(sectionKey){
     </div>
 
     <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:11px;color:#4a4a40;margin-bottom:10px;">${recipes.length} recipes</div>
+      ${cats?`
+      <!-- ══ CATEGORY PILLS (braai-style) ══ -->
+      <div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;">
+        ${cats.map(c=>`<button onclick="setQuiet({mealCat:'${c.id}'})" style="white-space:nowrap;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid ${activeCat===c.id?cfg.color:cfg.border};background:${activeCat===c.id?'rgba(255,255,255,0.08)':'transparent'};color:${activeCat===c.id?cfg.color:'#6a6050'};font-size:12px;cursor:pointer;">${c.e} ${c.l}</button>`).join('')}
+      </div>
+      <div style="font-size:11px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
+      `:`<div style="font-size:11px;color:#4a4a40;margin-bottom:10px;">${recipes.length} recipes</div>`}
+      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#5a5040;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
         return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
-          <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="(function(){const pi={id:'${r.id}',name:'${r.name.replace(/'/g,'')}',emoji:'${r.emoji||'🍽️'}',time:${r.time||0},ingredients:r.ingredients||[],serves:1};togglePlanItem('mealPlan',pi);})()" >
+          <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="toggleMealPlan('${r.id}')">
             <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${inPlan?'✓':''}</div>
             <span style="font-size:20px;">${r.emoji}</span>
             <div style="flex:1;">
               <div style="font-size:14px;color:${inPlan?'#f5e8cc':'#c8b898'};font-weight:${inPlan?'bold':'normal'};">${r.name}</div>
+              ${r.feel?`<div style="font-size:11px;color:#7a6a50;font-style:italic;margin-top:1px;line-height:1.3;">${r.feel}</div>`:''}
               <div style="font-size:10px;color:${inPlan?cfg.color:'#5a5040'};margin-top:2px;">${r.cuisine} · ⏱️ ${r.time} min</div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -422,6 +599,8 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
+      ${r.feel?`<div style="font-style:italic;color:${color};font-size:13px;text-align:center;line-height:1.5;margin-bottom:14px;">“${r.feel}”</div>`:''}
+
       <!-- How much to make block -->
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
@@ -644,6 +823,18 @@ function openMealRecipe(id){
   const arr = sectionRecipes[sec]||[];
   const r = arr.find(x=>x.id===id);
   if(r) setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec})});
+}
+function toggleMealPlan(id){
+  const sec = S.screen||'';
+  const sectionRecipes = {
+    breakfast: typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],
+    lightlunch: typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],
+    supper: typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],
+    bakes: typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
+  };
+  const r = (sectionRecipes[sec]||[]).find(x=>x.id===id);
+  if(!r) return;
+  togglePlanItem('mealPlan', {id:r.id, name:r.name, emoji:r.emoji||'🍽️', time:r.time||0, ingredients:r.ingredients||[], serves:1});
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe
