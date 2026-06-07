@@ -80,17 +80,34 @@ function tinzaSearch(query, recipes) {
   return scored.map(function (s) { return s.recipe; });
 }
 
-/* Display name: native first, English in brackets.
-   Collapses to one name when there is no separate English name
-   (a cottage pie just shows "Cottage pie"). */
+/* Romanized name for non-Latin scripts: a Latin alias if present, else derived
+   from the slug id (greece-kleftiko -> "Kleftiko"). Latin names pass straight
+   through unchanged, so other sections are unaffected. */
+function tinzaRoman(recipe) {
+  var NL = /[^\u0000-\u024F\u1E00-\u1EFF]/;
+  var name = recipe.name || '';
+  if (!NL.test(name)) return name;
+  if (recipe.nameRoman) return recipe.nameRoman;
+  var al = recipe.aliases || [];
+  for (var i = 0; i < al.length; i++) { if (al[i] && !NL.test(al[i])) return al[i]; }
+  if (recipe.id && String(recipe.id).indexOf('-') !== -1) {
+    var p = String(recipe.id).split('-'); p.shift();
+    var s = p.map(function (w) { return w ? w.charAt(0).toUpperCase() + w.slice(1) : w; }).join(' ');
+    if (s) return s;
+  }
+  return name;
+}
+
+/* Display name: romanized name, English in brackets. The native script (where
+   it differs) is shown by the section as a small subtitle. */
 function tinzaDisplayName(recipe) {
-  var native = recipe.name || '';
+  var roman = tinzaRoman(recipe);
   var en = recipe.nameEn || recipe.nameAlt || '';
-  if (!en || tinzaNormalize(en) === tinzaNormalize(native)) return native;
-  return native + ' (' + en + ')';
+  if (!en || tinzaNormalize(en) === tinzaNormalize(roman)) return roman;
+  return roman + ' (' + en + ')';
 }
 
 /* Make the functions available whether loaded in a browser or Node. */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { tinzaNormalize: tinzaNormalize, tinzaSearchableText: tinzaSearchableText, tinzaSearch: tinzaSearch, tinzaDisplayName: tinzaDisplayName };
+  module.exports = { tinzaNormalize: tinzaNormalize, tinzaSearchableText: tinzaSearchableText, tinzaSearch: tinzaSearch, tinzaRoman: tinzaRoman, tinzaDisplayName: tinzaDisplayName };
 }

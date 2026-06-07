@@ -1351,6 +1351,8 @@ function wkCourseToTab(course){
     case "starter": return "starters";
     case "side":    return "sides";
     case "dessert": return "desserts";
+    case "drink":   return "drinks";
+    case "beverage":return "drinks";
     default:        return "mains";
   }
 }
@@ -1359,7 +1361,7 @@ function wkCourseToTab(course){
 /* course → emoji, so every list row carries an icon like braai's rows */
 function wkCourseEmoji(course){
   var t = wkCourseToTab(course);
-  return ({starters:'🥗', mains:'🍽️', sides:'🥘', desserts:'🍮'})[t] || '🍽️';
+  return ({starters:'🥗', mains:'🍽️', sides:'🥘', desserts:'🍮', drinks:'🍷'})[t] || '🍽️';
 }
 
 /* Braai-style row: emoji · name/note · green "Recipe →" button (WK green theme). */
@@ -1369,7 +1371,8 @@ function wkRecipeCard(r){
     ? tinzaDisplayName(r)
     : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var emoji = wkCourseEmoji(r.course);
-  var note  = r.country + (r.cookTime ? (' · '+r.cookTime) : '');
+  var _nl   = /[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'');
+  var note  = (_nl ? r.name+' · ' : '') + r.country + (r.cookTime ? (' · '+r.cookTime) : '');
   var open  = "wkOpenRecipe('"+r.country+"','"+r.id+"')";
   var checked = (typeof wkInPlan === 'function') && wkInPlan(r.id);
   var box = '<div onclick="event.stopPropagation();wkPlanToggle(\''+r.id+'\',4)" '
@@ -1508,7 +1511,7 @@ function wkDataCountryHTML(){
 
   // ── COUNTRY LIST ──
   var tab = S.wkDataTab || 'mains';
-  var TABS = [{id:'starters',e:'🥗',l:'Starters'},{id:'mains',e:'🍽️',l:'Mains'},{id:'sides',e:'🥘',l:'Sides'},{id:'desserts',e:'🍮',l:'Desserts'}];
+  var TABS = [{id:'starters',e:'🥗',l:'Starters'},{id:'mains',e:'🍽️',l:'Mains'},{id:'sides',e:'🥘',l:'Sides'},{id:'desserts',e:'🍮',l:'Desserts'},{id:'drinks',e:'🍷',l:'Drinks'}];
   var recipes = pool.filter(function(x){ return x.country === country; });
   var inTab = recipes.filter(function(x){ return wkCourseToTab(x.course) === tab; });
 
@@ -1849,6 +1852,7 @@ function wkDetailV33(r, country){
     + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
+    +   (/[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'') ? '<div style="font-size:14px;color:#50a878;font-style:italic;margin:0 0 2px;">'+r.name+'</div>' : '')
     +   '<div style="font-size:11px;color:#2a6040;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
     +   metaBox + stepper + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
     +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
