@@ -1768,10 +1768,16 @@ function wkDetailV33(r, country){
   var costNote = cost.missing.length
     ? '<div style="font-size:10px;color:#6a7a40;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
     : '<div style="font-size:10px;color:#3a6050;margin-top:6px;">all ingredients priced</div>';
-  var costBox = '<div style="background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;">'
+  var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
+  var costBox = !isWkPro
+    ? '<div style="background:#0a1a10;border:1px dashed #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:22px;color:#143024;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
+      + '<div style="font-size:12px;color:#3a6050;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div>'
+      + '</div>'
+    : '<div style="background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;">'
-    +   '<div style="font-size:12px;color:#80b898;">💰 Estimated cost · '+n+' '+(n===1?'serving':'servings')+'</div>'
-    +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'—')+'</div>'
+    +   '<div style="font-size:12px;color:#80b898;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
+    +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div>'
     + '</div>'
     + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #143024;"><span style="font-size:11px;color:#3a6050;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
     + costNote
@@ -1964,6 +1970,60 @@ function wkBuildPlanShopping(){
 }
 
 /* ── MY PLAN screen ── */
+/* ── My Plan tick-off / share / print (WK-aware, self-contained — never touches braai) ── */
+function wkToggleShop(name){
+  var c = Object.assign({}, S.wkCheckedShop || {});
+  c[name] = !c[name];
+  set({ wkCheckedShop: c });
+}
+function wkPlanShareText(includeList){
+  var pool = wkPool(), plan = S.wkPlan || [];
+  var L = ['*My World Kitchen Plan*', ''];
+  plan.forEach(function(e){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===e.id){ r=pool[i]; break; } }
+    if(!r) return;
+    var n = Math.max(1, e.servings||1);
+    var disp = (typeof tinzaDisplayName==='function') ? tinzaDisplayName(r) : r.name;
+    L.push('\u2022 ' + disp + '  (' + n + ' ' + (n===1?'serving':'servings') + ')');
+  });
+  if(includeList){
+    var shop = wkBuildPlanShopping(), cur='';
+    L.push('', '*Shopping list*  (+10% buffer)');
+    shop.items.forEach(function(it){
+      if(it.aisle!==cur){ cur=it.aisle; L.push('', it.aisle); }
+      L.push('  [ ] ' + it.name + ' \u2014 ' + it.amt + (it.cost!=null ? ' (R'+it.cost+')' : ''));
+    });
+    L.push('', 'Estimated total: ~R' + shop.total);
+  }
+  L.push('', '\u2014 made with Tinza');
+  return L.join('\n');
+}
+function wkShareDishes(){ window.open('https://wa.me/?text=' + encodeURIComponent(wkPlanShareText(false)), '_blank'); }
+function wkShareWithList(){ window.open('https://wa.me/?text=' + encodeURIComponent(wkPlanShareText(true)), '_blank'); }
+function wkPrintPlan(){
+  var pool = wkPool(), plan = S.wkPlan || [];
+  var rows = plan.map(function(e){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===e.id){ r=pool[i]; break; } }
+    if(!r) return '';
+    var n = Math.max(1, e.servings||1);
+    var disp = (typeof tinzaDisplayName==='function') ? tinzaDisplayName(r) : r.name;
+    return '<li>' + disp + ' &mdash; ' + n + ' ' + (n===1?'serving':'servings') + '</li>';
+  }).join('');
+  var shop = wkBuildPlanShopping(), cur='', sl='';
+  shop.items.forEach(function(it){
+    if(it.aisle!==cur){ cur=it.aisle; sl += '<h3>'+it.aisle+'</h3>'; }
+    sl += '<div>&#9744; ' + it.name + ' &mdash; ' + it.amt + (it.cost!=null?' (R'+it.cost+')':'') + '</div>';
+  });
+  var w = window.open('', '_blank');
+  if(!w){ alert('Please allow pop-ups to print your plan.'); return; }
+  w.document.write('<html><head><title>My World Kitchen Plan</title>'
+    + '<style>body{font-family:Georgia,serif;color:#1a1a1a;padding:28px;line-height:1.6;}h1{font-size:22px;}h2{font-size:15px;margin-top:22px;}h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#777;margin:14px 0 4px;}ul{margin:0;padding-left:20px;}li{margin:4px 0;}.tot{margin-top:18px;font-weight:bold;}</style></head><body>'
+    + '<h1>&#127757; My World Kitchen Plan</h1><h2>Dishes</h2><ul>' + rows + '</ul>'
+    + '<h2>Shopping list <span style="font-weight:normal;font-size:12px;color:#777;">(+10% buffer)</span></h2>' + sl
+    + '<div class="tot">Estimated total: ~R' + shop.total + '</div></body></html>');
+  w.document.close(); w.focus(); setTimeout(function(){ w.print(); }, 300);
+}
+
 function wkMyPlanView(){
   var green='#30a878', cream='#f5e8cc';
   var pool = wkPool();
@@ -2002,23 +2062,57 @@ function wkMyPlanView(){
   }).join('');
 
   var shop = wkBuildPlanShopping();
+  var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
+  var checked = S.wkCheckedShop || {};
   var curAisle='', shopRows='';
   shop.items.forEach(function(it){
     if(it.aisle!==curAisle){ curAisle=it.aisle; shopRows += '<div style="font-size:10px;letter-spacing:0.06em;color:'+green+';text-transform:uppercase;margin:12px 0 4px;">'+curAisle+'</div>'; }
-    shopRows += '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #14241a;">'
-      + '<span style="color:'+(it.faded?'#3a6050':'#c0d0c4')+';font-style:'+(it.faded?'italic':'normal')+';">'+it.name+'</span>'
-      + '<span style="color:'+(it.faded?'#3a6050':green)+';white-space:nowrap;">'+it.amt+(it.cost!=null?' · R'+it.cost:'')+'</span></div>';
+    var isOn = !!checked[it.name];
+    var key  = it.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    shopRows += '<div onclick="wkToggleShop(\''+key+'\')" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #14241a;cursor:pointer;opacity:'+(isOn?'0.35':'1')+';">'
+      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+green+';flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(isOn?green:'transparent')+';">'+(isOn?'<span style="color:#04120b;font-size:12px;">\u2713</span>':'')+'</div>'
+      + '<span style="flex:1;color:'+(isOn?'#3a6050':(it.faded?'#3a6050':'#c0d0c4'))+';font-style:'+(it.faded?'italic':'normal')+';text-decoration:'+(isOn?'line-through':'none')+';">'+it.name+'</span>'
+      + '<span style="color:'+(isOn?'#3a6050':(it.faded?'#3a6050':green))+';white-space:nowrap;">'+it.amt+(it.cost!=null?' \u00b7 R'+it.cost:'')+'</span></div>';
   });
+  var remaining = shop.items.filter(function(it){ return !checked[it.name]; }).length;
+  var remainRow = shop.items.length
+    ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #14241a;display:flex;justify-content:space-between;align-items:center;">'
+      + '<span style="font-size:11px;color:#3a6050;">'+remaining+' of '+shop.items.length+' items remaining</span>'
+      + '<button onclick="set({wkCheckedShop:{}})" style="background:none;border:none;color:'+green+';font-size:11px;cursor:pointer;text-decoration:underline;font-family:Georgia,serif;">Reset all</button></div>'
+    : '';
   var missNote = shop.missing.length
-    ? '<div style="font-size:10px;color:#6a7a40;margin-top:8px;">≈ estimate — not yet priced: '+shop.missing.slice(0,8).join(', ')+(shop.missing.length>8?'…':'')+'</div>' : '';
+    ? '<div style="font-size:10px;color:#6a7a40;margin-top:8px;">\u2248 estimate \u2014 not yet priced: '+shop.missing.slice(0,8).join(', ')+(shop.missing.length>8?'\u2026':'')+'</div>' : '';
 
-  var shopBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
-    +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">🛒 Shopping list <span style="color:#3a6050;text-transform:none;">(+10% buffer)</span></div>'
-    +   '<div style="font-size:20px;color:'+green+';font-weight:bold;">~R'+shop.total+'</div>'
-    + '</div>'
-    + shopRows + missNote + '</div>';
+  var shopBox = isWkPro
+    ? '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
+      +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">\ud83d\uded2 Shopping list <span style="color:#3a6050;text-transform:none;">(+10% buffer)</span></div>'
+      +   '<div style="font-size:20px;color:'+green+';font-weight:bold;">~R'+shop.total+'</div>'
+      + '</div>'
+      + '<div style="font-size:11px;color:#3a6050;margin-bottom:8px;">\u2705 Tap items you already have to tick them off</div>'
+      + shopRows + remainRow + missNote + '</div>'
+    : '<div style="background:#0a1a10;border:1px dashed #1a4030;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:32px;margin-bottom:8px;">\ud83d\udd12</div>'
+      + '<div style="font-size:14px;color:'+green+';margin-bottom:6px;font-weight:bold;">Full Shopping List &amp; Cost</div>'
+      + '<div style="font-size:12px;color:#3a6050;margin-bottom:10px;line-height:1.6;">Every ingredient across your dishes, combined with no duplicates, aisle-sorted, with the +10% buffer \u2014 plus the estimated total.</div>'
+      + '<div style="font-size:13px;color:'+green+';font-weight:bold;">Unlock with Tinza Pro \u2014 R99/month</div></div>';
+
+  // action stack — mirrors Braai's My Plan footer (Free/Pro gated)
+  var shareRow = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
+    + '<button onclick="wkShareDishes()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share Plan<br><span style="font-size:9px;opacity:0.7;">\ud83c\udd93 Free</span></button>'
+    + (isWkPro
+        ? '<button onclick="wkShareWithList()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share + Shopping List<br><span style="font-size:9px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
+        : '<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0a0f0c;border:2px solid #14241a;color:#2a4034;font-size:12px;line-height:1.4;font-family:Georgia,serif;">\ud83d\udd12 Full List<br><span style="font-size:9px;">\ud83d\udc51 Pro only</span></button>')
+    + '</div>';
+  var printBtn = isWkPro
+    ? '<button onclick="wkPrintPlan()" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udda8\ufe0f Print / Save as PDF <span style="font-size:10px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
+    : '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0a0f0c;border:1px solid #14241a;color:#2a4034;font-size:13px;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udd12 Print / Save as PDF \u2014 Pro only</button>';
+  var newBtn = '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0a2018;border:2px solid '+green+';color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;font-family:Georgia,serif;">\ud83d\udd04 Start a New Plan</button>';
+  var navRow = '<div style="display:flex;justify-content:space-between;padding:0 4px 24px;font-size:13px;">'
+    + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">\u2190 World Kitchen</button>'
+    + '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#3a5040;cursor:pointer;font-family:Georgia,serif;">Home</button>'
+    + '</div>';
 
   return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
-    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+dishes+shopBox+'</div></div>';
+    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
 }
