@@ -1760,7 +1760,6 @@ function wkDetailV33(r, country){
   var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · for '+n+' '+(n===1?'person':'people')+'</div>'
     + ingRows
-    + (r.ingredients12 ? '<div style="font-size:11px;color:#3a6050;margin-top:10px;font-style:italic;">Catering anchor (12 people): '+r.ingredients12+'</div>' : '')
     + '</div>';
 
   // estimated cost (honest / partial)
