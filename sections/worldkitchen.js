@@ -1311,6 +1311,9 @@ var WK_COUNTRY_GEO = {
   "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"],
   "Denmark":["Europe","Northern Europe"], "Finland":["Europe","Northern Europe"],
   "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"],
+  "Netherlands":["Europe","Western Europe"], "Switzerland":["Europe","Western Europe"], "Austria":["Europe","Western Europe"],
+  "Poland":["Europe","Eastern Europe"], "Ukraine":["Europe","Eastern Europe"], "Russia":["Europe","Eastern Europe"],
+  "Hungary":["Europe","Eastern Europe"], "Turkey":["Europe","Eastern Europe"], "Georgia":["Europe","Eastern Europe"],
   "India":["Asia","Southern Asia"], "Pakistan":["Asia","Southern Asia"], "Sri Lanka":["Asia","Southern Asia"]
 };
 
