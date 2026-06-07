@@ -1296,7 +1296,7 @@ function wkRecipeDetailHTML(regionData){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
@@ -1314,7 +1314,9 @@ var WK_COUNTRY_GEO = {
   "Netherlands":["Europe","Western Europe"], "Switzerland":["Europe","Western Europe"], "Austria":["Europe","Western Europe"],
   "Poland":["Europe","Eastern Europe"], "Ukraine":["Europe","Eastern Europe"], "Russia":["Europe","Eastern Europe"],
   "Hungary":["Europe","Eastern Europe"], "Turkey":["Europe","Eastern Europe"], "Georgia":["Europe","Eastern Europe"],
-  "India":["Asia","Southern Asia"], "Pakistan":["Asia","Southern Asia"], "Sri Lanka":["Asia","Southern Asia"]
+  "India":["Asia","Southern Asia"], "Pakistan":["Asia","Southern Asia"], "Sri Lanka":["Asia","Southern Asia"],
+  "Cape Malay":["Africa","Southern Africa"], "Indian":["Africa","Southern Africa"], "Zulu":["Africa","Southern Africa"],
+  "Sotho":["Africa","Southern Africa"], "Xhosa":["Africa","Southern Africa"], "Boerekos":["Africa","Southern Africa"]
 };
 
 /* The six continent boxes, each with its UN regions in display order. */
@@ -1478,7 +1480,7 @@ function wkWorldHome(){
   }
 
   // ── LEVEL 1: HOME — SA + 6 continents in one 4-wide grid (braai-style: 4 on top, 3 under) ──
-  var saTile = wkGridCard('🇿🇦', 'SA Kitchens', 'Our heritage', "set({wkScreen:'sa'})", false, true);
+  var saTile = wkGridCard('🇿🇦', 'SA Kitchens', 'Our heritage', "set({wkContinent:'Africa',wkRegion:'Southern Africa'});window.scrollTo(0,0)", false, true);
   var contTiles = WK_CONTINENTS.map(function(c){
         var regions = wkRegionsWithData(c.key);
         var count = 0; regions.forEach(function(r){ count += wkCountriesIn(c.key, r).length; });
