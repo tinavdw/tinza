@@ -1,20 +1,18 @@
 // ── TINZA SPICE ROOM ─────────────────────────────────────────────────────────
 // "Everything that enhances your food."
-// PILOT FILE — 6 entries, locked schema. Roll the rest from the seed list.
+// PILOT FILE — 6 entries, structured + scalable. Roll the rest from the seed list.
 //
 // SCHEMA (locked):
-//   id            slug, unique
-//   name          display name
-//   type          blend | sauce | chutney | sambal | relish | preserve | jam | dressing | dip | paste
-//   shelf         spice-blends | sauces | chutneys-atchars | sambals-relishes | jams-preserves | dressings-dips
-//   region        where it comes from (human, short)
+//   id, name, type, shelf, region
 //   flavourChips  [max 3]  Warm · Earthy · Tangy · Hot · Aromatic · Herby
-//   whenToUse     start | mid | finish   (when it goes into the cook)
-//   makeYourOwn   { ingredients:[one per line], method:"joined prose" }   ← the heart
-//   pairsWith     [dish/ingredient names]   (mirrors braai "Goes Well With")
-//   aliases       [strings]  ← recipe auto-linker matches any of these in an ingredient line
-//   story         2 sentences, human + cultural
-//   howThisFeels  ""   (deferred soul-pass)
+//   whenToUse     start | mid | finish
+//   makeYourOwn:
+//     yield:       { mode:"batch"|"serves", unit:"g"|"ml"|"", base:N, step:N, label:"" }
+//                  batch  → base/step are AMOUNTS (g or ml); min = base; ingredients × (amount/base)
+//                  serves → base/step are PEOPLE (unit ""); min = base; braai-style pp · total
+//     ingredients: [ { qty:N, unit:"g"|"ml"|"", name:"" } ]   unit "" = counted item (onions, cloves)
+//     method:      "joined prose"
+//   pairsWith     [names]      aliases [strings]   story "2 sentences"   howThisFeels ""
 
 var SPICE_DB = [
 
@@ -27,15 +25,16 @@ var SPICE_DB = [
     flavourChips: ["Warm", "Aromatic", "Earthy"],
     whenToUse: "finish",
     makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:20, step:10, label:"small jar" },
       ingredients: [
-        "cumin seeds 2 tbsp",
-        "coriander seeds 2 tbsp",
-        "green cardamom pods 1 tbsp",
-        "black peppercorns 1 tbsp",
-        "whole cloves 1 tsp",
-        "cinnamon stick 1 (5 cm)",
-        "bay leaves 2",
-        "nutmeg ¼ tsp, grated"
+        { qty:5, unit:"g", name:"cumin seeds" },
+        { qty:5, unit:"g", name:"coriander seeds" },
+        { qty:3, unit:"g", name:"green cardamom pods" },
+        { qty:2, unit:"g", name:"black peppercorns" },
+        { qty:1, unit:"g", name:"whole cloves" },
+        { qty:2, unit:"g", name:"cinnamon (broken stick)" },
+        { qty:1, unit:"g", name:"bay leaves" },
+        { qty:1, unit:"g", name:"nutmeg, grated" }
       ],
       method: "Dry-roast the cumin, coriander, cardamom, peppercorns, cloves, cinnamon and bay in a hot dry pan over medium heat, shaking constantly until they darken a shade and smell toasty (2–3 min). Tip onto a cold plate and let them cool completely. Grind to a fine powder with the grated nutmeg, then store airtight away from light. Add near the END of cooking — the aroma is delicate and burns off if simmered too long."
     },
@@ -54,15 +53,16 @@ var SPICE_DB = [
     flavourChips: ["Hot", "Tangy", "Aromatic"],
     whenToUse: "mid",
     makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:250, label:"1 bottle" },
       ingredients: [
-        "African bird's-eye chillies 8–12",
-        "garlic cloves 4",
-        "lemon juice 60 ml",
-        "red wine vinegar 30 ml",
-        "smoked paprika 1 tbsp",
-        "dried oregano 1 tsp",
-        "olive oil 100 ml",
-        "salt 1 tsp"
+        { qty:10, unit:"", name:"African bird's-eye chillies" },
+        { qty:4, unit:"", name:"garlic cloves" },
+        { qty:60, unit:"ml", name:"lemon juice" },
+        { qty:30, unit:"ml", name:"red wine vinegar" },
+        { qty:7, unit:"g", name:"smoked paprika" },
+        { qty:1, unit:"g", name:"dried oregano" },
+        { qty:100, unit:"ml", name:"olive oil" },
+        { qty:5, unit:"g", name:"salt" }
       ],
       method: "Blend the chillies, garlic, lemon juice, vinegar, paprika, oregano and salt to a coarse paste. With the motor running, stream in the olive oil until it loosens into a pourable sauce. Warm gently in a pan for 5 min to marry the flavours (do not boil). Use as a marinade and a baste DURING cooking, then keep a little back fresh to spoon over at the table."
     },
@@ -81,17 +81,18 @@ var SPICE_DB = [
     flavourChips: ["Tangy", "Hot", "Earthy"],
     whenToUse: "finish",
     makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        "onion 1, finely chopped",
-        "garlic cloves 2, crushed",
-        "carrots 2, coarsely grated",
-        "green pepper 1, diced",
-        "curry powder 1 tbsp",
-        "chopped tomatoes 1 tin (400 g)",
-        "baked beans 1 tin (410 g)",
-        "green chilli 1, finely chopped",
-        "sunflower oil 2 tbsp",
-        "salt to taste"
+        { qty:1, unit:"", name:"onion, finely chopped" },
+        { qty:2, unit:"", name:"garlic cloves, crushed" },
+        { qty:2, unit:"", name:"carrots, coarsely grated" },
+        { qty:1, unit:"", name:"green pepper, diced" },
+        { qty:7, unit:"g", name:"curry powder" },
+        { qty:400, unit:"g", name:"chopped tomatoes (1 tin)" },
+        { qty:410, unit:"g", name:"baked beans (1 tin)" },
+        { qty:1, unit:"", name:"green chilli, finely chopped" },
+        { qty:30, unit:"ml", name:"sunflower oil" },
+        { qty:2, unit:"g", name:"salt" }
       ],
       method: "Fry the onion and garlic in the oil until soft and golden. Stir in the carrots, green pepper, chilli and curry powder and cook 3–4 min so the spice blooms. Add the tomatoes and simmer 10 min until thick and glossy. Fold the baked beans through at the very end, just to heat — overcooking turns them to mush. Serve warm or at room temperature ALONGSIDE the meal, not cooked into it."
     },
@@ -110,15 +111,16 @@ var SPICE_DB = [
     flavourChips: ["Tangy", "Hot", "Aromatic"],
     whenToUse: "finish",
     makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:250, step:250, label:"1 jar" },
       ingredients: [
-        "green (unripe) mangoes 4, shredded",
-        "atchar / achar masala 2 tbsp",
-        "turmeric 1 tsp",
-        "chilli powder 1 tbsp",
-        "fenugreek (methi) seeds 1 tsp",
-        "mustard seeds 1 tsp",
-        "sunflower oil 250 ml",
-        "salt 2 tbsp"
+        { qty:200, unit:"g", name:"green (unripe) mango, shredded" },
+        { qty:15, unit:"g", name:"atchar / achar masala" },
+        { qty:3, unit:"g", name:"turmeric" },
+        { qty:7, unit:"g", name:"chilli powder" },
+        { qty:2, unit:"g", name:"fenugreek (methi) seeds" },
+        { qty:2, unit:"g", name:"mustard seeds" },
+        { qty:60, unit:"ml", name:"sunflower oil" },
+        { qty:10, unit:"g", name:"salt" }
       ],
       method: "Toss the shredded green mango with the salt and leave in a colander for a few hours to draw out the liquid, then pat dry. Heat the oil until shimmering, drop in the mustard and fenugreek seeds and let them crackle, then stir in the turmeric, chilli and atchar masala off the heat. Mix the spiced oil through the mango until every strand is coated. Pack into a sterilised jar, top with a film of oil, and leave to mature for at least 3 days. Serve a spoonful on the side to cut through rich, saucy dishes."
     },
@@ -137,14 +139,15 @@ var SPICE_DB = [
     flavourChips: ["Herby", "Tangy", "Aromatic"],
     whenToUse: "finish",
     makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        "flat-leaf parsley 1 large bunch, finely chopped",
-        "garlic cloves 4, finely chopped",
-        "dried oregano 1 tbsp",
-        "red chilli flakes 1 tsp",
-        "red wine vinegar 60 ml",
-        "olive oil 120 ml",
-        "salt 1 tsp"
+        { qty:60, unit:"g", name:"flat-leaf parsley, finely chopped" },
+        { qty:4, unit:"", name:"garlic cloves, finely chopped" },
+        { qty:3, unit:"g", name:"dried oregano" },
+        { qty:1, unit:"g", name:"red chilli flakes" },
+        { qty:60, unit:"ml", name:"red wine vinegar" },
+        { qty:120, unit:"ml", name:"olive oil" },
+        { qty:5, unit:"g", name:"salt" }
       ],
       method: "Chop the parsley and garlic as finely as you can by hand — a blender bruises it and turns it bitter. Stir in the oregano, chilli flakes, salt and vinegar, then loosen with the olive oil to a loose, spoonable sauce. Leave it to stand at room temperature for at least 30 min so the flavours open up. Spoon raw over hot grilled meat at the table — never cook it."
     },
@@ -163,16 +166,17 @@ var SPICE_DB = [
     flavourChips: ["Tangy", "Warm", "Aromatic"],
     whenToUse: "finish",
     makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        "onion 1, finely chopped",
-        "garlic cloves 2, crushed",
-        "tomato sauce (ketchup) 125 ml",
-        "fruit chutney 60 ml",
-        "Worcestershire sauce 2 tbsp",
-        "brown sugar 1 tbsp",
-        "white vinegar 1 tbsp",
-        "Dijon mustard 1 tsp",
-        "sunflower oil 1 tbsp"
+        { qty:1, unit:"", name:"onion, finely chopped" },
+        { qty:2, unit:"", name:"garlic cloves, crushed" },
+        { qty:125, unit:"ml", name:"tomato sauce (ketchup)" },
+        { qty:60, unit:"ml", name:"fruit chutney" },
+        { qty:30, unit:"ml", name:"Worcestershire sauce" },
+        { qty:12, unit:"g", name:"brown sugar" },
+        { qty:15, unit:"ml", name:"white vinegar" },
+        { qty:5, unit:"g", name:"Dijon mustard" },
+        { qty:15, unit:"ml", name:"sunflower oil" }
       ],
       method: "Fry the onion and garlic in the oil until soft and just colouring. Stir in the tomato sauce, chutney, Worcestershire, sugar, vinegar and mustard. Simmer gently 8–10 min until thickened and glossy, loosening with a splash of water if it gets too tight. Spoon over a grilled steak or burger to FINISH — there's no actual gland in it, despite the name."
     },
@@ -187,9 +191,9 @@ var SPICE_DB = [
 if (typeof window !== "undefined") window.SPICE_DB = SPICE_DB;
 if (typeof module !== "undefined" && module.exports) module.exports = SPICE_DB;
 
+
 // ── TINZA SPICE ROOM — SCREEN (v33) ──────────────────────────────────────────
-// Self-contained UI. core.js only needs: a dispatch line + one home tile.
-// State: S.spiceShelf (shelf id|null) · S.spiceEntry (entry id|null) · S.spiceFilter
+// State: S.spiceShelf · S.spiceEntry · S.spiceFilter · S.spiceScale (amount or people) · S.spiceHowOpen
 
 var SPICE_SHELVES = [
   {id:"spice-blends",     e:"🌶️", t:"Spice Blends & Masalas", sub:"Garam masala · peri-peri · the real way", b:"#c0501a", bg:"#1d0e05"},
@@ -213,6 +217,23 @@ var SPICE_CHIPCOLOR = {
 
 function spiceDB(){ return (typeof SPICE_DB!=="undefined" && SPICE_DB) || []; }
 function spiceEntriesFor(shelfId){ return spiceDB().filter(e=>e.shelf===shelfId); }
+
+// current scale for the open entry (lazy-init to its base)
+function spiceCurScale(e){
+  const y = e.makeYourOwn.yield;
+  return (S.spiceScale==null) ? y.base : S.spiceScale;
+}
+// format a measured amount; counts stay as small numbers
+function spiceFmt(n, unit){
+  if(unit==="g" || unit==="ml"){
+    const r = Math.round(n);
+    if(r>=1000) return (r/1000).toFixed(r%1000?1:0) + (unit==="g"?"kg":"l");
+    return r + unit;
+  }
+  // counted item
+  const v = Math.round(n*10)/10;
+  return (v % 1 === 0) ? String(v) : v.toFixed(1);
+}
 
 function spiceRoomHTML(){
   if(S.spiceEntry) return spiceEntryView();
@@ -240,7 +261,7 @@ function spiceLandingView(){
 
       <div class="how-it-works" style="margin-bottom:14px;cursor:pointer;" onclick="set({spiceHowOpen:${howOpen?'false':'true'}})">
         <span style="font-size:12px;color:#c08040;">${howOpen?'▲':'▼'} How it works</span>
-        ${howOpen?`<div style="font-size:12px;color:#9a8060;line-height:1.6;margin-top:8px;">Pick a shelf, then an entry. Every entry shows its <strong style="color:#c0a060;">flavour</strong>, <strong style="color:#c0a060;">when to add it</strong>, and a <strong style="color:#c0a060;">Make Your Own</strong> recipe — the real way, dry-roasted and built from scratch. Soon, any matching ingredient in a recipe (like "garam masala") will tap straight through to here.</div>`:''}
+        ${howOpen?`<div style="font-size:12px;color:#9a8060;line-height:1.6;margin-top:8px;">Pick a shelf, then an entry. Every entry shows its <strong style="color:#c0a060;">flavour</strong>, <strong style="color:#c0a060;">when to add it</strong>, and a <strong style="color:#c0a060;">Make Your Own</strong> recipe. Blends and preserves scale by <strong style="color:#c0a060;">batch</strong> (a small jar, a bottle); fresh sauces and relishes scale by <strong style="color:#c0a060;">people</strong>, just like the braai.</div>`:''}
       </div>
 
       <div class="grid2" style="gap:8px;">
@@ -266,7 +287,6 @@ function spiceShelfView(){
   const shelf = SPICE_SHELVES.find(s=>s.id===S.spiceShelf) || SPICE_SHELVES[0];
   let entries = spiceEntriesFor(shelf.id);
 
-  // data-driven sub-pills by region (only show if >1 distinct region)
   const regions = [...new Set(entries.map(e=>e.region))];
   const showPills = regions.length > 1;
   const filter = S.spiceFilter;
@@ -294,7 +314,7 @@ function spiceShelfView(){
       shown.map(e=>{
         const w = SPICE_WHENMAP[e.whenToUse] || {};
         const chips = (e.flavourChips||[]).slice(0,3).map(c=>`<span style="font-size:10px;color:${SPICE_CHIPCOLOR[c]||'#a08050'};border:1px solid ${SPICE_CHIPCOLOR[c]||'#a08050'};border-radius:20px;padding:2px 8px;">${c}</span>`).join("");
-        return `<button onclick="set({spiceEntry:'${e.id}'})"
+        return `<button onclick="set({spiceEntry:'${e.id}',spiceScale:null})"
           style="width:100%;display:block;text-align:left;background:#161009;border:1px solid #3a2510;border-radius:12px;padding:13px;margin-bottom:8px;cursor:pointer;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <div style="flex:1;font-size:15px;color:#f5e8cc;font-weight:bold;">${e.name}</div>
@@ -316,20 +336,94 @@ function spiceShelfView(){
 function spiceEntryView(){
   const e = spiceDB().find(x=>x.id===S.spiceEntry);
   const shelf = SPICE_SHELVES.find(s=>s.id===(e&&e.shelf)) || SPICE_SHELVES[0];
-  if(!e) return `<div class="content"><button class="back-btn" onclick="set({spiceEntry:null})" style="color:#c08040;">← Back</button><p style="margin-top:12px;color:#c0a080;">Entry not found.</p></div>`;
+  if(!e) return `<div class="content"><button class="back-btn" onclick="set({spiceEntry:null,spiceScale:null})" style="color:#c08040;">← Back</button><p style="margin-top:12px;color:#c0a080;">Entry not found.</p></div>`;
 
   const w = SPICE_WHENMAP[e.whenToUse] || {};
   const chips = (e.flavourChips||[]).slice(0,3).map(c=>`<span style="font-size:12px;color:${SPICE_CHIPCOLOR[c]||'#a08050'};border:1px solid ${SPICE_CHIPCOLOR[c]||'#a08050'};border-radius:20px;padding:4px 12px;">${c}</span>`).join("");
 
-  const ing = (e.makeYourOwn && e.makeYourOwn.ingredients) || [];
-  // method prose → numbered steps (split on sentence end, keep it readable)
-  const steps = ((e.makeYourOwn && e.makeYourOwn.method) || "")
-    .split(/(?<=[.!?])\s+(?=[A-Z(])/).map(s=>s.trim()).filter(Boolean);
+  const my = e.makeYourOwn;
+  const y = my.yield;
+  const cur = spiceCurScale(e);
+  const isBatch = y.mode === "batch";
+
+  // ── GREEN "MAKE YOUR OWN" BOX + SCALER ──
+  let greenBox;
+  if(isBatch){
+    const dec = `set({spiceScale:Math.max(${y.base}, ${cur} - ${y.step})})`;
+    const inc = `set({spiceScale:${cur} + ${y.step}})`;
+    greenBox = `
+      <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:4px;">🥄 Make Your Own</div>
+            <div style="font-size:22px;font-weight:bold;color:#c8e840;line-height:1;">${spiceFmt(cur, y.unit)}</div>
+            <div style="font-size:10px;color:#5a7020;margin-top:3px;">${y.label}${cur>y.base?` · ${Math.round(cur/y.base*10)/10}× batch`:""}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <button onclick="${dec}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>
+            <span style="font-size:18px;color:#f5c842;font-weight:bold;min-width:54px;text-align:center;">${spiceFmt(cur, y.unit)}</span>
+            <button onclick="${inc}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    const dec = `set({spiceScale:Math.max(${y.base}, ${cur} - 1)})`;
+    const inc = `set({spiceScale:Math.min(100, ${cur} + 1)})`;
+    greenBox = `
+      <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:4px;">🥄 Make Your Own</div>
+            <div style="font-size:12px;color:#6a8030;">Enough for the table — scales with people</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <button onclick="${dec}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>
+            <span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${cur}</span>
+            <button onclick="${inc}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#5a7020;margin-top:6px;">${cur} people</div>
+      </div>`;
+  }
+
+  // ── INGREDIENTS (scaled) ──
+  const ingHTML = (my.ingredients||[]).map(ing=>{
+    let right;
+    if(isBatch){
+      const factor = cur / y.base;
+      const amt = ing.qty * factor;
+      right = (ing.unit==="") ? `${spiceFmt(amt,"")}` : spiceFmt(amt, ing.unit);
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e1a10;">
+        <span style="width:5px;height:5px;border-radius:50%;background:#c08040;flex-shrink:0;"></span>
+        <span style="flex:1;font-size:14px;color:#e0d4b8;">${ing.name}</span>
+        <span style="font-size:13px;color:#f5c842;font-weight:bold;">${right}</span>
+      </div>`;
+    } else {
+      const total = ing.qty * (cur / y.base);
+      if(ing.unit===""){
+        const tot = Math.max(1, Math.round(total));
+        return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e1a10;">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c08040;flex-shrink:0;"></span>
+          <span style="flex:1;font-size:14px;color:#e0d4b8;">${ing.name}</span>
+          <span style="font-size:13px;color:#f5c842;font-weight:bold;">${tot}</span>
+        </div>`;
+      }
+      const pp = ing.qty / y.base;
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e1a10;">
+        <span style="width:5px;height:5px;border-radius:50%;background:#c08040;flex-shrink:0;"></span>
+        <span style="flex:1;font-size:14px;color:#e0d4b8;">${ing.name} <span style="color:#8a7a50;font-size:11px;">· ${spiceFmt(pp,ing.unit)} pp</span></span>
+        <span style="font-size:13px;color:#f5c842;font-weight:bold;">${spiceFmt(total, ing.unit)}</span>
+      </div>`;
+    }
+  }).join("");
+
+  // method prose → numbered steps
+  const steps = (my.method||"").split(/(?<=[.!?])\s+(?=[A-Z(])/).map(s=>s.trim()).filter(Boolean);
   const pairs = e.pairsWith || [];
 
   return `<div>
     <div class="header">
-      <button class="back-btn" onclick="set({spiceEntry:null})" style="color:#c08040;">← ${shelf.t}</button>
+      <button class="back-btn" onclick="set({spiceEntry:null,spiceScale:null})" style="color:#c08040;">← ${shelf.t}</button>
     </div>
     <div class="content">
       ${typeof recipePhoto==="function" ? recipePhoto(e.name, shelf.e, 150) : ""}
@@ -344,27 +438,16 @@ function spiceEntryView(){
         <div><div style="font-size:9px;letter-spacing:1px;color:#7a6040;text-transform:uppercase;">When to use</div><div style="font-size:13px;color:${w.c};">${w.label}</div></div>
       </div>`:''}
 
-      <!-- MAKE YOUR OWN — v33 green box -->
-      <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:4px;">🥄 Make Your Own</div>
-            <div style="font-size:12px;color:#6a8030;">The real way — built from scratch</div>
-          </div>
-          <div style="text-align:right;"><div style="font-size:20px;font-weight:bold;color:#c8e840;line-height:1;">1 batch</div><div style="font-size:10px;color:#5a7020;margin-top:2px;">makes a jarful</div></div>
-        </div>
-      </div>
+      ${greenBox}
 
-      <!-- INGREDIENTS -->
       <div style="background:#141008;border:1px solid #3a2810;border-radius:10px;padding:12px;margin-bottom:14px;">
-        <div style="font-size:10px;letter-spacing:1.5px;color:#8a6a40;text-transform:uppercase;margin-bottom:8px;">Ingredients</div>
-        ${ing.map(line=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e1a10;">
-          <span style="width:5px;height:5px;border-radius:50%;background:#c08040;flex-shrink:0;"></span>
-          <span style="font-size:14px;color:#e0d4b8;">${line}</span>
-        </div>`).join("")}
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+          <div style="font-size:10px;letter-spacing:1.5px;color:#8a6a40;text-transform:uppercase;">Ingredients</div>
+          <div style="font-size:10px;color:#6a5535;">${isBatch?`for ${spiceFmt(cur,y.unit)}`:`scaled for ${cur} ${cur===1?'person':'people'}`}</div>
+        </div>
+        ${ingHTML}
       </div>
 
-      <!-- METHOD — orange step circles -->
       <div style="margin-bottom:14px;">
         <div style="font-size:10px;letter-spacing:1.5px;color:#8a6a40;text-transform:uppercase;margin-bottom:10px;">Method</div>
         ${steps.map((s,i)=>`<div style="display:flex;gap:12px;margin-bottom:12px;">
@@ -373,28 +456,25 @@ function spiceEntryView(){
         </div>`).join("")}
       </div>
 
-      <!-- GOES WELL WITH -->
       ${pairs.length?`<div class="goes-well">
         <div style="font-size:10px;letter-spacing:1.5px;color:#8a8ab0;text-transform:uppercase;margin-bottom:8px;">🍽️ Goes Well With</div>
         <div>${pairs.map(p=>`<span class="goes-well-pill">${p}</span>`).join("")}</div>
       </div>`:''}
 
-      <!-- STORY -->
       ${e.story?`<div style="background:#16100a;border-left:2px solid #c08040;border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:14px;">
         <div style="font-size:13px;color:#c0a880;line-height:1.7;font-style:italic;">${e.story}</div>
       </div>`:''}
 
       ${e.howThisFeels?`<div style="text-align:center;font-size:13px;color:#c09060;font-style:italic;margin-bottom:14px;">${e.howThisFeels}</div>`:''}
 
-      <!-- ACTIONS -->
       <button onclick="alert('💾 Save to My Kitchen — coming with Pro!')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c06020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">💾 Save to My Kitchen</button>
 
       <div style="display:flex;gap:14px;justify-content:center;font-size:13px;padding:6px 0 24px;">
-        <button onclick="set({spiceEntry:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">← ${shelf.t}</button>
+        <button onclick="set({spiceEntry:null,spiceScale:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">← ${shelf.t}</button>
         <span style="color:#3a2810;">|</span>
-        <button onclick="set({spiceShelf:null,spiceEntry:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">🧂 Spice Room</button>
+        <button onclick="set({spiceShelf:null,spiceEntry:null,spiceScale:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">🧂 Spice Room</button>
         <span style="color:#3a2810;">|</span>
-        <button onclick="set({screen:'home',spiceShelf:null,spiceEntry:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">🏠 Home</button>
+        <button onclick="set({screen:'home',spiceShelf:null,spiceEntry:null,spiceScale:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">🏠 Home</button>
       </div>
     </div>
   </div>`;
