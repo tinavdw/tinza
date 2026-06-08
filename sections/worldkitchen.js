@@ -1577,9 +1577,15 @@ var WK_SUBS = {
   "fufu":         "Fufu → mashed potato or polenta-style maize meal makes an easy stand-in.",
   "orzo":         "Orzo → any tiny pasta, or a handful of broken spaghetti / rice.",
   "fava bean":    "Fava (broad) beans → tinned butter beans are the easiest local swap.",
-  "black-eyed pea":"Black-eyed peas → available at most SA shops; sugar beans work in a pinch.",
+  "black-eyed pea":"Black-eyed peas → sold as 'black-eyed beans' (same as cowpeas) at most SA shops; sugar beans work in a pinch.",
   "plantain":     "Plantain → use a firm, very-green (under-ripe) banana, fried.",
-  "millet flour": "Millet flour → maize meal / corn flour works for tuo zaafi-style dishes."
+  "millet flour": "Millet flour → maize meal / corn flour works for tuo zaafi-style dishes.",
+  "reindeer":     "Reindeer → we don't get it here; use venison or other local game (springbok/kudu) — beef works too.",
+  "veal":         "Veal → a good substitute is beef steak, tenderised and flattened thin; chicken breasts also work.",
+  "cod":          "Cod → hake is the easy local substitute.",
+  "sardine":      "Fresh sardines → scarce here; fresh Maasbanker (Cape mackerel) is the local stand-in.",
+  "clam":         "Clams → hard to find fresh; fresh mussels are the easy local swap (frozen clams work too).",
+  "rabbit":       "Rabbit → not easy to find; chicken pieces are the simplest local substitute."
 };
 
 /* ── parse a per-person ingredient string into structured items ──
@@ -2119,10 +2125,10 @@ function wkPoolBase(poolKey){
 }
 function wkMainCategory(name){
   var n = (typeof wkCleanName==='function') ? wkCleanName(name) : String(name||'').toLowerCase();
-  if(/\b(fish|hake|snoek|kingklip|kabeljou|yellowtail|salmon|tuna|trout|sardine|pilchard|anchovy|mackerel|prawn|prawns|shrimp|calamari|squid|mussel|mussels|crab|lobster|crayfish|oyster|scallop|seafood)\b/.test(n)) return 'fish';
+  if(/\b(fish|hake|snoek|kingklip|kabeljou|yellowtail|salmon|tuna|trout|sardine|sardines|pilchard|pilchards|anchovy|anchovies|mackerel|prawn|prawns|shrimp|calamari|squid|mussel|mussels|crab|lobster|crayfish|oyster|oysters|scallop|scallops|seafood|octopus|cod|clam|clams|herring|haring|perch|sea bass|bass|dogfish|whitebait)\b/.test(n)) return 'fish';
   if(/\b(bone[- ]?in|on the bone|chop|chops|rib|ribs|wing|wings|drumstick|drumsticks|shank|neck|oxtail|trotter|cutlet|cutlets|spatchcock|whole chicken)\b/.test(n)) return 'bonein';
-  if(/\b(beef|lamb|mutton|pork|chicken|mince|steak|fillet|sausage|wors|boerewors|brisket|chuck|goat|sosatie|kebab|bacon|ham|gammon|venison|duck|turkey|meatball|frikkadel)\b/.test(n)) return 'meat';
-  if(/\b(lentil|lentils|bean|beans|chickpea|chickpeas|chana|dal|dhal|paneer|tofu|soya|halloumi|egg|eggs|mushroom|mushrooms|butternut|aubergine|brinjal|cauliflower|spinach)\b/.test(n)) return 'veg';
+  if(/\b(beef|lamb|mutton|pork|chicken|mince|minced|steak|fillet|sausage|wors|boerewors|brisket|chuck|goat|sosatie|kebab|bacon|ham|gammon|venison|duck|turkey|meatball|meatballs|meats|frikkadel|rabbit|reindeer|liver|veal|bratwurst|saucisson|suckling|pig|meat|tongue)\b/.test(n)) return 'meat';
+  if(/\b(lentil|lentils|bean|beans|chickpea|chickpeas|chana|dal|dhal|paneer|tofu|soya|halloumi|egg|eggs|mushroom|mushrooms|butternut|aubergine|brinjal|eggplant|cauliflower|spinach|jackfruit|shiro|cowpea|black-eyed|black eyed|okra|plantain)\b/.test(n)) return 'veg';
   return null;
 }
 function wkClassifyMain(items){
@@ -2135,12 +2141,18 @@ function wkClassifyMain(items){
     cat = wkMainCategory(it.name);
     if(cat) return { item:it, cat:cat };
   }
-  return { item:firstWeighted, cat:'meat' };
+  if(firstWeighted){
+    var fwn = (typeof wkCleanName==='function') ? wkCleanName(firstWeighted.name) : String(firstWeighted.name||'').toLowerCase();
+    if(/\b(rice|pasta|noodle|noodles|spaghetti|macaroni|penne|tagliatelle|vermicelli|flour|bread|dough|couscous|polenta|semolina|potato|potatoes|dumpling|dumplings|gnocchi|injera|roti|paratha|pierogi|vareniki|tortilla|maize|samp)\b/.test(fwn))
+      return { item:firstWeighted, cat:'carb' };   // starch-led main -> keep authored amounts
+  }
+  return { item:firstWeighted, cat:'veg' };   // no protein found -> treat as veg/composed main (200g)
 }
 function wkMainBase(cat){
   if(cat==='bonein') return 250;   // bone-in meat / poultry
   if(cat==='fish')   return 160;   // fish / seafood
   if(cat==='veg')    return 200;   // vegetarian main (~lasagne + a bit)
+  if(cat==='carb')   return null;  // starch-led main (pasta/rice/dough) -> keep authored amounts
   return 180;                      // boneless meat / poultry (default)
 }
 function wkEffectiveMult(r, count, ap){
@@ -2151,8 +2163,9 @@ function wkEffectiveMult(r, count, ap){
   if(pk==='drink') return mult;                         // per guest, authored amounts
   var items = wkParseIngredients(r.ingredients), main, base, i;
   if(pk==='main'){
-    var cls = wkClassifyMain(items);                    // meat / bonein / fish / veg
+    var cls = wkClassifyMain(items);                    // meat / bonein / fish / veg / carb
     main = cls.item; base = wkMainBase(cls.cat);
+    if(base==null) return wkSpreadMult('main', count) * mult;   // carb/composed main: keep authored, just spread
   } else {
     base = wkPoolBase(pk); main=null;
     for(i=0;i<items.length;i++){ if(items[i].qty!=null && !items[i].toTaste){ main=items[i]; break; } }
