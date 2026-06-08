@@ -405,6 +405,27 @@ const PRICE_DB = {
   "low-sodium bone broth": 100,
   "low-sodium vegetable stock": 100,
   "tinned sardines": 208,
+
+  // ── GAME, OFFAL & EXTRA MEATS (8 Jun 2026) — lean HIGH, round UP ──
+  "game meat": 130,           // game stewing/shin high end (~R125) rounded up
+  "springbok": 240,           // game leg high end (Springbokboud)
+  "gemsbok fillet": 400,      // fillet high end, no till surprise
+  "warthog": 100,             // deboned leg high end
+  "pork": 110,                // generic pork
+  "pork belly": 150,          // high end
+  "pork fat": 60,             // cheap trim
+  "beef": 130,                // generic stewing beef
+  "beef stock": 50,           // mostly water + cube
+  "stock powder": 50,         // tiny quantities
+  "dried beef": 300,          // biltong-style, lean high
+  "oxtail": 160,              // oxtail pieces, lean high
+  "mixed meat": 130,          // braai mixed grill
+  "lamb leg": 180,            // estimate — confirm at Checkers
+  "lamb ribs": 170,           // estimate — confirm at Checkers
+  "lamb liver": 70,           // your figure (R60–70 high)
+  "tripe": 130,               // Afval cleaned tripe high end
+  "trotters": 130,            // pig/sheep trotters
+  "caul fat": 160,            // netvet (Skilpadjies) high end
 };
 
 const MEAT_COSTS = {
