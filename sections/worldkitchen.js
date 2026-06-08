@@ -1714,6 +1714,10 @@ function wkPlanSetServings(id, servings){
   var i = wkPlanFind(id);
   if(i > -1){ p[i] = { id:id, servings:Math.max(1,servings) }; set({ wkPlan:p }); }
 }
+function wkPlanClearAll(){
+  if(typeof confirm === 'function' && !confirm('Clear all dishes from your World Kitchen plan?')) return;
+  set({ wkPlan:[] });
+}
 
 /* ── scroll-aware recipe nav: remember list position, restore on back ──
    feeds draw()'s _savedScroll (same mechanism openEvent uses) so we work
@@ -2042,8 +2046,11 @@ function wkMyPlanView(){
 
   var header = '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
     + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
-    + '<h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">🧺 My World Kitchen Plan</h1>'
-    + '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>';
+    + '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;">'
+    +   '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">🧺 My World Kitchen Plan</h1>'
+    +   '<p style="font-size:12px;color:#2a6040;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>'
+    +   (plan.length ? '<button onclick="wkPlanClearAll()" style="background:#180e0a;border:1px solid #6a3030;color:#c07a68;border-radius:20px;font-size:12px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">Clear all</button>' : '')
+    + '</div></div>';
 
   if(!plan.length){
     return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
