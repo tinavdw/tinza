@@ -97,7 +97,7 @@ const PRICE_DB = {
   "salted snoek": 180,        // R90/500g → R180/kg
   "canned tuna": 171,         // R29/170g → R171/kg
   "canned salmon": 300,       // R120/400g → R300/kg
-  "pilchards": 73,            // R29/400g → R73/kg
+  "pilchards": 65,            // R29/400g → was R73/kg, adjusted to R65 (8 Jun 2026)
 
   // ── EGGS ──
   "eggs": 3.7,                // R22/6 pack → ~R3.67 each (price per egg)
@@ -386,6 +386,25 @@ const PRICE_DB = {
   "english muffins": 55,      // interim — placeholder pizzas, to be swapped to Finger Foods mini-pizzas
   "cold water": 0,            // free
   "hot water": 0,             // free
+
+  // ── ADDITIONS (8 June 2026) — prices lean HIGH, round UP ──
+  "turkey mince": 280,
+  "turkey breast": 180,
+  "beef heart": 110,
+  "organ meat": 90,
+  "ground edible bone": 50,
+  "beef marrow bones": 200,
+  "parsley": 650,
+  "mint leaves": 650,
+  "kelp powder": 600,
+  "coconut flour": 130,
+  "pumpkin": 35,
+  "pumpkin puree": 35,
+  "fish oil": 260,
+  "flaxseed oil": 260,
+  "low-sodium bone broth": 100,
+  "low-sodium vegetable stock": 100,
+  "tinned sardines": 208,
 };
 
 const MEAT_COSTS = {
