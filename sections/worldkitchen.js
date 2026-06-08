@@ -1961,10 +1961,12 @@ function wkCookingView(){
 function wkBuildPlanShopping(){
   var pool = wkPool();
   var map = {}, missing = {};
+  var counts = wkPlanPoolCounts(), ap = wkAppetite(), guests = wkGuests();
   (S.wkPlan||[]).forEach(function(entry){
     var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
     if(!r) return;
-    var n = Math.max(1, entry.servings||1);
+    var pk = wkPoolOf(r.course);
+    var n = guests * wkSpreadMult(pk, counts[pk]||1) * ap.mult;   // party headcount x pool spread x appetite
     wkParseIngredients(r.ingredients).forEach(function(it){
       if(it.toTaste || it.qty==null){
         var tk = wkCleanName(it.name) || it.name;
@@ -2059,6 +2061,42 @@ function wkPrintPlan(){
   w.document.close(); w.focus(); setTimeout(function(){ w.print(); }, 300);
 }
 
+/* -- Portion Brain pools (Jun 2026): spread by COURSE at plan level --
+   Each dish shows a fraction of its solo per-person portion, set by how
+   many dishes share its course. Floors stop the 'teaspoon of mousse'.
+   Self-contained in worldkitchen.js -- no core.js changes. */
+function wkPoolOf(course){
+  switch(course){
+    case 'side': case 'salad': return 'side';
+    case 'dessert': return 'dessert';
+    case 'starter': case 'snack': case 'finger': return 'starter';
+    case 'drink': case 'beverage': return 'drink';
+    default: return 'main';
+  }
+}
+function wkSpreadMult(poolKey, count){
+  if(count<=1) return 1.0;
+  if(poolKey==='side'){    if(count===2)return 0.80; if(count===3)return 0.667; if(count===4)return 0.567; return 0.50; }
+  if(poolKey==='dessert'){ if(count===2)return 0.75; if(count===3)return 0.65;  if(count===4)return 0.58;  return 0.55; }
+  if(poolKey==='starter'){ if(count===2)return 0.80; if(count===3)return 0.70;  if(count===4)return 0.62;  return 0.55; }
+  if(poolKey==='drink')  return 1.0;                       // drinks: per guest, never divided
+  if(count===2)return 0.50; if(count===3)return 0.334; return 0.252;   // main / veg-main
+}
+var WK_POOL_LABEL = { main:'Main', side:'Side', dessert:'Dessert', starter:'Starter', drink:'Drink' };
+function wkPlanPoolCounts(){
+  var pool = wkPool(), counts = {};
+  (S.wkPlan||[]).forEach(function(entry){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
+    if(r){ var pk=wkPoolOf(r.course); counts[pk]=(counts[pk]||0)+1; }
+  });
+  return counts;
+}
+function wkAppetite(){
+  if(typeof APPETITE !== 'undefined' && S.appetite && APPETITE[S.appetite]) return APPETITE[S.appetite];
+  return { mult:1, label:'Normal' };
+}
+function wkGuests(){ return Math.max(1, S.wkGuests || 10); }
+
 function wkMyPlanView(){
   var green='#30a878', cream='#f5e8cc';
   var pool = wkPool();
@@ -2077,27 +2115,55 @@ function wkMyPlanView(){
       + '<div style="padding:40px 20px;text-align:center;color:#4a7060;font-size:13px;">Your plan is empty.<br>Open any dish and tap <span style="color:'+green+';">＋ Add to My Plan</span>.</div></div>';
   }
 
+  var counts = wkPlanPoolCounts();
+  var ap = wkAppetite();
+  var guests = wkGuests();
   var dishes = plan.map(function(entry){
     var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
     if(!r) return '';
-    var n = Math.max(1, entry.servings||1);
     var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+    var pk = wkPoolOf(r.course);
+    var cnt = counts[pk] || 1;
+    var spread = wkSpreadMult(pk, cnt);
+    var mult = spread * ap.mult;          // per-person fraction of the solo portion
+    var n = guests * mult;                // party total (servings-equivalent)
     var c = wkCostRecipe(r, n);
+    var items = wkParseIngredients(r.ingredients);
+    var mainItem=null; for(var mi=0;mi<items.length;mi++){ if(items[mi].qty!=null && !items[mi].toTaste){ mainItem=items[mi]; break; } }
+    var portionPct = Math.round(spread*100);
+    var poolLabel = (WK_POOL_LABEL[pk]||'Dish');
+    var shareNote = (pk==='drink')
+      ? poolLabel+' \u00b7 per guest'
+      : (cnt>1 ? poolLabel+' \u00b7 1 of '+cnt+' \u00b7 '+portionPct+'% each' : poolLabel+' \u00b7 full portion');
+    var mainLine = mainItem
+      ? '<div style="font-size:12px;color:#80b898;margin-top:4px;">'+mainItem.name+': '
+        + '<span style="color:#3a6050;font-size:11px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#3a6050;">\u00b7</span> '
+        + '<strong style="color:#f5c842;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
+      : '';
     return '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
-      +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+n+')" style="flex:1;cursor:pointer;">'
+      +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+Math.max(1,Math.round(n))+')" style="flex:1;cursor:pointer;">'
       +     '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
-      +     '<div style="font-size:10px;color:#3a6050;margin-top:2px;">'+r.country+(c.priced?(' · ~R'+c.total):'')+'</div>'
+      +     '<div style="font-size:10px;color:'+green+';margin-top:2px;">'+shareNote+(c.priced?(' \u00b7 ~R'+c.total):'')+'</div>'
+      +     mainLine
       +   '</div>'
-      +   '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#6a3030;font-size:16px;cursor:pointer;">✕</button>'
-      + '</div>'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;">'
-      +   '<span style="font-size:11px;color:#3a6050;">Servings</span>'
-      +   '<button onclick="wkPlanSetServings(\''+r.id+'\','+Math.max(1,n-1)+')" style="width:24px;height:24px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:14px;line-height:1;cursor:pointer;">−</button>'
-      +   '<span style="font-size:15px;color:'+cream+';min-width:20px;text-align:center;">'+n+'</span>'
-      +   '<button onclick="wkPlanSetServings(\''+r.id+'\','+(n+1)+')" style="width:24px;height:24px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:14px;line-height:1;cursor:pointer;">＋</button>'
+      +   '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#6a3030;font-size:16px;cursor:pointer;">\u2715</button>'
       + '</div></div>';
   }).join('');
+  var controls = '<div style="background:#0a2018;border:1px solid '+green+';border-radius:10px;padding:12px 14px;margin-bottom:12px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Guests</div>'
+    +     '<div style="font-size:10px;color:#3a6050;margin-top:2px;">the whole menu scales to this</div></div>'
+    +   '<div style="display:flex;align-items:center;gap:10px;">'
+    +     '<button onclick="set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\u2212</button>'
+    +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:34px;text-align:center;">'+guests+'</span>'
+    +     '<button onclick="set({wkGuests:(S.wkGuests||10)+1})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\uff0b</button>'
+    +   '</div>'
+    + '</div>'
+    + '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #14302a;font-size:11px;color:#80b898;line-height:1.5;">'
+    +   '\ud83c\udf7d\ufe0f Portions sized for <strong style="color:'+cream+';">'+ap.label+'</strong> eaters. More dishes in a course = a smaller helping of each, down to a sensible minimum.'
+    +   '<br><span style="color:#3a6050;">Too big or small? Change your eater setting (Big / Normal / Small) on the opening page.</span>'
+    + '</div></div>';
 
   var shop = wkBuildPlanShopping();
   var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
@@ -2152,5 +2218,5 @@ function wkMyPlanView(){
     + '</div>';
 
   return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
-    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
+    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+controls+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
 }
