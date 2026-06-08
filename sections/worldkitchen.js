@@ -1598,8 +1598,8 @@ function wkParseIngredients(str){
     if(nm) note = nm[1].trim();
     var body = chunk.replace(/\([^)]*\)/g,'').trim();
 
-    // leading quantity? "40g rice", "1/4 egg", "3g cardamom + cinnamon"
-    var m = body.match(/^([0-9]+\/[0-9]+|[0-9]+(?:\.[0-9]+)?|[¼½¾⅓⅔⅛])\s*(kg|g|ml|l)?\s*(.*)$/i);
+    // leading quantity? "40g rice", "1/4 egg", "3g cardamom + cinnamon", "120–150ml water" (range)
+    var m = body.match(/^([0-9]+\/[0-9]+|[0-9]+(?:\.[0-9]+)?|[¼½¾⅓⅔⅛])\s*(?:[–—-]\s*[0-9]+(?:\.[0-9]+)?)?\s*(kg|g|ml|l)?\s*(.*)$/i);
     if(m && wkParseQty(m[1]) != null && (m[2] || m[3])){
       var qty  = wkParseQty(m[1]);
       var unit = m[2] ? m[2].toLowerCase() : null;     // null => countable (eggs etc.)
@@ -1645,8 +1645,19 @@ function wkCleanName(name){
     .replace(/[^a-z0-9\s]/g,' ')
     .replace(/\s+/g,' ').trim();
 }
-function wkIsWater(name){ return /^(water|tap water|boiling water|warm water|cold water|ice water)$/.test(wkCleanName(name)); }
-var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil" };
+function wkIsWater(name){ var n=wkCleanName(name); return /^(water|tap water|boiling water|warm water|cold water|ice water|warm water or milk)$/.test(n) || (/\bwater\b/.test(n) && /\b(stock|broth)\b/.test(n)); }
+var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil",
+  // ── SA coverage aliases (8 Jun 2026) — conservative, lean-high ──
+  "mince":"beef mince","beef or lamb mince":"beef mince","lamb mince":"beef mince",
+  "lamb":"mutton","lamb pieces":"mutton","bone in lamb pieces":"mutton","lamb chops":"mutton","lamb or chicken cubes":"mutton","lamb or beef pieces":"mutton","chicken or lamb pieces":"mutton","bone in mutton or lamb":"mutton",
+  "fish":"hake","white fish":"hake","firm white fish":"hake",
+  "ghee":"butter","ghee or oil":"butter","ghee or butter":"butter","butter or ghee":"butter","butter or oil":"butter","oil or butter":"butter","butter or margarine":"butter",
+  "cheese":"cheddar","cheddar cheese":"cheddar",
+  "flour":"cake flour","flour for dusting":"cake flour","self raising flour":"cake flour",
+  "carrot":"carrots",
+  "masala":"curry powder","durban masala":"curry powder","durban curry masala":"curry powder","breyani masala":"curry powder","biryani masala":"curry powder","mild curry powder":"curry powder",
+  "potatoes":"potato","potato chunks":"potato","potato cubes":"potato",
+  "yoghurt":"yoghurt","plain yoghurt":"yoghurt" };
 function wkPriceLookup(name){
   if(typeof PRICE_DB === 'undefined') return null;
   var n = wkCleanName(name);
