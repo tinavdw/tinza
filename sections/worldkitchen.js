@@ -1766,18 +1766,38 @@ function wkDetailV33(r, country){
     + (r.kcal ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">🔥 '+r.kcal+'</span>' : '')
     + '</div>';
 
-  // ingredients (scaled)
+  // ingredients (scaled) — Buffet-style "pp · total"
   var ingRows = items.map(function(it){
-    var s = wkScaleLine(it, n);
-    var nameHTML = s.name + (s.note ? ' <span style="color:#3a6050;font-size:11px;">('+s.note+')</span>' : '');
+    var ppS  = wkScaleLine(it, 1);   // per-person amount (qty x 1)
+    var totS = wkScaleLine(it, n);   // total for N
+    var nameHTML = ppS.name + (ppS.note ? ' <span style="color:#3a6050;font-size:11px;">('+ppS.note+')</span>' : '');
+    var amtHTML;
+    if(ppS.faded){
+      amtHTML = '<span style="color:#3a6050;font-style:italic;white-space:nowrap;">to taste</span>';
+    } else if(n === 1){
+      amtHTML = '<span style="white-space:nowrap;"><strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
+    } else {
+      amtHTML = '<span style="white-space:nowrap;"><span style="color:#3a6050;font-size:11px;">'+ppS.amt+' pp</span> <span style="color:#3a6050;">&middot;</span> <strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
+    }
     return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #14241a;">'
       + '<span style="color:#c0d0c4;">'+nameHTML+'</span>'
-      + '<span style="color:'+(s.faded?'#3a6050':green)+';font-style:'+(s.faded?'italic':'normal')+';white-space:nowrap;">'+s.amt+'</span></div>';
+      + amtHTML + '</div>';
   }).join('');
   var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · for '+n+' '+(n===1?'person':'people')+'</div>'
     + ingRows
     + '</div>';
+
+  // quantities-for-N summary (Buffet-style: main item needed + per-person portion)
+  var mainItem = null;
+  for(var mi=0; mi<items.length; mi++){ if(items[mi].qty != null && !items[mi].toTaste){ mainItem = items[mi]; break; } }
+  var quantBox = mainItem
+    ? '<div style="background:#0a1a10;border:1px solid '+green+';border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="font-size:10px;letter-spacing:0.12em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">\uD83D\uDCCB Quantities for '+n+' '+(n===1?'guest':'guests')+'</div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, n).amt+'</span></div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">Per person portion</span><span style="font-size:13px;color:#80b898;">'+wkScaleLine(mainItem, 1).amt+'</span></div>'
+      + '</div>'
+    : '';
 
   // estimated cost (honest / partial)
   var costNote = cost.missing.length
@@ -1876,7 +1896,7 @@ function wkDetailV33(r, country){
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
     +   (/[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'') ? '<div style="font-size:14px;color:#50a878;font-style:italic;margin:0 0 2px;">'+r.name+'</div>' : '')
     +   '<div style="font-size:11px;color:#2a6040;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
-    +   metaBox + stepper + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
+    +   metaBox + stepper + quantBox + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
     +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
     +     '<button onclick="wkBackFromRecipe()" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
     +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
