@@ -2302,6 +2302,1093 @@ var SPICE_DB = [
     aliases: ["plum sauce", "chinese plum sauce"],
     story: "A sweet-sour jammy dip of stewed plums and warm spice, the Chinese takeaway companion to anything crispy. Made fresh when plums are in season, it is a different thing entirely.",
     howThisFeels: ""
+  },
+
+  {
+    id: "hummus",
+    name: "Hummus",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Middle East · Levant",
+    flavourChips: ["Earthy", "Aromatic", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:240, unit:"g", name:"tinned chickpeas (drained)" },
+        { qty:60, unit:"g", name:"tahini" },
+        { qty:30, unit:"ml", name:"lemon juice" },
+        { qty:30, unit:"ml", name:"olive oil" },
+        { qty:30, unit:"ml", name:"water" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"ground cumin" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Blend the drained chickpeas with the tahini, lemon, garlic, cumin and water until very smooth, scraping down as you go — patience here is what makes it silky. Stream in the olive oil and season. Loosen with a little more water for a softer dip, and swirl extra oil on top to serve."
+    },
+    pairsWith: ["pita bread", "crudités", "falafel", "grilled meat", "flatbread"],
+    aliases: ["hummus", "houmous"],
+    story: "The chickpea-and-tahini dip that anchors tables across the Levant, each country quietly certain its version is the true one. Blending it properly smooth is the whole art.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "guacamole",
+    name: "Guacamole",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mexico",
+    flavourChips: ["Tangy", "Herby", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:300, unit:"g", name:"ripe avocados" },
+        { qty:80, unit:"g", name:"tomatoes" },
+        { qty:40, unit:"g", name:"onion" },
+        { qty:20, unit:"ml", name:"lime juice" },
+        { qty:8, unit:"g", name:"fresh coriander" },
+        { qty:6, unit:"g", name:"green chilli" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Mash the avocado flesh to your liking — chunky is good. Fold through the finely chopped tomato, onion, coriander and chilli, then the lime and salt. Press cling film right onto the surface if not serving at once, so it keeps its colour. Best made fresh and eaten soon."
+    },
+    pairsWith: ["tortilla chips", "tacos", "nachos", "grilled meat", "eggs"],
+    aliases: ["guacamole", "guac"],
+    story: "Mexico's fresh avocado dip, named from the Aztec 'ahuacamolli'. Lime and salt keep the richness in check — and there is no shame in liking it chunky.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "tzatziki",
+    name: "Tzatziki",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Greece",
+    flavourChips: ["Tangy", "Herby", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"thick Greek yoghurt" },
+        { qty:120, unit:"g", name:"cucumber" },
+        { qty:15, unit:"ml", name:"olive oil" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:5, unit:"g", name:"fresh dill" },
+        { qty:3, unit:"g", name:"fresh mint" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Grate the cucumber, then squeeze out as much water as you can — this stops a watery dip. Stir it into the yoghurt with the crushed garlic, chopped dill and mint, olive oil, lemon and salt. Rest in the fridge for an hour for the garlic to mellow and the flavours to settle."
+    },
+    pairsWith: ["pita bread", "souvlaki", "grilled lamb", "roast vegetables", "falafel"],
+    aliases: ["tzatziki"],
+    story: "Cool, garlicky Greek yoghurt with cucumber and herbs — the refreshing counterpoint to a charred souvlaki. Wringing the cucumber dry is the step nobody should skip.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "baba-ganoush",
+    name: "Baba Ganoush",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Middle East · Levant",
+    flavourChips: ["Earthy", "Aromatic", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:350, unit:"g", name:"aubergines" },
+        { qty:50, unit:"g", name:"tahini" },
+        { qty:25, unit:"ml", name:"lemon juice" },
+        { qty:20, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:1, unit:"g", name:"ground cumin" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Char the whole aubergines over a flame or under a hot grill until the skin blackens and the flesh collapses — this smokiness is the soul of the dish. Cool, scoop out the flesh and let it drain, then mash or pulse with the tahini, lemon, garlic and cumin. Keep some texture, season, and finish with olive oil."
+    },
+    pairsWith: ["pita bread", "flatbread", "crudités", "grilled meat", "falafel"],
+    aliases: ["baba ganoush", "baba ghanoush", "mutabal"],
+    story: "The smoky cousin of hummus, built on aubergine charred until it almost falls apart. That fire-roasted smokiness is what separates a great one from a dull beige paste.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "spinach-artichoke-dip",
+    name: "Spinach Artichoke Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Warm", "Earthy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:120, unit:"g", name:"cream cheese" },
+        { qty:120, unit:"g", name:"artichoke hearts" },
+        { qty:100, unit:"g", name:"spinach" },
+        { qty:60, unit:"g", name:"mozzarella cheese" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:40, unit:"g", name:"mayonnaise" },
+        { qty:30, unit:"g", name:"parmesan cheese" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Wilt the spinach and squeeze it dry, then chop with the drained artichoke hearts. Mix into the softened cream cheese, sour cream and mayo with the garlic and most of the cheese. Spread into a dish, top with the rest of the cheese, and bake at 200°C until bubbling and golden. Serve hot."
+    },
+    pairsWith: ["tortilla chips", "toasted bread", "crackers", "crudités"],
+    aliases: ["spinach artichoke dip", "spinach and artichoke dip"],
+    story: "The warm, gooey, cheesy crowd-pleaser of American gatherings — the dish that empties first at any party. Squeezing the spinach properly dry is what keeps it rich instead of watery.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "salsa",
+    name: "Salsa (Pico de Gallo)",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mexico",
+    flavourChips: ["Tangy", "Hot", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"tomatoes" },
+        { qty:60, unit:"g", name:"onion" },
+        { qty:20, unit:"ml", name:"lime juice" },
+        { qty:10, unit:"g", name:"fresh coriander" },
+        { qty:10, unit:"g", name:"green chilli" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Finely dice the tomatoes, onion and chilli and chop the coriander. Mix everything with the lime, garlic and salt, then leave it to sit for 15 minutes so the flavours come together and the onion softens. Drain off excess liquid if you like it chunky rather than soupy."
+    },
+    pairsWith: ["tortilla chips", "tacos", "grilled meat", "eggs", "nachos"],
+    aliases: ["salsa", "pico de gallo", "tomato salsa"],
+    story: "Fresh chopped tomato, onion, chilli and lime — the bright, raw 'rooster's beak' salsa of Mexico. No cooking, just good knife work and a little patience while it mingles.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "muhammara",
+    name: "Muhammara",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Syria · Levant",
+    flavourChips: ["Hot", "Earthy", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"roasted red peppers" },
+        { qty:80, unit:"g", name:"walnuts" },
+        { qty:30, unit:"g", name:"breadcrumbs" },
+        { qty:25, unit:"ml", name:"olive oil" },
+        { qty:20, unit:"ml", name:"pomegranate molasses" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"ground cumin" },
+        { qty:2, unit:"g", name:"chilli flakes" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Toast the walnuts, then pulse with the roasted peppers, breadcrumbs, garlic, cumin and chilli to a coarse paste — keep some texture. Stir in the pomegranate molasses, lemon and olive oil and season. The sweet-sour molasses against the smoky pepper and nutty walnut is the whole point."
+    },
+    pairsWith: ["pita bread", "flatbread", "grilled meat", "crudités", "cheese"],
+    aliases: ["muhammara"],
+    story: "A smoky, sweet-sour dip of roasted red pepper and walnut from Aleppo, lifted by tangy pomegranate molasses. Bolder and more interesting than its hummus neighbours on the meze table.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "whipped-feta-dip",
+    name: "Whipped Feta Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Greece",
+    flavourChips: ["Tangy", "Aromatic", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"feta cheese" },
+        { qty:60, unit:"g", name:"cream cheese" },
+        { qty:25, unit:"ml", name:"olive oil" },
+        { qty:15, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:5, unit:"g", name:"honey" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Blend the feta, cream cheese, olive oil, lemon and garlic until light, smooth and whipped — a food processor does it in a minute. Season with black pepper. Spread into a bowl, swirl the top, and finish with a drizzle of honey and extra oil. Bright, salty and creamy all at once."
+    },
+    pairsWith: ["pita bread", "crudités", "roast vegetables", "toasted bread", "watermelon"],
+    aliases: ["whipped feta", "whipped feta dip"],
+    story: "Salty feta whipped with cream cheese until cloud-light, then drizzled with honey for a salty-sweet hit. A simple trick that turns a humble block of feta into something elegant.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "french-onion-dip",
+    name: "French Onion Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Earthy", "Warm", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"onion" },
+        { qty:200, unit:"g", name:"sour cream" },
+        { qty:60, unit:"g", name:"mayonnaise" },
+        { qty:20, unit:"g", name:"butter" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:5, unit:"ml", name:"Worcestershire sauce" },
+        { qty:4, unit:"g", name:"chives" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Cook the finely chopped onions slowly in the butter until deeply caramelised and sweet — 20 minutes of patience, no shortcuts. Cool completely, then fold into the sour cream and mayonnaise with the garlic, Worcestershire and chives. Chill an hour; it tastes even better the next day."
+    },
+    pairsWith: ["potato crisps", "crackers", "crudités", "chips"],
+    aliases: ["french onion dip"],
+    story: "Caramelised onions folded into sour cream — the retro party dip that beats any powder-packet version into the ground. The whole thing lives or dies on properly browned onions.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "queso-dip",
+    name: "Queso Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mexico · Tex-Mex",
+    flavourChips: ["Warm", "Aromatic", "Hot"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"cheddar cheese" },
+        { qty:150, unit:"ml", name:"milk" },
+        { qty:40, unit:"g", name:"tomatoes" },
+        { qty:30, unit:"g", name:"onion" },
+        { qty:20, unit:"g", name:"green chilli" },
+        { qty:15, unit:"g", name:"butter" },
+        { qty:15, unit:"g", name:"flour" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:1, unit:"g", name:"ground cumin" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Soften the chopped onion, garlic and chilli in the butter, then stir in the flour and milk to make a smooth, loose white sauce. Off the heat, melt in the grated cheese a handful at a time until glossy, then fold through the chopped tomato and cumin. Serve hot and gooey — loosen with a splash of milk as it cools."
+    },
+    pairsWith: ["tortilla chips", "nachos", "tacos", "fries", "hot dogs"],
+    aliases: ["queso", "queso dip", "cheese dip"],
+    story: "The molten cheese dip of Tex-Mex, flecked with green chilli and best eaten while it is still dangerously hot. A little flour and milk keep it smooth instead of splitting into an oily mess.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "tapenade",
+    name: "Tapenade",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "France · Provence",
+    flavourChips: ["Earthy", "Tangy", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"pitted black olives" },
+        { qty:40, unit:"ml", name:"olive oil" },
+        { qty:20, unit:"g", name:"capers" },
+        { qty:15, unit:"g", name:"anchovies" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"fresh thyme" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Pulse the olives, capers, anchovies, garlic and thyme to a coarse paste — not smooth, you want some bite. Loosen with the olive oil and lemon and season with pepper (it rarely needs salt). For a vegetarian version, leave out the anchovies and add a splash more caper brine. Spread on crostini or use to stuff chicken."
+    },
+    pairsWith: ["crostini", "crudités", "grilled fish", "roast chicken", "crusty bread"],
+    aliases: ["tapenade", "olive tapenade"],
+    story: "The intense, salty olive spread of Provence, its name from the capers ('tapenes') that share the bowl. A little goes a long way — it is all about that briny, savoury punch.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "buffalo-chicken-dip",
+    name: "Buffalo Chicken Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Hot", "Warm", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"cooked chicken" },
+        { qty:150, unit:"g", name:"cream cheese" },
+        { qty:80, unit:"g", name:"cheddar cheese" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:50, unit:"ml", name:"hot sauce" },
+        { qty:30, unit:"g", name:"blue cheese" },
+        { qty:10, unit:"g", name:"spring onions" },
+        { qty:5, unit:"g", name:"garlic cloves" }
+      ],
+      method: "Shred the cooked chicken and mix with the softened cream cheese, sour cream, hot sauce, garlic and most of the cheddar. Spread into a dish, scatter the rest of the cheddar and the crumbled blue cheese on top, and bake at 190°C until bubbling. Finish with sliced spring onion and serve hot."
+    },
+    pairsWith: ["tortilla chips", "celery sticks", "crackers", "toasted bread"],
+    aliases: ["buffalo chicken dip"],
+    story: "All the flavour of hot wings in a scoopable, cheesy bake — the indulgent star of American game-day spreads. Use a proper cayenne hot sauce and don't be shy with it.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "white-bean-dip",
+    name: "White Bean Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Italy · Mediterranean",
+    flavourChips: ["Earthy", "Aromatic", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:240, unit:"g", name:"tinned cannellini beans (drained)" },
+        { qty:30, unit:"ml", name:"olive oil" },
+        { qty:20, unit:"ml", name:"lemon juice" },
+        { qty:20, unit:"ml", name:"water" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"fresh rosemary" },
+        { qty:1, unit:"g", name:"ground cumin" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Gently warm the garlic and rosemary in the olive oil to soften and perfume it. Blend the drained beans with the lemon, water and the warm garlicky oil until smooth and creamy, then season. Lighter and earthier than hummus, and just as quick — loosen with a little water to your liking."
+    },
+    pairsWith: ["crostini", "crudités", "flatbread", "grilled vegetables", "bread"],
+    aliases: ["white bean dip", "cannellini dip"],
+    story: "A creamy, earthy Italian-style dip of soft white beans, garlic and rosemary — the Mediterranean answer to hummus. Quietly elegant, and made from a tin you already have in the cupboard.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "labneh",
+    name: "Labneh",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Middle East · Levant",
+    flavourChips: ["Tangy", "Aromatic", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:350, unit:"g", name:"thick yoghurt" },
+        { qty:25, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:3, unit:"g", name:"za'atar" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Stir the salt and crushed garlic through the yoghurt, then spoon it into a muslin-lined sieve and let it drain in the fridge for 12–24 hours until thick and spreadable like a soft cheese. Spread onto a plate, swirl, and finish with a generous pool of olive oil, a squeeze of lemon and a dusting of za'atar."
+    },
+    pairsWith: ["pita bread", "flatbread", "olives", "crudités", "grilled vegetables"],
+    aliases: ["labneh", "labne", "yoghurt cheese"],
+    story: "Yoghurt strained until it becomes a soft, tangy cheese — the everyday staple of the Levantine breakfast table. All it asks is time and a square of cloth.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "skordalia",
+    name: "Skordalia",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Greece",
+    flavourChips: ["Aromatic", "Tangy", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"potatoes" },
+        { qty:60, unit:"ml", name:"olive oil" },
+        { qty:20, unit:"ml", name:"white wine vinegar" },
+        { qty:15, unit:"g", name:"garlic cloves" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Boil the potatoes until soft, then mash smooth while still warm. Pound the garlic with the salt to a paste and beat it in, then gradually work in the olive oil, vinegar and lemon a little at a time until thick and emulsified, like a garlicky mash. Punchy and fiercely garlicky — a Greek meze classic."
+    },
+    pairsWith: ["fried fish", "beetroot", "fried vegetables", "bread"],
+    aliases: ["skordalia"],
+    story: "A thick, potent garlic emulsion thickened with potato or bread — the Greek answer to aioli, and just as unafraid of garlic. Traditionally pounded by hand for the smoothest result.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "romesco",
+    name: "Romesco",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Spain · Catalonia",
+    flavourChips: ["Earthy", "Aromatic", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:150, unit:"g", name:"roasted red peppers" },
+        { qty:80, unit:"g", name:"tomatoes" },
+        { qty:60, unit:"g", name:"almonds" },
+        { qty:40, unit:"ml", name:"olive oil" },
+        { qty:30, unit:"g", name:"bread" },
+        { qty:20, unit:"ml", name:"sherry vinegar" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:3, unit:"g", name:"smoked paprika" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Toast the almonds and the bread until golden. Blend them with the roasted peppers, tomato, garlic, smoked paprika and vinegar to a coarse paste, then stream in the olive oil. Keep some texture from the nuts — romesco should be rustic, smoky and a little grainy."
+    },
+    pairsWith: ["grilled spring onions", "fish", "grilled chicken", "prawns", "bread"],
+    aliases: ["romesco", "romesco sauce"],
+    story: "The smoky, nutty Catalan sauce of roasted peppers, almonds and bread — born to be scooped up with charred spring onions at a calçotada. Vibrant, rustic and endlessly useful.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "caponata",
+    name: "Caponata",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Italy · Sicily",
+    flavourChips: ["Tangy", "Earthy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"aubergine" },
+        { qty:120, unit:"g", name:"tomatoes" },
+        { qty:60, unit:"g", name:"celery" },
+        { qty:60, unit:"g", name:"onion" },
+        { qty:40, unit:"g", name:"green olives" },
+        { qty:40, unit:"ml", name:"olive oil" },
+        { qty:25, unit:"ml", name:"red wine vinegar" },
+        { qty:15, unit:"g", name:"sugar" },
+        { qty:15, unit:"g", name:"capers" },
+        { qty:15, unit:"g", name:"pine nuts" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Fry the diced aubergine in the oil until golden, then set aside. Soften the celery and onion, add the tomato, olives and capers, and cook down. Return the aubergine, then add the vinegar and sugar and simmer until jammy and sweet-sour. Stir in toasted pine nuts and cool — caponata is always better at room temperature the next day."
+    },
+    pairsWith: ["crusty bread", "crostini", "grilled fish", "cheese", "pasta"],
+    aliases: ["caponata"],
+    story: "Sicily's sweet-and-sour aubergine relish, its agrodolce balance of vinegar and sugar singing against salty olives and capers. Like many great things, it tastes even better the day after you make it.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "queso-fundido",
+    name: "Queso Fundido",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mexico",
+    flavourChips: ["Warm", "Earthy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"mozzarella cheese" },
+        { qty:100, unit:"g", name:"chorizo" },
+        { qty:40, unit:"g", name:"onion" },
+        { qty:40, unit:"g", name:"tomatoes" },
+        { qty:20, unit:"g", name:"green chilli" },
+        { qty:5, unit:"g", name:"garlic cloves" }
+      ],
+      method: "Fry the crumbled chorizo until its oil runs, then soften the onion, chilli and garlic in it. Pile the grated cheese into a hot ovenproof dish, scatter the chorizo mix and tomato on top, and bake or grill until molten and bubbling. Serve immediately, scooped into warm tortillas — it sets fast as it cools, so eat it stretchy and hot."
+    },
+    pairsWith: ["warm tortillas", "tortilla chips", "tacos"],
+    aliases: ["queso fundido"],
+    story: "Mexico's molten cheese dish — a hot skillet of stretchy melted cheese shot through with spiced chorizo. It waits for no one: scoop it into tortillas the moment it leaves the heat.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "whipped-ricotta",
+    name: "Whipped Ricotta",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Italy",
+    flavourChips: ["Aromatic", "Tangy", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:250, unit:"g", name:"ricotta cheese" },
+        { qty:25, unit:"ml", name:"olive oil" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:8, unit:"g", name:"honey" },
+        { qty:4, unit:"g", name:"garlic cloves" },
+        { qty:4, unit:"g", name:"fresh herbs" },
+        { qty:2, unit:"g", name:"salt" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Blend the ricotta with the olive oil, lemon, garlic and a little salt until completely light and airy — a minute in the processor transforms its texture. Spread into a shallow bowl, make swirls with the back of a spoon, and finish with a drizzle of honey, fresh herbs, oil and cracked pepper. Elegant and barely any work."
+    },
+    pairsWith: ["crostini", "crackers", "roast vegetables", "fresh fruit", "bread"],
+    aliases: ["whipped ricotta", "whipped ricotta dip"],
+    story: "Humble ricotta whipped until it turns into a light, elegant cloud — the easiest way to make a cheap tub of cheese look like a restaurant starter. Sweet with honey or savoury with herbs, it goes both ways.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "cowboy-caviar",
+    name: "Cowboy Caviar",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA · Texas",
+    flavourChips: ["Tangy", "Herby", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:150, unit:"g", name:"black beans (drained)" },
+        { qty:100, unit:"g", name:"sweetcorn" },
+        { qty:80, unit:"g", name:"tomatoes" },
+        { qty:60, unit:"g", name:"red pepper" },
+        { qty:40, unit:"g", name:"onion" },
+        { qty:20, unit:"ml", name:"lime juice" },
+        { qty:20, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"g", name:"fresh coriander" },
+        { qty:8, unit:"g", name:"green chilli" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Finely dice the tomato, pepper, onion and chilli and chop the coriander. Toss everything with the drained beans and corn, then dress with lime, olive oil and salt. Let it sit for half an hour so the flavours mingle. Somewhere between a salsa and a salad — scoop it with chips or pile it onto grilled meat."
+    },
+    pairsWith: ["tortilla chips", "grilled meat", "tacos", "salads"],
+    aliases: ["cowboy caviar", "texas caviar"],
+    story: "A chunky Texan dip of beans, corn and crisp vegetables in a zingy lime dressing — fresh, healthy-ish and endlessly scoopable. It straddles the line between dip and salad, and nobody minds.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "bagna-cauda",
+    name: "Bagna Cauda",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Italy · Piedmont",
+    flavourChips: ["Aromatic", "Earthy", "Warm"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:80, unit:"ml", name:"olive oil" },
+        { qty:60, unit:"g", name:"butter" },
+        { qty:40, unit:"g", name:"anchovies" },
+        { qty:25, unit:"g", name:"garlic cloves" },
+        { qty:30, unit:"ml", name:"cream" }
+      ],
+      method: "Melt the butter with the olive oil over very low heat, add the finely chopped garlic and cook gently until soft but not coloured. Add the anchovies and stir until they completely dissolve into the warm oil, then whisk in the cream for a smoother bath. Keep it warm over a tealight or burner and dip raw and blanched vegetables straight in."
+    },
+    pairsWith: ["raw vegetables", "blanched vegetables", "crusty bread", "crudités"],
+    aliases: ["bagna cauda"],
+    story: "The Piedmontese 'hot bath' — a warm, garlicky, anchovy-rich dip kept bubbling at the table for dipping vegetables. A communal winter ritual of northern Italy, intense and deeply savoury.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "beetroot-hummus",
+    name: "Beetroot Hummus",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Middle East · modern",
+    flavourChips: ["Earthy", "Tangy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:180, unit:"g", name:"tinned chickpeas (drained)" },
+        { qty:120, unit:"g", name:"cooked beetroot" },
+        { qty:50, unit:"g", name:"tahini" },
+        { qty:25, unit:"ml", name:"lemon juice" },
+        { qty:25, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"ground cumin" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Blend the chickpeas, cooked beetroot, tahini, lemon, garlic and cumin until completely smooth, then stream in the olive oil. The beetroot gives it an earthy sweetness and a startling magenta colour that makes any spread look spectacular. Loosen with a little water if needed."
+    },
+    pairsWith: ["pita bread", "crudités", "flatbread", "feta", "grilled lamb"],
+    aliases: ["beetroot hummus", "beet hummus"],
+    story: "Classic hummus turned a vivid, jewel-bright pink with roasted beetroot, earthy and faintly sweet. As much a centrepiece for the eye as a dip for the table.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "mint-fava-bean-dip",
+    name: "Mint Fava Bean Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mediterranean",
+    flavourChips: ["Herby", "Tangy", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:240, unit:"g", name:"broad beans (podded)" },
+        { qty:30, unit:"ml", name:"olive oil" },
+        { qty:20, unit:"ml", name:"lemon juice" },
+        { qty:20, unit:"g", name:"parmesan cheese" },
+        { qty:8, unit:"g", name:"fresh mint" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Blanch the podded broad beans briefly, then slip off the grey skins for the brightest green and sweetest flavour. Blend with the mint, lemon, garlic, parmesan and olive oil to a coarse, vivid green purée and season. Fresh, grassy and spring-like — leave out the parmesan to keep it vegan."
+    },
+    pairsWith: ["crostini", "pita bread", "crudités", "grilled lamb", "feta"],
+    aliases: ["fava bean dip", "broad bean dip", "mint fava dip"],
+    story: "A vibrant, spring-green dip of fresh broad beans and mint — light, grassy and bright on the plate. Slipping the skins off the beans is fiddly but turns it from drab to dazzling.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "smoked-salmon-dip",
+    name: "Smoked Salmon Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Scandinavia",
+    flavourChips: ["Tangy", "Aromatic", "Herby"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:150, unit:"g", name:"cream cheese" },
+        { qty:100, unit:"g", name:"smoked salmon" },
+        { qty:50, unit:"g", name:"sour cream" },
+        { qty:12, unit:"ml", name:"lemon juice" },
+        { qty:10, unit:"g", name:"capers" },
+        { qty:6, unit:"g", name:"fresh dill" },
+        { qty:4, unit:"g", name:"chives" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Beat the cream cheese and sour cream together until smooth, then fold through the flaked smoked salmon, chopped dill, chives, capers and lemon. Leave it a little chunky so you get pieces of salmon throughout. Season with pepper — it rarely needs salt. Chill before serving."
+    },
+    pairsWith: ["blinis", "crackers", "cucumber rounds", "toast", "bagels"],
+    aliases: ["smoked salmon dip", "salmon pâté"],
+    story: "Rich, dill-flecked cream cheese shot through with smoked salmon — the Scandinavian-style dip that elevates a simple cracker into something celebratory. Keep it chunky so every scoop finds salmon.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "taramasalata",
+    name: "Taramasalata",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Greece",
+    flavourChips: ["Tangy", "Earthy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:120, unit:"ml", name:"olive oil" },
+        { qty:80, unit:"g", name:"smoked cod roe" },
+        { qty:60, unit:"g", name:"bread" },
+        { qty:30, unit:"ml", name:"lemon juice" },
+        { qty:20, unit:"g", name:"onion" },
+        { qty:4, unit:"g", name:"garlic cloves" }
+      ],
+      method: "Soak the bread (crusts removed) in a little water, then squeeze out the excess. Blend it with the cod roe, grated onion, garlic and lemon, then stream in the olive oil slowly as for a mayonnaise until pale, smooth and thick. Add the oil gradually or it will split. Traditionally pink-blushed, though good roe makes it a soft beige."
+    },
+    pairsWith: ["pita bread", "crudités", "olives", "crusty bread"],
+    aliases: ["taramasalata", "taramosalata"],
+    story: "The velvety Greek dip of cured fish roe emulsified with oil and bread, a fixture of the meze table. Made well it is delicate and savoury — a world away from the lurid pink tubs.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "smoky-paprika-yogurt",
+    name: "Smoky Paprika Yogurt",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mediterranean · modern",
+    flavourChips: ["Tangy", "Aromatic", "Warm"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:300, unit:"g", name:"thick yoghurt" },
+        { qty:20, unit:"ml", name:"olive oil" },
+        { qty:10, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:4, unit:"g", name:"smoked paprika" },
+        { qty:3, unit:"g", name:"fresh mint" },
+        { qty:1, unit:"g", name:"ground cumin" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Stir the yoghurt with the crushed garlic, lemon, cumin and salt. Warm the smoked paprika gently in the olive oil for a few seconds to bloom its colour and flavour, then swirl most of it through the yoghurt and drizzle the rest on top with chopped mint. Light, tangy and gently smoky."
+    },
+    pairsWith: ["grilled meat", "flatbread", "roast vegetables", "falafel", "crudités"],
+    aliases: ["smoky paprika yogurt", "paprika yoghurt dip"],
+    story: "Cool yoghurt lifted with smoky paprika bloomed in warm oil — a light, tangy dip that pairs with almost anything off the grill. The trick is warming the paprika so its flavour wakes up.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "herby-cucumber-yogurt",
+    name: "Herby Cucumber Yogurt",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Mediterranean",
+    flavourChips: ["Herby", "Tangy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:300, unit:"g", name:"thick yoghurt" },
+        { qty:100, unit:"g", name:"cucumber" },
+        { qty:12, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"fresh dill" },
+        { qty:5, unit:"g", name:"fresh mint" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:4, unit:"g", name:"fresh parsley" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Grate the cucumber and squeeze it really dry. Stir it through the yoghurt with all the chopped herbs, garlic, oil, lemon and salt — this is a herbier, thicker cousin of tzatziki, leaning hard on the fresh green. Rest in the fridge before serving."
+    },
+    pairsWith: ["pita bread", "grilled lamb", "roast vegetables", "falafel", "crudités"],
+    aliases: ["herby cucumber yogurt", "herbed yoghurt dip"],
+    story: "A thick, herb-packed yoghurt dip — like tzatziki turned up, with dill, mint and parsley all crowding in. Cool, green and endlessly scoopable alongside anything off the grill.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "spiced-sumac-dip",
+    name: "Spiced Sumac Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Middle East · Levant",
+    flavourChips: ["Tangy", "Aromatic", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:320, unit:"g", name:"thick yoghurt" },
+        { qty:15, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:6, unit:"g", name:"sumac" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:3, unit:"g", name:"fresh mint" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Use a good thick (or strained) yoghurt and stir through the crushed garlic, lemon and salt. Spread into a bowl, then dust generously with the tangy red sumac and drizzle with olive oil, finishing with chopped mint. The sumac brings a bright, lemony sourness without any actual lemon needed."
+    },
+    pairsWith: ["flatbread", "grilled meat", "roast vegetables", "falafel", "crudités"],
+    aliases: ["sumac dip", "spiced sumac yoghurt"],
+    story: "Thick, garlicky yoghurt crowned with tangy crimson sumac — simple but striking, both to taste and to look at. Sumac does the work of lemon with a deeper, fruitier sourness.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "fry-sauce",
+    name: "Fry Sauce",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Tangy", "Warm", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:100, unit:"g", name:"mayonnaise" },
+        { qty:80, unit:"g", name:"tomato ketchup" },
+        { qty:5, unit:"ml", name:"white vinegar" },
+        { qty:2, unit:"g", name:"garlic powder" },
+        { qty:1, unit:"g", name:"smoked paprika" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Whisk the mayonnaise and ketchup together — roughly equal parts — with the vinegar, garlic powder and a pinch of smoked paprika. Adjust to taste. That's it: the simplest, most addictive sauce for a plate of hot chips."
+    },
+    pairsWith: ["chips", "burgers", "onion rings", "hot dogs"],
+    aliases: ["fry sauce", "burger sauce"],
+    story: "The sweet-and-tangy mayo-and-ketchup mix that diners swear by — humble, instant and impossible to stop dipping into. Proof that the best sauce is sometimes two things you already have.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "spicy-umami-mayo",
+    name: "Spicy Umami Mayo",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Asian-fusion",
+    flavourChips: ["Hot", "Aromatic", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:120, unit:"g", name:"mayonnaise" },
+        { qty:25, unit:"g", name:"sriracha" },
+        { qty:8, unit:"ml", name:"soy sauce" },
+        { qty:5, unit:"ml", name:"sesame oil" },
+        { qty:5, unit:"ml", name:"lime juice" },
+        { qty:3, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"sugar" }
+      ],
+      method: "Whisk everything together until smooth and pale orange. The mayo carries the heat of the sriracha while the soy and sesame add deep savoury umami and the lime keeps it bright. Adjust the sriracha to your heat tolerance."
+    },
+    pairsWith: ["sushi", "chips", "prawns", "burgers", "rice bowls"],
+    aliases: ["spicy mayo", "sriracha mayo", "umami mayo"],
+    story: "The creamy, addictive drizzle on every sushi burrito and loaded fry — mayo, sriracha and soy in dangerous harmony. Once it's in the fridge you will find reasons to use it.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "garlic-chive-mayo",
+    name: "Garlic & Chive Mayo",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Classic",
+    flavourChips: ["Aromatic", "Herby", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:130, unit:"g", name:"mayonnaise" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:6, unit:"g", name:"fresh chives" },
+        { qty:6, unit:"g", name:"garlic cloves" },
+        { qty:1, unit:"g", name:"black pepper" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Stir the crushed garlic, finely snipped chives and lemon through the mayonnaise and season. Let it sit for half an hour so the garlic mellows into the mayo. Simple, savoury and exactly what a bowl of plain crisps or hot chips is asking for."
+    },
+    pairsWith: ["potato crisps", "chips", "sandwiches", "grilled vegetables"],
+    aliases: ["garlic chive mayo", "garlic mayo dip"],
+    story: "A no-fuss savoury mayo, fragrant with garlic and freshened with chives — the easy upgrade from plain mayonnaise. The kind of thing that quietly disappears at a braai.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "creamy-jalapeno-ranch",
+    name: "Creamy Jalapeño Ranch",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA · Tex-Mex",
+    flavourChips: ["Tangy", "Herby", "Hot"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:80, unit:"g", name:"mayonnaise" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:40, unit:"ml", name:"buttermilk" },
+        { qty:20, unit:"g", name:"jalapeño" },
+        { qty:8, unit:"ml", name:"lime juice" },
+        { qty:6, unit:"g", name:"fresh coriander" },
+        { qty:4, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"dried dill" },
+        { qty:2, unit:"g", name:"onion powder" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Blend everything together until smooth and pale green, then loosen with a little more buttermilk if you want it pourable for a dressing. The jalapeño and coriander give classic ranch a fresh, spicy kick. Chill before serving — it sharpens as it sits."
+    },
+    pairsWith: ["chicken wings", "chips", "crudités", "tacos", "salads"],
+    aliases: ["jalapeño ranch", "creamy jalapeno ranch", "ranch dip"],
+    story: "Cool, herby ranch with a green chilli kick — dip and dressing in one bowl. The coriander and lime drag the American classic somewhere a little more interesting.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "roasted-red-pepper-feta-dip",
+    name: "Roasted Red Pepper & Feta Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Greece",
+    flavourChips: ["Tangy", "Aromatic", "Warm"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:150, unit:"g", name:"roasted red peppers" },
+        { qty:120, unit:"g", name:"feta cheese" },
+        { qty:40, unit:"g", name:"cream cheese" },
+        { qty:20, unit:"ml", name:"olive oil" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"chilli flakes" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Blend the roasted peppers, feta, cream cheese, garlic, lemon and olive oil until smooth and creamy. Add the chilli flakes for a gentle warmth — this is the Greek tirokafteri, the smooth, salty-sweet, slightly spicy pepper-and-feta dip. Drizzle with oil and a few more chilli flakes to serve."
+    },
+    pairsWith: ["pita bread", "crudités", "grilled bread", "roast vegetables"],
+    aliases: ["roasted red pepper feta dip", "tirokafteri", "htipiti"],
+    story: "The smooth, salty-sweet Greek dip of roasted pepper whipped with feta, known as tirokafteri when the chilli bites. Smoky pepper and tangy cheese were made for each other.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "caramelized-onion-bacon-jam-dip",
+    name: "Caramelized Onion & Bacon Jam Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Warm", "Earthy", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:150, unit:"g", name:"onion" },
+        { qty:120, unit:"g", name:"sour cream" },
+        { qty:80, unit:"g", name:"bacon" },
+        { qty:60, unit:"g", name:"cream cheese" },
+        { qty:10, unit:"g", name:"brown sugar" },
+        { qty:10, unit:"ml", name:"balsamic vinegar" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:4, unit:"g", name:"chives" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Fry the chopped bacon until crisp, then cook the onions slowly in the bacon fat until deeply caramelised, adding the sugar and balsamic to make a sticky jam. Cool, then fold most of it through the softened cream cheese and sour cream with the garlic. Top with the rest of the bacon jam and chives. Decadent, sweet and salty."
+    },
+    pairsWith: ["potato crisps", "crackers", "crostini", "crudités"],
+    aliases: ["bacon jam dip", "caramelized onion bacon dip"],
+    story: "Sticky-sweet caramelised onions and crisp bacon folded into a cool creamy base — pure salty-sweet indulgence. The kind of dip that ruins all other dips for you.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "coronation-mayo-dip",
+    name: "Coronation Mayo Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Britain",
+    flavourChips: ["Warm", "Aromatic", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:120, unit:"g", name:"mayonnaise" },
+        { qty:30, unit:"g", name:"mango chutney" },
+        { qty:15, unit:"g", name:"sultanas" },
+        { qty:8, unit:"ml", name:"lemon juice" },
+        { qty:4, unit:"g", name:"curry powder" },
+        { qty:3, unit:"g", name:"fresh coriander" },
+        { qty:1, unit:"g", name:"ground ginger" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Warm the curry powder gently in a dry pan for a few seconds to take off the raw edge, then cool and stir it through the mayonnaise with the mango chutney, lemon, ginger and sultanas. Mild, fruity and gently spiced — fold in shredded chicken for a coronation chicken, or serve as a dip as is."
+    },
+    pairsWith: ["cold chicken", "sandwiches", "crackers", "jacket potato", "samoosas"],
+    aliases: ["coronation mayo", "coronation dip", "curried mayo"],
+    story: "The mild, fruity curried mayonnaise invented for a 1953 coronation banquet — sweet with mango chutney and gently spiced. Retro, comforting, and the soul of a good chicken sandwich.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "hot-corn-green-chile-dip",
+    name: "Hot Corn & Green Chile Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA · Tex-Mex",
+    flavourChips: ["Warm", "Hot", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"sweetcorn" },
+        { qty:100, unit:"g", name:"cream cheese" },
+        { qty:60, unit:"g", name:"cheddar cheese" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:40, unit:"g", name:"mayonnaise" },
+        { qty:25, unit:"g", name:"green chilli" },
+        { qty:15, unit:"g", name:"spring onions" },
+        { qty:5, unit:"g", name:"garlic cloves" },
+        { qty:2, unit:"g", name:"salt" }
+      ],
+      method: "Char the corn in a dry pan for extra flavour if you have a minute. Mix it with the softened cream cheese, sour cream, mayo, garlic, chopped green chilli and most of the cheddar. Spread into a dish, top with the rest of the cheese, and bake at 190°C until bubbling and golden. Scatter spring onions and serve hot."
+    },
+    pairsWith: ["tortilla chips", "crackers", "toasted bread"],
+    aliases: ["hot corn dip", "corn and green chile dip", "jalapeño corn dip"],
+    story: "A warm, gooey comfort-food dip of sweet corn, melty cheese and green chilli — game-day food at its most shameless. Charring the corn first is the small step that lifts it.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "blue-cheese-walnut-dip",
+    name: "Blue Cheese & Walnut Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "Classic",
+    flavourChips: ["Earthy", "Tangy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:100, unit:"g", name:"blue cheese" },
+        { qty:100, unit:"g", name:"cream cheese" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:40, unit:"g", name:"walnuts" },
+        { qty:8, unit:"g", name:"honey" },
+        { qty:4, unit:"g", name:"chives" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Mash the blue cheese into the softened cream cheese and sour cream until creamy but still flecked. Fold through most of the toasted, chopped walnuts and a little honey to balance the sharpness. Top with the rest of the walnuts, more honey and chives. Bold, rich and grown-up."
+    },
+    pairsWith: ["crackers", "crudités", "pear slices", "crostini", "celery"],
+    aliases: ["blue cheese walnut dip", "blue cheese dip"],
+    story: "Sharp blue cheese softened into cream, with toasted walnuts for crunch and honey to bridge the two — a sophisticated, grown-up dip. Best with a glass of something red.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "green-goddess-dip",
+    name: "Green Goddess Dip",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA",
+    flavourChips: ["Herby", "Tangy", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:80, unit:"g", name:"mayonnaise" },
+        { qty:60, unit:"g", name:"sour cream" },
+        { qty:12, unit:"ml", name:"lemon juice" },
+        { qty:10, unit:"g", name:"fresh parsley" },
+        { qty:8, unit:"g", name:"fresh basil" },
+        { qty:8, unit:"g", name:"anchovies" },
+        { qty:6, unit:"g", name:"fresh chives" },
+        { qty:4, unit:"g", name:"fresh tarragon" },
+        { qty:4, unit:"g", name:"garlic cloves" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Blend everything together until vividly green and smooth. The anchovy gives a savoury backbone without tasting fishy — leave it out and add a splash of caper brine for a vegetarian version. Use thick as a dip or loosen with a little buttermilk for a dressing."
+    },
+    pairsWith: ["crudités", "salads", "grilled chicken", "crackers", "boiled eggs"],
+    aliases: ["green goddess dip", "green goddess"],
+    story: "A 1920s San Francisco creation, this herb-packed green dip is all parsley, tarragon and chive over a creamy base. Vibrant and fresh, it makes a plate of raw vegetables feel like a treat.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "pimento-cheese-dip",
+    name: "Pimento Cheese",
+    type: "dip",
+    shelf: "dressings-dips",
+    region: "USA · Southern",
+    flavourChips: ["Tangy", "Warm", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"sharp cheddar cheese" },
+        { qty:80, unit:"g", name:"mayonnaise" },
+        { qty:50, unit:"g", name:"roasted red peppers" },
+        { qty:40, unit:"g", name:"cream cheese" },
+        { qty:2, unit:"g", name:"garlic powder" },
+        { qty:1, unit:"g", name:"cayenne pepper" },
+        { qty:1, unit:"g", name:"black pepper" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Grate the cheddar (don't use pre-grated — it won't bind the same). Mix it with the mayonnaise, softened cream cheese, finely chopped pimentos (roasted red peppers), garlic powder, cayenne and seasoning until thick and spreadable. Leave it a few hours in the fridge for the flavours to come together. Spread on crackers, celery or a burger."
+    },
+    pairsWith: ["crackers", "celery sticks", "white bread", "burgers", "sandwiches"],
+    aliases: ["pimento cheese", "pimiento cheese", "pimento cheese dip"],
+    story: "The 'caviar of the South' — sharp cheddar bound with mayonnaise and sweet pimento peppers into a thick, tangy spread. On a cracker, in a sandwich or on a burger, it is pure Southern comfort.",
+    howThisFeels: ""
   }
 
 ];
@@ -2339,21 +3426,43 @@ function spiceEntriesFor(shelfId){ return spiceDB().filter(e=>e.shelf===shelfId)
 // ── CATEGORY GROUPING (derived — touches no data) ─────────────────────────────
 var SPICE_SAUCE_CHILLI = ["peri-peri-sauce","sweet-chilli-sauce","sriracha","chilli-garlic-sauce","sambal-oelek","harissa-paste","zhug","crispy-chilli-oil","louisiana-hot-sauce","habanero-mango-hot-sauce","gochujang","fermented-chilli-mash","scotch-bonnet-sauce"];
 var SPICE_SAUCE_CONDIMENT = ["tomato-ketchup","mayonnaise","aioli","tartare-sauce","marie-rose-sauce","english-mustard","dijon-mustard","wholegrain-mustard","honey-mustard","bbq-sauce","sweet-and-sour-sauce","teriyaki-sauce","hoisin-sauce","plum-sauce"];
+// blend sub-categories (rubs/pastes handled by type; everything else by id-set, default Asia & Europe)
+var SPICE_BLEND_CURRY = ["garam-masala","cape-malay-curry-powder","durban-masala","madras-curry-powder","tandoori-masala","chaat-masala","breyani-masala","sri-lankan-roasted-curry-powder","panch-phoron"];
+var SPICE_BLEND_MEDME = ["ras-el-hanout","harissa-spice","dukkah","zaatar","baharat","lebanese-seven-spice","advieh","hawaij-soup","khmeli-suneli"];
+var SPICE_BLEND_AFAM = ["berbere","suya-spice","cajun-seasoning","jerk-seasoning","taco-seasoning","chesapeake-bay-seasoning","adobo-seasoning"];
+// dip sub-categories (default Veg & Mezze)
+var SPICE_DIP_WARM = ["spinach-artichoke-dip","queso-dip","buffalo-chicken-dip","queso-fundido","hot-corn-green-chile-dip"];
+var SPICE_DIP_CREAMY = ["whipped-feta-dip","french-onion-dip","whipped-ricotta","smoked-salmon-dip","roasted-red-pepper-feta-dip","caramelized-onion-bacon-jam-dip","blue-cheese-walnut-dip","pimento-cheese-dip"];
+var SPICE_DIP_MAYO = ["fry-sauce","spicy-umami-mayo","garlic-chive-mayo","creamy-jalapeno-ranch","coronation-mayo-dip","green-goddess-dip"];
+var SPICE_DIP_BEAN = ["hummus","white-bean-dip","beetroot-hummus","mint-fava-bean-dip","cowboy-caviar"];
+var SPICE_DIP_YOGURT = ["tzatziki","labneh","smoky-paprika-yogurt","herby-cucumber-yogurt","spiced-sumac-dip"];
 var SPICE_GROUP_ORDER = {
-  "spice-blends": ["Blends & Masalas","Rubs","Pastes"],
-  "sauces": ["Meat & Meal Sauces","Chilli Sauces","Condiments"]
+  "spice-blends": ["Curry & Masala","Mediterranean & Mid-East","Africa & Americas","Asia & Europe","Rubs","Pastes"],
+  "sauces": ["Meat & Meal Sauces","Chilli Sauces","Condiments"],
+  "dressings-dips": ["Warm & Cheesy","Creamy & Cheese","Mayo-based","Bean & Pulse","Veg & Mezze","Yogurt"]
 };
 function spiceGroup(e){
   if(!e) return null;
   if(e.shelf==="spice-blends"){
     if(e.type==="rub") return "Rubs";
     if(e.type==="paste") return "Pastes";
-    return "Blends & Masalas";
+    if(SPICE_BLEND_CURRY.indexOf(e.id)>=0) return "Curry & Masala";
+    if(SPICE_BLEND_MEDME.indexOf(e.id)>=0) return "Mediterranean & Mid-East";
+    if(SPICE_BLEND_AFAM.indexOf(e.id)>=0) return "Africa & Americas";
+    return "Asia & Europe";
   }
   if(e.shelf==="sauces"){
     if(SPICE_SAUCE_CHILLI.indexOf(e.id)>=0) return "Chilli Sauces";
     if(SPICE_SAUCE_CONDIMENT.indexOf(e.id)>=0) return "Condiments";
     return "Meat & Meal Sauces";
+  }
+  if(e.shelf==="dressings-dips"){
+    if(SPICE_DIP_WARM.indexOf(e.id)>=0) return "Warm & Cheesy";
+    if(SPICE_DIP_CREAMY.indexOf(e.id)>=0) return "Creamy & Cheese";
+    if(SPICE_DIP_MAYO.indexOf(e.id)>=0) return "Mayo-based";
+    if(SPICE_DIP_BEAN.indexOf(e.id)>=0) return "Bean & Pulse";
+    if(SPICE_DIP_YOGURT.indexOf(e.id)>=0) return "Yogurt";
+    return "Veg & Mezze";
   }
   return null;
 }
