@@ -324,6 +324,7 @@ function draw(){
   else if(S.screen==="health"){ content=healthHTML(); }
   else if(S.screen==="tinyTummies"){ content=tinyTummiesHTML(); }
   else if(S.screen==="kiddies"){ content=kiddiesHTML(); }
+  else if(S.screen==="spice"){ content=spiceRoomHTML(); }
   else{ content=homeHTML(); }
   }catch(_err){
     console.error('[Tinza] Render error on screen "'+(S.screen||'?')+'" (tab:'+(S.eventTab||'-')+', step:'+(S.buffetStep||'-')+'):', _err);
@@ -1315,6 +1316,7 @@ function homeHTML(){
     // Row 1 — core cooking
     {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"#c06020", bg:"#1a1008"},
     {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"#208060", bg:"#0a1810"},
+    {s:"spice",      e:"🧂", t:"Tinza Spice Room",         sub:"Spice blends · Sauces · Chutneys · Atchars · Sambals · Preserves", b:"#c0701a", bg:"#1a1206"},
     // Row 2 — everyday family cooking (Breakfast · Light Lunch · Supper · Bakes live inside)
     {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"#c08040", bg:"#1a1208"},
     // Row 3 — speciality
