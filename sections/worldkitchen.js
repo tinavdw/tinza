@@ -1586,11 +1586,23 @@ var WK_SUBS = {
   "millet flour": "Millet flour → maize meal / corn flour works for tuo zaafi-style dishes.",
   "reindeer":     "Reindeer → we don't get it here; use venison or other local game (springbok/kudu) — beef works too.",
   "veal":         "Veal → a good substitute is beef steak, tenderised and flattened thin; chicken breasts also work.",
-  "cod":          "Cod → hake is the easy local substitute.",
+  "cod":          "Cod → fresh: hake. Salted/dried cod: Portuguese bacalhau (salt cod) is sold at SA Portuguese delis and many supermarkets — use that; salted snoek is a good local fallback if you can't find it.",
   "sardine":      "Fresh sardines → scarce here; fresh Maasbanker (Cape mackerel) is the local stand-in.",
   "clam":         "Clams → hard to find fresh; fresh mussels are the easy local swap (frozen clams work too).",
   "rabbit":       "Rabbit → not easy to find; chicken pieces are the simplest local substitute.",
-  "molokhia":     "Molokhia (jute mallow) leaves → hard to find fresh in SA; use frozen molokhia from a Middle-Eastern/Egyptian shop, or substitute spinach (a little okra stirred in brings back the silky texture)."
+  "molokhia":     "Molokhia (jute mallow) leaves → hard to find fresh in SA; use frozen molokhia from a Middle-Eastern/Egyptian shop, or substitute spinach (a little okra stirred in brings back the silky texture).",
+  "quark":        "Quark → smooth/creamed cottage cheese, or thick plain yoghurt, is the easy SA swap (cream cheese at a push).",
+  "herring":      "Herring → fresh or pickled herring is scarce here; for fresh use maasbanker or sardines, or grab a jar of pickled herring where you can find it.",
+  "octopus":      "Octopus → calamari / squid (tubes & heads, usually frozen) is the easy local swap.",
+  "perch":        "Perch → any firm white fish works; hake is the easy SA choice.",
+  "carp":         "Carp → any firm white or freshwater fish; hake or tilapia work well here.",
+  "saucisson":    "Saucisson → any cured/smoked sausage or a firm salami stands in well.",
+  "bratwurst":    "Bratwurst → a good plain pork sausage (or boerewors) is the easy local swap.",
+  "blood sausage":"Blood sausage (black pudding) → a spiced pork sausage is the easy stand-in, or simply leave it out.",
+  "suckling pig": "Suckling pig → a pork shoulder or leg roast is the practical SA stand-in (crackling and all).",
+  "duck":         "Duck → look at Woolworths or Asian grocers; chicken pieces work if you can't find it.",
+  "raclette":     "Raclette cheese → gouda or any good melting cheese works if raclette is hard to find.",
+  "juniper":      "Juniper berries → tricky to find; a small splash of gin gives the same piney note, or simply omit."
 };
 
 /* ── parse a per-person ingredient string into structured items ──
