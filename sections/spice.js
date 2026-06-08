@@ -55,8 +55,8 @@ var SPICE_DB = [
     makeYourOwn: {
       yield: { mode:"batch", unit:"ml", base:250, step:250, label:"1 bottle" },
       ingredients: [
-        { qty:10, unit:"", name:"African bird's-eye chillies" },
-        { qty:4, unit:"", name:"garlic cloves" },
+        { qty:12, unit:"g", name:"African bird's-eye chillies" },
+        { qty:20, unit:"g", name:"garlic cloves" },
         { qty:60, unit:"ml", name:"lemon juice" },
         { qty:30, unit:"ml", name:"red wine vinegar" },
         { qty:7, unit:"g", name:"smoked paprika" },
@@ -83,14 +83,14 @@ var SPICE_DB = [
     makeYourOwn: {
       yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        { qty:1, unit:"", name:"onion, finely chopped" },
-        { qty:2, unit:"", name:"garlic cloves, crushed" },
-        { qty:2, unit:"", name:"carrots, coarsely grated" },
-        { qty:1, unit:"", name:"green pepper, diced" },
+        { qty:150, unit:"g", name:"onion, finely chopped" },
+        { qty:10, unit:"g", name:"garlic cloves, crushed" },
+        { qty:200, unit:"g", name:"carrots, coarsely grated" },
+        { qty:120, unit:"g", name:"green pepper, diced" },
         { qty:7, unit:"g", name:"curry powder" },
-        { qty:400, unit:"g", name:"chopped tomatoes (1 tin)" },
-        { qty:410, unit:"g", name:"baked beans (1 tin)" },
-        { qty:1, unit:"", name:"green chilli, finely chopped" },
+        { qty:400, unit:"g", name:"chopped tomatoes" },
+        { qty:410, unit:"g", name:"baked beans" },
+        { qty:10, unit:"g", name:"green chilli, finely chopped" },
         { qty:30, unit:"ml", name:"sunflower oil" },
         { qty:2, unit:"g", name:"salt" }
       ],
@@ -142,7 +142,7 @@ var SPICE_DB = [
       yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
         { qty:60, unit:"g", name:"flat-leaf parsley, finely chopped" },
-        { qty:4, unit:"", name:"garlic cloves, finely chopped" },
+        { qty:20, unit:"g", name:"garlic cloves, finely chopped" },
         { qty:3, unit:"g", name:"dried oregano" },
         { qty:1, unit:"g", name:"red chilli flakes" },
         { qty:60, unit:"ml", name:"red wine vinegar" },
@@ -168,8 +168,8 @@ var SPICE_DB = [
     makeYourOwn: {
       yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        { qty:1, unit:"", name:"onion, finely chopped" },
-        { qty:2, unit:"", name:"garlic cloves, crushed" },
+        { qty:150, unit:"g", name:"onion, finely chopped" },
+        { qty:10, unit:"g", name:"garlic cloves, crushed" },
         { qty:125, unit:"ml", name:"tomato sauce (ketchup)" },
         { qty:60, unit:"ml", name:"fruit chutney" },
         { qty:30, unit:"ml", name:"Worcestershire sauce" },
