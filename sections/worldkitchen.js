@@ -1454,7 +1454,7 @@ function wkWorldHome(){
     var l3grid = l3countries.length
       ? '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">'
         + l3countries.map(function(ct){
-            var dishes = wkPool().filter(function(x){return x.country===ct;}).length;
+            var dishes = wkPool().filter(function(x){return x.country===ct || (x.sharedWith && x.sharedWith.indexOf(ct) !== -1);}).length;
             return wkGridCard('🍲', ct, dishes+' dish'+(dishes===1?'':'es'),
               "set({wkScreen:'wkdata',wkDataCountry:'"+ct.replace(/'/g,"\\'")+"',wkDataTab:'mains',wkDataRecipe:null});window.scrollTo(0,0)", false);
           }).join('')
@@ -1514,7 +1514,7 @@ function wkDataCountryHTML(){
   // ── COUNTRY LIST ──
   var tab = S.wkDataTab || 'mains';
   var TABS = [{id:'starters',e:'🥗',l:'Starters'},{id:'mains',e:'🍽️',l:'Mains'},{id:'sides',e:'🥘',l:'Sides'},{id:'desserts',e:'🍮',l:'Desserts'},{id:'drinks',e:'🍷',l:'Drinks'}];
-  var recipes = pool.filter(function(x){ return x.country === country; });
+  var recipes = pool.filter(function(x){ return x.country === country || (x.sharedWith && x.sharedWith.indexOf(country) !== -1); });
   var inTab = recipes.filter(function(x){ return wkCourseToTab(x.course) === tab; });
 
   var tabsBar = '<div style="display:flex;gap:4px;margin-bottom:12px;">'
