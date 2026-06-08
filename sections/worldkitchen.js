@@ -1527,11 +1527,15 @@ function wkDataCountryHTML(){
   var recipes = pool.filter(function(x){ return x.country === country || (x.sharedWith && x.sharedWith.indexOf(country) !== -1); });
   var inTab = recipes.filter(function(x){ return wkCourseToTab(x.course) === tab; });
 
+  var planCounts = (typeof wkPlanPoolCounts==='function') ? wkPlanPoolCounts() : {};
+  var tabPool = {starters:'starter', mains:'main', sides:'side', desserts:'dessert', drinks:'drink'};
   var tabsBar = '<div style="display:flex;gap:4px;margin-bottom:12px;">'
     + TABS.map(function(t){
         var n = recipes.filter(function(x){return wkCourseToTab(x.course)===t.id;}).length;
+        var pn = planCounts[tabPool[t.id]] || 0;
         var sel = tab===t.id;
-        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#1a3020')+';background:'+(sel?'#0a2018':'#0a0f0c')+';color:'+(sel?green:'#3a5040')+';font-size:10px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')</button>';
+        var badge = pn>0 ? '<span style="display:inline-block;min-width:15px;margin-left:3px;padding:0 4px;border-radius:8px;background:#c97a30;color:#1a0f06;font-size:9px;font-weight:bold;line-height:15px;vertical-align:middle;">'+pn+'</span>' : '';
+        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#1a3020')+';background:'+(sel?'#0a2018':'#0a0f0c')+';color:'+(sel?green:'#3a5040')+';font-size:10px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
       }).join('')
     + '</div>';
 
@@ -1572,7 +1576,7 @@ var WK_SUBS = {
   "ras el hanout":"Ras el hanout → cumin + coriander + cinnamon + paprika + a pinch of ginger & nutmeg.",
   "scotch bonnet":"Scotch bonnet → habanero, or any fiery chilli (use less — they're milder here).",
   "scent leaves": "Scent leaves (uziza/utazi) → fresh basil is the closest easy swap.",
-  "crayfish":     "Ground crayfish → a little anchovy paste or fish sauce gives the same umami, or simply omit.",
+  "crayfish":     "Ground crayfish → it's dried, ground shrimp (a seasoning used in tiny pinches — not SA rock-lobster). Closest swap: ground dried shrimp/prawns; or a little shrimp paste, fish sauce or anchovy — or simply omit.",
   "egusi":        "Egusi (melon seed) → ground pumpkin seeds or ground sunflower seeds.",
   "fufu":         "Fufu → mashed potato or polenta-style maize meal makes an easy stand-in.",
   "orzo":         "Orzo → any tiny pasta, or a handful of broken spaghetti / rice.",
@@ -1585,7 +1589,8 @@ var WK_SUBS = {
   "cod":          "Cod → hake is the easy local substitute.",
   "sardine":      "Fresh sardines → scarce here; fresh Maasbanker (Cape mackerel) is the local stand-in.",
   "clam":         "Clams → hard to find fresh; fresh mussels are the easy local swap (frozen clams work too).",
-  "rabbit":       "Rabbit → not easy to find; chicken pieces are the simplest local substitute."
+  "rabbit":       "Rabbit → not easy to find; chicken pieces are the simplest local substitute.",
+  "molokhia":     "Molokhia (jute mallow) leaves → hard to find fresh in SA; use frozen molokhia from a Middle-Eastern/Egyptian shop, or substitute spinach (a little okra stirred in brings back the silky texture)."
 };
 
 /* ── parse a per-person ingredient string into structured items ──
@@ -1809,11 +1814,14 @@ function wkDetailV33(r, country){
   // quantities summary — standalone-dish standard portion (plain-language label)
   var mainItem = (typeof wkClassifyMain==='function') ? wkClassifyMain(items).item : null;
   if(!mainItem){ for(var mi=0; mi<items.length; mi++){ if(items[mi].qty != null && !items[mi].toTaste){ mainItem = items[mi]; break; } } }
+  var rawCarb = mainItem && /\b(rice|pasta|macaroni|spaghetti|noodle|noodles|couscous|bulgur|semolina|flour|lentil|lentils|bean|beans|chickpea|chickpeas|samp|grain)\b/.test((typeof wkCleanName==='function')?wkCleanName(mainItem.name):String(mainItem.name||'').toLowerCase());
+  var rawTag = rawCarb ? ' <span style="font-size:11px;color:#6a7a40;font-weight:normal;">raw</span>' : '';
   var quantBox = mainItem
     ? '<div style="background:#0a1a10;border:1px solid '+green+';border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="font-size:10px;letter-spacing:0.12em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">\uD83D\uDCCB Quantities for '+n+' '+(n===1?'guest':'guests')+'</div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, baseMult * n).amt+'</span></div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">Per person <span style="color:#3a6050;font-size:11px;">(full helping on its own)</span></span><span style="font-size:13px;color:#80b898;">'+wkScaleLine(mainItem, baseMult).amt+'</span></div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, baseMult * n).amt+rawTag+'</span></div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">Per person <span style="color:#3a6050;font-size:11px;">(full helping on its own)</span></span><span style="font-size:13px;color:#80b898;">'+wkScaleLine(mainItem, baseMult).amt+rawTag+'</span></div>'
+      + (rawCarb ? '<div style="margin-top:8px;font-size:10px;color:#6a7a40;line-height:1.5;">Amounts are <strong style="color:#80b898;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.</div>' : '')
       + '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #143024;font-size:10px;color:#3a6050;line-height:1.5;">A full portion for this dish served on its own. Add it to a plan with other dishes and the helping adjusts to share the plate.</div>'
       + '</div>'
     : '';

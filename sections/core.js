@@ -280,6 +280,11 @@ function draw(){
   const currContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
   const sameContext = prevContext === currContext;
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
+  // Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit.
+  if((root._lastScreen||'') === "worldkitchen" && S.screen !== "worldkitchen"){
+    S.wkPlan = []; S.wkBump = {};
+    S.wkScreen = null; S.wkDataCountry = null; S.wkDataRecipe = null;
+  }
   const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
   // Stage 1 scroll-to-content: on an in-section navigation (new tab/category/list — not a quiet toggle/slider), land on the content instead of the banner
   const jumpToContent = !screenChanged && root._savedScroll == null && !sameContext;
