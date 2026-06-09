@@ -3403,7 +3403,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = SPICE_DB;
 var SPICE_SHELVES = [
   {id:"spice-blends",     e:"🌶️", t:"Spice Blends & Masalas", sub:"Garam masala · peri-peri · the real way", b:"#c0501a", bg:"#1d0e05"},
   {id:"sauces",           e:"🥫", t:"Sauces",                 sub:"Hot · herby · pan & savoury",            b:"#b83020", bg:"#1d0807"},
-  {id:"chutneys-atchars", e:"🫙", t:"Chutneys & Atchars",     sub:"Fruit · hot atchar · savoury",           b:"#c08020", bg:"#1a1206"},
+  {id:"chutneys-atchars", e:"🥭", t:"Chutneys & Atchars",     sub:"Fruit · hot atchar · savoury",           b:"#c08020", bg:"#1a1206"},
   {id:"sambals-relishes", e:"🥗", t:"Sambals & Relishes",     sub:"Fresh · cooked · SA",                    b:"#a08020", bg:"#16140a"},
   {id:"jams-preserves",   e:"🍓", t:"Jams & Preserves",       sub:"Fruit jams · marmalades · fermented",    b:"#b03050", bg:"#1a0810"},
   {id:"dressings-dips",   e:"🥣", t:"Dressings & Dips",       sub:"Creamy dips · oil & vinegar · bean dips",b:"#9060a0", bg:"#140a18"}
@@ -3543,8 +3543,8 @@ function spiceLandingView(){
         <div style="position:absolute;top:14px;right:16px;font-size:44px;opacity:0.35;">🧂</div>
         <div style="padding:14px 16px;">
           <button class="back-btn" onclick="set({screen:'home'})" style="color:#e0a060;margin-bottom:8px;">← Home</button>
-          <h1 style="margin:0;font-size:24px;font-weight:normal;color:#f5e8cc;letter-spacing:1px;">Tinza Spice Room</h1>
-          <p style="margin:2px 0 0;font-size:12px;color:#c09060;font-style:italic;">Everything that enhances your food</p>
+          <h1 style="margin:0;font-size:22px;font-weight:normal;color:#f5e8cc;letter-spacing:1px;">Tinza Spice Room</h1>
+          <p style="margin:2px 0 0;font-size:13px;color:#c09060;font-style:italic;">Everything that enhances your food</p>
         </div>
       </div>
     </div>
@@ -3561,16 +3561,16 @@ function spiceLandingView(){
         ${howOpen?`<div style="font-size:12px;color:#c2a888;line-height:1.6;margin-top:8px;">Pick a shelf, then an entry. Every entry shows its <strong style="color:#c0a060;">flavour</strong>, <strong style="color:#c0a060;">when to add it</strong>, and a <strong style="color:#c0a060;">Make Your Own</strong> recipe. Blends and preserves scale by <strong style="color:#c0a060;">batch</strong> (a small jar, a bottle); fresh sauces and relishes scale by <strong style="color:#c0a060;">people</strong>, just like the braai.</div>`:''}
       </div>
 
-      <div class="grid2" style="gap:8px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
         ${SPICE_SHELVES.map(sh=>{
           const n = spiceEntriesFor(sh.id).length;
           const countTxt = n>0 ? `${n} ${n===1?'entry':'entries'}` : 'coming soon';
           return `<button onclick="set({spiceShelf:'${sh.id}',spiceFilter:null,spiceGroupFilter:null,spiceShown:8})"
-            style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${sh.bg};border:2px solid ${sh.b};border-radius:14px;cursor:pointer;text-align:left;min-height:104px;">
-            <span style="font-size:26px;margin-bottom:6px;">${sh.e}</span>
-            <div style="font-size:13px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.3;">${sh.t}</div>
-            <div style="font-size:10px;color:#c0a274;line-height:1.35;margin-bottom:6px;flex:1;">${sh.sub}</div>
-            <div style="font-size:10px;color:${n>0?sh.b:'#a88a5e'};letter-spacing:0.5px;">${countTxt}</div>
+            style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;background:#161210;border:1px solid #2a1a10;border-radius:14px;cursor:pointer;text-align:center;min-height:96px;">
+            <span style="font-size:24px;margin-bottom:6px;">${sh.e}</span>
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.3;">${sh.t}</div>
+            <div style="font-size:14px;color:#c0a274;line-height:1.4;margin-bottom:6px;">${sh.sub}</div>
+            <div style="font-size:12px;color:${n>0?'#c0915a':'#a88a5e'};letter-spacing:0.5px;">${countTxt}</div>
           </button>`;
         }).join("")}
       </div>
