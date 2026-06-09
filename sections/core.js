@@ -291,7 +291,7 @@ function draw(){
   root._savedScroll = null;
 
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
-    <div style="font-size:10px;color:#4a3520;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
+    <div style="font-size:10px;color:#a87849;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
     <div class="grid2" style="gap:6px;">
       <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'#c06020':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'#161210'};color:${USER_TIER==='free'?'#c06020':'#4a3020'};font-size:11px;">🆓 Free</button>
       <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'#161210'};color:${USER_TIER==='pro'?'#f5c842':'#403820'};font-size:11px;">👑 Pro</button>
@@ -1229,7 +1229,7 @@ function moodHTML(){
           <div style="text-align:center;padding:50px 20px;">
             <div style="font-size:48px;margin-bottom:16px;">${mood.e}</div>
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:8px;">Finding the perfect recipes for you...</div>
-            <div style="font-size:12px;color:#4a3060;">Tinza Chef is thinking</div>
+            <div style="font-size:12px;color:#9771b8;">Tinza Chef is thinking</div>
           </div>` : ''}
 
         ${recipes && recipes[0]?._error ? `
@@ -1243,13 +1243,13 @@ function moodHTML(){
           <div style="text-align:center;padding:50px 20px;">
             <div style="font-size:48px;margin-bottom:16px;">${mood.e}</div>
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:8px;">Tinza Chef is finding more ideas...</div>
-            <div style="font-size:12px;color:#4a3060;">Just a moment</div>
+            <div style="font-size:12px;color:#9771b8;">Just a moment</div>
           </div>` : ''}
 
         ${recipes && !recipes[0]?._error && !recipes[0]?._waiting ? `
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <div style="font-size:10px;letter-spacing:2px;color:#4a3060;text-transform:uppercase;">3 recipes for your mood</div>
-            ${S.moodAILoading ? `<div style="font-size:10px;color:#4a3060;font-style:italic;">✨ Finding more...</div>` : ''}
+            <div style="font-size:10px;letter-spacing:2px;color:#9771b8;text-transform:uppercase;">3 recipes for your mood</div>
+            ${S.moodAILoading ? `<div style="font-size:10px;color:#9771b8;font-style:italic;">✨ Finding more...</div>` : ''}
           </div>
           ${recipes.map((r,i)=>`
             <div style="background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.bg:'#161210'};border:1px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
@@ -1278,17 +1278,17 @@ function moodHTML(){
   // ── MOOD SELECTOR (home) ──
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:linear-gradient(135deg,#100818,#1a0e28);border-bottom:1px solid #2a1840;padding:14px 20px;">
-      <button onclick="set({screen:'home'})" style="background:none;border:none;color:#8060c0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
+      <button onclick="set({screen:'home'})" style="background:none;border:none;color:#8e72c7;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:28px;">😴</span>
         <div>
           <h1 style="margin:0;font-size:22px;font-weight:normal;color:#f5e8cc;">Just Feed Me</h1>
-          <p style="margin:0;font-size:11px;color:#6a5080;font-style:italic;">How are you feeling right now?</p>
+          <p style="margin:0;font-size:11px;color:#9276a9;font-style:italic;">How are you feeling right now?</p>
         </div>
       </div>
     </div>
     <div class="content">
-      <div style="font-size:11px;color:#4a3060;margin-bottom:16px;line-height:1.6;">
+      <div style="font-size:11px;color:#9771b8;margin-bottom:16px;line-height:1.6;">
         Tap how you're feeling and Tinza will suggest the perfect recipes — no thinking required.
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
@@ -1389,7 +1389,7 @@ function recipePhoto(name, emoji, height){
     <img src="${url}" onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;display:block;" />
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">
       <span style="font-size:48px;">${emoji||'🍽️'}</span>
-      <span style="font-size:11px;color:#4a3010;">📷 Photo coming soon</span>
+      <span style="font-size:11px;color:#b47527;">📷 Photo coming soon</span>
     </div>
   </div>`;
 }
@@ -1436,13 +1436,13 @@ function recipeView(){
       quantityBlock = `
         <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
           <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 For Your Plan</div>
-          <div style="font-size:11px;color:#6a8030;margin-bottom:10px;">${p} people · ${ap.label} · ${portionType}</div>
+          <div style="font-size:11px;color:#718933;margin-bottom:10px;">${p} people · ${ap.label} · ${portionType}</div>
           <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
               <div>
                 <div style="font-size:10px;color:#8ab030;margin-bottom:2px;">Total to buy:</div>
                 <div style="font-size:26px;font-weight:bold;color:#c8e840;letter-spacing:-0.5px;line-height:1;">${totalDisplay}</div>
-                <div style="font-size:10px;color:#5a7020;margin-top:3px;">${ppDisplay}</div>
+                <div style="font-size:10px;color:#718d28;margin-top:3px;">${ppDisplay}</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S.recipeServings||S.people}</span><button onclick="event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
             </div>
@@ -1468,15 +1468,15 @@ function recipeView(){
       quantityBlock = '<div style="background:#141008;border:1px solid #3a2810;border-radius:10px;padding:12px;margin-bottom:14px;">'
         + (nm_browse <= 1
           ? '<div style="text-align:center;padding:6px 0;">'
-            + '<div style="font-size:10px;color:#6a4020;margin-bottom:4px;letter-spacing:1px;text-transform:uppercase;">Solo dish — full portion</div>'
+            + '<div style="font-size:10px;color:#b56d37;margin-bottom:4px;letter-spacing:1px;text-transform:uppercase;">Solo dish — full portion</div>'
             + '<div style="font-size:24px;font-weight:bold;color:#f5c842;">' + soloDisp_browse + ' <span style="font-size:12px;color:#5a9030;">pp</span></div>'
             + '</div>'
           : '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;">'
             + '<div style="flex:1;text-align:center;">'
-            + '<div style="font-size:9px;color:#4a6020;text-transform:uppercase;">Solo</div>'
-            + '<div style="font-size:15px;color:#6a8030;">' + soloDisp_browse + ' pp</div>'
+            + '<div style="font-size:9px;color:#6a892e;text-transform:uppercase;">Solo</div>'
+            + '<div style="font-size:15px;color:#718933;">' + soloDisp_browse + ' pp</div>'
             + '</div>'
-            + '<div style="color:#3a4010;font-size:18px;">&#8594;</div>'
+            + '<div style="color:#7d8922;font-size:18px;">&#8594;</div>'
             + '<div style="flex:1;text-align:center;">'
             + '<div style="font-size:9px;color:#c8a84b;text-transform:uppercase;">With ' + nm_browse + ' dishes</div>'
             + '<div style="font-size:20px;font-weight:bold;color:#f5c842;">' + curDisp_browse + ' pp</div>'
@@ -1491,13 +1491,13 @@ function recipeView(){
     quantityBlock = `
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
-        <div style="font-size:11px;color:#6a8030;margin-bottom:10px;">${p} people · ${ap.label}</div>
+        <div style="font-size:11px;color:#718933;margin-bottom:10px;">${p} people · ${ap.label}</div>
         <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
             <div>
               <div style="font-size:10px;color:#8ab030;margin-bottom:2px;">Total quantity:</div>
               <div style="font-size:26px;font-weight:bold;color:#c8e840;line-height:1;">${qty}</div>
-              <div style="font-size:10px;color:#5a7020;margin-top:3px;">${item.perPerson}${item.unit} per person</div>
+              <div style="font-size:10px;color:#718d28;margin-top:3px;">${item.perPerson}${item.unit} per person</div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S.recipeServings||S.people}</span><button onclick="event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
           </div>
@@ -1561,8 +1561,8 @@ function recipeView(){
           <div style="font-size:10px;color:#e06030;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">${isActualFire?'🔥 Coal & Heat Guide':'🍳 Cooking Method'}</div>
           <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
           ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
-            <p style="font-size:11px;color:#906040;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
-            <div style="font-size:11px;color:#7a4030;line-height:1.9;">
+            <p style="font-size:11px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
+            <div style="font-size:11px;color:#bc6c56;line-height:1.9;">
               🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
               🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
               🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
@@ -1574,14 +1574,14 @@ function recipeView(){
       <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:10px;color:#5a3820;font-style:italic;">scaled for ${p} people</div>
+          <div style="font-size:10px;color:#b47040;font-style:italic;">scaled for ${p} people</div>
         </div>
         ${(()=>{
           const isSelected = isMeat && S.selectedMeats.includes(vr.id);
           const mult = ap.mult;
           return recipe.ingredients.map((ing, i)=>{
             // Section dividers — pass through unchanged
-            if(ing === "—" || ing.startsWith("—")) return `<div style="padding:5px 0;font-size:12px;color:#6a4020;font-style:italic;border-bottom:1px solid #1e1a10;">${ing}</div>`;
+            if(ing === "—" || ing.startsWith("—")) return `<div style="padding:5px 0;font-size:12px;color:#b56d37;font-style:italic;border-bottom:1px solid #1e1a10;">${ing}</div>`;
 
             // First ingredient of a SELECTED meat = main protein = handled by quantity block above
             if(i===0 && isSelected){
@@ -1640,7 +1640,7 @@ function recipeView(){
             </div>`;
           }).join("");
         })()}
-        ${isMeat && S.selectedMeats.includes(vr.id) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #1e1a10;font-size:10px;color:#4a3020;font-style:italic;">All quantities scaled for ${p} people · ${ap.label} appetite</div>` : ""}
+        ${isMeat && S.selectedMeats.includes(vr.id) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #1e1a10;font-size:10px;color:#b1734c;font-style:italic;">All quantities scaled for ${p} people · ${ap.label} appetite</div>` : ""}
       </div>
       <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -1676,19 +1676,19 @@ function recipeView(){
           return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
             <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-size:13px;color:#6a8030;">Total for ${p} people</div>
+              <div style="font-size:13px;color:#718933;">Total for ${p} people</div>
               <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${totalEst.toLocaleString()}</div>
             </div>
             <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
-              <div style="font-size:12px;color:#4a6020;">Per person</div>
+              <div style="font-size:12px;color:#6a892e;">Per person</div>
               <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${ppEst}</div>
             </div>
-            <div style="margin-top:8px;font-size:10px;color:#4a5820;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
+            <div style="margin-top:8px;font-size:10px;color:#748932;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
           </div>`;
         } else if(USER_TIER === "free"){
           return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
-            <div style="font-size:22px;color:#2a1808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-            <div style="font-size:12px;color:#6a3020;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>
+            <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
+            <div style="font-size:12px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>
           </div>`;
         }
         return '';
@@ -1707,15 +1707,15 @@ function recipeView(){
           + '<button onclick="' + togglePlan + '" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:' + (isInPlan ? '#1a3010' : '#1a1208') + ';border:2px solid ' + (isInPlan ? '#4a9020' : '#3a2010') + ';color:' + (isInPlan ? '#80c040' : '#6a4020') + ';font-size:11px;font-family:Georgia,serif;text-align:center;line-height:1.6;">'
           + (isInPlan ? '&#10003;<br><b>In Plan</b>' : '&#9711;<br>Add to Plan')
           + '</button>'
-          + '<button onclick="braaiRecipeAction(\'kitchen\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#6a4020;font-size:11px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#128190;<br>Save to<br>My Kitchen</button>'
-          + '<button onclick="braaiRecipeAction(\'download\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#6a4020;font-size:11px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#11015;<br>Download<br>Recipe</button>'
+          + '<button onclick="braaiRecipeAction(\'kitchen\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#b56d37;font-size:11px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#128190;<br>Save to<br>My Kitchen</button>'
+          + '<button onclick="braaiRecipeAction(\'download\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#b56d37;font-size:11px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#11015;<br>Download<br>Recipe</button>'
           + '</div>'
-          + '<div style="text-align:center;font-size:11px;color:#4a3020;padding-top:6px;border-top:1px solid #1e1a10;">'
+          + '<div style="text-align:center;font-size:11px;color:#b1734c;padding-top:6px;border-top:1px solid #1e1a10;">'
           + '<button onclick="set({viewingRecipe:null,recipeServings:null})" style="background:none;border:none;color:#c06020;font-size:12px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">&#8592; Back</button>'
           + ' &nbsp;|&nbsp; '
           + '<button onclick="set({viewingRecipe:null,recipeServings:null,braaiView:\'myplan\'})" style="background:none;border:none;color:#c0a020;font-size:12px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">My Plan &#8594;</button>'
           + ' &nbsp;|&nbsp; '
-          + '<button onclick="set({screen:\'home\',viewingRecipe:null,recipeServings:null})" style="background:none;border:none;color:#4a3020;font-size:12px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">Home</button>'
+          + '<button onclick="set({screen:\'home\',viewingRecipe:null,recipeServings:null})" style="background:none;border:none;color:#b1734c;font-size:12px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">Home</button>'
           + '</div>'
           + '</div>';
       })()}
@@ -1779,10 +1779,10 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:12px;color:#6a3020;">📋 My Plan — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`;
+  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:12px;color:#c86449;">📋 My Plan — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`;
   return `<button onclick="set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
-    <div style="font-size:11px;color:#7a4020;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
+    <div style="font-size:11px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
   </button>`;
 }
 

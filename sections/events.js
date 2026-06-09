@@ -28,7 +28,7 @@ function eventsHTML(){
     const totalKg = (totalG/1000).toFixed(1);
     const boneInExtra = r.boneIn ? ` (bone-in — order ${(totalG*1.35/1000).toFixed(1)}kg raw)` : '';
     return `<div style="background:#1a0820;border:1px solid #d04080;border-radius:10px;padding:12px;margin-bottom:14px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:8px;">📊 Quantities for ${guests} guests</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:8px;">📊 Quantities for ${guests} guests</div>
       <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;">
         <span style="color:#c0a0b0;">Main protein needed</span>
         <span style="color:#f070a0;font-weight:bold;">${totalKg}kg${boneInExtra}</span>
@@ -47,7 +47,7 @@ function eventsHTML(){
   function selBtn(label, category, id, isSelected){
     const bg = isSelected ? '#2a0832' : '#1a0820';
     const border = isSelected ? '#d04080' : '#601040';
-    const check = isSelected ? '<span style="color:#d04080;font-size:12px;margin-right:4px;">✓</span>' : '';
+    const check = isSelected ? '<span style="color:#d44f8a;font-size:12px;margin-right:4px;">✓</span>' : '';
     return `<button onclick="set({${category}:toggle(S.${category}||[],'${id}')})" style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 10px;font-size:11px;color:#e0c4d4;cursor:pointer;margin:2px;">${check}${label}</button>`;
   }
 
@@ -70,7 +70,7 @@ function eventsHTML(){
 
     function rows(arr, label){
       if(!arr.length) return '';
-      return `<div style="font-size:9px;letter-spacing:2px;color:#803060;text-transform:uppercase;margin:8px 0 4px;">${label}</div>`
+      return `<div style="font-size:9px;letter-spacing:2px;color:#c25c99;text-transform:uppercase;margin:8px 0 4px;">${label}</div>`
         + arr.map(r=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2a0818;font-size:12px;">
           <span style="color:#c0a0b0;">${r.emoji||''} ${r.name}${r.boneIn?' (bone-in)':''}</span>
           <span style="color:#e080b0;flex-shrink:0;margin-left:8px;">${r.gPerPerson}g pp · ${r.totalKg}kg</span>
@@ -512,8 +512,8 @@ function eventsHTML(){
     }
 
     return `<div style="margin-bottom:4px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:6px;">🍽️ Savoury Platters</div>
-      <div style="background:#1a0810;border:1px solid #401020;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#a03060;line-height:1.6;">
+      <div style="font-size:10px;letter-spacing:2px;color:#d44f8a;text-transform:uppercase;margin-bottom:6px;">🍽️ Savoury Platters</div>
+      <div style="background:#1a0810;border:1px solid #401020;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#cd598b;line-height:1.6;">
         Tap a platter to choose your fillings. Selected platters join your snack count and shopping list automatically.
       </div>
       ${platters.map(p=>{
@@ -535,19 +535,19 @@ function eventsHTML(){
                onclick="setQuiet({savouryExpanded:S.savouryExpanded==='${p.id}'?null:'${p.id}'})">
             <div style="flex:1;">
               <div style="font-size:15px;color:#e0c4d4;">${check}${p.emoji} ${p.name}</div>
-              <div style="font-size:11px;color:#803060;margin-top:3px;">
+              <div style="font-size:11px;color:#c25c99;margin-top:3px;">
                 ${isSelected
                   ? `${chosen.length} of ${p.varieties.length} fillings selected · ${piecesNeededPP} ${p.unitLabel} pp · ${totalPiecesPerPlatter} total`
                   : p.description}
               </div>
             </div>
-            <div style="color:#d04080;font-size:20px;margin-left:12px;flex-shrink:0;">${isExpanded?'▲':'▼'}</div>
+            <div style="color:#d44f8a;font-size:20px;margin-left:12px;flex-shrink:0;">${isExpanded?'▲':'▼'}</div>
           </div>
 
           <!-- Expanded panel -->
           ${isExpanded?`<div style="border-top:1px solid #2a0818;padding:12px;">
 
-            <div style="font-size:10px;color:#803060;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">
+            <div style="font-size:10px;color:#c25c99;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">
               ${chosen.length} of ${p.varieties.length} selected — tap to toggle
             </div>
 
@@ -563,7 +563,7 @@ function eventsHTML(){
                   </div>
                   <div style="flex:1;">
                     <div style="font-size:14px;color:#e0c4d4;">${v.emoji} ${v.name}</div>
-                    <div style="font-size:11px;color:#7a3050;margin-top:2px;">
+                    <div style="font-size:11px;color:#c2638c;margin-top:2px;">
                       ${v.ingredients.filter(i=>i.pp!=null).map(i=>i.pp+(i.u||'')+'g pp').join(' · ')}
                     </div>
                   </div>
@@ -572,34 +572,34 @@ function eventsHTML(){
                 <!-- Ingredient detail (only when chosen) -->
                 ${isChosen?`<div style="border-top:1px solid #2a0818;padding:10px 12px;background:#150015;">
                   ${v.ingredients.map(i=>{
-                    if(i.pp==null) return `<div style="font-size:12px;color:#5a2040;padding:2px 0;">• ${i.n} — to taste</div>`;
+                    if(i.pp==null) return `<div style="font-size:12px;color:#c55b95;padding:2px 0;">• ${i.n} — to taste</div>`;
                     const raw = i.pp * unitsNeeded;
                     const tot = fmtAmt(raw, i.u);
                     return `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid #1a0010;font-size:12px;">
                       <span style="color:#c0a0b0;flex:1;">${i.n}</span>
                       <span style="flex-shrink:0;margin-left:8px;">
-                        <span style="color:#7a3050;font-size:11px;">${i.pp}${i.u||''} per ${unitWord} · </span>
+                        <span style="color:#c2638c;font-size:11px;">${i.pp}${i.u||''} per ${unitWord} · </span>
                         <span style="color:#f5c842;font-weight:bold;">${tot} total</span>
                       </span>
                     </div>`;
                   }).join('')}
                   ${v.method&&v.method.length?`<div style="margin-top:10px;">
-                    <div style="font-size:10px;letter-spacing:1px;color:#803060;text-transform:uppercase;margin-bottom:6px;">Method</div>
+                    <div style="font-size:10px;letter-spacing:1px;color:#c25c99;text-transform:uppercase;margin-bottom:6px;">Method</div>
                     ${v.method.map((step,si)=>`<div style="display:flex;gap:8px;margin-bottom:8px;">
-                      <div style="min-width:20px;height:20px;border-radius:50%;border:1px solid #c04080;color:#c04080;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;">${si+1}</div>
+                      <div style="min-width:20px;height:20px;border-radius:50%;border:1px solid #c04080;color:#c95c92;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;">${si+1}</div>
                       <p style="margin:0;font-size:12px;color:#c0a0b0;line-height:1.6;">${step}</p>
                     </div>`).join('')}
                   </div>`:''}
-                  <div style="font-size:11px;color:#4a2040;font-style:italic;margin-top:8px;line-height:1.5;background:#0f000f;border-left:2px solid #601040;padding:6px 8px;border-radius:0 6px 6px 0;">💡 ${v.tip}</div>
+                  <div style="font-size:11px;color:#bb61a5;font-style:italic;margin-top:8px;line-height:1.5;background:#0f000f;border-left:2px solid #601040;padding:6px 8px;border-radius:0 6px 6px 0;">💡 ${v.tip}</div>
                 </div>`:''}
               </div>`;
             }).join('')}
 
             <!-- Base ingredients -->
             <div style="margin-top:10px;background:#0f0010;border:1px solid #2a1020;border-radius:8px;padding:10px;">
-              <div style="font-size:10px;color:#6a3050;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Base ingredients (all varieties)</div>
+              <div style="font-size:10px;color:#ba6795;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Base ingredients (all varieties)</div>
               ${p.baseIngredients.map(i=>{
-                if(i.pp==null) return `<div style="font-size:12px;color:#6a3050;padding:2px 0;">• ${i.n}</div>`;
+                if(i.pp==null) return `<div style="font-size:12px;color:#ba6795;padding:2px 0;">• ${i.n}</div>`;
                 const raw = i.pp * unitsNeeded;
                 const tot = fmtAmt(raw, i.u);
                 return `<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid #1a0010;">
@@ -611,9 +611,9 @@ function eventsHTML(){
 
             <!-- Pizza: tomato base + cheese blend extra sections -->
             ${p.tomatoBase?`<div style="margin-top:8px;background:#0f0010;border:1px solid #2a1020;border-radius:8px;padding:10px;">
-              <div style="font-size:10px;color:#6a3050;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🍅 Tomato Base (from scratch)</div>
+              <div style="font-size:10px;color:#ba6795;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🍅 Tomato Base (from scratch)</div>
               ${p.tomatoBase.map(i=>{
-                if(i.pp==null) return `<div style="font-size:12px;color:#6a3050;padding:2px 0;">• ${i.n}</div>`;
+                if(i.pp==null) return `<div style="font-size:12px;color:#ba6795;padding:2px 0;">• ${i.n}</div>`;
                 const raw = i.pp * unitsNeeded;
                 const tot = fmtAmt(raw, i.u);
                 return `<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid #1a0010;">
@@ -623,7 +623,7 @@ function eventsHTML(){
               }).join('')}
             </div>
             <div style="margin-top:8px;background:#0f0010;border:1px solid #2a1020;border-radius:8px;padding:10px;">
-              <div style="font-size:10px;color:#6a3050;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🧀 Cheese Blend</div>
+              <div style="font-size:10px;color:#ba6795;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🧀 Cheese Blend</div>
               ${p.cheeseBlend.map(i=>{
                 const raw = i.pp * unitsNeeded;
                 const tot = fmtAmt(raw, i.u);
@@ -636,15 +636,15 @@ function eventsHTML(){
 
             <!-- Base method (pizza & bruschetta) -->
             ${p.baseMethod?`<div style="margin-top:8px;background:#0f0010;border:1px solid #2a1020;border-radius:8px;padding:10px;">
-              <div style="font-size:10px;color:#6a3050;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Base Method</div>
+              <div style="font-size:10px;color:#ba6795;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Base Method</div>
               ${p.baseMethod.map((step,si)=>`<div style="display:flex;gap:8px;margin-bottom:8px;">
-                <div style="min-width:20px;height:20px;border-radius:50%;border:1px solid #803060;color:#803060;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;">${si+1}</div>
+                <div style="min-width:20px;height:20px;border-radius:50%;border:1px solid #803060;color:#c25c99;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;">${si+1}</div>
                 <p style="margin:0;font-size:12px;color:#a07080;line-height:1.6;">${step}</p>
               </div>`).join('')}
             </div>`:''}
 
             <!-- Sandwich base method -->
-            ${p.baseMethod&&p.id==='sandwiches'?`<div style="margin-top:4px;font-size:11px;color:#5a2040;font-style:italic;padding:6px 8px;background:#0f000f;border-left:2px solid #401030;border-radius:0 6px 6px 0;">
+            ${p.baseMethod&&p.id==='sandwiches'?`<div style="margin-top:4px;font-size:11px;color:#c55b95;font-style:italic;padding:6px 8px;background:#0f000f;border-left:2px solid #401030;border-radius:0 6px 6px 0;">
               Minimum recommended: 4 sandwiches per filling. Scale per sandwich (1 slice of bread). Cut each half into 2 quarters for smaller bites.
             </div>`:''}
 
@@ -699,7 +699,7 @@ function eventsHTML(){
     if(!total) return '';
     return `<button onclick="set({fingerView:'myplan'})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #d04080;background:#1a0820;color:#f070a0;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
       📋 See my Finger Food Plan & Shopping List →
-      <div style="font-size:11px;color:#803060;margin-top:3px;">${total} type${total!==1?'s':''} selected · ${guests} guests</div>
+      <div style="font-size:11px;color:#c25c99;margin-top:3px;">${total} type${total!==1?'s':''} selected · ${guests} guests</div>
     </button>`;
   }
 
@@ -725,7 +725,7 @@ function eventsHTML(){
     if(totalTypes===0) return `<div style="background:#1a1000;border:1px solid #806000;border-radius:10px;padding:20px;text-align:center;margin:20px 0;">
       <div style="font-size:36px;margin-bottom:10px;">🥪</div>
       <div style="font-size:14px;color:#c0a020;margin-bottom:8px;">No snacks selected yet</div>
-      <div style="font-size:12px;color:#806000;margin-bottom:14px;">Go back and tap any snack or platter to add it to your event</div>
+      <div style="font-size:12px;color:#a57c00;margin-bottom:14px;">Go back and tap any snack or platter to add it to your event</div>
       <button onclick="set({fingerView:'browse'})" style="padding:10px 20px;background:#2a1800;border:1px solid #c0a020;border-radius:8px;color:#c0a020;cursor:pointer;font-size:13px;">← Browse snacks</button>
     </div>`;
 
@@ -742,16 +742,16 @@ function eventsHTML(){
     }
 
     const byDishHTML = `<div style="margin-bottom:16px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:10px;">🍽️ Selected Snacks</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#d44f8a;text-transform:uppercase;margin-bottom:10px;">🍽️ Selected Snacks</div>
       ${selectedItems.map(r=>{
         const totalPcs = piecesPerType * guests;
         return `<div style="background:#1a0820;border:1px solid #401030;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
           <span style="font-size:22px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
           <div style="flex:1;">
             <div style="font-size:14px;color:#f070a0;font-weight:bold;">${r.name}</div>
-            <div style="font-size:11px;color:#803060;margin-top:2px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
+            <div style="font-size:11px;color:#c25c99;margin-top:2px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
           </div>
-          <button onclick="openEvent('${r.id}','finger')" style="background:none;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d04080;font-size:11px;cursor:pointer;flex-shrink:0;">Recipe →</button>
+          <button onclick="openEvent('${r.id}','finger')" style="background:none;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d44f8a;font-size:11px;cursor:pointer;flex-shrink:0;">Recipe →</button>
         </div>`;
       }).join('')}
     </div>`;
@@ -808,8 +808,8 @@ function eventsHTML(){
       if(!allShopItems.length) return '';
       var cart = S.fingerShopCart||{};
       var html = '<div style="margin-bottom:16px;">';
-      html += '<div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List — All '+guests+' Guests</div>';
-      html += '<div style="font-size:11px;color:#6a3050;margin-bottom:10px;">Sorted by supermarket aisle · tap to tick off · shared note = used in multiple dishes</div>';
+      html += '<div style="font-size:10px;letter-spacing:2px;color:#d44f8a;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List — All '+guests+' Guests</div>';
+      html += '<div style="font-size:11px;color:#ba6795;margin-bottom:10px;">Sorted by supermarket aisle · tap to tick off · shared note = used in multiple dishes</div>';
       CAT_ORDER.forEach(function(cat){
         var items = allShopItems.filter(function(i){return i.cat===cat;}).sort(function(a,b){return shopSortKey(a.name).localeCompare(shopSortKey(b.name));});
         if(!items.length) return;
@@ -819,7 +819,7 @@ function eventsHTML(){
           var display = fmtShop(i.raw, i.unit);
           var key = i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
           var inCart = cart[key];
-          var shared = i.dishes.length>1 ? ' <span style="font-size:10px;color:#806050;">· '+i.dishes.length+' dishes</span>' : '';
+          var shared = i.dishes.length>1 ? ' <span style="font-size:10px;color:#9e7763;">· '+i.dishes.length+' dishes</span>' : '';
           html += '<div onclick="fingerShopToggle(\''+key+'\')" ';
           html += 'style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a0010;cursor:pointer;opacity:'+(inCart?'0.4':'1')+';">';
           html += '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(inCart?'#d04080':'#401030')+';background:'+(inCart?'#d04080':'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">'+(inCart?'✓':'')+'</div>';
@@ -864,7 +864,7 @@ function eventsHTML(){
           📲 Send Shopping List via WhatsApp
         </a>`;
       })()}
-      <button onclick="set({fingerView:'browse'})" style="width:100%;padding:12px;margin-top:4px;border-radius:10px;border:1px solid #601040;background:#1a0820;color:#d04080;font-size:13px;cursor:pointer;">
+      <button onclick="set({fingerView:'browse'})" style="width:100%;padding:12px;margin-top:4px;border-radius:10px;border:1px solid #601040;background:#1a0820;color:#d44f8a;font-size:13px;cursor:pointer;">
         ← Back to Browse
       </button>
     </div>`;
@@ -986,7 +986,7 @@ function eventsHTML(){
         // First ingredient of pantry = main protein, show scaled kg
         const scaledNote = (idx===0 && meatKg && meatUnit!=='shank') ? ` → <strong style="color:#f070a0;">${meatKg}kg for ${guests} guests</strong>` : 
                            (idx===0 && meatKg && meatUnit==='shank') ? ` → <strong style="color:#f070a0;">${guests} shanks</strong>` : '';
-        const item = `<div style="padding:3px 0;font-size:12px;color:#c0a0b0;border-bottom:1px solid #1a0810;">• ${raw}${scaledNote} <span style="color:#a03060;font-size:10px;">(${recipe.name})</span></div>`;
+        const item = `<div style="padding:3px 0;font-size:12px;color:#c0a0b0;border-bottom:1px solid #1a0810;">• ${raw}${scaledNote} <span style="color:#cd598b;font-size:10px;">(${recipe.name})</span></div>`;
         if(BUTCHERY_KEYS.some(k=>lower.includes(k))) butchery.push(item);
         else if(DAIRY_KEYS.some(k=>lower.includes(k))) dairy.push(item);
         else if(PRODUCE_KEYS.some(k=>lower.includes(k))) produce.push(item);
@@ -997,7 +997,7 @@ function eventsHTML(){
 
     function section(title, items, emoji){
       if(!items.length) return '';
-      return `<div style="margin-bottom:12px;"><div style="font-size:10px;letter-spacing:2px;color:#d04080;text-transform:uppercase;margin-bottom:6px;">${emoji} ${title} (${items.length} items)</div>${items.join('')}</div>`;
+      return `<div style="margin-bottom:12px;"><div style="font-size:10px;letter-spacing:2px;color:#d44f8a;text-transform:uppercase;margin-bottom:6px;">${emoji} ${title} (${items.length} items)</div>${items.join('')}</div>`;
     }
 
     return `<div style="margin-top:12px;background:#0f0010;border:1px solid #401030;border-radius:10px;padding:12px;">
@@ -1016,7 +1016,7 @@ function eventsHTML(){
     const isSelected = category && isPro && (S[category]||[]).includes(r.id);
     const bg = isSelected ? '#2a0832' : '#1a0820';
     const border = isSelected ? '#d04080' : '#601040';
-    const check = isSelected ? '<span style="color:#d04080;font-size:16px;margin-right:6px;">✓</span>' : '';
+    const check = isSelected ? '<span style="color:#d44f8a;font-size:16px;margin-right:6px;">✓</span>' : '';
     const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : `openEvent('${r.id}','${type}')`;
     const openAction = `openEvent('${r.id}','${type}')`;
 
@@ -1030,10 +1030,10 @@ function eventsHTML(){
         const selIds = S[category]||[];
         const scaleFactor = PORTION_RULES[key].scale[Math.min(selIds.length-1,3)];
         const g = Math.round(PORTION_RULES[key].base * scaleFactor);
-        portionBadge = `<span style="background:#1a0820;border:1px solid #803060;border-radius:10px;font-size:10px;color:#d04080;padding:2px 7px;margin-left:6px;">${g}g pp</span>`;
+        portionBadge = `<span style="background:#1a0820;border:1px solid #803060;border-radius:10px;font-size:10px;color:#d44f8a;padding:2px 7px;margin-left:6px;">${g}g pp</span>`;
       }
     } else if(isPlus && r.costPP){
-      portionBadge = `<span style="background:#1a0820;border:1px solid #803060;border-radius:10px;font-size:10px;color:#d04080;padding:2px 7px;margin-left:6px;">~R${r.costPP}/pp</span>`;
+      portionBadge = `<span style="background:#1a0820;border:1px solid #803060;border-radius:10px;font-size:10px;color:#d44f8a;padding:2px 7px;margin-left:6px;">~R${r.costPP}/pp</span>`;
     }
 
     return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;" onclick="${toggleAction}">
@@ -1041,12 +1041,12 @@ function eventsHTML(){
         ${(category&&isPro)?`<div style="width:22px;height:22px;border-radius:6px;background:${isSelected?'#d04080':'transparent'};border:2px solid ${isSelected?'#d04080':'#601040'};display:flex;align-items:center;justify-content:center;font-size:13px;color:white;flex-shrink:0;">${isSelected?'✓':''}</div>`:''}
         <div style="flex:1;">
           <div style="font-size:15px;color:#e0c4d4;">${r.emoji||'🍽️'} ${r.name} ${portionBadge}</div>
-          ${r.perPerson?`<div style="font-size:11px;color:#a03060;margin-top:2px;">${r.perPerson.meat} ${r.perPerson.unit} per person base</div>`:''}
-          ${r.region?`<div style="font-size:11px;color:#a03060;margin-top:2px;">${r.region}</div>`:''}
+          ${r.perPerson?`<div style="font-size:11px;color:#cd598b;margin-top:2px;">${r.perPerson.meat} ${r.perPerson.unit} per person base</div>`:''}
+          ${r.region?`<div style="font-size:11px;color:#cd598b;margin-top:2px;">${r.region}</div>`:''}
           ${r.halalFlag?'<div style="font-size:10px;color:#d0a020;margin-top:2px;">⚠️ Halal meat required</div>':''}
           ${r.kosherFlag?'<div style="font-size:10px;color:#d0a020;margin-top:2px;">⚠️ Kosher prep notes inside</div>':''}
         </div>
-        <button onclick="event.stopPropagation();${openAction}" style="background:none;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d04080;font-size:11px;cursor:pointer;flex-shrink:0;margin-left:8px;">Recipe →</button>
+        <button onclick="event.stopPropagation();${openAction}" style="background:none;border:1px solid #601040;border-radius:6px;padding:4px 10px;color:#d44f8a;font-size:11px;cursor:pointer;flex-shrink:0;margin-left:8px;">Recipe →</button>
       </div>
     </div>`;
   }
@@ -1081,13 +1081,13 @@ function eventsHTML(){
         <p style="margin:0 0 10px;font-size:11px;color:#d090b0;font-style:italic;">Weddings · Birthdays · Funerals · Baptisms · Company events · 10–350 guests</p>
         <!-- Search bar -->
         <div style="display:flex;align-items:center;background:rgba(30,8,24,0.85);border:1px solid #803060;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
-          <span style="color:#d04080;margin-right:8px;font-size:14px;">🔍</span>
+          <span style="color:#d44f8a;margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search dishes, cakes, snacks…"
             oninput="set({eventsSearch:this.value})"
             value="${S.eventsSearch||''}"
             style="flex:1;background:none;border:none;outline:none;color:#f0d0e0;font-size:13px;font-family:Georgia,serif;"
           />
-          ${S.eventsSearch?`<button onclick="set({eventsSearch:''})" style="background:none;border:none;color:#803060;font-size:16px;cursor:pointer;">×</button>`:''}
+          ${S.eventsSearch?`<button onclick="set({eventsSearch:''})" style="background:none;border:none;color:#c25c99;font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>
     </div>
@@ -1099,7 +1099,7 @@ function eventsHTML(){
         <!-- How it works collapsible -->
         <div style="flex:1;">
           <button onclick="set({eventsHowOpen:!S.eventsHowOpen})"
-            style="background:none;border:none;color:#d04080;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            style="background:none;border:none;color:#d44f8a;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
             ${howItWorksOpen?'▲':'▼'} How it works
           </button>
           ${howItWorksOpen?`
@@ -1109,7 +1109,7 @@ function eventsHTML(){
               <strong style="color:#f070a0;">2. Set your guest count</strong> — use the ± slider here.<br>
               <strong style="color:#f070a0;">3. Select dishes</strong> — portions auto-scale as you add more.<br>
               <strong style="color:#f070a0;">4. Generate shopping list</strong> — sorted by supermarket aisle.<br>
-              <span style="color:#803060;font-size:11px;">Pro tip: The more dishes you add, the smaller each individual portion — your total plate stays constant.</span>
+              <span style="color:#c25c99;font-size:11px;">Pro tip: The more dishes you add, the smaller each individual portion — your total plate stays constant.</span>
             </div>
           `:''}
         </div>
@@ -1117,13 +1117,13 @@ function eventsHTML(){
         <!-- Guest count ± -->
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
           <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})"
-            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">−</button>
+            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:18px;line-height:1;cursor:pointer;">−</button>
           <div style="text-align:center;min-width:52px;">
             <div style="font-size:22px;color:#f070a0;font-weight:bold;line-height:1;">${guests}</div>
-            <div style="font-size:9px;color:#803060;letter-spacing:1px;text-transform:uppercase;">guests</div>
+            <div style="font-size:9px;color:#c25c99;letter-spacing:1px;text-transform:uppercase;">guests</div>
           </div>
           <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})"
-            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:18px;line-height:1;cursor:pointer;">+</button>
+            style="width:32px;height:32px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:18px;line-height:1;cursor:pointer;">+</button>
         </div>
       </div>
 
@@ -1150,7 +1150,7 @@ function eventsHTML(){
       <div style="background:#1a0820;border:1px solid #601040;border-radius:12px;padding:20px;text-align:center;margin-top:20px;">
         <div style="font-size:36px;margin-bottom:10px;">🍹</div>
         <div style="font-size:15px;color:#f070a0;margin-bottom:8px;">Beverages Calculator</div>
-        <div style="font-size:12px;color:#803060;line-height:1.6;">Bulk spirits, wines, beers, shooters, cocktails and punches — coming soon!</div>
+        <div style="font-size:12px;color:#c25c99;line-height:1.6;">Bulk spirits, wines, beers, shooters, cocktails and punches — coming soon!</div>
       </div>
     `:''}
 
@@ -1170,13 +1170,13 @@ function eventsHTML(){
     ${et==='fingerfoods'?`
       ${S.fingerView==='myplan' ? fingerMyPlanHTML() : `
       <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:14px;">
-        <div style="font-size:11px;color:#a03060;margin-bottom:8px;">👥 Guests & Event Type</div>
+        <div style="font-size:11px;color:#cd598b;margin-bottom:8px;">👥 Guests & Event Type</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-          <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:20px;cursor:pointer;">−</button>
-          <div style="flex:1;text-align:center;"><div style="font-size:32px;color:#f070a0;font-weight:bold;">${guests}</div><div style="font-size:10px;color:#803060;">guests</div></div>
-          <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:20px;cursor:pointer;">+</button>
+          <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:20px;cursor:pointer;">−</button>
+          <div style="flex:1;text-align:center;"><div style="font-size:32px;color:#f070a0;font-weight:bold;">${guests}</div><div style="font-size:10px;color:#c25c99;">guests</div></div>
+          <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:20px;cursor:pointer;">+</button>
         </div>
-        <div style="font-size:11px;color:#a03060;margin-bottom:6px;">📏 What type of event?</div>
+        <div style="font-size:11px;color:#cd598b;margin-bottom:6px;">📏 What type of event?</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           ${[
             {id:'standalone',label:'🥪 Snacks only',sub:'12–15 pcs pp'},
@@ -1184,15 +1184,15 @@ function eventsHTML(){
             {id:'braai',     label:'🔥 At a braai',sub:'4–5 pcs pp'},
           ].map(t=>`<button onclick="set({eventFingerEventType:'${t.id}'})" style="flex:1;min-width:90px;padding:8px 6px;border-radius:8px;border:1px solid ${(S.eventFingerEventType||'standalone')===t.id?'#d04080':'#3a1020'};background:${(S.eventFingerEventType||'standalone')===t.id?'#2a0818':'transparent'};cursor:pointer;text-align:center;">
             <div style="font-size:12px;color:${(S.eventFingerEventType||'standalone')===t.id?'#f070a0':'#703050'};">${t.label}</div>
-            <div style="font-size:10px;color:#603040;margin-top:2px;">${t.sub}</div>
+            <div style="font-size:10px;color:#b46982;margin-top:2px;">${t.sub}</div>
           </button>`).join('')}
         </div>
       </div>
       ${fingerMyPlanBtn()}
       <div style="background:#1a0810;border:1px solid #401030;border-radius:10px;margin-bottom:14px;overflow:hidden;">
         <div onclick="setQuiet({fingerHelpOpen:!S.fingerHelpOpen})" style="padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;">
-          <strong style="color:#d04080;font-size:12px;">🥪 How finger foods work</strong>
-          <span style="color:#d04080;font-size:14px;">${S.fingerHelpOpen?'▲':'▼'}</span>
+          <strong style="color:#d44f8a;font-size:12px;">🥪 How finger foods work</strong>
+          <span style="color:#d44f8a;font-size:14px;">${S.fingerHelpOpen?'▲':'▼'}</span>
         </div>
         ${S.fingerHelpOpen?`<div style="padding:0 14px 12px;font-size:12px;color:#a07060;line-height:1.7;border-top:1px solid #2a0818;">
           Tap any snack or platter to add it. The calculator splits your target portion evenly across all selections and generates a shopping list.<br><br>
@@ -1263,17 +1263,17 @@ function eventsHTML(){
         if(S.activeCulturalRecipe) {
           const r = S.activeCulturalRecipe;
           return `
-            <button onclick="set({activeCulturalRecipe:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${activeGroup?.label||'Cultural'}</button>
+            <button onclick="set({activeCulturalRecipe:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${activeGroup?.label||'Cultural'}</button>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:12px;padding:14px;margin-bottom:12px;">
               <div style="font-size:18px;color:#f0c0d0;margin-bottom:4px;">${r.emoji} ${r.name}</div>
-              <div style="font-size:11px;color:#803060;margin-bottom:10px;">${r.region}</div>
+              <div style="font-size:11px;color:#c25c99;margin-bottom:10px;">${r.region}</div>
               ${r.heritage?`<div style="background:#0f0018;border-left:3px solid #d04080;padding:10px 12px;margin-bottom:12px;border-radius:0 8px 8px 0;font-size:12px;color:#c090b0;line-height:1.6;font-style:italic;">${r.heritage}</div>`:''}
               ${r.halalFlag?`<div style="background:#1a1000;border:1px solid #806000;border-radius:8px;padding:6px 10px;margin-bottom:10px;font-size:11px;color:#c0a020;">${r.halalNote}</div>`:''}
               ${r.kosherFlag?`<div style="background:#001a1a;border:1px solid #006060;border-radius:8px;padding:6px 10px;margin-bottom:10px;font-size:11px;color:#20c0c0;">${r.kosherNote}</div>`:''}
             </div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:11px;color:#a03060;margin-bottom:8px;">👥 Guests: <strong style="color:#f070a0;">${guests}</strong> &nbsp;·&nbsp; <button onclick="setQuiet({eventGuests:Math.max(2,${guests}-1)})" style="background:#2a0818;border:1px solid #d04080;border-radius:4px;color:#d04080;padding:1px 8px;cursor:pointer;font-size:12px;">−</button> &nbsp; <button onclick="setQuiet({eventGuests:Math.min(350,${guests}+1)})" style="background:#2a0818;border:1px solid #d04080;border-radius:4px;color:#d04080;padding:1px 8px;cursor:pointer;font-size:12px;">+</button></div>
-              <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:8px;">Ingredients — per person base → total for ${guests}</div>
+              <div style="font-size:11px;color:#cd598b;margin-bottom:8px;">👥 Guests: <strong style="color:#f070a0;">${guests}</strong> &nbsp;·&nbsp; <button onclick="setQuiet({eventGuests:Math.max(2,${guests}-1)})" style="background:#2a0818;border:1px solid #d04080;border-radius:4px;color:#d44f8a;padding:1px 8px;cursor:pointer;font-size:12px;">−</button> &nbsp; <button onclick="setQuiet({eventGuests:Math.min(350,${guests}+1)})" style="background:#2a0818;border:1px solid #d04080;border-radius:4px;color:#d44f8a;padding:1px 8px;cursor:pointer;font-size:12px;">+</button></div>
+              <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:8px;">Ingredients — per person base → total for ${guests}</div>
               ${r.base300.map((ing,i)=>{
                 // Parse "200g per person" → extract number and unit, calc total
                 const amtMatch = ing.a.match(/^([\d.]+)\s*(g|ml|kg|L)/);
@@ -1296,29 +1296,29 @@ function eventsHTML(){
               }).join('')}
             </div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:10px;">Method</div>
-              ${r.method.map((step,i)=>`<div style="display:flex;gap:10px;margin-bottom:12px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#2a0818;border:1px solid #d04080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#d04080;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0a0b0;line-height:1.6;">${step}</div></div>`).join('')}
+              <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:10px;">Method</div>
+              ${r.method.map((step,i)=>`<div style="display:flex;gap:10px;margin-bottom:12px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#2a0818;border:1px solid #d04080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#d44f8a;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0a0b0;line-height:1.6;">${step}</div></div>`).join('')}
             </div>
             <div style="background:#1a0810;border:1px solid #601030;border-radius:8px;padding:10px 12px;margin-bottom:12px;"><span style="color:#e04080;font-size:10px;">💡 TIP: </span><span style="font-size:12px;color:#d090a0;">${r.tip}</span></div>
             ${r.sides?`<div style="background:#1a0820;border:1px solid #601040;border-radius:8px;padding:10px 12px;margin-bottom:16px;">
-              <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:6px;">Suggested Sides</div>
+              <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:6px;">Suggested Sides</div>
               ${r.sides.map(s=>`<div style="font-size:12px;color:#c0a0b0;padding:3px 0;">🍽️ ${s}</div>`).join('')}
             </div>`:''}
             ${(()=>{
               const isSel = (S.eventSelectedCultural||[]).includes(r.id);
-              return isPro ? `<button onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural||[],'${r.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>` : `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#803060;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`;
+              return isPro ? `<button onclick="set({eventSelectedCultural:toggle(S.eventSelectedCultural||[],'${r.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>` : `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#c25c99;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`;
             })()}
-            <button onclick="set({activeCulturalRecipe:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d04080;font-size:14px;cursor:pointer;">← Back to ${activeGroup?.label||'Cultural'}</button>
+            <button onclick="set({activeCulturalRecipe:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d44f8a;font-size:14px;cursor:pointer;">← Back to ${activeGroup?.label||'Cultural'}</button>
           `;
         }
 
         if(activeCulturalGroup && !activeGroup?.coming) {
           const selCultural = S.eventSelectedCultural||[];
           return `
-            <button onclick="set({activeCulturalGroup:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Cultures</button>
+            <button onclick="set({activeCulturalGroup:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Cultures</button>
             <div style="font-size:18px;color:#f0c0d0;margin-bottom:4px;">${activeGroup.emoji} ${activeGroup.label}</div>
-            <p style="font-size:12px;color:#803060;margin-bottom:14px;">Tap a dish to view recipe and add to your plan.</p>
-            ${groupRecipes.length===0?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:20px;text-align:center;color:#803060;font-size:13px;">🍽️ Recipes coming soon</div>`:
+            <p style="font-size:12px;color:#c25c99;margin-bottom:14px;">Tap a dish to view recipe and add to your plan.</p>
+            ${groupRecipes.length===0?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:20px;text-align:center;color:#c25c99;font-size:13px;">🍽️ Recipes coming soon</div>`:
               groupRecipes.map(r=>{
                 const isSel = selCultural.includes(r.id);
                 return `
@@ -1328,11 +1328,11 @@ function eventsHTML(){
               <div onclick="openWorldRecipe('${r.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
                     <div>
                       <div style="font-size:15px;color:#f0c0d0;">${r.emoji} ${r.name}</div>
-                      <div style="font-size:11px;color:#803060;margin-top:3px;">${r.region}</div>
+                      <div style="font-size:11px;color:#c25c99;margin-top:3px;">${r.region}</div>
                       ${r.halalFlag?`<span style="background:#1a1000;border:1px solid #806000;border-radius:8px;font-size:10px;color:#c0a020;padding:2px 6px;display:inline-block;margin-top:3px;">☪️ Halal</span>`:''}
                       ${r.kosherFlag?`<span style="background:#001a1a;border:1px solid #006060;border-radius:8px;font-size:10px;color:#20c0c0;padding:2px 6px;display:inline-block;margin-top:3px;">✡️ Kosher</span>`:''}
                     </div>
-                    <span style="color:#d04080;font-size:20px;">→</span>
+                    <span style="color:#d44f8a;font-size:20px;">→</span>
                   </div>
                 </div>
               `}).join('')
@@ -1350,7 +1350,7 @@ function eventsHTML(){
           <div onclick="${g.coming?'':`culturalGroupGo('${g.id}')`}" style="background:${g.coming?'#0f0010':'#1a0820'};border:1px solid ${g.coming?'#2a0828':'#601040'};border-radius:10px;padding:10px 8px;text-align:center;cursor:${g.coming?'default':'pointer'};opacity:${g.coming?'0.5':'1'};">
             <div style="font-size:20px;">${g.emoji}</div>
             <div style="font-size:11px;color:${g.coming?'#603050':'#f0c0d0'};margin-top:4px;font-weight:bold;">${g.label}</div>
-            ${g.coming?`<div style="font-size:9px;color:#603050;margin-top:2px;">Coming soon</div>`:`<div style="font-size:9px;color:#803060;margin-top:2px;">${EVENTS_CULTURAL.filter(r=>r.group===g.id).length} recipes</div>`}
+            ${g.coming?`<div style="font-size:9px;color:#b4699b;margin-top:2px;">Coming soon</div>`:`<div style="font-size:9px;color:#c25c99;margin-top:2px;">${EVENTS_CULTURAL.filter(r=>r.group===g.id).length} recipes</div>`}
           </div>
         `;
 
@@ -1372,9 +1372,9 @@ function eventsHTML(){
           const shopItems = Object.values(shopMap);
           const checked = S.checkedBuffetItems||{};
           return `
-            <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
+            <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
             <div style="font-size:16px;color:#f0c0d0;margin-bottom:4px;">📋 My Cultural Plan</div>
-            <div style="font-size:12px;color:#803060;margin-bottom:14px;">${selRecipes.length} dishes · ${guests} guests</div>
+            <div style="font-size:12px;color:#c25c99;margin-bottom:14px;">${selRecipes.length} dishes · ${guests} guests</div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
               ${selRecipes.map(r=>{
                 const main = r.base300?.[0];
@@ -1387,51 +1387,51 @@ function eventsHTML(){
                 </div>`;
               }).join('')}
             </div>
-            <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
+            <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:16px;">
               ${shopItems.map(item=>{
                 const ck = checked['cult_'+item.name.replace(/\s/g,'')];
                 const totalStr = item.total>=1000?(item.total/1000).toFixed(1)+(item.unit==='ml'?'L':'kg'):item.total+item.unit;
                 return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'cult_${item.name.replace(/\s/g,'')}':!S.checkedBuffetItems['cult_${item.name.replace(/\s/g,'')}']}})" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a0810;cursor:pointer;opacity:${ck?0.35:1};">
                   <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?'#d04080':'#601040'};background:${ck?'#d04080':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ck?'<span style="color:#fff;font-size:11px;">✓</span>':''}</div>
-                  <div style="flex:1;"><div style="font-size:13px;color:${ck?'#4a2030':'#c0a0b0'};">${item.name}</div><div style="font-size:10px;color:#603050;">${item.recipe}</div></div>
+                  <div style="flex:1;"><div style="font-size:13px;color:${ck?'#4a2030':'#c0a0b0'};">${item.name}</div><div style="font-size:10px;color:#b4699b;">${item.recipe}</div></div>
                   <div style="font-size:13px;color:${ck?'#4a2030':'#f5c842'};font-weight:bold;">${totalStr}</div>
                 </div>`;
               }).join('')}
             </div>
-            <button onclick="set({culturalTier:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d04080;font-size:14px;cursor:pointer;">← Back</button>
+            <button onclick="set({culturalTier:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d44f8a;font-size:14px;cursor:pointer;">← Back</button>
           `;
         }
 
         if(culturalTier==='sa') return `
-          <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
+          <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
           <div style="font-size:16px;color:#f0c0d0;margin-bottom:12px;">🇿🇦 SA Heritage Cuisines</div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">${saGroups.map(renderGroup).join('')}</div>
         `;
 
         if(culturalTier==='world') return `
-          <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
+          <button onclick="set({culturalTier:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back</button>
           <div style="font-size:16px;color:#f0c0d0;margin-bottom:12px;">🌍 World in SA</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">${worldGroups.map(renderGroup).join('')}</div>
         `;
 
         return `
-          <p style="font-size:12px;color:#803060;font-style:italic;margin-bottom:16px;">Honour every guest's heritage at your table 🌍</p>
+          <p style="font-size:12px;color:#c25c99;font-style:italic;margin-bottom:16px;">Honour every guest's heritage at your table 🌍</p>
           <div onclick="set({culturalTier:'sa'})" style="background:#1a0820;border:1px solid #601040;border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:20px;margin-bottom:4px;">🇿🇦 SA Heritage Cuisines</div>
               <div style="font-size:13px;color:#f0c0d0;font-weight:bold;">South African Cultures</div>
-              <div style="font-size:11px;color:#803060;margin-top:4px;">Durban Indian · Cape Malay · Xhosa · Jewish & more</div>
+              <div style="font-size:11px;color:#c25c99;margin-top:4px;">Durban Indian · Cape Malay · Xhosa · Jewish & more</div>
             </div>
-            <span style="color:#d04080;font-size:24px;">→</span>
+            <span style="color:#d44f8a;font-size:24px;">→</span>
           </div>
           <div onclick="set({culturalTier:'world'})" style="background:#1a0820;border:1px solid #601040;border-radius:14px;padding:18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:20px;margin-bottom:4px;">🌍 World in SA</div>
               <div style="font-size:13px;color:#f0c0d0;font-weight:bold;">International Communities</div>
-              <div style="font-size:11px;color:#803060;margin-top:4px;">Portuguese · Greek · Pakistani · Chinese & more</div>
+              <div style="font-size:11px;color:#c25c99;margin-top:4px;">Portuguese · Greek · Pakistani · Chinese & more</div>
             </div>
-            <span style="color:#d04080;font-size:24px;">→</span>
+            <span style="color:#d44f8a;font-size:24px;">→</span>
           </div>
           ${isPro&&(S.eventSelectedCultural||[]).length>0?`
             <button onclick="set({culturalTier:'myplan'})" style="width:100%;padding:14px;background:#2a0828;border:2px solid #d04080;border-radius:12px;color:#f070a0;font-size:14px;cursor:pointer;margin-top:12px;">
@@ -1456,7 +1456,7 @@ function eventsHTML(){
           const batchesNeeded = Math.ceil(cakeGuests / servesNum);
           const slicesOver = (batchesNeeded * servesNum) - cakeGuests;
           return `
-            <button onclick="set({activeCake:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${catObj?.label||'Cakes'}</button>
+            <button onclick="set({activeCake:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${catObj?.label||'Cakes'}</button>
             ${recipePhoto(cake.name, cake.emoji||'🎂')}
             <div style="background:#1a0820;border:1px solid #601040;border-radius:12px;padding:14px;margin-bottom:12px;">
               <div style="font-size:20px;color:#f0c0d0;margin-bottom:4px;">${cake.emoji} ${cake.name}</div>
@@ -1467,22 +1467,22 @@ function eventsHTML(){
               </div>
             </div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:11px;color:#a03060;margin-bottom:8px;">👥 How many guests?</div>
+              <div style="font-size:11px;color:#cd598b;margin-bottom:8px;">👥 How many guests?</div>
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-                <button onclick="setQuiet({cakeGuests:Math.max(10,${cakeGuests}-(${cakeGuests}<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:20px;cursor:pointer;">−</button>
-                <div style="flex:1;text-align:center;"><div style="font-size:28px;color:#f070a0;font-weight:bold;">${cakeGuests}</div><div style="font-size:10px;color:#803060;">guests</div></div>
-                <button onclick="setQuiet({cakeGuests:Math.min(500,${cakeGuests}+(${cakeGuests}<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d04080;font-size:20px;cursor:pointer;">+</button>
+                <button onclick="setQuiet({cakeGuests:Math.max(10,${cakeGuests}-(${cakeGuests}<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:20px;cursor:pointer;">−</button>
+                <div style="flex:1;text-align:center;"><div style="font-size:28px;color:#f070a0;font-weight:bold;">${cakeGuests}</div><div style="font-size:10px;color:#c25c99;">guests</div></div>
+                <button onclick="setQuiet({cakeGuests:Math.min(500,${cakeGuests}+(${cakeGuests}<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#2a0818;border:2px solid #d04080;color:#d44f8a;font-size:20px;cursor:pointer;">+</button>
               </div>
               <div style="background:#0f0010;border:1px solid #401030;border-radius:8px;padding:10px;">
-                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #2a0818;"><span style="color:#a06070;">Batches needed</span><span style="color:#f070a0;font-weight:bold;font-size:14px;">${batchesNeeded}×</span></div>
-                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;"><span style="color:#a06070;">Extra slices</span><span style="color:#c0a0b0;">${slicesOver} slices — keep for late arrivals</span></div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #2a0818;"><span style="color:#a96f7e;">Batches needed</span><span style="color:#f070a0;font-weight:bold;font-size:14px;">${batchesNeeded}×</span></div>
+                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;"><span style="color:#a96f7e;">Extra slices</span><span style="color:#c0a0b0;">${slicesOver} slices — keep for late arrivals</span></div>
               </div>
-              <div style="font-size:11px;color:#a06070;font-style:italic;margin-top:8px;">💡 Always bake for 10% more than your RSVP count.</div>
+              <div style="font-size:11px;color:#a96f7e;font-style:italic;margin-top:8px;">💡 Always bake for 10% more than your RSVP count.</div>
             </div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:8px;">Ingredients</div>
+              <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:8px;">Ingredients</div>
               ${cake.base300.map((ing,i)=>ing.n.startsWith('—')?
-                `<div style="font-size:10px;letter-spacing:1px;color:#803060;text-transform:uppercase;margin:10px 0 6px;padding-top:8px;border-top:1px solid #2a0818;">${ing.n.replace('—','').trim()}</div>`:
+                `<div style="font-size:10px;letter-spacing:1px;color:#c25c99;text-transform:uppercase;margin:10px 0 6px;padding-top:8px;border-top:1px solid #2a0818;">${ing.n.replace('—','').trim()}</div>`:
                 `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:${i<cake.base300.length-1?'1px solid #1a0818':'none'};gap:8px;">
                   <span style="font-size:12px;color:#c0a0b0;flex:1;min-width:0;">${ing.n}</span>
                   <div style="text-align:right;flex-shrink:0;">${(()=>{
@@ -1514,16 +1514,16 @@ function eventsHTML(){
               ).join('')}
             </div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin-bottom:10px;">Method</div>
-              ${cake.method.map((step,i)=>`<div style="display:flex;gap:10px;margin-bottom:12px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#2a0818;border:1px solid #d04080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#d04080;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0a0b0;line-height:1.6;">${step}</div></div>`).join('')}
+              <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin-bottom:10px;">Method</div>
+              ${cake.method.map((step,i)=>`<div style="display:flex;gap:10px;margin-bottom:12px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#2a0818;border:1px solid #d04080;display:flex;align-items:center;justify-content:center;font-size:11px;color:#d44f8a;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c0a0b0;line-height:1.6;">${step}</div></div>`).join('')}
             </div>
             <div style="background:#1a0810;border:1px solid #601030;border-radius:8px;padding:10px 12px;margin-bottom:16px;"><span style="color:#e04080;font-size:10px;">💡 TIP: </span><span style="font-size:12px;color:#d090a0;">${cake.tip}</span></div>
             ${isPro?`<div style="background:#1a0820;border:1px solid #d04080;border-radius:12px;padding:14px;margin-bottom:12px;">
               <div style="font-size:13px;color:#f070a0;margin-bottom:10px;">📋 Baker Briefing Checklist</div>
-              ${BAKER_BRIEFING.map(b=>`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #2a0818;"><span style="color:#d04080;font-size:12px;">✓</span><span style="font-size:12px;color:#c0a0b0;">${b}</span></div>`).join('')}
-            </div>`:`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;text-align:center;color:#803060;font-size:12px;margin-bottom:12px;">👑 Baker Briefing Checklist — Pro feature</div>`}
-            ${isPro?`${(()=>{const isSel=(S.eventSelectedCakes||[]).includes(cake.id);return `<button onclick="set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>`;})()}`:`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#803060;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`}
-            <button onclick="set({activeCake:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d04080;font-size:14px;cursor:pointer;">← Back to ${catObj?.label||'Cakes'}</button>
+              ${BAKER_BRIEFING.map(b=>`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #2a0818;"><span style="color:#d44f8a;font-size:12px;">✓</span><span style="font-size:12px;color:#c0a0b0;">${b}</span></div>`).join('')}
+            </div>`:`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;text-align:center;color:#c25c99;font-size:12px;margin-bottom:12px;">👑 Baker Briefing Checklist — Pro feature</div>`}
+            ${isPro?`${(()=>{const isSel=(S.eventSelectedCakes||[]).includes(cake.id);return `<button onclick="set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})" style="width:100%;padding:12px;background:${isSel?'#2a0828':'#1a0820'};border:2px solid ${isSel?'#d04080':'#601040'};border-radius:10px;color:${isSel?'#f070a0':'#803060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>`;})()}`:`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px;text-align:center;color:#c25c99;font-size:12px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`}
+            <button onclick="set({activeCake:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d44f8a;font-size:14px;cursor:pointer;">← Back to ${catObj?.label||'Cakes'}</button>
           `;
         }
 
@@ -1552,31 +1552,31 @@ function eventsHTML(){
           });
           const shopItems = Object.values(shopMap);
           return `
-            <button onclick="set({cakeCat:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
+            <button onclick="set({cakeCat:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
             <div style="font-size:16px;color:#f0c0d0;margin-bottom:4px;">🎂 My Cake Plan</div>
-            <div style="font-size:12px;color:#803060;margin-bottom:14px;">${selRecipes.length} cake${selRecipes.length!==1?'s':''} · ${cakeG} guests</div>
+            <div style="font-size:12px;color:#c25c99;margin-bottom:14px;">${selRecipes.length} cake${selRecipes.length!==1?'s':''} · ${cakeG} guests</div>
             ${selRecipes.map(cake=>{
               const servesMatch = (cake.serves||'100').toString().match(/\d+/);
               const baseServes = servesMatch ? parseInt(servesMatch[0]) : 100;
               const batches = Math.ceil(cakeG / baseServes);
               return `<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:8px;">
                 <div style="font-size:15px;color:#f0c0d0;">${cake.emoji} ${cake.name}</div>
-                <div style="font-size:11px;color:#803060;margin-top:3px;">Serves ${cake.serves} · <strong style="color:#f070a0;">${batches}×</strong> batch${batches!==1?'es':''} needed for ${cakeG} guests</div>
+                <div style="font-size:11px;color:#c25c99;margin-top:3px;">Serves ${cake.serves} · <strong style="color:#f070a0;">${batches}×</strong> batch${batches!==1?'es':''} needed for ${cakeG} guests</div>
               </div>`;
             }).join('')}
-            <div style="font-size:10px;letter-spacing:2px;color:#a03060;text-transform:uppercase;margin:12px 0 8px;">🛒 Shopping List</div>
+            <div style="font-size:10px;letter-spacing:2px;color:#cd598b;text-transform:uppercase;margin:12px 0 8px;">🛒 Shopping List</div>
             <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:16px;">
-              ${shopItems.length===0?'<div style="color:#803060;font-size:12px;">Select cakes and set guest count to generate list</div>':
+              ${shopItems.length===0?'<div style="color:#c25c99;font-size:12px;">Select cakes and set guest count to generate list</div>':
                 shopItems.map(item=>{
                   const ck = checked['cake_'+item.name.replace(/\s/g,'_')];
                   return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'cake_${item.name.replace(/\s/g,'_')}':!S.checkedBuffetItems['cake_${item.name.replace(/\s/g,'_')}']}})" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a0810;cursor:pointer;opacity:${ck?0.35:1};">
                     <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?'#d04080':'#601040'};background:${ck?'#d04080':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ck?'<span style="color:#fff;font-size:11px;">✓</span>':''}</div>
-                    <div style="flex:1;"><div style="font-size:13px;color:${ck?'#4a2030':'#c0a0b0'};">${item.name}</div><div style="font-size:10px;color:#603050;">${item.cake}</div></div>
+                    <div style="flex:1;"><div style="font-size:13px;color:${ck?'#4a2030':'#c0a0b0'};">${item.name}</div><div style="font-size:10px;color:#b4699b;">${item.cake}</div></div>
                     <div style="font-size:13px;color:${ck?'#4a2030':'#f5c842'};font-weight:bold;">${item.totalStr}</div>
                   </div>`;
                 }).join('')}
             </div>
-            <button onclick="set({cakeCat:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d04080;font-size:14px;cursor:pointer;">← Back</button>
+            <button onclick="set({cakeCat:null})" style="width:100%;padding:12px;background:#2a0818;border:1px solid #601040;border-radius:10px;color:#d44f8a;font-size:14px;cursor:pointer;">← Back</button>
           `;
         }
 
@@ -1584,9 +1584,9 @@ function eventsHTML(){
           const catObj = CAKE_CATEGORIES.find(c=>c.id===cakeCat);
           const catRecipes = CELEBRATION_CAKE_RECIPES.filter(c=>c.category===cakeCat);
           return `
-            <button onclick="set({cakeCat:null})" style="background:none;border:none;color:#d04080;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
+            <button onclick="set({cakeCat:null})" style="background:none;border:none;color:#d44f8a;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
             <div style="font-size:16px;color:#f0c0d0;margin-bottom:4px;">${catObj?.label}</div>
-            <p style="font-size:12px;color:#803060;margin-bottom:14px;">${catObj?.desc}</p>
+            <p style="font-size:12px;color:#c25c99;margin-bottom:14px;">${catObj?.desc}</p>
             ${catRecipes.map(cake=>{
               const isSel = (S.eventSelectedCakes||[]).includes(cake.id);
               return `
@@ -1595,10 +1595,10 @@ function eventsHTML(){
                 <div onclick="openCakeRecipe('${cake.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
                   <div>
                     <div style="font-size:15px;color:#f0c0d0;">${cake.emoji} ${cake.name}</div>
-                    <div style="font-size:11px;color:#803060;margin-top:3px;">Serves ${cake.serves}</div>
-                    <div style="font-size:10px;color:#603050;margin-top:2px;">🍦 ${cake.icingType}</div>
+                    <div style="font-size:11px;color:#c25c99;margin-top:3px;">Serves ${cake.serves}</div>
+                    <div style="font-size:10px;color:#b4699b;margin-top:2px;">🍦 ${cake.icingType}</div>
                   </div>
-                  <span style="color:#d04080;font-size:20px;">→</span>
+                  <span style="color:#d44f8a;font-size:20px;">→</span>
                 </div>
               </div>
             `}).join('')}
@@ -1606,8 +1606,8 @@ function eventsHTML(){
         }
 
         return `
-          <p style="font-size:12px;color:#803060;font-style:italic;margin-bottom:14px;">Celebration & Event Cakes 💍🎂🍼🍰</p>
-          <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:#a06070;">
+          <p style="font-size:12px;color:#c25c99;font-style:italic;margin-bottom:14px;">Celebration & Event Cakes 💍🎂🍼🍰</p>
+          <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:#a96f7e;">
             🎂 <strong style="color:#f0c0d0;">Portion guide:</strong> Standard slice = 100–120g · 25cm round = ~30 portions · 30cm round = ~50 portions
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
@@ -1617,8 +1617,8 @@ function eventsHTML(){
               return `<div onclick="set({cakeCat:'${cat.id}'})" style="background:${isBig?'#2a0828':'#1a0820'};border:${isBig?'2px':'1px'} solid ${isBig?'#d04080':'#601040'};border-radius:14px;padding:${isBig?'18px':'14px'};cursor:pointer;text-align:center;">
                 <div style="font-size:${isBig?'30px':'22px'};margin-bottom:6px;">${cat.label.split(' ')[0]}</div>
                 <div style="font-size:${isBig?'14px':'12px'};color:${isBig?'#f070a0':'#f0c0d0'};font-weight:bold;">${cat.label.substring(cat.label.indexOf(' ')+1)}</div>
-                <div style="font-size:11px;color:#803060;margin-top:4px;">${cat.desc}</div>
-                <div style="font-size:10px;color:#601040;margin-top:6px;border-top:1px solid #2a0818;padding-top:6px;">${count} recipe${count!==1?'s':''}</div>
+                <div style="font-size:11px;color:#c25c99;margin-top:4px;">${cat.desc}</div>
+                <div style="font-size:10px;color:#df3d9e;margin-top:6px;border-top:1px solid #2a0818;padding-top:6px;">${count} recipe${count!==1?'s':''}</div>
               </div>`;
             }).join('')}
           </div>

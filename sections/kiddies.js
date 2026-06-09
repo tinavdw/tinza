@@ -26,7 +26,7 @@ function kidsScaleRows(base,k){
     const m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
     if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();const sc=Math.round(n*k/12*10)/10;
       const nm=kidsName(key.replace(/_/g,' '),rest);
-      return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${nm.name}: <b style="color:#f5e8cc;">${sc}${u}</b>${nm.extra?` <span style="color:#7a5030;">${nm.extra}</span>`:''}</div>`;}
+      return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${nm.name}: <b style="color:#f5e8cc;">${sc}${u}</b>${nm.extra?` <span style="color:#af7345;">${nm.extra}</span>`:''}</div>`;}
     return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${val}</b></div>`;
   }).join('');
 }
@@ -42,8 +42,8 @@ function kidsScaleRowsBig(base,k){
       const pp=Math.round(n/12*10)/10;        // per child (base is for 12)
       const tot=Math.round(n*k/12*10)/10;     // total for k kids
       return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
-        <span style="font-size:14px;color:#f5e8cc;">${nm.name}${nm.extra?` <span style="color:#7a5030;font-size:12px;">${nm.extra}</span>`:''}</span>
-        <span style="font-size:13px;color:#7a5030;white-space:nowrap;text-align:right;">${pp}${u} pp · <b style="color:#f5c842;">${tot}${u} total</b></span>
+        <span style="font-size:14px;color:#f5e8cc;">${nm.name}${nm.extra?` <span style="color:#af7345;font-size:12px;">${nm.extra}</span>`:''}</span>
+        <span style="font-size:13px;color:#af7345;white-space:nowrap;text-align:right;">${pp}${u} pp · <b style="color:#f5c842;">${tot}${u} total</b></span>
       </div>`;
     }
     return `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #2a1a10;">
@@ -95,7 +95,7 @@ function kidsControlBar(k,openKey,isOpen,howHTML){
         <button onclick="set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
         <input type="range" min="4" max="50" value="${k}" oninput="S.kidsCount=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
       </div>
-      <span style="font-size:10px;color:#4a3020;flex-shrink:0;">kids</span>
+      <span style="font-size:10px;color:#b1734c;flex-shrink:0;">kids</span>
     </div>
     ${isOpen?`
     <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
@@ -149,10 +149,10 @@ function kidsPartyHTML(){
       <div style="display:flex;align-items:center;background:#161210;border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
         <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="set({kidsSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:#f5e8cc;font-size:13px;font-family:Georgia,serif;"/>
-        ${searchVal?`<button onclick="set({kidsSearch:''})" style="background:none;border:none;color:#6a4020;font-size:16px;cursor:pointer;">×</button>`:''}
+        ${searchVal?`<button onclick="set({kidsSearch:''})" style="background:none;border:none;color:#b56d37;font-size:16px;cursor:pointer;">×</button>`:''}
       </div>
 
-      <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">Choose a party theme</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">Choose a party theme</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
         ${filteredThemes.length===0?`<div style="grid-column:1/-1;text-align:center;padding:30px 16px;background:#161210;border:1px solid #3a2010;border-radius:12px;"><div style="font-size:32px;margin-bottom:8px;">🎈</div><div style="font-size:13px;color:#a07050;">No themes match "${searchVal}"</div></div>`:''}
         ${filteredThemes.map(th=>`
@@ -181,13 +181,13 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   return `<div>
     ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← 12 Themes', th.name, tint)}
     <div class="content">
-      <div style="font-size:10px;letter-spacing:2px;color:#6a4020;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
         ${cats.map(c=>`
           <div onclick="set({kidsScreen:'${c.id==='cake'?'recipe':(c.plan?'plan':'category')}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#3a2010'};border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:20px;margin-bottom:3px;">${c.emoji}</div>
             <div style="font-size:10px;color:#f5e8cc;font-weight:bold;margin-bottom:1px;">${c.label}</div>
-            <div style="font-size:8px;color:#6a4020;line-height:1.3;">${c.sub}</div>
+            <div style="font-size:8px;color:#b56d37;line-height:1.3;">${c.sub}</div>
             ${c.count>0?`<div style="position:absolute;top:3px;right:3px;background:#c06020;color:#fff;border-radius:5px;font-size:8px;padding:1px 4px;">${c.count}</div>`:''}
           </div>`).join('')}
       </div>
@@ -336,7 +336,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   if(catId==='savoury'||catId==='sweet'){
     const list=(th.recipes||[]).filter(r=> catId==='savoury' ? r.type==='savoury' : (r.type==='sweet'||r.type==='healthy'));
     const menu=(th.foods&&(th.foods[budget]||th.foods.easy))||[];
-    const recipeCards = list.length===0 ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No recipes in this category yet.</p>`
+    const recipeCards = list.length===0 ? `<p style="font-size:13px;color:#b1734c;font-style:italic;">No recipes in this category yet.</p>`
       : list.map(r=>{
         const inMenu=menu.includes(r.name);
         const typeLabel=r.type==='savoury'?'🥩 Savoury':r.type==='sweet'?'🍬 Sweet':'🥗 Healthy';
@@ -345,7 +345,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
             <span style="font-size:22px;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;">
               <div style="font-size:15px;color:#f5e8cc;">${r.name}</div>
-              <div style="font-size:11px;color:#7a5030;margin-top:3px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
+              <div style="font-size:11px;color:#af7345;margin-top:3px;">${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal</div>
             </div>
             <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
           </div>`;
@@ -359,7 +359,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #4a3015;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
           <span style="font-size:22px;">${r.emoji}</span>
           <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${r.name} <span style="font-size:8px;color:#6aaa50;border:1px solid #4a8040;border-radius:6px;padding:1px 5px;margin-left:4px;">added</span></div>
-            <div style="font-size:11px;color:#7a5030;margin-top:3px;">🍽️ Finger food · ~R${r.costPP}/child</div></div>
+            <div style="font-size:11px;color:#af7345;margin-top:3px;">🍽️ Finger food · ~R${r.costPP}/child</div></div>
           <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
         </div>`;
     }).join('');
@@ -369,7 +369,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       const on=added.includes(id);
       return `<div onclick="kidsToggleSnack('${themeId}','${id}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #1e1a10;cursor:pointer;">
           <span style="font-size:16px;">${f.emoji||'🍽️'}</span>
-          <div style="flex:1;font-size:13px;color:${on?'#6aaa50':'#c8b898'};">${f.name} <span style="color:#6a4020;">~R${f.costPP}/pp</span></div>
+          <div style="flex:1;font-size:13px;color:${on?'#6aaa50':'#c8b898'};">${f.name} <span style="color:#b56d37;">~R${f.costPP}/pp</span></div>
           <span style="font-size:11px;color:${on?'#6aaa50':'#c06020'};border:1px solid ${on?'#4a8040':'#c06020'};border-radius:6px;padding:3px 9px;white-space:nowrap;">${on?'✓ Added':'+ Add'}</span>
         </div>`;
     }).join('');
@@ -380,10 +380,10 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   }
   else if(catId==='cake'){
     const c=th.cake;
-    body = !c ? `<p style="font-size:13px;color:#4a3020;font-style:italic;">No cake for this theme yet.</p>` : `
+    body = !c ? `<p style="font-size:13px;color:#b1734c;font-style:italic;">No cake for this theme yet.</p>` : `
       <div onclick="set({kidsScreen:'recipe'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;">
         <span style="font-size:22px;">🎂</span>
-        <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${c.name}</div><div style="font-size:11px;color:#7a5030;margin-top:3px;">🎂 The Cake${c.kcal?` · ~${c.kcal} kcal per slice`:''}</div></div>
+        <div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${c.name}</div><div style="font-size:11px;color:#af7345;margin-top:3px;">🎂 The Cake${c.kcal?` · ~${c.kcal} kcal per slice`:''}</div></div>
         <span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span>
       </div>`;
   }
@@ -392,7 +392,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const crispPackets=Math.ceil(k/4);
     const popRec=kidsPopcornRecipe(th.id), dipRec=kidsDipsRecipe(th.id);
     const esc=s=>s.replace(/'/g,"\\'");
-    const recCard=(emoji,nm,sub,openName)=>`<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${esc(openName)}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;"><span style="font-size:22px;">${emoji}</span><div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${nm}</div><div style="font-size:11px;color:#7a5030;margin-top:3px;">${sub}</div></div><span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span></div>`;
+    const recCard=(emoji,nm,sub,openName)=>`<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${esc(openName)}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;"><span style="font-size:22px;">${emoji}</span><div style="flex:1;"><div style="font-size:15px;color:#f5e8cc;">${nm}</div><div style="font-size:11px;color:#af7345;margin-top:3px;">${sub}</div></div><span style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:5px 11px;white-space:nowrap;">Recipe →</span></div>`;
     body = `
       ${d?recCard('🥤',d.name,'🥤 Drink · '+(k*250)+'ml total · store-bought or make it',d.name):''}
       ${recCard('🥔','Crisps','🥔 '+crispPackets+' × 120g packet'+(crispPackets>1?'s':'')+' · or healthy swap','Crisps')}
@@ -423,13 +423,13 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       ${((typeof tierAllows==='function')?tierAllows('pro'):false)
         ? `<div onclick="set({kidsScreen:'plan',kidsCategory:'plan'})" style="background:#1a1408;border:1px solid #c0a020;border-radius:10px;padding:16px;margin-bottom:8px;text-align:center;cursor:pointer;">
         <div style="font-size:13px;color:#f5c842;margin-bottom:4px;font-family:Georgia,serif;">📋 Full Shopping List</div>
-        <div style="font-size:10px;color:#6a4020;margin-bottom:8px;">Auto-scaled &amp; consolidated for ${k} kids</div>
+        <div style="font-size:10px;color:#b56d37;margin-bottom:8px;">Auto-scaled &amp; consolidated for ${k} kids</div>
         <div style="font-size:12px;color:#fff;background:#c06020;border-radius:6px;padding:6px 14px;display:inline-block;">Open list →</div>
       </div>`
         : `<div style="background:#1a1408;border:1px solid #3a2010;border-radius:10px;padding:18px;margin-bottom:8px;text-align:center;">
         <div style="font-size:28px;margin-bottom:6px;">🔒</div>
         <div style="font-size:13px;color:#f5c842;margin-bottom:4px;font-family:Georgia,serif;">Full Shopping List</div>
-        <div style="font-size:10px;color:#6a4020;margin-bottom:8px;">Auto-scaled &amp; consolidated for ${k} kids</div>
+        <div style="font-size:10px;color:#b56d37;margin-bottom:8px;">Auto-scaled &amp; consolidated for ${k} kids</div>
         <div style="font-size:12px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div>
       </div>`}`;
   }
@@ -441,7 +441,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       ${kidsControlBar(k,'kidsCatHowOpen',isOpen,howHTML)}
       <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:4px 0 10px;border-bottom:1px solid #2a1a10;margin-bottom:12px;">${labels[catId]||''}</div>
       ${body}
-      <button onclick="set({kidsScreen:'categories',kidsCategory:null,kidsOpenRecipe:null})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#6a4020;font-size:13px;margin:10px 0 20px;">← Back to ${th.name}</button>
+      <button onclick="set({kidsScreen:'categories',kidsCategory:null,kidsOpenRecipe:null})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin:10px 0 20px;">← Back to ${th.name}</button>
     </div>
   </div>`;
 }
@@ -470,7 +470,7 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
         <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:2px solid #c06020;color:#c06020;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;">${i+1}</div>
         <div style="font-size:14px;color:#c8b898;line-height:1.55;padding-top:1px;">${s}</div>
       </div>`).join('')
-    : `<div style="font-size:13px;color:#4a3020;font-style:italic;">No method steps yet.</div>`;
+    : `<div style="font-size:13px;color:#b1734c;font-style:italic;">No method steps yet.</div>`;
 
   return `<div>
     <div class="header" style="background:#161210;border-bottom:1px solid #3a2010;">
@@ -484,7 +484,7 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
 
       <div style="background:#0d1a0a;border:1px solid #2a5020;border-radius:12px;padding:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>
-          <div style="font-size:10px;letter-spacing:1px;color:#5a8040;text-transform:uppercase;">Serves</div>
+          <div style="font-size:10px;letter-spacing:1px;color:#638c46;text-transform:uppercase;">Serves</div>
           <div style="font-size:30px;color:#f5c842;font-weight:bold;line-height:1;">${k} <span style="font-size:16px;color:#6aaa50;">kids</span></div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -616,7 +616,7 @@ function kidsPlanHTML(themeId, k, budget){
           <div style="font-size:12px;color:#c8b898;line-height:1.6;margin-bottom:14px;">Get your whole party menu auto-scaled to <b style="color:#f5c842;">${k} kids</b>, consolidated into one aisle-sorted shopping list with a live cost estimate.</div>
           <div style="font-size:13px;color:#fff;background:#c06020;border-radius:8px;padding:9px 18px;display:inline-block;">Unlock with Tinza Pro — R99/month</div>
         </div>
-        <button onclick="set({kidsScreen:'categories'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#6a4020;font-size:13px;margin:4px 0 20px;">← Back to ${th.name}</button>
+        <button onclick="set({kidsScreen:'categories'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin:4px 0 20px;">← Back to ${th.name}</button>
       </div>
     </div>`;
   }
@@ -656,7 +656,7 @@ function kidsPlanHTML(themeId, k, budget){
   rows.sort((a,b)=> aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle) || a.name.localeCompare(b.name));
   let shopHTML=''; let lastAisle=null;
   rows.forEach(r=>{
-    if(r.aisle!==lastAisle){ shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#6a4020;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${r.aisle}</div>`; lastAisle=r.aisle; }
+    if(r.aisle!==lastAisle){ shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#b56d37;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${r.aisle}</div>`; lastAisle=r.aisle; }
     const costTag = r.cost!=null
       ? `<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;">R${Math.round(r.cost)}</span>`
       : `<span style="font-size:9px;color:#a07050;border:1px solid #4a3020;border-radius:6px;padding:2px 6px;white-space:nowrap;">price needed</span>`;
@@ -666,7 +666,7 @@ function kidsPlanHTML(themeId, k, budget){
   });
   const snackItems = items.filter(it=>it.snack && !it.removed);
   if(snackItems.length){
-    shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#6a4020;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">🎉 Party Snacks (see recipe for ingredients)</div>`;
+    shopHTML += `<div style="font-size:10px;letter-spacing:1.5px;color:#b56d37;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">🎉 Party Snacks (see recipe for ingredients)</div>`;
     snackItems.forEach(it=>{
       shopHTML += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;">
         <span style="font-size:13px;color:#c8b898;">${it.emoji} ${it.label} <b style="color:#f5e8cc;">× ${k} kids</b></span>
@@ -685,15 +685,15 @@ function kidsPlanHTML(themeId, k, budget){
 
       <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:16px 0 6px;">🛒 Shopping list</div>
       <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:6px 14px 12px;margin-bottom:12px;">
-        ${shopHTML || '<p style="font-size:13px;color:#4a3020;font-style:italic;">Nothing selected.</p>'}
+        ${shopHTML || '<p style="font-size:13px;color:#b1734c;font-style:italic;">Nothing selected.</p>'}
       </div>
 
       <div style="background:#1a1408;border:1px solid #c0a020;border-radius:12px;padding:16px;margin-bottom:8px;">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;">
           <div>
-            <div style="font-size:10px;letter-spacing:1px;color:#8a7030;text-transform:uppercase;">Estimated cost</div>
+            <div style="font-size:10px;letter-spacing:1px;color:#9c7f36;text-transform:uppercase;">Estimated cost</div>
             <div style="font-size:30px;color:#f5c842;font-weight:bold;line-height:1.1;">from R${total}</div>
-            <div style="font-size:11px;color:#8a7030;">≈ R${perChild} per child</div>
+            <div style="font-size:11px;color:#9c7f36;">≈ R${perChild} per child</div>
           </div>
           <div style="font-size:28px;">🎂</div>
         </div>

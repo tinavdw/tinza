@@ -34,7 +34,7 @@ function budgetPlannerHTML(){
             value="${S.budgetSearch||''}"
             style="flex:1;background:none;border:none;outline:none;color:#c0d8b0;font-size:13px;font-family:Georgia,serif;"
           />
-          ${S.budgetSearch?`<button onclick="set({budgetSearch:''})" style="background:none;border:none;color:#3a6030;font-size:16px;cursor:pointer;">×</button>`:''}
+          ${S.budgetSearch?`<button onclick="set({budgetSearch:''})" style="background:none;border:none;color:#558d46;font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@ function budgetPlannerHTML(){
               <strong style="color:${color};">2. Set people count</strong> — we calculate cost per person automatically.<br>
               <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza Chef finds real meals within your budget.<br>
               <strong style="color:${color};">4. Want more?</strong> — tap "Show me 3 more" for extra ideas.<br>
-              <span style="color:#3a6030;font-size:11px;">R500+ unlocks party & event planning mode.</span>
+              <span style="color:#558d46;font-size:11px;">R500+ unlocks party & event planning mode.</span>
             </div>
           `:''}
         </div>
@@ -65,7 +65,7 @@ function budgetPlannerHTML(){
             style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">−</button>
           <div style="text-align:center;min-width:52px;">
             <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${people}</div>
-            <div style="font-size:9px;color:#3a6030;letter-spacing:1px;text-transform:uppercase;">people</div>
+            <div style="font-size:9px;color:#558d46;letter-spacing:1px;text-transform:uppercase;">people</div>
           </div>
           <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})"
             style="width:32px;height:32px;border-radius:50%;background:#061008;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">+</button>
@@ -79,7 +79,7 @@ function budgetPlannerHTML(){
       <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
           <div>
-            <div style="font-size:10px;color:#3a6030;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">My budget</div>
+            <div style="font-size:10px;color:#558d46;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">My budget</div>
             <div style="display:flex;align-items:center;gap:6px;background:#061008;border:2px solid ${border};border-radius:10px;padding:10px 12px;">
               <span style="font-size:16px;color:${color};font-weight:bold;">R</span>
               <input type="number" value="${S.budgetAmount||''}" placeholder="100"
@@ -88,7 +88,7 @@ function budgetPlannerHTML(){
             </div>
           </div>
           <div>
-            <div style="font-size:10px;color:#3a6030;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">People count</div>
+            <div style="font-size:10px;color:#558d46;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">People count</div>
             <div style="font-size:18px;color:#f5c842;font-weight:bold;padding:10px 0;">${people} people</div>
           </div>
         </div>
@@ -110,20 +110,20 @@ function budgetPlannerHTML(){
       ${loading?`<div style="text-align:center;padding:30px;">
         <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
         <div style="font-size:14px;color:${color};">Finding recipes for R${budget} for ${people} people...</div>
-        <div style="font-size:11px;color:#3a6030;margin-top:6px;">R${(budget/people).toFixed(0)} per person</div>
+        <div style="font-size:11px;color:#558d46;margin-top:6px;">R${(budget/people).toFixed(0)} per person</div>
       </div>`:''}
 
       ${results&&results.length>0&&results[0]._waiting?`
         <div style="text-align:center;padding:40px 20px;">
           <div style="font-size:40px;margin-bottom:12px;">👨‍🍳</div>
           <div style="font-size:14px;color:${color};margin-bottom:6px;">Tinza Chef is finding more ideas...</div>
-          <div style="font-size:11px;color:#3a6030;">Just a moment</div>
+          <div style="font-size:11px;color:#558d46;">Just a moment</div>
         </div>
       `:''}
 
       ${results&&results.length>0&&results[0]._nomore?`
         <div style="text-align:center;padding:30px 20px;">
-          <div style="font-size:13px;color:#3a6030;margin-bottom:12px;">That's all the recipes for this budget!</div>
+          <div style="font-size:13px;color:#558d46;margin-bottom:12px;">That's all the recipes for this budget!</div>
           <button onclick="findBudgetRecipes()" style="padding:10px 20px;background:${bg};border:2px solid ${color};border-radius:10px;color:${color};font-size:13px;cursor:pointer;">🔄 Start again</button>
         </div>
       `:''}
@@ -131,7 +131,7 @@ function budgetPlannerHTML(){
       ${results&&results.length>0&&!results[0]._waiting&&!results[0]._nomore&&!results[0]._error?`
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
-          ${S._budgetAILoading ? `<div style="font-size:10px;color:#3a6030;font-style:italic;">✨ Finding more...</div>` : ''}
+          ${S._budgetAILoading ? `<div style="font-size:10px;color:#558d46;font-style:italic;">✨ Finding more...</div>` : ''}
         </div>
         ${results.map((r,i)=>`
           <div style="background:${isPlanItem('budgetPlan',r.id)?bg:'#161210'};border:1px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
@@ -152,7 +152,7 @@ function budgetPlannerHTML(){
               <div style="font-size:11px;color:${color};">⏱️ ${r.time||'?'} min${r.cuisine?' · '+r.cuisine:''}</div>
               <div style="margin-top:4px;">
                 <span style="background:#061008;border:1px solid #25a050;border-radius:8px;font-size:11px;color:#25a050;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp</span>
-                ${r._fromAI?`<span style="font-size:9px;color:#3a6030;margin-left:6px;">✨ Chef</span>`:''}
+                ${r._fromAI?`<span style="font-size:9px;color:#558d46;margin-left:6px;">✨ Chef</span>`:''}
               </div>
             </div>
               <span style="color:${color};font-size:14px;flex-shrink:0;">→</span>
@@ -166,7 +166,7 @@ function budgetPlannerHTML(){
 
       ${results&&results.length>0&&results[0]._error?`
         <div style="text-align:center;padding:20px;">
-          <div style="font-size:13px;color:#3a6030;">${results[0]._msg||'No more recipes found.'}</div>
+          <div style="font-size:13px;color:#558d46;">${results[0]._msg||'No more recipes found.'}</div>
           <button onclick="findBudgetRecipes()" style="padding:10px 20px;background:${bg};border:2px solid ${color};border-radius:10px;color:${color};font-size:13px;cursor:pointer;margin-top:12px;">🔄 Start again</button>
         </div>
       `:''}
@@ -181,7 +181,7 @@ function budgetPlannerHTML(){
             {t:"Maize meal & Rice",d:"Pap and rice are the most filling, affordable starches. Buy in bulk (5–10kg) for maximum savings."},
             {t:"Tinned tomatoes",d:"The most versatile ingredient in budget cooking. Always have 3–4 tins in the pantry. Cheaper and more flavourful than fresh for cooking."},
             {t:"Cook from scratch",d:"A homemade curry or stew for 4 costs R60–80. The same from a restaurant costs R400+. Your time is the ingredient."},
-          ].map(t=>`<div style="margin-bottom:8px;"><div style="font-size:12px;color:#c0d8b0;font-weight:bold;">${t.t}</div><div style="font-size:11px;color:#608060;line-height:1.5;">${t.d}</div></div>`).join('')}
+          ].map(t=>`<div style="margin-bottom:8px;"><div style="font-size:12px;color:#c0d8b0;font-weight:bold;">${t.t}</div><div style="font-size:11px;color:#688a68;line-height:1.5;">${t.d}</div></div>`).join('')}
         </div>
       `:''}
     </div>

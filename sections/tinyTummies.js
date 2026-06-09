@@ -22,12 +22,12 @@ function ttCostCard(items, colour){
   return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
     +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
     +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:24px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
-    +'<div style="font-size:10px;color:#5a7020;margin-top:8px;line-height:1.5;">'+matched+'/'+items.length+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+items.length+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
     +'</div>';
 }
 // Cost card for a single recipe's base[] scaled by mult. Pro-gated (matches braai).
 function ttRecipeCostCard(base, mult, isPro, colour){
-  if(!isPro) return '<div style="background:#120f0a;border:1px dashed '+(colour||'#5a3010')+';border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#3a2808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#7a6020;">💰 Cost estimate — <strong style="color:#c0a020;">Tinza Pro R99/month</strong></div></div>';
+  if(!isPro) return '<div style="background:#120f0a;border:1px dashed '+(colour||'#5a3010')+';border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#ab7618;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#9c7b29;">💰 Cost estimate — <strong style="color:#c0a020;">Tinza Pro R99/month</strong></div></div>';
   var total=0, matched=0, n=0;
   (base||[]).forEach(function(i){ if(!i||!i.n||!i.pp||typeof i.pp!=='number') return; n++; var c=ttLineCost(i.n, i.pp*mult, i.u); if(c!=null){ total+=c; matched++; } });
   total=Math.round(total);
@@ -35,7 +35,7 @@ function ttRecipeCostCard(base, mult, isPro, colour){
   return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
     +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
     +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:22px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
-    +'<div style="font-size:10px;color:#5a7020;margin-top:8px;line-height:1.5;">'+matched+'/'+n+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+n+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
     +'</div>';
 }
 
@@ -50,7 +50,7 @@ function babyListHTML(){
       style="position:sticky;bottom:12px;margin:12px 0;background:#1a2e1a;border:2px solid #25d366;border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
       <div>
         <div style="font-size:14px;color:#40d080;font-weight:bold;">📋 Go to My Plan & Shopping List →</div>
-        <div style="font-size:11px;color:#256040;margin-top:2px;">${planIds.length} recipe${planIds.length>1?'s':''} selected · tap to see quantities and shopping list</div>
+        <div style="font-size:11px;color:#389160;margin-top:2px;">${planIds.length} recipe${planIds.length>1?'s':''} selected · tap to see quantities and shopping list</div>
       </div>
       <span style="font-size:22px;">🛒</span>
     </div>` : '';
@@ -59,7 +59,7 @@ function babyListHTML(){
     <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
       <button class="back-btn" onclick="set({screen:'tinyfurry',activeBaby:null})" style="color:#e07090;">← Tiny & Furry</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍼 Tiny Tummies</h1>
-      <p style="margin:0;font-size:11px;color:#a06070;font-style:italic;">Safe, nutritious recipes for every stage</p>
+      <p style="margin:0;font-size:11px;color:#a96f7e;font-style:italic;">Safe, nutritious recipes for every stage</p>
     </div>
     <div class="content">
       <div style="background:#1a0810;border:1px solid #6a1030;border-radius:10px;padding:12px;margin-bottom:14px;">
@@ -67,7 +67,7 @@ function babyListHTML(){
         <p style="margin:0;font-size:11px;color:#c06070;line-height:1.6;">General recipe ideas only — not medical or nutritional advice. Always consult your paediatrician before introducing solids. Introduce one new food at a time and wait 3–5 days to check for reactions. No honey or salt for babies under 12 months. Organic produce is always best where available and affordable.</p>
       </div>
 
-      <div style="font-size:10px;letter-spacing:2px;color:#6a2040;text-transform:uppercase;margin-bottom:8px;">Filter by stage</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#cc578a;text-transform:uppercase;margin-bottom:8px;">Filter by stage</div>
       <div class="pill-row" style="margin-bottom:14px;">
         ${[{id:"all",label:"All Ages",emoji:"👶"},{id:"stage1",label:"4–6 months",emoji:"🌱"},{id:"stage2",label:"6–9 months",emoji:"🌿"},{id:"stage3",label:"9–12m+",emoji:"🌳"}].map(f=>`<button class="pill" onclick="setQuiet({babyFilter:'${f.id}'})" style="background:${S.babyFilter===f.id?"#c04070":"#161210"};border-color:${S.babyFilter===f.id?"#c04070":"#3a2030"};color:${S.babyFilter===f.id?"#fff":"#6a4050"};">${f.emoji} ${f.label}</button>`).join("")}
       </div>
@@ -81,7 +81,7 @@ function babyListHTML(){
             <span style="font-size:28px;">${b.emoji}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${b.name}</div>
-              <div style="font-size:11px;color:#7a4060;margin-bottom:5px;">${b.stageLabel} · ⏱️ ${b.time} min</div>
+              <div style="font-size:11px;color:#b16b92;margin-bottom:5px;">${b.stageLabel} · ⏱️ ${b.time} min</div>
               <div>${(b.badges||[]).map(badge=>`<span style="background:#2a1020;border:1px solid #5a2040;border-radius:10px;font-size:9px;color:#c07090;padding:2px 6px;margin:1px;display:inline-block;">${badge}</span>`).join("")}</div>
             </div>
             <button onclick="setQuiet({activeBaby:BABY_RECIPES[${bi}],babyView:null})" style="background:#c04070;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
@@ -126,55 +126,55 @@ function babyMyPlanView(){
     <div style="background:#1a0f18;border-bottom:1px solid #5a2040;padding:14px 20px;">
       <button onclick="set({babyView:null,activeBaby:null})" style="background:none;border:none;color:#e07090;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Recipes</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 My Baby Meal Plan</h1>
-      <p style="margin:0;font-size:11px;color:#a06070;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} selected</p>
+      <p style="margin:0;font-size:11px;color:#a96f7e;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} selected</p>
     </div>
     <div class="content">
 
       <!-- Selected recipes -->
-      <div style="font-size:10px;letter-spacing:2px;color:#6a2040;text-transform:uppercase;margin-bottom:8px;">Selected Recipes</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#cc578a;text-transform:uppercase;margin-bottom:8px;">Selected Recipes</div>
       <div style="background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:4px 12px;margin-bottom:12px;">
-        ${planRecipes.length===0?'<p style="font-size:13px;color:#4a2030;font-style:italic;padding:8px 0;">No recipes selected yet.</p>':
+        ${planRecipes.length===0?'<p style="font-size:13px;color:#bc6586;font-style:italic;padding:8px 0;">No recipes selected yet.</p>':
           planRecipes.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a1020;">
             <div style="display:flex;align-items:center;gap:10px;">
               <span style="font-size:20px;">${r.emoji}</span>
               <div>
                 <div style="font-size:14px;color:#f5e8cc;">${r.name}</div>
-                <div style="font-size:11px;color:#7a4060;">${r.stageLabel}</div>
+                <div style="font-size:11px;color:#b16b92;">${r.stageLabel}</div>
               </div>
             </div>
-            <button onclick="setQuiet({babyPlan:(S.babyPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#8a3050;font-size:11px;cursor:pointer;">✕ Remove</button>
+            <button onclick="setQuiet({babyPlan:(S.babyPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#c65c82;font-size:11px;cursor:pointer;">✕ Remove</button>
           </div>`).join('')}
       </div>
 
       <!-- Batch scaler -->
-      <div style="font-size:10px;letter-spacing:2px;color:#6a2040;text-transform:uppercase;margin-bottom:8px;">Batches to Make</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#cc578a;text-transform:uppercase;margin-bottom:8px;">Batches to Make</div>
       <div style="display:flex;align-items:center;gap:14px;background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:12px;margin-bottom:16px;">
         <button onclick="setQuiet({babyBatches:Math.max(1,S.babyBatches-1)})" style="width:36px;height:36px;border-radius:50%;background:#2a0f20;border:2px solid #e07090;color:#e07090;font-size:20px;cursor:pointer;">−</button>
         <span style="font-size:32px;color:#f5c842;font-weight:bold;min-width:40px;text-align:center;">${batches}</span>
         <button onclick="setQuiet({babyBatches:Math.min(10,S.babyBatches+1)})" style="width:36px;height:36px;border-radius:50%;background:#2a0f20;border:2px solid #e07090;color:#e07090;font-size:20px;cursor:pointer;">+</button>
-        <span style="font-size:12px;color:#6a4050;">All shopping quantities multiply</span>
+        <span style="font-size:12px;color:#a87085;">All shopping quantities multiply</span>
       </div>
 
       ${costCardHTML}
       <!-- Shopping list -->
-      <div style="font-size:10px;letter-spacing:2px;color:#6a2040;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#cc578a;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#161210;border:1px solid #4a2035;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
-        <div style="font-size:11px;color:#6a4050;padding:8px 0 4px;">✅ Tap items you already have to remove</div>
-        ${allItems.length===0?'<p style="font-size:13px;color:#4a2030;font-style:italic;padding:8px 0;">Add recipes to your plan to generate the shopping list.</p>':
+        <div style="font-size:11px;color:#a87085;padding:8px 0 4px;">✅ Tap items you already have to remove</div>
+        ${allItems.length===0?'<p style="font-size:13px;color:#bc6586;font-style:italic;padding:8px 0;">Add recipes to your plan to generate the shopping list.</p>':
           allItems.map(i=>{
             const key = i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
             const inCart = (S.fingerShopCart||{})[key];
-            const shared = i.dishes.length>1?` <span style="font-size:10px;color:#6a4050;">· ${i.dishes.length} recipes</span>`:'';
+            const shared = i.dishes.length>1?` <span style="font-size:10px;color:#a87085;">· ${i.dishes.length} recipes</span>`:'';
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #2a1020;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#c04070':'#5a2040'};background:${inCart?'#c04070':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
               <span style="flex:1;font-size:13px;color:${inCart?'#4a2030':'#c0a0b0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${shared}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#4a2030':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2030':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2030':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
-        ${allItems.length>0?`<div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="font-size:11px;color:#6a4050;">${allItems.filter(i=>!(S.fingerShopCart||{})[ i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18)]).length} of ${allItems.length} items remaining</span><button onclick="setQuiet({fingerShopCart:{}})" style="background:none;border:none;color:#8a3050;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:''}
+        ${allItems.length>0?`<div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="font-size:11px;color:#a87085;">${allItems.filter(i=>!(S.fingerShopCart||{})[ i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18)]).length} of ${allItems.length} items remaining</span><button onclick="setQuiet({fingerShopCart:{}})" style="background:none;border:none;color:#c65c82;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:''}
       </div>
 
       <!-- Share & print -->
@@ -209,7 +209,7 @@ function babyRecipeHTML_screen(){
         <button onclick="setQuiet({babyBatches:Math.max(1,S.babyBatches-1)})" style="width:32px;height:32px;border-radius:50%;background:#2a0f20;border:2px solid #e07090;color:#e07090;font-size:18px;cursor:pointer;">−</button>
         <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${batches}</span>
         <button onclick="setQuiet({babyBatches:Math.min(10,S.babyBatches+1)})" style="width:32px;height:32px;border-radius:50%;background:#2a0f20;border:2px solid #e07090;color:#e07090;font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#6a4050;">All quantities multiply</span>
+        <span style="font-size:11px;color:#a87085;">All quantities multiply</span>
       </div>
 
       <div style="background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:14px;margin-bottom:12px;">
@@ -246,7 +246,7 @@ function babyRecipeHTML_screen(){
       </div>
 
       ${isPro?`<button onclick="setQuiet({babyPlan:toggle(S.babyPlan||[],'${b.id}')})" style="width:100%;padding:14px;border-radius:10px;border:2px solid ${inPlan?'#e07090':'#4a2035'};background:${inPlan?'#2a0f20':'#1a0f18'};color:${inPlan?'#f070a0':'#7a4060'};font-size:14px;cursor:pointer;margin-bottom:10px;">${inPlan?'✓ In My Plan — tap to remove':'+ Add to My Meal Plan'}</button>`:
-      `<div style="background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:10px;text-align:center;color:#6a3050;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
+      `<div style="background:#1a0f18;border:1px solid #4a2035;border-radius:10px;padding:10px;text-align:center;color:#ba6795;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
 
       <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('👶 *'+b.name+'*\n'+b.stageLabel+'\n\nIngredients:\n'+(b.base||[]).filter(i=>i&&i.pp).map(i=>{const r=i.pp*${batches};let d=i.u==='egg'?Math.ceil(r)+' egg'+(Math.ceil(r)>1?'s':''):((r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||''));return '• '+i.n+': '+d;}).join('\n')+'\n\nMade with Tinza 😊'),'_blank')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;margin-bottom:20px;">📱 Share Recipe on WhatsApp</button>
     </div>
@@ -261,7 +261,7 @@ function dogPlanBtn(){
     style="position:sticky;bottom:12px;margin:12px 0;background:#1a1030;border:2px solid #9070e0;border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
     <div>
       <div style="font-size:14px;color:#b090f0;font-weight:bold;">📋 Go to My Plan & Shopping List →</div>
-      <div style="font-size:11px;color:#6040a0;margin-top:2px;">${ids.length} recipe${ids.length>1?'s':''} selected</div>
+      <div style="font-size:11px;color:#8d70c6;margin-top:2px;">${ids.length} recipe${ids.length>1?'s':''} selected</div>
     </div>
     <span style="font-size:22px;">🛒</span>
   </div>`;
@@ -303,37 +303,37 @@ function dogMyPlanView(){
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:#120f1a;border-bottom:1px solid #6040b0;padding:14px 20px;">
-      <button onclick="setQuiet({dogView:null,activeDog:null})" style="background:none;border:none;color:#9060d0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Recipes</button>
+      <button onclick="setQuiet({dogView:null,activeDog:null})" style="background:none;border:none;color:#9769d3;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Recipes</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Dog Meal Plan</h1>
-      <p style="margin:0;font-size:11px;color:#7060a0;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} · ${size} · ${age} · ${count} dog${count>1?'s':''}</p>
+      <p style="margin:0;font-size:11px;color:#8577ae;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} · ${size} · ${age} · ${count} dog${count>1?'s':''}</p>
     </div>
     <div class="content">
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:12px;">
-        ${planRecipes.length===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">No recipes selected.</p>':
+        ${planRecipes.length===0?'<p style="font-size:13px;color:#9771b8;font-style:italic;padding:8px 0;">No recipes selected.</p>':
           planRecipes.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a1a40;">
             <div style="display:flex;align-items:center;gap:10px;">
               <span style="font-size:20px;">${r.emoji}</span>
               <div><div style="font-size:14px;color:#f5e8cc;">${r.name}</div></div>
             </div>
-            <button onclick="setQuiet({dogPlan:(S.dogPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#8a5080;font-size:11px;cursor:pointer;">✕ Remove</button>
+            <button onclick="setQuiet({dogPlan:(S.dogPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#aa6da0;font-size:11px;cursor:pointer;">✕ Remove</button>
           </div>`).join('')}
       </div>
-      <div style="font-size:11px;color:#7060a0;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:10px;margin-bottom:14px;">${DOG_AGE_NOTES[age]||''}</div>
-      ${(S.catPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#7060a0;margin-top:2px;">${(S.catPlan||[]).length} cat recipe${(S.catPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
+      <div style="font-size:11px;color:#8577ae;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:10px;margin-bottom:14px;">${DOG_AGE_NOTES[age]||''}</div>
+      ${(S.catPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#8577ae;margin-top:2px;">${(S.catPlan||[]).length} cat recipe${(S.catPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
       ${costCardHTML}
-      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
-        <div style="font-size:11px;color:#6040a0;padding:8px 0 4px;">✅ Tap items you already have</div>
-        ${allItems.length===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':
+        <div style="font-size:11px;color:#8d70c6;padding:8px 0 4px;">✅ Tap items you already have</div>
+        ${allItems.length===0?'<p style="font-size:13px;color:#9771b8;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':
           allItems.map(i=>{
             const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
             const inCart=(S.fingerShopCart||{})[key];
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f30;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#9070e0':'#4030a0'};background:${inCart?'#9070e0':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
-              <span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c0a0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#6040a0;">· '+i.dishes.length+' recipes</span>':''}</span>
+              <span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c0a0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#8d70c6;">· '+i.dishes.length+' recipes</span>':''}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
@@ -356,30 +356,30 @@ function dogListHTML(){
 
   return `<div>
     <div style="background:#120f1a;border-bottom:1px solid #4030a0;padding:12px 16px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">Dog Size</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">Dog Size</div>
       <div class="grid3" style="margin-bottom:12px;">
         ${[{id:"small",l:"🐩 Small",n:"Under 10kg"},{id:"medium",l:"🐕 Medium",n:"10–25kg"},{id:"large",l:"🦮 Large",n:"Over 25kg"}].map(sz=>`<button onclick="setQuiet({dogSize:'${sz.id}'})" style="padding:8px 4px;border-radius:10px;cursor:pointer;text-align:center;background:${S.dogSize===sz.id?"#1a1030":"#161210"};border:2px solid ${S.dogSize===sz.id?"#9070e0":"#2a2040"};color:${S.dogSize===sz.id?"#c0a0ff":"#5a4070"};"><div style="font-size:13px;">${sz.l}</div><div style="font-size:9px;margin-top:2px;color:${S.dogSize===sz.id?"#9070e0":"#3a2a50"};">${sz.n}</div></button>`).join("")}
       </div>
-      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">Age Stage</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">Age Stage</div>
       <div class="pill-row" style="margin-bottom:12px;">
         ${DOG_AGE_STAGES.map(a=>`<button class="pill" onclick="setQuiet({dogAge:'${a.id}',activeDog:null})" style="background:${age===a.id?"#9070e0":"#161210"};border-color:${age===a.id?"#9070e0":"#2a2040"};color:${age===a.id?"#fff":"#5a4070"};">${a.emoji} ${a.label}</button>`).join("")}
       </div>
-      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">Number of Dogs</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">Number of Dogs</div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
         <button onclick="setQuiet({dogCount:Math.max(1,(S.dogCount||1)-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">−</button>
         <div style="flex:1;text-align:center;font-size:28px;color:#c0a0ff;font-weight:bold;">${S.dogCount||1}</div>
         <button onclick="setQuiet({dogCount:Math.min(10,(S.dogCount||1)+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#6040a0;">${S.dogCount||1} dog${(S.dogCount||1)>1?'s':''}</span>
+        <span style="font-size:11px;color:#8d70c6;">${S.dogCount||1} dog${(S.dogCount||1)>1?'s':''}</span>
       </div>
     </div>
     <div class="content">
-      <div style="font-size:11px;color:#7060a0;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:8px 12px;margin-bottom:12px;">${DOG_AGE_NOTES[age]||'Select an age stage above to see appropriate recipes.'}</div>
+      <div style="font-size:11px;color:#8577ae;background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:8px 12px;margin-bottom:12px;">${DOG_AGE_NOTES[age]||'Select an age stage above to see appropriate recipes.'}</div>
       <div class="pill-row" style="margin-bottom:12px;">
         ${DOG_SECTIONS_LIST.map(s=>`<button class="pill" onclick="setQuiet({dogSection:'${s.id}',activeDog:null})" style="background:${S.dogSection===s.id?s.color:"#161210"};border-color:${S.dogSection===s.id?s.color:"#2a2040"};color:${S.dogSection===s.id?"#fff":"#5a4070"};">${s.label}</button>`).join("")}
       </div>
       ${S.dogSection==="care"?dogCareHTML():`
-        <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">${sec.label} — ${age==='all'?'All Ages':DOG_AGE_STAGES.find(a=>a.id===age)?.label||age}</div>
-        ${recipes.length===0?`<div style="text-align:center;padding:30px;color:#4a3060;font-size:13px;">No ${sec.label.replace(/[^a-z ]/gi,'')} recipes for this age stage yet.</div>`:''}
+        <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">${sec.label} — ${age==='all'?'All Ages':DOG_AGE_STAGES.find(a=>a.id===age)?.label||age}</div>
+        ${recipes.length===0?`<div style="text-align:center;padding:30px;color:#9771b8;font-size:13px;">No ${sec.label.replace(/[^a-z ]/gi,'')} recipes for this age stage yet.</div>`:''}
         ${recipes.map((d,i)=>{
           const allowed=tierAllows(d.tier||"free");
           const inPlan=planIds.includes(d.id);
@@ -391,7 +391,7 @@ function dogListHTML(){
               <span style="font-size:24px;">${d.emoji}</span>
               <div style="flex:1;min-width:0;">
                 <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${d.name}</div>
-                <div style="font-size:11px;color:#6040a0;">⏱️ ${d.time} min${d.ages&&d.ages.length?` · ${d.ages.map(a=>DOG_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${d.storage?' · '+d.storage.split('.')[0]:''}</div>
+                <div style="font-size:11px;color:#8d70c6;">⏱️ ${d.time} min${d.ages&&d.ages.length?` · ${d.ages.map(a=>DOG_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${d.storage?' · '+d.storage.split('.')[0]:''}</div>
               </div>
               <button onclick="setQuiet({activeDog:DOG_RECIPES['${S.dogSection}'][${i}]})" style="background:${color};border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
             </div>
@@ -442,26 +442,26 @@ function dogRecipeHTML_screen(){
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:#120f1a;border-bottom:1px solid #4030a0;padding:14px 20px;">
-      <button onclick="setQuiet({activeDog:null})" style="background:none;border:none;color:#9060d0;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+      <button onclick="setQuiet({activeDog:null})" style="background:none;border:none;color:#9769d3;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
       <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${d.emoji} ${d.name}</h1>
-      <div style="font-size:11px;color:#7060a0;">⏱️ ${d.time} min · ${size} dog · ${age}</div>
+      <div style="font-size:11px;color:#8577ae;">⏱️ ${d.time} min · ${size} dog · ${age}</div>
     </div>
     <div class="content">
       ${recipePhoto(d.name, d.emoji)}
-      <div style="background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#7060a0;">${DOG_AGE_NOTES[age]||''}</div>
+      <div style="background:#120f1a;border:1px solid #3a2070;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#8577ae;">${DOG_AGE_NOTES[age]||''}</div>
 
       ${isBatch?`<div style="display:flex;align-items:center;gap:12px;background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:11px;color:#9070e0;text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Batches</div>
         <button onclick="setQuiet({dogBatches:Math.max(1,S.dogBatches-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">−</button>
         <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${batches}</span>
         <button onclick="setQuiet({dogBatches:Math.min(10,S.dogBatches+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1030;border:2px solid #9070e0;color:#9070e0;font-size:18px;cursor:pointer;">+</button>
-        <div style="font-size:11px;color:#6040a0;flex:1;"><div>~${d.batchYield*batches} ${d.batchUnit} per batch</div><div style="font-size:10px;color:#4030a0;margin-top:2px;">Minimum batch = base amounts. Scale up for more.</div></div>
+        <div style="font-size:11px;color:#8d70c6;flex:1;"><div>~${d.batchYield*batches} ${d.batchUnit} per batch</div><div style="font-size:10px;color:#8375d6;margin-top:2px;">Minimum batch = base amounts. Scale up for more.</div></div>
       </div>`:``}
       <div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#9070e0;text-transform:uppercase;margin-bottom:10px;">${isBatch?`Ingredients — ${batches} batch${batches>1?'es':''} · ~${d.batchYield*batches} ${d.batchUnit}`:`Ingredients — ${count} ${size} ${age} dog${count>1?'s':''}`}</div>
         ${(d.base||[]).map(i=>{
           if(!i||!i.n) return '';
-          if(!i.pp) return `<div style="padding:6px 0;border-bottom:1px solid #1a0f30;font-size:13px;color:#7060a0;font-style:italic;">• ${i.n} — to taste / as directed by vet</div>`;
+          if(!i.pp) return `<div style="padding:6px 0;border-bottom:1px solid #1a0f30;font-size:13px;color:#8577ae;font-style:italic;">• ${i.n} — to taste / as directed by vet</div>`;
           const raw = i.pp*totalMult;
           return `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a0f30;">
             <span style="font-size:13px;color:#c0a0e0;flex:1;">${i.n}</span>
@@ -482,7 +482,7 @@ function dogRecipeHTML_screen(){
       ${d.storage?`<div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><div style="font-size:10px;color:#9070e0;text-transform:uppercase;margin-bottom:4px;">🧊 Storage</div><p style="margin:0;font-size:12px;color:#a090c0;">${d.storage}</p></div>`:''}
 
       ${isPro?`<button onclick="setQuiet({dogPlan:toggle(S.dogPlan||[],'${d.id}')})" style="width:100%;padding:14px;border-radius:10px;border:2px solid ${inPlan?color:'#4030a0'};background:${inPlan?'#1a1030':'#120f1a'};color:${inPlan?'#c0a0ff':'#6040a0'};font-size:14px;cursor:pointer;margin-bottom:10px;">${inPlan?'✓ In My Plan — tap to remove':'+ Add to My Meal Plan'}</button>`:
-      `<div style="background:#120f1a;border:1px solid #3a2070;border-radius:10px;padding:10px;text-align:center;color:#4a3060;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
+      `<div style="background:#120f1a;border:1px solid #3a2070;border-radius:10px;padding:10px;text-align:center;color:#9771b8;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
 
       <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🐾 *'+d.name+'*\nFor ${count} ${size} ${age} dog${count>1?"s":""}\n\n'+(d.base||[]).filter(i=>i&&i.pp).map(i=>{const r=i.pp*${totalMult};let disp=i.u==='egg'?Math.ceil(r)+' egg'+(Math.ceil(r)>1?'s':''):(r>=1000&&(i.u==='g'||i.u==='ml'))?(Math.round(r/100)/10)+(i.u==='g'?'kg':'L'):(Math.round(r*10)/10)+(i.u||'');return '• '+i.n+': '+disp;}).join('\n')+'\n\nMade with Tinza 😊'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share Recipe via WhatsApp</button>
     </div>
@@ -497,7 +497,7 @@ function catPlanBtn(){
     style="position:sticky;bottom:12px;margin:12px 0;background:#1a1008;border:2px solid #e08040;border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
     <div>
       <div style="font-size:14px;color:#f0a060;font-weight:bold;">📋 Go to My Plan & Shopping List →</div>
-      <div style="font-size:11px;color:#804020;margin-top:2px;">${ids.length} recipe${ids.length>1?'s':''} selected</div>
+      <div style="font-size:11px;color:#c96532;margin-top:2px;">${ids.length} recipe${ids.length>1?'s':''} selected</div>
     </div>
     <span style="font-size:22px;">🛒</span>
   </div>`;
@@ -539,35 +539,35 @@ function catMyPlanView(){
     <div style="background:#1a1008;border-bottom:1px solid #804020;padding:14px 20px;">
       <button onclick="setQuiet({catView:null,activeCat:null})" style="background:none;border:none;color:#e08040;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back to Recipes</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Cat Meal Plan</h1>
-      <p style="margin:0;font-size:11px;color:#a06030;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} · ${age} · ${count} cat${count>1?'s':''}</p>
+      <p style="margin:0;font-size:11px;color:#b86e37;">${planRecipes.length} recipe${planRecipes.length!==1?'s':''} · ${age} · ${count} cat${count>1?'s':''}</p>
     </div>
     <div class="content">
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:12px;">
-        ${planRecipes.length===0?'<p style="font-size:13px;color:#4a3020;font-style:italic;padding:8px 0;">No recipes selected.</p>':
+        ${planRecipes.length===0?'<p style="font-size:13px;color:#b1734c;font-style:italic;padding:8px 0;">No recipes selected.</p>':
           planRecipes.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #2a1a10;">
             <div style="display:flex;align-items:center;gap:10px;">
               <span style="font-size:20px;">${r.emoji}</span>
               <div><div style="font-size:14px;color:#f5e8cc;">${r.name}</div></div>
             </div>
-            <button onclick="setQuiet({catPlan:(S.catPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#8a5020;font-size:11px;cursor:pointer;">✕ Remove</button>
+            <button onclick="setQuiet({catPlan:(S.catPlan||[]).filter(x=>x!=='${r.id}')})" style="background:none;border:none;color:#bc6d2c;font-size:11px;cursor:pointer;">✕ Remove</button>
           </div>`).join('')}
       </div>
-      <div style="font-size:11px;color:#a06030;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:10px;margin-bottom:14px;">${CAT_AGE_NOTES[age]||''}</div>
-      ${(S.dogPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#7060a0;margin-top:2px;">${(S.dogPlan||[]).length} dog recipe${(S.dogPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
+      <div style="font-size:11px;color:#b86e37;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:10px;margin-bottom:14px;">${CAT_AGE_NOTES[age]||''}</div>
+      ${(S.dogPlan||[]).length>0?`<div onclick="setQuiet({furryCombined:true})" style="background:#140f1c;border:2px solid #6040b0;border-radius:10px;padding:12px;margin-bottom:12px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#b090f0;font-weight:bold;">🐾🐱 Shop for dogs + cats together →</div><div style="font-size:10px;color:#8577ae;margin-top:2px;">${(S.dogPlan||[]).length} dog recipe${(S.dogPlan||[]).length>1?'s':''} also in plan · one combined list</div></div>`:''}
       ${costCardHTML}
-      <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#c96532;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
-        <div style="font-size:11px;color:#804020;padding:8px 0 4px;">✅ Tap items you already have</div>
-        ${allItems.length===0?'<p style="font-size:13px;color:#4a3020;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':
+        <div style="font-size:11px;color:#c96532;padding:8px 0 4px;">✅ Tap items you already have</div>
+        ${allItems.length===0?'<p style="font-size:13px;color:#b1734c;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':
           allItems.map(i=>{
             const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
             const inCart=(S.fingerShopCart||{})[key];
             return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f08;cursor:pointer;opacity:${inCart?0.35:1};">
               <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#e08040':'#6a3010'};background:${inCart?'#e08040':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div>
-              <span style="flex:1;font-size:13px;color:${inCart?'#4a2010':'#d0a080'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#804020;">· '+i.dishes.length+' recipes</span>':''}</span>
+              <span style="flex:1;font-size:13px;color:${inCart?'#4a2010':'#d0a080'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#c96532;">· '+i.dishes.length+' recipes</span>':''}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#4a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
@@ -590,29 +590,29 @@ function catListHTML(){
 
   return `<div>
     <div style="background:#1a1008;border-bottom:1px solid #804020;padding:12px 16px;">
-      <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">Age Stage</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#c96532;text-transform:uppercase;margin-bottom:8px;">Age Stage</div>
       <div class="pill-row" style="margin-bottom:12px;">
         ${CAT_AGE_STAGES.map(a=>`<button class="pill" onclick="setQuiet({catAge:'${a.id}',activeCat:null})" style="background:${age===a.id?"#e08040":"#161210"};border-color:${age===a.id?"#e08040":"#2a1a10"};color:${age===a.id?"#fff":"#6a4030"};">${a.emoji} ${a.label}</button>`).join("")}
       </div>
-      <div style="font-size:10px;letter-spacing:2px;color:#804020;text-transform:uppercase;margin-bottom:8px;">Number of Cats</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#c96532;text-transform:uppercase;margin-bottom:8px;">Number of Cats</div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
         <button onclick="setQuiet({catCount:Math.max(1,(S.catCount||1)-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">−</button>
         <div style="flex:1;text-align:center;font-size:28px;color:#f0a060;font-weight:bold;">${S.catCount||1}</div>
         <button onclick="setQuiet({catCount:Math.min(10,(S.catCount||1)+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">+</button>
-        <span style="font-size:11px;color:#804020;">${S.catCount||1} cat${(S.catCount||1)>1?'s':''}</span>
+        <span style="font-size:11px;color:#c96532;">${S.catCount||1} cat${(S.catCount||1)>1?'s':''}</span>
       </div>
     </div>
     <div class="content">
-      <div style="font-size:11px;color:#a06030;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:8px 12px;margin-bottom:12px;">${CAT_AGE_NOTES[age]||'Select an age stage above.'}</div>
+      <div style="font-size:11px;color:#b86e37;background:#1a1008;border:1px solid #503010;border-radius:8px;padding:8px 12px;margin-bottom:12px;">${CAT_AGE_NOTES[age]||'Select an age stage above.'}</div>
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:10px 12px;margin-bottom:12px;">
         <div style="font-size:11px;color:#e08040;font-weight:bold;margin-bottom:4px;">⚠️ Taurine is non-negotiable</div>
-        <div style="font-size:11px;color:#a06030;line-height:1.6;">Cats cannot synthesise taurine. Without it, they develop fatal heart disease and blindness. Add a taurine supplement to every home-cooked meal. Consult your vet for the correct local brand and dose.</div>
+        <div style="font-size:11px;color:#b86e37;line-height:1.6;">Cats cannot synthesise taurine. Without it, they develop fatal heart disease and blindness. Add a taurine supplement to every home-cooked meal. Consult your vet for the correct local brand and dose.</div>
       </div>
       <div class="pill-row" style="margin-bottom:12px;">
         ${CAT_SECTIONS_LIST.map(s=>`<button class="pill" onclick="setQuiet({catSection:'${s.id}',activeCat:null})" style="background:${S.catSection===s.id?s.color:"#161210"};border-color:${S.catSection===s.id?s.color:"#2a1a10"};color:${S.catSection===s.id?"#fff":"#6a4030"};">${s.label}</button>`).join("")}
       </div>
       ${S.catSection==="care"?catCareHTML():`
-        ${recipes.length===0?`<div style="text-align:center;padding:30px;color:#4a3020;font-size:13px;">No ${sec.label.replace(/[^a-z ]/gi,'')} recipes for this age stage yet.</div>`:''}
+        ${recipes.length===0?`<div style="text-align:center;padding:30px;color:#b1734c;font-size:13px;">No ${sec.label.replace(/[^a-z ]/gi,'')} recipes for this age stage yet.</div>`:''}
         ${recipes.map((c,i)=>{
           const allowed=tierAllows(c.tier||"free");
           const inPlan=planIds.includes(c.id);
@@ -624,7 +624,7 @@ function catListHTML(){
               <span style="font-size:24px;">${c.emoji}</span>
               <div style="flex:1;min-width:0;">
                 <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${c.name}</div>
-                <div style="font-size:11px;color:#804020;">⏱️ ${c.time} min${c.ages&&c.ages.length?` · ${c.ages.map(a=>CAT_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${c.storage?' · '+c.storage.split('.')[0]:''}</div>
+                <div style="font-size:11px;color:#c96532;">⏱️ ${c.time} min${c.ages&&c.ages.length?` · ${c.ages.map(a=>CAT_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${c.storage?' · '+c.storage.split('.')[0]:''}</div>
               </div>
               <button onclick="setQuiet({activeCat:CAT_RECIPES['${S.catSection}'][${i}]})" style="background:${color};border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
             </div>
@@ -676,24 +676,24 @@ function catRecipeHTML_screen(){
     <div style="background:#1a1008;border-bottom:1px solid #804020;padding:14px 20px;">
       <button onclick="setQuiet({activeCat:null})" style="background:none;border:none;color:#e08040;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
       <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${c.emoji} ${c.name}</h1>
-      <div style="font-size:11px;color:#a06030;">⏱️ ${c.time} min · ${age} cat · ${count} cat${count>1?'s':''}</div>
+      <div style="font-size:11px;color:#b86e37;">⏱️ ${c.time} min · ${age} cat · ${count} cat${count>1?'s':''}</div>
     </div>
     <div class="content">
       ${recipePhoto(c.name, c.emoji)}
-      <div style="background:#1a1008;border:1px solid #503010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#a06030;">${CAT_AGE_NOTES[age]||''}</div>
+      <div style="background:#1a1008;border:1px solid #503010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#b86e37;">${CAT_AGE_NOTES[age]||''}</div>
 
       ${isBatch?`<div style="display:flex;align-items:center;gap:12px;background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:11px;color:#e08040;text-transform:uppercase;letter-spacing:1px;flex-shrink:0;">Batches</div>
         <button onclick="setQuiet({catBatches:Math.max(1,S.catBatches-1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">−</button>
         <span style="font-size:24px;color:#f5c842;font-weight:bold;min-width:30px;text-align:center;">${batches}</span>
         <button onclick="setQuiet({catBatches:Math.min(10,S.catBatches+1)})" style="width:32px;height:32px;border-radius:50%;background:#1a1008;border:2px solid #e08040;color:#e08040;font-size:18px;cursor:pointer;">+</button>
-        <div style="font-size:11px;color:#a06030;flex:1;"><div>~${c.batchYield*batches} ${c.batchUnit} per batch</div><div style="font-size:10px;color:#6a3010;margin-top:2px;">Minimum batch = base amounts. Scale up for more.</div></div>
+        <div style="font-size:11px;color:#b86e37;flex:1;"><div>~${c.batchYield*batches} ${c.batchUnit} per batch</div><div style="font-size:10px;color:#cf5e1f;margin-top:2px;">Minimum batch = base amounts. Scale up for more.</div></div>
       </div>`:``}
       <div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#e08040;text-transform:uppercase;margin-bottom:10px;">${isBatch?`Ingredients — ${batches} batch${batches>1?'es':''} · ~${c.batchYield*batches} ${c.batchUnit}`:`Ingredients — ${count} ${age} cat${count>1?'s':''}`}</div>
         ${(c.base||[]).map(i=>{
           if(!i||!i.n) return '';
-          if(!i.pp||typeof i.pp!=='number') return `<div style="padding:6px 0;border-bottom:1px solid #1a0f08;font-size:13px;color:#806040;font-style:italic;">• ${i.n} — as directed by vet</div>`;
+          if(!i.pp||typeof i.pp!=='number') return `<div style="padding:6px 0;border-bottom:1px solid #1a0f08;font-size:13px;color:#a17850;font-style:italic;">• ${i.n} — as directed by vet</div>`;
           const raw = i.pp*totalMult;
           return `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1a0f08;">
             <span style="font-size:13px;color:#d0a080;flex:1;">${i.n}</span>
@@ -711,10 +711,10 @@ function catRecipeHTML_screen(){
 
       ${c.tip?`<div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:10px;color:#e08040;text-transform:uppercase;margin-bottom:6px;">💡 Tip</div><p style="font-size:12px;color:#c0a080;line-height:1.6;">${c.tip}</p></div>`:''}
 
-      ${c.storage?`<div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><div style="font-size:10px;color:#e08040;text-transform:uppercase;margin-bottom:4px;">🧊 Storage</div><p style="margin:0;font-size:12px;color:#a06030;">${c.storage}</p></div>`:''}
+      ${c.storage?`<div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:10px 12px;margin-bottom:12px;"><div style="font-size:10px;color:#e08040;text-transform:uppercase;margin-bottom:4px;">🧊 Storage</div><p style="margin:0;font-size:12px;color:#b86e37;">${c.storage}</p></div>`:''}
 
       ${isPro?`<button onclick="setQuiet({catPlan:toggle(S.catPlan||[],'${c.id}')})" style="width:100%;padding:14px;border-radius:10px;border:2px solid ${inPlan?color:'#6a3010'};background:${inPlan?'#1a1008':'#1a1008'};color:${inPlan?'#f0a060':'#804020'};font-size:14px;cursor:pointer;margin-bottom:10px;">${inPlan?'✓ In My Plan — tap to remove':'+ Add to My Meal Plan'}</button>`:
-      `<div style="background:#1a1008;border:1px solid #503010;border-radius:10px;padding:10px;text-align:center;color:#5a3010;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
+      `<div style="background:#1a1008;border:1px solid #503010;border-radius:10px;padding:10px;text-align:center;color:#c26722;font-size:12px;margin-bottom:10px;">Add to Plan — Pro feature</div>`}
 
       <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('🐱 *'+c.name+'*\nFor ${count} ${age} cat${count>1?"s":""}\n\nMade with Tinza 😊'),'_blank')" style="width:100%;padding:13px;border-radius:10px;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:20px;">📱 Share Recipe via WhatsApp</button>
     </div>
@@ -775,18 +775,18 @@ function furryCombinedPlanView(){
       <p style="margin:0;font-size:11px;color:#9080b0;">${dCount} ${dSize} dog${dCount>1?'s':''} · ${cCount} cat${cCount>1?'s':''} · ${dN+cN} recipe${(dN+cN)!==1?'s':''}</p>
     </div>
     <div class="content">
-      ${dN>0?`<div style="font-size:10px;letter-spacing:2px;color:#7060c0;text-transform:uppercase;margin:4px 0 6px;">🐾 Dog recipes</div><div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(dog.recipes,'dogPlan','#8a5080')}</div>`:''}
-      ${cN>0?`<div style="font-size:10px;letter-spacing:2px;color:#a06030;text-transform:uppercase;margin:4px 0 6px;">🐱 Cat recipes</div><div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(cat.recipes,'catPlan','#8a5020')}</div>`:''}
-      ${(dN+cN)===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">Add dog and cat recipes to build a combined list.</p>':''}
+      ${dN>0?`<div style="font-size:10px;letter-spacing:2px;color:#8476c9;text-transform:uppercase;margin:4px 0 6px;">🐾 Dog recipes</div><div style="background:#120f1a;border:1px solid #4030a0;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(dog.recipes,'dogPlan','#8a5080')}</div>`:''}
+      ${cN>0?`<div style="font-size:10px;letter-spacing:2px;color:#b86e37;text-transform:uppercase;margin:4px 0 6px;">🐱 Cat recipes</div><div style="background:#1a1008;border:1px solid #6a3010;border-radius:10px;padding:4px 12px;margin-bottom:12px;">${recipeRows(cat.recipes,'catPlan','#8a5020')}</div>`:''}
+      ${(dN+cN)===0?'<p style="font-size:13px;color:#9771b8;font-style:italic;padding:8px 0;">Add dog and cat recipes to build a combined list.</p>':''}
       ${costCardHTML}
-      <div style="font-size:10px;letter-spacing:2px;color:#6040a0;text-transform:uppercase;margin-bottom:8px;">🛒 Combined Shopping List</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#8d70c6;text-transform:uppercase;margin-bottom:8px;">🛒 Combined Shopping List</div>
       <div style="background:#120f14;border:1px solid #4a3060;border-radius:10px;padding:4px 12px;margin-bottom:8px;">
-        <div style="font-size:11px;color:#7060a0;padding:8px 0 4px;">✅ Tap items you already have · one trip for both pets</div>
-        ${allItems.length===0?'<p style="font-size:13px;color:#4a3060;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':allItems.map(i=>{
+        <div style="font-size:11px;color:#8577ae;padding:8px 0 4px;">✅ Tap items you already have · one trip for both pets</div>
+        ${allItems.length===0?'<p style="font-size:13px;color:#9771b8;font-style:italic;padding:8px 0;">Add recipes to generate the list.</p>':allItems.map(i=>{
             const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
             const inCart=(S.fingerShopCart||{})[key];
-            const petTag=' <span style="font-size:10px;color:#7060a0;">'+i.pets.join('')+'</span>';
-            return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f20;cursor:pointer;opacity:${inCart?0.35:1};"><div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#9070e0':'#4a3060'};background:${inCart?'#9070e0':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div><span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c8b0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${petTag}</span><div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#6a5020;">price needed</div>`}</div></div>`;
+            const petTag=' <span style="font-size:10px;color:#8577ae;">'+i.pets.join('')+'</span>';
+            return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f20;cursor:pointer;opacity:${inCart?0.35:1};"><div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#9070e0':'#4a3060'};background:${inCart?'#9070e0':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div><span style="flex:1;font-size:13px;color:${inCart?'#3a2050':'#c8b0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${petTag}</span><div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:${inCart?'#3a2050':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2050':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}</div></div>`;
           }).join('')}
       </div>
       <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #6060c0;background:#1a1a2e;color:#a0a0f0;font-size:13px;cursor:pointer;">🖨️ Print / Save as PDF</button>

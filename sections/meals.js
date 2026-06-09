@@ -232,7 +232,7 @@ function mealSectionHTML(sectionKey){
               <strong style="color:${cfg.color};">1. Browse recipes</strong> — sort by popular, A–Z or quickest.<br>
               <strong style="color:${cfg.color};">2. Tap Recipe →</strong> — full ingredients, method and scaling.<br>
               <strong style="color:${cfg.color};">3. Add to My Plan</strong> — build your weekly meal plan.<br>
-              <span style="color:#4a4a40;font-size:11px;">All quantities scale automatically per person.</span>
+              <span style="color:#828270;font-size:11px;">All quantities scale automatically per person.</span>
             </div>
           `:''}
         </div>
@@ -250,8 +250,8 @@ function mealSectionHTML(sectionKey){
         ${cats.map(c=>`<button onclick="setQuiet({mealCat:'${c.id}'})" style="white-space:nowrap;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid ${activeCat===c.id?cfg.color:cfg.border};background:${activeCat===c.id?'rgba(255,255,255,0.08)':'transparent'};color:${activeCat===c.id?cfg.color:'#6a6050'};font-size:12px;cursor:pointer;">${c.e} ${c.l}</button>`).join('')}
       </div>
       <div style="font-size:11px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
-      `:`<div style="font-size:11px;color:#4a4a40;margin-bottom:10px;">${recipes.length} recipes</div>`}
-      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#5a5040;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
+      `:`<div style="font-size:11px;color:#828270;margin-bottom:10px;">${recipes.length} recipes</div>`}
+      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
         return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
@@ -260,7 +260,7 @@ function mealSectionHTML(sectionKey){
             <span style="font-size:20px;">${r.emoji}</span>
             <div style="flex:1;">
               <div style="font-size:14px;color:${inPlan?'#f5e8cc':'#c8b898'};font-weight:${inPlan?'bold':'normal'};">${r.name}</div>
-              ${r.feel?`<div style="font-size:11px;color:#7a6a50;font-style:italic;margin-top:1px;line-height:1.3;">${r.feel}</div>`:''}
+              ${r.feel?`<div style="font-size:11px;color:#907d5f;font-style:italic;margin-top:1px;line-height:1.3;">${r.feel}</div>`:''}
               <div style="font-size:10px;color:${inPlan?cfg.color:'#5a5040'};margin-top:2px;">${r.cuisine} · ⏱️ ${r.time} min</div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -271,7 +271,7 @@ function mealSectionHTML(sectionKey){
       }).join('')}
       ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
       <div style="margin-top:8px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
-        <div style="font-size:12px;color:#4a4a40;margin-bottom:8px;">Can't find what you're looking for?</div>
+        <div style="font-size:12px;color:#828270;margin-bottom:8px;">Can't find what you're looking for?</div>
         <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
       </div>
     </div>
@@ -300,14 +300,14 @@ function tinyFurryHTML(){
 
     <!-- ══ SECTION BOXES (braai v33 list rows) ══ -->
     <div style="padding:16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">Who are we feeding?</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Who are we feeding?</div>
       ${ONES.map(o=>`
         <button onclick="set({screen:'${o.s}'})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:11px;color:#907d5f;line-height:1.4;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join('')}
@@ -345,14 +345,14 @@ function feedingFamilyHTML(){
 
     <!-- ══ MEAL-TYPE BOXES (braai v33 list rows) ══ -->
     <div style="padding:16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
       ${MEALS.map(o=>`
         <button onclick="set({screen:'${o.s}'})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:11px;color:#907d5f;line-height:1.4;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join('')}
@@ -570,22 +570,22 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   // Cost estimate (if ingredients have costPP or we can estimate)
   const _costEstimate = (()=>{
     if(!_isPro) return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
-      <div style="font-size:22px;color:#2a1808;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-      <div style="font-size:12px;color:#6a3020;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R99/month</strong></div>
+      <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
+      <div style="font-size:12px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R99/month</strong></div>
     </div>`;
     if(r.costPP){
       const total = r.costPP * sv;
       return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;color:#6a8030;">Total for ${sv} people</div>
+          <div style="font-size:13px;color:#718933;">Total for ${sv} people</div>
           <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${total}</div>
         </div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
-          <div style="font-size:12px;color:#4a6020;">Per person</div>
+          <div style="font-size:12px;color:#6a892e;">Per person</div>
           <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${r.costPP}</div>
         </div>
-        <div style="margin-top:8px;font-size:10px;color:#4a5820;">Checkers/retail prices · May 2026 · Always buy 10% extra.</div>
+        <div style="margin-top:8px;font-size:10px;color:#748932;">Checkers/retail prices · May 2026 · Always buy 10% extra.</div>
       </div>`;
     }
     return '';
@@ -604,26 +604,26 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- How much to make block -->
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
-        <div style="font-size:11px;color:#6a8030;margin-bottom:10px;">${sv} ${sv===1?'person':'people'}</div>
+        <div style="font-size:11px;color:#718933;margin-bottom:10px;">${sv} ${sv===1?'person':'people'}</div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;">
             <div style="font-size:32px;font-weight:bold;color:#c8e840;">${sv}</div>
-            <div style="font-size:10px;color:#5a7020;">people · all quantities scale</div>
+            <div style="font-size:10px;color:#718d28;">people · all quantities scale</div>
           </div>
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">+</button>
         </div>
-        <div style="margin-top:8px;font-size:10px;color:#4a6018;">💡 Adjust the number and all ingredients update instantly.</div>
+        <div style="margin-top:8px;font-size:10px;color:#6c8c23;">💡 Adjust the number and all ingredients update instantly.</div>
       </div>
 
       <!-- Ingredients — bullet style like braai, no tick boxes -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:10px;color:#5a5040;font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
+          <div style="font-size:10px;color:#908066;font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
         </div>
         ${(r.ingredients||[]).map(i=>{
-          if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:12px;color:#4a4040;font-style:italic;">• ${i.n} — to taste</div>`;
+          if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:12px;color:#8e7c7c;font-style:italic;">• ${i.n} — to taste</div>`;
           const raw=i.pp*sv, u=i.u||'';
           const ppStr=i.pp+(u==='egg'?' egg':u)+' pp';
           const totalStr=u==='egg'?Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'')
@@ -631,10 +631,10 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
             :Math.round(raw*10)/10+u;
           return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #1a1810;">
             <span style="color:${color};flex-shrink:0;">•</span>
-            <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#5a5040;font-size:12px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
+            <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#908066;font-size:12px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
           </div>`;
         }).join('')}
-        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:10px;color:#4a4040;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>
+        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:10px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>
       </div>
 
       <!-- Method -->
@@ -661,14 +661,14 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       </div>`:''}
 
       <!-- Storage -->
-      ${r.storage?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#607060;">📦 ${r.storage}</div>`:''}
+      ${r.storage?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#718471;">📦 ${r.storage}</div>`:''}
 
       <!-- Cost estimate -->
       ${_costEstimate}
 
       <!-- Save button (Pro) -->
       ${_isPro?`<button onclick="toggleSavedRecipe('${_rid}','${_rname}','${_remoji}')" style="width:100%;padding:12px;border-radius:10px;background:${_saved?'#0a2008':'#080f08'};border:2px solid ${_saved?'#40c060':'#204020'};color:${_saved?'#40c060':'#406040'};font-size:13px;cursor:pointer;margin-bottom:10px;">${_saved?'✓ Saved to My Recipes — tap to remove':'🔖 Save to My Recipes'}</button>`
-      :`<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#304030;font-size:12px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
+      :`<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:12px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
 
       <!-- WhatsApp -->
       <button onclick="window.open('https://wa.me/?text=${_waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>
@@ -757,7 +757,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
             <div style="font-size:14px;color:#f5e8cc;">${r.name}</div>
             <div style="font-size:11px;color:${color};">${r.time?'⏱️ '+r.time+' min':''}${r.costPP?' · R'+r.costPP+' pp':''}</div>
           </div>
-          <button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x.id!=='${_pid}')})" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:#803060;font-size:11px;cursor:pointer;">✕</button>
+          <button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x.id!=='${_pid}')})" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:#c25c99;font-size:11px;cursor:pointer;">✕</button>
         </div>`;
       }).join('')}
 
@@ -773,7 +773,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
             <span style="font-size:13px;color:${ticked?'#3a3030':'#f5c842'};font-weight:bold;">${formatAmount(ing.total,ing.u)}</span>
           </div>`;
         }).join('')}
-        <div style="margin-top:10px;font-size:10px;color:#4a4040;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
+        <div style="margin-top:10px;font-size:10px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
       </div>
 
       <!-- Cost + calorie totals (Braai-style) -->
@@ -783,16 +783,16 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
           <div style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(planCost).toLocaleString()}</div>
         </div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">
-          <div style="font-size:12px;color:#6a6030;">Per person</div>
+          <div style="font-size:12px;color:#908241;">Per person</div>
           <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
         </div>
-        <div style="font-size:9px;color:#5a5020;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
+        <div style="font-size:9px;color:#908033;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
       </div>` : ''}
       ${planCals>0 ? `<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
             <div style="font-size:13px;color:#409070;">🔥 Calories per person</div>
-            <div style="font-size:10px;color:#306050;margin-top:2px;">All selected dishes combined</div>
+            <div style="font-size:10px;color:#468d75;margin-top:2px;">All selected dishes combined</div>
           </div>
           <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:12px;"> kcal</span></div>
         </div>
@@ -801,9 +801,9 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
 
       <!-- Share buttons -->
       ${isPro ? `<button onclick="(function(){const sh=window._sectionPlanForShare||[];const sv=${people};const shLines=buildCombinedShoppingList(sh,sv).map(i=>'• '+i.n+': '+formatAmount(i.total,i.u)).join('\n');window.open('https://wa.me/?text='+encodeURIComponent('${emoji} ${title}\n${people} people\n\n🛒 Shopping List:\n'+shLines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');})()" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:10px;">📱 Share Shopping List via WhatsApp</button>` 
-      : `<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#304030;font-size:12px;margin-bottom:10px;">👑 Share Shopping List — Pro feature</div>`}
+      : `<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:12px;margin-bottom:10px;">👑 Share Shopping List — Pro feature</div>`}
 
-      <button onclick="setQuiet({_planChecked:{}})" style="width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid #3a3030;color:#5a5050;font-size:12px;cursor:pointer;margin-bottom:20px;">↺ Reset tick boxes</button>
+      <button onclick="setQuiet({_planChecked:{}})" style="width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid #3a3030;color:#8a7c7c;font-size:12px;cursor:pointer;margin-bottom:20px;">↺ Reset tick boxes</button>
     </div>
   </div>`;
 }
