@@ -3627,18 +3627,25 @@ function spiceShelfView(){
     : visible.map(e=>{
         const w = SPICE_WHENMAP[e.whenToUse] || {};
         const chips = (e.flavourChips||[]).slice(0,3).map(c=>`<span style="font-size:10px;color:${SPICE_CHIPCOLOR[c]||'#a08050'};border:1px solid ${SPICE_CHIPCOLOR[c]||'#a08050'};border-radius:20px;padding:2px 8px;">${c}</span>`).join("");
-        return `<button onclick="set({spiceEntry:'${e.id}',spiceScale:null})"
-          style="width:100%;display:block;text-align:left;background:#161009;border:1px solid #3a2510;border-radius:12px;padding:13px;margin-bottom:8px;cursor:pointer;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <div style="flex:1;font-size:15px;color:#f5e8cc;font-weight:bold;">${e.name}</div>
-            <span style="font-size:15px;color:#c08040;">→</span>
-          </div>
-          <div style="font-size:11px;color:#c0a274;font-style:italic;margin-bottom:7px;">${e.region}</div>
-          <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
-            ${chips}
-            ${w.label?`<span style="font-size:10px;color:#b89868;margin-left:2px;">· ${w.e} ${w.label}</span>`:''}
-          </div>
-        </button>`;
+        const inCart = spiceCart()[e.id] !== undefined;
+        const baseAmt = e.makeYourOwn.yield.base;
+        return `<div style="display:flex;align-items:stretch;gap:10px;background:#161009;border:1px solid ${inCart?'#5a6a20':'#3a2510'};border-radius:12px;padding:13px;margin-bottom:8px;">
+          <button onclick="(function(){var c=Object.assign({},S.spiceCart||{});if(c['${e.id}']!==undefined)delete c['${e.id}'];else c['${e.id}']=${baseAmt};set({spiceCart:c});})()"
+            title="Add to shopping list"
+            style="flex-shrink:0;align-self:center;width:24px;height:24px;border-radius:6px;border:2px solid ${inCart?'#6a8020':'#a88a5e'};background:${inCart?'#6a8020':'transparent'};color:#0f0e0c;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;">${inCart?'✓':''}</button>
+          <button onclick="set({spiceEntry:'${e.id}',spiceScale:null})"
+            style="flex:1;display:block;text-align:left;background:none;border:none;padding:0;cursor:pointer;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="flex:1;font-size:15px;color:#f5e8cc;font-weight:bold;">${e.name}</div>
+              <span style="font-size:15px;color:#c08040;">→</span>
+            </div>
+            <div style="font-size:11px;color:#c0a274;font-style:italic;margin-bottom:7px;">${e.region}</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
+              ${chips}
+              ${w.label?`<span style="font-size:10px;color:#b89868;margin-left:2px;">· ${w.e} ${w.label}</span>`:''}
+            </div>
+          </button>
+        </div>`;
       }).join("");
 
   const countLine = list.length>PAGE
@@ -3656,6 +3663,9 @@ function spiceShelfView(){
     </div>
     <div class="content">
       ${pills}
+      ${spiceCartCount()>0?`<button onclick="set({spiceListOpen:true})" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#14180a;border:2px solid #6a8020;border-radius:10px;color:#c8e840;font-size:13px;font-weight:bold;cursor:pointer;margin-bottom:12px;">
+        <span>🛒 My Spice Shopping List</span><span style="background:#6a8020;color:#0f0e0c;border-radius:20px;padding:1px 9px;font-size:12px;">${spiceCartCount()}</span>
+      </button>`:''}
       ${countLine}
       ${rows}
       ${moreBtn}
