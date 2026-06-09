@@ -28,8 +28,8 @@ function braaiStep1(){
             <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
             <div onclick="S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 Search recipes…</div>
           </div>
-          <h1 style="font-size:20px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">🔥 Braai &amp; Fire Cooking</h1>
-          <p style="margin:0;font-size:11px;color:#c07040;font-style:italic;">BBQ · Grilled &amp; Fire Foods · Sides · Salads</p>
+          <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">🔥 Braai &amp; Fire Cooking</h1>
+          <p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">BBQ · Grilled &amp; Fire Foods · Sides · Salads</p>
         </div>
       </div>
     </div>
@@ -60,13 +60,13 @@ function braaiStep1(){
           </div>
         </div>` : ''}
       </div>
-      <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What are you planning?</div>
+      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What are you planning?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
         ${sections.map(s=>`
           <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'#161210'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'#c06020':'#3a2010'};border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:24px;margin-bottom:5px;">${s.emoji}</div>
-            <div style="font-size:11px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
-            <div style="font-size:13px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>
+            <div style="font-size:16px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
+            <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>
             ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'#c06020'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:8px;padding:1px 4px;">${s.count}</div>`:''}
           </div>`).join('')}
       </div>
@@ -210,7 +210,7 @@ function braaiStep4(){
     </div>
     <div class="content">
       ${braaiQuickNav('myplan')}
-      <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;">🍽️ Mains</div>
+      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;">🍽️ Mains</div>
       <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:6px;">
         ${S.selectedMeats.length===0?`<p style="font-size:13px;color:#b1734c;font-style:italic;">No mains selected</p>`:""}
         ${S.selectedMeats.map(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return ""; const c=calcMeat(m); const mealCals=USER_TIER==="pro"?Math.round((c.grams/100)*(MEAT_CALS[mid]||200)/S.people):0; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${m.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${m.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${c.display}${USER_TIER==="pro"?` · <span style="color:#40d0a0;font-size:12px;">${mealCals} kcal/person</span>`:""}</div></div></div>${recipeBtn("meat",m.id,4)}</div>`; }).join("")}
@@ -228,7 +228,7 @@ function braaiStep4(){
 
 
       ${S.selectedSides.length>0?`
-        <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🥗 Sides</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🥗 Sides</div>
         <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
           ${S.selectedSides.map(sid=>{ const s=SIDES_GROUPS.flatMap(g=>g.items).find(x=>x.id===sid); if(!s) return ""; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${s.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${s.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${calcSide(s)}</div></div></div>${recipeBtn("side",s.id,4)}</div>`; }).join("")}
         </div>
@@ -238,7 +238,7 @@ function braaiStep4(){
 
       ${USER_TIER==="pro"?`<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#409070;">🔥 Total calories per person</div><div style="font-size:10px;color:#468d75;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#40d0a0;font-weight:bold;">${cals}<span style="font-size:12px;"> kcal</span></div></div></div>`:`<div style="background:#081808;border:1px dashed ${USER_TIER==="plus"?"#205030":"#162016"};border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:${USER_TIER==="plus"?"#305040":"#2a3020"};">🔥 Calorie counter — <strong>Tinza Pro R99/month</strong></div></div>`}
 
-      <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
+      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
       ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#8a4020;margin-bottom:6px;font-weight:bold;">Full Shopping List</div><div style="font-size:12px;color:#5a3020;margin-bottom:10px;line-height:1.6;">All ingredients combined — no duplicates!<br>Onions from 3 dishes = 1 combined line item</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>`:`
         <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
           <div style="font-size:11px;color:#b56d37;margin-bottom:10px;">✅ Tap items you already have to remove</div>
