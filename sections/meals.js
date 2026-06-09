@@ -523,6 +523,148 @@ Rules: all amounts in g or ml, pp = per serving, userHas true only for ${ingredi
   }
 }
 
+function openFourRecipe(i){ var a=S._fourResults||[]; if(a[i]) setQuiet({_fourActiveRecipe:a[i]}); }
+function openAnchorRecipe(i){ var a=S._anchorResults||[]; if(a[i]) setQuiet({_anchorActiveRecipe:a[i]}); }
+
+// ── 4 INGREDIENTS — opening page (warm v33 template) ──
+function fourIngredientsHTML(){
+  const color='#c06020', bg='#1a1208', border='#3a2010';
+  if(S._fourActiveRecipe){
+    return recipeDetailFromResult(S._fourActiveRecipe, "setQuiet({_fourActiveRecipe:null})", S.searchServings||4, color, bg, border);
+  }
+  const loading=S._fourLoading, results=S._fourResults, error=S._fourError;
+  const howOpen=S.fourHowOpen||false;
+  const ph=['e.g. chicken','e.g. rice','e.g. tomatoes','optional'];
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#0f0e0c 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🧅 4 Ingredients</h1>
+        <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">What's in your fridge? Pop in 2–4 things and we'll find the meal.</p>
+      </div>
+    </div>
+
+    <!-- ══ HOW IT WORKS ══ -->
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:12px 16px;">
+      <button onclick="set({fourHowOpen:!S.fourHowOpen})" style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
+      ${howOpen?`
+        <div onclick="set({fourHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c8b898;line-height:1.6;">
+          <strong style="color:#f5c842;">1. Enter 2–4 ingredients</strong> — whatever's in your fridge or pantry.<br>
+          <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — Tinza checks its own recipes first, then asks Tinza Chef.<br>
+          <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
+          <span style="color:#b0936a;font-size:11px;">The more ingredients you add, the closer the match.</span>
+        </div>`:''}
+    </div>
+
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+
+      <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
+        <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your ingredients</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+          ${[1,2,3,4].map(n=>`
+            <div style="display:flex;align-items:center;gap:6px;background:#161210;border:2px solid ${border};border-radius:10px;padding:10px 12px;">
+              <span style="font-size:13px;color:${color};font-weight:bold;flex-shrink:0;">${n}</span>
+              <input type="text" value="${(S['ing'+n]||'').replace(/"/g,'&quot;')}" placeholder="${ph[n-1]}"
+                oninput="S.ing${n}=this.value"
+                style="flex:1;background:transparent;border:none;color:#f5e8cc;font-size:15px;font-family:Georgia,serif;outline:none;width:100%;" />
+            </div>`).join('')}
+        </div>
+        <button onclick="findFourIngredients()" style="width:100%;padding:14px;border-radius:10px;background:#161210;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+          ${loading?'👨‍🍳 Finding recipes…':'🔍 Find Recipes'}
+        </button>
+      </div>
+
+      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c0915a;text-align:center;">${error}</div>`:''}
+
+      ${loading?`<div style="text-align:center;padding:30px;">
+        <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
+        <div style="font-size:14px;color:${color};">Finding recipes from your ingredients…</div>
+      </div>`:''}
+
+      ${results&&results.length>0&&!loading?`
+        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Recipes you can make</div>
+        ${results.map((r,i)=>recipeResultCard(r,"openFourRecipe("+i+")",color)).join('')}
+        <button onclick="findFourIngredients()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">🔄 Find again</button>
+      `:''}
+
+      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#b0936a;font-size:13px;">No matches yet — try different ingredients.</div>`:''}
+    </div>
+  </div>`;
+}
+
+// ── ANCHOR INGREDIENT ("I Have Chicken…") — opening page (warm v33 template) ──
+function anchorIngredientHTML(){
+  const color='#c06020', bg='#1a1208', border='#3a2010';
+  if(S._anchorActiveRecipe){
+    return recipeDetailFromResult(S._anchorActiveRecipe, "setQuiet({_anchorActiveRecipe:null})", S.searchServings||4, color, bg, border);
+  }
+  const loading=S._anchorLoading, results=S._anchorResults, error=S._anchorError;
+  const howOpen=S.anchorHowOpen||false;
+  const chips=[['🐔','chicken'],['🥩','beef mince'],['🎃','butternut'],['🥚','eggs'],['🐟','tinned fish'],['🥔','potatoes']];
+  return `<div style="min-height:100vh;background:#0f0e0c;">
+
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#0f0e0c 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🐔 I Have Chicken…</h1>
+        <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">Type any ingredient you've got — we'll build meals around it.</p>
+      </div>
+    </div>
+
+    <!-- ══ HOW IT WORKS ══ -->
+    <div style="background:${bg};border-bottom:1px solid ${border};padding:12px 16px;">
+      <button onclick="set({anchorHowOpen:!S.anchorHowOpen})" style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
+      ${howOpen?`
+        <div onclick="set({anchorHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c8b898;line-height:1.6;">
+          <strong style="color:#f5c842;">1. Type your main ingredient</strong> — add a quantity if you like (e.g. "beef mince 500g").<br>
+          <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — every recipe is built around it.<br>
+          <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
+          <span style="color:#b0936a;font-size:11px;">Add a weight and we'll scale the recipe to what you have.</span>
+        </div>`:''}
+    </div>
+
+    <div style="padding:16px;max-width:600px;margin:0 auto;">
+
+      <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
+        <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your main ingredient</div>
+        <div style="background:#161210;border:2px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;">
+          <input type="text" value="${(S.anchorInput||'').replace(/"/g,'&quot;')}" placeholder="e.g. beef mince 500g, butternut, chicken thighs"
+            oninput="S.anchorInput=this.value"
+            style="width:100%;background:transparent;border:none;color:#f5e8cc;font-size:16px;font-family:Georgia,serif;outline:none;" />
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+          ${chips.map(c=>`<button onclick="S.anchorInput='${c[1]}';findAnchorIngredient()" style="padding:6px 11px;border-radius:16px;border:1px solid ${border};background:transparent;color:#c8b898;font-size:12px;cursor:pointer;white-space:nowrap;">${c[0]} ${c[1]}</button>`).join('')}
+        </div>
+        <button onclick="findAnchorIngredient()" style="width:100%;padding:14px;border-radius:10px;background:#161210;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+          ${loading?'👨‍🍳 Finding recipes…':'🔍 Find Recipes'}
+        </button>
+      </div>
+
+      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c0915a;text-align:center;">${error}</div>`:''}
+
+      ${loading?`<div style="text-align:center;padding:30px;">
+        <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
+        <div style="font-size:14px;color:${color};">Building meals around it…</div>
+      </div>`:''}
+
+      ${results&&results.length>0&&!loading?`
+        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Recipes built around it</div>
+        ${results.map((r,i)=>recipeResultCard(r,"openAnchorRecipe("+i+")",color)).join('')}
+        <button onclick="findAnchorIngredient()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">🔄 Find again</button>
+      `:''}
+
+      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#b0936a;font-size:13px;">No matches yet — try another ingredient.</div>`:''}
+    </div>
+  </div>`;
+}
+
 function recipeResultCard(r, onClickFn, color){
   const matchBadge = r._matchCount ? `<span style="background:#0a1808;border:1px solid #25a050;border-radius:8px;font-size:9px;color:#25a050;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
   const sourceBadge = r._source==='db' ? `<span style="background:#0a1020;border:1px solid #4080d0;border-radius:8px;font-size:9px;color:#4080d0;padding:2px 6px;">In Tinza</span>` : '';

@@ -1376,21 +1376,21 @@ function moodHTML(){
         <span style="font-size:28px;">😴</span>
         <div>
           <h1 style="margin:0;font-size:22px;font-weight:normal;color:#f5e8cc;">Just Feed Me</h1>
-          <p style="margin:0;font-size:11px;color:#9276a9;font-style:italic;">How are you feeling right now?</p>
+          <p style="margin:0;font-size:13px;color:#9276a9;font-style:italic;">How are you feeling right now?</p>
         </div>
       </div>
     </div>
     <div class="content">
-      <div style="font-size:11px;color:#9771b8;margin-bottom:16px;line-height:1.6;">
+      <div style="font-size:13px;color:#9771b8;margin-bottom:16px;line-height:1.6;">
         Tap how you're feeling and Tinza will suggest the perfect recipes — no thinking required.
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
         ${MOODS.map(m=>`
           <button onclick="set({moodSelected:'${m.id}',moodRecipes:null,moodLoading:false});callMoodChef(MOODS.find(x=>x.id==='${m.id}'))"
-            style="background:${m.bg};border:2px solid ${m.colour};border-radius:12px;padding:14px 12px;cursor:pointer;text-align:left;">
+            style="background:${m.bg};border:2px solid ${m.colour};border-radius:14px;padding:14px 12px;cursor:pointer;text-align:left;">
             <div style="font-size:26px;margin-bottom:6px;">${m.e}</div>
-            <div style="font-size:13px;color:#f5e8cc;margin-bottom:3px;line-height:1.2;">${m.label}</div>
-            <div style="font-size:10px;color:${m.colour};line-height:1.3;">${m.sub}</div>
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${m.label}</div>
+            <div style="font-size:13px;color:${m.colour};line-height:1.3;">${m.sub}</div>
           </button>`).join('')}
       </div>
     </div>
