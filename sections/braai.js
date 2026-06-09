@@ -63,7 +63,7 @@ function braaiStep1(){
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What are you planning?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
         ${sections.map(s=>`
-          <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'#161210'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'#c06020':'#3a2010'};border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
+          <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'#161210'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'#c06020':'#3a2010'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;">
             <div style="font-size:24px;margin-bottom:5px;">${s.emoji}</div>
             <div style="font-size:16px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
             <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>

@@ -110,13 +110,13 @@ window.COUNTRY_TO_REGION = {
   return `<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">
 
     <!-- ══ V33 PHOTO HEADER ══ -->
-    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#0f2818 100%);">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.3) 0%,rgba(4,12,8,0.75) 100%);z-index:1;"></div>
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
       <button onclick="set({screen:'home',wkSelectedRegion:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌍 World Kitchen</h1>
-        <p style="margin:0 0 10px;font-size:11px;color:#c8a86a;font-style:italic;">Explore cuisines from every corner of the globe</p>
-        <div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+        <p style="margin:0 0 10px;font-size:13px;color:#c8a86a;font-style:italic;">Explore cuisines from every corner of the globe</p>
+        <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search cuisines, dishes, countries…"
             oninput="set({wkSearch:this.value})"
@@ -1045,7 +1045,7 @@ function wkCountryHTML(){
     flagHeroHTML = `
     <div style="position:relative;height:160px;overflow:hidden;background:${bg};max-width:600px;margin:0 auto;">
       ${_fu ? `<img src="${_fu}" onerror="this.style.display='none'" alt="${_co.name} flag" style="width:100%;height:100%;object-fit:cover;display:block;" />` : ''}
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.30) 0%,rgba(4,12,8,0.85) 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.30) 0%,rgba(8,4,2,0.85) 100%);"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;padding:14px 18px;">
         <h2 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:0;font-family:Georgia,serif;text-shadow:0 1px 4px rgba(0,0,0,0.6);">${_co.name}</h2>
         <p style="font-size:12px;color:#d8c8a8;margin:3px 0 0;font-style:italic;text-shadow:0 1px 3px rgba(0,0,0,0.6);">${_co.feel || ''}</p>
@@ -1411,12 +1411,12 @@ function wkRecipeCard(r){
 function wkGridCard(emoji, title, sub, onclick, dim, accent){
   var green='#c06020', cream='#f5e8cc';
   var bg = dim ? '#140d06' : (accent ? '#1a1208' : '#161210');
-  var bd = dim ? '#142018' : (accent ? green   : '#2a1a10');
+  var bd = dim ? '#2a1a10' : (accent ? green   : '#2a1a10');
   return '<div'+(dim?'':' onclick="'+onclick+'"')+' '
-    + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:12px;padding:16px 8px;text-align:center;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;">'
-    +   '<div style="font-size:26px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
-    +   '<div style="font-size:13px;color:'+(dim?'#6a5440':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
-    +   (sub ? '<div style="font-size:10px;color:'+(dim?'#6a5440':'#c8a86a')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
+    + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:14px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;">'
+    +   '<div style="font-size:24px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
+    +   '<div style="font-size:16px;color:'+(dim?'#6a5440':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
+    +   (sub ? '<div style="font-size:14px;color:'+(dim?'#6a5440':'#c8a86a')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
     + '</div>';
 }
 
@@ -1427,14 +1427,14 @@ function wkWorldHome(){
   var search = (S.wkSearch || '').trim();
 
   var header = ''
-    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#0f2818 100%);">'
+    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);">'
     +   '<div style="position:absolute;inset:0;background-image:url(\''+mapImg+'\');background-size:cover;background-position:center;opacity:0.55;"></div>'
-    +   '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.35) 0%,rgba(4,12,8,0.85) 100%);z-index:1;"></div>'
+    +   '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.35) 0%,rgba(8,4,2,0.85) 100%);z-index:1;"></div>'
     +   '<button onclick="set({screen:\'home\',wkContinent:null,wkRegion:null,wkSearch:\'\'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>'
     +   '<div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">'
-    +     '<h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:'+cream+';font-family:Georgia,serif;">🌍 World Kitchen</h1>'
-    +     '<p style="margin:0 0 10px;font-size:11px;color:#c8a86a;font-style:italic;">Tap a continent, then a region, then a country</p>'
-    +     '<div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
+    +     '<h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:'+cream+';font-family:Georgia,serif;">🌍 World Kitchen</h1>'
+    +     '<p style="margin:0 0 10px;font-size:13px;color:#c8a86a;font-style:italic;">Tap a continent, then a region, then a country</p>'
+    +     '<div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
     +       '<span style="color:'+green+';margin-right:8px;font-size:14px;">🔍</span>'
     +       '<input type="text" placeholder="Search dishes, countries…" oninput="set({wkSearch:this.value})" value="'+(S.wkSearch||'').replace(/"/g,'&quot;')+'" style="flex:1;background:none;border:none;outline:none;color:#d8c8a8;font-size:13px;font-family:Georgia,serif;" />'
     +       (S.wkSearch ? '<button onclick="set({wkSearch:\'\'})" style="background:none;border:none;color:#b0936a;font-size:16px;cursor:pointer;">×</button>' : '')
@@ -1930,7 +1930,7 @@ function wkDetailV33(r, country){
   return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
     + '<div style="position:relative;">'
     +   photo
-    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
+    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
     + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'

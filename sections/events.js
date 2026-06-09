@@ -1135,7 +1135,7 @@ function eventsHTML(){
             ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null})`
             : `set({eventTab:'${t.id}',eventShowShopList:false})`;
           return `<div onclick="${onClick}"
-            style="background:${isActive?'#1a1208':'#0f0e0c'};border:1px solid ${isActive?'#c06020':'#2a1a10'};border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;"
+            style="background:${isActive?'#1a1208':'#0f0e0c'};border:1px solid ${isActive?'#c06020':'#2a1a10'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;"
             onmouseover="this.style.borderColor='#c06020'" onmouseout="this.style.borderColor='${isActive?'#c06020':'#2a1a10'}'">
             <div style="font-size:24px;margin-bottom:4px;">${t.label.split(' ')[0]}</div>
             <div style="font-size:16px;color:${isActive?'#f5c842':'#c8b898'};font-family:Georgia,serif;font-weight:${isActive?'bold':'normal'};">${t.label.replace(/^\S+\s*/,'')}</div>
