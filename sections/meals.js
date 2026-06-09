@@ -338,24 +338,24 @@ function feedingFamilyHTML(){
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.78) 100%);z-index:1;"></div>
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
-        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍽️ Feeding My Family</h1>
-        <p style="margin:0;font-size:11px;color:${HEAD};font-style:italic;opacity:0.9;">Everyday cooking — morning to night, and something sweet</p>
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍽️ Feeding My Family</h1>
+        <p style="margin:0;font-size:13px;color:${HEAD};font-style:italic;opacity:0.9;">Everyday cooking — morning to night, and something sweet</p>
       </div>
     </div>
 
-    <!-- ══ MEAL-TYPE BOXES (braai v33 list rows) ══ -->
+    <!-- ══ MEAL-TYPE BOXES (3-col grid · warm Spice palette) ══ -->
     <div style="padding:16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
-      ${MEALS.map(o=>`
-        <button onclick="set({screen:'${o.s}'})"
-          style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
-          <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
-          <div style="flex:1;">
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:14px;color:#e0d4b8;line-height:1.5;">${o.sub}</div>
-          </div>
-          <span style="font-size:16px;color:${o.b};">→</span>
-        </button>`).join('')}
+      <div style="font-size:13px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+        ${MEALS.map(o=>`
+          <div onclick="set({screen:'${o.s}'})"
+            style="background:#161210;border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;"
+            onmouseover="this.style.borderColor='#c06020'" onmouseout="this.style.borderColor='#2a1a10'">
+            <div style="font-size:24px;margin-bottom:4px;">${o.e}</div>
+            <div style="font-size:16px;color:#f5e8cc;font-family:Georgia,serif;font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>
+            <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${o.sub}</div>
+          </div>`).join('')}
+      </div>
     </div>
   </div>`;
 }

@@ -1059,11 +1059,11 @@ function eventsHTML(){
 
   // ── Buffet step flow — returns standalone, bypasses tab wrapper ──
   const tabs = [
-    {id:'bigcooking', label:'🍽️ Buffet'},
+    {id:'bigcooking', label:'🍽️ Big Buffet'},
     {id:'fingerfoods',label:'🥪 Finger Foods & Snacks'},
     {id:'weddingcake',label:'🎂 Celebration Cakes'},
-    {id:'kiddies',    label:'🎂 Kiddies Parties'},
-    {id:'beverages',  label:'🍹 Beverages'},
+    {id:'kiddies',    label:'🎈 Kiddies Parties'},
+    {id:'beverages',  label:'🍹 Beverages & Cocktails'},
   ];
 
   const howItWorksOpen = S.eventsHowOpen || false;

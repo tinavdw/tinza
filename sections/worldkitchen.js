@@ -1413,7 +1413,7 @@ function wkGridCard(emoji, title, sub, onclick, dim, accent){
   var bg = dim ? '#140d06' : (accent ? '#1a1208' : '#161210');
   var bd = dim ? '#2a1a10' : (accent ? green   : '#2a1a10');
   return '<div'+(dim?'':' onclick="'+onclick+'"')+' '
-    + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:14px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;">'
+    + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:14px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';">'
     +   '<div style="font-size:24px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
     +   '<div style="font-size:16px;color:'+(dim?'#6a5440':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
     +   (sub ? '<div style="font-size:14px;color:'+(dim?'#6a5440':'#c8a86a')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
