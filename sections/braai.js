@@ -78,7 +78,7 @@ function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step){
     <div style="display:flex;align-items:center;gap:10px;cursor:${disabled?"not-allowed":"pointer"};" onclick="${onToggle}">
       <div style="width:22px;height:22px;border-radius:6px;background:${sel?"#c06020":"transparent"};border:2px solid ${sel?"#c06020":"#3a2010"};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${sel?"✓":""}</div>
       <span style="font-size:20px;">${emoji}</span>
-      <div style="flex:1;"><div style="font-size:14px;color:${sel?"#f5e8cc":"#7a5030"};font-weight:${sel?"bold":"normal"};">${name}</div><div style="font-size:10px;color:${sel?"#c06020":"#4a3020"};margin-top:2px;">${note}</div></div>
+      <div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;">${name}</div><div style="font-size:14px;color:#e0d4b8;margin-top:3px;line-height:1.4;">${note}</div></div>
       <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
         ${sel&&qty?`<div style="font-size:13px;color:#f5c842;font-weight:bold;">${qty}</div>`:""}
         ${!disabled?`<button onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${step}}})" style="background:#c06020;border:none;border-radius:6px;padding:4px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>`:""}
