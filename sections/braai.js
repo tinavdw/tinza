@@ -26,7 +26,7 @@ function braaiStep1(){
         <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 10px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
-            <div onclick="S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 Search recipes…</div>
+            <div onclick="S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 Search Braai recipes…</div>
           </div>
           <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">🔥 Braai &amp; Fire Cooking</h1>
           <p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">BBQ · Grilled &amp; Fire Foods · Sides · Salads</p>
