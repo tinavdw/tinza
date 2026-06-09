@@ -1368,13 +1368,14 @@ function wkCourseEmoji(course){
 
 /* Braai-style row: emoji · name/note · green "Recipe →" button (WK green theme). */
 function wkRecipeCard(r){
-  var green='#30a878', cream='#f5e8cc';
+  var green='#30a878', cream='#f5e8cc', feelCol='#e0d4b8';
   var disp = (typeof tinzaDisplayName === 'function')
     ? tinzaDisplayName(r)
     : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var emoji = wkCourseEmoji(r.course);
-  var _nl   = /[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'');
-  var note  = (_nl ? r.name+' · ' : '') + r.country + (r.cookTime ? (' · '+r.cookTime) : '');
+  // Standard row: name + ONE feel one-liner. Use howThisFeels when written;
+  // fall back to country (keeps cross-cuisine search useful) until the writing pass fills feel lines.
+  var sub   = r.howThisFeels ? r.howThisFeels : r.country;
   var open  = "wkOpenRecipe('"+r.country+"','"+r.id+"')";
   var checked = (typeof wkInPlan === 'function') && wkInPlan(r.id);
   // live per-person portion — recalculates as dishes are added to the plan
@@ -1389,7 +1390,7 @@ function wkRecipeCard(r){
   var box = '<div onclick="event.stopPropagation();wkPlanToggle(\''+r.id+'\',4)" '
     + 'title="'+(checked?'In plan — tap to remove':'Add to plan')+'" '
     + 'style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid '+green+';'
-    + 'background:'+(checked?green:'transparent')+';color:#219452;display:flex;align-items:center;'
+    + 'background:'+(checked?green:'transparent')+';color:#fff;display:flex;align-items:center;'
     + 'justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">'+(checked?'✓':'')+'</div>';
   return '<div onclick="'+open+'" '
     + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;">'
@@ -1397,11 +1398,11 @@ function wkRecipeCard(r){
     +     box
     +     '<span style="font-size:20px;flex-shrink:0;">'+emoji+'</span>'
     +     '<div style="flex:1;min-width:0;">'
-    +       '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
-    +       '<div style="font-size:10px;color:#538a73;margin-top:2px;">'+note+'</div>'
+    +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
+    +       '<div style="font-size:14px;color:'+feelCol+';margin-top:3px;line-height:1.4;">'+sub+'</div>'
     +     '</div>'
     +     (grams ? '<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;flex-shrink:0;">'+grams+' <span style="font-size:9px;color:#538a73;font-weight:normal;">pp</span></span>' : '')
-    +     '<button onclick="event.stopPropagation();'+open+'" style="background:'+green+';border:none;border-radius:6px;padding:5px 11px;font-size:11px;color:#219452;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;font-weight:bold;flex-shrink:0;">Recipe →</button>'
+    +     '<button onclick="event.stopPropagation();'+open+'" style="background:'+green+';border:none;border-radius:6px;padding:5px 11px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;font-weight:bold;flex-shrink:0;">Recipe →</button>'
     +   '</div>'
     + '</div>';
 }
