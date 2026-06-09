@@ -48,8 +48,8 @@ function worldKitchenHTML(){
   return wkWorldHome();
 
   // ── OLD MAP SCREEN (no longer reached — kept for reference) ─────────
-  const mapColor = '#30a878';
-  const mapBg    = '#0a1810';
+  const mapColor = '#c06020';
+  const mapBg    = '#160f08';
 
   // Region data
 window.REGIONS = {
@@ -107,40 +107,40 @@ window.COUNTRY_TO_REGION = {
 
   const wkHowOpen = S.wkHowOpen || false;
 
-  return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
+  return `<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">
 
     <!-- ══ V33 PHOTO HEADER ══ -->
-    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#0a1810 0%,#0f2818 100%);">
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#0f2818 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.3) 0%,rgba(4,12,8,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home',wkSelectedRegion:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #1a4030;border-radius:20px;color:#30a878;font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>
+      <button onclick="set({screen:'home',wkSelectedRegion:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🌍 World Kitchen</h1>
-        <p style="margin:0 0 10px;font-size:11px;color:#50a878;font-style:italic;">Explore cuisines from every corner of the globe</p>
-        <div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #1a4030;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
-          <span style="color:#30a878;margin-right:8px;font-size:14px;">🔍</span>
+        <p style="margin:0 0 10px;font-size:11px;color:#c8a86a;font-style:italic;">Explore cuisines from every corner of the globe</p>
+        <div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+          <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search cuisines, dishes, countries…"
             oninput="set({wkSearch:this.value})"
             value="${S.wkSearch||''}"
-            style="flex:1;background:none;border:none;outline:none;color:#b0d8c0;font-size:13px;font-family:Georgia,serif;"
+            style="flex:1;background:none;border:none;outline:none;color:#d8c8a8;font-size:13px;font-family:Georgia,serif;"
           />
-          ${S.wkSearch?`<button onclick="set({wkSearch:''})" style="background:none;border:none;color:#3a8e6b;font-size:16px;cursor:pointer;">×</button>`:''}
+          ${S.wkSearch?`<button onclick="set({wkSearch:''})" style="background:none;border:none;color:#b0936a;font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>
     </div>
 
     <!-- ══ HOW IT WORKS ══ -->
-    <div style="background:#0a1810;border-bottom:1px solid #1a3020;padding:12px 16px;">
+    <div style="background:#160f08;border-bottom:1px solid #2a1a10;padding:12px 16px;">
       <button onclick="set({wkHowOpen:!S.wkHowOpen})"
-        style="background:none;border:none;color:#30a878;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">
+        style="background:none;border:none;color:#c06020;font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">
         ${wkHowOpen?'▲':'▼'} How it works
       </button>
       ${wkHowOpen?`
         <div onclick="set({wkHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-        <div style="position:relative;z-index:10;background:#061008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#80b898;line-height:1.6;">
-          <strong style="color:#30a878;">1. Tap 🇿🇦 South African Kitchens</strong> — explore our own rich food heritage.<br>
-          <strong style="color:#30a878;">2. Tap any country on the map</strong> — discover that region's cuisine.<br>
-          <strong style="color:#30a878;">3. Browse dishes</strong> — tap any recipe for full ingredients and method.<br>
-          <span style="color:#3a8e6b;font-size:11px;">Going global — new cuisines added regularly.</span>
+        <div style="position:relative;z-index:10;background:#100a04;border:1px solid #2a1a10;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#d8c8a8;line-height:1.6;">
+          <strong style="color:#c06020;">1. Tap 🇿🇦 South African Kitchens</strong> — explore our own rich food heritage.<br>
+          <strong style="color:#c06020;">2. Tap any country on the map</strong> — discover that region's cuisine.<br>
+          <strong style="color:#c06020;">3. Browse dishes</strong> — tap any recipe for full ingredients and method.<br>
+          <span style="color:#b0936a;font-size:11px;">Going global — new cuisines added regularly.</span>
         </div>
       `:''}
     </div>
@@ -148,54 +148,54 @@ window.COUNTRY_TO_REGION = {
     <!-- SA Kitchens feature tile -->
     <div style="padding:12px 16px 0;max-width:600px;margin:0 auto;">
       <div onclick="set({screen:'worldkitchen',wkScreen:'sa'})"
-           style="background:linear-gradient(135deg,#0a2018,#0f2a20);border:1px solid #30a878;border-radius:12px;padding:16px;margin-bottom:4px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+           style="background:linear-gradient(135deg,#1a1208,#0f2a20);border:1px solid #c06020;border-radius:12px;padding:16px;margin-bottom:4px;cursor:pointer;display:flex;align-items:center;gap:12px;">
         <div style="font-size:28px;">🇿🇦</div>
         <div style="flex:1;">
           <div style="font-size:15px;color:#40d090;font-weight:bold;margin-bottom:2px;">South African Kitchens</div>
-          <div style="font-size:11px;color:#30a060;">Boerekos · Cape Malay · Indian · Zulu · Sotho · Xhosa</div>
-          <div style="font-size:11px;color:#319262;margin-top:3px;font-style:italic;">"The flavours that built this country"</div>
+          <div style="font-size:11px;color:#c06020;">Boerekos · Cape Malay · Indian · Zulu · Sotho · Xhosa</div>
+          <div style="font-size:11px;color:#c0915a;margin-top:3px;font-style:italic;">"The flavours that built this country"</div>
         </div>
-        <div style="color:#30a878;font-size:18px;">›</div>
+        <div style="color:#c06020;font-size:18px;">›</div>
       </div>
     </div>
 
     <!-- Map label -->
     <div style="padding:12px 16px 6px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:0.08em;color:#4a8c70;text-transform:uppercase;margin-bottom:6px;">Around the world — tap a country</div>
+      <div style="font-size:10px;letter-spacing:0.08em;color:#b0936a;text-transform:uppercase;margin-bottom:6px;">Around the world — tap a country</div>
     </div>
 
     <!-- Eckert IV Map -->
     <div style="padding:0 16px;max-width:600px;margin:0 auto;">
-      <div id="wk-map-wrap" style="background:#0d1f18;border:1px solid #1a3020;border-radius:12px;overflow:hidden;position:relative;">
+      <div id="wk-map-wrap" style="background:#1a1208;border:1px solid #2a1a10;border-radius:12px;overflow:hidden;position:relative;">
         <svg id="wk-map-svg" viewBox="0 0 680 360" style="width:100%;height:auto;display:block;cursor:pointer;"></svg>
       </div>
     </div>
 
     <!-- Region info panel -->
     <div style="padding:10px 16px;max-width:600px;margin:0 auto;">
-      <div id="wk-panel" style="background:#0f1a14;border:1px solid #1a3020;border-radius:12px;padding:14px 16px;min-height:64px;">
+      <div id="wk-panel" style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:14px 16px;min-height:64px;">
         ${sel ? `
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <span style="font-size:18px;">${sel.emoji}</span>
             <div>
               <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${sel.title}</div>
-              <div style="font-size:11px;color:#5b8a76;">${sel.sub}</div>
+              <div style="font-size:11px;color:#b0936a;">${sel.sub}</div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;">
-            ${sel.dishes.map(d=>`<span style="font-size:11px;padding:4px 9px;border-radius:14px;border:1px solid #1a4030;color:#50a878;background:#0a1810;">${d}</span>`).join('')}
+            ${sel.dishes.map(d=>`<span style="font-size:11px;padding:4px 9px;border-radius:14px;border:1px solid #3a2010;color:#c8a86a;background:#160f08;">${d}</span>`).join('')}
           </div>
           <button onclick="set({screen:'worldkitchen',wkScreen:'country',wkCountry:'${selectedRegion}',wkSelectedRegion:'${selectedRegion}'})"
-                  style="width:100%;padding:10px;border-radius:8px;background:#0a2018;border:2px solid #30a878;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
+                  style="width:100%;padding:10px;border-radius:8px;background:#1a1208;border:2px solid #c06020;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
             Explore ${sel.title} cuisine →
           </button>
-        ` : `<p style="font-size:13px;color:#508c6a;text-align:center;padding:8px 0;margin:0;">Tap any country to explore its cuisine</p>`}
+        ` : `<p style="font-size:13px;color:#b0936a;text-align:center;padding:8px 0;margin:0;">Tap any country to explore its cuisine</p>`}
       </div>
     </div>
 
     <!-- More to Explore -->
     <div style="padding:4px 16px 24px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:0.08em;color:#4a8c70;text-transform:uppercase;margin-bottom:8px;">More to explore</div>
+      <div style="font-size:10px;letter-spacing:0.08em;color:#b0936a;text-transform:uppercase;margin-bottom:8px;">More to explore</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
         ${[
           {key:'north-africa',   e:'🏺', label:'North Africa',       countries:'Morocco · Egypt · Tunisia'},
@@ -208,10 +208,10 @@ window.COUNTRY_TO_REGION = {
           {key:'oceania',        e:'🌺', label:'Oceania & Pacific',   countries:'Aus · NZ · Hawaii · Fiji'},
         ].map(r=>`
           <div onclick="setQuiet({wkSelectedRegion:'${r.key}',wkScreen:'country',wkCountry:'${r.key}'});draw();window.scrollTo(0,0);"
-               style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:10px;cursor:pointer;">
+               style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:10px;cursor:pointer;">
             <div style="font-size:18px;margin-bottom:4px;">${r.e}</div>
             <div style="font-size:12px;color:#c8b898;font-weight:bold;margin-bottom:2px;">${r.label}</div>
-            <div style="font-size:10px;color:#538a73;line-height:1.4;">${r.countries}</div>
+            <div style="font-size:10px;color:#b0936a;line-height:1.4;">${r.countries}</div>
           </div>
         `).join('')}
       </div>
@@ -249,7 +249,7 @@ function initWKMap(){
 
     const loadingText = document.createElementNS('http://www.w3.org/2000/svg','text');
     loadingText.setAttribute('x',W/2); loadingText.setAttribute('y',H/2);
-    loadingText.setAttribute('text-anchor','middle'); loadingText.setAttribute('fill','#2a5040');
+    loadingText.setAttribute('text-anchor','middle'); loadingText.setAttribute('fill','#3a2010');
     loadingText.setAttribute('font-size','13'); loadingText.textContent = 'Loading map…';
     svg.appendChild(loadingText);
 
@@ -285,13 +285,13 @@ function initWKMap(){
       // Countries
       countries.features.forEach(feature=>{
         const region = window.COUNTRY_TO_REGION[+feature.id];
-        const col = region ? REGION_COLORS[region] : '#1a2a22';
+        const col = region ? REGION_COLORS[region] : '#2a1a10';
         const d = path(feature);
         if(!d) return;
         const p = document.createElementNS('http://www.w3.org/2000/svg','path');
         p.setAttribute('d', d);
         p.setAttribute('fill', col);
-        p.setAttribute('stroke','#0a1810');
+        p.setAttribute('stroke','#160f08');
         p.setAttribute('stroke-width','0.4');
         p.style.cursor = region ? 'pointer' : 'default';
         p.style.transition = 'opacity 0.15s';
@@ -310,7 +310,7 @@ function initWKMap(){
       const outline = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
       outline.setAttribute('cx',W/2); outline.setAttribute('cy',H/2);
       outline.setAttribute('rx',W/2-2); outline.setAttribute('ry',H/2-2);
-      outline.setAttribute('fill','none'); outline.setAttribute('stroke','#1a4030'); outline.setAttribute('stroke-width','0.8');
+      outline.setAttribute('fill','none'); outline.setAttribute('stroke','#3a2010'); outline.setAttribute('stroke-width','0.8');
       svg.appendChild(outline);
 
     }).catch(()=>{
@@ -330,14 +330,14 @@ function initWKMap(){
           <span style="font-size:18px;">${data.emoji}</span>
           <div>
             <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${data.title}</div>
-            <div style="font-size:11px;color:#5b8a76;">${data.sub}</div>
+            <div style="font-size:11px;color:#b0936a;">${data.sub}</div>
           </div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;">
-          ${data.dishes.map(d=>`<span style="font-size:11px;padding:4px 9px;border-radius:14px;border:1px solid #1a4030;color:#50a878;background:#0a1810;">${d}</span>`).join('')}
+          ${data.dishes.map(d=>`<span style="font-size:11px;padding:4px 9px;border-radius:14px;border:1px solid #3a2010;color:#c8a86a;background:#160f08;">${d}</span>`).join('')}
         </div>
         <button onclick="setQuiet({wkScreen:'country',wkCountry:'${regionKey}'});draw();window.scrollTo(0,0);"
-                style="width:100%;padding:10px;border-radius:8px;background:#0a2018;border:2px solid #30a878;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
+                style="width:100%;padding:10px;border-radius:8px;background:#1a1208;border:2px solid #c06020;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
           Explore ${data.title} cuisine →
         </button>
       `;
@@ -359,33 +359,33 @@ function wkSAKitchensHTML(){
 
   const active = S.wkSACulture || null;
 
-  return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
-    <div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">
-      <button onclick="setQuiet({wkScreen:null});draw()" style="background:none;border:none;color:#30a878;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← World Kitchen</button>
+  return `<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">
+    <div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">
+      <button onclick="setQuiet({wkScreen:null});draw()" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← World Kitchen</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
         <span style="font-size:22px;">🇿🇦</span>
         <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;margin:0;">South African Kitchens</h1>
       </div>
-      <p style="font-size:12px;color:#3e8f5f;margin:0;font-style:italic;">The flavours that built this country</p>
+      <p style="font-size:12px;color:#c0915a;margin:0;font-style:italic;">The flavours that built this country</p>
     </div>
 
     <div style="padding:16px;max-width:600px;margin:0 auto;">
       ${cultures.map(c=>`
         <div onclick="setQuiet({wkSACulture:'${c.key}'})"
-             style="background:${active===c.key?'#0a2018':'#0f1a14'};border:1px solid ${active===c.key?'#30a878':'#1a3020'};border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;">
+             style="background:${active===c.key?'#1a1208':'#161210'};border:1px solid ${active===c.key?'#c06020':'#2a1a10'};border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:${active===c.key?'10px':'0'};">
             <span style="font-size:24px;">${c.emoji}</span>
             <div style="flex:1;">
               <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${c.name}</div>
-              <div style="font-size:11px;color:#538a73;margin-top:2px;">${c.desc}</div>
+              <div style="font-size:11px;color:#b0936a;margin-top:2px;">${c.desc}</div>
             </div>
-            <div style="color:#30a878;font-size:16px;">${active===c.key?'▾':'›'}</div>
+            <div style="color:#c06020;font-size:16px;">${active===c.key?'▾':'›'}</div>
           </div>
           ${active===c.key?`
-            <div style="border-top:1px solid #1a3020;padding-top:10px;">
-              <p style="font-size:12px;color:#50a878;font-style:italic;margin:0 0 10px;">${c.feel}</p>
+            <div style="border-top:1px solid #2a1a10;padding-top:10px;">
+              <p style="font-size:12px;color:#c8a86a;font-style:italic;margin:0 0 10px;">${c.feel}</p>
               <button onclick="event.stopPropagation();setQuiet({wkScreen:'country',wkCountry:'${c.key}',wkSACulture:'${c.key}'});draw();window.scrollTo(0,0);"
-                      style="width:100%;padding:10px;border-radius:8px;background:#0a2018;border:2px solid #30a878;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
+                      style="width:100%;padding:10px;border-radius:8px;background:#1a1208;border:2px solid #c06020;color:#40d090;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
                 Explore ${c.name} recipes →
               </button>
             </div>
@@ -989,11 +989,11 @@ function wkCountryHTML(){
 
   // ── REGION DISPLAY DATA ──────────────────────────────────────────
   const REGIONS_DATA = {
-    'north-america':   { title:'North America',           emoji:'🌎', color:'#5DCAA5', bg:'#0a1a14', border:'#1a3a2a' },
-    'mexico':          { title:'Mexico & Central America',emoji:'🌮', color:'#1D9E75', bg:'#081a10', border:'#153a20' },
+    'north-america':   { title:'North America',           emoji:'🌎', color:'#5DCAA5', bg:'#160f08', border:'#2a1a10' },
+    'mexico':          { title:'Mexico & Central America',emoji:'🌮', color:'#1D9E75', bg:'#140d06', border:'#3a2010' },
     'caribbean':       { title:'Caribbean',               emoji:'🌴', color:'#97C459', bg:'#0f1a08', border:'#2a3a15' },
-    'south-america-n': { title:'South America — North',   emoji:'🌿', color:'#639922', bg:'#0f1808', border:'#253510' },
-    'south-america-s': { title:'South America — South',   emoji:'🔥', color:'#3B6D11', bg:'#0f1808', border:'#1a3010' },
+    'south-america-n': { title:'South America — North',   emoji:'🌿', color:'#639922', bg:'#160f08', border:'#253510' },
+    'south-america-s': { title:'South America — South',   emoji:'🔥', color:'#3B6D11', bg:'#160f08', border:'#2a1a10' },
     'western-europe':  { title:'Western Europe',          emoji:'🥐', color:'#7F77DD', bg:'#0f0f1a', border:'#1a1a3a' },
     'southern-europe': { title:'Southern Europe',         emoji:'🍝', color:'#534AB7', bg:'#0a0a18', border:'#151530' },
     'eastern-europe':  { title:'Eastern Europe',          emoji:'🥘', color:'#AFA9EC', bg:'#0f0f1a', border:'#20203a' },
@@ -1008,12 +1008,12 @@ function wkCountryHTML(){
     'iran':            { title:'Persia (Iran)',            emoji:'🏵', color:'#D85A30', bg:'#1a0c08', border:'#3a1810' },
     'south-asia':      { title:'South Asia',              emoji:'🍛', color:'#7F77DD', bg:'#0f0a18', border:'#201530' },
     'central-asia':    { title:'Central Asia',            emoji:'🐑', color:'#85B7EB', bg:'#0a1018', border:'#151a2a' },
-    'east-asia':       { title:'East Asia',               emoji:'🥢', color:'#5DCAA5', bg:'#0a1a14', border:'#1a3025' },
-    'southeast-asia':  { title:'Southeast Asia',          emoji:'🌿', color:'#5DCAA5', bg:'#0a1a14', border:'#1a3025' },
+    'east-asia':       { title:'East Asia',               emoji:'🥢', color:'#5DCAA5', bg:'#160f08', border:'#2a1a10' },
+    'southeast-asia':  { title:'Southeast Asia',          emoji:'🌿', color:'#5DCAA5', bg:'#160f08', border:'#2a1a10' },
     'oceania':         { title:'Oceania & Pacific',       emoji:'🌺', color:'#85B7EB', bg:'#0a1018', border:'#15202a' },
   };
 
-  const data   = REGIONS_DATA[regionKey] || { title:regionKey, emoji:'🌍', color:'#30a878', bg:'#0a1810', border:'#1a3020' };
+  const data   = REGIONS_DATA[regionKey] || { title:regionKey, emoji:'🌍', color:'#c06020', bg:'#160f08', border:'#2a1a10' };
   const color  = data.color;
   const bg     = data.bg;
   const border = data.border;
@@ -1053,7 +1053,7 @@ function wkCountryHTML(){
     </div>`;
   }
 
-  return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
+  return `<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">
 
     <!-- Header -->
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
@@ -1069,19 +1069,19 @@ function wkCountryHTML(){
 
     <!-- Country List -->
     <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:0.08em;color:#4a8c70;text-transform:uppercase;margin-bottom:10px;">Choose a country</div>
+      <div style="font-size:10px;letter-spacing:0.08em;color:#b0936a;text-transform:uppercase;margin-bottom:10px;">Choose a country</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
         ${countries.map(c => {
           const isSelected = selectedCountry === c.id;
           const hasRecipes = !!COUNTRY_RECIPES[c.id];
           return `<div onclick="setQuiet({wkCountry:'${c.id}',wkCourseTab:'mains',wkRecipeDetail:null});draw();window.scrollTo(0,0);"
-               style="background:${isSelected ? bg : '#0f1a14'};border:1px solid ${isSelected ? color : border};border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.15s;">
+               style="background:${isSelected ? bg : '#161210'};border:1px solid ${isSelected ? color : border};border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.15s;">
             <span style="font-size:22px;">${c.flag}</span>
             <div style="flex:1;">
               <div style="font-size:14px;color:${isSelected ? color : '#c8b898'};font-weight:bold;margin-bottom:2px;">${c.name}</div>
-              <div style="font-size:11px;color:#538a73;line-height:1.4;font-style:italic;">${c.feel}</div>
+              <div style="font-size:11px;color:#b0936a;line-height:1.4;font-style:italic;">${c.feel}</div>
             </div>
-            <div style="color:${hasRecipes ? color : '#2a4030'};font-size:16px;">${hasRecipes ? '›' : '○'}</div>
+            <div style="color:${hasRecipes ? color : '#3a2010'};font-size:16px;">${hasRecipes ? '›' : '○'}</div>
           </div>`;
         }).join('')}
       </div>
@@ -1095,20 +1095,20 @@ function wkCountryHTML(){
 
       <!-- Trivia card -->
       ${COUNTRY_RECIPES[selectedCountry].trivia ? `
-      <div style="background:#0f1a14;border:1px solid ${border};border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+      <div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px 14px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:0.08em;color:${color};text-transform:uppercase;margin-bottom:6px;">Food Culture</div>
-        <div style="font-size:12px;color:#a0b8a8;line-height:1.7;">${COUNTRY_RECIPES[selectedCountry].trivia}</div>
-        ${COUNTRY_RECIPES[selectedCountry].grows ? `<div style="margin-top:8px;font-size:11px;color:#538a73;"><span style="color:${color};">🌱 Grows: </span>${COUNTRY_RECIPES[selectedCountry].grows}</div>` : ''}
-        ${COUNTRY_RECIPES[selectedCountry].cookStyle ? `<div style="margin-top:4px;font-size:11px;color:#538a73;"><span style="color:${color};">👩‍🍳 Who cooks: </span>${COUNTRY_RECIPES[selectedCountry].cookStyle}</div>` : ''}
+        <div style="font-size:12px;color:#c8b898;line-height:1.7;">${COUNTRY_RECIPES[selectedCountry].trivia}</div>
+        ${COUNTRY_RECIPES[selectedCountry].grows ? `<div style="margin-top:8px;font-size:11px;color:#b0936a;"><span style="color:${color};">🌱 Grows: </span>${COUNTRY_RECIPES[selectedCountry].grows}</div>` : ''}
+        ${COUNTRY_RECIPES[selectedCountry].cookStyle ? `<div style="margin-top:4px;font-size:11px;color:#b0936a;"><span style="color:${color};">👩‍🍳 Who cooks: </span>${COUNTRY_RECIPES[selectedCountry].cookStyle}</div>` : ''}
       </div>` : ''}
 
       <!-- Servings -->
-      <div style="background:#0f1a14;border:1px solid ${border};border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
-        <span style="font-size:12px;color:#5b8a76;">Serves</span>
+      <div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:12px;color:#b0936a;">Serves</span>
         <div style="display:flex;align-items:center;gap:10px;">
-          <button onclick="if(S.wkServings>1)setQuiet({wkServings:S.wkServings-1})" style="width:28px;height:28px;border-radius:50%;background:#1a2a20;border:1px solid ${border};color:${color};font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="if(S.wkServings>1)setQuiet({wkServings:S.wkServings-1})" style="width:28px;height:28px;border-radius:50%;background:#2a1a10;border:1px solid ${border};color:${color};font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
           <span style="font-size:16px;color:#f5e8cc;font-weight:bold;min-width:24px;text-align:center;">${wkServings}</span>
-          <button onclick="setQuiet({wkServings:S.wkServings+1})" style="width:28px;height:28px;border-radius:50%;background:#1a2a20;border:1px solid ${border};color:${color};font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="setQuiet({wkServings:S.wkServings+1})" style="width:28px;height:28px;border-radius:50%;background:#2a1a10;border:1px solid ${border};color:${color};font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>
 
@@ -1116,7 +1116,7 @@ function wkCountryHTML(){
       <div style="display:flex;gap:4px;margin-bottom:10px;">
         ${TABS.map(t => `
           <button onclick="setQuiet({wkCourseTab:'${t.id}'})" 
-                  style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${tab===t.id ? color : border};background:${tab===t.id ? bg : '#0a0f0c'};color:${tab===t.id ? color : '#3a5040'};font-size:10px;cursor:pointer;font-family:Georgia,serif;">
+                  style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid ${tab===t.id ? color : border};background:${tab===t.id ? bg : '#0f0e0c'};color:${tab===t.id ? color : '#6a5440'};font-size:13px;cursor:pointer;font-family:Georgia,serif;">
             ${t.e}<br>${t.l}
           </button>`).join('')}
       </div>
@@ -1125,10 +1125,10 @@ function wkCountryHTML(){
       <div style="display:flex;flex-direction:column;gap:6px;">
         ${recipes.map((r,i) => `
           <div onclick="setQuiet({wkRecipeDetail:{name:'${r.replace(/'/g,"\\'")}',region:'${selectedCountry}',tab:'${tab}',servings:${wkServings}}});draw();window.scrollTo(0,0);"
-               style="background:#0f1a14;border:1px solid ${border};border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+               style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:14px;color:#c8b898;margin-bottom:2px;">${r}</div>
-              <div style="font-size:10px;color:#63896d;">${tab.charAt(0).toUpperCase()+tab.slice(1,-1)} · Tap for full recipe</div>
+              <div style="font-size:10px;color:#b0936a;">${tab.charAt(0).toUpperCase()+tab.slice(1,-1)} · Tap for full recipe</div>
             </div>
             <span style="color:${color};font-size:16px;">›</span>
           </div>`).join('')}
@@ -1136,10 +1136,10 @@ function wkCountryHTML(){
 
     </div>` : selectedCountry && !countryRecipes ? `
     <div style="padding:20px 16px;max-width:600px;margin:0 auto;">
-      <div style="background:#0f1a14;border:1px solid ${border};border-radius:10px;padding:20px;text-align:center;">
+      <div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:20px;text-align:center;">
         <div style="font-size:32px;margin-bottom:8px;">🌍</div>
-        <div style="font-size:14px;color:#5b8a76;">Full recipe collection coming soon</div>
-        <div style="font-size:11px;color:#5a8a67;margin-top:4px;">We're building this country's kitchen now</div>
+        <div style="font-size:14px;color:#b0936a;">Full recipe collection coming soon</div>
+        <div style="font-size:11px;color:#b0936a;margin-top:4px;">We're building this country's kitchen now</div>
       </div>
     </div>` : ''}
 
@@ -1152,9 +1152,9 @@ function wkRecipeDetailHTML(regionData){
   if(!det) return '';
 
   const rd = regionData || {};
-  const color  = rd.color  || '#30a878';
-  const bg     = rd.bg     || '#0a1810';
-  const border = rd.border || '#1a3020';
+  const color  = rd.color  || '#c06020';
+  const bg     = rd.bg     || '#160f08';
+  const border = rd.border || '#2a1a10';
 
   const servings = S.wkServings || 4;
   const adj = (S.recipeAdjustments || {})[det.name] || 0;
@@ -1185,10 +1185,10 @@ function wkRecipeDetailHTML(regionData){
   // Timer state helper
   const timerKey = 'wkt_' + det.name.replace(/\s+/g,'_');
 
-  return `<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">
+  return `<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">
 
     <!-- Text header (Braai pattern) -->
-    <div style="background:#0f1a14;border-bottom:1px solid ${border};padding:14px 16px;">
+    <div style="background:#161210;border-bottom:1px solid ${border};padding:14px 16px;">
       <button onclick="setQuiet({wkRecipeDetail:null});draw();window.scrollTo(0,0);" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← ${rd.title||'World Kitchen'}</button>
       <div style="font-size:22px;font-weight:normal;color:#f5e8cc;">${det.emoji} ${det.name}</div>
       <div style="font-size:11px;color:${color};font-style:italic;margin-top:3px;opacity:0.8;">Full recipe · ${det.tab}</div>
@@ -1198,22 +1198,22 @@ function wkRecipeDetailHTML(regionData){
       ${recipePhoto(det.name, det.emoji)}
 
       <!-- Quantity box -->
-      <div style="background:#0a2018;border:1px solid ${color};border-radius:12px;padding:12px 14px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;">
+      <div style="background:#1a1208;border:1px solid ${color};border-radius:12px;padding:12px 14px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;">
         <div>
-          <div style="font-size:11px;color:#3e8f5f;margin-bottom:2px;">Total</div>
+          <div style="font-size:11px;color:#c0915a;margin-bottom:2px;">Total</div>
           <div style="font-size:18px;color:#f5e8cc;font-weight:bold;">${totalServings} ${totalServings===1?'person':'people'}</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <button onclick="(function(){var a=(S.recipeAdjustments||{});a['${det.name.replace(/'/g,'')}']=(a['${det.name.replace(/'/g,'')}']||0)-1;if((S.wkServings||4)+(a['${det.name.replace(/'/g,'')}']||0)<1)a['${det.name.replace(/'/g,'')}']=(a['${det.name.replace(/'/g,'')}']||0)+1;setQuiet({recipeAdjustments:a});})()" style="width:30px;height:30px;border-radius:50%;border:1px solid ${color};background:transparent;color:${color};font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
           <button onclick="(function(){var a=(S.recipeAdjustments||{});a['${det.name.replace(/'/g,'')}']=(a['${det.name.replace(/'/g,'')}']||0)+1;setQuiet({recipeAdjustments:a});})()" style="width:30px;height:30px;border-radius:50%;border:1px solid ${color};background:transparent;color:${color};font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
-          <span style="font-size:11px;color:#4a8c62;">⚖️ scaled</span>
+          <span style="font-size:11px;color:#b0936a;">⚖️ scaled</span>
         </div>
       </div>
 
       <!-- How portion size works -->
       <div style="margin-bottom:12px;">
         <span id="wk-portion-btn" onclick="(function(){var c=document.getElementById('wk-portion-body');var b=document.getElementById('wk-portion-btn');var open=c.style.display==='block';c.style.display=open?'none':'block';b.textContent=open?'▼ How portion size works':'▲ How portion size works';})()" style="font-size:12px;color:${color};cursor:pointer;user-select:none;">▼ How portion size works</span>
-        <div id="wk-portion-body" style="display:none;background:#0f1a14;border:1px solid ${border};border-radius:8px;padding:12px;margin-top:6px;font-size:12px;color:#90a898;line-height:1.8;">
+        <div id="wk-portion-body" style="display:none;background:#161210;border:1px solid ${border};border-radius:8px;padding:12px;margin-top:6px;font-size:12px;color:#c8b898;line-height:1.8;">
           1. Pick one dish — you get a full serving of it<br>
           2. Pick two dishes — half of each, same total food<br>
           3. More dishes = smaller slices, same total<br>
@@ -1235,7 +1235,7 @@ function wkRecipeDetailHTML(regionData){
             <span style="font-size:13px;color:#f5c842;font-weight:bold;">${amt||'to taste'}</span>
           </div>`;
         }).join('')}
-        <div style="font-size:10px;color:#4a8c62;margin-top:8px;font-style:italic;">📚 Full recipe ingredients arrive when recipe library is added — coming soon</div>
+        <div style="font-size:10px;color:#b0936a;margin-top:8px;font-style:italic;">📚 Full recipe ingredients arrive when recipe library is added — coming soon</div>
       </div>
 
       <!-- Method -->
@@ -1260,21 +1260,21 @@ function wkRecipeDetailHTML(regionData){
       <div style="margin-bottom:16px;">
         <div style="font-size:11px;color:${color};letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Goes Well With</div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          ${gww.map(g=>`<span style="padding:5px 12px;border-radius:16px;border:1px solid ${border};color:#80a890;font-size:12px;">${g}</span>`).join('')}
+          ${gww.map(g=>`<span style="padding:5px 12px;border-radius:16px;border:1px solid ${border};color:#c8b898;font-size:12px;">${g}</span>`).join('')}
         </div>
       </div>
 
       <!-- Bottom actions -->
       <div style="display:flex;gap:8px;margin-bottom:14px;">
-        <button onclick="alert('Add to plan — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#0a1810;border:1px solid ${border};color:#50a878;font-size:12px;cursor:pointer;">📋 Add to Plan</button>
-        <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#0a1810;border:1px solid ${border};color:#50a878;font-size:12px;cursor:pointer;">💾 My Kitchen</button>
-        <button onclick="alert('Download — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#0a1810;border:1px solid ${border};color:#50a878;font-size:12px;cursor:pointer;">⬇️ Download</button>
+        <button onclick="alert('Add to plan — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#160f08;border:1px solid ${border};color:#c8a86a;font-size:12px;cursor:pointer;">📋 Add to Plan</button>
+        <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#160f08;border:1px solid ${border};color:#c8a86a;font-size:12px;cursor:pointer;">💾 My Kitchen</button>
+        <button onclick="alert('Download — coming soon')" style="flex:1;padding:11px 8px;border-radius:10px;background:#160f08;border:1px solid ${border};color:#c8a86a;font-size:12px;cursor:pointer;">⬇️ Download</button>
       </div>
 
       <!-- Text nav -->
       <div style="display:flex;justify-content:space-between;padding:10px 0 30px;border-top:1px solid ${border};font-size:12px;">
         <button onclick="setQuiet({wkRecipeDetail:null});draw();window.scrollTo(0,0);" style="background:none;border:none;color:${color};cursor:pointer;font-family:Georgia,serif;">← Back</button>
-        <button onclick="set({screen:'home'})" style="background:none;border:none;color:#63896d;cursor:pointer;font-family:Georgia,serif;">Home</button>
+        <button onclick="set({screen:'home'})" style="background:none;border:none;color:#b0936a;cursor:pointer;font-family:Georgia,serif;">Home</button>
       </div>
 
     </div>
@@ -1368,7 +1368,7 @@ function wkCourseEmoji(course){
 
 /* Braai-style row: emoji · name/note · green "Recipe →" button (WK green theme). */
 function wkRecipeCard(r){
-  var green='#30a878', cream='#f5e8cc', feelCol='#e0d4b8';
+  var green='#c06020', cream='#f5e8cc', feelCol='#e0d4b8';
   var disp = (typeof tinzaDisplayName === 'function')
     ? tinzaDisplayName(r)
     : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
@@ -1393,7 +1393,7 @@ function wkRecipeCard(r){
     + 'background:'+(checked?green:'transparent')+';color:#fff;display:flex;align-items:center;'
     + 'justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">'+(checked?'✓':'')+'</div>';
   return '<div onclick="'+open+'" '
-    + 'style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;">'
+    + 'style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;">'
     +   '<div style="display:flex;align-items:center;gap:10px;">'
     +     box
     +     '<span style="font-size:20px;flex-shrink:0;">'+emoji+'</span>'
@@ -1401,7 +1401,7 @@ function wkRecipeCard(r){
     +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
     +       '<div style="font-size:14px;color:'+feelCol+';margin-top:3px;line-height:1.4;">'+sub+'</div>'
     +     '</div>'
-    +     (grams ? '<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;flex-shrink:0;">'+grams+' <span style="font-size:9px;color:#538a73;font-weight:normal;">pp</span></span>' : '')
+    +     (grams ? '<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;flex-shrink:0;">'+grams+' <span style="font-size:9px;color:#b0936a;font-weight:normal;">pp</span></span>' : '')
     +     '<button onclick="event.stopPropagation();'+open+'" style="background:'+green+';border:none;border-radius:6px;padding:5px 11px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;font-weight:bold;flex-shrink:0;">Recipe →</button>'
     +   '</div>'
     + '</div>';
@@ -1409,40 +1409,40 @@ function wkRecipeCard(r){
 
 /* braai-style grid tile: emoji on top, bold title, subtitle. dim = coming-soon, accent = green-featured. */
 function wkGridCard(emoji, title, sub, onclick, dim, accent){
-  var green='#30a878', cream='#f5e8cc';
-  var bg = dim ? '#0c130f' : (accent ? '#0a2018' : '#0f1a14');
-  var bd = dim ? '#142018' : (accent ? green   : '#1a3020');
+  var green='#c06020', cream='#f5e8cc';
+  var bg = dim ? '#140d06' : (accent ? '#1a1208' : '#161210');
+  var bd = dim ? '#142018' : (accent ? green   : '#2a1a10');
   return '<div'+(dim?'':' onclick="'+onclick+'"')+' '
     + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:12px;padding:16px 8px;text-align:center;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:92px;">'
     +   '<div style="font-size:26px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
-    +   '<div style="font-size:13px;color:'+(dim?'#5a7060':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
-    +   (sub ? '<div style="font-size:10px;color:'+(dim?'#3a5040':'#50a878')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
+    +   '<div style="font-size:13px;color:'+(dim?'#6a5440':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
+    +   (sub ? '<div style="font-size:10px;color:'+(dim?'#6a5440':'#c8a86a')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
     + '</div>';
 }
 
 /* ── HOME / drill-down: continents → regions → countries (braai-style grids) ── */
 function wkWorldHome(){
-  var green = '#30a878', cream = '#f5e8cc';
+  var green = '#c06020', cream = '#f5e8cc';
   var mapImg = 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Image%20header/world-map.jpg';
   var search = (S.wkSearch || '').trim();
 
   var header = ''
-    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#0a1810 0%,#0f2818 100%);">'
+    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#0f2818 100%);">'
     +   '<div style="position:absolute;inset:0;background-image:url(\''+mapImg+'\');background-size:cover;background-position:center;opacity:0.55;"></div>'
     +   '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,12,8,0.35) 0%,rgba(4,12,8,0.85) 100%);z-index:1;"></div>'
-    +   '<button onclick="set({screen:\'home\',wkContinent:null,wkRegion:null,wkSearch:\'\'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>'
+    +   '<button onclick="set({screen:\'home\',wkContinent:null,wkRegion:null,wkSearch:\'\'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>'
     +   '<div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">'
     +     '<h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:'+cream+';font-family:Georgia,serif;">🌍 World Kitchen</h1>'
-    +     '<p style="margin:0 0 10px;font-size:11px;color:#50a878;font-style:italic;">Tap a continent, then a region, then a country</p>'
-    +     '<div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #1a4030;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
+    +     '<p style="margin:0 0 10px;font-size:11px;color:#c8a86a;font-style:italic;">Tap a continent, then a region, then a country</p>'
+    +     '<div style="display:flex;align-items:center;background:rgba(10,24,16,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
     +       '<span style="color:'+green+';margin-right:8px;font-size:14px;">🔍</span>'
-    +       '<input type="text" placeholder="Search dishes, countries…" oninput="set({wkSearch:this.value})" value="'+(S.wkSearch||'').replace(/"/g,'&quot;')+'" style="flex:1;background:none;border:none;outline:none;color:#b0d8c0;font-size:13px;font-family:Georgia,serif;" />'
-    +       (S.wkSearch ? '<button onclick="set({wkSearch:\'\'})" style="background:none;border:none;color:#3a8e6b;font-size:16px;cursor:pointer;">×</button>' : '')
+    +       '<input type="text" placeholder="Search dishes, countries…" oninput="set({wkSearch:this.value})" value="'+(S.wkSearch||'').replace(/"/g,'&quot;')+'" style="flex:1;background:none;border:none;outline:none;color:#d8c8a8;font-size:13px;font-family:Georgia,serif;" />'
+    +       (S.wkSearch ? '<button onclick="set({wkSearch:\'\'})" style="background:none;border:none;color:#b0936a;font-size:16px;cursor:pointer;">×</button>' : '')
     +     '</div>'
     +   '</div>'
     + '</div>';
 
-  var wrap = function(inner){ return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header+inner+'</div>'; };
+  var wrap = function(inner){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header+inner+'</div>'; };
   var pad  = function(inner){ return '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+inner+'</div>'; };
   var backRow = function(label, action){ return '<div onclick="'+action+'" style="display:inline-block;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:12px;font-family:Georgia,serif;">'+label+'</div>'; };
   var heading = function(t){ return '<h2 style="font-size:19px;font-weight:normal;color:'+cream+';margin:0 0 10px;font-family:Georgia,serif;">'+t+'</h2>'; };
@@ -1452,9 +1452,9 @@ function wkWorldHome(){
   if(search){
     var results = (typeof tinzaSearch === 'function') ? tinzaSearch(search, wkPool()) : [];
     var rbody = '<div style="padding:14px 16px;max-width:600px;margin:0 auto;">'
-      + '<div style="font-size:11px;color:#538a73;margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
+      + '<div style="font-size:11px;color:#b0936a;margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
       + (results.length ? results.slice(0,80).map(wkRecipeCard).join('')
-         : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:24px;text-align:center;color:#5b8a76;font-size:13px;">No dishes found. Try another word.</div>')
+         : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:24px;text-align:center;color:#b0936a;font-size:13px;">No dishes found. Try another word.</div>')
       + '</div>';
     return wrap(rbody);
   }
@@ -1470,7 +1470,7 @@ function wkWorldHome(){
               "set({wkScreen:'wkdata',wkDataCountry:'"+ct.replace(/'/g,"\\'")+"',wkDataTab:'mains',wkDataRecipe:null});window.scrollTo(0,0)", false);
           }).join('')
         + '</div>'
-      : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#5b8a76;font-size:13px;">No countries here yet.</div>';
+      : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#b0936a;font-size:13px;">No countries here yet.</div>';
     return wrap(pad( backRow('← '+S.wkContinent, "set({wkRegion:null});window.scrollTo(0,0)") + heading(S.wkRegion) + l3grid ));
   }
 
@@ -1486,7 +1486,7 @@ function wkWorldHome(){
               "set({wkRegion:'"+reg.replace(/'/g,"\\'")+"'});window.scrollTo(0,0)", false);
           }).join('')
         + '</div>'
-      : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#5b8a76;font-size:13px;">🌍 Recipes being added — coming soon</div>';
+      : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#b0936a;font-size:13px;">🌍 Recipes being added — coming soon</div>';
     return wrap(pad( backRow('← World Kitchen', "set({wkContinent:null,wkRegion:null});window.scrollTo(0,0)") + heading(S.wkContinent) + l2grid ));
   }
 
@@ -1506,7 +1506,7 @@ function wkWorldHome(){
 
 /* ── COUNTRY recipe list + RECIPE detail (data-driven) ── */
 function wkDataCountryHTML(){
-  var green = '#30a878', cream = '#f5e8cc';
+  var green = '#c06020', cream = '#f5e8cc';
   var pool = wkPool();
   var country = S.wkDataCountry;
 
@@ -1515,7 +1515,7 @@ function wkDataCountryHTML(){
     var r = null;
     for(var i=0;i<pool.length;i++){ if(pool[i].id === S.wkDataRecipe){ r = pool[i]; break; } }
     if(!r){
-      return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;padding:20px;color:#c8b898;">'
+      return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#c8b898;">'
         + '<button onclick="set({wkDataRecipe:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
         + '<p style="margin-top:20px;">Recipe not found.</p></div>';
     }
@@ -1536,21 +1536,21 @@ function wkDataCountryHTML(){
         var pn = planCounts[tabPool[t.id]] || 0;
         var sel = tab===t.id;
         var badge = pn>0 ? '<span style="display:inline-block;min-width:15px;margin-left:3px;padding:0 4px;border-radius:8px;background:#c97a30;color:#1a0f06;font-size:9px;font-weight:bold;line-height:15px;vertical-align:middle;">'+pn+'</span>' : '';
-        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#1a3020')+';background:'+(sel?'#0a2018':'#0a0f0c')+';color:'+(sel?green:'#3a5040')+';font-size:10px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
+        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#2a1a10')+';background:'+(sel?'#1a1208':'#0f0e0c')+';color:'+(sel?green:'#6a5440')+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
       }).join('')
     + '</div>';
 
   var list = inTab.length
     ? inTab.map(wkRecipeCard).join('')
-    : '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:20px;text-align:center;color:#5b8a76;font-size:13px;">No '+tab+' for '+country+' yet.</div>';
+    : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#b0936a;font-size:13px;">No '+tab+' for '+country+' yet.</div>';
 
-  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
-    + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
+  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
+    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">'
     +   '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
     +   '<div style="display:flex;justify-content:space-between;align-items:flex-end;">'
     +     '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+country+'</h1>'
-    +     '<p style="font-size:12px;color:#3e8f5f;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p></div>'
-    +     '<button onclick="set({wkScreen:\'wkplan\'});window.scrollTo(0,0);" style="background:#0a1a10;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
+    +     '<p style="font-size:12px;color:#c0915a;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p></div>'
+    +     '<button onclick="set({wkScreen:\'wkplan\'});window.scrollTo(0,0);" style="background:#160f08;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
     +   '</div>'
     + '</div>'
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
@@ -1772,7 +1772,7 @@ function wkBackFromRecipe(){
 
 /* ── v33 RECIPE DETAIL ── */
 function wkDetailV33(r, country){
-  var green='#30a878', cream='#f5e8cc';
+  var green='#c06020', cream='#f5e8cc';
   var n = Math.max(1, S.wkServings || 1);
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var items = wkParseIngredients(r.ingredients);
@@ -1786,40 +1786,40 @@ function wkDetailV33(r, country){
 
   // serving stepper
   var stepper = ''
-    + '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">'
+    + '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">'
     +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Servings</div>'
-    +   '<div style="font-size:10px;color:#538a73;margin-top:2px;">amounts scale per person</div></div>'
+    +   '<div style="font-size:10px;color:#b0936a;margin-top:2px;">amounts scale per person</div></div>'
     +   '<div style="display:flex;align-items:center;gap:10px;">'
-    +     '<button onclick="set({wkServings:Math.max(1,(S.wkServings||1)-1)})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">−</button>'
+    +     '<button onclick="set({wkServings:Math.max(1,(S.wkServings||1)-1)})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">−</button>'
     +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:30px;text-align:center;">'+n+'</span>'
-    +     '<button onclick="set({wkServings:(S.wkServings||1)+1})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">+</button>'
+    +     '<button onclick="set({wkServings:(S.wkServings||1)+1})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">+</button>'
     +   '</div>'
     + '</div>';
 
   // meta chips
   var metaBox = '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-    + (r.cookTime ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">⏱ '+r.cookTime+'</span>' : '')
-    + (r.kcal ? '<span style="background:#0f1a14;border:1px solid #1a3020;border-radius:8px;padding:5px 10px;font-size:11px;color:#80b898;">🔥 '+r.kcal+'</span>' : '')
+    + (r.cookTime ? '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:11px;color:#d8c8a8;">⏱ '+r.cookTime+'</span>' : '')
+    + (r.kcal ? '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:11px;color:#d8c8a8;">🔥 '+r.kcal+'</span>' : '')
     + '</div>';
 
   // ingredients (scaled) — Buffet-style "pp · total"
   var ingRows = items.map(function(it){
     var ppS  = wkScaleLine(it, baseMult);       // standard per-person (standalone-dish portion)
     var totS = wkScaleLine(it, baseMult * n);   // standard total for N servings
-    var nameHTML = ppS.name + (ppS.note ? ' <span style="color:#538a73;font-size:11px;">('+ppS.note+')</span>' : '');
+    var nameHTML = ppS.name + (ppS.note ? ' <span style="color:#b0936a;font-size:11px;">('+ppS.note+')</span>' : '');
     var amtHTML;
     if(ppS.faded){
-      amtHTML = '<span style="color:#538a73;font-style:italic;white-space:nowrap;">to taste</span>';
+      amtHTML = '<span style="color:#b0936a;font-style:italic;white-space:nowrap;">to taste</span>';
     } else if(n === 1){
       amtHTML = '<span style="white-space:nowrap;"><strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
     } else {
-      amtHTML = '<span style="white-space:nowrap;"><span style="color:#538a73;font-size:11px;">'+ppS.amt+' pp</span> <span style="color:#538a73;">&middot;</span> <strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
+      amtHTML = '<span style="white-space:nowrap;"><span style="color:#b0936a;font-size:11px;">'+ppS.amt+' pp</span> <span style="color:#b0936a;">&middot;</span> <strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
     }
-    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #14241a;">'
-      + '<span style="color:#c0d0c4;">'+nameHTML+'</span>'
+    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #1a1208;">'
+      + '<span style="color:#d8c8a8;">'+nameHTML+'</span>'
       + amtHTML + '</div>';
   }).join('');
-  var ingBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+  var ingBox = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · for '+n+' '+(n===1?'person':'people')+'</div>'
     + ingRows
     + '</div>';
@@ -1830,31 +1830,31 @@ function wkDetailV33(r, country){
   var rawCarb = mainItem && /\b(rice|pasta|macaroni|spaghetti|noodle|noodles|couscous|bulgur|semolina|flour|lentil|lentils|bean|beans|chickpea|chickpeas|samp|grain)\b/.test((typeof wkCleanName==='function')?wkCleanName(mainItem.name):String(mainItem.name||'').toLowerCase());
   var rawTag = rawCarb ? ' <span style="font-size:11px;color:#748646;font-weight:normal;">raw</span>' : '';
   var quantBox = mainItem
-    ? '<div style="background:#0a1a10;border:1px solid '+green+';border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#160f08;border:1px solid '+green+';border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="font-size:10px;letter-spacing:0.12em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">\uD83D\uDCCB Quantities for '+n+' '+(n===1?'guest':'guests')+'</div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, baseMult * n).amt+rawTag+'</span></div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#c0d0c4;">Per person <span style="color:#538a73;font-size:11px;">(full helping on its own)</span></span><span style="font-size:13px;color:#80b898;">'+wkScaleLine(mainItem, baseMult).amt+rawTag+'</span></div>'
-      + (rawCarb ? '<div style="margin-top:8px;font-size:10px;color:#748646;line-height:1.5;">Amounts are <strong style="color:#80b898;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.</div>' : '')
-      + '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #143024;font-size:10px;color:#538a73;line-height:1.5;">A full portion for this dish served on its own. Add it to a plan with other dishes and the helping adjusts to share the plate.</div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#d8c8a8;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, baseMult * n).amt+rawTag+'</span></div>'
+      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#d8c8a8;">Per person <span style="color:#b0936a;font-size:11px;">(full helping on its own)</span></span><span style="font-size:13px;color:#d8c8a8;">'+wkScaleLine(mainItem, baseMult).amt+rawTag+'</span></div>'
+      + (rawCarb ? '<div style="margin-top:8px;font-size:10px;color:#748646;line-height:1.5;">Amounts are <strong style="color:#d8c8a8;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.</div>' : '')
+      + '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a1a10;font-size:10px;color:#b0936a;line-height:1.5;">A full portion for this dish served on its own. Add it to a plan with other dishes and the helping adjusts to share the plate.</div>'
       + '</div>'
     : '';
 
   // estimated cost (honest / partial)
   var costNote = cost.missing.length
     ? '<div style="font-size:10px;color:#748646;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
-    : '<div style="font-size:10px;color:#538a73;margin-top:6px;">all ingredients priced</div>';
+    : '<div style="font-size:10px;color:#b0936a;margin-top:6px;">all ingredients priced</div>';
   var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
   var costBox = !isWkPro
-    ? '<div style="background:#0a1a10;border:1px dashed #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
-      + '<div style="font-size:22px;color:#3c8f6b;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-      + '<div style="font-size:12px;color:#538a73;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div>'
+    ? '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:22px;color:#b0936a;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
+      + '<div style="font-size:12px;color:#b0936a;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div>'
       + '</div>'
-    : '<div style="background:#0a1a10;border:1px solid #1a4030;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    : '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;">'
-    +   '<div style="font-size:12px;color:#80b898;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
+    +   '<div style="font-size:12px;color:#d8c8a8;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
     +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div>'
     + '</div>'
-    + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #143024;"><span style="font-size:11px;color:#538a73;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
+    + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;"><span style="font-size:11px;color:#b0936a;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
     + costNote
     + '</div>';
 
@@ -1863,7 +1863,7 @@ function wkDetailV33(r, country){
   var swaps = [];
   for(var key in WK_SUBS){ if(hay.indexOf(key) > -1) swaps.push(WK_SUBS[key]); }
   var subsBox = swaps.length
-    ? '<div style="background:#10180c;border:1px solid #3a4a1a;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#160f08;border:1px solid #3a4a1a;border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="font-size:10px;letter-spacing:0.08em;color:#9ac84b;text-transform:uppercase;margin-bottom:8px;">🇿🇦 SA swaps</div>'
       + swaps.map(function(s){return '<div style="font-size:12px;color:#bcd49a;line-height:1.5;padding:4px 0;">• '+s+'</div>';}).join('')
       + '</div>'
@@ -1871,25 +1871,25 @@ function wkDetailV33(r, country){
 
   // method (Start Cooking button + per-step timer pills, braai-style)
   var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
-  var methodBox = '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+  var methodBox = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">'
     +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">Method</div>'
-    +   (steps.length ? '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:0}});window.scrollTo(0,0);" style="background:#0a2018;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:12px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🍳 Start Cooking →</button>' : '')
+    +   (steps.length ? '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:0}});window.scrollTo(0,0);" style="background:#1a1208;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:12px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🍳 Start Cooking →</button>' : '')
     + '</div>'
     + steps.map(function(s,si){
         var tp = wkStepTimer(s);
         return '<div style="display:flex;gap:10px;margin-bottom:10px;">'
-          + '<div style="min-width:22px;height:22px;border-radius:50%;background:#0a2018;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div>'
-          + '<div style="font-size:13px;color:#c0d0c4;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')
-          + (tp ? '<div style="margin-top:6px;"><span style="display:inline-block;background:#0a2018;border:1px solid '+green+';border-radius:6px;color:'+green+';font-size:11px;padding:3px 9px;">'+tp+'</span></div>' : '')
+          + '<div style="min-width:22px;height:22px;border-radius:50%;background:#1a1208;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div>'
+          + '<div style="font-size:13px;color:#d8c8a8;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')
+          + (tp ? '<div style="margin-top:6px;"><span style="display:inline-block;background:#1a1208;border:1px solid '+green+';border-radius:6px;color:'+green+';font-size:11px;padding:3px 9px;">'+tp+'</span></div>' : '')
           + '</div></div>';
       }).join('')
     + '</div>';
 
   // extras
-  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:11px;">'+label+': </span><span style="font-size:12px;color:#a0b8a8;">'+val+'</span></div>' : ''; }
+  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:11px;">'+label+': </span><span style="font-size:12px;color:#c8b898;">'+val+'</span></div>' : ''; }
   var extra = (r.chefNotes||r.pairsWith||r.nutrition||r.storage||r.trivia)
-    ? '<div style="background:#0b140f;border:1px solid #15281c;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#140d06;border:1px solid #1a1208;border-radius:10px;padding:14px;margin-bottom:12px;">'
       + infoRow('👩‍🍳 Chef notes', r.chefNotes)
       + infoRow('🍷 Pairs with', r.pairsWith)
       + infoRow('📊 Nutrition', r.nutrition)
@@ -1900,9 +1900,9 @@ function wkDetailV33(r, country){
 
   // tip (braai pattern) — only if the recipe carries one
   var tipBox = r.tip
-    ? '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>'
-      + '<div style="font-size:13px;color:#c0d0c4;line-height:1.6;">'+r.tip+'</div></div>'
+      + '<div style="font-size:13px;color:#d8c8a8;line-height:1.6;">'+r.tip+'</div></div>'
     : '';
 
   // goes well with (braai pattern) — from pairsWith, else a sensible default by course
@@ -1911,36 +1911,36 @@ function wkDetailV33(r, country){
   else if(r.pairsWith){ gwwList = r.pairsWith.split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean); }
   else { var gt=wkCourseToTab(r.course); gwwList = (gt==='desserts'?['Coffee','Fresh cream','Berries']:gt==='starters'?['A main course','Fresh bread','Lemon wedges']:['Fresh salad','Crusty bread','Steamed rice']); }
   var gwwBox = gwwList.length
-    ? '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>'
       + '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
-      + gwwList.slice(0,5).map(function(g){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #1a3020;color:#80b898;font-size:12px;">'+g+'</span>';}).join('')
+      + gwwList.slice(0,5).map(function(g){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #2a1a10;color:#d8c8a8;font-size:12px;">'+g+'</span>';}).join('')
       + '</div></div>'
     : '';
 
   // bottom action trio (braai pattern): Add to Plan · My Kitchen · Download
   var actionsRow = '<div style="display:flex;gap:8px;margin-bottom:12px;">'
     + '<button onclick="wkPlanToggle(\''+r.id+'\','+n+')" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-family:Georgia,serif;font-size:12px;font-weight:bold;'
-      + (inPlan ? 'background:#0a1a10;border:1px solid '+green+';color:'+green+';' : 'background:'+green+';border:1px solid '+green+';color:#219452;')
+      + (inPlan ? 'background:#160f08;border:1px solid '+green+';color:'+green+';' : 'background:'+green+';border:1px solid '+green+';color:#c06020;')
       + '">'+(inPlan ? '✓ In Plan' : '📋 Add to Plan')+'</button>'
-    + '<button onclick="alert(\'Save to My Kitchen — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a3020;color:#50a878;font-size:12px;cursor:pointer;font-family:Georgia,serif;">💾 My Kitchen</button>'
-    + '<button onclick="alert(\'Download — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#0a1810;border:1px solid #1a3020;color:#50a878;font-size:12px;cursor:pointer;font-family:Georgia,serif;">⬇️ Download</button>'
+    + '<button onclick="alert(\'Save to My Kitchen — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#c8a86a;font-size:12px;cursor:pointer;font-family:Georgia,serif;">💾 My Kitchen</button>'
+    + '<button onclick="alert(\'Download — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#c8a86a;font-size:12px;cursor:pointer;font-family:Georgia,serif;">⬇️ Download</button>'
     + '</div>';
 
-  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'
+  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
     + '<div style="position:relative;">'
     +   photo
-    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #1a4030;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
+    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(4,12,8,0.65);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:12px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
     + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
-    +   (/[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'') ? '<div style="font-size:14px;color:#50a878;font-style:italic;margin:0 0 2px;">'+r.name+'</div>' : '')
-    +   '<div style="font-size:11px;color:#3e8f5f;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#50a878;">'+r.howThisFeels+'</span>':'')+'</div>'
+    +   (/[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'') ? '<div style="font-size:14px;color:#c8a86a;font-style:italic;margin:0 0 2px;">'+r.name+'</div>' : '')
+    +   '<div style="font-size:11px;color:#c0915a;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#c8a86a;">'+r.howThisFeels+'</span>':'')+'</div>'
     +   metaBox + stepper + quantBox + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
-    +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #1a3020;font-size:12px;">'
+    +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #2a1a10;font-size:12px;">'
     +     '<button onclick="wkBackFromRecipe()" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
     +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
-    +     '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#63896d;cursor:pointer;font-family:Georgia,serif;">Home</button>'
+    +     '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#b0936a;cursor:pointer;font-family:Georgia,serif;">Home</button>'
     +   '</div></div></div>';
 }
 
@@ -1954,16 +1954,16 @@ function wkStepTimer(txt){
 
 /* ── fullscreen step-by-step cooking mode (self-contained, no core.js) ── */
 function wkCookingView(){
-  var green='#30a878', cream='#f5e8cc';
+  var green='#c06020', cream='#f5e8cc';
   var c = S.wkCooking || {};
   var pool = wkPool();
   var r = null;
   for(var i=0;i<pool.length;i++){ if(pool[i].id === c.id){ r = pool[i]; break; } }
-  if(!r){ return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;padding:20px;color:#c8b898;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">Recipe not found.</p></div>'; }
+  if(!r){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#c8b898;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">Recipe not found.</p></div>'; }
 
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : r.name;
   var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
-  if(!steps.length){ return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;padding:20px;color:#c8b898;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">No method steps for this recipe yet.</p></div>'; }
+  if(!steps.length){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#c8b898;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">No method steps for this recipe yet.</p></div>'; }
 
   var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
   var step = steps[idx];
@@ -1972,26 +1972,26 @@ function wkCookingView(){
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
 
-  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;display:flex;flex-direction:column;">'
+  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;display:flex;flex-direction:column;">'
     // header
-    + '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 16px;">'
+    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
     +   '<button onclick="set({wkCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;font-family:Georgia,serif;padding:0;">✕ Exit cooking mode</button>'
     +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+disp+'</div>'
-    +   '<div style="font-size:11px;color:#3e8f5f;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
-    +   '<div style="height:5px;background:#0a0f0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+green+';"></div></div>'
+    +   '<div style="font-size:11px;color:#c0915a;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+green+';"></div></div>'
     + '</div>'
     // step body
     + '<div style="flex:1;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   '<div style="width:46px;height:46px;border-radius:50%;background:#0a2018;border:2px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+green+';margin-bottom:18px;">'+(idx+1)+'</div>'
+    +   '<div style="width:46px;height:46px;border-radius:50%;background:#1a1208;border:2px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+green+';margin-bottom:18px;">'+(idx+1)+'</div>'
     +   '<div style="font-size:20px;color:#dce8de;line-height:1.65;">'+step+'</div>'
-    +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:#0a2018;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
+    +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:#1a1208;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
     + '</div>'
     // nav
     + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   (idx>0 ? '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:'+(idx-1)+'}});window.scrollTo(0,0);" style="flex:1;padding:14px;border-radius:12px;background:#0a1810;border:1px solid '+green+';color:'+green+';font-size:15px;cursor:pointer;font-family:Georgia,serif;">← Previous</button>' : '')
+    +   (idx>0 ? '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:'+(idx-1)+'}});window.scrollTo(0,0);" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+green+';color:'+green+';font-size:15px;cursor:pointer;font-family:Georgia,serif;">← Previous</button>' : '')
     +   (last
-        ? '<button onclick="set({wkCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+green+';border:1px solid '+green+';color:#219452;font-size:15px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;">✓ Done</button>'
-        : '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:'+(idx+1)+'}});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+green+';border:1px solid '+green+';color:#219452;font-size:15px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;">Next →</button>')
+        ? '<button onclick="set({wkCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+green+';border:1px solid '+green+';color:#c06020;font-size:15px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;">✓ Done</button>'
+        : '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:'+(idx+1)+'}});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+green+';border:1px solid '+green+';color:#c06020;font-size:15px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;">Next →</button>')
     + '</div>'
     + '</div>';
 }
@@ -2204,21 +2204,21 @@ function wkBumpOf(id){ var b=S.wkBump||{}; return b[id]||1; }
 function wkSetBump(id, mult){ var b=Object.assign({},S.wkBump||{}); b[id]=Math.max(0.25, Math.round(mult*100)/100); set({wkBump:b}); }
 
 function wkMyPlanView(){
-  var green='#30a878', cream='#f5e8cc';
+  var green='#c06020', cream='#f5e8cc';
   var pool = wkPool();
   var plan = S.wkPlan||[];
 
-  var header = '<div style="background:#0a2018;border-bottom:1px solid #1a4030;padding:14px 20px;">'
+  var header = '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">'
     + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
     + '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;">'
     +   '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">🧺 My World Kitchen Plan</h1>'
-    +   '<p style="font-size:12px;color:#3e8f5f;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>'
+    +   '<p style="font-size:12px;color:#c0915a;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>'
     +   (plan.length ? '<button onclick="wkPlanClearAll()" style="background:#180e0a;border:1px solid #6a3030;color:#c07a68;border-radius:20px;font-size:12px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">Clear all</button>' : '')
     + '</div></div>';
 
   if(!plan.length){
-    return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
-      + '<div style="padding:40px 20px;text-align:center;color:#5b8a76;font-size:13px;">Your plan is empty.<br>Open any dish and tap <span style="color:'+green+';">＋ Add to My Plan</span>.</div></div>';
+    return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header
+      + '<div style="padding:40px 20px;text-align:center;color:#b0936a;font-size:13px;">Your plan is empty.<br>Open any dish and tap <span style="color:'+green+';">＋ Add to My Plan</span>.</div></div>';
   }
 
   var counts = wkPlanPoolCounts();
@@ -2244,17 +2244,17 @@ function wkMyPlanView(){
       : (cnt>1 ? poolLabel+' \u00b7 1 of '+cnt+' \u00b7 '+portionPct+'% of plate' : poolLabel+' \u00b7 full portion');
     if(bump!==1) shareNote += ' \u00b7 <span style="color:#f5c842;">'+bump+'\u00d7</span>';
     var mainLine = mainItem
-      ? '<div style="font-size:12px;color:#80b898;margin-top:4px;">'+mainItem.name+': '
-        + '<span style="color:#538a73;font-size:11px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#538a73;">\u00b7</span> '
+      ? '<div style="font-size:12px;color:#d8c8a8;margin-top:4px;">'+mainItem.name+': '
+        + '<span style="color:#b0936a;font-size:11px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#b0936a;">\u00b7</span> '
         + '<strong style="color:#f5c842;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
       : '';
-    var adjuster = '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:1px solid #14241a;">'
-      + '<span style="font-size:11px;color:#538a73;flex:1;">Portion for this dish</span>'
-      + '<button onclick="wkSetBump(\''+r.id+'\','+(Math.round((bump-0.25)*100)/100)+')" style="width:26px;height:26px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:15px;line-height:1;cursor:pointer;">\u2212</button>'
+    var adjuster = '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:1px solid #1a1208;">'
+      + '<span style="font-size:11px;color:#b0936a;flex:1;">Portion for this dish</span>'
+      + '<button onclick="wkSetBump(\''+r.id+'\','+(Math.round((bump-0.25)*100)/100)+')" style="width:26px;height:26px;border-radius:50%;background:#1a1208;border:1px solid '+green+';color:'+green+';font-size:15px;line-height:1;cursor:pointer;">\u2212</button>'
       + '<span style="font-size:13px;color:'+cream+';min-width:36px;text-align:center;">'+bump+'\u00d7</span>'
-      + '<button onclick="wkSetBump(\''+r.id+'\','+(Math.round((bump+0.25)*100)/100)+')" style="width:26px;height:26px;border-radius:50%;background:#0a2018;border:1px solid '+green+';color:'+green+';font-size:15px;line-height:1;cursor:pointer;">\uff0b</button>'
+      + '<button onclick="wkSetBump(\''+r.id+'\','+(Math.round((bump+0.25)*100)/100)+')" style="width:26px;height:26px;border-radius:50%;background:#1a1208;border:1px solid '+green+';color:'+green+';font-size:15px;line-height:1;cursor:pointer;">\uff0b</button>'
       + '</div>';
-    return '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
+    return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
       +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+Math.max(1,Math.round(n))+')" style="flex:1;cursor:pointer;">'
       +     '<div style="font-size:14px;color:'+cream+';">'+disp+'</div>'
@@ -2266,19 +2266,19 @@ function wkMyPlanView(){
       + adjuster
       + '</div>';
   }).join('');
-  var controls = '<div style="background:#0a2018;border:1px solid '+green+';border-radius:10px;padding:12px 14px;margin-bottom:12px;">'
+  var controls = '<div style="background:#1a1208;border:1px solid '+green+';border-radius:10px;padding:12px 14px;margin-bottom:12px;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;">'
     +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Guests</div>'
-    +     '<div style="font-size:10px;color:#538a73;margin-top:2px;">the whole menu scales to this</div></div>'
+    +     '<div style="font-size:10px;color:#b0936a;margin-top:2px;">the whole menu scales to this</div></div>'
     +   '<div style="display:flex;align-items:center;gap:10px;">'
-    +     '<button onclick="set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\u2212</button>'
+    +     '<button onclick="set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\u2212</button>'
     +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:34px;text-align:center;">'+guests+'</span>'
-    +     '<button onclick="set({wkGuests:(S.wkGuests||10)+1})" style="width:30px;height:30px;border-radius:50%;background:#0a2018;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\uff0b</button>'
+    +     '<button onclick="set({wkGuests:(S.wkGuests||10)+1})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\uff0b</button>'
     +   '</div>'
     + '</div>'
     + '<div style="margin-top:10px;">'
     +   '<span id="wkpp-btn" onclick="(function(){var c=document.getElementById(\'wkpp-body\');var b=document.getElementById(\'wkpp-btn\');var open=c.style.display===\'block\';c.style.display=open?\'none\':\'block\';b.innerHTML=(open?\'\u25bc\':\'\u25b2\')+\' How portion size works\';})()" style="font-size:12px;color:'+green+';cursor:pointer;user-select:none;">\u25bc How portion size works</span>'
-    +   '<div id="wkpp-body" style="display:none;background:#0f1a14;border:1px solid #14302a;border-radius:8px;padding:12px;margin-top:6px;font-size:12px;color:#90a898;line-height:1.8;">'
+    +   '<div id="wkpp-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:12px;color:#c8b898;line-height:1.8;">'
     +     'One dish in a course \u2192 a full helping.<br>'
     +     'Add more of the same course \u2192 each gets a smaller slice of the same plate.<br>'
     +     'It never drops below a sensible minimum \u2014 no teaspoon portions.<br>'
@@ -2295,32 +2295,32 @@ function wkMyPlanView(){
     if(it.aisle!==curAisle){ curAisle=it.aisle; shopRows += '<div style="font-size:10px;letter-spacing:0.06em;color:'+green+';text-transform:uppercase;margin:12px 0 4px;">'+curAisle+'</div>'; }
     var isOn = !!checked[it.name];
     var key  = it.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    shopRows += '<div onclick="wkToggleShop(\''+key+'\')" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #14241a;cursor:pointer;opacity:'+(isOn?'0.35':'1')+';">'
-      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+green+';flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(isOn?green:'transparent')+';">'+(isOn?'<span style="color:#21945b;font-size:12px;">\u2713</span>':'')+'</div>'
-      + '<span style="flex:1;color:'+(isOn?'#3a6050':(it.faded?'#3a6050':'#c0d0c4'))+';font-style:'+(it.faded?'italic':'normal')+';text-decoration:'+(isOn?'line-through':'none')+';">'+it.name+'</span>'
-      + '<span style="color:'+(isOn?'#3a6050':(it.faded?'#3a6050':green))+';white-space:nowrap;">'+it.amt+(it.cost!=null?' \u00b7 R'+it.cost:'')+'</span></div>';
+    shopRows += '<div onclick="wkToggleShop(\''+key+'\')" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1208;cursor:pointer;opacity:'+(isOn?'0.35':'1')+';">'
+      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+green+';flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(isOn?green:'transparent')+';">'+(isOn?'<span style="color:#c06020;font-size:12px;">\u2713</span>':'')+'</div>'
+      + '<span style="flex:1;color:'+(isOn?'#6a5440':(it.faded?'#6a5440':'#d8c8a8'))+';font-style:'+(it.faded?'italic':'normal')+';text-decoration:'+(isOn?'line-through':'none')+';">'+it.name+'</span>'
+      + '<span style="color:'+(isOn?'#6a5440':(it.faded?'#6a5440':green))+';white-space:nowrap;">'+it.amt+(it.cost!=null?' \u00b7 R'+it.cost:'')+'</span></div>';
   });
   var remaining = shop.items.filter(function(it){ return !checked[it.name]; }).length;
   var remainRow = shop.items.length
-    ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #14241a;display:flex;justify-content:space-between;align-items:center;">'
-      + '<span style="font-size:11px;color:#538a73;">'+remaining+' of '+shop.items.length+' items remaining</span>'
+    ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #1a1208;display:flex;justify-content:space-between;align-items:center;">'
+      + '<span style="font-size:11px;color:#b0936a;">'+remaining+' of '+shop.items.length+' items remaining</span>'
       + '<button onclick="set({wkCheckedShop:{}})" style="background:none;border:none;color:'+green+';font-size:11px;cursor:pointer;text-decoration:underline;font-family:Georgia,serif;">Reset all</button></div>'
     : '';
   var missNote = shop.missing.length
     ? '<div style="font-size:10px;color:#748646;margin-top:8px;">\u2248 estimate \u2014 not yet priced: '+shop.missing.slice(0,8).join(', ')+(shop.missing.length>8?'\u2026':'')+'</div>' : '';
 
   var shopBox = isWkPro
-    ? '<div style="background:#0f1a14;border:1px solid #1a3020;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
-      +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">\ud83d\uded2 Shopping list <span style="color:#538a73;text-transform:none;">(+10% buffer)</span></div>'
+      +   '<div style="font-size:10px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">\ud83d\uded2 Shopping list <span style="color:#b0936a;text-transform:none;">(+10% buffer)</span></div>'
       +   '<div style="font-size:20px;color:'+green+';font-weight:bold;">~R'+shop.total+'</div>'
       + '</div>'
-      + '<div style="font-size:11px;color:#538a73;margin-bottom:8px;">\u2705 Tap items you already have to tick them off</div>'
+      + '<div style="font-size:11px;color:#b0936a;margin-bottom:8px;">\u2705 Tap items you already have to tick them off</div>'
       + shopRows + remainRow + missNote + '</div>'
-    : '<div style="background:#0a1a10;border:1px dashed #1a4030;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+    : '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:32px;margin-bottom:8px;">\ud83d\udd12</div>'
       + '<div style="font-size:14px;color:'+green+';margin-bottom:6px;font-weight:bold;">Full Shopping List &amp; Cost</div>'
-      + '<div style="font-size:12px;color:#538a73;margin-bottom:10px;line-height:1.6;">Every ingredient across your dishes, combined with no duplicates, aisle-sorted, with the +10% buffer \u2014 plus the estimated total.</div>'
+      + '<div style="font-size:12px;color:#b0936a;margin-bottom:10px;line-height:1.6;">Every ingredient across your dishes, combined with no duplicates, aisle-sorted, with the +10% buffer \u2014 plus the estimated total.</div>'
       + '<div style="font-size:13px;color:'+green+';font-weight:bold;">Unlock with Tinza Pro \u2014 R99/month</div></div>';
 
   // action stack — mirrors Braai's My Plan footer (Free/Pro gated)
@@ -2328,17 +2328,17 @@ function wkMyPlanView(){
     + '<button onclick="wkShareDishes()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share Plan<br><span style="font-size:9px;opacity:0.7;">\ud83c\udd93 Free</span></button>'
     + (isWkPro
         ? '<button onclick="wkShareWithList()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share + Shopping List<br><span style="font-size:9px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
-        : '<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0a0f0c;border:2px solid #14241a;color:#5a8a70;font-size:12px;line-height:1.4;font-family:Georgia,serif;">\ud83d\udd12 Full List<br><span style="font-size:9px;">\ud83d\udc51 Pro only</span></button>')
+        : '<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a1208;color:#b0936a;font-size:12px;line-height:1.4;font-family:Georgia,serif;">\ud83d\udd12 Full List<br><span style="font-size:9px;">\ud83d\udc51 Pro only</span></button>')
     + '</div>';
   var printBtn = isWkPro
     ? '<button onclick="wkPrintPlan()" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udda8\ufe0f Print / Save as PDF <span style="font-size:10px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
-    : '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0a0f0c;border:1px solid #14241a;color:#5a8a70;font-size:13px;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udd12 Print / Save as PDF \u2014 Pro only</button>';
-  var newBtn = '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#0a2018;border:2px solid '+green+';color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;font-family:Georgia,serif;">\ud83d\udd04 Start a New Plan</button>';
+    : '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1208;color:#b0936a;font-size:13px;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udd12 Print / Save as PDF \u2014 Pro only</button>';
+  var newBtn = '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#1a1208;border:2px solid '+green+';color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;font-family:Georgia,serif;">\ud83d\udd04 Start a New Plan</button>';
   var navRow = '<div style="display:flex;justify-content:space-between;padding:0 4px 24px;font-size:13px;">'
     + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">\u2190 World Kitchen</button>'
-    + '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#63896d;cursor:pointer;font-family:Georgia,serif;">Home</button>'
+    + '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#b0936a;cursor:pointer;font-family:Georgia,serif;">Home</button>'
     + '</div>';
 
-  return '<div style="min-height:100vh;background:#0a0f0c;font-family:Georgia,serif;">'+header
+  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+controls+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
 }
