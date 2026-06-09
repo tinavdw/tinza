@@ -35,6 +35,13 @@ let S = {
   eventActiveRecipe: null,
   eventStep: 1,
   buffetStep: 1,
+  eventSelectedStarters: [],
+  eventSelectedMains: [],
+  eventSelectedSides: [],
+  eventSelectedSalads: [],
+  eventSelectedDesserts: [],
+  eventSelectedSauces: [],
+  checkedBuffetItems: {},
 
   // Budget
   budget: 150,

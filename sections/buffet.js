@@ -81,7 +81,7 @@ function buffetItemCard(r, selArr, stateKey){
 
   // Pro: full checkbox selection
   const checkbox = `<div style="width:22px;height:22px;border-radius:5px;border:2px solid ${sel?BC:'#601040'};background:${sel?BC:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;">${sel?'<span style="color:#fff;font-size:13px;font-weight:bold;">✓</span>':''}</div>`;
-  const toggleAction = `setQuiet({${stateKey}:toggle(S.${stateKey},'${r.id}')})`;
+  const toggleAction = `setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`;
   return `<div onclick="${toggleAction}" style="background:${bg};border:1px solid ${bdr};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;">
     <div style="display:flex;align-items:center;">
       ${checkbox}
@@ -284,7 +284,7 @@ function buffetStep7(){
   const totalCost = allPortioned.reduce((s,r)=>s+((r.costPP||0)*g),0);
   const costPP    = allPortioned.reduce((s,r)=>s+(r.costPP||0),0);
 
-  function section(label, arr){
+  function section(label, arr, stateKey){
     if(!arr.length) return '';
     return `<div style="font-size:10px;letter-spacing:2px;color:#c25c99;text-transform:uppercase;margin:14px 0 6px;">${label}</div>
       <div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:12px;margin-bottom:8px;">
@@ -293,7 +293,10 @@ function buffetStep7(){
             <div style="font-size:14px;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</div>
             <div style="font-size:12px;color:#f070a0;margin-top:2px;">${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>${isPro&&r.costPP?` · ~R${Math.round(r.costPP*g).toLocaleString()}`:''}</div>
           </div>
-          <button onclick="openEventRecipe('${r.id}')" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:${BC};font-size:11px;cursor:pointer;flex-shrink:0;margin-left:8px;">Recipe →</button>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px;">
+            <button onclick="openEventRecipe('${r.id}')" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:${BC};font-size:11px;cursor:pointer;">Recipe →</button>
+            <button onclick="setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})" title="Remove from plan" style="background:none;border:1px solid #803050;border-radius:6px;padding:3px 9px;color:#d06088;font-size:14px;line-height:1;cursor:pointer;">✕</button>
+          </div>
         </div>`).join('')}
       </div>`;
   }
@@ -785,11 +788,11 @@ function buffetStep7(){
       ${buffetQuickNav(7)}
       ${allPortioned.length===0?`<div style="background:#1a0820;border:1px solid #601040;border-radius:10px;padding:20px;text-align:center;color:#c25c99;font-size:13px;">${isPro?'No dishes selected — ':'Browse recipes below — '}<button onclick="set({buffetStep:2})" style="background:none;border:none;color:${BC};cursor:pointer;font-size:13px;text-decoration:underline;">go back</button></div>`:''}
 
-      ${section('🥗 STARTERS',starters)}
-      ${section('🥩 MAINS',mains)}
-      ${section('🥘 SIDES',sides)}
-      ${section('🥙 SALADS',salads)}
-      ${section('🎂 DESSERTS',desserts)}
+      ${section('🥗 STARTERS',starters,'eventSelectedStarters')}
+      ${section('🥩 MAINS',mains,'eventSelectedMains')}
+      ${section('🥘 SIDES',sides,'eventSelectedSides')}
+      ${section('🥙 SALADS',salads,'eventSelectedSalads')}
+      ${section('🎂 DESSERTS',desserts,'eventSelectedDesserts')}
 
       ${allPortioned.length>0?`
         ${isPro?`<div style="background:#1a0820;border:2px solid ${BC};border-radius:12px;padding:14px;margin:16px 0;">

@@ -270,6 +270,50 @@ const POPULAR_RECIPES = {
       storage:"Curry fridge 3 days. Always make fresh bread." },
   ]
 };
+// ── SHARED "COMING SOON" PLACEHOLDER (one standard for every stub screen) ──
+function comingSoonHTML(emoji, title, subtitle){
+  return `<div>
+    <div class="header" style="background:#1a1008;border-bottom:1px solid #6a3010;">
+      <button class="back-btn" onclick="set({screen:'home'})" style="color:#c06020;">← Home</button>
+      <h1 style="font-size:24px;font-weight:normal;color:#f5e8cc;">${emoji||'🍽️'} ${title||'Coming soon'}</h1>
+    </div>
+    <div class="content" style="text-align:center;padding:48px 24px;">
+      <div style="font-size:54px;margin-bottom:16px;">${emoji||'🍽️'}</div>
+      <div style="font-size:18px;color:#f5e8cc;margin-bottom:10px;">${title||'Coming soon'}</div>
+      <div style="font-size:13px;color:#a8997e;line-height:1.7;max-width:320px;margin:0 auto;">${subtitle||'This part of Tinza is on the way.'}</div>
+    </div>
+  </div>`;
+}
+
+// ── PERSISTENT BOTTOM NAV BAR (fixed, every screen) ──────────────────
+function bottomBarHTML(){
+  const tabs = [
+    {screen:'home',    emoji:'🏠', label:'Home'},
+    {screen:'search',  emoji:'🔍', label:'Search'},
+    {screen:'mymenu',  emoji:'📋', label:'My Menu'},
+    {screen:'profile', emoji:'👤', label:'Profile'},
+  ];
+  return `<div style="position:fixed;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;z-index:150;background:#140f0a;border-top:1px solid #3a2810;display:flex;padding:6px 0 8px;">
+    ${tabs.map(t=>{
+      const on = S.screen===t.screen;
+      return `<button onclick="bottomBarGo('${t.screen}')" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;">
+        <span style="font-size:20px;${on?'':'opacity:0.7;'}">${t.emoji}</span>
+        <span style="font-size:10px;letter-spacing:0.3px;color:${on?'#f5c842':'#7a6448'};">${t.label}</span>
+      </button>`;
+    }).join('')}
+  </div>`;
+}
+function bottomBarGo(screen){
+  if(screen==='home'){
+    // clear navigation state only — plans/carts/sliders are left untouched
+    set({screen:'home', viewingRecipe:false, eventTab:null, buffetStep:1, eventActiveRecipe:null,
+         braiStep:1, braiCat:null, braaiView:'browse', wkScreen:null, wkSACulture:null, wkRecipeDetail:null,
+         activeBaby:null, activeDog:null, activeCat2:null, fingerSection:null, kidsScreen:null, kidsTheme:null});
+  } else {
+    set({screen:screen, viewingRecipe:false});
+  }
+}
+
 function draw(){
   // Close How It Works when tapping anywhere on page
   if(S.howItWorksOpen) {
@@ -361,6 +405,8 @@ function draw(){
   else if(S.screen==="tinyTummies"){ content=tinyTummiesHTML(); }
   else if(S.screen==="kiddies"){ content=kiddiesHTML(); }
   else if(S.screen==="spice"){ content=spiceRoomHTML(); }
+  else if(S.screen==="profile"){ content=comingSoonHTML("👤","Profile","Your dietary preferences, ingredients to avoid, budget tiers and units will live here. Coming soon."); }
+  else if(S.screen==="mymenu"){ content=comingSoonHTML("📋","My Menu","One place for everything you've planned across all sections — with a combined shopping list. Coming soon. For now, each section keeps its own plan."); }
   else{ content=homeHTML(); }
   }catch(_err){
     console.error('[Tinza] Render error on screen "'+(S.screen||'?')+'" (tab:'+(S.eventTab||'-')+', step:'+(S.buffetStep||'-')+'):', _err);
@@ -378,7 +424,8 @@ function draw(){
   const _aeStart = _ae ? _ae.selectionStart : null;
   const _aeEnd = _ae ? _ae.selectionEnd : null;
 
-  root.innerHTML = tierBar + content;
+  root.innerHTML = tierBar + content + bottomBarHTML();
+  document.body.style.paddingBottom = "62px";
 
   if(_aeId){
     const _ne = document.getElementById(_aeId);
