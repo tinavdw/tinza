@@ -307,7 +307,7 @@ function tinyFurryHTML(){
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:11px;color:#907d5f;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:14px;color:#e0d4b8;line-height:1.5;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join('')}
@@ -352,7 +352,7 @@ function feedingFamilyHTML(){
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:11px;color:#907d5f;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:14px;color:#e0d4b8;line-height:1.5;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join('')}
@@ -700,7 +700,7 @@ function isPlanItem(planKey, id){
 
 function packSizeNote(accent){
   accent = accent || '#c0a040';
-  return '<div style="background:rgba(255,255,255,0.03);border:1px dashed '+accent+';border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:11px;color:#9a8a7a;line-height:1.5;">'
+  return '<div style="background:rgba(255,255,255,0.03);border:1px dashed '+accent+';border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;line-height:1.5;">'
     + '\uD83D\uDCA1 <b style="color:'+accent+';">Buying vs cooking:</b> the amounts are what the recipes actually use. In the shop you buy in packs (a 1kg bag of carrots for a 150g need), so you\'ll have a little left over \u2014 the per-person cost is the true cost of what you use, not the whole pack.'
     + '</div>';
 }

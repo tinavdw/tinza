@@ -66,7 +66,7 @@ function braaiStep1(){
           <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'#161210'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'#c06020':'#3a2010'};border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:24px;margin-bottom:5px;">${s.emoji}</div>
             <div style="font-size:11px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
-            <div style="font-size:9px;color:#b56d37;line-height:1.3;">${s.sub}</div>
+            <div style="font-size:13px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>
             ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'#c06020'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:8px;padding:1px 4px;">${s.count}</div>`:''}
           </div>`).join('')}
       </div>
@@ -216,7 +216,7 @@ function braaiStep4(){
         ${S.selectedMeats.map(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return ""; const c=calcMeat(m); const mealCals=USER_TIER==="pro"?Math.round((c.grams/100)*(MEAT_CALS[mid]||200)/S.people):0; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${m.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${m.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${c.display}${USER_TIER==="pro"?` · <span style="color:#40d0a0;font-size:12px;">${mealCals} kcal/person</span>`:""}</div></div></div>${recipeBtn("meat",m.id,4)}</div>`; }).join("")}
       </div>
       ${S.selectedMeats.length>0?`
-        <div style="background:#0f0e08;border:1px solid #2a2408;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:11px;color:#908033;line-height:1.6;">
+        <div style="background:#0f0e08;border:1px solid #2a2408;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;line-height:1.5;">
           ${(()=>{
               const n = S.selectedMeats.length;
               const multPct = Math.round(meatSpreadMult(n)*100);
