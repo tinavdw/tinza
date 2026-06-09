@@ -3550,7 +3550,7 @@ function spiceLandingView(){
     </div>
     <div class="content">
       <div onclick="S.searchPrevScreen='spice';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);"
-        style="padding:9px 14px;background:#161009;border:1px solid #4a2a10;border-radius:10px;color:#7a5530;font-size:13px;cursor:text;margin-bottom:12px;">🔍 Search blends, sauces & condiments…</div>
+        style="padding:9px 14px;background:#161009;border:1px solid #4a2a10;border-radius:10px;color:#b8895a;font-size:13px;cursor:text;margin-bottom:12px;">🔍 Search blends, sauces & condiments…</div>
 
       ${spiceCartCount()>0?`<button onclick="set({spiceListOpen:true})" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#14180a;border:2px solid #6a8020;border-radius:10px;color:#c8e840;font-size:13px;font-weight:bold;cursor:pointer;margin-bottom:12px;">
         <span>🛒 My Spice Shopping List</span><span style="background:#6a8020;color:#0f0e0c;border-radius:20px;padding:1px 9px;font-size:12px;">${spiceCartCount()}</span>
@@ -3558,7 +3558,7 @@ function spiceLandingView(){
 
       <div class="how-it-works" style="margin-bottom:14px;cursor:pointer;" onclick="set({spiceHowOpen:${howOpen?'false':'true'}})">
         <span style="font-size:12px;color:#c08040;">${howOpen?'▲':'▼'} How it works</span>
-        ${howOpen?`<div style="font-size:12px;color:#9a8060;line-height:1.6;margin-top:8px;">Pick a shelf, then an entry. Every entry shows its <strong style="color:#c0a060;">flavour</strong>, <strong style="color:#c0a060;">when to add it</strong>, and a <strong style="color:#c0a060;">Make Your Own</strong> recipe. Blends and preserves scale by <strong style="color:#c0a060;">batch</strong> (a small jar, a bottle); fresh sauces and relishes scale by <strong style="color:#c0a060;">people</strong>, just like the braai.</div>`:''}
+        ${howOpen?`<div style="font-size:12px;color:#c2a888;line-height:1.6;margin-top:8px;">Pick a shelf, then an entry. Every entry shows its <strong style="color:#c0a060;">flavour</strong>, <strong style="color:#c0a060;">when to add it</strong>, and a <strong style="color:#c0a060;">Make Your Own</strong> recipe. Blends and preserves scale by <strong style="color:#c0a060;">batch</strong> (a small jar, a bottle); fresh sauces and relishes scale by <strong style="color:#c0a060;">people</strong>, just like the braai.</div>`:''}
       </div>
 
       <div class="grid2" style="gap:8px;">
@@ -3569,8 +3569,8 @@ function spiceLandingView(){
             style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${sh.bg};border:2px solid ${sh.b};border-radius:14px;cursor:pointer;text-align:left;min-height:104px;">
             <span style="font-size:26px;margin-bottom:6px;">${sh.e}</span>
             <div style="font-size:13px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.3;">${sh.t}</div>
-            <div style="font-size:10px;color:#9a7a50;line-height:1.35;margin-bottom:6px;flex:1;">${sh.sub}</div>
-            <div style="font-size:10px;color:${n>0?sh.b:'#5a4530'};letter-spacing:0.5px;">${countTxt}</div>
+            <div style="font-size:10px;color:#c0a274;line-height:1.35;margin-bottom:6px;flex:1;">${sh.sub}</div>
+            <div style="font-size:10px;color:${n>0?sh.b:'#a88a5e'};letter-spacing:0.5px;">${countTxt}</div>
           </button>`;
         }).join("")}
       </div>
@@ -3602,7 +3602,7 @@ function spiceShelfView(){
 
   const pillBase = "padding:6px 12px;border-radius:20px;border:1px solid;font-size:12px;cursor:pointer;white-space:nowrap;";
   function pill(label, active, onclick, count){
-    return `<button class="pill" onclick="${onclick}" style="${pillBase}background:${active?'#2a1808':'#161009'};border-color:${active?'#c08040':'#3a2510'};color:${active?'#f5c842':'#8a6a40'};">${label}${count!=null?` <span style="opacity:0.6;">${count}</span>`:''}</button>`;
+    return `<button class="pill" onclick="${onclick}" style="${pillBase}background:${active?'#2a1808':'#161009'};border-color:${active?'#c08040':'#3a2510'};color:${active?'#f5c842':'#b89868'};">${label}${count!=null?` <span style="opacity:0.6;">${count}</span>`:''}</button>`;
   }
 
   let pills = "";
@@ -3622,7 +3622,7 @@ function spiceShelfView(){
     ? `<div style="background:#161009;border:1px dashed #4a3018;border-radius:12px;padding:28px 16px;text-align:center;">
         <div style="font-size:34px;margin-bottom:10px;opacity:0.5;">${shelf.e}</div>
         <div style="font-size:14px;color:#c08040;margin-bottom:4px;">${shelf.t} — coming soon</div>
-        <div style="font-size:12px;color:#7a5a38;line-height:1.5;">We're filling this shelf next.</div>
+        <div style="font-size:12px;color:#b09060;line-height:1.5;">We're filling this shelf next.</div>
       </div>`
     : visible.map(e=>{
         const w = SPICE_WHENMAP[e.whenToUse] || {};
@@ -3633,16 +3633,16 @@ function spiceShelfView(){
             <div style="flex:1;font-size:15px;color:#f5e8cc;font-weight:bold;">${e.name}</div>
             <span style="font-size:15px;color:#c08040;">→</span>
           </div>
-          <div style="font-size:11px;color:#9a7a50;font-style:italic;margin-bottom:7px;">${e.region}</div>
+          <div style="font-size:11px;color:#c0a274;font-style:italic;margin-bottom:7px;">${e.region}</div>
           <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
             ${chips}
-            ${w.label?`<span style="font-size:10px;color:#7a6040;margin-left:2px;">· ${w.e} ${w.label}</span>`:''}
+            ${w.label?`<span style="font-size:10px;color:#b89868;margin-left:2px;">· ${w.e} ${w.label}</span>`:''}
           </div>
         </button>`;
       }).join("");
 
   const countLine = list.length>PAGE
-    ? `<div style="font-size:11px;color:#6a5535;margin-bottom:10px;">Showing ${visible.length} of ${list.length}</div>` : "";
+    ? `<div style="font-size:11px;color:#a88a5e;margin-bottom:10px;">Showing ${visible.length} of ${list.length}</div>` : "";
   const moreBtn = moreCount>0
     ? `<button onclick="set({spiceShown:${shownN+PAGE}})" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:transparent;border:1px solid #4a3018;color:#c08040;font-size:13px;font-weight:bold;margin-top:4px;">＋ Show ${Math.min(PAGE,moreCount)} more  ·  ${moreCount} left</button>` : "";
 
@@ -3689,7 +3689,7 @@ function spiceEntryView(){
           <div>
             <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:4px;">🥄 Make Your Own</div>
             <div style="font-size:22px;font-weight:bold;color:#c8e840;line-height:1;">${spiceFmt(cur, y.unit)}</div>
-            <div style="font-size:10px;color:#5a7020;margin-top:3px;">${y.label}${cur>y.base?` · ${Math.round(cur/y.base*10)/10}× batch`:""}</div>
+            <div style="font-size:10px;color:#8aa848;margin-top:3px;">${y.label}${cur>y.base?` · ${Math.round(cur/y.base*10)/10}× batch`:""}</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
             <button onclick="${dec}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>
@@ -3706,7 +3706,7 @@ function spiceEntryView(){
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
           <div>
             <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:4px;">🥄 Make Your Own</div>
-            <div style="font-size:12px;color:#6a8030;">Enough for the table — scales with people</div>
+            <div style="font-size:12px;color:#9ab858;">Enough for the table — scales with people</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
             <button onclick="${dec}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>
@@ -3714,7 +3714,7 @@ function spiceEntryView(){
             <button onclick="${inc}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button>
           </div>
         </div>
-        <div style="font-size:10px;color:#5a7020;margin-top:6px;">${cur} people</div>
+        <div style="font-size:10px;color:#8aa848;margin-top:6px;">${cur} people</div>
       </div>`;
   }
 
@@ -3743,7 +3743,7 @@ function spiceEntryView(){
       const pp = ing.qty / y.base;
       return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e1a10;">
         <span style="width:5px;height:5px;border-radius:50%;background:#c08040;flex-shrink:0;"></span>
-        <span style="flex:1;font-size:14px;color:#e0d4b8;">${ing.name} <span style="color:#8a7a50;font-size:11px;">· ${spiceFmt(pp,ing.unit)} pp</span></span>
+        <span style="flex:1;font-size:14px;color:#e0d4b8;">${ing.name} <span style="color:#b0a070;font-size:11px;">· ${spiceFmt(pp,ing.unit)} pp</span></span>
         <span style="font-size:13px;color:#f5c842;font-weight:bold;">${spiceFmt(total, ing.unit)}</span>
       </div>`;
     }
@@ -3761,27 +3761,27 @@ function spiceEntryView(){
       ${typeof recipePhoto==="function" ? recipePhoto(e.name, shelf.e, 150) : ""}
 
       <h1 style="margin:10px 0 2px;font-size:22px;font-weight:normal;color:#f5e8cc;">${e.name}</h1>
-      <div style="font-size:12px;color:#9a7a50;font-style:italic;margin-bottom:10px;">${e.region}</div>
+      <div style="font-size:12px;color:#c0a274;font-style:italic;margin-bottom:10px;">${e.region}</div>
 
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">${chips}</div>
 
       ${w.label?`<div style="display:inline-flex;align-items:center;gap:7px;background:#16100a;border:1px solid ${w.c};border-radius:10px;padding:8px 12px;margin-bottom:14px;">
         <span style="font-size:16px;">${w.e}</span>
-        <div><div style="font-size:9px;letter-spacing:1px;color:#7a6040;text-transform:uppercase;">When to use</div><div style="font-size:13px;color:${w.c};">${w.label}</div></div>
+        <div><div style="font-size:9px;letter-spacing:1px;color:#b89868;text-transform:uppercase;">When to use</div><div style="font-size:13px;color:${w.c};">${w.label}</div></div>
       </div>`:''}
 
       ${greenBox}
 
       <div style="background:#141008;border:1px solid #3a2810;border-radius:10px;padding:12px;margin-bottom:14px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-          <div style="font-size:10px;letter-spacing:1.5px;color:#8a6a40;text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:10px;color:#6a5535;">${isBatch?`for ${spiceFmt(cur,y.unit)}`:`scaled for ${cur} ${cur===1?'person':'people'}`}</div>
+          <div style="font-size:10px;letter-spacing:1.5px;color:#b89868;text-transform:uppercase;">Ingredients</div>
+          <div style="font-size:10px;color:#a88a5e;">${isBatch?`for ${spiceFmt(cur,y.unit)}`:`scaled for ${cur} ${cur===1?'person':'people'}`}</div>
         </div>
         ${ingHTML}
       </div>
 
       <div style="margin-bottom:14px;">
-        <div style="font-size:10px;letter-spacing:1.5px;color:#8a6a40;text-transform:uppercase;margin-bottom:10px;">Method</div>
+        <div style="font-size:10px;letter-spacing:1.5px;color:#b89868;text-transform:uppercase;margin-bottom:10px;">Method</div>
         ${steps.map((s,i)=>`<div style="display:flex;gap:12px;margin-bottom:12px;">
           <div class="step-num" style="background:#2a1808;border:2px solid #c06020;color:#f5c842;">${i+1}</div>
           <div style="flex:1;font-size:14px;color:#e0d4b8;line-height:1.6;padding-top:2px;">${s}</div>
@@ -3832,17 +3832,17 @@ function spiceListView(){
     ? `<div style="background:#161009;border:1px dashed #4a3018;border-radius:12px;padding:28px 16px;text-align:center;">
          <div style="font-size:34px;margin-bottom:10px;opacity:0.5;">🛒</div>
          <div style="font-size:14px;color:#c08040;margin-bottom:4px;">Your shopping list is empty</div>
-         <div style="font-size:12px;color:#7a5a38;line-height:1.5;">Open any entry and tap <strong style="color:#9ab050;">Add to Shopping List</strong>.</div>
+         <div style="font-size:12px;color:#b09060;line-height:1.5;">Open any entry and tap <strong style="color:#9ab050;">Add to Shopping List</strong>.</div>
        </div>`
     : order.map(a=>{
         const its = items.filter(i=>i.aisle===a);
         if(!its.length) return "";
-        return `<div style="font-size:11px;letter-spacing:1px;color:#8a6a40;text-transform:uppercase;margin:14px 0 6px;">${a}</div>` +
+        return `<div style="font-size:11px;letter-spacing:1px;color:#b89868;text-transform:uppercase;margin:14px 0 6px;">${a}</div>` +
           its.map(i=>{
             const on = !!checked[i.key];
             return `<button onclick="(function(){var c=Object.assign({},S.spiceChecked||{});if(c['${i.key}'])delete c['${i.key}'];else c['${i.key}']=true;set({spiceChecked:c});})()"
               style="width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;background:#161009;border:1px solid ${on?'#2a2010':'#3a2510'};border-radius:10px;margin-bottom:6px;cursor:pointer;text-align:left;opacity:${on?0.5:1};">
-              <span style="width:20px;height:20px;border-radius:5px;border:2px solid ${on?'#6a8020':'#5a4530'};background:${on?'#6a8020':'transparent'};color:#0f0e0c;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${on?'✓':''}</span>
+              <span style="width:20px;height:20px;border-radius:5px;border:2px solid ${on?'#6a8020':'#a88a5e'};background:${on?'#6a8020':'transparent'};color:#0f0e0c;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${on?'✓':''}</span>
               <span style="flex:1;font-size:14px;color:#e0d4b8;${on?'text-decoration:line-through;':''}">${i.name}</span>
               <span style="font-size:13px;color:#f5c842;font-weight:bold;${on?'text-decoration:line-through;':''}">${spiceFmt(i.amt, i.unit)}</span>
             </button>`;
@@ -3858,8 +3858,8 @@ function spiceListView(){
       </div>
     </div>
     <div class="content">
-      ${sources.length?`<div style="font-size:12px;color:#9a7a50;margin-bottom:4px;">For: ${sources.join(" · ")}</div>`:''}
-      ${items.length?`<div style="font-size:11px;color:#7a6040;margin-bottom:10px;">✅ Tap items you already have to tick them off · ${remaining} of ${items.length} left to buy</div>`:''}
+      ${sources.length?`<div style="font-size:12px;color:#c0a274;margin-bottom:4px;">For: ${sources.join(" · ")}</div>`:''}
+      ${items.length?`<div style="font-size:11px;color:#b89868;margin-bottom:10px;">✅ Tap items you already have to tick them off · ${remaining} of ${items.length} left to buy</div>`:''}
       ${body}
       ${items.length?`<div style="display:flex;gap:8px;margin:18px 0 24px;">
         <button onclick="navigator.clipboard&&navigator.clipboard.writeText(spiceListText());alert('📋 Shopping list copied — paste into WhatsApp, Notes, anywhere.')" style="flex:1;padding:12px;border-radius:10px;cursor:pointer;background:#0f1404;border:2px solid #6a8020;color:#c8e840;font-size:13px;font-weight:bold;">📋 Copy List</button>

@@ -1340,34 +1340,34 @@ function homeHTML(){
         <span style="font-size:28px;">😊</span>
         <div>
           <h1 style="margin:0;font-size:26px;font-weight:normal;color:#f5e8cc;letter-spacing:3px;">Tinza</h1>
-          <p style="margin:0;font-size:11px;color:#8a7055;font-style:italic;">Every dish, made easy</p>
+          <p style="margin:0;font-size:12px;color:#c4a87c;font-style:italic;">Every dish, made easy</p>
         </div>
       </div>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
       <!-- Recipe Sections -->
-      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
+      <div style="font-size:11px;letter-spacing:2px;color:#b0986a;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
       ${recipeSections.map(o=>`
         <button onclick="set({screen:'${o.s}'})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
             <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:11px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:12px;color:#c4a87c;line-height:1.4;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
         </button>`).join("")}
 
       <!-- Feature Tools -->
-      <div style="font-size:10px;letter-spacing:2px;color:#4a3520;text-transform:uppercase;margin:16px 0 10px;">⚡ Smart Features</div>
+      <div style="font-size:11px;letter-spacing:2px;color:#b0986a;text-transform:uppercase;margin:16px 0 10px;">⚡ Smart Features</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
         ${featureTools.map(o=>`
           <button onclick="set({screen:'${o.s}'})"
             style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;cursor:pointer;text-align:left;">
             <span style="font-size:26px;margin-bottom:6px;">${o.e}</span>
             <div style="font-size:13px;color:#f5e8cc;margin-bottom:3px;font-weight:bold;">${o.t}</div>
-            <div style="font-size:10px;color:#7a6a50;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:12px;color:#c4a87c;line-height:1.4;">${o.sub}</div>
           </button>`).join("")}
       </div>
 
