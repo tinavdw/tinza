@@ -7,6 +7,42 @@ function setQuiet(upd){
   draw();
 }
 
+// ── DEVICE BACK / IN-APP HISTORY ──────────────────────────────────
+// Makes the phone's back button (and edge swipe-back) step back ONE
+// screen INSIDE the app instead of leaving the site. Only Home → back
+// exits. Plans, carts and slider values never revert — only the screen
+// you are looking at goes back one step.
+const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople'];
+let _navRestoring = false;
+function navSnapshot(){
+  try { return JSON.parse(JSON.stringify(S)); }
+  catch(_e){ return Object.assign({}, S); }
+}
+function navSignature(){
+  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkCountry||'', S.wkSelectedRegion||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||''].join('|');
+}
+function navInit(){
+  if(window._tinzaNavInit) return;
+  window._tinzaNavInit = true;
+  window._navSig = navSignature();
+  try { history.replaceState({tinza:true, sig:window._navSig, snap:navSnapshot()}, ''); } catch(_e){}
+  window.addEventListener('popstate', function(e){
+    const st = e.state;
+    if(st && st.tinza && st.snap){
+      _navRestoring = true;
+      const restored = st.snap;
+      // keep live data (plans/carts/sliders) — only navigation reverts
+      NAV_DATA_KEYS.forEach(function(k){ if(k in S) restored[k] = S[k]; });
+      S = restored;
+      window._navSig = st.sig;
+      draw();
+      _navRestoring = false;
+    }
+    // else: no Tinza history state (we're at/under the first screen) →
+    // let the browser do its normal thing. Back from Home leaves the app.
+  });
+}
+
 const POPULAR_RECIPES = {
   sa:[
     { id:"pr_bobotie", name:"Bobotie", intl:"Spiced Mince Bake", emoji:"🍛", cuisine:"South African", time:75, serves:6,
@@ -357,6 +393,16 @@ function draw(){
   if(peopleSlider) peopleSlider.value = S.people;
   root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
   root._lastScreen = S.screen;
+
+  // ── Device-back history: push a history entry on each forward nav ──
+  navInit();
+  if(!_navRestoring){
+    const _sig = navSignature();
+    if(window._navSig !== undefined && _sig !== window._navSig){
+      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot()}, ''); } catch(_e){}
+    }
+    window._navSig = _sig;
+  }
 
   if(jumpToContent){
     const ct = ()=>{ const el=root.querySelector('.content'); return el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - 8) : 0; };
