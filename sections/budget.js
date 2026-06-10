@@ -23,7 +23,7 @@ function budgetPlannerHTML(){
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#161210 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,8,2,0.3) 0%,rgba(2,8,2,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">💰 Budget Meals</h1>
         <p style="margin:0 0 10px;font-size:13px;color:#c0915a;font-style:italic;">${budget>=500?'🎉 Party & event planning mode':'R40 – R500 · Real food · Real savings'}</p>
@@ -45,17 +45,17 @@ function budgetPlannerHTML(){
 
         <div style="flex:1;">
           <button onclick="set({budgetHowOpen:!S.budgetHowOpen})"
-            style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
             ${budgetHowOpen?'▲':'▼'} How it works
           </button>
           ${budgetHowOpen?`
             <div onclick="set({budgetHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-            <div style="position:relative;z-index:10;background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c8a86a;line-height:1.6;">
+            <div style="position:relative;z-index:10;background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#c8a86a;line-height:1.6;">
               <strong style="color:${color};">1. Enter your budget</strong> — type any amount from R40 upwards.<br>
               <strong style="color:${color};">2. Set people count</strong> — we calculate cost per person automatically.<br>
               <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza Chef finds real meals within your budget.<br>
               <strong style="color:${color};">4. Want more?</strong> — tap "Show me 3 more" for extra ideas.<br>
-              <span style="color:#b0936a;font-size:11px;">R500+ unlocks party & event planning mode.</span>
+              <span style="color:#b0936a;font-size:13px;">R500+ unlocks party & event planning mode.</span>
             </div>
           `:''}
         </div>
@@ -65,7 +65,7 @@ function budgetPlannerHTML(){
             style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">−</button>
           <div style="text-align:center;min-width:52px;">
             <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${people}</div>
-            <div style="font-size:9px;color:#b0936a;letter-spacing:1px;text-transform:uppercase;">people</div>
+            <div style="font-size:13px;color:#b0936a;letter-spacing:1px;text-transform:uppercase;">people</div>
           </div>
           <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})"
             style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">+</button>
@@ -79,7 +79,7 @@ function budgetPlannerHTML(){
       <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
           <div>
-            <div style="font-size:10px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">My budget</div>
+            <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">My budget</div>
             <div style="display:flex;align-items:center;gap:6px;background:#1a1208;border:2px solid ${border};border-radius:10px;padding:10px 12px;">
               <span style="font-size:16px;color:${color};font-weight:bold;">R</span>
               <input type="number" value="${S.budgetAmount||''}" placeholder="100"
@@ -88,12 +88,12 @@ function budgetPlannerHTML(){
             </div>
           </div>
           <div>
-            <div style="font-size:10px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">People count</div>
+            <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">People count</div>
             <div style="font-size:18px;color:#f5c842;font-weight:bold;padding:10px 0;">${people} people</div>
           </div>
         </div>
 
-        ${budget && people ? `<div style="font-size:12px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person${budget>=500?' · 🎉 Party/event mode':' · '+people+' people'}</div>` : ''}
+        ${budget && people ? `<div style="font-size:13px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person${budget>=500?' · 🎉 Party/event mode':' · '+people+' people'}</div>` : ''}
 
         <!-- Quick budget buttons -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
@@ -110,14 +110,14 @@ function budgetPlannerHTML(){
       ${loading?`<div style="text-align:center;padding:30px;">
         <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
         <div style="font-size:14px;color:${color};">Finding recipes for R${budget} for ${people} people...</div>
-        <div style="font-size:11px;color:#b0936a;margin-top:6px;">R${(budget/people).toFixed(0)} per person</div>
+        <div style="font-size:13px;color:#b0936a;margin-top:6px;">R${(budget/people).toFixed(0)} per person</div>
       </div>`:''}
 
       ${results&&results.length>0&&results[0]._waiting?`
         <div style="text-align:center;padding:40px 20px;">
           <div style="font-size:40px;margin-bottom:12px;">👨‍🍳</div>
           <div style="font-size:14px;color:${color};margin-bottom:6px;">Tinza Chef is finding more ideas...</div>
-          <div style="font-size:11px;color:#b0936a;">Just a moment</div>
+          <div style="font-size:13px;color:#b0936a;">Just a moment</div>
         </div>
       `:''}
 
@@ -130,8 +130,8 @@ function budgetPlannerHTML(){
 
       ${results&&results.length>0&&!results[0]._waiting&&!results[0]._nomore&&!results[0]._error?`
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
-          ${S._budgetAILoading ? `<div style="font-size:10px;color:#b0936a;font-style:italic;">✨ Finding more...</div>` : ''}
+          <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
+          ${S._budgetAILoading ? `<div style="font-size:13px;color:#b0936a;font-style:italic;">✨ Finding more...</div>` : ''}
         </div>
         ${results.map((r,i)=>`
           <div style="background:${isPlanItem('budgetPlan',r.id)?bg:'#161210'};border:1px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a1a10'};border-radius:10px;padding:12px;margin-bottom:6px;">
@@ -140,19 +140,19 @@ function budgetPlannerHTML(){
               <span style="font-size:20px;">${r.emoji||'🍽️'}</span>
               <div style="flex:1;">
                 <div style="font-size:14px;color:${isPlanItem('budgetPlan',r.id)?'#f5e8cc':'#c8b898'};font-weight:${isPlanItem('budgetPlan',r.id)?'bold':'normal'};">${r.name}</div>
-                <div style="font-size:10px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
+                <div style="font-size:13px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-                <button onclick="event.stopPropagation();openBudgetRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
+                <button onclick="event.stopPropagation();openBudgetRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
               </div>
             </div>
             <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
-              <div style="font-size:11px;color:${color};">⏱️ ${r.time||'?'} min${r.cuisine?' · '+r.cuisine:''}</div>
+              <div style="font-size:13px;color:${color};">⏱️ ${r.time||'?'} min${r.cuisine?' · '+r.cuisine:''}</div>
               <div style="margin-top:4px;">
-                <span style="background:#1a1208;border:1px solid #c06020;border-radius:8px;font-size:11px;color:#c06020;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp</span>
-                ${r._fromAI?`<span style="font-size:9px;color:#b0936a;margin-left:6px;">✨ Chef</span>`:''}
+                <span style="background:#1a1208;border:1px solid #c06020;border-radius:8px;font-size:13px;color:#c06020;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp</span>
+                ${r._fromAI?`<span style="font-size:13px;color:#b0936a;margin-left:6px;">✨ Chef</span>`:''}
               </div>
             </div>
               <span style="color:${color};font-size:14px;flex-shrink:0;">→</span>
@@ -174,14 +174,14 @@ function budgetPlannerHTML(){
       ${!results&&!loading?`
         <!-- Budget tips when no search yet -->
         <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:14px;margin-top:4px;">
-          <div style="font-size:12px;color:${color};font-weight:bold;margin-bottom:10px;">💡 SA Budget Cooking Tips</div>
+          <div style="font-size:13px;color:${color};font-weight:bold;margin-bottom:10px;">💡 SA Budget Cooking Tips</div>
           ${[
             {t:"Mince & Legumes",d:"Beef mince and tinned beans are the best value protein sources. Stretch mince further by mixing with grated carrot and onion."},
             {t:"Bone-in chicken",d:"Chicken drumsticks and thighs cost half the price of breasts and give twice the flavour. Always buy bone-in for curries and stews."},
             {t:"Maize meal & Rice",d:"Pap and rice are the most filling, affordable starches. Buy in bulk (5–10kg) for maximum savings."},
             {t:"Tinned tomatoes",d:"The most versatile ingredient in budget cooking. Always have 3–4 tins in the pantry. Cheaper and more flavourful than fresh for cooking."},
             {t:"Cook from scratch",d:"A homemade curry or stew for 4 costs R60–80. The same from a restaurant costs R400+. Your time is the ingredient."},
-          ].map(t=>`<div style="margin-bottom:8px;"><div style="font-size:12px;color:#e0d4b8;font-weight:bold;">${t.t}</div><div style="font-size:11px;color:#b0936a;line-height:1.5;">${t.d}</div></div>`).join('')}
+          ].map(t=>`<div style="margin-bottom:8px;"><div style="font-size:13px;color:#e0d4b8;font-weight:bold;">${t.t}</div><div style="font-size:13px;color:#b0936a;line-height:1.5;">${t.d}</div></div>`).join('')}
         </div>
       `:''}
     </div>
@@ -195,7 +195,7 @@ function braaiRecipeAction(action) {
 }
 function portionHelpContent() {
   if(!S.portionHelpOpen) return '';
-  return '<div style="margin-top:8px;font-size:12px;color:#9a8868;line-height:2.2;">'
+  return '<div style="margin-top:8px;font-size:13px;color:#9a8868;line-height:2.2;">'
     + '1 &middot; Pick <b style="color:#f5c842;">one dish</b> and you get a full plate of it<br>'
     + '2 &middot; Pick <b style="color:#f5c842;">two dishes</b> and you get half of each — same total food<br>'
     + '3 &middot; Pick <b style="color:#f5c842;">three dishes</b> and you get a third of each — still the same<br>'
