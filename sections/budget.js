@@ -96,8 +96,8 @@ function budgetPlannerHTML(){
         ${budget && people ? `<div style="font-size:12px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person${budget>=500?' · 🎉 Party/event mode':' · '+people+' people'}</div>` : ''}
 
         <!-- Quick budget buttons -->
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="S.budgetAmount=${amt};setQuiet({budgetAmount:${amt}})" style="padding:5px 10px;border-radius:16px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?color:'#7a5a30'};font-size:11px;cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="S.budgetAmount=${amt};setQuiet({budgetAmount:${amt}})" style="padding:9px 15px;border-radius:18px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?'#f5c842':'#c8b898'};font-size:14px;font-weight:${parseFloat(S.budgetAmount)===amt?'bold':'normal'};cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
         </div>
 
         <button onclick="findBudgetRecipes()" style="width:100%;padding:14px;border-radius:10px;background:#1a1208;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
