@@ -204,7 +204,7 @@ function buffetStep3(){
   const scale = ['PORTION_RULES.mains.scale'][0];
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:2})" style="color:${BC};">← Overview</button>
+      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥩 Main Dishes</h1>
       <p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">${n} selected · portions reduce as you add more · ${g} guests</p>
     </div>
@@ -224,7 +224,7 @@ function buffetStep4(){
   const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:3})" style="color:${BC};">← Overview</button>
+      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥘 Side Dishes</h1>
       <p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">${(S.eventSelectedSides||[]).length} selected · ${g} guests</p>
     </div>
@@ -241,7 +241,7 @@ function buffetStep5(){
   const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:4})" style="color:${BC};">← Overview</button>
+      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥙 Salads</h1>
       <p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">${(S.eventSelectedSalads||[]).length} selected · ${g} guests</p>
     </div>
@@ -258,7 +258,7 @@ function buffetStep6(){
   const g = S.eventGuests;
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:5})" style="color:${BC};">← Overview</button>
+      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🎂 Desserts</h1>
       <p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">${(S.eventSelectedDesserts||[]).length} selected · ${g} guests</p>
     </div>
@@ -779,7 +779,7 @@ function buffetStep7(){
 
   return `<div>
     <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:6})" style="color:${BC};">← Overview</button>
+      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Buffet Plan</h1>
       <p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">${g} guests</p>
     </div>

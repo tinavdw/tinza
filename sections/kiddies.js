@@ -1,3 +1,8 @@
+function openKidsRecipe(name){
+  var r=document.getElementById("root");
+  if(r) r._savedScroll = 0;   // open kiddies recipe at the top so the back button is visible
+  set({kidsScreen:'recipe',kidsRecipe:name});
+}
 // ── KIDDIES PARTY PLANNER ─────────────────────────────────────────
 // Rebuilt on the v33 Braai template. Brown token palette, matching
 // header / how-it-works collapsible / counter / box styling / nav.
@@ -341,7 +346,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
         const inMenu=menu.includes(r.name);
         const typeLabel=r.type==='savoury'?'🥩 Savoury':r.type==='sweet'?'🍬 Sweet':'🥗 Healthy';
         const nameEsc=r.name.replace(/'/g,"\\'");
-        return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
+        return `<div onclick="openKidsRecipe('${nameEsc}')" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
             <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
             <div style="flex:1;">
               <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
@@ -356,7 +361,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const addedCards = extraIds.filter(id=>added.includes(id)).map(id=>{
       const r=kidsFingerToRecipe(id,stype); if(!r) return '';
       const nameEsc=r.name.replace(/'/g,"\\'");
-      return `<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${nameEsc}'})" style="background:#161210;border:1px solid #4a3015;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
+      return `<div onclick="openKidsRecipe('${nameEsc}')" style="background:#161210;border:1px solid #4a3015;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
           <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji}</span>
           <div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name} <span style="font-size:8px;color:#6aaa50;border:1px solid #4a8040;border-radius:6px;padding:1px 5px;margin-left:4px;">added</span></div>
             <div style="font-size:12px;color:#c0915a;margin-top:4px;">🍽️ Finger food · ~R${r.costPP}/child</div></div>
@@ -392,7 +397,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     const crispPackets=Math.ceil(k/4);
     const popRec=kidsPopcornRecipe(th.id), dipRec=kidsDipsRecipe(th.id);
     const esc=s=>s.replace(/'/g,"\\'");
-    const recCard=(emoji,nm,sub,openName)=>`<div onclick="set({kidsScreen:'recipe',kidsRecipe:'${esc(openName)}'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;"><span style="font-size:20px;flex-shrink:0;line-height:1.35;">${emoji}</span><div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${nm}</div><div style="font-size:12px;color:#c0915a;margin-top:4px;">${sub}</div></div><span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span></div>`;
+    const recCard=(emoji,nm,sub,openName)=>`<div onclick="openKidsRecipe('${esc(openName)}')" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;"><span style="font-size:20px;flex-shrink:0;line-height:1.35;">${emoji}</span><div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${nm}</div><div style="font-size:12px;color:#c0915a;margin-top:4px;">${sub}</div></div><span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span></div>`;
     body = `
       ${d?recCard('🥤',d.name,'🥤 Drink · '+(k*250)+'ml total · store-bought or make it',d.name):''}
       ${recCard('🥔','Crisps','🥔 '+crispPackets+' × 120g packet'+(crispPackets>1?'s':'')+' · or healthy swap','Crisps')}
