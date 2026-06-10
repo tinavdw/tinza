@@ -341,10 +341,10 @@ function feedingFamilyHTML(){
       </div>
     </div>
 
-    <!-- ══ MEAL-TYPE BOXES (3-col grid · warm Spice palette) ══ -->
+    <!-- ══ MEAL-TYPE BOXES (2×2 grid · warm Spice palette) ══ -->
     <div style="padding:16px;max-width:600px;margin:0 auto;">
       <div style="font-size:13px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
         ${MEALS.map(o=>`
           <div onclick="set({screen:'${o.s}'})"
             style="background:#161210;border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;"
