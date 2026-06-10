@@ -281,36 +281,36 @@ function mealSectionHTML(sectionKey){
 // ── TINY & FURRY — front door to Tiny Tummies + Furry Friends (braai v33 template) ──
 function tinyFurryHTML(){
   const ONES = [
-    {s:'babyapp',  e:'🍼', t:'Tiny Tummies',  sub:'Age-appropriate baby & toddler recipes',  b:'#e07090', bg:'#1a1018'},
-    {s:'furryapp', e:'🐾', t:'Furry Friends',  sub:'Dogs & Cats · Meals · Treats & Biscuits', b:'#9060d0', bg:'#120f1a'},
+    {s:'babyapp',  e:'🍼', t:'Tiny Tummies',  sub:'Age-appropriate baby & toddler recipes'},
+    {s:'furryapp', e:'🐾', t:'Furry Friends',  sub:'Dogs & Cats · Meals · Treats & Biscuits'},
   ];
-  const HEAD = '#c878c8', HBG = '#160f18', HBORDER = '#3a2a40';
+  const HEAD = '#c08040', HBG = '#1a1208', HBORDER = '#3a2010';
   return `<div style="min-height:100vh;background:#0f0e0c;">
 
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
       <img src="Images/Image%20header/tinyfurry.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,10,0.3) 0%,rgba(8,6,10,0.78) 100%);z-index:1;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,5,2,0.3) 0%,rgba(8,5,2,0.78) 100%);z-index:1;"></div>
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
-        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼🐾 Tiny & Furry</h1>
-        <p style="margin:0;font-size:11px;color:${HEAD};font-style:italic;opacity:0.9;">The littlest and furriest mouths — fed with the same love</p>
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼🐾 Tiny & Furry</h1>
+        <p style="margin:0;font-size:13px;color:${HEAD};font-style:italic;opacity:0.9;">The littlest and furriest mouths — fed with the same love</p>
       </div>
     </div>
 
-    <!-- ══ SECTION BOXES (braai v33 list rows) ══ -->
+    <!-- ══ SECTION BOXES (warm 2-col grid · identical boxes) ══ -->
     <div style="padding:16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:10px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Who are we feeding?</div>
-      ${ONES.map(o=>`
-        <button onclick="set({screen:'${o.s}'})"
-          style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
-          <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
-          <div style="flex:1;">
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
-            <div style="font-size:14px;color:#e0d4b8;line-height:1.5;">${o.sub}</div>
-          </div>
-          <span style="font-size:16px;color:${o.b};">→</span>
-        </button>`).join('')}
+      <div style="font-size:13px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Who are we feeding?</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+        ${ONES.map(o=>`
+          <div onclick="set({screen:'${o.s}'})"
+            style="background:#161210;border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;"
+            onmouseover="this.style.borderColor='#c06020'" onmouseout="this.style.borderColor='#2a1a10'">
+            <div style="font-size:24px;margin-bottom:4px;">${o.e}</div>
+            <div style="font-size:16px;color:#f5e8cc;font-family:Georgia,serif;font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>
+            <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${o.sub}</div>
+          </div>`).join('')}
+      </div>
     </div>
   </div>`;
 }
