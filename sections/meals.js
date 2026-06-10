@@ -202,10 +202,10 @@ function mealSectionHTML(sectionKey){
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${cfg.bg} 0%,#0f0e0c 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'feedfamily'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:12px;padding:5px 12px;cursor:pointer;">← Family Meals</button>
+      <button onclick="set({screen:'feedfamily'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:13px;padding:5px 12px;cursor:pointer;">← Family Meals</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${cfg.emoji} ${cfg.title}</h1>
-        <p style="margin:0 0 10px;font-size:11px;color:${cfg.color};font-style:italic;opacity:0.9;">${cfg.sub}</p>
+        <p style="margin:0 0 10px;font-size:13px;color:${cfg.color};font-style:italic;opacity:0.9;">${cfg.sub}</p>
         <div style="display:flex;align-items:center;background:rgba(12,10,8,0.85);border:1px solid ${cfg.border};border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:${cfg.color};margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search ${cfg.title.toLowerCase()} recipes…"
@@ -223,22 +223,22 @@ function mealSectionHTML(sectionKey){
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;">
         <div style="flex:1;">
           <button onclick="set({mealHowOpen:!S.mealHowOpen})"
-            style="background:none;border:none;color:${cfg.color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
+            style="background:none;border:none;color:${cfg.color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
             ${mealHowOpen?'▲':'▼'} How it works
           </button>
           ${mealHowOpen?`
             <div onclick="set({mealHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-            <div style="position:relative;z-index:10;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#b0a080;line-height:1.6;">
+            <div style="position:relative;z-index:10;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#b0a080;line-height:1.6;">
               <strong style="color:${cfg.color};">1. Browse recipes</strong> — sort by popular, A–Z or quickest.<br>
               <strong style="color:${cfg.color};">2. Tap Recipe →</strong> — full ingredients, method and scaling.<br>
               <strong style="color:${cfg.color};">3. Add to My Plan</strong> — build your weekly meal plan.<br>
-              <span style="color:#828270;font-size:11px;">All quantities scale automatically per person.</span>
+              <span style="color:#828270;font-size:13px;">All quantities scale automatically per person.</span>
             </div>
           `:''}
         </div>
         <!-- Sort pills -->
         <div style="display:flex;gap:5px;flex-shrink:0;">
-          ${[{id:'popular',l:'⭐'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 10px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?'rgba(255,255,255,0.1)':'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:11px;cursor:pointer;">${s.l}</button>`).join('')}
+          ${[{id:'popular',l:'⭐'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 10px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?'rgba(255,255,255,0.1)':'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:13px;cursor:pointer;">${s.l}</button>`).join('')}
         </div>
       </div>
     </div>
@@ -247,10 +247,10 @@ function mealSectionHTML(sectionKey){
       ${cats?`
       <!-- ══ CATEGORY PILLS (braai-style) ══ -->
       <div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;">
-        ${cats.map(c=>`<button onclick="setQuiet({mealCat:'${c.id}'})" style="white-space:nowrap;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid ${activeCat===c.id?cfg.color:cfg.border};background:${activeCat===c.id?'rgba(255,255,255,0.08)':'transparent'};color:${activeCat===c.id?cfg.color:'#6a6050'};font-size:12px;cursor:pointer;">${c.e} ${c.l}</button>`).join('')}
+        ${cats.map(c=>`<button onclick="setQuiet({mealCat:'${c.id}'})" style="white-space:nowrap;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid ${activeCat===c.id?cfg.color:cfg.border};background:${activeCat===c.id?'rgba(255,255,255,0.08)':'transparent'};color:${activeCat===c.id?cfg.color:'#6a6050'};font-size:13px;cursor:pointer;">${c.e} ${c.l}</button>`).join('')}
       </div>
-      <div style="font-size:11px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
-      `:`<div style="font-size:11px;color:#828270;margin-bottom:10px;">${recipes.length} recipes</div>`}
+      <div style="font-size:13px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
+      `:`<div style="font-size:13px;color:#828270;margin-bottom:10px;">${recipes.length} recipes</div>`}
       ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
@@ -261,7 +261,7 @@ function mealSectionHTML(sectionKey){
             <div style="flex:1;min-width:0;">
               <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
               ${r.feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${r.feel}</div>`:''}
-              <div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
+              <div style="font-size:13px;color:#c0915a;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
             </div>
             <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
           </div>
@@ -269,7 +269,7 @@ function mealSectionHTML(sectionKey){
       }).join('')}
       ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
       <div style="margin-top:8px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
-        <div style="font-size:12px;color:#828270;margin-bottom:8px;">Can't find what you're looking for?</div>
+        <div style="font-size:13px;color:#828270;margin-bottom:8px;">Can't find what you're looking for?</div>
         <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#e0a060;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
       </div>
     </div>
@@ -289,7 +289,7 @@ function tinyFurryHTML(){
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
       <img src="Images/Image%20header/tinyfurry.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,5,2,0.3) 0%,rgba(8,5,2,0.78) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼🐾 Tiny & Furry</h1>
         <p style="margin:0;font-size:13px;color:${HEAD};font-style:italic;opacity:0.9;">The littlest and furriest mouths — fed with the same love</p>
@@ -334,7 +334,7 @@ function feedingFamilyHTML(){
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
       <img src="Images/Image%20header/feedfamily.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.78) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍽️ Feeding My Family</h1>
         <p style="margin:0;font-size:13px;color:${HEAD};font-style:italic;opacity:0.9;">Everyday cooking — morning to night, and something sweet</p>
@@ -538,7 +538,7 @@ function fourIngredientsHTML(){
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#0f0e0c 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🧅 4 Ingredients</h1>
         <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">What's in your fridge? Pop in 2–4 things and we'll find the meal.</p>
@@ -547,14 +547,14 @@ function fourIngredientsHTML(){
 
     <!-- ══ HOW IT WORKS ══ -->
     <div style="background:${bg};border-bottom:1px solid ${border};padding:12px 16px;">
-      <button onclick="set({fourHowOpen:!S.fourHowOpen})" style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
+      <button onclick="set({fourHowOpen:!S.fourHowOpen})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
       ${howOpen?`
         <div onclick="set({fourHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c8b898;line-height:1.6;">
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#c8b898;line-height:1.6;">
           <strong style="color:#f5c842;">1. Enter 2–4 ingredients</strong> — whatever's in your fridge or pantry.<br>
           <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — Tinza checks its own recipes first, then asks Tinza Chef.<br>
           <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
-          <span style="color:#b0936a;font-size:11px;">The more ingredients you add, the closer the match.</span>
+          <span style="color:#b0936a;font-size:13px;">The more ingredients you add, the closer the match.</span>
         </div>`:''}
     </div>
 
@@ -608,7 +608,7 @@ function anchorIngredientHTML(){
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#0f0e0c 100%);">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:12px;padding:5px 12px;cursor:pointer;">← Home</button>
+      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🐔 I Have Chicken…</h1>
         <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">Type any ingredient you've got — we'll build meals around it.</p>
@@ -617,14 +617,14 @@ function anchorIngredientHTML(){
 
     <!-- ══ HOW IT WORKS ══ -->
     <div style="background:${bg};border-bottom:1px solid ${border};padding:12px 16px;">
-      <button onclick="set({anchorHowOpen:!S.anchorHowOpen})" style="background:none;border:none;color:${color};font-size:12px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
+      <button onclick="set({anchorHowOpen:!S.anchorHowOpen})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
       ${howOpen?`
         <div onclick="set({anchorHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:12px;color:#c8b898;line-height:1.6;">
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#c8b898;line-height:1.6;">
           <strong style="color:#f5c842;">1. Type your main ingredient</strong> — add a quantity if you like (e.g. "beef mince 500g").<br>
           <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — every recipe is built around it.<br>
           <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
-          <span style="color:#b0936a;font-size:11px;">Add a weight and we'll scale the recipe to what you have.</span>
+          <span style="color:#b0936a;font-size:13px;">Add a weight and we'll scale the recipe to what you have.</span>
         </div>`:''}
     </div>
 
@@ -638,7 +638,7 @@ function anchorIngredientHTML(){
             style="width:100%;background:transparent;border:none;color:#f5e8cc;font-size:16px;font-family:Georgia,serif;outline:none;" />
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-          ${chips.map(c=>`<button onclick="S.anchorInput='${c[1]}';findAnchorIngredient()" style="padding:6px 11px;border-radius:16px;border:1px solid ${border};background:transparent;color:#c8b898;font-size:12px;cursor:pointer;white-space:nowrap;">${c[0]} ${c[1]}</button>`).join('')}
+          ${chips.map(c=>`<button onclick="S.anchorInput='${c[1]}';findAnchorIngredient()" style="padding:6px 11px;border-radius:16px;border:1px solid ${border};background:transparent;color:#c8b898;font-size:13px;cursor:pointer;white-space:nowrap;">${c[0]} ${c[1]}</button>`).join('')}
         </div>
         <button onclick="findAnchorIngredient()" style="width:100%;padding:14px;border-radius:10px;background:#161210;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
           ${loading?'👨‍🍳 Finding recipes…':'🔍 Find Recipes'}
@@ -664,13 +664,13 @@ function anchorIngredientHTML(){
 }
 
 function recipeResultCard(r, onClickFn, color){
-  const matchBadge = r._matchCount ? `<span style="background:#1f1206;border:1px solid #c06020;border-radius:8px;font-size:9px;color:#f5c842;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
-  const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:9px;color:#c0915a;padding:2px 6px;">In Tinza</span>` : '';
+  const matchBadge = r._matchCount ? `<span style="background:#1f1206;border:1px solid #c06020;border-radius:8px;font-size:13px;color:#f5c842;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
+  const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:13px;color:#c0915a;padding:2px 6px;">In Tinza</span>` : '';
   return `<div onclick="${onClickFn}" style="background:#141210;border:1px solid #2a2820;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
     <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
     <div style="flex:1;min-width:0;">
       <div style="font-size:14px;color:#f5e8cc;margin-bottom:3px;">${r.name}</div>
-      <div style="font-size:11px;color:${color||'#c0915a'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="font-size:13px;color:${color||'#c0915a'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
       <div style="margin-top:4px;">${matchBadge}${sourceBadge}</div>
     </div>
     <span style="color:${color||'#c06020'};font-size:14px;flex-shrink:0;">→</span>
@@ -711,21 +711,21 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   const _costEstimate = (()=>{
     if(!_isPro) return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
       <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-      <div style="font-size:12px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R99/month</strong></div>
+      <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R99/month</strong></div>
     </div>`;
     if(r.costPP){
       const total = r.costPP * sv;
       return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
           <div style="font-size:13px;color:#718933;">Total for ${sv} people</div>
           <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${total}</div>
         </div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
-          <div style="font-size:12px;color:#6a892e;">Per person</div>
+          <div style="font-size:13px;color:#6a892e;">Per person</div>
           <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${r.costPP}</div>
         </div>
-        <div style="margin-top:8px;font-size:10px;color:#748932;">Checkers/retail prices · May 2026 · Always buy 10% extra.</div>
+        <div style="margin-top:8px;font-size:13px;color:#748932;">Checkers/retail prices · May 2026 · Always buy 10% extra.</div>
       </div>`;
     }
     return '';
@@ -735,7 +735,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
       <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
       <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</h1>
-      <div style="font-size:11px;color:${color};font-style:italic;">Full recipe and method</div>
+      <div style="font-size:13px;color:${color};font-style:italic;">Full recipe and method</div>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
@@ -743,27 +743,27 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
 
       <!-- How much to make block -->
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
-        <div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
-        <div style="font-size:11px;color:#718933;margin-bottom:10px;">${sv} ${sv===1?'person':'people'}</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
+        <div style="font-size:13px;color:#718933;margin-bottom:10px;">${sv} ${sv===1?'person':'people'}</div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;">
             <div style="font-size:32px;font-weight:bold;color:#c8e840;">${sv}</div>
-            <div style="font-size:10px;color:#718d28;">people · all quantities scale</div>
+            <div style="font-size:13px;color:#718d28;">people · all quantities scale</div>
           </div>
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">+</button>
         </div>
-        <div style="margin-top:8px;font-size:10px;color:#6c8c23;">💡 Adjust the number and all ingredients update instantly.</div>
+        <div style="margin-top:8px;font-size:13px;color:#6c8c23;">💡 Adjust the number and all ingredients update instantly.</div>
       </div>
 
       <!-- Ingredients — bullet style like braai, no tick boxes -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:10px;color:#908066;font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
+          <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Ingredients</div>
+          <div style="font-size:13px;color:#908066;font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
         </div>
         ${(r.ingredients||[]).map(i=>{
-          if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:12px;color:#8e7c7c;font-style:italic;">• ${i.n} — to taste</div>`;
+          if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">• ${i.n} — to taste</div>`;
           const raw=i.pp*sv, u=i.u||'';
           const ppStr=i.pp+(u==='egg'?' egg':u)+' pp';
           const totalStr=u==='egg'?Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'')
@@ -771,44 +771,44 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
             :Math.round(raw*10)/10+u;
           return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #1a1810;">
             <span style="color:${color};flex-shrink:0;">•</span>
-            <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#908066;font-size:12px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
+            <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#908066;font-size:13px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
           </div>`;
         }).join('')}
-        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:10px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>
+        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>
       </div>
 
       <!-- Method -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Method</div>
-        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><p style="margin:2px 0 0;font-size:14px;color:#c8b898;line-height:1.7;">${step}</p></div>`).join('')}
+        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Method</div>
+        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><p style="margin:2px 0 0;font-size:14px;color:#c8b898;line-height:1.7;">${step}</p></div>`).join('')}
       </div>
 
       <!-- Tip -->
       ${r.tip?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
-        <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>
+        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>
         <p style="font-size:13px;color:#c8b898;line-height:1.6;margin:0;">${r.tip}</p>
       </div>`:''}
 
       <!-- Nutrition -->
       ${r.nutrition?`<div style="background:#0a1008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:12px;">
-        <div style="font-size:10px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:8px;">📊 Nutrition — per serving</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:8px;">📊 Nutrition — per serving</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#f5c842;">${r.nutrition.kcal}</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">kcal</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#60c090;">${r.nutrition.protein_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">protein</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#80a0e0;">${r.nutrition.carbs_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">carbs</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#c08060;">${r.nutrition.fat_g}g</div><div style="font-size:9px;color:#40a060;text-transform:uppercase;">fat</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#f5c842;">${r.nutrition.kcal}</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">kcal</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#60c090;">${r.nutrition.protein_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">protein</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#80a0e0;">${r.nutrition.carbs_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">carbs</div></div>
+          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#c08060;">${r.nutrition.fat_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">fat</div></div>
         </div>
       </div>`:''}
 
       <!-- Storage -->
-      ${r.storage?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;color:#718471;">📦 ${r.storage}</div>`:''}
+      ${r.storage?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:#718471;">📦 ${r.storage}</div>`:''}
 
       <!-- Cost estimate -->
       ${_costEstimate}
 
       <!-- Save button (Pro) -->
       ${_isPro?`<button onclick="toggleSavedRecipe('${_rid}','${_rname}','${_remoji}')" style="width:100%;padding:12px;border-radius:10px;background:${_saved?'#0a2008':'#080f08'};border:2px solid ${_saved?'#40c060':'#204020'};color:${_saved?'#40c060':'#406040'};font-size:13px;cursor:pointer;margin-bottom:10px;">${_saved?'✓ Saved to My Recipes — tap to remove':'🔖 Save to My Recipes'}</button>`
-      :`<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:12px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
+      :`<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:13px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
 
       <!-- WhatsApp -->
       <button onclick="window.open('https://wa.me/?text=${_waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>
@@ -883,37 +883,37 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
       <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${emoji} ${title}</h1>
-      <div style="font-size:11px;color:${color};">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
+      <div style="font-size:13px;color:${color};">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
     </div>
     <div class="content">
 
       <!-- Selected recipes -->
-      <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Selected Recipes</div>
+      <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Selected Recipes</div>
       ${plan.map(r=>{
         const _pid = r.id;
         return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
           <span style="font-size:24px;">${r.emoji||'🍽️'}</span>
           <div style="flex:1;">
             <div style="font-size:14px;color:#f5e8cc;">${r.name}</div>
-            <div style="font-size:11px;color:${color};">${r.time?'⏱️ '+r.time+' min':''}${r.costPP?' · R'+r.costPP+' pp':''}</div>
+            <div style="font-size:13px;color:${color};">${r.time?'⏱️ '+r.time+' min':''}${r.costPP?' · R'+r.costPP+' pp':''}</div>
           </div>
-          <button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x.id!=='${_pid}')})" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:#c25c99;font-size:11px;cursor:pointer;">✕</button>
+          <button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x.id!=='${_pid}')})" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:#c25c99;font-size:13px;cursor:pointer;">✕</button>
         </div>`;
       }).join('')}
 
       <!-- Combined shopping list -->
-      <div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;margin:16px 0 10px;">🛒 Combined Shopping List — ${people} people</div>
+      <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin:16px 0 10px;">🛒 Combined Shopping List — ${people} people</div>
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         ${shopItems.map(ing=>{
           const key = 'plan_'+ing.n.replace(/\s+/g,'_');
           const ticked = (S._planChecked||{})[key];
           return `<div onclick="(function(){const ch=Object.assign({},S._planChecked||{});ch['${key}']=!ch['${key}'];setQuiet({_planChecked:ch});})()" style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid ${border};cursor:pointer;">
-            <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ticked?color:'#3a3030'};background:${ticked?color:'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;">${ticked?'✓':''}</div>
+            <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ticked?color:'#3a3030'};background:${ticked?color:'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;">${ticked?'✓':''}</div>
             <span style="font-size:13px;color:${ticked?'#4a4040':'#c8c0b0'};flex:1;text-decoration:${ticked?'line-through':'none'};">${ing.n}</span>
             <span style="font-size:13px;color:${ticked?'#3a3030':'#f5c842'};font-weight:bold;">${formatAmount(ing.total,ing.u)}</span>
           </div>`;
         }).join('')}
-        <div style="margin-top:10px;font-size:10px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
+        <div style="margin-top:10px;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
       </div>
 
       <!-- Cost + calorie totals (Braai-style) -->
@@ -923,27 +923,27 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
           <div style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(planCost).toLocaleString()}</div>
         </div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">
-          <div style="font-size:12px;color:#908241;">Per person</div>
+          <div style="font-size:13px;color:#908241;">Per person</div>
           <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
         </div>
-        <div style="font-size:9px;color:#908033;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
+        <div style="font-size:13px;color:#908033;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
       </div>` : ''}
       ${planCals>0 ? `<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
             <div style="font-size:13px;color:#409070;">🔥 Calories per person</div>
-            <div style="font-size:10px;color:#468d75;margin-top:2px;">All selected dishes combined</div>
+            <div style="font-size:13px;color:#468d75;margin-top:2px;">All selected dishes combined</div>
           </div>
-          <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:12px;"> kcal</span></div>
+          <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:13px;"> kcal</span></div>
         </div>
       </div>` : ''}
       ${plan.length ? packSizeNote('#c0a040') : ''}
 
       <!-- Share buttons -->
       ${isPro ? `<button onclick="(function(){const sh=window._sectionPlanForShare||[];const sv=${people};const shLines=buildCombinedShoppingList(sh,sv).map(i=>'• '+i.n+': '+formatAmount(i.total,i.u)).join('\n');window.open('https://wa.me/?text='+encodeURIComponent('${emoji} ${title}\n${people} people\n\n🛒 Shopping List:\n'+shLines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');})()" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:10px;">📱 Share Shopping List via WhatsApp</button>` 
-      : `<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:12px;margin-bottom:10px;">👑 Share Shopping List — Pro feature</div>`}
+      : `<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:13px;margin-bottom:10px;">👑 Share Shopping List — Pro feature</div>`}
 
-      <button onclick="setQuiet({_planChecked:{}})" style="width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid #3a3030;color:#8a7c7c;font-size:12px;cursor:pointer;margin-bottom:20px;">↺ Reset tick boxes</button>
+      <button onclick="setQuiet({_planChecked:{}})" style="width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid #3a3030;color:#8a7c7c;font-size:13px;cursor:pointer;margin-bottom:20px;">↺ Reset tick boxes</button>
     </div>
   </div>`;
 }
@@ -952,10 +952,10 @@ function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
   const plan = S[planKey]||[];
   if(!plan.length) return '';
   const isPro = tierAllows('pro');
-  if(!isPro) return `<div style="background:${bg};border:1px dashed ${color};border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.6;"><div style="font-size:12px;color:${color};">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
+  if(!isPro) return `<div style="background:${bg};border:1px dashed ${color};border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.6;"><div style="font-size:13px;color:${color};">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
   return `<button onclick="${viewAction}" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid ${color};background:${bg};color:#f5e8cc;font-size:14px;cursor:pointer;">
     📋 See my ${title} Plan & Shopping List →
-    <div style="font-size:11px;color:${color};margin-top:3px;">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
+    <div style="font-size:13px;color:${color};margin-top:3px;">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
   </button>`;
 }
 

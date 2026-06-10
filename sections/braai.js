@@ -13,8 +13,9 @@ function braaiStep1(){
   const sections = [
     {id:'mains',   emoji:'🥩', label:'Mains',        sub:'Meats & Vegetarian',            action:"set({braiStep:2,braaiView:'browse'})",                              count:selMeats.length},
     {id:'salads',  emoji:'🥗', label:'Salads',        sub:'Cold sides & fresh salads',     action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'salads'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===id)).length},
-    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Bread',    action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
+    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Mielies',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
+    {id:'extras',  emoji:'🍞', label:'Breads',         sub:'Braaibroodjies · Garlic Bread',action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='extras')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
     {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})", count:total, highlight:false, planBox:true},
   ];
@@ -25,7 +26,7 @@ function braaiStep1(){
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 14px 12px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
+            <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
             <div onclick="S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 Search Braai recipes…</div>
           </div>
           <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">🔥 Braai &amp; Fire Cooking</h1>
@@ -36,8 +37,8 @@ function braaiStep1(){
     <div class="content">
       <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:12px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
-            <span style="font-size:10px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
+          <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+            <span style="font-size:13px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
             <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
           </button>
           <div style="width:1px;height:20px;background:#3a2010;flex-shrink:0;"></div>
@@ -47,11 +48,11 @@ function braaiStep1(){
             <button onclick="set({people:S.people+1})" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
             <input type="range" min="1" max="100" value="${S.people}" oninput="S.people=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
           </div>
-          <span style="font-size:10px;color:#b1734c;flex-shrink:0;">${APPETITE[S.appetite]?.label||'Family Mix'}</span>
+          <span style="font-size:13px;color:#b1734c;flex-shrink:0;">${APPETITE[S.appetite]?.label||'Family Mix'}</span>
         </div>
         ${S.howItWorksOpen ? `
         <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
-          <div style="font-size:12px;color:#c8b898;line-height:2;">
+          <div style="font-size:13px;color:#c8b898;line-height:2;">
             1 · Browse each section and tap <strong style="color:#f5c842;">Recipe →</strong> to read first<br>
             2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan<br>
             3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong><br>
@@ -67,7 +68,7 @@ function braaiStep1(){
             <div style="font-size:24px;margin-bottom:5px;">${s.emoji}</div>
             <div style="font-size:16px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
             <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>
-            ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'#c06020'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:8px;padding:1px 4px;">${s.count}</div>`:''}
+            ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'#c06020'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:13px;padding:1px 4px;">${s.count}</div>`:''}
           </div>`).join('')}
       </div>
     </div>
@@ -81,7 +82,7 @@ function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step){
       <div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;">${name}</div><div style="font-size:14px;color:#e0d4b8;margin-top:3px;line-height:1.4;">${note}</div></div>
       <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
         ${sel&&qty?`<div style="font-size:13px;color:#f5c842;font-weight:bold;">${qty}</div>`:""}
-        ${!disabled?`<button onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${step}}})" style="background:#c06020;border:none;border-radius:6px;padding:4px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>`:""}
+        ${!disabled?`<button onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${step}}})" style="background:#c06020;border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>`:""}
       </div>
     </div>
   </div>`;
@@ -99,8 +100,8 @@ function braaiStep2(){
     return `<button onclick="set({braiCat:'${g.id}'});setTimeout(()=>{const el=document.getElementById('meatGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)"
       style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${active?"#c06020":"#3a2010"};
       background:${active?"#2a1008":"#0f0c08"};color:${active?"#f5c842":"#6a4020"};
-      font-size:11px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;">
-      ${g.label}${selCount>0?` <span style="background:#c06020;color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:3px;">${selCount}</span>`:""}
+      font-size:13px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;">
+      ${g.label}${selCount>0?` <span style="background:#c06020;color:#fff;border-radius:10px;padding:1px 6px;font-size:13px;margin-left:3px;">${selCount}</span>`:""}
     </button>`;
   }).join("");
 
@@ -118,12 +119,12 @@ function braaiStep2(){
     <div class="header">
       <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍽️ Choose Mains</h1>
-      <p style="margin:0;font-size:11px;color:#a07050;font-style:italic;">${count}/${max>=99?"∞":max} selected · Select item to see 📖 recipe</p>
+      <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${count}/${max>=99?"∞":max} selected · Select item to see 📖 recipe</p>
     </div>
     <div class="content">
       <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
-        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:12px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
-          <span style="font-size:10px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
+        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
+          <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
         </button>
         ${portionHelpContent()}
@@ -135,13 +136,13 @@ function braaiStep2(){
       </div>
 
       <!-- Active group label -->
-      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid #2a1a10;margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
+      <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid #2a1a10;margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
 
       ${activeGroup.id==="veg"?`
-        <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:#539048;line-height:1.6;">
+        <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:#539048;line-height:1.6;">
           🥗 <strong style="color:#6aaa50;">More vegetarian options in Sides & Salads!</strong><br>
           <span style="color:#558d46;">Chakalaka, mixed salads, potato bake, stuffed mushrooms and more — all scale to your guest count.</span><br>
-          <button onclick="set({braiStep:3,braaiView:\'browse\',braaiSidesFilter:\'salads\'})" style="margin-top:6px;background:#1a3a18;border:1px solid #3a7a30;border-radius:6px;padding:5px 12px;font-size:11px;color:#60c050;cursor:pointer;font-family:Georgia,serif;">→ Go to Side Dishes</button</span>
+          <button onclick="set({braiStep:3,braaiView:\'browse\',braaiSidesFilter:\'salads\'})" style="margin-top:6px;background:#1a3a18;border:1px solid #3a7a30;border-radius:6px;padding:5px 12px;font-size:13px;color:#60c050;cursor:pointer;font-family:Georgia,serif;">→ Go to Side Dishes</button</span>
         </div>`:""}
 
       <!-- Items -->
@@ -162,13 +163,13 @@ function braaiStep3(){
     <div class="header">
       <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${sectionLabel}</h1>
-      <p style="margin:0;font-size:11px;color:#a07050;font-style:italic;">${S.selectedSides.length} selected · Select item to see 📖 recipe</p>
+      <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${S.selectedSides.length} selected · Select item to see 📖 recipe</p>
     </div>
     <div class="content">
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
       <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
-        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:12px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
-          <span style="font-size:10px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
+        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
+          <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
         </button>
         ${portionHelpContent()}
@@ -177,12 +178,12 @@ function braaiStep3(){
         ${[{id:'salads',emoji:'🥗',label:'Salads'},{id:'starchy',emoji:'🌽',label:'Side Meals'},{id:'relishes',emoji:'🥫',label:'Sauces'},{id:'extras',emoji:'🥪',label:'Breads'},{id:'desserts',emoji:'🍫',label:'Desserts'},{id:null,emoji:'🔀',label:'All'}].map(s=>`
           <button onclick="set({braaiSidesFilter:${s.id===null?'null':"'"+s.id+"'"}})"
             style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${filter===s.id?'#c06020':'#3a2010'};
-            background:${filter===s.id?'#2a1008':'#0f0c08'};color:${filter===s.id?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;white-space:nowrap;">
+            background:${filter===s.id?'#2a1008':'#0f0c08'};color:${filter===s.id?'#f5c842':'#6a4020'};font-size:13px;cursor:pointer;white-space:nowrap;">
             ${s.emoji} ${s.label}
           </button>`).join('')}
       </div>
       ${groupsToShow.map(group=>`
-        <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #2a1a10;margin-bottom:6px;margin-top:14px;">${group.label}</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #2a1a10;margin-bottom:6px;margin-top:14px;">${group.label}</div>
         ${group.items.map(side=>{
           const allowed=tierAllows(side.tier||"free");
           const sel=S.selectedSides.includes(side.id);
@@ -191,7 +192,7 @@ function braaiStep3(){
         }).join("")}
       `).join("")}
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
-      ${filter==='desserts'||filter===null?`<div onclick="set({screen:'events',eventTab:'bigcooking',buffetStep:4})" style="background:#161210;border:1px dashed #3a2010;border-radius:10px;padding:12px;margin-top:8px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#c06020;">🍰 See more desserts in Buffet →</div><div style="font-size:10px;color:#b1734c;margin-top:3px;">Malva Pudding · Melktert · Peppermint Tart · Tipsy Tart & more</div></div>`:''}
+      ${filter==='desserts'||filter===null?`<div onclick="set({screen:'events',eventTab:'bigcooking',buffetStep:4})" style="background:#161210;border:1px dashed #3a2010;border-radius:10px;padding:12px;margin-top:8px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#c06020;">🍰 See more desserts in Buffet →</div><div style="font-size:13px;color:#b1734c;margin-top:3px;">Malva Pudding · Melktert · Peppermint Tart · Tipsy Tart & more</div></div>`:''}
       ${braaiMyPlanBtn()}
     </div>
   </div>`;
@@ -206,14 +207,14 @@ function braaiStep4(){
     <div class="header">
       <button class="back-btn" onclick="set({braaiView:'browse',braiStep:1})" style="color:#c06020;">← Overview</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Braai Plan</h1>
-      <p style="margin:0;font-size:11px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${String(S.budget||"standard").charAt(0).toUpperCase()+String(S.budget||"standard").slice(1)}</p>
+      <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${String(S.budget||"standard").charAt(0).toUpperCase()+String(S.budget||"standard").slice(1)}</p>
     </div>
     <div class="content">
       ${braaiQuickNav('myplan')}
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;">🍽️ Mains</div>
       <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:6px;">
         ${S.selectedMeats.length===0?`<p style="font-size:13px;color:#b1734c;font-style:italic;">No mains selected</p>`:""}
-        ${S.selectedMeats.map(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return ""; const c=calcMeat(m); const mealCals=USER_TIER==="pro"?Math.round((c.grams/100)*(MEAT_CALS[mid]||200)/S.people):0; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${m.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${m.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${c.display}${USER_TIER==="pro"?` · <span style="color:#40d0a0;font-size:12px;">${mealCals} kcal/person</span>`:""}</div></div></div>${recipeBtn("meat",m.id,4)}</div>`; }).join("")}
+        ${S.selectedMeats.map(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return ""; const c=calcMeat(m); const mealCals=USER_TIER==="pro"?Math.round((c.grams/100)*(MEAT_CALS[mid]||200)/S.people):0; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${m.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${m.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${c.display}${USER_TIER==="pro"?` · <span style="color:#40d0a0;font-size:13px;">${mealCals} kcal/person</span>`:""}</div></div></div>${recipeBtn("meat",m.id,4)}</div>`; }).join("")}
       </div>
       ${S.selectedMeats.length>0?`
         <div style="background:#0f0e08;border:1px solid #2a2408;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;line-height:1.5;">
@@ -234,14 +235,14 @@ function braaiStep4(){
         </div>
       `:""}
 
-      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`:`<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:#a09040;">💰 Estimated total (${S.budget})</div><div style="font-size:26px;color:#f5c842;font-weight:bold;">R${cost}</div></div><div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;"><div style="font-size:12px;color:#908241;">Per person</div><div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(cost/S.people)}</div></div></div>`}
+      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`:`<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:#a09040;">💰 Estimated total (${S.budget})</div><div style="font-size:26px;color:#f5c842;font-weight:bold;">R${cost}</div></div><div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;"><div style="font-size:13px;color:#908241;">Per person</div><div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(cost/S.people)}</div></div></div>`}
 
-      ${USER_TIER==="pro"?`<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#409070;">🔥 Total calories per person</div><div style="font-size:10px;color:#468d75;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#40d0a0;font-weight:bold;">${cals}<span style="font-size:12px;"> kcal</span></div></div></div>`:`<div style="background:#081808;border:1px dashed ${USER_TIER==="plus"?"#205030":"#162016"};border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:12px;color:${USER_TIER==="plus"?"#305040":"#2a3020"};">🔥 Calorie counter — <strong>Tinza Pro R99/month</strong></div></div>`}
+      ${USER_TIER==="pro"?`<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#409070;">🔥 Total calories per person</div><div style="font-size:13px;color:#468d75;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#40d0a0;font-weight:bold;">${cals}<span style="font-size:13px;"> kcal</span></div></div></div>`:`<div style="background:#081808;border:1px dashed ${USER_TIER==="plus"?"#205030":"#162016"};border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:13px;color:${USER_TIER==="plus"?"#305040":"#2a3020"};">🔥 Calorie counter — <strong>Tinza Pro R99/month</strong></div></div>`}
 
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
-      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#8a4020;margin-bottom:6px;font-weight:bold;">Full Shopping List</div><div style="font-size:12px;color:#5a3020;margin-bottom:10px;line-height:1.6;">All ingredients combined — no duplicates!<br>Onions from 3 dishes = 1 combined line item</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>`:`
+      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#8a4020;margin-bottom:6px;font-weight:bold;">Full Shopping List</div><div style="font-size:13px;color:#5a3020;margin-bottom:10px;line-height:1.6;">All ingredients combined — no duplicates!<br>Onions from 3 dishes = 1 combined line item</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>`:`
         <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-          <div style="font-size:11px;color:#b56d37;margin-bottom:10px;">✅ Tap items you already have to remove</div>
+          <div style="font-size:13px;color:#b56d37;margin-bottom:10px;">✅ Tap items you already have to remove</div>
           ${shopList.length===0?`<p style="font-size:13px;color:#b1734c;font-style:italic;">Select meats and sides to generate your list</p>`:""}
           ${(()=>{
             // Render with aisle section headers
@@ -254,22 +255,22 @@ function braaiStep4(){
                          :item.unit==="pcs"?Math.ceil(item.amt)+" pcs"
                          :item.unit===""?Math.ceil(item.amt)+"×":Math.ceil(item.amt)+" "+item.unit;
               if(item.aisle && item.aisle !== lastAisle){
-                html += `<div style="font-size:10px;letter-spacing:1.5px;color:#b56d37;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${item.aisle}</div>`;
+                html += `<div style="font-size:13px;letter-spacing:1.5px;color:#b56d37;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${item.aisle}</div>`;
                 lastAisle = item.aisle;
               }
-              html += `<div class="shop-item" style="opacity:${checked?0.3:1};" onclick="set({checkedShopItems:{...S.checkedShopItems,'${item.name}':!S.checkedShopItems['${item.name}']}})"><div class="shop-check" style="background:${checked?"#c06020":"transparent"};">${checked?`<span style="color:#fff;font-size:12px;">✓</span>`:""}</div><div style="flex:1;font-size:14px;color:${checked?"#3a2010":"#e0d4b8"};text-decoration:${checked?"line-through":"none"};">${item.name}</div><div style="font-size:14px;color:${checked?"#3a2010":"#f5c842"};font-weight:bold;">${amt}</div></div>`;
+              html += `<div class="shop-item" style="opacity:${checked?0.3:1};" onclick="set({checkedShopItems:{...S.checkedShopItems,'${item.name}':!S.checkedShopItems['${item.name}']}})"><div class="shop-check" style="background:${checked?"#c06020":"transparent"};">${checked?`<span style="color:#fff;font-size:13px;">✓</span>`:""}</div><div style="flex:1;font-size:14px;color:${checked?"#3a2010":"#e0d4b8"};text-decoration:${checked?"line-through":"none"};">${item.name}</div><div style="font-size:14px;color:${checked?"#3a2010":"#f5c842"};font-weight:bold;">${amt}</div></div>`;
             });
             return html;
           })()}
-          ${shopList.length>0?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #2a1a10;display:flex;justify-content:space-between;"><span style="font-size:11px;color:#b56d37;">${shopList.filter(i=>!S.checkedShopItems[i.name]).length} of ${shopList.length} items remaining</span><button onclick="set({checkedShopItems:{}})" style="background:none;border:none;color:#cf6031;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:""}
+          ${shopList.length>0?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #2a1a10;display:flex;justify-content:space-between;"><span style="font-size:13px;color:#b56d37;">${shopList.filter(i=>!S.checkedShopItems[i.name]).length} of ${shopList.length} items remaining</span><button onclick="set({checkedShopItems:{}})" style="background:none;border:none;color:#cf6031;font-size:13px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:""}
         </div>
       `}
 
       <div class="grid2" style="gap:10px;margin-bottom:10px;">
-        <button onclick="shareBasic()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;">📱 Share Plan<br><span style="font-size:9px;opacity:0.7;">🆓 Free</span></button>
-        ${USER_TIER==="free"?`<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a1808;color:#c06a35;font-size:12px;line-height:1.4;">🔒 Full List<br><span style="font-size:9px;">👑 Pro only</span></button>`:`<button onclick="shareFull()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;line-height:1.4;">📱 Share + Shopping List<br><span style="font-size:9px;opacity:0.7;">👑 Pro</span></button>`}
+        <button onclick="shareBasic()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;">📱 Share Plan<br><span style="font-size:13px;opacity:0.7;">🆓 Free</span></button>
+        ${USER_TIER==="free"?`<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a1808;color:#c06a35;font-size:13px;line-height:1.4;">🔒 Full List<br><span style="font-size:13px;">👑 Pro only</span></button>`:`<button onclick="shareFull()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;">📱 Share + Shopping List<br><span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`}
       </div>
-      ${USER_TIER==="pro"?`<button onclick="window.printPlan('braai')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">🖨️ Print / Save as PDF <span style="font-size:10px;opacity:0.7;">👑 Pro</span></button>`:`<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1808;color:#c06a35;font-size:13px;margin-bottom:10px;">🔒 Print / Save as PDF — Pro only</button>`}
+      ${USER_TIER==="pro"?`<button onclick="window.printPlan('braai')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">🖨️ Print / Save as PDF <span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`:`<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1808;color:#c06a35;font-size:13px;margin-bottom:10px;">🔒 Print / Save as PDF — Pro only</button>`}
       <button onclick="set({braiStep:1,selectedMeats:[],selectedSides:[],checkedShopItems:{},braiCat:'beef',braaiSidesFilter:null,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#2a1008;border:2px solid #c06020;color:#f5c842;font-size:13px;margin-bottom:20px;font-weight:bold;">🔄 Start a New Braai Plan</button>
       <button onclick="set({braiStep:1,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin-bottom:20px;">← Back to Overview</button>
     </div>
