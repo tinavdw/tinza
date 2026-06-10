@@ -953,10 +953,10 @@ function healthGroupScreen(isPro, srv){
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           ${gDef.tabs.map(t=>`
           <div onclick="${t.coming?'':' set({healthGroupTab:\''+t.id+'\'})'}"
-            style="background:${t.coming?'#0a1208':'#161210'};border:1px solid ${t.coming?'#1a2818':'#3a2010'};border-radius:14px;padding:14px;cursor:${t.coming?'default':'pointer'};opacity:${t.coming?0.5:1};">
-            <div style="font-size:28px;margin-bottom:6px;">${t.emoji}</div>
-            <div style="font-size:13px;color:${t.coming?'#306040':'#e0d4b8'};font-weight:bold;">${t.label}</div>
-            ${t.coming?'<div style="font-size:10px;color:#478e6a;margin-top:4px;">Coming soon</div>':''}
+            style="background:${t.coming?'#140d06':'#161210'};border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:${t.coming?'default':'pointer'};opacity:${t.coming?0.6:1};display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+            <div style="font-size:24px;margin-bottom:6px;">${t.emoji}</div>
+            <div style="font-size:16px;color:${t.coming?'#6a5440':'#f5e8cc'};font-weight:bold;line-height:1.2;">${t.label}</div>
+            ${t.coming?'<div style="font-size:14px;color:#6a5440;margin-top:4px;">Coming soon</div>':''}
           </div>`).join('')}
         </div>
       </div>

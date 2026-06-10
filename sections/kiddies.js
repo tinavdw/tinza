@@ -156,9 +156,9 @@ function kidsPartyHTML(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
         ${filteredThemes.length===0?`<div style="grid-column:1/-1;text-align:center;padding:30px 16px;background:#161210;border:1px solid #3a2010;border-radius:12px;"><div style="font-size:32px;margin-bottom:8px;">🎈</div><div style="font-size:13px;color:#a07050;">No themes match "${searchVal}"</div></div>`:''}
         ${filteredThemes.map(th=>`
-          <div onclick="set({kidsTheme:'${th.id}',kidsScreen:'categories',kidsRemoved:[]})" style="background:#161210;border:1px solid #3a2010;border-radius:12px;padding:12px 6px;cursor:pointer;text-align:center;position:relative;">
+          <div onclick="set({kidsTheme:'${th.id}',kidsScreen:'categories',kidsRemoved:[]})" style="background:#161210;border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div style="font-size:24px;margin-bottom:5px;">${th.emoji}</div>
-            <div style="font-size:11px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${th.name}</div>
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${th.name}</div>
             <div style="display:flex;gap:3px;justify-content:center;">${(th.colours||[]).slice(0,4).map(c=>`<div style="width:8px;height:8px;border-radius:50%;background:${c};"></div>`).join('')}</div>
           </div>`).join('')}
       </div>
@@ -184,10 +184,10 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
       <div style="font-size:10px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
         ${cats.map(c=>`
-          <div onclick="set({kidsScreen:'${c.id==='cake'?'recipe':(c.plan?'plan':'category')}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#3a2010'};border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;position:relative;">
-            <div style="font-size:20px;margin-bottom:3px;">${c.emoji}</div>
-            <div style="font-size:10px;color:#f5e8cc;font-weight:bold;margin-bottom:1px;">${c.label}</div>
-            <div style="font-size:8px;color:#b56d37;line-height:1.3;">${c.sub}</div>
+          <div onclick="set({kidsScreen:'${c.id==='cake'?'recipe':(c.plan?'plan':'category')}',kidsCategory:'${c.id}'})" style="background:#161210;border:1px solid ${c.plan?'#c0a020':'#2a1a10'};border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div style="font-size:24px;margin-bottom:6px;">${c.emoji}</div>
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${c.label}</div>
+            <div style="font-size:14px;color:#c8a86a;line-height:1.2;">${c.sub}</div>
             ${c.count>0?`<div style="position:absolute;top:3px;right:3px;background:#c06020;color:#fff;border-radius:5px;font-size:8px;padding:1px 4px;">${c.count}</div>`:''}
           </div>`).join('')}
       </div>
