@@ -1387,6 +1387,13 @@ function wkRecipeCard(r){
     var mainIt = wkClassifyMain(wkParseIngredients(r.ingredients)).item;
     if(mainIt){ var sc = wkScaleLine(mainIt, wkEffectiveMult(r, dc, apC)); if(!sc.faded) grams = sc.amt; }
   }
+  // ── per-person cost (FREE hook) — show only when ingredients are priced ──
+  var costPP = '';
+  if(typeof wkCostRecipe==='function' && typeof wkEffectiveMult==='function'){
+    var _ap  = (typeof wkAppetite==='function') ? wkAppetite() : null;
+    var _cpp = wkCostRecipe(r, wkEffectiveMult(r, 1, _ap));
+    if(_cpp && _cpp.priced > 0 && _cpp.total > 0) costPP = _cpp.total;
+  }
   var box = '<div onclick="event.stopPropagation();wkPlanToggle(\''+r.id+'\',4)" '
     + 'title="'+(checked?'In plan — tap to remove':'Add to plan')+'" '
     + 'style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid '+green+';'
@@ -1400,6 +1407,7 @@ function wkRecipeCard(r){
     +     '<div style="flex:1;min-width:0;">'
     +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
     +       '<div style="font-size:14px;color:'+feelCol+';margin-top:3px;line-height:1.4;">'+sub+'</div>'
+    +       (costPP ? '<div style="font-size:12px;color:#f5c842;font-weight:bold;margin-top:3px;">≈ R'+costPP+' pp</div>' : '')
     +     '</div>'
     +     (grams ? '<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;flex-shrink:0;">'+grams+' <span style="font-size:9px;color:#b0936a;font-weight:normal;">pp</span></span>' : '')
     +     '<button onclick="event.stopPropagation();'+open+'" style="background:'+green+';border:none;border-radius:6px;padding:5px 11px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;font-weight:bold;flex-shrink:0;">Recipe →</button>'
