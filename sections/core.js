@@ -228,7 +228,7 @@ const POPULAR_RECIPES = {
       howItFeels:"Green, minty, nostalgic — every South African school fundraiser ever.",
       storage:"Fridge 3 days." },
 
-    { id:"pr_chakalaka", name:"Chakalaka", emoji:"🫙", cuisine:"South African", time:30, serves:6,
+    { id:"pr_chakalaka", name:"Chakalaka", emoji:"🥫", cuisine:"South African", time:30, serves:6,
       tags:["relish","spicy","veg","braai side","township"],
       ingredients:[
         {n:"Onion (finely diced)",pp:20,u:"g"},
@@ -1096,7 +1096,7 @@ const MOOD_DB = {
       tip:"High heat is non-negotiable for stir-fry — without it you get a steam rather than a fry. Add the basil off the heat so it doesn't go black. Thai basil is different from Italian basil but both work.",
       nutrition:{kcal:390,protein_g:35,carbs_g:12,fat_g:22} },
 
-    { name:"Moroccan Chickpea Tagine", emoji:"🫙", time:40, why:"North African spices, dried fruit, depth of flavour — truly different",
+    { name:"Moroccan Chickpea Tagine", emoji:"🥫", time:40, why:"North African spices, dried fruit, depth of flavour — truly different",
       photo:"",
       ingredients:[
         {n:"Tinned chickpeas (drained)",pp:200,u:"g"},
@@ -1352,7 +1352,7 @@ function moodHTML(){
           ${recipes.map((r,i)=>`
             <div style="background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.bg:'#161210'};border:1px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
               <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="(function(){const pid=r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();const pi={id:pid,name:r.name||'',emoji:r.emoji||'😴',time:r.time||0,ingredients:r.ingredients||[],serves:1};togglePlanItem('moodPlan',pi);})()" >
-                <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'transparent'};border:2px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#3a2060'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'✓':''}</div>
+                <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'transparent'};border:2px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'✓':''}</div>
                 <span style="font-size:20px;">${r.emoji}</span>
                 <div style="flex:1;">
                   <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'#f5e8cc':'#c8b898'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
@@ -1608,17 +1608,17 @@ function recipeView(){
   // ── GOES WELL WITH data for Braai items ──────────────────────────
   const goesWellWith = {
     boerewors:   [{e:'🌽',n:'Phutu Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Chakalaka',s:'braai',t:'relishes'},{e:'🍞',n:'Braaibroodjie',s:'braai',t:'extras'}],
-    rump:        [{e:'🫙',n:'Garlic Sauce',s:'braai',t:'relishes'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'}],
-    fillet:      [{e:'🫙',n:'Pepper Sauce',s:'braai',t:'relishes'},{e:'🥗',n:'Green Salad',s:'braai',t:'salads'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'}],
-    beefribs:    [{e:'🌽',n:'Stywe Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🫙',n:'Chakalaka',s:'braai',t:'relishes'}],
+    rump:        [{e:'🥫',n:'Garlic Sauce',s:'braai',t:'relishes'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'}],
+    fillet:      [{e:'🥫',n:'Pepper Sauce',s:'braai',t:'relishes'},{e:'🥗',n:'Green Salad',s:'braai',t:'salads'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'}],
+    beefribs:    [{e:'🌽',n:'Stywe Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🥫',n:'Chakalaka',s:'braai',t:'relishes'}],
     chicken:     [{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🌽',n:'Phutu Pap',s:'braai',t:'starchy'},{e:'🍞',n:'Garlic Bread',s:'braai',t:'extras'}],
-    wings:       [{e:'🫙',n:'Dipping Sauce',s:'braai',t:'relishes'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🍞',n:'Braaibroodjie',s:'braai',t:'extras'}],
-    sosaties:    [{e:'🌽',n:'Phutu Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'},{e:'🫙',n:'Satay Sauce',s:'braai',t:'relishes'}],
-    lambchops:   [{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Mint Salad',s:'braai',t:'salads'},{e:'🫙',n:'Garlic Sauce',s:'braai',t:'relishes'}],
+    wings:       [{e:'🥫',n:'Dipping Sauce',s:'braai',t:'relishes'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🍞',n:'Braaibroodjie',s:'braai',t:'extras'}],
+    sosaties:    [{e:'🌽',n:'Phutu Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'},{e:'🥫',n:'Satay Sauce',s:'braai',t:'relishes'}],
+    lambchops:   [{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Mint Salad',s:'braai',t:'salads'},{e:'🥫',n:'Garlic Sauce',s:'braai',t:'relishes'}],
     porkchops:   [{e:'🍎',n:'Apple Sauce',s:'braai',t:'relishes'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'}],
     spareribs:   [{e:'🌽',n:'Stywe Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Coleslaw',s:'braai',t:'salads'},{e:'🍞',n:'Garlic Bread',s:'braai',t:'extras'}],
-    prawns:      [{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'},{e:'🍞',n:'Garlic Bread',s:'braai',t:'extras'},{e:'🫙',n:'Lemon Butter',s:'braai',t:'relishes'}],
-    espetada:    [{e:'🥗',n:'Portuguese Roll',s:'braai',t:'extras'},{e:'🥗',n:'Green Salad',s:'braai',t:'salads'},{e:'🫙',n:'Garlic Sauce',s:'braai',t:'relishes'}],
+    prawns:      [{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'},{e:'🍞',n:'Garlic Bread',s:'braai',t:'extras'},{e:'🥫',n:'Lemon Butter',s:'braai',t:'relishes'}],
+    espetada:    [{e:'🥗',n:'Portuguese Roll',s:'braai',t:'extras'},{e:'🥗',n:'Green Salad',s:'braai',t:'salads'},{e:'🥫',n:'Garlic Sauce',s:'braai',t:'relishes'}],
   };
   const gww = goesWellWith[vr.id] || [];
   const goesWellBlock = gww.length ? `
@@ -1837,7 +1837,7 @@ function braaiNavGo(id){
   else if(id==='starchy')  { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'}); }
   else if(id==='sauces')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'}); }
   else if(id==='desserts')  { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'}); }
-  else if(id==='breads')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'}); }
+  else if(id==='extras')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'}); }
   else if(id==='myplan')   { 
     set({braaiView:'myplan',viewingRecipe:null,recipeServings:null});
   }
@@ -1851,7 +1851,7 @@ function braaiQuickNav(activeCat){
     {id:'mains',   emoji:'🥩', label:'Mains',    count:selMeats.length},
     {id:'salads',  emoji:'🥗', label:'Salads',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===sid)).length},
     {id:'starchy', emoji:'🌽', label:'Side Meals',  count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===sid)).length},
-    {id:'sauces',  emoji:'🫙', label:'Sauces',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===sid)).length},
+    {id:'sauces',  emoji:'🥫', label:'Sauces',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===sid)).length},
     {id:'extras',  emoji:'🍞', label:'Breads',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='extras')?.items.some(x=>x.id===sid)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts', count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===sid)).length},
     {id:'myplan',  emoji:'📋', label:'My Plan',  count:total, highlight:true},
@@ -1859,15 +1859,15 @@ function braaiQuickNav(activeCat){
   return `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;">
     ${sections.map(s=>{
       const isActive = activeCat===s.id;
-      const borderCol = isActive?(s.highlight?'#c0a020':'#c06020'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#2a1808';
+      const borderCol = isActive?(s.highlight?'#c0a020':'#c06020'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#4a3424';
       const bgCol = isActive?(s.highlight?'#1a1408':'#2a1008'):s.count>0?'#1a1008':'transparent';
-      const textCol = isActive?'#f5c842':s.count>0?'#c09040':'#6a4020';
+      const textCol = isActive?'#f5c842':s.count>0?'#e0b878':'#c8b898';
       return `<button onclick="braaiNavGo('${s.id}')"
         style="padding:8px 4px;border-radius:10px;border:1px solid ${borderCol};
                background:${bgCol};cursor:pointer;text-align:center;position:relative;">
         <div style="font-size:18px;">${s.emoji}</div>
-        <div style="font-size:9px;color:${textCol};margin-top:3px;font-weight:${isActive?'bold':'normal'};">${s.label}</div>
-        ${s.count>0?`<div style="position:absolute;top:2px;right:2px;background:${s.highlight?'#c0a020':'#c06020'};color:${s.highlight?'#181808':'white'};border-radius:5px;font-size:8px;padding:1px 3px;">${s.count}</div>`:''}
+        <div style="font-size:13px;color:${textCol};margin-top:3px;font-weight:${isActive?'bold':'normal'};">${s.label}</div>
+        ${s.count>0?`<div style="position:absolute;top:2px;right:2px;background:${s.highlight?'#c0a020':'#c06020'};color:${s.highlight?'#181808':'white'};border-radius:5px;font-size:11px;padding:1px 4px;">${s.count}</div>`:''}
       </button>`;
     }).join('')}
   </div>`;

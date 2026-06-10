@@ -256,7 +256,7 @@ function mealSectionHTML(sectionKey){
         const inPlan = isPlanItem('mealPlan', r.id);
         return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:14px;margin-bottom:8px;">
           <div style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;" onclick="toggleMealPlan('${r.id}')">
-            <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${inPlan?'✓':''}</div>
+            <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${inPlan?'✓':''}</div>
             <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
