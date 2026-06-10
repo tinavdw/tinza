@@ -13,7 +13,7 @@ function braaiStep1(){
   const sections = [
     {id:'mains',   emoji:'🥩', label:'Mains',        sub:'Meats & Vegetarian',            action:"set({braiStep:2,braaiView:'browse'})",                              count:selMeats.length},
     {id:'salads',  emoji:'🥗', label:'Salads',        sub:'Cold sides & fresh salads',     action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'salads'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===id)).length},
-    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
+    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>['starchy','extras'].some(gid=>SIDES_GROUPS.find(g=>g.id===gid)?.items.some(x=>x.id===id))).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
     {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})", count:total, highlight:false, planBox:true},
@@ -155,7 +155,7 @@ function braaiStep2(){
 
 function braaiStep3(){
   const filter = S.braaiSidesFilter || null;
-  const groupsToShow = filter ? SIDES_GROUPS.filter(g=>g.id===filter) : SIDES_GROUPS;
+  const groupsToShow = filter ? SIDES_GROUPS.filter(g=> g.id===filter || (filter==='starchy' && g.id==='extras')) : SIDES_GROUPS;
   const labels = {salads:'🥗 Salads',starchy:'🌽 Side Meals',relishes:'🥫 Sauces & Relishes',extras:'🥪 Breads & Extras',desserts:'🍫 Fire Desserts'};
   const sectionLabel = filter ? (labels[filter]||'Sides') : '🥗 Sides and More';
   return `<div>
@@ -172,14 +172,6 @@ function braaiStep3(){
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
         </button>
         ${portionHelpContent()}
-      </div>
-      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;scrollbar-width:none;">
-        ${[{id:'salads',emoji:'🥗',label:'Salads'},{id:'starchy',emoji:'🌽',label:'Side Meals'},{id:'relishes',emoji:'🥫',label:'Sauces'},{id:'extras',emoji:'🥪',label:'Breads'},{id:'desserts',emoji:'🍫',label:'Desserts'},{id:null,emoji:'🔀',label:'All'}].map(s=>`
-          <button onclick="set({braaiSidesFilter:${s.id===null?'null':"'"+s.id+"'"}})"
-            style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${filter===s.id?'#c06020':'#3a2010'};
-            background:${filter===s.id?'#2a1008':'#0f0c08'};color:${filter===s.id?'#f5c842':'#6a4020'};font-size:13px;cursor:pointer;white-space:nowrap;">
-            ${s.emoji} ${s.label}
-          </button>`).join('')}
       </div>
       ${groupsToShow.map(group=>`
         <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #2a1a10;margin-bottom:6px;margin-top:14px;">${group.label}</div>

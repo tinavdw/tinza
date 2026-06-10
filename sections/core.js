@@ -373,6 +373,7 @@ function draw(){
   const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
   // Stage 1 scroll-to-content: on an in-section navigation (new tab/category/list — not a quiet toggle/slider), land on the content instead of the banner
   const jumpToContent = !screenChanged && root._savedScroll == null && !sameContext;
+  const openedRecipe = !!S.viewingRecipe && (root._lastVR !== ((S.viewingRecipe && S.viewingRecipe.id) || 'vr'));
   root._savedScroll = null;
 
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
@@ -445,6 +446,7 @@ function draw(){
   if(peopleSlider) peopleSlider.value = S.people;
   root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
   root._lastScreen = S.screen;
+  root._lastVR = S.viewingRecipe ? (S.viewingRecipe.id || 'vr') : null;
 
   // ── Device-back history: push a history entry on each forward nav ──
   navInit();
@@ -456,7 +458,10 @@ function draw(){
     window._navSig = _sig;
   }
 
-  if(jumpToContent){
+  if(openedRecipe){
+    window.scrollTo(0, 0);
+    requestAnimationFrame(()=>{ window.scrollTo(0, 0); });
+  } else if(jumpToContent){
     const ct = ()=>{ const el=root.querySelector('.content'); return el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - 8) : 0; };
     window.scrollTo(0, ct());
     requestAnimationFrame(()=>{ window.scrollTo(0, ct()); });
