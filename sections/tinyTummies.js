@@ -56,10 +56,15 @@ function babyListHTML(){
     </div>` : '';
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">
-      <button class="back-btn" onclick="set({screen:'tinyfurry',activeBaby:null})" style="color:#c06020;">← Tiny & Furry</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍼 Tiny Tummies</h1>
-      <p style="margin:0;font-size:11px;color:#a96f7e;font-style:italic;">Safe, nutritious recipes for every stage</p>
+    <!-- ══ V33 PHOTO HEADER ══ -->
+    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#1a1208 100%);">
+      <img src="Images/Image%20header/tinytummies.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
+      <button onclick="set({screen:'tinyfurry',activeBaby:null})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #c06020;border-radius:20px;color:#c06020;font-size:12px;padding:5px 12px;cursor:pointer;">← Tiny &amp; Furry</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 14px;">
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍼 Tiny Tummies</h1>
+        <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">Tiny tummies, big love — safe food for every stage</p>
+      </div>
     </div>
     <div class="content">
       <div style="background:#1a0810;border:1px solid #6a1030;border-radius:10px;padding:12px;margin-bottom:14px;">

@@ -1059,11 +1059,11 @@ function eventsHTML(){
 
   // ── Buffet step flow — returns standalone, bypasses tab wrapper ──
   const tabs = [
-    {id:'bigcooking', label:'🍽️ Big Buffet'},
-    {id:'fingerfoods',label:'🥪 Finger Foods & Snacks'},
-    {id:'weddingcake',label:'🎂 Celebration Cakes'},
-    {id:'kiddies',    label:'🎈 Kiddies Parties'},
-    {id:'beverages',  label:'🍹 Beverages & Cocktails'},
+    {id:'bigcooking', label:'🍽️ Big Buffet',             feel:'Generous spreads, everyone back for seconds'},
+    {id:'fingerfoods',label:'🥪 Finger Foods & Snacks',   feel:'Little bites that vanish off the platter'},
+    {id:'weddingcake',label:'🎂 Celebration Cakes',       feel:'The showstopper everyone gathers around'},
+    {id:'kiddies',    label:'🎈 Kiddies Parties',         feel:'Colour, sugar and squeals of delight'},
+    {id:'beverages',  label:'🍹 Beverages & Cocktails',   feel:'Something cold to raise and clink'},
   ];
 
   const howItWorksOpen = S.eventsHowOpen || false;
@@ -1078,7 +1078,7 @@ function eventsHTML(){
       <!-- Title + search overlaid -->
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🎉 Events & Celebrations</h1>
-        <p style="margin:0 0 10px;font-size:13px;color:#c0915a;font-style:italic;">Weddings · Birthdays · Funerals · Baptisms · Company events · 10–350 guests</p>
+        <p style="margin:0 0 10px;font-size:13px;color:#c0915a;font-style:italic;">Every gathering that brings your people to one table</p>
         <!-- Search bar -->
         <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #c06020;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
@@ -1139,6 +1139,7 @@ function eventsHTML(){
             onmouseover="this.style.borderColor='#c06020'" onmouseout="this.style.borderColor='${isActive?'#c06020':'#2a1a10'}'">
             <div style="font-size:24px;margin-bottom:4px;">${t.label.split(' ')[0]}</div>
             <div style="font-size:16px;color:${isActive?'#f5c842':'#c8b898'};font-family:Georgia,serif;font-weight:${isActive?'bold':'normal'};">${t.label.replace(/^\S+\s*/,'')}</div>
+            <div style="font-size:11px;color:#b8a888;font-style:italic;line-height:1.3;margin-top:4px;">${t.feel}</div>
           </div>`;
         }).join('')}
       </div>

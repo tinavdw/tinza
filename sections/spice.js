@@ -3539,8 +3539,8 @@ function spiceLandingView(){
   const howOpen = !!S.spiceHowOpen;
   return `<div>
     <div class="header" style="padding:0;overflow:hidden;">
-      <div style="position:relative;height:150px;background:linear-gradient(135deg,#2a1206,#3a1d08 55%,#1d0e05);display:flex;flex-direction:column;justify-content:flex-end;">
-        <div style="position:absolute;top:14px;right:16px;font-size:44px;opacity:0.35;">🧂</div>
+      <div style="position:relative;height:200px;background:linear-gradient(135deg,#2a1206,#3a1d08 55%,#1d0e05);display:flex;flex-direction:column;justify-content:flex-end;">
+        <div style="position:absolute;top:18px;right:18px;font-size:54px;opacity:0.35;">🧂</div>
         <div style="padding:14px 16px;">
           <button class="back-btn" onclick="set({screen:'home'})" style="color:#e0a060;margin-bottom:8px;">← Home</button>
           <h1 style="margin:0;font-size:22px;font-weight:normal;color:#f5e8cc;letter-spacing:1px;">Tinza Spice Room</h1>
