@@ -13,9 +13,8 @@ function braaiStep1(){
   const sections = [
     {id:'mains',   emoji:'🥩', label:'Mains',        sub:'Meats & Vegetarian',            action:"set({braiStep:2,braaiView:'browse'})",                              count:selMeats.length},
     {id:'salads',  emoji:'🥗', label:'Salads',        sub:'Cold sides & fresh salads',     action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'salads'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===id)).length},
-    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Mielies',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
+    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===id)).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
-    {id:'extras',  emoji:'🍞', label:'Breads',         sub:'Braaibroodjies · Garlic Bread',action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='extras')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
     {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})", count:total, highlight:false, planBox:true},
   ];
