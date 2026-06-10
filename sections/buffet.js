@@ -62,34 +62,33 @@ function shopListHTML(mains, sides, salads, starters, desserts){
 function buffetItemCard(r, selArr, stateKey){
   const isPro = tierAllows('pro');
   const sel = isPro && (S[stateKey]||[]).includes(r.id);
-  const bg  = sel ? '#2a1808' : '#161018';
-  const bdr = sel ? BC : '#3a1020';
-  const recipeBtn = `<button onclick="event.stopPropagation();openEventRecipe('${r.id}')" style="background:none;border:1px solid #3a2010;border-radius:6px;padding:4px 10px;color:${BC};font-size:11px;cursor:pointer;flex-shrink:0;margin-left:8px;">Recipe →</button>`;
+  const cardBg  = sel ? '#1a1208' : '#161210';
+  const cardBdr = sel ? BC : '#2a1a10';
+  const emoji = `<span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>`;
+  const nameLine = `<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>`;
+  const meta = (r.perPerson||r.costPP)
+    ? `<div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.perPerson?`${r.perPerson.meat} ${r.perPerson.unit||'g'} pp`:''}${(r.perPerson&&r.costPP)?' · ':''}${r.costPP?`~R${r.costPP}/pp`:''}</div>`
+    : '';
+  const chevron = `<span onclick="event.stopPropagation();openEventRecipe('${r.id}')" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>`;
 
   if(!isPro){
-    // Free: browse only, no tick box, just recipe button
-    return `<div style="background:#161018;border:1px solid #2a1a10;border-radius:10px;padding:12px;margin-bottom:8px;">
-      <div style="display:flex;align-items:center;">
-        <div style="flex:1;">
-          <div style="font-size:14px;color:#c8b898;">${r.emoji||'🍽️'} ${r.name}</div>
-          ${r.perPerson?`<div style="font-size:11px;color:#c46188;margin-top:2px;">${r.perPerson.meat} ${r.perPerson.unit||'g'} per person</div>`:''}
-        </div>
-        ${recipeBtn}
+    return `<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        ${emoji}
+        <div style="flex:1;min-width:0;">${nameLine}${meta}</div>
+        ${chevron}
       </div>
     </div>`;
   }
 
-  // Pro: full checkbox selection
-  const checkbox = `<div style="width:22px;height:22px;border-radius:5px;border:2px solid ${sel?BC:'#3a2010'};background:${sel?BC:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;">${sel?'<span style="color:#fff;font-size:13px;font-weight:bold;">✓</span>':''}</div>`;
+  const checkbox = `<div style="width:22px;height:22px;border-radius:6px;border:2px solid ${sel?BC:'#3a2010'};background:${sel?BC:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#f5e8cc;font-size:13px;">${sel?'✓':''}</div>`;
   const toggleAction = `setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`;
-  return `<div onclick="${toggleAction}" style="background:${bg};border:1px solid ${bdr};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;">
-    <div style="display:flex;align-items:center;">
+  return `<div onclick="${toggleAction}" style="background:${cardBg};border:1px solid ${cardBdr};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
+    <div style="display:flex;align-items:flex-start;gap:12px;">
       ${checkbox}
-      <div style="flex:1;">
-        <div style="font-size:14px;color:#e0d4b8;">${r.emoji||'🍽️'} ${r.name}${r.costPP?` <span style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;font-size:10px;color:#c060a0;padding:2px 6px;margin-left:4px;">~R${r.costPP}/pp</span>`:''}</div>
-        ${r.perPerson?`<div style="font-size:11px;color:#c06020;margin-top:2px;">${r.perPerson.meat} ${r.perPerson.unit||'g'} per person</div>`:''}
-      </div>
-      ${recipeBtn}
+      ${emoji}
+      <div style="flex:1;min-width:0;">${nameLine}${meta}</div>
+      ${chevron}
     </div>
   </div>`;
 }
@@ -101,7 +100,7 @@ function buffetItemCard(r, selArr, stateKey){
       {step:4,emoji:'🥘',label:'Sides',    count:(S.eventSelectedSides||[]).length},
       {step:5,emoji:'🥙',label:'Salads',   count:(S.eventSelectedSalads||[]).length},
       {step:6,emoji:'🎂',label:'Desserts', count:(S.eventSelectedDesserts||[]).length},
-      {step:8,emoji:'🫙',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
+      {step:8,emoji:'🥫',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
       {step:7,emoji:'📋',label:'My Plan',  count:null},
     ];
     return eventsTopNav() + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
@@ -110,9 +109,9 @@ function buffetItemCard(r, selArr, stateKey){
           const hasSel = s.count>0;
           return '<button onclick="set({buffetStep:'+s.step+'})"'
             +' style="padding:8px 4px;border-radius:8px;border:1px solid '+(isActive?'#c06020':hasSel?'#3a2010':'#2a1a10')+';'
-            +'background:'+(isActive?'#1a1208':hasSel?'#180818':'transparent')+';cursor:pointer;text-align:center;position:relative;">'
+            +'background:'+(isActive?'#1a1208':hasSel?'#1a1208':'transparent')+';cursor:pointer;text-align:center;position:relative;">'
             +'<div style="font-size:16px;">'+s.emoji+'</div>'
-            +'<div style="font-size:10px;color:'+(isActive?'#f5c842':hasSel?'#c070a0':'#5a3050')+';margin-top:2px;">'+s.label+'</div>'
+            +'<div style="font-size:10px;color:'+(isActive?'#f5c842':hasSel?'#c0915a':'#b0936a')+';margin-top:2px;">'+s.label+'</div>'
             +(hasSel?'<div style="position:absolute;top:3px;right:5px;background:#c06020;color:white;border-radius:7px;font-size:9px;padding:1px 4px;">'+s.count+'</div>':'')
             +'</button>';
         }).join('')
@@ -136,7 +135,7 @@ function buffetStep1(){
     {step:4,emoji:'🥘',label:'Sides',    count:(S.eventSelectedSides||[]).length},
     {step:5,emoji:'🥙',label:'Salads',   count:(S.eventSelectedSalads||[]).length},
     {step:6,emoji:'🎂',label:'Desserts', count:(S.eventSelectedDesserts||[]).length},
-    {step:8,emoji:'🫙',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
+    {step:8,emoji:'🥫',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
     {step:7,emoji:'📋',label:'My Plan',  count:null},
   ];
   const totalSel = secs.slice(0,6).reduce((s,x)=>s+x.count,0);
@@ -156,7 +155,7 @@ function buffetStep1(){
           <button onclick="set({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#1a1208;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">+</button>
         </div>
         <input type="range" min="6" max="350" step="1" value="${S.eventGuests}" oninput="set({eventGuests:parseInt(this.value)})" style="accent-color:${BC};width:100%;cursor:pointer;display:block;">
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:#df3d9e;margin-top:4px;">${[6,20,50,100,150,200,350].map(n=>`<span>${n}</span>`).join('')}</div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#c06020;margin-top:4px;">${[6,20,50,100,150,200,350].map(n=>`<span>${n}</span>`).join('')}</div>
       </div>
       <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">Choose your courses</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
@@ -164,16 +163,16 @@ function buffetStep1(){
           const hasSel=s.count>0;
           const isPlan=s.step===7; const isSauces=s.step===8;
           return `<button onclick="set({buffetStep:${s.step}})"
-            style="padding:14px 4px;border-radius:10px;border:2px solid ${hasSel?'#c06020':isPlan&&totalSel>0?'#c0a020':'#2a1a10'};
-                   background:${hasSel?'#1a1208':isPlan&&totalSel>0?'#181808':'#120810'};cursor:pointer;text-align:center;position:relative;">
+            style="padding:14px 4px;border-radius:10px;border:2px solid ${hasSel?'#c06020':isPlan&&totalSel>0?'#f5c842':'#2a1a10'};
+                   background:${hasSel?'#1a1208':isPlan&&totalSel>0?'#1a1208':'#120810'};cursor:pointer;text-align:center;position:relative;">
             <div style="font-size:26px;">${s.emoji}</div>
-            <div style="font-size:11px;color:${hasSel?'#f5c842':isPlan&&totalSel>0?'#f5c842':'#703050'};margin-top:5px;font-weight:${hasSel?'bold':'normal'};">${s.label}</div>
+            <div style="font-size:11px;color:${hasSel?'#f5c842':isPlan&&totalSel>0?'#f5c842':'#b0936a'};margin-top:5px;font-weight:${hasSel?'bold':'normal'};">${s.label}</div>
             ${hasSel?`<div style="margin-top:3px;background:#c06020;color:white;border-radius:7px;font-size:9px;padding:1px 0;">${s.count} picked</div>`:''}
-            ${isPlan&&totalSel>0?`<div style="margin-top:3px;background:#c0a020;color:#181808;border-radius:7px;font-size:9px;padding:1px 0;">${totalSel} dishes</div>`:''}
+            ${isPlan&&totalSel>0?`<div style="margin-top:3px;background:#f5c842;color:#1a1208;border-radius:7px;font-size:9px;padding:1px 0;">${totalSel} dishes</div>`:''}
           </button>`;
         }).join('')}
       </div>
-      <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;font-size:11px;color:#8a7ba7;line-height:1.7;">
+      <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;font-size:11px;color:#c0915a;line-height:1.7;">
         💡 Tap any course to browse and select dishes. Pink badge = dishes picked. Jump between courses freely — selections are saved. Tap <strong style="color:#f5c842;">📋 My Plan</strong> anytime to see quantities, costs and shopping list.
       </div>
     </div>
@@ -191,7 +190,7 @@ function buffetStep2(){
     </div>
     <div class="content">
       ${buffetQuickNav(2)}
-      ${!isPro?`<div style="background:#181008;border:1px dashed #c0a020;border-radius:10px;padding:10px 14px;margin-bottom:12px;text-align:center;font-size:12px;color:#a08030;">👑 Upgrade to <strong>Tinza Pro</strong> to tick dishes, build your menu and get a shopping list</div>`:''}
+      ${!isPro?`<div style="background:#181008;border:1px dashed #f5c842;border-radius:10px;padding:10px 14px;margin-bottom:12px;text-align:center;font-size:12px;color:#a08030;">👑 Upgrade to <strong>Tinza Pro</strong> to tick dishes, build your menu and get a shopping list</div>`:''}
       ${EVENTS_STARTERS.map(r=>buffetItemCard(r,'eventSelectedStarters','eventSelectedStarters')).join('')}
       ${buffetQuickNav(2)}
       ${buffetPlanBtn()}
@@ -211,9 +210,9 @@ function buffetStep3(){
     </div>
     <div class="content">
       ${buffetQuickNav(3)}
-      ${n>1?`<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#d090a0;">⚖️ Smart scaling: ${n} mains selected — portion per main reduces so total stays ~200g pp</div>`:''}
+      ${n>1?`<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#c06020;">⚖️ Smart scaling: ${n} mains selected — portion per main reduces so total stays ~200g pp</div>`:''}
       ${EVENTS_BIG_COOKING_MAINS.map(r=>buffetItemCard(r,'eventSelectedMains','eventSelectedMains')).join('')}
-      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:14px 0 8px;">🫙 Sauces & Gravies</div>
+      <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:14px 0 8px;">🥫 Sauces & Gravies</div>
       ${EVENTS_SAUCES.filter(s=>['beefgravy','mintsauce','applesauce','tartaresauce','creamymustardsauce','peppersauce','chimichurri','monkeygland','cheesesauce','lemonherbsauce','periperi'].includes(s.id)).map(r=>buffetItemCard(r,'eventSelectedMains','eventSelectedMains')).join('')}
       ${buffetQuickNav(3)}
       ${buffetPlanBtn()}
@@ -288,14 +287,14 @@ function buffetStep7(){
     if(!arr.length) return '';
     return `<div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:14px 0 6px;">${label}</div>
       <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:8px;">
-        ${arr.map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1208;">
-          <div style="flex:1;">
-            <div style="font-size:14px;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</div>
+        ${arr.map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #2a1a10;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.emoji||'🍽️'} ${r.name}</div>
             <div style="font-size:12px;color:#f5c842;margin-top:2px;">${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>${isPro&&r.costPP?` · ~R${Math.round(r.costPP*g).toLocaleString()}`:''}</div>
           </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px;">
-            <button onclick="openEventRecipe('${r.id}')" style="background:none;border:1px solid #3a2010;border-radius:6px;padding:3px 8px;color:${BC};font-size:11px;cursor:pointer;">Recipe →</button>
-            <button onclick="setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})" title="Remove from plan" style="background:none;border:1px solid #803050;border-radius:6px;padding:3px 9px;color:#d06088;font-size:14px;line-height:1;cursor:pointer;">✕</button>
+          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:8px;">
+            <span onclick="openEventRecipe('${r.id}')" style="font-size:22px;color:#c06020;cursor:pointer;line-height:1;">›</span>
+            <button onclick="setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})" title="Remove from plan" style="background:none;border:1px solid #6a3030;border-radius:6px;padding:3px 9px;color:#c07a68;font-size:14px;line-height:1;cursor:pointer;">✕</button>
           </div>
         </div>`).join('')}
       </div>`;
@@ -761,7 +760,7 @@ function buffetStep7(){
             ${ck?'<span style="color:#fff;font-size:11px;">✓</span>':''}
           </div>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;color:${ck?'#4a2030':'#c8b898'};text-decoration:${ck?'line-through':'none'};">${i.name}</div>
+            <div style="font-size:13px;color:${ck?'#4a2030':'#e0d4b8'};text-decoration:${ck?'line-through':'none'};">${i.name}</div>
             ${recipeLabel}
           </div>
           ${rightDisplay?`<div style="font-size:13px;color:${ck?'#4a2030':'#f5c842'};font-weight:bold;flex-shrink:0;margin-left:12px;text-align:right;max-width:120px;">${rightDisplay}</div>`:''}
@@ -797,24 +796,24 @@ function buffetStep7(){
       ${allPortioned.length>0?`
         ${isPro?`<div style="background:#1a1208;border:2px solid ${BC};border-radius:12px;padding:14px;margin:16px 0;">
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="font-size:13px;color:#c8b898;">Total dishes</span>
+            <span style="font-size:13px;color:#e0d4b8;">Total dishes</span>
             <span style="font-size:13px;color:#f5c842;font-weight:bold;">${allPortioned.length} dishes</span>
           </div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="font-size:13px;color:#c8b898;">Cost per person</span>
+            <span style="font-size:13px;color:#e0d4b8;">Cost per person</span>
             <span style="font-size:15px;color:#f5c842;font-weight:bold;">~R${Math.round(costPP)}</span>
           </div>
           <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a2010;">
-            <span style="font-size:14px;color:#c8b898;">Estimated total</span>
+            <span style="font-size:14px;color:#e0d4b8;">Estimated total</span>
             <span style="font-size:20px;color:#f5c842;font-weight:bold;">~R${Math.round(totalCost).toLocaleString()}</span>
           </div>
-        </div>`:`<div style="background:#181008;border:1px dashed #c0a020;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-size:12px;color:#a08030;">👑 <strong>Tinza Pro</strong> — unlock costs, shopping list &amp; WhatsApp share</div>`}
+        </div>`:`<div style="background:#181008;border:1px dashed #f5c842;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-size:12px;color:#a08030;">👑 <strong>Tinza Pro</strong> — unlock costs, shopping list &amp; WhatsApp share</div>`}
 
         <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
         ${!isPro?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;text-align:center;margin-bottom:14px;"><div style="font-size:28px;margin-bottom:8px;">🔒</div><div style="font-size:13px;color:#8a4020;font-weight:bold;margin-bottom:4px;">Shopping List — Pro feature</div><div style="font-size:12px;color:#5a3020;line-height:1.6;">Tap items you already have to remove them.<br>Share your list via WhatsApp.</div></div>`:`
         <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:14px;">
           <div style="background:#1a1008;border:1px solid #3a2808;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#9d7a46;line-height:1.6;">
-            💡 <strong style="color:#c0a040;">Prices based on Checkers retail — last updated May 2026.</strong> Buying in bulk, shopping specials, local markets or farm stalls will be cheaper. Use these as a planning guide only.
+            💡 <strong style="color:#f5c842;">Prices based on Checkers retail — last updated May 2026.</strong> Buying in bulk, shopping specials, local markets or farm stalls will be cheaper. Use these as a planning guide only.
           </div>
           <div style="font-size:11px;color:#c06020;margin-bottom:10px;">✅ Tap items you already have to remove them from your list</div>
           ${shopCategory('Meat, Fish & Poultry','butchery','🥩')}
@@ -823,7 +822,7 @@ function buffetStep7(){
           ${shopCategory('Tinned & Jarred Goods','tinned','🥫')}
           ${shopCategory('Fresh Vegetables & Fruit','veg','🥦')}
           ${shopCategory('Herbs & Spices','herbs','🌿')}
-          ${shopCategory('Pantry & Condiments','pantry','🫙')}
+          ${shopCategory('Pantry & Condiments','pantry','🥫')}
           ${shopItems.length>0?`<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #1a1208;margin-top:4px;">
             <span style="font-size:11px;color:#c06020;">${remaining} of ${shopItems.length} items remaining</span>
             <button onclick="set({checkedBuffetItems:{}})" style="background:none;border:none;color:#c16382;font-size:11px;cursor:pointer;text-decoration:underline;">Reset all</button>
@@ -834,7 +833,7 @@ function buffetStep7(){
           <button onclick="set({buffetStep:1,eventSelectedStarters:[],eventSelectedMains:[],eventSelectedSides:[],eventSelectedSalads:[],eventSelectedDesserts:[],checkedBuffetItems:{}})" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a1208;border:2px solid #3a2010;color:#c06020;font-size:12px;">🔄 Start again</button>
           ${isPro?`<a href="https://wa.me/?text=${whatsappMsg}" target="_blank" style="display:flex;align-items:center;justify-content:center;padding:14px;border-radius:10px;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:12px;font-weight:bold;text-decoration:none;">📱 Share via WhatsApp</a>`:`<button onclick="alert('Upgrade to Tinza Pro to share your shopping list via WhatsApp')" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f0e0c;border:2px solid #1a1808;color:#c06a35;font-size:12px;">🔒 WhatsApp Share (Pro)</button>`}
         </div>
-        ${isPro?`<button onclick="window.printPlan('buffet')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:16px;">🖨️ Print / Save as PDF <span style="font-size:10px;opacity:0.7;">👑 Pro</span></button>`:''}
+        ${isPro?`<button onclick="window.printPlan('buffet')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #f5c842;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:16px;">🖨️ Print / Save as PDF <span style="font-size:10px;opacity:0.7;">👑 Pro</span></button>`:''}
       `:''}
     </div>
   </div>`;
@@ -855,11 +854,11 @@ function eventsRecipeView(aer, guests){
       return `<div style="background:#1a1208;border:1px solid #c06020;border-radius:10px;padding:12px;margin-bottom:14px;">
         <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">📊 Quantities for ${guests} guests</div>
         <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;">
-          <span style="color:#c8b898;">Total batch needed</span>
+          <span style="color:#e0d4b8;">Total batch needed</span>
           <span style="color:#f5c842;font-weight:bold;">${totalDisplay}</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;">
-          <span style="color:#c8b898;">Per person portion</span>
+          <span style="color:#e0d4b8;">Per person portion</span>
           <span style="color:#f5c842;">${r.ppG}g pp</span>
         </div>
       </div>`;
@@ -878,17 +877,17 @@ function eventsRecipeView(aer, guests){
 
     if(isMl){
       const totalL = (meat*guests/1000).toFixed(1);
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Total volume needed</span><span style="color:#f5c842;font-weight:bold;">${totalL}L (${meat}ml per person)</span></div>`;
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Total volume needed</span><span style="color:#f5c842;font-weight:bold;">${totalL}L (${meat}ml per person)</span></div>`;
     } else if(isIceCream){
       const tubs2L = Math.ceil(guests/10);
       const tubs5L = Math.ceil(guests/25);
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Ice cream needed</span><span style="color:#f5c842;font-weight:bold;">${meat*guests/1000}kg (${meat}g pp)</span></div>
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Ice cream needed</span><span style="color:#f5c842;font-weight:bold;">${meat*guests/1000}kg (${meat}g pp)</span></div>
         <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;"><span style="color:#a96f7e;">Buy: ${tubs2L} × 2L tubs OR ${tubs5L} × 5L bulk tubs</span></div>`;
     } else if(isShank){
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Shanks needed</span><span style="color:#f5c842;font-weight:bold;">${guests} shanks</span></div>`;
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Shanks needed</span><span style="color:#f5c842;font-weight:bold;">${guests} shanks</span></div>`;
     } else if(isTray){
       const traysNeeded = Math.ceil(guests / 20); // standard: 1 tray = 20 portions
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Trays needed</span><span style="color:#f5c842;font-weight:bold;">${traysNeeded} trays (${guests} portions)</span></div>
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Trays needed</span><span style="color:#f5c842;font-weight:bold;">${traysNeeded} trays (${guests} portions)</span></div>
         <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;"><span style="color:#a96f7e;">1 tray = 20 portions · scale each ingredient × ${traysNeeded}</span></div>`;
       // Show scaled pantry for tray dishes
       if(hasPantry){
@@ -904,12 +903,12 @@ function eventsRecipeView(aer, guests){
               const result = Math.round(parseInt(num)*traysNeeded);
               return `<strong style="color:#f5c842;">${result} ${m.replace(/\d+\s*/,'')}</strong>`;
             });
-            return `<div style="padding:6px 0;border-bottom:1px solid #1a1208;font-size:13px;color:#c8b898;">• ${scaled}</div>`;
+            return `<div style="padding:6px 0;border-bottom:1px solid #1a1208;font-size:13px;color:#e0d4b8;">• ${scaled}</div>`;
           }).join('')}
         </div>`;
       }
     } else if(isPcs){
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Total pieces needed</span><span style="color:#f5c842;font-weight:bold;">${Math.round(meat*guests)} pieces (${meat} pp)</span></div>`;
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Total pieces needed</span><span style="color:#f5c842;font-weight:bold;">${Math.round(meat*guests)} pieces (${meat} pp)</span></div>`;
     } else {
       // Standard g/kg dish — derive a sensible label from the recipe name
       const name = (r.name||'').toLowerCase();
@@ -938,14 +937,14 @@ function eventsRecipeView(aer, guests){
       else if(name.includes('tomato') && !name.includes('soup')) mainLabel = 'Tomatoes needed';
       const totalKg = (meat*guests/1000).toFixed(1);
       const boneNote = r.boneIn ? ` (bone-in — order ${(meat*guests*1.35/1000).toFixed(1)}kg raw)` : '';
-      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">${mainLabel}</span><span style="color:#f5c842;font-weight:bold;">${totalKg}kg${boneNote}</span></div>
-        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#c8b898;">Per person portion</span><span style="color:#f5c842;">${meat}g</span></div>`;
+      primaryLine = `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">${mainLabel}</span><span style="color:#f5c842;font-weight:bold;">${totalKg}kg${boneNote}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#e0d4b8;">Per person portion</span><span style="color:#f5c842;">${meat}g</span></div>`;
     }
 
     return `<div style="background:#1a1208;border:1px solid #c06020;border-radius:10px;padding:12px;margin-bottom:14px;">
       <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">📊 Quantities for ${guests} guests</div>
       ${primaryLine}
-      ${r.costPP?`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-top:1px solid #1a1208;margin-top:4px;"><span style="color:#c8b898;">Estimated total cost</span><span style="color:#f5c842;font-weight:bold;">~R${Math.round(r.costPP*guests).toLocaleString()} (R${r.costPP}/pp)</span></div>`:''}
+      ${r.costPP?`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-top:1px solid #1a1208;margin-top:4px;"><span style="color:#e0d4b8;">Estimated total cost</span><span style="color:#f5c842;font-weight:bold;">~R${Math.round(r.costPP*guests).toLocaleString()} (R${r.costPP}/pp)</span></div>`:''}
     </div>${scaledIngredients}`;
   }
   const quantityBlock = recipeQuantities(aer);
@@ -963,7 +962,7 @@ function eventsRecipeView(aer, guests){
       ${quantityBlock}
       ${hasPantry&&!isTrayDish?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">Ingredients (per recipe — scale to your guest count)</div>
-        ${aer.pantry.map(p=>`<div style="padding:6px 0;border-bottom:1px solid #1a1208;font-size:13px;color:#c8b898;">• ${p}</div>`).join('')}
+        ${aer.pantry.map(p=>`<div style="padding:6px 0;border-bottom:1px solid #1a1208;font-size:13px;color:#e0d4b8;">• ${p}</div>`).join('')}
       </div>`:''}
       ${hasBase300?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -1069,7 +1068,7 @@ function eventsRecipeView(aer, guests){
               const totalAmt = fmtTotal(ppAmt, unit, multiplier);
               const ppDisplay = ppAmt + (unit||'') + ' ' + unitWord;
               return `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:${border};gap:8px;">
-                <span style="font-size:13px;color:#c8b898;flex:1;">${i.n}</span>
+                <span style="font-size:13px;color:#e0d4b8;flex:1;">${i.n}</span>
                 <span style="text-align:right;flex-shrink:0;">
                   <span style="font-size:11px;color:#aa6d8f;">${ppDisplay} · </span>
                   <span style="font-size:14px;color:#f5c842;font-weight:bold;">${totalAmt} total</span>
@@ -1081,7 +1080,7 @@ function eventsRecipeView(aer, guests){
             const scaled = scaleIngredient(i.a, i.n);
             if(scaled){
               return `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:${border};gap:8px;">
-                <span style="font-size:13px;color:#c8b898;flex:1;">${i.n}${scaled.rest?' <span style="font-size:11px;color:#c06020;">('+scaled.rest+')</span>':''}</span>
+                <span style="font-size:13px;color:#e0d4b8;flex:1;">${i.n}${scaled.rest?' <span style="font-size:11px;color:#c06020;">('+scaled.rest+')</span>':''}</span>
                 <span style="text-align:right;flex-shrink:0;">
                   <span style="font-size:11px;color:#aa6d8f;">${scaled.pp} · </span>
                   <span style="font-size:14px;color:#f5c842;font-weight:bold;">${scaled.total}</span>
@@ -1089,7 +1088,7 @@ function eventsRecipeView(aer, guests){
               </div>`;
             } else {
               return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:${border};">
-                <span style="font-size:13px;color:#c8b898;">${i.n}</span>
+                <span style="font-size:13px;color:#e0d4b8;">${i.n}</span>
                 <span style="font-size:12px;color:#a27196;font-style:italic;">${i.a}</span>
               </div>`;
             }
@@ -1099,10 +1098,10 @@ function eventsRecipeView(aer, guests){
       </div>`:''}
       ${aer.method?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">Method</div>
-        ${aer.method.map((s,i)=>`<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#1a1208;border:1px solid #c06020;display:flex;align-items:center;justify-content:center;font-size:11px;color:#c06020;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#c8b898;line-height:1.6;">${s}</div></div>`).join('')}
+        ${aer.method.map((s,i)=>`<div style="display:flex;gap:10px;margin-bottom:10px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#1a1208;border:1px solid #c06020;display:flex;align-items:center;justify-content:center;font-size:11px;color:#c06020;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#e0d4b8;line-height:1.6;">${s}</div></div>`).join('')}
       </div>`:''}
-      ${aer.tip?`<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;margin-bottom:16px;"><span style="color:#e04080;font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#d090a0;">${aer.tip}</span></div>`:''}
-      ${aer.mlPerPerson?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#c8b898;">🥄 ${aer.mlPerPerson}ml per person · ${(aer.mlPerPerson*guests/1000).toFixed(1)}L for ${guests} guests</div>`:''}
+      ${aer.tip?`<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;margin-bottom:16px;"><span style="color:#c06020;font-size:11px;">💡 TIP: </span><span style="font-size:12px;color:#c06020;">${aer.tip}</span></div>`:''}
+      ${aer.mlPerPerson?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:12px;color:#e0d4b8;">🥄 ${aer.mlPerPerson}ml per person · ${(aer.mlPerPerson*guests/1000).toFixed(1)}L for ${guests} guests</div>`:''}
       ${(()=>{
         if(aer._type!=='finger') return '';
         const isPro = tierAllows('pro');
@@ -1127,27 +1126,30 @@ function buffetStep8(){
 
   const sauceCards = sauceList.map(r=>{
     const isSel = selSauces.includes(r.id);
-    const checkBox = isPro ? '<div style="width:22px;height:22px;border-radius:6px;background:'+(isSel?'#c06020':'transparent')+';border:2px solid '+(isSel?'#c06020':'#3a2010')+';display:flex;align-items:center;justify-content:center;font-size:13px;color:white;flex-shrink:0;">'+(isSel?'&#x2713;':'')+'</div>' : '';
+    const cardBg = isSel ? '#1a1208' : '#161210';
+    const cardBdr = isSel ? '#c06020' : '#2a1a10';
+    const checkBox = isPro ? '<div style="width:22px;height:22px;border-radius:6px;background:'+(isSel?'#c06020':'transparent')+';border:2px solid '+(isSel?'#c06020':'#3a2010')+';display:flex;align-items:center;justify-content:center;font-size:13px;color:#f5e8cc;flex-shrink:0;">'+(isSel?'&#x2713;':'')+'</div>' : '';
     const clickAction = isPro ? "set({eventSelectedSauces:toggle(S.eventSelectedSauces,'"+r.id+"')})" : '';
-    return '<div onclick="'+clickAction+'" style="background:'+(isSel?'#1a1208':'#1a1208')+';border:1px solid '+(isSel?'#c06020':'#3a2010')+';border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px;">'
+    return '<div onclick="'+clickAction+'" style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;">'
       + checkBox
-      + '<div style="flex:1;">'
-      + '<div style="font-size:14px;color:#e0d4b8;">'+(r.emoji||'🫙')+' '+r.name+'</div>'
-      + (r.costPP ? '<div style="font-size:11px;color:#c06020;margin-top:2px;">~R'+r.costPP+'/pp</div>' : '')
+      + '<span style="font-size:20px;flex-shrink:0;line-height:1.35;">'+(r.emoji||'🥫')+'</span>'
+      + '<div style="flex:1;min-width:0;">'
+      + '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">'+r.name+'</div>'
+      + (r.costPP ? '<div style="font-size:12px;color:#c0915a;margin-top:4px;">~R'+r.costPP+'/pp</div>' : '')
       + '</div>'
-      + '<button onclick="event.stopPropagation();openEvent(\"'+r.id+'\",\"sauce\")" style="background:none;border:1px solid #3a2010;border-radius:6px;padding:4px 10px;color:#c06020;font-size:11px;cursor:pointer;">Recipe →</button>'
+      + '<span onclick="event.stopPropagation();openEvent(\"'+r.id+'\",\"sauce\")" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>'
       + '</div>';
   }).join('');
 
   return '<div>'
     + '<div class="header" style="background:'+BCbg+';border-bottom:1px solid #c06020;">'
     + '<button class="back-btn" onclick="set({buffetStep:6})" style="color:'+BC+';">← Desserts</button>'
-    + '<h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🫙 Sauces & Gravies</h1>'
+    + '<h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥫 Sauces & Gravies</h1>'
     + '<p style="margin:0;font-size:11px;color:#c06020;font-style:italic;">'+selSauces.length+' selected · '+guests+' guests</p>'
     + '</div>'
     + '<div class="content">'
     + buffetQuickNav(8)
-    + '<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#c090a0;">💡 Select sauces and gravies to serve alongside your buffet. They will appear in your shopping list.</div>'
+    + '<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#c0915a;">💡 Select sauces and gravies to serve alongside your buffet. They will appear in your shopping list.</div>'
     + sauceCards
     + buffetQuickNav(8)
     + buffetPlanBtn()
@@ -1177,7 +1179,7 @@ const KIDS_THEMES = [
     games:'Egg hunt · Fossil dig in sandpit · Roar relay race'
   },
   { id:'unicorn', emoji:'🦄', name:'Unicorn Garden Party', palette:'Soft pink · Lavender · Mint · Cream', vibe:'Magical, gentle and dreamily beautiful',
-    colours:['#e8a0c0','#c8a0e0','#a0d8c0'],
+    colours:['#c06020','#c06020','#a0d8c0'],
     foods:{easy:['Rainbow Wrap Pinwheels','Mini Meatballs','Fairy Fruit Skewers','Unicorn Popcorn','Rainbow Yogurt Cups','Cheesy Puff Pastry Stars'],medium:['Rainbow Wrap Pinwheels','Fairy Fruit Skewers','Cheesy Puff Pastry Stars','Unicorn Popcorn','Rainbow Yogurt Cups'],fancy:['Rainbow Wrap Pinwheels','Fairy Fruit Skewers','Cheesy Puff Pastry Stars','Unicorn Popcorn','Rainbow Yogurt Cups','Pastel Marshmallow Pops']},
     recipes:[
       {name:'Rainbow Wrap Pinwheels',type:'savoury',per:2,unit:'pieces',base12:{tortillas:'6 large tortillas',cream_cheese:'250g cream cheese',carrots:'150g carrots',cucumber:'150g cucumber',peppers:'100g peppers'},method:'Grate the carrots and finely slice the cucumber and peppers. Spread cream cheese over each tortilla, layer the veggies, roll tightly, chill, then slice into pinwheels.',time:45,kcal:110},
@@ -1196,7 +1198,7 @@ const KIDS_THEMES = [
     games:'Rainbow relay · Unicorn treasure hunt · Pin the horn on the unicorn'
   },
   { id:'space', emoji:'🚀', name:'Space Explorer Party', palette:'Navy blue · Silver · Deep purple · Neon accents', vibe:'Cosmic adventure — futuristic and exciting',
-    colours:['#1a1a60','#8080a0','#6020a0'],
+    colours:['#1a1a60','#8080a0','#c06020'],
     foods:{easy:['Rocket Hot Dogs','Galaxy Popcorn','Planet Fruit Skewers','Meteor Brownies','Moon Cheese Balls'],medium:['Rocket Hot Dogs','Moon Cheese Balls','Alien Burgers','Galaxy Popcorn','Meteor Brownies'],fancy:['Rocket Hot Dogs','Moon Cheese Balls','Alien Burgers','Galaxy Popcorn','Meteor Brownies','Planet Fruit Skewers']},
     recipes:[
       {name:'Rocket Hot Dogs',type:'savoury',per:2,unit:'rockets',base12:{viennas:'800g viennas (12 — 1 per child)',rolls:'12 hot dog rolls (1 per child)',margarine:'30g margarine or butter',tomato_sauce:'150g tomato sauce',cheese:'100g cheddar'},method:'(Outside SA, use small smoked sausages instead of viennas.) Cut a slot along the top of each roll and smear the inside with margarine or butter. Push a whole vienna into the slot. Add a line of tomato sauce on top, then sprinkle over grated cheddar. Bake at 180°C for 12 min until the cheese melts. Once baked, cut each filled roll in half to make two mini "rockets".',time:25,kcal:160},
@@ -1214,7 +1216,7 @@ const KIDS_THEMES = [
     games:'Space obstacle course · Alien freeze tag · Rocket balloon relay'
   },
   { id:'pirate', emoji:'🏴‍☠️', name:'Pirate Treasure Party', palette:'Black · Red · Gold · Deep blue', vibe:'Swashbuckling treasure hunt fun',
-    colours:['#1a1a1a','#c02020','#c0a020'],
+    colours:['#1a1a1a','#c02020','#f5c842'],
     foods:{easy:['Treasure Chest Sandwiches','Pirate Pizza Coins','Gold Coin Cookies','Golden Chocolate Biscuit Bark','Jolly Roger Fruit Skewers'],medium:['Treasure Chest Sandwiches','Pirate Pizza Coins','Cannonball Meatballs','Gold Coin Cookies','Golden Chocolate Biscuit Bark'],fancy:['Treasure Chest Sandwiches','Pirate Pizza Coins','Cannonball Meatballs','Gold Coin Cookies','Golden Chocolate Biscuit Bark','Jolly Roger Fruit Skewers']},
     recipes:[
       {name:'Treasure Chest Sandwiches',type:'savoury',per:2,unit:'chests',base12:{bread:'2 loaves sliced bread',ham:'300g ham',mayonnaise:'100g mayonnaise',cheese:'200g cheese slices'},method:'Mix ham with mayonnaise (or use chicken mayo). Make sandwiches and cut into treasure-chest shapes. Decorate edges with cheese "locks".',time:15,kcal:170},
@@ -1232,7 +1234,7 @@ const KIDS_THEMES = [
     games:'Treasure hunt (map + clues) · Cannonball toss (bean bags) · Pirate sword relay (pool noodles)'
   },
   { id:'mermaid', emoji:'🧜', name:'Mermaid Lagoon Party', palette:'Turquoise · Ocean blue · Coral pink · Pearl white', vibe:'Underwater magic — elegant and shimmering',
-    colours:['#2090b0','#e06080','#e0e8d0'],
+    colours:['#c06020','#e06080','#e0e8d0'],
     foods:{easy:['Ocean Sandwich Shapes','Mermaid Marshmallow Biscuit Bark','Mermaid Jelly Cups','Pearl Cookies','Blue Coconut Ice Pops'],medium:['Seashell Pasta Cups','Ocean Sandwich Shapes','Mermaid Jelly Cups','Pearl Cookies','Mermaid Marshmallow Biscuit Bark'],fancy:['Seashell Pasta Cups','Ocean Sandwich Shapes','Mermaid Jelly Cups','Pearl Cookies','Mermaid Marshmallow Biscuit Bark','Blue Coconut Ice Pops']},
     recipes:[
       {name:'Seashell Pasta Cups',type:'savoury',per:2,unit:'cups',base12:{pasta:'400g shell pasta',butter:'30g butter',flour:'30g flour',milk:'200ml milk',cheese:'160g cheddar',tuna:'150g tuna'},method:'Cook the pasta. CHEESE SAUCE: melt butter, whisk in flour 1 min, gradually add milk whisking until thick, stir in 60g of the cheddar until smooth. Mix sauce with pasta and tuna (or ham). Divide mixture among prepared muffin pans, pressing down well. Sprinkle with the remaining cheese. Bake 180°C for 10 min.',time:27,kcal:140},
@@ -1286,7 +1288,7 @@ const KIDS_THEMES = [
     games:'Animal charades · Safari binoculars hunt (hidden toy animals) · Lion roar relay'
   },
   { id:'rainbow', emoji:'🌈', name:'Rainbow Picnic Party', palette:'All bright rainbow colours · Natural greens and yellows', vibe:'Fresh, healthy and full of outdoor picnic fun',
-    colours:['#e03030','#e0a020','#30a030'],
+    colours:['#e03030','#e0a020','#c06020'],
     foods:{easy:['Mini Picnic Sandwiches','BBQ Chicken Wings','Rainbow Veg Cups','Fruit Rainbow Platters','Oat Banana Muffins','Rainbow Rice Krispie Treats'],medium:['Rainbow Veg Cups','Mini Picnic Sandwiches','Colourful Pasta Salad Cups','Fruit Rainbow Platters','Oat Banana Muffins'],fancy:['Rainbow Veg Cups','Mini Picnic Sandwiches','Colourful Pasta Salad Cups','Fruit Rainbow Platters','Oat Banana Muffins','Rainbow Rice Krispie Treats']},
     recipes:[
       {name:'Rainbow Veg Cups',type:'healthy',per:1,unit:'cup',base12:{carrots:'400g carrots',cucumber:'360g cucumber',tomatoes:'300g cherry tomatoes',peppers:'200g peppers',yogurt:'300ml yogurt',lemon_juice:'30ml lemon juice',sugar:'15g sugar'},method:'Cut carrots, cucumber and peppers into colourful sticks. DIP: mix yogurt with 60g grated cucumber, lemon juice and sugar. Layer the veggies vertically in clear cups with the dip at the bottom.',time:10,kcal:80},
@@ -1305,7 +1307,7 @@ const KIDS_THEMES = [
     games:'Musical picnic blankets · Rainbow egg and spoon race · Fruit scavenger hunt'
   },
   { id:'princess', emoji:'👑', name:'Princess Tea Party', palette:'Soft pink · Gold · Lavender · Cream · White', vibe:'Elegant, fancy and magical for little princesses',
-    colours:['#e8a0c0','#c0a020','#c8a0e0'],
+    colours:['#c06020','#f5c842','#c06020'],
     foods:{easy:['Mini Cucumber Sandwiches','Mini Jam Tarts','Royal Fruit Wands','Strawberry Fairy Cakes','Cheese Puff Pastries'],medium:['Mini Cucumber Sandwiches','Cheese Puff Pastries','Tiny Quiches','Strawberry Fairy Cakes','Mini Jam Tarts'],fancy:['Mini Cucumber Sandwiches','Cheese Puff Pastries','Tiny Quiches','Strawberry Fairy Cakes','Mini Jam Tarts','Royal Fruit Wands']},
     recipes:[
       {name:'Mini Cucumber Sandwiches',type:'savoury',per:2,unit:'triangles',base12:{bread:'2 loaves white bread',cream_cheese:'300g cream cheese',cucumber:'400g cucumber'},method:'Thinly slice the cucumber and sprinkle with a little salt to draw out the water (otherwise the bread goes soggy); pat dry. Spread cream cheese on the bread, layer the cucumber, cut into small triangles with crusts removed.',time:15,kcal:95},
