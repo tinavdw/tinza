@@ -1171,25 +1171,36 @@ function eventsHTML(){
 
     ${et==='fingerfoods'?`
       ${S.fingerView==='myplan' ? fingerMyPlanHTML() : `
-      <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:14px;">
-        <div style="font-size:11px;color:#c06020;margin-bottom:8px;">👥 Guests & Event Type</div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:10px;">
+        <div style="font-size:11px;color:#c06020;margin-bottom:8px;">👥 How many guests?</div>
+        <div style="display:flex;align-items:center;gap:12px;">
           <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;"><div style="font-size:32px;color:#f5c842;font-weight:bold;">${guests}</div><div style="font-size:10px;color:#c06020;">guests</div></div>
           <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">+</button>
         </div>
-        <div style="font-size:11px;color:#c06020;margin-bottom:6px;">📏 What type of event?</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          ${[
-            {id:'standalone',label:'🥪 Snacks only',sub:'12–15 pcs pp'},
-            {id:'premeal',   label:'🍽️ Before a meal',sub:'5–6 pcs pp'},
-            {id:'braai',     label:'🔥 At a braai',sub:'4–5 pcs pp'},
-          ].map(t=>`<button onclick="set({eventFingerEventType:'${t.id}'})" style="flex:1;min-width:90px;padding:8px 6px;border-radius:8px;border:1px solid ${(S.eventFingerEventType||'standalone')===t.id?'#c06020':'#3a1020'};background:${(S.eventFingerEventType||'standalone')===t.id?'#1a1208':'transparent'};cursor:pointer;text-align:center;">
-            <div style="font-size:12px;color:${(S.eventFingerEventType||'standalone')===t.id?'#f5c842':'#703050'};">${t.label}</div>
-            <div style="font-size:10px;color:#b46982;margin-top:2px;">${t.sub}</div>
-          </button>`).join('')}
-        </div>
       </div>
+      ${(()=>{
+        const ETYPES=[
+          {id:'standalone',label:'🥪 Snacks only',sub:'12–15 pcs pp'},
+          {id:'premeal',   label:'🍽️ Before a meal',sub:'5–6 pcs pp'},
+          {id:'braai',     label:'🔥 At a braai',sub:'4–5 pcs pp'},
+        ];
+        const cur=ETYPES.find(t=>t.id===(S.eventFingerEventType||'standalone'))||ETYPES[0];
+        return `<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;margin-bottom:10px;overflow:hidden;">
+          <div onclick="setQuiet({fingerEventTypeOpen:!S.fingerEventTypeOpen})" style="padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;">
+            <strong style="color:#c06020;font-size:12px;">📏 Event type — <span style="color:#f5e8cc;font-weight:normal;">${cur.label}</span></strong>
+            <span style="color:#c06020;font-size:14px;">${S.fingerEventTypeOpen?'▲':'▼'}</span>
+          </div>
+          ${S.fingerEventTypeOpen?`<div style="padding:0 12px 12px;border-top:1px solid #1a1208;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
+              ${ETYPES.map(t=>{const on=(S.eventFingerEventType||'standalone')===t.id;return `<button onclick="setQuiet({eventFingerEventType:'${t.id}'})" style="flex:1;min-width:90px;padding:8px 6px;border-radius:8px;border:1px solid ${on?'#c06020':'#3a2010'};background:${on?'#1a1208':'transparent'};cursor:pointer;text-align:center;">
+                <div style="font-size:12px;color:${on?'#f5c842':'#c0915a'};">${t.label}</div>
+                <div style="font-size:10px;color:#b0936a;margin-top:2px;">${t.sub}</div>
+              </button>`;}).join()}
+            </div>
+          </div>`:''}
+        </div>`;
+      })()}
       ${fingerMyPlanBtn()}
       <div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;margin-bottom:14px;overflow:hidden;">
         <div onclick="setQuiet({fingerHelpOpen:!S.fingerHelpOpen})" style="padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;">

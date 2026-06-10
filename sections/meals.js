@@ -1023,7 +1023,11 @@ function openEventRecipe(id){
     ...(typeof EVENTS_SAUCES!=='undefined'?EVENTS_SAUCES:[]),
   ];
   const r = allEventArrays.find(x=>x.id===id);
-  if(r) set({eventActiveRecipe: r});
+  if(r){
+    const root=document.getElementById("root");
+    if(root) root._savedScroll = 0;   // open recipe at the top so the Back button is visible
+    set({eventActiveRecipe: r});
+  }
 }
 function openCakeRecipe(id){
   const arr = typeof CELEBRATION_CAKE_RECIPES!=='undefined'?CELEBRATION_CAKE_RECIPES:[];
