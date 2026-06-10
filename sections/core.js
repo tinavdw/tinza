@@ -1355,7 +1355,7 @@ function moodHTML(){
                 <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'transparent'};border:2px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'✓':''}</div>
                 <span style="font-size:20px;">${r.emoji}</span>
                 <div style="flex:1;">
-                  <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'#f5e8cc':'#c8b898'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
+                  <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'#f5e8cc':'#e0d4b8'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
                   <div style="font-size:13px;color:${mood.colour};margin-top:2px;font-style:italic;">${r.why||''} · ⏱️ ${r.time} min</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -1751,7 +1751,7 @@ function recipeView(){
             return `<div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">
               <div class="step-num" style="background:#1a0f08;border:1px solid #c06020;color:#c06020;">${i+1}</div>
               <div style="flex:1;">
-                <p style="margin:2px 0 6px;font-size:14px;color:#c8b898;line-height:1.7;">${step}</p>
+                <p style="margin:2px 0 6px;font-size:14px;color:#e0d4b8;line-height:1.7;">${step}</p>
                 ${secs?`<button class="timer-btn" onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')">⏱️ ${fmtTimerLabel(secs)}</button>`:''}
               </div>
             </div>`;
@@ -1760,7 +1760,7 @@ function recipeView(){
       </div>
       <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">💡 Tip</div>
-        <p style="font-size:13px;color:#c8b898;line-height:1.6;">${recipe.tip}</p>
+        <p style="font-size:13px;color:#e0d4b8;line-height:1.6;">${recipe.tip}</p>
       </div>
       ${(()=>{
         // 💰 Cost estimate card (Pro only)
@@ -1852,7 +1852,6 @@ function braaiQuickNav(activeCat){
     {id:'salads',  emoji:'🥗', label:'Salads',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===sid)).length},
     {id:'starchy', emoji:'🌽', label:'Side Meals',  count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===sid)).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===sid)).length},
-    {id:'extras',  emoji:'🍞', label:'Breads',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='extras')?.items.some(x=>x.id===sid)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts', count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===sid)).length},
     {id:'myplan',  emoji:'📋', label:'My Plan',  count:total, highlight:true},
   ];
@@ -1861,7 +1860,7 @@ function braaiQuickNav(activeCat){
       const isActive = activeCat===s.id;
       const borderCol = isActive?(s.highlight?'#c0a020':'#c06020'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#4a3424';
       const bgCol = isActive?(s.highlight?'#1a1408':'#2a1008'):s.count>0?'#1a1008':'transparent';
-      const textCol = isActive?'#f5c842':s.count>0?'#e0b878':'#c8b898';
+      const textCol = isActive?'#f5c842':s.count>0?'#e0b878':'#e0d4b8';
       return `<button onclick="braaiNavGo('${s.id}')"
         style="padding:8px 4px;border-radius:10px;border:1px solid ${borderCol};
                background:${bgCol};cursor:pointer;text-align:center;position:relative;">

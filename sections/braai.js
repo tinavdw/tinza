@@ -51,7 +51,7 @@ function braaiStep1(){
         </div>
         ${S.howItWorksOpen ? `
         <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
-          <div style="font-size:13px;color:#c8b898;line-height:2;">
+          <div style="font-size:13px;color:#e0d4b8;line-height:2;">
             1 · Browse each section and tap <strong style="color:#f5c842;">Recipe →</strong> to read first<br>
             2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan<br>
             3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong><br>
@@ -116,7 +116,7 @@ function braaiStep2(){
 
   return `<div>
     <div class="header">
-      <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Overview</button>
+      <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Braai</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🍽️ Choose Mains</h1>
       <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${count}/${max>=99?"∞":max} selected · Select item to see 📖 recipe</p>
     </div>
@@ -160,7 +160,7 @@ function braaiStep3(){
   const sectionLabel = filter ? (labels[filter]||'Sides') : '🥗 Sides and More';
   return `<div>
     <div class="header">
-      <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Overview</button>
+      <button class="back-btn" onclick="set({braiStep:1})" style="color:#c06020;">← Braai</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${sectionLabel}</h1>
       <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${S.selectedSides.length} selected · Select item to see 📖 recipe</p>
     </div>
@@ -204,7 +204,7 @@ function braaiStep4(){
   const shopList=buildShoppingList(), cost=totalCost(), cals=totalCals(), ap=APPETITE[S.appetite];
   return `<div>
     <div class="header">
-      <button class="back-btn" onclick="set({braaiView:'browse',braiStep:1})" style="color:#c06020;">← Overview</button>
+      <button class="back-btn" onclick="set({braaiView:'browse',braiStep:1})" style="color:#c06020;">← Braai</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Braai Plan</h1>
       <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${String(S.budget||"standard").charAt(0).toUpperCase()+String(S.budget||"standard").slice(1)}</p>
     </div>
@@ -271,7 +271,7 @@ function braaiStep4(){
       </div>
       ${USER_TIER==="pro"?`<button onclick="window.printPlan('braai')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">🖨️ Print / Save as PDF <span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`:`<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1808;color:#c06a35;font-size:13px;margin-bottom:10px;">🔒 Print / Save as PDF — Pro only</button>`}
       <button onclick="set({braiStep:1,selectedMeats:[],selectedSides:[],checkedShopItems:{},braiCat:'beef',braaiSidesFilter:null,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#2a1008;border:2px solid #c06020;color:#f5c842;font-size:13px;margin-bottom:20px;font-weight:bold;">🔄 Start a New Braai Plan</button>
-      <button onclick="set({braiStep:1,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin-bottom:20px;">← Back to Overview</button>
+      <button onclick="set({braiStep:1,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin-bottom:20px;">← Back to Braai</button>
     </div>
   </div>`;
 }
