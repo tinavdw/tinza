@@ -261,7 +261,7 @@ function mealSectionHTML(sectionKey){
             <div style="flex:1;min-width:0;">
               <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
               ${r.feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${r.feel}</div>`:''}
-              <div style="font-size:13px;color:#c0915a;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
+              <div style="font-size:13px;color:#e0d4b8;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
             </div>
             <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
           </div>
@@ -541,7 +541,7 @@ function fourIngredientsHTML(){
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🧅 4 Ingredients</h1>
-        <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">What's in your fridge? Pop in 2–4 things and we'll find the meal.</p>
+        <p style="margin:0;font-size:13px;color:#e0d4b8;font-style:italic;">What's in your fridge? Pop in 2–4 things and we'll find the meal.</p>
       </div>
     </div>
 
@@ -550,18 +550,18 @@ function fourIngredientsHTML(){
       <button onclick="set({fourHowOpen:!S.fourHowOpen})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
       ${howOpen?`
         <div onclick="set({fourHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#c8b898;line-height:1.6;">
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#e0d4b8;line-height:1.6;">
           <strong style="color:#f5c842;">1. Enter 2–4 ingredients</strong> — whatever's in your fridge or pantry.<br>
           <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — Tinza checks its own recipes first, then asks Tinza Chef.<br>
           <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
-          <span style="color:#b0936a;font-size:13px;">The more ingredients you add, the closer the match.</span>
+          <span style="color:#e0d4b8;font-size:13px;">The more ingredients you add, the closer the match.</span>
         </div>`:''}
     </div>
 
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
       <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
-        <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your ingredients</div>
+        <div style="font-size:13px;color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your ingredients</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
           ${[1,2,3,4].map(n=>`
             <div style="display:flex;align-items:center;gap:6px;background:#161210;border:2px solid ${border};border-radius:10px;padding:10px 12px;">
@@ -576,7 +576,7 @@ function fourIngredientsHTML(){
         </button>
       </div>
 
-      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c0915a;text-align:center;">${error}</div>`:''}
+      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#e0d4b8;text-align:center;">${error}</div>`:''}
 
       ${loading?`<div style="text-align:center;padding:30px;">
         <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
@@ -589,7 +589,7 @@ function fourIngredientsHTML(){
         <button onclick="findFourIngredients()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">🔄 Find again</button>
       `:''}
 
-      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#b0936a;font-size:13px;">No matches yet — try different ingredients.</div>`:''}
+      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#e0d4b8;font-size:13px;">No matches yet — try different ingredients.</div>`:''}
     </div>
   </div>`;
 }
@@ -611,7 +611,7 @@ function anchorIngredientHTML(){
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🐔 I Have Chicken…</h1>
-        <p style="margin:0;font-size:13px;color:#c0915a;font-style:italic;">Type any ingredient you've got — we'll build meals around it.</p>
+        <p style="margin:0;font-size:13px;color:#e0d4b8;font-style:italic;">Type any ingredient you've got — we'll build meals around it.</p>
       </div>
     </div>
 
@@ -620,32 +620,32 @@ function anchorIngredientHTML(){
       <button onclick="set({anchorHowOpen:!S.anchorHowOpen})" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;font-family:Georgia,serif;">${howOpen?'▲':'▼'} How it works</button>
       ${howOpen?`
         <div onclick="set({anchorHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#c8b898;line-height:1.6;">
+        <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#e0d4b8;line-height:1.6;">
           <strong style="color:#f5c842;">1. Type your main ingredient</strong> — add a quantity if you like (e.g. "beef mince 500g").<br>
           <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — every recipe is built around it.<br>
           <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
-          <span style="color:#b0936a;font-size:13px;">Add a weight and we'll scale the recipe to what you have.</span>
+          <span style="color:#e0d4b8;font-size:13px;">Add a weight and we'll scale the recipe to what you have.</span>
         </div>`:''}
     </div>
 
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
       <div style="background:${bg};border:1px solid ${border};border-radius:12px;padding:16px;margin-bottom:14px;">
-        <div style="font-size:13px;color:#b0936a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your main ingredient</div>
+        <div style="font-size:13px;color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Your main ingredient</div>
         <div style="background:#161210;border:2px solid ${border};border-radius:10px;padding:10px 12px;margin-bottom:12px;">
           <input type="text" value="${(S.anchorInput||'').replace(/"/g,'&quot;')}" placeholder="e.g. beef mince 500g, butternut, chicken thighs"
             oninput="S.anchorInput=this.value"
             style="width:100%;background:transparent;border:none;color:#f5e8cc;font-size:16px;font-family:Georgia,serif;outline:none;" />
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-          ${chips.map(c=>`<button onclick="S.anchorInput='${c[1]}';findAnchorIngredient()" style="padding:6px 11px;border-radius:16px;border:1px solid ${border};background:transparent;color:#c8b898;font-size:13px;cursor:pointer;white-space:nowrap;">${c[0]} ${c[1]}</button>`).join('')}
+          ${chips.map(c=>`<button onclick="S.anchorInput='${c[1]}';findAnchorIngredient()" style="padding:6px 11px;border-radius:16px;border:1px solid ${border};background:transparent;color:#e0d4b8;font-size:13px;cursor:pointer;white-space:nowrap;">${c[0]} ${c[1]}</button>`).join('')}
         </div>
         <button onclick="findAnchorIngredient()" style="width:100%;padding:14px;border-radius:10px;background:#161210;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
           ${loading?'👨‍🍳 Finding recipes…':'🔍 Find Recipes'}
         </button>
       </div>
 
-      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#c0915a;text-align:center;">${error}</div>`:''}
+      ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#e0d4b8;text-align:center;">${error}</div>`:''}
 
       ${loading?`<div style="text-align:center;padding:30px;">
         <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
@@ -658,19 +658,19 @@ function anchorIngredientHTML(){
         <button onclick="findAnchorIngredient()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">🔄 Find again</button>
       `:''}
 
-      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#b0936a;font-size:13px;">No matches yet — try another ingredient.</div>`:''}
+      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#e0d4b8;font-size:13px;">No matches yet — try another ingredient.</div>`:''}
     </div>
   </div>`;
 }
 
 function recipeResultCard(r, onClickFn, color){
   const matchBadge = r._matchCount ? `<span style="background:#1f1206;border:1px solid #c06020;border-radius:8px;font-size:13px;color:#f5c842;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
-  const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:13px;color:#c0915a;padding:2px 6px;">In Tinza</span>` : '';
+  const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:13px;color:#e0d4b8;padding:2px 6px;">In Tinza</span>` : '';
   return `<div onclick="${onClickFn}" style="background:#141210;border:1px solid #2a2820;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
     <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
     <div style="flex:1;min-width:0;">
       <div style="font-size:14px;color:#f5e8cc;margin-bottom:3px;">${r.name}</div>
-      <div style="font-size:13px;color:${color||'#c0915a'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="font-size:13px;color:${color||'#e0d4b8'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
       <div style="margin-top:4px;">${matchBadge}${sourceBadge}</div>
     </div>
     <span style="color:${color||'#c06020'};font-size:14px;flex-shrink:0;">→</span>
@@ -780,13 +780,13 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- Method -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Method</div>
-        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><p style="margin:2px 0 0;font-size:14px;color:#c8b898;line-height:1.7;">${step}</p></div>`).join('')}
+        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><p style="margin:2px 0 0;font-size:14px;color:#e0d4b8;line-height:1.7;">${step}</p></div>`).join('')}
       </div>
 
       <!-- Tip -->
       ${r.tip?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>
-        <p style="font-size:13px;color:#c8b898;line-height:1.6;margin:0;">${r.tip}</p>
+        <p style="font-size:13px;color:#e0d4b8;line-height:1.6;margin:0;">${r.tip}</p>
       </div>`:''}
 
       <!-- Nutrition -->
