@@ -1400,17 +1400,16 @@ function wkRecipeCard(r){
     + 'background:'+(checked?green:'transparent')+';color:#fff;display:flex;align-items:center;'
     + 'justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">'+(checked?'✓':'')+'</div>';
   return '<div onclick="'+open+'" '
-    + 'style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;">'
-    +   '<div style="display:flex;align-items:center;gap:10px;">'
+    + 'style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">'
+    +   '<div style="display:flex;align-items:flex-start;gap:12px;">'
     +     box
-    +     '<span style="font-size:20px;flex-shrink:0;">'+emoji+'</span>'
+    +     '<span style="font-size:20px;flex-shrink:0;line-height:1.35;">'+emoji+'</span>'
     +     '<div style="flex:1;min-width:0;">'
-    +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
-    +       '<div style="font-size:14px;color:'+feelCol+';margin-top:3px;line-height:1.4;">'+sub+'</div>'
-    +       (costPP ? '<div style="font-size:12px;color:#f5c842;font-weight:bold;margin-top:3px;">≈ R'+costPP+' pp</div>' : '')
+    +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;line-height:1.35;">'+disp+'</div>'
+    +       '<div style="font-size:14px;color:'+feelCol+';margin-top:4px;line-height:1.4;">'+sub+'</div>'
+    +       (costPP ? '<div style="font-size:12px;color:#f5c842;font-weight:bold;margin-top:4px;">≈ R'+costPP+' pp</div>' : '')
     +     '</div>'
-    +     (grams ? '<span style="font-size:13px;color:#f5c842;font-weight:bold;white-space:nowrap;flex-shrink:0;">'+grams+' <span style="font-size:9px;color:#b0936a;font-weight:normal;">pp</span></span>' : '')
-    +     '<button onclick="event.stopPropagation();'+open+'" style="background:'+green+';border:none;border-radius:6px;padding:5px 11px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;font-weight:bold;flex-shrink:0;">Recipe →</button>'
+    +     '<span style="font-size:22px;color:'+green+';flex-shrink:0;align-self:center;line-height:1;">›</span>'
     +   '</div>'
     + '</div>';
 }
