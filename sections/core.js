@@ -287,6 +287,8 @@ function comingSoonHTML(emoji, title, subtitle){
 
 // ── PERSISTENT BOTTOM NAV BAR (fixed, every screen) ──────────────────
 function bottomBarHTML(){
+  const showBack = !(S.screen==='home' && !S.viewingRecipe);
+  const backBtn = showBack ? `<button onclick="goBack()" aria-label="Back" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;"><span style="font-size:22px;color:#c06020;line-height:1;">←</span><span style="font-size:10px;letter-spacing:0.3px;color:#c06020;">Back</span></button>` : '';
   const tabs = [
     {screen:'home',    emoji:'🏠', label:'Home'},
     {screen:'search',  emoji:'🔍', label:'Search'},
@@ -294,6 +296,7 @@ function bottomBarHTML(){
     {screen:'profile', emoji:'👤', label:'Profile'},
   ];
   return `<div style="position:fixed;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;z-index:150;background:#140f0a;border-top:1px solid #3a2810;display:flex;padding:6px 0 8px;">
+    ${backBtn}
     ${tabs.map(t=>{
       const on = S.screen===t.screen;
       return `<button onclick="bottomBarGo('${t.screen}')" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;">
@@ -313,6 +316,8 @@ function bottomBarGo(screen){
     set({screen:screen, viewingRecipe:false});
   }
 }
+
+function goBack(){ try{ history.back(); }catch(_e){} }
 
 function draw(){
   // Close How It Works when tapping anywhere on page
