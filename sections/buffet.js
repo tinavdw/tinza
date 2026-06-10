@@ -952,12 +952,11 @@ function eventsRecipeView(aer, guests){
   const isTrayDish = aer.perPerson && typeof (aer.perPerson.unit||'') === 'string' && (aer.perPerson.unit||'').includes('tray');
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:#1a1208;border-bottom:1px solid #c06020;padding:14px 20px;">
-      <button onclick="${aer._type==='finger' ? 'set({eventActiveRecipe:null,fingerSection:\'savoury\',fingerView:\'browse\'})' : 'set({eventActiveRecipe:null})'}" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
+      <button onclick="set({eventActiveRecipe:null})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← ${(()=>{const inArr=(a)=>Array.isArray(a)&&a.some(x=>x.id===aer.id);let lbl='Back';if(typeof EVENTS_BIG_COOKING_MAINS!=='undefined'&&inArr(EVENTS_BIG_COOKING_MAINS))lbl='Back to Mains';else if(typeof EVENTS_BIG_COOKING_SIDES!=='undefined'&&inArr(EVENTS_BIG_COOKING_SIDES))lbl='Back to Sides';else if(typeof EVENTS_BIG_COOKING_SALADS!=='undefined'&&inArr(EVENTS_BIG_COOKING_SALADS))lbl='Back to Salads';else if(typeof EVENTS_STARTERS!=='undefined'&&inArr(EVENTS_STARTERS))lbl='Back to Starters';else if(typeof EVENTS_DESSERTS!=='undefined'&&inArr(EVENTS_DESSERTS))lbl='Back to Desserts';else if(aer._type==='finger'){const FC=(typeof EVENTS_FINGER_FOODS!=='undefined')?EVENTS_FINGER_FOODS:{};if(inArr(FC.meaty))lbl='Back to Meaty';else if(inArr(FC.pastry))lbl='Back to Pastry';else if(inArr(FC.sweet))lbl='Back to Sweet';else lbl='Back to Savoury';}else if(typeof EVENTS_SAUCES!=='undefined'&&inArr(EVENTS_SAUCES))lbl='Back to Sauces';return lbl;})()}</button>
       <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${aer.emoji||'🍽️'} ${aer.name}</h1>
       <div style="font-size:11px;color:#c06020;margin-top:2px;">${aer.region||''}</div>
     </div>
     <div class="content">
-      ${eventsTopNav()}
       ${recipePhoto(aer.name, aer.emoji||'🍽️')}
       ${quantityBlock}
       ${hasPantry&&!isTrayDish?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
@@ -1111,7 +1110,6 @@ function eventsRecipeView(aer, guests){
         }
         return '<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:10px;text-align:center;color:#c06020;font-size:12px;margin-bottom:12px;">👑 Add to Plan — Pro feature</div>';
       })()}
-      <button onclick="set({eventActiveRecipe:null,fingerSection:'savoury',fingerView:'browse'})" style="width:100%;padding:12px;background:#0a0010;border:1px solid #3a2010;border-radius:10px;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:20px;">← Back to Savoury</button>
     </div>
   </div>`;
 }
