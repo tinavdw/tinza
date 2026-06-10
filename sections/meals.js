@@ -272,7 +272,7 @@ function mealSectionHTML(sectionKey){
       ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
       <div style="margin-top:8px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
         <div style="font-size:12px;color:#828270;margin-bottom:8px;">Can't find what you're looking for?</div>
-        <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#0a1020;border:2px solid #4080d0;border-radius:10px;color:#4080d0;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
+        <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#e0a060;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
       </div>
     </div>
   </div>`;
@@ -666,16 +666,16 @@ function anchorIngredientHTML(){
 }
 
 function recipeResultCard(r, onClickFn, color){
-  const matchBadge = r._matchCount ? `<span style="background:#0a1808;border:1px solid #25a050;border-radius:8px;font-size:9px;color:#25a050;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
-  const sourceBadge = r._source==='db' ? `<span style="background:#0a1020;border:1px solid #4080d0;border-radius:8px;font-size:9px;color:#4080d0;padding:2px 6px;">In Tinza</span>` : '';
+  const matchBadge = r._matchCount ? `<span style="background:#1f1206;border:1px solid #c06020;border-radius:8px;font-size:9px;color:#f5c842;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
+  const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:9px;color:#c0915a;padding:2px 6px;">In Tinza</span>` : '';
   return `<div onclick="${onClickFn}" style="background:#141210;border:1px solid #2a2820;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;">
     <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
     <div style="flex:1;min-width:0;">
       <div style="font-size:14px;color:#f5e8cc;margin-bottom:3px;">${r.name}</div>
-      <div style="font-size:11px;color:${color||'#4080d0'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="font-size:11px;color:${color||'#c0915a'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
       <div style="margin-top:4px;">${matchBadge}${sourceBadge}</div>
     </div>
-    <span style="color:${color||'#4080d0'};font-size:14px;flex-shrink:0;">→</span>
+    <span style="color:${color||'#c06020'};font-size:14px;flex-shrink:0;">→</span>
   </div>`;
 }
 
