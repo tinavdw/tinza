@@ -52,6 +52,17 @@ function furryHTML(){
       </div>
     </div>
 
+    <!-- ══ DISCLAIMER (collapsible, one page) ══ -->
+    <div style="padding:12px 16px 0;">
+      <div onclick="set({furryDiscOpen:!S.furryDiscOpen})" style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:#c06020;font-weight:bold;">⚠️ Disclaimer</span>
+          <span style="font-size:12px;color:#c0915a;">${S.furryDiscOpen?'▲':'▼'}</span>
+        </div>
+        ${S.furryDiscOpen?`<p style="margin:8px 0 0;font-size:12px;color:#c0915a;line-height:1.6;">Homemade pet food ideas — not a substitute for veterinary advice. Always check with your vet before changing your pet's diet, and especially for puppies, kittens, or pregnant, senior or unwell pets.</p>`:''}
+      </div>
+    </div>
+
     ${pet==='dog'?(S.dogView==='myplan'?dogMyPlanView():S.activeDog?dogRecipeHTML_screen():dogListHTML()):
                   (S.catView==='myplan'?catMyPlanView():S.activeCat?catRecipeHTML_screen():catListHTML())}
   </div>`;
