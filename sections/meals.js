@@ -254,18 +254,16 @@ function mealSectionHTML(sectionKey){
       ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
-        return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
-          <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="toggleMealPlan('${r.id}')">
+        return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:14px;margin-bottom:8px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;" onclick="toggleMealPlan('${r.id}')">
             <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${inPlan?'✓':''}</div>
-            <span style="font-size:20px;">${r.emoji}</span>
-            <div style="flex:1;">
-              <div style="font-size:14px;color:${inPlan?'#f5e8cc':'#c8b898'};font-weight:${inPlan?'bold':'normal'};">${r.name}</div>
-              ${r.feel?`<div style="font-size:11px;color:#907d5f;font-style:italic;margin-top:1px;line-height:1.3;">${r.feel}</div>`:''}
-              <div style="font-size:10px;color:${inPlan?cfg.color:'#5a5040'};margin-top:2px;">${r.cuisine} · ⏱️ ${r.time} min</div>
+            <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji}</span>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
+              ${r.feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${r.feel}</div>`:''}
+              <div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-              <button onclick="event.stopPropagation();openMealRecipe('${r.id}')" style="background:${cfg.color};border:none;border-radius:6px;padding:4px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
-            </div>
+            <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
           </div>
         </div>`;
       }).join('')}

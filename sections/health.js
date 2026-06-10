@@ -389,16 +389,16 @@ function renderHealthList(items, type, openFn, isPro){
     var recipeBtn = disabled
       ? '<span style="font-size:10px;background:#161210;border:1px solid #2a7058;border-radius:6px;color:#b0936a;padding:3px 7px;">👑 PRO</span>'
       : '<button onclick="event.stopPropagation();'+openFn+'(\''+item.id+'\')" style="background:#1a1208;border:1px solid #c06020;border-radius:6px;padding:5px 10px;font-size:11px;color:#f5c842;cursor:pointer;white-space:nowrap;font-family:Georgia,serif;">Recipe →</button>';
-    return '<div style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:12px;margin-bottom:6px;opacity:'+(disabled?0.5:1)+';">'
-      +'<div style="display:flex;align-items:center;gap:10px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
+    return '<div style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:14px;margin-bottom:8px;opacity:'+(disabled?0.5:1)+';">'
+      +'<div style="display:flex;align-items:flex-start;gap:12px;cursor:'+(disabled?'not-allowed':'pointer')+'" onclick="'+onclk+'">'
       +'<div style="width:22px;height:22px;border-radius:6px;background:'+cbBg+';border:2px solid '+cbBdr+';display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#f5e8cc;">'+(sel?'✓':'')+'</div>'
-      +'<span style="font-size:20px;">'+item.emoji+'</span>'
+      +'<span style="font-size:20px;flex-shrink:0;line-height:1.35;">'+item.emoji+'</span>'
       +'<div style="flex:1;min-width:0;">'
-        +'<div style="font-size:14px;color:'+nameCl+';font-weight:'+(sel?'bold':'normal')+';font-family:Georgia,serif;">'+item.name+'</div>'
-        +'<div style="font-size:10px;color:'+infoCl+';margin-top:2px;">'+info+'</div>'
-        +(item.howItFeels?'<div style="font-size:10px;color:#b0936a;margin-top:1px;font-style:italic;">'+item.howItFeels+'</div>':'')
+        +'<div style="font-size:16px;color:#f5e8cc;font-weight:bold;font-family:Georgia,serif;line-height:1.35;">'+item.name+'</div>'
+        +(item.howItFeels?'<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">'+item.howItFeels+'</div>':'')
+        +'<div style="font-size:12px;color:#c0915a;margin-top:4px;">'+info+'</div>'
       +'</div>'
-      +'<div style="display:flex;align-items:center;flex-shrink:0;">'+recipeBtn+'</div>'
+      +(disabled?'<div style="display:flex;align-items:center;flex-shrink:0;align-self:center;">'+recipeBtn+'</div>':'<span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>')
       +'</div></div>';
   }).join('');
 }
@@ -1010,16 +1010,16 @@ function healthGroupScreen(isPro, srv){
         const btn = disabled
           ? '<span style="font-size:10px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>'
           : '<button onclick="event.stopPropagation();'+openCall+'" style="background:#c06020;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>';
-        return `<div style="background:${sel?'#1a1208':'#161210'};border:1px solid ${sel?'#c06020':'#3a2010'};border-radius:10px;padding:12px;margin-bottom:6px;opacity:${disabled?0.45:1};">
-          <div style="display:flex;align-items:center;gap:10px;cursor:${disabled?'not-allowed':'pointer'}" onclick="${onclk}">
+        return `<div style="background:${sel?'#1a1208':'#161210'};border:1px solid ${sel?'#c06020':'#2a1a10'};border-radius:10px;padding:14px;margin-bottom:8px;opacity:${disabled?0.45:1};">
+          <div style="display:flex;align-items:flex-start;gap:12px;cursor:${disabled?'not-allowed':'pointer'}" onclick="${onclk}">
             <div style="width:22px;height:22px;border-radius:6px;background:${sel?'#c06020':'transparent'};border:2px solid ${sel?'#c06020':'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#89806e;">${sel?'✓':''}</div>
-            <span style="font-size:20px;">${item.emoji}</span>
+            <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${item.emoji}</span>
             <div style="flex:1;min-width:0;">
-              <div style="font-size:14px;color:${sel?'#f5e8cc':'#c0d4b0'};font-weight:${sel?'bold':'normal'};">${item.name}</div>
-              <div style="font-size:10px;color:${sel?'#c06020':'#6a5440'};margin-top:2px;">${info}</div>
-              ${feel?`<div style="font-size:10px;color:#5c8a7b;font-style:italic;margin-top:2px;">${feel}</div>`:''}
+              <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${item.name}</div>
+              ${feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${feel}</div>`:''}
+              ${info?`<div style="font-size:12px;color:#c0915a;margin-top:4px;">${info}</div>`:''}
             </div>
-            <div style="flex-shrink:0;">${btn}</div>
+            ${disabled?`<div style="flex-shrink:0;align-self:center;">${btn}</div>`:`<span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>`}
           </div>
         </div>`;
       }).join('');

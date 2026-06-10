@@ -80,16 +80,16 @@ function babyListHTML(){
       ${filtered.map(b=>{
         const bi = BABY_RECIPES.indexOf(b);
         const inPlan = planIds.includes(b.id);
-        return `<div style="background:#1a1208;border:1px solid ${inPlan?'#c06020':'#3a2030'};border-radius:10px;padding:12px;margin-bottom:8px;">
+        return `<div style="background:#1a1208;border:1px solid ${inPlan?'#c06020':'#3a2030'};border-radius:10px;padding:14px;margin-bottom:8px;">
           <div style="display:flex;align-items:center;gap:10px;">
             ${isPro?`<div style="width:22px;height:22px;border-radius:5px;border:2px solid ${inPlan?'#c06020':'#3a2010'};background:${inPlan?'#c06020':'transparent'};display:flex;align-items:center;justify-content:center;font-size:12px;color:white;cursor:pointer;flex-shrink:0;" onclick="setQuiet({babyPlan:toggle(S.babyPlan||[],'${b.id}')})">${inPlan?'✓':''}</div>`:'<div style="width:22px;flex-shrink:0;"></div>'}
-            <span style="font-size:28px;">${b.emoji}</span>
+            <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${b.emoji}</span>
             <div style="flex:1;min-width:0;">
-              <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${b.name}</div>
+              <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;margin-bottom:2px;">${b.name}</div>
               <div style="font-size:11px;color:#b16b92;margin-bottom:5px;">${b.stageLabel} · ⏱️ ${b.time} min</div>
               <div>${(b.badges||[]).map(badge=>`<span style="background:#2a1020;border:1px solid #3a2010;border-radius:10px;font-size:9px;color:#c07090;padding:2px 6px;margin:1px;display:inline-block;">${badge}</span>`).join("")}</div>
             </div>
-            <button onclick="setQuiet({activeBaby:BABY_RECIPES[${bi}],babyView:null})" style="background:#c06020;border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
+            <span onclick="setQuiet({activeBaby:BABY_RECIPES[${bi}],babyView:null})" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
           </div>
         </div>`;
       }).join("")}
@@ -390,15 +390,15 @@ function dogListHTML(){
           const inPlan=planIds.includes(d.id);
           if(!allowed) return `<div style="background:#0f0e0c;border:1px solid #1a1020;border-radius:10px;padding:12px;margin-bottom:8px;opacity:0.6;">
             <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:24px;">🔒</span><div><div style="font-size:14px;color:#3a2010;">${d.name}</div><div style="font-size:11px;color:#2a1040;">Unlock with Pro</div></div></div></div>`;
-          return `<div style="background:#1a1208;border:1px solid ${inPlan?color:'#2a1a40'};border-radius:10px;padding:12px;margin-bottom:8px;">
+          return `<div style="background:#1a1208;border:1px solid ${inPlan?color:'#2a1a40'};border-radius:10px;padding:14px;margin-bottom:8px;">
             <div style="display:flex;align-items:center;gap:10px;">
               ${isPro?`<div style="width:22px;height:22px;border-radius:5px;border:2px solid ${inPlan?color:'#3a2010'};background:${inPlan?color:'transparent'};display:flex;align-items:center;justify-content:center;font-size:12px;color:white;cursor:pointer;flex-shrink:0;" onclick="setQuiet({dogPlan:toggle(S.dogPlan||[],'${d.id}')})">${inPlan?'✓':''}</div>`:'<div style="width:22px;flex-shrink:0;"></div>'}
-              <span style="font-size:24px;">${d.emoji}</span>
+              <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${d.emoji}</span>
               <div style="flex:1;min-width:0;">
-                <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${d.name}</div>
+                <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;margin-bottom:2px;">${d.name}</div>
                 <div style="font-size:11px;color:#c06020;">⏱️ ${d.time} min${d.ages&&d.ages.length?` · ${d.ages.map(a=>DOG_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${d.storage?' · '+d.storage.split('.')[0]:''}</div>
               </div>
-              <button onclick="setQuiet({activeDog:DOG_RECIPES['${S.dogSection}'][${i}]})" style="background:${color};border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
+              <span onclick="setQuiet({activeDog:DOG_RECIPES['${S.dogSection}'][${i}]})" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
             </div>
           </div>`;
         }).join("")}
@@ -623,15 +623,15 @@ function catListHTML(){
           const inPlan=planIds.includes(c.id);
           if(!allowed) return `<div style="background:#0f0e0c;border:1px solid #1a1008;border-radius:10px;padding:12px;margin-bottom:8px;opacity:0.6;">
             <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:24px;">🔒</span><div><div style="font-size:14px;color:#3a2010;">${c.name}</div><div style="font-size:11px;color:#2a1008;">Unlock with Pro</div></div></div></div>`;
-          return `<div style="background:#1a1008;border:1px solid ${inPlan?color:'#3a2010'};border-radius:10px;padding:12px;margin-bottom:8px;">
+          return `<div style="background:#1a1008;border:1px solid ${inPlan?color:'#3a2010'};border-radius:10px;padding:14px;margin-bottom:8px;">
             <div style="display:flex;align-items:center;gap:10px;">
               ${isPro?`<div style="width:22px;height:22px;border-radius:5px;border:2px solid ${inPlan?color:'#6a3010'};background:${inPlan?color:'transparent'};display:flex;align-items:center;justify-content:center;font-size:12px;color:white;cursor:pointer;flex-shrink:0;" onclick="setQuiet({catPlan:toggle(S.catPlan||[],'${c.id}')})">${inPlan?'✓':''}</div>`:'<div style="width:22px;flex-shrink:0;"></div>'}
-              <span style="font-size:24px;">${c.emoji}</span>
+              <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${c.emoji}</span>
               <div style="flex:1;min-width:0;">
-                <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${c.name}</div>
+                <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;margin-bottom:2px;">${c.name}</div>
                 <div style="font-size:11px;color:#c96532;">⏱️ ${c.time} min${c.ages&&c.ages.length?` · ${c.ages.map(a=>CAT_AGE_STAGES.find(x=>x.id===a)?.label||a).join(', ')}`:''}${c.storage?' · '+c.storage.split('.')[0]:''}</div>
               </div>
-              <button onclick="setQuiet({activeCat:CAT_RECIPES['${S.catSection}'][${i}]})" style="background:${color};border:none;border-radius:6px;padding:5px 10px;font-size:11px;color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">Recipe →</button>
+              <span onclick="setQuiet({activeCat:CAT_RECIPES['${S.catSection}'][${i}]})" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
             </div>
           </div>`;
         }).join("")}

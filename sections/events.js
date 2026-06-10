@@ -745,13 +745,13 @@ function eventsHTML(){
       <div style="font-size:10px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">🍽️ Selected Snacks</div>
       ${selectedItems.map(r=>{
         const totalPcs = piecesPerType * guests;
-        return `<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
-          <span style="font-size:22px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
-          <div style="flex:1;">
-            <div style="font-size:14px;color:#f5c842;font-weight:bold;">${r.name}</div>
-            <div style="font-size:11px;color:#c06020;margin-top:2px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
+        return `<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
+            <div style="font-size:12px;color:#c0915a;margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
           </div>
-          <button onclick="openEvent('${r.id}','finger')" style="background:none;border:1px solid #3a2010;border-radius:6px;padding:4px 10px;color:#c06020;font-size:11px;cursor:pointer;flex-shrink:0;">Recipe →</button>
+          <span onclick="openEvent('${r.id}','finger')" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
         </div>`;
       }).join('')}
     </div>`;
@@ -1036,17 +1036,18 @@ function eventsHTML(){
       portionBadge = `<span style="background:#1a1208;border:1px solid #c06020;border-radius:10px;font-size:10px;color:#c06020;padding:2px 7px;margin-left:6px;">~R${r.costPP}/pp</span>`;
     }
 
-    return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;" onclick="${toggleAction}">
-      <div style="display:flex;align-items:center;gap:10px;">
+    return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onclick="${toggleAction}">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
         ${(category&&isPro)?`<div style="width:22px;height:22px;border-radius:6px;background:${isSelected?'#c06020':'transparent'};border:2px solid ${isSelected?'#c06020':'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:13px;color:white;flex-shrink:0;">${isSelected?'✓':''}</div>`:''}
-        <div style="flex:1;">
-          <div style="font-size:15px;color:#e0d4b8;">${r.emoji||'🍽️'} ${r.name} ${portionBadge}</div>
-          ${r.perPerson?`<div style="font-size:11px;color:#c06020;margin-top:2px;">${r.perPerson.meat} ${r.perPerson.unit} per person base</div>`:''}
-          ${r.region?`<div style="font-size:11px;color:#c06020;margin-top:2px;">${r.region}</div>`:''}
+        <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name} ${portionBadge}</div>
+          ${r.perPerson?`<div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.perPerson.meat} ${r.perPerson.unit} per person base</div>`:''}
+          ${r.region?`<div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.region}</div>`:''}
           ${r.halalFlag?'<div style="font-size:10px;color:#d0a020;margin-top:2px;">⚠️ Halal meat required</div>':''}
           ${r.kosherFlag?'<div style="font-size:10px;color:#d0a020;margin-top:2px;">⚠️ Kosher prep notes inside</div>':''}
         </div>
-        <button onclick="event.stopPropagation();${openAction}" style="background:none;border:1px solid #3a2010;border-radius:6px;padding:4px 10px;color:#c06020;font-size:11px;cursor:pointer;flex-shrink:0;margin-left:8px;">Recipe →</button>
+        <span onclick="event.stopPropagation();${openAction}" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
       </div>
     </div>`;
   }
@@ -1328,12 +1329,12 @@ function eventsHTML(){
                   <div onclick="(function(){const pi={id:'${r.id}',name:'${r.name.replace(/'/g,'')}',emoji:'${r.emoji||'🌍'}',time:${r.time||0},ingredients:[],serves:1};togglePlanItem('wkPlan',pi);})()" style="width:26px;height:26px;border-radius:6px;border:2px solid ${isPlanItem('wkPlan','${r.id}')?rc:'#3a3030'};background:${isPlanItem('wkPlan','${r.id}')?rc:'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#fff;">${isPlanItem('wkPlan','${r.id}')?'✓':''}</div>
               <div onclick="openWorldRecipe('${r.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
                     <div>
-                      <div style="font-size:15px;color:#e0d4b8;">${r.emoji} ${r.name}</div>
-                      <div style="font-size:11px;color:#c06020;margin-top:3px;">${r.region}</div>
+                      <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.emoji} ${r.name}</div>
+                      <div style="font-size:12px;color:#c0915a;margin-top:4px;">${r.region}</div>
                       ${r.halalFlag?`<span style="background:#1a1000;border:1px solid #806000;border-radius:8px;font-size:10px;color:#c0a020;padding:2px 6px;display:inline-block;margin-top:3px;">☪️ Halal</span>`:''}
                       ${r.kosherFlag?`<span style="background:#001a1a;border:1px solid #006060;border-radius:8px;font-size:10px;color:#20c0c0;padding:2px 6px;display:inline-block;margin-top:3px;">✡️ Kosher</span>`:''}
                     </div>
-                    <span style="color:#c06020;font-size:20px;">→</span>
+                    <span style="color:#c06020;font-size:22px;line-height:1;">›</span>
                   </div>
                 </div>
               `}).join('')
