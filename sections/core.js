@@ -1407,24 +1407,24 @@ function homeHTML(){
 
   const recipeSections = [
     // Row 1 — core cooking
-    {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"#c06020", bg:"#1a1008"},
-    {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"#208060", bg:"#0a1810"},
-    {s:"spice",      e:"🧂", t:"Tinza Spice Room",         sub:"Spice blends · Sauces · Chutneys · Atchars · Sambals · Preserves", b:"#c0701a", bg:"#1a1206"},
+    {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"#c06020", bg:"#1a1208"},
+    {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"#c06020", bg:"#1a1208"},
+    {s:"spice",      e:"🧂", t:"Tinza Spice Room",         sub:"Spice blends · Sauces · Chutneys · Atchars · Sambals · Preserves", b:"#c06020", bg:"#1a1208"},
     // Row 2 — everyday family cooking (Breakfast · Light Lunch · Supper · Bakes live inside)
-    {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"#c08040", bg:"#1a1208"},
+    {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"#c06020", bg:"#1a1208"},
     // Row 3 — speciality
-    {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#20a080", bg:"#0f1a18"},
-    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"#d04080", bg:"#1a0814"},
-    {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"#b060b0", bg:"#160f18"},
+    {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#c06020", bg:"#1a1208"},
+    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"#c06020", bg:"#1a1208"},
+    {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"#c06020", bg:"#1a1208"},
   ];
 
   const featureTools = [
-    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"#4080d0", bg:"#0a1020"},
-    {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"#40c060", bg:"#0a1a08"},
-    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"#c08020", bg:"#1a1000"},
-    {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"#a04080", bg:"#150010"},
-    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"#8060c0", bg:"#0f0818"},
-    {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"#2080c0", bg:"#081020"},
+    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"#c06020", bg:"#1a1208"},
+    {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"#c06020", bg:"#1a1208"},
+    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"#c06020", bg:"#1a1208"},
+    {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"#c06020", bg:"#1a1208"},
+    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"#c06020", bg:"#1a1208"},
+    {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"#c06020", bg:"#1a1208"},
   ];
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
