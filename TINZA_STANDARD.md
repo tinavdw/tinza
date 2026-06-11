@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.5 · updated 11 Jun 2026 (Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; bone-aware portions §6.1). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.6 · updated 11 Jun 2026 (Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; **Braai↔World Kitchen one costing model §6.4**; bone-aware portions §6.1). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -161,6 +161,20 @@ Every ingredient is tagged with **one of three buy-types** (`PACK_DB`):
 **Pantry group:** a separate "**Pantry — you may already have**" list (spices + tiny-quantity items) that is shown but **NOT counted in the headline total** — this protects the accuracy of the "I've got R100" budget feature. The existing delete-what-you-have mechanism handles "I already have this."
 
 **Data:** `PACK_DB` lives in `packs.js` — a zero-risk data file (like `wk_africa.js`), read by every section's My Plan / shopping list. **Status: drafted (~108 lines, three buy-types) but NOT pushed; pending a Checkers price-verification pass (`tinza_pack_sizes.xlsx`) before it goes live.** Until then the buy-number stays off; the cook number (incl. all weight items) is honest and live.
+
+### 6.4 BRAAI ↔ WORLD KITCHEN — one costing model, both sections (LOCKED 11 Jun)
+The two most-built sections must do costing **identically**. World Kitchen is currently ahead on shopping; Braai is ahead on the two-total wiring. Bring each up to the other, then keep them in lockstep — and that shared model becomes the template every other section copies.
+
+**State today (from the live screens):**
+- **World Kitchen My Plan** already prices every shopping line (`amount · R`), groups by aisle, sums a **shopping total with a +10% buffer** (e.g. `~R848`), and shows per-dish `role · X of N · % of plate · ~R` + `ingredient: g pp · total kg`. It shows **ONE** total only.
+- **Braai My Plan** shows the engine-based **meal cost + R pp** and the two-total *structure* (the "shop" total appears once packs create a gap), but its **shopping list shows amounts only — no per-line R, no total.**
+
+**The three locked steps (in order):**
+1. **Braai shopping costs** — price every Braai shopping line through the same engine (`costRecipe`/`priceOf`), show `amount · R` per row, group by aisle, and add a **shopping total + 10% buffer**, matching World Kitchen's shopping block exactly.
+2. **Reconcile** — Braai and World Kitchen My Plan use the **same plan-row format and the same shopping block**. One shared renderer is the goal so they can never drift (the World Kitchen richness — `role · X of N · % of plate · ~R`, ingredient `g pp · total kg` — is the reference; Braai adopts it).
+3. **Two-cost in World Kitchen** — once Braai's shopping is reconciled, add the **two totals** ("What the meal costs" vs "What you'll spend at the shops" + reason line, §6.3) to **World Kitchen too**. The two-price method is **app-wide, not Braai-only** — every section's My Plan ends in the same two-total shopping block.
+
+The +10% buffer and the pack-rounded "shop" total are **separate**: the buffer is a safety margin on the cook cost; the shop total is pack-rounding (needs `packs.js`). Both can show; keep them clearly labelled so they don't read as the same number twice.
 
 ---
 

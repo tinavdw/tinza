@@ -12,7 +12,15 @@
 ---
 
 ## ✅ DONE THIS SESSION (11 Jun late)
-- **BRAAI MY PLAN REBUILT (braai.js):** the view was a broken stub (empty render loops, cost never shown). Now renders selected **Mains** + **Sides** (name · total amount · ≈ R pp), an engine-based **plan cost** (`braaiPlanCost` = Σ standalone pp × spread × people — matches the row hooks, NOT legacy `totalCost`/`MEAT_COSTS`), and a working aisle-grouped **Shopping List** (tap to remove via `braaiToggleShop`). Photo header via `sectionHeader`.
+- **BRAAI COST IS LIVE & VERIFIED ON SCREEN** — My Plan shows meal cost + R pp (e.g. R124 · R31 pp · 4 people); row hooks show ≈ R pp. (Was a browser-cache delay, not a bug — no service worker, files were correct.)
+
+## ▶️ NEXT — Braai↔World Kitchen costing (Standard §6.4, do in order)
+1. **Braai shopping-list costs** — price every Braai shopping line via `costRecipe`/`priceOf`, show `amount · R` per row, aisle-grouped, + a **shopping total + 10% buffer** (match World Kitchen's block exactly). *World Kitchen already does this — copy its `wkShoppingList` approach.*
+2. **Reconcile** Braai & World Kitchen My Plan to **one shared plan-row + shopping renderer** (WK format is the reference: `role · X of N · % of plate · ~R`, ingredient `g pp · total kg`).
+3. **Two-cost into World Kitchen** — add the two totals + reason line (§6.3) to WK; the two-price method is app-wide, every section ends in the same two-total shopping block.
+- Buffer (+10% safety on cook cost) and the pack-rounded "shop" total are separate numbers — both can show, label clearly. Shop total still needs `packs.js` (drafted, pending Checkers verify).
+
+
 - **Two-total summary wired (Standard §6.3):** "What this braai costs" (total + R pp) shows now; "What you'll spend at the shops" + the reason line appear automatically once `buyTotal>total` (i.e. when `packs.js` pack-rounding lands). Honest gap, no fake second number.
 - **Follow-ups:** (1) `aisleCategory()` in core is a stub (only dairy vs Other) — expand to Meat/Veg/Pantry for nicer grouping. (2) `totalCost()`/`MEAT_COSTS` legacy still exist — retire once nothing else uses them (plan now uses `braaiPlanCost`). (3) wording/styling of the plan to Tina's taste.
 - **BONE-AWARE PORTIONS (Standard §6.1, LOCKED):** shared `PORTION` + `PORTION_BRAAI` + `portionG(cut,braai)` in core.js (one source). Braai `soloG` replaced by cut-derived base via `BRAAI_CUT` map + `braaiBaseG()` hook in `calcMeat`. boneless 250 · bone-in 325 (+30% for bone) · fish 200 · shellfish 250 · veg 250. Cost follows the same base. Verified: Boerewors 250g/R30 · T-Bone 325g/R94 · Lamb chops 325g/R88 · Snoek 200g/R33. **Rollout: other sections tag `cut` per recipe as touched; World Braai built bone-aware from the start.** Review the `BRAAI_CUT` map in braai.js for any wrong bone classification.
