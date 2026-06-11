@@ -1603,6 +1603,146 @@ function sectionHeader(o){
   return header + catBlock;
 }
 
+// ── SHARED RECIPE-PAGE COMPONENTS (Standard §4b) ──────────────────
+// One definition each → every section's recipe page is identical by
+// construction. Sections pass CONTENT; the chrome — boxes, arrows,
+// info layout, order, colours, sizes — lives here and cannot drift.
+// Pairs with qtyBox() + sectionHeader(). Mood is the only exception
+// (its colour accents are handled inside the mood section).
+
+// §4b.2 — meta strip under the name: origin · time · kcal
+function metaStrip(o){
+  o = o || {};
+  var chips = [];
+  if(o.origin) chips.push('📍 ' + o.origin);
+  if(o.time)   chips.push('⏱ ' + o.time);
+  if(o.kcal)   chips.push('🔥 ' + o.kcal);
+  if(!chips.length) return '';
+  return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'
+    + chips.map(function(c){ return '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:13px;color:#e0d4b8;">' + c + '</span>'; }).join('')
+    + '</div>';
+}
+
+// §4b.4 — "How portion size works" collapsible (pizza analogy). rawNote optional.
+function portionHowBox(rawNote){
+  return '<div style="margin-bottom:12px;">'
+    + '<span id="howPortion-btn" onclick="(function(){var c=document.getElementById(\'howPortion-body\');var b=document.getElementById(\'howPortion-btn\');var o=c.style.display===\'block\';c.style.display=o?\'none\':\'block\';b.textContent=o?\'▼ How portion size works\':\'▲ How portion size works\';})()" style="font-size:13px;color:#c06020;cursor:pointer;user-select:none;">▼ How portion size works</span>'
+    + '<div id="howPortion-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:14px;color:#e0d4b8;line-height:1.7;">'
+    +   'Think of it like slicing a pizza — one dish on its own gives a full helping; add it to a plan with other dishes and each helping gets smaller to share the plate, but the total food stays the same. Want more? Tap + above to add guests.'
+    +   (rawNote ? '<div style="margin-top:8px;color:#748646;">' + rawNote + '</div>' : '')
+    + '</div></div>';
+}
+
+// shared titled box shell — the one consistent card used for every titled block
+function recipeBox(title, innerHTML){
+  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + (title ? '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:8px;">' + title + '</div>' : '')
+    + innerHTML + '</div>';
+}
+
+// §4b.5 — ingredients box + a single ingredient row (name left, gold amount right)
+function ingredientsBox(rowsHTML, n){
+  return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
+}
+function ingredientRow(name, amount, note){
+  return '<div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #1e1a10;">'
+    + '<span style="font-size:14px;color:#e0d4b8;">' + name + (note ? ' <span style="color:#e0d4b8;font-size:13px;">(' + note + ')</span>' : '') + '</span>'
+    + '<span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
+}
+
+// §4b.6 — method box + a single numbered step (optional timer HTML)
+function methodBox(stepsHTML, startJs){
+  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">'
+    +   '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;">Method</div>'
+    +   (startJs ? '<button onclick="' + startJs + '" style="background:#c06020;border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>' : '')
+    + '</div>' + stepsHTML + '</div>';
+}
+function methodStep(i, text, timerHTML){
+  return '<div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">'
+    + '<div style="min-width:24px;height:24px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
+    + '<div style="flex:1;"><p style="margin:0;font-size:14px;color:#e0d4b8;line-height:1.7;">' + text + '</p>' + (timerHTML || '') + '</div></div>';
+}
+
+// §4b.7 — Goes Well With pills
+function goesWellBox(items){
+  if(!items || !items.length) return '';
+  return recipeBox('❤ Goes Well With',
+    '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
+    + items.slice(0,6).map(function(g){ return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;">' + g + '</span>'; }).join('')
+    + '</div>');
+}
+
+// §4b.8 — bottom action trio: Add to Plan · My Kitchen · Download
+function recipeActions(o){
+  o = o || {};
+  var add = '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
+    + (o.inPlan ? 'background:#160f08;border:1px solid #c06020;color:#c06020;' : 'background:#c06020;border:1px solid #c06020;color:#1a0f06;') + '">'
+    + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
+  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">💾 My Kitchen</button>';
+  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">⬇️ Download</button>';
+  return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + save + dl + '</div>';
+}
+
+// §4b.9 — bottom text nav: Back | My Plan | Home
+function recipeNav(o){
+  o = o || {};
+  return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #2a1a10;font-size:13px;">'
+    + '<button onclick="' + (o.backJs || '') + '" style="background:none;border:none;color:#c06020;cursor:pointer;">← Back</button>'
+    + (o.planJs ? '<button onclick="' + o.planJs + '" style="background:none;border:none;color:#c06020;cursor:pointer;">🧺 My Plan' + (o.planCount != null ? ' (' + o.planCount + ')' : '') + '</button>' : '')
+    + '<button onclick="' + (o.homeJs || "set({screen:'home'})") + '" style="background:none;border:none;color:#e0d4b8;cursor:pointer;">Home</button></div>';
+}
+
+// §3 — the shared list ROW: [✓] emoji NAME (cream 16 bold) + one feel line (14) + Recipe ›
+function recipeRow(o){
+  o = o || {};
+  var check = o.checked ? '<span style="color:#c06020;font-size:16px;flex-shrink:0;">✓</span>' : '';
+  return '<div onclick="' + (o.onclick || '') + '" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+    + check
+    + '<div style="flex:1;min-width:0;">'
+    +   '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.3;">' + (o.emoji ? o.emoji + ' ' : '') + (o.name || '') + '</div>'
+    +   (o.feel ? '<div style="font-size:14px;color:#e0d4b8;line-height:1.4;margin-top:2px;">' + o.feel + '</div>' : '')
+    + '</div>'
+    + '<span style="color:#c06020;font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe ›</span></div>';
+}
+
+// §4b — THE WHOLE-PAGE ASSEMBLER. This lays out EVERY recipe page with
+// the same wrapper, max-width, padding, block order and sizing. Sections
+// feed CONTENT only (qty/ingredients/method already built from the shared
+// components above) — the page layout itself lives here and cannot differ.
+// This is the page every other section is compared against.
+// Fixed order: photo+back → name → sub → meta → qty → "how portion" →
+//   ingredients → notes-slot → method → goes-well → extras-slot → actions → nav.
+function recipePage(o){
+  o = o || {};
+  var back = o.backJs
+    ? '<button onclick="' + o.backJs + '" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:13px;padding:5px 12px;cursor:pointer;">' + (o.backLabel || '← Back') + '</button>'
+    : '';
+  var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200) : '';
+  var sub     = o.sub ? '<div style="font-size:13px;color:#e0d4b8;margin-bottom:12px;">' + o.sub + '</div>' : '';
+  var meta    = (typeof metaStrip === 'function')     ? metaStrip(o.meta || {}) : '';
+  var portion = (typeof portionHowBox === 'function') ? portionHowBox(o.portionRawNote || '') : '';
+  var goes    = (typeof goesWellBox === 'function')   ? goesWellBox(o.goesWith || []) : '';
+  var actions = (typeof recipeActions === 'function') ? recipeActions(o.actions || {}) : '';
+  var nav     = (typeof recipeNav === 'function')     ? recipeNav(o.nav || {}) : '';
+  return '<div style="min-height:100vh;background:#0f0e0c;">'
+    + '<div style="position:relative;">' + photo + back + '</div>'
+    + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
+    +   '<h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:8px 0 2px;line-height:1.25;">' + (o.name || '') + '</h1>'
+    +   sub
+    +   meta
+    +   (o.qtyHTML || '')
+    +   portion
+    +   (o.ingredientsHTML || '')
+    +   (o.notesHTML || '')        // fixed slot 1 — section notes (e.g. SA swaps)
+    +   (o.methodHTML || '')
+    +   goes
+    +   (o.extrasHTML || '')       // fixed slot 2 — section extras (cost, tip, trivia, coal guide)
+    +   actions
+    +   nav
+    + '</div></div>';
+}
+
 function recipeView(){
   const vr=S.viewingRecipe;
   let item, recipe;

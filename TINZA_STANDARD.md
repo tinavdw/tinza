@@ -130,9 +130,13 @@ Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
 
 ## 8. THE CODE LOCK (how the standard is *enforced*, not just written)
 1. **Design tokens** — a single `THEME` constant block (colours + sizes) at the top of `core.js`; sections reference it instead of hardcoding hex. *(Migration: incremental.)*
-2. **Shared component functions in `core.js`** — built once, called everywhere:
-   - `qtyBox()` ✅ built · `recipePhoto()` ✅ exists · `sectionHeader()` ✅ built (200px photo header + wrapped category boxes + image slot)
-   - to build: `recipeRow()` · `howItWorks()` · `bottomNav()` · `costStrip()`
+2. **Shared component functions in `core.js`** — built once, called everywhere. **The whole recipe page renders from these — a section never hand-writes chrome.**
+   - Header/qty: `sectionHeader()` ✅ · `qtyBox()` ✅ · `recipePhoto()` ✅
+   - Recipe-page chrome (Standard §4b): `metaStrip()` ✅ · `portionHowBox()` ✅ · `recipeBox()` ✅ (titled card shell) · `ingredientsBox()` + `ingredientRow()` ✅ · `methodBox()` + `methodStep()` ✅ · `goesWellBox()` ✅ · `recipeActions()` ✅ · `recipeNav()` ✅
+   - Lists: `recipeRow()` ✅ (§3 row)
+   - **Whole-page assembler: `recipePage()` ✅** — lays out the ENTIRE recipe page (wrapper, max-width, padding, block order, sizing). Sections feed content only; layout cannot differ. **This is the page every other section is compared against.** Two fixed content slots: `notesHTML` (after ingredients) and `extrasHTML` (after Goes-Well) for section-specific blocks (SA swaps, cost, tip, Braai coal guide) — always in the same place.
+   - still to build: `howItWorks()` · `bottomNav()` · `costStrip()`
+   - **What "the same" means:** every section's page is these identical shells in the §4b order — same boxes, arrows, info layout, fonts, colours, sizes. Only the *content* inside differs (the actual ingredients/method, and genuinely section-specific blocks like Braai's coal guide or WK's SA-swaps, which sit in the same `recipeBox()` shell). Mood is the one colour exception.
 3. Once a screen uses the shared function, it **cannot drift** — there's only one definition.
 
 ---
