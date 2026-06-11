@@ -1553,14 +1553,15 @@ function wkDataCountryHTML(){
     emoji: '🍽️',
     img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/' + encodeURIComponent(country) + '.jpg',
     backJs: "set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);",
-    backLabel: '← World Kitchen'
+    backLabel: '← World Kitchen',
+    myPlan: { count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" }
   });
   var planBtnRow = '<div style="padding:12px 16px 0;max-width:600px;margin:0 auto;display:flex;justify-content:flex-end;">'
     + '<button onclick="var _r=document.getElementById(\'root\');if(_r)_r._savedScroll=0;set({wkScreen:\'wkplan\'});" style="background:#160f08;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:13px;padding:6px 14px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
     + '</div>';
 
   return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
-    + hdr + planBtnRow
+    + hdr
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
     + '</div>';
 }
