@@ -437,7 +437,6 @@ function draw(){
     const _ne = document.getElementById(_aeId);
     if(_ne){ try{ _ne.focus({preventScroll:true}); if(_aeStart!=null) _ne.setSelectionRange(_aeStart, _aeEnd); }catch(_e){} }
   }
-  if(S.screen==="worldkitchen" && !S.wkScreen){ setTimeout(initWKMap, 50); }
 
   // Sync sliders
   const guestSlider = document.querySelector('input[type=range][min="6"]');
