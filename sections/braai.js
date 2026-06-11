@@ -17,13 +17,13 @@ function braaiStep1(){
     {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>['starchy','extras'].some(gid=>SIDES_GROUPS.find(g=>g.id===gid)?.items.some(x=>x.id===id))).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
-    {id:'myplan',  emoji:'📋', label:'My Plan',        sub:'Quantities · Cost · Shopping', action:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})", count:total, highlight:false, planBox:true},
   ];
   return `<div>
     <div class="header" style="padding:0;overflow:hidden;">
       <div style="position:relative;height:200px;">
         <img src="${BRAAI_HDR_IMG}" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;" alt="Braai">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
+        <button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 My Plan (${total})</button>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 14px 12px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
