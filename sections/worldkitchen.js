@@ -1537,7 +1537,7 @@ function wkDataCountryHTML(){
         var pn = planCounts[tabPool[t.id]] || 0;
         var sel = tab===t.id;
         var badge = pn>0 ? '<span style="display:inline-block;min-width:15px;margin-left:3px;padding:0 4px;border-radius:8px;background:#c97a30;color:#1a0f06;font-size:13px;font-weight:bold;line-height:15px;vertical-align:middle;">'+pn+'</span>' : '';
-        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:8px 4px;border-radius:8px;border:1px solid '+(sel?green:'#2a1a10')+';background:'+(sel?'#1a1208':'#0f0e0c')+';color:'+(sel?green:'#e0d4b8')+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
+        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:10px 4px;border-radius:8px;border:1px solid '+(sel?green:'#2a1a10')+';background:'+(sel?'#3a2410':'#0f0e0c')+';color:'+(sel?'#f5e8cc':'#e0d4b8')+';font-weight:'+(sel?'bold':'normal')+';font-size:14px;cursor:pointer;font-family:Georgia,serif;line-height:1.3;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
       }).join('')
     + '</div>';
 
@@ -2183,14 +2183,14 @@ function wkMyPlanView(){
     var mainLine = mainItem
       ? '<div style="font-size:13px;color:#e0d4b8;margin-top:4px;">'+mainItem.name+': '
         + '<span style="color:#e0d4b8;font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#e0d4b8;">\u00b7</span> '
-        + '<strong style="color:#f5c842;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
+        + '<strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
       : '';
     var adjuster = '';  // per-dish "Portion for this dish" removed — the global Guests stepper scales the whole menu
     return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
       +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+Math.max(1,Math.round(n))+')" style="flex:1;cursor:pointer;">'
       +     '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
-      +     '<div style="font-size:13px;color:'+green+';margin-top:2px;">'+shareNote+(c.priced?(' \u00b7 ~R'+c.total):'')+'</div>'
+      +     '<div style="font-size:14px;color:#f5c842;margin-top:2px;">'+shareNote+(c.priced?(' \u00b7 ~R'+c.total):'')+'</div>'
       +     mainLine
       +   '</div>'
       +   '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#bc6b6b;font-size:16px;cursor:pointer;">\u2715</button>'
