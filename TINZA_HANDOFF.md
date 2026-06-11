@@ -12,11 +12,13 @@
 ---
 
 ## ✅ DONE THIS SESSION (11 Jun late)
-- **DECISION LOCKED — Braai = browser, like World Kitchen.** Builder-vs-browser settled: Braai's rows now behave like World's `wkRecipeCard`. Recorded in Standard §3.
-- **braai.js `itemCard` rebuilt to match World's `wkRecipeCard` by construction** (Mains + Sides both route through it): whole row OPENS the recipe · checkbox TOGGLES the plan (stop-propagation, fills `#c06020` + ✓) · name + feel line + bare gold `›` chevron · constant card (no row highlight) · grams removed from the row (now recipe-page only, §3). Validated, **push pending**. *(Pro-locked side rows keep a bespoke 🔒 placeholder — minor, later.)*
-- **`≈ R__ pp` cost slot is built but EMPTY** — shows nothing until the Braai cost helper exists (never faked, like World).
-- **Locked the WHITE MY PLAN OVERLAY into the Standard** (new §4.1 + §4a, §4e, §8). White pill, top-right inside the photo, via `sectionHeader()` `myPlan:{count,onclick}`. Push: `TINZA_STANDARD.md`.
-- Earlier braai.js conformance: §2 Georgia stripped → global sans; help-copy arrow → `›`.
+- **BONE-AWARE PORTIONS (Standard §6.1, LOCKED):** shared `PORTION` + `PORTION_BRAAI` + `portionG(cut,braai)` in core.js (one source). Braai `soloG` replaced by cut-derived base via `BRAAI_CUT` map + `braaiBaseG()` hook in `calcMeat`. boneless 250 · bone-in 325 (+30% for bone) · fish 200 · shellfish 250 · veg 250. Cost follows the same base. Verified: Boerewors 250g/R30 · T-Bone 325g/R94 · Lamb chops 325g/R88 · Snoek 200g/R33. **Rollout: other sections tag `cut` per recipe as touched; World Braai built bone-aware from the start.** Review the `BRAAI_CUT` map in braai.js for any wrong bone classification.
+- **COST ENGINE LIVE (core.js 2069L):** shared `priceOf()` + `costRecipe()` (+ `proteinCostPP()`), pack-ready (reads `PACK_DB` when it lands, exact fallback). One price list (`PRICE_DB`), never faked. Standard §6.2–6.3.
+- **BRAAI COST WIRED (braai.js):** `BRAAI_PRICEKEY` map (each raw cut → PRICE_DB key, edit in ONE place) + `braaiMeatCostPP` (standalone full-portion, pizza-spread in plan) + `braaiSideCostPP` (sides costed from their `shopping` ingredient lists via `costRecipe`). Both wired into `itemCard`. Verified: Rump R68 · T-Bone R116 · Lamb chops R81 · Chicken R31 · Prawns R88 · Pap R2 · Sweet-potato R4. **Push: core.js + braai.js + prices.js.**
+- **2 veg prices added (prices.js):** halloumi R258/kg (R57.99/225g), brinjal/aubergine R43/kg (R42.99/1kg PnP).
+- **STILL OPEN — 3 composite veg mains** (`brinjalskewers`, `mixedvegbraai`, `halloumiskewers`): blank for now. Next: give each a per-person `shopping` array in data.js + a `costRecipe(meat.shopping)` branch in `braaiMeatCostPP` → they light up honestly (parts all priced now).
+- **Review:** the `BRAAI_PRICEKEY` table in braai.js is the cut map — Tina to eyeball the judgement cuts (kebabs→rump, sosaties→pork neck/lamb braai chops, cocktail sausages→boerewors, Kudu→beef fillet).
+- Earlier: braai rows → World `wkRecipeCard` shape; My Plan overlay §4.1; row spec §3; two-price lock §6.3; Georgia stripped.
 
 ## ▶️ THE BRAAI COST — NEXT FOCUSED STEP (lights up `≈ R pp`)
 **Two-price strategy is now LOCKED in Standard §6.2–6.3** (cook vs buy number · three buy-types weight/pack/each · two totals + reason line · pantry group). `PACK_DB` (`packs.js`, ~108 lines, drafted) is **NOT pushed** — pending a Checkers price-verification pass (`tinza_pack_sizes.xlsx`). Until then: **weight items (all meat) cost exactly = honestly now; buy-number stays off.**

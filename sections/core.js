@@ -536,14 +536,32 @@ function sideSpreadMult(count){
   return 0.5;                  // 75/150 (5+ stays here)
 }
 
+// ── SHARED PORTION STANDARD (Standard §6.1) ────────────────────────
+// One bone-aware source for per-person grams. A section derives its portion
+// (and therefore its cost) from a recipe's CUT type, not a magic number.
+// Bone-in is heavier because ~25–30% is bone you buy but don't eat.
+//   PORTION = everyday §6.1 base · PORTION_BRAAI = the generous braai tier.
+var PORTION       = { boneless:180, bonein:250, fish:160, shellfish:180, veg:200, side:150, dessert:120, starter:60, drink:0 };
+var PORTION_BRAAI = { boneless:250, bonein:325, fish:200, shellfish:250, veg:250 };
+function portionG(cut, braai){
+  if(!cut) return 0;
+  var t = braai ? (PORTION_BRAAI[cut] != null ? PORTION_BRAAI[cut] : PORTION[cut]) : PORTION[cut];
+  return t || 0;
+}
+// Braai's per-person base: cut-derived (bone-aware) when classified, else legacy soloG.
+function braaiBaseG(meat){
+  var c = (typeof BRAAI_CUT !== 'undefined' && meat && BRAAI_CUT[meat.id]) ? BRAAI_CUT[meat.id] : null;
+  return (c ? portionG(c, true) : 0) || (meat && meat.soloG) || 0;
+}
+
 function calcMeat(meat){
   const count = S.selectedMeats.length;
   const spreadMult = meatSpreadMult(count);
   const appetiteMult = APPETITE[S.appetite].mult;
-  // soloG is the 1-dish base (350g for Family Mix standard protein)
-  // We scale it down by spreadMult as more meats are added
+  // base = bone-aware cut portion (PORTION_BRAAI) when classified, else legacy soloG.
+  // We scale it down by spreadMult as more meats are added (the pizza spread).
   if(meat.unit==="g"){
-    const g = Math.round(meat.soloG * spreadMult * appetiteMult * S.people);
+    const g = Math.round(braaiBaseG(meat) * spreadMult * appetiteMult * S.people);
     return {display: g>=1000?(g/1000).toFixed(1)+"kg":g+"g", grams:g};
   } else {
     const pcs = Math.max(1, Math.round(meat.soloPcs * spreadMult * appetiteMult * S.people));
@@ -572,6 +590,75 @@ function calcSideCost(side){
   const p=S.budget==="pantry"?side.pantryP:S.budget==="indulge"?side.indulgeP:side.stdP;
   return Math.round(p*mult*S.people);
 }
+
+// ── SHARED COSTING ENGINE (Standard §6.2–6.3) ──────────────────────
+// One price list (PRICE_DB), one lookup. priceOf() returns the unit price +
+// how the item is sold (weight | count, plus its pack once PACK_DB lands).
+// costRecipe() turns amounts into the COOK number now and the pack-rounded
+// BUY number the moment PACK_DB is live. Never fake a price — an unresolved
+// name returns null and the caller HIDES the figure (same as World).
+var PRICE_ALIAS = {
+  "mince":"beef mince","lamb mince":"beef mince","beef or lamb mince":"beef mince",
+  "fish":"hake","white fish":"hake","firm white fish":"hake","firm white fish hake":"hake",
+  "cheese":"cheddar","cheddar cheese":"cheddar",
+  "flour":"cake flour","self raising flour":"cake flour","flour for dusting":"cake flour",
+  "carrot":"carrots","potatoes":"potato","yoghurt":"yoghurt","plain yoghurt":"yoghurt"
+};
+function priceClean(name){
+  return String(name||'').toLowerCase().split('/')[0]
+    .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+// → { key, price, per:'weight'|'count', pack } or null
+function priceOf(name){
+  if(typeof PRICE_DB==='undefined') return null;
+  var n = priceClean(name);
+  if(!n) return null;
+  var pk = (typeof PACK_DB!=='undefined' && PACK_DB[n]) ? PACK_DB[n] : null;
+  function out(key,price,per){ return { key:key, price:price, per:per, pack:pk }; }
+  if(/\beggs?\b/.test(n)) return out('egg',(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7),'count');
+  if(PRICE_DB[n]!=null) return out(n,PRICE_DB[n],'weight');
+  if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)]!=null) return out(n.slice(0,-1),PRICE_DB[n.slice(0,-1)],'weight');
+  if(PRICE_ALIAS[n] && PRICE_DB[PRICE_ALIAS[n]]!=null) return out(PRICE_ALIAS[n],PRICE_DB[PRICE_ALIAS[n]],'weight');
+  var best=null;
+  for(var k in PRICE_DB){
+    if(typeof PRICE_DB[k]!=='number') continue;
+    var re = new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
+    if(re.test(n) && (!best || k.length>best.length)) best=k;
+  }
+  if(best) return out(best,PRICE_DB[best],'weight');
+  return null;
+}
+// cost a list of {name, qty, unit:'g'|'kg'|'ml'|'l'} for n servings.
+// → { cook, buy, priced, missing[] }. buy === cook until PACK_DB exists.
+function costRecipe(items,n){
+  n = n||1; var cook=0, buy=0, priced=0, missing=[];
+  (items||[]).forEach(function(it){
+    if(it==null || it.qty==null) return;
+    var pr = priceOf(it.name);
+    if(!pr){ missing.push(it.name); return; }
+    var q = it.qty*n, c=0;
+    if(pr.per==='count')      c = Math.ceil(q)*pr.price;
+    else if(it.unit==='g')    c = (q/1000)*pr.price;
+    else if(it.unit==='kg')   c = q*pr.price;
+    else if(it.unit==='ml')   c = (q/1000)*pr.price;
+    else if(it.unit==='l')    c = q*pr.price;
+    else { missing.push(it.name); return; }
+    cook += c; priced++;
+    if(pr.pack && pr.pack.size && pr.per!=='count'){
+      var need = (it.unit==='kg'||it.unit==='l') ? q*1000 : q;
+      var packs = Math.ceil(need/pr.pack.size);
+      buy += packs*(pr.pack.price!=null ? pr.pack.price : (pr.pack.size/1000)*pr.price);
+    } else { buy += c; }
+  });
+  return { cook:Math.round(cook), buy:Math.round(buy), priced:priced, missing:missing };
+}
+// one weight-priced protein → exact cost per person (Braai's meat hook)
+function proteinCostPP(name, gramsPP){
+  var pr = priceOf(name);
+  if(!pr || pr.per!=='weight' || !gramsPP) return null;
+  return Math.round((gramsPP/1000)*pr.price);
+}
+
 function normIngredientKey(name){
   return name.toLowerCase()
     .replace(/^(organic|fresh|frozen|dried|large|medium|small|baby|whole|raw|cooked|crushed|sliced|chopped|diced|minced|grated|peeled)\s+/g,'')

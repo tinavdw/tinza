@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.4 · updated 11 Jun 2026 (Image Folders rule; sectionHeader; white My Plan overlay §4.1; row spec → wkRecipeCard §3; locked two-price costing §6.2–6.3). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.5 · updated 11 Jun 2026 (Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; bone-aware portions §6.1). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -123,9 +123,19 @@ Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price
 
 ## 6. PORTIONS & COSTING
 
-### 6.1 Portion Brain
-**Per-person base (g):** boneless 180 · bone-in 250 · fish 160 · veg main 200 · side 150 · dessert 120 · starter 60.
-Spread at plan level (mains 100/65/50%, sides taper to 50%, floors stop tiny portions). +10% buffer. Appetite toggle Big/Normal/Small. Drinks are per-guest. Excludes Budget/Tiny/Furry/Anchor.
+### 6.1 Portion Brain — bone-aware (LOCKED)
+Portion (and therefore cost) derives from a recipe's **CUT type**, never a magic number. One source in core.js: `PORTION` (everyday) + `PORTION_BRAAI` (generous braai tier), read via `portionG(cut, braai)`. Bone-in is heavier because **~25–30% is bone you buy but don't eat** (researched: lamb/beef bone is 20–30% of weight).
+
+| cut | everyday `PORTION` (g) | braai `PORTION_BRAAI` (g) |
+|---|---|---|
+| boneless | 180 | 250 |
+| bone-in | 250 | 325 |
+| fish | 160 | 200 |
+| shellfish | 180 | 250 |
+| veg (main) | 200 | 250 |
+| side 150 · dessert 120 · starter 60 · drink 0 | — | — |
+
+**Every recipe carries its `cut`** so portion + cost stay consistent everywhere (Braai uses `BRAAI_CUT` map; other sections tag per recipe as they're touched; **World Braai is built bone-aware from the start**). Spread at plan level (mains 100/65/50%, sides taper to 50%, floors stop tiny portions). +10% buffer. Appetite toggle Big/Normal/Small. A Profile "smaller braai portions" option scales the braai tier down for light eaters. Drinks per-guest. Excludes Budget/Tiny/Furry/Anchor.
 
 **Meat cut guide (all sections):** slow/potjie → lamb shoulder/neck/shank, pork shoulder, beef chuck/shin/brisket · grill → lamb loin/leg, pork neck, beef rump/sirloin · quick → pork loin, beef rump · roast → leg joints.
 

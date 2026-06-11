@@ -158,6 +158,11 @@ const PRICE_DB = {
   "green beans": 58,          // R35/600g → R58/kg
   "baby marrow": 50,          // per kg
   "courgette": 50,
+  "brinjal": 43,              // R42.99/1kg PnP → R43/kg
+  "aubergine": 43,
+  "eggplant": 43,
+  "halloumi": 258,            // R57.99/225g Cyprus Foods → ~R258/kg
+  "halloumi cheese": 258,
   "beetroot": 25,             // R25/kg
   "celery": 27,               // each
   "pineapple": 25,            // each

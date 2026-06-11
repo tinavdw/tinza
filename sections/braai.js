@@ -96,6 +96,69 @@ function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step,costPP)
   </div>`;
 }
 
+// ── BRAAI COST (Standard §6.2) ─────────────────────────────────────
+// Each meat = one raw cut → one PRICE_DB key (the "spelling bridge":
+// screen name "Rump Steak" → price-list key "beef rump"). Edit a cut
+// HERE in one place. Row/recipe hook = STANDALONE full portion cost
+// (spread=1); the plan spreads it (pizza). Composite veg mains
+// (brinjal/mixed-veg/halloumi skewers) cost from ingredients — pending
+// their per-person shopping arrays, so they stay blank for now.
+const BRAAI_PRICEKEY = {
+  boerewors:"boerewors", cocktailwors:"boerewors",
+  rump:"beef rump", fillet:"beef fillet", tbone:"beef tbone",
+  chuck:"beef chuck", shortrib:"beef short rib", brisket:"beef brisket",
+  beefkebabs:"beef rump", beefsouvlaki:"beef rump", turkishkebabs:"beef mince",
+  kudu:"beef fillet", beefkofta:"beef mince", marinatedfillet:"beef fillet",
+  porkchops:"pork loin chops", porkribchops:"pork rib chops", spareribs:"pork rib chops",
+  porkcurrysosaties:"pork neck steaks", dirtyporkneck:"pork neck steaks",
+  porkneckhoneymustard:"pork neck steaks", porkshishkabobs:"pork fillet",
+  apricotcurrychops:"pork chops",
+  lambchops:"lamb loin chops", lambribchops:"lamb rib chops", lambribs:"lamb rib",
+  sosaties:"lamb braai chops", butterfliedleg:"lamb roast", lambleganchoviolive:"lamb roast",
+  honeysoychiicken:"chicken pieces", greekchicken:"chicken pieces", lemonherbflatty:"chicken",
+  yoghurtchickenkebabs:"chicken fillets", bbqchicken:"chicken pieces",
+  chickenkebaabs:"chicken fillets", wings:"chicken wings", hardbody:"chicken",
+  snoek:"snoek", prawns:"prawns", mixedseafoodkebabs:"seafood mix",
+  espetada:"seafood mix", honeymustardSalmon:"salmon", seafoodpaella:"seafood mix",
+  mushroomskewers:"mushrooms", caulisteaks:"cauliflower", stuffedbutternut:"butternut"
+};
+// ── BONE-AWARE CUT (Standard §6.1) — drives portion AND cost ────────
+// boneless 250g · bonein 325g (≈+30%, bone you buy but don't eat) ·
+// fish 200g · shellfish 250g · veg 250g  (braai-generous tier).
+// Edit a classification HERE; portionG()/PORTION_BRAAI lives in core.
+const BRAAI_CUT = {
+  boerewors:"boneless", cocktailwors:"boneless", rump:"boneless", fillet:"boneless",
+  tbone:"bonein", chuck:"boneless", shortrib:"bonein", brisket:"boneless",
+  beefkebabs:"boneless", beefsouvlaki:"boneless", turkishkebabs:"boneless",
+  kudu:"boneless", beefkofta:"boneless", marinatedfillet:"boneless",
+  porkchops:"bonein", porkribchops:"bonein", spareribs:"bonein",
+  porkcurrysosaties:"boneless", dirtyporkneck:"boneless", porkneckhoneymustard:"boneless",
+  porkshishkabobs:"boneless", apricotcurrychops:"bonein",
+  lambchops:"bonein", lambribchops:"bonein", lambribs:"bonein",
+  sosaties:"boneless", butterfliedleg:"boneless", lambleganchoviolive:"bonein",
+  honeysoychiicken:"bonein", greekchicken:"bonein", lemonherbflatty:"bonein",
+  yoghurtchickenkebabs:"boneless", bbqchicken:"bonein", chickenkebaabs:"boneless",
+  wings:"bonein", hardbody:"bonein",
+  snoek:"fish", prawns:"shellfish", mixedseafoodkebabs:"shellfish",
+  espetada:"shellfish", honeymustardSalmon:"fish", seafoodpaella:"shellfish",
+  mushroomskewers:"veg", caulisteaks:"veg", stuffedbutternut:"veg",
+  brinjalskewers:"veg", mixedvegbraai:"veg", halloumiskewers:"veg"
+};
+function braaiMeatCostPP(meat){
+  const key = BRAAI_PRICEKEY[meat.id];
+  if(!key || typeof proteinCostPP!=="function") return null;
+  const ap = (typeof APPETITE!=="undefined" && APPETITE[S.appetite] ? APPETITE[S.appetite].mult : 1);
+  const base = (typeof braaiBaseG==="function" ? braaiBaseG(meat) : meat.soloG);
+  const g = meat.unit==="g" ? base*ap : (meat.soloPcs||1)*(meat.gramEach||100)*ap;
+  return proteinCostPP(key, Math.round(g));   // standalone full portion, bone-aware
+}
+function braaiSideCostPP(side){
+  if(typeof costRecipe!=="function" || !side.shopping || !side.shopping.length) return null;
+  const items = side.shopping.map(x=>({name:x.name, qty:x.per, unit:x.unit||"g"}));
+  const r = costRecipe(items, 1);             // per-person (shopping amounts are per-person)
+  return (r && r.priced>0 && r.cook>0) ? r.cook : null;
+}
+
 function braaiStep2(){
   const max=maxMeats(), count=S.selectedMeats.length;
   // If no group is expanded, default to first
@@ -120,7 +183,7 @@ function braaiStep2(){
     const disabled=!sel&&count>=maxMeats();
     return itemCard(meat.emoji,meat.name,meat.intl?`${meat.intl} · ${meat.note}`:meat.note,sel,sel?calcMeat(meat).display:null,disabled,
       disabled?`alert('Maximum meats for your plan!')`:`set({selectedMeats:toggle(S.selectedMeats,'${meat.id}')})`,
-      "meat",meat.id,2);
+      "meat",meat.id,2,braaiMeatCostPP(meat));
   }).join("");
 
   return `<div>
@@ -192,7 +255,7 @@ function braaiStep3(){
           const allowed=tierAllows(side.tier||"free");
           const sel=S.selectedSides.includes(side.id);
           if(!allowed) return `<div style="background:#0f0e0c;border:1px solid #1a1808;border-radius:10px;padding:12px;margin-bottom:6px;opacity:0.55;cursor:not-allowed;" onclick="alert('Upgrade to Tinza Pro R99/month to unlock!')"><div style="display:flex;align-items:center;gap:10px;"><div style="font-size:18px;opacity:0.4;">🔒</div><span style="font-size:20px;opacity:0.4;">${side.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#3a2a18;">${side.name} ${tierBadgeSmall(side.tier)}</div></div></div></div>`;
-          return itemCard(side.emoji,side.name,side.note,sel,sel?calcSide(side):null,false,`set({selectedSides:toggle(S.selectedSides,'${side.id}')})`, "side",side.id,3);
+          return itemCard(side.emoji,side.name,side.note,sel,sel?calcSide(side):null,false,`set({selectedSides:toggle(S.selectedSides,'${side.id}')})`, "side",side.id,3,braaiSideCostPP(side));
         }).join("")}
       `).join("")}
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
