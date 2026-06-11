@@ -75,7 +75,13 @@ Per section, four things must be true before it's signed off:
 ## 📊 SCOREBOARD
 - Foundation: **complete** ✅
 - Sections fully signed off: **0 / 12**  (World Kitchen closest — headers done)
-- Next up: **finish World Kitchen page through the shared components, then Braai** → those two become the visual reference for the rest.
+- Next up: **finish World Kitchen review, then Braai** → those two become the visual reference for the rest.
+
+---
+
+## 🅿️ PARKED DECISIONS (right idea, wrong time — do in the proper phase)
+1. **Free/Pro gating of plans (Phase 3 — Free/Pro pass).** Per Standard §7, **Free does NOT get plans, shopping lists, or downloads** — those are Pro. Today nothing enforces tier gating (only the testing toggle), so the My-Plan "Share Plan · 🆓 Free" badge is a **placeholder**. Gate plans/shopping/downloads to Pro **across all sections at once**, with peekable locks + paywall — not piecemeal in World Kitchen. *(Tina flagged 11 Jun pm.)*
+2. **Clickable "Goes Well With" pills.** Make each pill jump to that item in Spice/Buffet. Needs a name→location lookup. Decide simple search-jump vs full deep-link when we get to it (Phase 2-ish).
 
 ---
 

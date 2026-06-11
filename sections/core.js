@@ -1512,13 +1512,13 @@ function qtyBox(o){
   const decJs = o.decJs || "event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
   const incJs = o.incJs || "event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
   return `
-    <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
-      <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 ${label}</div>
+    <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:12px;margin-bottom:14px;">
+      <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:6px;">🧮 ${label}</div>
       ${sub?`<div style="font-size:13px;color:#718933;margin-bottom:10px;">${sub}</div>`:''}
-      <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
+      <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:10px 12px;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
           <div>
-            ${total?`<div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total:</div><div style="font-size:26px;font-weight:bold;color:#c8e840;line-height:1;letter-spacing:-0.5px;">${total}</div>`:''}
+            ${total?`<div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total:</div><div style="font-size:20px;font-weight:bold;color:#c8e840;line-height:1.1;letter-spacing:-0.3px;">${total}</div>`:''}
             ${ppLine?`<div style="font-size:13px;color:#718d28;margin-top:3px;">${ppLine}</div>`:''}
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="${decJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${n}</span><button onclick="${incJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
@@ -1619,7 +1619,7 @@ function metaStrip(o){
   if(o.kcal)   chips.push('🔥 ' + o.kcal);
   if(!chips.length) return '';
   return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'
-    + chips.map(function(c){ return '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:13px;color:#e0d4b8;">' + c + '</span>'; }).join('')
+    + chips.map(function(c){ return '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:6px 11px;font-size:14px;color:#e0d4b8;">' + c + '</span>'; }).join('')
     + '</div>';
 }
 
@@ -1627,7 +1627,7 @@ function metaStrip(o){
 function portionHowBox(rawNote){
   return '<div style="margin-bottom:12px;">'
     + '<span id="howPortion-btn" onclick="(function(){var c=document.getElementById(\'howPortion-body\');var b=document.getElementById(\'howPortion-btn\');var o=c.style.display===\'block\';c.style.display=o?\'none\':\'block\';b.textContent=o?\'▼ How portion size works\':\'▲ How portion size works\';})()" style="font-size:13px;color:#c06020;cursor:pointer;user-select:none;">▼ How portion size works</span>'
-    + '<div id="howPortion-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:14px;color:#e0d4b8;line-height:1.7;">'
+    + '<div id="howPortion-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:15px;color:#e0d4b8;line-height:1.6;">'
     +   'Think of it like slicing a pizza — one dish on its own gives a full helping; add it to a plan with other dishes and each helping gets smaller to share the plate, but the total food stays the same. Want more? Tap + above to add guests.'
     +   (rawNote ? '<div style="margin-top:8px;color:#748646;">' + rawNote + '</div>' : '')
     + '</div></div>';
@@ -1645,9 +1645,9 @@ function ingredientsBox(rowsHTML, n){
   return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
 }
 function ingredientRow(name, amount, note){
-  return '<div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #1e1a10;">'
-    + '<span style="font-size:14px;color:#e0d4b8;">' + name + (note ? ' <span style="color:#e0d4b8;font-size:13px;">(' + note + ')</span>' : '') + '</span>'
-    + '<span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
+  return '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #1e1a10;">'
+    + '<span style="font-size:16px;color:#f0ebe1;line-height:1.4;">' + name + (note ? ' <span style="color:#e0d4b8;font-size:13px;">(' + note + ')</span>' : '') + '</span>'
+    + '<span style="font-size:15px;color:#f5c842;font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
 }
 
 // §4b.6 — method box + a single numbered step (optional timer HTML)
@@ -1658,10 +1658,13 @@ function methodBox(stepsHTML, startJs){
     +   (startJs ? '<button onclick="' + startJs + '" style="background:#c06020;border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>' : '')
     + '</div>' + stepsHTML + '</div>';
 }
-function methodStep(i, text, timerHTML){
-  return '<div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">'
-    + '<div style="min-width:24px;height:24px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
-    + '<div style="flex:1;"><p style="margin:0;font-size:14px;color:#e0d4b8;line-height:1.7;">' + text + '</p>' + (timerHTML || '') + '</div></div>';
+function methodStep(i, text, timerLabel){
+  var timer = timerLabel
+    ? '<div style="margin-top:7px;"><span style="display:inline-block;background:#241608;border:1px solid #c06020;border-radius:6px;color:#f5c842;font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
+    : '';
+  return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
+    + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
+    + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:#f0ebe1;line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
 }
 
 // §4b.7 — Goes Well With pills
@@ -1669,7 +1672,7 @@ function goesWellBox(items){
   if(!items || !items.length) return '';
   return recipeBox('❤ Goes Well With',
     '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
-    + items.slice(0,6).map(function(g){ return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;">' + g + '</span>'; }).join('')
+    + items.slice(0,6).map(function(g){ return '<span style="padding:6px 13px;border-radius:16px;border:1px solid #2a1a10;color:#e0d4b8;font-size:14px;">' + g + '</span>'; }).join('')
     + '</div>');
 }
 
@@ -1703,7 +1706,7 @@ function recipeRow(o){
     +   '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.3;">' + (o.emoji ? o.emoji + ' ' : '') + (o.name || '') + '</div>'
     +   (o.feel ? '<div style="font-size:14px;color:#e0d4b8;line-height:1.4;margin-top:2px;">' + o.feel + '</div>' : '')
     + '</div>'
-    + '<span style="color:#c06020;font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe ›</span></div>';
+    + '<span style="color:#c06020;font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe <span style="font-size:22px;font-weight:bold;color:#f5c842;vertical-align:middle;line-height:0;">›</span></span></div>';
 }
 
 // §4b — THE WHOLE-PAGE ASSEMBLER. This lays out EVERY recipe page with
