@@ -398,7 +398,7 @@ function renderHealthList(items, type, openFn, isPro){
         +(item.howItFeels?'<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">'+item.howItFeels+'</div>':'')
         +'<div style="font-size:13px;color:#e0d4b8;margin-top:4px;">'+info+'</div>'
       +'</div>'
-      +(disabled?'<div style="display:flex;align-items:center;flex-shrink:0;align-self:center;">'+recipeBtn+'</div>':'<span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>')
+      +'<div style="display:flex;align-items:center;flex-shrink:0;align-self:center;">'+recipeBtn+'</div>'
       +'</div></div>';
   }).join('');
 }
@@ -1019,7 +1019,7 @@ function healthGroupScreen(isPro, srv){
               ${feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${feel}</div>`:''}
               ${info?`<div style="font-size:13px;color:#e0d4b8;margin-top:4px;">${info}</div>`:''}
             </div>
-            ${disabled?`<div style="flex-shrink:0;align-self:center;">${btn}</div>`:`<span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>`}
+            <div style="flex-shrink:0;align-self:center;">${btn}</div>
           </div>
         </div>`;
       }).join('');
