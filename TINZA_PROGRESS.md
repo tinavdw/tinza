@@ -31,8 +31,8 @@ Per section, four things must be true before it's signed off:
 ### 1. World Kitchen  ← in progress (the reference section)
 - [x] H — landing + country-list headers → `sectionHeader()` *(signed off: Boerekos confirmed on mobile)*
 - [ ] R — list rows → `recipeRow()` *(still on `wkRecipeCard`)*
-- [~] P — recipe page *(qtyBox + portion collapsible done; still to route through `metaStrip`/`ingredientsBox`/`methodBox`/`goesWellBox`/`recipeActions`/`recipeNav`)*
-- [ ] ✓ Tina happy with the full page
+- [~] P — recipe page now renders **entirely through `recipePage()` + all shared components** (`metaStrip`, `qtyBox`, `portionHowBox`, `ingredientsBox`/`ingredientRow`, `methodBox`/`methodStep`, `goesWellBox`, `recipeActions`, `recipeNav`; SA-swaps in the notes slot, cost/tip/chef-notes in the extras slot). **← READY FOR YOUR LIVE REVIEW**
+- [ ] ✓ Tina happy with the full page  *(open SA → a country → a dish; check size/info/layout/order, then tick)*
 
 ### 2. Braai
 - [ ] H — landing header → `sectionHeader()`
@@ -81,6 +81,7 @@ Per section, four things must be true before it's signed off:
 
 ## ⚠ INTERRUPTIONS LOG (surprises we handled, then returned to the list)
 1. **11 Jun (am)** — mobile: World Kitchen header photo cut at top + back button not landing at top. → Fixed in `sectionHeader()` (object-position top + `_savedScroll=0`). ✅ Resolved, returned to list.
+2. **11 Jun (pm)** — push mix-up: an old `core.js` (1934 lines, no `recipePage`) kept landing in the repo because of a same-name file in Downloads. → Re-pushed the correct 2074-line file; verified `recipePage` live via raw URL before wiring. ✅ Resolved, returned to list. *(Lesson: verify the file has `recipePage` before committing.)*
 
 *(Add new ones here as they come up — fix, log, return to the section we were on.)*
 

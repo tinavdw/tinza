@@ -1780,7 +1780,7 @@ function wkBackFromRecipe(){
 
 /* ── v33 RECIPE DETAIL ── */
 function wkDetailV33(r, country){
-  var green='#c06020', cream='#f5e8cc';
+  var green='#c06020';
   var n = Math.max(1, S.wkServings || 1);
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var items = wkParseIngredients(r.ingredients);
@@ -1789,65 +1789,49 @@ function wkDetailV33(r, country){
   var cost  = wkCostRecipe(r, n * baseMult);
   var inPlan = wkInPlan(r.id);
 
-  // photo header (graceful placeholder until photos uploaded)
-  var photo = (typeof recipePhoto === 'function') ? recipePhoto(r.name, '🍽️', 200) : '';
-
-  // serving stepper
-  var stepper = ''
-    + '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">'
-    +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Servings</div>'
-    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">amounts scale per person</div></div>'
-    +   '<div style="display:flex;align-items:center;gap:10px;">'
-    +     '<button onclick="set({wkServings:Math.max(1,(S.wkServings||1)-1)})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">−</button>'
-    +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:30px;text-align:center;">'+n+'</span>'
-    +     '<button onclick="set({wkServings:(S.wkServings||1)+1})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">+</button>'
-    +   '</div>'
-    + '</div>';
-
-  // meta chips
-  var metaBox = '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-    + (r.cookTime ? '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:13px;color:#e0d4b8;">⏱ '+r.cookTime+'</span>' : '')
-    + (r.kcal ? '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:5px 10px;font-size:13px;color:#e0d4b8;">🔥 '+r.kcal+'</span>' : '')
-    + '</div>';
-
-  // ingredients (scaled) — Buffet-style "pp · total"
-  var ingRows = items.map(function(it){
-    var ppS  = wkScaleLine(it, baseMult);       // standard per-person (standalone-dish portion)
-    var totS = wkScaleLine(it, baseMult * n);   // standard total for N servings
-    var nameHTML = ppS.name + (ppS.note ? ' <span style="color:#e0d4b8;font-size:13px;">('+ppS.note+')</span>' : '');
-    var amtHTML;
-    if(ppS.faded){
-      amtHTML = '<span style="color:#e0d4b8;font-style:italic;white-space:nowrap;">to taste</span>';
-    } else if(n === 1){
-      amtHTML = '<span style="white-space:nowrap;"><strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
-    } else {
-      amtHTML = '<span style="white-space:nowrap;"><span style="color:#e0d4b8;font-size:13px;">'+ppS.amt+' pp</span> <span style="color:#e0d4b8;">&middot;</span> <strong style="color:#f5c842;">'+totS.amt+'</strong></span>';
-    }
-    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #1a1208;">'
-      + '<span style="color:#e0d4b8;">'+nameHTML+'</span>'
-      + amtHTML + '</div>';
-  }).join('');
-  var ingBox = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-    + '<div style="font-size:13px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">Ingredients · for '+n+' '+(n===1?'person':'people')+'</div>'
-    + ingRows
-    + '</div>';
-
-  // quantities summary — standalone-dish standard portion (plain-language label)
+  // main item + raw-carb flag (drives the qty box + the raw note)
   var mainItem = (typeof wkClassifyMain==='function') ? wkClassifyMain(items).item : null;
   if(!mainItem){ for(var mi=0; mi<items.length; mi++){ if(items[mi].qty != null && !items[mi].toTaste){ mainItem = items[mi]; break; } } }
   var rawCarb = mainItem && /\b(rice|pasta|macaroni|spaghetti|noodle|noodles|couscous|bulgur|semolina|flour|lentil|lentils|bean|beans|chickpea|chickpeas|samp|grain)\b/.test((typeof wkCleanName==='function')?wkCleanName(mainItem.name):String(mainItem.name||'').toLowerCase());
-  var rawTag = rawCarb ? ' <span style="font-size:13px;color:#748646;font-weight:normal;">raw</span>' : '';
-  var quantBox = mainItem
-    ? '<div style="background:#160f08;border:1px solid '+green+';border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:13px;letter-spacing:0.12em;color:'+green+';text-transform:uppercase;margin-bottom:10px;">\uD83D\uDCCB Quantities for '+n+' '+(n===1?'guest':'guests')+'</div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#e0d4b8;">'+mainItem.name+' needed</span><span style="font-size:14px;color:#f5c842;font-weight:bold;">'+wkScaleLine(mainItem, baseMult * n).amt+rawTag+'</span></div>'
-      + '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:13px;color:#e0d4b8;">Per person <span style="color:#e0d4b8;font-size:13px;">(full helping on its own)</span></span><span style="font-size:13px;color:#e0d4b8;">'+wkScaleLine(mainItem, baseMult).amt+rawTag+'</span></div>'
-      + (rawCarb ? '<div style="margin-top:8px;font-size:13px;color:#748646;line-height:1.5;">Amounts are <strong style="color:#e0d4b8;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.</div>' : '')
-      + '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a1a10;font-size:13px;color:#e0d4b8;line-height:1.5;">A full portion for this dish served on its own. Add it to a plan with other dishes and the helping adjusts to share the plate.</div>'
-      + '</div>'
+
+  // ── green qty box (shared qtyBox) — drives S.wkServings ──
+  var qtyTotal = mainItem ? (wkScaleLine(mainItem, baseMult * n).amt + ' ' + mainItem.name) : (n + ' ' + (n===1?'serving':'servings'));
+  var qtyPP    = mainItem ? (wkScaleLine(mainItem, baseMult).amt + ' per person' + (rawCarb ? ' · raw' : '')) : '';
+  var qtyHTML = qtyBox({
+    label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n,
+    decJs:"set({wkServings:Math.max(1,(S.wkServings||1)-1)})",
+    incJs:"set({wkServings:(S.wkServings||1)+1})"
+  });
+
+  // ── ingredients (shared shell + rows): "Xg pp · Yg total" ──
+  var ingRows = items.map(function(it){
+    var ppS  = wkScaleLine(it, baseMult);
+    var totS = wkScaleLine(it, baseMult * n);
+    var amt;
+    if(ppS.faded){ amt = '<span style="color:#e0d4b8;font-weight:normal;font-style:italic;">to taste</span>'; }
+    else if(n === 1){ amt = totS.amt; }
+    else { amt = '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+ppS.amt+' pp · </span>'+totS.amt; }
+    return ingredientRow(ppS.name, amt, ppS.note);
+  }).join('');
+  var ingredientsHTML = ingredientsBox(ingRows, n);
+
+  // ── SA swaps → notes slot (shared box shell) ──
+  var hay = (r.ingredients||'').toLowerCase(); var swaps = [];
+  for(var key in WK_SUBS){ if(hay.indexOf(key) > -1) swaps.push(WK_SUBS[key]); }
+  var notesHTML = swaps.length
+    ? recipeBox('🇿🇦 SA swaps', swaps.map(function(s){ return '<div style="font-size:14px;color:#e0d4b8;line-height:1.5;padding:4px 0;">• '+s+'</div>'; }).join(''))
     : '';
 
-  // estimated cost (honest / partial)
+  // ── method (shared shell + steps) ──
+  var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
+  var stepsHTML = steps.map(function(s,si){
+    var tp = wkStepTimer(s);
+    var timer = tp ? '<div style="margin-top:6px;"><span style="display:inline-block;background:#1a1208;border:1px solid '+green+';border-radius:6px;color:'+green+';font-size:13px;padding:3px 9px;">'+tp+'</span></div>' : '';
+    return methodStep(si, s+(s.slice(-1).match(/[.!?]/)?'':'.'), timer);
+  }).join('');
+  var methodHTML = methodBox(stepsHTML, steps.length ? "set({wkCooking:{id:'"+r.id+"',step:0}});window.scrollTo(0,0);" : '');
+
+  // ── extras slot: cost (Pro-gated) + tip + chef notes ──
   var costNote = cost.missing.length
     ? '<div style="font-size:13px;color:#748646;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
     : '<div style="font-size:13px;color:#e0d4b8;margin-top:6px;">all ingredients priced</div>';
@@ -1855,101 +1839,47 @@ function wkDetailV33(r, country){
   var costBox = !isWkPro
     ? '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:22px;color:#e0d4b8;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div>'
-      + '</div>'
+      + '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div></div>'
     : '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;">'
-    +   '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
-    +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div>'
-    + '</div>'
-    + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;"><span style="font-size:13px;color:#e0d4b8;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
-    + costNote
-    + '</div>';
+      + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+      +   '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
+      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div></div>'
+      + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;"><span style="font-size:13px;color:#e0d4b8;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
+      + costNote + '</div>';
+  var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:14px;color:#e0d4b8;line-height:1.6;">'+r.tip+'</div>') : '';
+  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:14px;color:#e0d4b8;">'+val+'</span></div>' : ''; }
+  var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('🍷 Pairs with', r.pairsWith)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
+  var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '');
 
-  // SA substitution swaps (only if any ingredient triggers one)
-  var hay = (r.ingredients||'').toLowerCase();
-  var swaps = [];
-  for(var key in WK_SUBS){ if(hay.indexOf(key) > -1) swaps.push(WK_SUBS[key]); }
-  var subsBox = swaps.length
-    ? '<div style="background:#160f08;border:1px solid #3a4a1a;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:13px;letter-spacing:0.08em;color:#9ac84b;text-transform:uppercase;margin-bottom:8px;">🇿🇦 SA swaps</div>'
-      + swaps.map(function(s){return '<div style="font-size:13px;color:#bcd49a;line-height:1.5;padding:4px 0;">• '+s+'</div>';}).join('')
-      + '</div>'
-    : '';
-
-  // method (Start Cooking button + per-step timer pills, braai-style)
-  var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
-  var methodBox = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">'
-    +   '<div style="font-size:13px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">Method</div>'
-    +   (steps.length ? '<button onclick="set({wkCooking:{id:\''+r.id+'\',step:0}});window.scrollTo(0,0);" style="background:#1a1208;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:13px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🍳 Start Cooking →</button>' : '')
-    + '</div>'
-    + steps.map(function(s,si){
-        var tp = wkStepTimer(s);
-        return '<div style="display:flex;gap:10px;margin-bottom:10px;">'
-          + '<div style="min-width:22px;height:22px;border-radius:50%;background:#1a1208;border:1px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:13px;color:'+green+';flex-shrink:0;">'+(si+1)+'</div>'
-          + '<div style="font-size:13px;color:#e0d4b8;line-height:1.6;">'+s+(s.slice(-1).match(/[.!?]/)?'':'.')
-          + (tp ? '<div style="margin-top:6px;"><span style="display:inline-block;background:#1a1208;border:1px solid '+green+';border-radius:6px;color:'+green+';font-size:13px;padding:3px 9px;">'+tp+'</span></div>' : '')
-          + '</div></div>';
-      }).join('')
-    + '</div>';
-
-  // extras
-  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:13px;color:#e0d4b8;">'+val+'</span></div>' : ''; }
-  var extra = (r.chefNotes||r.pairsWith||r.nutrition||r.storage||r.trivia)
-    ? '<div style="background:#140d06;border:1px solid #1a1208;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + infoRow('👩‍🍳 Chef notes', r.chefNotes)
-      + infoRow('🍷 Pairs with', r.pairsWith)
-      + infoRow('📊 Nutrition', r.nutrition)
-      + infoRow('🧊 Storage', r.storage)
-      + infoRow('💡 Did you know', r.trivia)
-      + '</div>'
-    : '';
-
-  // tip (braai pattern) — only if the recipe carries one
-  var tipBox = r.tip
-    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:13px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;line-height:1.6;">'+r.tip+'</div></div>'
-    : '';
-
-  // goes well with (braai pattern) — from pairsWith, else a sensible default by course
+  // ── goes well with (array → shared box) ──
   var gwwList = [];
   if(r.goesWith && r.goesWith.length){ gwwList = [].concat(r.goesWith); }
   else if(r.pairsWith){ gwwList = r.pairsWith.split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean); }
   else { var gt=wkCourseToTab(r.course); gwwList = (gt==='desserts'?['Coffee','Fresh cream','Berries']:gt==='starters'?['A main course','Fresh bread','Lemon wedges']:['Fresh salad','Crusty bread','Steamed rice']); }
-  var gwwBox = gwwList.length
-    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="font-size:13px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
-      + gwwList.slice(0,5).map(function(g){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;">'+g+'</span>';}).join('')
-      + '</div></div>'
-    : '';
 
-  // bottom action trio (braai pattern): Add to Plan · My Kitchen · Download
-  var actionsRow = '<div style="display:flex;gap:8px;margin-bottom:12px;">'
-    + '<button onclick="wkPlanToggle(\''+r.id+'\','+n+')" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-family:Georgia,serif;font-size:13px;font-weight:bold;'
-      + (inPlan ? 'background:#160f08;border:1px solid '+green+';color:'+green+';' : 'background:'+green+';border:1px solid '+green+';color:#c06020;')
-      + '">'+(inPlan ? '✓ In Plan' : '📋 Add to Plan')+'</button>'
-    + '<button onclick="alert(\'Save to My Kitchen — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;font-family:Georgia,serif;">💾 My Kitchen</button>'
-    + '<button onclick="alert(\'Download — coming soon\')" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;font-family:Georgia,serif;">⬇️ Download</button>'
-    + '</div>';
+  // ── sub line: native-script name (if any) + the feel one-liner ──
+  var nonLatin = /[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'');
+  var sub = (nonLatin ? '<span style="font-style:italic;">'+r.name+'</span>' : '')
+          + (nonLatin && r.howThisFeels ? ' · ' : '')
+          + (r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '');
 
-  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
-    + '<div style="position:relative;">'
-    +   photo
-    +   '<button onclick="wkBackFromRecipe()" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:13px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← '+country+'</button>'
-    + '</div>'
-    + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
-    +   '<h1 style="font-size:21px;font-weight:normal;color:'+cream+';margin:4px 0 2px;">'+disp+'</h1>'
-    +   (/[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'') ? '<div style="font-size:14px;color:#e0d4b8;font-style:italic;margin:0 0 2px;">'+r.name+'</div>' : '')
-    +   '<div style="font-size:13px;color:#e0d4b8;margin-bottom:12px;">'+r.country+(r.howThisFeels?' · <span style="font-style:italic;color:#e0d4b8;">'+r.howThisFeels+'</span>':'')+'</div>'
-    +   metaBox + stepper + quantBox + ingBox + subsBox + methodBox + tipBox + costBox + gwwBox + extra + actionsRow
-    +   '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #2a1a10;font-size:13px;">'
-    +     '<button onclick="wkBackFromRecipe()" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
-    +     '<button onclick="set({wkScreen:\'wkplan\',wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
-    +     '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#e0d4b8;cursor:pointer;font-family:Georgia,serif;">Home</button>'
-    +   '</div></div></div>';
+  // ── assemble through the ONE shared page builder (Standard §4b) ──
+  return recipePage({
+    photoName: r.name, photoEmoji: '🍽️',
+    backJs: "wkBackFromRecipe()", backLabel: '← '+country,
+    name: disp,
+    sub: sub,
+    meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },
+    qtyHTML: qtyHTML,
+    portionRawNote: rawCarb ? 'Amounts shown are <strong style="color:#e0d4b8;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.' : '',
+    ingredientsHTML: ingredientsHTML,
+    notesHTML: notesHTML,
+    methodHTML: methodHTML,
+    goesWith: gwwList,
+    extrasHTML: extrasHTML,
+    actions: { addJs: "wkPlanToggle('"+r.id+"',"+n+")", inPlan: inPlan },
+    nav: { backJs:"wkBackFromRecipe()", planJs:"set({wkScreen:'wkplan',wkDataRecipe:null});window.scrollTo(0,0);", planCount:(S.wkPlan||[]).length, homeJs:"set({screen:'home'})" }
+  });
 }
 
 /* parse a cook time out of a method step → pill label ("⏲ 20 min", "⏲ overnight") */
