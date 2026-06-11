@@ -37,7 +37,7 @@ function braaiStep1(){
     <div class="content">
       <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+          <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
             <span style="font-size:13px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
             <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
           </button>
@@ -52,7 +52,7 @@ function braaiStep1(){
         ${S.howItWorksOpen ? `
         <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
           <div style="font-size:13px;color:#e0d4b8;line-height:2;">
-            1 · Browse each section and tap <strong style="color:#f5c842;">Recipe →</strong> to read first<br>
+            1 · Browse each section and tap <strong style="color:#f5c842;">Recipe ›</strong> to read first<br>
             2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan<br>
             3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong><br>
             4 · Tap <strong style="color:#f5c842;">My Plan</strong> for quantities, cost &amp; shopping list<br>
@@ -73,16 +73,25 @@ function braaiStep1(){
     </div>
   </div>`;
 }
-function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step){
-  return `<div style="background:${sel?"#2a1808":disabled?"#0f0e0c":"#161210"};border:1px solid ${sel?"#c06020":disabled?"#1a1208":"#2a1a10"};border-radius:10px;padding:12px;margin-bottom:6px;opacity:${disabled?0.4:1};">
-    <div style="display:flex;align-items:center;gap:10px;cursor:${disabled?"not-allowed":"pointer"};" onclick="${onToggle}">
-      <div style="width:22px;height:22px;border-radius:6px;background:${sel?"#c06020":"transparent"};border:2px solid ${sel?"#c06020":"#8a6a48"};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${sel?"✓":""}</div>
-      <span style="font-size:20px;">${emoji}</span>
-      <div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;">${name}</div><div style="font-size:14px;color:#e0d4b8;margin-top:3px;line-height:1.4;">${note}</div></div>
-      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-        ${sel&&qty?`<div style="font-size:13px;color:#f5c842;font-weight:bold;">${qty}</div>`:""}
-        ${!disabled?`<button onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${step}}})" style="background:#c06020;border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>`:""}
+// Row = World Kitchen's wkRecipeCard, by construction (Standard §3 + §0):
+// whole row OPENS the recipe · checkbox TOGGLES the plan (stop-propagation) ·
+// name + feel line + (cost p/p when priced) · bare gold › chevron.
+// Grams are NOT shown on the row (Standard §3 — they live on the recipe page).
+// costPP is optional: empty until the Braai cost helper is wired, exactly like
+// World hides ≈ R pp until ingredients are priced. Never fake a number.
+function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step,costPP){
+  const openJs = "var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:{type:'"+type+"',id:'"+id+"',returnStep:"+step+"}})";
+  const box = `<div onclick="event.stopPropagation();${onToggle}" title="${sel?"In plan — tap to remove":"Add to plan"}" style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid #c06020;background:${sel?"#c06020":"transparent"};color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">${sel?"✓":""}</div>`;
+  return `<div onclick="${openJs}" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
+    <div style="display:flex;align-items:flex-start;gap:12px;">
+      ${box}
+      <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${emoji}</span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${name}</div>
+        <div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${note}</div>
+        ${costPP?`<div style="font-size:13px;color:#f5c842;font-weight:bold;margin-top:4px;">≈ R${costPP} pp</div>`:""}
       </div>
+      <span style="font-size:26px;font-weight:bold;color:#f5c842;flex-shrink:0;align-self:center;line-height:1;">›</span>
     </div>
   </div>`;
 }
@@ -99,7 +108,7 @@ function braaiStep2(){
     return `<button onclick="set({braiCat:'${g.id}'});setTimeout(()=>{const el=document.getElementById('meatGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)"
       style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${active?"#c06020":"#3a2010"};
       background:${active?"#2a1008":"#0f0c08"};color:${active?"#f5c842":"#6a4020"};
-      font-size:13px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;">
+      font-size:13px;cursor:pointer;white-space:nowrap;">
       ${g.label}${selCount>0?` <span style="background:#c06020;color:#fff;border-radius:10px;padding:1px 6px;font-size:13px;margin-left:3px;">${selCount}</span>`:""}
     </button>`;
   }).join("");
@@ -124,7 +133,7 @@ function braaiStep2(){
     })}
     <div class="content">
       <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
-        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
+        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;">
           <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
         </button>
@@ -143,7 +152,7 @@ function braaiStep2(){
         <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:#539048;line-height:1.6;">
           🥗 <strong style="color:#6aaa50;">More vegetarian options in Sides & Salads!</strong><br>
           <span style="color:#558d46;">Chakalaka, mixed salads, potato bake, stuffed mushrooms and more — all scale to your guest count.</span><br>
-          <button onclick="set({braiStep:3,braaiView:\'browse\',braaiSidesFilter:\'salads\'})" style="margin-top:6px;background:#1a3a18;border:1px solid #3a7a30;border-radius:6px;padding:5px 12px;font-size:13px;color:#60c050;cursor:pointer;font-family:Georgia,serif;">→ Go to Side Dishes</button</span>
+          <button onclick="set({braiStep:3,braaiView:\'browse\',braaiSidesFilter:\'salads\'})" style="margin-top:6px;background:#1a3a18;border:1px solid #3a7a30;border-radius:6px;padding:5px 12px;font-size:13px;color:#60c050;cursor:pointer;">→ Go to Side Dishes</button</span>
         </div>`:""}
 
       <!-- Items -->
@@ -171,7 +180,7 @@ function braaiStep3(){
     <div class="content">
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
       <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
-        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:5px;">
+        <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;">
           <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
         </button>

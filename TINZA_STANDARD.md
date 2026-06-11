@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.2 · updated 11 Jun 2026 (added Image Folders rule; sectionHeader built). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.4 · updated 11 Jun 2026 (Image Folders rule; sectionHeader; white My Plan overlay §4.1; row spec → wkRecipeCard §3; locked two-price costing §6.2–6.3). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -56,15 +56,25 @@ Every decision in this file serves that mission. If a change makes a page less u
 ---
 
 ## 3. THE ROW (lists, every section)
-`✓  [emoji]  NAME` (`#f5e8cc`, 16, bold) + **ONE feel line** (`#e0d4b8`, 14, upright) + `Recipe ›` (`#c06020`).
-Reference rows = Homestyle Plates / Health / Mood. All other metadata lives on the recipe page, NOT the row.
+**Reference = World Kitchen's `wkRecipeCard`** (the live screen we point at). Built once, identical everywhere:
+`[checkbox] [emoji] NAME` (`#f5e8cc`, 16, bold) + **ONE feel line** (`#e0d4b8`, 14, upright) + **≈ R__ pp** (`#f5c842`, 13 bold — shown ONLY when the dish is priced; the free hook) + a bare **`›`** chevron far right (`#f5c842`, 26px, no "Recipe" word).
+- **Whole row OPENS the recipe.** The **checkbox toggles the plan** (stop-propagation): 22px, border `#c06020`, fills `#c06020` with a white ✓ when in-plan. **Card background stays constant** — selection shows in the box, never a row highlight.
+- **Never fake the cost.** If a section can't price a dish yet, the `≈ R pp` line is simply omitted (same as World) until the price wiring exists.
+- All other metadata (grams/portion, time, kcal) lives on the recipe page, NOT the row.
+- *Reconcile note:* `recipeRow()` in core.js still renders an old "Recipe ›" text link — align it to this `wkRecipeCard` shape next time core is touched.
 
 ---
 
 ## 4. PAGE TEMPLATES (what each page contains, in order)
 
+### 4.1 THE MY PLAN OVERLAY (locked — every section with a plan)
+The "My Plan" button is a **white pill in the top-right corner, sitting INSIDE the photo header** — never a box below the photo, never a row in the category grid, never a green/coloured pill. It lives in the shared `sectionHeader()`; a section turns it on by passing `myPlan:{ count:<live plan count>, onclick:"<go to that section's plan>" }`. Sections that pass nothing show no pill (unaffected).
+- **Style (do not re-decide):** position top-right inside the 200px photo · semi-transparent dark fill `rgba(0,0,0,0.42)` · 1px white border `rgba(255,255,255,0.6)` · white text `#fff` 13px bold · rounded pill · label `🧺 My Plan (N)`.
+- It carries the **scroll-to-top reset** (`_savedScroll=0`) so the plan opens at the top.
+- **Reference:** Braai and World Kitchen both use this exact overlay. Any new/edited section matches it by passing `myPlan` — never by hand-rolling a plan button.
+
 ### 4a. Section landing (every section identical)
-1. **Photo header — 200px**, gradient overlay, title + search bar overlaid on it.
+1. **Photo header — 200px**, gradient overlay, title + search bar overlaid on it. **The "My Plan" control is a WHITE PILL in the TOP-RIGHT corner inside the photo** (see §4.1) — never a separate box below the photo, never inside the category grid.
 2. One box: **"How it works"** link (left) + **guest/serving ± slider** (right).
 3. **Categories = wrapped BOXES** in a grid. **NO gliding / horizontal-scroll scale, anywhere, ever.**
 4. Recipe rows (section 3 standard).
@@ -90,6 +100,7 @@ Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price
 ### 4e. Universal elements
 - **Persistent bottom nav bar** on every screen.
 - **ONE universal search** sits ABOVE the bottom nav. **No per-screen "Search All Recipes" box.**
+- **My Plan = white pill, top-right inside the photo header** on every section that has a plan (see §4.1). Same pill everywhere; only the count and destination differ.
 - Back buttons read the same everywhere and isolate sub-sections correctly.
 
 ---
@@ -111,12 +122,35 @@ Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price
 ---
 
 ## 6. PORTIONS & COSTING
-**Portion Brain — per-person base (g):** boneless 180 · bone-in 250 · fish 160 · veg main 200 · side 150 · dessert 120 · starter 60.
+
+### 6.1 Portion Brain
+**Per-person base (g):** boneless 180 · bone-in 250 · fish 160 · veg main 200 · side 150 · dessert 120 · starter 60.
 Spread at plan level (mains 100/65/50%, sides taper to 50%, floors stop tiny portions). +10% buffer. Appetite toggle Big/Normal/Small. Drinks are per-guest. Excludes Budget/Tiny/Furry/Anchor.
 
 **Meat cut guide (all sections):** slow/potjie → lamb shoulder/neck/shank, pork shoulder, beef chuck/shin/brisket · grill → lamb loin/leg, pork neck, beef rump/sirloin · quick → pork loin, beef rump · roast → leg joints.
 
-**Two-price costing (to build):** for every ingredient — *by weight / by pack / by each*; **cook number** (exact amount used) vs **buy number** (pack-rounded). Shopping total = pack-rounded; dish cost = exact. Separate pantry group.
+### 6.2 COSTING — one engine, one price list (LOCKED)
+All cost flows from **`PRICE_DB`** (single source, rand-per-kg / per-each) through the shared **`costRecipe()`** engine in core.js. Never hand-type or freeze a rand. **If a dish can't be priced, hide the number — never guess.** (Reconcile: World's `wkCostRecipe`/`wkPriceLookup` and Events' runtime `costPP` both fold into this one engine.)
+
+### 6.3 TWO-PRICE COSTING (LOCKED — the budget feature depends on it)
+Every ingredient has **two numbers answering two questions:**
+- **Cook number** — the exact recipe amount (150 g butter). Drives the recipe view, the `≈ R pp` row hook, and per-person cost. **Live now.**
+- **Buy number** — what actually goes in the trolley (one 500 g tub). Drives the shopping list and the Budget feature.
+
+Every ingredient is tagged with **one of three buy-types** (`PACK_DB`):
+1. **By weight** — buy the grams you need at the per-kg price, **no rounding**. Meat, chicken, fish, loose veg/fruit. Cook number = buy number (no gap). *Most of the list, all of Braai's meat.*
+2. **By pack** — sold in fixed sizes; **round UP to the fewest whole packs.** Flour/rice/sugar/pap 1 kg · couscous/lentils 500 g · milk 1 L · butter 500 g · oil 750 ml · tinned tomato per tin · berries per punnet · yogurt 1 kg.
+3. **By each** — countable; round up to the next unit/tray. Eggs (tray ladder **6/12/18/30**), cucumber, lemons, a loaf, a garlic bulb.
+
+**Default pack** = smallest standard pack for perishables; common household pack for shelf-stable staples. (Bulk = a Phase-2 Profile toggle "Shop in: smallest / bulk where cheaper", 5 staple categories only — build the data so it slots in, not in v1.)
+
+**Shopping-list display:** the **buy amount is the prominent right-column number**; the recipe "needs Xg" is a small grey sub-line, shown **only where buy differs from need**. e.g. `Cake flour — 1 × 1 kg · R26` with grey `needs 150 g` below.
+
+**Two totals (summary block):** "**What the meal costs**" (exact, per-person from the guest slider) and "**What you'll spend at the shops**" (pack-rounded), with a plain-language reason line between them so the gap never reads as a bug — *"More than the meal because you buy full packs — the extra stays in your kitchen."*
+
+**Pantry group:** a separate "**Pantry — you may already have**" list (spices + tiny-quantity items) that is shown but **NOT counted in the headline total** — this protects the accuracy of the "I've got R100" budget feature. The existing delete-what-you-have mechanism handles "I already have this."
+
+**Data:** `PACK_DB` lives in `packs.js` — a zero-risk data file (like `wk_africa.js`), read by every section's My Plan / shopping list. **Status: drafted (~108 lines, three buy-types) but NOT pushed; pending a Checkers price-verification pass (`tinza_pack_sizes.xlsx`) before it goes live.** Until then the buy-number stays off; the cook number (incl. all weight items) is honest and live.
 
 ---
 
@@ -131,7 +165,7 @@ Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
 ## 8. THE CODE LOCK (how the standard is *enforced*, not just written)
 1. **Design tokens** — a single `THEME` constant block (colours + sizes) at the top of `core.js`; sections reference it instead of hardcoding hex. *(Migration: incremental.)*
 2. **Shared component functions in `core.js`** — built once, called everywhere. **The whole recipe page renders from these — a section never hand-writes chrome.**
-   - Header/qty: `sectionHeader()` ✅ · `qtyBox()` ✅ · `recipePhoto()` ✅
+   - Header/qty: `sectionHeader()` ✅ (renders the white **My Plan overlay** top-right when passed `myPlan:{count,onclick}` — see §4.1) · `qtyBox()` ✅ · `recipePhoto()` ✅
    - Recipe-page chrome (Standard §4b): `metaStrip()` ✅ · `portionHowBox()` ✅ · `recipeBox()` ✅ (titled card shell) · `ingredientsBox()` + `ingredientRow()` ✅ · `methodBox()` + `methodStep()` ✅ · `goesWellBox()` ✅ · `recipeActions()` ✅ · `recipeNav()` ✅
    - Lists: `recipeRow()` ✅ (§3 row)
    - **Whole-page assembler: `recipePage()` ✅** — lays out the ENTIRE recipe page (wrapper, max-width, padding, block order, sizing). Sections feed content only; layout cannot differ. **This is the page every other section is compared against.** Two fixed content slots: `notesHTML` (after ingredients) and `extrasHTML` (after Goes-Well) for section-specific blocks (SA swaps, cost, tip, Braai coal guide) — always in the same place.

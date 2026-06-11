@@ -11,6 +11,29 @@
 
 ---
 
+## ✅ DONE THIS SESSION (11 Jun late)
+- **DECISION LOCKED — Braai = browser, like World Kitchen.** Builder-vs-browser settled: Braai's rows now behave like World's `wkRecipeCard`. Recorded in Standard §3.
+- **braai.js `itemCard` rebuilt to match World's `wkRecipeCard` by construction** (Mains + Sides both route through it): whole row OPENS the recipe · checkbox TOGGLES the plan (stop-propagation, fills `#c06020` + ✓) · name + feel line + bare gold `›` chevron · constant card (no row highlight) · grams removed from the row (now recipe-page only, §3). Validated, **push pending**. *(Pro-locked side rows keep a bespoke 🔒 placeholder — minor, later.)*
+- **`≈ R__ pp` cost slot is built but EMPTY** — shows nothing until the Braai cost helper exists (never faked, like World).
+- **Locked the WHITE MY PLAN OVERLAY into the Standard** (new §4.1 + §4a, §4e, §8). White pill, top-right inside the photo, via `sectionHeader()` `myPlan:{count,onclick}`. Push: `TINZA_STANDARD.md`.
+- Earlier braai.js conformance: §2 Georgia stripped → global sans; help-copy arrow → `›`.
+
+## ▶️ THE BRAAI COST — NEXT FOCUSED STEP (lights up `≈ R pp`)
+**Two-price strategy is now LOCKED in Standard §6.2–6.3** (cook vs buy number · three buy-types weight/pack/each · two totals + reason line · pantry group). `PACK_DB` (`packs.js`, ~108 lines, drafted) is **NOT pushed** — pending a Checkers price-verification pass (`tinza_pack_sizes.xlsx`). Until then: **weight items (all meat) cost exactly = honestly now; buy-number stays off.**
+
+Braai meats (`data.js` `MEAT_GROUPS`) and sides carry NO price — only `soloG`/`sharedG` grams via `calcMeat`/`calcSide`. To show the gold `≈ R pp` (the free hook, §7) without faking:
+1. Build shared `priceOf(name)` in core.js (port World's `wkPriceLookup`; depends only on `PRICE_DB`; carries buy-type + pack when `PACK_DB` lands).
+2. Build shared `costRecipe()` — exact (cook) now; pack-rounds only where `PACK_DB` has a pack, exact fallback otherwise.
+3. `braaiMeatCostPP(meat)` = effective grams pp ÷ 1000 × `priceOf(meat.name)`; add a verified `priceKey` per meat where the name doesn't auto-match (e.g. "Rump Steak" → `beef rump`). **Surface the meat → R/kg table for Tina to confirm before it goes live.**
+4. Pass it as `itemCard(...,costPP)` from braaiStep2/Step3. Row already renders it.
+
+## 🔥 BRAAI PUNCH-LIST (remaining to fully finish)
+- [ ] **Cost wiring** — see "THE BRAAI COST" above; lights up `≈ R pp` on every row.
+- [ ] **Header image** — `BRAAI_HDR_IMG` is still the base64 blob. Swap to `Images/Headers/Braai.jpg` (§5.5) once that file is in the repo; drop the blob (shrinks file). *Left as-is so the header doesn't go blank.*
+- [ ] **Pro-locked side rows** — still a bespoke 🔒 placeholder; restyle to the shared row shell later.
+- [ ] **Header search input** — World filters its list; Braai has no filter logic, so a header search box would be dead. Needs filtering first.
+- [ ] **Off-palette loose ends** (§1) — line ~146 green "→ Go to Side Dishes" CTA; `#c8a84b` muted-gold on the How-it-works toggles → `#c06020`.
+
 ## ✅ DONE THIS SESSION (11 Jun pm)
 - **worldkitchen.js — wired the two LIVE header screens to shared `sectionHeader()`.** `node --check` clean, 2351 → 2352 lines. **PUSH PENDING.**
   - **`wkWorldHome()` (landing):** bespoke 190px gradient header → shared 200px `sectionHeader()`. Also **killed the rogue third image folder** `Images/Image header/` (space in name — violated Standard §5.5); world-map background gone, replaced by the standard photo slot pointing at `Images/Headers/World Kitchen.jpg` (emoji-falls-back until the file is added).
