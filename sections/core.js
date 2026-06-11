@@ -1497,6 +1497,37 @@ function recipePhoto(name, emoji, height){
   </div>`;
 }
 
+// ── SHARED QUANTITY BOX ───────────────────────────────────────────
+// ONE green box, identical everywhere, sits directly under the recipe name.
+// Sections pass already-computed display strings. The −/+ stepper drives
+// S.recipeServings by default (pass decJs/incJs to use a section's own state).
+function qtyBox(o){
+  o = o || {};
+  const label  = o.label  || 'How Much To Make';
+  const sub    = o.sub    || '';
+  const total  = o.total  || '';
+  const ppLine = o.ppLine || '';
+  const info   = o.info   || '';   // optional thin strip: 💰 cost · 🔥 kcal
+  const n = (o.n != null) ? o.n : (S.recipeServings || S.people);
+  const decJs = o.decJs || "event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
+  const incJs = o.incJs || "event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
+  return `
+    <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 ${label}</div>
+      ${sub?`<div style="font-size:13px;color:#718933;margin-bottom:10px;">${sub}</div>`:''}
+      <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div>
+            ${total?`<div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total:</div><div style="font-size:26px;font-weight:bold;color:#c8e840;line-height:1;letter-spacing:-0.5px;">${total}</div>`:''}
+            ${ppLine?`<div style="font-size:13px;color:#718d28;margin-top:3px;">${ppLine}</div>`:''}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="${decJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${n}</span><button onclick="${incJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
+        </div>
+        ${info?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #2a3a14;font-size:13px;color:#9ab05a;">${info}</div>`:''}
+      </div>
+    </div>`;
+}
+
 function recipeView(){
   const vr=S.viewingRecipe;
   let item, recipe;
@@ -1591,22 +1622,12 @@ function recipeView(){
   } else {
     // ── SIDE / SALAD / SAUCE / DESSERT: always show total (sides are always "selected" when viewed) ──
     const qty = calcSide(item);
-    quantityBlock = `
-      <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
-        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
-        <div style="font-size:13px;color:#718933;margin-bottom:10px;">${p} people · ${ap.label}</div>
-        <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-            <div>
-              <div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total quantity:</div>
-              <div style="font-size:26px;font-weight:bold;color:#c8e840;line-height:1;">${qty}</div>
-              <div style="font-size:13px;color:#718d28;margin-top:3px;">${item.perPerson}${item.unit} per person</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S.recipeServings||S.people}</span><button onclick="event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
-          </div>
-        </div>
-
-      </div>`;
+    quantityBlock = qtyBox({
+      label:'How Much To Make',
+      sub:`${p} people · ${ap.label}`,
+      total:qty,
+      ppLine:`${item.perPerson}${item.unit} per person`
+    });
   }
   // ── END QUANTITY BLOCK ────────────────────────────────────────────
 
