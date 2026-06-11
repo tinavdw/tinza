@@ -47,7 +47,6 @@ function braaiStep1(){
             <button onclick="set({people:S.people+1})" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
             <input type="range" min="1" max="100" value="${S.people}" oninput="S.people=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
           </div>
-          <span style="font-size:13px;color:#b1734c;flex-shrink:0;">${APPETITE[S.appetite]?.label||'Family Mix'}</span>
         </div>
         ${S.howItWorksOpen ? `
         <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">

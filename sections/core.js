@@ -1817,17 +1817,23 @@ function recipeView(){
     const isFireDish = vr.type === 'meat' && item.requiresFire !== false && ['coals','braai','fire','grid','direct','indirect','heat','stovetop','oven','fry','pan'].some(w=>ct.toLowerCase().includes(w));
     if(!isFireDish) return '';
     const isActualFire = ['coals','braai','fire','grid','direct','indirect'].some(w=>ct.toLowerCase().includes(w));
+    const open = S.fireGuideOpen;
     return `<div style="background:#2a1008;border:1px solid #8a3010;border-radius:10px;padding:12px;margin-bottom:12px;">
-      <div style="font-size:13px;color:#e06030;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">${isActualFire?'🔥 Coal & Heat Guide':'🍳 Cooking Method'}</div>
-      <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
-      ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
-        <p style="font-size:13px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
-        <div style="font-size:13px;color:#bc6c56;line-height:1.9;">
-          🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
-          🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
-          🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
-          🔹 <span style="color:#f5c842;font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
-        </div>
+      <button onclick="set({fireGuideOpen:!S.fireGuideOpen})" style="width:100%;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+        <span style="font-size:13px;color:#e06030;text-transform:uppercase;letter-spacing:2px;">${isActualFire?'🔥 Coal & Heat Guide':'🍳 Cooking Method'}</span>
+        <span style="font-size:13px;color:#e06030;">${open?'▲':'▼'}</span>
+      </button>
+      ${open?`<div style="margin-top:8px;">
+        <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
+        ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
+          <p style="font-size:13px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
+          <div style="font-size:13px;color:#bc6c56;line-height:1.9;">
+            🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
+            🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
+            🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
+            🔹 <span style="color:#f5c842;font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
+          </div>
+        </div>`:''}
       </div>`:''}
     </div>`;
   })();
@@ -1875,17 +1881,17 @@ function recipeView(){
       const totalEst = meatCostRand + ingsCostRand;
       const ppEst = Math.round(totalEst / p);
       const coverage = costData.matched + "/" + costData.totalItems + " ingredients priced";
-      return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+      return `<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;color:#718933;">Total for ${p} people</div>
-          <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${totalEst.toLocaleString()}</div>
+          <div style="font-size:13px;color:#b1734c;">Total for ${p} people</div>
+          <div style="font-size:24px;font-weight:bold;color:#f5c842;">R${totalEst.toLocaleString()}</div>
         </div>
-        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
-          <div style="font-size:13px;color:#6a892e;">Per person</div>
-          <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${ppEst}</div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a1a10;">
+          <div style="font-size:13px;color:#b1734c;">Per person</div>
+          <div style="font-size:16px;font-weight:bold;color:#f5e8cc;">R${ppEst}</div>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:#748932;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
+        <div style="margin-top:8px;font-size:13px;color:#8a7a5c;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
       </div>`;
     } else if(USER_TIER === "free"){
       return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
