@@ -1546,78 +1546,26 @@ function recipeView(){
 
   if(isMeat){
     const alreadySelected = S.selectedMeats.includes(vr.id);
-
-    if(alreadySelected){
-      // ── SELECTED: show actual totals for their plan ──
-      const numMeats = S.selectedMeats.length;
-      const isSolo = numMeats <= 1;
-
-      let totalDisplay, ppDisplay;
-      if(item.unit === "g"){
-        const pp = Math.round((isSolo ? item.soloG : item.sharedG) * ap.mult);
-        const total = pp * p;
-        totalDisplay = fmtG(total);
-        ppDisplay = `${pp}g per person`;
-      } else {
-        const pcs = Math.round((isSolo ? item.soloPcs : item.sharedPcs) * ap.mult * p);
-        const grams = pcs * (item.gramEach || 100);
-        totalDisplay = `${pcs} pieces (${fmtG(grams)})`;
-        ppDisplay = `${isSolo ? item.soloPcs : item.sharedPcs} per person`;
-      }
-
-      const portionType = isSolo ? "sole dish — full portion" : `${numMeats} meats selected — shared portion`;
-
-      quantityBlock = `
-        <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
-          <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 For Your Plan</div>
-          <div style="font-size:13px;color:#718933;margin-bottom:10px;">${p} people · ${ap.label} · ${portionType}</div>
-          <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:12px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-              <div>
-                <div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total to buy:</div>
-                <div style="font-size:26px;font-weight:bold;color:#c8e840;letter-spacing:-0.5px;line-height:1;">${totalDisplay}</div>
-                <div style="font-size:13px;color:#718d28;margin-top:3px;">${ppDisplay}</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S.recipeServings||S.people}</span><button onclick="event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
-            </div>
-          </div>
-        </div>`;
-
+    const numMeats = S.selectedMeats.length;
+    // Selected alongside other meats -> shared portion. Solo, or just browsing -> full portion.
+    const isSolo = !(alreadySelected && numMeats > 1);
+    let totalDisplay, ppLine;
+    if(item.unit === "g"){
+      const pp = Math.round((isSolo ? item.soloG : item.sharedG) * ap.mult);
+      totalDisplay = fmtG(pp * p);
+      ppLine = `${pp}g per person`;
     } else {
-      // ── BROWSING: just show per-person reference + how it works ──
-      const soloDisplay = item.unit === "g"
-        ? `${item.soloG}g pp`
-        : `${item.soloPcs} per person`;
-      const sharedDisplay = item.unit === "g"
-        ? `${item.sharedG}g pp`
-        : `${item.sharedPcs} per person`;
-
-      const nm_browse = S.selectedMeats.length;
-      const amult = APPETITE[S.appetite] ? APPETITE[S.appetite].mult : 1;
-      const curG_browse = Math.round(item.soloG * meatSpreadMult(Math.max(1, nm_browse)) * amult);
-      const curDisp_browse = curG_browse >= 1000 ? (curG_browse/1000).toFixed(1)+'kg' : curG_browse+'g';
-      const soloG_browse = Math.round(item.soloG * amult);
-      const soloDisp_browse = soloG_browse >= 1000 ? (soloG_browse/1000).toFixed(1)+'kg' : soloG_browse+'g';
-
-      quantityBlock = '<div style="background:#141008;border:1px solid #3a2810;border-radius:10px;padding:12px;margin-bottom:14px;">'
-        + (nm_browse <= 1
-          ? '<div style="text-align:center;padding:6px 0;">'
-            + '<div style="font-size:13px;color:#b56d37;margin-bottom:4px;letter-spacing:1px;text-transform:uppercase;">Solo dish — full portion</div>'
-            + '<div style="font-size:24px;font-weight:bold;color:#f5c842;">' + soloDisp_browse + ' <span style="font-size:13px;color:#5a9030;">pp</span></div>'
-            + '</div>'
-          : '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;">'
-            + '<div style="flex:1;text-align:center;">'
-            + '<div style="font-size:13px;color:#6a892e;text-transform:uppercase;">Solo</div>'
-            + '<div style="font-size:15px;color:#718933;">' + soloDisp_browse + ' pp</div>'
-            + '</div>'
-            + '<div style="color:#7d8922;font-size:18px;">&#8594;</div>'
-            + '<div style="flex:1;text-align:center;">'
-            + '<div style="font-size:13px;color:#c8a84b;text-transform:uppercase;">With ' + nm_browse + ' dishes</div>'
-            + '<div style="font-size:20px;font-weight:bold;color:#f5c842;">' + curDisp_browse + ' pp</div>'
-            + '</div></div>'
-        )
-        + '</div>';
+      const totPcs = Math.round((isSolo ? item.soloPcs : item.sharedPcs) * ap.mult * p);
+      totalDisplay = `${totPcs} pieces (${fmtG(totPcs * (item.gramEach || 100))})`;
+      ppLine = `${isSolo ? item.soloPcs : item.sharedPcs} per person`;
     }
+    const portionNote = isSolo ? "full portion" : `shared across ${numMeats} meats`;
+    quantityBlock = qtyBox({
+      label:'How Much To Make',
+      sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`,
+      total:totalDisplay,
+      ppLine:ppLine
+    });
 
   } else {
     // ── SIDE / SALAD / SAUCE / DESSERT: always show total (sides are always "selected" when viewed) ──
