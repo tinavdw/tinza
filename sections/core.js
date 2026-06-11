@@ -1757,15 +1757,13 @@ function recipeView(){
   const rl=vr.returnStep===2?"Mains":vr.returnStep===3?"Sides":"Plan";
   const p = S.recipeServings || S.people;
   const ap = APPETITE[S.appetite];
-
-  // ── QUANTITY BLOCK ────────────────────────────────────────────────
-  let quantityBlock = "";
   function fmtG(g){ return g >= 1000 ? (g/1000).toFixed(1)+"kg" : g+"g"; }
 
+  // ── QUANTITY BLOCK (shared qtyBox — lives directly under the name) ──
+  let quantityBlock = "";
   if(isMeat){
     const alreadySelected = S.selectedMeats.includes(vr.id);
     const numMeats = S.selectedMeats.length;
-    // Selected alongside other meats -> shared portion. Solo, or just browsing -> full portion.
     const isSolo = !(alreadySelected && numMeats > 1);
     let totalDisplay, ppLine;
     if(item.unit === "g"){
@@ -1778,26 +1776,75 @@ function recipeView(){
       ppLine = `${isSolo ? item.soloPcs : item.sharedPcs} per person`;
     }
     const portionNote = isSolo ? "full portion" : `shared across ${numMeats} meats`;
-    quantityBlock = qtyBox({
-      label:'How Much To Make',
-      sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`,
-      total:totalDisplay,
-      ppLine:ppLine
-    });
-
+    quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`, total:totalDisplay, ppLine:ppLine });
   } else {
-    // ── SIDE / SALAD / SAUCE / DESSERT: always show total (sides are always "selected" when viewed) ──
     const qty = calcSide(item);
-    quantityBlock = qtyBox({
-      label:'How Much To Make',
-      sub:`${p} people · ${ap.label}`,
-      total:qty,
-      ppLine:`${item.perPerson}${item.unit} per person`
-    });
+    quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people · ${ap.label}`, total:qty, ppLine:`${item.perPerson}${item.unit} per person` });
   }
-  // ── END QUANTITY BLOCK ────────────────────────────────────────────
 
-  // ── GOES WELL WITH data for Braai items ──────────────────────────
+  // ── INGREDIENTS (shared ingredientsBox/ingredientRow + Braai per-person scaling) ──
+  const ingRowsHTML = (()=>{
+    const isSelected = isMeat && S.selectedMeats.includes(vr.id);
+    const mult = ap.mult;
+    return recipe.ingredients.map((ing, i)=>{
+      // Section dividers — pass through as a full-width sub-row
+      if(ing === "—" || ing.startsWith("—")){
+        return '<div style="padding:7px 0;font-size:13px;color:#b56d37;font-style:italic;border-bottom:1px solid #1e1a10;">'+ing+'</div>';
+      }
+      // First ingredient of a SELECTED meat = main protein = covered by the quantity block above
+      if(i===0 && isSelected){
+        const proteinName = ing.split("—")[0].trim();
+        return ingredientRow(proteinName, 'see qty ↑');
+      }
+      // Scale all recognised per-person patterns inline
+      let scaled = ing;
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit} pp · <strong style="color:#f5c842;">${total}${u} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(tbsp|tsp)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const mlMult=unit.toLowerCase()==='tbsp'?15:5; const total=Math.round(parseFloat(num)*mlMult*mult*p); return `${num} ${unit} pp · <strong style="color:#f5c842;">${total}ml total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+(slices?|pieces?|scoops?)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} ${unit} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)(?!\s*\()/gi, (m,num)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
+      scaled = scaled.replace(/([¼½⅓⅔¾⅛]|\d+\/\d+)\s+per\s+p(?:erson|ortion)/gi, (m,frac)=>{ const map={'¼':0.25,'½':0.5,'⅓':0.333,'⅔':0.667,'¾':0.75,'⅛':0.125}; const val=map[frac]||(frac.includes('/')?parseFloat(frac.split('/')[0])/parseFloat(frac.split('/')[1]):null); if(!val)return m; const total=Math.ceil(val*mult*p); return `${frac} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
+      // Split name (left) from amount (right) on the first em-dash, for the shared two-column row
+      const di = scaled.indexOf('—');
+      if(di > -1){ return ingredientRow(scaled.slice(0,di).trim(), scaled.slice(di+1).trim()); }
+      return ingredientRow(scaled, '');
+    }).join("");
+  })();
+  const ingredientsHTML = ingredientsBox(ingRowsHTML, p);
+
+  // ── COAL & HEAT GUIDE (Braai-specific → notes slot, just before method) ──
+  const fireGuideHTML = (()=>{
+    const ct = recipe.coalType||'';
+    const isFireDish = vr.type === 'meat' && item.requiresFire !== false && ['coals','braai','fire','grid','direct','indirect','heat','stovetop','oven','fry','pan'].some(w=>ct.toLowerCase().includes(w));
+    if(!isFireDish) return '';
+    const isActualFire = ['coals','braai','fire','grid','direct','indirect'].some(w=>ct.toLowerCase().includes(w));
+    return `<div style="background:#2a1008;border:1px solid #8a3010;border-radius:10px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:13px;color:#e06030;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">${isActualFire?'🔥 Coal & Heat Guide':'🍳 Cooking Method'}</div>
+      <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
+      ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
+        <p style="font-size:13px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
+        <div style="font-size:13px;color:#bc6c56;line-height:1.9;">
+          🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
+          🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
+          🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
+          🔹 <span style="color:#f5c842;font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
+        </div>
+      </div>`:''}
+    </div>`;
+  })();
+
+  // ── METHOD (shared methodBox/methodStep markup + clickable per-step timers) ──
+  const methodStepsHTML = (recipe.method||[]).map((step,i)=>{
+    const secs = parseStepTime(step);
+    const timer = secs
+      ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:#241608;border:1px solid #c06020;border-radius:6px;color:#f5c842;font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
+      : '';
+    return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
+      + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
+      + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:#f0ebe1;line-height:1.6;">'+step+'</p>'+timer+'</div></div>';
+  }).join('');
+  const methodHTML = methodBox(methodStepsHTML, `openCookingMode('${item.name}',${JSON.stringify(recipe.method||[])})`);
+
+  // ── GOES WELL WITH (Braai-specific clickable pills → extras slot) ──
   const goesWellWith = {
     boerewors:   [{e:'🌽',n:'Phutu Pap',s:'braai',t:'starchy'},{e:'🥗',n:'Chakalaka',s:'braai',t:'relishes'},{e:'🍞',n:'Braaibroodjie',s:'braai',t:'extras'}],
     rump:        [{e:'🥫',n:'Garlic Sauce',s:'braai',t:'relishes'},{e:'🥔',n:'Potato Bake',s:'braai',t:'starchy'},{e:'🥗',n:'Greek Salad',s:'braai',t:'salads'}],
@@ -1814,203 +1861,68 @@ function recipeView(){
   };
   const gww = goesWellWith[vr.id] || [];
   const goesWellBlock = gww.length ? `
-    <div class="goes-well">
-      <div style="font-size:13px;letter-spacing:2px;color:#7a7aa0;text-transform:uppercase;margin-bottom:10px;">🤝 Goes Well With</div>
-      <div>${gww.map(g=>`<button class="goes-well-pill" onclick="set({braiStep:3,braaiView:'browse',braaiSidesFilter:'${g.t}',viewingRecipe:null})">${g.e} ${g.n}</button>`).join('')}</div>
+    <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:10px;">❤ Goes Well With</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">${gww.map(g=>`<button onclick="set({braiStep:3,braaiView:'browse',braaiSidesFilter:'${g.t}',viewingRecipe:null})" style="padding:6px 13px;border-radius:16px;border:1px solid #2a1a10;background:transparent;color:#e0d4b8;font-size:14px;cursor:pointer;">${g.e} ${g.n}</button>`).join('')}</div>
     </div>` : '';
 
-  // ── SERVING ADJUSTER ─────────────────────────────────────────────
-  const savedAdj = S.recipeAdjustments && vr && S.recipeAdjustments[vr.id];
-  const recipeServings = savedAdj || S.recipeServings || S.people;
-  const servingAdjuster = `
-    <div class="serving-adjuster">
-      <button class="serving-btn" onclick="set({recipeServings:Math.max(1,(S.recipeServings||S.people)-1)})">−</button>
-      <div class="serving-display">
-        <div class="serving-num">${recipeServings}</div>
-        <div class="serving-label">people (tap ± to adjust)</div>
-      </div>
-      <button class="serving-btn" onclick="set({recipeServings:(S.recipeServings||S.people)+1})">+</button>
-    </div>`;
-
-  return `<div>
-    <div class="header">
-      <button class="back-btn" onclick="set({viewingRecipe:null,recipeServings:null})" style="color:#c06020;">← Back to ${rl}</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${item.emoji} ${item.name}</h1>
-      <div style="font-size:13px;color:#c06020;font-style:italic;">Full recipe and method</div>
-    </div>
-    <div class="content">
-      <!-- Photo header -->
-      ${recipePhoto(item.name, item.emoji)}
-      ${quantityBlock}
-      ${(()=>{
-        const ct = recipe.coalType||'';
-        const isFireDish = vr.type === 'meat' && item.requiresFire !== false && ['coals','braai','fire','grid','direct','indirect','heat','stovetop','oven','fry','pan'].some(w=>ct.toLowerCase().includes(w));
-        if(!isFireDish) return '';
-        const isActualFire = ['coals','braai','fire','grid','direct','indirect'].some(w=>ct.toLowerCase().includes(w));
-        return `<div style="background:#2a1008;border:1px solid #8a3010;border-radius:10px;padding:12px;margin-bottom:12px;">
-          <div style="font-size:13px;color:#e06030;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">${isActualFire?'🔥 Coal & Heat Guide':'🍳 Cooking Method'}</div>
-          <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
-          ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
-            <p style="font-size:13px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
-            <div style="font-size:13px;color:#bc6c56;line-height:1.9;">
-              🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
-              🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
-              🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
-              🔹 <span style="color:#f5c842;font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
-            </div>
-          </div>`:''}
-        </div>`;
-      })()}
-      <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:13px;color:#b47040;font-style:italic;">scaled for ${p} people</div>
+  // ── COST ESTIMATE (Braai-specific → extras slot) ──
+  const costBlock = (()=>{
+    const costData = calcRecipeCost(recipe.ingredients, p);
+    if(USER_TIER === "pro" && costData){
+      const meatCostRand = isMeat ? Math.round((calcMeat(item).grams/1000)*(MEAT_COSTS[vr.id]||120)) : 0;
+      const ingsCostRand = costData.total;
+      const totalEst = meatCostRand + ingsCostRand;
+      const ppEst = Math.round(totalEst / p);
+      const coverage = costData.matched + "/" + costData.totalItems + " ingredients priced";
+      return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:13px;color:#718933;">Total for ${p} people</div>
+          <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${totalEst.toLocaleString()}</div>
         </div>
-        ${(()=>{
-          const isSelected = isMeat && S.selectedMeats.includes(vr.id);
-          const mult = ap.mult;
-          return recipe.ingredients.map((ing, i)=>{
-            // Section dividers — pass through unchanged
-            if(ing === "—" || ing.startsWith("—")) return `<div style="padding:5px 0;font-size:13px;color:#b56d37;font-style:italic;border-bottom:1px solid #1e1a10;">${ing}</div>`;
-
-            // First ingredient of a SELECTED meat = main protein = handled by quantity block above
-            if(i===0 && isSelected){
-              const proteinName = ing.split("—")[0].trim();
-              return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #1e1a10;">
-                <span style="color:#c06020;flex-shrink:0;">•</span>
-                <span style="font-size:14px;color:#e0d4b8;">${proteinName} — <span style="color:#f5c842;font-style:italic;">see quantity above ↑</span></span>
-              </div>`;
-            }
-
-            // Scale all recognised patterns inline
-            let scaled = ing;
-
-            // Xg/ml/kg/L per person (or per portion)
-            scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)\s+per\s+p(?:erson|ortion)/gi, (match, num, unit)=>{
-              let total = parseFloat(num) * mult * p;
-              let u = unit;
-              if((u==='g'||u==='ml') && total>=1000){ total=Math.round(total/100)/10; u=u==='g'?'kg':'L'; }
-              else { total = Math.round(total*10)/10; }
-              return `${num}${unit} pp · <strong style="color:#f5c842;">${total}${u} total</strong>`;
-            });
-
-            // X tbsp/tsp per person → convert to ml
-            scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(tbsp|tsp)\s+per\s+p(?:erson|ortion)/gi, (match, num, unit)=>{
-              const mlMult = unit.toLowerCase()==='tbsp' ? 15 : 5;
-              const total = Math.round(parseFloat(num) * mlMult * mult * p);
-              return `${num} ${unit} pp · <strong style="color:#f5c842;">${total}ml total</strong>`;
-            });
-
-            // X slices/pieces per person
-            scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+(slices?|pieces?|scoops?)\s+per\s+p(?:erson|ortion)/gi, (match, num, unit)=>{
-              const total = Math.round(parseFloat(num) * mult * p);
-              return `${num} ${unit} pp · <strong style="color:#f5c842;">${total} total</strong>`;
-            });
-
-            // Plain X per person (piece count, no unit)
-            scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)(?!\s*\()/gi, (match, num)=>{
-              const total = Math.round(parseFloat(num) * mult * p);
-              return `${num} pp · <strong style="color:#f5c842;">${total} total</strong>`;
-            });
-
-            // Fraction per person (¼ ½ ⅓ etc)
-            scaled = scaled.replace(/([¼½⅓⅔¾⅛]|\d+\/\d+)\s+per\s+p(?:erson|ortion)/gi, (match, frac)=>{
-              const map={'¼':0.25,'½':0.5,'⅓':0.333,'⅔':0.667,'¾':0.75,'⅛':0.125};
-              const val = map[frac] || (frac.includes('/')?parseFloat(frac.split('/')[0])/parseFloat(frac.split('/')[1]):null);
-              if(!val) return match;
-              const total = Math.ceil(val * mult * p);
-              return `${frac} pp · <strong style="color:#f5c842;">${total} total</strong>`;
-            });
-
-            const changed = scaled !== ing;
-            const isLast = i === recipe.ingredients.length-1;
-            return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:${isLast?"none":"1px solid #1e1a10"};">
-              <span style="color:#c06020;flex-shrink:0;">•</span>
-              <span style="font-size:14px;color:${changed?"#e0d4b8":"#b09878"};">${scaled}</span>
-            </div>`;
-          }).join("");
-        })()}
-        ${isMeat && S.selectedMeats.includes(vr.id) ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #1e1a10;font-size:13px;color:#b1734c;font-style:italic;">All quantities scaled for ${p} people · ${ap.label} appetite</div>` : ""}
-      </div>
-      <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;">Method</div>
-          <button onclick="openCookingMode('${item.name}',${JSON.stringify(recipe.method||[])})" style="background:#c06020;border:none;border-radius:8px;padding:8px 14px;font-size:13px;color:white;cursor:pointer;font-family:Georgia,serif;">👨‍🍳 Start Cooking →</button>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
+          <div style="font-size:13px;color:#6a892e;">Per person</div>
+          <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${ppEst}</div>
         </div>
-        ${(()=>{
-          return (recipe.method||[]).map((step,i)=>{
-            const secs = parseStepTime(step);
-            return `<div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">
-              <div class="step-num" style="background:#1a0f08;border:1px solid #c06020;color:#c06020;">${i+1}</div>
-              <div style="flex:1;">
-                <p style="margin:2px 0 6px;font-size:14px;color:#e0d4b8;line-height:1.7;">${step}</p>
-                ${secs?`<button class="timer-btn" onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')">⏱️ ${fmtTimerLabel(secs)}</button>`:''}
-              </div>
-            </div>`;
-          }).join('');
-        })()}
-      </div>
-      <div style="background:#161208;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">💡 Tip</div>
-        <p style="font-size:13px;color:#e0d4b8;line-height:1.6;">${recipe.tip}</p>
-      </div>
-      ${(()=>{
-        // 💰 Cost estimate card (Pro only)
-        const costData = calcRecipeCost(recipe.ingredients, p);
-        if(USER_TIER === "pro" && costData){
-          const meatCostRand = isMeat ? Math.round((calcMeat(item).grams/1000)*(MEAT_COSTS[vr.id]||120)) : 0;
-          const ingsCostRand = costData.total;
-          const totalEst = meatCostRand + ingsCostRand;
-          const ppEst = Math.round(totalEst / p);
-          const coverage = costData.matched + "/" + costData.totalItems + " ingredients priced";
-          return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
-            <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-size:13px;color:#718933;">Total for ${p} people</div>
-              <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${totalEst.toLocaleString()}</div>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
-              <div style="font-size:13px;color:#6a892e;">Per person</div>
-              <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${ppEst}</div>
-            </div>
-            <div style="margin-top:8px;font-size:13px;color:#748932;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
-          </div>`;
-        } else if(USER_TIER === "free"){
-          return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
-            <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-            <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>
-          </div>`;
-        }
-        return '';
-      })()}
-      ${goesWellBlock}
-      ${(function(){
-        var vr = S.viewingRecipe;
-        var isInPlan = vr && vr.type === 'meat'
-          ? (S.selectedMeats||[]).includes(vr.id)
-          : (S.selectedSides||[]).includes(vr && vr.id);
-        var togglePlan = vr && vr.type === 'meat'
-          ? (isInPlan ? "set({selectedMeats:S.selectedMeats.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedMeats:[...S.selectedMeats,S.viewingRecipe.id]})")
-          : (isInPlan ? "set({selectedSides:S.selectedSides.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedSides:[...S.selectedSides,S.viewingRecipe.id]})");
-        return '<div style="border-top:1px solid #2a1a10;padding-top:14px;margin-bottom:20px;">'
-          + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">'
-          + '<button onclick="' + togglePlan + '" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:' + (isInPlan ? '#1a3010' : '#1a1208') + ';border:2px solid ' + (isInPlan ? '#4a9020' : '#3a2010') + ';color:' + (isInPlan ? '#80c040' : '#6a4020') + ';font-size:13px;font-family:Georgia,serif;text-align:center;line-height:1.6;">'
-          + (isInPlan ? '&#10003;<br><b>In Plan</b>' : '&#9711;<br>Add to Plan')
-          + '</button>'
-          + '<button onclick="braaiRecipeAction(\'kitchen\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#b56d37;font-size:13px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#128190;<br>Save to<br>My Kitchen</button>'
-          + '<button onclick="braaiRecipeAction(\'download\')" style="padding:12px 6px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #3a2010;color:#b56d37;font-size:13px;font-family:Georgia,serif;text-align:center;line-height:1.6;">&#11015;<br>Download<br>Recipe</button>'
-          + '</div>'
-          + '<div style="text-align:center;font-size:13px;color:#b1734c;padding-top:6px;border-top:1px solid #1e1a10;">'
-          + '<button onclick="set({viewingRecipe:null,recipeServings:null})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">&#8592; Back</button>'
-          + ' &nbsp;|&nbsp; '
-          + '<button onclick="set({viewingRecipe:null,recipeServings:null,braaiView:\'myplan\'})" style="background:none;border:none;color:#c0a020;font-size:13px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">My Plan &#8594;</button>'
-          + ' &nbsp;|&nbsp; '
-          + '<button onclick="set({screen:\'home\',viewingRecipe:null,recipeServings:null})" style="background:none;border:none;color:#b1734c;font-size:13px;cursor:pointer;font-family:Georgia,serif;text-decoration:underline;text-underline-offset:2px;">Home</button>'
-          + '</div>'
-          + '</div>';
-      })()}
-    </div>
-  </div>`;
+        <div style="margin-top:8px;font-size:13px;color:#748932;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
+      </div>`;
+    } else if(USER_TIER === "free"){
+      return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
+        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>
+      </div>`;
+    }
+    return '';
+  })();
+
+  // ── TIP (Braai-specific → extras slot) ──
+  const tipBlock = recipe.tip ? `<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:8px;">💡 Tip</div>
+      <p style="font-size:15px;color:#e0d4b8;line-height:1.6;">${recipe.tip}</p>
+    </div>` : '';
+
+  // ── PLAN / SAVE / DOWNLOAD action data ──
+  const isInPlan = isMeat ? (S.selectedMeats||[]).includes(vr.id) : (S.selectedSides||[]).includes(vr.id);
+  const togglePlan = isMeat
+    ? (isInPlan ? "set({selectedMeats:S.selectedMeats.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedMeats:[...S.selectedMeats,S.viewingRecipe.id]})")
+    : (isInPlan ? "set({selectedSides:S.selectedSides.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedSides:[...S.selectedSides,S.viewingRecipe.id]})");
+
+  // ── ASSEMBLE through the shared whole-page layout (identical to World Kitchen) ──
+  return recipePage({
+    backJs:"set({viewingRecipe:null,recipeServings:null})",
+    backLabel:"← "+rl,
+    photoName:item.name,
+    photoEmoji:item.emoji,
+    name:item.name,
+    qtyHTML:quantityBlock,
+    ingredientsHTML:ingredientsHTML,
+    notesHTML:fireGuideHTML,
+    methodHTML:methodHTML,
+    extrasHTML: goesWellBlock + costBlock + tipBlock,
+    actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
+    nav:{ backJs:"set({viewingRecipe:null,recipeServings:null})", planJs:"set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
+  });
 }
 
 // ── BRAAI ─────────────────────────────────────────────────────────
