@@ -1,8 +1,27 @@
 # TINZA — SESSION HANDOFF
-*Updated 11 Jun 2026 (cleanup session). This is the bookmark — read it, then read TINZA_STANDARD.md.*
+*Updated 11 Jun 2026 (costing session). This is the bookmark — read it, then read TINZA_STANDARD.md.*
 
 ## ▶️ OPENING LINE FOR THE NEW CHAT (paste this)
-> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. We're in Phase 1: every page looks & works the same, built from shared functions in core.js. **Next move: flatten the few per-region accent colours on the live World Kitchen path to the ONE warm Spice palette (Standard §1) — `wkDataCountryHTML` + `wkDetailV33`.**
+> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. We're wiring the make-vs-buy two-cost. **Next move: now that `packs.js` (PACK_DB) is live, wire the buy number into the Braai shopping display — each line shows the BUY amount (pack-rounded) as the main number with a grey "needs Xg" sub-line where it differs, plus the second total "What you'll spend at the shops" + the reason line (§6.3). Replace this morning's +10% buffer display with the proper pack-rounded shop total. Then mirror to World Kitchen (§6.4 step 3).**
+
+## ✅ DONE THIS SESSION (11 Jun — packs.js rebuilt + loaded)
+- **`packs.js` (PACK_DB) REBUILT from the locked spec and loaded** (it was drafted in a past session but never reached the repo — 404 — and that container reset, so it was gone). **89 entries**, three buy-types: by-weight items carry NO entry (buy = cook); by-pack items carry a `size`; eggs use a `ladder`. `index.html` now loads it (after prices.js, before core.js).
+- **EGG LADDER corrected to 6/12/18/24** (was wrongly stored as 6/12/18/30).
+- **PRICE has to be omitted on purpose:** PRICE_DB's per-kg figures were back-computed FROM pack prices, so `packs × (size/1000 × per-kg)` reproduces the real shelf price exactly — no Checkers trip needed for correctness. (Add `price:` only to override a verified pack price.)
+- **PROVEN with a harness** (real PRICE_DB + PACK_DB): cake flour need 150g → buy 1×1kg R22 (cook R3); milk 300ml → 1×1L R20; butter 100g → 1×500g R80; eggs 8→12 (R44), 3→6, 15→18; boerewors/mince (by weight) → no gap. The make-vs-buy gap is exactly right.
+- **Engine was already ready:** `priceOf()` reads PACK_DB, `costRecipe()` computes the pack-rounded `buy`. So this is now a DISPLAY job, not an engine job.
+- **STILL TO DO (the visible part — the wiring):** (1) `buildShoppingList()` attach per-line `buyAmt`/`buyCost`, incl. the **flex** rule (loose under `looseUnder`, else round to `bag`) and the **egg ladder** for count items. (2) `braaiStep4` render: BUY amount as the main right-column number + grey "needs Xg" sub-line where buy≠need; loose items read e.g. "Onions — 300g (loose)". (3) **TWO totals only**, kept clean: "What the meal costs" + "What you'll spend at the shops". (4) The +10% buffer + the "why the shop total is higher" reason go in a **collapsible "ℹ️ About these totals" button at the bottom** — away from the totals, so it never overwhelms. (5) mirror into World Kitchen's `wkBuildPlanShopping`.
+- **DECISIONS LOCKED (11 Jun):** (a) **Two money totals on screen, not three** — the +10% buffer lives only inside the collapsible explainer. (b) **Flexible buy-type added** to packs.js: potatoes/sweet potato/onions/tomatoes = loose under 800g, else 1 kg bag (proven). Butternut/pumpkin/garlic/chilli stay by-weight (loose). Peppers = optional 2-pack rule later. (c) Egg ladder 6/12/18/24.
+- **RESEARCH (why this matters):** Mainstream apps split into recipe→list tools (Paprika, Samsung Food, AnyList — merge/aisle/scale, but show the *recipe* amount, never the pack) and budget calculators (Shop Calc, AnyList pricing — you enter pack sizes/prices *by hand*). **Nobody auto-converts recipe grams → pack-rounded buy amount + cost.** Tinza's cook-vs-buy is a genuine differentiator; the loose-vs-bag threshold is Tina's own innovation.
+- **Files to PUSH (GitHub Desktop):** `packs.js` (new — 98 entries incl. flex veg), `index.html` (repo root — adds the one script line). Zero-risk; loads the data. Screen unchanged until the display wiring lands.
+
+## ✅ DONE EARLIER (11 Jun — costing, §6.4 Step 1)
+- **BRAAI SHOPPING LIST NOW COSTED** — matches World Kitchen. Every shopping line shows `amount · R__`, aisle-grouped, with a **`🛒 Shopping List (+10% buffer) ~R____`** total in the header (WK pattern). Built on the shared engine: `buildShoppingList()` (core.js) now attaches a `+10%` buffered amount + per-line `cost` via `priceOf()` per item (same maths as WK's `wkBuildPlanShopping` / `costRecipe`); `braaiStep4` renders it. Unpriced lines (e.g. basting sauce) show no R and stay out of the total — honest, exactly like WK.
+- **Buffer note:** the shopping list now shows **buffered amounts** (e.g. boerewors 500g → 550g) to match WK exactly; the meal cost up top ("What this braai costs", from `braaiPlanCost`) stays the exact unbuffered per-person number. Two different honest numbers, both labelled.
+- **AISLE FIXES (core `aisleCategory`, helps BOTH sections):** (1) `sausage` → `sausages?` so **Cocktail Sausages** lands in 🥩 Meat & Fish, not 🧂 Other. (2) Added a Pantry guard so **black pepper / peppercorns / braai spice / masala** go to 🥫 Pantry instead of being grabbed by 🥦 Fruit & Veg's `pepper`.
+- **Files (PUSH all three via GitHub Desktop):** `core.js` (now **2097** — includes the prior cleanup's initWKMap removal *and* today's aisle + cost edits; this supersedes the cleanup core.js), `braai.js` (**371**), `worldkitchen.js` (**1035**, unchanged from the cleanup session — push if not already pushed; re-pushing the identical file is harmless). `node --check` ✓ on all three.
+
+## ✅ DONE PRIOR SESSION (11 Jun — cleanup)
 
 ## 📌 SESSION PROTOCOL (every time)
 1. `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md` ← the law, read first.
@@ -26,12 +45,11 @@
 5. **Build shared `recipeRow()` in core.js** to the `wkRecipeCard` §3 shape; roll the touch-fix across remaining selectable rows. (Standard §3 reconcile note: the old "Recipe ›" link must align to this.)
 6. **Global sans flip** — `index.html` `*{font-family:...sans...!important}` (needs index.html, still pending).
 
-## ▶️ PARALLEL FEATURE TRACK — Braai ↔ World Kitchen costing (Standard §6.4, do in order)
-*(Bigger user-value work; can run between Phase-1 sweeps.)*
-1. **Braai shopping-list costs** — price every Braai shopping line via `costRecipe`/`priceOf`, show `amount · R` per row, aisle-grouped, + shopping total + 10% buffer. Copy World Kitchen's `wkBuildPlanShopping` approach (it already does this).
-2. **Reconcile** Braai + WK My Plan to ONE shared plan-row + shopping renderer (WK format = reference: `role · X of N · % of plate · ~R`; ingredient `g pp · total kg`).
-3. **Two-cost into World Kitchen** — add the two totals + reason line (§6.3) to WK; two-price is app-wide.
-- Buffer (+10%) and pack-rounded "shop" total are separate numbers — both can show, label clearly. Shop total needs `packs.js` (drafted ~108 lines, NOT pushed — pending Checkers verify of `tinza_pack_sizes.xlsx`).
+## ▶️ PARALLEL FEATURE TRACK — Braai ↔ World Kitchen costing (Standard §6.4)
+1. ~~**Braai shopping-list costs**~~ — ✅ **DONE 11 Jun.** Per-line `amount · R`, aisle-grouped, total + 10% buffer. Mirrors WK.
+2. **Reconcile** Braai + WK My Plan to ONE shared plan-row + shopping renderer ← **NEXT.** WK format = reference (`role · X of N · % of plate · ~R`; ingredient `g pp · total kg`). Both already cost identically, so this is mostly lifting the render into a shared `planShopping()` in core.js so they can't drift. Braai's plan rows are currently simpler (`name · total · ≈R pp`) than WK's — bring Braai up to WK's richness during the extraction.
+3. **Two-cost into World Kitchen** — add the two totals + reason line (§6.3) to WK; two-price is app-wide. (Braai already shows the two-total structure; the pack-rounded "shop" total stays off until `packs.js` lands — drafted ~108 lines, pending Checkers verify of `tinza_pack_sizes.xlsx`.)
+- The +10% buffer (safety on cook cost) and the pack-rounded "shop" total are separate numbers — both can show, label clearly.
 
 ## 🔥 BRAAI PUNCH-LIST (still open)
 - [ ] Header image — swap `BRAAI_HDR_IMG` base64 blob → `Images/Headers/Braai.jpg` once the file's in the repo, then drop the blob.
@@ -76,8 +94,9 @@
    PHASE 1 DONE = every page looks & works the same
 
   PARALLEL: COSTING (Standard §6.4)
-   Braai shopping costs -> reconcile Braai+WK renderer -> two-cost into WK
-   (packs.js pending Checkers verify)
+   Braai shopping costs ... DONE (per-line R + 10% buffer total, aisle-sorted)
+   reconcile Braai+WK renderer ... NEXT (one shared planShopping() in core)
+   two-cost into WK ... TODO   (packs.js pending Checkers verify)
 ```
 
 ## IMAGE FOLDERS (locked — Standard §5.5)

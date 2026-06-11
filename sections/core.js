@@ -670,7 +670,8 @@ function normIngredientKey(name){
 
 function aisleCategory(name){
   const n = name.toLowerCase();
-  if(/\b(beef|lamb|pork|chicken|boerewors|wors|mince|steak|rib|fillet|brisket|sosatie|kudu|game|fish|prawn|calamari|mussel|tuna|salmon|sardine|pilchard|anchovy|sausage|kebab|espetada|loin chop|rib chop|neck|chuck|biltong)\b/.test(n)) return '🥩 Meat & Fish';
+  if(/\b(black pepper|white pepper|ground pepper|peppercorns?|braai (salt|spice)|mixed spice|masala|garam)\b/.test(n)) return '🥫 Pantry';
+  if(/\b(beef|lamb|pork|chicken|boerewors|wors|mince|steak|rib|fillet|brisket|sosatie|kudu|game|fish|prawn|calamari|mussel|tuna|salmon|sardine|pilchard|anchovy|sausages?|kebab|espetada|loin chop|rib chop|neck|chuck|biltong)\b/.test(n)) return '🥩 Meat & Fish';
   if(/\b(egg|milk|cream|butter|yoghurt|yogurt|cheese|halloumi|feta|mozzarella)\b/.test(n)) return '🥛 Dairy & Eggs';
   if(/\b(onion|garlic|tomato|potato|carrot|brinjal|pepper|courgette|leek|celery|cabbage|spinach|kale|lettuce|mushroom|butternut|pumpkin|sweet potato|broccoli|cauliflower|aubergine|cucumber|spring onion|parsley|coriander|basil|rosemary|thyme|sage|mint|dill|chilli|ginger|lemon|lime|avocado|corn|mealies|peas)\b/.test(n)) return '🥦 Fruit & Veg';
   if(/\b(oil|flour|sugar|salt|vinegar|honey|mustard|soy|worcestershire|balsamic|cornflour|bread|bun|roll|pasta|rice|noodle|maize meal|couscous|oats|lentil|chickpea|tomato paste|stock|cube|coconut|jam|chutney|curry|cumin|paprika|turmeric|cinnamon|clove|nutmeg|herb|spice|breadcrumb|panko|almond|walnut|peanut|sesame|tahini|hot sauce|basting|marinade|rub|braai spice|seasoning|cayenne|chilli flakes)\b/.test(n)) return '🥫 Pantry';
@@ -748,6 +749,16 @@ function buildShoppingList(){
   // Sort by aisle order, then name
   const aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
   const items = Object.values(map);
+  // attach +10% buffered amount + per-line cost via the shared engine (matches World Kitchen's shopping block)
+  items.forEach(it => {
+    it.buffered = it.amt * 1.10;
+    const pr = (typeof priceOf === 'function') ? priceOf(it.name) : null;
+    it.cost = pr
+      ? (pr.per === 'count'
+          ? Math.round(Math.ceil(it.buffered) * pr.price)
+          : Math.round((it.buffered / 1000) * pr.price))
+      : null;
+  });
   items.sort((a,b) => {
     const ai = aisleOrder.indexOf(a.aisle), bi = aisleOrder.indexOf(b.aisle);
     if(ai !== bi) return ai - bi;

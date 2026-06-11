@@ -312,18 +312,21 @@ function braaiStep4(){
       ${i.costPP!=null?`<div style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">\u2248 R${i.costPP} pp</div>`:""}
     </div>`;
   const aisleOrder=['\u{1F969} Meat & Fish','\u{1F95B} Dairy & Eggs','\u{1F966} Fruit & Veg','\u{1F96B} Pantry','\u{1F9C2} Other'];
-  let shopHTML=''; let lastAisle=null;
+  let shopHTML=''; let lastAisle=null; let shopTotal=0;
   shopList.slice().sort((a,b)=>(aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle))).forEach(it=>{
     const checked=(S.checkedShopItems||{})[it.name];
-    const amt=it.unit==="g"?(it.amt>=1000?(it.amt/1000).toFixed(1)+"kg":Math.round(it.amt)+"g")
-            :it.unit==="ml"?(it.amt>=1000?(it.amt/1000).toFixed(1)+"L":Math.round(it.amt)+"ml")
-            :it.unit==="pcs"?Math.ceil(it.amt)+" pcs"
-            :it.unit===""?Math.ceil(it.amt)+"\u00d7":Math.ceil(it.amt)+" "+it.unit;
+    const ba=(it.buffered!=null?it.buffered:it.amt);   // +10% buffered amount (matches World Kitchen)
+    const amt=it.unit==="g"?(ba>=1000?(ba/1000).toFixed(1)+"kg":Math.round(ba)+"g")
+            :it.unit==="ml"?(ba>=1000?(ba/1000).toFixed(1)+"L":Math.round(ba)+"ml")
+            :it.unit==="pcs"?Math.ceil(ba)+" pcs"
+            :it.unit===""?Math.ceil(ba)+"\u00d7":Math.ceil(ba)+" "+it.unit;
+    if(it.cost!=null) shopTotal+=it.cost;
+    const priceStr=(it.cost!=null)?` \u00b7 R${it.cost}`:'';
     if(it.aisle!==lastAisle){ lastAisle=it.aisle; shopHTML+=`<div style="font-size:13px;color:#b56d37;margin:10px 0 4px;">${it.aisle}</div>`; }
     const nm=(it.name||'').replace(/'/g,"\\'");
     shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;cursor:pointer;opacity:${checked?0.4:1};">
         <span style="font-size:14px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}</span>
-        <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amt}</span>
+        <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amt}${priceStr}</span>
       </div>`;
   });
   return `<div>
@@ -352,7 +355,10 @@ function braaiStep4(){
       ${sides.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F957} Sides</div>
         <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${sides.map(planRow).join('')}</div>`:""}
 
-      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F6D2} Shopping List</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 6px;">
+        <span style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;">\u{1F6D2} Shopping List <span style="text-transform:none;letter-spacing:0;color:#9a6238;">(+10% buffer)</span></span>
+        ${shopTotal>0?`<span style="font-size:18px;font-weight:bold;color:#f5c842;white-space:nowrap;">~R${shopTotal.toLocaleString()}</span>`:""}
+      </div>
       <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:24px;">
         <div style="font-size:13px;color:#b56d37;margin-bottom:6px;">\u2705 Tap items you already have to remove</div>
         ${shopHTML||`<p style="font-size:13px;color:#b1734c;font-style:italic;">Add meats and sides to build your list.</p>`}
