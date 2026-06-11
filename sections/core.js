@@ -1528,6 +1528,81 @@ function qtyBox(o){
     </div>`;
 }
 
+// ── SHARED SECTION HEADER ─────────────────────────────────────────
+// ONE 200px photo header, identical in every section. Real photo +
+// gradient, with ← back + title + tagline + search overlaid, and an
+// optional grid of wrapped category boxes baked in below.
+// NO gliding / horizontal-scroll scale, ever — boxes wrap into a grid.
+// Sections pass their own photo URL, labels and onclick strings; the
+// function itself holds no section logic, so it can never drift.
+//
+//   sectionHeader({
+//     title:'World Kitchen', tagline:'Flavours from every corner',
+//     emoji:'🌍',
+//     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/worldkitchen.jpg',
+//     backJs:"set({screen:'home'})", backLabel:'← Home',
+//     search:{ value:S.wkSearch||'', placeholder:'Search cuisines…',
+//              oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" },
+//     cats:[ {emoji:'🫕', label:'Boerekos', active:false, onclick:"setQuiet({wkSACulture:'boerekos'})"} , ... ]
+//   })
+//
+// img = a full image URL (header pics live wherever you store them).
+// Leave img out and it falls back to the emoji on a warm gradient.
+function sectionHeader(o){
+  o = o || {};
+  const title     = o.title     || '';
+  const tagline   = o.tagline   || '';
+  const emoji     = o.emoji     || '🍽️';
+  const img       = o.img       || '';
+  const backJs    = o.backJs    || '';
+  const backLabel = o.backLabel || '← Back';
+  const cats      = o.cats      || [];
+  const s         = o.search    || null;
+
+  const photoLayer = img
+    ? `<img src="${img}" onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='flex';" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;" />
+       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
+    : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
+
+  const backBtn = backJs
+    ? `<button onclick="${backJs}" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:13px;padding:5px 12px;cursor:pointer;">${backLabel}</button>`
+    : '';
+
+  const searchBar = s
+    ? `<div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
+         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
+         <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;" />
+         ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:#e0d4b8;font-size:16px;cursor:pointer;">×</button>`:''}
+       </div>`
+    : `<div style="margin-bottom:14px;"></div>`;
+
+  const header = `
+    <div style="position:relative;height:200px;overflow:hidden;">
+      ${photoLayer}
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.78) 100%);z-index:1;"></div>
+      ${backBtn}
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
+        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;">${emoji} ${title}</h1>
+        ${tagline?`<p style="margin:0 0 10px;font-size:14px;color:#e0d4b8;font-style:italic;">${tagline}</p>`:`<div style="height:10px;"></div>`}
+        ${searchBar}
+      </div>
+    </div>`;
+
+  let catBlock = '';
+  if(cats.length){
+    catBlock = `
+    <div style="padding:12px 16px 4px;max-width:600px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;">
+      ${cats.map(c=>`
+        <div onclick="${c.onclick||''}" style="flex:1 1 calc(33.333% - 8px);min-width:96px;box-sizing:border-box;background:${c.active?'#1a1208':'#161210'};border:1px solid ${c.active?'#c06020':'#2a1a10'};border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <span style="font-size:24px;">${c.emoji||''}</span>
+          <span style="font-size:13px;color:#f5e8cc;font-weight:bold;line-height:1.2;">${c.label||''}</span>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  return header + catBlock;
+}
+
 function recipeView(){
   const vr=S.viewingRecipe;
   let item, recipe;
