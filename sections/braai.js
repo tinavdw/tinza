@@ -302,7 +302,6 @@ function braaiStep4(){
   const shopList=(typeof buildShoppingList==="function"?buildShoppingList():[]);
   const mains=plan.items.filter(i=>i.kind==="main");
   const sides=plan.items.filter(i=>i.kind==="side");
-  const showShop = plan.buyTotal>plan.total;   // second total only once packs create a gap
   const planRow=(i)=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">
       <span style="font-size:18px;flex-shrink:0;">${i.emoji||"\u{1F37D}\u{FE0F}"}</span>
       <div style="flex:1;min-width:0;">
@@ -312,21 +311,31 @@ function braaiStep4(){
       ${i.costPP!=null?`<div style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">\u2248 R${i.costPP} pp</div>`:""}
     </div>`;
   const aisleOrder=['\u{1F969} Meat & Fish','\u{1F95B} Dairy & Eggs','\u{1F966} Fruit & Veg','\u{1F96B} Pantry','\u{1F9C2} Other'];
-  let shopHTML=''; let lastAisle=null; let shopTotal=0;
+  const fmtAmt=(a,u)=> u==="g"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"kg":Math.round(a)+"g")
+                     : u==="ml"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"L":Math.round(a)+"ml")
+                     : Math.ceil(a)+(u?(" "+u):"");
+  let shopHTML=''; let lastAisle=null; let cookTotal=0, buyTotal=0;
   shopList.slice().sort((a,b)=>(aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle))).forEach(it=>{
     const checked=(S.checkedShopItems||{})[it.name];
-    const ba=(it.buffered!=null?it.buffered:it.amt);   // +10% buffered amount (matches World Kitchen)
-    const amt=it.unit==="g"?(ba>=1000?(ba/1000).toFixed(1)+"kg":Math.round(ba)+"g")
-            :it.unit==="ml"?(ba>=1000?(ba/1000).toFixed(1)+"L":Math.round(ba)+"ml")
-            :it.unit==="pcs"?Math.ceil(ba)+" pcs"
-            :it.unit===""?Math.ceil(ba)+"\u00d7":Math.ceil(ba)+" "+it.unit;
-    if(it.cost!=null) shopTotal+=it.cost;
-    const priceStr=(it.cost!=null)?` \u00b7 R${it.cost}`:'';
+    if(it.cookCost!=null) cookTotal+=it.cookCost;
+    if(it.buyCost!=null)  buyTotal+=it.buyCost;
+    const u=it.buyUnit||it.unit;
+    let amtStr;
+    if(u==="pcs"){ amtStr=Math.ceil(it.buyAmt)+((it.name||'').toLowerCase().indexOf('egg')>-1?" eggs":" pcs"); }
+    else if(it.buyPacks>0){ const sz=it.packSize||(it.buyAmt/it.buyPacks); const szStr=(sz>=1000?(sz/1000)+(u==="ml"?"L":"kg"):sz+(u==="ml"?"ml":"g")); amtStr=(it.buyPacks===1?szStr:it.buyPacks+"\u00d7"+szStr); }
+    else { amtStr=fmtAmt(it.buyAmt,u); }
+    const looseTag=it.loose?` <span style="color:#9a6238;font-size:12px;">loose</span>`:"";
+    const priceStr=(it.buyCost!=null)?` \u00b7 R${it.buyCost}`:"";
+    const needStr=it.packLine?`<div style="font-size:12px;color:#8a7355;margin-top:1px;">needs ${fmtAmt(it.amt,it.unit)}</div>`:"";
+    const tipStr=it.looseTip?`<div style="font-size:12px;color:#7a9a55;margin-top:1px;">\u{1F4A1} ~${fmtAmt(it.looseTip,it.unit)} loose \u2248 R${it.looseTipCost}</div>`:"";
     if(it.aisle!==lastAisle){ lastAisle=it.aisle; shopHTML+=`<div style="font-size:13px;color:#b56d37;margin:10px 0 4px;">${it.aisle}</div>`; }
     const nm=(it.name||'').replace(/'/g,"\\'");
-    shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;cursor:pointer;opacity:${checked?0.4:1};">
-        <span style="font-size:14px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}</span>
-        <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amt}${priceStr}</span>
+    shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:7px 0;cursor:pointer;opacity:${checked?0.4:1};">
+        <span style="font-size:14px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}${looseTag}</span>
+        <div style="text-align:right;white-space:nowrap;">
+          <span style="font-size:14px;color:#f5c842;font-weight:bold;">${amtStr}${priceStr}</span>
+          ${needStr}${tipStr}
+        </div>
       </div>`;
   });
   return `<div>
@@ -340,11 +349,10 @@ function braaiStep4(){
         <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What this braai costs</div>
         <div style="font-size:30px;font-weight:bold;color:#c8e840;line-height:1.1;">R${plan.total.toLocaleString()}</div>
         <div style="font-size:14px;color:#e0d4b8;margin-top:2px;">R${plan.pp} per person \u00b7 ${S.people} ${S.people===1?'person':'people'}</div>
-        ${showShop?`
+        ${buyTotal>plan.total?`
           <div style="border-top:1px solid #2a1a10;margin:12px 0;"></div>
           <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What you'll spend at the shops</div>
-          <div style="font-size:30px;font-weight:bold;color:#f5c842;line-height:1.1;">R${plan.buyTotal.toLocaleString()}</div>
-          <div style="background:#1a1208;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;color:#e0d4b8;line-height:1.5;">A bit more than the meal because you buy full packs \u2014 the leftovers stay in your kitchen.</div>
+          <div style="font-size:30px;font-weight:bold;color:#f5c842;line-height:1.1;">R${buyTotal.toLocaleString()}</div>
         `:""}
         ${plan.unpriced.length?`<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: ${plan.unpriced.join(', ')}</div>`:""}
       </div>
@@ -355,14 +363,23 @@ function braaiStep4(){
       ${sides.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F957} Sides</div>
         <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${sides.map(planRow).join('')}</div>`:""}
 
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 6px;">
-        <span style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;">\u{1F6D2} Shopping List <span style="text-transform:none;letter-spacing:0;color:#9a6238;">(+10% buffer)</span></span>
-        ${shopTotal>0?`<span style="font-size:18px;font-weight:bold;color:#f5c842;white-space:nowrap;">~R${shopTotal.toLocaleString()}</span>`:""}
-      </div>
-      <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:24px;">
+      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F6D2} Shopping List</div>
+      <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:14px;">
         <div style="font-size:13px;color:#b56d37;margin-bottom:6px;">\u2705 Tap items you already have to remove</div>
+        <div style="font-size:12px;color:#8a7355;margin-bottom:8px;line-height:1.5;">Estimate \u2014 based on standard pack sizes & average prices. Specials and your own shop will move it.</div>
         ${shopHTML||`<p style="font-size:13px;color:#b1734c;font-style:italic;">Add meats and sides to build your list.</p>`}
       </div>
+      ${buyTotal>plan.total?`
+      <div style="margin-bottom:24px;">
+        <div id="braai-tot-tog" onclick="(function(){var b=document.getElementById('braai-tot-body');var t=document.getElementById('braai-tot-tog');var o=b.style.display==='block';b.style.display=o?'none':'block';t.innerHTML=(o?'\u2139\uFE0F':'\u2715')+' About these totals';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:8px 0;">\u2139\uFE0F About these totals</div>
+        <div id="braai-tot-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;font-size:13px;color:#e0d4b8;line-height:1.6;">
+          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What this braai costs</strong> is the food itself \u2014 the exact amounts the recipes use.</p>
+          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you'll spend at the shops</strong> is a little more because shops sell whole packs \u2014 a 1kg bag when you need 200g, a dozen eggs when you need eight. The extra stays in your kitchen.</p>
+          <p style="margin:0;">For loose items like meat and fresh veg we add a small <strong>10%</strong>, so a hungry crowd never leaves you short.</p>
+          <p style="margin:8px 0 0;">These are estimates from standard packs \u2014 watch for specials, and bigger bags (like 2kg) are usually better value if you'll use them.</p>
+        </div>
+      </div>
+      `:""}
     `}
     </div>
   </div>`;

@@ -613,7 +613,7 @@ function priceOf(name){
   var n = priceClean(name);
   if(!n) return null;
   var pk = (typeof PACK_DB!=='undefined' && PACK_DB[n]) ? PACK_DB[n] : null;
-  function out(key,price,per){ return { key:key, price:price, per:per, pack:pk }; }
+  function out(key,price,per){ return { key:key, price:price, per:per, pack: pk || ((typeof PACK_DB!=='undefined' && PACK_DB[key]) ? PACK_DB[key] : null) }; }
   if(/\beggs?\b/.test(n)) return out('egg',(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7),'count');
   if(PRICE_DB[n]!=null) return out(n,PRICE_DB[n],'weight');
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)]!=null) return out(n.slice(0,-1),PRICE_DB[n.slice(0,-1)],'weight');
@@ -749,15 +749,49 @@ function buildShoppingList(){
   // Sort by aisle order, then name
   const aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
   const items = Object.values(map);
-  // attach +10% buffered amount + per-line cost via the shared engine (matches World Kitchen's shopping block)
+  // attach the two numbers per line — COOK (exact, what the meal uses) and
+  // BUY (what goes in the trolley): by-weight gets a +10% safety, by-pack
+  // rounds up to whole packs, flex veg goes loose-or-bag, eggs use the tray ladder.
   items.forEach(it => {
-    it.buffered = it.amt * 1.10;
     const pr = (typeof priceOf === 'function') ? priceOf(it.name) : null;
-    it.cost = pr
-      ? (pr.per === 'count'
-          ? Math.round(Math.ceil(it.buffered) * pr.price)
-          : Math.round((it.buffered / 1000) * pr.price))
-      : null;
+    const pk = pr ? pr.pack : null;
+    const need = it.amt;
+    // COOK — exact, no buffer
+    if(!pr) it.cookCost = null;
+    else if(pr.per === 'count') it.cookCost = Math.round(Math.ceil(need) * pr.price);
+    else it.cookCost = Math.round((need / 1000) * pr.price);
+    // BUY — what you actually put in the trolley
+    it.loose = false; it.packLine = false; it.buyAmt = need; it.buyUnit = it.unit; it.buyPacks = 0; it.packSize = 0;
+    if(!pr){ it.buyCost = null; }
+    else if(pr.per === 'count' && pk && pk.ladder){            // eggs — round up the tray ladder
+      const n0 = Math.ceil(need), last = pk.ladder[pk.ladder.length - 1];
+      const rung = pk.ladder.find(r => r >= n0) || (last * Math.ceil(n0 / last));
+      it.buyAmt = rung; it.buyUnit = 'pcs'; it.packLine = (rung !== n0);
+      it.buyCost = Math.round(rung * pr.price);
+    }
+    else if(pr.per === 'count'){                               // other countables
+      const n0 = Math.ceil(need); it.buyAmt = n0; it.buyUnit = 'pcs';
+      it.buyCost = Math.round(n0 * pr.price);
+    }
+    else if(pk && pk.ladder){                                  // weight/volume ladder — round up the rungs
+      const lad = pk.ladder, top = lad[lad.length - 1];
+      const found = lad.find(r => r >= need);
+      if(found){ it.buyPacks = 1; it.packSize = found; it.buyAmt = found; }
+      else { it.buyPacks = Math.ceil(need / top); it.packSize = top; it.buyAmt = it.buyPacks * top; }
+      it.packLine = true;
+      it.buyCost = Math.round((it.buyAmt / 1000) * pr.price);
+      // money-saving "buy loose" tip when the bag dwarfs what the recipe needs
+      if(pk.loosable && need < it.packSize * 0.6){ it.looseTip = Math.round(need); it.looseTipCost = Math.round((need / 1000) * pr.price); }
+    }
+    else if(pk && pk.size){                                    // single standard pack — round up to whole packs
+      const packs = Math.ceil(need / pk.size); it.buyAmt = packs * pk.size; it.buyPacks = packs; it.packSize = pk.size;
+      it.packLine = true;
+      it.buyCost = Math.round(packs * (pk.price != null ? pk.price : (pk.size / 1000) * pr.price));
+    }
+    else {                                                     // by weight (all meat, loose veg) — +10% safety, no rounding
+      it.loose = true; it.buyAmt = Math.round(need * 1.10);
+      it.buyCost = Math.round((it.buyAmt / 1000) * pr.price);
+    }
   });
   items.sort((a,b) => {
     const ai = aisleOrder.indexOf(a.aisle), bi = aisleOrder.indexOf(b.aisle);

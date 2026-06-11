@@ -1,36 +1,61 @@
 /* ============================================================
    TINZA — PACK_DB  (packs.js)
-   The "buy number" data: how each ingredient is SOLD.
+   How each ingredient is SOLD → the "buy number" (Standard §6.3).
 
-   Two-cost model (Standard §6.3):
-     · COOK number = exact recipe amount (drives the meal cost).
-     · BUY  number = what goes in the trolley (drives the shop total).
+   ONE RULE: round the recipe's need UP to the next real pack.
 
-   THREE buy-types:
-     1. BY WEIGHT — meat, fish, loose veg/fruit. NO entry here at all;
-        no pack ⇒ buy = cook (you buy the grams you need).
-     2. BY PACK  — sold in fixed sizes. Listed below with `size`
-        (grams for solids, millilitres for liquids). costRecipe rounds
-        the need UP to the fewest whole packs.
-     3. BY EACH  — countable with a size ladder (eggs). Listed with
-        `each:true` + `ladder:[…]`; rounds up to the next rung.
+   Shapes:
+     · { ladder:[...] }        sold in several sizes — pick the smallest
+                               rung that covers the need; past the top rung,
+                               buy whole multiples of the top rung.
+     · { size: N }             one standard pack (grams for solids, ml liquids).
+     · { each:true, ladder }   countable tray ladder (eggs).
+     · loosable:true           a money-saving "buy loose" tip may show for
+                               small amounts (fresh veg you can also buy loose).
+     · NO ENTRY                bought by weight — meat, fish, butternut,
+                               pumpkin, garlic, chilli. Buy the kg you need.
 
-   PRICE: intentionally OMITTED. PRICE_DB's per-kg figures were derived
-   FROM real pack prices, so  packs × (size/1000 × per-kg)  reproduces the
-   shelf price exactly. Only add `price:` to override a verified pack price.
+   PRICE is omitted on purpose: PRICE_DB's per-kg was derived FROM pack
+   prices, so size × per-kg reproduces the shelf price. Add `price:` only
+   to override a verified pack price.
+
+   NOTE: every total is an ESTIMATE — standard packs + average prices.
+   Specials and your own shop will move it. The shopping list says so.
    ============================================================ */
 const PACK_DB = {
 
-  // ── BY PACK · BAKING & FLOURS — 1 kg bag ──
-  "cake flour":        { size: 1000 },
-  "wheat flour":       { size: 1000 },
+  // ── LADDER · BIG STAPLES (1 / 2 / 5 / 10 kg — 2 kg is usually best value) ──
+  "cake flour":   { ladder: [1000, 2000, 5000, 10000] },
+  "wheat flour":  { ladder: [1000, 2000, 5000, 10000] },
+  "flour":        { ladder: [1000, 2000, 5000, 10000] },
+  "white sugar":  { ladder: [1000, 2000, 5000, 10000] },
+  "brown sugar":  { ladder: [1000, 2000, 5000, 10000] },
+  "sugar":        { ladder: [1000, 2000, 5000, 10000] },
+  "maize meal":   { ladder: [1000, 2000, 5000, 10000] },
+  "mieliepap":    { ladder: [1000, 2000, 5000, 10000] },
+  "pap":          { ladder: [1000, 2000, 5000, 10000] },
+  "white rice":   { ladder: [1000, 2000, 5000, 10000] },
+  "rice":         { ladder: [1000, 2000, 5000, 10000] },
+  "brown rice":   { ladder: [1000, 2000, 5000] },
+
+  // ── LADDER · BAGGED FRESH VEG (1 / 2 kg — loose tip allowed) ──
+  "potato":         { ladder: [1000, 2000], loosable: true },
+  "potatoes":       { ladder: [1000, 2000], loosable: true },
+  "sweet potato":   { ladder: [1000, 2000], loosable: true },
+  "sweet potatoes": { ladder: [1000, 2000], loosable: true },
+  "onion":          { ladder: [1000, 2000], loosable: true },
+  "onions":         { ladder: [1000, 2000], loosable: true },
+  "red onion":      { ladder: [1000, 2000], loosable: true },
+  "tomato":         { ladder: [1000, 2000], loosable: true },
+  "tomatoes":       { ladder: [1000, 2000], loosable: true },
+
+  // ── LADDER · MILK (1 L / 2 L) ──
+  "milk":           { ladder: [1000, 2000] },
+
+  // ── BY PACK · BAKING & SMALLER STAPLES ──
   "wholewheat flour":  { size: 1000 },
   "rye flour":         { size: 1000 },
-  "flour":             { size: 1000 },
   "self raising flour":{ size: 1000 },
-  "white sugar":       { size: 1000 },
-  "brown sugar":       { size: 1000 },
-  "sugar":             { size: 1000 },
   "icing sugar":       { size: 500 },
   "castor sugar":      { size: 500 },
   "cornflour":         { size: 250 },
@@ -39,24 +64,16 @@ const PACK_DB = {
   "baking powder":     { size: 200 },
   "bicarbonate of soda":{ size: 500 },
   "cream of tartar":   { size: 100 },
-  "vanilla essence":   { size: 100 },   // ml
+  "vanilla essence":   { size: 100 },
   "coconut fine":      { size: 200 },
   "desiccated coconut":{ size: 200 },
-
-  // ── BY PACK · STARCHES & GRAINS ──
-  "maize meal":        { size: 1000 },
-  "mieliepap":         { size: 1000 },
-  "pap":               { size: 1000 },
-  "white rice":        { size: 1000 },
-  "rice":              { size: 1000 },
-  "brown rice":        { size: 1000 },
-  "basmati rice":      { size: 1000 },
-  "jasmine rice":      { size: 1000 },
+  "basmati rice":      { size: 2000 },
+  "jasmine rice":      { size: 2000 },
   "arborio rice":      { size: 500 },
-  "samp":              { size: 1000 },
+  "samp":              { ladder: [1000, 2000] },
   "samp and beans":    { size: 500 },
   "pearl wheat":       { size: 500 },
-  "oats":              { size: 1000 },
+  "oats":              { ladder: [1000, 2000] },
   "muesli":            { size: 750 },
   "polenta":           { size: 500 },
   "pasta":             { size: 500 },
@@ -70,8 +87,7 @@ const PACK_DB = {
   "red kidney beans":  { size: 500 },
 
   // ── BY PACK · DAIRY ──
-  "milk":              { size: 1000 },  // 1 L
-  "cream":             { size: 250 },   // ml
+  "cream":             { size: 250 },
   "butter":            { size: 500 },
   "yoghurt":           { size: 1000 },
   "cream cheese":      { size: 250 },
@@ -83,7 +99,7 @@ const PACK_DB = {
   "cheddar":           { size: 800 },
 
   // ── BY PACK · OILS, VINEGARS & SAUCES (ml) ──
-  "sunflower oil":     { size: 750 },
+  "sunflower oil":     { ladder: [750, 2000, 5000] },
   "olive oil":         { size: 500 },
   "coconut oil":       { size: 375 },
   "white vinegar":     { size: 750 },
@@ -118,22 +134,7 @@ const PACK_DB = {
   "golden syrup":      { size: 300 },
   "peanut butter":     { size: 400 },
 
-  // ── FLEXIBLE · loose for small amounts, bag once it's worth it ──
-  //    `looseUnder` grams ⇒ shown loose (buy exact). At/above ⇒ round to `bag`.
-  //    (Veg you can buy either way: a handful loose, or a 1 kg packet.)
-  "potato":         { flex: true, bag: 1000, looseUnder: 800 },
-  "potatoes":       { flex: true, bag: 1000, looseUnder: 800 },
-  "sweet potato":   { flex: true, bag: 1000, looseUnder: 800 },
-  "sweet potatoes": { flex: true, bag: 1000, looseUnder: 800 },
-  "onion":          { flex: true, bag: 1000, looseUnder: 800 },
-  "onions":         { flex: true, bag: 1000, looseUnder: 800 },
-  "red onion":      { flex: true, bag: 1000, looseUnder: 800 },
-  "tomato":         { flex: true, bag: 1000, looseUnder: 800 },
-  "tomatoes":       { flex: true, bag: 1000, looseUnder: 800 },
-  // (butternut, pumpkin, garlic, chilli stay BY WEIGHT — no entry — bought
-  //  loose or cut per kg. Peppers can get a 2-pack rule later if wanted.)
-
-  // ── BY EACH · LADDER (rounds up to the next tray you can buy) ──
+  // ── BY EACH · TRAY LADDER ──
   "eggs":              { each: true, ladder: [6, 12, 18, 24] },
   "eggs_each":         { each: true, ladder: [6, 12, 18, 24] }
 

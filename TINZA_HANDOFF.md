@@ -2,9 +2,33 @@
 *Updated 11 Jun 2026 (costing session). This is the bookmark — read it, then read TINZA_STANDARD.md.*
 
 ## ▶️ OPENING LINE FOR THE NEW CHAT (paste this)
-> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. We're wiring the make-vs-buy two-cost. **Next move: now that `packs.js` (PACK_DB) is live, wire the buy number into the Braai shopping display — each line shows the BUY amount (pack-rounded) as the main number with a grey "needs Xg" sub-line where it differs, plus the second total "What you'll spend at the shops" + the reason line (§6.3). Replace this morning's +10% buffer display with the proper pack-rounded shop total. Then mirror to World Kitchen (§6.4 step 3).**
+> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. The make-vs-buy two-cost (ladder model) is LIVE on the Braai plan. **Next move: mirror the exact two-cost display + ladder into World Kitchen's `wkBuildPlanShopping` / `wkMyPlanView` (§6.4 step 3), then §6.4 step 2: one shared plan+shopping renderer in core.js so Braai and WK can't drift.**
 
-## ✅ DONE THIS SESSION (11 Jun — packs.js rebuilt + loaded)
+## 🔒 BUY-NUMBER RULE (LOCKED 12 Jun) — round up to the next real pack
+- **Ladders (smallest rung that covers the need; past the top rung, multiples of the top):** Milk 1L/2L · Onions·potatoes·sweet potato·tomatoes 1kg/2kg · Flour·maize/pap·rice·sugar 1/2/5/10kg · Eggs 6/12/18/24.
+- **Single-pack items** (butter 500g, oil, tins, jars) → their one size.
+- **By weight (no pack entry):** all meat & fish, butternut, pumpkin, garlic, chilli — buy the kg you need, +10% safety, "loose" tag.
+- **"Loose" is now a money-saving TIP, not a default:** for baggable veg where the bag dwarfs the need (<60% of the rung), the row shows the bag as the buy number AND a quiet `💡 ~Xg loose ≈ Rn` so the hurried buyer takes the bag and the budget buyer can save.
+- **ESTIMATE DISCLAIMER on the list:** "Estimate — based on standard pack sizes & average prices. Specials and your own shop will move it." Plus a bulk-value note in the collapsible (2kg usually better value).
+- **Staples default = smallest covering** (150g flour → 1kg). If Tina prefers a 2kg floor for staples, it's a one-line change.
+- **packs.js shape:** `{ladder:[…]}` | `{size:N}` | `{each:true,ladder:[…]}` | `loosable:true` | no entry = by weight. Price omitted (per-kg × size reproduces shelf price).
+
+## ✅ DONE THIS SESSION (12 Jun — ladder model + disclaimer)
+- **packs.js rewritten to the ladder model** (141 lines): veg/milk/big-staples ladder, rest single-pack, eggs tray ladder, `loosable` veg.
+- **core.js (2131):** `buildShoppingList()` gains the weight-ladder branch (smallest-rung-covering + multiples of top) and the loose-saving tip; `priceOf` resolves PACK_DB by matched key (fuzzy names get their pack).
+- **braai.js (388):** clean pack labels ("1kg"/"2×2kg" not "1×1kg"), per-row `💡 loose` tip, estimate disclaimer on the list, bulk note in the collapsible.
+- **PROVEN:** onions 600g→1kg / 1500g→2kg / 300g→1kg +💡300g loose R8; milk 800ml→1L / 1400ml→2L; flour 3kg→5kg; eggs 8→12; boerewors 500g→550g loose; butter 60g→500g.
+- **Files to PUSH (GitHub Desktop):** `packs.js`, `core.js` (2131), `braai.js` (388). index.html already live.
+- **(Earlier today: the two-cost display was first wired; this supersedes it with the ladder model + disclaimer.)**
+
+## ✅ DONE EARLIER (12 Jun — packs.js first build + first wiring)
+- **THE TWO-COST IS LIVE ON THE BRAAI PLAN.** Each shopping line shows the **BUY** amount as the main number, with a grey **"needs Xg"** sub-line where you buy whole packs, and a small **"loose"** tag on by-weight items. Two clean totals in the top box: **"What this braai costs"** (no1, exact) and **"What you'll spend at the shops"** (no2, pack-rounded). The +10% buffer + the why-it's-higher explanation moved into a collapsible **"ℹ️ About these totals"** at the bottom — two numbers on screen, detail on tap (the grandma test).
+- **core.js (2127):** (1) `priceOf()` now resolves `PACK_DB` by the matched key too, so fuzzy names (e.g. "coarse maize meal" → maize meal pack) get their pack. (2) `buildShoppingList()` attaches per line: `cookCost` (exact), `buyCost`/`buyAmt`/`buyPacks`/`loose`/`packLine` via four buy-types (weight +10%, pack round-up, flex loose-or-bag, egg ladder).
+- **braai.js (385):** `braaiStep4` render rebuilt — buy amounts, loose tags, needs sub-lines, two totals from cook/buy sums, collapsible explainer. Replaced this-morning's single buffered shopping total.
+- **PROVEN end-to-end** with the real PRICE_DB + PACK_DB: boerewors 500g→550g loose R66; coarse maize meal 512g→1×1kg R19 (fuzzy resolved); onions 300g loose / 1.1kg→2×1kg; eggs 8→12; oil 40ml→1×750ml; cake flour 150g→1×1kg.
+- **Files to PUSH (GitHub Desktop):** `core.js` (2127), `braai.js` (385). `packs.js` + `index.html` already pushed and live.
+
+## ✅ DONE EARLIER (11 Jun — packs.js rebuilt + loaded)
 - **`packs.js` (PACK_DB) REBUILT from the locked spec and loaded** (it was drafted in a past session but never reached the repo — 404 — and that container reset, so it was gone). **89 entries**, three buy-types: by-weight items carry NO entry (buy = cook); by-pack items carry a `size`; eggs use a `ladder`. `index.html` now loads it (after prices.js, before core.js).
 - **EGG LADDER corrected to 6/12/18/24** (was wrongly stored as 6/12/18/30).
 - **PRICE has to be omitted on purpose:** PRICE_DB's per-kg figures were back-computed FROM pack prices, so `packs × (size/1000 × per-kg)` reproduces the real shelf price exactly — no Checkers trip needed for correctness. (Add `price:` only to override a verified pack price.)
