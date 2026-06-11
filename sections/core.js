@@ -1932,7 +1932,7 @@ function recipeView(){
     methodHTML:methodHTML,
     extrasHTML: goesWellBlock + costBlock + tipBlock,
     actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
-    nav:{ backJs:"set({viewingRecipe:null,recipeServings:null})", planJs:"set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
+    nav:{ backJs:"set({viewingRecipe:null,recipeServings:null})", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
   });
 }
 
@@ -1954,6 +1954,7 @@ function braaiNavGo(id){
   else if(id==='desserts')  { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'}); }
   else if(id==='extras')   { set({braiStep:3,braaiView:'browse',braaiSidesFilter:'extras'}); }
   else if(id==='myplan')   { 
+    const root=document.getElementById('root'); if(root) root._savedScroll=0;
     set({braaiView:'myplan',viewingRecipe:null,recipeServings:null});
   }
 }
@@ -1991,7 +1992,7 @@ function braaiMyPlanBtn(){
   const total = meatCount + sideCount;
   if(!total) return '';
   if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`;
-  return `<button onclick="set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+  return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
   </button>`;
