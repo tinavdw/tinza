@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.1 · updated 12 Jun 2026 (added Mission). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.2 · updated 11 Jun 2026 (added Image Folders rule; sectionHeader built). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -102,6 +102,14 @@ Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price
 
 ---
 
+## 5.5 IMAGE FOLDERS (locked)
+**Two folders only — names are case-exact on GitHub, so match them precisely.**
+- `Images/Image/` — every recipe/dish photo. Filename = the **exact recipe name** (e.g. `Bobotie.jpg`); `recipePhoto()` builds this path and strips accents to match. **Singular `Image` — already live & working; never rename to plural `Images` or every recipe photo breaks.**
+- `Images/Headers/` — every screen **banner**: main-section landings, sub-screens, cultures, countries — all one type. **Filename = the screen's name exactly as the app shows it** (`Boerekos.jpg`, `Cape Malay.jpg`, `France.jpg`) — same habit as recipe photos, so **one rule covers every image in the app: copy the name on screen.** (For main-section titles that are long or contain symbols like `&`, Claude assigns the exact filename when wiring that section.) Folder is capital `H`. All header / `sectionHeader()` code points here.
+- There is **no third folder** and **no "main section vs sub-screen" split** — a header is a header. **Recipes and headers are the only two photo types.**
+
+---
+
 ## 6. PORTIONS & COSTING
 **Portion Brain — per-person base (g):** boneless 180 · bone-in 250 · fish 160 · veg main 200 · side 150 · dessert 120 · starter 60.
 Spread at plan level (mains 100/65/50%, sides taper to 50%, floors stop tiny portions). +10% buffer. Appetite toggle Big/Normal/Small. Drinks are per-guest. Excludes Budget/Tiny/Furry/Anchor.
@@ -123,8 +131,8 @@ Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
 ## 8. THE CODE LOCK (how the standard is *enforced*, not just written)
 1. **Design tokens** — a single `THEME` constant block (colours + sizes) at the top of `core.js`; sections reference it instead of hardcoding hex. *(Migration: incremental.)*
 2. **Shared component functions in `core.js`** — built once, called everywhere:
-   - `qtyBox()` ✅ built · `recipePhoto()` ✅ exists
-   - to build: `sectionHeader()` · `recipeRow()` · `howItWorks()` · `bottomNav()` · `costStrip()`
+   - `qtyBox()` ✅ built · `recipePhoto()` ✅ exists · `sectionHeader()` ✅ built (200px photo header + wrapped category boxes + image slot)
+   - to build: `recipeRow()` · `howItWorks()` · `bottomNav()` · `costStrip()`
 3. Once a screen uses the shared function, it **cannot drift** — there's only one definition.
 
 ---

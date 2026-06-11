@@ -69,10 +69,10 @@ function buffetItemCard(r, selArr, stateKey){
   const meta = (r.perPerson||r.costPP)
     ? `<div style="font-size:13px;color:#c0915a;margin-top:4px;">${r.perPerson?`${r.perPerson.meat} ${r.perPerson.unit||'g'} pp`:''}${(r.perPerson&&r.costPP)?' · ':''}${r.costPP?`~R${r.costPP}/pp`:''}</div>`
     : '';
-  const chevron = `<span onclick="event.stopPropagation();openEventRecipe('${r.id}')" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>`;
+  const chevron = `<span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>`;
 
   if(!isPro){
-    return `<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;">
+    return `<div onclick="openEventRecipe('${r.id}')" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
       <div style="display:flex;align-items:flex-start;gap:12px;">
         ${emoji}
         <div style="flex:1;min-width:0;">${nameLine}${meta}</div>
@@ -81,9 +81,9 @@ function buffetItemCard(r, selArr, stateKey){
     </div>`;
   }
 
-  const checkbox = `<div style="width:22px;height:22px;border-radius:6px;border:2px solid ${sel?BC:'#3a2010'};background:${sel?BC:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#f5e8cc;font-size:13px;">${sel?'✓':''}</div>`;
+  const checkbox = `<div onclick="event.stopPropagation();setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})" title="Add to plan" style="align-self:stretch;flex-shrink:0;width:46px;margin:-14px 2px -14px -14px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><div style="width:26px;height:26px;border-radius:7px;border:2px solid ${sel?BC:'#3a2010'};background:${sel?BC:'transparent'};display:flex;align-items:center;justify-content:center;color:#f5e8cc;font-size:15px;">${sel?'✓':''}</div></div>`;
   const toggleAction = `setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`;
-  return `<div onclick="${toggleAction}" style="background:${cardBg};border:1px solid ${cardBdr};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
+  return `<div onclick="openEventRecipe('${r.id}')" style="background:${cardBg};border:1px solid ${cardBdr};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
     <div style="display:flex;align-items:flex-start;gap:12px;">
       ${checkbox}
       ${emoji}

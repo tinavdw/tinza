@@ -1036,9 +1036,9 @@ function eventsHTML(){
       portionBadge = `<span style="background:#1a1208;border:1px solid #c06020;border-radius:10px;font-size:13px;color:#c06020;padding:2px 7px;margin-left:6px;">~R${r.costPP}/pp</span>`;
     }
 
-    return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onclick="${toggleAction}">
+    return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;" onclick="${openAction}">
       <div style="display:flex;align-items:flex-start;gap:12px;">
-        ${(category&&isPro)?`<div style="width:22px;height:22px;border-radius:6px;background:${isSelected?'#c06020':'transparent'};border:2px solid ${isSelected?'#c06020':'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:13px;color:white;flex-shrink:0;">${isSelected?'✓':''}</div>`:''}
+        ${(category&&isPro)?`<div onclick="event.stopPropagation();setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})" title="Add to plan" style="align-self:stretch;flex-shrink:0;width:46px;margin:-14px 2px -14px -14px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><div style="width:26px;height:26px;border-radius:7px;background:${isSelected?'#c06020':'transparent'};border:2px solid ${isSelected?'#c06020':'#3a2010'};display:flex;align-items:center;justify-content:center;font-size:15px;color:white;">${isSelected?'✓':''}</div></div>`:''}
         <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
         <div style="flex:1;min-width:0;">
           <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name} ${portionBadge}</div>
@@ -1047,7 +1047,7 @@ function eventsHTML(){
           ${r.halalFlag?'<div style="font-size:13px;color:#d0a020;margin-top:2px;">⚠️ Halal meat required</div>':''}
           ${r.kosherFlag?'<div style="font-size:13px;color:#d0a020;margin-top:2px;">⚠️ Kosher prep notes inside</div>':''}
         </div>
-        <span onclick="event.stopPropagation();${openAction}" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
+        <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
       </div>
     </div>`;
   }
