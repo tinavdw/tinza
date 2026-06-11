@@ -1438,7 +1438,7 @@ function wkWorldHome(){
     title:'World Kitchen',
     tagline:'Tap a continent, then a region, then a country',
     emoji:'🌍',
-    img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/World%20Kitchen.jpg',
+    img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
     backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
     search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" }
   });
