@@ -314,7 +314,7 @@ function braaiStep4(){
   const fmtAmt=(a,u)=> u==="g"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"kg":Math.round(a)+"g")
                      : u==="ml"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"L":Math.round(a)+"ml")
                      : Math.ceil(a)+(u?(" "+u):"");
-  let shopHTML=''; let lastAisle=null; let cookTotal=0, buyTotal=0;
+  let shopHTML=''; let lastAisle=null; let cookTotal=0, buyTotal=0; let looseTips=[];
   shopList.slice().sort((a,b)=>(aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle))).forEach(it=>{
     const checked=(S.checkedShopItems||{})[it.name];
     if(it.cookCost!=null) cookTotal+=it.cookCost;
@@ -326,16 +326,12 @@ function braaiStep4(){
     else { amtStr=fmtAmt(it.buyAmt,u); }
     const looseTag=it.loose?` <span style="color:#9a6238;font-size:12px;">loose</span>`:"";
     const priceStr=(it.buyCost!=null)?` \u00b7 R${it.buyCost}`:"";
-    const needStr=it.packLine?`<div style="font-size:12px;color:#8a7355;margin-top:1px;">needs ${fmtAmt(it.amt,it.unit)}</div>`:"";
-    const tipStr=it.looseTip?`<div style="font-size:12px;color:#7a9a55;margin-top:1px;">\u{1F4A1} ~${fmtAmt(it.looseTip,it.unit)} loose \u2248 R${it.looseTipCost}</div>`:"";
+    if(it.looseTip) looseTips.push({name:it.name, amt:fmtAmt(it.looseTip,it.unit), cost:it.looseTipCost});
     if(it.aisle!==lastAisle){ lastAisle=it.aisle; shopHTML+=`<div style="font-size:13px;color:#b56d37;margin:10px 0 4px;">${it.aisle}</div>`; }
     const nm=(it.name||'').replace(/'/g,"\\'");
-    shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:7px 0;cursor:pointer;opacity:${checked?0.4:1};">
-        <span style="font-size:14px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}${looseTag}</span>
-        <div style="text-align:right;white-space:nowrap;">
-          <span style="font-size:14px;color:#f5c842;font-weight:bold;">${amtStr}${priceStr}</span>
-          ${needStr}${tipStr}
-        </div>
+    shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;cursor:pointer;opacity:${checked?0.4:1};">
+        <span style="font-size:15px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}${looseTag}</span>
+        <span style="font-size:15px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amtStr}${priceStr}</span>
       </div>`;
   });
   return `<div>
@@ -345,18 +341,6 @@ function braaiStep4(){
 
       ${plan.items.length===0?`<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">Your plan is empty \u2014 add some meats and sides to your braai.</div>`:`
 
-      <div style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:14px;margin-bottom:14px;">
-        <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What this braai costs</div>
-        <div style="font-size:30px;font-weight:bold;color:#c8e840;line-height:1.1;">R${plan.total.toLocaleString()}</div>
-        <div style="font-size:14px;color:#e0d4b8;margin-top:2px;">R${plan.pp} per person \u00b7 ${S.people} ${S.people===1?'person':'people'}</div>
-        ${buyTotal>plan.total?`
-          <div style="border-top:1px solid #2a1a10;margin:12px 0;"></div>
-          <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What you'll spend at the shops</div>
-          <div style="font-size:30px;font-weight:bold;color:#f5c842;line-height:1.1;">R${buyTotal.toLocaleString()}</div>
-        `:""}
-        ${plan.unpriced.length?`<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: ${plan.unpriced.join(', ')}</div>`:""}
-      </div>
-
       ${mains.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F356} Mains</div>
         <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${mains.map(planRow).join('')}</div>`:""}
 
@@ -365,18 +349,32 @@ function braaiStep4(){
 
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F6D2} Shopping List</div>
       <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:14px;">
-        <div style="font-size:13px;color:#b56d37;margin-bottom:6px;">\u2705 Tap items you already have to remove</div>
-        <div style="font-size:12px;color:#8a7355;margin-bottom:8px;line-height:1.5;">Estimate \u2014 based on standard pack sizes & average prices. Specials and your own shop will move it.</div>
+        <div style="font-size:13px;color:#b56d37;margin-bottom:8px;">\u2705 Tap items you already have \u00b7 prices are an estimate</div>
         ${shopHTML||`<p style="font-size:13px;color:#b1734c;font-style:italic;">Add meats and sides to build your list.</p>`}
+        ${shopList.length?`
+        <div style="border-top:1px solid #2a1a10;margin-top:14px;padding-top:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+            <span style="font-size:15px;color:#9bbf6a;">What the food costs</span>
+            <span style="font-size:20px;color:#c8e840;font-weight:bold;">R${Math.round(cookTotal).toLocaleString()}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <span style="font-size:16px;color:#f5e8cc;font-weight:bold;">What you'll spend</span>
+            <span style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(buyTotal).toLocaleString()}</span>
+          </div>
+          ${buyTotal>cookTotal?`<div style="font-size:13px;color:#a98f6a;line-height:1.55;margin-top:8px;">More than the food because shops sell whole packs \u2014 the extra stays in your kitchen.</div>`:""}
+          ${plan.unpriced.length?`<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: ${plan.unpriced.join(', ')}</div>`:""}
+        </div>`:""}
       </div>
-      ${buyTotal>plan.total?`
+      ${shopList.length?`
       <div style="margin-bottom:24px;">
-        <div id="braai-tot-tog" onclick="(function(){var b=document.getElementById('braai-tot-body');var t=document.getElementById('braai-tot-tog');var o=b.style.display==='block';b.style.display=o?'none':'block';t.innerHTML=(o?'\u2139\uFE0F':'\u2715')+' About these totals';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:8px 0;">\u2139\uFE0F About these totals</div>
+        <div id="braai-tot-tog" onclick="(function(){var b=document.getElementById('braai-tot-body');var t=document.getElementById('braai-tot-tog');var o=b.style.display==='block';b.style.display=o?'none':'block';t.innerHTML=(o?'\u2715':'\u2139\uFE0F')+' About these totals & ways to save';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:8px 0;">\u2139\uFE0F About these totals & ways to save</div>
         <div id="braai-tot-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;font-size:13px;color:#e0d4b8;line-height:1.6;">
-          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What this braai costs</strong> is the food itself \u2014 the exact amounts the recipes use.</p>
-          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you'll spend at the shops</strong> is a little more because shops sell whole packs \u2014 a 1kg bag when you need 200g, a dozen eggs when you need eight. The extra stays in your kitchen.</p>
-          <p style="margin:0;">For loose items like meat and fresh veg we add a small <strong>10%</strong>, so a hungry crowd never leaves you short.</p>
-          <p style="margin:8px 0 0;">These are estimates from standard packs \u2014 watch for specials, and bigger bags (like 2kg) are usually better value if you'll use them.</p>
+          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What the food costs</strong> is the food itself \u2014 the exact amounts the recipes use.</p>
+          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you'll spend</strong> is a little more because shops sell whole packs \u2014 a 1kg bag when you need 200g, a dozen eggs when you need eight. The extra stays in your kitchen.</p>
+          ${looseTips.length?`<div style="border-top:1px solid #2a1a10;margin:10px 0;"></div>
+          <p style="margin:0 0 6px;color:#f5e8cc;font-weight:bold;">\u{1F4A1} Buy loose to save</p>
+          ${looseTips.map(t=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>${t.name}</span><span style="color:#9bbf6a;white-space:nowrap;">~${t.amt} \u2248 R${t.cost}</span></div>`).join('')}`:""}
+          <p style="margin:10px 0 0;color:#8a7355;">These are estimates from standard packs \u2014 watch for specials, and bigger bags (like 2kg) are usually better value if you'll use them.</p>
         </div>
       </div>
       `:""}
