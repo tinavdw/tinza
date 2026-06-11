@@ -119,7 +119,8 @@ function braaiStep2(){
       title:'Braai', emoji:'🔥',
       tagline:'Fire, smoke and the smell of a Saturday well spent',
       img:BRAAI_HDR_IMG,
-      backJs:"set({braiStep:1})", backLabel:'← Braai'
+      backJs:"set({braiStep:1})", backLabel:'← Braai',
+      myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" }
     })}
     <div class="content">
       <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
@@ -164,7 +165,8 @@ function braaiStep3(){
       title:'Braai', emoji:'🔥',
       tagline:'Fire, smoke and the smell of a Saturday well spent',
       img:BRAAI_HDR_IMG,
-      backJs:"set({braiStep:1})", backLabel:'← Braai'
+      backJs:"set({braiStep:1})", backLabel:'← Braai',
+      myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" }
     })}
     <div class="content">
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}

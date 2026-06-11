@@ -1568,6 +1568,10 @@ function sectionHeader(o){
     ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${backJs}" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:13px;padding:5px 12px;cursor:pointer;">${backLabel}</button>`
     : '';
 
+  const myPlanBtn = o.myPlan
+    ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${o.myPlan.onclick||''}" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 ${o.myPlan.label||'My Plan'} (${o.myPlan.count||0})</button>`
+    : '';
+
   const searchBar = s
     ? `<div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
          <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
@@ -1581,6 +1585,7 @@ function sectionHeader(o){
       ${photoLayer}
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.78) 100%);z-index:1;"></div>
       ${backBtn}
+      ${myPlanBtn}
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;">${emoji} ${title}</h1>
         ${tagline?`<p style="margin:0 0 10px;font-size:14px;color:#e0d4b8;font-style:italic;">${tagline}</p>`:`<div style="height:10px;"></div>`}
@@ -1963,9 +1968,8 @@ function braaiQuickNav(activeCat){
     {id:'starchy', emoji:'🌽', label:'Side Meals',  count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='starchy')?.items.some(x=>x.id===sid)).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',   count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===sid)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts', count:selSides.filter(sid=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===sid)).length},
-    {id:'myplan',  emoji:'📋', label:'My Plan',  count:total, highlight:true},
   ];
-  return `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;">
+  return `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:14px;">
     ${sections.map(s=>{
       const isActive = activeCat===s.id;
       const borderCol = isActive?(s.highlight?'#c0a020':'#c06020'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#4a3424';
