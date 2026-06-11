@@ -1430,24 +1430,18 @@ function wkGridCard(emoji, title, sub, onclick, dim, accent){
 /* ── HOME / drill-down: continents → regions → countries (braai-style grids) ── */
 function wkWorldHome(){
   var green = '#c06020', cream = '#f5e8cc';
-  var mapImg = 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Image%20header/world-map.jpg';
   var search = (S.wkSearch || '').trim();
 
-  var header = ''
-    + '<div style="position:relative;height:190px;overflow:hidden;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);">'
-    +   '<div style="position:absolute;inset:0;background-image:url(\''+mapImg+'\');background-size:cover;background-position:center;opacity:0.55;"></div>'
-    +   '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.35) 0%,rgba(8,4,2,0.85) 100%);z-index:1;"></div>'
-    +   '<button onclick="set({screen:\'home\',wkContinent:null,wkRegion:null,wkSearch:\'\'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:'+green+';font-size:13px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;">← Home</button>'
-    +   '<div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">'
-    +     '<h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:'+cream+';font-family:Georgia,serif;">🌍 World Kitchen</h1>'
-    +     '<p style="margin:0 0 10px;font-size:13px;color:#e0d4b8;font-style:italic;">Tap a continent, then a region, then a country</p>'
-    +     '<div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">'
-    +       '<span style="color:'+green+';margin-right:8px;font-size:14px;">🔍</span>'
-    +       '<input type="text" placeholder="Search dishes, countries…" oninput="set({wkSearch:this.value})" value="'+(S.wkSearch||'').replace(/"/g,'&quot;')+'" style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;font-family:Georgia,serif;" />'
-    +       (S.wkSearch ? '<button onclick="set({wkSearch:\'\'})" style="background:none;border:none;color:#e0d4b8;font-size:16px;cursor:pointer;">×</button>' : '')
-    +     '</div>'
-    +   '</div>'
-    + '</div>';
+  // V33 shared 200px photo header (core.js sectionHeader). Header image
+  // lives in Images/Headers/ — emoji-falls-back until the file is added.
+  var header = sectionHeader({
+    title:'World Kitchen',
+    tagline:'Tap a continent, then a region, then a country',
+    emoji:'🌍',
+    img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/World%20Kitchen.jpg',
+    backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
+    search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" }
+  });
 
   var wrap = function(inner){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header+inner+'</div>'; };
   var pad  = function(inner){ return '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+inner+'</div>'; };
@@ -1551,15 +1545,22 @@ function wkDataCountryHTML(){
     ? inTab.map(wkRecipeCard).join('')
     : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#e0d4b8;font-size:13px;">No '+tab+' for '+country+' yet.</div>';
 
+  // V33 shared 200px photo header (core.js sectionHeader). Country banner
+  // lives in Images/Headers/<Country>.jpg — emoji-falls-back until added.
+  var hdr = sectionHeader({
+    title: country,
+    tagline: recipes.length + ' dish' + (recipes.length===1?'':'es'),
+    emoji: '🍽️',
+    img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/' + encodeURIComponent(country) + '.jpg',
+    backJs: "set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);",
+    backLabel: '← World Kitchen'
+  });
+  var planBtnRow = '<div style="padding:12px 16px 0;max-width:600px;margin:0 auto;display:flex;justify-content:flex-end;">'
+    + '<button onclick="set({wkScreen:\'wkplan\'});window.scrollTo(0,0);" style="background:#160f08;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:13px;padding:6px 14px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
+    + '</div>';
+
   return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
-    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">'
-    +   '<button onclick="set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
-    +   '<div style="display:flex;justify-content:space-between;align-items:flex-end;">'
-    +     '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">'+country+'</h1>'
-    +     '<p style="font-size:13px;color:#e0d4b8;margin:2px 0 0;font-style:italic;">'+recipes.length+' dishes</p></div>'
-    +     '<button onclick="set({wkScreen:\'wkplan\'});window.scrollTo(0,0);" style="background:#160f08;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:13px;padding:5px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
-    +   '</div>'
-    + '</div>'
+    + hdr + planBtnRow
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
     + '</div>';
 }

@@ -1,45 +1,39 @@
 # TINZA — SESSION HANDOFF
-*Updated 11 Jun 2026. This is the bookmark — read it, then read TINZA_STANDARD.md.*
+*Updated 11 Jun 2026 (pm). This is the bookmark — read it, then read TINZA_STANDARD.md.*
 
 ## ▶️ OPENING LINE FOR THE NEW CHAT (paste this)
-> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. We're in Phase 1: making every page look & function the same, built from shared functions in core.js. **Next move: wire World Kitchen to the new `sectionHeader()` + `qtyBox()`.**
+> Hi Claude — I'm Tina, building Tinza. Before anything, fetch `TINZA_STANDARD.md` and `TINZA_HANDOFF.md` from the repo root and read both. We're in Phase 1: making every page look & function the same, built from shared functions in core.js. **Next move: `qtyBox()` into the live World Kitchen recipe page (`wkDetailV33`) — collapse its two size boxes into one, and add the "How portion size works" collapsible so nothing regresses.**
 
 ## 📌 SESSION PROTOCOL (every time)
 1. `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md` ← the law, read first.
 2. `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_HANDOFF.md` ← this, where we are.
-3. Fetch section files via `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/sections/<file>.js` (GitHub API rate-limits — don't use). `node --check` before every push. GitHub Desktop push only. Standard wins over chat.
+3. Fetch section files via `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/sections/<file>.js`. `node --check` before every push. GitHub Desktop push only. Standard wins over chat.
 
 ---
 
-## ✅ DONE THIS SESSION (11 Jun)
-- **core.js — built shared `sectionHeader()`.** One 200px photo header (real photo + gradient + ← back + title + tagline + search overlaid) with optional wrapped category boxes; image slot; emoji fallback. 1859 → 1934 lines, `node --check` clean. **PUSH PENDING.** Risk-free — nothing calls it until a section is wired, so the live site doesn't change on push.
-- **events.js + buffet.js — touch-target fix (PUSHED ✅).** On selectable rows the whole row now **opens the recipe** (big target); **add-to-plan** moved onto a big full-height checkbox column on the left. Fixes the mis-tap (was: whole row added to plan, tiny `›` chevron was the only way in). `eventCard` + `buffetItemCard`, both `node --check` clean, line counts unchanged.
-- **Photo-box audit (3 levels)** — see below.
-- **Image folders LOCKED to two** — see below + Standard §5.5.
-- **Repo docs renamed to clean names** (`TINZA_STANDARD.md` / `TINZA_HANDOFF.md`) — done. No more `(1)`/`(2)`. Don't re-upload them to chat; just `curl` them.
+## ✅ DONE THIS SESSION (11 Jun pm)
+- **worldkitchen.js — wired the two LIVE header screens to shared `sectionHeader()`.** `node --check` clean, 2351 → 2352 lines. **PUSH PENDING.**
+  - **`wkWorldHome()` (landing):** bespoke 190px gradient header → shared 200px `sectionHeader()`. Also **killed the rogue third image folder** `Images/Image header/` (space in name — violated Standard §5.5); world-map background gone, replaced by the standard photo slot pointing at `Images/Headers/World Kitchen.jpg` (emoji-falls-back until the file is added).
+  - **`wkDataCountryHTML()` (country recipe list):** flat `#1a1208` bar header → shared 200px `sectionHeader()`, banner pointed at `Images/Headers/<Country>.jpg`. "My Plan" button preserved, relocated to a row just under the header.
+  - Both now use the ONE shared header → can't drift.
 
-## 🖼 IMAGE FOLDERS (locked — Standard §5.5)
-Two folders only. Names are **case-exact on GitHub** — match precisely.
-- `Images/Image/` — every recipe photo. Filename = exact dish name (e.g. `Bobotie.jpg`). **ALREADY LIVE & WORKING** (`recipePhoto()` points here). **Singular `Image`** — ⚠ renaming it to plural `Images` breaks every recipe photo. Action: rename the local inner `Images` → `Image`.
-- `Images/Headers/` — every screen banner: main sections, sub-screens, cultures, countries — all one type, told apart by filename only (`braai.jpg`, `health.jpg`, `boerekos.jpg`, `france.jpg`). Capital `H`. Currently **empty** — add header images, then I wire the code to it.
-- No third folder. No "main vs sub" split. Recipes and headers are the only two photo types.
-
-## 🔍 PHOTO-BOX AUDIT (11 Jun)
-Through-line: **recipe pages are mostly fine (shared 200px); landings & sub-screens are mostly photoless gradients/bars or odd sizes.** Fix = wire `sectionHeader()` everywhere + standardise on `Images/Headers/`.
-- **Recipe page:** ✅ Braai · WK · Buffet · Events · Kiddies (200 shared) · 🟡 Spice (150, off-size) · 🟡 Health (bespoke `<img>`, not shared) · ❌ Meals · Budget (no shared photo)
-- **Sub-screen:** 🟡 WK country 160 / **SA Kitchens has no header** · 🟡 Health 160×3 · ❌ Buffet bar · Kiddies 155 · Events/Spice gradient
-- **Landing:** ❌ WK · Buffet · Events · Budget · Spice · Kiddies (gradient/bar, no photo) · 🟡 Health · Meals (bespoke photo) · Braai bar
+## KEY FINDING — WORLD KITCHEN HAS A DEAD OLD PATH
+World Kitchen runs on **two parallel systems**; only the NEW one is live:
+- **LIVE (data-driven):** `wkWorldHome` (landing) -> `wkDataCountryHTML` (country list) -> `wkDetailV33` (recipe detail), fed by `wkPool()` / `WK_AFRICA|EUROPE|WORLD|SOUTHAFRICA`. The SA tile on the landing routes here (`wkContinent:'Africa',wkRegion:'Southern Africa'`).
+- **DEAD (old):** `wkSAKitchensHTML` + `wkCountryHTML` + `wkRecipeDetailHTML` + `COUNTRY_RECIPES` (placeholder ingredients). Only entered from the unreachable old-map block (worldkitchen.js lines ~150/188/210) and `initWKMap`'s panel, which never renders on the live landing. **So "SA Kitchens has no header" and "country 160->200" in the old handoff point at dead functions — don't wire them.**
+- **Decision needed:** delete the dead old trio + the old map block (lines ~50-220, the `// OLD MAP SCREEN (no longer reached)` block incl. `window.REGIONS` / `COUNTRY_TO_REGION` / `initWKMap`) in a dedicated clean-up pass? Tidier + smaller file, but its own surgical session (back up, `node --check`, push). Recommend yes, separately.
 
 ## ▶️ NEXT MOVES (in order)
-1. Confirm **core.js (`sectionHeader`) pushed & live**.
-2. Folders: rename local recipe folder `Images` → `Image`; start adding header images to `Images/Headers/`.
-3. **Wire World Kitchen → `sectionHeader()` + one `qtyBox()`** (worldkitchen.js only, core untouched): kills its 3 header sizes + gliding continent scale; gives **SA Kitchens a real 200px header** (home for the Boerekos / Cape Malay pics); country 160→200; collapse its 2 size boxes into one.
-4. **Point header code at `Images/Headers/`**: meals.js, health.js (and wire their landings/sub-screens to `sectionHeader()`).
-5. Roll `sectionHeader()` + `qtyBox()` across: meals → events/buffet/spice/budget → kiddies → health.
-6. Build shared **`recipeRow()`** in core.js; roll the touch-fix across the remaining selectable rows (Braai meat/sides, WK plan) = true "same across".
-7. **Global sans flip** (index.html `*{font-family:…sans…!important}`).
+1. **Push** the new `worldkitchen.js` (GitHub Desktop). Then open WK on the live site: landing + a country list (e.g. tap SA -> a Southern-Africa country) should now show the 200px header (emoji placeholder until header images are added).
+2. **`qtyBox()` into `wkDetailV33` (the LIVE recipe page).** It currently has TWO size boxes: the "Servings" stepper + the "Quantities for N guests" box. Collapse to ONE shared `qtyBox()` directly under the recipe name. Custom `decJs`/`incJs` must drive **`S.wkServings`** (not `recipeServings`): `set({wkServings:Math.max(1,(S.wkServings||1)-1)})` / `set({wkServings:(S.wkServings||1)+1})`. **Preserve** the raw-carb note ("rice & pasta roughly triple") + the "full portion on its own / adjusts in a plan" explainer by adding the **"How portion size works" collapsible** (pizza analogy) — `wkDetailV33` doesn't have it yet. Leave the Pro-gated `costBox` as-is (don't break the paywall).
+3. **Flatten per-region accent colours** on the live path (the few `color`/`bg`/`border` threads in `wkDataCountryHTML`/`wkDetailV33`) to the ONE warm palette per Standard §1.
+4. **Flag-hero decision:** the old country screen had a 160px flag hero. On the live path, decide whether the country flag belongs in the `sectionHeader` photo slot or as a small chip — then standardise.
+5. **Add header images** to `Images/Headers/` (`World Kitchen.jpg`, plus country names) so the placeholders fill in.
+6. Roll `sectionHeader()` + `qtyBox()` across: meals -> events/buffet/spice/budget -> kiddies -> health.
+7. Build shared **`recipeRow()`** in core.js; roll the touch-fix across remaining selectable rows.
+8. **Global sans flip** (index.html `*{font-family:...sans...!important}`).
 
-## 🗺 WHERE WE ARE — FLOWCHART
+## WHERE WE ARE — FLOWCHART
 ```
                          TINZA BUILD
                               |
@@ -50,26 +44,34 @@ Through-line: **recipe pages are mostly fine (shared 200px); landings & sub-scre
         |                     |                      |
         v                     v                      v
   [ shared funcs ]      World/Spice/Braai     Weekly Planner
-  qtyBox ........✅      recipes               Opening + Free/Pro
-  sectionHeader .✅PUSH  Feed My Family        + payments/toggles
-  recipeRow ....⏳        Budget (role-slot)    Community · Profile
+  qtyBox ........DONE    recipes               Opening + Free/Pro
+  sectionHeader .DONE    Feed My Family        + payments/toggles
+  recipeRow ....TODO     Budget (role-slot)    Community · Profile
         |                Anchor · Beverage
         v                4 Ingredients
   IMAGES locked: Image/ (recipes) + Headers/ (banners)
         |
         v
-  roll sectionHeader + qtyBox + Headers/ across:
-  ▶ World Kitchen → meals → events/buffet/spice/budget → kiddies → health
+  WORLD KITCHEN (live path = wkWorldHome -> wkDataCountryHTML -> wkDetailV33):
+    landing header ......... DONE  sectionHeader (200px, rogue folder killed)
+    country-list header .... DONE  sectionHeader (200px, My Plan kept)
+    recipe page qtyBox ..... NEXT  collapse 2 boxes -> 1 + portion collapsible
+    per-region colour flat . TODO
+    dead old trio + map ..... CLEANUP  delete in own session
         |
         v
-  touch-fix: events ✅ buffet ✅ → recipeRow() → Braai + WK selection rows
+  then roll sectionHeader + qtyBox across:
+  meals -> events/buffet/spice/budget -> kiddies -> health
         |
         v
    PHASE 1 DONE = every page looks & works the same
 ```
 
-## 📋 PHASE 2 / 3 ROADMAP
-Lives in **Standard §10** (content fill, then shell). Budget = role-slot library + two-price costing (retrieve full plan from past chat when we start).
+## IMAGE FOLDERS (locked — Standard §5.5)
+Two folders only, case-exact on GitHub.
+- `Images/Image/` — recipe photos. Filename = exact dish name. LIVE & working. Singular `Image`.
+- `Images/Headers/` — every banner. Filename = screen name as shown (`World Kitchen.jpg`, `Ethiopia.jpg`...). Capital `H`. Code now points here from WK landing + country list; **add the image files next**.
+- The rogue third folder `Images/Image header/` (space) is now removed from code.
 
-## ⚠ STABILITY RULES
-Live site first · `node --check` before every push · surgical · one file at a time · **core.js SACRED** (back up, `wc -l` before/after, never truncate) · fetch via `curl -sL raw…` not GitHub API · GitHub Desktop push only · build on shared functions, never rebuild from new.
+## STABILITY RULES
+Live site first · `node --check` before every push · surgical · one concern at a time · **core.js SACRED** (back up, `wc -l` before/after, never truncate — untouched this session) · fetch via `curl -sL raw...` not GitHub API · GitHub Desktop push only · build on shared functions, never rebuild from new.
