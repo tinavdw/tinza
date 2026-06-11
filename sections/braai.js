@@ -268,78 +268,96 @@ function braaiMyPlanView(){
   return braaiStep4();
 }
 
+// ── PLAN COST (engine-based, spread-aware) — matches the row ≈ R pp ──
+function braaiPlanCost(){
+  const nM=S.selectedMeats.length, nS=S.selectedSides.length;
+  const mSpread=meatSpreadMult(nM), sSpread=(typeof sideSpreadMult==="function"?sideSpreadMult(nS):1);
+  let pp=0; const items=[]; const unpriced=[];
+  S.selectedMeats.forEach(mid=>{
+    const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return;
+    const base=braaiMeatCostPP(m);
+    const c=(base!=null)?Math.round(base*mSpread):null;
+    if(c!=null) pp+=c; else unpriced.push(m.name);
+    items.push({kind:"main",emoji:m.emoji,name:m.name,total:calcMeat(m).display,costPP:c});
+  });
+  S.selectedSides.forEach(sid=>{
+    const s=SIDES_GROUPS.flatMap(g=>g.items).find(x=>x.id===sid); if(!s) return;
+    const base=braaiSideCostPP(s);
+    const c=(base!=null)?Math.round(base*sSpread):null;
+    if(c!=null) pp+=c; else unpriced.push(s.name);
+    items.push({kind:"side",emoji:s.emoji,name:s.name,total:(typeof calcSide==="function"?calcSide(s):""),costPP:c});
+  });
+  const total=Math.round(pp*S.people);
+  return {pp:Math.round(pp), total:total, buyTotal:total, items:items, unpriced:unpriced};
+}
+
+function braaiToggleShop(name){
+  const c=Object.assign({},S.checkedShopItems||{});
+  if(c[name]) delete c[name]; else c[name]=1;
+  set({checkedShopItems:c});
+}
+
 function braaiStep4(){
-  const shopList=buildShoppingList(), cost=totalCost(), cals=totalCals(), ap=APPETITE[S.appetite];
+  const plan=braaiPlanCost();
+  const shopList=(typeof buildShoppingList==="function"?buildShoppingList():[]);
+  const mains=plan.items.filter(i=>i.kind==="main");
+  const sides=plan.items.filter(i=>i.kind==="side");
+  const showShop = plan.buyTotal>plan.total;   // second total only once packs create a gap
+  const planRow=(i)=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">
+      <span style="font-size:18px;flex-shrink:0;">${i.emoji||"\u{1F37D}\u{FE0F}"}</span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${i.name}</div>
+        ${i.total?`<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">${i.total} total</div>`:""}
+      </div>
+      ${i.costPP!=null?`<div style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">\u2248 R${i.costPP} pp</div>`:""}
+    </div>`;
+  const aisleOrder=['\u{1F969} Meat & Fish','\u{1F95B} Dairy & Eggs','\u{1F966} Fruit & Veg','\u{1F96B} Pantry','\u{1F9C2} Other'];
+  let shopHTML=''; let lastAisle=null;
+  shopList.slice().sort((a,b)=>(aisleOrder.indexOf(a.aisle)-aisleOrder.indexOf(b.aisle))).forEach(it=>{
+    const checked=(S.checkedShopItems||{})[it.name];
+    const amt=it.unit==="g"?(it.amt>=1000?(it.amt/1000).toFixed(1)+"kg":Math.round(it.amt)+"g")
+            :it.unit==="ml"?(it.amt>=1000?(it.amt/1000).toFixed(1)+"L":Math.round(it.amt)+"ml")
+            :it.unit==="pcs"?Math.ceil(it.amt)+" pcs"
+            :it.unit===""?Math.ceil(it.amt)+"\u00d7":Math.ceil(it.amt)+" "+it.unit;
+    if(it.aisle!==lastAisle){ lastAisle=it.aisle; shopHTML+=`<div style="font-size:13px;color:#b56d37;margin:10px 0 4px;">${it.aisle}</div>`; }
+    const nm=(it.name||'').replace(/'/g,"\\'");
+    shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;cursor:pointer;opacity:${checked?0.4:1};">
+        <span style="font-size:14px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}</span>
+        <span style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amt}</span>
+      </div>`;
+  });
   return `<div>
-    <div class="header">
-      <button class="back-btn" onclick="set({braaiView:'browse',braiStep:1})" style="color:#c06020;">← Braai</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Braai Plan</h1>
-      <p style="margin:0;font-size:13px;color:#a07050;font-style:italic;">${S.people} people · ${ap.label} · ${String(S.budget||"standard").charAt(0).toUpperCase()+String(S.budget||"standard").slice(1)}</p>
-    </div>
+    ${sectionHeader({ title:'Your Braai Plan', emoji:'\u{1F4CB}', tagline:'Everything you need, costed and ready', img:BRAAI_HDR_IMG, backJs:"set({braaiView:'browse',braiStep:1})", backLabel:'\u2190 Braai' })}
     <div class="content">
       ${braaiQuickNav('myplan')}
-      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;">🍽️ Mains</div>
-      <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:6px;">
-        ${S.selectedMeats.length===0?`<p style="font-size:13px;color:#b1734c;font-style:italic;">No mains selected</p>`:""}
-        ${S.selectedMeats.map(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(!m) return ""; const c=calcMeat(m); const mealCals=USER_TIER==="pro"?Math.round((c.grams/100)*(MEAT_CALS[mid]||200)/S.people):0; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${m.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${m.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${c.display}${USER_TIER==="pro"?` · <span style="color:#40d0a0;font-size:13px;">${mealCals} kcal/person</span>`:""}</div></div></div>${recipeBtn("meat",m.id,4)}</div>`; }).join("")}
+
+      ${plan.items.length===0?`<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">Your plan is empty \u2014 add some meats and sides to your braai.</div>`:`
+
+      <div style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What this braai costs</div>
+        <div style="font-size:30px;font-weight:bold;color:#c8e840;line-height:1.1;">R${plan.total.toLocaleString()}</div>
+        <div style="font-size:14px;color:#e0d4b8;margin-top:2px;">R${plan.pp} per person \u00b7 ${S.people} ${S.people===1?'person':'people'}</div>
+        ${showShop?`
+          <div style="border-top:1px solid #2a1a10;margin:12px 0;"></div>
+          <div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin-bottom:6px;">What you'll spend at the shops</div>
+          <div style="font-size:30px;font-weight:bold;color:#f5c842;line-height:1.1;">R${plan.buyTotal.toLocaleString()}</div>
+          <div style="background:#1a1208;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;color:#e0d4b8;line-height:1.5;">A bit more than the meal because you buy full packs \u2014 the leftovers stay in your kitchen.</div>
+        `:""}
+        ${plan.unpriced.length?`<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: ${plan.unpriced.join(', ')}</div>`:""}
       </div>
-      ${S.selectedMeats.length>0?`
-        <div style="background:#0f0e08;border:1px solid #2a2408;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;line-height:1.5;">
-          ${(()=>{
-              const n = S.selectedMeats.length;
-              const multPct = Math.round(meatSpreadMult(n)*100);
-              if(n===1) return `🍽️ <strong style="color:#9c7f36;">1 main selected</strong> — full portion. Add more dishes and each scales down automatically.`;
-              if(n>=4) return `🍽️ <strong style="color:#9c7f36;">${n} mains selected</strong> — portions fixed at ${multPct}% of base (4+ dishes). <span style="color:#b56d37;">Tip: use the serving adjuster on any recipe to increase a specific dish.</span>`;
-              return `🍽️ <strong style="color:#9c7f36;">${n} mains selected</strong> — each dish at ${multPct}% of full portion so the spread is balanced. Add more dishes and they scale further.`;
-            })()}
-        </div>`:""}
 
+      ${mains.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F356} Mains</div>
+        <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${mains.map(planRow).join('')}</div>`:""}
 
-      ${S.selectedSides.length>0?`
-        <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🥗 Sides</div>
-        <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-          ${S.selectedSides.map(sid=>{ const s=SIDES_GROUPS.flatMap(g=>g.items).find(x=>x.id===sid); if(!s) return ""; return `<div style="padding:10px 0;border-bottom:1px solid #1e1a10;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">${s.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#f5e8cc;font-weight:bold;">${s.name}</div><div style="font-size:13px;color:#f5c842;margin-top:2px;">${calcSide(s)}</div></div></div>${recipeBtn("side",s.id,4)}</div>`; }).join("")}
-        </div>
-      `:""}
+      ${sides.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F957} Sides</div>
+        <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${sides.map(planRow).join('')}</div>`:""}
 
-      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`:`<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:#a09040;">💰 Estimated total (${S.budget})</div><div style="font-size:26px;color:#f5c842;font-weight:bold;">R${cost}</div></div><div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;"><div style="font-size:13px;color:#908241;">Per person</div><div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(cost/S.people)}</div></div></div>`}
-
-      ${USER_TIER==="pro"?`<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#409070;">🔥 Total calories per person</div><div style="font-size:13px;color:#468d75;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#40d0a0;font-weight:bold;">${cals}<span style="font-size:13px;"> kcal</span></div></div></div>`:`<div style="background:#081808;border:1px dashed ${USER_TIER==="plus"?"#205030":"#162016"};border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:13px;color:${USER_TIER==="plus"?"#305040":"#2a3020"};">🔥 Calorie counter — <strong>Tinza Pro R99/month</strong></div></div>`}
-
-      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
-      ${USER_TIER==="free"?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#8a4020;margin-bottom:6px;font-weight:bold;">Full Shopping List</div><div style="font-size:13px;color:#5a3020;margin-bottom:10px;line-height:1.6;">All ingredients combined — no duplicates!<br>Onions from 3 dishes = 1 combined line item</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>`:`
-        <div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-          <div style="font-size:13px;color:#b56d37;margin-bottom:10px;">✅ Tap items you already have to remove</div>
-          ${shopList.length===0?`<p style="font-size:13px;color:#b1734c;font-style:italic;">Select meats and sides to generate your list</p>`:""}
-          ${(()=>{
-            // Render with aisle section headers
-            const aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
-            let html = ''; let lastAisle = null;
-            shopList.forEach(item => {
-              const checked = S.checkedShopItems[item.name];
-              const amt = item.unit==="g"?(item.amt>=1000?(item.amt/1000).toFixed(1)+"kg":Math.round(item.amt)+"g")
-                         :item.unit==="ml"?(item.amt>=1000?(item.amt/1000).toFixed(1)+"L":Math.round(item.amt)+"ml")
-                         :item.unit==="pcs"?Math.ceil(item.amt)+" pcs"
-                         :item.unit===""?Math.ceil(item.amt)+"×":Math.ceil(item.amt)+" "+item.unit;
-              if(item.aisle && item.aisle !== lastAisle){
-                html += `<div style="font-size:13px;letter-spacing:1.5px;color:#b56d37;text-transform:uppercase;padding:10px 0 4px;border-bottom:1px solid #1e1a10;margin-bottom:4px;">${item.aisle}</div>`;
-                lastAisle = item.aisle;
-              }
-              html += `<div class="shop-item" style="opacity:${checked?0.3:1};" onclick="set({checkedShopItems:{...S.checkedShopItems,'${item.name}':!S.checkedShopItems['${item.name}']}})"><div class="shop-check" style="background:${checked?"#c06020":"transparent"};">${checked?`<span style="color:#fff;font-size:13px;">✓</span>`:""}</div><div style="flex:1;font-size:14px;color:${checked?"#3a2010":"#e0d4b8"};text-decoration:${checked?"line-through":"none"};">${item.name}</div><div style="font-size:14px;color:${checked?"#3a2010":"#f5c842"};font-weight:bold;">${amt}</div></div>`;
-            });
-            return html;
-          })()}
-          ${shopList.length>0?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #2a1a10;display:flex;justify-content:space-between;"><span style="font-size:13px;color:#b56d37;">${shopList.filter(i=>!S.checkedShopItems[i.name]).length} of ${shopList.length} items remaining</span><button onclick="set({checkedShopItems:{}})" style="background:none;border:none;color:#cf6031;font-size:13px;cursor:pointer;text-decoration:underline;">Reset all</button></div>`:""}
-        </div>
-      `}
-
-      <div class="grid2" style="gap:10px;margin-bottom:10px;">
-        <button onclick="shareBasic()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;">📱 Share Plan<br><span style="font-size:13px;opacity:0.7;">🆓 Free</span></button>
-        ${USER_TIER==="free"?`<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a1808;color:#c06a35;font-size:13px;line-height:1.4;">🔒 Full List<br><span style="font-size:13px;">👑 Pro only</span></button>`:`<button onclick="shareFull()" style="padding:14px;border-radius:10px;cursor:pointer;background:#1a2e1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;">📱 Share + Shopping List<br><span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`}
+      <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F6D2} Shopping List</div>
+      <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:24px;">
+        <div style="font-size:13px;color:#b56d37;margin-bottom:6px;">\u2705 Tap items you already have to remove</div>
+        ${shopHTML||`<p style="font-size:13px;color:#b1734c;font-style:italic;">Add meats and sides to build your list.</p>`}
       </div>
-      ${USER_TIER==="pro"?`<button onclick="window.printPlan('braai')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">🖨️ Print / Save as PDF <span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`:`<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1808;color:#c06a35;font-size:13px;margin-bottom:10px;">🔒 Print / Save as PDF — Pro only</button>`}
-      <button onclick="set({braiStep:1,selectedMeats:[],selectedSides:[],checkedShopItems:{},braiCat:'beef',braaiSidesFilter:null,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#2a1008;border:2px solid #c06020;color:#f5c842;font-size:13px;margin-bottom:20px;font-weight:bold;">🔄 Start a New Braai Plan</button>
-      <button onclick="set({braiStep:1,braaiView:'browse'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#161210;border:1px solid #3a2010;color:#b56d37;font-size:13px;margin-bottom:20px;">← Back to Braai</button>
+    `}
     </div>
   </div>`;
 }
