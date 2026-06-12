@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.6 · updated 11 Jun 2026 (Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; **Braai↔World Kitchen one costing model §6.4**; bone-aware portions §6.1). When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.7 · updated 12 Jun 2026 (**plan dish-rows now carry a green per-dish food-cost TOTAL on the right §4c** — grams under name, green cost on right, gold reserved for shopping; Braai wired first, WK to follow via shared renderer). Earlier: Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4; bone-aware portions §6.1. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -93,6 +93,8 @@ The "My Plan" button is a **white pill in the top-right corner, sitting INSIDE t
 
 ### 4c. Plan page
 Dishes chosen · **est. cost p/p and per plan** · **total calories p/p** (estimate, ALL dishes incl. sides — always labelled "estimate") · link to shopping list.
+
+**Plan dish-row (LOCKED):** each chosen dish is one row — **name** (`#f5e8cc`, 16 bold) · **grams total under the name** (`#c0915a`/`#e0d4b8`, 13 — the total food for the guests selected, e.g. `480 g total`) · **green food-cost TOTAL on the right** (`#c8e840` bold, with a small `#9bbf6a` "Food cost" label — the per-dish cost for the guests selected, NOT per person). If a dish isn't priced yet, the cost is simply omitted — never faked. **Gold `#f5c842` stays reserved for the shopping list** ("what you'll spend"); the plan rows are green (cost). Built once in a shared renderer so Braai and World Kitchen never drift (§6.4).
 
 ### 4d. Shopping page
 Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price costing** (see section 6). Share targets: WhatsApp · Gmail · Checkers60 · PnP · Spar. Print / Save as PDF.

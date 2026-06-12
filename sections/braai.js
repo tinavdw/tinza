@@ -302,13 +302,17 @@ function braaiStep4(){
   const shopList=(typeof buildShoppingList==="function"?buildShoppingList():[]);
   const mains=plan.items.filter(i=>i.kind==="main");
   const sides=plan.items.filter(i=>i.kind==="side");
-  const planRow=(i)=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">
+  const planRow=(i)=>{const _dt=(i.costPP!=null)?Math.round(i.costPP*S.people):null;return `<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">
       <span style="font-size:18px;flex-shrink:0;">${i.emoji||"\u{1F37D}\u{FE0F}"}</span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${i.name}</div>
         ${i.total?`<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">${i.total} total</div>`:""}
       </div>
-    </div>`;
+      ${_dt!=null?`<div style="text-align:right;flex-shrink:0;">
+        <div style="font-size:12px;color:#9bbf6a;">Food cost</div>
+        <div style="font-size:16px;color:#c8e840;font-weight:bold;white-space:nowrap;">R${_dt.toLocaleString()}</div>
+      </div>`:""}
+    </div>`;};
   const aisleOrder=['\u{1F969} Meat & Fish','\u{1F95B} Dairy & Eggs','\u{1F966} Fruit & Veg','\u{1F96B} Pantry','\u{1F9C2} Other'];
   const fmtAmt=(a,u)=> u==="g"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"kg":Math.round(a)+"g")
                      : u==="ml"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"L":Math.round(a)+"ml")
