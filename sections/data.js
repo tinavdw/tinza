@@ -516,7 +516,7 @@ const SIDES_GROUPS = [
         method:["Slice loaf at 2cm intervals — don't cut all the way through.","Stuff garlic butter and mozzarella into each cut.","Wrap tightly in foil.","Side of grid — not over hot coals. 15 min, turn once.","Open foil last 3 min to crisp. Enjoy! 😊"],
         tip:"Side of braai is perfect — enough heat without burning." }},
     { id:"stokbrood", name:"Stokbrood", emoji:"🍡", tier:"plus", perPerson:1, unit:"stick", note:"Kids love it!", pantryP:4, stdP:6, indulgeP:6,
-      shopping:[{name:"Bread flour",per:80,unit:"g"},{name:"Instant yeast",per:1,unit:"g"},{name:"Butter",per:10,unit:"g"},{name:"Jam or cheese",per:15,unit:"g"}],
+      shopping:[{name:"Bread flour",per:80,unit:"g"},{name:"Instant yeast",per:1,unit:"g"},{name:"Butter",per:10,unit:"g"},{name:"Jam",per:15,unit:"g"}],
       recipe:{ coalType:"Medium heat — hold HIGH above coals", ingredients:[
         "🍞 DOUGH (makes 6 sticks — scale up as needed):",
         "Bread flour — 80g per person",
@@ -528,7 +528,7 @@ const SIDES_GROUPS = [
         "—",
         "Clean green sticks — 1cm thick, arm's length (1 per person)",
         "Butter — 10g per person (for filling)",
-        "Jam — 15g per person OR cheddar — 15g per person"],
+        "Jam — 15g per person  (or press in grated cheddar instead, if you prefer)"],
         method:[
           "Mix flour, yeast, salt and sugar. Add oil and warm water. Mix until dough forms.",
           "Knead 8–10 min until smooth and elastic. Cover, rest 1 hour until doubled.",
