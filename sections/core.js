@@ -615,6 +615,9 @@ function priceOf(name){
   var pk = (typeof PACK_DB!=='undefined' && PACK_DB[n]) ? PACK_DB[n] : null;
   function out(key,price,per){ return { key:key, price:price, per:per, pack: pk || ((typeof PACK_DB!=='undefined' && PACK_DB[key]) ? PACK_DB[key] : null) }; }
   if(/\beggs?\b/.test(n)) return out('egg',(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7),'count');
+  // items sold by the unit carry a "<name>_each" key → price per unit, count up (lemon, etc.)
+  if(PRICE_DB[n+'_each']!=null) return out(n,PRICE_DB[n+'_each'],'count');
+  if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)+'_each']!=null) return out(n.slice(0,-1),PRICE_DB[n.slice(0,-1)+'_each'],'count');
   if(PRICE_DB[n]!=null) return out(n,PRICE_DB[n],'weight');
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)]!=null) return out(n.slice(0,-1),PRICE_DB[n.slice(0,-1)],'weight');
   if(PRICE_ALIAS[n] && PRICE_DB[PRICE_ALIAS[n]]!=null) return out(PRICE_ALIAS[n],PRICE_DB[PRICE_ALIAS[n]],'weight');
