@@ -557,8 +557,13 @@ function wkDetailV33(r, country){
   // ── green qty box (shared qtyBox) — drives S.wkServings ──
   var qtyTotal = mainItem ? (wkScaleLine(mainItem, baseMult * n).amt + ' ' + mainItem.name) : (n + ' ' + (n===1?'serving':'servings'));
   var qtyPP    = mainItem ? (wkScaleLine(mainItem, baseMult).amt + ' per person' + (rawCarb ? ' · raw' : '')) : '';
+  var _cpp = (cost.priced>0 && cost.total>0) ? wkCostRecipe(r, baseMult).total : null;
+  var costInfo = (_cpp!=null)
+    ? '\uD83D\uDCB0 Food cost: <b style="color:#c8e840;">R'+_cpp+'</b> pp \u00b7 <b style="color:#c8e840;">R'+cost.total.toLocaleString()+'</b> total'
+      + '<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>'
+    : '';
   var qtyHTML = qtyBox({
-    label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n,
+    label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n, info:costInfo,
     decJs:"set({wkServings:Math.max(1,(S.wkServings||1)-1)})",
     incJs:"set({wkServings:(S.wkServings||1)+1})"
   });
@@ -946,14 +951,22 @@ function wkMyPlanView(){
         + '<strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
       : '';
     var adjuster = '';  // per-dish "Portion for this dish" removed — the global Guests stepper scales the whole menu
+    var costBlock = (c.priced && c.total>0)
+      ? '<div style="text-align:right;">'
+        + '<div style="font-size:12px;color:#9bbf6a;">Food cost</div>'
+        + '<div style="font-size:16px;color:#c8e840;font-weight:bold;white-space:nowrap;">R'+c.total.toLocaleString()+'</div></div>'
+      : '';
     return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
       +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+Math.max(1,Math.round(n))+')" style="flex:1;cursor:pointer;">'
       +     '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
-      +     '<div style="font-size:14px;color:#f5c842;margin-top:2px;">'+shareNote+(c.priced?(' \u00b7 ~R'+c.total):'')+'</div>'
+      +     '<div style="font-size:14px;color:#c0915a;margin-top:2px;">'+shareNote+'</div>'
       +     mainLine
       +   '</div>'
-      +   '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#bc6b6b;font-size:16px;cursor:pointer;">\u2715</button>'
+      +   '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
+      +     costBlock
+      +     '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#bc6b6b;font-size:16px;cursor:pointer;line-height:1;">\u2715</button>'
+      +   '</div>'
       + '</div>'
       + adjuster
       + '</div>';
