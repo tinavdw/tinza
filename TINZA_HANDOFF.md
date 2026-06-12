@@ -17,6 +17,9 @@ Three files changed. All `node --check` ✓.
 5. **Better wording** (shot 5) — Tina to point at the specific line/text to rephrase.
 6. WK tick-bug + section 6.4 two-cost layout (carried from last session).
 
+## Open discussion (start the next chat here)
+- **Two totals at the bottom of the shopping list — "What the food costs" vs "What you'll spend".** Tina flags this as conceptually hard. The knot: two big rand figures read like two prices, and people latch onto the bigger one and feel the meal is expensive — when most of the gap is pack-rounding (leftover pantry stock that stays in their kitchen), not money gone. Plus a third number lurks: the +10% safety buffer is SEPARATE from pack-rounding and must not read as the same gap twice. Decide: how many numbers to show, what to call them, and how to frame the bigger one so it doesn't feel like the meal's cost. (Relates to the future "Pantry — you may already have" group, which would shrink the gap honestly.) This is a UX/wording decision, not a code task — settle the model first, then build.
+
 ## Watch list (don't lose these)
 - **Marinade scaling:** `buildShoppingList()` (core.js ~713) still scales each meat's **marinade/rub** ingredients by the old `meatSpreadMult`. The **main protein** is now correct via `calcMeat()`, but rubs/marinades use the old model — revisit when reconciling Braai+WK shopping so they share one portion source.
 - **Kudu price key:** `BRAAI_PRICE_KEY` maps `kudu -> "beef fillet"` (braai.js ~111). Confirm the live Braai kudu cost uses **R195** (the new top-level `kudu` key) and not beef-fillet's price.
