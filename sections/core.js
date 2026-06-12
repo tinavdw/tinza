@@ -685,7 +685,7 @@ function buildShoppingList(){
   const map={};
   const skipNames = ['water','tap water','ice water','boiling water','warm water','salted water','salt & pepper','salt and pepper','to taste','for serving','to serve','butcher\'s string'];
   
-  function add(name, amt, unit, source){
+  function add(name, amt, unit, source, priceName){
     const skip = skipNames.some(s => name.toLowerCase().includes(s));
     if(skip || !amt || amt <= 0) return;
     // Use normalised key for deduplication — handles "organic brinjal" + "brinjal" as same item
@@ -694,8 +694,9 @@ function buildShoppingList(){
     if(map[key]){
       map[key].amt += amt;
       if(source && !map[key].sources.includes(source)) map[key].sources.push(source);
+      if(priceName && !map[key].priceName) map[key].priceName = priceName;
     } else {
-      map[key] = { name, amt, unit, sources: source ? [source] : [], aisle: aisleCategory(name) };
+      map[key] = { name, amt, unit, priceName: priceName||null, sources: source ? [source] : [], aisle: aisleCategory(name) };
     }
   }
 
@@ -708,7 +709,7 @@ function buildShoppingList(){
     const mult = APPETITE[S.appetite].mult * servings * meatSpreadMult(S.selectedMeats.length);
     
     // Add the main protein itself
-    add(m.name, calcMeat(m).grams, "g", m.name);
+    add(m.name, calcMeat(m).grams, "g", m.name, (typeof BRAAI_PRICEKEY!=='undefined' && BRAAI_PRICEKEY[m.id]) ? BRAAI_PRICEKEY[m.id] : null);
     
     // Parse ingredient list for extra ingredients (marinades, rubs, sauces)
     if(recipe && recipe.ingredients){
@@ -755,7 +756,7 @@ function buildShoppingList(){
   // BUY (what goes in the trolley): by-weight gets a +10% safety, by-pack
   // rounds up to whole packs, flex veg goes loose-or-bag, eggs use the tray ladder.
   items.forEach(it => {
-    const pr = (typeof priceOf === 'function') ? priceOf(it.name) : null;
+    const pr = (typeof priceOf === 'function') ? priceOf(it.priceName || it.name) : null;
     const pk = pr ? pr.pack : null;
     const need = it.amt;
     // COOK — exact, no buffer

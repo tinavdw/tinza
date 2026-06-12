@@ -1,6 +1,6 @@
 # TINZA — Session Handoff
 
-_Last regenerated: 12 Jun 2026 (green plan-row + recipe-box food cost + braai portion re-lock)_
+_Last regenerated: 12 Jun 2026 (meat shopping pricing fix + green box + portion re-lock)_
 
 ## ✅ Done this session (rebuilt clean, `node --check` ✓)
 - **braai.js — green per-dish FOOD-COST total on every My Plan row.** `planRow` now shows name · grams total under name · green `Food cost R___` on the right (`costPP × people`, scales with the guest stepper, hidden if unpriced). Gold stays for the shopping list only. **Already pushed & live** (confirmed on screenshots).
@@ -10,11 +10,12 @@ _Last regenerated: 12 Jun 2026 (green plan-row + recipe-box food cost + braai po
   - `PORTION_BRAAI` bumped (bone-aware, generous for grazing/drinking): **boneless 300, bone-in 400, fish 280, shellfish 320, veg 250.**
   - `meatSpreadMult` = new grazing taper **1→100% · 2→70% · 3→58% · 4+→50%** (replaces old 350g-constant). Total grows with variety; each meat shrinks equally.
   - **Verified:** 10 people, 3 boneless mains → 1.7kg each (174g pp); solo → 3.0kg.
+- **core.js — SHOPPING LIST meat pricing fixed (the §6.4 one-model step).** Shopping priced meat lines by DISPLAY NAME via `priceOf()`, so dish names that don't match the generic price keys mis-matched or failed: Beef Souvlaki wrongly hit beef mince (R100), Rump Steak resolved to nothing (no price → also skipped the +10% buffer, hence 696g vs 766g). Now `buildShoppingList` carries a `priceName` (the `BRAAI_PRICEKEY` value) on the meat line and prices through it — the SAME path as the green box. Result: souvlaki & rump → beef rump (R172), every meat prices, grams line up. Display still shows the dish name.
 - **core.js — GREEN BOX now carries FOOD COST (recipe page).** `recipeView` meat block rewritten to the same cut-based portion (so the recipe page can't desync from the plan), and the green qtyBox `info` strip now shows **Food cost R__ pp · R__ total** (scales with the recipe guest stepper) + the locked note. Built via `braaiMeatCostPP` so cost and grams share one base; hidden if unpriced. (Braai meats done; sides + other sections get the cost strip when WK/rollout is wired.)
 
 ## Next up (Tina's order)
-1. **Herbs & spices price list.** Shopping list shows the **jar/pack you buy** (one new item, e.g. turmeric 1 jar · R20), but the **food cost counts only the pinch** the recipe uses. Spices sit in a **"Pantry — you may already have"** group so they don't bloat the budget total. Add a dedicated spice price reference (pack size + pack price + per-pinch cook cost).
-   - **Bacon:** sold in **200g packs, ~R45** — wire this pack size/price.
+1. **Herbs & spices — BUY side only (prices are already right).** Spice PRICE_DB values are correct per-kg (pack→kg already converted, e.g. braai spice R45/200g→225/kg), so the per-pinch food cost is fine. The job is the SHOPPING display: show the **jar/pack you buy** (one item) instead of the tiny used grams, and drop spices into a **"Pantry — you may already have"** group that's shown but NOT in the headline total. Needs `PACK_DB` spice entries — **fresh herbs = 20g pack, dried herbs/spices = per packet/small box** (Tina's convention).
+   - **Bacon:** **200g packs, ~R45** — same PACK_DB pass.
 2. **Sides + green-box food cost for non-meat / other sections** — extend the recipe-page cost strip (currently braai meats only) to sides and, as each section is wired, everywhere.
 3. **Take it all to World Kitchen** — port the green plan-row food-cost total to WK rows, port the green-box food cost, then §6.4 (one shared plan/shopping renderer; two-cost block app-wide).
 
