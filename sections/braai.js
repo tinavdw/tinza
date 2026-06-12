@@ -308,7 +308,6 @@ function braaiStep4(){
         <div style="font-size:15px;color:#f5e8cc;font-weight:bold;">${i.name}</div>
         ${i.total?`<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">${i.total} total</div>`:""}
       </div>
-      ${i.costPP!=null?`<div style="font-size:14px;color:#f5c842;font-weight:bold;white-space:nowrap;">\u2248 R${i.costPP} pp</div>`:""}
     </div>`;
   const aisleOrder=['\u{1F969} Meat & Fish','\u{1F95B} Dairy & Eggs','\u{1F966} Fruit & Veg','\u{1F96B} Pantry','\u{1F9C2} Other'];
   const fmtAmt=(a,u)=> u==="g"?(a>=1000?(a/1000).toFixed(1).replace(/\.0$/,'')+"kg":Math.round(a)+"g")

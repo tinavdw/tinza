@@ -554,16 +554,20 @@ function braaiBaseG(meat){
 }
 
 function calcMeat(meat){
-  const count = S.selectedMeats.length;
-  const spreadMult = meatSpreadMult(count);
   const appetiteMult = APPETITE[S.appetite].mult;
-  // base = bone-aware cut portion (PORTION_BRAAI) when classified, else legacy soloG.
-  // We scale it down by spreadMult as more meats are added (the pizza spread).
+  // Per-meat portion (§6.1): each cut carries its OWN soloG/sharedG.
+  // Solo = full portion; when this meat shares a multi-main plate, use its sharedG
+  // (the spread is already baked into sharedG — no generic multiplier).
+  // isSolo mirrors the recipe page exactly so plan rows, shopping list and the
+  // recipe detail never disagree.
+  const isSolo = !(S.selectedMeats.includes(meat.id) && S.selectedMeats.length > 1);
   if(meat.unit==="g"){
-    const g = Math.round(braaiBaseG(meat) * spreadMult * appetiteMult * S.people);
+    const baseG = (isSolo ? meat.soloG : (meat.sharedG!=null?meat.sharedG:meat.soloG)) || 0;
+    const g = Math.round(baseG * appetiteMult * S.people);
     return {display: g>=1000?(g/1000).toFixed(1)+"kg":g+"g", grams:g};
   } else {
-    const pcs = Math.max(1, Math.round(meat.soloPcs * spreadMult * appetiteMult * S.people));
+    const basePcs = (isSolo ? meat.soloPcs : (meat.sharedPcs!=null?meat.sharedPcs:meat.soloPcs)) || 1;
+    const pcs = Math.max(1, Math.round(basePcs * appetiteMult * S.people));
     const g = pcs * (meat.gramEach||100);
     return {display: pcs+" pcs ("+(g>=1000?(g/1000).toFixed(1)+"kg":g+"g")+")", grams:g};
   }

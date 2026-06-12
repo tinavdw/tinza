@@ -1,38 +1,36 @@
 # TINZA — Session Handoff
 
-_Last regenerated: 12 Jun 2026 (costing-fixes session)_
+_Last regenerated: 12 Jun 2026 (plan-row portion fix + walnuts)_
 
 ## ✅ Done this session (rebuilt clean, ready to push)
-On resume the live repo still showed PRE-FIX files (stale GitHub raw cache or an older set was pushed), so one clean set of 4 files was regenerated with every fix locked in. All `node --check` ✓.
+Three files changed. All `node --check` ✓.
 
-- **prices.js — price gaps filled.** Added top-level keys so name-matching works: `brisket` 130, `blue cheese` 400, `jam` 50, `balsamic glaze` 360, `braai spice`/`braai spice blend` 225, `crushed chilli spice` 868. Added `kudu`/`kudu fillet` **195** (Mike's Mouse R195/kg — was only inside packed objects, no top-level key). Corrected `lemon`/`lemon_each` R9 → **R8**.
-- **core.js — lemon-shows-R0 bug fixed.** `priceOf()` now detects any `<name>_each` key right after the eggs line and prices per **count**, not weight. Generalises to all unit-sold items. Verified: lemon/lemons → count R8; brisket/chilli/jam → weight; kudu fillet → weight R195.
-- **data.js — three edits.** Köfte ×2: "Red pepper flakes (pul biber)" → "Crushed Chilli Spice" (SA replacement). Stokbrood: shopping line "Jam or cheese" → "Jam" (single priceable buy item); ingredient line keeps cheddar as a swap suggestion only.
-- **braai.js — tick-bug fixed.** In braaiStep4 shopping loop, both totals were summed BEFORE checking the tick, so ticking never dropped the price. Now skips checked items for cookTotal AND buyTotal.
+- **core.js — plan-row "all meats show the same total" bug FIXED.** `calcMeat()` was using the flat cut-class value (every "boneless" cut = 250g `PORTION_BRAAI.boneless`) × a generic `meatSpreadMult`, so fillet, brisket and kudu all rendered the **same** number. It now uses each meat's own `soloG`/`sharedG` (the per-meat portions already in `data.js`), with the **exact same `isSolo` rule the recipe page already uses** (`!(selected && numMeats>1)`) — so plan rows, shopping list, cards and the recipe detail can no longer disagree. The spread is already baked into `sharedG`, so the generic multiplier is gone from portions. **Verified @ 4 guests, 3 mains, Family Mix:** Fillet **480g**, Brisket **600g**, Kudu **400g**; solo fillet -> 1.0kg.
+- **braai.js — plan rows: gold "~ R pp" REMOVED.** Per the locked colour convention, plan dish-rows now show the **per-dish total only** (`Xg total`). Food cost belongs in the green qtyBox, not gold per-person on the rows.
+- **prices.js — walnuts added.** `"walnuts"` / `"walnut"` = **370** (R37/100g -> R370/kg). Was missing; the Braai Pesto Pasta salad / any walnut line now prices.
 
-## 🔜 Next up
-1. **Push 4 files** (GitHub Desktop) in order: **prices.js → core.js → data.js → braai.js**. Then confirm on live: blank Braai price lines show numbers, lemons priced (not R0), kudu fillet prices, ticking an item lowers the total.
-2. **Green food-cost strip into shared `qtyBox()`** in core.js, with the "this food cost is for costing only — not the same as the cost at the grocery store" note. (First job — top of RECIPE DETAIL lock.)
-3. **WK tick-bug fix** — mirror braai.js skip-checked logic into wkBuildPlanShopping / wkMyPlanView.
-4. **§6.4 Step 3** — copy the simple two-cost shopping layout into World Kitchen, same gold/green colours, with the reason line.
-5. **§6.4 Step 2** — lift ONE shared plan+shopping renderer into core.js so Braai & WK can't drift.
-6. **packs.js fruit/veg pass** (Tina leads) — add `punnet` (berries ≈125g) + `loaf` (bread ≈700g) buy-types; add blue cheese pack size (currently shows raw 150g need).
-7. **Then:** make Braai "look like World" (visual parity), after costing is settled.
+## Next up (Tina's order: plan-row done -> other issues -> salad dressing)
+1. **Ingredients show BOTH amounts per line** (shot 2, RECIPE-DETAIL lock): each ingredient row shows **per-person AND total-for-all-guests** (e.g. "Pasta 60g pp / 240g total"), scaling with guests. This reworks the recipe-page ingredient pipeline (parse the "X per person" string -> show pp AND xpeople). `ingredientRow(name, amount, note)` currently takes one pre-built amount — extend it to take pp + total, and update the call site that builds the amounts.
+2. **Green food-cost strip into shared `qtyBox()`** (shot 7) in core.js, with the locked note: "This food cost is for costing only — it's not the same as the cost at the grocery store."
+3. **Salad / dressing split** (LOCKED, corrected): SALADS STAY in the Braai salad section (Greek, French, Pesto Pasta). Only the **dressings** move to **Spice > Sauces > Salad Dressings**. Each Braai salad gets a clickable link (e.g. "Greek salad dressing") -> jumps to that dressing in Spice (view + add to plan) -> "Go back to Recipe" returns to the salad. Also add the **Pesto recipe** to Spice so the Pesto Pasta salad's pesto sauce gets costed.
+4. **Braai "look like World"** — visual parity (shot 1), after costing is settled.
+5. **Better wording** (shot 5) — Tina to point at the specific line/text to rephrase.
+6. WK tick-bug + section 6.4 two-cost layout (carried from last session).
 
-## 📋 Backlog (later)
-- "Pantry — you may already have" group (butter/cheese/spices) to tame the food→spend gap.
-- Pro "show detail" toggle = the per-row real cost (30g Butter — R5) for those who want it.
-- Phase-1 uniformity sweep: flatten WK region accents to one warm palette; roll sectionHeader()+qtyBox() across all sections; shared recipeRow() in core; global sans flip in index.html.
+## Watch list (don't lose these)
+- **Marinade scaling:** `buildShoppingList()` (core.js ~713) still scales each meat's **marinade/rub** ingredients by the old `meatSpreadMult`. The **main protein** is now correct via `calcMeat()`, but rubs/marinades use the old model — revisit when reconciling Braai+WK shopping so they share one portion source.
+- **Kudu price key:** `BRAAI_PRICE_KEY` maps `kudu -> "beef fillet"` (braai.js ~111). Confirm the live Braai kudu cost uses **R195** (the new top-level `kudu` key) and not beef-fillet's price.
 
-## 🔒 Locked decisions
-- **Colour convention (LOCKED):** gold/yellow `#f5c842` = SHOPPING (buy amount + price per row, "What you'll spend" total). Green `#c8e840`/`#9bbf6a` = COST ("What the food costs" total). Plan dish-rows show shopping total only; food cost goes in the green qtyBox.
+## Locked decisions
+- **Colour convention (LOCKED):** gold/yellow `#f5c842` = SHOPPING (buy amount + price per row, "What you'll spend" total). Green `#c8e840`/`#9bbf6a` = COST ("What the food costs" total). Plan dish-rows show the per-dish total only; food cost goes in the green qtyBox.
 - **Green-box note wording (LOCKED):** "This food cost is for costing only — it's not the same as the cost at the grocery store."
+- **Portion source (LOCKED section 6.1):** per-meat `soloG`/`sharedG` in data.js is the single source of truth for braai meat amounts. Solo = full portion; shared (multi-main) = `sharedG`. Do NOT reintroduce a flat cut-class override on top of it.
 - Shopping list rows: ONE number (what to buy + price). Real-cost-per-row = future Pro toggle, NOT default.
 - Ingredient standard: name = what you buy (matches PRICE_DB); one ingredient per line, no "+" lines; prep goes in method, not the name.
 - Never guess a price — an unresolved name returns null and the caller hides the figure.
 
-## ▶️ START HERE next conversation
+## START HERE next conversation
 1. Curl both `TINZA_STANDARD.md` and this `TINZA_HANDOFF.md` from repo root BEFORE touching code. Standard takes precedence over chat.
-2. Confirm the 4 files pushed & live looks right (prices fill in, lemon/kudu priced, ticking drops totals).
-3. Then: green food-cost strip into qtyBox(), then WK tick-bug + two-cost layout.
-4. Live site: tinza.netlify.app · repo tinavdw/tinza · fetch files via curl from raw.githubusercontent.com.
+2. Confirm the 3 files pushed & live looks right: open My Plan with fillet + brisket + kudu -> each shows a **different** per-dish total (no identical numbers, no gold pp on rows); walnut lines price.
+3. Then work the "Next up" list in order: ingredients-both -> green food-cost strip -> salad/dressing split.
+4. Live site: tinza.netlify.app / repo tinavdw/tinza / fetch files via curl from raw.githubusercontent.com.

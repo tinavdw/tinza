@@ -240,6 +240,8 @@ const PRICE_DB = {
   "wholewheat flour": 24,
   "semolina": 37,
   "sunflower seeds": 233,     // R35/150g → R233/kg
+  "walnuts": 370,             // R37/100g → R370/kg
+  "walnut": 370,              // R37/100g → R370/kg
 
   // ── OILS & CONDIMENTS ──
   "sunflower oil": 48,        // R95/2L → R48/kg (litre)
