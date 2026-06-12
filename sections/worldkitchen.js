@@ -469,6 +469,8 @@ function wkPriceLookup(name){
   // deplural
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)] != null) return { key:n.slice(0,-1), price:PRICE_DB[n.slice(0,-1)], per:'weight' };
   if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null) return { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' };
+  // stock/broth = cheap pantry liquid — never let it fall through to a raw-protein price
+  if(/\b(stock|broth)\b/.test(n)) return null;
   // longest key that appears as a whole word inside the name
   var best=null;
   for(var k in PRICE_DB){
@@ -851,7 +853,8 @@ function wkMainCategory(name){
   if(/\b(fish|hake|snoek|kingklip|kabeljou|yellowtail|salmon|tuna|trout|sardine|sardines|pilchard|pilchards|anchovy|anchovies|mackerel|prawn|prawns|shrimp|calamari|squid|mussel|mussels|crab|lobster|crayfish|oyster|oysters|scallop|scallops|seafood|octopus|cod|clam|clams|herring|haring|perch|sea bass|bass|dogfish|whitebait)\b/.test(n)) return 'fish';
   if(/\b(bone[- ]?in|on the bone|chop|chops|rib|ribs|wing|wings|drumstick|drumsticks|shank|neck|oxtail|trotter|cutlet|cutlets|spatchcock|whole chicken)\b/.test(n)) return 'bonein';
   if(/\b(beef|lamb|mutton|pork|chicken|mince|minced|steak|fillet|sausage|wors|boerewors|brisket|chuck|goat|sosatie|kebab|bacon|ham|gammon|venison|duck|turkey|meatball|meatballs|meats|frikkadel|rabbit|reindeer|liver|veal|bratwurst|saucisson|suckling|pig|meat|tongue)\b/.test(n)) return 'meat';
-  if(/\b(lentil|lentils|bean|beans|chickpea|chickpeas|chana|dal|dhal|paneer|tofu|soya|halloumi|egg|eggs|mushroom|mushrooms|butternut|aubergine|brinjal|eggplant|cauliflower|spinach|jackfruit|shiro|cowpea|black-eyed|black eyed|okra|plantain)\b/.test(n)) return 'veg';
+  if(/\b(lentil|lentils|bean|beans|chickpea|chickpeas|chana|dal|dhal|fava|soya|cowpea|black-eyed|black eyed|split pea|split peas|shiro)\b/.test(n)) return 'pulse';
+  if(/\b(paneer|tofu|halloumi|egg|eggs|mushroom|mushrooms|butternut|aubergine|brinjal|eggplant|cauliflower|spinach|jackfruit|okra|plantain)\b/.test(n)) return 'veg';
   return null;
 }
 function wkClassifyMain(items){
@@ -876,6 +879,7 @@ function wkMainBase(cat){
   if(cat==='fish')   return 160;   // fish / seafood
   if(cat==='veg')    return 200;   // vegetarian main (~lasagne + a bit)
   if(cat==='carb')   return null;  // starch-led main (pasta/rice/dough) -> keep authored amounts
+  if(cat==='pulse')  return null;  // dry pulses (lentils/beans/chickpeas) -> keep authored DRY amounts
   return 180;                      // boneless meat / poultry (default)
 }
 function wkEffectiveMult(r, count, ap){
