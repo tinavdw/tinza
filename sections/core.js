@@ -515,13 +515,14 @@ function recipeBtn(type,id,returnStep){
 // Protein scaling multipliers (Family Mix base = 350g pp)
 // Applied on top of the soloG base value
 function meatSpreadMult(count){
-  // The PLATE stays the same size — it just gets divided across more dishes.
-  // Total protein pp is constant at ~350g (Family Mix base).
-  // 1→350g | 2→175g each | 3→117g each | 4+→88g each
+  // Braai grazing taper (Standard §6.1): each meat = its CUT base × this share.
+  // Equal share per meat (same cut always matches), but the TOTAL grows with
+  // variety — people graze more off the grill when there is more on it.
+  // 1→100% | 2→70% each | 3→58% each | 4+→50% each
   if(count<=1) return 1.0;
-  if(count===2) return 0.50;   // 350 ÷ 2
-  if(count===3) return 0.334;  // 350 ÷ 3
-  return 0.252;                // 350 ÷ ~4 (floor — 5,6,7 dishes still 88g each)
+  if(count===2) return 0.70;
+  if(count===3) return 0.58;
+  return 0.50;
 }
 
 // Sides scaling: base perPerson shrinks as more sides added
@@ -541,7 +542,7 @@ function sideSpreadMult(count){
 // Bone-in is heavier because ~25–30% is bone you buy but don't eat.
 //   PORTION = everyday §6.1 base · PORTION_BRAAI = the generous braai tier.
 var PORTION       = { boneless:180, bonein:250, fish:160, shellfish:180, veg:200, side:150, dessert:120, starter:60, drink:0 };
-var PORTION_BRAAI = { boneless:250, bonein:325, fish:200, shellfish:250, veg:250 };
+var PORTION_BRAAI = { boneless:300, bonein:400, fish:280, shellfish:320, veg:250 };
 function portionG(cut, braai){
   if(!cut) return 0;
   var t = braai ? (PORTION_BRAAI[cut] != null ? PORTION_BRAAI[cut] : PORTION[cut]) : PORTION[cut];
@@ -554,23 +555,17 @@ function braaiBaseG(meat){
 }
 
 function calcMeat(meat){
+  // Portion (§6.1): cut-derived, bone-aware. Every meat (incl. kebabs) is counted
+  // as RAW meat by its CUT base (BRAAI_CUT→PORTION_BRAAI) — no skewer/per-meat magic.
+  // Same cut always lands on the same grams; the only difference is the grazing
+  // taper when several meats share the plate. isSolo mirrors the recipe page so
+  // plan rows, shopping list and recipe detail can never disagree.
   const appetiteMult = APPETITE[S.appetite].mult;
-  // Per-meat portion (§6.1): each cut carries its OWN soloG/sharedG.
-  // Solo = full portion; when this meat shares a multi-main plate, use its sharedG
-  // (the spread is already baked into sharedG — no generic multiplier).
-  // isSolo mirrors the recipe page exactly so plan rows, shopping list and the
-  // recipe detail never disagree.
   const isSolo = !(S.selectedMeats.includes(meat.id) && S.selectedMeats.length > 1);
-  if(meat.unit==="g"){
-    const baseG = (isSolo ? meat.soloG : (meat.sharedG!=null?meat.sharedG:meat.soloG)) || 0;
-    const g = Math.round(baseG * appetiteMult * S.people);
-    return {display: g>=1000?(g/1000).toFixed(1)+"kg":g+"g", grams:g};
-  } else {
-    const basePcs = (isSolo ? meat.soloPcs : (meat.sharedPcs!=null?meat.sharedPcs:meat.soloPcs)) || 1;
-    const pcs = Math.max(1, Math.round(basePcs * appetiteMult * S.people));
-    const g = pcs * (meat.gramEach||100);
-    return {display: pcs+" pcs ("+(g>=1000?(g/1000).toFixed(1)+"kg":g+"g")+")", grams:g};
-  }
+  const base = (typeof braaiBaseG==="function" ? braaiBaseG(meat) : (meat.soloG||0)) || 0;
+  const spread = isSolo ? 1 : meatSpreadMult(S.selectedMeats.length);
+  const g = Math.round(base * spread * appetiteMult * S.people);
+  return {display: g>=1000?(g/1000).toFixed(1)+"kg":g+"g", grams:g};
 }
 
 function calcSide(side){
@@ -1908,18 +1903,26 @@ function recipeView(){
     const alreadySelected = S.selectedMeats.includes(vr.id);
     const numMeats = S.selectedMeats.length;
     const isSolo = !(alreadySelected && numMeats > 1);
-    let totalDisplay, ppLine;
-    if(item.unit === "g"){
-      const pp = Math.round((isSolo ? item.soloG : item.sharedG) * ap.mult);
-      totalDisplay = fmtG(pp * p);
-      ppLine = `${pp}g per person`;
-    } else {
-      const totPcs = Math.round((isSolo ? item.soloPcs : item.sharedPcs) * ap.mult * p);
-      totalDisplay = `${totPcs} pieces (${fmtG(totPcs * (item.gramEach || 100))})`;
-      ppLine = `${isSolo ? item.soloPcs : item.sharedPcs} per person`;
-    }
+    // Portion: cut-based (Standard §6.1) — mirrors calcMeat so the recipe page,
+    // plan rows and shopping list agree. Kebabs counted RAW, never the skewer.
+    const base = (typeof braaiBaseG==="function" ? braaiBaseG(item) : (item.soloG||0)) || 0;
+    const spread = isSolo ? 1 : meatSpreadMult(numMeats);
+    const pp = Math.round(base * spread * ap.mult);
+    const totalDisplay = fmtG(pp * p);
+    const ppLine = `${pp}g per person`;
     const portionNote = isSolo ? "full portion" : `shared across ${numMeats} meats`;
-    quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`, total:totalDisplay, ppLine:ppLine });
+    // Food cost (Standard §4b): per person AND total for the guests selected.
+    let costInfo = "";
+    if(typeof braaiMeatCostPP==="function"){
+      const cpSolo = braaiMeatCostPP(item);
+      if(cpSolo != null){
+        const cpp  = isSolo ? cpSolo : Math.round(cpSolo * meatSpreadMult(numMeats));
+        const ctot = cpp * p;
+        costInfo = `\u{1F4B0} Food cost: <b style="color:#c8e840;">R${cpp}</b> pp \u00b7 <b style="color:#c8e840;">R${ctot.toLocaleString()}</b> total`
+          + `<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>`;
+      }
+    }
+    quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`, total:totalDisplay, ppLine:ppLine, info:costInfo });
   } else {
     const qty = calcSide(item);
     quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people · ${ap.label}`, total:qty, ppLine:`${item.perPerson}${item.unit} per person` });

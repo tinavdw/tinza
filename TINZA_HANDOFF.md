@@ -1,39 +1,38 @@
 # TINZA — Session Handoff
 
-_Last regenerated: 12 Jun 2026 (plan-row portion fix + walnuts)_
+_Last regenerated: 12 Jun 2026 (green plan-row + recipe-box food cost + braai portion re-lock)_
 
-## ✅ Done this session (rebuilt clean, ready to push)
-Three files changed. All `node --check` ✓.
+## ✅ Done this session (rebuilt clean, `node --check` ✓)
+- **braai.js — green per-dish FOOD-COST total on every My Plan row.** `planRow` now shows name · grams total under name · green `Food cost R___` on the right (`costPP × people`, scales with the guest stepper, hidden if unpriced). Gold stays for the shopping list only. **Already pushed & live** (confirmed on screenshots).
+- **PORTION RE-LOCK (core.js + braai.js + Standard v1.8 §6.1).** Root cause found: `calcMeat()` ignored the cut map and read per-meat `soloG`/`sharedG` (and `pcs × gramEach` for kebabs = the whole skewer), so 3 boneless mains rendered 100 / 280 / 160 g pp — no pyramid.
+  - `calcMeat()` rewritten to read `braaiBaseG(meat)` → `BRAAI_CUT[id]` → `PORTION_BRAAI`. Same cut = same grams. Kebabs counted as RAW boneless meat, not the skewer.
+  - `braaiMeatCostPP` kebab branch fixed to use the same cut base, so R and grams agree.
+  - `PORTION_BRAAI` bumped (bone-aware, generous for grazing/drinking): **boneless 300, bone-in 400, fish 280, shellfish 320, veg 250.**
+  - `meatSpreadMult` = new grazing taper **1→100% · 2→70% · 3→58% · 4+→50%** (replaces old 350g-constant). Total grows with variety; each meat shrinks equally.
+  - **Verified:** 10 people, 3 boneless mains → 1.7kg each (174g pp); solo → 3.0kg.
+- **core.js — GREEN BOX now carries FOOD COST (recipe page).** `recipeView` meat block rewritten to the same cut-based portion (so the recipe page can't desync from the plan), and the green qtyBox `info` strip now shows **Food cost R__ pp · R__ total** (scales with the recipe guest stepper) + the locked note. Built via `braaiMeatCostPP` so cost and grams share one base; hidden if unpriced. (Braai meats done; sides + other sections get the cost strip when WK/rollout is wired.)
 
-- **core.js — plan-row "all meats show the same total" bug FIXED.** `calcMeat()` was using the flat cut-class value (every "boneless" cut = 250g `PORTION_BRAAI.boneless`) × a generic `meatSpreadMult`, so fillet, brisket and kudu all rendered the **same** number. It now uses each meat's own `soloG`/`sharedG` (the per-meat portions already in `data.js`), with the **exact same `isSolo` rule the recipe page already uses** (`!(selected && numMeats>1)`) — so plan rows, shopping list, cards and the recipe detail can no longer disagree. The spread is already baked into `sharedG`, so the generic multiplier is gone from portions. **Verified @ 4 guests, 3 mains, Family Mix:** Fillet **480g**, Brisket **600g**, Kudu **400g**; solo fillet -> 1.0kg.
-- **braai.js — plan rows: gold "~ R pp" REMOVED.** Per the locked colour convention, plan dish-rows now show the **per-dish total only** (`Xg total`). Food cost belongs in the green qtyBox, not gold per-person on the rows.
-- **prices.js — walnuts added.** `"walnuts"` / `"walnut"` = **370** (R37/100g -> R370/kg). Was missing; the Braai Pesto Pasta salad / any walnut line now prices.
+## Next up (Tina's order)
+1. **Herbs & spices price list.** Shopping list shows the **jar/pack you buy** (one new item, e.g. turmeric 1 jar · R20), but the **food cost counts only the pinch** the recipe uses. Spices sit in a **"Pantry — you may already have"** group so they don't bloat the budget total. Add a dedicated spice price reference (pack size + pack price + per-pinch cook cost).
+   - **Bacon:** sold in **200g packs, ~R45** — wire this pack size/price.
+2. **Sides + green-box food cost for non-meat / other sections** — extend the recipe-page cost strip (currently braai meats only) to sides and, as each section is wired, everywhere.
+3. **Take it all to World Kitchen** — port the green plan-row food-cost total to WK rows, port the green-box food cost, then §6.4 (one shared plan/shopping renderer; two-cost block app-wide).
 
-## Next up (Tina's order: plan-row done -> other issues -> salad dressing)
-1. **Ingredients show BOTH amounts per line** (shot 2, RECIPE-DETAIL lock): each ingredient row shows **per-person AND total-for-all-guests** (e.g. "Pasta 60g pp / 240g total"), scaling with guests. This reworks the recipe-page ingredient pipeline (parse the "X per person" string -> show pp AND xpeople). `ingredientRow(name, amount, note)` currently takes one pre-built amount — extend it to take pp + total, and update the call site that builds the amounts.
-2. **Green food-cost strip into shared `qtyBox()`** (shot 7) in core.js, with the locked note: "This food cost is for costing only — it's not the same as the cost at the grocery store."
-3. **Salad / dressing split** (LOCKED, corrected): SALADS STAY in the Braai salad section (Greek, French, Pesto Pasta). Only the **dressings** move to **Spice > Sauces > Salad Dressings**. Each Braai salad gets a clickable link (e.g. "Greek salad dressing") -> jumps to that dressing in Spice (view + add to plan) -> "Go back to Recipe" returns to the salad. Also add the **Pesto recipe** to Spice so the Pesto Pasta salad's pesto sauce gets costed.
-4. **Braai "look like World"** — visual parity (shot 1), after costing is settled.
-5. **Better wording** (shot 5) — Tina to point at the specific line/text to rephrase.
-6. WK tick-bug + section 6.4 two-cost layout (carried from last session).
-
-## Open discussion (start the next chat here)
-- **Two totals at the bottom of the shopping list — "What the food costs" vs "What you'll spend".** Tina flags this as conceptually hard. The knot: two big rand figures read like two prices, and people latch onto the bigger one and feel the meal is expensive — when most of the gap is pack-rounding (leftover pantry stock that stays in their kitchen), not money gone. Plus a third number lurks: the +10% safety buffer is SEPARATE from pack-rounding and must not read as the same gap twice. Decide: how many numbers to show, what to call them, and how to frame the bigger one so it doesn't feel like the meal's cost. (Relates to the future "Pantry — you may already have" group, which would shrink the gap honestly.) This is a UX/wording decision, not a code task — settle the model first, then build.
+## Open discussion (still to settle)
+- **Two totals at the bottom of the shopping list** — "What the food costs" (green) vs "What you'll spend" (gold). Conceptually hard: two big rand figures read like two prices; plus the +10% buffer is a SEPARATE number from pack-rounding and mustn't read as the same gap twice. Settle the wording/model, then build. (Braai already shows a draft version.)
 
 ## Watch list (don't lose these)
-- **Marinade scaling:** `buildShoppingList()` (core.js ~713) still scales each meat's **marinade/rub** ingredients by the old `meatSpreadMult`. The **main protein** is now correct via `calcMeat()`, but rubs/marinades use the old model — revisit when reconciling Braai+WK shopping so they share one portion source.
-- **Kudu price key:** `BRAAI_PRICE_KEY` maps `kudu -> "beef fillet"` (braai.js ~111). Confirm the live Braai kudu cost uses **R195** (the new top-level `kudu` key) and not beef-fillet's price.
+- **Marinade scaling:** `buildShoppingList()` (core.js ~713) scales each meat's marinade/rub by `meatSpreadMult` separately; the main protein now flows through the new cut-based `calcMeat().grams`. Both use `meatSpreadMult` so they stay roughly in step — revisit when reconciling Braai+WK shopping onto one renderer.
+- **Kudu price key:** confirm live Braai kudu uses **R195/kg** (top-level `kudu`), not beef-fillet's price.
 
 ## Locked decisions
-- **Colour convention (LOCKED):** gold/yellow `#f5c842` = SHOPPING (buy amount + price per row, "What you'll spend" total). Green `#c8e840`/`#9bbf6a` = COST ("What the food costs" total). Plan dish-rows show the per-dish total only; food cost goes in the green qtyBox.
-- **Green-box note wording (LOCKED):** "This food cost is for costing only — it's not the same as the cost at the grocery store."
-- **Portion source (LOCKED section 6.1):** per-meat `soloG`/`sharedG` in data.js is the single source of truth for braai meat amounts. Solo = full portion; shared (multi-main) = `sharedG`. Do NOT reintroduce a flat cut-class override on top of it.
-- Shopping list rows: ONE number (what to buy + price). Real-cost-per-row = future Pro toggle, NOT default.
-- Ingredient standard: name = what you buy (matches PRICE_DB); one ingredient per line, no "+" lines; prep goes in method, not the name.
-- Never guess a price — an unresolved name returns null and the caller hides the figure.
+- **Portion model (LOCKED, Standard v1.8 §6.1):** cut-based via `braaiBaseG`; never per-meat `soloG`/`sharedG`; kebabs = raw boneless meat; braai tier boneless 300 / bone-in 400 / fish 280 / shellfish 320; grazing taper 100/70/58/50.
+- **Plan dish-row (LOCKED, Standard §4c):** name + grams total under name + GREEN per-dish food-cost total on the right; gold reserved for the shopping list; built once in a shared renderer (§6.4) so Braai & WK can't drift.
+- **Green-box note (LOCKED):** "This food cost is for costing only — it's not the same as the cost at the grocery store."
+- Never guess a price — unresolved name → null → the figure is hidden.
 
 ## START HERE next conversation
-1. Curl both `TINZA_STANDARD.md` and this `TINZA_HANDOFF.md` from repo root BEFORE touching code. Standard takes precedence over chat.
-2. Confirm the 3 files pushed & live looks right: open My Plan with fillet + brisket + kudu -> each shows a **different** per-dish total (no identical numbers, no gold pp on rows); walnut lines price.
-3. Then work the "Next up" list in order: ingredients-both -> green food-cost strip -> salad/dressing split.
-4. Live site: tinza.netlify.app / repo tinavdw/tinza / fetch files via curl from raw.githubusercontent.com.
+1. Curl both `TINZA_STANDARD.md` (now v1.8) and this `TINZA_HANDOFF.md` from repo root BEFORE touching code. Standard wins over chat.
+2. Confirm live after pushing core.js + braai.js: (a) My Plan with 3 boneless mains → each reads the same ~1.7kg (10 people), kebab no longer over-counts, green food cost on each row; (b) open a meat recipe → green box shows the same grams as the plan + Food cost R__ pp · R__ total + the note.
+3. Then work Next-up in order: herbs/spices price list (+ bacon) → sides/other-section cost strip → World Kitchen.
+4. Live site: tinza.netlify.app · repo tinavdw/tinza · fetch via curl from raw.githubusercontent.com.

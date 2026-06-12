@@ -149,7 +149,7 @@ function braaiMeatCostPP(meat){
   if(!key || typeof proteinCostPP!=="function") return null;
   const ap = (typeof APPETITE!=="undefined" && APPETITE[S.appetite] ? APPETITE[S.appetite].mult : 1);
   const base = (typeof braaiBaseG==="function" ? braaiBaseG(meat) : meat.soloG);
-  const g = meat.unit==="g" ? base*ap : (meat.soloPcs||1)*(meat.gramEach||100)*ap;
+  const g = base*ap;   // raw meat by CUT base — kebabs counted raw, not the skewer
   return proteinCostPP(key, Math.round(g));   // standalone full portion, bone-aware
 }
 function braaiSideCostPP(side){

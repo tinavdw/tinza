@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.7 · updated 12 Jun 2026 (**plan dish-rows now carry a green per-dish food-cost TOTAL on the right §4c** — grams under name, green cost on right, gold reserved for shopping; Braai wired first, WK to follow via shared renderer). Earlier: Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4; bone-aware portions §6.1. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.8 · updated 12 Jun 2026 (**braai portions re-locked §6.1** — bone-aware tier bumped up: boneless 300/bone-in 400/fish 280/shellfish 320; `calcMeat` now cut-based via `braaiBaseG` so same cut = same grams and kebabs count as RAW meat not the skewer; new grazing taper 100/70/58/50 replaces the old 350g-constant). Earlier: plan dish-rows green food-cost TOTAL §4c; Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -130,14 +130,18 @@ Portion (and therefore cost) derives from a recipe's **CUT type**, never a magic
 
 | cut | everyday `PORTION` (g) | braai `PORTION_BRAAI` (g) |
 |---|---|---|
-| boneless | 180 | 250 |
-| bone-in | 250 | 325 |
-| fish | 160 | 200 |
-| shellfish | 180 | 250 |
+| boneless | 180 | **300** |
+| bone-in | 250 | **400** (≈⅓ is bone you buy but don't eat) |
+| fish | 160 | **280** |
+| shellfish | 180 | **320** |
 | veg (main) | 200 | 250 |
 | side 150 · dessert 120 · starter 60 · drink 0 | — | — |
 
-**Every recipe carries its `cut`** so portion + cost stay consistent everywhere (Braai uses `BRAAI_CUT` map; other sections tag per recipe as they're touched; **World Braai is built bone-aware from the start**). Spread at plan level (mains 100/65/50%, sides taper to 50%, floors stop tiny portions). +10% buffer. Appetite toggle Big/Normal/Small. A Profile "smaller braai portions" option scales the braai tier down for light eaters. Drinks per-guest. Excludes Budget/Tiny/Furry/Anchor.
+**The braai tier was bumped up 12 Jun 2026** — people graze a lot off the grill, especially when drinking. These are generous on purpose.
+
+**Cut-based, never per-meat magic (LOCKED 12 Jun).** `calcMeat()` reads each meat's grams from `braaiBaseG(meat)` → `BRAAI_CUT[id]` → `PORTION_BRAAI`. It does NOT read per-meat `soloG`/`sharedG` or `pcs × gramEach`. So **same cut always lands on the same grams**, and **kebabs / anything "on a stick" are counted as RAW boneless meat — never the whole skewer.** Cost (`braaiMeatCostPP`) reads the same base, so the R and the grams can't disagree. (Old per-meat `soloG`/`sharedG` are now ignored — do not re-wire them.)
+
+**Grazing taper (LOCKED — replaces the old "350g constant" / "100/65/50 pyramid").** Each meat gets an **equal share** (so same cut always matches), but the TOTAL climbs with variety: 1 meat → 100% · 2 → 70% each · 3 → 58% each · 4+ → 50% each (`meatSpreadMult`). Worked: 10 people, 3 boneless mains = **1.7kg each** (174g pp). Solo = 3.0kg (300g pp). Sides taper separately (`sideSpreadMult`). +10% buffer. Appetite toggle Big/Normal/Small multiplies on top. A Profile "smaller braai portions" option scales the braai tier down for light eaters. Drinks per-guest. Excludes Budget/Tiny/Furry/Anchor.
 
 **Meat cut guide (all sections):** slow/potjie → lamb shoulder/neck/shank, pork shoulder, beef chuck/shin/brisket · grill → lamb loin/leg, pork neck, beef rump/sirloin · quick → pork loin, beef rump · roast → leg joints.
 
