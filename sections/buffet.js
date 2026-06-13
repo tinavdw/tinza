@@ -1139,7 +1139,7 @@ function buffetStep8(){
       + '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">'+r.name+'</div>'
       + (r.costPP ? '<div style="font-size:13px;color:#c0915a;margin-top:4px;">~R'+r.costPP+'/pp</div>' : '')
       + '</div>'
-      + '<span onclick="event.stopPropagation();openEvent(\"'+r.id+'\",\"sauce\")" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>'
+      + '<span onclick="event.stopPropagation();openRecipe(\"events\",\"'+r.id+'\")" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>'
       + '</div>';
   }).join('');
 

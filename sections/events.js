@@ -751,7 +751,7 @@ function eventsHTML(){
             <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
             <div style="font-size:13px;color:#e0d4b8;margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
           </div>
-          <span onclick="openEvent('${r.id}','finger')" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
+          <span onclick="openRecipe('events','${r.id}')" style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
         </div>`;
       }).join('')}
     </div>`;
@@ -1017,8 +1017,8 @@ function eventsHTML(){
     const bg = isSelected ? '#2a1808' : '#1a1208';
     const border = isSelected ? '#c06020' : '#3a2010';
     const check = isSelected ? '<span style="color:#c06020;font-size:16px;margin-right:6px;">✓</span>' : '';
-    const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : `openEvent('${r.id}','${type}')`;
-    const openAction = `openEvent('${r.id}','${type}')`;
+    const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : `openRecipe('events','${r.id}')`;
+    const openAction = `openRecipe('events','${r.id}')`;
 
     // Cost badge — removed fixed /pp, shows portion context for Pro
     let portionBadge = '';
@@ -1656,3 +1656,162 @@ function eventsHTML(){
 let _timerInterval = null;
 let _timerRemaining = 0;
 
+
+/* ═══════════════════════════════════════════════════════════════════
+   EVENTS → universal opener (Standard §4b). Migrated 13 Jun 2026.
+   Source resolves an id across every EVENTS_* array and tags it with the
+   plan key for its category; builder folds the caterer's quantity logic
+   (trays / tubs / shanks / ml / pcs / kg, bone-in) into the shared green
+   qtyBox, scales base300 through the shared ingredient row, and wires a
+   real Add-to-Plan toggle. No cook mode (Events never had one).
+   The old eventsRecipeView (buffet.js) + the if(aer) dispatch are now
+   dead code — left intact, parked for cull.
+   ═══════════════════════════════════════════════════════════════════ */
+function eventsAllGroups(){
+  var F = (typeof EVENTS_FINGER_FOODS!=='undefined') ? EVENTS_FINGER_FOODS : {};
+  var g = function(a){ return (typeof a!=='undefined' && a) ? a : []; };
+  return [
+    { a:g(typeof EVENTS_BIG_COOKING_MAINS!=='undefined'?EVENTS_BIG_COOKING_MAINS:null),  k:'eventSelectedMains' },
+    { a:g(typeof EVENTS_BIG_COOKING_SIDES!=='undefined'?EVENTS_BIG_COOKING_SIDES:null),  k:'eventSelectedSides' },
+    { a:g(typeof EVENTS_BIG_COOKING_SALADS!=='undefined'?EVENTS_BIG_COOKING_SALADS:null),k:'eventSelectedSalads' },
+    { a:g(typeof EVENTS_STARTERS!=='undefined'?EVENTS_STARTERS:null),                    k:'eventSelectedStarters' },
+    { a:g(typeof EVENTS_DESSERTS!=='undefined'?EVENTS_DESSERTS:null),                    k:'eventSelectedDesserts' },
+    { a:g(typeof EVENTS_CULTURAL!=='undefined'?EVENTS_CULTURAL:null),                    k:'eventSelectedCultural' },
+    { a:g(typeof EVENTS_SAUCES!=='undefined'?EVENTS_SAUCES:null),                        k:'eventSelectedFingers' },
+    { a:F.meaty||[],   k:'eventSelectedFingers' },
+    { a:F.pastry||[],  k:'eventSelectedFingers' },
+    { a:F.sweet||[],   k:'eventSelectedFingers' },
+    { a:F.veggie||[],  k:'eventSelectedFingers' },
+    { a:F.savoury||[], k:'eventSelectedFingers' }
+  ];
+}
+function eventsResolve(id){
+  var groups = eventsAllGroups();
+  for(var gi=0; gi<groups.length; gi++){
+    var found = groups[gi].a.find(function(x){ return x && x.id===id; });
+    if(found){ var copy = Object.assign({}, found); copy._planKey = groups[gi].k; return copy; }
+  }
+  return null;
+}
+
+function eventsRecipeOpts(r, guests){
+  if(!r) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
+  guests = guests || 20;
+  var emoji   = r.emoji || '\uD83C\uDF7D\uFE0F';
+  var planKey = r._planKey || 'eventSelectedFingers';
+
+  function fmtAmt(n, unit){
+    var v = Math.round(n*10)/10;
+    if((unit==='g'||unit==='ml') && v>=1000) return (Math.round(v/100)/10) + (unit==='g'?'kg':'L');
+    return v + (unit||'');
+  }
+  function parseFrac(s){
+    var f={'\u00BC':0.25,'\u00BD':0.5,'\u2153':0.333,'\u2154':0.667,'\u00BE':0.75,'\u215B':0.125};
+    if(f[s]!=null) return f[s];
+    if(String(s).indexOf('/')>-1){ var p=String(s).split('/'); return parseFloat(p[0])/parseFloat(p[1]); }
+    return parseFloat(s)||null;
+  }
+  // "X<unit> per person" scalers → {pp,total,rest} (ported from eventsRecipeView)
+  function scaleA(a){
+    if(!a) return null; var m;
+    if((m=a.match(/^(\d+(?:\.\d+)?)\s*(g|ml|kg|L)\s+per\s+p(?:erson|ortion)/i))){
+      var t=parseFloat(m[1])*guests; var rest=a.slice(m[0].length).replace(/^\s*[,(]?/,'').trim();
+      return {pp:m[1]+m[2]+' pp', total:fmtAmt(t,m[2]), rest:rest}; }
+    if((m=a.match(/^(\d+(?:\.\d+)?)\s+(slices?|pieces?|portions?|scoops?|cups?)\s+per\s+p(?:erson|ortion)/i))){
+      var t2=Math.round(parseFloat(m[1])*guests); return {pp:m[1]+' '+m[2]+' pp', total:t2+' '+m[2]+' total', rest:a.slice(m[0].length).trim()}; }
+    if((m=a.match(/^(\d+(?:\.\d+)?)\s+(tbsp|tsp)\s+per\s+p(?:erson|ortion)/i))){
+      var ml=m[2].toLowerCase()==='tbsp'?15:5; var t3=Math.round(parseFloat(m[1])*ml*guests);
+      return {pp:m[1]+' '+m[2]+' pp', total:fmtAmt(t3,'ml'), rest:a.slice(m[0].length).trim()}; }
+    if((m=a.match(/^(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)/i))){
+      var t4=Math.round(parseFloat(m[1])*guests); return {pp:m[1]+' pp', total:t4+' total', rest:a.slice(m[0].length).trim()}; }
+    if((m=a.match(/^([\u00BC\u00BD\u2153\u2154\u00BE\u215B]|\d+\/\d+)\s*per\s+p(?:erson|ortion)/i))){
+      var fr=parseFrac(m[1]); var t5=fr?Math.ceil(fr*guests):null;
+      return t5!=null?{pp:m[1]+' pp', total:t5+' total', rest:a.slice(m[0].length).trim()}:null; }
+    return null;
+  }
+
+  // ── QUANTITY folded into the shared green qtyBox (total + ppLine + info) ──
+  var qTotal='', qPP='', qInfo='';
+  var pp = r.perPerson;
+  if(pp){
+    var u = String(pp.unit||'g'), meat = pp.meat;
+    if(u==='ml'||u==='L'){ qTotal=(meat*guests/1000).toFixed(1)+'L'; qPP=meat+'ml per person'; }
+    else if(u.indexOf('ice cream')>-1){ qTotal=(meat*guests/1000)+'kg'; qPP=meat+'g per person';
+      qInfo='\uD83C\uDF68 Buy '+Math.ceil(guests/10)+' \u00D7 2L tubs OR '+Math.ceil(guests/25)+' \u00D7 5L bulk tubs'; }
+    else if(u==='shank'){ qTotal=guests+' shanks'; qPP='1 shank per person'; }
+    else if(u.indexOf('tray')>-1){ var trays=Math.ceil(guests/20); qTotal=trays+' tray'+(trays>1?'s':'')+' ('+guests+' portions)';
+      qPP='1 tray = 20 portions'; qInfo='Scale each ingredient \u00D7 '+trays; }
+    else if(u==='pcs'||u==='pieces'){ qTotal=Math.round(meat*guests)+' pieces'; qPP=meat+' per person'; }
+    else { qTotal=(meat*guests/1000).toFixed(1)+'kg'; qPP=meat+'g per person';
+      if(r.boneIn) qInfo='\uD83E\uDDB4 Bone-in \u2014 order '+(meat*guests*1.35/1000).toFixed(1)+'kg raw'; }
+  } else if(r.ppG){
+    var tg=r.ppG*guests; qTotal=(tg>=1000?(Math.round(tg/100)/10)+(r.ppG<5?'L':'g'):tg+'g'); qPP=r.ppG+'g per person';
+  } else { qPP='scaled below'; }
+  if(r.costPP){
+    var ctot=Math.round(r.costPP*guests);
+    var costLine='\uD83D\uDCB0 Food cost: <b style="color:#c8e840;">R'+r.costPP+'</b> pp \u00B7 <b style="color:#c8e840;">R'+ctot.toLocaleString()+'</b> total'
+      +'<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>';
+    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+costLine+'</div>') : costLine;
+  }
+  var qtyHTML = qtyBox({
+    label:'How Much To Make', sub: guests+' guests', total:qTotal, ppLine:qPP, n:guests, info:qInfo,
+    decJs:"set({eventGuests:Math.max(1,(S.eventGuests||20)-1)})",
+    incJs:"set({eventGuests:Math.min(500,(S.eventGuests||20)+1)})"
+  });
+
+  // ── INGREDIENTS (shared ingredientsBox/ingredientRow) ──
+  var ingRows='';
+  if(r.base300 && r.base300.length){
+    var hasPP = r.base300.some(function(i){ return i && i.pp!=null; });
+    var isSauceDip = hasPP && !r.makes;
+    ingRows = r.base300.map(function(i){
+      if(!i || !i.n) return '';
+      if(hasPP && i.pp!=null){
+        var unit=i.u||''; var word=isSauceDip?'pp':'per piece';
+        return ingredientRow(i.n, '<span style="color:#e0d4b8;font-size:13px;font-weight:normal;">'+i.pp+unit+' '+word+' \u00B7 </span>'+fmtAmt(i.pp*guests,unit)+' total', '');
+      }
+      if(!i.a) return ingredientRow(i.n, '', '');
+      var sc=scaleA(i.a);
+      if(sc) return ingredientRow(i.n, '<span style="color:#e0d4b8;font-size:13px;font-weight:normal;">'+sc.pp+' \u00B7 </span>'+sc.total, sc.rest||'');
+      return ingredientRow(i.n, '<span style="color:#e0d4b8;font-size:13px;font-style:italic;font-weight:normal;">'+i.a+'</span>', '');
+    }).join('');
+  } else if(r.pantry && r.pantry.length){
+    ingRows = r.pantry.map(function(p){ return ingredientRow(p, '', ''); }).join('');
+  }
+  var ingredientsHTML = ingRows ? ingredientsBox(ingRows, guests) : '';
+
+  // ── METHOD (no cook mode) ──
+  var methodHTML='';
+  if(r.method && r.method.length){
+    var stepsHTML = r.method.map(function(s,i){ return methodStep(i, s, ''); }).join('');
+    methodHTML = methodBox(stepsHTML, '');
+  }
+
+  // ── EXTRAS: tip + ml/person line ──
+  var extras='';
+  if(r.tip) extras += '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;"><span style="color:#c06020;">\uD83D\uDCA1 TIP: </span>'+r.tip+'</div>';
+  if(r.mlPerPerson) extras += '<div style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;">\uD83E\uDD44 '+r.mlPerPerson+'ml per person \u00B7 '+(r.mlPerPerson*guests/1000).toFixed(1)+'L for '+guests+' guests</div>';
+
+  // ── ACTIONS: real plan toggle for this dish's category ──
+  var inPlan = ((S[planKey]||[]).indexOf(r.id) >= 0);
+  var addJs  = "set({"+planKey+":toggle(S."+planKey+"||[],'"+r.id+"')})";
+  var planCount = (S[planKey]||[]).length;
+
+  return {
+    photoName:r.name, photoEmoji:emoji,
+    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    name:r.name, sub:(r.region||''),
+    meta:{ time: r.time?(r.time+' min'):'', kcal:r.kcal },
+    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    actions:{ addJs:addJs, inPlan:inPlan },
+    nav:{ backJs:"closeRecipe()", planJs:"closeRecipe()", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.events = function(id){ return eventsResolve(id); };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.events = function(item, recipe, vr){ return eventsRecipeOpts(item, (S.eventGuests||20)); };
+}
