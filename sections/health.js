@@ -143,7 +143,6 @@ const OVERNIGHT_OATS = [
    shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Cocoa powder',pp:10,u:'g'},{n:'Milk',pp:160,u:'ml'},{n:'Honey',pp:15,u:'g'},{n:'Hazelnuts (chopped)',pp:20,u:'g'},{n:'Banana',pp:60,u:'g'}],
    method:['Whisk cocoa into milk until dissolved.','Add oats, honey and banana. Stir well.','Refrigerate overnight.','Top with chopped hazelnuts before serving.'],
    tip:'Toast the hazelnuts in a dry pan for 3 minutes — completely transforms the flavour.'},
-,
   {id:'oa_bircher',     tier:'free',  emoji:'🍎', name:'Bircher Muesli',               kcal:340, costPP:18, makes:1,
    howItFeels:'Classic Swiss breakfast energy — creamy, apple-bright and clean.',
    shopping:[{n:'Rolled oats',pp:60,u:'g'},{n:'Apple juice',pp:120,u:'ml'},{n:'Apple (grated)',pp:80,u:'g'},{n:'Plain yoghurt',pp:50,u:'g'},{n:'Honey',pp:8,u:'g'},{n:'Mixed nuts (chopped)',pp:15,u:'g'}],
@@ -186,7 +185,6 @@ const HEALTHY_MUFFINS = [
    shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Cooked beetroot (grated)',pp:25,u:'g'},{n:'Cocoa powder',pp:5,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Honey',pp:10,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Dark chocolate chips',pp:10,u:'g'}],
    method:['Preheat oven 180°C.','Mix egg, oil and honey. Add grated beetroot.','Fold in flour, cocoa and baking powder.','Add chocolate chips.','Fill muffin tin ¾ full. Bake 20–24 min.'],
    tip:'Beetroot keeps these muffins moist for 3+ days. Wrap individually for lunchboxes.'},
-,
   {id:'mu_appleoat',    tier:'free',  emoji:'🍎', name:'Spiced Apple & Oat',          kcal:155, costPP:9, makes:12,
    howItFeels:'Warm spice and apple — smells like autumn, tastes like a good decision.',
    shopping:[{n:'Cake flour',pp:18,u:'g'},{n:'Rolled oats',pp:15,u:'g'},{n:'Apple (grated)',pp:25,u:'g'},{n:'Egg',pp:0.1,u:''},{n:'Oil',pp:5,u:'ml'},{n:'Brown sugar',pp:10,u:'g'},{n:'Cinnamon',pp:0.8,u:'g'},{n:'Baking powder',pp:0.4,u:'g'},{n:'Milk',pp:10,u:'ml'}],
@@ -296,25 +294,131 @@ const RAW_AND_REAL = [
    tip:'The date in the marinara is the secret — it cuts the acidity and gives depth without any cooking.'},
 ];
 
-function healthOpenJuice(id){
-  const j = FRESH_JUICES.find(x=>x.id===id);
-  if(j) set({activeSmoothie:{...j, colour:'#f5c842', cat:'freshjuice'}});
+// ── UNIVERSAL OPENER WIRING (Standard §8 spine) ──────────────────
+// One finder across every health sub-type → {item, type, cat}. The
+// inner `x &&` guards array holes so a stray comma can never crash it.
+function healthFind(id){
+  var reg = [
+    ['juice','freshjuice', typeof FRESH_JUICES!=='undefined'?FRESH_JUICES:[]],
+    ['smoothie','smoothie', typeof SMOOTHIES!=='undefined'?SMOOTHIES:[]],
+    ['oats','oats', typeof OVERNIGHT_OATS!=='undefined'?OVERNIGHT_OATS:[]],
+    ['muffin','muffin', typeof HEALTHY_MUFFINS!=='undefined'?HEALTHY_MUFFINS:[]],
+    ['raw','raw', typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[]],
+    ['health','health', typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[]],
+    ['health','health', typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[]],
+    ['health','health', typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[]],
+    ['health','health', typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[]],
+    ['health','health', typeof VEGETARIAN_RECIPES!=='undefined'?VEGETARIAN_RECIPES:[]],
+    ['health','health', typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[]],
+    ['health','health', typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[]],
+    ['health','health', typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[]],
+    ['health','health', typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[]],
+    ['health','health', typeof FERMENTED_RECIPES!=='undefined'?FERMENTED_RECIPES:[]]
+  ];
+  for(var k=0;k<reg.length;k++){
+    var arr = reg[k][2];
+    for(var i=0;i<arr.length;i++){ var x=arr[i]; if(x && x.id===id) return {item:x, type:reg[k][0], cat:reg[k][1]}; }
+  }
+  return null;
 }
-function healthOpenSmoothie(id){
-  const sm = SMOOTHIES.find(x=>x.id===id);
-  if(sm) set({activeSmoothie:sm});
+
+function healthOpenJuice(id){ openRecipe('health', id); }
+function healthOpenSmoothie(id){ openRecipe('health', id); }
+function healthOpenOats(id){ openRecipe('health', id); }
+function healthOpenMuffin(id){ openRecipe('health', id); }
+function healthOpenRaw(id){ openRecipe('health', id); }
+
+/* ── HEALTH RECIPE → shared recipePage opts (Standard §4b) ──
+   One builder for every health sub-type. Feeds the shared shells
+   (sectionHeader photo 200px · qtyBox · ingredientsBox · methodBox ·
+   goesWellBox · recipeActions · recipeNav) — no bespoke chrome. */
+function healthRecipeOpts(recipe){
+  if(!recipe) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'← Back',
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
+  var srv = S.servings||1;
+  var found = (typeof healthFind==='function') ? healthFind(recipe.id) : null;
+  var rtype = (found && found.type) || recipe.cat || recipe.type || 'health';
+  var inPlan = (S.healthPlan||[]).some(function(x){return x.id===recipe.id;});
+  var ings = recipe.base300 || recipe.shopping || [];
+
+  function fmt(v,u){
+    if(u==='pinch') return 'pinch';
+    var r = Math.round(v*10)/10;
+    if(u==='g' && r>=1000) return (r/1000).toFixed(1)+'kg';
+    if(u==='ml' && r>=1000) return (r/1000).toFixed(1)+'L';
+    return r+(u||'');
+  }
+  var ingRows = ings.map(function(i){
+    if(!i||!i.n) return '';
+    var pp=i.pp||0, amt;
+    if(i.u==='pinch'){ amt='pinch'; }
+    else if(!pp){ amt=''; }
+    else if(srv===1){ amt=fmt(pp,i.u); }
+    else { amt='<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+fmt(pp,i.u)+' pp \u00b7 </span>'+fmt(pp*srv,i.u); }
+    return ingredientRow(i.n, amt, '');
+  }).join('');
+  var ingredientsHTML = ingredientsBox(ingRows || '<div style="color:#e0d4b8;font-size:14px;">No ingredients listed.</div>', srv);
+
+  // green qty box food cost — costPP if present, else summed from PRICE_DB (hcLineCost)
+  var cpp=null, ctot=null;
+  if(recipe.costPP){ cpp=recipe.costPP; ctot=recipe.costPP*srv; }
+  else if(typeof hcLineCost==='function'){
+    var t=0,m=0; ings.forEach(function(i){ if(!i||!i.n||!i.pp) return; var c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
+    if(m>0){ ctot=Math.round(t); cpp=srv>0?Math.round(ctot/srv):ctot; }
+  }
+  var costInfo = (cpp!=null)
+    ? '\uD83D\uDCB0 Food cost: <b style="color:#c8e840;">R'+cpp+'</b> pp \u00b7 <b style="color:#c8e840;">R'+ctot.toLocaleString()+'</b> total'
+      + '<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>'
+    : '';
+  var qtyHTML = qtyBox({
+    label:'How Much To Make', total: srv+' '+(srv===1?'serving':'servings'),
+    ppLine: recipe.kcal ? (recipe.kcal+' kcal per person') : '',
+    n: srv, info: costInfo,
+    decJs:"set({servings:Math.max(1,(S.servings||1)-1)})",
+    incJs:"set({servings:Math.min(50,(S.servings||1)+1)})"
+  });
+
+  var steps = recipe.method || [];
+  var stepsHTML = steps.map(function(s,si){ return methodStep(si, String(s), hcStepTimer(s)); }).join('');
+  var methodHTML = steps.length ? methodBox(stepsHTML, "set({healthCooking:{id:'"+recipe.id+"',step:0}});window.scrollTo(0,0);") : '';
+
+  var notesHTML = (recipe.badges && recipe.badges.length)
+    ? recipeBox('', '<div style="display:flex;flex-wrap:wrap;gap:6px;">'+recipe.badges.map(function(b){return '<span style="background:#2a1a10;border:1px solid #3a2010;border-radius:20px;padding:4px 10px;font-size:13px;color:#c06020;">'+b+'</span>';}).join('')+'</div>')
+    : '';
+
+  var extrasHTML = recipe.tip ? recipeBox('\uD83D\uDCA1 Tip', '<div style="font-size:16px;color:#f0ebe1;line-height:1.6;">'+recipe.tip+'</div>') : '';
+
+  var g = recipe.goesWith || recipe.pairsWith;
+  var gww = !g ? [] : (Array.isArray(g)? g.slice() : String(g).split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean));
+
+  var isSub = (rtype==='juice'||rtype==='smoothie'||rtype==='oats'||rtype==='muffin'||rtype==='raw');
+  var addJs = isSub
+    ? "healthToggleById('"+recipe.id+"','"+rtype+"',S.servings)"
+    : "healthToggleExtById('"+recipe.id+"')";
+
+  return {
+    photoName: recipe.name, photoEmoji: recipe.emoji||'\uD83C\uDF3F',
+    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    name: recipe.name,
+    sub: (recipe.feel||recipe.howItFeels||''),
+    meta: { kcal: recipe.kcal },
+    qtyHTML: qtyHTML,
+    ingredientsHTML: ingredientsHTML,
+    notesHTML: notesHTML,
+    methodHTML: methodHTML,
+    goesWith: gww,
+    extrasHTML: extrasHTML,
+    actions: { addJs: addJs, inPlan: inPlan },
+    nav: { backJs:"closeRecipe()", planJs:"closeRecipe({healthShowPlan:true})", planCount:(S.healthPlan||[]).length, homeJs:"closeRecipe({screen:'home'})" }
+  };
 }
-function healthOpenOats(id){
-  const oa = OVERNIGHT_OATS.find(x=>x.id===id);
-  if(oa) set({activeOats:oa});
+
+// register Health on the universal opener — reachable/cross-linkable from any section
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.health = function(id){ var f=(typeof healthFind==='function')?healthFind(id):null; return f?f.item:null; };
 }
-function healthOpenMuffin(id){
-  const mu = HEALTHY_MUFFINS.find(x=>x.id===id);
-  if(mu) set({activeMuffin:mu});
-}
-function healthOpenRaw(id){
-  const rw = RAW_AND_REAL.find(x=>x.id===id);
-  if(rw) set({activeRaw:rw});
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.health = function(item, recipe, vr){ return healthRecipeOpts(item); };
 }
 
 function healthTogglePlan(id, name, emoji, type, kcal, shopping, servings){
@@ -710,23 +814,10 @@ function healthRecipeDetail(recipe, backState){
 }
 
 function healthOpenExt(id, arrName, grp, tab){
-  const arrMap = {
-    'KETO_RECIPES':typeof KETO_RECIPES!=='undefined'?KETO_RECIPES:[],
-    'WEIGHTLOSS_RECIPES':typeof WEIGHTLOSS_RECIPES!=='undefined'?WEIGHTLOSS_RECIPES:[],
-    'HIGHPROTEIN_RECIPES':typeof HIGHPROTEIN_RECIPES!=='undefined'?HIGHPROTEIN_RECIPES:[],
-    'PLANTBASED_RECIPES':typeof PLANTBASED_RECIPES!=='undefined'?PLANTBASED_RECIPES:[],
-    'VEGETARIAN_RECIPES':typeof VEGETARIAN_RECIPES!=='undefined'?VEGETARIAN_RECIPES:[],
-    'RAW_AND_REAL':typeof RAW_AND_REAL!=='undefined'?RAW_AND_REAL:[],
-    'GUTHEALTH_RECIPES':typeof GUTHEALTH_RECIPES!=='undefined'?GUTHEALTH_RECIPES:[],
-    'DIABETIC_RECIPES':typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[],
-    'FERMENTED_RECIPES':typeof FERMENTED_RECIPES!=='undefined'?FERMENTED_RECIPES:[],
-    'IMMUNITY_RECIPES':typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[],
-    'ANTIINFLAM_RECIPES':typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[],
-  };
-  const arr = arrMap[arrName]||[];
-  const item = arr.find(x=>x.id===id);
-  if(!item) return;
-  set({activeHealthExt:{...item, feel:item.feel||item.howItFeels||'', base300:item.base300||item.shopping||[]}, activeHealthExtBack:{healthGroup:grp,healthGroupTab:tab}, healthGroup:grp, healthGroupTab:tab});
+  // universal opener: snapshot the group/tab we came from so Back returns there
+  var rt = (typeof snapshotNav==='function') ? snapshotNav() : {};
+  rt.screen='health'; rt.healthGroup=grp; rt.healthGroupTab=tab;
+  openRecipe('health', id, {returnTo: rt});
 }
 
 // ── braai/World-parity helpers (timer pills, cooking mode, grid tiles) ──
@@ -752,13 +843,16 @@ function hcGridCard(emoji, label, sub, onclick, accent){
 // fullscreen step-by-step cooking mode (self-contained, health green)
 function healthCookingView(recipe){
   var acc='#c06020', bright='#f5c842', cream='#f5e8cc';
+  var c = S.healthCooking || {step:0};
+  // Resolved at draw level with no arg → find the recipe from the saved id.
+  if(!recipe && c.id && typeof healthFind==='function'){ var _f=healthFind(c.id); if(_f) recipe=_f.item; }
+  var rid = (recipe && recipe.id) || c.id || '';
   var steps = (recipe && recipe.method) || [];
   if(!steps.length){
     return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
       + '<button onclick="set({healthCooking:null})" style="background:none;border:none;color:'+acc+';cursor:pointer;font-size:13px;">\u2715 Exit cooking mode</button>'
       + '<p style="margin-top:20px;">No method steps for this recipe yet.</p></div>';
   }
-  var c = S.healthCooking || {step:0};
   var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
   var step = String(steps[idx]||'');
   var tp = hcStepTimer(step);
@@ -777,10 +871,10 @@ function healthCookingView(recipe){
     +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:#2a1808;border:1px solid '+acc+';border-radius:8px;color:'+bright+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
     + '</div>'
     + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   (idx>0 ? '<button onclick="set({healthCooking:{step:'+(idx-1)+'}});window.scrollTo(0,0);" style="flex:1;padding:14px;border-radius:12px;background:#1a1208;border:1px solid '+acc+';color:'+bright+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
+    +   (idx>0 ? '<button onclick="set({healthCooking:{id:\''+rid+'\',step:'+(idx-1)+'}});window.scrollTo(0,0);" style="flex:1;padding:14px;border-radius:12px;background:#1a1208;border:1px solid '+acc+';color:'+bright+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
     +   (last
         ? '<button onclick="set({healthCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+acc+';border:1px solid '+acc+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
-        : '<button onclick="set({healthCooking:{step:'+(idx+1)+'}});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+acc+';border:1px solid '+acc+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next \u2192</button>')
+        : '<button onclick="set({healthCooking:{id:\''+rid+'\',step:'+(idx+1)+'}});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+acc+';border:1px solid '+acc+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next \u2192</button>')
     + '</div>'
     + '</div>';
 }
