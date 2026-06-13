@@ -1,0 +1,37 @@
+flowchart TD
+    DONE([✅ THIS SESSION · LIVE & WORKING<br/>Braai Start-Cooking fixed + polished]) --> D1[Button alive<br/>core.js ~2124 · set braaiCooking<br/>replaces dead openCookingMode]
+    DONE --> D2[Draw route ~391<br/>beside wkCooking/healthCooking]
+    DONE --> D3[braaiCookingView<br/>re-resolves by id · steps<br/>progress · tappable timers]
+    DONE --> D4[Polish: centred · 23px text<br/>long-step margin:auto scroll]
+    D1 & D2 & D3 & D4 --> CHK[node --check ✓ · smoke ✓<br/>2267→2322 lines · confirmed live ✓]
+
+    CHK --> NEXT[NEXT QUEUE]
+    NEXT --> N1[1 · EVENTS migration<br/>braai cook mode = template]
+    N1 --> N2[2 · MEALS migration<br/>+ kill stray Search box · gliding scales]
+    N2 --> N3[3 · BREADS? confirm on spine]
+    N3 --> N4[4 · Cross-links]
+
+    NEXT --> PC[PARKED · cook-mode consistency NEW]
+    PC --> PC1[Apply centre+23px+long-step fix<br/>to wkCookingView + healthCookingView]
+    PC --> PC2[Collapse 3 cook views into<br/>ONE shared cookingView in core.js]
+
+    NEXT --> CM[PARKED · community ideas NEW · feedfeed]
+    CM --> CM1[Made it! photo on recipe page]
+    CM --> CM2[Community recipe lane + badge]
+    CM --> CM3[What SA's cooking this week<br/>from own activity · no social plumbing]
+    CM --> CM4[⚠ borrow engine NOT ad model<br/>Tinza = sub · no ads ever]
+
+    NEXT --> PARK[PARKED · after migrations]
+    PARK --> P1[Dead-code cull · old renderers]
+    PARK --> P2[WK content: warm palette · Asia spices<br/>India gaps · mixed-meat cuts]
+    PARK --> P3[Costing: PACK_DB buy-number<br/>Pantry group · shared renderer]
+    PARK --> P4[howThisFeels soul pass · LAST]
+    PARK --> P5[Tina leads: Spice shelves]
+    PARK --> P6[Solo: Budget engine · Global Search]
+
+    style DONE fill:#1a2208,stroke:#6a8020,color:#c8e840
+    style CHK fill:#161210,stroke:#6a8020,color:#c8e840
+    style NEXT fill:#161210,stroke:#f5c842,color:#f5c842
+    style PC fill:#1a1208,stroke:#c06020,color:#f5e8cc
+    style CM fill:#1a1208,stroke:#c06020,color:#f5e8cc
+    style PARK fill:#0f0e0c,stroke:#c0915a,color:#e0d4b8
