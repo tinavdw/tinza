@@ -596,6 +596,49 @@ function calcSideCost(side){
 // BUY number the moment PACK_DB is live. Never fake a price — an unresolved
 // name returns null and the caller HIDES the figure (same as World).
 var PRICE_ALIAS = {
+  "chips":"potato",
+  "lamb chops":"lamb braai chops",
+  "fries":"potato",
+  "flatbread":"bread",
+  "crayfish":"prawns",
+  "prawn meat":"prawns",
+  "gherkins":"pickles",
+  "gherkin":"pickles",
+  "berbere":"garam masala",
+  "niter kibbeh":"ghee",
+  "lime juice":"lemon juice",
+  "bay leaf":"bay leaves",
+  "apple":"apples",
+  "coconut":"coconut flakes",
+  "grated coconut":"coconut flakes",
+  "sultanas":"raisins",
+  "stewing lamb shoulder or neck":"lamb neck",
+  "lamb shoulder cubed":"lamb neck",
+  "zucchini":"baby marrow",
+  "courgette":"baby marrow",
+  "aubergine":"brinjal",
+  "eggplant":"brinjal",
+  "oregano":"origanum",
+  "marjoram":"origanum",
+  "plain flour":"cake flour",
+  "all purpose flour":"cake flour",
+  "spanspek":"melon",
+  "shrimp":"prawns",
+  "prawn":"prawns",
+  "wine":"white wine",
+  "ketchup":"tomato sauce",
+  "mayo":"mayonnaise",
+  "vanilla":"vanilla essence",
+  "filo":"phyllo pastry",
+  "filo pastry":"phyllo pastry",
+  "fish stock":"stock",
+  "chicken stock":"stock",
+  "vegetable stock":"stock",
+  "veg stock":"stock",
+  "broth":"stock",
+  "stewing lamb":"lamb neck",
+  "lamb shoulder":"lamb neck",
+  "lamb pieces":"lamb neck",
   "mince":"beef mince","lamb mince":"beef mince","beef or lamb mince":"beef mince",
   "fish":"hake","white fish":"hake","firm white fish":"hake","firm white fish hake":"hake",
   "cheese":"cheddar","cheddar cheese":"cheddar",
@@ -620,11 +663,17 @@ function priceOf(name){
   if(PRICE_DB[n]!=null) return out(n,PRICE_DB[n],'weight');
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)]!=null) return out(n.slice(0,-1),PRICE_DB[n.slice(0,-1)],'weight');
   if(PRICE_ALIAS[n] && PRICE_DB[PRICE_ALIAS[n]]!=null) return out(PRICE_ALIAS[n],PRICE_DB[PRICE_ALIAS[n]],'weight');
+  var n2 = n.replace(/\b(fresh|dried|frozen|ground|chopped|sliced|diced|minced|grated|cubed|crushed|raw|cooked|peeled)\b/g,' ').replace(/\s+/g,' ').trim();
+  if(n2 && n2!==n){
+    if(PRICE_DB[n2]!=null) return out(n2,PRICE_DB[n2],'weight');
+    if(n2.slice(-1)==='s' && PRICE_DB[n2.slice(0,-1)]!=null) return out(n2.slice(0,-1),PRICE_DB[n2.slice(0,-1)],'weight');
+    if(PRICE_ALIAS[n2] && PRICE_DB[PRICE_ALIAS[n2]]!=null) return out(PRICE_ALIAS[n2],PRICE_DB[PRICE_ALIAS[n2]],'weight');
+  }
   var best=null;
   for(var k in PRICE_DB){
     if(typeof PRICE_DB[k]!=='number') continue;
     var re = new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
-    if(re.test(n) && (!best || k.length>best.length)) best=k;
+    if((re.test(n) || (n2 && re.test(n2))) && (!best || k.length>best.length)) best=k;
   }
   if(best) return out(best,PRICE_DB[best],'weight');
   return null;

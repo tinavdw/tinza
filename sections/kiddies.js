@@ -11,6 +11,8 @@ function openKidsRecipe(name){
 
 // ── shared helpers ────────────────────────────────────────────────
 function kidsSlug(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+// #6: "icing butter"/"icing milk"/"icing cocoa" are just butter/milk/cocoa (not real products); keep real "icing sugar".
+function kidsKeyLabel(key){ const map={icing_butter:'butter',icing_milk:'milk',icing_cocoa:'cocoa'}; return (map[key]||String(key)).replace(/_/g,' '); }
 
 // clean display name: never show the word twice. Returns {name, extra}.
 // equal -> just label; descriptor fuller (e.g. "rainbow pasta") -> use it;
@@ -30,16 +32,16 @@ function kidsScaleRows(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
     const m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
     if(m){const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();const sc=Math.round(n*k/12*10)/10;
-      const nm=kidsName(key.replace(/_/g,' '),rest);
+      const nm=kidsName(kidsKeyLabel(key),rest);
       return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${nm.name}: <b style="color:#f5e8cc;">${sc}${u}</b>${nm.extra?` <span style="color:#af7345;">${nm.extra}</span>`:''}</div>`;}
-    return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${key.replace(/_/g,' ')}: <b style="color:#f5e8cc;">${val}</b></div>`;
+    return `<div style="font-size:13px;color:#d8c8a8;line-height:1.9;">· ${kidsKeyLabel(key)}: <b style="color:#f5e8cc;">${val}</b></div>`;
   }).join('');
 }
 
 // braai-style large ingredient rows for the recipe detail screen
 function kidsScaleRowsBig(base,k){
   return Object.entries(base||{}).map(([key,val])=>{
-    const label=key.replace(/_/g,' ');
+    const label=kidsKeyLabel(key);
     const m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
     if(m){
       const n=parseFloat(m[1]);const u=m[2]||'';const rest=(m[3]||'').trim();
@@ -570,8 +572,8 @@ function kidsConsolidate(items, k){
         part = part.trim(); if(!part) return;
         const m = part.match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?\s*(.*)$/i);
         let amt=null, unit='', name=part;
-        if(m && m[1]!==undefined){ amt=parseFloat(m[1]); unit=(m[2]||'').toLowerCase(); name=(m[3]||'').trim() || key.replace(/_/g,' '); }
-        else { name = part || key.replace(/_/g,' '); }
+        if(m && m[1]!==undefined){ amt=parseFloat(m[1]); unit=(m[2]||'').toLowerCase(); name=(m[3]||'').trim() || kidsKeyLabel(key); }
+        else { name = part || kidsKeyLabel(key); }
         let grams=null, count=null, liquid=false;
         if(amt!=null){
           const sc = amt * k / 12;

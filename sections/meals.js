@@ -151,6 +151,16 @@ var SUPPER_RECIPES = [
     nutrition:{kcal:560,protein_g:40,carbs_g:32,fat_g:28}, storage:'Keeps 3 days; slice cold for the best roast-beef sandwiches.'},
 ];
 
+var BAKES_RECIPES = [
+  // ── 🫓 FLATBREADS ──
+  {id:'bk-braai-flatbread', cat:'flatbreads', name:'Braai Flatbread', emoji:'🫓', cuisine:'South African', time:55, costPP:6,
+    feel:'Charred at the edges, soft and steamy inside — torn straight off the grid while everyone hovers.',
+    ingredients:[{n:'cake flour',pp:100,u:'g'},{n:'instant yeast',pp:2,u:'g'},{n:'sugar',pp:3,u:'g'},{n:'salt',pp:2,u:'g'},{n:'lukewarm water',pp:62,u:'ml'},{n:'sunflower oil',pp:10,u:'ml'}],
+    method:['Stir the flour, yeast, sugar and salt together in a bowl.','Make a well, pour in the lukewarm water and most of the oil, and mix to a soft, slightly sticky dough.','Knead on a floured surface for 6–8 minutes until smooth and springy, then cover and leave to prove in a warm spot for about 40 minutes, until doubled.','Knock back, divide into one ball per person, and press or roll each into a flat round about 1cm thick.','Cook over medium braai coals (or in a dry, hot pan) for 2–3 minutes a side, until puffed with charred spots.','Brush with the last of the oil or a little butter and serve warm, torn straight off the grid.'],
+    tip:'No braai going? A hot, dry cast-iron pan gives the same charred, puffy result on the stove.',
+    nutrition:{kcal:250,protein_g:7,carbs_g:48,fat_g:4}, storage:'Best fresh and warm; reheat next-day flatbreads on the braai or in a pan for a minute a side.'},
+];
+
 function mealSectionHTML(sectionKey){
   const configs = {
     breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:'savoury',e:'🍳',l:'Savoury & Cooked'},{id:'warm',e:'🥣',l:'Warm & Comforting'},{id:'sweet',e:'🥐',l:'Sweet & Baked'},{id:'fresh',e:'🍓',l:'Fresh & Light'},{id:'go',e:'🥤',l:'On the Go'}]},

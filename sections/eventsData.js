@@ -718,7 +718,7 @@ const EVENTS_STARTERS = [
   { id:"periperilivers", name:"Peri-Peri Chicken Livers", emoji:"🔥", costPP:9,
     perPerson:{meat:80,unit:"g"},
     base300:[{n:"Chicken livers (cleaned, trimmed)",a:"80g per person"},{n:"Peri-peri sauce",a:"5ml per person"},{n:"Crushed garlic",a:"3g per person"},{n:"Cream",a:"2 tbsp per 100g"},{n:"Butter",a:"1 tbsp per 100g"},],
-    method:["Trim any sinew or green patches from livers — green bits = bitter.","Heat pan until very hot. Add butter.","Flash-fry livers 2 min each side — they should still be slightly pink inside.","Add garlic and peri-peri. Toss. Add cream. Stir to coat.","Serve immediately in cast iron pan with crusty bread."],
+    method:["QUICK PERI-PERI (or use shop-bought — a Spice-section link is coming): blend 4 bird's-eye chillies, 2 garlic cloves, 60ml lemon juice, 30ml olive oil, 5ml paprika and a pinch of salt until smooth. Makes enough for ~6 portions.","Trim any sinew or green patches from livers — green bits = bitter.","Heat pan until very hot. Add butter.","Flash-fry livers 2 min each side — they should still be slightly pink inside.","Add garlic and peri-peri. Toss. Add cream. Stir to coat.","Serve immediately in cast iron pan with crusty bread."],
     tip:"Livers overcook in literally seconds. Slightly pink inside is perfectly safe and correct. Overcooked livers are grainy and bitter." },
   { id:"butternutsoup", name:"Roasted Butternut & Feta Soup", emoji:"🍲", costPP:8,
     perPerson:{meat:300,unit:"ml"},
@@ -740,9 +740,9 @@ const EVENTS_STARTERS = [
     tip:"The biltong + blue cheese combination is unexpected and always gets compliments. Don't skip the pear — it balances the richness." },
   { id:"melonprosciutto", name:"Melon & Prosciutto Platter", emoji:"🍈", costPP:20,
     perPerson:{meat:80,unit:"g"},
-    base300:[{n:"Spanspek or cantaloupe melon",a:"100g per person (1 melon serves 8)"},{n:"Prosciutto or parma ham",a:"40g per person"},{n:"Fresh mint",a:"1.5g per person"},{n:"Honey",a:"5ml per person"},,{n:"Optional: buffalo mozzarella",a:"20g per person"}],
-    method:["Slice melon into thin wedges. Remove skin.","Drape prosciutto loosely over melon slices.","Arrange on large platter with mozzarella if using.","Drizzle honey over. Add fresh mint and cracked black pepper.","Serve at room temperature — not fridge cold."],
-    tip:"This takes 10 min and looks spectacular. The sweet-salty combination never fails. Serve at room temperature for best flavour." },
+    base300:[{n:"Spanspek or cantaloupe melon (cubed or balled)",a:"100g per person"},{n:"Prosciutto or parma ham (MAIN — torn into ribbons)",a:"40g per person"},{n:"Buffalo mozzarella (torn)",a:"20g per person"},{n:"Fresh mint (chopped)",a:"1.5g per person"},{n:"Fresh basil (optional)",a:"0.75g per person"},{n:"Extra virgin olive oil",a:"6ml per person"},{n:"Honey",a:"3ml per person"},{n:"Lemon juice",a:"1.5ml per person"},{n:"White wine vinegar",a:"0.75ml per person"},{n:"Cracked black pepper & flaky sea salt",a:"to finish"}],
+    method:["DRESSING: whisk the honey, lemon juice, vinegar and a pinch of salt, then slowly stream in the olive oil until smooth and emulsified — do this ahead so the flavours meld.","Arrange the melon on the platter and tuck the torn mozzarella between the pieces.","Don't lay the prosciutto flat — fold the ribbons loosely to create height and texture.","Just before serving, drizzle the dressing evenly over the fruit and cheese.","Finish with the mint (and basil), a crack of black pepper and a light sprinkle of flaky sea salt.","Serve at room temperature — take it out 20–30 min before serving."],
+    tip:"Don't dress too early or the fruit weeps and the prosciutto goes soggy — drizzle within 10–15 min of serving. PRO ALTERNATIVE: add a drizzle of good balsamic glaze alongside the honey dressing — sweet honey and aged balsamic is a classic pairing with melon and ham." },
   { id:"bruschettatray", name:"Bruschetta Platter (3 ways)", emoji:"🍞", costPP:25,
     perPerson:{meat:3,unit:"pieces"},
     base300:[{n:"Sourdough or ciabatta bread",a:"3 slices per person"},{n:"Ripe tomatoes (for bruschetta)",a:"25g per person"},{n:"Fresh basil",a:"1.5g per person"},{n:"Avocados",a:"¼ per person"},{n:"Feta",a:"8g per person"},{n:"Mushrooms",a:"20g per person"},{n:"Brie cheese",a:"8g per person"}],
@@ -756,7 +756,7 @@ const EVENTS_STARTERS = [
       {n:"Cream",a:"60ml per person"},
       {n:"White wine or dry cider",a:"15ml per person"},
       {n:"Butter",a:"3ml per person"},
-      {n:"Shallots",a:"50g per 500g mussels"},
+      {n:"Onions",a:"50g per 500g mussels"},
       {n:"Fresh parsley",a:"1.5g per person"},
       {n:"Crusty bread (to serve — essential for the sauce)",a:"1 slice per person"}
     ],
@@ -1055,7 +1055,7 @@ const EVENTS_DESSERTS = [
       "GANACHE GLAZE: Pour equal parts hot cream and melted dark chocolate over the chilled cake for a mirror-like finish."
     ],
     tip:"For large groups: use individual silicone moulds or ramekins — they bake faster, require no water bath, and provide an elegant pre-portioned serving. The 'low and slow' rule is everything — this is a custard, not a cake." },
-  { id:"advocaat", name:"Advocaat (SA Egg Liqueur)", emoji:"🥚", costPP:18,
+  { id:"advocaat", name:"Advocaat (Dutch Egg Liqueur)", emoji:"🥚", costPP:18,
     serves:8,
     base300:[
       {n:"Large egg yolks (1 per person)",a:"1 per person"},
@@ -1099,7 +1099,7 @@ const EVENTS_DESSERTS = [
       "COOLING RULE: Cool completely to room temperature, then refrigerate minimum 4 hours (overnight preferred). The custard must fully structure before slicing.",
       "Serve with Chantilly cream (cream whipped with vanilla bean paste and a dash of maple syrup)."
     ],
-    tip:"South African butternuts and pumpkins are more watery than American varieties — ALWAYS roast, never boil. Roasting concentrates the sugars and removes excess moisture for a firm, sliceable custard. For large events: individual mini-pies bake in 20–25 minutes and are the ultimate professional presentation." },
+    tip:"South African butternuts and pumpkins are more watery than American varieties — ALWAYS roast, never boil. Roasting concentrates the sugars and removes excess moisture for a firm, sliceable custard. For large events: individual mini-pies bake in 20–25 minutes and are the ultimate professional presentation. SA SWAP: no shortcrust? A crushed Tennis-biscuit & melted-butter base (about 200g biscuits to 80g butter, pressed and chilled) works beautifully." },
   { id:"breadbutterpudding", name:"Bread & Butter Pudding", emoji:"🍞", costPP:12,
     serves:8,
     base300:[

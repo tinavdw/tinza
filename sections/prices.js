@@ -1,4 +1,50 @@
 const PRICE_DB = {
+  // ── added 13 Jun (Tina source list 3) ──
+  "raisins": 168,
+  "prunes": 200,
+  "sultanas": 120,
+  "jaggery": 100,
+  "durban masala": 350,
+  "curry leaves": 650,
+  "sorghum meal": 35,
+  "paneer": 250,
+  "cottage cheese": 172,
+  "buttermilk": 46,
+  "sesame seeds": 244,
+  "beer": 38,
+  "herring": 308,
+  "pickles": 76,
+  "sauerkraut": 110,
+  // ── added 13 Jun (Tina source list 2) ──
+  "harissa": 480,
+  "ghee": 200,
+  "ras el hanout": 778,
+  "red wine": 45,
+  "leek": 100,
+  "lime_each": 8.75,
+  // ── added from Tina price lists r1-3 (auto-generated) ──
+  "yeast": 90,
+  "white wine": 47,
+  "fish sauce": 200,
+  "sesame oil": 600,
+  "pine nuts": 1175,
+  "sweetcorn": 59,
+  "peas": 61,
+  "almonds": 330,
+  "chickpea flour": 114,
+  "coriander": 650,
+  "dill": 650,
+  "thyme": 650,
+  "rosemary": 650,
+  "basil": 650,
+  "mint": 650,
+  "bay leaves": 2444,
+  "cardamom": 3083,
+  "cloves": 1022,
+  "coconut flakes": 230,
+  "pecan nuts": 530,
+  "stock": 170,
+  "chilli": 80,
   // ── BEEF (adjusted per roadmap) ──
   "beef rump": 225,           // Roadmap: R225 (butchery R200)
   "beef fillet": 380,         // Roadmap: R380 (matches butchery)
@@ -125,8 +171,8 @@ const PRICE_DB = {
   // ── PRODUCE (FRESH) ──
   "potato": 18,               // R35/2kg → R18/kg
   "potatoes": 18,
-  "sweet potato": 17,         // per kg
-  "sweet potatoes": 17,
+  "sweet potato": 30,         // per kg
+  "sweet potatoes": 30,
   "butternut": 13,            // per kg
   "onion": 27,                // per kg
   "onions": 27,
@@ -227,7 +273,7 @@ const PRICE_DB = {
   "icing sugar": 100,         // R50/500g → R100/kg
   "baking powder": 76,        // R38/200g → R190/kg... use smaller R76
   "bicarbonate of soda": 72,  // R36/500g → R72/kg
-  "vanilla essence": 320,     // R32/100ml → R320/kg-approx
+  "vanilla essence": 330,     // R32/100ml → R320/kg-approx
   "cream of tartar": 250,     // R25/100g → R250/kg
   "coconut fine": 220,        // R44/200g → R220/kg
   "dates": 100,               // R25/250g → R100/kg
@@ -341,7 +387,7 @@ const PRICE_DB = {
 
   // ── KIDDIES PIRATE/MERMAID/CONSTRUCTION (Jun 2026) ──
   "bbq sauce": 107,           // R40/375ml
-  "lemon juice": 30,          // ESTIMATE - confirm price
+  "lemon juice": 56,          // R28/500ml -> R56/L (Tina round 2)
   "blue lemonade": 12,        // ESTIMATE - confirm (fizzy)
   "pineapple juice": 40,      // ESTIMATE - confirm price
   "shell pasta": 30,          // ESTIMATE - confirm price
@@ -358,14 +404,14 @@ const PRICE_DB = {
 
   // ── KIDDIES FRUIT/SNACKS (Jun 2026) ──
   "grapes": 100,              // R50/500g
-  "melon": 110,               // cut melon R35/320g (whole ~R50 each)
+  "melon": 150,               // cut melon R35/320g (whole ~R50 each)
   "crisps": 192,              // R23/120g packet
 
   // ── KIDDIES SAFARI/RAINBOW/PRINCESS/FARMYARD/BRAAI/BIG5 (Jun 2026) — many ESTIMATES, confirm at Checkers ──
   "worcester sauce": 60,      // ESTIMATE
   "guava juice": 35,          // ESTIMATE
   "vetkoek": 40,              // ESTIMATE (flour-based, per kg)
-  "instant yeast": 200,       // ESTIMATE (R20/100g)
+  "instant yeast": 90,       // ESTIMATE (R20/100g)
   "cornmeal": 30,             // ESTIMATE
   "chow mein noodles": 60,    // ESTIMATE
   "rice krispies": 80,        // ESTIMATE
