@@ -1904,6 +1904,73 @@ function recipeRow(o){
 // This is the page every other section is compared against.
 // Fixed order: photo+back → name → sub → meta → qty → "how portion" →
 //   ingredients → notes-slot → method → goes-well → extras-slot → actions → nav.
+// ── UNIVERSAL RECIPE OPENER (the spine) ───────────────────────────
+// One opener for the whole app. Any section can open any recipe, and
+// Back lands you exactly where you jumped from — across sections.
+//
+//   resolveRecipe(section,id) -> { item, recipe }   (looks up the data)
+//   RECIPE_BUILDERS[section](item,recipe,vr) -> recipePage opts (the view)
+//   openRecipe(section,id,opts)   -> opens it + snapshots where you are
+//   closeRecipe(extra?)           -> restores that exact spot + scroll
+//
+// Braai's meat/side path is the reference and is left untouched: it has
+// no builder registered, so recipeView() falls through to its existing
+// code. Sections migrate onto this one at a time (World Kitchen first).
+
+var RECIPE_SOURCES = {
+  // braai — the reference source, already live
+  meat: function(id){ return MEAT_GROUPS.flatMap(function(g){return g.items;}).find(function(x){return x.id===id;}); },
+  side: function(id){ return SIDES_GROUPS.flatMap(function(g){return g.items;}).find(function(x){return x.id===id;}); }
+  // world / health / events / kiddies / spice register as each is migrated
+};
+var RECIPE_BUILDERS = {}; // section -> function(item,recipe,vr){ return recipePage opts }
+
+function registerRecipeSource(key, fn){ RECIPE_SOURCES[key] = fn; }
+function registerRecipeBuilder(key, fn){ RECIPE_BUILDERS[key] = fn; }
+
+function resolveRecipe(section, id){
+  var fn = RECIPE_SOURCES[section];
+  var item = fn ? fn(id) : null;
+  return item ? { item: item, recipe: item.recipe } : null;
+}
+
+// Nav-location state keys (mirrors historyKey) — snapshotted so Back can
+// restore the exact origin screen. Selection arrays (plans) are excluded
+// on purpose: we restore WHERE you were, never what you'd chosen.
+var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','babyView','activeBaby','healthTab','healthGroup','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe'];
+
+function snapshotNav(){
+  var s = {};
+  for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(S[k]!==undefined) s[k]=S[k]; }
+  var root = document.getElementById('root');
+  s._scroll = root ? (root._savedScroll || root.scrollTop || 0) : 0;
+  return s;
+}
+
+function openRecipe(section, id, opts){
+  opts = opts || {};
+  var returnTo = opts.returnTo || snapshotNav();
+  var root = document.getElementById('root');
+  if(root) root._savedScroll = 0; // the recipe itself opens at the top
+  set({ viewingRecipe: { type: section, id: id, returnTo: returnTo, returnStep: opts.returnStep },
+        recipeServings: (opts.servings != null ? opts.servings : null) });
+}
+
+function closeRecipe(extra){
+  var vr = S.viewingRecipe;
+  var patch = { viewingRecipe: null, recipeServings: null };
+  if(vr && vr.returnTo){
+    for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(k in vr.returnTo) patch[k]=vr.returnTo[k]; }
+    if(vr.returnTo._scroll != null){ var root=document.getElementById('root'); if(root) root._savedScroll = vr.returnTo._scroll; }
+  }
+  if(extra){ for(var ek in extra){ patch[ek]=extra[ek]; } }
+  set(patch);
+}
+
+function recipeNotFound(){
+  return '<div style="padding:20px;"><button onclick="closeRecipe()" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;">\u2190 Back</button><p style="margin-top:12px;color:#f0ebe1;">Recipe not found.</p></div>';
+}
+
 function recipePage(o){
   o = o || {};
   var back = o.backJs
@@ -1936,6 +2003,13 @@ function recipePage(o){
 
 function recipeView(){
   const vr=S.viewingRecipe;
+  // Universal dispatch: any migrated section renders through its builder.
+  // Braai (meat/side) has no builder, so it falls through to the code below.
+  if(vr && vr.type && RECIPE_BUILDERS[vr.type]){
+    var res = resolveRecipe(vr.type, vr.id);
+    if(!res) return recipeNotFound();
+    return recipePage(RECIPE_BUILDERS[vr.type](res.item, res.recipe, vr));
+  }
   let item, recipe;
   const isMeat = vr.type==="meat";
   if(isMeat){ item=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===vr.id); }
