@@ -1,59 +1,48 @@
 # TINZA — Session Handoff
 
-_Last regenerated: 13 Jun 2026 (THE SPINE built · World Kitchen migrated onto it · cook-mode + Health-photo fixes)_
+_Last regenerated: 13 Jun 2026 (HEALTH migrated onto the spine · oats/muffins crash fixed · core.js + health.js pushed live)_
 
 ## ✅ Done this session (`node --check` ✓ on every file)
 
-- **THE UNIVERSAL RECIPE OPENER — the spine (core.js, additive, zero behaviour change).** One opener for the whole app so any section can open any recipe and Back lands exactly where you jumped from, across sections. New in core.js:
-  - `RECIPE_SOURCES` + `resolveRecipe(section,id)` → finds the recipe data (braai meat/side registered = the reference).
-  - `RECIPE_BUILDERS` + `registerRecipeBuilder(key,fn)` → each section's builder returns `recipePage` opts.
-  - `openRecipe(section,id,opts)` → sets `S.viewingRecipe={type:section,id,returnTo}` + snapshots where you are.
-  - `closeRecipe(extra?)` → restores that exact origin (NAV_KEYS snapshot + scroll).
-  - `recipeView()` now dispatches: if `RECIPE_BUILDERS[type]` exists → `recipePage(builder(item,recipe,vr))`; else the existing **braai meat/side** path runs untouched.
-  - Also added: **draw-level cook routing** (`if(S.wkCooking) wkCookingView()` BEFORE `viewingRecipe`) so Cook mode works no matter how a recipe was opened; and `wkDataCountry`,`wkDataTab` added to `NAV_KEYS` so Back lands on the right country list.
+- **HEALTH MIGRATED onto the universal opener (health.js + core.js).** Second section fully on the spine, mirroring World Kitchen. Health off its custom pieces, onto the shared `recipePage`.
+  - `healthRecipeDetail` + `healthExtDetail` → one shared builder `healthRecipeOpts(recipe)` returning `recipePage` opts (shared 200px header, green `qtyBox`, shared ingredient/method/goes-with shells, locked food-cost line `#c8e840`).
+  - `healthFind(id)` — one resolver across **all 14 arrays** (juice / smoothie / oats / muffin / raw + 9 ext groups), returns `{item,type,cat}`, guards holes defensively. IDs confirmed globally unique → single-id resolve is safe.
+  - Registered `RECIPE_SOURCES.health` + `RECIPE_BUILDERS.health`.
+  - All 6 open funcs (`healthOpenJuice/Smoothie/Oats/Muffin/Raw`, `healthOpenExt`) flipped to `openRecipe('health',id)`; Back via `closeRecipe()`. `healthOpenExt` rebuilds returnTo so Back lands on the right ext sub-tab.
+  - `healthCookingView()` now self-resolves the recipe from `S.healthCooking.id` (no arg needed); Prev/Next preserve the id so step changes don't lose the recipe.
+  - **core.js (additive, +1 line → 2267):** draw-level cook route extended with `else if(S.healthCooking) healthCookingView()` (mirrors `wkCooking`); `healthGroupTab` added to `NAV_KEYS`.
 
-- **WORLD KITCHEN migrated onto the opener (worldkitchen.js).** First section fully on the spine.
-  - `wkDetailV33` split → `wkRecipeOpts(r,country,universal)` returns the opts; `wkDetailV33(r,country)` is now a thin wrapper (`recipePage(wkRecipeOpts(r,country,false))`) so internal browsing is byte-identical.
-  - Registered `RECIPE_SOURCES.world` (finds by id via `wkPool()` — already global across all 4 wk_*.js files) and `RECIPE_BUILDERS.world`.
-  - `wkOpenRecipe` flipped to `openRecipe('world',id)`. In universal mode, Back/Plan/Home use `closeRecipe()` so cross-section return works.
-
-- **COOK MODE button fix (worldkitchen.js).** The Next/Done buttons were orange text on an orange bar = invisible. Now white text. "Next →" relabelled **"Next step →"**; final step stays **"✓ Done"** (no step after the last). Pre-existing bug, surfaced once Cook mode was actually usable.
-
-- **HEALTH PHOTOS RESTORED (health.js).** Photos weren't lost — Health pointed at folders that don't exist (GitHub paths are case-sensitive):
-  - `healthImgUrl`: `Images/recipe/` → **`Images/Image/`** + `cleanPhotoName` (accent-safe, matches the shared `recipePhoto`). The 323 recipe photos live in `Images/Image/`.
-  - Banner ×4: `Images/headers/health.jpg` → **`Images/Headers/Health%20Hub.jpg`** (real file).
-  - Sub-screen headers ×3: `160px` → **`200px`** (uniform with the landing header).
+- **BUG FIXED — 4 oats + 6 muffins were crashing on open (health.js).** Two stray double-commas at the 5th element of `OVERNIGHT_OATS` and `HEALTHY_MUFFINS` created sparse-array **holes**; `.find()` throws on a hole, so tapping the recipes after each hole crashed (`.map` tolerated the holes, so they still rendered as cards — looked fine, died on open). Both commas removed; resolver also guards with `x &&`.
 
 ## 📤 Push status (GitHub Desktop, one file at a time)
-- `core.js` — **pushed** (spine, then re-pushed with cook routing + nav keys). Braai confirmed working live.
-- `worldkitchen.js` — **pushed** (migration, then re-pushed with the cook-button fix). Cook mode confirmed working live.
-- `health.js` — **push this** (photo + header fix). After it's live: banner shows, recipe photos return, sub-screen headers match the landing.
+- `core.js` — **pushed + confirmed live** (2267 lines; health cook route + `healthGroupTab` verified in repo).
+- `health.js` — **pushed + confirmed live** (1649 lines; `healthFind` + both registrations verified in repo).
 
-## Next up — LOCKED ORDER
-1. **Push `health.js`** (above) → photos back.
-2. **HEALTH MIGRATION onto the shared render + universal opener — the big one.** Convert Health off its custom pieces onto the shared system:
-   - Replace custom headers with `sectionHeader()` (200px) and custom `<img>`/`healthImgUrl` with `recipePhoto()`.
-   - `healthRecipeDetail` + `healthExtDetail` → builders returning `recipePage` opts; register `RECIPE_SOURCES.health` + `RECIPE_BUILDERS.health`. Health has several sub-types (juice / smoothie / oats / muffin / raw + ext groups) — the resolver must find an id across all of them.
-   - Flip the open funcs (`healthOpenJuice/Smoothie/Oats/Muffin/Raw`, `healthOpenExt`) to `openRecipe('health',id)`; Back via `closeRecipe()`.
-   - `healthCookingView` → route at draw level like `wkCooking` (reuse the pattern), or fold into one shared cooking mechanism.
-3. **Then Events, Kiddies, Meals** onto the same rails, one file per push.
-4. **Cross-links** once 2+ sections share the opener (salad→dressing, filled roosterkoek→base, pesto→Spice, World→Health). The first real pairing is Tina's culinary call.
-5. **Visual sameness sweep folds INTO the migrations** — deleting each bespoke page = look-sameness by construction, not a separate cosmetic pass.
+## Next up — Kiddies, then the rest (migration order is the dev's call)
+1. **KIDDIES migration onto the shared opener (kiddies.js) — IN PROGRESS.** Same recipe as World Kitchen + Health:
+   - Split the Kiddies recipe detail renderer → a builder returning `recipePage` opts; register `RECIPE_SOURCES.kiddies` + `RECIPE_BUILDERS.kiddies` (resolver finds a snack/recipe id across all 12 themes + the master-snacks list).
+   - Flip the open func(s) to `openRecipe('kiddies',id)`; Back via `closeRecipe()`. Preserve `kidsTheme` / `kidsCategory` / `kidsShowMasterSnacks` in returnTo so Back lands on the right theme + tab (all already in `NAV_KEYS`).
+   - Route the Kiddies cooking view at draw level if it has one (mirror `wkCooking` / `healthCooking`).
+   - Watch for: 12 themes share snacks; `EVENTS_*` data recovered from the pre-split monolith; ingredient standard (gram weights, one per line, prep in method).
+2. **Then Events, Meals** onto the same rails, one file per push.
+3. **Cross-links** once 3+ sections share the opener (salad→dressing, filled roosterkoek→base, pesto→Spice, World→Health). First real pairing is Tina's culinary call.
+4. **Visual sameness folds INTO each migration** — deleting a bespoke page = look-sameness by construction, not a separate cosmetic pass.
 
 ## 🧠 Architecture notes (the spine — keep these in mind)
-- ONE opener: `openRecipe(section,id,{returnTo})` → `S.viewingRecipe={type:section,id,returnTo}`; `closeRecipe()` restores the `NAV_KEYS` snapshot + scroll. Sections register a SOURCE (finder) + BUILDER (returns `recipePage` opts).
-- Cook mode is routed at draw level (`if(S.wkCooking)…`) so it survives being opened from anywhere. Reuse this pattern for each section's cooking view as it migrates.
-- **Migrating a section onto the opener makes it look identical AND cross-linkable in one move.** Look-sameness is a consequence of function-sameness — that's why we do function first.
+- ONE opener: `openRecipe(section,id,{returnTo})` → `S.viewingRecipe={type:section,id,returnTo}`; `closeRecipe(extra?)` restores the `NAV_KEYS` snapshot + scroll. Each section registers a SOURCE (finder) + BUILDER (returns `recipePage` opts).
+- Cook mode is routed at **draw level** (`if(S.wkCooking)… else if(S.healthCooking)…`) so it survives being opened from anywhere. Add the next section's cooking view to the same chain as it migrates.
+- **Migrating a section makes it look identical AND cross-linkable in one move.** Look-sameness is a consequence of function-sameness — that's why function comes first.
+- **The pattern is now proven twice (World Kitchen + Health).** Kiddies / Events / Meals each follow the identical 5 steps: split detail → builder, resolver across the section's data, register SOURCE+BUILDER, flip opens to `openRecipe`, route cook at draw level.
 
 ## Parked (real, after the migrations)
-- **World Kitchen content:** warm-palette pass (needs braai.js + core.js) · Asia spice exact-definition · India gaps (Butter Chicken, lamb/goat) · the two "mixed meat" → named-cut edits (wk_africa Gango, wk_southafrica Braaivleis) if not yet pushed.
+- **Dead code:** delete the now-unreachable `healthRecipeDetail` + `healthExtDetail` bodies + their `healthHTML` dispatch lines (left intact this session as minimal-risk; cull once Health is confirmed solid live).
+- **World Kitchen content:** warm-palette pass (needs braai.js + core.js) · Asia spice exact-definition · India gaps (Butter Chicken, lamb/goat) · the two "mixed meat" → named-cut edits (wk_africa Gango, wk_southafrica Braaivleis).
 - **Costing:** gold "buy" two-cost (`PACK_DB` real pack-prices) · Pantry "you may already have" group · one shared Braai+WK plan/shopping renderer (§6.4).
 - **`howThisFeels` soul pass** (all sections — deliberately last) · monthly price check · Budget engine + Global Search = separate solo sessions.
 - **Spice shelves Tina leads** (Chutneys & Atchars, Sambals, Jams & Preserves) — her fermenting wheelhouse and the densest cross-link targets.
-- **Corrections:** #3/#4/#8 dropped (the screenshot file was deleted). #7 ham is still a 10-second job if Tina names which of the ~6 ham recipes is the dry one (then: "12 slices (≈Xg)" + a little mayo).
 
 ## START HERE next conversation
 1. **curl `TINZA_STANDARD.md` (v1.8) and this `TINZA_HANDOFF.md` from the repo root BEFORE touching code.** Standard wins over chat.
-2. Start at **tinza.netlify.app** — confirm live: Braai + World Kitchen open through the universal opener · Cook-mode buttons readable · Health photos + banner back.
-3. Then work Next-up in the **LOCKED order**: push health.js (if not yet) → **Health migration** → Events/Kiddies/Meals → cross-links → sameness folds in.
+2. Start at **tinza.netlify.app** — confirm live: Braai + World Kitchen + **Health** all open through the universal opener · Cook mode works from each · the 10 previously-crashing oats/muffins now open · Back lands correctly (incl. Health ext sub-tabs).
+3. Then continue the migrations: **Kiddies** (in progress) → Events → Meals → cross-links → sameness folds in.
 4. Live: tinza.netlify.app · repo tinavdw/tinza · fetch via `curl` from raw.githubusercontent.com.

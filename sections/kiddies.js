@@ -1,8 +1,17 @@
+// Universal opener. A Kiddies recipe's identity = (theme, category, name).
+// Category comes from where you tapped (savoury / sweet / drinks); the cake
+// has its own opener because it lives at th.cake, not in th.recipes.
 function openKidsRecipe(name){
-  var r=document.getElementById("root");
-  if(r) r._savedScroll = 0;   // open kiddies recipe at the top so the back button is visible
-  set({kidsScreen:'recipe',kidsRecipe:name});
+  openRecipe('kiddies', kiddiesId(S.kidsTheme, S.kidsCategory||'savoury', name));
 }
+function openKidsCake(themeId){
+  var th=(typeof KIDS_THEMES!=='undefined')?KIDS_THEMES.find(function(t){return t.id===themeId;}):null;
+  if(!th||!th.cake) return;
+  var rt=(typeof snapshotNav==='function')?snapshotNav():{};
+  rt.kidsScreen='category'; rt.kidsCategory='cake'; rt.kidsTheme=themeId;  // Back lands on the cake list
+  openRecipe('kiddies', kiddiesId(themeId,'cake',th.cake.name), {returnTo:rt});
+}
+function kiddiesId(themeId,catId,name){ return String(themeId)+'\u00a7'+String(catId)+'\u00a7'+String(name); }
 // ── KIDDIES PARTY PLANNER ─────────────────────────────────────────
 // Rebuilt on the v33 Braai template. Brown token palette, matching
 // header / how-it-works collapsible / counter / box styling / nav.
@@ -337,7 +346,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   const labels={savoury:'🍢 Savoury Snacks',sweet:'🍬 Sweet Treats',cake:'🎂 The Cake',drinks:'🥤 Drinks & Crisps',planner:'🎉 Party Planner'};
   const howHTML = `Tap any recipe to open its <strong style="color:#f5c842;">ingredients, method &amp; photo</strong>. Quantities are already scaled to <b style="color:#f5c842;">${k} kids</b>.`;
 
-  const pills = cats.map(c=>`<button onclick="set({kidsCategory:'${c.id}'${c.id==='cake'?",kidsScreen:'recipe'":''}})" style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${catId===c.id?'#c06020':'#3a2010'};background:${catId===c.id?'#2a1008':'#0f0c08'};color:${catId===c.id?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;white-space:nowrap;">${c.emoji} ${c.label}</button>`).join('');
+  const pills = cats.map(c=>`<button onclick="${c.id==='cake'?`openKidsCake('${themeId}')`:`set({kidsCategory:'${c.id}'})`}" style="flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid ${catId===c.id?'#c06020':'#3a2010'};background:${catId===c.id?'#2a1008':'#0f0c08'};color:${catId===c.id?'#f5c842':'#6a4020'};font-size:11px;cursor:pointer;white-space:nowrap;">${c.emoji} ${c.label}</button>`).join('');
 
   let body='';
   if(catId==='savoury'||catId==='sweet'){
@@ -388,7 +397,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
   else if(catId==='cake'){
     const c=th.cake;
     body = !c ? `<p style="font-size:13px;color:#b1734c;font-style:italic;">No cake for this theme yet.</p>` : `
-      <div onclick="set({kidsScreen:'recipe'})" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
+      <div onclick="openKidsCake('${themeId}')" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;display:flex;align-items:flex-start;gap:12px;padding:14px;cursor:pointer;">
         <span style="font-size:20px;flex-shrink:0;line-height:1.35;">🎂</span>
         <div style="flex:1;"><div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${c.name}</div><div style="font-size:12px;color:#c0915a;margin-top:4px;">🎂 The Cake${c.kcal?` · ~${c.kcal} kcal per slice`:''}</div></div>
         <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
@@ -519,6 +528,126 @@ function kidsRecipeDetailHTML(themeId,catId,recipeName,k){
   </div>`;
 }
 
+
+// ── KIDDIES ON THE UNIVERSAL OPENER (the spine) ───────────────────
+// Recipe identity = (theme, category, name) encoded as one id. The
+// resolver replays the exact resolution kidsRecipeDetailHTML used:
+// cake → th.cake; everything else → th.recipes by name, else a
+// synthetic recipe (popcorn / dips / drink / crisps / added snack).
+// The builder feeds the shared recipePage so Kiddies looks identical
+// to every other section and is cross-linkable.
+function kidsExtraIdByName(name){
+  if(typeof KIDS_EXTRA_SNACKS==='undefined') return null;
+  var types=['savoury','sweet'];
+  for(var ti=0;ti<types.length;ti++){
+    var ids=KIDS_EXTRA_SNACKS[types[ti]]||[];
+    for(var i=0;i<ids.length;i++){
+      var f=(typeof kidsFingerById==='function')?kidsFingerById(ids[i]):null;
+      if(f && f.name===name) return ids[i];
+    }
+  }
+  return null;
+}
+function kiddiesResolve(themeId,catId,name){
+  var th=(typeof KIDS_THEMES!=='undefined')?KIDS_THEMES.find(function(t){return t.id===themeId;}):null;
+  if(!th) return null;
+  var rec;
+  if(catId==='cake'){
+    var c=th.cake; if(!c) return null;
+    rec={name:c.name, base12:c.base12, method:c.method, kcal:c.kcal, emoji:'\uD83C\uDF82', type:'cake', per:'1 slice', time:''};
+  } else {
+    rec=(th.recipes||[]).find(function(r){return r.name===name;}) || ((typeof kidsSyntheticRecipe==='function')?kidsSyntheticRecipe(th,name):null);
+  }
+  if(!rec) return null;
+  var out=Object.assign({}, rec); out._themeId=themeId; out._catId=catId; return out;
+}
+function kiddiesRecipeOpts(rec, themeId, catId, k){
+  if(!rec) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
+  k=k||12;
+  var th=(typeof KIDS_THEMES!=='undefined')?KIDS_THEMES.find(function(t){return t.id===themeId;}):null;
+  var emoji=rec.emoji || (rec.type==='cake'?'\uD83C\uDF82':rec.type==='savoury'?'\uD83C\uDF62':rec.type==='healthy'?'\uD83E\uDD57':rec.type==='drink'?'\uD83E\uDD64':rec.type==='crisps'?'\uD83E\uDD54':'\uD83C\uDF6C');
+  var typeLabel=rec.type==='savoury'?'\uD83E\uDD69 Savoury':rec.type==='sweet'?'\uD83C\uDF6C Sweet':rec.type==='healthy'?'\uD83E\uDD57 Healthy':rec.type==='drink'?'\uD83E\uDD64 Drink':rec.type==='crisps'?'\uD83E\uDD54 Crisps':'\uD83C\uDF82 Cake';
+
+  // ingredients: base12 (base of 12) → shared rows, scaled to k kids
+  var ingRows=Object.keys(rec.base12||{}).map(function(key){
+    var val=rec.base12[key];
+    var label=(typeof kidsKeyLabel==='function')?kidsKeyLabel(key):key;
+    var m=String(val).match(/^([\d.]+)\s*(?:(kg|ml|g|l)(?![a-z]))?(.*)$/i);
+    if(m){
+      var n=parseFloat(m[1]); var u=m[2]||''; var rest=(m[3]||'').trim();
+      var nm=(typeof kidsName==='function')?kidsName(label,rest):{name:label,extra:rest};
+      var pp=Math.round(n/12*10)/10;
+      var tot=Math.round(n*k/12*10)/10;
+      var amt=u
+        ? '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+pp+u+' pp \u00b7 </span>'+tot+u
+        : ''+tot;
+      return ingredientRow(nm.name, amt, nm.extra||'');
+    }
+    return ingredientRow(label, String(val), '');
+  }).join('');
+  var ingredientsHTML=ingredientsBox(ingRows || '<div style="color:#e0d4b8;font-size:14px;">No ingredients listed.</div>', k);
+
+  // green qty box wired to S.kidsCount (4–50). Food-cost only when known (added snacks carry costPP).
+  var costInfo='';
+  if(rec.costPP){
+    var ct=Math.round(rec.costPP*k);
+    costInfo='\uD83D\uDCB0 Food cost: <b style="color:#c8e840;">R'+rec.costPP+'</b> pp \u00b7 <b style="color:#c8e840;">R'+ct.toLocaleString()+'</b> total'
+      +'<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>';
+  }
+  var qtyHTML=qtyBox({
+    label:'How Much To Make',
+    total: k+' '+(k===1?'kid':'kids'),
+    ppLine: rec.kcal ? ('~'+rec.kcal+' kcal per child') : '',
+    n: k, info: costInfo,
+    decJs:"set({kidsCount:Math.max(4,(S.kidsCount||12)-1)})",
+    incJs:"set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})"
+  });
+
+  // method: one string → numbered steps. Kiddies has no separate cook mode.
+  var steps=String(rec.method||'').split(/(?<=[.!?])\s+/).map(function(s){return s.trim();}).filter(Boolean);
+  var stepsHTML=steps.map(function(s,si){ return methodStep(si, s, ''); }).join('');
+  var methodHTML=steps.length ? methodBox(stepsHTML, '') : '';
+
+  // add-to-plan: real toggle for added finger snacks; else jump to the party plan
+  var snackId=kidsExtraIdByName(rec.name);
+  var addJs, inPlan;
+  if(snackId){
+    var added=(typeof kidsAddedSnacks==='function')?kidsAddedSnacks(themeId):[];
+    inPlan=added.indexOf(snackId)>=0;
+    addJs="kidsToggleSnack('"+themeId+"','"+snackId+"')";
+  } else {
+    inPlan=false;
+    addJs="closeRecipe({kidsScreen:'plan',kidsCategory:'plan'})";
+  }
+
+  var planCount=0;
+  try { if(th && typeof kidsPlanItems==='function'){ planCount=(kidsPlanItems(th,(S.kidsBudget||'easy'))||[]).length; } } catch(e){}
+
+  return {
+    photoName: rec.name, photoEmoji: emoji,
+    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    name: rec.name,
+    sub: [typeLabel, rec.per?rec.per+' per child':''].filter(Boolean).join(' \u00b7 '),
+    meta: { time: rec.time?(rec.time+' min'):'', kcal: rec.kcal },
+    qtyHTML: qtyHTML,
+    ingredientsHTML: ingredientsHTML,
+    methodHTML: methodHTML,
+    actions: { addJs: addJs, inPlan: inPlan },
+    nav: { backJs:"closeRecipe()", planJs:"closeRecipe({kidsScreen:'plan',kidsCategory:'plan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.kiddies = function(id){
+    var p=String(id).split('\u00a7');
+    return kiddiesResolve(p[0], p[1], p.slice(2).join('\u00a7'));
+  };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.kiddies = function(item, recipe, vr){
+    return kiddiesRecipeOpts(item, item._themeId, item._catId, (S.kidsCount||12));
+  };
+}
 
 // ── MY PLAN · SHOPPING LIST · COSTING ─────────────────────────────
 // Reuses the app's lookupPrice / normIngredientKey / aisleCategory.
