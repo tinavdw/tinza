@@ -527,12 +527,9 @@ function wkPlanClearAll(){
    feeds draw()'s _savedScroll (same mechanism openEvent uses) so we work
    WITH the core scroll logic, never against it. No core.js changes. */
 function wkOpenRecipe(country, id, servings){
-  var root = document.getElementById('root');
-  S.wkListScroll = window.scrollY;            // remember where the list was
-  if(root) root._savedScroll = 0;             // recipe opens at the top
-  var upd = { wkScreen:'wkdata', wkDataCountry:country, wkDataRecipe:id };
-  if(servings) upd.wkServings = servings;
-  set(upd);
+  if(servings) S.wkServings = servings;   // preserve servings when passed
+  S.wkDataCountry = country;              // so Back lands on this country's list
+  openRecipe('world', id);               // universal opener snapshots where we are
 }
 function wkBackFromRecipe(){
   var root = document.getElementById('root');
@@ -541,7 +538,7 @@ function wkBackFromRecipe(){
 }
 
 /* ── v33 RECIPE DETAIL ── */
-function wkDetailV33(r, country){
+function wkRecipeOpts(r, country, universal){
   var green='#c06020';
   var n = Math.max(1, S.wkServings || 1);
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
@@ -629,10 +626,17 @@ function wkDetailV33(r, country){
           + (nonLatin && r.howThisFeels ? ' · ' : '')
           + (r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '');
 
-  // ── assemble through the ONE shared page builder (Standard §4b) ──
-  return recipePage({
+  // ── back / nav: internal browsing vs universal cross-link ──
+  var _back   = universal ? "closeRecipe()" : "wkBackFromRecipe()";
+  var _planJs = universal
+    ? "closeRecipe({screen:'worldkitchen',wkScreen:'wkplan',wkDataRecipe:null})"
+    : "var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({wkScreen:'wkplan',wkDataRecipe:null});";
+  var _homeJs = universal ? "closeRecipe({screen:'home'})" : "set({screen:'home'})";
+
+  // ── opts for the ONE shared page builder (Standard §4b) ──
+  return {
     photoName: r.name, photoEmoji: '🍽️',
-    backJs: "wkBackFromRecipe()", backLabel: '← '+country,
+    backJs: _back, backLabel: '← '+country,
     name: disp,
     sub: sub,
     meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },
@@ -644,8 +648,19 @@ function wkDetailV33(r, country){
     goesWith: gwwList,
     extrasHTML: extrasHTML,
     actions: { addJs: "wkPlanToggle('"+r.id+"',"+n+")", inPlan: inPlan },
-    nav: { backJs:"wkBackFromRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({wkScreen:'wkplan',wkDataRecipe:null});", planCount:(S.wkPlan||[]).length, homeJs:"set({screen:'home'})" }
-  });
+    nav: { backJs:_back, planJs:_planJs, planCount:(S.wkPlan||[]).length, homeJs:_homeJs }
+  };
+}
+
+// internal browsing keeps its exact behaviour (renders the opts as before)
+function wkDetailV33(r, country){ return recipePage(wkRecipeOpts(r, country, false)); }
+
+// register World Kitchen on the universal opener — reachable from any section
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.world = function(id){ return wkPool().find(function(r){ return r && r.id === id; }); };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.world = function(item, recipe, vr){ return wkRecipeOpts(item, item.country, true); };
 }
 
 /* parse a cook time out of a method step → pill label ("⏲ 20 min", "⏲ overnight") */
