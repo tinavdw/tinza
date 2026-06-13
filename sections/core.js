@@ -1671,11 +1671,26 @@ function homeHTML(){
 // Any section (current or new) can call recipePhoto(name, emoji) and get the same box.
 // Strip accents so "Purée" matches a plain "Puree.jpg" file — one cleaner for all photo lookups
 function cleanPhotoName(s){ return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+// Photo loader fallback: if a .jpg 404s, try the same name as .png once,
+// then fall back to the emoji panel. Lets recipe & header images be either
+// format (Tina's photos saved as .png still show). Standard §5.5 prefers
+// .jpg but the loader now accepts .png too.
+function photoSwap(el){
+  var s = el.getAttribute('src') || '';
+  if(/\.jpe?g(\?|$)/i.test(s) && !el.dataset.triedPng){
+    el.dataset.triedPng = '1';
+    el.setAttribute('src', s.replace(/\.jpe?g(\?|$)/i, '.png$1'));
+    return;
+  }
+  el.style.display='none';
+  if(el.nextElementSibling) el.nextElementSibling.style.display='flex';
+}
+
 function recipePhoto(name, emoji, height){
   height = height || 200;
   const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(name)) + '.jpg';
   return `<div style="position:relative;height:${height}px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
-    <img src="${url}" onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    <img src="${url}" onerror="photoSwap(this)" style="width:100%;height:100%;object-fit:cover;display:block;" />
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">
       <span style="font-size:48px;">${emoji||'🍽️'}</span>
       <span style="font-size:13px;color:#b47527;">📷 Photo coming soon</span>
@@ -1746,7 +1761,7 @@ function sectionHeader(o){
   const s         = o.search    || null;
 
   const photoLayer = img
-    ? `<img src="${img}" onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='flex';" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;" />
+    ? `<img src="${img}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;" />
        <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
     : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
 

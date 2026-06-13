@@ -19,6 +19,9 @@ _Last regenerated: 13 Jun 2026 (Braai cook bug + polish DONE & live · **EVENTS 
 - **Opens flipped** (4 sites): finger chevron + both eventCard actions (events.js) and the sauce-row chevron (buffet.js) now call `openRecipe('events',id)`.
 - **Smoke-tested** all branches (chicken kg, ice-cream tubs, shanks, tray, ml→L, pieces, sauce, finger in-plan, missing id) — all correct, none throw. `node --check` ✓ on both files.
 
+### 3. Photo loader now accepts PNG (`core.js`, pushed)
+- `recipePhoto()` + `sectionHeader()` images route through a new `photoSwap()` helper: on a `.jpg` 404 it retries the same name as `.png` once, then falls back to the emoji. Tina's photos saved as PNG now show. Standard §5.5 still prefers `.jpg` (smaller/faster on phones) but `.png` works. (Headers with spaces e.g. `Cape Malay.png` swap too.)
+
 ## 📤 Push status (GitHub Desktop, one file at a time, into `sections/`)
 - `events.js` — **PUSH** (builder + source + registration + flipped opens). Now 1817 lines.
 - `buffet.js` — **PUSH** (one flipped open on the sauce row). 1408 lines.
@@ -27,6 +30,13 @@ _Last regenerated: 13 Jun 2026 (Braai cook bug + polish DONE & live · **EVENTS 
 
 ## ▶️ Confirm live after pushing
 tinza.netlify.app → **Events**. Open recipes from each list — a Big-Cooking **main** (kg + cost), an **ice-cream** dish (tub hint), **lamb shanks** (N shanks), a **tray** dish, a **sauce** (scales in the ingredient list), a **finger food** (Add to Plan toggles). Check **Back** returns to the right list, and the green **±** changes the guest count and rescales. All pages should now look identical to Braai/WK/Health/Kiddies.
+
+
+## 🔍 DIAGNOSTIC (found 13 Jun, fix = the Meals migration below)
+**Symptom:** some recipes still show the OLD orange "📊 QUANTITIES FOR N GUESTS" detail page (no green qtyBox, no shared layout) while migrated Events recipes show the new green page.
+**Root cause:** it is NOT an Events gap — Events is fully migrated (no `openEvent` calls, no `eventActiveRecipe` setters left in events.js). The old page is triggered by **`meals.js` line ~1039: `set({eventActiveRecipe: r})`**, which reuses the old `eventsRecipeView` (buffet.js) via the dead-but-still-present `if(aer){ return eventsRecipeView(aer,guests) }` dispatch in events.js (~1066). So opening a recipe through the **Meals** path renders the old Events detail page.
+**Fix:** the **Meals migration** (next task) replaces that `set({eventActiveRecipe:r})` with `openRecipe('meals',id)` + a `RECIPE_BUILDERS.meals` builder — same 5 steps as Events. That makes every page green/consistent. (Braai's "Potato Bake" green page in testing was a Braai SIDE, already on the spine — not an Event.)
+**Cook mode note:** migrated Events pages show the method as a numbered list but have NO "Start Cooking" step-mode (Events never had one). If a cook mode is wanted for Events/Meals later, reuse the Braai `braaiCookingView` pattern.
 
 ## Next up
 1. **MEALS migration (meals.js)** — same 5 steps. Fold sameness fixes in: the stray "Search All Recipes" box that's only in meals.js, and the gliding category scales.
