@@ -8,6 +8,16 @@ function eventsTopNav(accent){
     + '</div>';
 }
 
+// Shared guest stepper for EVERY Events ± control (recipe page + planner).
+// Reaches small groups (floor 2 — so 4 and 6 work) and steps sensibly when
+// the count gets big: ±1 below 20, ±5 to 100, ±10 above. Max 500.
+function eventGuestStep(n, dir){
+  n = (n==null || isNaN(n)) ? 20 : n;
+  var step = n < 30 ? 1 : (n < 100 ? 5 : 10);
+  var v = dir < 0 ? n - step : n + step;
+  return Math.max(2, Math.min(500, v));
+}
+
 function eventsHTML(){
   const et = S.eventTab;
   if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;
@@ -1117,13 +1127,13 @@ function eventsHTML(){
 
         <!-- Guest count ± -->
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-          <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})"
+          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})"
             style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:18px;line-height:1;cursor:pointer;">−</button>
           <div style="text-align:center;min-width:52px;">
             <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${guests}</div>
             <div style="font-size:13px;color:#c06020;letter-spacing:1px;text-transform:uppercase;">guests</div>
           </div>
-          <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})"
+          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})"
             style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:18px;line-height:1;cursor:pointer;">+</button>
         </div>
       </div>
@@ -1174,9 +1184,9 @@ function eventsHTML(){
       <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:10px;">
         <div style="font-size:13px;color:#c06020;margin-bottom:8px;">👥 How many guests?</div>
         <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="setQuiet({eventGuests:Math.max(6,S.eventGuests-(S.eventGuests<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">−</button>
+          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;"><div style="font-size:32px;color:#f5c842;font-weight:bold;">${guests}</div><div style="font-size:13px;color:#c06020;">guests</div></div>
-          <button onclick="setQuiet({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">+</button>
+          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">+</button>
         </div>
       </div>
       ${(()=>{
@@ -1285,7 +1295,7 @@ function eventsHTML(){
               ${r.kosherFlag?`<div style="background:#001a1a;border:1px solid #006060;border-radius:8px;padding:6px 10px;margin-bottom:10px;font-size:13px;color:#20c0c0;">${r.kosherNote}</div>`:''}
             </div>
             <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:13px;color:#c06020;margin-bottom:8px;">👥 Guests: <strong style="color:#f5c842;">${guests}</strong> &nbsp;·&nbsp; <button onclick="setQuiet({eventGuests:Math.max(2,${guests}-1)})" style="background:#1a1208;border:1px solid #c06020;border-radius:4px;color:#c06020;padding:1px 8px;cursor:pointer;font-size:13px;">−</button> &nbsp; <button onclick="setQuiet({eventGuests:Math.min(350,${guests}+1)})" style="background:#1a1208;border:1px solid #c06020;border-radius:4px;color:#c06020;padding:1px 8px;cursor:pointer;font-size:13px;">+</button></div>
+              <div style="font-size:13px;color:#c06020;margin-bottom:8px;">👥 Guests: <strong style="color:#f5c842;">${guests}</strong> &nbsp;·&nbsp; <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})" style="background:#1a1208;border:1px solid #c06020;border-radius:4px;color:#c06020;padding:1px 8px;cursor:pointer;font-size:13px;">−</button> &nbsp; <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})" style="background:#1a1208;border:1px solid #c06020;border-radius:4px;color:#c06020;padding:1px 8px;cursor:pointer;font-size:13px;">+</button></div>
               <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">Ingredients — per person base → total for ${guests}</div>
               ${r.base300.map((ing,i)=>{
                 // Parse "200g per person" → extract number and unit, calc total
@@ -1756,8 +1766,8 @@ function eventsRecipeOpts(r, guests){
   }
   var qtyHTML = qtyBox({
     label:'How Much To Make', sub: guests+' guests', total:qTotal, ppLine:qPP, n:guests, info:qInfo,
-    decJs:"set({eventGuests:Math.max(1,(S.eventGuests||20)-1)})",
-    incJs:"set({eventGuests:Math.min(500,(S.eventGuests||20)+1)})"
+    decJs:"set({eventGuests:eventGuestStep(S.eventGuests,-1)})",
+    incJs:"set({eventGuests:eventGuestStep(S.eventGuests,1)})"
   });
 
   // ── INGREDIENTS (shared ingredientsBox/ingredientRow) ──
