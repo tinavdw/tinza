@@ -2244,8 +2244,8 @@ function braaiCookingView(){
     +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
     +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
     + '</div>'
-    // step body
-    + '<div style="flex:1;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    // step body — vertically centred so a short step doesn't strand a dark void
+    + '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
     +   '<div style="width:46px;height:46px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+accent+';margin-bottom:18px;">'+(idx+1)+'</div>'
     +   '<div style="font-size:20px;color:#f0ebe1;line-height:1.65;">'+step+'</div>'
     +   timer
