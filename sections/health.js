@@ -554,11 +554,10 @@ function renderHealthMyPlan(isPro){
 // HEALTH RECIPE DETAIL — v33 template with photo header
 // ══════════════════════════════════════════════════════════════
 function healthImgUrl(name){
-  // Encode name for URL — matches "Recipe Name .jpg" or "Recipe Name.jpg"
-  const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/recipe/';
-  const variants = [name, name + ' ', name.trim()];
-  // Try name as-is first, then with trailing space (some files have it)
-  return base + encodeURIComponent(name.trim()) + '.jpg';
+  // Shared recipe-photo path (Standard §5.5): Images/Image/ + accent-stripped name
+  const base = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/';
+  const clean = (typeof cleanPhotoName === 'function') ? cleanPhotoName(name) : String(name||'').trim();
+  return base + encodeURIComponent(clean) + '.jpg';
 }
 
 function healthRecipeDetail(recipe, backState){
@@ -828,7 +827,7 @@ function healthHTML(){
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <!-- Header -->
     <div style="position:relative;height:200px;overflow:hidden;background:#1a1208;">
-      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/headers/health.jpg"
+      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Headers/Health%20Hub.jpg"
            onerror="this.style.display='none'"
            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:0;">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.25) 0%,rgba(8,4,2,0.82) 100%);z-index:1;"></div>
@@ -937,8 +936,8 @@ function healthGroupScreen(isPro, srv){
   // If no tab selected yet, show the tab cards
   if(!activeTab){
     return `<div style="min-height:100vh;background:#0f0e0c;">
-      <div style="position:relative;height:160px;overflow:hidden;background:#1a1208;">
-        <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/headers/health.jpg"
+      <div style="position:relative;height:200px;overflow:hidden;background:#1a1208;">
+        <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Headers/Health%20Hub.jpg"
              onerror="this.style.display='none'"
              style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:0;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.85) 100%);z-index:1;"></div>
@@ -1030,8 +1029,8 @@ function healthGroupScreen(isPro, srv){
   ).join('');
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="position:relative;height:160px;overflow:hidden;background:#1a1208;">
-      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/headers/health.jpg"
+    <div style="position:relative;height:200px;overflow:hidden;background:#1a1208;">
+      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Headers/Health%20Hub.jpg"
            onerror="this.style.display='none'"
            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:0;">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.85) 100%);z-index:1;"></div>
@@ -1199,8 +1198,8 @@ function healthExtDetail(recipe){
 // ──────────────────────────────────────────────────────────────
 function healthPlanScreen(isPro){
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="position:relative;height:160px;overflow:hidden;background:#1a1208;">
-      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/headers/health.jpg"
+    <div style="position:relative;height:200px;overflow:hidden;background:#1a1208;">
+      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Headers/Health%20Hub.jpg"
            onerror="this.style.display='none'"
            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:0;">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.85) 100%);z-index:1;"></div>
