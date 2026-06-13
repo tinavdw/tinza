@@ -386,7 +386,8 @@ function draw(){
 
   let content="";
   try{
-  if(S.viewingRecipe){ content=recipeView(); }
+  if(S.wkCooking && typeof wkCookingView==='function'){ content=wkCookingView(); }
+  else if(S.viewingRecipe){ content=recipeView(); }
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
   else if(S.screen==="search_results"){ content=searchResultsHTML(); }
@@ -1937,7 +1938,7 @@ function resolveRecipe(section, id){
 // Nav-location state keys (mirrors historyKey) — snapshotted so Back can
 // restore the exact origin screen. Selection arrays (plans) are excluded
 // on purpose: we restore WHERE you were, never what you'd chosen.
-var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','babyView','activeBaby','healthTab','healthGroup','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe'];
+var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe'];
 
 function snapshotNav(){
   var s = {};
