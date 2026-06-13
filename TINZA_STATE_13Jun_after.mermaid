@@ -1,0 +1,28 @@
+flowchart TD
+    DONE([✅ THIS SESSION<br/>Braai Start-Cooking FIXED]) --> D1[core.js ~2124<br/>inline set braaiCooking<br/>replaces dead openCookingMode]
+    DONE --> D2[core.js ~391<br/>draw route added<br/>beside wkCooking/healthCooking]
+    DONE --> D3[core.js · braaiCookingView<br/>re-resolves recipe by id<br/>steps · progress · timers]
+    D1 & D2 & D3 --> CHK[node --check ✓<br/>smoke-test ✓<br/>2267→2319 lines]
+    CHK --> PUSH[/📤 PUSH core.js<br/>into sections/ via GitHub Desktop/]
+    PUSH --> TEST{{▶️ Test live:<br/>Braai recipe → Start Cooking<br/>step through · side · timer}}
+
+    TEST --> NEXT[NEXT QUEUE]
+    NEXT --> N1[1 · EVENTS migration<br/>use braai cook mode as template]
+    N1 --> N2[2 · MEALS migration<br/>+ kill stray Search box · gliding scales]
+    N2 --> N3[3 · BREADS? confirm on spine]
+    N3 --> N4[4 · Cross-links]
+
+    NEXT --> PARK[PARKED · after migrations]
+    PARK --> P1[Dead-code cull · old renderers]
+    PARK --> P2[WK content: warm palette · Asia spices<br/>India gaps · mixed-meat cuts]
+    PARK --> P3[Costing: PACK_DB buy-number<br/>Pantry group · shared renderer]
+    PARK --> P4[howThisFeels soul pass · LAST]
+    PARK --> P5[Tina leads: Spice shelves]
+    PARK --> P6[Solo: Budget engine · Global Search]
+
+    style DONE fill:#1a2208,stroke:#6a8020,color:#c8e840
+    style CHK fill:#161210,stroke:#6a8020,color:#c8e840
+    style PUSH fill:#3a1a0a,stroke:#c06020,color:#f5e8cc
+    style TEST fill:#1a1208,stroke:#f5c842,color:#f5e8cc
+    style NEXT fill:#161210,stroke:#f5c842,color:#f5c842
+    style PARK fill:#0f0e0c,stroke:#c0915a,color:#e0d4b8

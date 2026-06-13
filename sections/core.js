@@ -388,6 +388,7 @@ function draw(){
   try{
   if(S.wkCooking && typeof wkCookingView==='function'){ content=wkCookingView(); }
   else if(S.healthCooking && typeof healthCookingView==='function'){ content=healthCookingView(); }
+  else if(S.braaiCooking && typeof braaiCookingView==='function'){ content=braaiCookingView(); }
   else if(S.viewingRecipe){ content=recipeView(); }
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
@@ -2120,7 +2121,7 @@ function recipeView(){
       + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
       + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:#f0ebe1;line-height:1.6;">'+step+'</p>'+timer+'</div></div>';
   }).join('');
-  const methodHTML = methodBox(methodStepsHTML, `openCookingMode('${item.name}',${JSON.stringify(recipe.method||[])})`);
+  const methodHTML = methodBox(methodStepsHTML, (recipe.method && recipe.method.length) ? `set({braaiCooking:{id:'${vr.id}',type:'${vr.type}',step:0}});window.scrollTo(0,0);` : '');
 
   // ── GOES WELL WITH (Braai-specific clickable pills → extras slot) ──
   const goesWellWith = {
@@ -2206,6 +2207,57 @@ function recipeView(){
 // ── BRAAI ─────────────────────────────────────────────────────────
 function culturalGroupGo(id){
   set({activeCulturalGroup:id, activeCulturalRecipe:null});
+}
+
+// Braai step-by-step cooking mode — mirrors wkCookingView (Standard §4b cook mode).
+// State: S.braaiCooking = {id, type, step}. Re-resolves the recipe so no quote-laden
+// data is ever embedded in an onclick (the old openCookingMode bug).
+function braaiCookingView(){
+  var accent='#c06020', cream='#f5e8cc';
+  var c = S.braaiCooking || {};
+  var isMeat = c.type==='meat';
+  var item = isMeat
+    ? MEAT_GROUPS.flatMap(function(g){return g.items;}).find(function(x){return x.id===c.id;})
+    : SIDES_GROUPS.flatMap(function(g){return g.items;}).find(function(x){return x.id===c.id;});
+  var recipe = item && item.recipe;
+  var steps = (recipe && recipe.method) || [];
+  if(!item || !steps.length){
+    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
+      + '<button onclick="set({braaiCooking:null})" style="background:none;border:none;color:'+accent+';font-size:14px;cursor:pointer;padding:0;">← Back</button>'
+      + '<p style="margin-top:20px;">'+(item?'No method steps for this recipe yet.':'Recipe not found.')+'</p></div>';
+  }
+  var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
+  var step = steps[idx];
+  var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
+  var timer = secs
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:#f5c842;font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23f1\ufe0f '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    : '';
+  var pct = Math.round(((idx+1)/steps.length)*100);
+  var last = idx === steps.length-1;
+  var nm = item.name || 'Recipe';
+  var setStep = function(n){ return 'set({braaiCooking:{id:\''+c.id+'\',type:\''+c.type+'\',step:'+n+'}});window.scrollTo(0,0);'; };
+  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
+    // header + progress
+    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+    +   '<button onclick="set({braaiCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+accent+';font-size:13px;cursor:pointer;padding:0;">\u2715 Exit cooking mode</button>'
+    +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+nm+'</div>'
+    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
+    + '</div>'
+    // step body
+    + '<div style="flex:1;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   '<div style="width:46px;height:46px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+accent+';margin-bottom:18px;">'+(idx+1)+'</div>'
+    +   '<div style="font-size:20px;color:#f0ebe1;line-height:1.65;">'+step+'</div>'
+    +   timer
+    + '</div>'
+    // nav
+    + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
+    +   (last
+        ? '<button onclick="set({braaiCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
+        : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step \u2192</button>')
+    + '</div>'
+    + '</div>';
 }
 
 function braaiRecipeAction(type){
