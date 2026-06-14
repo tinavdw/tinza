@@ -58,6 +58,11 @@ You asked for a tappable link from **Hoenderpastei → Béchamel in Spice**, wit
 | 1 | **Collapsible "How it works"** | ⚠️ bespoke copy, can drift — works | Events has its own landing box (`events.js`, `S.eventsHowOpen`) instead of shared braai `howItWorksBlock`. Recipe-page "How portion size works" is fine (inherited from core). |
 | 2 | **Green box** | ✅ recipe page already green · ✅ **plan rows FIXED** | Recipe pages use shared green `qtyBox` (`#c8e840`). Plan dish-rows were all-gold → now `…kg total · Food cost ~R___` in green (`buffet.js` line 293). |
 | 3 | **Two tiers** | ❌ missing — needs a build | Events shows ONE gold "Estimated total" that is really the *food* cost, mislabeled. No green-food / gold-spend split. Events doesn't compute a pack-rounded shop-spend total (shopping list lists quantities, no prices), so the tier has nothing to sum yet. |
+| 4 | **Recipe-open box** | ❌ Events still shows OLD orange box | World & Braai show the green `qtyBox` ("HOW MUCH TO MAKE" + food cost + "How portion size works"). Events still pops the orange "📊 Quantities for N guests" via `eventsRecipeView`. Cause: `openEvent(id,t)` (**core.js ~476**) and `openEventRecipe(id)` (**meals.js ~1026**) still `set({eventActiveRecipe:…})`, tripping the `if(aer)` dispatch (**events.js 1066**). The green path already exists beside it: `openRecipe('events',id)` → `eventsRecipeOpts`. **Fix:** repoint both openers to `openRecipe('events',id)`, then cull the `if(aer)` dispatch + the orange `eventsRecipeView`/Quantities box (events.js 41–51, buffet.js 855+/949+). |
+| 5 | **Middle of recipe (method)** | ❌ Events has no Start Cooking + no timers + extra pink footer | World/Braai show "👨‍🍳 Start Cooking →" (button lives in **core.js 1864**, rendered only when a cook action is passed) **and** step timers. Old `eventsRecipeView` hand-rolls its method (no cook mode) and adds a pink "Scaled for N guests · adjust guest count" footer (**buffet.js 1100**). Even the migrated `eventsRecipeOpts` (**events.js ~1797-1798**) calls `methodBox(stepsHTML,'')` + `methodStep(i,s,'')` — empty cook action + empty timer → still no button, no timers. **Fix:** wire a cook action + step-timer extractor into `eventsRecipeOpts` (mirror `worldkitchen.js` `wkStepTimer` + `wkCooking`). |
+| 6 | **Bottom of recipe (tail)** | ❌ Events missing compact cost box + chef-notes box | World/Braai show, near the bottom: the compact "💰 Estimated cost · N servings" box **and** a Chef notes / Pairs with / Nutrition / Storage / Did you know box, then Add to Plan · My Kitchen · Download + nav. Migrated `eventsRecipeOpts` builds `extrasHTML = tip + ml/person line` **only** (events.js ~1801-1805) — no cost box, no chef-notes box. (Add-to-Plan/My Kitchen/Download + nav **are** wired via `actions`/`nav`, so those appear post-migration.) **Fix:** in `eventsRecipeOpts`, add a compact cost box (mirror World's) + an `infoRow` chef-notes box to `extrasHTML`. |
+
+**Events recipe-page audit = COMPLETE (whole page reviewed, top→bottom).** Net: one full Events migration off `eventsRecipeView` + four builder additions (cost box, chef-notes box, cook mode, step timers) brings Events to full form **and** function parity with Braai/World.
 
 **Recommendation for the two-tier:** build it **once** as a shared block and reuse everywhere. The canonical version is in Braai:
 - the **"How it works"** trigger — `braai.js` line 42
@@ -95,10 +100,14 @@ flowchart TD
     N1 --> N2["→ unlocks pie → Béchamel tappable link<br/>+ go-back, + salad → dressing links"]
     N1 --> N3["→ Spice pages match every section"]
 
-    V --> T["NEXT: build shared TWO-TIER total ONCE<br/>food cost green + shop spend gold + 'about these totals'"]
-    T --> T2["drop into Braai · World Kitchen · Events<br/>(Events needs a pack-rounded shop-spend total first)"]
+    V --> T["NEXT: build shared TWO-TIER total ONCE<br/>food cost green + shop spend gold + 'about these totals' explainer"]
+    T --> T2["drop into Braai · World Kitchen · Events"]
 
-    V --> S1["SWEEP: align Events 'How it works' collapsible<br/>to shared braai block"]
+    V --> EV["NEXT: full EVENTS migration → same form + function"]
+    EV --> EV1["repoint openEvent (core ~476) + openEventRecipe (meals ~1026)<br/>→ openRecipe('events',id); cull if(aer) + orange box"]
+    EV --> EV2["wire into eventsRecipeOpts: cook mode + step timers,<br/>compact cost box, chef-notes box (mirror World)"]
+    EV --> EV3["Events needs pack-rounded shop-spend total before its two-tier"]
+    EV --> EV4["align 'How it works' two-price explainer (braai.js 42 + 360-376)"]
 
     V --> BL["BACKLOG: My Plan pills · sans-font flip<br/>header search · base64 fire blob<br/>Spice Emporium shelves · howThisFeels"]
 ```

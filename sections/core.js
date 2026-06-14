@@ -389,6 +389,7 @@ function draw(){
   if(S.wkCooking && typeof wkCookingView==='function'){ content=wkCookingView(); }
   else if(S.healthCooking && typeof healthCookingView==='function'){ content=healthCookingView(); }
   else if(S.braaiCooking && typeof braaiCookingView==='function'){ content=braaiCookingView(); }
+  else if(S.eventsCooking && typeof eventsCookingView==='function'){ content=eventsCookingView(); }
   else if(S.viewingRecipe){ content=recipeView(); }
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
@@ -486,7 +487,7 @@ function openEvent(id,t){
   if(r){
     const root=document.getElementById("root");
     if(root) root._savedScroll = 0;   // open recipe scrolled to the top, not the list position
-    const obj=Object.assign({},r,{_type:t}); set({eventActiveRecipe:obj});
+    openRecipe('events', id);   // universal opener → eventsRecipeOpts (green page, cook mode, cost box)
   }
 }
 function toggle(arr,id){ return arr.includes(id)?arr.filter(x=>x!==id):[...arr,id]; }
