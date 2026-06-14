@@ -1916,6 +1916,37 @@ function recipeRow(o){
     + '<span style="color:#c06020;font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe <span style="font-size:22px;font-weight:bold;color:#f5c842;vertical-align:middle;line-height:0;">›</span></span></div>';
 }
 
+// §4c — THE SHARED PLAN DISH-ROW. One row, identical in every section's My
+// Plan, so Braai / World Kitchen / Events can never drift. Bakes the locked
+// layout: NAME (cream 16 bold) -> stacked meta lines under it (secondary) ->
+// green Food-cost TOTAL on the right (#9bbf6a label + #c8e840 number). The
+// cost is the per-dish TOTAL for the guests chosen, and is OMITTED when the
+// dish isn't priced (never faked). Gold #f5c842 stays reserved for the
+// shopping list. Sections feed CONTENT only; the chrome lives here.
+//   planDishRow({ emoji, name, nameJs, lines:[...], costTotal, openJs, removeJs })
+function planDishRow(o){
+  o = o || {};
+  var emoji = o.emoji ? '<span style="font-size:18px;flex-shrink:0;line-height:1.4;">'+o.emoji+'</span>' : '';
+  var lines = (o.lines||[]).filter(Boolean).map(function(l){
+    return '<div style="font-size:13px;color:#c0915a;margin-top:2px;line-height:1.45;">'+l+'</div>';
+  }).join('');
+  var nameOpen = o.nameJs ? ' onclick="'+o.nameJs+'"' : '';
+  var nameCur  = o.nameJs ? 'cursor:pointer;' : '';
+  var left = '<div'+nameOpen+' style="flex:1;min-width:0;'+nameCur+'">'
+    + '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">'+(o.name||'')+'</div>'
+    + lines + '</div>';
+  var cost = (o.costTotal!=null)
+    ? '<div style="font-size:12px;color:#9bbf6a;text-align:right;">Food cost</div>'
+      + '<div style="font-size:16px;color:#c8e840;font-weight:bold;white-space:nowrap;text-align:right;">R'+Number(o.costTotal).toLocaleString()+'</div>'
+    : '';
+  var openBtn = o.openJs ? '<span onclick="'+o.openJs+'" style="font-size:22px;color:#c06020;cursor:pointer;line-height:1;">\u203a</span>' : '';
+  var rm = o.removeJs ? '<button onclick="'+o.removeJs+'" title="Remove from plan" style="background:none;border:1px solid #6a3030;border-radius:6px;padding:3px 9px;color:#c07a68;font-size:14px;line-height:1;cursor:pointer;">\u2715</button>' : '';
+  var btns = (openBtn||rm) ? '<div style="display:flex;align-items:center;gap:8px;margin-top:'+(cost?'6px':'0')+';">'+openBtn+rm+'</div>' : '';
+  var right = (cost||btns) ? '<div style="display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;">'+cost+btns+'</div>' : '';
+  return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">'
+    + emoji + left + right + '</div>';
+}
+
 // §4b — THE WHOLE-PAGE ASSEMBLER. This lays out EVERY recipe page with
 // the same wrapper, max-width, padding, block order and sizing. Sections
 // feed CONTENT only (qty/ingredients/method already built from the shared
