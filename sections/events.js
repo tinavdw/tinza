@@ -22,7 +22,6 @@ function eventsHTML(){
   const et = S.eventTab;
   if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;
   const guests = S.eventGuests;
-  const aer = S.eventActiveRecipe;
   const isPro = tierAllows('pro');
   const isPlus = tierAllows('plus');
 
@@ -1062,9 +1061,6 @@ function eventsHTML(){
     </div>`;
   }
 
-  // ── Route recipe detail view ──
-  if(aer){ return eventsRecipeView(aer, guests); }
-
   // ── Kiddies opens as its own page (Model B) — bypasses the tab wrapper ──
   if(et==='kiddies') return kidsPartyHTML();
 
@@ -1179,19 +1175,6 @@ function eventsHTML(){
         <div style="font-size:15px;color:#f5c842;margin-bottom:8px;">Beverages Calculator</div>
         <div style="font-size:13px;color:#c06020;line-height:1.6;">Bulk spirits, wines, beers, shooters, cocktails and punches — coming soon!</div>
       </div>
-    `:''}
-
-    ${et==='bigcooking'?`
-      ${(()=>{
-        const bs = S.buffetStep||1;
-        if(bs===1) return buffetStep1();
-        if(bs===2) return buffetStep2();
-        if(bs===3) return buffetStep3();
-        if(bs===4) return buffetStep4();
-        if(bs===5) return buffetStep5();
-        if(bs===6) return buffetStep6();
-        return buffetStep7();
-      })()}
     `:''}
 
     ${et==='fingerfoods'?`
@@ -1607,8 +1590,8 @@ let _timerRemaining = 0;
    (trays / tubs / shanks / ml / pcs / kg, bone-in) into the shared green
    qtyBox, scales base300 through the shared ingredient row, and wires a
    real Add-to-Plan toggle. No cook mode (Events never had one).
-   The old eventsRecipeView (buffet.js) + the if(aer) dispatch are now
-   dead code — left intact, parked for cull.
+   The old eventsRecipeView (buffet.js) + the if(aer) dispatch have been
+   removed — recipe detail now flows through openRecipe('events').
    ═══════════════════════════════════════════════════════════════════ */
 function eventsAllGroups(){
   var F = (typeof EVENTS_FINGER_FOODS!=='undefined') ? EVENTS_FINGER_FOODS : {};
