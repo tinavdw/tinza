@@ -19,47 +19,16 @@ function braaiStep1(){
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
   ];
   return `<div>
-    <div class="header" style="padding:0;overflow:hidden;">
-      <div style="position:relative;height:200px;">
-        <img src="${BRAAI_HDR_IMG}" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;" alt="Braai">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
-        <button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 My Plan (${total})</button>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 14px 12px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <button onclick="set({screen:'home'})" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">← Home</button>
-            <div onclick="S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 Search Braai recipes…</div>
-          </div>
-          <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">🔥 Braai &amp; Fire Cooking</h1>
-          <p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">Fire, smoke and the smell of a Saturday well spent</p>
-        </div>
-      </div>
-    </div>
+    ${sectionHeader({
+      title:'Braai &amp; Fire Cooking', emoji:'🔥',
+      tagline:'Fire, smoke and the smell of a Saturday well spent',
+      img:BRAAI_HDR_IMG,
+      backJs:"set({screen:'home'})", backLabel:'← Home',
+      myPlan:{ count:total, label:'My Plan', onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" },
+      search:{ onclick:"S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);", placeholder:'Search Braai recipes…' }
+    })}
     <div class="content">
-      <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
-            <span style="font-size:13px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
-            <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
-          </button>
-          <div style="width:1px;height:20px;background:#3a2010;flex-shrink:0;"></div>
-          <div style="display:flex;align-items:center;gap:8px;flex:1;">
-            <button onclick="set({people:Math.max(1,S.people-1)})" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
-            <span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S.people}</span>
-            <button onclick="set({people:S.people+1})" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
-            <input type="range" min="1" max="100" value="${S.people}" oninput="S.people=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
-          </div>
-        </div>
-        ${S.howItWorksOpen ? `
-        <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
-          <div style="font-size:13px;color:#e0d4b8;line-height:2;">
-            1 · Browse each section and tap <strong style="color:#f5c842;">Recipe ›</strong> to read first<br>
-            2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan<br>
-            3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong><br>
-            4 · Tap <strong style="color:#f5c842;">My Plan</strong> for quantities, cost &amp; shopping list<br>
-            5 · Share your list directly to WhatsApp or your store
-          </div>
-        </div>` : ''}
-      </div>
+      ${guestBar({state:'people'})}
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What are you planning?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
         ${sections.map(s=>`

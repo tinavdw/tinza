@@ -1092,62 +1092,28 @@ function eventsHTML(){
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
 
-    <!-- ══ V33 PHOTO HEADER ══ -->
-    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#1a1208 100%);">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.75) 100%);z-index:1;"></div>
-      <!-- Back button -->
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #c06020;border-radius:20px;color:#f5c842;font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
-      <!-- Title + search overlaid -->
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
-        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🎉 Events & Celebrations</h1>
-        <p style="margin:0 0 10px;font-size:13px;color:#e0d4b8;font-style:italic;">Every gathering that brings your people to one table</p>
-        <!-- Search bar -->
-        <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #c06020;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
-          <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
-          <input type="text" placeholder="Search Events…"
-            oninput="set({eventsSearch:this.value})"
-            value="${S.eventsSearch||''}"
-            style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;font-family:Georgia,serif;"
-          />
-          ${S.eventsSearch?`<button onclick="set({eventsSearch:''})" style="background:none;border:none;color:#c06020;font-size:16px;cursor:pointer;">×</button>`:''}
-        </div>
-      </div>
-    </div>
+    ${sectionHeader({
+      title:'Events & Celebrations', emoji:'🎉',
+      tagline:'Every gathering that brings your people to one table',
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Events.jpg',
+      backJs:"set({screen:'home'})", backLabel:'← Home',
+      search:{ value:(S.eventsSearch||'').replace(/"/g,'&quot;'), placeholder:'Search Events…', oninput:'set({eventsSearch:this.value})', clearJs:"set({eventsSearch:''})" }
+    })}
 
-    <!-- ══ HOW IT WORKS + GUEST SLIDER ══ -->
-    <div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:12px 16px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-
-        <!-- How it works collapsible -->
-        <div style="flex:1;">
-          <button onclick="set({eventsHowOpen:!S.eventsHowOpen})"
-            style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
-            ${howItWorksOpen?'▲':'▼'} How it works
-          </button>
-          ${howItWorksOpen?`
-            <div onclick="set({eventsHowOpen:false})" style="position:fixed;inset:0;z-index:9;" ></div>
-            <div style="position:relative;z-index:10;background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#e0d4b8;line-height:1.6;">
-              <strong style="color:#f5c842;">1. Pick your tab</strong> — Buffet, Finger Foods, Celebration Cakes, Kiddies Parties or Beverages.<br>
-              <strong style="color:#f5c842;">2. Set your guest count</strong> — use the ± slider here.<br>
-              <strong style="color:#f5c842;">3. Select dishes</strong> — portions auto-scale as you add more.<br>
-              <strong style="color:#f5c842;">4. Generate shopping list</strong> — sorted by supermarket aisle.<br>
-              <span style="color:#c06020;font-size:13px;">Pro tip: The more dishes you add, the smaller each individual portion — your total plate stays constant.</span>
-            </div>
-          `:''}
-        </div>
-
-        <!-- Guest count ± -->
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})"
-            style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:18px;line-height:1;cursor:pointer;">−</button>
-          <div style="text-align:center;min-width:52px;">
-            <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${guests}</div>
-            <div style="font-size:13px;color:#c06020;letter-spacing:1px;text-transform:uppercase;">guests</div>
-          </div>
-          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})"
-            style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:18px;line-height:1;cursor:pointer;">+</button>
-        </div>
-      </div>
+    <!-- HOW IT WORKS + GUEST STEPPER (shared) -->
+    <div style="padding:12px 16px;">
+      ${guestBar({
+        state:'eventGuests', min:6, max:350,
+        decJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})",
+        incJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})",
+        howItWorks:[
+          '<strong style="color:#f5c842;">1. Pick your tab</strong> — Buffet, Finger Foods, Celebration Cakes, Kiddies Parties or Beverages.',
+          '<strong style="color:#f5c842;">2. Set your guest count</strong> — use the ± slider here.',
+          '<strong style="color:#f5c842;">3. Select dishes</strong> — portions auto-scale as you add more.',
+          '<strong style="color:#f5c842;">4. Generate shopping list</strong> — sorted by supermarket aisle.',
+          '<span style="color:#c06020;">Pro tip: the more dishes you add, the smaller each portion — your total plate stays constant.</span>'
+        ]
+      })}
 
       <!-- Tab grid — braai v33 style boxes -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;">

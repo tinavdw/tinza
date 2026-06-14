@@ -1762,36 +1762,47 @@ function sectionHeader(o){
   const s         = o.search    || null;
 
   const photoLayer = img
-    ? `<img src="${img}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;" />
+    ? `<img src="${img}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;z-index:0;" />
        <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
     : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
-
-  const backBtn = backJs
-    ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${backJs}" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:13px;padding:5px 12px;cursor:pointer;">${backLabel}</button>`
-    : '';
 
   const myPlanBtn = o.myPlan
     ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${o.myPlan.onclick||''}" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 ${o.myPlan.label||'My Plan'} (${o.myPlan.count||0})</button>`
     : '';
 
-  const searchBar = s
-    ? `<div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
-         <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
-         <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;" />
-         ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:#e0d4b8;font-size:16px;cursor:pointer;">×</button>`:''}
-       </div>`
-    : `<div style="margin-bottom:14px;"></div>`;
+  const backBtn = backJs
+    ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${backJs}" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">${backLabel}</button>`
+    : '';
+
+  // search: clickable (navigate) OR inline input — same visual pill, flex:1
+  let searchEl = '';
+  if(s){
+    if(s.onclick){
+      searchEl = `<div onclick="${s.onclick}" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 ${s.placeholder||'Search recipes…'}</div>`;
+    } else {
+      searchEl = `<div style="flex:1;display:flex;align-items:center;padding:4px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;">
+        <span style="color:#b96d42;margin-right:6px;font-size:13px;">🔍</span>
+        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;min-width:0;" />
+        ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:#e0d4b8;font-size:15px;cursor:pointer;flex-shrink:0;">×</button>`:''}
+      </div>`;
+    }
+  }
+
+  const topRow = (backBtn||searchEl)
+    ? `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">${backBtn}${searchEl}</div>`
+    : '';
 
   const header = `
-    <div style="position:relative;height:200px;overflow:hidden;">
-      ${photoLayer}
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,4,2,0.3) 0%,rgba(8,4,2,0.78) 100%);z-index:1;"></div>
-      ${backBtn}
-      ${myPlanBtn}
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
-        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;">${emoji} ${title}</h1>
-        ${tagline?`<p style="margin:0 0 10px;font-size:14px;color:#e0d4b8;font-style:italic;">${tagline}</p>`:`<div style="height:10px;"></div>`}
-        ${searchBar}
+    <div class="header" style="padding:0;overflow:hidden;">
+      <div style="position:relative;height:200px;">
+        ${photoLayer}
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);z-index:1;"></div>
+        ${myPlanBtn}
+        <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 14px 12px;">
+          ${topRow}
+          <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">${emoji} ${title}</h1>
+          ${tagline?`<p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">${tagline}</p>`:''}
+        </div>
       </div>
     </div>`;
 
@@ -1810,6 +1821,44 @@ function sectionHeader(o){
   return header + catBlock;
 }
 
+// §4.1b — shared "How it works + guest stepper" box (braai v33). Place at top
+// of a section's .content so padding matches. o.state = state key ('people',
+// 'eventGuests', …). o.howItWorks = optional custom step lines (HTML strings).
+function guestBar(o){
+  o = o || {};
+  const gk  = o.state || 'people';
+  const min = (o.min!=null) ? o.min : 1;
+  const max = (o.max!=null) ? o.max : 100;
+  const decJs = o.decJs || `set({${gk}:Math.max(${min},S.${gk}-1)})`;
+  const incJs = o.incJs || `set({${gk}:Math.min(${max},S.${gk}+1)})`;
+  const steps = o.howItWorks || [
+    '1 · Browse each section and tap <strong style="color:#f5c842;">Recipe ›</strong> to read first',
+    '2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan',
+    '3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong>',
+    '4 · Tap <strong style="color:#f5c842;">My Plan</strong> for quantities, cost &amp; shopping list',
+    '5 · Share your list directly to WhatsApp or your store'
+  ];
+  return `
+    <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+          <span style="font-size:13px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
+          <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
+        </button>
+        <div style="width:1px;height:20px;background:#3a2010;flex-shrink:0;"></div>
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">
+          <button onclick="${decJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
+          <span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S[gk]}</span>
+          <button onclick="${incJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
+          <input type="range" min="${min}" max="${max}" value="${S[gk]}" oninput="S.${gk}=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
+        </div>
+      </div>
+      ${S.howItWorksOpen ? `
+      <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
+        <div style="font-size:13px;color:#e0d4b8;line-height:2;">${steps.join('<br>')}</div>
+      </div>` : ''}
+    </div>`;
+}
 // ── SHARED RECIPE-PAGE COMPONENTS (Standard §4b) ──────────────────
 // One definition each → every section's recipe page is identical by
 // construction. Sections pass CONTENT; the chrome — boxes, arrows,
