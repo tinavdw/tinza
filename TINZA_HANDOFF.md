@@ -1,57 +1,86 @@
-# Tinza — Session Handoff
-
-**Focus:** Finish Events first (14 Jun tactical order) — tasks (c) and (d).
-**Push status this session:** NOT yet pushed. Two files ready.
+# TINZA — Session Handoff & Sameness Tracker
+*Updated 14 Jun 2026 · read TINZA_STANDARD.md (v1.9) first every session*
 
 ---
 
-## Push set (this session)
+## ✅ DONE THIS BATCH (banked, NOT pushed yet)
 
-Drag into `sections/` via GitHub Desktop → Replace → commit → push.
+```
+ CHECKERS RENAME (whole app)
+   - every "Checkers" -> "SA's biggest retailers"  (0 left anywhere)
+   - apostrophe written as &#39; so it's safe in any quote style
+   - files: buffet, health, meals, prices, tinyTummies
 
-| File | Lines | Why |
-|------|------:|-----|
-| `buffet.js` | 1129 | (c) buffetStep1 header → sectionHeader + white My Plan pill; (d) eventsRecipeView removed |
-| `events.js` | 1935 | (d) dead if(aer) dispatch + const aer removed; unreachable bigcooking branch removed; comment updated |
+ ORANGE BOX -> STANDARD GREEN  (buffet plan totals)
+   - loud 2px copper border -> subtle 1px #2a1a10 on #161210
+   - cost-per-person + estimated total -> green food-cost #c8e840
+   - "Total dishes" count stays gold (a quantity, not a price)
 
-`core.js` is **unchanged** this session (byte-identical to what you already pushed) — do **not** re-push it.
+ EVENTS HEADERS - ALL 8 SCREENS -> sectionHeader (200px)
+   - Step1 Landing ............ done (earlier)
+   - Step2 Starters .......... NEW
+   - Step3 Main Dishes ....... NEW
+   - Step4 Side Dishes ....... NEW
+   - Step5 Salads ............ NEW
+   - Step6 Desserts .......... NEW
+   - Step7 Your Buffet Plan .. NEW (My Plan moved into photo pill,
+                                    dropped from the course grid)
+   - Step8 Sauces & Gravies .. NEW
+   => 0 flat headers left in buffet.js | node --check OK
+```
 
----
+PUSH WHEN READY - one group (core.js untouched):
+buffet.js | events.js | health.js | meals.js | prices.js | tinyTummies.js
 
-## What got done
-
-### (a) Cakes → universal opener — DONE (pushed last session)
-### (b) Shared §4c plan-row renderer — DONE (pushed last session)
-core.js `planDishRow()` rolled to Braai + World + Events.
-
-### (c) Events My Plan → white overlay pill §4.1 — DONE (this session)
-- `buffetStep1` flat coloured header → shared `sectionHeader()`: 200px photo header, title overlaid, white-bordered **My Plan overlay pill** top-right with live count + onclick `set({buffetStep:7})`.
-- My Plan **tile dropped** from the course grid (now a clean 6-tile / 2-row grid). Guest stepper untouched.
-- Header image points at `Images/Headers/Buffet Planner.jpg`. **That file does not exist in the repo yet** — until you add it, the header gracefully falls back to the 🍽️ emoji on the gradient (same as any missing image). **TODO: drop a buffet photo at that path.**
-
-### (d) Cull dead Events code — 2 of 3 done (this session)
-- **eventsRecipeView** (was buffet.js, 279 lines) — REMOVED. It was self-documented as dead; every assignment to `eventActiveRecipe` app-wide is `:null`, so the `if(aer)` dispatch never fired.
-- **if(aer) dispatch + `const aer`** in events.js — REMOVED. Recipe detail flows through `openRecipe('events')` now.
-- **Unreachable `bigcooking` branch** in the tab wrapper (events.js) — REMOVED. The early `return buffetStep1()` always fired first.
-- **"Orange box" — NOT touched.** Could not identify a distinct orange element; the whole Events palette uses copper `#c06020`. **Need you to point at which box** (which screen, what text) before I cull it.
-
----
-
-## Verification done
-
-- `node --check` PASS on buffet.js and events.js.
-- buffet.js: 1408 → 1129 (−279, the dead function). All 8 `buffetStep` fns + `buffetQuickNav` + `buffetPlanBtn` still present. Zero `eventsRecipeView` refs remain (only 2 comments mention it).
-- Runtime smoke of `buffetStep1()`: renders, 200px header present, white My Plan pill with live count, old flat header gone, My Plan tile gone, guest stepper intact.
-- core.js IDENTICAL to backup.
+Then: drop Buffet Planner.jpg into Images/Headers/ for the real photo
+(until then header shows correct-size 200px emoji-gradient fallback).
 
 ---
 
-## Open question for next session
+## CROSS-SECTION SAMENESS AUDIT (what's left)
 
-1. **The "orange box"** — which screen and what does it say? Then I cull it.
+```
+ SECTION        sectionHeader  flatHdrs  glidingScale  perScreenSearch
+ -----------    -------------  --------  ------------  ---------------
+ braai (ref)         3            1          0              0    <- 1 stray to check
+ worldkitchen        2            0          0              0    OK clean
+ events/buffet       8            0          0              0    OK DONE
+ health              0            0          1              0    x gliding scale
+ meals               0            0          1              1    x scale + search box
+ kiddies             0            2          1              0    x 2 headers + scale
+ spice               0            4          0              0    x 4 headers (also S10 NEXT)
+ tinyTummies         0            0          0              0    photo header pending
+ furry/budget/packs  0            0          0              0    photo header pending
+```
 
-## Next up (after this push)
+---
 
-- **Spice (#1)** — unlocks cross-links (salad→dressing, pesto costing).
-- Then **compare all ready pages** (Braai / World / Events) side by side for sameness.
-- Backlog still open: `Buffet Planner.jpg` upload · Beverages content · global sans font flip · Braai per-person cost fn · header search filtering · base64 fire blob → repo image · Spice Emporium shelf population.
+## REMAINING ROADMAP (per STANDARD S10 sequence - do in order)
+
+```
+   [NOW]  Events cosmetic sweep ........... COMPLETE (this batch)
+     |
+   1. SPICE recipe-opener migration ........ S10 NEXT (unlocks cross-links)
+     |
+   2. Cross-links (salad <-> dressing, pesto)
+     |
+   3. ONE shared plan-row / shopping renderer  -> roll to ALL sections
+     |
+   4. COSMETIC SWEEP - LAST, across all sections:
+        - sectionHeader on health/meals/kiddies/spice/tiny/furry/budget/packs
+        - kill gliding scales (health, meals, kiddies) -> wrapped boxes
+        - remove meals per-screen "Search All Recipes" box (one universal search)
+        - check braai's 1 stray flat header
+     |
+   5. THEN fill recipes
+```
+
+Note: other sections' header sweep is deliberately held to step 4 per your own
+locked S10 sequence - not jumped early, to avoid breaking working sections.
+
+---
+
+## WORKFLOW REMINDERS
+- Push via GitHub Desktop only | node --check before every push | core.js sacred.
+- Push only when necessary (Netlify credits) - batch fixes, push once.
+- Fetch files with curl -sL from raw.githubusercontent.com (never the API).

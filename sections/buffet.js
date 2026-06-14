@@ -93,7 +93,11 @@ function buffetItemCard(r, selArr, stateKey){
   </div>`;
 }
 
-  function buffetQuickNav(activeStep){
+  function buffetTotalSel(){
+    return (S.eventSelectedStarters||[]).length+(S.eventSelectedMains||[]).length+(S.eventSelectedSides||[]).length+(S.eventSelectedSalads||[]).length+(S.eventSelectedDesserts||[]).length+(S.eventSelectedSauces||[]).length;
+  }
+
+  function buffetQuickNav(activeStep, hideMyPlan){
     const secs = [
       {step:2,emoji:'🥗',label:'Starters', count:(S.eventSelectedStarters||[]).length},
       {step:3,emoji:'🥩',label:'Mains',    count:(S.eventSelectedMains||[]).length},
@@ -102,7 +106,7 @@ function buffetItemCard(r, selArr, stateKey){
       {step:6,emoji:'🎂',label:'Desserts', count:(S.eventSelectedDesserts||[]).length},
       {step:8,emoji:'🥫',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
       {step:7,emoji:'📋',label:'My Plan',  count:null},
-    ];
+    ].filter(s=> !(hideMyPlan && s.step===7));
     return eventsTopNav() + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
       + secs.map(s=>{
           const isActive = activeStep===s.step;
@@ -186,11 +190,13 @@ function buffetStep2(){
   const isPro = tierAllows('pro');
   const selCount = (S.eventSelectedStarters||[]).length;
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥗 Starters</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${isPro?selCount+' selected · ':''} ${g} guests · 110g pp each</p>
-    </div>
+    ${sectionHeader({
+      title:'Starters', emoji:'🥗',
+      tagline:`${isPro?selCount+' selected · ':''}${g} guests · 110g pp each`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
       ${buffetQuickNav(2)}
       ${!isPro?`<div style="background:#181008;border:1px dashed #f5c842;border-radius:10px;padding:10px 14px;margin-bottom:12px;text-align:center;font-size:13px;color:#a08030;">👑 Upgrade to <strong>Tinza Pro</strong> to tick dishes, build your menu and get a shopping list</div>`:''}
@@ -206,11 +212,13 @@ function buffetStep3(){
   const n = (S.eventSelectedMains||[]).length;
   const scale = ['PORTION_RULES.mains.scale'][0];
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥩 Main Dishes</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${n} selected · portions reduce as you add more · ${g} guests</p>
-    </div>
+    ${sectionHeader({
+      title:'Main Dishes', emoji:'🥩',
+      tagline:`${n} selected · portions reduce as you add more · ${g} guests`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
       ${buffetQuickNav(3)}
       ${n>1?`<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:#c06020;">⚖️ Smart scaling: ${n} mains selected — portion per main reduces so total stays ~200g pp</div>`:''}
@@ -226,11 +234,13 @@ function buffetStep3(){
 function buffetStep4(){
   const g = S.eventGuests;
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥘 Side Dishes</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${(S.eventSelectedSides||[]).length} selected · ${g} guests</p>
-    </div>
+    ${sectionHeader({
+      title:'Side Dishes', emoji:'🥘',
+      tagline:`${(S.eventSelectedSides||[]).length} selected · ${g} guests`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
       ${buffetQuickNav(4)}
       ${EVENTS_BIG_COOKING_SIDES.map(r=>buffetItemCard(r,'eventSelectedSides','eventSelectedSides')).join('')}
@@ -243,11 +253,13 @@ function buffetStep4(){
 function buffetStep5(){
   const g = S.eventGuests;
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥙 Salads</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${(S.eventSelectedSalads||[]).length} selected · ${g} guests</p>
-    </div>
+    ${sectionHeader({
+      title:'Salads', emoji:'🥙',
+      tagline:`${(S.eventSelectedSalads||[]).length} selected · ${g} guests`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
       ${buffetQuickNav(5)}
       ${EVENTS_BIG_COOKING_SALADS.map(r=>buffetItemCard(r,'eventSelectedSalads','eventSelectedSalads')).join('')}
@@ -260,11 +272,13 @@ function buffetStep5(){
 function buffetStep6(){
   const g = S.eventGuests;
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🎂 Desserts</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${(S.eventSelectedDesserts||[]).length} selected · ${g} guests</p>
-    </div>
+    ${sectionHeader({
+      title:'Desserts', emoji:'🎂',
+      tagline:`${(S.eventSelectedDesserts||[]).length} selected · ${g} guests`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
       ${buffetQuickNav(6)}
       ${EVENTS_DESSERTS.map(r=>buffetItemCard(r,'eventSelectedDesserts','eventSelectedDesserts')).join('')}
@@ -778,13 +792,17 @@ function buffetStep7(){
   );
 
   return `<div>
-    <div class="header" style="background:${BCbg};border-bottom:1px solid #c06020;">
-      <button class="back-btn" onclick="set({buffetStep:1})" style="color:${BC};">← Overview</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">📋 Your Buffet Plan</h1>
-      <p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">${g} guests</p>
-    </div>
+    ${sectionHeader({
+      title:'Your Buffet Plan',
+      emoji:'🍽️',
+      tagline:`${g} guests`,
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+      backJs:"set({buffetStep:1})",
+      backLabel:'← Overview',
+      myPlan:{ count:allPortioned.length, label:'My Plan', onclick:"set({buffetStep:7})" }
+    })}
     <div class="content">
-      ${buffetQuickNav(7)}
+      ${buffetQuickNav(7,true)}
       ${allPortioned.length===0?`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:20px;text-align:center;color:#c06020;font-size:13px;">${isPro?'No dishes selected — ':'Browse recipes below — '}<button onclick="set({buffetStep:2})" style="background:none;border:none;color:${BC};cursor:pointer;font-size:13px;text-decoration:underline;">go back</button></div>`:''}
 
       ${section('🥗 STARTERS',starters,'eventSelectedStarters')}
@@ -865,11 +883,13 @@ function buffetStep8(){
   }).join('');
 
   return '<div>'
-    + '<div class="header" style="background:'+BCbg+';border-bottom:1px solid #c06020;">'
-    + '<button class="back-btn" onclick="set({buffetStep:6})" style="color:'+BC+';">← Desserts</button>'
-    + '<h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">🥫 Sauces & Gravies</h1>'
-    + '<p style="margin:0;font-size:13px;color:#c06020;font-style:italic;">'+selSauces.length+' selected · '+guests+' guests</p>'
-    + '</div>'
+    + sectionHeader({
+        title:'Sauces & Gravies', emoji:'🥫',
+        tagline:selSauces.length+' selected · '+guests+' guests',
+        img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
+        backJs:"set({buffetStep:6})", backLabel:'← Desserts',
+        myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
+      })
     + '<div class="content">'
     + buffetQuickNav(8)
     + '<div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:13px;color:#c0915a;">💡 Select sauces and gravies to serve alongside your buffet. They will appear in your shopping list.</div>'
