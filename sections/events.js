@@ -1791,17 +1791,37 @@ function eventsRecipeOpts(r, guests){
   }
   var ingredientsHTML = ingRows ? ingredientsBox(ingRows, guests) : '';
 
-  // ── METHOD (no cook mode) ──
+  // ── METHOD (shared methodBox/methodStep + cook mode + per-step timers) ──
   var methodHTML='';
   if(r.method && r.method.length){
-    var stepsHTML = r.method.map(function(s,i){ return methodStep(i, s, ''); }).join('');
-    methodHTML = methodBox(stepsHTML, '');
+    var stepsHTML = r.method.map(function(s,i){ return methodStep(i, s, eventsStepTimer(s)); }).join('');
+    methodHTML = methodBox(stepsHTML, "set({eventsCooking:{id:'"+r.id+"',step:0}});window.scrollTo(0,0);");
   }
 
-  // ── EXTRAS: tip + ml/person line ──
+  // ── EXTRAS: compact cost box + tip + ml/person line + chef-notes (mirror World Kitchen) ──
+  var evGreen = '#c06020';
+  var isEvPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
   var extras='';
+  // compact cost box (Pro-gated), driven by precomputed costPP
+  if(r.costPP){
+    var evTot = Math.round(r.costPP*guests);
+    extras += !isEvPro
+      ? '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+        + '<div style="font-size:22px;color:#e0d4b8;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
+        + '<div style="font-size:13px;color:#e0d4b8;">\uD83D\uDCB0 Cost estimate \u2014 <strong style="color:'+evGreen+';">Tinza Pro R99/month</strong></div></div>'
+      : '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+        +   '<div style="font-size:13px;color:#e0d4b8;">\uD83D\uDCB0 Estimated cost \u00B7 '+guests+' guests</div>'
+        +   '<div style="font-size:24px;color:'+evGreen+';font-weight:bold;">~R'+evTot.toLocaleString()+'</div></div>'
+        + '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;"><span style="font-size:13px;color:#e0d4b8;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+r.costPP+'</span></div>'
+        + '<div style="font-size:13px;color:#e0d4b8;margin-top:6px;">estimated food cost</div></div>';
+  }
   if(r.tip) extras += '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;"><span style="color:#c06020;">\uD83D\uDCA1 TIP: </span>'+r.tip+'</div>';
   if(r.mlPerPerson) extras += '<div style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;">\uD83E\uDD44 '+r.mlPerPerson+'ml per person \u00B7 '+(r.mlPerPerson*guests/1000).toFixed(1)+'L for '+guests+' guests</div>';
+  // chef-notes box — guarded, renders only when data exists (future-proof parity)
+  function evInfoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+evGreen+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:#f0ebe1;">'+val+'</span></div>' : ''; }
+  var evExtraInner = evInfoRow('\uD83D\uDC69\u200D\uD83C\uDF73 Chef notes', r.chefNotes)+evInfoRow('\uD83C\uDF77 Pairs with', r.pairsWith)+evInfoRow('\uD83D\uDCCA Nutrition', r.nutrition)+evInfoRow('\uD83E\uDDCA Storage', r.storage)+evInfoRow('\uD83D\uDCA1 Did you know', r.trivia);
+  if(evExtraInner) extras += recipeBox('', evExtraInner);
 
   // ── ACTIONS: real plan toggle for this dish's category ──
   var inPlan = ((S[planKey]||[]).indexOf(r.id) >= 0);
@@ -1817,6 +1837,61 @@ function eventsRecipeOpts(r, guests){
     actions:{ addJs:addJs, inPlan:inPlan },
     nav:{ backJs:"closeRecipe()", planJs:"closeRecipe()", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
   };
+}
+
+/* per-step timer label for the recipe page (static pill via methodStep) —
+   braai-style clock + fmtTimerLabel inside World-style methodStep structure */
+function eventsStepTimer(step){
+  if(typeof parseStepTime!=='function') return '';
+  var secs = parseStepTime(step);
+  if(!secs) return '';
+  return '\u23F1\uFE0F ' + ((typeof fmtTimerLabel==='function') ? fmtTimerLabel(secs) : (Math.round(secs/60)+' min'));
+}
+
+/* Events step-by-step cooking mode — mirrors braaiCookingView (Standard §4b cook mode).
+   State: S.eventsCooking = {id, step}. Re-resolves via eventsResolve so no quote-laden
+   data is embedded in an onclick. Events method is already an array of steps. */
+function eventsCookingView(){
+  var accent='#c06020', cream='#f5e8cc';
+  var c = S.eventsCooking || {};
+  var r = eventsResolve(c.id);
+  var steps = (r && r.method) || [];
+  if(!r || !steps.length){
+    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
+      + '<button onclick="set({eventsCooking:null})" style="background:none;border:none;color:'+accent+';font-size:14px;cursor:pointer;padding:0;">\u2190 Back</button>'
+      + '<p style="margin-top:20px;">'+(r?'No method steps for this recipe yet.':'Recipe not found.')+'</p></div>';
+  }
+  var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
+  var step = steps[idx];
+  var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
+  var timer = secs
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:#f5c842;font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23F1\uFE0F '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    : '';
+  var pct = Math.round(((idx+1)/steps.length)*100);
+  var last = idx === steps.length-1;
+  var nm = r.name || 'Recipe';
+  var setStep = function(n){ return 'set({eventsCooking:{id:\''+c.id+'\',step:'+n+'}});window.scrollTo(0,0);'; };
+  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
+    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+    +   '<button onclick="set({eventsCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+accent+';font-size:13px;cursor:pointer;padding:0;">\u2715 Exit cooking mode</button>'
+    +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+nm+'</div>'
+    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
+    + '</div>'
+    + '<div style="flex:1;display:flex;flex-direction:column;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   '<div style="margin:auto 0;">'
+    +     '<div style="width:48px;height:48px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
+    +     '<div style="font-size:23px;color:#f0ebe1;line-height:1.7;">'+step+'</div>'
+    +     timer
+    +   '</div>'
+    + '</div>'
+    + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
+    +   (last
+        ? '<button onclick="set({eventsCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
+        : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step \u2192</button>')
+    + '</div>'
+    + '</div>';
 }
 
 if(typeof RECIPE_SOURCES !== 'undefined'){

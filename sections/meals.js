@@ -1036,7 +1036,7 @@ function openEventRecipe(id){
   if(r){
     const root=document.getElementById("root");
     if(root) root._savedScroll = 0;   // open recipe at the top so the Back button is visible
-    set({eventActiveRecipe: r});
+    openRecipe('events', id);   // universal opener → eventsRecipeOpts (green page, cook mode, cost box)
   }
 }
 function openCakeRecipe(id){
