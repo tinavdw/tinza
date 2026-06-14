@@ -463,7 +463,7 @@ function buffetStep7(){
     }
     if(lower === 'egg yolk') { n = 'Eggs'; a = a + ' (yolks only)'; }
 
-    // Parsley — use grams (Checkers sells in ~30g punnets)
+    // Parsley — use grams (SA retailers sell in ~30g punnets)
     if(lower.includes('fresh parsley') && !lower.includes('powder')){
       n = 'Fresh parsley';
       const perPortionMatch = a.match(/per (\d+) portions?/i);
@@ -627,7 +627,7 @@ function buffetStep7(){
         return ml>=1000 ? `${(ml/1000).toFixed(1)}L` : `${Math.round(ml)}ml`;
       }
       if(u==='bunch'||u==='bunches'){
-        // Convert to grams — herbs sold by weight at Checkers
+        // Convert to grams — herbs sold by weight at SA&#39;s biggest retailers
         const grams = Math.ceil(total) * 30; // default 30g per bunch
         return `${grams}g`;
       }
@@ -794,18 +794,18 @@ function buffetStep7(){
       ${section('🎂 DESSERTS',desserts,'eventSelectedDesserts')}
 
       ${allPortioned.length>0?`
-        ${isPro?`<div style="background:#1a1208;border:2px solid ${BC};border-radius:12px;padding:14px;margin:16px 0;">
+        ${isPro?`<div style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:14px;margin:16px 0;">
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
             <span style="font-size:13px;color:#e0d4b8;">Total dishes</span>
             <span style="font-size:13px;color:#f5c842;font-weight:bold;">${allPortioned.length} dishes</span>
           </div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
             <span style="font-size:13px;color:#e0d4b8;">Cost per person</span>
-            <span style="font-size:15px;color:#f5c842;font-weight:bold;">~R${Math.round(costPP)}</span>
+            <span style="font-size:15px;color:#c8e840;font-weight:bold;">~R${Math.round(costPP)}</span>
           </div>
           <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a2010;">
             <span style="font-size:14px;color:#e0d4b8;">Estimated total</span>
-            <span style="font-size:20px;color:#f5c842;font-weight:bold;">~R${Math.round(totalCost).toLocaleString()}</span>
+            <span style="font-size:20px;color:#c8e840;font-weight:bold;">~R${Math.round(totalCost).toLocaleString()}</span>
           </div>
         </div>`:`<div style="background:#181008;border:1px dashed #f5c842;border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-size:13px;color:#a08030;">👑 <strong>Tinza Pro</strong> — unlock costs, shopping list &amp; WhatsApp share</div>`}
 
@@ -813,7 +813,7 @@ function buffetStep7(){
         ${!isPro?`<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:20px;text-align:center;margin-bottom:14px;"><div style="font-size:28px;margin-bottom:8px;">🔒</div><div style="font-size:13px;color:#8a4020;font-weight:bold;margin-bottom:4px;">Shopping List — Pro feature</div><div style="font-size:13px;color:#5a3020;line-height:1.6;">Tap items you already have to remove them.<br>Share your list via WhatsApp.</div></div>`:`
         <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:14px;">
           <div style="background:#1a1008;border:1px solid #3a2808;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:#9d7a46;line-height:1.6;">
-            💡 <strong style="color:#f5c842;">Prices based on Checkers retail — last updated May 2026.</strong> Buying in bulk, shopping specials, local markets or farm stalls will be cheaper. Use these as a planning guide only.
+            💡 <strong style="color:#f5c842;">Prices based on SA&#39;s biggest retailers — last updated May 2026.</strong> Buying in bulk, shopping specials, local markets or farm stalls will be cheaper. Use these as a planning guide only.
           </div>
           <div style="font-size:13px;color:#c06020;margin-bottom:10px;">✅ Tap items you already have to remove them from your list</div>
           ${shopCategory('Meat, Fish & Poultry','butchery','🥩')}

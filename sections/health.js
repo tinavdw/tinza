@@ -629,7 +629,7 @@ function renderHealthMyPlan(isPro){
         ? (planCostMatched>0
             ? '<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#e0d4b8;">Total for '+planPeople+' person'+(planPeople!==1?'s':'')+'</div><div style="font-size:24px;color:#f5c842;font-weight:bold;">R'+planCostTotal.toLocaleString()+'</div></div>'
                 +'<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:8px;border-top:1px solid #1a1208;"><div style="font-size:13px;color:#e0d4b8;">Per person</div><div style="font-size:16px;color:#f5c842;font-weight:bold;">R'+planCostPP+'</div></div>'
-                +'<div style="font-size:13px;color:#e0d4b8;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · Checkers/retail prices · Always buy 10% extra</div>'
+                +'<div style="font-size:13px;color:#e0d4b8;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · SA&#39;s biggest retailers · Always buy 10% extra</div>'
             : '<div style="font-size:13px;color:#e0d4b8;font-style:italic;">No priced ingredients yet — add recipes with weighed ingredients to see a cost.</div>')
         : '<div style="font-size:13px;color:#e0d4b8;">💰 Cost totals — <strong style="color:#f5c842;">Tinza Pro R99/month</strong></div>')
     +'</div>'
@@ -775,11 +775,11 @@ function healthRecipeDetail(recipe, backState){
       <div style="margin-top:12px;background:#1a1a08;border:1px solid #3a2010;border-radius:10px;padding:14px;">
         <div style="font-size:13px;letter-spacing:2px;color:#8a8030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
         ${(function(){
-          if(recipe.costPP) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`;
+          if(recipe.costPP) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">SA&#39;s biggest retailers · May 2026 · Buy 10% extra</div>`;
           let t=0, m=0, n=0;
           (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
           t=Math.round(t);
-          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">${m}/${n} ingredients priced · Checkers/retail · Buy 10% extra</div>`;
+          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">${m}/${n} ingredients priced · SA&#39;s biggest retailers · Buy 10% extra</div>`;
           return `<div style="font-size:13px;color:#908241;font-style:italic;">Price estimate coming soon</div>`;
         })()}
       </div>
@@ -1249,11 +1249,11 @@ function healthExtDetail(recipe){
       <div style="margin-top:12px;background:#1a1a08;border:1px solid #3a2010;border-radius:10px;padding:14px;">
         <div style="font-size:13px;letter-spacing:2px;color:#8a8030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
         ${(function(){
-          if(totalCost) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">${totalCost}</div><div style="font-size:13px;color:#748932;margin-top:4px;">Checkers/retail · May 2026 · Buy 10% extra</div>`;
+          if(totalCost) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">${totalCost}</div><div style="font-size:13px;color:#748932;margin-top:4px;">SA&#39;s biggest retailers · May 2026 · Buy 10% extra</div>`;
           let t=0, m=0, n=0;
           (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
           t=Math.round(t);
-          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">${m}/${n} ingredients priced · Checkers/retail · Buy 10% extra</div>`;
+          if(m>0) return `<div style="font-size:18px;color:#f5c842;font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:13px;color:#748932;margin-top:4px;">${m}/${n} ingredients priced · SA&#39;s biggest retailers · Buy 10% extra</div>`;
           return `<div style="font-size:13px;color:#908241;font-style:italic;">Price estimate coming soon</div>`;
         })()}
       </div>
@@ -1609,7 +1609,7 @@ const IMMUNITY_RECIPES = [
    badges:['🛡️ Immunity','🫐 Antioxidants','🥤 Smoothie'],
    base300:[{n:'Mixed frozen berries (blueberries, blackberries)',pp:150,u:'g'},{n:'Elderflower cordial',pp:20,u:'ml'},{n:'Plain yoghurt',pp:80,u:'g'},{n:'Banana',pp:60,u:'g'},{n:'Ginger (fresh, small piece)',pp:3,u:'g'},{n:'Water or milk',pp:100,u:'ml'}],
    method:['Add all ingredients to blender.','Blend on high 60 seconds until smooth.','Taste — add honey if needed.','Serve immediately over ice.'],
-   tip:'Elderflower cordial is widely available at Checkers. The combination of dark berries and ginger gives a serious antioxidant hit.'},
+   tip:'Elderflower cordial is widely available at SA&#39;s biggest retailers. The combination of dark berries and ginger gives a serious antioxidant hit.'},
   {id:'im_zinc_bowl',    tier:'free',  emoji:'🥣', name:'Zinc & Selenium Grain Bowl',   kcal:380, costPP:31, feel:'Nutty, satisfying and quietly powerful — micronutrients you can actually taste.',
    badges:['🛡️ Immunity','🌾 Zinc','💪 Selenium'],
    base300:[{n:'Cooked brown rice or quinoa',pp:100,u:'g'},{n:'Pumpkin seeds',pp:30,u:'g'},{n:'Sunflower seeds',pp:20,u:'g'},{n:'Canned chickpeas (drained)',pp:80,u:'g'},{n:'Baby spinach',pp:60,u:'g'},{n:'Cherry tomatoes',pp:80,u:'g'},{n:'Lemon tahini dressing',pp:20,u:'ml'}],

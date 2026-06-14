@@ -22,7 +22,7 @@ function ttCostCard(items, colour){
   return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
     +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
     +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:24px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
-    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+items.length+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+items.length+' ingredients priced · SA&#39;s biggest retailers · Buy 10% extra</div>'
     +'</div>';
 }
 // Cost card for a single recipe's base[] scaled by mult. Pro-gated (matches braai).
@@ -35,7 +35,7 @@ function ttRecipeCostCard(base, mult, isPro, colour){
   return '<div style="background:#0f1a08;border:1px solid '+(colour||'#5a8010')+';border-radius:10px;padding:14px;margin-bottom:12px;">'
     +'<div style="font-size:10px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
     +'<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;color:#7a9040;">Estimated total</div><div style="font-size:22px;font-weight:bold;color:#c8e840;">R'+total.toLocaleString()+'</div></div>'
-    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+n+' ingredients priced · Checkers/retail · Buy 10% extra</div>'
+    +'<div style="font-size:10px;color:#718d28;margin-top:8px;line-height:1.5;">'+matched+'/'+n+' ingredients priced · SA&#39;s biggest retailers · Buy 10% extra</div>'
     +'</div>';
 }
 

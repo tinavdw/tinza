@@ -410,7 +410,7 @@ const PRICE_DB = {
   "melon": 150,               // cut melon R35/320g (whole ~R50 each)
   "crisps": 192,              // R23/120g packet
 
-  // ── KIDDIES SAFARI/RAINBOW/PRINCESS/FARMYARD/BRAAI/BIG5 (Jun 2026) — many ESTIMATES, confirm at Checkers ──
+  // ── KIDDIES SAFARI/RAINBOW/PRINCESS/FARMYARD/BRAAI/BIG5 (Jun 2026) — many ESTIMATES, confirm at SA&#39;s biggest retailers ──
   "worcester sauce": 60,      // ESTIMATE
   "guava juice": 35,          // ESTIMATE
   "vetkoek": 40,              // ESTIMATE (flour-based, per kg)
@@ -484,8 +484,8 @@ const PRICE_DB = {
   "dried beef": 300,          // biltong-style, lean high
   "oxtail": 160,              // oxtail pieces, lean high
   "mixed meat": 130,          // braai mixed grill
-  "lamb leg": 180,            // estimate — confirm at Checkers
-  "lamb ribs": 170,           // estimate — confirm at Checkers
+  "lamb leg": 180,            // estimate — confirm at SA&#39;s biggest retailers
+  "lamb ribs": 170,           // estimate — confirm at SA&#39;s biggest retailers
   "lamb liver": 70,           // your figure (R60–70 high)
   "tripe": 130,               // Afval cleaned tripe high end
   "trotters": 130,            // pig/sheep trotters

@@ -735,7 +735,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <div style="font-size:13px;color:#6a892e;">Per person</div>
           <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${r.costPP}</div>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:#748932;">Checkers/retail prices · May 2026 · Always buy 10% extra.</div>
+        <div style="margin-top:8px;font-size:13px;color:#748932;">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div>
       </div>`;
     }
     return '';
@@ -936,7 +936,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
           <div style="font-size:13px;color:#908241;">Per person</div>
           <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
         </div>
-        <div style="font-size:13px;color:#908033;margin-top:8px;">Checkers/retail prices · ${new Date().getFullYear()} · Always buy 10% extra.</div>
+        <div style="font-size:13px;color:#908033;margin-top:8px;">SA&#39;s biggest retailers · ${new Date().getFullYear()} · Always buy 10% extra.</div>
       </div>` : ''}
       ${planCals>0 ? `<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
