@@ -965,31 +965,20 @@ function wkMyPlanView(){
       : (cnt>1 ? poolLabel+' \u00b7 1 of '+cnt+' \u00b7 '+portionPct+'% of plate' : poolLabel+' \u00b7 full portion');
     if(bump!==1) shareNote += ' \u00b7 <span style="color:#f5c842;">'+bump+'\u00d7</span>';
     var mainLine = mainItem
-      ? '<div style="font-size:13px;color:#e0d4b8;margin-top:4px;">'+mainItem.name+': '
+      ? mainItem.name+': '
         + '<span style="color:#e0d4b8;font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#e0d4b8;">\u00b7</span> '
-        + '<strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong></div>'
+        + '<strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong>'
       : '';
     var adjuster = '';  // per-dish "Portion for this dish" removed — the global Guests stepper scales the whole menu
-    var costBlock = (c.priced && c.total>0)
-      ? '<div style="text-align:right;">'
-        + '<div style="font-size:12px;color:#9bbf6a;">Food cost</div>'
-        + '<div style="font-size:16px;color:#c8e840;font-weight:bold;white-space:nowrap;">R'+c.total.toLocaleString()+'</div></div>'
-      : '';
-    return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:8px;">'
-      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">'
-      +   '<div onclick="wkOpenRecipe(\''+r.country+'\',\''+r.id+'\','+Math.max(1,Math.round(n))+')" style="flex:1;cursor:pointer;">'
-      +     '<div style="font-size:16px;color:'+cream+';font-weight:bold;">'+disp+'</div>'
-      +     '<div style="font-size:14px;color:#c0915a;margin-top:2px;">'+shareNote+'</div>'
-      +     mainLine
-      +   '</div>'
-      +   '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
-      +     costBlock
-      +     '<button onclick="wkPlanToggle(\''+r.id+'\')" style="background:none;border:none;color:#bc6b6b;font-size:16px;cursor:pointer;line-height:1;">\u2715</button>'
-      +   '</div>'
-      + '</div>'
-      + adjuster
-      + '</div>';
+    return planDishRow({
+      name: disp,
+      nameJs: "wkOpenRecipe('"+r.country+"','"+r.id+"',"+Math.max(1,Math.round(n))+")",
+      lines: [shareNote, mainLine],
+      costTotal: (c.priced && c.total>0) ? c.total : null,
+      removeJs: "wkPlanToggle('"+r.id+"')"
+    });
   }).join('');
+  dishes = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">'+dishes+'</div>';
   var controls = '<div style="background:#1a1208;border:1px solid '+green+';border-radius:10px;padding:12px 14px;margin-bottom:12px;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;">'
     +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Guests</div>'

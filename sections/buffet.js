@@ -287,16 +287,13 @@ function buffetStep7(){
     if(!arr.length) return '';
     return `<div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin:14px 0 6px;">${label}</div>
       <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:8px;">
-        ${arr.map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #2a1a10;">
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.emoji||'🍽️'} ${r.name}</div>
-            <div style="font-size:13px;color:#c0915a;margin-top:2px;">${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>${isPro&&r.costPP?` · <span style="color:#9bbf6a;">Food cost</span> <strong style="color:#c8e840;">~R${Math.round(r.costPP*g).toLocaleString()}</strong>`:''}</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:8px;">
-            <span onclick="openEventRecipe('${r.id}')" style="font-size:22px;color:#c06020;cursor:pointer;line-height:1;">›</span>
-            <button onclick="setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})" title="Remove from plan" style="background:none;border:1px solid #6a3030;border-radius:6px;padding:3px 9px;color:#c07a68;font-size:14px;line-height:1;cursor:pointer;">✕</button>
-          </div>
-        </div>`).join('')}
+        ${arr.map(r=>planDishRow({
+          emoji:r.emoji||'🍽️', name:r.name,
+          lines:[`${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>`],
+          costTotal:(isPro&&r.costPP)?Math.round(r.costPP*g):null,
+          openJs:`openEventRecipe('${r.id}')`,
+          removeJs:`setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`
+        })).join('')}
       </div>`;
   }
 

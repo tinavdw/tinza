@@ -1040,8 +1040,8 @@ function openEventRecipe(id){
   }
 }
 function openCakeRecipe(id){
-  const arr = typeof CELEBRATION_CAKE_RECIPES!=='undefined'?CELEBRATION_CAKE_RECIPES:[];
-  const cake = arr.find(c=>c.id===id);
-  if(cake) set({activeCake: cake});
+  // Migrated 14 Jun 2026: cakes render through the universal opener (RECIPE_BUILDERS.cakes).
+  // Thin alias kept so any stray caller still routes to the shared recipe page.
+  if(typeof openRecipe==='function') openRecipe('cakes', id);
 }
 

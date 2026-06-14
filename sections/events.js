@@ -1483,88 +1483,6 @@ function eventsHTML(){
     ${et==='weddingcake'?`
       ${(()=>{
         const cakeCat = S.cakeCat || null;
-        const activeCake = S.activeCake || null;
-        const cakeGuests = S.cakeGuests || 50;
-
-        if(activeCake) {
-          const cake = activeCake;
-          const catObj = CAKE_CATEGORIES.find(c=>c.id===cake.category);
-          const servesParts = (cake.serves||'50').toString().match(/\d+/g);
-          const servesNum = servesParts ? parseInt(servesParts[0]) : 50;
-          const batchesNeeded = Math.ceil(cakeGuests / servesNum);
-          const slicesOver = (batchesNeeded * servesNum) - cakeGuests;
-          return `
-            <button onclick="set({activeCake:null})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← Back to ${catObj?.label||'Cakes'}</button>
-            ${recipePhoto(cake.name, cake.emoji||'🎂')}
-            <div style="background:#1a1208;border:1px solid #3a2010;border-radius:12px;padding:14px;margin-bottom:12px;">
-              <div style="font-size:20px;color:#e0d4b8;margin-bottom:4px;">${cake.emoji} ${cake.name}</div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
-                <span style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;font-size:13px;color:#c090b0;padding:3px 8px;">🎂 Serves ${cake.serves}</span>
-                <span style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;font-size:13px;color:#c090b0;padding:3px 8px;">🍦 ${cake.icingType}</span>
-                ${cake.stabilityNote?`<span style="background:#1a1208;border:1px solid #3a2010;border-radius:8px;font-size:13px;color:#c090b0;padding:3px 8px;">🏗️ ${cake.stabilityNote}</span>`:''}
-              </div>
-            </div>
-            <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:13px;color:#c06020;margin-bottom:8px;">👥 How many guests?</div>
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-                <button onclick="setQuiet({cakeGuests:Math.max(10,${cakeGuests}-(${cakeGuests}<=20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">−</button>
-                <div style="flex:1;text-align:center;"><div style="font-size:28px;color:#f5c842;font-weight:bold;">${cakeGuests}</div><div style="font-size:13px;color:#c06020;">guests</div></div>
-                <button onclick="setQuiet({cakeGuests:Math.min(500,${cakeGuests}+(${cakeGuests}<20?1:5))})" style="width:36px;height:36px;border-radius:50%;background:#1a1208;border:2px solid #c06020;color:#c06020;font-size:20px;cursor:pointer;">+</button>
-              </div>
-              <div style="background:#0f0e0c;border:1px solid #3a2010;border-radius:8px;padding:10px;">
-                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid #1a1208;"><span style="color:#a96f7e;">Batches needed</span><span style="color:#f5c842;font-weight:bold;font-size:14px;">${batchesNeeded}×</span></div>
-                <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;"><span style="color:#a96f7e;">Extra slices</span><span style="color:#e0d4b8;">${slicesOver} slices — keep for late arrivals</span></div>
-              </div>
-              <div style="font-size:13px;color:#a96f7e;font-style:italic;margin-top:8px;">💡 Always bake for 10% more than your RSVP count.</div>
-            </div>
-            <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:8px;">Ingredients</div>
-              ${cake.base300.map((ing,i)=>ing.n.startsWith('—')?
-                `<div style="font-size:13px;letter-spacing:1px;color:#c06020;text-transform:uppercase;margin:10px 0 6px;padding-top:8px;border-top:1px solid #1a1208;">${ing.n.replace('—','').trim()}</div>`:
-                `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:${i<cake.base300.length-1?'1px solid #1a0818':'none'};gap:8px;">
-                  <span style="font-size:13px;color:#e0d4b8;flex:1;min-width:0;">${ing.n}</span>
-                  <div style="text-align:right;flex-shrink:0;">${(()=>{
-  const p=ing.a.split('·');
-  if(p.length>1){
-    const perPart = p[0].trim();
-    const totalPart = p[1].trim();
-    // Recalculate total based on cakeGuests
-    const servesMatch = (cake.serves||'100').toString().match(/\d+/);
-    const baseServes = servesMatch ? parseInt(servesMatch[0]) : 100;
-    const ratio = cakeGuests / baseServes;
-    // Try to scale the total
-    const numMatch = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L|per \d+)/);
-    let scaledTotal = totalPart;
-    if(numMatch && ratio !== 1){
-      const base = parseFloat(numMatch[1]);
-      const unit = numMatch[2];
-      const scaled = Math.round(base * ratio * 10) / 10;
-      if(unit==='g' && scaled>=1000) scaledTotal = (scaled/1000).toFixed(1)+'kg';
-      else if(unit==='kg') scaledTotal = scaled.toFixed(1)+'kg';
-      else if(unit==='ml' && scaled>=1000) scaledTotal = (scaled/1000).toFixed(1)+'L';
-      else scaledTotal = scaled+(unit.startsWith('per')?unit:unit);
-    }
-    return `<span style="font-size:13px;color:#f5c842;">${perPart}</span><span style="font-size:13px;color:#f5c842;font-weight:bold;margin-left:6px;">${scaledTotal}</span>`;
-  }
-  return `<span style="font-size:13px;color:#f5c842;font-weight:bold;">${ing.a}</span>`;
-})()}</div>
-                </div>`
-              ).join('')}
-            </div>
-            <div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">
-              <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">Method</div>
-              ${cake.method.map((step,i)=>`<div style="display:flex;gap:10px;margin-bottom:12px;"><div style="min-width:24px;height:24px;border-radius:50%;background:#1a1208;border:1px solid #c06020;display:flex;align-items:center;justify-content:center;font-size:13px;color:#c06020;flex-shrink:0;">${i+1}</div><div style="font-size:13px;color:#e0d4b8;line-height:1.6;">${step}</div></div>`).join('')}
-            </div>
-            <div style="background:#160f08;border:1px solid #3a2010;border-radius:8px;padding:10px 12px;margin-bottom:16px;"><span style="color:#e04080;font-size:13px;">💡 TIP: </span><span style="font-size:13px;color:#d090a0;">${cake.tip}</span></div>
-            ${isPro?`<div style="background:#1a1208;border:1px solid #c06020;border-radius:12px;padding:14px;margin-bottom:12px;">
-              <div style="font-size:13px;color:#f5c842;margin-bottom:10px;">📋 Baker Briefing Checklist</div>
-              ${BAKER_BRIEFING.map(b=>`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #1a1208;"><span style="color:#c06020;font-size:13px;">✓</span><span style="font-size:13px;color:#e0d4b8;">${b}</span></div>`).join('')}
-            </div>`:`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;text-align:center;color:#c06020;font-size:13px;margin-bottom:12px;">👑 Baker Briefing Checklist — Pro feature</div>`}
-            ${isPro?`${(()=>{const isSel=(S.eventSelectedCakes||[]).includes(cake.id);return `<button onclick="set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})" style="width:100%;padding:12px;background:${isSel?'#1a1208':'#1a1208'};border:2px solid ${isSel?'#c06020':'#3a2010'};border-radius:10px;color:${isSel?'#f5c842':'#c06020'};font-size:14px;cursor:pointer;margin-bottom:10px;">${isSel?'✓ Added to My Plan — tap to remove':'+ Add to My Plan'}</button>`;})()}`:`<div style="background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:10px;text-align:center;color:#c06020;font-size:13px;margin-bottom:10px;">👑 Add to Plan — Pro feature</div>`}
-            <button onclick="set({activeCake:null})" style="width:100%;padding:12px;background:#1a1208;border:1px solid #3a2010;border-radius:10px;color:#c06020;font-size:14px;cursor:pointer;">← Back to ${catObj?.label||'Cakes'}</button>
-          `;
-        }
-
         if(cakeCat==='myplan'){
           const selCakes = (S.eventSelectedCakes||[]);
           const selRecipes = CELEBRATION_CAKE_RECIPES.filter(c=>selCakes.includes(c.id));
@@ -1630,7 +1548,7 @@ function eventsHTML(){
               return `
               <div style="background:${isSel?'#1a1208':'#1a1208'};border:1px solid ${isSel?'#c06020':'#3a2010'};border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
                 ${isPro?`<div onclick="set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'#c06020':'transparent'};border:2px solid ${isSel?'#c06020':'#3a2010'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
-                <div onclick="openCakeRecipe('${cake.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+                <div onclick="openRecipe('cakes','${cake.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
                   <div>
                     <div style="font-size:15px;color:#e0d4b8;">${cake.emoji} ${cake.name}</div>
                     <div style="font-size:13px;color:#c06020;margin-top:3px;">Serves ${cake.serves}</div>
@@ -1914,4 +1832,121 @@ if(typeof RECIPE_SOURCES !== 'undefined'){
 }
 if(typeof RECIPE_BUILDERS !== 'undefined'){
   RECIPE_BUILDERS.events = function(item, recipe, vr){ return eventsRecipeOpts(item, (S.eventGuests||20)); };
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   CELEBRATION CAKES → universal opener (Standard §4b). Migrated 14 Jun 2026.
+   Replaces the hand-rolled if(activeCake) page + openCakeRecipe/activeCake.
+   Source finds the cake in CELEBRATION_CAKE_RECIPES; builder folds the
+   batches-needed logic into the shared green qtyBox, scales base300 through
+   the shared ingredient row (per-portion · scaled total), renders method via
+   the shared method box, wires a real Add-to-Plan toggle (eventSelectedCakes).
+   Guest count = S.cakeGuests (its own 10–500 slider). Back keeps cakeCat so it
+   lands on the category list you came from. No cook mode (cakes never had one).
+   ═══════════════════════════════════════════════════════════════════ */
+function cakesResolve(id){
+  var arr = (typeof CELEBRATION_CAKE_RECIPES!=='undefined') ? CELEBRATION_CAKE_RECIPES : [];
+  return arr.find(function(c){ return c && c.id===id; }) || null;
+}
+
+function cakesRecipeOpts(cake, guests){
+  if(!cake) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
+  guests = guests || 50;
+  var emoji = cake.emoji || '\uD83C\uDF82';
+  var isPro = (typeof USER_TIER!=='undefined') && USER_TIER==='pro';
+
+  // serves number (first integer in the serves string) → batches + extra slices
+  var servesParts = String(cake.serves||'50').match(/\d+/g);
+  var servesNum = servesParts ? parseInt(servesParts[0],10) : 50;
+  var batchesNeeded = Math.max(1, Math.ceil(guests / servesNum));
+  var slicesOver = (batchesNeeded * servesNum) - guests;
+
+  // ── SUB: cake badge row (serves · icing · stability) — warm palette ──
+  function badge(txt){ return '<span style="display:inline-block;background:#161210;border:1px solid #2a1a10;border-radius:8px;font-size:13px;color:#e0d4b8;padding:3px 9px;margin:0 6px 6px 0;">'+txt+'</span>'; }
+  var sub = '<div style="margin-top:4px;">'
+    + badge('\uD83C\uDF82 Serves '+cake.serves)
+    + badge('\uD83C\uDF66 '+cake.icingType)
+    + (cake.stabilityNote ? badge('\uD83C\uDFD7\uFE0F '+cake.stabilityNote) : '')
+    + '</div>';
+
+  // ── QTY (shared green box): batches needed + extra slices + 10% tip ──
+  var qInfo = (slicesOver>0 ? slicesOver+' extra slice'+(slicesOver!==1?'s':'')+' \u2014 keep for late arrivals<br>' : '')
+    + '\uD83D\uDCA1 Always bake for ~10% more than your RSVP count.';
+  var qtyHTML = qtyBox({
+    label:'How Many To Bake', sub: guests+' guests \u00b7 serves '+cake.serves+' per batch',
+    total: batchesNeeded+'\u00d7 batch'+(batchesNeeded!==1?'es':''),
+    ppLine: 'one batch serves '+cake.serves, n: guests, info: qInfo,
+    decJs:"setQuiet({cakeGuests:Math.max(10,(S.cakeGuests||50)-((S.cakeGuests||50)<=20?1:5))})",
+    incJs:"setQuiet({cakeGuests:Math.min(500,(S.cakeGuests||50)+((S.cakeGuests||50)<20?1:5))})"
+  });
+
+  // ── INGREDIENTS (shared box/row): per-portion · scaled total; "—" = sub-head ──
+  var ratio = guests / servesNum;
+  function fmtScaled(totalPart){
+    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)/);
+    if(!m || ratio===1) return totalPart;
+    var base = parseFloat(m[1]), unit = m[2];
+    var scaled = Math.round(base*ratio*10)/10;
+    if(unit==='g'  && scaled>=1000) return (scaled/1000).toFixed(1)+'kg';
+    if(unit==='kg')                 return scaled.toFixed(1)+'kg';
+    if(unit==='ml' && scaled>=1000) return (scaled/1000).toFixed(1)+'L';
+    return scaled+unit;
+  }
+  var ingRows = (cake.base300||[]).map(function(ing){
+    if(!ing || !ing.n) return '';
+    if(ing.n.trim().charAt(0)==='\u2014'){
+      return '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin:12px 0 6px;padding-top:8px;border-top:1px solid #1e1a10;">'+ing.n.replace('\u2014','').trim()+'</div>';
+    }
+    if(!ing.a) return ingredientRow(ing.n, '', '');
+    var parts = ing.a.split('\u00b7');
+    if(parts.length>1){
+      var perPart = parts[0].trim(), totalPart = fmtScaled(parts[1].trim());
+      var amt = '<span style="color:#e0d4b8;font-size:13px;font-weight:normal;">'+perPart+' \u00b7 </span>'+totalPart;
+      return ingredientRow(ing.n, amt, '');
+    }
+    return ingredientRow(ing.n, ing.a, '');
+  }).join('');
+  var ingredientsHTML = ingRows ? ingredientsBox(ingRows, guests) : '';
+
+  // ── METHOD (shared box/steps) — no timers / cook mode for cakes ──
+  var methodHTML = '';
+  if(cake.method && cake.method.length){
+    var stepsHTML = cake.method.map(function(s,i){ return methodStep(i, s, ''); }).join('');
+    methodHTML = methodBox(stepsHTML, '');
+  }
+
+  // ── EXTRAS: tip + Baker Briefing (Pro-gated) ──
+  var extras = '';
+  if(cake.tip) extras += '<div style="background:#160f08;border:1px solid #2a1a10;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:#e0d4b8;"><span style="color:#c06020;">\uD83D\uDCA1 TIP: </span>'+cake.tip+'</div>';
+  if(typeof BAKER_BRIEFING!=='undefined' && BAKER_BRIEFING.length){
+    if(isPro){
+      var briefInner = BAKER_BRIEFING.map(function(b){ return '<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #1e1a10;"><span style="color:#c06020;font-size:13px;">\u2713</span><span style="font-size:14px;color:#f0ebe1;">'+b+'</span></div>'; }).join('');
+      extras += recipeBox('\uD83D\uDCCB Baker Briefing Checklist', briefInner);
+    } else {
+      extras += '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px;text-align:center;color:#c06020;font-size:13px;margin-bottom:12px;">\uD83D\uDC51 Baker Briefing Checklist \u2014 Tinza Pro</div>';
+    }
+  }
+
+  // ── ACTIONS: real plan toggle (eventSelectedCakes) ──
+  var inPlan = ((S.eventSelectedCakes||[]).indexOf(cake.id) >= 0);
+  var addJs  = "set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'"+cake.id+"')})";
+  var planCount = (S.eventSelectedCakes||[]).length;
+
+  return {
+    photoName:cake.name, photoEmoji:emoji,
+    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    name:cake.name, sub:sub, meta:{},
+    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    actions:{ addJs:addJs, inPlan:inPlan },
+    nav:{ backJs:"closeRecipe()", planJs:"closeRecipe({cakeCat:'myplan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.cakes = function(id){ return cakesResolve(id); };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.cakes = function(item, recipe, vr){ return cakesRecipeOpts(item, (S.cakeGuests||50)); };
 }
