@@ -21,7 +21,7 @@ const EVENTS_BIG_COOKING_MAINS = [
   { id:"chickenpie", name:"Chicken Pie", emoji:"🥧", costPP:26,
     perPerson:{meat:180,unit:"g"},
     base300:[{n:"Chicken thighs (boneless, skinless)",a:"180g per person"},{n:"Puff pastry",a:"30g per person (1 roll per 6 people)"},{n:"Onion (diced)",a:"20g per person"},{n:"Crushed garlic",a:"2g per person"},{n:"Celery stalks (diced)",a:"15g per person"},{n:"Carrots (diced)",a:"20g per person"},{n:"Cream",a:"50ml per person"},{n:"Chicken stock",a:"100ml per person"},{n:"Flour (for sauce)",a:"8g per person"},{n:"Butter",a:"5g per person"},{n:"Fresh thyme",a:"1g per person"},{n:"Fresh parsley",a:"2g per person"},{n:"Egg (for egg wash)",a:"½ per person"}],
-    method:["Poach chicken in stock until cooked. Shred into large pieces.","Make white sauce: fry onion, garlic, celery in butter. Add flour. Whisk in stock and cream until thick.","Add chicken and seasoning. Cool completely.","Fill pie dishes. Cover with puff pastry. Brush with egg wash. Score top.","Bake 200°C 25-30 min until golden and bubbling.","For large groups: use deep hotel pans — 1 pan feeds 20."],
+    method:["Poach chicken in stock until cooked. Shred into large pieces.","Make white sauce: fry onion, garlic, celery in butter. Add flour. Whisk in stock and cream until thick.","Add chicken and seasoning. Cool completely.","Fill pie dishes. Cover with puff pastry. Brush with egg wash. Score top.","Bake 200°C 25-30 min until golden and bubbling.","For large groups: use deep serving pans (about 53 × 33 cm) — 1 pan feeds 20."],
     tip:"The filling MUST be cold before adding pastry or it will make the bottom soggy. Make filling day before." },
   { id:"lasagna", name:"Lasagna", emoji:"🍝", costPP:23,
     perPerson:{meat:120,unit:"g (1 tray = 20 portions)"},
@@ -76,7 +76,7 @@ const EVENTS_BIG_COOKING_MAINS = [
   { id:"bakedhake", name:"Baked Hake with Lemon Herb Crust", emoji:"🐟", costPP:54,
     perPerson:{meat:180,unit:"g"}, boneIn:false,
     base300:[{n:"Fresh or frozen hake fillets",a:"180g per person"},{n:"Olive oil",a:"1 tbsp per fillet"},{n:"Garlic (minced)",a:"1 clove per 2 fillets"},{n:"Lemon zest and juice",a:"1 lemon per 4 fillets"},{n:"Fresh parsley (chopped)",a:"2 tbsp per 4 fillets"},{n:"Breadcrumbs",a:"20g per fillet"},{n:"Capers (optional)",a:"1 tsp per 2 fillets"},{n:"Coarse salt and black pepper",a:"to taste"}],
-    method:["Preheat oven to 200°C. Line a deep baking tray with baking paper.","Pat hake fillets completely dry. Season well with salt and pepper.","Mix breadcrumbs, garlic, lemon zest, parsley and olive oil into a crumb paste.","Press crumb mixture evenly onto top of each fillet.","Bake 12–15 min depending on thickness — fish should flake easily.","Squeeze lemon juice over immediately on removal from oven.","For a crowd: arrange in hotel pans and bake in batches. Keep warm max 20 min."],
+    method:["Preheat oven to 200°C. Line a deep baking tray with baking paper.","Pat hake fillets completely dry. Season well with salt and pepper.","Mix breadcrumbs, garlic, lemon zest, parsley and olive oil into a crumb paste.","Press crumb mixture evenly onto top of each fillet.","Bake 12–15 min depending on thickness — fish should flake easily.","Squeeze lemon juice over immediately on removal from oven.","For a crowd: arrange in deep serving pans (about 53 × 33 cm) and bake in batches. Keep warm max 20 min."],
     tip:"Hake is South Africa's most versatile white fish. The crumb crust protects it from drying out. Serve with Lemon Butter Sauce." },
   { id:"dijontymeporkchops", name:"Gourmet Dijon & Thyme Pork Chops", emoji:"🍖", costPP:32,
     perPerson:{meat:300,unit:"g"},
@@ -169,7 +169,7 @@ const EVENTS_BIG_COOKING_SIDES = [
       "NEVER lift the lid during the 18-minute simmer. The steam does all the work.",
       "Rest 5 min off heat. Use a large flat fork or rice paddle to fluff — never stir with a spoon or it becomes paste."
     ],
-    tip:"For large events: use deep hotel pans in a 180°C oven. Combine toasted rice and spices in the pan, pour boiling stock over, cover tightly with foil and bake 20–25 min. Showstopper upgrade: stir in 5g butter + toasted slivered almonds per 8 people after cooking." },
+    tip:"For large events: use deep serving pans (about 53 × 33 cm) in a 180°C oven. Combine toasted rice and spices in the pan, pour boiling stock over, cover tightly with foil and bake 20–25 min. Showstopper upgrade: stir in 5g butter + toasted slivered almonds per 8 people after cooking." },
   { id:"sweetpatats", name:"Caramelised Sweet Potato Bake", emoji:"🍠", costPP:14,
     perPerson:{meat:150,unit:"g"},
     base300:[
@@ -326,7 +326,7 @@ const EVENTS_BIG_COOKING_SIDES = [
       "Once cooled, fold in the herb trio, lemon zest and toasted sunflower seeds.",
       "To toast sunflower seeds: dry pan, medium heat, 2–3 minutes until nutty smelling. This unlocks their flavour and makes them much crunchier."
     ],
-    tip:"For large events (120+ guests): divide the fluffed couscous into hotel pans (30 portions each) and add herbs, zest and seeds to each pan separately — this ensures every guest gets the right ratio of herbs and crunch, not a clump in one corner." },
+    tip:"For large events (120+ guests): divide the fluffed couscous into deep serving pans (about 53 × 33 cm, 30 portions each) and add herbs, zest and seeds to each pan separately — this ensures every guest gets the right ratio of herbs and crunch, not a clump in one corner." },
   { id:"cauliflowercheese", name:"Cauliflower & Cheese Bake", emoji:"🧀", costPP:16,
     perPerson:{meat:150,unit:"g"},
     base300:[

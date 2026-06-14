@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.8 · updated 12 Jun 2026 (**braai portions re-locked §6.1** — bone-aware tier bumped up: boneless 300/bone-in 400/fish 280/shellfish 320; `calcMeat` now cut-based via `braaiBaseG` so same cut = same grams and kebabs count as RAW meat not the skewer; new grazing taper 100/70/58/50 replaces the old 350g-constant). Earlier: plan dish-rows green food-cost TOTAL §4c; Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.9 · updated 14 Jun 2026 (**§10 finish-sameness SEQUENCE locked** — do in order, then add recipes: recipe-page opener migrations first [NEXT = Spice] → cross-links → ONE shared plan-row/shopping renderer → cosmetic sweep LAST → then FILL. Events recipe pages migrated; buffet landing restored to standalone.) Earlier v1.8 (**braai portions re-locked §6.1** — bone-aware tier bumped up: boneless 300/bone-in 400/fish 280/shellfish 320; `calcMeat` now cut-based via `braaiBaseG` so same cut = same grams and kebabs count as RAW meat not the skewer; new grazing taper 100/70/58/50 replaces the old 350g-constant). Earlier: plan dish-rows green food-cost TOTAL §4c; Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -215,11 +215,22 @@ Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
 ---
 
 ## 10. ROADMAP (the order we work — checked off as done)
-**Phase 1 — TIDY (make every page look & function the same):**
-- [ ] Green `qtyBox()` rolled across ALL sections (started: Braai sides ✅)
-- [ ] Photo headers all 200px (fix World Kitchen recipe 190; Health Hub mixed)
-- [ ] Kill all gliding scales → wrapped boxes (meals, health, budget, spice)
-- [ ] Remove per-screen bottom search (meals) → universal search above nav
+**Phase 1 — TIDY (make every page look & function the same). THE FINISH-SAMENESS SEQUENCE (LOCKED 14 Jun) — do these steps IN ORDER, then add recipes.**
+*Why this order: sameness is achieved by rendering every section through the SHARED `core.js` functions (§8) — build once, call everywhere. That is also how "every page has every feature" happens, and the only thing that stops drift. So we finish by getting every section onto the shared renderers, biggest page first, and leave the cosmetic pass for last so new content lands already-uniform.*
+
+- **Step 1 — FUNCTION sameness (recipe pages via the universal opener).** Migrate every remaining section onto the shared `recipePage()` opener (`RECIPE_SOURCES` / `RECIPE_BUILDERS`). Each migration auto-delivers the WHOLE recipe page + every feature (green `qtyBox`, cost box, cook mode, timers) to that section.
+  - Done ✅: Braai (meat/side), World Kitchen, Health, Events (buffet dishes + finger foods).
+  - [ ] **Spice ← NEXT STEP** (also unlocks the cross-links — pie→Béchamel, salad→dressing, pesto)
+  - [ ] Celebration Cakes (its own `openCakeRecipe`/`activeCake` opener)
+  - [ ] Kiddies recipe pages (`kiddies.js`)
+  - [ ] Meals / Feed My Family
+- **Step 2 — CROSS-LINKS** (unlocked once Spice is on the opener): salad→dressing, pie→Béchamel, pesto→Spice, filled roosterkoek→base.
+- **Step 3 — ONE shared PLAN-ROW + SHOPPING renderer (§4c / §6.4).** Build once, roll to Braai / World / Events / all so they can never drift. Green food-cost plan rows + two-total structure now; gold "buy" total switches on when `packs.js` is verified. *(Fixes the Events plan-row drift — inline → §4c cards.)*
+- **Step 4 — COSMETIC sameness sweep (LAST).** Done once at the end so new recipes don't need re-polishing:
+  - [ ] Photo headers all 200px (World Kitchen recipe 190; Health Hub mixed)
+  - [ ] My Plan WHITE OVERLAY pill on every section (§4.1) — replace any grid tiles / coloured pills (e.g. Events buffet)
+  - [ ] Kill all gliding scales → wrapped boxes (meals, health, budget, spice)
+  - [ ] Remove per-screen bottom search → ONE universal search above the nav
 
 **Phase 2 — FILL (content):**
 - [ ] World Kitchen — add recipes

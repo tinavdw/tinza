@@ -1068,6 +1068,21 @@ function eventsHTML(){
   // ── Kiddies opens as its own page (Model B) — bypasses the tab wrapper ──
   if(et==='kiddies') return kidsPartyHTML();
 
+  // ── Big Buffet opens as its own standalone page (Model B), like Kiddies.
+  //    buffetStepN renders its own header + ← Events nav, so you LAND on the
+  //    buffet (nothing to scroll up into) and the plan stops at the top.
+  //    Restores the prior isolated behaviour. ──
+  if(et==='bigcooking'){
+    const bs = S.buffetStep||1;
+    if(bs===2) return buffetStep2();
+    if(bs===3) return buffetStep3();
+    if(bs===4) return buffetStep4();
+    if(bs===5) return buffetStep5();
+    if(bs===6) return buffetStep6();
+    if(bs===7) return buffetStep7();
+    return buffetStep1();
+  }
+
   // ── Buffet step flow — returns standalone, bypasses tab wrapper ──
   const tabs = [
     {id:'bigcooking', label:'🍽️ Big Buffet',             feel:'Generous spreads, everyone back for seconds'},

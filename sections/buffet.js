@@ -155,7 +155,7 @@ function buffetStep1(){
           <button onclick="set({eventGuests:Math.min(350,S.eventGuests+(S.eventGuests<20?1:5))})" style="width:44px;height:44px;border-radius:50%;background:#1a1208;border:2px solid ${BC};color:${BC};font-size:24px;cursor:pointer;">+</button>
         </div>
         <input type="range" min="6" max="350" step="1" value="${S.eventGuests}" oninput="set({eventGuests:parseInt(this.value)})" style="accent-color:${BC};width:100%;cursor:pointer;display:block;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:#c06020;margin-top:4px;">${[6,20,50,100,150,200,350].map(n=>`<span>${n}</span>`).join('')}</div>
+        <div style="position:relative;height:16px;margin-top:4px;font-size:13px;color:#c06020;">${[6,50,100,150,200,350].map((n,i,arr)=>{const pct=(n-6)/344*100;const tf=i===0?'translateX(0)':i===arr.length-1?'translateX(-100%)':'translateX(-50%)';return `<span style="position:absolute;left:${pct}%;transform:${tf};white-space:nowrap;">${n}</span>`;}).join('')}</div>
       </div>
       <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">Choose your courses</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
