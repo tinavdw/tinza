@@ -290,7 +290,7 @@ function buffetStep7(){
         ${arr.map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #2a1a10;">
           <div style="flex:1;min-width:0;">
             <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.emoji||'🍽️'} ${r.name}</div>
-            <div style="font-size:13px;color:#f5c842;margin-top:2px;">${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>${isPro&&r.costPP?` · ~R${Math.round(r.costPP*g).toLocaleString()}`:''}</div>
+            <div style="font-size:13px;color:#c0915a;margin-top:2px;">${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>${isPro&&r.costPP?` · <span style="color:#9bbf6a;">Food cost</span> <strong style="color:#c8e840;">~R${Math.round(r.costPP*g).toLocaleString()}</strong>`:''}</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:8px;">
             <span onclick="openEventRecipe('${r.id}')" style="font-size:22px;color:#c06020;cursor:pointer;line-height:1;">›</span>

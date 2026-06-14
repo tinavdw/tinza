@@ -2169,17 +2169,18 @@ function recipeView(){
       const totalEst = meatCostRand + ingsCostRand;
       const ppEst = Math.round(totalEst / p);
       const coverage = costData.matched + "/" + costData.totalItems + " ingredients priced";
+      const allPriced = costData.matched === costData.totalItems;
+      const coverLine = allPriced ? "all ingredients priced" : ("Based on " + costData.matched + "/" + costData.totalItems + " ingredients priced");
       return `<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;color:#b1734c;">Total for ${p} people</div>
-          <div style="font-size:24px;font-weight:bold;color:#f5c842;">R${totalEst.toLocaleString()}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:13px;color:#e0d4b8;">💰 Estimated cost · ${p} ${p===1?'serving':'servings'}</div>
+          <div style="font-size:24px;font-weight:bold;color:#f5c842;">~R${totalEst.toLocaleString()}</div>
         </div>
-        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a1a10;">
-          <div style="font-size:13px;color:#b1734c;">Per person</div>
-          <div style="font-size:16px;font-weight:bold;color:#f5e8cc;">R${ppEst}</div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;">
+          <span style="font-size:13px;color:#e0d4b8;">Per person</span>
+          <span style="font-size:14px;color:#f5c842;font-weight:bold;">~R${ppEst}</span>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:#8a7a5c;line-height:1.5;">Based on ${coverage} · Checkers/retail prices · May 2026<br>Always buy 10% extra. Prices subject to change.</div>
+        <div style="font-size:13px;color:#e0d4b8;margin-top:6px;">${coverLine}</div>
       </div>`;
     } else if(USER_TIER === "free"){
       return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">

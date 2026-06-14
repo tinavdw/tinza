@@ -1449,18 +1449,18 @@ var SPICE_DB = [
     makeYourOwn: {
       yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
       ingredients: [
-        { qty:400, unit:"ml", name:"milk" },
-        { qty:40, unit:"g", name:"butter" },
-        { qty:40, unit:"g", name:"flour" },
+        { qty:500, unit:"ml", name:"milk" },
+        { qty:60, unit:"g", name:"butter" },
+        { qty:60, unit:"g", name:"flour" },
         { qty:2, unit:"g", name:"salt" },
-        { qty:1, unit:"g", name:"bay leaves" },
+        { qty:1, unit:"g", name:"white pepper" },
         { qty:1, unit:"g", name:"nutmeg" }
       ],
-      method: "Warm the milk with the bay leaf, then set aside to infuse. Melt the butter, stir in the flour and cook the roux for a minute without colouring. Whisk in the strained milk a little at a time to keep it smooth, then simmer gently until thickened. Season with salt and nutmeg. This is the base for lasagne, gratins and cheese sauce."
+      method: "Make the roux: melt the butter over medium-low heat, then add the flour all at once and whisk constantly for 1–2 minutes — cook out the raw flour taste without letting it brown. Add the milk gradually: pour in about 100ml and whisk hard until smooth, then add the rest in batches, whisking so no lumps form. Turn the heat low and stir until it reaches a gentle simmer; cook about 5 minutes until thick enough to coat the back of a spoon (nappe). Off the heat, season with salt, white pepper and the pinch of nutmeg. Fold straight into cooked chicken, sautéed veg and herbs for a chicken pie filling."
     },
-    pairsWith: ["lasagne", "moussaka", "vegetable gratin", "fish pie"],
-    aliases: ["bechamel", "béchamel", "white sauce", "basic white sauce"],
-    story: "The simplest of the French mother sauces — just butter, flour and milk — and the foundation of a hundred others. Master this and cheese sauce, lasagne and gratins all follow.",
+    pairsWith: ["chicken pie (Hoenderpastei)", "lasagne", "moussaka", "vegetable gratin", "fish pie"],
+    aliases: ["bechamel", "béchamel", "white sauce", "basic white sauce", "hoenderpastei white sauce"],
+    story: "The classic French mother sauce — a roux of butter and flour loosened with milk — and the creamy base for the Boerekos chicken pie (Hoenderpastei). This 60g:60g:500ml ratio gives a medium-thick sauce that sets perfectly as a pie filling. Cook the roux without colour, add cold milk to a warm roux (never hot-on-hot, or it lumps), use white pepper to keep it pristine, and stop at nappe — when a finger drawn down the back of a spoon leaves a clean trail. To level up, swap 100ml of the milk for chicken stock or dry white wine, or stir in a teaspoon of Dijon or a splash of cream at the end.",
     howThisFeels: ""
   },
 

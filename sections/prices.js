@@ -339,6 +339,9 @@ const PRICE_DB = {
   "stock cubes": 1.5,         // R1.50 each
 
   // ── FROZEN ──
+  "mixed vegetables": 55,     // frozen mixed veg ~R54.99/kg (Tina — always use frozen)
+  "frozen mixed vegetables": 55,
+  "mixed veg": 55,
   "frozen peas": 67,          // R50/750g → R67/kg
   "frozen corn": 106,         // R53/500g → R106/kg
   "frozen broccoli": 67,      // R50/750g → R67/kg

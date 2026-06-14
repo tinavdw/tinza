@@ -1,70 +1,104 @@
 # TINZA — Session Handoff
+_Last regenerated: 14 Jun 2026 — recipe-page cost box unified (Braai↔World), Béchamel rebuilt for the chicken pie, frozen mixed-veg priced. **PUSH core.js · spice.js · prices.js**_
 
-_Last regenerated: 13 Jun 2026 (Braai cook bug + polish DONE & live · **EVENTS migrated onto the universal opener** — node --check ✓ + smoke-tested · PUSH events.js + buffet.js)_
+---
 
 ## ✅ Done this session
 
-### 1. Braai "Start Cooking" — fixed + polished (`core.js`, LIVE)
-- Dead `openCookingMode` replaced with WK-style `set({braaiCooking:{id,type,step}})`; new `braaiCookingView()` (re-resolves by id, progress bar, tappable timers, Prev/Next/Done/Exit); routed at draw level beside wk/health. Step **centred**, text **23px**, long steps scroll via `margin:auto 0`. Confirmed live & loved.
+### 1. Cost box made UNIFORM — Braai now matches World Kitchen (`core.js`, PUSH)
+- The Braai recipe-page cost box was the **verbose** one ("💰 Cost Estimate · Total for N people · Based on X/Y · Checkers/retail prices · May 2026 · Always buy 10% extra"). You preferred the **compact** look.
+- Rewrote that box (the Braai `costBlock` in `core.js`) to the compact design that World Kitchen already uses:
+  - `💰 Estimated cost · N servings` on the left, big `~R___` (gold `#f5c842`) on the right
+  - `Per person · ~R___`
+  - one short line: `all ingredients priced` (or `Based on X/Y ingredients priced` when partial)
+  - tilde `~` on amounts = estimate; **no** Checkers/May-2026/Always-buy-10% clutter.
+- Checked: Health, Kiddies, Meals, Events, Buffet do **not** hand-roll their own verbose box, so this single edit brings Braai in line. `node --check` ✓ · `core.js` 2337→2338 lines (no truncation, backed up to `core.js.bak`).
 
-### 2. EVENTS migrated onto the spine (Standard §4b) — `events.js` + `buffet.js`, PUSH THESE
-- **Chose option A: full sameness.** Events recipes now render through the shared `recipePage` (200px header, green `qtyBox`, shared ingredient/method shells) — identical to Braai/WK/Health/Kiddies.
-- **Source:** `eventsResolve(id)` (appended to events.js) finds the record across every `EVENTS_*` array and **tags it with its plan key** (`eventSelectedMains/Sides/Salads/Starters/Desserts/Cultural`; sauces + fingers → `eventSelectedFingers`). Registered `RECIPE_SOURCES.events`.
-- **Builder:** `eventsRecipeOpts(r, guests)` (appended to events.js). Registered `RECIPE_BUILDERS.events`. It:
-  - **Folds the caterer's quantity logic into the green qtyBox** (per Tina's call): kg, ml→L, ice-cream tubs (2L/5L hint), shanks, trays (1 tray = 20 portions), pieces, bone-in raw-weight (+35%), ppG batch. Cost pp + total go in the info strip with the "costing only" note.
-  - Scales `base300` ingredients through the shared row (ported the per-person + fraction + tbsp/tsp scalers; finger-food `pp`/`u` per-piece scaler preserved). Falls back to `pantry` strings when no base300.
-  - Method → shared `methodBox` (no Start Cooking — **Events has no cook mode**, so no draw-level route needed).
-  - **Real Add-to-Plan toggle** per category (not faked) + tip + ml-per-person extras.
-  - qtyBox ± wired to `S.eventGuests` (default 20), like Kiddies' kidsCount.
-- **Opens flipped** (4 sites): finger chevron + both eventCard actions (events.js) and the sauce-row chevron (buffet.js) now call `openRecipe('events',id)`.
-- **Smoke-tested** all branches (chicken kg, ice-cream tubs, shanks, tray, ml→L, pieces, sauce, finger in-plan, missing id) — all correct, none throw. `node --check` ✓ on both files.
+### 2. Béchamel rebuilt for the chicken pie (`spice.js`, PUSH)
+- The white sauce already lived in Spice → Sauces, but at a thin 40g:40g:400ml ratio. Replaced it with your **pie-perfect** recipe: **60g butter · 60g flour · 500ml milk · salt · white pepper · pinch nutmeg**, serves 4, medium-thick so it sets as a pie filling.
+- Folded your chef's notes into the method + story (cook the roux without colour, cold milk into a warm roux so it never lumps, white pepper for a pristine colour, stop at **nappe**, level-up swap of 100ml milk for stock/wine or a dab of Dijon/cream).
+- Added `chicken pie (Hoenderpastei)` to *pairs with* and the alias `hoenderpastei white sauce` so search finds it. `node --check` ✓.
 
-### 3. Photo loader now accepts PNG (`core.js`, pushed)
-- `recipePhoto()` + `sectionHeader()` images route through a new `photoSwap()` helper: on a `.jpg` 404 it retries the same name as `.png` once, then falls back to the emoji. Tina's photos saved as PNG now show. Standard §5.5 still prefers `.jpg` (smaller/faster on phones) but `.png` works. (Headers with spaces e.g. `Cape Malay.png` swap too.)
+### 3. Frozen mixed vegetables priced (`prices.js`, PUSH)
+- Added `"mixed vegetables": 55` (+ `"frozen mixed vegetables"` and `"mixed veg"`) at **~R54.99/kg** in the FROZEN block — frozen is what you always use.
+- This makes **Hoenderpastei** (and Chilli Bites, etc.) price fully instead of dropping that line. `node --check` ✓.
 
-## 📤 Push status (GitHub Desktop, one file at a time, into `sections/`)
-- `events.js` — **PUSH** (builder + source + registration + flipped opens). Now 1817 lines.
-- `buffet.js` — **PUSH** (one flipped open on the sauce row). 1408 lines.
-- `core.js` — already live from earlier this session (Braai). **No new core.js change this round.**
-- `TINZA_HANDOFF.md` — push to repo root (replace old).
+---
+
+## 📤 Push (GitHub Desktop, one file at a time, into `sections/`)
+- `core.js` — PUSH (cost box) · `spice.js` — PUSH (Béchamel) · `prices.js` — PUSH (mixed veg)
+- Replace this `TINZA_HANDOFF.md` in the repo root.
 
 ## ▶️ Confirm live after pushing
-tinza.netlify.app → **Events**. Open recipes from each list — a Big-Cooking **main** (kg + cost), an **ice-cream** dish (tub hint), **lamb shanks** (N shanks), a **tray** dish, a **sauce** (scales in the ingredient list), a **finger food** (Add to Plan toggles). Check **Back** returns to the right list, and the green **±** changes the guest count and rescales. All pages should now look identical to Braai/WK/Health/Kiddies.
+`tinza.netlify.app` → open a **Braai** main and a **World Kitchen** main → the cost boxes should now read identically (`💰 Estimated cost · N servings · ~R… / Per person ~R… / all ingredients priced`). Open **Spice → Sauces → Béchamel** to see the new pie recipe. Open **Boerekos → Hoenderpastei** and confirm a food cost now shows (mixed veg priced).
 
+---
 
-## 🔍 DIAGNOSTIC (found 13 Jun, fix = the Meals migration below)
-**Symptom:** some recipes still show the OLD orange "📊 QUANTITIES FOR N GUESTS" detail page (no green qtyBox, no shared layout) while migrated Events recipes show the new green page.
-**Root cause:** it is NOT an Events gap — Events is fully migrated (no `openEvent` calls, no `eventActiveRecipe` setters left in events.js). The old page is triggered by **`meals.js` line ~1039: `set({eventActiveRecipe: r})`**, which reuses the old `eventsRecipeView` (buffet.js) via the dead-but-still-present `if(aer){ return eventsRecipeView(aer,guests) }` dispatch in events.js (~1066). So opening a recipe through the **Meals** path renders the old Events detail page.
-**Fix:** the **Meals migration** (next task) replaces that `set({eventActiveRecipe:r})` with `openRecipe('meals',id)` + a `RECIPE_BUILDERS.meals` builder — same 5 steps as Events. That makes every page green/consistent. (Braai's "Potato Bake" green page in testing was a Braai SIDE, already on the spine — not an Event.)
-**Cook mode note:** migrated Events pages show the method as a numbered list but have NO "Start Cooking" step-mode (Events never had one). If a cook mode is wanted for Events/Meals later, reuse the Braai `braaiCookingView` pattern.
+## 🔭 Still to do — pie → Spice clickable link (NOT built yet)
+You asked for a tappable link from **Hoenderpastei → Béchamel in Spice**, with a "go back to recipe" return — same pattern as the locked salad→dressing links.
+- **Blocker:** Spice recipes don't yet open through the universal `openRecipe()` opener (only `meat`, `side`, `world` are registered). The salad→dressing link mechanism also isn't built yet.
+- **Cleanest path:** migrate Spice onto the universal opener (register `RECIPE_SOURCES.spice` + `RECIPE_BUILDERS.spice`). That single move (a) unlocks the pie→Béchamel link **and** every future cross-link (salad→dressing, pesto→Spice), and (b) makes Spice pages match every other section. → **good candidate for the next session.**
 
-## Next up
-1. **MEALS migration (meals.js)** — same 5 steps. Fold sameness fixes in: the stray "Search All Recipes" box that's only in meals.js, and the gliding category scales.
-2. **(maybe) BREADS** — its own new section now; confirm if it's on the spine, migrate if not.
-3. **Cross-links** once sections share the opener (salad→dressing, pesto→Spice, World→Health). Tina's culinary call.
+## 🗂️ Running backlog (old + new)
+- **Cost-box sweep:** confirm Health / Kiddies / Events / Meals recipe pages all show the same compact box; ideally extract one shared `costEstimateBox()` in `core.js` (Standard §8 "costStrip still to build") so it can never drift.
+- **Spice migration** onto the universal opener → then the pie→Béchamel + salad→dressing cross-links.
+- My Plan white-pill rollout: finish remaining sections (Health Hub, Tiny Tummies, Furry Friends…).
+- Global sans-font flip in `index.html`; header search filtering; replace the 542KB base64 fire blob in `braai.js` with a repo image file; Spice Emporium shelf population (Chutneys & Atchars, Sambals, Jams & Preserves).
+- Two-total shopping block in World Kitchen (Standard §6.4 step 3) once `packs.js` is verified.
+- `howThisFeels` soul-pass (all sections, last).
 
-## Parked — cook-mode consistency
-- Apply the Braai cook-screen tweak (**centre + 23px + long-step `margin:auto 0`**) to `wkCookingView` (worldkitchen.js) and `healthCookingView` (health.js) so all cook screens match.
-- Eventually collapse the three near-duplicate cook views into ONE shared `cookingView()` in core.js.
+---
 
-## Parked — dead code to cull (after each migration is confirmed solid live)
-- **Events:** `eventsRecipeView()` in **buffet.js** (the old ~277-line detail renderer) + the `if(aer){ return eventsRecipeView(...) }` dispatch in events.js + `openEvent()` in core.js — all now unreachable. Left intact as minimal-risk; cull once Events is confirmed solid.
-- **Health:** `healthRecipeDetail` + `healthExtDetail` + their `healthHTML` dispatch.
-- **Kiddies:** `kidsRecipeDetailHTML` + its `kidsScreen==='recipe'` dispatch.
-- **Finger-food qty note:** finger foods show no qtyBox total ("scaled below") — same as the old behaviour (they have neither perPerson nor ppG). Could later show "≈N pieces"; Tina to decide.
+---
 
-## Parked — community ideas (feedfeed look · LATER, low priority — Tina is sceptical, rightly)
-- "Made it!" photo on the recipe page · community recipe lane + badge · "What SA's cooking this week" from own activity. Borrow the engine, **not** the ad model (Tinza = subscription, no ads ever). Not worth chasing now.
+## 🔎 Events audit (you asked: collapsible / green box / 2 tiers)
 
-## Parked (real, after the migrations)
-- **World Kitchen content:** warm-palette pass · Asia spice exact-definition · India gaps (Butter Chicken, lamb/goat) · two "mixed meat"→named-cut edits.
-- **Costing:** gold "buy" two-cost (`PACK_DB`/`packs.js`) · Pantry "you may already have" group · one shared Braai+WK plan/shopping renderer (§6.4).
-- **Kiddies display:** count items show party TOTAL only — Tina to confirm or revert to per-child.
-- **`howThisFeels` soul pass** (all sections — last) · monthly price check · Budget engine + Global Search = separate solo sessions.
-- **Spice shelves Tina leads** (Chutneys & Atchars, Sambals, Jams & Preserves).
+| # | Thing | Verdict | Where |
+|---|-------|---------|-------|
+| 1 | **Collapsible "How it works"** | ⚠️ bespoke copy, can drift — works | Events has its own landing box (`events.js`, `S.eventsHowOpen`) instead of shared braai `howItWorksBlock`. Recipe-page "How portion size works" is fine (inherited from core). |
+| 2 | **Green box** | ✅ recipe page already green · ✅ **plan rows FIXED** | Recipe pages use shared green `qtyBox` (`#c8e840`). Plan dish-rows were all-gold → now `…kg total · Food cost ~R___` in green (`buffet.js` line 293). |
+| 3 | **Two tiers** | ❌ missing — needs a build | Events shows ONE gold "Estimated total" that is really the *food* cost, mislabeled. No green-food / gold-spend split. Events doesn't compute a pack-rounded shop-spend total (shopping list lists quantities, no prices), so the tier has nothing to sum yet. |
 
-## START HERE next conversation
-1. **curl `TINZA_STANDARD.md` (v1.8) and this `TINZA_HANDOFF.md` from the repo root BEFORE touching code.** Standard wins over chat.
-2. Start at **tinza.netlify.app** — confirm live: Braai · World Kitchen · Health · Kiddies · **Events** all open through the universal opener.
-3. Begin **Meals migration** (then Breads? → cross-links), using Events/Kiddies as the template.
-4. Live: tinza.netlify.app · repo tinavdw/tinza (`sections/` holds the JS) · fetch via `curl` from raw.githubusercontent.com.
+**Recommendation for the two-tier:** build it **once** as a shared block and reuse everywhere. The canonical version is in Braai:
+- the **"How it works"** trigger — `braai.js` line 42
+- the two-tier totals + **"About these totals & ways to save"** explainer — `braai.js` 360–376 (What the food costs `#9bbf6a`/`#c8e840` · What you'll spend `#f5c842` · "shops sell whole packs — the extra stays in your kitchen" · the 10% buffer rationale).
+
+Events has **none** of this (only a "+10% buffer" header note). Build order for the next session:
+1. Extract the Braai two-tier + explainer into a shared `core.js` function (e.g. `twoTierTotals({cookTotal, buyTotal})`).
+2. Re-point Braai at the shared function (replace its inline copy).
+3. World Kitchen — add it (verify its buy/pack total via `packs.js`).
+4. Events — **first** build a pack-rounded shop-spend total (its shopping list currently lists quantities with no prices, so there's no "what you'll spend" number yet), then drop in the shared block.
+
+**4th push-ready file this session:** `buffet.js` (green plan-row). Independent of the other three.
+
+---
+
+## 🧭 Session flowchart
+
+```mermaid
+flowchart TD
+    A["GOOD MORNING session — 14 Jun"] --> B["Make Braai & World Kitchen look alike"]
+
+    B --> C["DONE: cost box unified (core.js)<br/>verbose → compact 'Estimated cost · N servings'"]
+    B --> D["DONE: Béchamel rebuilt for chicken pie (spice.js)<br/>60g:60g:500ml + white pepper + nappe notes"]
+    B --> E["DONE: frozen mixed veg priced ~R55/kg (prices.js)<br/>→ Hoenderpastei now costs fully"]
+
+    P["PUSH 4 files via GitHub Desktop<br/>core.js · spice.js · prices.js · buffet.js"]
+    C --> P
+    D --> P
+    E --> P
+    F["DONE: Events plan-row food cost → green (buffet.js)<br/>'…kg total · Food cost ~R___'"] --> P
+    B --> F
+    P --> V["Confirm live: tinza.netlify.app"]
+
+    V --> N1["NEXT: migrate Spice onto universal opener"]
+    N1 --> N2["→ unlocks pie → Béchamel tappable link<br/>+ go-back, + salad → dressing links"]
+    N1 --> N3["→ Spice pages match every section"]
+
+    V --> T["NEXT: build shared TWO-TIER total ONCE<br/>food cost green + shop spend gold + 'about these totals'"]
+    T --> T2["drop into Braai · World Kitchen · Events<br/>(Events needs a pack-rounded shop-spend total first)"]
+
+    V --> S1["SWEEP: align Events 'How it works' collapsible<br/>to shared braai block"]
+
+    V --> BL["BACKLOG: My Plan pills · sans-font flip<br/>header search · base64 fire blob<br/>Spice Emporium shelves · howThisFeels"]
+```
