@@ -1821,43 +1821,70 @@ function sectionHeader(o){
   return header + catBlock;
 }
 
-// §4.1b — shared "How it works + guest stepper" box (braai v33). Place at top
-// of a section's .content so padding matches. o.state = state key ('people',
-// 'eventGuests', …). o.howItWorks = optional custom step lines (HTML strings).
-function guestBar(o){
+// §4a.2 / §8 — THE shared "How it works" box. The one collapsible help box that
+// sits at the top of every section landing (Standard §4a, item 2). Built ONCE so
+// no section hand-rolls its own — that hand-rolling IS the drift this kills (WK,
+// Health, Spice, Furry, Meals, Budget each had a bespoke box: different copy,
+// colours, toggle keys, and the banned Georgia font). Route every landing here.
+//   howItWorks({ steps, openKey, stepper })
+//   - steps   : array of HTML step lines (defaults to the universal 5 steps)
+//   - openKey : state flag for open/closed (default 'howItWorksOpen', so the
+//               shared tap-outside-to-close handler in draw() covers it)
+//   - stepper : { state, min, max, decJs, incJs } shows the guest ± control on
+//               the right (Standard §4a: one box — link left, stepper right);
+//               omit it for a link-only box. guestBar() delegates here.
+function howItWorks(o){
   o = o || {};
-  const gk  = o.state || 'people';
-  const min = (o.min!=null) ? o.min : 1;
-  const max = (o.max!=null) ? o.max : 100;
-  const decJs = o.decJs || `set({${gk}:Math.max(${min},S.${gk}-1)})`;
-  const incJs = o.incJs || `set({${gk}:Math.min(${max},S.${gk}+1)})`;
-  const steps = o.howItWorks || [
+  const openKey = o.openKey || 'howItWorksOpen';
+  const steps = o.steps || [
     '1 · Browse each section and tap <strong style="color:#f5c842;">Recipe ›</strong> to read first',
     '2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan',
     '3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong>',
     '4 · Tap <strong style="color:#f5c842;">My Plan</strong> for quantities, cost &amp; shopping list',
     '5 · Share your list directly to WhatsApp or your store'
   ];
-  return `
-    <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button onclick="set({howItWorksOpen:!S.howItWorksOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
-          <span style="font-size:13px;">${S.howItWorksOpen ? '▲' : '▼'}</span>
-          <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
-        </button>
+  let stepperEl = '';
+  if(o.stepper){
+    const st  = o.stepper;
+    const gk  = st.state || 'people';
+    const min = (st.min!=null) ? st.min : 1;
+    const max = (st.max!=null) ? st.max : 100;
+    const decJs = st.decJs || `set({${gk}:Math.max(${min},S.${gk}-1)})`;
+    const incJs = st.incJs || `set({${gk}:Math.min(${max},S.${gk}+1)})`;
+    stepperEl = `
         <div style="width:1px;height:20px;background:#3a2010;flex-shrink:0;"></div>
         <div style="display:flex;align-items:center;gap:8px;flex:1;">
           <button onclick="${decJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
           <span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S[gk]}</span>
           <button onclick="${incJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
           <input type="range" min="${min}" max="${max}" value="${S[gk]}" oninput="S.${gk}=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
-        </div>
+        </div>`;
+  }
+  return `
+    <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button onclick="set({${openKey}:!S.${openKey}})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+          <span style="font-size:13px;">${S[openKey] ? '▲' : '▼'}</span>
+          <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
+        </button>${stepperEl}
       </div>
-      ${S.howItWorksOpen ? `
+      ${S[openKey] ? `
       <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
         <div style="font-size:13px;color:#e0d4b8;line-height:2;">${steps.join('<br>')}</div>
       </div>` : ''}
     </div>`;
+}
+
+// §4a.2 back-compat shim — guestBar() = the How-it-works box WITH the guest
+// stepper. Kept so Braai/Events keep rendering unchanged; it now delegates to
+// howItWorks() so there is ONE source of truth (Standard §8). o.state / o.min /
+// o.max / o.decJs / o.incJs drive the stepper; o.howItWorks overrides the steps.
+function guestBar(o){
+  o = o || {};
+  return howItWorks({
+    steps: o.howItWorks,
+    stepper: { state:o.state, min:o.min, max:o.max, decJs:o.decJs, incJs:o.incJs }
+  });
 }
 // ── SHARED RECIPE-PAGE COMPONENTS (Standard §4b) ──────────────────
 // One definition each → every section's recipe page is identical by
