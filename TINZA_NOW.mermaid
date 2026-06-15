@@ -1,57 +1,68 @@
 flowchart TD
-    S([Tinza · 15 Jun · evening checkpoint]) --> G
+    S([Tinza · 15 Jun · handoff to next session]) --> G
 
     subgraph G[DONE THIS SESSION]
         direction TB
-        a[Node.js installed — v24.16.0 working]
-        b[Standard to v1.11: Events model + Cost-is-Pro re-lock]
-        c[core.js: 4 shared fns built · node --check passed · pushed<br/>buildPlanData · guestStepperCard · shoppingView · planView]
-        d[Confirmed LIVE: prices.js + packs.js · Braai wired · World+Events not]
-        e[TINZA_ONE_TEMPLATE.md written — combined best-of-three target]
-        a --> b --> c --> d --> e
+        a[Node installed v24.16.0 · Standard to v1.12]
+        b[4 shared fns built: buildPlanData · guestStepperCard · shoppingView · planView]
+        c[WK PROOF LIVE and verified — looks great · two-cost totals working]
+        d[TINZA_ONE_TEMPLATE.md — combined best-of-three · the tiebreak law]
+        a --> b --> c --> d
     end
 
-    G --> n1[1 · Give Claude Code TINZA_ONE_TEMPLATE.md<br/>fold into Standard · fix stale 6.3 packs line]
-    n1 --> n2[2 · WK PROOF: route wkMyPlanView through planView<br/>match template · review diff · push · check live]
-    n2 --> n3[3 · Roll to Events — gains the two-cost block]
-    n3 --> n4[4 · Fold Braai onto buildPlanData · delete duplicate cook/buy logic]
-    n4 --> n5[5 · Recipe-opener migrations: Spice then Cakes then Meals]
-    n5 --> n6[6 · Cross-links]
-    n6 --> n7[7 · Cosmetic sweep LAST]
+    G --> FIX
 
-    n7 --> FIX
-
-    subgraph FIX[DATA FIXES — during routing]
+    subgraph FIX[FIX IN SHARED FNS — every section inherits]
         direction TB
-        x1[Kill ratio amounts 2-per-5-people etc to concrete totals]
-        x2[Every shopping row shows a price · fill PRICE_DB gaps]
-        x3[Fix stuck Braai 320g stepper — heals on shared qtyBox]
-        x1 --> x2 --> x3
+        f1[One shared guest count — recipe opens at it · plan scales all together]
+        f2[shoppingView: add About-these-prices box — 2 costs + 10%]
+        f3[Merge alias dupes by priceName: butter / butter or oil to one line]
+        f4[No X-or-Y names: default to CHEAPER beef mince + oil · pricier = Indulge tier]
+        f5[Ratio amounts to concrete totals · every row carries a price · fill PRICE_DB gaps]
+        f6[Fix: bay leaf R37 vs not-costed · plan R670 vs shopping R703 must match]
+        f7[Delete commented-out old WK body]
+        f1 --> f2 --> f3 --> f4 --> f5 --> f6 --> f7
     end
 
-    FIX --> BL
+    FIX --> R
+
+    subgraph R[THEN ROLL OUT — prove each before next]
+        direction TB
+        r1[Re-verify WK]
+        r2[Route Events through shared fns]
+        r3[Fold Braai onto buildPlanData · delete duplicate logic]
+        r4[Remaining sections]
+        r5[Recipe-opener migrations: Spice then Cakes then Meals]
+        r6[Cross-links]
+        r7[Cosmetic sweep LAST — recipe-page items · fix stuck Braai stepper]
+        r1 --> r2 --> r3 --> r4 --> r5 --> r6 --> r7
+    end
+
+    R --> BL
 
     subgraph BL[PARKED]
         direction TB
-        p1[Flip tierAllows pro gate to activate peek-locks]
-        p2[4 recipe corrections pending: no. 3, 4, 7, 8]
-        p3[Then fill in recipes]
-        p1 --> p2 --> p3
+        p1[Extra share handlers: Gmail / Checkers60 / PnP / Spar]
+        p2[To-taste spices to Pantry you-may-already-have group]
+        p3[Flip tierAllows pro to activate peek-locks]
+        p4[4 recipe corrections: no. 3, 4, 7, 8 · then fill recipes]
+        p1 --> p2 --> p3 --> p4
     end
 
-    subgraph LOOK[LOCKED LOOK — section 0 of template]
+    subgraph LOOK[LOCKED LOOK + RULES — template 0 / 0b]
         direction TB
-        l1[One warm palette · one sans font · sizes 22 / 16 / 14 / 13]
-        l2[gold f5c842 shop · green c8e840 food cost · no horizontal scroll]
-        l3[Readable on phone · arm's length · under a tree outside]
-        l1 --> l2 --> l3
+        l1[One palette · one font · sizes 22/16/14/13 · no horizontal scroll]
+        l2[One shared guest count everywhere]
+        l3[Cost = Pro/peekable · calories + scaler = free]
+        l4[Readable on phone under a tree]
+        l1 --> l2 --> l3 --> l4
     end
 
-    e -.-> LOOK
+    d -.-> LOOK
 
     classDef done fill:#16301a,stroke:#4caf50,color:#dff0df
     classDef now fill:#3a2a18,stroke:#c06020,color:#f5e8cc
     classDef look fill:#2a2410,stroke:#f5c842,color:#f5e8cc
-    class a,b,c,d,e done
-    class n1,n2 now
-    class l1,l2,l3 look
+    class a,b,c,d done
+    class f1,f2,f3,f4,f5,f6,f7 now
+    class l1,l2,l3,l4 look

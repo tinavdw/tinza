@@ -16,6 +16,16 @@ Each line is tagged `← [source]` (the section whose version we keep) and notes
 
 ---
 
+## 0b · GUEST COUNT — one shared number everywhere
+*Fixes the scattered-count bug found in the WK proof: landing had its own count, recipes reset to 1, the plan scaled per-category.*
+- **One session guest count** — "who you're cooking for" — is the single source. The **same shared stepper** shows and edits it in the **same spot on every screen** (landing · cuisine/region · recipe · plan).
+- Every recipe's green box **opens at this number — never resets to 1**.
+- The plan scales **ALL dishes / categories to it together — never per-category** (change it once → starters, mains, sides all rescale).
+- Change it anywhere → it updates everywhere (everything reads the one number).
+- *(A per-recipe override is a later refinement if ever wanted; the default is always the one shared number.)*
+
+---
+
 ## 1 · SECTION LANDING / CATEGORY PAGES
 - 200px photo header, title + search overlaid; **My Plan = white pill, top-right inside the photo** (never a box below). ← all
 - Wrapped category grid (no horizontal scroll), selected-count badge on each category. ← all
@@ -34,6 +44,7 @@ Each line is tagged `← [source]` (the section whose version we keep) and notes
 - **Scaling explained ONCE.** Keep the line under the recipe name; **remove** the "smart scaling" banner above the dishes AND the below-photo repeat; replace them with the "How portions work" collapsible. ← de-dupe (too much today)
 - **Ingredients:** every line shows **"Xg pp · Yg Total"** — per-person AND total, the word "Total" present. ← Events format · **Braai adopts**
   - **Concrete amounts only.** Every amount is a real scaled number for the chosen guests (g / kg / ml / count). **NEVER a ratio** — no "2 per 5 people", "2 tbsp per 100g", "1 per 500ml water". A ratio can't be scaled, costed, or pack-rounded — resolve it to the actual total. **Fix these everywhere they appear.**
+  - **No "X or Y" names.** Resolve each to ONE named default — the everyday / **Standard-tier** option (e.g. **beef mince**, **sunflower oil**) — for both the name and the price. Never "beef or lamb mince" or "butter or oil": the price gap is too big to show one honest number, and the variants list as duplicate shopping rows. The pricier option (**lamb**, **butter**) is the **Indulge** budget-tier swap (Profile §4c), not the ingredient name. *(This also merges alias duplicates like butter / butter or oil / oil or butter into one line.)*
 - **Timers + cook mode:** every recipe has method-step **timers** (screen stays on) and a **"Start Cooking →"** button (big-text, steps-only cook mode). Delivered automatically by the shared `recipePage()` — every migrated section gets them. ← universal
 
 ## 3 · PLAN PAGE — `planView()`
