@@ -2050,7 +2050,9 @@ function buildPlanData(dishes){
     if(!name || amt==null || amt<=0) return;
     var low = name.toLowerCase();
     for(var i=0;i<skip.length;i++){ if(low.indexOf(skip[i])>-1) return; }
-    var key = (typeof normIngredientKey==='function') ? normIngredientKey(name) : low;
+    // de-dup by priceName when known (merges alias dupes: butter / butter or oil
+    // / oil or butter -> ONE line, template §4) — else by normalised display name.
+    var key = priceName ? ('§'+String(priceName).toLowerCase()) : ((typeof normIngredientKey==='function') ? normIngredientKey(name) : low);
     if(!key) return;
     if(map[key]){ map[key].amt += amt; if(priceName && !map[key].priceName) map[key].priceName = priceName; }
     else map[key] = { name:name, amt:amt, unit:unit, priceName:priceName||null, aisle:(typeof aisleCategory==='function'?aisleCategory(name):'🧂 Other') };
@@ -2095,8 +2097,13 @@ function buildPlanData(dishes){
   items.sort(function(a,b){ var ai=aisleOrder.indexOf(a.aisle), bi=aisleOrder.indexOf(b.aisle); if(ai!==bi) return ai-bi; return a.name.localeCompare(b.name); });
   // de-dup the missing list, keep it short
   var seen={}, miss=[]; missing.forEach(function(m){ if(!seen[m]){ seen[m]=1; miss.push(m); } });
+  // THE green "food cost" total = the per-dish sum (costTotalSum), used by BOTH
+  // the plan summary (costTotal) AND the shopping block (cookTotal) so they can
+  // never diverge and equal the sum of the visible dish-row greens. (cookTotal
+  // from the merged loop is left for reference but not surfaced.) buyTotal (gold)
+  // stays the merged, pack-rounded number — it legitimately differs (whole packs).
   return { dishes:outDishes, items:items, totals:{
-    cookTotal:Math.round(cookTotal), buyTotal:Math.round(buyTotal),
+    cookTotal:anyCost?Math.round(costTotalSum):null, buyTotal:Math.round(buyTotal),
     costPP:anyCost?Math.round(costPPSum):null, costTotal:anyCost?Math.round(costTotalSum):null,
     kcalPP:kcalPPSum?Math.round(kcalPPSum):null, missing:miss } };
 }
@@ -2167,6 +2174,22 @@ function shoppingView(o){
     + ((cook!=null && buy!=null && buy>cook) ? '<div style="font-size:13px;color:#a98f6a;line-height:1.55;margin-top:8px;">More than the food because shops sell whole packs — the extra stays in your kitchen.</div>' : '')
     + ((totals.missing && totals.missing.length) ? '<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: '+totals.missing.slice(0,8).join(', ')+(totals.missing.length>8?'…':'')+'</div>' : '')
     + '</div>';
+  // §4d — ONE combined bottom collapsible "About these prices & totals":
+  // the two costs + the +10% buffer + ways-to-save (loose tips), merged so the
+  // wording is identical everywhere (replaces Braai's "ways to save" + Events'
+  // "SA retail prices" — same box now). Only the one-line note sits up top.
+  var ln = function(g){ return g>=1000 ? (Math.round(g/100)/10)+'kg' : Math.round(g)+'g'; };
+  var looseTips = items.filter(function(it){ return it.looseTip; });
+  var aboutBody = ''
+    + '<p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What the food costs</strong> — the exact recipe amounts at SA retail prices. A planning guide, not a quote.</p>'
+    + '<p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you\'ll spend</strong> — usually a little more, because shops sell whole packs (a 1&nbsp;kg bag when you need 200&nbsp;g, a dozen eggs when you need eight). The extra stays in your kitchen.</p>'
+    + '<p style="margin:0 0 8px;">The <strong style="color:#f5e8cc;">+10% buffer</strong> on loose / by-weight items covers trimming and spillage — that is separate from pack-rounding; both can show, clearly labelled.</p>'
+    + (looseTips.length ? '<div style="border-top:1px solid #2a1a10;margin:10px 0;"></div><p style="margin:0 0 6px;color:#f5e8cc;font-weight:bold;">💡 Buy loose to save</p>'
+        + looseTips.map(function(t){ return '<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>'+t.name+'</span><span style="color:#9bbf6a;white-space:nowrap;">~'+ln(t.looseTip)+(t.looseTipCost!=null?' ≈ R'+t.looseTipCost:'')+'</span></div>'; }).join('') : '')
+    + '<p style="margin:10px 0 0;color:#8a7355;">Estimates from standard packs — watch for specials; bigger bags are often better value if you\'ll use them.</p>';
+  var about = '<div style="margin-top:14px;">'
+    + '<div id="shop-about-tog" onclick="(function(){var b=document.getElementById(\'shop-about-body\');var t=document.getElementById(\'shop-about-tog\');var o=b.style.display===\'block\';b.style.display=o?\'none\':\'block\';t.innerHTML=(o?\'▼\':\'▲\')+\' About these prices &amp; totals\';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:6px 0;">▼ About these prices &amp; totals</div>'
+    + '<div id="shop-about-body" style="display:none;background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:12px 14px;font-size:13px;color:#e0d4b8;line-height:1.6;">'+aboutBody+'</div></div>';
   var share = (o.shareJs||o.gmailJs||o.printJs)
     ? '<div style="display:flex;gap:8px;margin-top:12px;">'
       + (o.shareJs ? '<button onclick="'+o.shareJs+'" style="flex:1;padding:10px;border-radius:8px;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;">📲 WhatsApp</button>' : '')
@@ -2175,8 +2198,8 @@ function shoppingView(o){
       + '</div>' : '';
   return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:14px;">'
     + '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
-    + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · prices are an estimate</div>'
-    + rows + totalsBlock + share + '</div>';
+    + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · SA retail prices, planning guide only</div>'
+    + rows + totalsBlock + about + share + '</div>';
 }
 
 // §4c — THE WHOLE PLAN PAGE. Section feeds RAW dishes (+ header/guest info);
