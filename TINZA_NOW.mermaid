@@ -1,0 +1,57 @@
+flowchart TD
+    S([Tinza · 15 Jun · evening checkpoint]) --> G
+
+    subgraph G[DONE THIS SESSION]
+        direction TB
+        a[Node.js installed — v24.16.0 working]
+        b[Standard to v1.11: Events model + Cost-is-Pro re-lock]
+        c[core.js: 4 shared fns built · node --check passed · pushed<br/>buildPlanData · guestStepperCard · shoppingView · planView]
+        d[Confirmed LIVE: prices.js + packs.js · Braai wired · World+Events not]
+        e[TINZA_ONE_TEMPLATE.md written — combined best-of-three target]
+        a --> b --> c --> d --> e
+    end
+
+    G --> n1[1 · Give Claude Code TINZA_ONE_TEMPLATE.md<br/>fold into Standard · fix stale 6.3 packs line]
+    n1 --> n2[2 · WK PROOF: route wkMyPlanView through planView<br/>match template · review diff · push · check live]
+    n2 --> n3[3 · Roll to Events — gains the two-cost block]
+    n3 --> n4[4 · Fold Braai onto buildPlanData · delete duplicate cook/buy logic]
+    n4 --> n5[5 · Recipe-opener migrations: Spice then Cakes then Meals]
+    n5 --> n6[6 · Cross-links]
+    n6 --> n7[7 · Cosmetic sweep LAST]
+
+    n7 --> FIX
+
+    subgraph FIX[DATA FIXES — during routing]
+        direction TB
+        x1[Kill ratio amounts 2-per-5-people etc to concrete totals]
+        x2[Every shopping row shows a price · fill PRICE_DB gaps]
+        x3[Fix stuck Braai 320g stepper — heals on shared qtyBox]
+        x1 --> x2 --> x3
+    end
+
+    FIX --> BL
+
+    subgraph BL[PARKED]
+        direction TB
+        p1[Flip tierAllows pro gate to activate peek-locks]
+        p2[4 recipe corrections pending: no. 3, 4, 7, 8]
+        p3[Then fill in recipes]
+        p1 --> p2 --> p3
+    end
+
+    subgraph LOOK[LOCKED LOOK — section 0 of template]
+        direction TB
+        l1[One warm palette · one sans font · sizes 22 / 16 / 14 / 13]
+        l2[gold f5c842 shop · green c8e840 food cost · no horizontal scroll]
+        l3[Readable on phone · arm's length · under a tree outside]
+        l1 --> l2 --> l3
+    end
+
+    e -.-> LOOK
+
+    classDef done fill:#16301a,stroke:#4caf50,color:#dff0df
+    classDef now fill:#3a2a18,stroke:#c06020,color:#f5e8cc
+    classDef look fill:#2a2410,stroke:#f5c842,color:#f5e8cc
+    class a,b,c,d,e done
+    class n1,n2 now
+    class l1,l2,l3 look
