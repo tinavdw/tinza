@@ -933,7 +933,99 @@ function wkEffectiveMult(r, count, ap){
 function wkBumpOf(id){ var b=S.wkBump||{}; return b[id]||1; }
 function wkSetBump(id, mult){ var b=Object.assign({},S.wkBump||{}); b[id]=Math.max(0.25, Math.round(mult*100)/100); set({wkBump:b}); }
 
+// ROUTED through the shared planView() (15 Jun 2026 — WK proof pass). World
+// Kitchen now renders its whole plan from buildPlanData/planView/shoppingView,
+// matching the §4g One Template and sharing ONE costing path with Braai. WK
+// keeps only its own portion brain (wkEffectiveMult etc.) + alias table; it
+// hands planView raw, already-scaled dishes.
 function wkMyPlanView(){
+  var pool = wkPool();
+  var plan = S.wkPlan || [];
+  var guests = wkGuests();
+  var header = {
+    title:'Your World Kitchen Plan', emoji:'🌍',
+    img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
+    tagline:'Everything you need, costed and ready',
+    backJs:"set({wkScreen:null});window.scrollTo(0,0)", backLabel:'← World Kitchen',
+    myPlan:{ count:plan.length, onclick:"set({wkScreen:'wkplan'})" }
+  };
+  if(!plan.length){
+    return planView({ header:header, dishes:[], empty:'Your plan is empty. Open any dish and tap ＋ Add to My Plan.' });
+  }
+  var counts = wkPlanPoolCounts(), ap = wkAppetite(), gaps = {};
+  var dishes = plan.map(function(entry){
+    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
+    if(!r) return null;
+    var disp = (typeof tinzaDisplayName==='function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
+    var pk = wkPoolOf(r.course), cnt = counts[pk] || 1;
+    var spread = wkSpreadMult(pk, cnt), bump = wkBumpOf(r.id);
+    var mult = wkEffectiveMult(r, cnt, ap) * bump;    // per-person factor on authored amounts
+    var n = guests * mult;                            // party total
+    var parsed = wkParseIngredients(r.ingredients);
+    // CONCRETE scaled TOTALS for the one builder — never ratios (the parser only
+    // ever yields a number or a to-taste line, so the §4g "no ratio amounts" rule holds).
+    var ings = [];
+    parsed.forEach(function(it){
+      if(it.toTaste || it.qty==null) return;          // to-taste spices: not costed/shopped
+      if(wkIsWater(it.name)) return;                  // water: not bought
+      var unit=it.unit, amt=it.qty*n, u, a;
+      if(unit==='kg'){ u='g'; a=amt*1000; }
+      else if(unit==='l'){ u='ml'; a=amt*1000; }
+      else if(unit==='g'||unit==='ml'){ u=unit; a=amt; }
+      else { u='pcs'; a=amt; }                        // countable (eggs etc.)
+      // resolve through WK's alias table so the ONE engine (priceOf) can price it
+      var pr = (typeof wkPriceLookup==='function') ? wkPriceLookup(it.name) : null;
+      if(!pr) gaps[wkCleanName(it.name)] = it.name;   // genuine PRICE_DB gap -> flag (template §4)
+      ings.push({ name:it.name, amt:a, unit:u, priceName: pr ? pr.key : it.name });
+    });
+    var portionPct = Math.round(spread*100), poolLabel = (WK_POOL_LABEL[pk]||'Dish');
+    var shareNote = (pk==='drink')
+      ? poolLabel+' · per guest'
+      : (cnt>1 ? poolLabel+' · 1 of '+cnt+' · '+portionPct+'% of plate' : poolLabel+' · full portion');
+    if(bump!==1) shareNote += ' · <span style="color:#f5c842;">'+bump+'×</span>';
+    var mainItem = wkClassifyMain(parsed).item;
+    var mainLine = mainItem
+      ? mainItem.name+': <span style="color:#e0d4b8;font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#e0d4b8;">·</span> <strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+' total</strong>'
+      : '';
+    var kc = (typeof r.kcal==='number') ? r.kcal : parseFloat(r.kcal);
+    var kcalPP = isNaN(kc) ? null : Math.round(kc * mult);
+    return {
+      id:r.id, name:disp, emoji:(r.emoji||'🍽️'), kcalPP:kcalPP, guests:guests,
+      nameJs:"wkOpenRecipe('"+r.country+"','"+r.id+"',"+Math.max(1,Math.round(n))+")",
+      removeJs:"wkPlanToggle('"+r.id+"')",
+      lines:[shareNote, mainLine],
+      ingredients:ings
+    };
+  }).filter(Boolean);
+  // surface PRICE_DB gaps so they can be filled (template §4: every shopping row must price)
+  var gapList = Object.keys(gaps).map(function(k){ return gaps[k]; });
+  if(gapList.length && typeof console!=='undefined' && console.warn) console.warn('[Tinza] World Kitchen PRICE_DB gaps ('+gapList.length+'): '+gapList.join(', '));
+  // clean bottom (no Georgia): free dish-share · start-new · text nav
+  var footer = ''
+    + '<button onclick="wkShareDishes()" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;margin-bottom:10px;">📲 Share my dishes</button>'
+    + '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #c06020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;">🔄 Start a New Plan</button>'
+    + '<div style="display:flex;justify-content:space-between;padding:0 4px 24px;font-size:13px;">'
+    +   '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:#c06020;cursor:pointer;">← World Kitchen</button>'
+    +   '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#e0d4b8;cursor:pointer;">Home</button>'
+    + '</div>';
+  return planView({
+    header: header,
+    guests: {
+      value:guests, label:'Guests', note:'the whole menu scales to this',
+      decJs:"set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})",
+      incJs:"set({wkGuests:(S.wkGuests||10)+1})",
+      portionHowHTML: (typeof portionHowBox==='function') ? portionHowBox() : ''
+    },
+    dishes: dishes,
+    checked: S.wkCheckedShop || {},
+    toggleFn: 'wkToggleShop',
+    shareJs: 'wkShareWithList()',
+    printJs: 'wkPrintPlan()',
+    footerHTML: footer
+  });
+}
+/* ── superseded body of wkMyPlanView — replaced by the planView() routing above
+   (WK proof, 15 Jun 2026). Kept commented for one live check, then delete. ──
   var green='#c06020', cream='#f5e8cc';
   var pool = wkPool();
   var plan = S.wkPlan||[];
@@ -1063,3 +1155,4 @@ function wkMyPlanView(){
   return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+controls+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
 }
+*/
