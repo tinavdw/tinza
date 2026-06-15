@@ -199,6 +199,7 @@ function wkWorldHome(){
     emoji:'🌍',
     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
     backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
+    myPlan:{ count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" },
     search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" }
   });
 

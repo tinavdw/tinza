@@ -2023,6 +2023,205 @@ function planDishRow(o){
     + emoji + left + right + '</div>';
 }
 
+// §6.4 — THE ONE PLAN-DATA BUILDER. Fed raw, already-portioned dishes by ANY
+// section, it owns every SHARED concern so Braai / World Kitchen / Events can
+// never drift on money: prices through the one engine (priceOf), de-dupes
+// (normIngredientKey), aisle-tags (aisleCategory), pack-rounds (PACK_DB) into a
+// two-price items[], and sums plan totals + per-dish cost (so a dish's plan-row
+// R and the shopping list can never disagree). Sections keep ONLY their own
+// portion brain — they hand over TOTAL party amounts; this never re-portions.
+//   dish = { id, name, emoji, group, kcalPP, guests, lines:[..], nameJs, openJs,
+//            removeJs, ingredients:[{ name, amt, unit:'g'|'kg'|'ml'|'l'|'pcs', priceName }] }
+//            amt = TOTAL for the party (section pre-scales).
+//   → { dishes:[{…dish, costTotal, costPP}], items:[…two-price…], totals:{…} }
+function buildPlanData(dishes){
+  dishes = dishes || [];
+  var skip = ['water','tap water','ice water','boiling water','warm water','salted water','salt & pepper','salt and pepper','to taste','for serving','to serve',"butcher's string"];
+  var map = {};
+  function lineCook(name, amt, unit){
+    var pr = (typeof priceOf==='function') ? priceOf(name) : null;
+    if(!pr) return null;
+    if(pr.per==='count')          return Math.ceil(amt)*pr.price;
+    if(unit==='g'||unit==='ml')   return (amt/1000)*pr.price;
+    if(unit==='kg'||unit==='l')   return amt*pr.price;
+    return null;
+  }
+  function add(name, amt, unit, priceName){
+    if(!name || amt==null || amt<=0) return;
+    var low = name.toLowerCase();
+    for(var i=0;i<skip.length;i++){ if(low.indexOf(skip[i])>-1) return; }
+    var key = (typeof normIngredientKey==='function') ? normIngredientKey(name) : low;
+    if(!key) return;
+    if(map[key]){ map[key].amt += amt; if(priceName && !map[key].priceName) map[key].priceName = priceName; }
+    else map[key] = { name:name, amt:amt, unit:unit, priceName:priceName||null, aisle:(typeof aisleCategory==='function'?aisleCategory(name):'🧂 Other') };
+  }
+  var outDishes = [], missing = [], costTotalSum = 0, costPPSum = 0, kcalPPSum = 0, anyCost = false;
+  dishes.forEach(function(d){
+    var dishCook = 0, priced = false;
+    (d.ingredients||[]).forEach(function(ing){
+      if(!ing || ing.amt==null) return;
+      var c = lineCook(ing.priceName||ing.name, ing.amt, ing.unit);
+      if(c!=null){ dishCook += c; priced = true; } else if(ing.name) missing.push(ing.name);
+      add(ing.name, ing.amt, ing.unit, ing.priceName);
+    });
+    var g = d.guests || S.people || 1;
+    var ct = priced ? Math.round(dishCook) : null;
+    var pp = priced ? Math.round(dishCook/g) : null;
+    if(ct!=null){ costTotalSum += ct; costPPSum += pp; anyCost = true; }
+    if(d.kcalPP!=null) kcalPPSum += d.kcalPP;
+    outDishes.push(Object.assign({}, d, { costTotal:ct, costPP:pp }));
+  });
+  // cost each merged line two ways (cook exact / buy pack-rounded) — the same
+  // logic as buildShoppingList(); Braai folds onto this builder when it routes.
+  var items = Object.keys(map).map(function(k){ return map[k]; });
+  var cookTotal = 0, buyTotal = 0;
+  items.forEach(function(it){
+    var pr = (typeof priceOf==='function') ? priceOf(it.priceName||it.name) : null;
+    var pk = pr ? pr.pack : null, need = it.amt;
+    if(!pr) it.cookCost = null;
+    else if(pr.per==='count') it.cookCost = Math.round(Math.ceil(need)*pr.price);
+    else it.cookCost = Math.round((need/1000)*pr.price);
+    it.loose=false; it.packLine=false; it.buyAmt=need; it.buyUnit=it.unit; it.buyPacks=0; it.packSize=0;
+    if(!pr){ it.buyCost=null; }
+    else if(pr.per==='count' && pk && pk.ladder){ var n0=Math.ceil(need), last=pk.ladder[pk.ladder.length-1]; var rung=pk.ladder.find(function(r){return r>=n0;})||(last*Math.ceil(n0/last)); it.buyAmt=rung; it.buyUnit='pcs'; it.packLine=(rung!==n0); it.buyCost=Math.round(rung*pr.price); }
+    else if(pr.per==='count'){ var c0=Math.ceil(need); it.buyAmt=c0; it.buyUnit='pcs'; it.buyCost=Math.round(c0*pr.price); }
+    else if(pk && pk.ladder){ var lad=pk.ladder, top=lad[lad.length-1], found=lad.find(function(r){return r>=need;}); if(found){ it.buyPacks=1; it.packSize=found; it.buyAmt=found; } else { it.buyPacks=Math.ceil(need/top); it.packSize=top; it.buyAmt=it.buyPacks*top; } it.packLine=true; it.buyCost=Math.round((it.buyAmt/1000)*pr.price); if(pk.loosable && need<it.packSize*0.6){ it.looseTip=Math.round(need); it.looseTipCost=Math.round((need/1000)*pr.price); } }
+    else if(pk && pk.size){ var packs=Math.ceil(need/pk.size); it.buyAmt=packs*pk.size; it.buyPacks=packs; it.packSize=pk.size; it.packLine=true; it.buyCost=Math.round(packs*(pk.price!=null?pk.price:(pk.size/1000)*pr.price)); }
+    else { it.loose=true; it.buyAmt=Math.round(need*1.10); it.buyCost=Math.round((it.buyAmt/1000)*pr.price); }
+    if(it.cookCost!=null) cookTotal += it.cookCost;
+    if(it.buyCost!=null) buyTotal += it.buyCost;
+  });
+  var aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
+  items.sort(function(a,b){ var ai=aisleOrder.indexOf(a.aisle), bi=aisleOrder.indexOf(b.aisle); if(ai!==bi) return ai-bi; return a.name.localeCompare(b.name); });
+  // de-dup the missing list, keep it short
+  var seen={}, miss=[]; missing.forEach(function(m){ if(!seen[m]){ seen[m]=1; miss.push(m); } });
+  return { dishes:outDishes, items:items, totals:{
+    cookTotal:Math.round(cookTotal), buyTotal:Math.round(buyTotal),
+    costPP:anyCost?Math.round(costPPSum):null, costTotal:anyCost?Math.round(costTotalSum):null,
+    kcalPP:kcalPPSum?Math.round(kcalPPSum):null, missing:miss } };
+}
+
+// §4c — THE ONE GUEST STEPPER CARD (its own shared card, NOT folded into
+// howItWorks). Reused on every plan page; the +/- match qtyBox's feel exactly
+// (34px green circles) so there is one stepper everywhere.
+//   o = { value, decJs, incJs, label, note, portionHowHTML }
+function guestStepperCard(o){
+  o = o || {};
+  var label = o.label || 'Guests';
+  var note  = (o.note!=null) ? o.note : 'the whole menu scales to this';
+  var val   = (o.value!=null) ? o.value : (S.people || 1);
+  return '<div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:12px;margin-bottom:14px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">'
+    +   '<div><div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;">👥 ' + label + '</div>'
+    +     (note ? '<div style="font-size:13px;color:#718933;margin-top:2px;">' + note + '</div>' : '') + '</div>'
+    +   '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">'
+    +     '<button onclick="' + (o.decJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>'
+    +     '<span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">' + val + '</span>'
+    +     '<button onclick="' + (o.incJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button>'
+    +   '</div>'
+    + '</div>' + (o.portionHowHTML || '') + '</div>';
+}
+
+// §4d / §6.3 — THE ONE SHOPPING BLOCK. Renders buildPlanData()'s items[] +
+// totals: aisle-grouped tap-to-tick rows, the TWO totals (food cost green /
+// shop spend gold + plain-language reason line), share/print, missing note.
+// Whole block is PRO/peekable (§7) via tierAllows('pro').
+//   o = { items, totals, checked, toggleFn, shareJs, gmailJs, printJs }
+function shoppingView(o){
+  o = o || {};
+  var items = o.items || [], totals = o.totals || {}, checked = o.checked || {};
+  var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  var toggleFn = o.toggleFn || '';
+  var money = function(n){ return 'R' + Math.round(n||0).toLocaleString(); };
+  var fmtBuy = function(it){
+    var u = it.buyUnit || it.unit;
+    if(u==='pcs'){ return Math.ceil(it.buyAmt) + (((it.name||'').toLowerCase().indexOf('egg')>-1) ? ' eggs' : ' pcs'); }
+    if(it.buyPacks>0){ var sz = it.packSize || (it.buyAmt/it.buyPacks); var szStr = (sz>=1000 ? (sz/1000)+(u==='ml'?'L':'kg') : sz+(u==='ml'?'ml':'g')); return (it.buyPacks===1 ? szStr : it.buyPacks+'×'+szStr); }
+    if(u==='ml'||u==='l'){ var a=it.buyAmt; return a>=1000 ? (Math.round(a/100)/10)+'L' : Math.round(a)+'ml'; }
+    var gx=it.buyAmt; return gx>=1000 ? (Math.round(gx/100)/10)+'kg' : Math.round(gx)+'g';
+  };
+  if(!isPro){
+    return '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
+      + '<div style="font-size:14px;color:#c06020;margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
+      + '<div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
+      + '<div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>';
+  }
+  if(!items.length) return '';
+  var rows = '', lastAisle = null;
+  items.forEach(function(it){
+    if(it.aisle!==lastAisle){ lastAisle=it.aisle; rows += '<div style="font-size:13px;letter-spacing:0.06em;color:#b56d37;text-transform:uppercase;margin:12px 0 4px;">'+it.aisle+'</div>'; }
+    var on = !!checked[it.name];
+    var nm = (it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    var loose = it.loose ? ' <span style="color:#9a6238;font-size:12px;">loose</span>' : '';
+    var priceStr = (it.buyCost!=null) ? ' · ' + money(it.buyCost) : '';
+    rows += '<div onclick="' + (toggleFn ? toggleFn+"('"+nm+"')" : '') + '" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1208;cursor:pointer;opacity:'+(on?'0.4':'1')+';">'
+      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid #c06020;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'#c06020':'transparent')+';color:#fff;font-size:13px;">'+(on?'✓':'')+'</div>'
+      + '<span style="flex:1;font-size:15px;color:'+(on?'#6a5440':'#f0ebe1')+';'+(on?'text-decoration:line-through;':'')+'">'+it.name+loose+'</span>'
+      + '<span style="font-size:15px;color:'+(on?'#6a5440':'#f5c842')+';font-weight:bold;white-space:nowrap;">'+fmtBuy(it)+priceStr+'</span></div>';
+  });
+  var cook = totals.cookTotal, buy = totals.buyTotal;
+  var totalsBlock = '<div style="border-top:1px solid #2a1a10;margin-top:14px;padding-top:14px;">'
+    + (cook!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span style="font-size:15px;color:#9bbf6a;">What the food costs</span><span style="font-size:20px;color:#c8e840;font-weight:bold;">'+money(cook)+'</span></div>' : '')
+    + (buy!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:16px;color:#f5e8cc;font-weight:bold;">What you\'ll spend</span><span style="font-size:26px;color:#f5c842;font-weight:bold;">'+money(buy)+'</span></div>' : '')
+    + ((cook!=null && buy!=null && buy>cook) ? '<div style="font-size:13px;color:#a98f6a;line-height:1.55;margin-top:8px;">More than the food because shops sell whole packs — the extra stays in your kitchen.</div>' : '')
+    + ((totals.missing && totals.missing.length) ? '<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: '+totals.missing.slice(0,8).join(', ')+(totals.missing.length>8?'…':'')+'</div>' : '')
+    + '</div>';
+  var share = (o.shareJs||o.gmailJs||o.printJs)
+    ? '<div style="display:flex;gap:8px;margin-top:12px;">'
+      + (o.shareJs ? '<button onclick="'+o.shareJs+'" style="flex:1;padding:10px;border-radius:8px;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;">📲 WhatsApp</button>' : '')
+      + (o.gmailJs ? '<button onclick="'+o.gmailJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">✉️ Email</button>' : '')
+      + (o.printJs ? '<button onclick="'+o.printJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">🖨️ Print</button>' : '')
+      + '</div>' : '';
+  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:14px;">'
+    + '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
+    + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · prices are an estimate</div>'
+    + rows + totalsBlock + share + '</div>';
+}
+
+// §4c — THE WHOLE PLAN PAGE. Section feeds RAW dishes (+ header/guest info);
+// this calls buildPlanData() (one builder), renders the §4c dish-rows grouped,
+// the plan totals (cost pp/total = PRO/peekable §7; kcal = always-on), and
+// embeds shoppingView(). Built once so every section's plan page is identical.
+//   o = { header:{…sectionHeader…}, quickNavHTML, guests:{value,decJs,incJs,…},
+//         dishes:[…raw…], checked, toggleFn, shareJs, gmailJs, printJs, empty }
+function planView(o){
+  o = o || {};
+  var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  var data = buildPlanData(o.dishes || []);
+  var hdr = (typeof sectionHeader==='function') ? sectionHeader(o.header || {}) : '';
+  var money = function(n){ return 'R' + Math.round(n||0).toLocaleString(); };
+  if(!data.dishes.length){
+    return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'')
+      + '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">'
+      + (o.empty || 'Your plan is empty — add some dishes.') + '</div></div></div>';
+  }
+  var guests = o.guests ? guestStepperCard(o.guests) : '';
+  // group dishes by d.group (preserve first-seen order); '' = ungrouped single list
+  var order = [], groups = {};
+  data.dishes.forEach(function(d){ var g=d.group||''; if(!groups[g]){ groups[g]=[]; order.push(g); } groups[g].push(d); });
+  var rowOf = function(d){ return planDishRow({ emoji:d.emoji, name:d.name, nameJs:d.nameJs, lines:d.lines, costTotal:isPro?d.costTotal:null, openJs:d.openJs, removeJs:d.removeJs }); };
+  var secs = '';
+  order.forEach(function(g){
+    if(g) secs += '<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">'+g+'</div>';
+    secs += '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">'+groups[g].map(rowOf).join('')+'</div>';
+  });
+  var t = data.totals;
+  var costRow = (t.costPP!=null)
+    ? (isPro
+        ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#9bbf6a;">Est. food cost</span><span style="font-size:15px;color:#c8e840;font-weight:bold;">'+money(t.costPP)+' pp · '+money(t.costTotal)+' total</span></div>'
+        : '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;color:#9bbf6a;">Est. food cost</span><span style="font-size:13px;color:#c06020;font-weight:bold;">🔒 Pro</span></div>')
+    : '';
+  var kcalRow = (t.kcalPP!=null)
+    ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:'+(costRow?'6px':'0')+';"><span style="font-size:14px;color:#e0d4b8;">Calories</span><span style="font-size:14px;color:#f5c842;">~'+t.kcalPP+' kcal pp <span style="color:#9a8a6a;">(estimate)</span></span></div>'
+    : '';
+  var totalsCard = (costRow||kcalRow)
+    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;">'+costRow+kcalRow+'</div>'
+    : '';
+  var shop = shoppingView({ items:data.items, totals:data.totals, checked:o.checked, toggleFn:o.toggleFn, shareJs:o.shareJs, gmailJs:o.gmailJs, printJs:o.printJs });
+  return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'') + guests + secs + totalsCard + shop + '</div></div>';
+}
+
 // §4b — THE WHOLE-PAGE ASSEMBLER. This lays out EVERY recipe page with
 // the same wrapper, max-width, padding, block order and sizing. Sections
 // feed CONTENT only (qty/ingredients/method already built from the shared

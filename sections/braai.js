@@ -297,7 +297,7 @@ function braaiStep4(){
       </div>`;
   });
   return `<div>
-    ${sectionHeader({ title:'Your Braai Plan', emoji:'\u{1F4CB}', tagline:'Everything you need, costed and ready', img:BRAAI_HDR_IMG, backJs:"set({braaiView:'browse',braiStep:1})", backLabel:'\u2190 Braai' })}
+    ${sectionHeader({ title:'Your Braai Plan', emoji:'\u{1F4CB}', tagline:'Everything you need, costed and ready', img:BRAAI_HDR_IMG, backJs:"set({braaiView:'browse',braiStep:1})", backLabel:'\u2190 Braai', myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, label:'My Plan', onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" } })}
     <div class="content">
       ${braaiQuickNav('myplan')}
 

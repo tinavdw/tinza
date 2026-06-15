@@ -1,6 +1,6 @@
 # TINZA — THE STANDARD
 ### The single source of truth. This file is the law. Read it FIRST, every session.
-*Version 1.9 · updated 14 Jun 2026 (**§10 finish-sameness SEQUENCE locked** — do in order, then add recipes: recipe-page opener migrations first [NEXT = Spice] → cross-links → ONE shared plan-row/shopping renderer → cosmetic sweep LAST → then FILL. Events recipe pages migrated; buffet landing restored to standalone.) Earlier v1.8 (**braai portions re-locked §6.1** — bone-aware tier bumped up: boneless 300/bone-in 400/fish 280/shellfish 320; `calcMeat` now cut-based via `braaiBaseG` so same cut = same grams and kebabs count as RAW meat not the skewer; new grazing taper 100/70/58/50 replaces the old 350g-constant). Earlier: plan dish-rows green food-cost TOTAL §4c; Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
+*Version 1.11 · updated 15 Jun 2026 (**§7 FREE/PRO re-locked — COST IS PRO, NOT FREE:** free = all recipes + cook/view + the +/− scaler + 1 dietary restriction + calories (number always shown) + Anchor Ingredient; PRO = all cost figures, My Plan (`planView`), shopping (`shoppingView`), nutrition breakdown. Gating lives IN the shared components: `qtyBox` scaling free / cost line Pro-peekable / kcal always-on · §3 row `≈ R pp` Pro-peekable · `planView` & `shoppingView` are whole Pro pages sharing one peekable flag. Also **§4f EVENTS MODEL locked** — "Events" is only an umbrella; every tab is an EQUAL standalone feature with its own My Plan rendered by the shared `planView`/`shoppingView`/`howItWorks`/`qtyBox`; the hub My-Plan pill is per-feature/contextual, NEVER pinned to Buffet; there is NO combined cross-tab Events plan; Cultural is deleted — cull any dead cultural block. **§8: `howItWorks()` is now BUILT** — the How-it-works + optional guest-stepper box; `guestBar()` delegates to it.) Earlier v1.9 · 14 Jun 2026 (**§10 finish-sameness SEQUENCE locked** — do in order, then add recipes: recipe-page opener migrations first [NEXT = Spice] → cross-links → ONE shared plan-row/shopping renderer → cosmetic sweep LAST → then FILL. Events recipe pages migrated; buffet landing restored to standalone.) Earlier v1.8 (**braai portions re-locked §6.1** — bone-aware tier bumped up: boneless 300/bone-in 400/fish 280/shellfish 320; `calcMeat` now cut-based via `braaiBaseG` so same cut = same grams and kebabs count as RAW meat not the skewer; new grazing taper 100/70/58/50 replaces the old 350g-constant). Earlier: plan dish-rows green food-cost TOTAL §4c; Image Folders; sectionHeader; My Plan overlay §4.1; row spec §3; two-price costing §6.2–6.3; Braai↔World Kitchen one costing model §6.4. When a rule changes, edit THIS file and commit it — never re-decide in chat.*
 
 > **Session protocol (do this every time):**
 > 1. Fetch this file first: `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md`
@@ -15,7 +15,7 @@
 Retention is the whole game, and the research tells us exactly what to design against:
 - ~56% of apps are uninstalled within 7 days; ~46% within 30. The top reasons people leave are **confusing/inconsistent UI** and **things being hard to read on a phone.**
 - So our three retention levers ARE the design rules below: **uniformity** (every page the same), **simplicity** (a grandma can use it one-handed outside under a tree), **readability** (16px body floor, off-white on warm-dark, hierarchy by size/weight not dimness).
-- The free hook = real cooking value + **cost-per-person on every row**. The value is felt before the paywall.
+- The free hook = **real cooking value** — every recipe, cook/view, the +/− scaler, calories, and Anchor Ingredient — felt before the paywall. **Cost, My Plan and shopping are the PRO layer** (peekable), the upgrade you reach for once the cooking has earned trust (§7).
 
 Every decision in this file serves that mission. If a change makes a page less uniform, less simple, or less readable, it's wrong — no matter how clever.
 
@@ -57,7 +57,7 @@ Every decision in this file serves that mission. If a change makes a page less u
 
 ## 3. THE ROW (lists, every section)
 **Reference = World Kitchen's `wkRecipeCard`** (the live screen we point at). Built once, identical everywhere:
-`[checkbox] [emoji] NAME` (`#f5e8cc`, 16, bold) + **ONE feel line** (`#e0d4b8`, 14, upright) + **≈ R__ pp** (`#f5c842`, 13 bold — shown ONLY when the dish is priced; the free hook) + a bare **`›`** chevron far right (`#f5c842`, 26px, no "Recipe" word).
+`[checkbox] [emoji] NAME` (`#f5e8cc`, 16, bold) + **ONE feel line** (`#e0d4b8`, 14, upright) + **≈ R__ pp** (`#f5c842`, 13 bold — **PRO/peekable** (§7); shown ONLY when the dish is priced AND the user is Pro, else teased behind the lock) + a bare **`›`** chevron far right (`#f5c842`, 26px, no "Recipe" word). Name, feel line and the row itself are free.
 - **Whole row OPENS the recipe.** The **checkbox toggles the plan** (stop-propagation): 22px, border `#c06020`, fills `#c06020` with a white ✓ when in-plan. **Card background stays constant** — selection shows in the box, never a row highlight.
 - **Never fake the cost.** If a section can't price a dish yet, the `≈ R pp` line is simply omitted (same as World) until the price wiring exists.
 - All other metadata (grams/portion, time, kcal) lives on the recipe page, NOT the row.
@@ -83,7 +83,7 @@ The "My Plan" button is a **white pill in the top-right corner, sitting INSIDE t
 ### 4b. Recipe page (every section identical)
 1. **Photo header — 200px.**
 2. **Recipe name** + meta strip (origin · time · kcal).
-3. **THE GREEN QTY BOX — directly under the name** (shared `qtyBox()`): big total + per-person inside, `− guests +` same row, **scales live**. This is the ONLY size box on the page. Its optional thin info strip carries the useful bits — **cost p/p · total · kcal p/p** — where the data exists. One box, doing the work of the old three.
+3. **THE GREEN QTY BOX — directly under the name** (shared `qtyBox()`): big total + per-person inside, `− guests +` same row, **scales live**. This is the ONLY size box on the page. Its optional thin info strip carries the useful bits — **cost p/p · total · kcal p/p** — where the data exists. One box, doing the work of the old three. **Gating (§7): scaling is FREE; the cost p/p · total figures are PRO/peekable; kcal stays visible to everyone (always-on).**
 4. **"How portion size works"** collapsible (pizza analogy).
 5. **Ingredients** — see section 5.
 6. **Method** — numbered, with timers + cooking mode.
@@ -104,6 +104,12 @@ Clean aisle-grouped list, **no duplicates**, no per-meal separation. **Two-price
 - **ONE universal search** sits ABOVE the bottom nav. **No per-screen "Search All Recipes" box.**
 - **My Plan = white pill, top-right inside the photo header** on every section that has a plan (see §4.1). Same pill everywhere; only the count and destination differ.
 - Back buttons read the same everywhere and isolate sub-sections correctly.
+
+### 4f. THE EVENTS MODEL (locked 15 Jun 2026)
+**"Events" is only an umbrella name.** Every tab under it — **Big Buffet · Finger Foods & Snacks · Celebration Cakes · Kiddies Parties · Beverages & Cocktails** — is an **EQUAL standalone feature.** There is **no main/primary tab** and **no merged cross-tab plan.** Each feature **looks and opens identically** and has **its own My Plan**, all rendered by the shared `core.js` functions (`planView` / `shoppingView` / `howItWorks` / `qtyBox`).
+- The Events hub **"My Plan" pill is per-feature / contextual** — it opens the **active feature's own plan.** **Never pin it to Buffet.**
+- **There is no single combined Events plan.** Each tab keeps its own selection set and its own plan/shopping screens.
+- **Cultural was deleted.** No Cultural tab, recipes, data or render code remains in the live app — **cull any dead cultural block on sight** (was tangled into `core.js` pool spread + the Meals recipe-open leftover; remove in lockstep so nothing dangles).
 
 ---
 
@@ -184,11 +190,16 @@ The +10% buffer and the pack-rounded "shop" total are **separate**: the buffer i
 
 ---
 
-## 7. FREE vs PRO (locked)
+## 7. FREE vs PRO (locked 15 Jun 2026 — cost is PRO, not free)
 Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
-- **FREE:** browse + cook the everyday sections, scale portions, **cost p/p on every row** (the hook), Anchor capped ~3/day, share 1 recipe, save a few, allergen filters + 1 diet style. **NO plans, NO shopping list.**
-- **PRO:** everything else — Budget / Mood / 4-Ingredient / Weekly Planner / build plans / shopping lists / downloads / unlimited saves + full dietary / AI Chef / pantry scan / leftovers / meal-stretch / nutrition / Tiny Tummies / Furry Friends + monthly letter + community + magazine.
-- Locks are peekable; never move the line.
+- **FREE gets:** all recipes (browse + cook/view) · the **+/− portion scaler** · **1 dietary restriction** · **calories shown** (the number, always) · **Anchor Ingredient**. **NO cost figures · NO My Plan · NO shopping list.**
+- **PRO gets everything else, and specifically the money + planning layer:** **all cost figures** (per-row `≈ R pp`, the qtyBox cost line, plan & shopping totals) · **My Plan** (`planView`) · **shopping list** (`shoppingView`) · the **nutrition breakdown** (the macro/detail toggle — *not* the kcal number, which is free) · Budget / Mood / 4-Ingredient / Weekly Planner / downloads / unlimited saves / full dietary / AI Chef / pantry scan / leftovers / meal-stretch / Tiny Tummies / Furry Friends + monthly letter + community + magazine.
+- **Where the line falls inside a shared component (so gating is uniform, not per-section):**
+  - **`qtyBox()`** — **scaling is free; the cost line is Pro/peekable.** The kcal figure stays visible to everyone.
+  - **The §3 row** — name + feel line + kcal are free; the **`≈ R pp` cost figure is Pro/peekable.**
+  - **`planView()` and `shoppingView()` are whole Pro pages** (peekable lock for free). Both take the same `proGated` / peekable flag.
+  - **Calories always display for everyone** (free included) — kcal in the qtyBox info strip and in plan totals is **always-on, never gated.** Only the deeper nutrition *breakdown* is Pro.
+- Locks are **peekable** (free users see the shape, blurred/teased, with an unlock prompt); **never move the line.**
 
 ---
 
@@ -199,7 +210,8 @@ Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
    - Recipe-page chrome (Standard §4b): `metaStrip()` ✅ · `portionHowBox()` ✅ · `recipeBox()` ✅ (titled card shell) · `ingredientsBox()` + `ingredientRow()` ✅ · `methodBox()` + `methodStep()` ✅ · `goesWellBox()` ✅ · `recipeActions()` ✅ · `recipeNav()` ✅
    - Lists: `recipeRow()` ✅ (§3 row)
    - **Whole-page assembler: `recipePage()` ✅** — lays out the ENTIRE recipe page (wrapper, max-width, padding, block order, sizing). Sections feed content only; layout cannot differ. **This is the page every other section is compared against.** Two fixed content slots: `notesHTML` (after ingredients) and `extrasHTML` (after Goes-Well) for section-specific blocks (SA swaps, cost, tip, Braai coal guide) — always in the same place.
-   - still to build: `howItWorks()` · `bottomNav()` · `costStrip()`
+   - **`howItWorks()` ✅ built** (§4a.2 — the How-it-works + optional guest-stepper box; `guestBar()` delegates to it, so there's one source)
+   - still to build: `planView()` (§4c plan page + plan dish-row) · `shoppingView()` (§4d) · `bottomNav()` · `costStrip()`
    - **What "the same" means:** every section's page is these identical shells in the §4b order — same boxes, arrows, info layout, fonts, colours, sizes. Only the *content* inside differs (the actual ingredients/method, and genuinely section-specific blocks like Braai's coal guide or WK's SA-swaps, which sit in the same `recipeBox()` shell). Mood is the one colour exception.
 3. Once a screen uses the shared function, it **cannot drift** — there's only one definition.
 
