@@ -975,8 +975,11 @@ function wkMyPlanView(){
       else { u='pcs'; a=amt; }                        // countable (eggs etc.)
       // resolve through WK's alias table so the ONE engine (priceOf) can price it
       var pr = (typeof wkPriceLookup==='function') ? wkPriceLookup(it.name) : null;
-      if(!pr) gaps[wkCleanName(it.name)] = it.name;   // genuine PRICE_DB gap -> flag (template §4)
-      ings.push({ name:it.name, amt:a, unit:u, priceName: pr ? pr.key : it.name });
+      var pn = pr ? pr.key : it.name;
+      // flag a gap only when the actual pricing ENGINE (priceOf — what the row uses)
+      // ALSO can't price it, so the flag matches what shows (bay-leaf reconcile).
+      if(!pr && !(typeof priceOf==='function' && priceOf(pn))) gaps[wkCleanName(it.name)] = it.name;
+      ings.push({ name:it.name, amt:a, unit:u, priceName: pn });
     });
     var portionPct = Math.round(spread*100), poolLabel = (WK_POOL_LABEL[pk]||'Dish');
     var shareNote = (pk==='drink')
@@ -1024,135 +1027,3 @@ function wkMyPlanView(){
     footerHTML: footer
   });
 }
-/* ── superseded body of wkMyPlanView — replaced by the planView() routing above
-   (WK proof, 15 Jun 2026). Kept commented for one live check, then delete. ──
-  var green='#c06020', cream='#f5e8cc';
-  var pool = wkPool();
-  var plan = S.wkPlan||[];
-
-  var header = '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 20px;">'
-    + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:6px;padding:0;display:block;font-family:Georgia,serif;">← World Kitchen</button>'
-    + '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;">'
-    +   '<div><h1 style="font-size:20px;font-weight:normal;color:'+cream+';margin:0;">🧺 My World Kitchen Plan</h1>'
-    +   '<p style="font-size:13px;color:#e0d4b8;margin:2px 0 0;font-style:italic;">'+plan.length+' '+(plan.length===1?'dish':'dishes')+'</p></div>'
-    +   (plan.length ? '<button onclick="wkPlanClearAll()" style="background:#180e0a;border:1px solid #6a3030;color:#c07a68;border-radius:20px;font-size:13px;padding:6px 12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">Clear all</button>' : '')
-    + '</div></div>';
-
-  if(!plan.length){
-    return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header
-      + '<div style="padding:40px 20px;text-align:center;color:#e0d4b8;font-size:13px;">Your plan is empty.<br>Open any dish and tap <span style="color:'+green+';">＋ Add to My Plan</span>.</div></div>';
-  }
-
-  var counts = wkPlanPoolCounts();
-  var ap = wkAppetite();
-  var guests = wkGuests();
-  var dishes = plan.map(function(entry){
-    var r=null; for(var i=0;i<pool.length;i++){ if(pool[i].id===entry.id){ r=pool[i]; break; } }
-    if(!r) return '';
-    var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
-    var pk = wkPoolOf(r.course);
-    var cnt = counts[pk] || 1;
-    var spread = wkSpreadMult(pk, cnt);
-    var bump = wkBumpOf(r.id);
-    var mult = wkEffectiveMult(r, cnt, ap) * bump;    // per-person factor on authored amounts
-    var n = guests * mult;                            // party total (servings-equivalent)
-    var c = wkCostRecipe(r, n);
-    var items = wkParseIngredients(r.ingredients);
-    var mainItem = wkClassifyMain(items).item;
-    var portionPct = Math.round(spread*100);
-    var poolLabel = (WK_POOL_LABEL[pk]||'Dish');
-    var shareNote = (pk==='drink')
-      ? poolLabel+' \u00b7 per guest'
-      : (cnt>1 ? poolLabel+' \u00b7 1 of '+cnt+' \u00b7 '+portionPct+'% of plate' : poolLabel+' \u00b7 full portion');
-    if(bump!==1) shareNote += ' \u00b7 <span style="color:#f5c842;">'+bump+'\u00d7</span>';
-    var mainLine = mainItem
-      ? mainItem.name+': '
-        + '<span style="color:#e0d4b8;font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#e0d4b8;">\u00b7</span> '
-        + '<strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+'</strong>'
-      : '';
-    var adjuster = '';  // per-dish "Portion for this dish" removed — the global Guests stepper scales the whole menu
-    return planDishRow({
-      name: disp,
-      nameJs: "wkOpenRecipe('"+r.country+"','"+r.id+"',"+Math.max(1,Math.round(n))+")",
-      lines: [shareNote, mainLine],
-      costTotal: (c.priced && c.total>0) ? c.total : null,
-      removeJs: "wkPlanToggle('"+r.id+"')"
-    });
-  }).join('');
-  dishes = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">'+dishes+'</div>';
-  var controls = '<div style="background:#1a1208;border:1px solid '+green+';border-radius:10px;padding:12px 14px;margin-bottom:12px;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;">'
-    +   '<div><div style="font-size:13px;color:'+cream+';font-weight:bold;">Guests</div>'
-    +     '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">the whole menu scales to this</div></div>'
-    +   '<div style="display:flex;align-items:center;gap:10px;">'
-    +     '<button onclick="set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\u2212</button>'
-    +     '<span style="font-size:22px;color:'+cream+';font-weight:bold;min-width:34px;text-align:center;">'+guests+'</span>'
-    +     '<button onclick="set({wkGuests:(S.wkGuests||10)+1})" style="width:30px;height:30px;border-radius:50%;background:#1a1208;border:2px solid '+green+';color:'+green+';font-size:18px;line-height:1;cursor:pointer;">\uff0b</button>'
-    +   '</div>'
-    + '</div>'
-    + '<div style="margin-top:10px;">'
-    +   '<span id="wkpp-btn" onclick="(function(){var c=document.getElementById(\'wkpp-body\');var b=document.getElementById(\'wkpp-btn\');var open=c.style.display===\'block\';c.style.display=open?\'none\':\'block\';b.innerHTML=(open?\'\u25bc\':\'\u25b2\')+\' How portion size works\';})()" style="font-size:13px;color:'+green+';cursor:pointer;user-select:none;">\u25bc How portion size works</span>'
-    +   '<div id="wkpp-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:13px;color:#e0d4b8;line-height:1.8;">'
-    +     'One dish in a course \u2192 a full helping.<br>'
-    +     'Add more of the same course \u2192 each gets a smaller slice of the same plate.<br>'
-    +     'It never drops below a sensible minimum \u2014 no teaspoon portions.<br>'
-    +     'Drinks and a single cake stay per guest.<br>'
-    +     'Sized for <strong style="color:'+cream+';">'+ap.label+'</strong> eaters \u2014 change Big / Normal / Small on the opening page.'
-    +   '</div>'
-    + '</div></div>';
-  var shop = wkBuildPlanShopping();
-  var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
-  var checked = S.wkCheckedShop || {};
-  var curAisle='', shopRows='';
-  shop.items.forEach(function(it){
-    if(it.aisle!==curAisle){ curAisle=it.aisle; shopRows += '<div style="font-size:13px;letter-spacing:0.06em;color:'+green+';text-transform:uppercase;margin:12px 0 4px;">'+curAisle+'</div>'; }
-    var isOn = !!checked[it.name];
-    var key  = it.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    shopRows += '<div onclick="wkToggleShop(\''+key+'\')" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1208;cursor:pointer;opacity:'+(isOn?'0.35':'1')+';">'
-      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+green+';flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(isOn?green:'transparent')+';">'+(isOn?'<span style="color:#c06020;font-size:13px;">\u2713</span>':'')+'</div>'
-      + '<span style="flex:1;font-size:15px;color:'+(isOn?'#6a5440':(it.faded?'#b0987a':'#f0ebe1'))+';font-style:'+(it.faded?'italic':'normal')+';text-decoration:'+(isOn?'line-through':'none')+';">'+it.name+'</span>'
-      + '<span style="font-size:15px;color:'+(isOn?'#6a5440':(it.faded?'#b0987a':green))+';white-space:nowrap;">'+it.amt+(it.cost!=null?' \u00b7 R'+it.cost:'')+'</span></div>';
-  });
-  var remaining = shop.items.filter(function(it){ return !checked[it.name]; }).length;
-  var remainRow = shop.items.length
-    ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #1a1208;display:flex;justify-content:space-between;align-items:center;">'
-      + '<span style="font-size:14px;color:#e0d4b8;">'+remaining+' of '+shop.items.length+' items remaining</span>'
-      + '<button onclick="set({wkCheckedShop:{}})" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;text-decoration:underline;font-family:Georgia,serif;">Reset all</button></div>'
-    : '';
-  var missNote = shop.missing.length
-    ? '<div style="font-size:14px;color:#9ab36a;margin-top:8px;">\u2248 estimate \u2014 not yet priced: '+shop.missing.slice(0,8).join(', ')+(shop.missing.length>8?'\u2026':'')+'</div>' : '';
-
-  var shopBox = isWkPro
-    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
-      +   '<div style="font-size:13px;letter-spacing:0.08em;color:'+green+';text-transform:uppercase;">\ud83d\uded2 Shopping list <span style="color:#e0d4b8;text-transform:none;">(+10% buffer)</span></div>'
-      +   '<div style="font-size:20px;color:'+green+';font-weight:bold;">~R'+shop.total+'</div>'
-      + '</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;margin-bottom:8px;">\u2705 Tap items you already have to tick them off</div>'
-      + shopRows + remainRow + missNote + '</div>'
-    : '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
-      + '<div style="font-size:32px;margin-bottom:8px;">\ud83d\udd12</div>'
-      + '<div style="font-size:14px;color:'+green+';margin-bottom:6px;font-weight:bold;">Full Shopping List &amp; Cost</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;line-height:1.6;">Every ingredient across your dishes, combined with no duplicates, aisle-sorted, with the +10% buffer \u2014 plus the estimated total.</div>'
-      + '<div style="font-size:13px;color:'+green+';font-weight:bold;">Unlock with Tinza Pro \u2014 R99/month</div></div>';
-
-  // action stack — mirrors Braai's My Plan footer (Free/Pro gated)
-  var shareRow = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
-    + '<button onclick="wkShareDishes()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share Plan<br><span style="font-size:13px;opacity:0.7;">\ud83c\udd93 Free</span></button>'
-    + (isWkPro
-        ? '<button onclick="wkShareWithList()" style="padding:14px;border-radius:10px;cursor:pointer;background:#0f2a1a;border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;line-height:1.4;font-family:Georgia,serif;">\ud83d\udcf1 Share + Shopping List<br><span style="font-size:13px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
-        : '<button style="padding:14px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:2px solid #1a1208;color:#b0936a;font-size:13px;line-height:1.4;font-family:Georgia,serif;">\ud83d\udd12 Full List<br><span style="font-size:13px;">\ud83d\udc51 Pro only</span></button>')
-    + '</div>';
-  var printBtn = isWkPro
-    ? '<button onclick="wkPrintPlan()" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c0a020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udda8\ufe0f Print / Save as PDF <span style="font-size:13px;opacity:0.7;">\ud83d\udc51 Pro</span></button>'
-    : '<button style="width:100%;padding:13px;border-radius:10px;cursor:not-allowed;background:#0f0e0c;border:1px solid #1a1208;color:#b0936a;font-size:13px;margin-bottom:10px;font-family:Georgia,serif;">\ud83d\udd12 Print / Save as PDF \u2014 Pro only</button>';
-  var newBtn = '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#1a1208;border:2px solid '+green+';color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;font-family:Georgia,serif;">\ud83d\udd04 Start a New Plan</button>';
-  var navRow = '<div style="display:flex;justify-content:space-between;padding:0 4px 24px;font-size:13px;">'
-    + '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">\u2190 World Kitchen</button>'
-    + '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#e0d4b8;cursor:pointer;font-family:Georgia,serif;">Home</button>'
-    + '</div>';
-
-  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header
-    + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+controls+dishes+shopBox+shareRow+printBtn+newBtn+navRow+'</div></div>';
-}
-*/
