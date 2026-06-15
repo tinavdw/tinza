@@ -2213,13 +2213,13 @@ function planView(o){
         : '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;color:#9bbf6a;">Est. food cost</span><span style="font-size:13px;color:#c06020;font-weight:bold;">🔒 Pro</span></div>')
     : '';
   var kcalRow = (t.kcalPP!=null)
-    ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:'+(costRow?'6px':'0')+';"><span style="font-size:14px;color:#e0d4b8;">Calories</span><span style="font-size:14px;color:#f5c842;">~'+t.kcalPP+' kcal pp <span style="color:#9a8a6a;">(estimate)</span></span></div>'
+    ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#e0d4b8;">Calories</span><span style="font-size:14px;color:#f5c842;">~'+t.kcalPP+' kcal pp <span style="color:#9a8a6a;">(estimate)</span></span></div>'
     : '';
-  var totalsCard = (costRow||kcalRow)
-    ? '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;">'+costRow+kcalRow+'</div>'
-    : '';
+  // §4g/§3 — summary block: Total dishes · Cost pp + total (Pro) · kcal (always)
+  var dishesRow = '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#e0d4b8;">Total dishes</span><span style="font-size:14px;color:#f5e8cc;font-weight:bold;">'+data.dishes.length+'</span></div>';
+  var totalsCard = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px;">'+dishesRow+costRow+kcalRow+'</div>';
   var shop = shoppingView({ items:data.items, totals:data.totals, checked:o.checked, toggleFn:o.toggleFn, shareJs:o.shareJs, gmailJs:o.gmailJs, printJs:o.printJs });
-  return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'') + guests + secs + totalsCard + shop + '</div></div>';
+  return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'') + guests + secs + totalsCard + shop + (o.footerHTML||'') + '</div></div>';
 }
 
 // §4b — THE WHOLE-PAGE ASSEMBLER. This lays out EVERY recipe page with
