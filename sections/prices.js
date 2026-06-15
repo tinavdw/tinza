@@ -1,4 +1,20 @@
 const PRICE_DB = {
+  // ── World Kitchen exotic prices (16 Jun, Tina-sourced) ──
+  "dried kapenta soaked": 350,
+  "dried mopane worms": 450,
+  "pumpkin seeds": 150,
+  "unsliced white loaf_each": 15,   // per loaf (count) — _each so priceOf counts it, not R/kg
+  "chorizo": 350,
+  "kale": 87,
+  "waterblommetjies": 95,
+  "cleaned waterblommetjies": 95,
+  "kithul treacle": 98,
+  "double cream yoghurt": 50,
+  "teff flour": 96,
+  "dried hibiscus flowers": 1400,
+  "basa": 160,
+  "smoked pork neck": 140,
+  "gammon": 200,
   // ── added 13 Jun (Tina source list 3) ──
   "raisins": 168,
   "prunes": 200,

@@ -647,7 +647,27 @@ var PRICE_ALIAS = {
   "fish":"hake","white fish":"hake","firm white fish":"hake","firm white fish hake":"hake",
   "cheese":"cheddar","cheddar cheese":"cheddar",
   "flour":"cake flour","self raising flour":"cake flour","flour for dusting":"cake flour",
-  "carrot":"carrots","potatoes":"potato","yoghurt":"yoghurt","plain yoghurt":"yoghurt"
+  "carrot":"carrots","potatoes":"potato","yoghurt":"yoghurt","plain yoghurt":"yoghurt",
+  // World Kitchen gap aliases (15 Jun) — every target was verified present in
+  // PRICE_DB, so these use a REAL substitute price, never an invented rand.
+  "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
+  "scotch bonnet":"chilli","scotch bonnet pepper":"chilli","maize flour":"maize meal",
+  "corn flour":"maize meal","gram flour":"cake flour","palm oil":"sunflower oil",
+  "peanut oil":"sunflower oil","sweet wine":"white wine","port wine":"red wine",
+  "niter kibbeh or oil":"ghee",
+  // World Kitchen exotic aliases (16 Jun) — every target verified present in
+  // PRICE_DB (real substitute price, never invented). egusi now -> pumpkin seeds
+  // (priced today); argan oil -> existing sesame oil (alias-only, no price added).
+  "ground egusi seeds":"pumpkin seeds","biscuits":"marie biscuits","biscuit crumbs":"marie biscuits",
+  "swiss chard":"spinach","steak":"beef","beans":"sugar beans","black beans":"sugar beans",
+  "brown beans":"sugar beans","peeled beans":"sugar beans","white beans":"butter beans",
+  "goat meat":"mutton","cod":"hake","chouri o":"chorizo","collard greens or kale":"kale",
+  "chopped collard greens":"kale","buffalo curd":"double cream yoghurt","molokhia":"spinach",
+  "molokhia leaves":"spinach","injera":"teff flour","torn injera":"teff flour",
+  "shiro powder":"chickpeas","argan oil":"sesame oil","minced meat":"beef","cooked meat":"pork",
+  "cured meat":"smoked pork neck","cured meats":"smoked pork neck","white fish fillets":"basa",
+  "white fish fillet":"basa","firm white fish fillets":"basa","dogfish":"basa","perch fillets":"basa",
+  "vendace fish":"basa","carp fish":"basa","mixed fish":"basa"
 };
 function priceClean(name){
   return String(name||'').toLowerCase().split('/')[0]
@@ -2023,6 +2043,17 @@ function planDishRow(o){
     + emoji + left + right + '</div>';
 }
 
+// §6.3 — PANTRY classifier. Spices / seasonings / herbs / leavening are "you
+// may already have" items: they're LISTED separately and kept OUT of the
+// headline cost so the budget total stays honest (and so the long tail of
+// unpriced spices stops reading as a costing defect). Fresh peppers/chillies
+// are real veg, never pantry. Used by buildPlanData() + shoppingView().
+function isPantryItem(name){
+  var n = ' ' + String(name||'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim() + ' ';
+  if(/\b(bell|sweet|red|green|yellow|orange|capsicum|scotch|jalapeno|banana)\b/.test(n) && /\bpepper(s)?\b/.test(n)) return false; // fresh peppers = veg
+  return /\b(salt|pepper|peppercorns?|paprika|cumin|coriander|turmeric|cinnamon|cloves?|nutmeg|cardamom|cardamon|masala|curry powder|curry spice|curry spices|spice|spices|seasoning|herb|herbs|bay leaf|bay leaves|oregano|thyme|rosemary|sage|marjoram|basil|mint|dill|chilli flakes|chili flakes|chilli powder|cayenne|allspice|mixed spice|garam|berbere|harissa|mitmita|baking powder|baking soda|bicarb|bicarbonate|cream of tartar|vanilla|saffron|caraway|poppy seeds?|mustard seeds?|fenugreek|star anise|aniseed|nigella|sumac|zaatar|food colouring|food coloring|spice mix)\b/.test(n);
+}
+
 // §6.4 — THE ONE PLAN-DATA BUILDER. Fed raw, already-portioned dishes by ANY
 // section, it owns every SHARED concern so Braai / World Kitchen / Events can
 // never drift on money: prices through the one engine (priceOf), de-dupes
@@ -2046,7 +2077,7 @@ function buildPlanData(dishes){
     if(unit==='kg'||unit==='l')   return amt*pr.price;
     return null;
   }
-  function add(name, amt, unit, priceName){
+  function add(name, amt, unit, priceName, pantry){
     if(!name || amt==null || amt<=0) return;
     var low = name.toLowerCase();
     for(var i=0;i<skip.length;i++){ if(low.indexOf(skip[i])>-1) return; }
@@ -2055,16 +2086,20 @@ function buildPlanData(dishes){
     var key = priceName ? ('§'+String(priceName).toLowerCase()) : ((typeof normIngredientKey==='function') ? normIngredientKey(name) : low);
     if(!key) return;
     if(map[key]){ map[key].amt += amt; if(priceName && !map[key].priceName) map[key].priceName = priceName; }
-    else map[key] = { name:name, amt:amt, unit:unit, priceName:priceName||null, aisle:(typeof aisleCategory==='function'?aisleCategory(name):'🧂 Other') };
+    else map[key] = { name:name, amt:amt, unit:unit, priceName:priceName||null, pantry:!!pantry, aisle:(typeof aisleCategory==='function'?aisleCategory(name):'🧂 Other') };
   }
   var outDishes = [], missing = [], costTotalSum = 0, costPPSum = 0, kcalPPSum = 0, anyCost = false;
   dishes.forEach(function(d){
     var dishCook = 0, priced = false;
     (d.ingredients||[]).forEach(function(ing){
       if(!ing || ing.amt==null) return;
-      var c = lineCook(ing.priceName||ing.name, ing.amt, ing.unit);
-      if(c!=null){ dishCook += c; priced = true; } else if(ing.name) missing.push(ing.name);
-      add(ing.name, ing.amt, ing.unit, ing.priceName);
+      // pantry spices/seasonings are LISTED but never costed into the headline (§6.3)
+      var pantry = (typeof isPantryItem==='function') && isPantryItem(ing.name);
+      if(!pantry){
+        var c = lineCook(ing.priceName||ing.name, ing.amt, ing.unit);
+        if(c!=null){ dishCook += c; priced = true; } else if(ing.name) missing.push(ing.name);
+      }
+      add(ing.name, ing.amt, ing.unit, ing.priceName, pantry);
     });
     var g = d.guests || S.people || 1;
     var ct = priced ? Math.round(dishCook) : null;
@@ -2090,8 +2125,10 @@ function buildPlanData(dishes){
     else if(pk && pk.ladder){ var lad=pk.ladder, top=lad[lad.length-1], found=lad.find(function(r){return r>=need;}); if(found){ it.buyPacks=1; it.packSize=found; it.buyAmt=found; } else { it.buyPacks=Math.ceil(need/top); it.packSize=top; it.buyAmt=it.buyPacks*top; } it.packLine=true; it.buyCost=Math.round((it.buyAmt/1000)*pr.price); if(pk.loosable && need<it.packSize*0.6){ it.looseTip=Math.round(need); it.looseTipCost=Math.round((need/1000)*pr.price); } }
     else if(pk && pk.size){ var packs=Math.ceil(need/pk.size); it.buyAmt=packs*pk.size; it.buyPacks=packs; it.packSize=pk.size; it.packLine=true; it.buyCost=Math.round(packs*(pk.price!=null?pk.price:(pk.size/1000)*pr.price)); }
     else { it.loose=true; it.buyAmt=Math.round(need*1.10); it.buyCost=Math.round((it.buyAmt/1000)*pr.price); }
-    if(it.cookCost!=null) cookTotal += it.cookCost;
-    if(it.buyCost!=null) buyTotal += it.buyCost;
+    if(!it.pantry){                                  // pantry items never hit the headline totals (§6.3)
+      if(it.cookCost!=null) cookTotal += it.cookCost;
+      if(it.buyCost!=null) buyTotal += it.buyCost;
+    }
   });
   var aisleOrder = ['🥩 Meat & Fish','🥛 Dairy & Eggs','🥦 Fruit & Veg','🥫 Pantry','🧂 Other'];
   items.sort(function(a,b){ var ai=aisleOrder.indexOf(a.aisle), bi=aisleOrder.indexOf(b.aisle); if(ai!==bi) return ai-bi; return a.name.localeCompare(b.name); });
@@ -2155,8 +2192,11 @@ function shoppingView(o){
       + '<div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>';
   }
   if(!items.length) return '';
+  // pantry spices/seasonings list separately (§6.3) — never in the aisle rows or totals
+  var mainItems = items.filter(function(it){ return !it.pantry; });
+  var pantryItems = items.filter(function(it){ return it.pantry; });
   var rows = '', lastAisle = null;
-  items.forEach(function(it){
+  mainItems.forEach(function(it){
     if(it.aisle!==lastAisle){ lastAisle=it.aisle; rows += '<div style="font-size:13px;letter-spacing:0.06em;color:#b56d37;text-transform:uppercase;margin:12px 0 4px;">'+it.aisle+'</div>'; }
     var on = !!checked[it.name];
     var nm = (it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
@@ -2167,6 +2207,19 @@ function shoppingView(o){
       + '<span style="flex:1;font-size:15px;color:'+(on?'#6a5440':'#f0ebe1')+';'+(on?'text-decoration:line-through;':'')+'">'+it.name+loose+'</span>'
       + '<span style="font-size:15px;color:'+(on?'#6a5440':'#f5c842')+';font-weight:bold;white-space:nowrap;">'+fmtBuy(it)+priceStr+'</span></div>';
   });
+  // §6.3 Pantry group — "you may already have", listed but NOT in the totals
+  var pantryBlock = pantryItems.length
+    ? '<div style="margin-top:12px;padding-top:10px;border-top:1px dashed #2a1a10;">'
+      + '<div style="font-size:13px;letter-spacing:0.06em;color:#8a7355;text-transform:uppercase;">🧂 Pantry — you may already have</div>'
+      + '<div style="font-size:12px;color:#8a7355;margin:2px 0 6px;">Spices &amp; seasonings — not added to the totals below.</div>'
+      + pantryItems.map(function(it){
+          var on=!!checked[it.name]; var nm=(it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          return '<div onclick="'+(toggleFn?toggleFn+"('"+nm+"')":'')+'" style="display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;opacity:'+(on?'0.4':'0.9')+';">'
+            + '<div style="width:18px;height:18px;border-radius:4px;border:2px solid #6a5440;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'#6a5440':'transparent')+';color:#fff;font-size:12px;">'+(on?'✓':'')+'</div>'
+            + '<span style="flex:1;font-size:14px;color:#b0987a;'+(on?'text-decoration:line-through;':'')+'">'+it.name+'</span></div>';
+        }).join('')
+      + '</div>'
+    : '';
   var cook = totals.cookTotal, buy = totals.buyTotal;
   var totalsBlock = '<div style="border-top:1px solid #2a1a10;margin-top:14px;padding-top:14px;">'
     + (cook!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span style="font-size:15px;color:#9bbf6a;">What the food costs</span><span style="font-size:20px;color:#c8e840;font-weight:bold;">'+money(cook)+'</span></div>' : '')
@@ -2199,7 +2252,7 @@ function shoppingView(o){
   return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:14px;">'
     + '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
     + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · SA retail prices, planning guide only</div>'
-    + rows + totalsBlock + about + share + '</div>';
+    + rows + pantryBlock + totalsBlock + about + share + '</div>';
 }
 
 // §4c — THE WHOLE PLAN PAGE. Section feeds RAW dishes (+ header/guest info);
