@@ -261,7 +261,18 @@ function wkWorldHome(){
       }).join('');
   var contGrid = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">' + saTile + contTiles + '</div>';
 
-  return wrap( pad(contGrid) );
+  // Standard §4a item 2 — the shared "How it works" + guest stepper box, the
+  // same one Braai uses (core.js howItWorks). Guests bind to wkGuests so the
+  // whole menu scales from here, matching the My Plan stepper.
+  var hiw = howItWorks({
+    stepper:{
+      state:'wkGuests', min:1, max:100,
+      decJs:"set({wkGuests:Math.max(1,(S.wkGuests||10)-1)})",
+      incJs:"set({wkGuests:(S.wkGuests||10)+1})"
+    }
+  });
+
+  return wrap( pad(hiw + contGrid) );
 }
 
 /* ── COUNTRY recipe list + RECIPE detail (data-driven) ── */
@@ -315,9 +326,6 @@ function wkDataCountryHTML(){
     backLabel: '← World Kitchen',
     myPlan: { count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" }
   });
-  var planBtnRow = '<div style="padding:12px 16px 0;max-width:600px;margin:0 auto;display:flex;justify-content:flex-end;">'
-    + '<button onclick="var _r=document.getElementById(\'root\');if(_r)_r._savedScroll=0;set({wkScreen:\'wkplan\'});" style="background:#160f08;border:1px solid '+green+';border-radius:20px;color:'+green+';font-size:13px;padding:6px 14px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap;">🧺 My Plan ('+((S.wkPlan||[]).length)+')</button>'
-    + '</div>';
 
   return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
     + hdr

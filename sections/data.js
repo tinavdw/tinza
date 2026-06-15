@@ -61,6 +61,7 @@ let S = {
   wkSearch: '',
   wkHowOpen: false,
   wkPortionOpen: false,
+  wkGuests: 10,
   wkPlan: [],
 
   // Furry Friends
