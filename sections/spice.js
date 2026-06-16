@@ -3389,7 +3389,82 @@ var SPICE_DB = [
     aliases: ["pimento cheese", "pimiento cheese", "pimento cheese dip"],
     story: "The 'caviar of the South' — sharp cheddar bound with mayonnaise and sweet pimento peppers into a thick, tangy spread. On a cracker, in a sandwich or on a burger, it is pure Southern comfort.",
     howThisFeels: ""
-  }
+  },
+
+  {
+    id: "cherry-sauce",
+    name: "Cherry Sauce",
+    type: "sauce",
+    shelf: "sauces",
+    region: "Global · European",
+    flavourChips: ["Tangy", "Warm", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"serving", base:6, step:1, label:"6 servings" },
+      ingredients: [
+        { qty:300, unit:"g", name:"cherries (fresh or frozen, pitted)" },
+        { qty:180, unit:"ml", name:"water" },
+        { qty:3, unit:"tbsp", name:"sugar" },
+        { qty:1, unit:"tbsp", name:"cornflour (Maizena)" },
+        { qty:1, unit:"tbsp", name:"lemon juice" },
+        { qty:1, unit:"pinch", name:"salt" },
+        { qty:0.25, unit:"tsp", name:"vanilla or almond extract (optional)" }
+      ],
+      method: "Mix the cornflour with a quarter-cup of the water until completely smooth and set this slurry aside. In a medium saucepan combine the cherries, the remaining water, sugar, lemon juice and a pinch of salt, and bring to a gentle boil over medium heat. Reduce to low and simmer 3–5 minutes — frozen cherries release more liquid, so simmer an extra minute or two for a thicker sauce. Whisk the slurry again, pour it in and stir constantly about 1 minute until the sauce turns thick, glossy and translucent. Off the heat, stir in the vanilla or almond extract if using. Cool 10–15 minutes — it thickens more as it cools — and serve warm or chilled. Using sour cherries? Push the sugar to 6 tbsp to balance the tartness."
+    },
+    pairsWith: ["pancakes", "waffles", "cheesecake", "ice cream", "rice pudding", "yoghurt"],
+    aliases: ["cherry sauce", "cherry glaze", "cherry topping"],
+    story: "The glossy red spoonful that turns plain pudding into pudding. Fresh or frozen both work, and frozen are usually cheaper and already pitted. Keeps in a sealed jar in the fridge up to a week — lovely stirred through yoghurt or oats the next day.",
+    howThisFeels: "Spooned warm over something cold and creamy — the little gasp of tart against sweet."
+  },
+
+  {
+    id: "date-paste",
+    name: "Date Paste",
+    type: "paste",
+    shelf: "sauces",
+    region: "Middle East · North Africa",
+    flavourChips: ["Earthy", "Warm", "Aromatic"],
+    whenToUse: "mid",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:250, step:50, label:"small jar" },
+      ingredients: [
+        { qty:200, unit:"g", name:"pitted dates (Medjool or soft)" },
+        { qty:120, unit:"ml", name:"hot water" },
+        { qty:1, unit:"tsp", name:"lemon juice (optional)" }
+      ],
+      method: "Pit the dates if they are not already, then soak them in the hot water for 15–30 minutes until very soft (longer for drier dates). Tip the dates and most of the soaking water into a blender or food processor and blitz to a thick, smooth paste, adding the soaking water a splash at a time until it loosens to the texture you want. Blend in the lemon juice if using — it brightens the sweetness and helps it keep. Store in a sealed jar in the fridge up to two weeks, or freeze in spoonfuls. Use as a natural sweetener in baking, smoothies and energy balls, or as the binding sweetness in Makroudh and other date pastries."
+    },
+    pairsWith: ["Makroudh", "oats", "smoothies", "energy balls", "baking"],
+    aliases: ["date paste", "date puree", "dates paste"],
+    story: "The oldest sweetener there is — just dates and water, blitzed thick. A spoonful does the work of sugar with fibre and flavour to spare.",
+    howThisFeels: "Sticky, dark and toffee-sweet — sweetness that tastes like it came from something real."
+  },
+
+  {
+    id: "sambar-masala",
+    name: "Sambar Masala",
+    type: "blend",
+    shelf: "spice-blends",
+    region: "South India",
+    flavourChips: ["Earthy", "Warm", "Tangy"],
+    whenToUse: "mid",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:30, step:10, label:"small jar" },
+      ingredients: [
+        { qty:2, unit:"tsp", name:"mild curry powder (Rajah or Hinds)" },
+        { qty:1, unit:"tsp", name:"ground cumin (jeera)" },
+        { qty:1, unit:"tsp", name:"ground coriander" },
+        { qty:1, unit:"pinch", name:"turmeric" },
+        { qty:1, unit:"pinch", name:"cayenne pepper or chilli powder" }
+      ],
+      method: "For a quick SA-pantry sambar masala, stir the mild curry powder, cumin and coriander together as the masala base, then add a pinch of turmeric and a few pinches of cayenne or chilli to your heat level. That covers the spice — the signature SOUR tang of sambar comes separately from tamarind: stir a small spoon of tamarind paste, or a good squeeze of lemon juice, into the pot when you add the masala. For a deeper homemade blend, dry-roast whole cumin, coriander, fenugreek, a few dried red chillies and a spoon of chana dal until fragrant, then grind to a powder."
+    },
+    pairsWith: ["sambar (lentil and vegetable stew)", "idli", "dosa", "steamed rice", "vada"],
+    aliases: ["sambar", "sambar masala", "sambar powder", "sambar podi"],
+    story: "The backbone of South Indian comfort food — earthy, warm and tangy, built to season a lentil-and-vegetable stew. Most SA supermarkets do not stock it, so a pantry mix plus tamarind gets you very close.",
+    howThisFeels: "Warm, sour and grounding — the smell of a Sunday pot that has been going a while."
+  },
 
 ];
 

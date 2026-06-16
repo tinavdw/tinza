@@ -179,7 +179,7 @@ const PRICE_DB = {
   "brie": 400,                // R50/125g → R400/kg
   "camembert": 456,           // R57/125g → R456/kg
   "cream cheese": 180,        // R45/250g → R180/kg
-  "mozzarella": 300,          // R150/500g → R300/kg
+  "mozzarella": 275,          // R150/500g → R300/kg
   "yoghurt": 45,              // per kg
   "ice cream": 45,            // R82/1.8L ≈ R45/kg
   "chocolate": 313,           // R25/80g → R313/kg
@@ -225,7 +225,7 @@ const PRICE_DB = {
   "aubergine": 43,
   "eggplant": 43,
   "halloumi": 258,            // R57.99/225g Cyprus Foods → ~R258/kg
-  "halloumi cheese": 258,
+  "halloumi cheese": 310,
   "beetroot": 25,             // R25/kg
   "celery": 27,               // each
   "pineapple": 25,            // each
@@ -506,6 +506,67 @@ const PRICE_DB = {
   "tripe": 130,               // Afval cleaned tripe high end
   "trotters": 130,            // pig/sheep trotters
   "caul fat": 160,            // netvet (Skilpadjies) high end
+  // ── Session adds (Jun 2026, Tina-sourced) ──
+  "currants": 160,
+  "mixed fruit": 180,
+  "marzipan": 575,
+  "plantain": 44,
+  "cassava": 56,
+  "pistachios": 800,
+  "bulgur": 150,
+  "okra": 71,
+  "custard": 36,
+  "tamarind paste": 522,
+  "pomegranate seeds": 287,
+  "sour cherries": 180,
+  "plums": 40,
+  "wood apple pulp": 170,
+  "crab": 400,
+  "crab meat": 660,
+  "gruyere cheese": 971,
+  "emmental cheese": 600,
+  "ouzo": 320,
+  "aguardente": 499,
+  "cola": 12.5,
+  "radish": 108,
+  "vine leaves": 61,
+  "endive": 60,
+  "millet flour": 85,
+  "buckwheat": 160,
+  "wheat berries": 50,
+  "yam": 227,
+  "yam flour": 110,
+  "green papaya": 32,
+  "young jackfruit": 108,
+  "bratwurst": 135,
+  "saucisson vaudois": 650,
+  "anchovies": 650,
+  "fish roe": 400,
+  "dried sprats": 150,
+  "smoked fish": 120,
+  "brown cheese": 1000,
+  "kvass": 15,
+  "fine semolina": 43,
+  "cherries": 180,
+  "malt": 36,
+  "black eyed pea flour": 170,
+  "marmalade": 100,
+  "candied fruit": 430,
+  "palm nut extract": 250,
+  "berry sauce": 195,
+  "veal": 375,
+  "wafer_each": 4,   // per unit (count)
+  "banana_each": 2.5,   // per unit (count)
+  "baguette_each": 30,   // per unit (count)
+  "small baguette or roll_each": 20,   // per unit (count)
+  "roti_each": 11,   // per unit (count)
+
+  "gelatin": 350,   // baking sachets R15-20/50g -> ~R350/kg
+
+  "fennel seed": 590,   // 100g premium R59 -> ~R590/kg
+  "coffee": 1050,   // instant R210/200g -> R1050/kg
+  "tea": 300,   // R50/80 bags -> ~R300/kg
+
 };
 
 const MEAT_COSTS = {

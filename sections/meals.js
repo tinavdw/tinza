@@ -159,6 +159,118 @@ var BAKES_RECIPES = [
     method:['Stir the flour, yeast, sugar and salt together in a bowl.','Make a well, pour in the lukewarm water and most of the oil, and mix to a soft, slightly sticky dough.','Knead on a floured surface for 6–8 minutes until smooth and springy, then cover and leave to prove in a warm spot for about 40 minutes, until doubled.','Knock back, divide into one ball per person, and press or roll each into a flat round about 1cm thick.','Cook over medium braai coals (or in a dry, hot pan) for 2–3 minutes a side, until puffed with charred spots.','Brush with the last of the oil or a little butter and serve warm, torn straight off the grid.'],
     tip:'No braai going? A hot, dry cast-iron pan gives the same charred, puffy result on the stove.',
     nutrition:{kcal:250,protein_g:7,carbs_g:48,fat_g:4}, storage:'Best fresh and warm; reheat next-day flatbreads on the braai or in a pan for a minute a side.'},
+
+  // ── 🥖 BREADS (added Jun 2026) ──
+  {id:'bk-pita', cat:'flatbreads', name:'Pita Bread', emoji:'🫓', cuisine:'Middle Eastern', time:120, costPP:3,
+  feel:'Warm pockets that balloon up in a screaming-hot oven — soft enough to tear, fold and dip.',
+  ingredients:[
+    {n:'bread flour',pp:50,u:'g'},
+    {n:'water',pp:32,u:'ml'},
+    {n:'instant yeast',pp:0.7,u:'g'},
+    {n:'sugar',pp:0.7,u:'g'},
+    {n:'salt',pp:0.8,u:'g'},
+    {n:'olive oil',pp:2,u:'ml'}
+  ],
+  method:[
+    'Whisk the flour, yeast, sugar and salt in a large bowl. Add the lukewarm water and olive oil and stir to a shaggy dough.',
+    'Knead on a lightly floured surface for 5–7 minutes until soft, smooth and just slightly tacky — keep it soft so the pitas stay fluffy.',
+    'Oil the bowl lightly, cover, and leave somewhere warm for 60–90 minutes until doubled.',
+    'Knock the dough down, divide into 6 (~85–90g each), roll into tight balls, cover and rest 10–15 minutes so they roll out easily.',
+    'Meanwhile heat the oven as high as it goes (245–260°C) with a pizza stone or upturned baking tray inside — it must be screaming hot.',
+    'Roll each ball into a disk about 16cm across and 3mm thick, keeping the thickness even so it puffs.',
+    'Bake 2–3 at a time on the hot surface for 3–5 minutes — they balloon up like pillows. Pull them the moment they puff and turn lightly golden; any longer and they crisp.',
+    'Wrap straight away in a clean dry towel to trap the steam — that is what keeps them soft and foldable.'
+  ],
+  tip:'No pocket usually means the dough was rolled unevenly or the oven was not hot enough — the pocket needs a steam-explosion to form.',
+  nutrition:{kcal:250,protein_g:8,carbs_g:50,fat_g:3}, storage:'Best warm and fresh; keeps 2 days wrapped, or freeze and re-warm in a hot pan.'},
+  {id:'bk-baguette', cat:'breads', name:'French Baguette', emoji:'🥖', cuisine:'French', time:300, costPP:2,
+  feel:'Crackling golden crust, chewy open crumb — a French morning made in your own kitchen.',
+  ingredients:[
+    {n:'bread flour',pp:31,u:'g'},
+    {n:'water',pp:21,u:'ml'},
+    {n:'salt',pp:0.6,u:'g'},
+    {n:'instant yeast',pp:0.25,u:'g'}
+  ],
+  method:[
+    'Combine the flour, salt and yeast in a bowl. Add the lukewarm water and mix to a shaggy, cohesive dough. Cover and rest 30 minutes — this autolyse develops the gluten on its own.',
+    'Build strength with stretch-and-folds: wet your hands, grab one side of the dough, stretch it up and fold it to the centre, then turn the bowl and repeat four times around. Rest 30 minutes and do it twice more (three rounds total) — by the end it should feel smooth and elastic.',
+    'Cover and let it ferment at room temperature about 2 hours, until noticeably risen and a little bubbly.',
+    'Turn out onto a lightly floured surface. Shape into a rough rectangle, fold the top third to the centre and the bottom third over that like a letter, and pinch the seam shut. Roll gently under your palms to lengthen into a baguette about 30–38cm long.',
+    'Rest it seam-down on a floured towel, pleating the cloth up against the sides to hold its shape. Proof 45–60 minutes until puffy. Meanwhile heat the oven to 230°C with a shallow tray on the bottom rack.',
+    'Slide the baguette onto a lined baking sheet. With a razor or very sharp knife make 3–4 quick shallow diagonal slashes along the top. Pour half a cup of boiling water into the hot tray for steam and close the door fast.',
+    'Bake 20–25 minutes until deep golden and hollow-sounding when you tap the base — pull the water tray after 10 minutes to crisp the crust. Cool on a rack at least 20 minutes before cutting.'
+  ],
+  tip:'If the dough sticks while shaping, resist adding flour — dampen your hands or the counter with a touch of water instead. The crumb keeps setting as it cools, so never cut it hot.',
+  nutrition:{kcal:190,protein_g:6,carbs_g:38,fat_g:1}, storage:'Best the day it is baked; revive day-old baguette in a hot oven for 5 minutes, or slice and freeze.'},
+  {id:'bk-roti', cat:'flatbreads', name:'Whole Wheat Roti', emoji:'🫓', cuisine:'Indian', time:50, costPP:2,
+  feel:'Soft, rustic flatbread blistered on a hot pan — the everyday bread of an Indian table.',
+  ingredients:[
+    {n:'whole wheat flour',pp:42,u:'g'},
+    {n:'water',pp:32,u:'ml'},
+    {n:'salt',pp:0.3,u:'g'},
+    {n:'neutral oil',pp:1,u:'ml'},
+    {n:'ghee or butter (for brushing)',pp:3,u:'g'}
+  ],
+  method:[
+    'Whisk the flour and salt in a bowl. Gradually add the warm water, mixing with your hand, until a shaggy dough forms.',
+    'Knead on a surface for 5 minutes until smooth and elastic — a sprinkle of flour if sticky, a teaspoon of water if dry.',
+    'Drizzle the oil over the dough, cover with a damp cloth and rest 30 minutes — this is what keeps the rotis soft.',
+    'Divide into 6 balls and keep them covered. Roll each into a thin disk about 16cm across on a lightly floured surface.',
+    'Heat a tawa or cast-iron pan over medium-high. Cook a roti until small bubbles appear (30–45 seconds), then flip and cook the other side about a minute until light brown spots form — press the edges gently with a towel to help it puff.',
+    'Brush with a little ghee or butter and stack in a towel to stay soft and warm.'
+  ],
+  tip:'Keep the dough soft and let it rest the full 30 minutes — rushed or stiff dough makes tough rotis.',
+  nutrition:{kcal:130,protein_g:4,carbs_g:26,fat_g:2}, storage:'Best warm; keep wrapped 1–2 days and re-warm in a dry pan, or freeze with paper between them.'},
+  {id:'bk-godamba-roti', cat:'flatbreads', name:'Godamba Roti', emoji:'🫓', cuisine:'Sri Lankan', time:180, costPP:2,
+  feel:'Stretched paper-thin and folded flaky — the Sri Lankan roti that becomes kottu.',
+  ingredients:[
+    {n:'cake flour',pp:37,u:'g'},
+    {n:'salt',pp:0.8,u:'g'},
+    {n:'neutral oil',pp:8,u:'ml'},
+    {n:'water',pp:18,u:'ml'}
+  ],
+  method:[
+    'Combine the flour, salt, oil and lukewarm water and mix to a dough. Knead 8–10 minutes until very smooth and pliable.',
+    'Divide into 6 balls, sit them in a shallow container and pour over enough neutral oil to submerge them. Cover and soak at least 2–4 hours, or overnight — this relaxes the gluten so they stretch thin. The soaking oil is reused batch to batch.',
+    'Lift one ball onto a lightly oiled surface. With your palms, press and stretch it outward until it is translucent and paper-thin — small tears are fine.',
+    'Fold the edges to the centre into a square or rectangle.',
+    'Heat a non-stick pan over medium-high. Cook the folded roti about 1 minute a side until golden and lightly blistered.',
+    'Stack the cooked rotis straight into a lidded container or under a towel to keep them soft and foldable.'
+  ],
+  tip:'The long oil soak is the secret — skip it and the dough will not stretch thin. The soaking oil keeps for the next batch.',
+  nutrition:{kcal:160,protein_g:4,carbs_g:28,fat_g:5}, storage:'Best fresh and warm; keep stacked and covered 1–2 days, or freeze and re-warm.'},
+  {id:'bk-drop-dumplings', cat:'quickbreads', name:'Fluffy Drop Dumplings', emoji:'\U0001f95f', cuisine:'Global', time:25, costPP:3,
+    feel:'Soft, cloud-like dough dropped straight into a bubbling stew \u2014 the cosiest way to stretch a pot.',
+    ingredients:[{n:'cake flour',pp:35,u:'g'},{n:'baking powder',pp:2,u:'g'},{n:'salt',pp:0.75,u:'g'},{n:'butter',pp:7.5,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'fresh parsley or thyme (optional)',pp:2,u:'g'}],
+    method:['Whisk the flour, baking powder and salt together \u2014 stir in the chopped herbs now if using.','Add the melted butter and milk and stir gently, just until a sticky, shaggy dough forms. Do not overmix, or the dumplings turn tough and rubbery.','Get your stew or soup to a gentle, low simmer \u2014 if it is boiling hard the dumplings can fall apart.','Drop heaped tablespoons of dough onto the surface of the simmering liquid, spacing them out \u2014 they puff up as they cook.','Cover with a tight lid and do not lift it for at least 15 minutes \u2014 the trapped steam is what cooks the tops.','Test with a toothpick: clean means done. Serve straight away while hot.'],
+    tip:'Resist peeking \u2014 every lift of the lid lets steam out and the dumplings deflate. Too dry to scoop, add a splash more milk; too wet, a little more flour.',
+    nutrition:{kcal:180,protein_g:4,carbs_g:24,fat_g:7}, storage:'Best fresh and hot; they go dense on standing. Reheat gently in the stew.'},
+  {id:'bk-lavash', cat:'flatbreads', name:'Lavash', emoji:'\U0001fad3', cuisine:'Middle Eastern', time:120, costPP:3,
+    feel:'Thin, blistered, foldable flatbread \u2014 soft enough to wrap a kebab, crisp enough to snap over hummus.',
+    ingredients:[{n:'cake flour',pp:75,u:'g'},{n:'instant yeast',pp:0.8,u:'g'},{n:'sugar',pp:0.7,u:'g'},{n:'salt',pp:1,u:'g'},{n:'olive oil',pp:5,u:'ml'}],
+    method:['Stir the warm water, sugar or honey and yeast together. Leave 5 to 10 minutes until foamy on top.','Mix the flour and salt in a big bowl, make a well, pour in the yeast mix and olive oil. Bring together into a rough dough.','Knead on a floured surface 8 to 10 minutes until smooth, elastic and slightly tacky.','Rise in a lightly oiled, covered bowl in a warm spot 1 to 1.5 hours, until doubled.','Knock the air out, divide into 6 (about 120 to 130g each), shape into balls, cover and rest 15 to 20 minutes.','Roll each ball out as thinly as you can \u2014 3mm or thinner. If it springs back, rest it a few minutes and try again.','Cook on a dry hot pan over medium-high, 30 to 45 seconds a side, until it bubbles and spots golden. Do not overcook or it turns cracker-hard.','Straight off the heat, stack between layers of a slightly damp cloth \u2014 the steam keeps them soft and foldable.'],
+    tip:'Want crisp lavash for dipping? Leave them uncovered on a rack to dry brittle. Gone too hard? Spritz with water and warm 10 seconds in the microwave.',
+    nutrition:{kcal:280,protein_g:8,carbs_g:52,fat_g:5}, storage:'Cooled and sealed in a bag, soft 2 to 3 days. Freeze with paper between; refresh with a water spritz and quick warm.'},
+  {id:'bk-msemen', cat:'flatbreads', name:'Msemen', emoji:'\U0001fad3', cuisine:'Moroccan', time:60, costPP:4,
+    feel:'Square, folded, shatteringly flaky griddle bread \u2014 pull a warm layer apart and drizzle it with honey.',
+    ingredients:[{n:'cake flour',pp:42,u:'g'},{n:'fine semolina',pp:21,u:'g'},{n:'salt',pp:1,u:'g'},{n:'sugar',pp:0.7,u:'g'},{n:'butter',pp:10,u:'g'},{n:'sunflower oil',pp:10,u:'ml'}],
+    method:['Whisk the flour, semolina, salt and sugar. Add the warm water slowly, mixing by hand, until a firm non-sticky dough forms.','Knead 8 to 10 minutes until very smooth and elastic. Divide into 6 balls, rub with oil, cover and rest at least 30 minutes \u2014 this is vital for the stretch.','Oil your surface and hands. Press and stretch one ball outward from the centre until nearly see-through. Small tears are fine.','Drizzle over a little of the butter-oil mix and a pinch of semolina. Fold the top third down, bottom third up, then left and right in to make a square. Repeat for all 6.','Flatten the first square with your palm to about 13cm wide.','Cook on a non-stick or cast-iron pan over medium, 2 to 3 minutes a side, turning often, until deep golden with crisp charred spots and puffed layers.'],
+    tip:'Use oil, never flour, to stretch \u2014 flour tears the dough and you lose the thin crispy layers. Springs back? It needs more rest. Serve warm with honey, or butter and jam.',
+    nutrition:{kcal:320,protein_g:7,carbs_g:44,fat_g:13}, storage:'Best warm and fresh. Reheat in a dry pan to bring back the crisp; freeze with paper between layers.'},
+  {id:'bk-banana-bread', cat:'quickbreads', name:'Banana Bread', emoji:'\U0001f34c', cuisine:'Global', time:70, costPP:6,
+    feel:'The smell that fills the whole house \u2014 sweet, dark, banana-rich, best warm with a slick of butter.',
+    ingredients:[{n:'bananas',pp:0.58,u:'each'},{n:'butter',pp:12.5,u:'g'},{n:'sugar',pp:25,u:'g'},{n:'eggs',pp:0.17,u:'each'},{n:'vanilla extract',pp:0.8,u:'ml'},{n:'bicarbonate of soda',pp:0.8,u:'g'},{n:'salt',pp:0.5,u:'g'},{n:'cake flour',pp:32,u:'g'}],
+    method:['Heat the oven to 175C. Grease and flour a standard loaf tin (about 23x13cm).','Mash the bananas with a fork until smooth but still a little chunky.','Stir the melted butter into the mashed banana, then mix in the sugar, egg and vanilla.','Sprinkle over the bicarb and salt and stir well. Add the flour and fold in just until no streaks remain \u2014 do not overmix.','Pour into the tin and bake 50 to 60 minutes, until a toothpick in the centre comes out clean or with a few moist crumbs.','Cool in the tin 10 minutes, then turn out onto a wire rack.'],
+    tip:'The darker the bananas, the sweeter the loaf. Not ripe enough? Roast them in their skins at 150C for 15 minutes to soften fast. Fold in a handful of toasted walnuts or pecans before baking if you like.',
+    nutrition:{kcal:280,protein_g:4,carbs_g:42,fat_g:11}, storage:'Wrapped tightly, stays moist 3 to 4 days. Freezes beautifully \u2014 slice first for grab-and-go.'},
+
+  {id:'bk-sponge-cake', cat:'cakes', name:'Classic Sponge Cake', emoji:'🍰', cuisine:'Global', time:45, costPP:3,
+    feel:'Genoise-light — no raising agent, just whipped eggs holding all that air. Tender, golden, barely-there.',
+    ingredients:[{n:'eggs',pp:0.5,u:'each'},{n:'sugar',pp:15,u:'g'},{n:'cake flour',pp:15,u:'g'},{n:'butter',pp:4,u:'g'},{n:'vanilla extract',pp:0.8,u:'ml'}],
+    method:['Heat the oven to 175C. Grease a 15 to 18cm round tin and line the base with baking paper — non-negotiable for a sponge, it will stick otherwise.','Combine the eggs and sugar in a large heatproof bowl. Set it over a pan of simmering water (bowl not touching the water) and whisk constantly until it reaches about 43C and the sugar has fully dissolved.','Off the heat, whip with an electric mixer on high 5 to 8 minutes until thick, pale and tripled — lift the beaters and the batter should leave a ribbon trail that holds a few seconds. Mix in the vanilla.','Sift half the flour over the eggs and fold gently — down the side of the bowl and up through the centre — then repeat with the rest. Work quickly so you do not knock the air out.','Stir a big spoon of batter into the melted butter, then fold that back into the main bowl. This stops the butter sinking.','Pour into the tin and bake 20 to 25 minutes, until golden and springy to a light press.','Cool in the tin 5 minutes, run a knife round the edge, then invert onto a wire rack to cool completely.'],
+    tip:'Sift the flour twice — no clumps means it folds into the fragile egg foam far easier. The moment the flour is in, stop mixing. Lovely with the cherry sauce, or just icing sugar and whipped cream.',
+    nutrition:{kcal:180,protein_g:5,carbs_g:28,fat_g:5}, storage:'Airtight 2 to 3 days, or freeze well-wrapped.'},
+
 ];
 
 function mealSectionHTML(sectionKey){
