@@ -350,6 +350,8 @@ var WK_SUBS = {
   "berbere":      "Berbere → mix paprika + cayenne + a pinch each of cumin, coriander, ginger & cinnamon.",
   "injera":       "Injera → a thin sourdough wrap or store pancake works as a scoop if teff isn't available.",
   "teff":         "Teff flour → swap with a 50/50 wholewheat + cake flour mix (texture differs slightly).",
+  "kunafa":       "Kunafa / kataifi pastry → layer chopped phyllo with melted butter, or use sweet vermicelli (feeni / laccha).",
+  "kataifi":      "Kataifi / kunafa pastry → layer chopped phyllo with melted butter, or use sweet vermicelli (feeni / laccha).",
   "harissa":      "Harissa → blend tomato paste + chilli + garlic + a little olive oil & cumin.",
   "ras el hanout":"Ras el hanout → cumin + coriander + cinnamon + paprika + a pinch of ginger & nutmeg.",
   "scotch bonnet":"Scotch bonnet → habanero, or any fiery chilli (use less — they're milder here).",
@@ -469,12 +471,16 @@ var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","fryi
   "masala":"curry powder","durban masala":"curry powder","durban curry masala":"curry powder","breyani masala":"curry powder","biryani masala":"curry powder","mild curry powder":"curry powder",
   "potatoes":"potato","potato chunks":"potato","potato cubes":"potato",
   "yoghurt":"yoghurt","plain yoghurt":"yoghurt",
-  "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk" };
+  "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk",
+  "baking soda":"bicarbonate of soda","bicarb":"bicarbonate of soda",
+  "coconut":"desiccated coconut","niter kibbeh":"ghee","goat":"mutton","goat ribs":"mutton","sukuma wiki":"kale","amaranth leaves":"spinach","lamb shoulder":"mutton","lamb shoulder cubed":"mutton","phyllo sheets":"phyllo pastry","roasted flour":"cake flour","broad beans":"dried fava beans","fish stock":"stock","flour-based dough":"cake flour","pastry dough":"cake flour","palm oil":"sunflower oil","argan oil":"sesame oil","shiro powder":"chickpea flour","maize kernels":"sweetcorn","pastry wrappers":"samoosa pur",
+  "eggplant":"brinjal","aubergine":"brinjal","zucchini":"baby marrow","courgette":"baby marrow","molokhia":"spinach","molokhia leaves":"spinach","injera":"teff flour","torn injera":"teff flour","vermicelli":"pasta","orzo":"pasta","filo":"phyllo pastry","filo pastry":"phyllo pastry","warqa":"phyllo pastry","kunafa":"phyllo pastry","kataifi":"phyllo pastry","malsouka":"phyllo pastry","shredded phyllo":"phyllo pastry","scotch bonnet":"chilli","scotch bonnet pepper":"chilli","goat meat":"mutton","steak":"beef","minced meat":"beef","reindeer meat":"beef","greens":"spinach","amaranth":"spinach","swiss chard":"spinach","wild greens":"spinach","green plantain":"plantain","green plantains":"plantain","ripe plantain":"plantain","fried ripe plantain":"plantain","ground egusi seeds":"pumpkin seeds","cassava root":"cassava","cassava dough":"cassava","bell pepper":"green pepper","red bell pepper":"green pepper","chicken stock":"stock","vegetable stock":"stock","veg stock":"stock","broth":"stock","lime juice":"lemon juice","sultanas":"raisins","cod":"hake","sea bass":"basa","white fish fillets":"basa","white fish fillet":"basa","merguez":"boerewors","date paste":"dates","grated cheese":"cheddar","dried mloukhia powder":"spinach","stewing lamb":"lamb potjiekos","stewing lamb shoulder or neck":"lamb potjiekos","shrimp":"prawns","clams":"mussels","octopus":"calamari rings","cooked octopus":"calamari rings","port wine":"red wine","curry spices":"curry powder","plain flour":"cake flour","peanut oil":"sunflower oil","peeled beans":"sugar beans","brown beans":"sugar beans","bay leaf":"bay leaves","ground crayfish":"prawns","corn dough":"maize meal","fermented corn dough":"maize meal","corn flour":"maize meal","oil for frying":"sunflower oil","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts" };
 function wkPriceLookup(name){
   if(typeof PRICE_DB === 'undefined') return null;
   var n = wkCleanName(name);
   if(!n) return null;
   if(/\beggs?\b/.test(n)) return { key:'egg', price:(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7), per:'count' };
+  if(PRICE_DB[n+'_each'] != null) return { key:n, price:PRICE_DB[n+'_each'], per:'count' };   // count items (pita, loaf, lemon…)
   if(PRICE_DB[n] != null) return { key:n, price:PRICE_DB[n], per:'weight' };
   // deplural
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)] != null) return { key:n.slice(0,-1), price:PRICE_DB[n.slice(0,-1)], per:'weight' };

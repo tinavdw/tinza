@@ -47,6 +47,8 @@ const PRICE_DB = {
   "sweetcorn": 59,
   "peas": 61,
   "almonds": 330,
+  "cashew nuts": 430,         // R43/100g (Tina) — same 100g-pack shape as walnuts/almonds
+  "peanuts": 128,             // R32/250g (Tina)
   "chickpea flour": 114,
   "coriander": 650,
   "dill": 650,
@@ -59,7 +61,7 @@ const PRICE_DB = {
   "cloves": 1022,
   "coconut flakes": 230,
   "pecan nuts": 530,
-  "stock": 170,
+  "stock": 8,               // LIQUID stock (per L) — was 170 (powder price) which over-priced 68+ recipes using "<ml> stock"
   "chilli": 80,
   // ── BEEF (adjusted per roadmap) ──
   "beef rump": 225,           // Roadmap: R225 (butchery R200)
@@ -170,11 +172,11 @@ const PRICE_DB = {
   "milk": 20,                 // per litre
   "butter": 160,              // R80/500g → R160/kg
   "cream": 148,               // R37/250ml → R148/L (approx per kg)
-  "cheddar cheese": 225,      // R180/800g → R225/kg
+  "cheddar cheese": 187,      // R149.99/800g → R187/kg
   "gouda cheese": 225,        // R180/800g → R225/kg
   "feta cheese": 230,         // R46/200g → R230/kg
   "feta": 230,
-  "cheddar": 225,
+  "cheddar": 187,             // R149.99/800g → R187/kg
   "parmesan": 750,            // R30/40g → R750/kg
   "brie": 400,                // R50/125g → R400/kg
   "camembert": 456,           // R57/125g → R456/kg
@@ -412,7 +414,12 @@ const PRICE_DB = {
   "shell pasta": 30,          // ESTIMATE - confirm price
   "tuna": 120,                // ESTIMATE - confirm (tinned)
   "jelly powder": 60,         // ESTIMATE - confirm price
-  "desiccated coconut": 90,   // ESTIMATE - confirm price
+  "desiccated coconut": 160,  // R32/200g (Tina, 16 Jun)
+  "liver": 90,                // calf's / chicken liver, R80–100 mid (Tina) — covers "calf's liver"
+  "pita_each": 7.7,           // per pita, R46/6-pack (Tina)
+  "molokhia leaves": 525,     // dried/frozen, R105/200g (Tina)
+  "kunafa pastry": 166,       // R83/500g (Tina)
+  "kataifi pastry": 166,      // = kunafa pastry
   "ice cream cones": 40,      // ESTIMATE - confirm price
   "smarties": 200,            // ESTIMATE - confirm price
   "taco shells": 200,         // R67/12 shells (~335g)
@@ -483,6 +490,11 @@ const PRICE_DB = {
   "low-sodium bone broth": 100,
   "low-sodium vegetable stock": 100,
   "tinned sardines": 208,
+  "fresh sardines": 115,      // fresh whole sardines — kept separate from tinned R208
+  "dried fava beans": 35,     // dried broad/fava beans (16 Jun 2026)
+  "mixed nuts": 30,           // matches pp:30 used in core.js recipe lines
+  "orange blossom water": 360, // R360/L deli flavouring — used 5–10ml so impact tiny
+  "samoosa pur": 110,         // samoosa pastry strips, R110/kg
 
   // ── GAME, OFFAL & EXTRA MEATS (8 Jun 2026) — lean HIGH, round UP ──
   "game meat": 130,           // game stewing/shin high end (~R125) rounded up

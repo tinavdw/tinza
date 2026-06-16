@@ -617,7 +617,7 @@ var PRICE_ALIAS = {
   "coconut":"coconut flakes",
   "grated coconut":"coconut flakes",
   "sultanas":"raisins",
-  "stewing lamb shoulder or neck":"lamb neck",
+  "stewing lamb shoulder or neck":"lamb potjiekos",
   "lamb shoulder cubed":"lamb neck",
   "zucchini":"baby marrow",
   "courgette":"baby marrow",
@@ -641,7 +641,7 @@ var PRICE_ALIAS = {
   "vegetable stock":"stock",
   "veg stock":"stock",
   "broth":"stock",
-  "stewing lamb":"lamb neck",
+  "stewing lamb":"lamb potjiekos",
   "lamb shoulder":"lamb neck",
   "lamb pieces":"lamb neck",
   "mince":"beef mince","lamb mince":"beef mince","beef or lamb mince":"beef mince",
@@ -652,6 +652,8 @@ var PRICE_ALIAS = {
   // "full-cream milk" must price as MILK, not CREAM (the longest-word match picks
   // "cream" out of "full cream milk" → ~7x overcharge). Fixes Risalamande + Amasi ×2.
   "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk",
+  "baking soda":"bicarbonate of soda","bicarb":"bicarbonate of soda",
+  "coconut":"desiccated coconut","niter kibbeh":"ghee","goat":"mutton","goat ribs":"mutton","sukuma wiki":"kale","amaranth leaves":"spinach","lamb shoulder":"mutton","lamb shoulder cubed":"mutton","phyllo sheets":"phyllo pastry","roasted flour":"cake flour","broad beans":"dried fava beans","fish stock":"stock","flour-based dough":"cake flour","pastry dough":"cake flour","maize kernels":"sweetcorn","merguez":"boerewors","grated cheese":"cheddar","dried mloukhia powder":"spinach","curry spices":"curry powder","ground crayfish":"prawns","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts",
   // World Kitchen gap aliases (15 Jun) — every target was verified present in
   // PRICE_DB, so these use a REAL substitute price, never an invented rand.
   "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
@@ -668,7 +670,7 @@ var PRICE_ALIAS = {
   "goat meat":"mutton","cod":"hake","chouri o":"chorizo","collard greens or kale":"kale",
   "chopped collard greens":"kale","buffalo curd":"double cream yoghurt","molokhia":"spinach",
   "molokhia leaves":"spinach","injera":"teff flour","torn injera":"teff flour",
-  "shiro powder":"chickpeas","argan oil":"sesame oil","minced meat":"beef","cooked meat":"pork",
+  "shiro powder":"chickpea flour","argan oil":"sesame oil","minced meat":"beef","cooked meat":"pork",
   "cured meat":"smoked pork neck","cured meats":"smoked pork neck","white fish fillets":"basa",
   "white fish fillet":"basa","firm white fish fillets":"basa","dogfish":"basa","perch fillets":"basa",
   "vendace fish":"basa","carp fish":"basa","mixed fish":"basa",
@@ -689,7 +691,7 @@ var PRICE_ALIAS = {
   "kunafa":"phyllo pastry",
   "kataifi":"phyllo pastry",
   "shredded phyllo":"phyllo pastry",
-  "pastry wrappers":"phyllo pastry",
+  "pastry wrappers":"samoosa pur",
   "pastry shell":"puff pastry",
   "tart shells":"puff pastry",
   "shortcrust pastry base":"puff pastry",
@@ -708,7 +710,6 @@ var PRICE_ALIAS = {
   "olive":"olives",
   "squid":"calamari rings",
   "sardines":"tinned sardines",
-  "fresh sardines":"tinned sardines",
   "octopus":"calamari rings",
   "cooked octopus":"calamari rings",
   "clams":"mussels",

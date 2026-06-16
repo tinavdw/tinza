@@ -2,18 +2,56 @@
 *Updated 16 Jun 2026 · read TINZA_STANDARD.md (now incl. §4g One Template) first every session*
 
 ## >> RIGHT NOW (pick up here)
-1. **PUSH the CROSS-LINKS batch** — 4 section files, interdependent, push together:
-   `core.js · meals.js · spice.js · worldkitchen.js`
-   (every file `node --check`-clean; core.js backed up to %TEMP%\core.js.bak.crosslinks)
-2. **Verify live — 15 cross-links:** open each source, confirm the **"Make your own → [recipe]"** card under the ingredients, tap → component recipe opens on the shared page → **Back returns to the source**:
-   - WK ×9: Hawawshi→Pita · Rfissa→Msemen · Beyti→Lavash · Zapiekanka→Baguette · Bauernschmaus→Dumplings · Hortobágyi→Pancakes · Risalamande→Cherry Sauce · Prinsesstårta→Sponge · Kottu→Godamba.
-   - WK ×1: Hoenderpastei→Béchamel.
-   - Braai ×5: Roosterkoek-Garlic-Cheese & Roosterkoek-Boerewors→Roosterkoek (base) · Biltong Salad→Roquefort Dressing · Greek Salad→Greek Dressing · Pesto Pasta Salad→Basil Pesto.
-3. If a card/return looks off: note the source — it's a `WK_CROSS_LINKS` / `BRAAI_CROSS_LINKS` entry or the builder.
+
+### ✅ BATCH 2 (`wk_africa.js`) — INGREDIENT & RECIPE INTEGRITY SWEEP — COMPLETE
+All **11 country-blocks** swept (~**163 recipes**): Egypt · Ethiopia (+straggler sweep) · Kenya ·
+Morocco · Senegal · Tanzania · Tunisia · Zimbabwe · Mozambique · Nigeria · Ghana.
+Every Fault-A combined ingredient (`+` / `/` / `or` joining two buyables) resolved per **§5**:
+one buyable per line matching PRICE_DB, prep → method, real ORs → primary kept + alt → chefNotes,
+spice/herb pairs → comma, `water/stock` → first-listed, mixed-proteins split with ⚐ amounts.
+**4 trivia bleeds fixed** (Mapopo/MOZAMBIQUE, Ananás/WEST AFRICA, Chin Chin/GHANA, Shito/SENEGAL) —
+trivia-bleed grep across wk_africa now returns **zero**.
+Touched: `wk_africa.js` · `core.js` (PRICE_ALIAS) · `worldkitchen.js` (**WK_ALIAS 68→~115**) ·
+`prices.js` (PRICE_DB adds: fresh sardines 115, dried fava beans 35, mixed nuts 30, orange blossom
+water 360, samoosa pur 110; cheddar 225→**187**). Saffron amount traps fixed (Mrouzia, kept turmeric
+in Biryani/Badjia). Every change `node --check`-clean. **NOT yet pushed.**
+
+### Carry-forward (open items)
+1. **Pending real prices — NEVER guess a rand:** `peanuts`/`ground peanuts`, `cashew nuts` (Tina to supply).
+2. **📋 wkEffectiveMult OVER-SCALE LIST (8)** — small-portion/condiment/split-protein "mains" the portion
+   brain scales to a full plate, inflating cost (engine NOT to be touched ad-hoc — dedicated session):
+   Soupou Kanja ×3.0 · Fricassée ×3.2 · Mopane Worms ×3.75 · Matemba ×3.75 · Gango ×2.25 ·
+   Matata ×2.67 · Shito ×5.0 · Kontomire ×4.0.
+3. **3 parked sessions:** (a) **blend-pricing** all-or-nothing — harissa/berbere/piri-piri/tabil/ras-el-hanout/
+   yaji/pepper-soup-spice/mitmita/cayenne kept **FREE** (whitelist) for now; (b) **portion-brain over-scale** fix;
+   (c) remaining **~145 PRICE_ALIAS→WK_ALIAS** reconciliation (recipe-relevant ones synced as hit).
+4. **NEXT — Batch 3** `wk_southafrica.js` → Batch 4 `wk_europe.js` + `wk_world.js` →
+   Batch 5 `eventsData.js` / `health.js` / `meals.js` / `data.js` / `buffet.js`.
+
+### Still pending from the cross-links session (verify/push if not already done — details below)
+- PUSH cross-links batch (`core/meals/spice/worldkitchen`) + verify the 15 links live.
+
+```mermaid
+flowchart TD
+  Z["RULE ZERO · §5 ingredient law — one buyable/line · prep→method · sameness via shared core.js"]
+  Z --> B2["BATCH 2 wk_africa.js ✅ 11 countries / ~163 recipes"]
+  B2 --> R["Fault-A resolved: + / or splits · spice pairs→comma · water/stock→first · mixed-protein→⚐split"]
+  B2 --> AL["WK_ALIAS 68→~115 · PRICE_DB adds · cheddar 225→187 · saffron traps fixed"]
+  B2 --> TB["4 trivia bleeds stripped · grep now zero"]
+  B2 --> OPEN{"Carry-forward"}
+  OPEN --> O1["peanut/cashew real prices (Tina)"]
+  OPEN --> O2["📋 over-scale list ×8 (portion-brain session)"]
+  OPEN --> O3["~145 PRICE_ALIAS→WK_ALIAS recon · blend-pricing session"]
+  OPEN --> O4["Batch 3 wk_southafrica → B4 europe/world → B5 events/health/meals/data/buffet"]
+  classDef done fill:#16301a,stroke:#4caf50,color:#dff0df
+  classDef now fill:#3a2a18,stroke:#c06020,color:#f5e8cc
+  class B2,R,AL,TB done
+  class O1,O2,O3,O4 now
+```
 
 ---
 
-## DONE THIS SESSION (CROSS-LINKS) — banked, node-checked
+## EARLIER — CROSS-LINKS (banked, node-checked)
 
 ```
 core.js
