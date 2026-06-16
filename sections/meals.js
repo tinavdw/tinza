@@ -239,25 +239,25 @@ var BAKES_RECIPES = [
   ],
   tip:'The long oil soak is the secret — skip it and the dough will not stretch thin. The soaking oil keeps for the next batch.',
   nutrition:{kcal:160,protein_g:4,carbs_g:28,fat_g:5}, storage:'Best fresh and warm; keep stacked and covered 1–2 days, or freeze and re-warm.'},
-  {id:'bk-drop-dumplings', cat:'quickbreads', name:'Fluffy Drop Dumplings', emoji:'\U0001f95f', cuisine:'Global', time:25, costPP:3,
+  {id:'bk-drop-dumplings', cat:'quickbreads', name:'Fluffy Drop Dumplings', emoji:'🥟', cuisine:'Global', time:25, costPP:3,
     feel:'Soft, cloud-like dough dropped straight into a bubbling stew \u2014 the cosiest way to stretch a pot.',
     ingredients:[{n:'cake flour',pp:35,u:'g'},{n:'baking powder',pp:2,u:'g'},{n:'salt',pp:0.75,u:'g'},{n:'butter',pp:7.5,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'fresh parsley or thyme (optional)',pp:2,u:'g'}],
     method:['Whisk the flour, baking powder and salt together \u2014 stir in the chopped herbs now if using.','Add the melted butter and milk and stir gently, just until a sticky, shaggy dough forms. Do not overmix, or the dumplings turn tough and rubbery.','Get your stew or soup to a gentle, low simmer \u2014 if it is boiling hard the dumplings can fall apart.','Drop heaped tablespoons of dough onto the surface of the simmering liquid, spacing them out \u2014 they puff up as they cook.','Cover with a tight lid and do not lift it for at least 15 minutes \u2014 the trapped steam is what cooks the tops.','Test with a toothpick: clean means done. Serve straight away while hot.'],
     tip:'Resist peeking \u2014 every lift of the lid lets steam out and the dumplings deflate. Too dry to scoop, add a splash more milk; too wet, a little more flour.',
     nutrition:{kcal:180,protein_g:4,carbs_g:24,fat_g:7}, storage:'Best fresh and hot; they go dense on standing. Reheat gently in the stew.'},
-  {id:'bk-lavash', cat:'flatbreads', name:'Lavash', emoji:'\U0001fad3', cuisine:'Middle Eastern', time:120, costPP:3,
+  {id:'bk-lavash', cat:'flatbreads', name:'Lavash', emoji:'🫓', cuisine:'Middle Eastern', time:120, costPP:3,
     feel:'Thin, blistered, foldable flatbread \u2014 soft enough to wrap a kebab, crisp enough to snap over hummus.',
     ingredients:[{n:'cake flour',pp:75,u:'g'},{n:'instant yeast',pp:0.8,u:'g'},{n:'sugar',pp:0.7,u:'g'},{n:'salt',pp:1,u:'g'},{n:'olive oil',pp:5,u:'ml'}],
     method:['Stir the warm water, sugar or honey and yeast together. Leave 5 to 10 minutes until foamy on top.','Mix the flour and salt in a big bowl, make a well, pour in the yeast mix and olive oil. Bring together into a rough dough.','Knead on a floured surface 8 to 10 minutes until smooth, elastic and slightly tacky.','Rise in a lightly oiled, covered bowl in a warm spot 1 to 1.5 hours, until doubled.','Knock the air out, divide into 6 (about 120 to 130g each), shape into balls, cover and rest 15 to 20 minutes.','Roll each ball out as thinly as you can \u2014 3mm or thinner. If it springs back, rest it a few minutes and try again.','Cook on a dry hot pan over medium-high, 30 to 45 seconds a side, until it bubbles and spots golden. Do not overcook or it turns cracker-hard.','Straight off the heat, stack between layers of a slightly damp cloth \u2014 the steam keeps them soft and foldable.'],
     tip:'Want crisp lavash for dipping? Leave them uncovered on a rack to dry brittle. Gone too hard? Spritz with water and warm 10 seconds in the microwave.',
     nutrition:{kcal:280,protein_g:8,carbs_g:52,fat_g:5}, storage:'Cooled and sealed in a bag, soft 2 to 3 days. Freeze with paper between; refresh with a water spritz and quick warm.'},
-  {id:'bk-msemen', cat:'flatbreads', name:'Msemen', emoji:'\U0001fad3', cuisine:'Moroccan', time:60, costPP:4,
+  {id:'bk-msemen', cat:'flatbreads', name:'Msemen', emoji:'🫓', cuisine:'Moroccan', time:60, costPP:4,
     feel:'Square, folded, shatteringly flaky griddle bread \u2014 pull a warm layer apart and drizzle it with honey.',
     ingredients:[{n:'cake flour',pp:42,u:'g'},{n:'fine semolina',pp:21,u:'g'},{n:'salt',pp:1,u:'g'},{n:'sugar',pp:0.7,u:'g'},{n:'butter',pp:10,u:'g'},{n:'sunflower oil',pp:10,u:'ml'}],
     method:['Whisk the flour, semolina, salt and sugar. Add the warm water slowly, mixing by hand, until a firm non-sticky dough forms.','Knead 8 to 10 minutes until very smooth and elastic. Divide into 6 balls, rub with oil, cover and rest at least 30 minutes \u2014 this is vital for the stretch.','Oil your surface and hands. Press and stretch one ball outward from the centre until nearly see-through. Small tears are fine.','Drizzle over a little of the butter-oil mix and a pinch of semolina. Fold the top third down, bottom third up, then left and right in to make a square. Repeat for all 6.','Flatten the first square with your palm to about 13cm wide.','Cook on a non-stick or cast-iron pan over medium, 2 to 3 minutes a side, turning often, until deep golden with crisp charred spots and puffed layers.'],
     tip:'Use oil, never flour, to stretch \u2014 flour tears the dough and you lose the thin crispy layers. Springs back? It needs more rest. Serve warm with honey, or butter and jam.',
     nutrition:{kcal:320,protein_g:7,carbs_g:44,fat_g:13}, storage:'Best warm and fresh. Reheat in a dry pan to bring back the crisp; freeze with paper between layers.'},
-  {id:'bk-banana-bread', cat:'quickbreads', name:'Banana Bread', emoji:'\U0001f34c', cuisine:'Global', time:70, costPP:6,
+  {id:'bk-banana-bread', cat:'quickbreads', name:'Banana Bread', emoji:'🍌', cuisine:'Global', time:70, costPP:6,
     feel:'The smell that fills the whole house \u2014 sweet, dark, banana-rich, best warm with a slick of butter.',
     ingredients:[{n:'bananas',pp:0.58,u:'each'},{n:'butter',pp:12.5,u:'g'},{n:'sugar',pp:25,u:'g'},{n:'eggs',pp:0.17,u:'each'},{n:'vanilla extract',pp:0.8,u:'ml'},{n:'bicarbonate of soda',pp:0.8,u:'g'},{n:'salt',pp:0.5,u:'g'},{n:'cake flour',pp:32,u:'g'}],
     method:['Heat the oven to 175C. Grease and flour a standard loaf tin (about 23x13cm).','Mash the bananas with a fork until smooth but still a little chunky.','Stir the melted butter into the mashed banana, then mix in the sugar, egg and vanilla.','Sprinkle over the bicarb and salt and stir well. Add the flour and fold in just until no streaks remain \u2014 do not overmix.','Pour into the tin and bake 50 to 60 minutes, until a toothpick in the centre comes out clean or with a few moist crumbs.','Cool in the tin 10 minutes, then turn out onto a wire rack.'],
@@ -377,8 +377,8 @@ function mealSectionHTML(sectionKey){
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
         return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:14px;margin-bottom:8px;">
-          <div style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;" onclick="toggleMealPlan('${r.id}')">
-            <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${inPlan?'✓':''}</div>
+          <div style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;" onclick="openMealRecipe('${r.id}')">
+            <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;cursor:pointer;" onclick="event.stopPropagation();toggleMealPlan('${r.id}')">${inPlan?'✓':''}</div>
             <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji}</span>
             <div style="flex:1;min-width:0;">
               <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
