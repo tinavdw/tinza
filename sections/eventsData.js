@@ -1010,7 +1010,7 @@ const EVENTS_DESSERTS = [
       "Cover tightly with cling wrap. Refrigerate minimum 6 hours — 12–24 hours is the professional standard.",
       "COCOA TIMING: Dust cocoa through a fine sieve immediately before serving only — applied too early it absorbs moisture and turns dark and patchy."
     ],
-    tip:"Tiramisu is never at its best immediately after assembly — the overnight rest allows moisture to equalise through the ladyfingers and the cream to set into a luxurious, sliceable consistency. For large events: set up an assembly line (coffee tray → ladyfinger box → serving dish → cream bowl) for speed." },
+    tip:"Tiramisu is never at its best immediately after assembly — the overnight rest allows moisture to equalise through the ladyfingers and the cream to set into a luxurious, sliceable consistency. For large events: set up an assembly line (coffee tray → ladyfinger box → serving dish → cream bowl) for speed. Brewing from instant? Use about 2 tsp (10ml) instant coffee per 250ml hot water for a strong dip, then chill before using." },
   { id:"appletart", name:"Apple Crumble", emoji:"🍏", costPP:16,
     serves:8,
     base300:[

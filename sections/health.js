@@ -1583,7 +1583,14 @@ const FERMENTED_RECIPES = [
    badges:['🦠 Probiotic','💧 Dairy-Free','⚡ 48 hours'],
    base300:[{n:'Water kefir grains',pp:1,u:'tbsp'},{n:'Filtered water',pp:500,u:'ml'},{n:'Sugar (cane or coconut)',pp:30,u:'g'},{n:'Dried fruit (apricot or fig, 1 piece)',pp:1,u:''},{n:'Lemon juice',pp:5,u:'ml'}],
    method:['Dissolve sugar in water. Cool completely to room temperature.','Add kefir grains, dried fruit and lemon juice to a clean jar.','Pour in sugar water. Cover loosely with cloth.','Ferment 24–48 hours at room temperature, tasting from 24 hours.','Strain out grains. Bottle the kefir. Refrigerate.'],
-   tip:'Water kefir grains are dairy-free — different from milk kefir grains. Find them at health stores or online SA fermentation communities. They grow over time and you can share them.'}
+   tip:'Water kefir grains are dairy-free — different from milk kefir grains. Find them at health stores or online SA fermentation communities. They grow over time and you can share them.'},
+
+  {id:'fer_breadkvass', tier:'free', emoji:'🍞', name:'Bread Kvass', kcal:25, costPP:2, feel:'Dark rye bread turned into a lightly fizzy, sweet-sour drink — old Russia in a glass.',
+   badges:['🦠 Probiotic','🥫 Fermented','🍞 Zero Waste'],
+   base300:[{n:'Stale rye or dark bread',pp:150,u:'g'},{n:'Filtered water',pp:1000,u:'ml'},{n:'Sugar',pp:60,u:'g'},{n:'Raisins',pp:15,u:'g'},{n:'Instant yeast',pp:1,u:'g'}],
+   method:['Toast or dry the rye bread in a low oven until deeply golden and hard — the darker the toast, the deeper the colour and flavour.','Put the dried bread in a large jar or bowl and pour over boiling water. Cover and steep 6 to 8 hours, or overnight.','Strain out the bread through a cloth, pressing well, and stir the sugar into the still-warm liquid until dissolved.','When it cools to lukewarm, stir in the yeast and drop in a few raisins — they feed the ferment and help it fizz.','Cover loosely and leave at room temperature 1 to 2 days, until pleasantly sour and lightly bubbly. Taste as you go.','Strain into bottles, seal and refrigerate. Chill well before drinking — it keeps about a week.'],
+   tip:'The classic base for cold summer soups like okroshka. Use properly dark, sour rye for the truest flavour — a sourdough rye heel is perfect. Left too long it turns into a pleasant kvass vinegar.'},
+
 ];
 
 // ══════════════════════════════════════════════════════════════
