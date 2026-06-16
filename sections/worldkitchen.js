@@ -546,6 +546,23 @@ function wkBackFromRecipe(){
   set({ wkDataRecipe:null });
 }
 
+/* ── CROSS-LINKS (16 Jun): a WK dish → its component recipe (Bakes / Spice) ──
+   Keyed by WK recipe id. Opens the target via the universal opener so Back
+   returns to the dish (closeRecipe's _viewingRecipe restore). Rendered through
+   the shared crossLinkBox() so every cross-link looks identical (Rule Zero). */
+var WK_CROSS_LINKS = {
+  'egypt-hawawshi':               { open:"openBakesRecipe('bk-pita')",           name:'Pita Bread',            emoji:'🫓' },
+  'morocco-rfissa':               { open:"openBakesRecipe('bk-msemen')",         name:'Msemen',                emoji:'🫓' },
+  'turkey-beyti-kebap':           { open:"openBakesRecipe('bk-lavash')",         name:'Lavash',                emoji:'🫓' },
+  'poland-zapiekanka':            { open:"openBakesRecipe('bk-baguette')",       name:'French Baguette',       emoji:'🥖' },
+  'austria-bauernschmaus':        { open:"openBakesRecipe('bk-drop-dumplings')", name:'Fluffy Drop Dumplings', emoji:'🥟' },
+  'hungary-hortobagyi-palacsinta':{ open:"openBakesRecipe('bf-pancakes')",       name:'Fluffy Pancakes',       emoji:'🥞' },
+  'denmark-risalamande':          { open:"openSpiceRecipe('cherry-sauce')",      name:'Cherry Sauce',          emoji:'🍒' },
+  'sweden-prinsesstarta':         { open:"openBakesRecipe('bk-sponge-cake')",    name:'Classic Sponge Cake',   emoji:'🍰' },
+  'sri-lanka-kottu-roti':         { open:"openBakesRecipe('bk-godamba-roti')",   name:'Godamba Roti',          emoji:'🫓' },
+  'boerekos-hoenderpastei':       { open:"openSpiceRecipe('bechamel-sauce')",    name:'Béchamel (White Sauce)',emoji:'🥛' }
+};
+
 /* ── v33 RECIPE DETAIL ── */
 function wkRecipeOpts(r, country, universal){
   var green='#c06020';
@@ -594,6 +611,12 @@ function wkRecipeOpts(r, country, universal){
   var notesHTML = swaps.length
     ? recipeBox('🇿🇦 SA swaps', swaps.map(function(s){ return '<div style="font-size:15px;color:#f0ebe1;line-height:1.5;padding:4px 0;">• '+s+'</div>'; }).join(''))
     : '';
+  // cross-link card (Bakes / Spice component recipe) — shared crossLinkBox, sits
+  // right under the ingredients so "1 pita" etc. links to "make your own".
+  var _cl = (typeof WK_CROSS_LINKS!=='undefined') ? WK_CROSS_LINKS[r.id] : null;
+  if(_cl && typeof crossLinkBox==='function'){
+    notesHTML = crossLinkBox({ emoji:_cl.emoji, label:'Make your own', targetName:_cl.name, onclick:_cl.open }) + notesHTML;
+  }
 
   // ── method (shared shell + steps) ──
   var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);

@@ -2082,6 +2082,24 @@ function goesWellBox(items){
     + '</div>');
 }
 
+// ── THE SHARED CROSS-LINK CARD ──────────────────────────────────────
+// One clickable card linking a dish to a component recipe it uses (e.g.
+// Hawawshi → Pita). Built once so every cross-link looks identical (Rule
+// Zero). Tapping opens the target via the universal opener; Back returns
+// to THIS recipe (handled by closeRecipe's _viewingRecipe restore).
+//   crossLinkBox({ emoji, label, targetName, onclick })
+function crossLinkBox(o){
+  o = o || {};
+  if(!o.onclick || !o.targetName) return '';
+  return '<div onclick="' + o.onclick + '" style="background:#1a1208;border:1px solid #c06020;border-radius:10px;padding:12px 14px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+    + '<span style="font-size:24px;flex-shrink:0;">' + (o.emoji || '🔗') + '</span>'
+    + '<div style="flex:1;min-width:0;">'
+    +   '<div style="font-size:13px;color:#c06020;text-transform:uppercase;letter-spacing:0.06em;">' + (o.label || 'Make your own') + '</div>'
+    +   '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.3;">' + o.targetName + '</div>'
+    + '</div>'
+    + '<span style="font-size:26px;color:#f5c842;flex-shrink:0;line-height:1;">›</span></div>';
+}
+
 // §4b.8 — bottom action trio: Add to Plan · My Kitchen · Download
 function recipeActions(o){
   o = o || {};
@@ -2448,6 +2466,7 @@ function snapshotNav(){
   for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(S[k]!==undefined) s[k]=S[k]; }
   var root = document.getElementById('root');
   s._scroll = root ? (root._savedScroll || root.scrollTop || 0) : 0;
+  s._viewingRecipe = S.viewingRecipe || null;   // so a recipe→recipe cross-link can return to the origin recipe
   return s;
 }
 
@@ -2462,7 +2481,10 @@ function openRecipe(section, id, opts){
 
 function closeRecipe(extra){
   var vr = S.viewingRecipe;
-  var patch = { viewingRecipe: null, recipeServings: null };
+  // cross-link return: if we opened this recipe FROM another recipe (and no explicit
+  // destination was passed), go back to that origin recipe; otherwise clear to the screen.
+  var backToRecipe = (!extra && vr && vr.returnTo && vr.returnTo._viewingRecipe) ? vr.returnTo._viewingRecipe : null;
+  var patch = { viewingRecipe: backToRecipe, recipeServings: null };
   if(vr && vr.returnTo){
     for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(k in vr.returnTo) patch[k]=vr.returnTo[k]; }
     if(vr.returnTo._scroll != null){ var root=document.getElementById('root'); if(root) root._savedScroll = vr.returnTo._scroll; }
@@ -2474,6 +2496,61 @@ function closeRecipe(extra){
 function recipeNotFound(){
   return '<div style="padding:20px;"><button onclick="closeRecipe()" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;">\u2190 Back</button><p style="margin-top:12px;color:#f0ebe1;">Recipe not found.</p></div>';
 }
+
+// ── BAKES on the universal opener (cross-link target: breads/flatbreads/cakes) ──
+// Bakes recipes live in BAKES_RECIPES (meals.js, shape {id,name,emoji,cuisine,
+// time,costPP,feel,ingredients:[{n,pp,u}],method:[..],tip,nutrition,storage}).
+// bakesRecipeOpts() turns one into recipePage opts using ONLY the shared page
+// components, so a cross-linked Pita/Sponge looks identical to every other recipe.
+// openBakesRecipe(id) = the universal opener, so Back returns to wherever you
+// jumped from (incl. another recipe, via the _viewingRecipe snapshot above).
+function bakesRecipeOpts(r){
+  if(!r) return { name:'Recipe not found' };
+  var n = Math.max(1, S.recipeServings || S.people || 4);
+  var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  var fmt = function(v,u){
+    if(u==='g'||u==='ml'){ return v>=1000 ? (Math.round(v/100)/10)+(u==='g'?'kg':'L') : (Math.round(v*10)/10)+u; }
+    return (Math.round(v*10)/10)+(u?(' '+u):'');
+  };
+  var rows = (r.ingredients||[]).map(function(it){
+    if(it.pp==null) return ingredientRow(it.n, '<span style="color:#e0d4b8;font-style:italic;">to taste</span>');
+    var tot = it.pp*n, u = it.u||'';
+    var amt = (n===1) ? fmt(tot,u) : '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+fmt(it.pp,u)+' pp · </span>'+fmt(tot,u);
+    return ingredientRow(it.n, amt);
+  }).join('');
+  var ingredientsHTML = ingredientsBox(rows, n);
+  var stepsHTML = (r.method||[]).map(function(s,i){ return methodStep(i, s); }).join('');
+  var methodHTML = methodBox(stepsHTML, '');
+  var kcal = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;
+  var info = '';
+  if(r.costPP!=null){ info = isPro
+    ? '💰 Food cost: <b style="color:#c8e840;">R'+r.costPP+'</b> pp · <b style="color:#c8e840;">R'+(r.costPP*n)+'</b> total'
+    : '💰 Food cost · <span style="color:#c06020;font-weight:bold;">🔒 Pro</span>'; }
+  if(kcal!=null){ info += (info?'<br>':'') + '🔥 ~'+kcal+' kcal pp'; }
+  var qtyHTML = qtyBox({
+    label:'How Much To Make', total:n+' '+(n===1?'serving':'servings'), n:n, info:info,
+    decJs:"set({recipeServings:Math.max(1,(S.recipeServings||S.people||4)-1)})",
+    incJs:"set({recipeServings:(S.recipeServings||S.people||4)+1})"
+  });
+  var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:#f0ebe1;line-height:1.6;">'+r.tip+'</div>') : '';
+  var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:#f0ebe1;line-height:1.5;">'+r.storage+'</div>') : '';
+  return {
+    photoName:r.name, photoEmoji:r.emoji||'🍰',
+    backJs:'closeRecipe()', backLabel:'← Back',
+    name:r.name,
+    sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
+    meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },
+    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
+    extrasHTML: tipBox + storeBox,
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+function openBakesRecipe(id){ if(typeof openRecipe==='function') openRecipe('bakes', id); }
+registerRecipeSource('bakes', function(id){
+  var arr = (typeof BAKES_RECIPES!=='undefined') ? BAKES_RECIPES : [];
+  return arr.find(function(x){ return x && x.id===id; }) || null;
+});
+registerRecipeBuilder('bakes', function(item, recipe, vr){ return bakesRecipeOpts(item); });
 
 function recipePage(o){
   o = o || {};
@@ -2504,6 +2581,18 @@ function recipePage(o){
     +   nav
     + '</div></div>';
 }
+
+// Braai cross-links (16 Jun): a filled/dressed dish → its component recipe (base
+// dough / dressing). Both ends are Braai sides; opened via the universal opener
+// so Back returns to the dish (closeRecipe's _viewingRecipe restore). Rendered
+// through the shared crossLinkBox() — same card as World Kitchen (Rule Zero).
+var BRAAI_CROSS_LINKS = {
+  'roosterkoek-garlic-cheese': { open:"openRecipe('side','roosterkoek')",        name:'Roosterkoek (the base dough)',      emoji:'🍞' },
+  'roosterkoek-boerewors':     { open:"openRecipe('side','roosterkoek')",        name:'Roosterkoek (the base dough)',      emoji:'🍞' },
+  'biltongsalad':              { open:"openRecipe('side','roquefortbraai')",     name:'Roquefort Blue Cheese Dressing',    emoji:'🧀' },
+  'greekbraai':                { open:"openRecipe('side','greekdressingbraai')", name:'Greek Salad Dressing (Ladolemono)', emoji:'🫒' },
+  'pestopastasalad':           { open:"openSpiceRecipe('basil-pesto')",          name:'Basil Pesto',                       emoji:'🌿' }
+};
 
 function recipeView(){
   const vr=S.viewingRecipe;
@@ -2689,20 +2778,27 @@ function recipeView(){
     ? (isInPlan ? "set({selectedMeats:S.selectedMeats.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedMeats:[...S.selectedMeats,S.viewingRecipe.id]})")
     : (isInPlan ? "set({selectedSides:S.selectedSides.filter(x=>x!==S.viewingRecipe.id)})" : "set({selectedSides:[...S.selectedSides,S.viewingRecipe.id]})");
 
+  // cross-link card (component recipe: base dough / dressing) — shared crossLinkBox,
+  // sits under the ingredients. Back uses closeRecipe() so it returns to THIS dish.
+  const _bcl = (typeof BRAAI_CROSS_LINKS!=='undefined') ? BRAAI_CROSS_LINKS[vr.id] : null;
+  const braaiCross = (_bcl && typeof crossLinkBox==='function')
+    ? crossLinkBox({ emoji:_bcl.emoji, label:'Make your own', targetName:_bcl.name, onclick:_bcl.open })
+    : '';
+
   // ── ASSEMBLE through the shared whole-page layout (identical to World Kitchen) ──
   return recipePage({
-    backJs:"set({viewingRecipe:null,recipeServings:null})",
+    backJs:"closeRecipe()",
     backLabel:"← "+rl,
     photoName:item.name,
     photoEmoji:item.emoji,
     name:item.name,
     qtyHTML:quantityBlock,
     ingredientsHTML:ingredientsHTML,
-    notesHTML:fireGuideHTML,
+    notesHTML: braaiCross + fireGuideHTML,
     methodHTML:methodHTML,
     extrasHTML: goesWellBlock + costBlock + tipBlock,
     actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
-    nav:{ backJs:"set({viewingRecipe:null,recipeServings:null})", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
+    nav:{ backJs:"closeRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
   });
 }
 

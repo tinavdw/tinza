@@ -33,12 +33,7 @@ var BREAKFAST_RECIPES = [
     nutrition:{kcal:250,protein_g:6,carbs_g:52,fat_g:3}, storage:'Keeps 3 days; reheat with a splash of water.'},
 
   // ── 🥐 SWEET & BAKED ──
-  {id:'bf-pancakes', cat:'sweet', name:'Fluffy Pancakes', emoji:'🥞', cuisine:'American', time:20, costPP:11,
-    feel:'A lazy Sunday stack with syrup running down the sides.',
-    ingredients:[{n:'cake flour',pp:50,u:'g'},{n:'milk',pp:90,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'sugar',pp:8,u:'g'},{n:'baking powder',pp:3,u:'g'},{n:'butter',pp:8,u:'g'},{n:'maple syrup'}],
-    method:['Whisk the flour, sugar and baking powder in a bowl.','Beat in the egg and milk until just combined — a few lumps are fine.','Cook spoonfuls in a buttered pan over medium heat until bubbles form, then flip and cook the other side.','Stack and serve with maple syrup.'],
-    tip:'Avoid overmixing — a few lumps in the batter make fluffier pancakes.',
-    nutrition:{kcal:340,protein_g:9,carbs_g:52,fat_g:11}, storage:'Keep 2 days; reheat in a toaster or dry pan.'},
+  // (Fluffy Pancakes moved to Bakes → BAKES_RECIPES on 16 Jun — cross-link target for Hortobágyi)
   {id:'bf-french-toast', cat:'sweet', name:'Cinnamon French Toast', emoji:'🍞', cuisine:'French / Global', time:15, costPP:12,
     feel:'Day-old bread, reborn as something special.',
     ingredients:[{n:'thick white bread',pp:2,u:''},{n:'large eggs',pp:1,u:'egg'},{n:'milk',pp:60,u:'ml'},{n:'sugar',pp:8,u:'g'},{n:'butter',pp:10,u:'g'},{n:'cinnamon'}],
@@ -152,6 +147,13 @@ var SUPPER_RECIPES = [
 ];
 
 var BAKES_RECIPES = [
+  // ── 🥞 QUICK BREADS (Fluffy Pancakes moved from Breakfast 16 Jun; id kept stable) ──
+  {id:'bf-pancakes', cat:'quickbreads', name:'Fluffy Pancakes', emoji:'🥞', cuisine:'American', time:20, costPP:11,
+    feel:'A lazy Sunday stack with syrup running down the sides.',
+    ingredients:[{n:'cake flour',pp:50,u:'g'},{n:'milk',pp:90,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'sugar',pp:8,u:'g'},{n:'baking powder',pp:3,u:'g'},{n:'butter',pp:8,u:'g'},{n:'maple syrup'}],
+    method:['Whisk the flour, sugar and baking powder in a bowl.','Beat in the egg and milk until just combined — a few lumps are fine.','Cook spoonfuls in a buttered pan over medium heat until bubbles form, then flip and cook the other side.','Stack and serve with maple syrup.'],
+    tip:'Avoid overmixing — a few lumps in the batter make fluffier pancakes.',
+    nutrition:{kcal:340,protein_g:9,carbs_g:52,fat_g:11}, storage:'Keep 2 days; reheat in a toaster or dry pan.'},
   // ── 🫓 FLATBREADS ──
   {id:'bk-braai-flatbread', cat:'flatbreads', name:'Braai Flatbread', emoji:'🫓', cuisine:'South African', time:55, costPP:6,
     feel:'Charred at the edges, soft and steamy inside — torn straight off the grid while everyone hovers.',

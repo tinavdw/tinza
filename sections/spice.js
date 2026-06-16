@@ -3419,6 +3419,33 @@ var SPICE_DB = [
   },
 
   {
+    id: "basil-pesto",
+    name: "Basil Pesto",
+    type: "paste",
+    shelf: "sauces",
+    region: "Italy · Liguria",
+    flavourChips: ["Herby", "Aromatic", "Sharp"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"portion", base:6, step:1, label:"" },
+      ingredients: [
+        { qty:100, unit:"g", name:"fresh basil" },
+        { qty:30, unit:"g", name:"parmesan (grated)" },
+        { qty:30, unit:"g", name:"pine nuts (or cashews)" },
+        { qty:1, unit:"clove", name:"garlic" },
+        { qty:80, unit:"ml", name:"olive oil" },
+        { qty:1, unit:"pinch", name:"salt" },
+        { qty:1, unit:"squeeze", name:"lemon juice (keeps it green)" }
+      ],
+      method: "Blitz the basil, parmesan, pine nuts, garlic, olive oil and a pinch of salt to a coarse paste — pulse rather than purée so it keeps a little texture. Squeeze in a little lemon juice to hold the vivid green, and loosen with a touch more oil if you want it pourable. Toss through hot pasta the moment it is drained, or spoon over grilled chicken, fish or roasted vegetables."
+    },
+    pairsWith: ["pasta", "grilled chicken", "fish", "roasted vegetables", "bruschetta"],
+    aliases: ["pesto", "basil pesto", "pesto genovese", "basil pesto pasta salad"],
+    story: "The green Ligurian classic — basil, parmesan, pine nuts and good oil pounded to a coarse paste. Pulse rather than purée, and finish with lemon to hold the colour. Cashews are a cheaper, friendly stand-in for pine nuts.",
+    howThisFeels: "Bright, grassy and sharp with parmesan — summer stirred through a warm bowl of pasta."
+  },
+
+  {
     id: "date-paste",
     name: "Date Paste",
     type: "paste",
@@ -3961,4 +3988,52 @@ if (typeof window !== "undefined") {
   window.spiceEntryView = spiceEntryView;
   window.spiceListView = spiceListView;
   window.spiceListText = spiceListText;
+}
+
+// ── SPICE on the universal opener (16 Jun) — cross-link target: sauces/dressings/dips ──
+// Renders any SPICE_DB "make your own" entry through the shared recipePage
+// components, reusing spice's own scale (spiceCurScale) + formatter (spiceFmt)
+// so a cross-linked sauce looks & scales identically to the Spice-room view.
+// (Spice's internal browsing is untouched — this only adds the universal path.)
+function spiceRecipeOpts(r){
+  if(!r || !r.makeYourOwn) return { name:(r?r.name:'Recipe not found'), backJs:'closeRecipe()', backLabel:'← Back', nav:{ backJs:'closeRecipe()' } };
+  var my = r.makeYourOwn, y = my.yield || { base:1, step:1, unit:'serving', label:'' };
+  var base = y.base || 1, step = y.step || 1;
+  var scale = (typeof spiceCurScale==='function') ? spiceCurScale(r) : base;
+  var factor = base ? (scale/base) : 1;
+  var fmt = (typeof spiceFmt==='function') ? spiceFmt : function(n,u){ return (Math.round(n*10)/10)+(u||''); };
+  var rows = (my.ingredients||[]).map(function(it){
+    var amt = (it.qty!=null) ? fmt(it.qty*factor, it.unit) : '<span style="color:#e0d4b8;font-style:italic;">to taste</span>';
+    return ingredientRow(it.name, amt);
+  }).join('');
+  var ingredientsHTML = ingredientsBox(rows, scale);
+  var steps = String(my.method||'').split(/\.\s+/).map(function(x){ return x.trim(); }).filter(Boolean);
+  var stepsHTML = steps.map(function(s,i){ return methodStep(i, s + (s.slice(-1).match(/[.!?]/)?'':'.')); }).join('');
+  var methodHTML = methodBox(stepsHTML, '');
+  var _u = (y.unit||'').trim();
+  var _ul = _u ? ((_u==='serving'||_u==='portion') ? (_u + (scale===1?'':'s')) : _u) : 'servings';
+  var qtyHTML = qtyBox({
+    label:'Make Your Own', total: scale + ' ' + _ul, n:scale,
+    decJs:"set({spiceScale:Math.max(" + step + "," + (scale - step) + ")})",
+    incJs:"set({spiceScale:" + (scale + step) + "})"
+  });
+  var storyBox = r.story ? recipeBox('📖 Good to know', '<div style="font-size:15px;color:#f0ebe1;line-height:1.6;">'+r.story+'</div>') : '';
+  return {
+    photoName:r.name, photoEmoji:'🥫',
+    backJs:'closeRecipe()', backLabel:'← Back',
+    name:r.name,
+    sub: r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '',
+    meta:{ origin:r.region },
+    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
+    goesWith: (r.pairsWith||[]).slice(0,6),
+    extrasHTML: storyBox,
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+function openSpiceRecipe(id){ if(typeof openRecipe==='function') openRecipe('spice', id); }
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.spice = function(id){ return spiceDB().find(function(e){ return e && e.id===id; }) || null; };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.spice = function(item, recipe, vr){ return spiceRecipeOpts(item); };
 }
