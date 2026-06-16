@@ -390,6 +390,7 @@ function draw(){
   else if(S.healthCooking && typeof healthCookingView==='function'){ content=healthCookingView(); }
   else if(S.braaiCooking && typeof braaiCookingView==='function'){ content=braaiCookingView(); }
   else if(S.eventsCooking && typeof eventsCookingView==='function'){ content=eventsCookingView(); }
+  else if(S.cookRecipe && typeof genericCookView==='function'){ content=genericCookView(); }
   else if(S.viewingRecipe){ content=recipeView(); }
   else if(S.screen==="home"){ content=homeHTML(); }
   else if(S.screen==="braai"){ content=braaiHTML(); }
@@ -648,6 +649,9 @@ var PRICE_ALIAS = {
   "cheese":"cheddar","cheddar cheese":"cheddar",
   "flour":"cake flour","self raising flour":"cake flour","flour for dusting":"cake flour",
   "carrot":"carrots","potatoes":"potato","yoghurt":"yoghurt","plain yoghurt":"yoghurt",
+  // "full-cream milk" must price as MILK, not CREAM (the longest-word match picks
+  // "cream" out of "full cream milk" → ~7x overcharge). Fixes Risalamande + Amasi ×2.
+  "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk",
   // World Kitchen gap aliases (15 Jun) — every target was verified present in
   // PRICE_DB, so these use a REAL substitute price, never an invented rand.
   "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
@@ -2860,6 +2864,59 @@ function braaiCookingView(){
     +   (last
         ? '<button onclick="set({braaiCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
         : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step \u2192</button>')
+    + '</div>'
+    + '</div>';
+}
+
+// ── SHARED generic cook mode (any universal-opener recipe: spice / bakes / …) ──
+// Reads S.cookRecipe={section,id} + S.cookStep; resolves steps from the recipe's
+// method (string → split, or array). Same fullscreen stepper UI as the section
+// cook views — built ONCE so spice/bakes don't each duplicate it (Rule Zero).
+function genericCookView(){
+  var accent='#c06020', cream='#f5e8cc';
+  var c = S.cookRecipe || {};
+  var res = (typeof resolveRecipe==='function') ? resolveRecipe(c.section, c.id) : null;
+  var r = res && res.item;
+  var steps = [];
+  if(r){
+    var m = (r.makeYourOwn && r.makeYourOwn.method) || r.method;
+    if(Array.isArray(m)) steps = m.slice();
+    else if(typeof m==='string') steps = m.split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean).map(function(s){return s.slice(-1).match(/[.!?]/)?s:s+'.';});
+  }
+  if(!r || !steps.length){
+    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
+      + '<button onclick="set({cookRecipe:null,cookStep:0})" style="background:none;border:none;color:'+accent+';font-size:14px;cursor:pointer;padding:0;">← Back</button>'
+      + '<p style="margin-top:20px;">'+(r?'No method steps for this recipe yet.':'Recipe not found.')+'</p></div>';
+  }
+  var idx = Math.min(Math.max(0, S.cookStep||0), steps.length-1);
+  var step = steps[idx];
+  var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
+  var timer = secs
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:#f5c842;font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">⏱️ '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    : '';
+  var pct = Math.round(((idx+1)/steps.length)*100);
+  var last = idx === steps.length-1;
+  var nm = r.name || 'Recipe';
+  var setStep = function(n){ return 'set({cookStep:'+n+'});window.scrollTo(0,0);'; };
+  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
+    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+    +   '<button onclick="set({cookRecipe:null,cookStep:0});window.scrollTo(0,0);" style="background:none;border:none;color:'+accent+';font-size:13px;cursor:pointer;padding:0;">✕ Exit cooking mode</button>'
+    +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+nm+'</div>'
+    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
+    + '</div>'
+    + '<div style="flex:1;display:flex;flex-direction:column;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   '<div style="margin:auto 0;">'
+    +     '<div style="width:48px;height:48px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
+    +     '<div style="font-size:23px;color:#f0ebe1;line-height:1.7;">'+step+'</div>'
+    +     timer
+    +   '</div>'
+    + '</div>'
+    + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
+    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">← Previous</button>' : '')
+    +   (last
+        ? '<button onclick="set({cookRecipe:null,cookStep:0});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">✓ Done</button>'
+        : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step →</button>')
     + '</div>'
     + '</div>';
 }

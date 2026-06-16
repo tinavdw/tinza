@@ -3586,9 +3586,11 @@ function spiceFmt(n, unit){
     if(r>=1000) return (r/1000).toFixed(r%1000?1:0) + (unit==="g"?"kg":"l");
     return r + unit;
   }
-  // counted item
   const v = Math.round(n*10)/10;
-  return (v % 1 === 0) ? String(v) : v.toFixed(1);
+  const num = (v % 1 === 0) ? String(v) : v.toFixed(1);
+  // measured units (tbsp/tsp/pinch/clove/squeeze…) must keep their unit; only
+  // serving/portion/bare-count stay a plain number (used by the yield stepper).
+  return (unit && !/^(serving|servings|portion|portions|each|piece|pieces|unit|units)$/i.test(unit)) ? (num + ' ' + unit) : num;
 }
 
 // ── SHOPPING LIST (standalone, reuses core's aisleCategory + normIngredientKey) ──
@@ -4013,8 +4015,14 @@ function spiceRecipeOpts(r){
   }).join('');
   var ingredientsHTML = ingredientsBox(rows, scale);
   var steps = String(my.method||'').split(/\.\s+/).map(function(x){ return x.trim(); }).filter(Boolean);
-  var stepsHTML = steps.map(function(s,i){ return methodStep(i, s + (s.slice(-1).match(/[.!?]/)?'':'.')); }).join('');
-  var methodHTML = methodBox(stepsHTML, '');
+  var stepsHTML = steps.map(function(s,i){
+    var txt = s + (s.slice(-1).match(/[.!?]/)?'':'.');
+    var sec = (typeof parseStepTime==='function') ? parseStepTime(txt) : 0;
+    var tl  = sec ? ('⏱ ' + ((typeof fmtTimerLabel==='function') ? fmtTimerLabel(sec) : (Math.round(sec/60)+' min'))) : '';
+    return methodStep(i, txt, tl);
+  }).join('');
+  // Start Cooking → shared generic cook view (core.js), same as other sections
+  var methodHTML = methodBox(stepsHTML, steps.length ? "set({cookRecipe:{section:'spice',id:'"+r.id+"'},cookStep:0});window.scrollTo(0,0);" : '');
   var _u = (y.unit||'').trim();
   var _ul = _u ? ((_u==='serving'||_u==='portion') ? (_u + (scale===1?'':'s')) : _u) : 'servings';
   var qtyHTML = qtyBox({

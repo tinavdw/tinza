@@ -468,7 +468,8 @@ var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","fryi
   "carrot":"carrots",
   "masala":"curry powder","durban masala":"curry powder","durban curry masala":"curry powder","breyani masala":"curry powder","biryani masala":"curry powder","mild curry powder":"curry powder",
   "potatoes":"potato","potato chunks":"potato","potato cubes":"potato",
-  "yoghurt":"yoghurt","plain yoghurt":"yoghurt" };
+  "yoghurt":"yoghurt","plain yoghurt":"yoghurt",
+  "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk" };
 function wkPriceLookup(name){
   if(typeof PRICE_DB === 'undefined') return null;
   var n = wkCleanName(name);
@@ -943,6 +944,13 @@ function wkEffectiveMult(r, count, ap){
   } else {
     base = wkPoolBase(pk); main=null;
     for(i=0;i<items.length;i++){ if(items[i].qty!=null && !items[i].toTaste){ main=items[i]; break; } }
+    // composed dish on a starch base (rice pudding, semolina, couscous…): the first
+    // ingredient is small but the dish is large — keep AUTHORED amounts, don't rescale
+    // to the pool base. (Was forcing Risalamande's 30g rice → 120g dessert = 4x.)
+    if(main){
+      var _mn = (typeof wkCleanName==='function') ? wkCleanName(main.name) : String(main.name||'').toLowerCase();
+      if(/\b(rice|pasta|noodle|noodles|flour|bread|dough|couscous|polenta|semolina|oats|samp|maize|tapioca|sago|vermicelli|barley)\b/.test(_mn)) return wkSpreadMult(pk, count) * mult;
+    }
   }
   var spread = wkSpreadMult(pk, count), authored=null;
   if(main && main.unit){
