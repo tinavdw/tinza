@@ -4003,7 +4003,12 @@ function spiceRecipeOpts(r){
   var factor = base ? (scale/base) : 1;
   var fmt = (typeof spiceFmt==='function') ? spiceFmt : function(n,u){ return (Math.round(n*10)/10)+(u||''); };
   var rows = (my.ingredients||[]).map(function(it){
-    var amt = (it.qty!=null) ? fmt(it.qty*factor, it.unit) : '<span style="color:#e0d4b8;font-style:italic;">to taste</span>';
+    if(it.qty==null) return ingredientRow(it.name, '<span style="color:#e0d4b8;font-style:italic;">to taste</span>');
+    // shared "pp · total" display (§5): per-serving = qty/base, total = qty*factor
+    var ppAmt = it.qty/base, totAmt = it.qty*factor;
+    var amt = (scale===1)
+      ? fmt(totAmt, it.unit)
+      : '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+fmt(ppAmt,it.unit)+' pp · </span>'+fmt(totAmt,it.unit);
     return ingredientRow(it.name, amt);
   }).join('');
   var ingredientsHTML = ingredientsBox(rows, scale);

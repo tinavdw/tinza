@@ -2666,6 +2666,9 @@ function recipeView(){
       scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+(slices?|pieces?|scoops?)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} ${unit} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
       scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)(?!\s*\()/gi, (m,num)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
       scaled = scaled.replace(/([¼½⅓⅔¾⅛]|\d+\/\d+)\s+per\s+p(?:erson|ortion)/gi, (m,frac)=>{ const map={'¼':0.25,'½':0.5,'⅓':0.333,'⅔':0.667,'¾':0.75,'⅛':0.125}; const val=map[frac]||(frac.includes('/')?parseFloat(frac.split('/')[0])/parseFloat(frac.split('/')[1]):null); if(!val)return m; const total=Math.ceil(val*mult*p); return `${frac} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
+      // "Xg pp" / "Xml dry pp" shorthand (Braai salads/sides authored with pp, not "per person").
+      // Lookahead (?!\s*·) skips strings the "per person" rules above already turned into "X pp · …total".
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)((?:\s+(?!pp\b)[a-z]+)?)\s+pp\b(?!\s*·)/gi, (m,num,unit,qual)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit}${qual||''} pp · <strong style="color:#f5c842;">${total}${u} total</strong>`; });
       // Split name (left) from amount (right) on the first em-dash, for the shared two-column row
       const di = scaled.indexOf('—');
       if(di > -1){ return ingredientRow(scaled.slice(0,di).trim(), scaled.slice(di+1).trim()); }

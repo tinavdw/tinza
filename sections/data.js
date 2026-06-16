@@ -421,7 +421,7 @@ const SIDES_GROUPS = [
     { id:"pestopastasalad", name:"Basil Pesto Pasta Salad", emoji:"🍝", tier:"plus", perPerson:100, unit:"g", note:"Toss with pesto while still warm", pantryP:10, stdP:15, indulgeP:20,
       shopping:[{name:"Pasta (penne or fusilli)",per:60,unit:"g"},{name:"Basil pesto",per:15,unit:"g"},{name:"Rosa tomatoes",per:20,unit:"g"},{name:"Parmesan",per:8,unit:"g"},{name:"Olive oil",per:5,unit:"ml"}],
       recipe:{ coalType:"Stovetop — make ahead", ingredients:["Pasta — 60g dry pp","Basil pesto — 15g pp","Rosa tomatoes — 20g pp (halved)","Parmesan — 8g pp (shaved)","Olive oil — 5ml pp"],
-        method:["BASIL PESTO (or use shop-bought): blitz 100g fresh basil, 30g parmesan, 30g pine nuts (or cashews), 1 garlic clove, 80ml olive oil and a pinch of salt to a coarse paste — squeeze in a little lemon to keep it green. Makes enough for ~6 portions.","Cook pasta al dente. Drain — do NOT rinse.","Toss immediately while warm with the pesto.","Add tomatoes, olive oil. Season. Cool.","Top with parmesan before serving. Enjoy! 😊"],
+        method:["Basil pesto — make your own (recipe linked above) or use a good shop-bought jar.","Cook pasta al dente. Drain — do NOT rinse.","Toss immediately while warm with the pesto.","Add tomatoes, olive oil. Season. Cool.","Top with parmesan before serving. Enjoy! 😊"],
         tip:"Toss with pesto while still hot — cold pasta doesn't absorb flavour." }},
 
     { id:"thousandislandbraai", name:"Thousand Island Dressing", emoji:"🥗", tier:"free", perPerson:20, unit:"ml", note:"SA braai salad classic", pantryP:3, stdP:4, indulgeP:4,
