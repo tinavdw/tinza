@@ -173,8 +173,17 @@ const PRICE_DB = {
   "canned salmon": 300,       // R120/400g → R300/kg
   "pilchards": 65,            // R29/400g → was R73/kg, adjusted to R65 (8 Jun 2026)
   "barley": 35,               // pet recipes (Tina)
+  "barley flour": 40,         // Libya — bazin (Tina)
   "chicken frames": 30,       // pet raw — R30/kg (Tina)
   "chicken hearts": 55,       // pet — R55/kg (Tina)
+  "beef bones": 55,           // meaty soup bones (Tina, Jun 2026)
+  "pork bones": 45,           // (Tina)
+  "chicken feet": 40,         // (Tina)
+  "lamb bones": 60,           // (Tina)
+  "fish frames": 50,          // maasbanker/white fish (Tina)
+  "dried porcini": 2000,      // (Tina)
+  "marrow bones": 80,         // optional (Tina)
+  "tahini": 250,              // ground sesame ~R250/kg (Tina)
 
   // ── EGGS ──
   "eggs": 3.7,                // R22/6 pack → ~R3.67 each (price per egg)

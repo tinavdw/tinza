@@ -3493,6 +3493,270 @@ var SPICE_DB = [
     howThisFeels: "Warm, sour and grounding — the smell of a Sunday pot that has been going a while."
   },
 
+
+  // ─────────────── STOCKS (type:"stock") ───────────────
+  {
+    id: "beef-stock", name: "Beef Stock", type: "stock", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Rich", "Roasted", "Deep"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2.5, unit:"kg", name:"beef bones (marrow & knuckle)" },
+        { qty:250, unit:"g", name:"onion (skins on is fine)" },
+        { qty:150, unit:"g", name:"carrot (peels and ends count)" },
+        { qty:150, unit:"g", name:"celery (leafy tops too)" },
+        { qty:2, unit:"tbsp", name:"tomato paste" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:8, unit:"", name:"peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley stems" },
+        { qty:2, unit:"", name:"thyme sprigs" },
+        { qty:4, unit:"L", name:"cold water" }
+      ],
+      method: "Roast the bones at 220°C until deeply browned, turning now and then — dark brown is flavour, so don't burn them (about 50 min). Add the onion, carrot and celery to the tray, stir in the tomato paste, and roast on until it darkens (about 30 min). Tip everything into a big pot, splash a little water onto the roasting tray and scrape up every browned bit into the pot — that's pure flavour. Add the cold water, bring slowly to a bare simmer and skim the foam off through the first hour. Drop in the herbs and peppercorns, then simmer low and lazy, lid off, never bubbling hard, for about 7 hours. Strain through a fine sieve, bin the solids and cool fast. Simmer it back down to 2L if you want it richer."
+    },
+    pairsWith: ["beef stew", "gravy", "French onion soup", "risotto", "pan sauces"],
+    aliases: ["beef stock", "beef broth", "beef bone broth", "brown stock"],
+    story: "The backbone of every good gravy and stew, built from cheap or free butcher's bones. Roasting them first is the difference between a pale, thin stock and one with real depth and colour. Knuckle bones give the body — that soft jelly when it's cold — and marrow gives the richness; cold beef stock should wobble, that's how you know it's good. Make a big batch and freeze it: homemade beats a cube every time, with no salt bomb.",
+    howThisFeels: "The smell that says something serious is on the go — bones, time, and almost no money."
+  },
+
+  {
+    id: "chicken-stock", name: "Chicken Stock", type: "stock", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Golden", "Clean", "Comforting"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"chicken bones (carcasses, wings, necks)" },
+        { qty:250, unit:"g", name:"onion (skins on)" },
+        { qty:150, unit:"g", name:"carrot (ends and peels)" },
+        { qty:150, unit:"g", name:"celery (tops too)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:10, unit:"", name:"peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley stems" },
+        { qty:2, unit:"", name:"thyme sprigs" },
+        { qty:3.5, unit:"L", name:"cold water" }
+      ],
+      method: "Snap or cut the carcasses smaller — more cut surface means more flavour out. Put the bones and veg in a pot and cover with the cold water. Bring slowly to a gentle simmer and skim off the foam, then add the herbs. Keep it just trembling, never boiling, for about 4 hours. Strain through a fine sieve, and reduce gently to 2L if you like. A handful of chicken feet (cheap at most SA butchers) turns ordinary stock into something that sets like jelly — restaurant body for a few rand.",
+    },
+    pairsWith: ["chicken soup", "risotto", "paella", "gravy", "poaching liquid"],
+    aliases: ["chicken stock", "chicken broth", "chicken bone broth", "golden stock"],
+    story: "What last night's roast becomes when you don't throw the bones away — the most-used stock in the kitchen and the easiest to make. A clean, gentle simmer keeps it golden; a hard boil turns it cloudy and greasy. Save carcasses, wings and necks in the freezer until you have enough.",
+    howThisFeels: "What last night's roast chicken becomes when you don't throw the bones away."
+  },
+
+  {
+    id: "vegetable-stock", name: "Vegetable Stock", type: "stock", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Light", "Savoury", "Thrifty"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:300, unit:"g", name:"onion (skins and all)" },
+        { qty:200, unit:"g", name:"carrot (peels, ends, the lot)" },
+        { qty:200, unit:"g", name:"celery (including the leaves)" },
+        { qty:150, unit:"g", name:"leek (green tops too)" },
+        { qty:200, unit:"g", name:"mushrooms (stems count)" },
+        { qty:2, unit:"", name:"garlic cloves (skins fine)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:8, unit:"", name:"peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley stems" },
+        { qty:2, unit:"", name:"thyme sprigs" },
+        { qty:10, unit:"g", name:"dried porcini (optional)" },
+        { qty:3, unit:"L", name:"cold water" }
+      ],
+      method: "For a deeper stock, roast the onion, carrot, celery, leek and mushrooms at 220°C until they take on colour (about 35 min) — skip this for a lighter, paler stock. Tip everything into a pot with the water and herbs and bring to a gentle simmer. Simmer for about 75 minutes and stop on time: vegetable stock turns bitter if you cook it too long. Strain and discard the solids.",
+    },
+    pairsWith: ["veg soups", "lentils", "risotto", "grains", "stews"],
+    aliases: ["vegetable stock", "veg stock", "vegetable broth"],
+    story: "The thrifty hero — built from the bag of peels, skins and trimmings you'd otherwise bin. Keep that bag in the freezer and make a batch whenever it's full. Mushrooms carry natural glutamates — the same savoury hit meat gives — which is why a handful makes a veg stock taste like it's hiding something richer. Don't over-simmer it; 75 minutes is plenty before it sours.",
+    howThisFeels: "The bag of peels you've been saving, finally earning its keep."
+  },
+
+  {
+    id: "fish-stock", name: "Fish Stock", type: "stock", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Delicate", "Briny", "Quick"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:1.5, unit:"kg", name:"white fish frames & heads (hake; not oily fish)" },
+        { qty:250, unit:"g", name:"onion" },
+        { qty:100, unit:"g", name:"celery" },
+        { qty:100, unit:"g", name:"leek" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:6, unit:"", name:"peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley stems" },
+        { qty:250, unit:"ml", name:"dry white wine (optional)" },
+        { qty:15, unit:"ml", name:"sunflower oil (for sweating)" },
+        { qty:3, unit:"L", name:"cold water" }
+      ],
+      method: "Rinse the frames under cold water and pull off any blood or gills — that's what causes bitterness. Sweat the onion, celery and leek gently in the oil (or a little butter) without letting them colour. Add the fish frames and cook gently for a few minutes (about 5 min). Pour in the wine, if using, and let it reduce by half. Add the cold water and aromatics, bring to a gentle simmer and keep it short — fish gives up its flavour fast and long cooking turns it unpleasant (about 35 min). Strain carefully, and reduce to 2L if needed.",
+    },
+    pairsWith: ["seafood chowder", "paella", "fish soup", "seafood risotto", "white-wine sauces"],
+    aliases: ["fish stock", "fish broth", "fumet"],
+    story: "The quickest stock of all — forty minutes, not hours. Use the frames of white fish like hake, never oily fish like mackerel or sardines, and never let it boil hard or overcook, or it turns bitter. A good fumet smells fresh and marine — like the sea, never 'fishy'; if it smells off, the frames weren't fresh enough. The base of every great seafood soup and paella.",
+    howThisFeels: "Quick, clean, faintly of the sea — done in forty minutes, unlike the others."
+  },
+
+  // ─────────────── BROTHS (type:"broth") ───────────────
+  {
+    id: "chicken-bone-broth", name: "Chicken Bone Broth", type: "broth", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Gelatinous", "Golden", "Healing"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"chicken carcasses, necks and wings" },
+        { qty:12, unit:"", name:"raw chicken feet" },
+        { qty:2, unit:"L", name:"water (or enough to cover)" },
+        { qty:1, unit:"tbsp", name:"apple cider vinegar" },
+        { qty:200, unit:"g", name:"onion (skin on for colour)" },
+        { qty:150, unit:"g", name:"carrot" },
+        { qty:100, unit:"g", name:"celery (leafy tops too)" },
+        { qty:30, unit:"g", name:"garlic (halved, unpeeled)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:1, unit:"tsp", name:"black peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley (optional)" }
+      ],
+      method: "Put the carcasses, necks, wings and chicken feet into a large pot with the apple cider vinegar and enough cold water to cover (about 2L). Bring to a gentle simmer — never let it boil. Cover and hold a very low, barely-moving simmer, bones alone, for the first 5–6 hours. In the final 2–3 hours add the onion, carrot, celery, garlic, bay leaves, peppercorns and parsley — adding the veg late keeps the broth fresh and clear instead of muddy. Do not add salt during the simmer: it concentrates as the liquid reduces and turns unpredictable — season only when you later cook with the broth. Strain through a fine-mesh sieve into glass jars and cool. When cold it should set to a firm jelly — that's the collagen, and that's how you know it's good."
+    },
+    pairsWith: ["sipping", "chicken soup", "risotto", "gravy", "pet meals"],
+    aliases: ["chicken bone broth", "bone broth", "chicken broth homemade"],
+    story: "Not the same as chicken stock — a broth is all about the gelatin. The chicken feet are non-negotiable: they hold the highest concentration of collagen, and they're what turn a thin liquid into a broth that wobbles like jelly when it's cold. Twelve feet to a 2L batch gives a properly firm set. Keep the heat to a bare, barely-moving simmer so it stays clean and golden, and add the aromatics only in the last couple of hours so they lift the broth rather than muddy it. Cheap to make from carcasses you'd otherwise bin.",
+    howThisFeels: "The jar that sets to a wobble in the fridge — proof the goodness came out."
+  },
+  {
+    id: "beef-bone-broth", name: "Beef Bone Broth", type: "broth", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Deep", "Roasted", "Gelatinous"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"meaty beef bones (cut open)" },
+        { qty:2, unit:"L", name:"water" },
+        { qty:1, unit:"tbsp", name:"apple cider vinegar" },
+        { qty:200, unit:"g", name:"onion (skin on for colour)" },
+        { qty:150, unit:"g", name:"carrot" },
+        { qty:100, unit:"g", name:"celery (leafy tops too)" },
+        { qty:30, unit:"g", name:"garlic (halved, unpeeled)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:1, unit:"tsp", name:"black peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley (optional)" }
+      ],
+      method: "Heat the oven to 200°C and roast the bones for about 45 minutes, until deep dark brown — that colour is flavour. Tip them into a pot with the water and apple cider vinegar. Bring to a bare simmer and hold it low and uncovered, bones alone, for the bulk of the time (about 15–21 hours of an 18–24 hour batch), topping up with a little water if the level drops too far. In the final 3 hours add the onion, carrot, celery, garlic, bay leaves, peppercorns and parsley. No salt during the simmer — it concentrates as the liquid reduces and can ruin a later reduction; season the final dish instead. Strain and chill overnight, then lift off the solid fat layer the next day."
+    },
+    pairsWith: ["sipping", "beef stew", "soups", "gravy", "pet meals"],
+    aliases: ["beef bone broth", "bone broth", "beef broth homemade"],
+    story: "Richer and deeper than beef stock, and built for the long haul — 18 to 24 hours of the gentlest simmer. Build it on cheap meaty soup bones; a marrow bone or two adds richness, and a piece of oxtail — the best beef cut for body — gives the most gelatin of all, though both are optional extras rather than essentials. Roasting the bones first gives the dark colour; for even more depth, char the onion and carrot before they go in. Add the veg only in the last few hours so it stays sweet. Chill overnight and the fat lifts off in a clean cap.",
+    howThisFeels: "Low and slow for a whole day — the kitchen smells like patience."
+  },
+  {
+    id: "fish-bone-broth", name: "Fish Bone Broth", type: "broth", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Delicate", "Briny", "Quick"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"white fish bones and heads (gills removed)" },
+        { qty:2, unit:"L", name:"water" },
+        { qty:1, unit:"tsp", name:"apple cider vinegar" },
+        { qty:200, unit:"g", name:"onion (skin on for colour)" },
+        { qty:150, unit:"g", name:"carrot" },
+        { qty:100, unit:"g", name:"celery (leafy tops too)" },
+        { qty:30, unit:"g", name:"garlic (halved, unpeeled)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:1, unit:"tsp", name:"black peppercorns" },
+        { qty:1, unit:"", name:"small handful parsley (optional)" }
+      ],
+      method: "Rinse the bones and heads thoroughly under cold water and pull out the gills — that is what causes bitterness and cloudiness. Because fish cooks for only an hour, the vegetables go in from the start: put the bones in a pot with the water, apple cider vinegar, onion, carrot, celery, garlic, bay leaves, peppercorns and parsley. Bring to a gentle simmer and keep it short — 1 hour maximum, never a hard boil, or it turns cloudy and bitter. No salt during the simmer. Strain straight away through cheesecloth."
+    },
+    pairsWith: ["seafood chowder", "paella", "fish soup", "risotto", "sipping"],
+    aliases: ["fish bone broth", "bone broth", "fish broth homemade"],
+    story: "The quickest of all the broths — one hour, not the long haul of the meat versions, because fish gives up its flavour fast and long cooking only turns it bitter. Since the cook is so short, the aromatics go in at the start rather than the end. Use neutral white fish frames like hake or snapper, never oily fish like salmon or mackerel, which turn it rancid. A good one smells fresh and marine, like the sea, never 'fishy'.",
+    howThisFeels: "Done in an hour, faintly of the sea — the gentle one of the family."
+  },
+  {
+    id: "lamb-bone-broth", name: "Lamb Bone Broth", type: "broth", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Robust", "Intense", "Gelatinous"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"lamb bones (neck, shanks or trotters)" },
+        { qty:2, unit:"L", name:"water" },
+        { qty:1, unit:"tbsp", name:"apple cider vinegar" },
+        { qty:200, unit:"g", name:"onion (skin on for colour)" },
+        { qty:150, unit:"g", name:"carrot" },
+        { qty:100, unit:"g", name:"celery (leafy tops too)" },
+        { qty:30, unit:"g", name:"garlic (halved, unpeeled)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:1, unit:"tsp", name:"black peppercorns" },
+        { qty:2, unit:"", name:"rosemary sprigs (optional)" }
+      ],
+      method: "Roast the bones at 200°C for about 30 minutes to render off some of the heavy lamb fat. Transfer to a pot with the water and apple cider vinegar. Bring to a bare simmer and hold it low, bones alone, for the first 9–12 hours. In the final 3 hours add the onion, carrot, celery, garlic, bay leaves and peppercorns; if the lamb flavour feels too strong, add the rosemary for the last hour only. No salt during the simmer — season the final dish. Strain and refrigerate — lamb fat sets harder than chicken or beef fat, so skim it off once fully chilled."
+    },
+    pairsWith: ["lamb stew", "hearty curries", "soups", "sipping", "gravy"],
+    aliases: ["lamb bone broth", "bone broth", "lamb broth homemade"],
+    story: "Robust and intense — the boldest broth of the lot, and a brilliant base for hearty curries and lamb stews. Neck, shanks and trotters are the cuts that give body. Roasting first renders off some of the heavy fat that can otherwise overwhelm. Lamb fat sets firm and waxy when chilled, so it skims off cleanly the next day. If the flavour runs too strong, a little rosemary in the last hour rounds it out.",
+    howThisFeels: "Deep and unapologetic — a broth with its mind made up."
+  },
+  {
+    id: "pork-bone-broth", name: "Pork Bone Broth", type: "broth", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Creamy", "Rich", "Gelatinous"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:2000, step:500, label:"~2L batch" },
+      ingredients: [
+        { qty:2, unit:"kg", name:"pork bones (pig's trotters and neck bones)" },
+        { qty:2, unit:"L", name:"water" },
+        { qty:1, unit:"tbsp", name:"apple cider vinegar" },
+        { qty:200, unit:"g", name:"onion (skin on for colour)" },
+        { qty:150, unit:"g", name:"carrot" },
+        { qty:100, unit:"g", name:"celery (leafy tops too)" },
+        { qty:30, unit:"g", name:"garlic (halved, unpeeled)" },
+        { qty:2, unit:"", name:"bay leaves" },
+        { qty:1, unit:"tsp", name:"black peppercorns" }
+      ],
+      method: "Blanch the bones in boiling water for 10 minutes, then drain and rinse them thoroughly to wash off all the scum. Add to a clean pot with fresh water and the apple cider vinegar. Bring to a simmer and hold it, bones alone, for the first 7–9 hours. In the final 3 hours add the onion, carrot, celery, garlic, bay leaves and peppercorns. No salt during the simmer. Strain and cool — it should set into a very firm, pale, creamy jelly."
+    },
+    pairsWith: ["ramen", "noodle soup", "stews", "sipping", "gravy"],
+    aliases: ["pork bone broth", "bone broth", "tonkotsu broth", "pork broth homemade"],
+    story: "The king of jelly — the most viscous, creamy broth of all, in the tonkotsu style. Pig's trotters are the single best source of natural gelatin there is, with neck bones rounding out the body. Blanching first and rinsing off the scum keeps it clean before the long simmer. It turns naturally cloudy and creamy as the marrow and collagen emulsify — that's the goal here, not a fault. Add the veg only near the end so it stays sweet.",
+    howThisFeels: "Cloudy, creamy, and so set you could almost slice it."
+  },
+
+  // ─────────────── PASTES (type:"paste") ───────────────
+  {
+    id: "tahini", name: "Tahini", type: "paste", shelf: "sauces",
+    region: "Kitchen Basics",
+    flavourChips: ["Nutty", "Creamy", "Earthy"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"hulled white sesame seeds" },
+        { qty:2, unit:"tbsp", name:"neutral oil (optional, e.g. grapeseed or light olive)" },
+        { qty:1, unit:"", name:"pinch salt (optional)" }
+      ],
+      method: "Spread the sesame seeds in a large dry pan over medium-low heat and toast for 3–5 minutes, stirring constantly, until light golden and fragrant — do not let them brown or they turn bitter. Tip them straight onto a cold plate to stop the cooking and let them cool completely; blending them warm makes the paste grainy. Add the cooled seeds to a food processor and run for 1–2 minutes to a coarse, crumbly meal. Scrape down, then keep processing on high for another 3–5 minutes — the friction releases the natural oils and it turns to a paste. If it's still too thick, add the neutral oil a tablespoon at a time until it's smooth and pourable, with a pinch of salt if you like. Store in a clean glass jar: a few weeks in the pantry, up to 3 months in the fridge."
+    },
+    pairsWith: ["hummus", "salad dressings", "baba ganoush", "halva", "drizzling over roast veg"],
+    aliases: ["tahini", "tahina", "sesame paste"],
+    story: "Authentic tahini is a one-ingredient masterpiece — purely ground sesame seeds, with the name coming from the Arabic tahana, 'to grind'. Hulled white seeds give the classic mild, silky, pale paste; unhulled seeds make a darker, more bitter, more mineral-rich version. It's quietly strange stuff too: tahini is a non-Newtonian fluid, so it stiffens the harder you stir it, and if your jar sets solid you just loosen it with a splash of water or oil. One chef's secret carries straight into hummus — add the lemon juice and garlic only at the very end, because acid hitting tahini too early makes it seize and clump.",
+    howThisFeels: "Warm sesame turning to silk under the blade — older than almost any kitchen."
+  }
+
 ];
 
 if (typeof window !== "undefined") window.SPICE_DB = SPICE_DB;
