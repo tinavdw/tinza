@@ -17,7 +17,10 @@ water 360, samoosa pur 110; cheddar 225→**187**). Saffron amount traps fixed (
 in Biryani/Badjia). Every change `node --check`-clean. **NOT yet pushed.**
 
 ### Carry-forward (open items)
-1. **Pending real prices — NEVER guess a rand:** `peanuts`/`ground peanuts`, `cashew nuts` (Tina to supply).
+1. ~~Pending real prices: peanuts/cashews~~ ✅ **DONE** — PRICE_DB `peanuts` 128 (R32/250g) +
+   `cashew nuts` 430 (R43/100g) added; aliases (ground peanuts/peanut/groundnut→peanuts,
+   ground cashews/cashew→cashew nuts). **Batch 2 is now 100% priced** (only intended-FREE
+   seasonings remain uncosted — harissa/berbere/piri-piri/cayenne/yaji/tabil/ras-el-hanout/mitmita).
 2. **📋 wkEffectiveMult OVER-SCALE LIST (8)** — small-portion/condiment/split-protein "mains" the portion
    brain scales to a full plate, inflating cost (engine NOT to be touched ad-hoc — dedicated session):
    Soupou Kanja ×3.0 · Fricassée ×3.2 · Mopane Worms ×3.75 · Matemba ×3.75 · Gango ×2.25 ·
