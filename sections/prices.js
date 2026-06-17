@@ -49,6 +49,10 @@ const PRICE_DB = {
   "almonds": 330,
   "cashew nuts": 430,         // R43/100g (Tina) — same 100g-pack shape as walnuts/almonds
   "peanuts": 128,             // R32/250g (Tina)
+  "dried apricots": 400,      // R40/100g (Tina)
+  "ginger-garlic paste": 140, // store jar ~R40/290g — overrides the garlic-match R280
+  "grape juice": 30,          // R30/L
+  "guinea fowl": 305,         // game bird (Tina)
   "chickpea flour": 114,
   "coriander": 650,
   "dill": 650,
@@ -498,7 +502,7 @@ const PRICE_DB = {
 
   // ── GAME, OFFAL & EXTRA MEATS (8 Jun 2026) — lean HIGH, round UP ──
   "game meat": 130,           // game stewing/shin high end (~R125) rounded up
-  "springbok": 240,           // game leg high end (Springbokboud)
+  "springbok": 140,           // game leg (Tina)
   "kudu": 195,                // Mike's Mouse R195/kg
   "kudu fillet": 195,
   "gemsbok fillet": 400,      // fillet high end, no till surprise

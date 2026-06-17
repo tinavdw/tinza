@@ -3,6 +3,16 @@
 
 ## >> RIGHT NOW (pick up here)
 
+### ✅ BATCH 3 (`wk_southafrica.js`) — INGREDIENT INTEGRITY SWEEP — COMPLETE (Southern Africa)
+All **6 cuisine blocks** swept (**136 recipes**): Cape Malay (21) · Indian (21) · Zulu (14) ·
+Sotho (14) · Xhosa (14) · **Boerekos (52** — header's "21 unique" was stale). Every Fault-A combo
+resolved per §5; `ginger-garlic paste` kept as ONE line (own PRICE_DB key **R140**, overrides garlic);
+the 7 Cape Malay `sharedWith:"Boerekos"` dishes are references (swept once in Cape Malay). Trivia-bleed
+grep on wk_southafrica = **zero**. Touched: `wk_southafrica.js` · `core.js` · `worldkitchen.js`
+(**WK_ALIAS ~115→~150**) · `prices.js` (adds: cashew nuts 430, peanuts 128, dried apricots 400,
+ginger-garlic paste 140, grape juice 30, guinea fowl 180; cheddar 225→**187**). Every recipe prices
+**except** the engine/parser bugs below. `node --check`-clean on all 4. **NOT yet pushed.**
+
 ### ✅ BATCH 2 (`wk_africa.js`) — INGREDIENT & RECIPE INTEGRITY SWEEP — COMPLETE
 All **11 country-blocks** swept (~**163 recipes**): Egypt · Ethiopia (+straggler sweep) · Kenya ·
 Morocco · Senegal · Tanzania · Tunisia · Zimbabwe · Mozambique · Nigeria · Ghana.
@@ -21,15 +31,20 @@ in Biryani/Badjia). Every change `node --check`-clean. **NOT yet pushed.**
    `cashew nuts` 430 (R43/100g) added; aliases (ground peanuts/peanut/groundnut→peanuts,
    ground cashews/cashew→cashew nuts). **Batch 2 is now 100% priced** (only intended-FREE
    seasonings remain uncosted — harissa/berbere/piri-piri/cayenne/yaji/tabil/ras-el-hanout/mitmita).
-2. **📋 wkEffectiveMult OVER-SCALE LIST (8)** — small-portion/condiment/split-protein "mains" the portion
-   brain scales to a full plate, inflating cost (engine NOT to be touched ad-hoc — dedicated session):
+2. **📋 wkEffectiveMult OVER-SCALE LIST (12)** — small-portion/condiment/split-protein/game-meat "mains"
+   the portion brain scales to a full plate, inflating cost (engine NOT to be touched ad-hoc — dedicated session):
    Soupou Kanja ×3.0 · Fricassée ×3.2 · Mopane Worms ×3.75 · Matemba ×3.75 · Gango ×2.25 ·
-   Matata ×2.67 · Shito ×5.0 · Kontomire ×4.0.
-3. **3 parked sessions:** (a) **blend-pricing** all-or-nothing — harissa/berbere/piri-piri/tabil/ras-el-hanout/
-   yaji/pepper-soup-spice/mitmita/cayenne kept **FREE** (whitelist) for now; (b) **portion-brain over-scale** fix;
-   (c) remaining **~145 PRICE_ALIAS→WK_ALIAS** reconciliation (recipe-relevant ones synced as hit).
-4. **NEXT — Batch 3** `wk_southafrica.js` → Batch 4 `wk_europe.js` + `wk_world.js` →
-   Batch 5 `eventsData.js` / `health.js` / `meals.js` / `data.js` / `buffet.js`.
+   Matata ×2.67 · Shito ×5.0 · Kontomire ×4.0 · **Springbok ×9 · Warthog ×8 · Guinea Fowl ×9 · Braaivleis**
+   (the game-meat ones: leg/fillet not in the main-protein regex → baseMult blow-up).
+3. **📋 PARSER-CLEANUP session (NEW):** (a) `N garlic clove(s)` → parser eats the `g` → `arlic clove`,
+   then matches the *cloves spice* R1022 (fixed the 2 named Boerekos recipes to gram-form; global fix pending);
+   (b) `avocado` priced per-count R13 → a gram amount reads as N avocados (Gemsbok R416).
+4. **3 parked sessions:** (a) **blend-pricing** all-or-nothing — harissa/berbere/piri-piri/tabil/ras-el-hanout/
+   yaji/pepper-soup-spice/mitmita/cayenne/aniseed/allspice/white-pepper kept **FREE** (whitelist) for now;
+   (b) **portion-brain over-scale** fix (the 12 above); (c) remaining **PRICE_ALIAS→WK_ALIAS** reconciliation
+   (recipe-relevant ones synced as hit through Batches 2–3).
+5. **NEXT — Batch 4** `wk_europe.js` + `wk_world.js` → Batch 5 `eventsData.js` / `health.js` /
+   `meals.js` / `data.js` / `buffet.js`.
 
 ### Still pending from the cross-links session (verify/push if not already done — details below)
 - PUSH cross-links batch (`core/meals/spice/worldkitchen`) + verify the 15 links live.
