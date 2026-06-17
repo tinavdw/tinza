@@ -41,6 +41,8 @@ const PRICE_DB = {
   // ── added from Tina price lists r1-3 (auto-generated) ──
   "yeast": 90,
   "white wine": 47,
+  "whisky": 293,              // R220/750ml → R293/L (Tina)
+  "sherry": 93,               // R70/750ml → R93/L (Tina)
   "fish sauce": 200,
   "sesame oil": 600,
   "pine nuts": 1175,
