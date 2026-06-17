@@ -3755,6 +3755,124 @@ var SPICE_DB = [
     aliases: ["tahini", "tahina", "sesame paste"],
     story: "Authentic tahini is a one-ingredient masterpiece — purely ground sesame seeds, with the name coming from the Arabic tahana, 'to grind'. Hulled white seeds give the classic mild, silky, pale paste; unhulled seeds make a darker, more bitter, more mineral-rich version. It's quietly strange stuff too: tahini is a non-Newtonian fluid, so it stiffens the harder you stir it, and if your jar sets solid you just loosen it with a splash of water or oil. One chef's secret carries straight into hummus — add the lemon juice and garlic only at the very end, because acid hitting tahini too early makes it seize and clump.",
     howThisFeels: "Warm sesame turning to silk under the blade — older than almost any kitchen."
+  },
+
+  {
+    id: "peanut-butter", name: "Peanut Butter", nameAlt: "Roasted Peanut Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🥜", kcal: 180, costPP: 5, appearsIn: ["health"],
+    flavourChips: ["Nutty", "Creamy", "Toasty"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"raw peanuts" },
+        { qty:15, unit:"ml", name:"sunflower oil (optional)" },
+        { qty:1, unit:"", name:"pinch salt (optional)" }
+      ],
+      method: "Toast the peanuts in a warm oven until fragrant and lightly golden, then let them cool completely. Blend patiently, scraping down often, until the nuts release their oils and turn silky smooth. Add the oil only if the blades struggle, and finish with a small pinch of salt if you like."
+    },
+    pairsWith: ["toast", "oats", "smoothies", "banana"],
+    aliases: ["peanut butter", "groundnut spread"],
+    story: "There is something deeply satisfying about making peanut butter from scratch, watching humble nuts transform into a glossy spread. The one trick is patience — it looks crumbly before it turns creamy. Give it time and it rewards you.",
+    howThisFeels: "Like the steady hum of a blender in a quiet kitchen on a slow morning."
+  },
+
+  {
+    id: "almond-butter", name: "Almond Butter", nameAlt: "Roasted Almond Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🌰", kcal: 185, costPP: 13, appearsIn: ["health"],
+    flavourChips: ["Nutty", "Creamy", "Rich"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"almonds" },
+        { qty:15, unit:"ml", name:"sunflower oil (optional)" },
+        { qty:1, unit:"", name:"pinch salt (optional)" }
+      ],
+      method: "Toast the almonds until just golden and aromatic, then cool fully. Blend steadily, letting the mixture move from coarse crumbs to a thick paste, then to a smooth butter as the oils release. Add oil only if needed to loosen."
+    },
+    pairsWith: ["toast", "oats", "smoothies", "apple slices"],
+    aliases: ["almond butter", "almond spread"],
+    story: "Almond butter feels like a small luxury made at home. The key is not rushing the blend — almonds take a little longer but become beautifully creamy. A gentle roast deepens the flavour.",
+    howThisFeels: "Soft, warm and comforting, like sunlight on a wooden countertop."
+  },
+
+  {
+    id: "cashew-butter", name: "Cashew Butter", nameAlt: "Creamy Cashew Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🥜", kcal: 175, costPP: 16, appearsIn: ["health"],
+    flavourChips: ["Mild", "Creamy", "Buttery"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"cashew nuts" },
+        { qty:10, unit:"ml", name:"sunflower oil (optional)" },
+        { qty:5, unit:"ml", name:"honey (optional)" }
+      ],
+      method: "Lightly toast the cashews until pale golden, then cool. Blend slowly, pausing to scrape down, until the mixture turns smooth and creamy. Add a touch of oil or honey if you want a softer, slightly sweet finish."
+    },
+    pairsWith: ["toast", "smoothies", "porridge", "banana"],
+    aliases: ["cashew butter", "cashew spread"],
+    story: "Cashew butter is the gentlest of all nut butters, almost naturally sweet. It blends quicker than most and becomes silky without much effort. A small drizzle of honey brings out its softness.",
+    howThisFeels: "Quiet and mellow, like a slow afternoon with nothing pressing to do."
+  },
+
+  {
+    id: "macadamia-butter", name: "Macadamia Butter", nameAlt: "Macadamia Nut Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🌰", kcal: 200, costPP: 17, appearsIn: ["health"],
+    flavourChips: ["Rich", "Buttery", "Smooth"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"macadamia nuts" },
+        { qty:1, unit:"", name:"pinch salt (optional)" }
+      ],
+      method: "Toast the macadamias lightly until just fragrant, then cool. Blend until the oils release quickly into a very smooth, almost glossy butter. Finish with a pinch of salt if desired."
+    },
+    pairsWith: ["toast", "oats", "fruit", "yoghurt"],
+    aliases: ["macadamia butter", "macadamia spread"],
+    story: "Macadamias are naturally rich, so this butter comes together almost effortlessly. The key is a gentle roast — too much and you lose their delicate flavour. It feels indulgent but simple.",
+    howThisFeels: "Silky and luxurious, like something special made without fuss."
+  },
+
+  {
+    id: "hazelnut-butter", name: "Hazelnut Butter", nameAlt: "Roasted Hazelnut Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🌰", kcal: 195, costPP: 9, appearsIn: ["health"],
+    flavourChips: ["Toasty", "Deep", "Nutty"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:300, unit:"g", name:"hazelnuts" },
+        { qty:10, unit:"ml", name:"sunflower oil (optional)" }
+      ],
+      method: "Toast the hazelnuts until the skins loosen and the aroma deepens, then rub off most of the skins and cool. Blend until smooth, adding a touch of oil only if needed."
+    },
+    pairsWith: ["toast", "pancakes", "oats", "apple slices"],
+    aliases: ["hazelnut butter", "hazelnut spread"],
+    story: "Hazelnuts bring a deeper, roasted flavour that feels a little more grown-up. Removing most of the skins keeps the taste smooth. It is worth the small extra step.",
+    howThisFeels: "Warm and toasty, like the scent of nuts in a winter kitchen."
+  },
+
+  {
+    id: "mixed-nut-butter", name: "Mixed Nut Butter", nameAlt: "Roasted Mixed Nut Spread",
+    type: "paste", shelf: "sauces", region: "Kitchen Basics",
+    emoji: "🥜", kcal: 182, costPP: 14, appearsIn: ["health"],
+    flavourChips: ["Balanced", "Nutty", "Creamy"], whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"ml", base:250, step:50, label:"~250ml" },
+      ingredients: [
+        { qty:150, unit:"g", name:"almonds" },
+        { qty:150, unit:"g", name:"cashew nuts" },
+        { qty:10, unit:"ml", name:"sunflower oil (optional)" }
+      ],
+      method: "Toast the nuts together until lightly golden, then cool. Blend steadily until smooth, letting the natural oils combine into a balanced, creamy spread. Add oil only if needed."
+    },
+    pairsWith: ["toast", "smoothies", "oats", "fruit"],
+    aliases: ["mixed nut butter", "nut blend spread"],
+    story: "Mixing nuts gives you the best of each — depth from almonds and creaminess from cashews. It is a simple way to build flavour without extra effort. The balance is what makes it special.",
+    howThisFeels: "Layered and steady, like familiar flavours coming together quietly."
   }
 
 ];
@@ -3804,7 +3922,7 @@ var SPICE_DIP_BEAN = ["hummus","white-bean-dip","beetroot-hummus","mint-fava-bea
 var SPICE_DIP_YOGURT = ["tzatziki","labneh","smoky-paprika-yogurt","herby-cucumber-yogurt","spiced-sumac-dip"];
 var SPICE_GROUP_ORDER = {
   "spice-blends": ["Curry & Masala","Mediterranean & Mid-East","Africa & Americas","Asia & Europe","Rubs","Pastes"],
-  "sauces": ["Meat & Meal Sauces","Chilli Sauces","Condiments"],
+  "sauces": ["Meat & Meal Sauces","Chilli Sauces","Condiments","Stocks & Broths"],
   "dressings-dips": ["Warm & Cheesy","Creamy & Cheese","Mayo-based","Bean & Pulse","Veg & Mezze","Yogurt"]
 };
 function spiceGroup(e){
@@ -3818,6 +3936,7 @@ function spiceGroup(e){
     return "Asia & Europe";
   }
   if(e.shelf==="sauces"){
+    if(e.type==="stock" || e.type==="broth") return "Stocks & Broths";
     if(SPICE_SAUCE_CHILLI.indexOf(e.id)>=0) return "Chilli Sauces";
     if(SPICE_SAUCE_CONDIMENT.indexOf(e.id)>=0) return "Condiments";
     return "Meat & Meal Sauces";

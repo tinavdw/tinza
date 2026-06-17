@@ -649,6 +649,7 @@ var PRICE_ALIAS = {
   "cheese":"cheddar","cheddar cheese":"cheddar",
   "flour":"cake flour","self raising flour":"cake flour","flour for dusting":"cake flour",
   "carrot":"carrots","potatoes":"potato","yoghurt":"yoghurt","plain yoghurt":"yoghurt",
+  "raw peanuts":"peanuts","rolled oats":"oats","frozen berries":"frozen blueberries","linseed":"flaxseed",
   // "full-cream milk" must price as MILK, not CREAM (the longest-word match picks
   // "cream" out of "full cream milk" → ~7x overcharge). Fixes Risalamande + Amasi ×2.
   "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk",

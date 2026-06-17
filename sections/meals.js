@@ -31,6 +31,24 @@ var BREAKFAST_RECIPES = [
     method:['Bring the water and a pinch of salt to the boil.','Rain in the maize meal while stirring to avoid lumps.','Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.','Serve in bowls with cold milk and a sprinkle of sugar.'],
     tip:'For stiff pap use less water; for soft breakfast pap keep it loose and pourable.',
     nutrition:{kcal:250,protein_g:6,carbs_g:52,fat_g:3}, storage:'Keeps 3 days; reheat with a splash of water.'},
+  {id:'bf-banana-honey-oats', cat:'warm', name:'Banana Honey Oats', emoji:'🍌', cuisine:'Global', time:10, costPP:12,
+    feel:'Soft and familiar, like breakfast made without rushing.',
+    ingredients:[{n:'rolled oats',pp:60,u:'g'},{n:'milk',pp:250,u:'ml'},{n:'banana',pp:1,u:''},{n:'honey',pp:10,u:'ml'}],
+    method:['Cook the oats gently in the milk over low heat, stirring, until soft and creamy.','Mash the banana into the oats as they cook.','Finish with a drizzle of honey.'],
+    tip:'Use a ripe banana for natural sweetness.',
+    nutrition:{kcal:320,protein_g:10,carbs_g:55,fat_g:7}, storage:'Best fresh.'},
+  {id:'bf-apple-cinnamon-oats', cat:'warm', name:'Apple Cinnamon Oats', emoji:'🍎', cuisine:'Global', time:12, costPP:16,
+    feel:'Warm and homely, like a pot quietly simmering on the stove.',
+    ingredients:[{n:'rolled oats',pp:60,u:'g'},{n:'milk',pp:250,u:'ml'},{n:'apple',pp:1,u:''},{n:'cinnamon',pp:2,u:'g'},{n:'honey',pp:10,u:'ml'}],
+    method:['Cook the oats in the milk until creamy.','Grate the apple and stir it in with the cinnamon, letting it soften.','Finish with honey.'],
+    tip:'Grating the apple helps it melt into the oats.',
+    nutrition:{kcal:310,protein_g:9,carbs_g:54,fat_g:6}, storage:'Best fresh.'},
+  {id:'bf-mango-oats', cat:'warm', name:'Mango Oats', emoji:'🥭', cuisine:'Global', time:10, costPP:13,
+    feel:'Bright and easy, like a warm breeze through an open window.',
+    ingredients:[{n:'rolled oats',pp:60,u:'g'},{n:'milk',pp:200,u:'ml'},{n:'mango',pp:100,u:'g'},{n:'honey',pp:10,u:'ml'}],
+    method:['Cook the oats in the milk until soft.','Stir in the chopped mango at the end.','Finish with honey.'],
+    tip:'Add the mango right at the end to keep it bright.',
+    nutrition:{kcal:300,protein_g:9,carbs_g:52,fat_g:6}, storage:'Best fresh.'},
 
   // ── 🥐 SWEET & BAKED ──
   // (Fluffy Pancakes moved to Bakes → BAKES_RECIPES on 16 Jun — cross-link target for Hortobágyi)
@@ -40,6 +58,12 @@ var BREAKFAST_RECIPES = [
     method:['Whisk the eggs, milk, sugar and a pinch of cinnamon in a shallow dish.','Soak each slice of bread for a few seconds per side.','Fry in butter over medium heat until golden on both sides.','Serve dusted with cinnamon sugar or a drizzle of syrup.'],
     tip:'Slightly stale bread soaks up the custard best without going soggy.',
     nutrition:{kcal:360,protein_g:13,carbs_g:44,fat_g:15}, storage:'Best fresh; eat the same morning.'},
+  {id:'bf-baked-berry-oats', cat:'sweet', name:'Baked Berry Oats', emoji:'🫐', cuisine:'Global', time:25, costPP:23,
+    feel:'Cosy and baked through, like something shared at a quiet table.',
+    ingredients:[{n:'rolled oats',pp:60,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'milk',pp:150,u:'ml'},{n:'frozen berries',pp:80,u:'g'},{n:'honey',pp:10,u:'ml'}],
+    method:['Mix all the ingredients together.','Pour into a small dish and bake until set and lightly golden.','Let it cool slightly before eating.'],
+    tip:'Let it rest a few minutes before serving for the best texture.',
+    nutrition:{kcal:340,protein_g:12,carbs_g:50,fat_g:9}, storage:'Fridge, up to 2 days.'},
 
   // ── 🍓 FRESH & LIGHT ──
   {id:'bf-yoghurt-granola', cat:'fresh', name:'Yoghurt & Granola Bowl', emoji:'🥛', cuisine:'Global', time:5, costPP:14,
@@ -54,6 +78,12 @@ var BREAKFAST_RECIPES = [
     method:['Toast the bread until golden.','Mash the avocado with a squeeze of lemon, salt and pepper.','Spread thickly onto the toast.','Finish with a drizzle of olive oil and a pinch of chilli flakes.'],
     tip:'A poached egg on top turns this into a proper meal.',
     nutrition:{kcal:300,protein_g:7,carbs_g:28,fat_g:19}, storage:'Best fresh; avocado browns quickly.'},
+  {id:'bf-berry-bircher-oats', cat:'fresh', name:'Berry Bircher Oats', emoji:'🥣', cuisine:'Global', time:5, costPP:19,
+    feel:'Cool and gentle, like an early morning before the house wakes.',
+    ingredients:[{n:'rolled oats',pp:60,u:'g'},{n:'milk',pp:150,u:'ml'},{n:'frozen berries',pp:80,u:'g'},{n:'honey',pp:10,u:'ml'}],
+    method:['Combine the oats, milk, berries and honey.','Refrigerate overnight.','Stir before eating and let it soften slightly at room temperature.'],
+    tip:'Stir halfway through soaking for an even texture. (Overnight — 5 min active.)',
+    nutrition:{kcal:290,protein_g:9,carbs_g:50,fat_g:5}, storage:'Fridge, up to 2 days.'},
 
   // ── 🥤 ON THE GO ──
   {id:'bf-berry-smoothie', cat:'go', name:'Berry Banana Smoothie', emoji:'🥤', cuisine:'Global', time:5, costPP:13,

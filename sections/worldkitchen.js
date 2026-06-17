@@ -63,11 +63,12 @@ function wkPool(){
    need to match — new recipes file themselves by country name. */
 var WK_COUNTRY_GEO = {
   "Egypt":["Africa","Northern Africa"], "Morocco":["Africa","Northern Africa"], "Tunisia":["Africa","Northern Africa"],
+  "Libya":["Africa","Northern Africa"],
   "Ghana":["Africa","Western Africa"], "Nigeria":["Africa","Western Africa"], "Senegal":["Africa","Western Africa"],
   "Ethiopia":["Africa","Eastern Africa"], "Kenya":["Africa","Eastern Africa"], "Tanzania":["Africa","Eastern Africa"],
-  "Mozambique":["Africa","Eastern Africa"], "Zimbabwe":["Africa","Eastern Africa"],
+  "Mozambique":["Africa","Southern Africa"], "Zimbabwe":["Africa","Southern Africa"],
   "Belgium":["Europe","Western Europe"],
-  "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"],
+  "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"], "Spain":["Europe","Southern Europe"],
   "Denmark":["Europe","Northern Europe"], "Finland":["Europe","Northern Europe"],
   "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"],
   "Netherlands":["Europe","Western Europe"], "Switzerland":["Europe","Western Europe"], "Austria":["Europe","Western Europe"],

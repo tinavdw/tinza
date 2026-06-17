@@ -49,6 +49,8 @@ const PRICE_DB = {
   "sweetcorn": 59,
   "peas": 61,
   "almonds": 330,
+  "macadamia nuts": 450,      // R45/100g
+  "hazelnuts": 228,           // R228/kg
   "cashew nuts": 430,         // R43/100g (Tina) — same 100g-pack shape as walnuts/almonds
   "peanuts": 128,             // R32/250g (Tina)
   "dried apricots": 400,      // R40/100g (Tina)
@@ -204,6 +206,7 @@ const PRICE_DB = {
   "cream cheese": 180,        // R45/250g → R180/kg
   "mozzarella": 275,          // R150/500g → R300/kg
   "yoghurt": 45,              // per kg
+  "greek yoghurt": 80,        // R80/kg (thicker, strained)
   "ice cream": 45,            // R82/1.8L ≈ R45/kg
   "chocolate": 313,           // R25/80g → R313/kg
 
@@ -325,6 +328,7 @@ const PRICE_DB = {
   "wholewheat flour": 24,
   "semolina": 37,
   "sunflower seeds": 233,     // R35/150g → R233/kg
+  "flaxseed": 140,            // R140/kg
   "walnuts": 370,             // R37/100g → R370/kg
   "walnut": 370,              // R37/100g → R370/kg
 
@@ -467,7 +471,9 @@ const PRICE_DB = {
   "bananas": 25,              // ESTIMATE
   "mango": 40,                // ESTIMATE
   "pawpaw": 30,               // ESTIMATE
-  "granadilla": 120,          // ESTIMATE (pulp)
+  "granadilla": 180,          // ESTIMATE (pulp) — updated 17 Jun
+  "granadilla_each": 10,      // per fruit (count)
+  "apple_each": 5,            // per fruit (count)
   "mushrooms": 90,            // ESTIMATE
   "rooibos": 8,               // ESTIMATE (brewed, per L)
   "koeksisters": 120,         // ESTIMATE

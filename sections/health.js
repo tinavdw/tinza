@@ -294,6 +294,60 @@ const RAW_AND_REAL = [
    tip:'The date in the marinara is the secret — it cuts the acidity and gives depth without any cooking.'},
 ];
 
+const SEED_CRACKERS = [
+  {id:'everything-seed-crackers', tier:'free', emoji:'🍘', name:'Everything Seed Crackers', kcal:180, costPP:29,
+   feel:'Crisp and grounding, like a simple snack after a long day.',
+   badges:['🌱 Vegan','🌾 Seed-based','✨ Gluten-Free'],
+   base300:[{n:'sunflower seeds',pp:60,u:'g'},{n:'pumpkin seeds',pp:40,u:'g'},{n:'flaxseed',pp:30,u:'g'},{n:'sesame seeds',pp:20,u:'g'},{n:'water',pp:150,u:'ml'},{n:'salt',pp:2,u:'g'}],
+   method:['Mix all the seeds with the water and salt; let it sit until thick and binding.','Spread thinly on a lined tray.','Bake low until dry and crisp; cool and snap into shards.'],
+   tip:'Spread as thin as possible for the best crunch.'},
+  {id:'flaxseed-crackers', tier:'free', emoji:'🍘', name:'Flaxseed Crackers', kcal:160, costPP:14,
+   feel:'Light and clean, with a quiet crunch that settles you.',
+   badges:['🌱 Vegan','🌾 High-Fibre','✨ Gluten-Free'],
+   base300:[{n:'flaxseed',pp:100,u:'g'},{n:'water',pp:200,u:'ml'},{n:'salt',pp:2,u:'g'}],
+   method:['Combine the flaxseed with the water and salt; rest until thick and gel-like.','Spread thinly and evenly.','Bake slowly until fully dry and crisp; break into pieces once cooled.'],
+   tip:'Score lightly before baking for neater shapes.'},
+  {id:'sunflower-pumpkin-crackers', tier:'free', emoji:'🍘', name:'Sunflower Pumpkin Crackers', kcal:190, costPP:31,
+   feel:'Hearty and satisfying, like a small, steady bite between meals.',
+   badges:['🌱 Vegan','🌾 Seed-based','💪 Filling'],
+   base300:[{n:'sunflower seeds',pp:80,u:'g'},{n:'pumpkin seeds',pp:80,u:'g'},{n:'water',pp:140,u:'ml'},{n:'salt',pp:2,u:'g'}],
+   method:['Mix the seeds with the water and salt; soak until slightly sticky.','Spread thin.','Bake gently until golden and crisp; cool before snapping.'],
+   tip:'Press firmly when spreading for an even layer.'},
+  {id:'sesame-crackers', tier:'free', emoji:'🍘', name:'Sesame Crackers', kcal:170, costPP:29,
+   feel:'Nutty and delicate, with a gentle toasted finish.',
+   badges:['🌱 Vegan','🌾 Seed-based','✨ Crispy'],
+   base300:[{n:'sesame seeds',pp:120,u:'g'},{n:'water',pp:140,u:'ml'},{n:'salt',pp:2,u:'g'}],
+   method:['Stir the sesame seeds with the water and salt; rest briefly.','Spread very thin.','Bake until crisp and lightly golden; cool before breaking.'],
+   tip:'Watch closely near the end so they do not over-brown.'},
+];
+
+const FROZEN_YOGHURT = [
+  {id:'berry-frozen-yoghurt-bark', tier:'free', emoji:'🍦', name:'Berry Frozen Yoghurt Bark', kcal:180, costPP:23,
+   feel:'Cold and refreshing, like a small pause in the middle of a warm day.',
+   badges:['🥛 Vegetarian','🫐 Fruit','❄️ Frozen'],
+   base300:[{n:'plain yoghurt',pp:200,u:'g'},{n:'frozen berries',pp:80,u:'g'},{n:'honey',pp:15,u:'ml'}],
+   method:['Spread the yoghurt onto a lined tray.','Scatter the berries over and drizzle with honey.','Freeze until firm, then break into pieces.'],
+   tip:'Keep it thin for easy snapping.'},
+  {id:'banana-honey-froyo', tier:'free', emoji:'🍦', name:'Banana Honey Frozen Yoghurt', kcal:200, costPP:21,
+   feel:'Creamy and calm, like a quiet treat at the end of the day.',
+   badges:['🥛 Vegetarian','🍌 Fruit','❄️ Frozen'],
+   base300:[{n:'Greek yoghurt',pp:200,u:'g'},{n:'banana',pp:1,u:''},{n:'honey',pp:15,u:'ml'}],
+   method:['Blend the yoghurt, banana and honey until smooth.','Freeze, stirring occasionally for a softer texture.'],
+   tip:'Stir every hour for a smoother scoop.'},
+  {id:'mango-frozen-yoghurt', tier:'free', emoji:'🍦', name:'Mango Frozen Yoghurt', kcal:190, costPP:15,
+   feel:'Soft and tropical, like something simple enjoyed slowly.',
+   badges:['🥛 Vegetarian','🥭 Fruit','❄️ Frozen'],
+   base300:[{n:'plain yoghurt',pp:200,u:'g'},{n:'mango',pp:100,u:'g'},{n:'honey',pp:15,u:'ml'}],
+   method:['Blend all the ingredients until smooth.','Freeze until scoopable, stirring once or twice.'],
+   tip:'Use ripe mango for the best flavour.'},
+  {id:'granadilla-swirl-froyo', tier:'free', emoji:'🍦', name:'Granadilla Swirl Frozen Yoghurt', kcal:170, costPP:31,
+   feel:'Light and tangy, like a cool spoonful on a warm afternoon.',
+   badges:['🥛 Vegetarian','🌺 Fruit','❄️ Frozen'],
+   base300:[{n:'plain yoghurt',pp:200,u:'g'},{n:'granadilla',pp:2,u:''},{n:'honey',pp:15,u:'ml'}],
+   method:['Blend the yoghurt with the honey.','Swirl through the granadilla pulp.','Freeze until set but still scoopable.'],
+   tip:'Swirl lightly to keep the ripple visible.'},
+];
+
 // ── UNIVERSAL OPENER WIRING (Standard §8 spine) ──────────────────
 // One finder across every health sub-type → {item, type, cat}. The
 // inner `x &&` guards array holes so a stray comma can never crash it.
@@ -313,7 +367,9 @@ function healthFind(id){
     ['health','health', typeof DIABETIC_RECIPES!=='undefined'?DIABETIC_RECIPES:[]],
     ['health','health', typeof ANTIINFLAM_RECIPES!=='undefined'?ANTIINFLAM_RECIPES:[]],
     ['health','health', typeof IMMUNITY_RECIPES!=='undefined'?IMMUNITY_RECIPES:[]],
-    ['health','health', typeof FERMENTED_RECIPES!=='undefined'?FERMENTED_RECIPES:[]]
+    ['health','health', typeof FERMENTED_RECIPES!=='undefined'?FERMENTED_RECIPES:[]],
+    ['health','health', typeof SEED_CRACKERS!=='undefined'?SEED_CRACKERS:[]],
+    ['health','health', typeof FROZEN_YOGHURT!=='undefined'?FROZEN_YOGHURT:[]]
   ];
   for(var k=0;k<reg.length;k++){
     var arr = reg[k][2];
@@ -820,6 +876,22 @@ function healthOpenExt(id, arrName, grp, tab){
   openRecipe('health', id, {returnTo: rt});
 }
 
+// appearsIn feed-read: return the cross-section objects (e.g. Spice pastes)
+// whose appearsIn list includes the target section. They render as ext cards
+// (they carry emoji/name/kcal/costPP/feel); their canonical home is unchanged.
+function wkAppearsIn(target){
+  if(typeof SPICE_DB==='undefined') return [];
+  return SPICE_DB.filter(function(x){ return x && x.appearsIn && x.appearsIn.indexOf(target)>-1; });
+}
+
+// Open a Spice recipe surfaced inside Health (Nut Butters tab), remembering the
+// Health group/tab so Back returns here rather than to the Spice section.
+function healthOpenSpice(id, grp, tab){
+  var rt = (typeof snapshotNav==='function') ? snapshotNav() : {};
+  rt.screen='health'; rt.healthGroup=grp||'prep'; rt.healthGroupTab=tab||'nutbutters';
+  openRecipe('spice', id, {returnTo: rt});
+}
+
 // ── braai/World-parity helpers (timer pills, cooking mode, grid tiles) ──
 function hcStepTimer(txt){
   txt = String(txt||'');
@@ -1004,6 +1076,9 @@ function healthGroupScreen(isPro, srv){
       tabs:[
         {id:'oats',    emoji:'🌾', label:'Overnight Oats', arr:'OVERNIGHT_OATS',    type:'oats',   openFn:'healthOpenOats'},
         {id:'muffins', emoji:'🧁', label:'Muffins',        arr:'HEALTHY_MUFFINS',   type:'muffin', openFn:'healthOpenMuffin'},
+        {id:'crackers',   emoji:'🍘', label:'Seed Crackers',  arr:'SEED_CRACKERS',   type:'ext'},
+        {id:'froyo',      emoji:'🍦', label:'Frozen Yoghurt',  arr:'FROZEN_YOGHURT',  type:'ext'},
+        {id:'nutbutters', emoji:'🥜', label:'Nut Butters',     arr:'__APPEARSIN__',   type:'ext', appearsIn:'health'},
       ]
     },
     bodygoals: {
@@ -1066,6 +1141,8 @@ function healthGroupScreen(isPro, srv){
     'OVERNIGHT_OATS':       typeof OVERNIGHT_OATS!=='undefined'      ? OVERNIGHT_OATS      : [],
     'HEALTHY_MUFFINS':      typeof HEALTHY_MUFFINS!=='undefined'     ? HEALTHY_MUFFINS     : [],
     'RAW_AND_REAL':         typeof RAW_AND_REAL!=='undefined'        ? RAW_AND_REAL        : [],
+    'SEED_CRACKERS':        typeof SEED_CRACKERS!=='undefined'       ? SEED_CRACKERS       : [],
+    'FROZEN_YOGHURT':       typeof FROZEN_YOGHURT!=='undefined'      ? FROZEN_YOGHURT      : [],
     'KETO_RECIPES':         typeof KETO_RECIPES!=='undefined'        ? KETO_RECIPES        : [],
     'WEIGHTLOSS_RECIPES':   typeof WEIGHTLOSS_RECIPES!=='undefined'  ? WEIGHTLOSS_RECIPES  : [],
     'HIGHPROTEIN_RECIPES':  typeof HIGHPROTEIN_RECIPES!=='undefined' ? HIGHPROTEIN_RECIPES : [],
@@ -1077,7 +1154,11 @@ function healthGroupScreen(isPro, srv){
     'IMMUNITY_RECIPES':     typeof IMMUNITY_RECIPES!=='undefined'    ? IMMUNITY_RECIPES    : [],
     'ANTIINFLAM_RECIPES':   typeof ANTIINFLAM_RECIPES!=='undefined'  ? ANTIINFLAM_RECIPES  : [],
   };
-  let items = tabDef.arr ? (arrMap[tabDef.arr]||[]) : [];
+  // appearsIn tabs are a cross-section feed-read (e.g. Spice pastes tagged for Health),
+  // not a native array. Everything else resolves through arrMap.
+  let items = tabDef.appearsIn
+    ? (typeof wkAppearsIn==='function' ? wkAppearsIn(tabDef.appearsIn) : [])
+    : (tabDef.arr ? (arrMap[tabDef.arr]||[]) : []);
 
   // Search filter
   const sv = (S.healthSearch||'').toLowerCase();
@@ -1091,14 +1172,20 @@ function healthGroupScreen(isPro, srv){
         const disabled = !canView;
         const info = (item.kcal?(item.makes?item.kcal+' kcal each · '+(srv*item.makes)+' total':item.kcal*srv+' kcal'):'')+
                      (item.costPP?' · ~R'+Math.round(item.costPP*srv)+'/pp':'');
-        const feel = item.feel || item.howItFeels || '';
-        const openCall = tabDef.openFn
-          ? tabDef.openFn+'(\''+item.id+'\')'
-          : 'healthOpenExt(\''+item.id+'\',\''+tabDef.arr+'\',\''+grp+'\',\''+activeTab+'\')';
+        const feel = item.feel || item.howItFeels || item.howThisFeels || '';
+        // appearsIn cards live in another section (e.g. Spice) — tapping anywhere opens
+        // the canonical recipe there; Back returns to this Health tab (snapshotNav).
+        const openCall = tabDef.appearsIn
+          ? 'healthOpenSpice(\''+item.id+'\',\''+grp+'\',\''+activeTab+'\')'
+          : tabDef.openFn
+            ? tabDef.openFn+'(\''+item.id+'\')'
+            : 'healthOpenExt(\''+item.id+'\',\''+tabDef.arr+'\',\''+grp+'\',\''+activeTab+'\')';
         const typeMap = {FRESH_JUICES:'juice',SMOOTHIES:'smoothie',OVERNIGHT_OATS:'oats',HEALTHY_MUFFINS:'muffin',RAW_AND_REAL:'raw'};
-        const toggleCall = typeMap[tabDef.arr]
-          ? 'healthToggleById(\''+item.id+'\',\''+typeMap[tabDef.arr]+'\',S.servings)'
-          : 'healthToggleExtById(\''+item.id+'\')';
+        const toggleCall = tabDef.appearsIn
+          ? openCall
+          : typeMap[tabDef.arr]
+            ? 'healthToggleById(\''+item.id+'\',\''+typeMap[tabDef.arr]+'\',S.servings)'
+            : 'healthToggleExtById(\''+item.id+'\')';
         const onclk = disabled ? "alert('👑 Upgrade to Pro to unlock')" : toggleCall;
         const btn = disabled
           ? '<span style="font-size:13px;background:#1a1008;border:1px solid #c06020;border-radius:6px;color:#c08030;padding:3px 7px;">👑 PRO</span>'
