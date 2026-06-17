@@ -172,6 +172,9 @@ const PRICE_DB = {
   "canned tuna": 171,         // R29/170g → R171/kg
   "canned salmon": 300,       // R120/400g → R300/kg
   "pilchards": 65,            // R29/400g → was R73/kg, adjusted to R65 (8 Jun 2026)
+  "barley": 35,               // pet recipes (Tina)
+  "chicken frames": 30,       // pet raw — R30/kg (Tina)
+  "chicken hearts": 55,       // pet — R55/kg (Tina)
 
   // ── EGGS ──
   "eggs": 3.7,                // R22/6 pack → ~R3.67 each (price per egg)
@@ -497,6 +500,7 @@ const PRICE_DB = {
   "fish oil": 260,
   "flaxseed oil": 260,
   "low-sodium bone broth": 100,
+  "chicken broth": 100,       // ready-to-use, gelatin-rich — R50/500ml → R100/L (Tina)
   "low-sodium vegetable stock": 100,
   "tinned sardines": 208,
   "fresh sardines": 115,      // fresh whole sardines — kept separate from tinned R208
@@ -940,6 +944,12 @@ const DOG_RECIPES = {
       method:["Preheat oven to 180°C.","Blend oats in food processor to coarse flour.","Grate apple — remove ALL seeds and core completely.","Mix oat flour, grated apple, egg and water into firm dough.","Form into small rounds or use cutter. Bake 20–25 min until golden. Cool completely."],
       tip:"⚠️ Remove EVERY apple seed — they contain trace cyanide, toxic to dogs. The treat itself is completely safe. Good for adult and senior dogs — fibre supports digestion.",
       storage:"Airtight: 5 days. Fridge: 10 days." },
+    {"id":"maizemealchickencrunch","name":"Maize Meal & Chicken Crunch Biscuits","emoji":"🦴","time":45,"tier":"free","batchRecipe":true,"batchYield":24,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Maize meal","pp":120,"u":"g"},{"n":"Chicken mince (cooked, shredded)","pp":150,"u":"g"},{"n":"Egg","pp":1,"u":"egg"},{"n":"Water","pp":60,"u":"ml"}],"method":["Mix maize meal, shredded chicken and egg.","Add water to form dough.","Roll and cut.","Bake at 180°C until hard.","Cool completely before serving."],"tip":"Crunchy and budget-friendly — for junior to senior dogs.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"oatcheesebiscuits","name":"Oat & Cottage Cheese Biscuits","emoji":"🧀","time":40,"tier":"free","batchRecipe":true,"batchYield":20,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Oats","pp":120,"u":"g"},{"n":"Cottage cheese (plain)","pp":100,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Blend oats.","Mix all ingredients.","Shape and bake.","Cool completely before serving."],"tip":"Easy to digest — good for older dogs.","storage":"Fridge: 4 days. Freezer: 1 month."},
+    {"id":"livertrainingbiscuits","name":"Chicken Liver Training Biscuits","emoji":"🍗","time":50,"tier":"free","batchRecipe":true,"batchYield":30,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Chicken livers (cooked)","pp":150,"u":"g"},{"n":"Oats","pp":100,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Blend oats.","Mix with liver and egg.","Bake thin and dry.","Break pieces.","Cool completely before serving."],"tip":"Use small pieces — rich but affordable.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"butternutoatbiscuits","name":"Butternut & Oat Biscuits","emoji":"🎃","time":40,"tier":"free","batchRecipe":true,"batchYield":22,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Butternut (mashed)","pp":150,"u":"g"},{"n":"Oats","pp":120,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Blend oats.","Mix all.","Shape and bake.","Cool completely before serving."],"tip":"Naturally sweet and gentle.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"eggbarleybiscuits","name":"Egg & Barley Crunch Biscuits","emoji":"🥚","time":45,"tier":"free","batchRecipe":true,"batchYield":20,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Barley (cooked)","pp":150,"u":"g"},{"n":"Egg","pp":2,"u":"egg"},{"n":"Oats","pp":80,"u":"g"}],"method":["Blend oats.","Mix all.","Shape and bake.","Cool completely before serving."],"tip":"Crunch helps teeth.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"pilchardoatbiscuits","name":"Pilchard & Oat Biscuits","emoji":"🐟","time":40,"tier":"free","batchRecipe":true,"batchYield":24,"batchUnit":"biscuits","ages":["junior","adult","senior"],"base":[{"n":"Pilchards in water","pp":1,"u":"tin"},{"n":"Oats","pp":120,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Mash fish.","Mix all.","Bake until dry.","Cool completely before serving."],"tip":"Omega-3 boost on a budget.","storage":"Fridge: 5 days. Freezer: 2 months."},
   ],
   dental:[
     { id:"mintparsley", name:"Mint & Parsley Breath Biscuits", emoji:"🦷", time:35, tier:"free", batchRecipe:true, batchYield:30, batchUnit:"biscuits",
@@ -954,6 +964,10 @@ const DOG_RECIPES = {
       method:["Preheat oven to 180°C.","Mix coconut flour, wheat flour and kelp powder.","Add coconut oil, egg, water and parsley. Knead into very firm dough.","Roll to 1cm thick — thicker for maximum chewing action.","Cut into long strips. Bake 30–35 min until very hard and dry. Cool completely."],
       tip:"Kelp powder reduces tartar naturally. Coconut oil has antimicrobial properties for gum health. Best for adult and senior dogs who can handle the harder texture.",
       storage:"Airtight: 3 weeks. Freezer: 3 months." },
+    {"id":"carrotbarleychews","name":"Carrot & Barley Dental Chews","emoji":"🥕","time":50,"tier":"free","batchRecipe":true,"batchYield":18,"batchUnit":"chews","ages":["junior","adult","senior"],"base":[{"n":"Barley (cooked)","pp":120,"u":"g"},{"n":"Carrots (grated)","pp":120,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Mix all.","Shape sticks.","Bake until hard.","Cool completely before serving."],"tip":"Helps scrape teeth naturally.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"sweetpotatodentalsticks","name":"Sweet Potato Dental Sticks","emoji":"🍠","time":120,"tier":"free","batchRecipe":true,"batchYield":15,"batchUnit":"sticks","ages":["junior","adult","senior"],"base":[{"n":"Sweet potatoes (sliced)","pp":2,"u":""}],"method":["Slice and bake low heat until chewy.","Cool completely before serving."],"tip":"Supervise chewing always.","storage":"Fridge: 7 days. Freezer: 2 months."},
+    {"id":"gemmarrowchewsticks","name":"Baby Marrow Chew Sticks","emoji":"🥒","time":90,"tier":"free","batchRecipe":true,"batchYield":16,"batchUnit":"sticks","ages":["junior","adult","senior"],"base":[{"n":"Baby marrow (sliced)","pp":3,"u":""}],"method":["Slice and dry bake.","Cool completely before serving."],"tip":"Light chew option.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"oatcarrotbones","name":"Oat & Carrot Dental Bones","emoji":"🦴","time":50,"tier":"free","batchRecipe":true,"batchYield":18,"batchUnit":"bones","ages":["junior","adult","senior"],"base":[{"n":"Oats","pp":120,"u":"g"},{"n":"Carrots (grated)","pp":120,"u":"g"},{"n":"Egg","pp":1,"u":"egg"}],"method":["Mix, shape and bake hard.","Cool completely before serving."],"tip":"Firm texture = better cleaning.","storage":"Fridge: 5 days. Freezer: 2 months."},
   ],
   cooked:[
     { id:"chickenvegbowl", name:"Chicken & Vegetable Bowl", emoji:"🍗", time:35, tier:"free",
@@ -980,6 +994,8 @@ const DOG_RECIPES = {
       method:["Cook turkey mince with NO seasoning.","Cook brown rice in plain water.","Steam peas until soft.","Combine turkey, rice, pumpkin and peas. Stir in oil. Cool completely."],
       tip:"Turkey is hypoallergenic — excellent for dogs with chicken or beef allergies. Safe for all ages. Pumpkin is one of the best digestive aids for dogs.",
       storage:"Fridge: 3 days. Freezer: 1 month." },
+    {"id":"pilchardpumpkinbowl","name":"Pilchard & Pumpkin Bowl","emoji":"🐟","time":25,"tier":"free","ages":["puppy","junior","adult","senior"],"base":[{"n":"Pilchards in water","pp":1,"u":"tin"},{"n":"Pumpkin","pp":120,"u":"g"},{"n":"Brown rice","pp":80,"u":"g"}],"method":["Cook rice.","Steam pumpkin.","Mix all.","Cool completely before serving."],"tip":"Gentle and nutritious for all ages.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"chickenoatsoftbowl","name":"Chicken & Oat Soft Bowl","emoji":"🍗","time":25,"tier":"free","ages":["puppy","junior","adult","senior"],"base":[{"n":"Chicken mince","pp":180,"u":"g"},{"n":"Oats","pp":80,"u":"g"},{"n":"Carrots","pp":60,"u":"g"}],"method":["Cook oats.","Cook chicken.","Mix all.","Cool completely before serving."],"tip":"Soft and puppy-safe.","storage":"Fridge: 3 days. Freezer: 1 month."},
   ],
   raw:[
     { id:"ancestralmix", name:"The Ancestral Mix (BARF)", emoji:"🥩", time:15, tier:"free",
@@ -994,6 +1010,10 @@ const DOG_RECIPES = {
       method:["Use fresh human-grade beef only.","Grate carrot and zucchini very finely — dogs cannot digest chunky raw vegetables.","Combine beef, carrot, zucchini, blueberries and kelp.","Portion and freeze immediately. Thaw overnight in fridge. Serve at room temperature."],
       tip:"Raw vegetables must be grated very finely or blended for dogs to absorb the nutrients. For adults only — puppies and seniors need cooked food for easier digestion.",
       storage:"Fridge (thawed): 2 days. Freezer: 1 month." },
+    {"id":"chickenframebarf","name":"Chicken Frame BARF Mix","emoji":"🍗","time":10,"tier":"free","ages":["adult","senior"],"base":[{"n":"Chicken frames (raw)","pp":200,"u":"g"},{"n":"Chicken hearts","pp":80,"u":"g"},{"n":"Carrots","pp":50,"u":"g"}],"method":["Crush and mix.","Serve fresh."],"tip":"Never feed cooked bones.","storage":"Fridge: 1 day. Freezer: 1 month."},
+    {"id":"pilchardrawmix","name":"Raw Pilchard & Veg Blend","emoji":"🐟","time":10,"tier":"free","ages":["adult","senior"],"base":[{"n":"Pilchards","pp":1,"u":"tin"},{"n":"Carrots","pp":40,"u":"g"},{"n":"Spinach","pp":30,"u":"g"}],"method":["Mix and serve."],"tip":"Soft raw option.","storage":"Fridge: 1 day. Freezer: 1 month."},
+    {"id":"offalrichrawmix","name":"Offal-Rich Raw Mix","emoji":"🥩","time":10,"tier":"free","ages":["adult","senior"],"base":[{"n":"Beef heart","pp":150,"u":"g"},{"n":"Beef liver","pp":40,"u":"g"},{"n":"Carrots","pp":40,"u":"g"}],"method":["Mix and serve."],"tip":"Keep liver under 10%.","storage":"Fridge: 1 day. Freezer: 1 month."},
+    {"id":"gentlerawchickenmix","name":"Gentle Chicken Raw Mix","emoji":"🍗","time":10,"tier":"free","ages":["adult"],"base":[{"n":"Chicken mince (raw)","pp":200,"u":"g"},{"n":"Pumpkin","pp":50,"u":"g"}],"method":["Mix and serve."],"tip":"Simple raw starter.","storage":"Fridge: 1 day. Freezer: 1 month."},
   ],
   frozen:[
     { id:"frozenyoghurt", name:"Frozen Yoghurt Kong Filler", emoji:"🧊", time:5, tier:"free",
@@ -1014,6 +1034,9 @@ const DOG_RECIPES = {
       method:["Remove ALL seeds and ALL rind — both are dangerous.","Blend watermelon until smooth.","Mix with plain yoghurt.","Pour into moulds or ice cube trays. Freeze 2+ hours. Supervise while eating."],
       tip:"⚠️ Remove every single seed — seeds can cause intestinal blockages. The rind causes digestive upset. The flesh is 92% water — excellent hydration on hot days.",
       storage:"Freezer: 1 month." },
+    {"id":"pilchardicecubes","name":"Pilchard Ice Cubes","emoji":"🧊","time":10,"tier":"free","ages":["junior","adult","senior"],"base":[{"n":"Pilchards","pp":1,"u":"tin"},{"n":"Water","pp":100,"u":"ml"}],"method":["Blend and freeze."],"tip":"Cooling treat — not for puppies.","storage":"Fridge: 1 day. Freezer: 1 month."},
+    {"id":"pumpkinbananafrozen","name":"Pumpkin & Banana Frozen Bites","emoji":"🍌","time":15,"tier":"free","ages":["junior","adult","senior"],"base":[{"n":"Pumpkin","pp":120,"u":"g"},{"n":"Banana","pp":1,"u":""}],"method":["Mash and freeze."],"tip":"Gentle frozen snack.","storage":"Fridge: 1 day. Freezer: 1 month."},
+    {"id":"chickenbrothice","name":"Chicken Broth Ice Cubes","emoji":"🧊","time":20,"tier":"free","ages":["junior","adult","senior"],"base":[{"n":"Low-sodium chicken broth","pp":200,"u":"ml"}],"method":["Freeze."],"tip":"Hydrating and simple.","storage":"Fridge: 1 day. Freezer: 1 month."},
   ],
   special:[
     { id:"kidneydog", name:"Kidney Support Bowl", emoji:"💊", time:30, tier:"plus",
@@ -1034,6 +1057,9 @@ const DOG_RECIPES = {
       method:["Cook turkey mince thoroughly. No seasoning.","Cook brown rice in plain water.","Brew chamomile tea VERY weak. Cool completely before adding to food.","Combine turkey, rice, sweet potato and blueberries.","Add cooled chamomile tea. Stir well. Cool completely."],
       tip:"Turkey contains tryptophan which converts to serotonin — the calming hormone. Best served 2 hours before storms, fireworks or stressful events.",
       storage:"Fridge: 3 days. Freezer: 1 month." },
+    {"id":"lowfatpancreatitisbowl","name":"Low-Fat Pancreatitis Support Bowl","emoji":"🥣","time":30,"tier":"free","ages":["adult","senior"],"base":[{"n":"Chicken breast","pp":150,"u":"g"},{"n":"Pumpkin","pp":120,"u":"g"},{"n":"White rice","pp":80,"u":"g"}],"method":["Cook all and mix.","Cool completely before serving."],"tip":"Very low fat support meal.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"limitedingredientlambalt","name":"Limited Ingredient Chicken Bowl","emoji":"🍗","time":25,"tier":"free","ages":["adult"],"base":[{"n":"Chicken mince","pp":200,"u":"g"},{"n":"Sweet potato","pp":120,"u":"g"}],"method":["Cook and mix.","Cool completely before serving."],"tip":"Great for food trials.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"weightlossleanbowl","name":"Lean Weight-Loss Bowl","emoji":"🥕","time":25,"tier":"free","ages":["adult","senior"],"base":[{"n":"Chicken mince","pp":150,"u":"g"},{"n":"Green beans","pp":100,"u":"g"},{"n":"Pumpkin","pp":80,"u":"g"}],"method":["Cook and mix.","Cool completely before serving."],"tip":"Low calorie and filling.","storage":"Fridge: 3 days. Freezer: 1 month."},
   ],
   care:[{ id:"dogcare", name:"Daily Care Guide", emoji:"💧", time:0, tier:"free", ages:["puppy","junior","adult","senior"], base:[], method:[], tip:"", storage:"" }],
 };
@@ -1128,6 +1154,10 @@ const CAT_RECIPES = {
       method:["Drain tuna. Reserve the tuna water.","Blend tuna and tuna water with fresh water until smooth.","Pour into ice cube tray. Freeze solid — minimum 2 hours.","Serve 1 cube on a hot day. Supervise."],
       tip:"Perfect for hot SA summers. Encourages hydration in cats who resist drinking — one of the biggest health issues for cats. Not for kittens — too much tuna is not appropriate for small developing systems.",
       storage:"Freezer: 1 month." },
+    {"id":"livercrumbtreats","name":"Dried Liver Crumb Treats","emoji":"🍗","time":60,"tier":"free","batchRecipe":true,"batchYield":40,"batchUnit":"crumbs","ages":["growth","adult","senior"],"base":[{"n":"Chicken livers","pp":200,"u":"g"}],"method":["Dry bake and crush.","Cool completely before serving."],"tip":"Use sparingly — very rich.","storage":"Fridge: 5 days. Freezer: 2 months."},
+    {"id":"pilchardnibbles","name":"Pilchard Soft Nibbles","emoji":"🐟","time":20,"tier":"free","ages":["growth","adult","senior"],"base":[{"n":"Pilchards","pp":1,"u":"tin"}],"method":["Mash and serve."],"tip":"Soft and protein-rich.","storage":"Fridge: 2 days. Freezer: 1 month."},
+    {"id":"chickenhearttreats","name":"Chicken Heart Bites","emoji":"🍗","time":25,"tier":"free","ages":["growth","adult","senior"],"base":[{"n":"Chicken hearts","pp":150,"u":"g"}],"method":["Cook, chop and cool completely before serving."],"tip":"Natural taurine source.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"goatmilksnackdrops","name":"Goat Milk Frozen Drops","emoji":"🥛","time":10,"tier":"free","ages":["growth","adult","senior"],"base":[{"n":"Goat milk","pp":100,"u":"ml"}],"method":["Freeze in small portions."],"tip":"Avoid for kittens.","storage":"Fridge: 1 day. Freezer: 1 month."},
   ],
   special:[
     { id:"kidneycat", name:"Kidney Support Meal", emoji:"💊", time:25, tier:"plus",
@@ -1148,6 +1178,9 @@ const CAT_RECIPES = {
       method:["Cook salmon and chicken thoroughly. Flake and shred very finely.","Senior cats may have dental issues — food must be very soft, almost paste-like.","Combine with mashed sweet potato and fish oil.","Add warm water and mix until very soft and moist.","Add taurine. Serve warm — not hot. Seniors often prefer warm food."],
       tip:"Senior cats (10+) need: very soft food, high moisture, easily digestible protein, increased omega-3 for joints, and warm food to stimulate appetite (sense of smell reduces with age).",
       storage:"Fridge: 2 days." },
+    {"id":"hairballsupportmeal","name":"Hairball Support Meal","emoji":"🐈","time":25,"tier":"free","ages":["adult","senior"],"base":[{"n":"Chicken mince","pp":150,"u":"g"},{"n":"Pumpkin","pp":80,"u":"g"},{"n":"Chicken hearts","pp":80,"u":"g"},{"n":"Taurine supplement","pp":null,"u":""}],"method":["Cook, mix and add taurine.","Cool completely before serving."],"tip":"Helps reduce hairballs.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"sensitivestomachcat","name":"Sensitive Stomach Cat Bowl","emoji":"🍗","time":25,"tier":"free","ages":["adult","senior"],"base":[{"n":"Chicken mince","pp":180,"u":"g"},{"n":"Pumpkin","pp":60,"u":"g"},{"n":"Goat milk","pp":30,"u":"ml"},{"n":"Taurine supplement","pp":null,"u":""}],"method":["Cook and mix.","Cool completely before serving."],"tip":"Gentle digestion support.","storage":"Fridge: 3 days. Freezer: 1 month."},
+    {"id":"weightcontrolcatmeal","name":"Weight Control Cat Meal","emoji":"🐟","time":25,"tier":"free","ages":["adult","senior"],"base":[{"n":"Pilchards","pp":1,"u":"tin"},{"n":"Chicken hearts","pp":80,"u":"g"},{"n":"Pumpkin","pp":60,"u":"g"},{"n":"Taurine supplement","pp":null,"u":""}],"method":["Cook hearts, mix all.","Cool completely before serving."],"tip":"High protein, lower calorie.","storage":"Fridge: 3 days. Freezer: 1 month."},
   ],
   care:[{ id:"catcare", name:"Daily Care Guide", emoji:"💧", time:0, tier:"free", ages:["kitten","growth","adult","senior"], base:[], method:[], tip:"", storage:"" }],
 };
