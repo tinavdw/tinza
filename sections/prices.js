@@ -53,6 +53,9 @@ const PRICE_DB = {
   "ginger-garlic paste": 140, // store jar ~R40/290g — overrides the garlic-match R280
   "grape juice": 30,          // R30/L
   "guinea fowl": 305,         // game bird (Tina)
+  "squid ink": 4375,          // Spain (Tina)
+  "manchego cheese": 1200,    // Spain (Tina)
+  "tiger nuts": 400,          // Spain — horchata (Tina)
   "chickpea flour": 114,
   "coriander": 650,
   "dill": 650,
