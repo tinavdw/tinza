@@ -1807,7 +1807,7 @@ function homeHTML(){
 // Looks for Images/Image/<exact recipe name>.jpg; falls back to emoji + "Photo coming soon".
 // Any section (current or new) can call recipePhoto(name, emoji) and get the same box.
 // Strip accents so "Purée" matches a plain "Puree.jpg" file — one cleaner for all photo lookups
-function cleanPhotoName(s){ return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function cleanPhotoName(s){ return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\/\\:*?"<>|]/g,' ').replace(/\s+/g,' ').trim(); }
 // Photo loader fallback: if a .jpg 404s, try the same name as .png once,
 // then fall back to the emoji panel. Lets recipe & header images be either
 // format (Tina's photos saved as .png still show). Standard §5.5 prefers
