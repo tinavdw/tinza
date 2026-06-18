@@ -1,7 +1,54 @@
 # TINZA — Session Handoff & Sameness Tracker
-*Updated 16 Jun 2026 · read TINZA_STANDARD.md (now incl. §4g One Template) first every session*
+*Updated 17 Jun 2026 · read TINZA_STANDARD.md (now incl. §4g One Template) first every session*
 
 ## >> RIGHT NOW (pick up here)
+
+### ✅ THIS SESSION (17 Jun) — uncommitted working tree, READY TO PUSH (clean baseline)
+Four bundles of work, all `node --check`-clean, all in the working tree awaiting a single
+GitHub-Desktop push (git is not on PATH — push manually). `wk_africa.js.bak` was deleted (no
+`.gitignore`, so it must not be committed).
+
+1. **WK Africa fixes (`wk_africa.js`)** — replaced with the validated `wk_africa.fixed.js`:
+   **184→184 recipes** (none added/removed), and a field-level diff confirmed **only
+   `ingredients`/`method`/`chefNotes` changed** (98 recipes touched). Then fixed **6 leftover
+   `crayfish` → "dried shrimp powder"** mentions in method where the ingredient had been renamed
+   (nigeria-egusi-soup · -moi-moi · -pepper-soup · -efo-riro · -okra-soup · -gbegiri-soup). The 5
+   scotch-bonnet→chilli and 2 goat→lamb renames had **no** prose leftovers. Appended a
+   pepper-soup-spice-mix fallback sentence to `nigeria-pepper-soup` chefNotes.
+2. **Health merge v2** — `meals.js` **+5 oats** (BREAKFAST_RECIPES); `health.js` **+8** recipes
+   (`SEED_CRACKERS` 4 + `FROZEN_YOGHURT` 4) **+3 `prep` tabs** + `wkAppearsIn('health')` resolver +
+   `healthOpenSpice` opener + `howThisFeels` card fallback; `spice.js` **6 nut butters** (validated
+   copy, `appearsIn:["health"]` — the first appearsIn feed-read); `prices.js` **+6 keys**
+   (macadamia nuts 450, hazelnuts 228, flaxseed 140, greek yoghurt 80, apple_each 5,
+   granadilla_each 10; granadilla 120→**180**); `core.js` PRICE_ALIAS adds (raw peanuts, rolled
+   oats, frozen berries, linseed). All ingredients resolve — **0 unpriced**.
+3. **WK geo (`worldkitchen.js` `WK_COUNTRY_GEO`)** — **+Libya** (Northern Africa); **Moz + Zim →
+   Southern Africa**; **+Spain** (Southern Europe). SA-as-one-card nesting stays the follow-up
+   (`TINZA_SA_SUBCUISINE_SPEC.md`).
+4. **SA cleanup (`wk_southafrica.js` + `spice.js`)** — Boerekos **−3** weak deletes (braaivleis,
+   stamp-en-sous, skaapvleis-kerrie); **48 Boerekos + 5 Cape Malay renamed** to Afrikaans (English
+   gloss), old names → `aliases` (Biltong Patee + Cape Malay Yellow Rice untouched). **Stocks &
+   Broths** now display under Sauces (`SPICE_GROUP_ORDER["sauces"]` + `spiceGroup` stock/broth branch).
+
+**Touched (commit set):** `wk_africa.js` · `wk_southafrica.js` · `spice.js` · `health.js` ·
+`meals.js` · `core.js` · `prices.js` · `worldkitchen.js` · `wk_europe.js` (Spain + Nordic-salmon
+merges, carried) · `TINZA_HANDOFF.md`. **GitHub Desktop's changed-files list is the source of truth.**
+
+```mermaid
+flowchart TD
+  S["THIS SESSION (17 Jun) · uncommitted · one clean-baseline push"]
+  S --> A["WK Africa: validated swap 184→184 (only ings/method/chefNotes) · 6 crayfish→dried shrimp powder · pepper-soup chefNotes fallback"]
+  S --> H["Health merge v2: meals +5 · health +8 +3 tabs · spice 6 nut butters (appearsIn) · prices +6 · 0 unpriced"]
+  S --> G["WK geo: +Libya N.Africa · Moz+Zim→S.Africa · +Spain S.Europe"]
+  S --> C["SA cleanup: Boerekos −3 · 48+5 renamed (old→aliases) · Stocks & Broths surfaced"]
+  S --> P["PUSH via GitHub Desktop · .bak deleted · then verify live"]
+  classDef done fill:#16301a,stroke:#4caf50,color:#dff0df
+  classDef now fill:#3a2a18,stroke:#c06020,color:#f5e8cc
+  class A,H,G,C done
+  class P now
+```
+
+---
 
 ### ✅ BATCH 3 (`wk_southafrica.js`) — INGREDIENT INTEGRITY SWEEP — COMPLETE (Southern Africa)
 All **6 cuisine blocks** swept (**136 recipes**): Cape Malay (21) · Indian (21) · Zulu (14) ·
@@ -31,10 +78,11 @@ in Biryani/Badjia). Every change `node --check`-clean. **NOT yet pushed.**
    `cashew nuts` 430 (R43/100g) added; aliases (ground peanuts/peanut/groundnut→peanuts,
    ground cashews/cashew→cashew nuts). **Batch 2 is now 100% priced** (only intended-FREE
    seasonings remain uncosted — harissa/berbere/piri-piri/cayenne/yaji/tabil/ras-el-hanout/mitmita).
-2. **📋 wkEffectiveMult OVER-SCALE LIST (12)** — small-portion/condiment/split-protein/game-meat "mains"
+2. **📋 wkEffectiveMult OVER-SCALE LIST (13)** — small-portion/condiment/split-protein/game-meat "mains"
    the portion brain scales to a full plate, inflating cost (engine NOT to be touched ad-hoc — dedicated session):
    Soupou Kanja ×3.0 · Fricassée ×3.2 · Mopane Worms ×3.75 · Matemba ×3.75 · Gango ×2.25 ·
-   Matata ×2.67 · Shito ×5.0 · Kontomire ×4.0 · **Springbok ×9 · Warthog ×8 · Guinea Fowl ×9 · Braaivleis**
+   Matata ×2.67 · Shito ×5.0 · Kontomire ×4.0 · **Springbok ×9 · Warthog ×8 · Guinea Fowl ×9 · Braaivleis** ·
+   **Filfel Chuma ×15**
    (the game-meat ones: leg/fillet not in the main-protein regex → baseMult blow-up).
 3. **📋 PARSER-CLEANUP session (NEW):** (a) `N garlic clove(s)` → parser eats the `g` → `arlic clove`,
    then matches the *cloves spice* R1022 (fixed the 2 named Boerekos recipes to gram-form; global fix pending);
