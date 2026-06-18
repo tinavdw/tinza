@@ -128,7 +128,7 @@ function wkCourseEmoji(course){
 
 /* Braai-style row: emoji · name/note · green "Recipe →" button (WK green theme). */
 function wkRecipeCard(r){
-  var green='#c06020', cream='#f5e8cc', feelCol='#e0d4b8';
+  var green='var(--accent)', cream='var(--ink)', feelCol='var(--ink-soft)';
   var disp = (typeof tinzaDisplayName === 'function')
     ? tinzaDisplayName(r)
     : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
@@ -154,42 +154,26 @@ function wkRecipeCard(r){
     var _cpp = wkCostRecipe(r, wkEffectiveMult(r, 1, _ap));
     if(_cpp && _cpp.priced > 0 && _cpp.total > 0) costPP = _cpp.total;
   }
-  var box = '<div onclick="event.stopPropagation();wkPlanToggle(\''+r.id+'\',4)" '
-    + 'title="'+(checked?'In plan — tap to remove':'Add to plan')+'" '
-    + 'style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid '+green+';'
-    + 'background:'+(checked?green:'transparent')+';color:#fff;display:flex;align-items:center;'
-    + 'justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">'+(checked?'✓':'')+'</div>';
-  return '<div onclick="'+open+'" '
-    + 'style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">'
-    +   '<div style="display:flex;align-items:flex-start;gap:12px;">'
-    +     box
-    +     '<span style="font-size:20px;flex-shrink:0;line-height:1.35;">'+emoji+'</span>'
-    +     '<div style="flex:1;min-width:0;">'
-    +       '<div style="font-size:16px;color:'+cream+';font-weight:bold;line-height:1.35;">'+disp+'</div>'
-    +       '<div style="font-size:14px;color:'+feelCol+';margin-top:4px;line-height:1.4;">'+sub+'</div>'
-    +       (costPP ? '<div style="font-size:13px;color:#f5c842;font-weight:bold;margin-top:4px;">≈ R'+costPP+' pp</div>' : '')
-    +     '</div>'
-    +     '<span style="font-size:26px;font-weight:bold;color:#f5c842;flex-shrink:0;align-self:center;line-height:1;">›</span>'
-    +   '</div>'
-    + '</div>';
+  // Route through the shared Warm Spice card (Rule Zero) — World Kitchen is always inside .warm.
+  return warmCard({ name:disp, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
 }
 
 /* braai-style grid tile: emoji on top, bold title, subtitle. dim = coming-soon, accent = green-featured. */
 function wkGridCard(emoji, title, sub, onclick, dim, accent){
-  var green='#c06020', cream='#f5e8cc';
-  var bg = dim ? '#140d06' : (accent ? '#1a1208' : '#161210');
-  var bd = dim ? '#2a1a10' : (accent ? green   : '#2a1a10');
+  var green='var(--accent)', cream='var(--ink)';
+  var bg = dim ? '#140d06' : (accent ? 'var(--card2)' : 'var(--card)');
+  var bd = dim ? 'var(--line)' : (accent ? green   : 'var(--line)');
   return '<div'+(dim?'':' onclick="'+onclick+'"')+' '
     + 'style="background:'+bg+';border:1px solid '+bd+';border-radius:14px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;cursor:'+(dim?'default':'pointer')+';opacity:'+(dim?'0.5':'1')+';">'
     +   '<div style="font-size:24px;margin-bottom:6px;line-height:1;">'+emoji+'</div>'
-    +   '<div style="font-size:16px;color:'+(dim?'#6a5440':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
-    +   (sub ? '<div style="font-size:14px;color:'+(dim?'#6a5440':'#e0d4b8')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
+    +   '<div style="font-size:16px;color:'+(dim?'var(--ink-dim)':cream)+';font-weight:bold;line-height:1.2;">'+title+'</div>'
+    +   (sub ? '<div style="font-size:14px;color:'+(dim?'var(--ink-dim)':'var(--ink-soft)')+';margin-top:4px;line-height:1.2;">'+sub+'</div>' : '')
     + '</div>';
 }
 
 /* ── HOME / drill-down: continents → regions → countries (braai-style grids) ── */
 function wkWorldHome(){
-  var green = '#c06020', cream = '#f5e8cc';
+  var green = 'var(--accent)', cream = 'var(--ink)';
   var search = (S.wkSearch || '').trim();
 
   // V33 shared 200px photo header (core.js sectionHeader). Header image
@@ -204,7 +188,7 @@ function wkWorldHome(){
     search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" }
   });
 
-  var wrap = function(inner){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'+header+inner+'</div>'; };
+  var wrap = function(inner){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;">'+header+inner+'</div>'; };
   var pad  = function(inner){ return '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+inner+'</div>'; };
   var backRow = function(label, action){ return '<div onclick="'+action+'" style="display:inline-block;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:12px;font-family:Georgia,serif;">'+label+'</div>'; };
   var heading = function(t){ return '<h2 style="font-size:19px;font-weight:normal;color:'+cream+';margin:0 0 10px;font-family:Georgia,serif;">'+t+'</h2>'; };
@@ -214,9 +198,9 @@ function wkWorldHome(){
   if(search){
     var results = (typeof tinzaSearch === 'function') ? tinzaSearch(search, wkPool()) : [];
     var rbody = '<div style="padding:14px 16px;max-width:600px;margin:0 auto;">'
-      + '<div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
       + (results.length ? results.slice(0,80).map(wkRecipeCard).join('')
-         : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:24px;text-align:center;color:#e0d4b8;font-size:13px;">No dishes found. Try another word.</div>')
+         : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;text-align:center;color:var(--ink-soft);font-size:13px;">No dishes found. Try another word.</div>')
       + '</div>';
     return wrap(rbody);
   }
@@ -232,7 +216,7 @@ function wkWorldHome(){
               "set({wkScreen:'wkdata',wkDataCountry:'"+ct.replace(/'/g,"\\'")+"',wkDataTab:'mains',wkDataRecipe:null});window.scrollTo(0,0)", false);
           }).join('')
         + '</div>'
-      : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#e0d4b8;font-size:13px;">No countries here yet.</div>';
+      : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;text-align:center;color:var(--ink-soft);font-size:13px;">No countries here yet.</div>';
     return wrap(pad( backRow('← '+S.wkContinent, "set({wkRegion:null});window.scrollTo(0,0)") + heading(S.wkRegion) + l3grid ));
   }
 
@@ -248,7 +232,7 @@ function wkWorldHome(){
               "set({wkRegion:'"+reg.replace(/'/g,"\\'")+"'});window.scrollTo(0,0)", false);
           }).join('')
         + '</div>'
-      : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#e0d4b8;font-size:13px;">🌍 Recipes being added — coming soon</div>';
+      : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;text-align:center;color:var(--ink-soft);font-size:13px;">🌍 Recipes being added — coming soon</div>';
     return wrap(pad( backRow('← World Kitchen', "set({wkContinent:null,wkRegion:null});window.scrollTo(0,0)") + heading(S.wkContinent) + l2grid ));
   }
 
@@ -279,7 +263,7 @@ function wkWorldHome(){
 
 /* ── COUNTRY recipe list + RECIPE detail (data-driven) ── */
 function wkDataCountryHTML(){
-  var green = '#c06020', cream = '#f5e8cc';
+  var green = 'var(--accent)', cream = 'var(--ink)';
   var pool = wkPool();
   var country = S.wkDataCountry;
 
@@ -288,7 +272,7 @@ function wkDataCountryHTML(){
     var r = null;
     for(var i=0;i<pool.length;i++){ if(pool[i].id === S.wkDataRecipe){ r = pool[i]; break; } }
     if(!r){
-      return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#e0d4b8;">'
+      return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;padding:20px;color:var(--ink-soft);">'
         + '<button onclick="set({wkDataRecipe:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button>'
         + '<p style="margin-top:20px;">Recipe not found.</p></div>';
     }
@@ -309,13 +293,13 @@ function wkDataCountryHTML(){
         var pn = planCounts[tabPool[t.id]] || 0;
         var sel = tab===t.id;
         var badge = pn>0 ? '<span style="display:inline-block;min-width:15px;margin-left:3px;padding:0 4px;border-radius:8px;background:#c97a30;color:#1a0f06;font-size:13px;font-weight:bold;line-height:15px;vertical-align:middle;">'+pn+'</span>' : '';
-        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:10px 4px;border-radius:8px;border:1px solid '+(sel?green:'#2a1a10')+';background:'+(sel?'#3a2410':'#0f0e0c')+';color:'+(sel?'#f5e8cc':'#e0d4b8')+';font-weight:'+(sel?'bold':'normal')+';font-size:14px;cursor:pointer;font-family:Georgia,serif;line-height:1.3;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
+        return '<button onclick="set({wkDataTab:\''+t.id+'\'})" style="flex:1;padding:10px 4px;border-radius:8px;border:1px solid '+(sel?green:'var(--line)')+';background:'+(sel?'#3a2410':'var(--bg)')+';color:'+(sel?'var(--ink)':'var(--ink-soft)')+';font-weight:'+(sel?'bold':'normal')+';font-size:14px;cursor:pointer;font-family:Georgia,serif;line-height:1.3;">'+t.e+'<br>'+t.l+' ('+n+')'+badge+'</button>';
       }).join('')
     + '</div>';
 
   var list = inTab.length
     ? inTab.map(wkRecipeCard).join('')
-    : '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:20px;text-align:center;color:#e0d4b8;font-size:13px;">No '+tab+' for '+country+' yet.</div>';
+    : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;text-align:center;color:var(--ink-soft);font-size:13px;">No '+tab+' for '+country+' yet.</div>';
 
   // V33 shared 200px photo header (core.js sectionHeader). Country banner
   // lives in Images/Headers/<Country>.jpg — emoji-falls-back until added.
@@ -329,7 +313,7 @@ function wkDataCountryHTML(){
     myPlan: { count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" }
   });
 
-  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;">'
+  return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;">'
     + hdr
     + '<div style="padding:16px;max-width:600px;margin:0 auto;">'+tabsBar+'<div style="display:flex;flex-direction:column;gap:0;">'+list+'</div></div>'
     + '</div>';
@@ -573,7 +557,7 @@ var WK_CROSS_LINKS = {
 
 /* ── v33 RECIPE DETAIL ── */
 function wkRecipeOpts(r, country, universal){
-  var green='#c06020';
+  var green='var(--accent)';
   var n = Math.max(1, S.wkServings || 1);
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var items = wkParseIngredients(r.ingredients);
@@ -592,7 +576,7 @@ function wkRecipeOpts(r, country, universal){
   var qtyPP    = mainItem ? (wkScaleLine(mainItem, baseMult).amt + ' per person' + (rawCarb ? ' · raw' : '')) : '';
   var _cpp = (cost.priced>0 && cost.total>0) ? wkCostRecipe(r, baseMult).total : null;
   var costInfo = (_cpp!=null)
-    ? '\uD83D\uDCB0 Food cost: <b style="color:#c8e840;">R'+_cpp+'</b> pp \u00b7 <b style="color:#c8e840;">R'+cost.total.toLocaleString()+'</b> total'
+    ? '\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+_cpp+'</b> pp \u00b7 <b style="color:var(--green);">R'+cost.total.toLocaleString()+'</b> total'
       + '<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>'
     : '';
   var qtyHTML = qtyBox({
@@ -606,9 +590,9 @@ function wkRecipeOpts(r, country, universal){
     var ppS  = wkScaleLine(it, baseMult);
     var totS = wkScaleLine(it, baseMult * n);
     var amt;
-    if(ppS.faded){ amt = '<span style="color:#e0d4b8;font-weight:normal;font-style:italic;">to taste</span>'; }
+    if(ppS.faded){ amt = '<span style="color:var(--ink-soft);font-weight:normal;font-style:italic;">to taste</span>'; }
     else if(n === 1){ amt = totS.amt; }
-    else { amt = '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+ppS.amt+' pp · </span>'+totS.amt; }
+    else { amt = '<span style="color:var(--ink-soft);font-weight:normal;font-size:13px;">'+ppS.amt+' pp · </span>'+totS.amt; }
     return ingredientRow(ppS.name, amt, ppS.note);
   }).join('');
   var ingredientsHTML = ingredientsBox(ingRows, n);
@@ -617,7 +601,7 @@ function wkRecipeOpts(r, country, universal){
   var hay = (r.ingredients||'').toLowerCase(); var swaps = [];
   for(var key in WK_SUBS){ if(hay.indexOf(key) > -1) swaps.push(WK_SUBS[key]); }
   var notesHTML = swaps.length
-    ? recipeBox('🇿🇦 SA swaps', swaps.map(function(s){ return '<div style="font-size:15px;color:#f0ebe1;line-height:1.5;padding:4px 0;">• '+s+'</div>'; }).join(''))
+    ? recipeBox('🇿🇦 SA swaps', swaps.map(function(s){ return '<div style="font-size:15px;color:var(--ink2);line-height:1.5;padding:4px 0;">• '+s+'</div>'; }).join(''))
     : '';
   // cross-link card (Bakes / Spice component recipe) — shared crossLinkBox, sits
   // right under the ingredients so "1 pita" etc. links to "make your own".
@@ -636,20 +620,20 @@ function wkRecipeOpts(r, country, universal){
   // ── extras slot: cost (Pro-gated) + tip + chef notes ──
   var costNote = cost.missing.length
     ? '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
-    : '<div style="font-size:13px;color:#e0d4b8;margin-top:6px;">all ingredients priced</div>';
+    : '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div>';
   var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
   var costBox = !isWkPro
-    ? '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
-      + '<div style="font-size:22px;color:#e0d4b8;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div></div>'
-    : '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
+    ? '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div></div>'
+    : '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;">'
-      +   '<div style="font-size:13px;color:#e0d4b8;">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
+      +   '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
       +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div></div>'
-      + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;"><span style="font-size:13px;color:#e0d4b8;">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
+      + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
       + costNote + '</div>';
-  var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:#f0ebe1;line-height:1.6;">'+r.tip+'</div>') : '';
-  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:#f0ebe1;">'+val+'</span></div>' : ''; }
+  var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
+  function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }
   var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('🍷 Pairs with', r.pairsWith)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
   var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '');
 
@@ -681,7 +665,7 @@ function wkRecipeOpts(r, country, universal){
     sub: sub,
     meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },
     qtyHTML: qtyHTML,
-    portionRawNote: rawCarb ? 'Amounts shown are <strong style="color:#e0d4b8;">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.' : '',
+    portionRawNote: rawCarb ? 'Amounts shown are <strong style="color:var(--ink-soft);">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.' : '',
     ingredientsHTML: ingredientsHTML,
     notesHTML: notesHTML,
     methodHTML: methodHTML,
@@ -713,16 +697,16 @@ function wkStepTimer(txt){
 
 /* ── fullscreen step-by-step cooking mode (self-contained, no core.js) ── */
 function wkCookingView(){
-  var green='#c06020', cream='#f5e8cc';
+  var green='var(--accent)', cream='var(--ink)';
   var c = S.wkCooking || {};
   var pool = wkPool();
   var r = null;
   for(var i=0;i<pool.length;i++){ if(pool[i].id === c.id){ r = pool[i]; break; } }
-  if(!r){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#e0d4b8;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">Recipe not found.</p></div>'; }
+  if(!r){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;padding:20px;color:var(--ink-soft);"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">Recipe not found.</p></div>'; }
 
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : r.name;
   var steps = (r.method||'').split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean);
-  if(!steps.length){ return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;padding:20px;color:#e0d4b8;"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">No method steps for this recipe yet.</p></div>'; }
+  if(!steps.length){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;padding:20px;color:var(--ink-soft);"><button onclick="set({wkCooking:null})" style="background:none;border:none;color:'+green+';cursor:pointer;font-family:Georgia,serif;">← Back</button><p style="margin-top:20px;">No method steps for this recipe yet.</p></div>'; }
 
   var idx = Math.min(Math.max(0, c.step||0), steps.length-1);
   var step = steps[idx];
@@ -731,19 +715,19 @@ function wkCookingView(){
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
 
-  return '<div style="min-height:100vh;background:#0f0e0c;font-family:Georgia,serif;display:flex;flex-direction:column;">'
+  return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;display:flex;flex-direction:column;">'
     // header
-    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+    + '<div style="background:var(--card2);border-bottom:1px solid var(--line2);padding:14px 16px;">'
     +   '<button onclick="set({wkCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+green+';font-size:13px;cursor:pointer;font-family:Georgia,serif;padding:0;">✕ Exit cooking mode</button>'
     +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+disp+'</div>'
-    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
-    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+green+';"></div></div>'
+    +   '<div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:var(--bg);border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+green+';"></div></div>'
     + '</div>'
     // step body
     + '<div style="flex:1;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   '<div style="width:46px;height:46px;border-radius:50%;background:#1a1208;border:2px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+green+';margin-bottom:18px;">'+(idx+1)+'</div>'
+    +   '<div style="width:46px;height:46px;border-radius:50%;background:var(--card2);border:2px solid '+green+';display:flex;align-items:center;justify-content:center;font-size:20px;color:'+green+';margin-bottom:18px;">'+(idx+1)+'</div>'
     +   '<div style="font-size:20px;color:#dce8de;line-height:1.65;">'+step+'</div>'
-    +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:#1a1208;border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
+    +   (tp ? '<div style="margin-top:18px;"><span style="display:inline-block;background:var(--card2);border:1px solid '+green+';border-radius:8px;color:'+green+';font-size:14px;padding:6px 14px;">'+tp+'</span></div>' : '')
     + '</div>'
     // nav
     + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
@@ -1023,10 +1007,10 @@ function wkMyPlanView(){
     var shareNote = (pk==='drink')
       ? poolLabel+' · per guest'
       : (cnt>1 ? poolLabel+' · 1 of '+cnt+' · '+portionPct+'% of plate' : poolLabel+' · full portion');
-    if(bump!==1) shareNote += ' · <span style="color:#f5c842;">'+bump+'×</span>';
+    if(bump!==1) shareNote += ' · <span style="color:var(--gold);">'+bump+'×</span>';
     var mainItem = wkClassifyMain(parsed).item;
     var mainLine = mainItem
-      ? mainItem.name+': <span style="color:#e0d4b8;font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:#e0d4b8;">·</span> <strong style="color:#c06020;">'+wkScaleLine(mainItem, mult*guests).amt+' total</strong>'
+      ? mainItem.name+': <span style="color:var(--ink-soft);font-size:13px;">'+wkScaleLine(mainItem, mult).amt+' pp</span> <span style="color:var(--ink-soft);">·</span> <strong style="color:var(--accent);">'+wkScaleLine(mainItem, mult*guests).amt+' total</strong>'
       : '';
     var kc = (typeof r.kcal==='number') ? r.kcal : parseFloat(r.kcal);
     var kcalPP = isNaN(kc) ? null : Math.round(kc * mult);
@@ -1044,10 +1028,10 @@ function wkMyPlanView(){
   // clean bottom (no Georgia): free dish-share · start-new · text nav
   var footer = ''
     + '<button onclick="wkShareDishes()" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;margin-bottom:10px;">📲 Share my dishes</button>'
-    + '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#1a1208;border:1px solid #c06020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:14px;">🔄 Start a New Plan</button>'
+    + '<button onclick="if(confirm(\'Clear your World Kitchen plan and start fresh?\')){set({wkPlan:[],wkCheckedShop:{}});window.scrollTo(0,0);}" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:var(--card2);border:1px solid var(--accent);color:var(--gold);font-size:13px;font-weight:bold;margin-bottom:14px;">🔄 Start a New Plan</button>'
     + '<div style="display:flex;justify-content:space-between;padding:0 4px 24px;font-size:13px;">'
-    +   '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:#c06020;cursor:pointer;">← World Kitchen</button>'
-    +   '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:#e0d4b8;cursor:pointer;">Home</button>'
+    +   '<button onclick="set({wkScreen:null});window.scrollTo(0,0);" style="background:none;border:none;color:var(--accent);cursor:pointer;">← World Kitchen</button>'
+    +   '<button onclick="set({screen:\'home\'})" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button>'
     + '</div>';
   return planView({
     header: header,

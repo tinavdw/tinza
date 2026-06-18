@@ -4,7 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tinza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Mulish:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ── WARM SPICE design tokens (Phase 1) ──────────────────────────────────────
+   :root defaults reproduce the CURRENT dark look exactly — every section renders
+   identically until its markup is wrapped in `.warm`. Only the gold pair (Braai +
+   World Kitchen) is wrapped, so only it flips to the parchment palette. */
+:root{
+  --bg:#0f0e0c; --card:#161210; --card2:#1a1208;
+  --ink:#f5e8cc; --ink2:#f0ebe1; --ink-soft:#e0d4b8; --ink-mut:#c0915a; --ink-faint:#8a7055; --ink-dim:#6a5440;
+  --line:#2a1a10; --line2:#3a2010; --line3:#221810;
+  --accent:#c06020; --accent2:#b96d42;
+  --paprika:#c06020; --turmeric:#f5c842;
+  --on-media:#f5e8cc; --on-media-soft:#e0d4b8;
+  --cost-green:#c8e840; --green:#c8e840; --green-soft:#9bbf6a; --green-mid:#8ab030; --green-tint:transparent;
+  --shop-gold:#f5c842; --gold:#f5c842; --gold-tint:transparent;
+  --radius:18px;
+}
+.warm{
+  --bg:#f7ebdc; --card:#fffaf2; --card2:#fbf3e6;
+  --ink:#2c211a; --ink2:#2c211a; --ink-soft:#6b5849; --ink-mut:#6b5849; --ink-faint:#9a897a; --ink-dim:#9a897a;
+  --line:#e9dac6; --line2:#e9dac6; --line3:#efe3d2;
+  --accent:#b5462b; --accent2:#b5462b;
+  --paprika:#b5462b; --turmeric:#d98a2b;
+  --on-media:#fff5e9; --on-media-soft:#ffe6cf;
+  --cost-green:#c8e840; --green:#46530c; --green-soft:#46530c; --green-mid:#46530c; --green-tint:#f3f7df;
+  --shop-gold:#f5c842; --gold:#876213; --gold-tint:#fbf2d8;
+}
+/* Warm fonts apply only inside .warm; the rest of the app keeps the global sans flip below. */
+.warm, .warm *{ font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif !important; }
+.warm h1, .warm h2, .warm h3, .warm .ttl{ font-family:'Fraunces',Georgia,serif !important; }
+.warm .mono{ font-family:'DM Mono',ui-monospace,SFMono-Regular,monospace !important; }
+.warm :focus-visible{ outline:3px solid var(--turmeric); outline-offset:2px; }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 /* GLOBAL SANS FLIP — one rule, whole app. !important overrides every inline Georgia in section JS too. */
 * { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important; }

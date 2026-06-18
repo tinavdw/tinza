@@ -32,11 +32,11 @@ function braaiStep1(){
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin-bottom:10px;">What are you planning?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
         ${sections.map(s=>`
-          <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'#161210'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'#c06020':'#3a2010'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;">
+          <div onclick="braaiNavGo('${s.id}')" style="background:${s.planBox?'#1a1408':s.count>0?'#2a1808':'var(--card)'};border:${s.planBox?'2px':'1px'} solid ${s.planBox?'#c0a020':s.count>0?'var(--accent)':'var(--line2)'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;">
             <div style="font-size:24px;margin-bottom:5px;">${s.emoji}</div>
-            <div style="font-size:16px;color:${s.planBox?'#f5c842':s.count>0?'#f5e8cc':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
-            <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${s.sub}</div>
-            ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'#c06020'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:13px;padding:1px 4px;">${s.count}</div>`:''}
+            <div style="font-size:16px;color:${s.planBox?'var(--gold)':s.count>0?'var(--ink)':'#c07040'};font-weight:bold;margin-bottom:2px;">${s.label}</div>
+            <div style="font-size:14px;color:var(--ink-soft);line-height:1.4;">${s.sub}</div>
+            ${s.count>0?`<div style="position:absolute;top:4px;right:4px;background:${s.planBox?'#c0a020':'var(--accent)'};color:${s.planBox?'#181808':'#fff'};border-radius:5px;font-size:13px;padding:1px 4px;">${s.count}</div>`:''}
           </div>`).join('')}
       </div>
     </div>
@@ -50,19 +50,8 @@ function braaiStep1(){
 // World hides ≈ R pp until ingredients are priced. Never fake a number.
 function itemCard(emoji,name,note,sel,qty,disabled,onToggle,type,id,step,costPP){
   const openJs = "var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:{type:'"+type+"',id:'"+id+"',returnStep:"+step+"}})";
-  const box = `<div onclick="event.stopPropagation();${onToggle}" title="${sel?"In plan — tap to remove":"Add to plan"}" style="width:22px;height:22px;flex-shrink:0;border-radius:5px;border:1px solid #c06020;background:${sel?"#c06020":"transparent"};color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;cursor:pointer;">${sel?"✓":""}</div>`;
-  return `<div onclick="${openJs}" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;">
-    <div style="display:flex;align-items:flex-start;gap:12px;">
-      ${box}
-      <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${emoji}</span>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${name}</div>
-        <div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${note}</div>
-        ${costPP?`<div style="font-size:13px;color:#f5c842;font-weight:bold;margin-top:4px;">≈ R${costPP} pp</div>`:""}
-      </div>
-      <span style="font-size:26px;font-weight:bold;color:#f5c842;flex-shrink:0;align-self:center;line-height:1;">›</span>
-    </div>
-  </div>`;
+  // Route through the shared Warm Spice card (Rule Zero) — Braai is always inside .warm.
+  return warmCard({ name, emoji, meta:note, costPP, openJs, toggleJs:onToggle, sel });
 }
 
 // ── BRAAI COST (Standard §6.2) ─────────────────────────────────────
@@ -138,10 +127,10 @@ function braaiStep2(){
     const active = openGroup === g.id;
     const selCount = g.items.filter(m=>S.selectedMeats.includes(m.id)).length;
     return `<button onclick="set({braiCat:'${g.id}'});setTimeout(()=>{const el=document.getElementById('meatGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)"
-      style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${active?"#c06020":"#3a2010"};
-      background:${active?"#2a1008":"#0f0c08"};color:${active?"#f5c842":"#6a4020"};
+      style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${active?"var(--accent)":"var(--line2)"};
+      background:${active?"#2a1008":"#0f0c08"};color:${active?"var(--gold)":"#6a4020"};
       font-size:13px;cursor:pointer;white-space:nowrap;">
-      ${g.label}${selCount>0?` <span style="background:#c06020;color:#fff;border-radius:10px;padding:1px 6px;font-size:13px;margin-left:3px;">${selCount}</span>`:""}
+      ${g.label}${selCount>0?` <span style="background:var(--accent);color:#fff;border-radius:10px;padding:1px 6px;font-size:13px;margin-left:3px;">${selCount}</span>`:""}
     </button>`;
   }).join("");
 
@@ -164,7 +153,7 @@ function braaiStep2(){
       myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" }
     })}
     <div class="content">
-      <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
+      <div id="portionHelpBlock" style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin-bottom:10px;">
         <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;">
           <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
@@ -178,7 +167,7 @@ function braaiStep2(){
       </div>
 
       <!-- Active group label -->
-      <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid #2a1a10;margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
+      <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
 
       ${activeGroup.id==="veg"?`
         <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:#539048;line-height:1.6;">
@@ -211,7 +200,7 @@ function braaiStep3(){
     })}
     <div class="content">
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
-      <div id="portionHelpBlock" style="background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:7px 12px;margin-bottom:10px;">
+      <div id="portionHelpBlock" style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin-bottom:10px;">
         <button onclick="set({portionHelpOpen:!S.portionHelpOpen})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;">
           <span style="font-size:13px;">${S.portionHelpOpen ? '▲' : '▼'}</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">⚖️ How portion size works</span>
@@ -219,16 +208,16 @@ function braaiStep3(){
         ${portionHelpContent()}
       </div>
       ${groupsToShow.map(group=>`
-        <div style="font-size:13px;letter-spacing:2px;color:#c06020;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #2a1a10;margin-bottom:6px;margin-top:14px;">${group.label}</div>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--line);margin-bottom:6px;margin-top:14px;">${group.label}</div>
         ${group.items.map(side=>{
           const allowed=tierAllows(side.tier||"free");
           const sel=S.selectedSides.includes(side.id);
-          if(!allowed) return `<div style="background:#0f0e0c;border:1px solid #1a1808;border-radius:10px;padding:12px;margin-bottom:6px;opacity:0.55;cursor:not-allowed;" onclick="alert('Upgrade to Tinza Pro R99/month to unlock!')"><div style="display:flex;align-items:center;gap:10px;"><div style="font-size:18px;opacity:0.4;">🔒</div><span style="font-size:20px;opacity:0.4;">${side.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#3a2a18;">${side.name} ${tierBadgeSmall(side.tier)}</div></div></div></div>`;
+          if(!allowed) return `<div style="background:var(--bg);border:1px solid #1a1808;border-radius:10px;padding:12px;margin-bottom:6px;opacity:0.55;cursor:not-allowed;" onclick="alert('Upgrade to Tinza Pro R99/month to unlock!')"><div style="display:flex;align-items:center;gap:10px;"><div style="font-size:18px;opacity:0.4;">🔒</div><span style="font-size:20px;opacity:0.4;">${side.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#3a2a18;">${side.name} ${tierBadgeSmall(side.tier)}</div></div></div></div>`;
           return itemCard(side.emoji,side.name,side.note,sel,sel?calcSide(side):null,false,`set({selectedSides:toggle(S.selectedSides,'${side.id}')})`, "side",side.id,3,braaiSideCostPP(side));
         }).join("")}
       `).join("")}
       ${braaiQuickNav(filter==='relishes'?'sauces':filter||'salads')}
-      ${filter==='desserts'||filter===null?`<div onclick="set({screen:'events',eventTab:'bigcooking',buffetStep:4})" style="background:#161210;border:1px dashed #3a2010;border-radius:10px;padding:12px;margin-top:8px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:#c06020;">🍰 See more desserts in Buffet →</div><div style="font-size:13px;color:#b1734c;margin-top:3px;">Malva Pudding · Melktert · Peppermint Tart · Tipsy Tart & more</div></div>`:''}
+      ${filter==='desserts'||filter===null?`<div onclick="set({screen:'events',eventTab:'bigcooking',buffetStep:4})" style="background:var(--card);border:1px dashed var(--line2);border-radius:10px;padding:12px;margin-top:8px;cursor:pointer;text-align:center;"><div style="font-size:13px;color:var(--accent);">🍰 See more desserts in Buffet →</div><div style="font-size:13px;color:#b1734c;margin-top:3px;">Malva Pudding · Melktert · Peppermint Tart · Tipsy Tart & more</div></div>`:''}
       ${braaiMyPlanBtn()}
     </div>
   </div>`;
@@ -292,8 +281,8 @@ function braaiStep4(){
     if(it.aisle!==lastAisle){ lastAisle=it.aisle; shopHTML+=`<div style="font-size:13px;color:#b56d37;margin:10px 0 4px;">${it.aisle}</div>`; }
     const nm=(it.name||'').replace(/'/g,"\\'");
     shopHTML+=`<div onclick="braaiToggleShop('${nm}')" style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;cursor:pointer;opacity:${checked?0.4:1};">
-        <span style="font-size:15px;color:#f0ebe1;${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}${looseTag}</span>
-        <span style="font-size:15px;color:#f5c842;font-weight:bold;white-space:nowrap;">${amtStr}${priceStr}</span>
+        <span style="font-size:15px;color:var(--ink2);${checked?'text-decoration:line-through;':''}">${checked?'\u2713 ':''}${it.name}${looseTag}</span>
+        <span style="font-size:15px;color:var(--gold);font-weight:bold;white-space:nowrap;">${amtStr}${priceStr}</span>
       </div>`;
   });
   return `<div>
@@ -301,27 +290,27 @@ function braaiStep4(){
     <div class="content">
       ${braaiQuickNav('myplan')}
 
-      ${plan.items.length===0?`<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">Your plan is empty \u2014 add some meats and sides to your braai.</div>`:`
+      ${plan.items.length===0?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">Your plan is empty \u2014 add some meats and sides to your braai.</div>`:`
 
       ${mains.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F356} Mains</div>
-        <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${mains.map(planRow).join('')}</div>`:""}
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px 14px;margin-bottom:12px;">${mains.map(planRow).join('')}</div>`:""}
 
       ${sides.length?`<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F957} Sides</div>
-        <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">${sides.map(planRow).join('')}</div>`:""}
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px 14px;margin-bottom:12px;">${sides.map(planRow).join('')}</div>`:""}
 
       <div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">\u{1F6D2} Shopping List</div>
-      <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
         <div style="font-size:13px;color:#b56d37;margin-bottom:8px;">\u2705 Tap items you already have \u00b7 prices are an estimate</div>
         ${shopHTML||`<p style="font-size:13px;color:#b1734c;font-style:italic;">Add meats and sides to build your list.</p>`}
         ${shopList.length?`
-        <div style="border-top:1px solid #2a1a10;margin-top:14px;padding-top:14px;">
+        <div style="border-top:1px solid var(--line);margin-top:14px;padding-top:14px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-            <span style="font-size:15px;color:#9bbf6a;">What the food costs</span>
-            <span style="font-size:20px;color:#c8e840;font-weight:bold;">R${Math.round(cookTotal).toLocaleString()}</span>
+            <span style="font-size:15px;color:var(--green-soft);">What the food costs</span>
+            <span style="font-size:20px;color:var(--green);font-weight:bold;">R${Math.round(cookTotal).toLocaleString()}</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:baseline;">
-            <span style="font-size:16px;color:#f5e8cc;font-weight:bold;">What you'll spend</span>
-            <span style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(buyTotal).toLocaleString()}</span>
+            <span style="font-size:16px;color:var(--ink);font-weight:bold;">What you'll spend</span>
+            <span style="font-size:26px;color:var(--gold);font-weight:bold;">R${Math.round(buyTotal).toLocaleString()}</span>
           </div>
           ${buyTotal>cookTotal?`<div style="font-size:13px;color:#a98f6a;line-height:1.55;margin-top:8px;">More than the food because shops sell whole packs \u2014 the extra stays in your kitchen.</div>`:""}
           ${plan.unpriced.length?`<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: ${plan.unpriced.join(', ')}</div>`:""}
@@ -330,12 +319,12 @@ function braaiStep4(){
       ${shopList.length?`
       <div style="margin-bottom:24px;">
         <div id="braai-tot-tog" onclick="(function(){var b=document.getElementById('braai-tot-body');var t=document.getElementById('braai-tot-tog');var o=b.style.display==='block';b.style.display=o?'none':'block';t.innerHTML=(o?'\u2715':'\u2139\uFE0F')+' About these totals & ways to save';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:8px 0;">\u2139\uFE0F About these totals & ways to save</div>
-        <div id="braai-tot-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;font-size:13px;color:#e0d4b8;line-height:1.6;">
-          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What the food costs</strong> is the food itself \u2014 the exact amounts the recipes use.</p>
-          <p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you'll spend</strong> is a little more because shops sell whole packs \u2014 a 1kg bag when you need 200g, a dozen eggs when you need eight. The extra stays in your kitchen.</p>
-          ${looseTips.length?`<div style="border-top:1px solid #2a1a10;margin:10px 0;"></div>
-          <p style="margin:0 0 6px;color:#f5e8cc;font-weight:bold;">\u{1F4A1} Buy loose to save</p>
-          ${looseTips.map(t=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>${t.name}</span><span style="color:#9bbf6a;white-space:nowrap;">~${t.amt} \u2248 R${t.cost}</span></div>`).join('')}`:""}
+        <div id="braai-tot-body" style="display:none;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--ink-soft);line-height:1.6;">
+          <p style="margin:0 0 8px;"><strong style="color:var(--ink);">What the food costs</strong> is the food itself \u2014 the exact amounts the recipes use.</p>
+          <p style="margin:0 0 8px;"><strong style="color:var(--ink);">What you'll spend</strong> is a little more because shops sell whole packs \u2014 a 1kg bag when you need 200g, a dozen eggs when you need eight. The extra stays in your kitchen.</p>
+          ${looseTips.length?`<div style="border-top:1px solid var(--line);margin:10px 0;"></div>
+          <p style="margin:0 0 6px;color:var(--ink);font-weight:bold;">\u{1F4A1} Buy loose to save</p>
+          ${looseTips.map(t=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>${t.name}</span><span style="color:var(--green-soft);white-space:nowrap;">~${t.amt} \u2248 R${t.cost}</span></div>`).join('')}`:""}
           <p style="margin:10px 0 0;color:#8a7355;">These are estimates from standard packs \u2014 watch for specials, and bigger bags (like 2kg) are usually better value if you'll use them.</p>
         </div>
       </div>

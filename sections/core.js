@@ -274,12 +274,12 @@ const POPULAR_RECIPES = {
 function comingSoonHTML(emoji, title, subtitle){
   return `<div>
     <div class="header" style="background:#1a1008;border-bottom:1px solid #6a3010;">
-      <button class="back-btn" onclick="set({screen:'home'})" style="color:#c06020;">← Home</button>
-      <h1 style="font-size:24px;font-weight:normal;color:#f5e8cc;">${emoji||'🍽️'} ${title||'Coming soon'}</h1>
+      <button class="back-btn" onclick="set({screen:'home'})" style="color:var(--accent);">← Home</button>
+      <h1 style="font-size:24px;font-weight:normal;color:var(--ink);">${emoji||'🍽️'} ${title||'Coming soon'}</h1>
     </div>
     <div class="content" style="text-align:center;padding:48px 24px;">
       <div style="font-size:54px;margin-bottom:16px;">${emoji||'🍽️'}</div>
-      <div style="font-size:18px;color:#f5e8cc;margin-bottom:10px;">${title||'Coming soon'}</div>
+      <div style="font-size:18px;color:var(--ink);margin-bottom:10px;">${title||'Coming soon'}</div>
       <div style="font-size:13px;color:#a8997e;line-height:1.7;max-width:320px;margin:0 auto;">${subtitle||'This part of Tinza is on the way.'}</div>
     </div>
   </div>`;
@@ -288,7 +288,7 @@ function comingSoonHTML(emoji, title, subtitle){
 // ── PERSISTENT BOTTOM NAV BAR (fixed, every screen) ──────────────────
 function bottomBarHTML(){
   const showBack = !(S.screen==='home' && !S.viewingRecipe);
-  const backBtn = showBack ? `<button onclick="goBack()" aria-label="Back" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;"><span style="font-size:22px;color:#c06020;line-height:1;">←</span><span style="font-size:13px;letter-spacing:0.3px;color:#c06020;">Back</span></button>` : '';
+  const backBtn = showBack ? `<button onclick="goBack()" aria-label="Back" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;"><span style="font-size:22px;color:var(--accent);line-height:1;">←</span><span style="font-size:13px;letter-spacing:0.3px;color:var(--accent);">Back</span></button>` : '';
   const tabs = [
     {screen:'home',    emoji:'🏠', label:'Home'},
     {screen:'search',  emoji:'🔍', label:'Search'},
@@ -301,7 +301,7 @@ function bottomBarHTML(){
       const on = S.screen===t.screen;
       return `<button onclick="bottomBarGo('${t.screen}')" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0;">
         <span style="font-size:20px;${on?'':'opacity:0.7;'}">${t.emoji}</span>
-        <span style="font-size:13px;letter-spacing:0.3px;color:${on?'#f5c842':'#7a6448'};">${t.label}</span>
+        <span style="font-size:13px;letter-spacing:0.3px;color:${on?'var(--gold)':'#7a6448'};">${t.label}</span>
       </button>`;
     }).join('')}
   </div>`;
@@ -379,8 +379,8 @@ function draw(){
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
     <div style="font-size:13px;color:#a87849;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
     <div class="grid2" style="gap:6px;">
-      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'#c06020':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'#161210'};color:${USER_TIER==='free'?'#c06020':'#4a3020'};font-size:13px;">🆓 Free</button>
-      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'#161210'};color:${USER_TIER==='pro'?'#f5c842':'#403820'};font-size:13px;">👑 Pro</button>
+      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
+      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
     </div>
   </div>`;
 
@@ -421,11 +421,11 @@ function draw(){
   else{ content=homeHTML(); }
   }catch(_err){
     console.error('[Tinza] Render error on screen "'+(S.screen||'?')+'" (tab:'+(S.eventTab||'-')+', step:'+(S.buffetStep||'-')+'):', _err);
-    content=`<div style="padding:56px 24px;text-align:center;color:#f5e8cc;font-family:Georgia,serif;">
+    content=`<div style="padding:56px 24px;text-align:center;color:var(--ink);font-family:Georgia,serif;">
       <div style="font-size:42px;margin-bottom:12px;">🛠️</div>
       <div style="font-size:18px;margin-bottom:8px;">This part hit a snag</div>
       <div style="font-size:13px;color:#c0a0b0;line-height:1.6;max-width:320px;margin:0 auto 20px;">The <strong>${S.screen||'section'}</strong> screen couldn't finish loading, so the rest of the app stayed where it was. Head home and pick another section — nothing is lost.</div>
-      <button onclick="set({screen:'home',viewingRecipe:false,eventTab:null,buffetStep:1,activeCake:null,cakeCat:null,eventActiveRecipe:null})" style="background:#2a1808;border:1px solid #c06020;border-radius:20px;color:#f5c842;font-size:14px;padding:10px 24px;cursor:pointer;font-family:Georgia,serif;">← Back to Home</button>
+      <button onclick="set({screen:'home',viewingRecipe:false,eventTab:null,buffetStep:1,activeCake:null,cakeCat:null,eventActiveRecipe:null})" style="background:#2a1808;border:1px solid var(--accent);border-radius:20px;color:var(--gold);font-size:14px;padding:10px 24px;cursor:pointer;font-family:Georgia,serif;">← Back to Home</button>
     </div>`;
   }
 
@@ -435,7 +435,14 @@ function draw(){
   const _aeStart = _ae ? _ae.selectionStart : null;
   const _aeEnd = _ae ? _ae.selectionEnd : null;
 
-  root.innerHTML = tierBar + content + bottomBarHTML();
+  // Phase 1 Warm Spice: only the gold pair (Braai + World Kitchen) is wrapped in .warm,
+  // which flips the tokenised palette to parchment + Fraunces/Mulish/DM Mono. Every other
+  // screen renders on the dark shell exactly as before. tierBar + bottom nav stay outside.
+  const _warm = (S.screen==='braai' || S.screen==='worldkitchen');
+  const _body = _warm
+    ? '<div class="warm" style="background:var(--bg);min-height:100vh;color:var(--ink);">'+content+'</div>'
+    : content;
+  root.innerHTML = tierBar + _body + bottomBarHTML();
   document.body.style.paddingBottom = "62px";
 
   if(_aeId){
@@ -508,7 +515,7 @@ function maxMeats(){ return USER_TIER==="free"?2:99; }
 function tierBadgeSmall(t){ return ""; } // No tier badges shown
 
 function recipeBtn(type,id,returnStep){
-  return `<div style="margin-top:6px;"><button style="background:#c06020;border:none;border-radius:6px;padding:5px 12px;font-size:13px;color:#fff;cursor:pointer;font-family:Georgia,serif;" onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${returnStep}}})">📖 See Recipe & Method</button></div>`;
+  return `<div style="margin-top:6px;"><button style="background:var(--accent);border:none;border-radius:6px;padding:5px 12px;font-size:13px;color:#fff;cursor:pointer;font-family:Georgia,serif;" onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${returnStep}}})">📖 See Recipe & Method</button></div>`;
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -996,7 +1003,7 @@ const MOODS = [
   { id:"exhausted",    e:"😴", label:"I'm exhausted",           sub:"Low effort · Quick · Comfort",          colour:"#6060a0", bg:"#0a0a18", prompt:"extremely quick and easy comfort food recipe requiring minimal effort, ideally one pot or one pan, under 20 minutes, no complicated steps, South African home cooking style" },
   { id:"pickmeup",     e:"😊", label:"I need a pick-me-up",     sub:"Comfort · Treat · Lift your mood",       colour:"#a06040", bg:"#180e08", prompt:"comforting, mood-lifting food — something warm and satisfying that feels like a treat, emotionally uplifting, South African comfort classics or a balanced treat meal" },
   { id:"sick",         e:"🤒", label:"I'm not feeling well",    sub:"Light · Nourishing · Easy to digest",   colour:"#40a060", bg:"#081808", prompt:"gentle, light, easy to digest food for someone who is sick — soothing broth, soft textures, nothing heavy, good for an upset stomach or mild illness" },
-  { id:"impress",      e:"🔥", label:"I want to impress",       sub:"Special · Impressive · Worth the effort",colour:"#c06020", bg:"#1a0e08", prompt:"impressive dinner party recipe that looks and tastes spectacular, something special to wow guests, can be a bit more effort, restaurant quality at home" },
+  { id:"impress",      e:"🔥", label:"I want to impress",       sub:"Special · Impressive · Worth the effort",colour:"var(--accent)", bg:"#1a0e08", prompt:"impressive dinner party recipe that looks and tastes spectacular, something special to wow guests, can be a bit more effort, restaurant quality at home" },
   { id:"healthy",      e:"🌿", label:"I want to be healthy",    sub:"Nutritious · Balanced · Energising",     colour:"#20a060", bg:"#081a10", prompt:"healthy, nutritious, balanced meal — lots of vegetables, lean protein, wholesome ingredients, energising and genuinely good for you, not boring" },
   { id:"quick",        e:"⚡", label:"Need it fast",             sub:"Under 20 minutes · No fuss",             colour:"#c0a020", bg:"#181200", prompt:"very fast recipe ready in under 20 minutes, quick weeknight dinner, minimal prep, simple ingredients most people have at home" },
   { id:"lazy",         e:"🛋️", label:"I'm feeling lazy",        sub:"Minimal effort · Dump & go · One pot",  colour:"#8040a0", bg:"#100818", prompt:"a proper lazy meal — one pot or one pan, everything thrown in together, minimal chopping and washing up, still hearty and satisfying" },
@@ -1632,13 +1639,13 @@ function moodHTML(){
 
   // ── RESULTS VIEW ──
   if(mood && (loading || recipes)){
-    return `<div style="min-height:100vh;background:#0f0e0c;">
+    return `<div style="min-height:100vh;background:var(--bg);">
       <div style="background:#100818;border-bottom:1px solid ${mood.colour};padding:14px 20px;">
         <button onclick="setQuiet({moodSelected:null,moodRecipes:null,moodLoading:false})" style="background:none;border:none;color:${mood.colour};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Change mood</button>
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:32px;">${mood.e}</span>
           <div>
-            <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;margin:0 0 2px;">${mood.label}</h1>
+            <h1 style="font-size:20px;font-weight:normal;color:var(--ink);margin:0 0 2px;">${mood.label}</h1>
             <div style="font-size:13px;color:${mood.colour};font-style:italic;">${mood.sub}</div>
           </div>
         </div>
@@ -1647,21 +1654,21 @@ function moodHTML(){
         ${loading ? `
           <div style="text-align:center;padding:50px 20px;">
             <div style="font-size:48px;margin-bottom:16px;">${mood.e}</div>
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:8px;">Finding the perfect recipes for you...</div>
+            <div style="font-size:15px;color:var(--ink);margin-bottom:8px;">Finding the perfect recipes for you...</div>
             <div style="font-size:13px;color:#9771b8;">Tinza Chef is thinking</div>
           </div>` : ''}
 
         ${recipes && recipes[0]?._error ? `
           <div style="text-align:center;padding:40px 20px;">
             <div style="font-size:32px;margin-bottom:12px;">😕</div>
-            <div style="font-size:14px;color:#f5e8cc;margin-bottom:8px;">${recipes[0]._msg||"Couldn't load recipes right now"}</div>
+            <div style="font-size:14px;color:var(--ink);margin-bottom:8px;">${recipes[0]._msg||"Couldn't load recipes right now"}</div>
             <button onclick="callMoodChef(MOODS.find(m=>m.id==='${mood.id}'))" style="padding:12px 24px;background:#100818;border:2px solid ${mood.colour};border-radius:10px;color:${mood.colour};font-size:13px;cursor:pointer;margin-top:12px;">← Start again</button>
           </div>` : ''}
 
         ${recipes && recipes[0]?._waiting ? `
           <div style="text-align:center;padding:50px 20px;">
             <div style="font-size:48px;margin-bottom:16px;">${mood.e}</div>
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:8px;">Tinza Chef is finding more ideas...</div>
+            <div style="font-size:15px;color:var(--ink);margin-bottom:8px;">Tinza Chef is finding more ideas...</div>
             <div style="font-size:13px;color:#9771b8;">Just a moment</div>
           </div>` : ''}
 
@@ -1671,12 +1678,12 @@ function moodHTML(){
             ${S.moodAILoading ? `<div style="font-size:13px;color:#9771b8;font-style:italic;">✨ Finding more...</div>` : ''}
           </div>
           ${recipes.map((r,i)=>`
-            <div style="background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.bg:'#161210'};border:1px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
+            <div style="background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.bg:'var(--card)'};border:1px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
               <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="(function(){const pid=r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();const pi={id:pid,name:r.name||'',emoji:r.emoji||'😴',time:r.time||0,ingredients:r.ingredients||[],serves:1};togglePlanItem('moodPlan',pi);})()" >
                 <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'transparent'};border:2px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'✓':''}</div>
                 <span style="font-size:20px;">${r.emoji}</span>
                 <div style="flex:1;">
-                  <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'#f5e8cc':'#e0d4b8'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
+                  <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'var(--ink)':'var(--ink-soft)'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
                   <div style="font-size:13px;color:${mood.colour};margin-top:2px;font-style:italic;">${r.why||''} · ⏱️ ${r.time} min</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -1695,13 +1702,13 @@ function moodHTML(){
   }
 
   // ── MOOD SELECTOR (home) ──
-  return `<div style="min-height:100vh;background:#0f0e0c;">
+  return `<div style="min-height:100vh;background:var(--bg);">
     <div style="background:linear-gradient(135deg,#100818,#1a0e28);border-bottom:1px solid #2a1840;padding:14px 20px;">
       <button onclick="set({screen:'home'})" style="background:none;border:none;color:#8e72c7;font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:28px;">😴</span>
         <div>
-          <h1 style="margin:0;font-size:22px;font-weight:normal;color:#f5e8cc;">Just Feed Me</h1>
+          <h1 style="margin:0;font-size:22px;font-weight:normal;color:var(--ink);">Just Feed Me</h1>
           <p style="margin:0;font-size:13px;color:#9276a9;font-style:italic;">How are you feeling right now?</p>
         </div>
       </div>
@@ -1715,7 +1722,7 @@ function moodHTML(){
           <button onclick="set({moodSelected:'${m.id}',moodRecipes:null,moodLoading:false});callMoodChef(MOODS.find(x=>x.id==='${m.id}'))"
             style="background:${m.bg};border:2px solid ${m.colour};border-radius:14px;padding:14px 12px;cursor:pointer;text-align:left;">
             <div style="font-size:26px;margin-bottom:6px;">${m.e}</div>
-            <div style="font-size:16px;color:#f5e8cc;font-weight:bold;margin-bottom:3px;line-height:1.2;">${m.label}</div>
+            <div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:3px;line-height:1.2;">${m.label}</div>
             <div style="font-size:13px;color:${m.colour};line-height:1.3;">${m.sub}</div>
           </button>`).join('')}
       </div>
@@ -1733,32 +1740,32 @@ function homeHTML(){
 
   const recipeSections = [
     // Row 1 — core cooking
-    {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"#c06020", bg:"#1a1208"},
-    {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"#c06020", bg:"#1a1208"},
-    {s:"spice",      e:"🧂", t:"Tinza Spice Room",         sub:"Spice blends · Sauces · Chutneys · Atchars · Sambals · Preserves", b:"#c06020", bg:"#1a1208"},
+    {s:"braai",      e:"🔥", t:"Braai & Fire Cooking",   sub:"BBQ · Grilled & Fire Foods · Meats · Sides · Salads", b:"var(--accent)", bg:"var(--card2)"},
+    {s:"worldkitchen",e:"🌍",t:"World Kitchen",           sub:"SA Classics · International · All cuisines",         b:"var(--accent)", bg:"var(--card2)"},
+    {s:"spice",      e:"🧂", t:"Tinza Spice Room",         sub:"Spice blends · Sauces · Chutneys · Atchars · Sambals · Preserves", b:"var(--accent)", bg:"var(--card2)"},
     // Row 2 — everyday family cooking (Breakfast · Light Lunch · Supper · Bakes live inside)
-    {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"#c06020", bg:"#1a1208"},
+    {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"var(--accent)", bg:"var(--card2)"},
     // Row 3 — speciality
-    {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"#c06020", bg:"#1a1208"},
-    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"#c06020", bg:"#1a1208"},
-    {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"#c06020", bg:"#1a1208"},
+    {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"var(--accent)", bg:"var(--card2)"},
+    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"var(--accent)", bg:"var(--card2)"},
+    {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"var(--accent)", bg:"var(--card2)"},
   ];
 
   const featureTools = [
-    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"#c06020", bg:"#1a1208"},
-    {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"#c06020", bg:"#1a1208"},
-    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"#c06020", bg:"#1a1208"},
-    {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"#c06020", bg:"#1a1208"},
-    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"#c06020", bg:"#1a1208"},
-    {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"#c06020", bg:"#1a1208"},
+    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"var(--accent)", bg:"var(--card2)"},
+    {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"var(--accent)", bg:"var(--card2)"},
+    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"var(--accent)", bg:"var(--card2)"},
+    {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"var(--accent)", bg:"var(--card2)"},
+    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"var(--accent)", bg:"var(--card2)"},
+    {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"var(--accent)", bg:"var(--card2)"},
   ];
 
-  return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:linear-gradient(135deg,#1a1208,#2d1f0a);border-bottom:1px solid #4a3520;padding:16px 20px;">
+  return `<div style="min-height:100vh;background:var(--bg);">
+    <div style="background:linear-gradient(135deg,var(--card2),#2d1f0a);border-bottom:1px solid #4a3520;padding:16px 20px;">
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:28px;">😊</span>
         <div>
-          <h1 style="margin:0;font-size:26px;font-weight:normal;color:#f5e8cc;letter-spacing:3px;">Tinza</h1>
+          <h1 style="margin:0;font-size:26px;font-weight:normal;color:var(--ink);letter-spacing:3px;">Tinza</h1>
           <p style="margin:0;font-size:13px;color:#c4a87c;font-style:italic;">Every dish, made easy</p>
         </div>
       </div>
@@ -1772,7 +1779,7 @@ function homeHTML(){
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
-            <div style="font-size:15px;color:#f5e8cc;margin-bottom:2px;">${o.t}</div>
+            <div style="font-size:15px;color:var(--ink);margin-bottom:2px;">${o.t}</div>
             <div style="font-size:13px;color:#c4a87c;line-height:1.4;">${o.sub}</div>
           </div>
           <span style="font-size:16px;color:${o.b};">→</span>
@@ -1785,7 +1792,7 @@ function homeHTML(){
           <button onclick="set({screen:'${o.s}'})"
             style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;cursor:pointer;text-align:left;">
             <span style="font-size:26px;margin-bottom:6px;">${o.e}</span>
-            <div style="font-size:13px;color:#f5e8cc;margin-bottom:3px;font-weight:bold;">${o.t}</div>
+            <div style="font-size:13px;color:var(--ink);margin-bottom:3px;font-weight:bold;">${o.t}</div>
             <div style="font-size:13px;color:#c4a87c;line-height:1.4;">${o.sub}</div>
           </button>`).join("")}
       </div>
@@ -1828,8 +1835,45 @@ function recipePhoto(name, emoji, height){
   </div>`;
 }
 
+// Phase 1 Warm Spice: true only on the gold-pair screens (which draw() wraps in .warm).
+// Shared renderers branch on this to emit Warm Spice structure for Braai + World Kitchen
+// while EVERY other section keeps its exact current markup (same code path as before).
+function inWarm(){ return S.screen==='braai' || S.screen==='worldkitchen'; }
+
+// ── THE SHARED WARM-SPICE CARD (Phase 1, gold pair) ────────────────
+// One name-on-image card → Braai itemCard() and World Kitchen wkRecipeCard()
+// both route here so they can never drift (Rule Zero). 1200×640 photo with a
+// dark scrim, the NAME on the image (Fraunces), an optional top-left plan
+// checkbox + top-right badge, then a meta strip: green R-pp chip · meta text.
+//   warmCard({ name, emoji, sub, costPP, meta, openJs, toggleJs, sel, badge, grad })
+function warmCard(o){
+  o = o || {};
+  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(o.name||'')) + '.jpg';
+  const grad = o.grad || 'radial-gradient(130% 120% at 20% 8%, #e9a949 0%, transparent 52%), linear-gradient(155deg, #9c3d22, #54200f)';
+  const check = o.toggleJs
+    ? `<div onclick="event.stopPropagation();${o.toggleJs}" title="${o.sel?'In plan — tap to remove':'Add to plan'}" style="position:absolute;top:10px;left:11px;z-index:3;width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,0.85);background:${o.sel?'var(--cost-green)':'rgba(35,18,10,0.45)'};color:${o.sel?'#2c211a':'#fff'};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:bold;cursor:pointer;">${o.sel?'✓':''}</div>`
+    : '';
+  const badge = o.badge ? `<span style="position:absolute;top:10px;right:11px;z-index:3;font-size:11px;font-weight:800;color:#3c2a06;background:var(--shop-gold);padding:5px 10px;border-radius:999px;">${o.badge}</span>` : '';
+  const chip = o.costPP ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>R${o.costPP} pp</span>` : '';
+  const meta = o.meta ? `<span style="color:var(--ink-soft);font-weight:700;font-size:12.5px;">${o.meta}</span>` : '';
+  const metaRow = (chip||meta) ? `<div style="display:flex;align-items:center;gap:9px;padding:11px 13px 12px;flex-wrap:wrap;">${chip}${meta}</div>` : '<div style="height:6px;"></div>';
+  return `<div onclick="${o.openJs||''}" style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 24px -18px rgba(120,70,30,0.5);margin-bottom:14px;cursor:pointer;">
+    <div style="position:relative;aspect-ratio:1200/640;display:flex;align-items:flex-end;background:${grad};">
+      <img src="${url}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;" />
+      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;z-index:0;"><span style="font-size:54px;opacity:0.9;">${o.emoji||'🍽️'}</span></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(35,18,10,0.78),rgba(35,18,10,0.12) 45%,transparent 65%);z-index:1;"></div>
+      ${check}${badge}
+      <div style="position:relative;z-index:2;padding:0 0 12px 14px;">
+        ${o.sub?`<div style="color:var(--on-media-soft);font-weight:800;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">${o.sub}</div>`:''}
+        <h3 class="ttl" style="color:var(--on-media);font-weight:600;font-size:22px;margin:0;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,0.45);">${o.name||''}</h3>
+      </div>
+    </div>
+    ${metaRow}
+  </div>`;
+}
+
 // ── SHARED QUANTITY BOX ───────────────────────────────────────────
-// ONE green box, identical everywhere, sits directly under the recipe name.
+// ONE box, identical within a theme, sits directly under the recipe name.
 // Sections pass already-computed display strings. The −/+ stepper drives
 // S.recipeServings by default (pass decJs/incJs to use a section's own state).
 function qtyBox(o){
@@ -1842,17 +1886,36 @@ function qtyBox(o){
   const n = (o.n != null) ? o.n : (S.recipeServings || S.people);
   const decJs = o.decJs || "event.stopPropagation();(function(){var n=Math.max(1,(S.recipeServings||S.people)-1);var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
   const incJs = o.incJs || "event.stopPropagation();(function(){var n=(S.recipeServings||S.people)+1;var adj={...S.recipeAdjustments};if(S.viewingRecipe)adj[S.viewingRecipe.id]=n;set({recipeServings:n,recipeAdjustments:adj});})();";
+  if(inWarm()){
+    return `
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:0 10px 24px -18px rgba(120,70,30,0.45);">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">${label}</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <button onclick="${decJs}" aria-label="fewer servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">−</button>
+          <span class="mono" style="font-size:20px;color:var(--ink);font-weight:600;min-width:26px;text-align:center;">${n}</span>
+          <button onclick="${incJs}" aria-label="more servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">+</button>
+        </div>
+      </div>
+      ${sub?`<div style="font-size:13px;color:var(--ink-soft);margin-top:8px;">${sub}</div>`:''}
+      ${total?`<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px;">
+          <span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:7px 13px;font-size:15px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>${total}</span>
+          ${ppLine?`<span style="font-size:12.5px;font-weight:700;color:var(--ink-soft);">${ppLine}</span>`:''}
+        </div>`:''}
+      ${info?`<div style="margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-soft);">${info}</div>`:''}
+    </div>`;
+  }
   return `
     <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:12px;margin-bottom:14px;">
-      <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:6px;">🧮 ${label}</div>
+      <div style="font-size:13px;letter-spacing:2px;color:var(--green-mid);text-transform:uppercase;margin-bottom:6px;">🧮 ${label}</div>
       ${sub?`<div style="font-size:13px;color:#718933;margin-bottom:10px;">${sub}</div>`:''}
       <div style="background:#0f1a04;border:1px solid #4a7010;border-radius:8px;padding:10px 12px;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
           <div>
-            ${total?`<div style="font-size:13px;color:#8ab030;margin-bottom:2px;">Total:</div><div style="font-size:20px;font-weight:bold;color:#c8e840;line-height:1.1;letter-spacing:-0.3px;">${total}</div>`:''}
+            ${total?`<div style="font-size:13px;color:var(--green-mid);margin-bottom:2px;">Total:</div><div style="font-size:20px;font-weight:bold;color:var(--green);line-height:1.1;letter-spacing:-0.3px;">${total}</div>`:''}
             ${ppLine?`<div style="font-size:13px;color:#718d28;margin-top:3px;">${ppLine}</div>`:''}
           </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="${decJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${n}</span><button onclick="${incJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;"><button onclick="${decJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:var(--green-mid);font-size:20px;line-height:1;cursor:pointer;">−</button><span style="font-size:22px;color:var(--gold);font-weight:bold;min-width:28px;text-align:center;">${n}</span><button onclick="${incJs}" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:var(--green-mid);font-size:20px;line-height:1;cursor:pointer;">+</button></div>
         </div>
         ${info?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #2a3a14;font-size:13px;color:#9ab05a;">${info}</div>`:''}
       </div>
@@ -1892,27 +1955,27 @@ function sectionHeader(o){
 
   const photoLayer = img
     ? `<img src="${img}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;z-index:0;" />
-       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
-    : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,#1a1208 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
+       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
+    : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
 
   const myPlanBtn = o.myPlan
     ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${o.myPlan.onclick||''}" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 ${o.myPlan.label||'My Plan'} (${o.myPlan.count||0})</button>`
     : '';
 
   const backBtn = backJs
-    ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${backJs}" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid #c06020;color:#c06020;font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">${backLabel}</button>`
+    ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${backJs}" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid var(--accent);color:var(--accent);font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">${backLabel}</button>`
     : '';
 
   // search: clickable (navigate) OR inline input — same visual pill, flex:1
   let searchEl = '';
   if(s){
     if(s.onclick){
-      searchEl = `<div onclick="${s.onclick}" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:#b96d42;font-size:13px;cursor:text;">🔍 ${s.placeholder||'Search recipes…'}</div>`;
+      searchEl = `<div onclick="${s.onclick}" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:var(--accent2);font-size:13px;cursor:text;">🔍 ${s.placeholder||'Search recipes…'}</div>`;
     } else {
       searchEl = `<div style="flex:1;display:flex;align-items:center;padding:4px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;">
-        <span style="color:#b96d42;margin-right:6px;font-size:13px;">🔍</span>
-        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;min-width:0;" />
-        ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:#e0d4b8;font-size:15px;cursor:pointer;flex-shrink:0;">×</button>`:''}
+        <span style="color:var(--accent2);margin-right:6px;font-size:13px;">🔍</span>
+        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:var(--on-media-soft);font-size:13px;min-width:0;" />
+        ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:var(--on-media-soft);font-size:15px;cursor:pointer;flex-shrink:0;">×</button>`:''}
       </div>`;
     }
   }
@@ -1929,8 +1992,11 @@ function sectionHeader(o){
         ${myPlanBtn}
         <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 14px 12px;">
           ${topRow}
-          <h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">${emoji} ${title}</h1>
-          ${tagline?`<p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">${tagline}</p>`:''}
+          ${inWarm()
+            ? (tagline?`<div style="color:var(--on-media-soft);font-weight:800;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:3px;">${tagline}</div>`:'')
+              + `<h1 class="ttl" style="font-size:28px;font-weight:600;color:var(--on-media);margin:0;line-height:1.1;text-shadow:0 2px 10px rgba(0,0,0,0.5);">${emoji} ${title}</h1>`
+            : `<h1 class="ttl" style="font-size:22px;font-weight:bold;color:var(--on-media);margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">${emoji} ${title}</h1>`
+              + (tagline?`<p style="margin:0;font-size:13px;color:#c07040;font-style:italic;">${tagline}</p>`:'')}
         </div>
       </div>
     </div>`;
@@ -1940,9 +2006,9 @@ function sectionHeader(o){
     catBlock = `
     <div style="padding:12px 16px 4px;max-width:600px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;">
       ${cats.map(c=>`
-        <div onclick="${c.onclick||''}" style="flex:1 1 calc(33.333% - 8px);min-width:96px;box-sizing:border-box;background:${c.active?'#1a1208':'#161210'};border:1px solid ${c.active?'#c06020':'#2a1a10'};border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div onclick="${c.onclick||''}" style="flex:1 1 calc(33.333% - 8px);min-width:96px;box-sizing:border-box;background:${c.active?'var(--card2)':'var(--card)'};border:1px solid ${c.active?'var(--accent)':'var(--line)'};border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
           <span style="font-size:24px;">${c.emoji||''}</span>
-          <span style="font-size:13px;color:#f5e8cc;font-weight:bold;line-height:1.2;">${c.label||''}</span>
+          <span style="font-size:13px;color:var(--ink);font-weight:bold;line-height:1.2;">${c.label||''}</span>
         </div>`).join('')}
     </div>`;
   }
@@ -1966,10 +2032,10 @@ function howItWorks(o){
   o = o || {};
   const openKey = o.openKey || 'howItWorksOpen';
   const steps = o.steps || [
-    '1 · Browse each section and tap <strong style="color:#f5c842;">Recipe ›</strong> to read first',
-    '2 · Tick the <strong style="color:#f5c842;">☑ checkbox</strong> on any dish to add to your plan',
-    '3 · Add more dishes — portions <strong style="color:#f5c842;">divide automatically</strong>',
-    '4 · Tap <strong style="color:#f5c842;">My Plan</strong> for quantities, cost &amp; shopping list',
+    '1 · Browse each section and tap <strong style="color:var(--gold);">Recipe ›</strong> to read first',
+    '2 · Tick the <strong style="color:var(--gold);">☑ checkbox</strong> on any dish to add to your plan',
+    '3 · Add more dishes — portions <strong style="color:var(--gold);">divide automatically</strong>',
+    '4 · Tap <strong style="color:var(--gold);">My Plan</strong> for quantities, cost &amp; shopping list',
     '5 · Share your list directly to WhatsApp or your store'
   ];
   let stepperEl = '';
@@ -1981,16 +2047,16 @@ function howItWorks(o){
     const decJs = st.decJs || `set({${gk}:Math.max(${min},S.${gk}-1)})`;
     const incJs = st.incJs || `set({${gk}:Math.min(${max},S.${gk}+1)})`;
     stepperEl = `
-        <div style="width:1px;height:20px;background:#3a2010;flex-shrink:0;"></div>
+        <div style="width:1px;height:20px;background:var(--line2);flex-shrink:0;"></div>
         <div style="display:flex;align-items:center;gap:8px;flex:1;">
-          <button onclick="${decJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
-          <span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">${S[gk]}</span>
-          <button onclick="${incJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid #c06020;color:#c06020;font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
-          <input type="range" min="${min}" max="${max}" value="${S[gk]}" oninput="S.${gk}=parseInt(this.value);draw();" style="flex:1;accent-color:#c06020;height:4px;">
+          <button onclick="${decJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid var(--accent);color:var(--accent);font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
+          <span style="font-size:22px;color:var(--gold);font-weight:bold;min-width:28px;text-align:center;">${S[gk]}</span>
+          <button onclick="${incJs}" style="width:26px;height:26px;border-radius:50%;background:#2a1808;border:2px solid var(--accent);color:var(--accent);font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
+          <input type="range" min="${min}" max="${max}" value="${S[gk]}" oninput="S.${gk}=parseInt(this.value);draw();" style="flex:1;accent-color:var(--accent);height:4px;">
         </div>`;
   }
   return `
-    <div id="howItWorksBlock" style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:10px 14px;margin-bottom:10px;">
+    <div id="howItWorksBlock" style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;margin-bottom:10px;">
       <div style="display:flex;align-items:center;gap:12px;">
         <button onclick="set({${openKey}:!S.${openKey}})" style="background:none;border:none;padding:0;color:#c8a84b;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
           <span style="font-size:13px;">${S[openKey] ? '▲' : '▼'}</span>
@@ -1998,8 +2064,8 @@ function howItWorks(o){
         </button>${stepperEl}
       </div>
       ${S[openKey] ? `
-      <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:#1a1208;border-left:2px solid #c06020;border-radius:0 6px 6px 0;">
-        <div style="font-size:13px;color:#e0d4b8;line-height:2;">${steps.join('<br>')}</div>
+      <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:var(--card2);border-left:2px solid var(--accent);border-radius:0 6px 6px 0;">
+        <div style="font-size:13px;color:var(--ink-soft);line-height:2;">${steps.join('<br>')}</div>
       </div>` : ''}
     </div>`;
 }
@@ -2031,15 +2097,15 @@ function metaStrip(o){
   if(o.kcal)   chips.push('🔥 ' + o.kcal);
   if(!chips.length) return '';
   return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'
-    + chips.map(function(c){ return '<span style="background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:6px 11px;font-size:14px;color:#e0d4b8;">' + c + '</span>'; }).join('')
+    + chips.map(function(c){ return '<span style="background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:14px;color:var(--ink-soft);">' + c + '</span>'; }).join('')
     + '</div>';
 }
 
 // §4b.4 — "How portion size works" collapsible (pizza analogy). rawNote optional.
 function portionHowBox(rawNote){
   return '<div style="margin-bottom:12px;">'
-    + '<span id="howPortion-btn" onclick="(function(){var c=document.getElementById(\'howPortion-body\');var b=document.getElementById(\'howPortion-btn\');var o=c.style.display===\'block\';c.style.display=o?\'none\':\'block\';b.textContent=o?\'▼ How portion size works\':\'▲ How portion size works\';})()" style="font-size:13px;color:#c06020;cursor:pointer;user-select:none;">▼ How portion size works</span>'
-    + '<div id="howPortion-body" style="display:none;background:#161210;border:1px solid #2a1a10;border-radius:8px;padding:12px;margin-top:6px;font-size:15px;color:#e0d4b8;line-height:1.6;">'
+    + '<span id="howPortion-btn" onclick="(function(){var c=document.getElementById(\'howPortion-body\');var b=document.getElementById(\'howPortion-btn\');var o=c.style.display===\'block\';c.style.display=o?\'none\':\'block\';b.textContent=o?\'▼ How portion size works\':\'▲ How portion size works\';})()" style="font-size:13px;color:var(--accent);cursor:pointer;user-select:none;">▼ How portion size works</span>'
+    + '<div id="howPortion-body" style="display:none;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:6px;font-size:15px;color:var(--ink-soft);line-height:1.6;">'
     +   'Think of it like slicing a pizza — one dish on its own gives a full helping; add it to a plan with other dishes and each helping gets smaller to share the plate, but the total food stays the same. Want more? Tap + above to add guests.'
     +   (rawNote ? '<div style="margin-top:8px;color:#748646;">' + rawNote + '</div>' : '')
     + '</div></div>';
@@ -2047,8 +2113,8 @@ function portionHowBox(rawNote){
 
 // shared titled box shell — the one consistent card used for every titled block
 function recipeBox(title, innerHTML){
-  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
-    + (title ? '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:8px;">' + title + '</div>' : '')
+  return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">'
+    + (title ? '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">' + title + '</div>' : '')
     + innerHTML + '</div>';
 }
 
@@ -2058,25 +2124,25 @@ function ingredientsBox(rowsHTML, n){
 }
 function ingredientRow(name, amount, note){
   return '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #1e1a10;">'
-    + '<span style="font-size:16px;color:#f0ebe1;line-height:1.4;">' + name + (note ? ' <span style="color:#e0d4b8;font-size:13px;">(' + note + ')</span>' : '') + '</span>'
-    + '<span style="font-size:15px;color:#f5c842;font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
+    + '<span style="font-size:16px;color:var(--ink2);line-height:1.4;">' + name + (note ? ' <span style="color:var(--ink-soft);font-size:13px;">(' + note + ')</span>' : '') + '</span>'
+    + '<span class="mono" style="font-size:15px;color:var(--gold);font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
 }
 
 // §4b.6 — method box + a single numbered step (optional timer HTML)
 function methodBox(stepsHTML, startJs){
-  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">'
+  return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">'
-    +   '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;">Method</div>'
-    +   (startJs ? '<button onclick="' + startJs + '" style="background:#c06020;border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>' : '')
+    +   '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;">Method</div>'
+    +   (startJs ? '<button onclick="' + startJs + '" style="background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>' : '')
     + '</div>' + stepsHTML + '</div>';
 }
 function methodStep(i, text, timerLabel){
   var timer = timerLabel
-    ? '<div style="margin-top:7px;"><span style="display:inline-block;background:#241608;border:1px solid #c06020;border-radius:6px;color:#f5c842;font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
+    ? '<div style="margin-top:7px;"><span style="display:inline-block;background:#241608;border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
     : '';
   return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
-    + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
-    + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:#f0ebe1;line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
+    + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
+    + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:var(--ink2);line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
 }
 
 // §4b.7 — Goes Well With pills
@@ -2084,7 +2150,7 @@ function goesWellBox(items){
   if(!items || !items.length) return '';
   return recipeBox('❤ Goes Well With',
     '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
-    + items.slice(0,6).map(function(g){ return '<span style="padding:6px 13px;border-radius:16px;border:1px solid #2a1a10;color:#e0d4b8;font-size:14px;">' + g + '</span>'; }).join('')
+    + items.slice(0,6).map(function(g){ return '<span style="padding:6px 13px;border-radius:16px;border:1px solid var(--line);color:var(--ink-soft);font-size:14px;">' + g + '</span>'; }).join('')
     + '</div>');
 }
 
@@ -2097,76 +2163,78 @@ function goesWellBox(items){
 function crossLinkBox(o){
   o = o || {};
   if(!o.onclick || !o.targetName) return '';
-  return '<div onclick="' + o.onclick + '" style="background:#1a1208;border:1px solid #c06020;border-radius:10px;padding:12px 14px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+  return '<div onclick="' + o.onclick + '" style="background:var(--card2);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
     + '<span style="font-size:24px;flex-shrink:0;">' + (o.emoji || '🔗') + '</span>'
     + '<div style="flex:1;min-width:0;">'
-    +   '<div style="font-size:13px;color:#c06020;text-transform:uppercase;letter-spacing:0.06em;">' + (o.label || 'Make your own') + '</div>'
-    +   '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.3;">' + o.targetName + '</div>'
+    +   '<div style="font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;">' + (o.label || 'Make your own') + '</div>'
+    +   '<div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.3;">' + o.targetName + '</div>'
     + '</div>'
-    + '<span style="font-size:26px;color:#f5c842;flex-shrink:0;line-height:1;">›</span></div>';
+    + '<span style="font-size:26px;color:var(--gold);flex-shrink:0;line-height:1;">›</span></div>';
 }
 
 // §4b.8 — bottom action trio: Add to Plan · My Kitchen · Download
 function recipeActions(o){
   o = o || {};
   var add = '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
-    + (o.inPlan ? 'background:#160f08;border:1px solid #c06020;color:#c06020;' : 'background:#c06020;border:1px solid #c06020;color:#1a0f06;') + '">'
+    + (o.inPlan ? 'background:#160f08;border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
     + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
-  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">💾 My Kitchen</button>';
-  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">⬇️ Download</button>';
+  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">💾 My Kitchen</button>';
+  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">⬇️ Download</button>';
   return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + save + dl + '</div>';
 }
 
 // §4b.9 — bottom text nav: Back | My Plan | Home
 function recipeNav(o){
   o = o || {};
-  return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid #2a1a10;font-size:13px;">'
-    + '<button onclick="' + (o.backJs || '') + '" style="background:none;border:none;color:#c06020;cursor:pointer;">← Back</button>'
-    + (o.planJs ? '<button onclick="' + o.planJs + '" style="background:none;border:none;color:#c06020;cursor:pointer;">🧺 My Plan' + (o.planCount != null ? ' (' + o.planCount + ')' : '') + '</button>' : '')
-    + '<button onclick="' + (o.homeJs || "set({screen:'home'})") + '" style="background:none;border:none;color:#e0d4b8;cursor:pointer;">Home</button></div>';
+  return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid var(--line);font-size:13px;">'
+    + '<button onclick="' + (o.backJs || '') + '" style="background:none;border:none;color:var(--accent);cursor:pointer;">← Back</button>'
+    + (o.planJs ? '<button onclick="' + o.planJs + '" style="background:none;border:none;color:var(--accent);cursor:pointer;">🧺 My Plan' + (o.planCount != null ? ' (' + o.planCount + ')' : '') + '</button>' : '')
+    + '<button onclick="' + (o.homeJs || "set({screen:'home'})") + '" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button></div>';
 }
 
 // §3 — the shared list ROW: [✓] emoji NAME (cream 16 bold) + one feel line (14) + Recipe ›
 function recipeRow(o){
   o = o || {};
-  var check = o.checked ? '<span style="color:#c06020;font-size:16px;flex-shrink:0;">✓</span>' : '';
-  return '<div onclick="' + (o.onclick || '') + '" style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
+  var check = o.checked ? '<span style="color:var(--accent);font-size:16px;flex-shrink:0;">✓</span>' : '';
+  return '<div onclick="' + (o.onclick || '') + '" style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:12px;">'
     + check
     + '<div style="flex:1;min-width:0;">'
-    +   '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.3;">' + (o.emoji ? o.emoji + ' ' : '') + (o.name || '') + '</div>'
-    +   (o.feel ? '<div style="font-size:14px;color:#e0d4b8;line-height:1.4;margin-top:2px;">' + o.feel + '</div>' : '')
+    +   '<div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.3;">' + (o.emoji ? o.emoji + ' ' : '') + (o.name || '') + '</div>'
+    +   (o.feel ? '<div style="font-size:14px;color:var(--ink-soft);line-height:1.4;margin-top:2px;">' + o.feel + '</div>' : '')
     + '</div>'
-    + '<span style="color:#c06020;font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe <span style="font-size:22px;font-weight:bold;color:#f5c842;vertical-align:middle;line-height:0;">›</span></span></div>';
+    + '<span style="color:var(--accent);font-size:14px;white-space:nowrap;flex-shrink:0;">Recipe <span style="font-size:22px;font-weight:bold;color:var(--gold);vertical-align:middle;line-height:0;">›</span></span></div>';
 }
 
 // §4c — THE SHARED PLAN DISH-ROW. One row, identical in every section's My
 // Plan, so Braai / World Kitchen / Events can never drift. Bakes the locked
 // layout: NAME (cream 16 bold) -> stacked meta lines under it (secondary) ->
-// green Food-cost TOTAL on the right (#9bbf6a label + #c8e840 number). The
+// green Food-cost TOTAL on the right (var(--green-soft) label + var(--green) number). The
 // cost is the per-dish TOTAL for the guests chosen, and is OMITTED when the
-// dish isn't priced (never faked). Gold #f5c842 stays reserved for the
+// dish isn't priced (never faked). Gold var(--gold) stays reserved for the
 // shopping list. Sections feed CONTENT only; the chrome lives here.
 //   planDishRow({ emoji, name, nameJs, lines:[...], costTotal, openJs, removeJs })
 function planDishRow(o){
   o = o || {};
   var emoji = o.emoji ? '<span style="font-size:18px;flex-shrink:0;line-height:1.4;">'+o.emoji+'</span>' : '';
   var lines = (o.lines||[]).filter(Boolean).map(function(l){
-    return '<div style="font-size:13px;color:#c0915a;margin-top:2px;line-height:1.45;">'+l+'</div>';
+    return '<div style="font-size:13px;color:var(--ink-mut);margin-top:2px;line-height:1.45;">'+l+'</div>';
   }).join('');
   var nameOpen = o.nameJs ? ' onclick="'+o.nameJs+'"' : '';
   var nameCur  = o.nameJs ? 'cursor:pointer;' : '';
   var left = '<div'+nameOpen+' style="flex:1;min-width:0;'+nameCur+'">'
-    + '<div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">'+(o.name||'')+'</div>'
+    + '<div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.35;">'+(o.name||'')+'</div>'
     + lines + '</div>';
   var cost = (o.costTotal!=null)
-    ? '<div style="font-size:12px;color:#9bbf6a;text-align:right;">Food cost</div>'
-      + '<div style="font-size:16px;color:#c8e840;font-weight:bold;white-space:nowrap;text-align:right;">R'+Number(o.costTotal).toLocaleString()+'</div>'
+    ? (inWarm()
+        ? '<span class="mono" style="display:inline-flex;align-items:center;gap:6px;background:var(--green-tint);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:500;color:var(--green);white-space:nowrap;"><span style="width:7px;height:7px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>R'+Number(o.costTotal).toLocaleString()+'</span>'
+        : '<div style="font-size:12px;color:var(--green-soft);text-align:right;">Food cost</div>'
+          + '<div style="font-size:16px;color:var(--green);font-weight:bold;white-space:nowrap;text-align:right;">R'+Number(o.costTotal).toLocaleString()+'</div>')
     : '';
-  var openBtn = o.openJs ? '<span onclick="'+o.openJs+'" style="font-size:22px;color:#c06020;cursor:pointer;line-height:1;">\u203a</span>' : '';
+  var openBtn = o.openJs ? '<span onclick="'+o.openJs+'" style="font-size:22px;color:var(--accent);cursor:pointer;line-height:1;">\u203a</span>' : '';
   var rm = o.removeJs ? '<button onclick="'+o.removeJs+'" title="Remove from plan" style="background:none;border:1px solid #6a3030;border-radius:6px;padding:3px 9px;color:#c07a68;font-size:14px;line-height:1;cursor:pointer;">\u2715</button>' : '';
   var btns = (openBtn||rm) ? '<div style="display:flex;align-items:center;gap:8px;margin-top:'+(cost?'6px':'0')+';">'+openBtn+rm+'</div>' : '';
   var right = (cost||btns) ? '<div style="display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;">'+cost+btns+'</div>' : '';
-  return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #221810;">'
+  return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line3);">'
     + emoji + left + right + '</div>';
 }
 
@@ -2283,12 +2351,12 @@ function guestStepperCard(o){
   var val   = (o.value!=null) ? o.value : (S.people || 1);
   return '<div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:12px;margin-bottom:14px;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">'
-    +   '<div><div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;">👥 ' + label + '</div>'
+    +   '<div><div style="font-size:13px;letter-spacing:2px;color:var(--green-mid);text-transform:uppercase;">👥 ' + label + '</div>'
     +     (note ? '<div style="font-size:13px;color:#718933;margin-top:2px;">' + note + '</div>' : '') + '</div>'
     +   '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">'
-    +     '<button onclick="' + (o.decJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">−</button>'
-    +     '<span style="font-size:22px;color:#f5c842;font-weight:bold;min-width:28px;text-align:center;">' + val + '</span>'
-    +     '<button onclick="' + (o.incJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:#8ab030;font-size:20px;line-height:1;cursor:pointer;">+</button>'
+    +     '<button onclick="' + (o.decJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:var(--green-mid);font-size:20px;line-height:1;cursor:pointer;">−</button>'
+    +     '<span style="font-size:22px;color:var(--gold);font-weight:bold;min-width:28px;text-align:center;">' + val + '</span>'
+    +     '<button onclick="' + (o.incJs||'') + '" style="width:34px;height:34px;border-radius:50%;border:2px solid #6a9030;background:transparent;color:var(--green-mid);font-size:20px;line-height:1;cursor:pointer;">+</button>'
     +   '</div>'
     + '</div>' + (o.portionHowHTML || '') + '</div>';
 }
@@ -2312,11 +2380,11 @@ function shoppingView(o){
     var gx=it.buyAmt; return gx>=1000 ? (Math.round(gx/100)/10)+'kg' : Math.round(gx)+'g';
   };
   if(!isPro){
-    return '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+    return '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
-      + '<div style="font-size:14px;color:#c06020;margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
-      + '<div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
-      + '<div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>';
+      + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
+      + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>';
   }
   if(!items.length) return '';
   // pantry spices/seasonings list separately (§6.3) — never in the aisle rows or totals
@@ -2329,28 +2397,28 @@ function shoppingView(o){
     var nm = (it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     var loose = it.loose ? ' <span style="color:#9a6238;font-size:12px;">loose</span>' : '';
     var priceStr = (it.buyCost!=null) ? ' · ' + money(it.buyCost) : '';
-    rows += '<div onclick="' + (toggleFn ? toggleFn+"('"+nm+"')" : '') + '" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1208;cursor:pointer;opacity:'+(on?'0.4':'1')+';">'
-      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid #c06020;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'#c06020':'transparent')+';color:#fff;font-size:13px;">'+(on?'✓':'')+'</div>'
-      + '<span style="flex:1;font-size:15px;color:'+(on?'#6a5440':'#f0ebe1')+';'+(on?'text-decoration:line-through;':'')+'">'+it.name+loose+'</span>'
-      + '<span style="font-size:15px;color:'+(on?'#6a5440':'#f5c842')+';font-weight:bold;white-space:nowrap;">'+fmtBuy(it)+priceStr+'</span></div>';
+    rows += '<div onclick="' + (toggleFn ? toggleFn+"('"+nm+"')" : '') + '" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:'+(on?'0.4':'1')+';">'
+      + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid var(--accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'var(--accent)':'transparent')+';color:#fff;font-size:13px;">'+(on?'✓':'')+'</div>'
+      + '<span style="flex:1;font-size:15px;color:'+(on?'var(--ink-dim)':'var(--ink2)')+';'+(on?'text-decoration:line-through;':'')+'">'+it.name+loose+'</span>'
+      + '<span style="font-size:15px;color:'+(on?'var(--ink-dim)':'var(--gold)')+';font-weight:bold;white-space:nowrap;">'+fmtBuy(it)+priceStr+'</span></div>';
   });
   // §6.3 Pantry group — "you may already have", listed but NOT in the totals
   var pantryBlock = pantryItems.length
-    ? '<div style="margin-top:12px;padding-top:10px;border-top:1px dashed #2a1a10;">'
+    ? '<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);">'
       + '<div style="font-size:13px;letter-spacing:0.06em;color:#8a7355;text-transform:uppercase;">🧂 Pantry — you may already have</div>'
       + '<div style="font-size:12px;color:#8a7355;margin:2px 0 6px;">Spices &amp; seasonings — not added to the totals below.</div>'
       + pantryItems.map(function(it){
           var on=!!checked[it.name]; var nm=(it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
           return '<div onclick="'+(toggleFn?toggleFn+"('"+nm+"')":'')+'" style="display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;opacity:'+(on?'0.4':'0.9')+';">'
-            + '<div style="width:18px;height:18px;border-radius:4px;border:2px solid #6a5440;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'#6a5440':'transparent')+';color:#fff;font-size:12px;">'+(on?'✓':'')+'</div>'
+            + '<div style="width:18px;height:18px;border-radius:4px;border:2px solid var(--ink-dim);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'var(--ink-dim)':'transparent')+';color:#fff;font-size:12px;">'+(on?'✓':'')+'</div>'
             + '<span style="flex:1;font-size:14px;color:#b0987a;'+(on?'text-decoration:line-through;':'')+'">'+it.name+'</span></div>';
         }).join('')
       + '</div>'
     : '';
   var cook = totals.cookTotal, buy = totals.buyTotal;
-  var totalsBlock = '<div style="border-top:1px solid #2a1a10;margin-top:14px;padding-top:14px;">'
-    + (cook!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span style="font-size:15px;color:#9bbf6a;">What the food costs</span><span style="font-size:20px;color:#c8e840;font-weight:bold;">'+money(cook)+'</span></div>' : '')
-    + (buy!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:16px;color:#f5e8cc;font-weight:bold;">What you\'ll spend</span><span style="font-size:26px;color:#f5c842;font-weight:bold;">'+money(buy)+'</span></div>' : '')
+  var totalsBlock = '<div style="border-top:1px solid var(--line);margin-top:14px;padding-top:14px;">'
+    + (cook!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span style="font-size:15px;color:var(--green-soft);">What the food costs</span><span class="mono" style="font-size:20px;color:var(--green);font-weight:bold;">'+money(cook)+'</span></div>' : '')
+    + (buy!=null ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:16px;color:var(--ink);font-weight:bold;">What you\'ll spend</span><span class="mono" style="font-size:26px;color:var(--gold);font-weight:bold;">'+money(buy)+'</span></div>' : '')
     + ((cook!=null && buy!=null && buy>cook) ? '<div style="font-size:13px;color:#a98f6a;line-height:1.55;margin-top:8px;">More than the food because shops sell whole packs — the extra stays in your kitchen.</div>' : '')
     + ((totals.missing && totals.missing.length) ? '<div style="font-size:12px;color:#b1734c;margin-top:8px;">Not yet costed: '+totals.missing.slice(0,8).join(', ')+(totals.missing.length>8?'…':'')+'</div>' : '')
     + '</div>';
@@ -2361,23 +2429,23 @@ function shoppingView(o){
   var ln = function(g){ return g>=1000 ? (Math.round(g/100)/10)+'kg' : Math.round(g)+'g'; };
   var looseTips = items.filter(function(it){ return it.looseTip; });
   var aboutBody = ''
-    + '<p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What the food costs</strong> — the exact recipe amounts at SA retail prices. A planning guide, not a quote.</p>'
-    + '<p style="margin:0 0 8px;"><strong style="color:#f5e8cc;">What you\'ll spend</strong> — usually a little more, because shops sell whole packs (a 1&nbsp;kg bag when you need 200&nbsp;g, a dozen eggs when you need eight). The extra stays in your kitchen.</p>'
-    + '<p style="margin:0 0 8px;">The <strong style="color:#f5e8cc;">+10% buffer</strong> on loose / by-weight items covers trimming and spillage — that is separate from pack-rounding; both can show, clearly labelled.</p>'
-    + (looseTips.length ? '<div style="border-top:1px solid #2a1a10;margin:10px 0;"></div><p style="margin:0 0 6px;color:#f5e8cc;font-weight:bold;">💡 Buy loose to save</p>'
-        + looseTips.map(function(t){ return '<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>'+t.name+'</span><span style="color:#9bbf6a;white-space:nowrap;">~'+ln(t.looseTip)+(t.looseTipCost!=null?' ≈ R'+t.looseTipCost:'')+'</span></div>'; }).join('') : '')
+    + '<p style="margin:0 0 8px;"><strong style="color:var(--ink);">What the food costs</strong> — the exact recipe amounts at SA retail prices. A planning guide, not a quote.</p>'
+    + '<p style="margin:0 0 8px;"><strong style="color:var(--ink);">What you\'ll spend</strong> — usually a little more, because shops sell whole packs (a 1&nbsp;kg bag when you need 200&nbsp;g, a dozen eggs when you need eight). The extra stays in your kitchen.</p>'
+    + '<p style="margin:0 0 8px;">The <strong style="color:var(--ink);">+10% buffer</strong> on loose / by-weight items covers trimming and spillage — that is separate from pack-rounding; both can show, clearly labelled.</p>'
+    + (looseTips.length ? '<div style="border-top:1px solid var(--line);margin:10px 0;"></div><p style="margin:0 0 6px;color:var(--ink);font-weight:bold;">💡 Buy loose to save</p>'
+        + looseTips.map(function(t){ return '<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;"><span>'+t.name+'</span><span style="color:var(--green-soft);white-space:nowrap;">~'+ln(t.looseTip)+(t.looseTipCost!=null?' ≈ R'+t.looseTipCost:'')+'</span></div>'; }).join('') : '')
     + '<p style="margin:10px 0 0;color:#8a7355;">Estimates from standard packs — watch for specials; bigger bags are often better value if you\'ll use them.</p>';
   var about = '<div style="margin-top:14px;">'
     + '<div id="shop-about-tog" onclick="(function(){var b=document.getElementById(\'shop-about-body\');var t=document.getElementById(\'shop-about-tog\');var o=b.style.display===\'block\';b.style.display=o?\'none\':\'block\';t.innerHTML=(o?\'▼\':\'▲\')+\' About these prices &amp; totals\';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:6px 0;">▼ About these prices &amp; totals</div>'
-    + '<div id="shop-about-body" style="display:none;background:#1a1208;border:1px solid #2a1a10;border-radius:8px;padding:12px 14px;font-size:13px;color:#e0d4b8;line-height:1.6;">'+aboutBody+'</div></div>';
+    + '<div id="shop-about-body" style="display:none;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--ink-soft);line-height:1.6;">'+aboutBody+'</div></div>';
   var share = (o.shareJs||o.gmailJs||o.printJs)
     ? '<div style="display:flex;gap:8px;margin-top:12px;">'
       + (o.shareJs ? '<button onclick="'+o.shareJs+'" style="flex:1;padding:10px;border-radius:8px;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;">📲 WhatsApp</button>' : '')
-      + (o.gmailJs ? '<button onclick="'+o.gmailJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">✉️ Email</button>' : '')
-      + (o.printJs ? '<button onclick="'+o.printJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid #2a1a10;color:#e0d4b8;font-size:13px;cursor:pointer;">🖨️ Print</button>' : '')
+      + (o.gmailJs ? '<button onclick="'+o.gmailJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">✉️ Email</button>' : '')
+      + (o.printJs ? '<button onclick="'+o.printJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">🖨️ Print</button>' : '')
       + '</div>' : '';
-  return '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:14px;">'
-    + '<div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
+  return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;">'
+    + '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
     + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · SA retail prices, planning guide only</div>'
     + rows + pantryBlock + totalsBlock + about + share + '</div>';
 }
@@ -2396,7 +2464,7 @@ function planView(o){
   var money = function(n){ return 'R' + Math.round(n||0).toLocaleString(); };
   if(!data.dishes.length){
     return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'')
-      + '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">'
+      + '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center;color:#b1734c;font-size:14px;">'
       + (o.empty || 'Your plan is empty — add some dishes.') + '</div></div></div>';
   }
   var guests = o.guests ? guestStepperCard(o.guests) : '';
@@ -2407,20 +2475,20 @@ function planView(o){
   var secs = '';
   order.forEach(function(g){
     if(g) secs += '<div style="font-size:13px;letter-spacing:2px;color:#b56d37;text-transform:uppercase;margin:14px 0 6px;">'+g+'</div>';
-    secs += '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:4px 14px;margin-bottom:12px;">'+groups[g].map(rowOf).join('')+'</div>';
+    secs += '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px 14px;margin-bottom:12px;">'+groups[g].map(rowOf).join('')+'</div>';
   });
   var t = data.totals;
   var costRow = (t.costPP!=null)
     ? (isPro
-        ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#9bbf6a;">Est. food cost</span><span style="font-size:15px;color:#c8e840;font-weight:bold;">'+money(t.costPP)+' pp · '+money(t.costTotal)+' total</span></div>'
-        : '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;color:#9bbf6a;">Est. food cost</span><span style="font-size:13px;color:#c06020;font-weight:bold;">🔒 Pro</span></div>')
+        ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:var(--green-soft);">Est. food cost</span><span style="font-size:15px;color:var(--green);font-weight:bold;">'+money(t.costPP)+' pp · '+money(t.costTotal)+' total</span></div>'
+        : '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;color:var(--green-soft);">Est. food cost</span><span style="font-size:13px;color:var(--accent);font-weight:bold;">🔒 Pro</span></div>')
     : '';
   var kcalRow = (t.kcalPP!=null)
-    ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#e0d4b8;">Calories</span><span style="font-size:14px;color:#f5c842;">~'+t.kcalPP+' kcal pp <span style="color:#9a8a6a;">(estimate)</span></span></div>'
+    ? '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:var(--ink-soft);">Calories</span><span style="font-size:14px;color:var(--gold);">~'+t.kcalPP+' kcal pp <span style="color:#9a8a6a;">(estimate)</span></span></div>'
     : '';
   // §4g/§3 — summary block: Total dishes · Cost pp + total (Pro) · kcal (always)
-  var dishesRow = '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:#e0d4b8;">Total dishes</span><span style="font-size:14px;color:#f5e8cc;font-weight:bold;">'+data.dishes.length+'</span></div>';
-  var totalsCard = '<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px;">'+dishesRow+costRow+kcalRow+'</div>';
+  var dishesRow = '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:14px;color:var(--ink-soft);">Total dishes</span><span style="font-size:14px;color:var(--ink);font-weight:bold;">'+data.dishes.length+'</span></div>';
+  var totalsCard = '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px;">'+dishesRow+costRow+kcalRow+'</div>';
   var shop = shoppingView({ items:data.items, totals:data.totals, checked:o.checked, toggleFn:o.toggleFn, shareJs:o.shareJs, gmailJs:o.gmailJs, printJs:o.printJs });
   return '<div>' + hdr + '<div class="content">' + (o.quickNavHTML||'') + guests + secs + totalsCard + shop + (o.footerHTML||'') + '</div></div>';
 }
@@ -2500,7 +2568,7 @@ function closeRecipe(extra){
 }
 
 function recipeNotFound(){
-  return '<div style="padding:20px;"><button onclick="closeRecipe()" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;">\u2190 Back</button><p style="margin-top:12px;color:#f0ebe1;">Recipe not found.</p></div>';
+  return '<div style="padding:20px;"><button onclick="closeRecipe()" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;">\u2190 Back</button><p style="margin-top:12px;color:var(--ink2);">Recipe not found.</p></div>';
 }
 
 // ── BAKES on the universal opener (cross-link target: breads/flatbreads/cakes) ──
@@ -2519,9 +2587,9 @@ function bakesRecipeOpts(r){
     return (Math.round(v*10)/10)+(u?(' '+u):'');
   };
   var rows = (r.ingredients||[]).map(function(it){
-    if(it.pp==null) return ingredientRow(it.n, '<span style="color:#e0d4b8;font-style:italic;">to taste</span>');
+    if(it.pp==null) return ingredientRow(it.n, '<span style="color:var(--ink-soft);font-style:italic;">to taste</span>');
     var tot = it.pp*n, u = it.u||'';
-    var amt = (n===1) ? fmt(tot,u) : '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+fmt(it.pp,u)+' pp · </span>'+fmt(tot,u);
+    var amt = (n===1) ? fmt(tot,u) : '<span style="color:var(--ink-soft);font-weight:normal;font-size:13px;">'+fmt(it.pp,u)+' pp · </span>'+fmt(tot,u);
     return ingredientRow(it.n, amt);
   }).join('');
   var ingredientsHTML = ingredientsBox(rows, n);
@@ -2530,16 +2598,16 @@ function bakesRecipeOpts(r){
   var kcal = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;
   var info = '';
   if(r.costPP!=null){ info = isPro
-    ? '💰 Food cost: <b style="color:#c8e840;">R'+r.costPP+'</b> pp · <b style="color:#c8e840;">R'+(r.costPP*n)+'</b> total'
-    : '💰 Food cost · <span style="color:#c06020;font-weight:bold;">🔒 Pro</span>'; }
+    ? '💰 Food cost: <b style="color:var(--green);">R'+r.costPP+'</b> pp · <b style="color:var(--green);">R'+(r.costPP*n)+'</b> total'
+    : '💰 Food cost · <span style="color:var(--accent);font-weight:bold;">🔒 Pro</span>'; }
   if(kcal!=null){ info += (info?'<br>':'') + '🔥 ~'+kcal+' kcal pp'; }
   var qtyHTML = qtyBox({
     label:'How Much To Make', total:n+' '+(n===1?'serving':'servings'), n:n, info:info,
     decJs:"set({recipeServings:Math.max(1,(S.recipeServings||S.people||4)-1)})",
     incJs:"set({recipeServings:(S.recipeServings||S.people||4)+1})"
   });
-  var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:#f0ebe1;line-height:1.6;">'+r.tip+'</div>') : '';
-  var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:#f0ebe1;line-height:1.5;">'+r.storage+'</div>') : '';
+  var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
+  var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:var(--ink2);line-height:1.5;">'+r.storage+'</div>') : '';
   return {
     photoName:r.name, photoEmoji:r.emoji||'🍰',
     backJs:'closeRecipe()', backLabel:'← Back',
@@ -2561,19 +2629,19 @@ registerRecipeBuilder('bakes', function(item, recipe, vr){ return bakesRecipeOpt
 function recipePage(o){
   o = o || {};
   var back = o.backJs
-    ? '<button onclick="' + o.backJs + '" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid #3a2010;border-radius:20px;color:#c06020;font-size:13px;padding:5px 12px;cursor:pointer;">' + (o.backLabel || '← Back') + '</button>'
+    ? '<button onclick="' + o.backJs + '" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid var(--line2);border-radius:20px;color:var(--accent);font-size:13px;padding:5px 12px;cursor:pointer;">' + (o.backLabel || '← Back') + '</button>'
     : '';
   var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200) : '';
-  var sub     = o.sub ? '<div style="font-size:13px;color:#e0d4b8;margin-bottom:12px;">' + o.sub + '</div>' : '';
+  var sub     = o.sub ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">' + o.sub + '</div>' : '';
   var meta    = (typeof metaStrip === 'function')     ? metaStrip(o.meta || {}) : '';
   var portion = (typeof portionHowBox === 'function') ? portionHowBox(o.portionRawNote || '') : '';
   var goes    = (typeof goesWellBox === 'function')   ? goesWellBox(o.goesWith || []) : '';
   var actions = (typeof recipeActions === 'function') ? recipeActions(o.actions || {}) : '';
   var nav     = (typeof recipeNav === 'function')     ? recipeNav(o.nav || {}) : '';
-  return '<div style="min-height:100vh;background:#0f0e0c;">'
+  return '<div style="min-height:100vh;background:var(--bg);">'
     + '<div style="position:relative;">' + photo + back + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
-    +   '<h1 style="font-size:22px;font-weight:bold;color:#f5e8cc;margin:8px 0 2px;line-height:1.25;">' + (o.name || '') + '</h1>'
+    +   '<h1 style="font-size:22px;font-weight:bold;color:var(--ink);margin:8px 0 2px;line-height:1.25;">' + (o.name || '') + '</h1>'
     +   sub
     +   meta
     +   (o.qtyHTML || '')
@@ -2614,7 +2682,7 @@ function recipeView(){
   if(isMeat){ item=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===vr.id); }
   else { item=SIDES_GROUPS.flatMap(g=>g.items).find(x=>x.id===vr.id); }
   recipe=item?.recipe;
-  if(!item||!recipe) return `<div style="padding:20px;"><button onclick="set({viewingRecipe:null})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;">← Back</button><p style="margin-top:12px;">Recipe not found.</p></div>`;
+  if(!item||!recipe) return `<div style="padding:20px;"><button onclick="set({viewingRecipe:null})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;">← Back</button><p style="margin-top:12px;">Recipe not found.</p></div>`;
   const rl=vr.returnStep===2?"Mains":vr.returnStep===3?"Sides":"Plan";
   const p = S.recipeServings || S.people;
   const ap = APPETITE[S.appetite];
@@ -2641,7 +2709,7 @@ function recipeView(){
       if(cpSolo != null){
         const cpp  = isSolo ? cpSolo : Math.round(cpSolo * meatSpreadMult(numMeats));
         const ctot = cpp * p;
-        costInfo = `\u{1F4B0} Food cost: <b style="color:#c8e840;">R${cpp}</b> pp \u00b7 <b style="color:#c8e840;">R${ctot.toLocaleString()}</b> total`
+        costInfo = `\u{1F4B0} Food cost: <b style="color:var(--green);">R${cpp}</b> pp \u00b7 <b style="color:var(--green);">R${ctot.toLocaleString()}</b> total`
           + `<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>`;
       }
     }
@@ -2667,14 +2735,14 @@ function recipeView(){
       }
       // Scale all recognised per-person patterns inline
       let scaled = ing;
-      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit} pp · <strong style="color:#f5c842;">${total}${u} total</strong>`; });
-      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(tbsp|tsp)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const mlMult=unit.toLowerCase()==='tbsp'?15:5; const total=Math.round(parseFloat(num)*mlMult*mult*p); return `${num} ${unit} pp · <strong style="color:#f5c842;">${total}ml total</strong>`; });
-      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+(slices?|pieces?|scoops?)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} ${unit} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
-      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)(?!\s*\()/gi, (m,num)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
-      scaled = scaled.replace(/([¼½⅓⅔¾⅛]|\d+\/\d+)\s+per\s+p(?:erson|ortion)/gi, (m,frac)=>{ const map={'¼':0.25,'½':0.5,'⅓':0.333,'⅔':0.667,'¾':0.75,'⅛':0.125}; const val=map[frac]||(frac.includes('/')?parseFloat(frac.split('/')[0])/parseFloat(frac.split('/')[1]):null); if(!val)return m; const total=Math.ceil(val*mult*p); return `${frac} pp · <strong style="color:#f5c842;">${total} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit} pp · <strong style="color:var(--gold);">${total}${u} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(tbsp|tsp)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const mlMult=unit.toLowerCase()==='tbsp'?15:5; const total=Math.round(parseFloat(num)*mlMult*mult*p); return `${num} ${unit} pp · <strong style="color:var(--gold);">${total}ml total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+(slices?|pieces?|scoops?)\s+per\s+p(?:erson|ortion)/gi, (m,num,unit)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} ${unit} pp · <strong style="color:var(--gold);">${total} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s+per\s+p(?:erson|ortion)(?!\s*\()/gi, (m,num)=>{ const total=Math.round(parseFloat(num)*mult*p); return `${num} pp · <strong style="color:var(--gold);">${total} total</strong>`; });
+      scaled = scaled.replace(/([¼½⅓⅔¾⅛]|\d+\/\d+)\s+per\s+p(?:erson|ortion)/gi, (m,frac)=>{ const map={'¼':0.25,'½':0.5,'⅓':0.333,'⅔':0.667,'¾':0.75,'⅛':0.125}; const val=map[frac]||(frac.includes('/')?parseFloat(frac.split('/')[0])/parseFloat(frac.split('/')[1]):null); if(!val)return m; const total=Math.ceil(val*mult*p); return `${frac} pp · <strong style="color:var(--gold);">${total} total</strong>`; });
       // "Xg pp" / "Xml dry pp" shorthand (Braai salads/sides authored with pp, not "per person").
       // Lookahead (?!\s*·) skips strings the "per person" rules above already turned into "X pp · …total".
-      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)((?:\s+(?!pp\b)[a-z]+)?)\s+pp\b(?!\s*·)/gi, (m,num,unit,qual)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit}${qual||''} pp · <strong style="color:#f5c842;">${total}${u} total</strong>`; });
+      scaled = scaled.replace(/(\d+(?:\.\d+)?)\s*(g|ml|kg|L)((?:\s+(?!pp\b)[a-z]+)?)\s+pp\b(?!\s*·)/gi, (m,num,unit,qual)=>{ let total=parseFloat(num)*mult*p; let u=unit; if((u==='g'||u==='ml')&&total>=1000){total=Math.round(total/100)/10;u=u==='g'?'kg':'L';}else{total=Math.round(total*10)/10;} return `${num}${unit}${qual||''} pp · <strong style="color:var(--gold);">${total}${u} total</strong>`; });
       // Split name (left) from amount (right) on the first em-dash, for the shared two-column row
       const di = scaled.indexOf('—');
       if(di > -1){ return ingredientRow(scaled.slice(0,di).trim(), scaled.slice(di+1).trim()); }
@@ -2696,14 +2764,14 @@ function recipeView(){
         <span style="font-size:13px;color:#e06030;">${open?'▲':'▼'}</span>
       </button>
       ${open?`<div style="margin-top:8px;">
-        <p style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
+        <p style="font-size:14px;color:var(--gold);font-weight:bold;margin-bottom:${isActualFire?'8px':'0'}">${ct}</p>
         ${isActualFire?`<div style="background:#1a0a04;border-radius:6px;padding:8px 10px;">
           <p style="font-size:13px;color:#ae744d;font-style:italic;margin-bottom:5px;">🖐 Hand test — hold palm-down 10cm above coals:</p>
           <div style="font-size:13px;color:#bc6c56;line-height:1.9;">
-            🔥🔥 <span style="color:#f5c842;font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
-            🔥 <span style="color:#f5c842;font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
-            🔸 <span style="color:#f5c842;font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
-            🔹 <span style="color:#f5c842;font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
+            🔥🔥 <span style="color:var(--gold);font-weight:bold;">2 sec</span> — Scorching (steaks, prawns)<br>
+            🔥 <span style="color:var(--gold);font-weight:bold;">3 sec</span> — High (short rib, espetada)<br>
+            🔸 <span style="color:var(--gold);font-weight:bold;">4–5 sec</span> — Medium (chops, kebabs)<br>
+            🔹 <span style="color:var(--gold);font-weight:bold;">6+ sec</span> — Low (brisket, potbrood)
           </div>
         </div>`:''}
       </div>`:''}
@@ -2714,11 +2782,11 @@ function recipeView(){
   const methodStepsHTML = (recipe.method||[]).map((step,i)=>{
     const secs = parseStepTime(step);
     const timer = secs
-      ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:#241608;border:1px solid #c06020;border-radius:6px;color:#f5c842;font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
+      ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:#241608;border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
       : '';
     return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
-      + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid #c06020;color:#c06020;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
-      + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:#f0ebe1;line-height:1.6;">'+step+'</p>'+timer+'</div></div>';
+      + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
+      + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:var(--ink2);line-height:1.6;">'+step+'</p>'+timer+'</div></div>';
   }).join('');
   const methodHTML = methodBox(methodStepsHTML, (recipe.method && recipe.method.length) ? `set({braaiCooking:{id:'${vr.id}',type:'${vr.type}',step:0}});window.scrollTo(0,0);` : '');
 
@@ -2739,9 +2807,9 @@ function recipeView(){
   };
   const gww = goesWellWith[vr.id] || [];
   const goesWellBlock = gww.length ? `
-    <div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:10px;">❤ Goes Well With</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;">${gww.map(g=>`<button onclick="set({braiStep:3,braaiView:'browse',braaiSidesFilter:'${g.t}',viewingRecipe:null})" style="padding:6px 13px;border-radius:16px;border:1px solid #2a1a10;background:transparent;color:#e0d4b8;font-size:14px;cursor:pointer;">${g.e} ${g.n}</button>`).join('')}</div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">❤ Goes Well With</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">${gww.map(g=>`<button onclick="set({braiStep:3,braaiView:'browse',braaiSidesFilter:'${g.t}',viewingRecipe:null})" style="padding:6px 13px;border-radius:16px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-size:14px;cursor:pointer;">${g.e} ${g.n}</button>`).join('')}</div>
     </div>` : '';
 
   // ── COST ESTIMATE (Braai-specific → extras slot) ──
@@ -2755,30 +2823,30 @@ function recipeView(){
       const coverage = costData.matched + "/" + costData.totalItems + " ingredients priced";
       const allPriced = costData.matched === costData.totalItems;
       const coverLine = allPriced ? "all ingredients priced" : ("Based on " + costData.matched + "/" + costData.totalItems + " ingredients priced");
-      return `<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">
+      return `<div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:13px;color:#e0d4b8;">💰 Estimated cost · ${p} ${p===1?'serving':'servings'}</div>
-          <div style="font-size:24px;font-weight:bold;color:#f5c842;">~R${totalEst.toLocaleString()}</div>
+          <div style="font-size:13px;color:var(--ink-soft);">💰 Estimated cost · ${p} ${p===1?'serving':'servings'}</div>
+          <div style="font-size:24px;font-weight:bold;color:var(--gold);">~R${totalEst.toLocaleString()}</div>
         </div>
-        <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid #2a1a10;">
-          <span style="font-size:13px;color:#e0d4b8;">Per person</span>
-          <span style="font-size:14px;color:#f5c842;font-weight:bold;">~R${ppEst}</span>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);">
+          <span style="font-size:13px;color:var(--ink-soft);">Per person</span>
+          <span style="font-size:14px;color:var(--gold);font-weight:bold;">~R${ppEst}</span>
         </div>
-        <div style="font-size:13px;color:#e0d4b8;margin-top:6px;">${coverLine}</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">${coverLine}</div>
       </div>`;
     } else if(USER_TIER === "free"){
       return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
         <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div>
+        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R99/month</strong></div>
       </div>`;
     }
     return '';
   })();
 
   // ── TIP (Braai-specific → extras slot) ──
-  const tipBlock = recipe.tip ? `<div style="background:#161210;border:1px solid #2a1a10;border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-size:13px;letter-spacing:0.08em;color:#c06020;text-transform:uppercase;margin-bottom:8px;">💡 Tip</div>
-      <p style="font-size:15px;color:#e0d4b8;line-height:1.6;">${recipe.tip}</p>
+  const tipBlock = recipe.tip ? `<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">💡 Tip</div>
+      <p style="font-size:15px;color:var(--ink-soft);line-height:1.6;">${recipe.tip}</p>
     </div>` : '';
 
   // ── PLAN / SAVE / DOWNLOAD action data ──
@@ -2820,7 +2888,7 @@ function culturalGroupGo(id){
 // State: S.braaiCooking = {id, type, step}. Re-resolves the recipe so no quote-laden
 // data is ever embedded in an onclick (the old openCookingMode bug).
 function braaiCookingView(){
-  var accent='#c06020', cream='#f5e8cc';
+  var accent='var(--accent)', cream='var(--ink)';
   var c = S.braaiCooking || {};
   var isMeat = c.type==='meat';
   var item = isMeat
@@ -2829,7 +2897,7 @@ function braaiCookingView(){
   var recipe = item && item.recipe;
   var steps = (recipe && recipe.method) || [];
   if(!item || !steps.length){
-    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
+    return '<div style="min-height:100vh;background:var(--bg);padding:20px;color:var(--ink-soft);">'
       + '<button onclick="set({braaiCooking:null})" style="background:none;border:none;color:'+accent+';font-size:14px;cursor:pointer;padding:0;">← Back</button>'
       + '<p style="margin-top:20px;">'+(item?'No method steps for this recipe yet.':'Recipe not found.')+'</p></div>';
   }
@@ -2837,26 +2905,26 @@ function braaiCookingView(){
   var step = steps[idx];
   var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
   var timer = secs
-    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:#f5c842;font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23f1\ufe0f '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23f1\ufe0f '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
     : '';
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
   var nm = item.name || 'Recipe';
   var setStep = function(n){ return 'set({braaiCooking:{id:\''+c.id+'\',type:\''+c.type+'\',step:'+n+'}});window.scrollTo(0,0);'; };
-  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
+  return '<div style="min-height:100vh;background:var(--bg);display:flex;flex-direction:column;">'
     // header + progress
-    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+    + '<div style="background:var(--card2);border-bottom:1px solid var(--line2);padding:14px 16px;">'
     +   '<button onclick="set({braaiCooking:null});window.scrollTo(0,0);" style="background:none;border:none;color:'+accent+';font-size:13px;cursor:pointer;padding:0;">\u2715 Exit cooking mode</button>'
     +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+nm+'</div>'
-    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
-    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
+    +   '<div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:var(--bg);border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
     + '</div>'
     // step body — short steps centre via auto margins; a long step pushes the
     // margins to 0 so the page scrolls naturally instead of clipping
     + '<div style="flex:1;display:flex;flex-direction:column;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
     +   '<div style="margin:auto 0;">'
-    +     '<div style="width:48px;height:48px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
-    +     '<div style="font-size:23px;color:#f0ebe1;line-height:1.7;">'+step+'</div>'
+    +     '<div style="width:48px;height:48px;border-radius:50%;background:var(--card2);border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
+    +     '<div style="font-size:23px;color:var(--ink2);line-height:1.7;">'+step+'</div>'
     +     timer
     +   '</div>'
     + '</div>'
@@ -2875,7 +2943,7 @@ function braaiCookingView(){
 // method (string → split, or array). Same fullscreen stepper UI as the section
 // cook views — built ONCE so spice/bakes don't each duplicate it (Rule Zero).
 function genericCookView(){
-  var accent='#c06020', cream='#f5e8cc';
+  var accent='var(--accent)', cream='var(--ink)';
   var c = S.cookRecipe || {};
   var res = (typeof resolveRecipe==='function') ? resolveRecipe(c.section, c.id) : null;
   var r = res && res.item;
@@ -2886,7 +2954,7 @@ function genericCookView(){
     else if(typeof m==='string') steps = m.split(/\.\s+/).map(function(x){return x.trim();}).filter(Boolean).map(function(s){return s.slice(-1).match(/[.!?]/)?s:s+'.';});
   }
   if(!r || !steps.length){
-    return '<div style="min-height:100vh;background:#0f0e0c;padding:20px;color:#e0d4b8;">'
+    return '<div style="min-height:100vh;background:var(--bg);padding:20px;color:var(--ink-soft);">'
       + '<button onclick="set({cookRecipe:null,cookStep:0})" style="background:none;border:none;color:'+accent+';font-size:14px;cursor:pointer;padding:0;">← Back</button>'
       + '<p style="margin-top:20px;">'+(r?'No method steps for this recipe yet.':'Recipe not found.')+'</p></div>';
   }
@@ -2894,23 +2962,23 @@ function genericCookView(){
   var step = steps[idx];
   var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
   var timer = secs
-    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:#f5c842;font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">⏱️ '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">⏱️ '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
     : '';
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
   var nm = r.name || 'Recipe';
   var setStep = function(n){ return 'set({cookStep:'+n+'});window.scrollTo(0,0);'; };
-  return '<div style="min-height:100vh;background:#0f0e0c;display:flex;flex-direction:column;">'
-    + '<div style="background:#1a1208;border-bottom:1px solid #3a2010;padding:14px 16px;">'
+  return '<div style="min-height:100vh;background:var(--bg);display:flex;flex-direction:column;">'
+    + '<div style="background:var(--card2);border-bottom:1px solid var(--line2);padding:14px 16px;">'
     +   '<button onclick="set({cookRecipe:null,cookStep:0});window.scrollTo(0,0);" style="background:none;border:none;color:'+accent+';font-size:13px;cursor:pointer;padding:0;">✕ Exit cooking mode</button>'
     +   '<div style="font-size:17px;color:'+cream+';margin-top:6px;">'+nm+'</div>'
-    +   '<div style="font-size:13px;color:#e0d4b8;margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
-    +   '<div style="height:5px;background:#0f0e0c;border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
+    +   '<div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Step '+(idx+1)+' of '+steps.length+'</div>'
+    +   '<div style="height:5px;background:var(--bg);border-radius:3px;margin-top:10px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+accent+';"></div></div>'
     + '</div>'
     + '<div style="flex:1;display:flex;flex-direction:column;padding:28px 22px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
     +   '<div style="margin:auto 0;">'
-    +     '<div style="width:48px;height:48px;border-radius:50%;background:#1a1208;border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
-    +     '<div style="font-size:23px;color:#f0ebe1;line-height:1.7;">'+step+'</div>'
+    +     '<div style="width:48px;height:48px;border-radius:50%;background:var(--card2);border:2px solid '+accent+';display:flex;align-items:center;justify-content:center;font-size:21px;color:'+accent+';margin-bottom:20px;">'+(idx+1)+'</div>'
+    +     '<div style="font-size:23px;color:var(--ink2);line-height:1.7;">'+step+'</div>'
     +     timer
     +   '</div>'
     + '</div>'
@@ -2955,15 +3023,15 @@ function braaiQuickNav(activeCat){
   return `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:14px;">
     ${sections.map(s=>{
       const isActive = activeCat===s.id;
-      const borderCol = isActive?(s.highlight?'#c0a020':'#c06020'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#4a3424';
+      const borderCol = isActive?(s.highlight?'#c0a020':'var(--accent)'):s.count>0?(s.highlight?'#6a5010':'#5a2010'):'#4a3424';
       const bgCol = isActive?(s.highlight?'#1a1408':'#2a1008'):s.count>0?'#1a1008':'transparent';
-      const textCol = isActive?'#f5c842':s.count>0?'#e0b878':'#e0d4b8';
+      const textCol = isActive?'var(--gold)':s.count>0?'#e0b878':'var(--ink-soft)';
       return `<button onclick="braaiNavGo('${s.id}')"
         style="padding:8px 4px;border-radius:10px;border:1px solid ${borderCol};
                background:${bgCol};cursor:pointer;text-align:center;position:relative;">
         <div style="font-size:18px;">${s.emoji}</div>
         <div style="font-size:13px;color:${textCol};margin-top:3px;font-weight:${isActive?'bold':'normal'};">${s.label}</div>
-        ${s.count>0?`<div style="position:absolute;top:2px;right:2px;background:${s.highlight?'#c0a020':'#c06020'};color:${s.highlight?'#181808':'white'};border-radius:5px;font-size:13px;padding:1px 4px;">${s.count}</div>`:''}
+        ${s.count>0?`<div style="position:absolute;top:2px;right:2px;background:${s.highlight?'#c0a020':'var(--accent)'};color:${s.highlight?'#181808':'white'};border-radius:5px;font-size:13px;padding:1px 4px;">${s.count}</div>`:''}
       </button>`;
     }).join('')}
   </div>`;
@@ -2973,8 +3041,8 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:#c06020;">Tinza Pro R99/month</strong></div></div>`;
-  return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid #c06020;background:#1a1008;color:#f5c842;font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R99/month</strong></div></div>`;
+  return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid var(--accent);background:#1a1008;color:var(--gold);font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
   </button>`;
