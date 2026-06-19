@@ -1152,14 +1152,11 @@ function eventsHTML(){
 
     ${et==='fingerfoods'?`
       ${S.fingerView==='myplan' ? fingerMyPlanHTML() : `
-      <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:10px;">
-        <div style="font-size:13px;color:var(--accent);margin-bottom:8px;">👥 How many guests?</div>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--accent);font-size:20px;cursor:pointer;">−</button>
-          <div style="flex:1;text-align:center;"><div style="font-size:32px;color:var(--gold);font-weight:bold;">${guests}</div><div style="font-size:13px;color:var(--accent);">guests</div></div>
-          <button onclick="setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--accent);font-size:20px;cursor:pointer;">+</button>
-        </div>
-      </div>
+      ${guestBar({
+        state:'eventGuests', min:6, max:350,
+        decJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})",
+        incJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})"
+      })}
       ${(()=>{
         const ETYPES=[
           {id:'standalone',label:'🥪 Snacks only',sub:'12–15 pcs pp'},
