@@ -70,6 +70,16 @@ function eventGuestStep(n, dir){
   return Math.max(2, Math.min(500, v));
 }
 
+// After a tab set()/draw(), jump the viewport to the top of the active tab's .content
+// (header + tab grid scrolled off above). Double rAF so it fires once the new content has
+// laid out. Deterministic — replaces the old _savedScroll=null draw()-flag hack, which
+// depended on _savedScroll happening to be null at draw time (not guaranteed, e.g. after
+// returning from a recipe). Does not affect recipe-open scroll, history, or other screens.
+function eventsScrollToContent(){
+  var go=function(){ var c=document.querySelector('.content'); if(c) window.scrollTo(0, Math.max(0, c.getBoundingClientRect().top + window.scrollY - 8)); };
+  requestAnimationFrame(function(){ go(); requestAnimationFrame(go); });
+}
+
 function eventsHTML(){
   const et = S.eventTab;
   if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;
@@ -1174,10 +1184,9 @@ function eventsHTML(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;">
         ${tabs.map(t=>{
           const isActive = et===t.id;
-          const _top = "var _r=document.getElementById('root');if(_r)_r._savedScroll=null;";
           const onClick = t.id==='kiddies'
-            ? `${_top}set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null})`
-            : `${_top}set({eventTab:'${t.id}',eventShowShopList:false})`;
+            ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null});eventsScrollToContent()`
+            : `set({eventTab:'${t.id}',eventShowShopList:false});eventsScrollToContent()`;
           return `<div onclick="${onClick}"
             style="background:${isActive?'var(--card2)':'var(--bg)'};border:1px solid ${isActive?'var(--accent)':'var(--line)'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;"
             onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='${isActive?'var(--accent)':'var(--line)'}'">
