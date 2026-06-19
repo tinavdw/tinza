@@ -340,7 +340,10 @@ function bottomBarGo(screen){
   }
 }
 
-function goBack(){ try{ history.back(); }catch(_e){} }
+function goBack(){
+  if(typeof S!=='undefined' && S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
+  try{ history.back(); }catch(_e){}
+}
 
 // ── THEME (light | dark | auto) ───────────────────────────────────
 // Read at load (core.js runs before utils.js's first draw()) so there's no flash.
@@ -1893,7 +1896,10 @@ function warmCard(o){
     ? `<div onclick="event.stopPropagation();${o.toggleJs}" title="${o.sel?'In plan — tap to remove':'Add to plan'}" style="position:absolute;top:10px;left:11px;z-index:3;width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,0.85);background:${o.sel?'var(--cost-green)':'rgba(35,18,10,0.45)'};color:${o.sel?'#2c211a':'#fff'};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:bold;cursor:pointer;">${o.sel?'✓':''}</div>`
     : '';
   const badge = o.badge ? `<span style="position:absolute;top:10px;right:11px;z-index:3;font-size:11px;font-weight:800;color:#3c2a06;background:var(--shop-gold);padding:5px 10px;border-radius:999px;">${o.badge}</span>` : '';
-  const chip = o.costPP ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>R${o.costPP} pp</span>` : '';
+  // Cost chip: default "R{costPP} pp". Callers may pass a pre-formatted costText
+  // (e.g. finger foods show "≈R13.35/piece") to override the label — same green
+  // dot, same styling, so the gold pair is unaffected (they pass no costText).
+  const chip = (o.costText || o.costPP) ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>${o.costText || ('R'+o.costPP+' pp')}</span>` : '';
   const meta = o.meta ? `<span style="color:var(--ink-soft);font-weight:700;font-size:12.5px;">${o.meta}</span>` : '';
   const metaRow = (chip||meta) ? `<div style="display:flex;align-items:center;gap:9px;padding:11px 13px 12px;flex-wrap:wrap;">${chip}${meta}</div>` : '<div style="height:6px;"></div>';
   return `<div onclick="${o.openJs||''}" style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 24px -18px rgba(120,70,30,0.5);margin-bottom:14px;cursor:pointer;">

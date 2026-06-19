@@ -1114,11 +1114,20 @@ function eventsHTML(){
       (r.halalFlag ? '⚠️ Halal' : ''),
       (r.kosherFlag ? '⚠️ Kosher' : '')
     ].filter(Boolean).join(' · ');
+    // Finger-piece items show the REAL per-piece cost (same value/rounding the
+    // recipe page uses, L1713) labelled "/piece" — never the stale static costPP.
+    // Buffet mains etc. keep their per-person "pp" badge. Pro-gating unchanged.
+    const _isFinger = isFingerPieceItem(r);
+    const _perPiece = _isFinger ? fingerPerPieceCost(r) : 0;
+    const _costText = (isPlus && _isFinger && _perPiece > 0)
+      ? '≈R' + (Math.round(_perPiece*100)/100) + '/piece'
+      : '';
     return warmCard({
       name: r.name,
       emoji: r.emoji || '🍽️',
       meta: eMeta,
-      costPP: (isPlus && r.costPP) ? r.costPP : '',
+      costPP: (isPlus && !_isFinger && r.costPP) ? r.costPP : '',
+      costText: _costText,
       openJs: openAction,
       toggleJs: (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : '',
       sel: isSelected,
