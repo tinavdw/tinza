@@ -10,12 +10,30 @@ var EVENTS_GRAD = 'radial-gradient(130% 120% at 22% 10%, #e0b34a 0%, transparent
 function isFingerPieceItem(r){
   return !!(r && r.makes && r.base300 && r.base300.some(function(i){ return i && i.pp!=null; }));
 }
+var FINGER_UNIT_G = { egg:50 };   // grams per unit for count-priced items written by weight
 function fingerPerPieceCost(r){
-  if(!r || !r.base300 || typeof costRecipe!=='function') return 0;
-  var items = r.base300.filter(function(i){ return i && i.pp!=null; })
-    .map(function(i){ return { name:i.n, qty:i.pp, unit:(i.u||'g') }; });
-  if(!items.length) return 0;
-  return costRecipe(items, 1).cook;   // rands per single piece
+  if(!r || !r.base300 || typeof priceOf!=='function') return 0;
+  var total=0;
+  r.base300.forEach(function(i){
+    if(!i || i.pp==null) return;
+    var pr = priceOf(i.n);
+    if(!pr) return;
+    var qty = i.pp, u = String(i.u||'').toLowerCase();
+    if(pr.per==='count'){
+      if(u==='g' || u==='ml'){
+        var uw = FINGER_UNIT_G[String(pr.key||'').toLowerCase()];
+        if(!uw) return;                 // unknown count-by-weight → skip, never explode
+        total += (qty/uw) * pr.price;   // fractional count, NO round-up
+      } else {
+        total += qty * pr.price;        // already an actual count
+      }
+    } else if(u==='g' || u==='ml'){
+      total += (qty/1000) * pr.price;   // weight/volume priced (R per kg / per L)
+    } else if(u==='kg' || u==='l'){
+      total += qty * pr.price;
+    }
+  });
+  return total;                          // rands per piece, unrounded
 }
 function fingerTier(etype){
   etype = etype || (typeof S!=='undefined' && S.eventFingerEventType) || 'standalone';
