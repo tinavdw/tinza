@@ -33,6 +33,28 @@
   --cost-green:#c8e840; --green:#46530c; --green-soft:#46530c; --green-mid:#46530c; --green-tint:#f3f7df;
   --shop-gold:#f5c842; --gold:#876213; --gold-tint:#fbf2d8;
 }
+/* Night/Dark-warm: cream on dark brown — kind at night, no glare in the sun. Applied as .warm.night (forced Dark)
+   AND via body.theme-auto when the phone is in dark mode (Auto). Same overrides in both. */
+.warm.night{
+  --bg:#1b1410; --card:#241c15; --card2:#2d241b;
+  --ink:#f2e8d8; --ink2:#f2e8d8; --ink-soft:#c9b9a4; --ink-mut:#c9b9a4; --ink-faint:#9a897a; --ink-dim:#9a897a;
+  --line:#3a3026; --line2:#332a20; --line3:#2d241b;
+  --accent:#e08a5e; --accent2:#e08a5e; --paprika:#e08a5e; --turmeric:#f0b34a;
+  --on-media:#fff5e9; --on-media-soft:#ffe6cf;
+  --cost-green:#c8e840; --green:#9fc15e; --green-soft:#9fc15e; --green-mid:#9fc15e; --green-tint:#232a14;
+  --shop-gold:#f5c842; --gold:#e8b84e; --gold-tint:#3a2e18;
+}
+@media (prefers-color-scheme: dark){
+  body.theme-auto .warm{
+    --bg:#1b1410; --card:#241c15; --card2:#2d241b;
+    --ink:#f2e8d8; --ink2:#f2e8d8; --ink-soft:#c9b9a4; --ink-mut:#c9b9a4; --ink-faint:#9a897a; --ink-dim:#9a897a;
+    --line:#3a3026; --line2:#332a20; --line3:#2d241b;
+    --accent:#e08a5e; --accent2:#e08a5e; --paprika:#e08a5e; --turmeric:#f0b34a;
+    --on-media:#fff5e9; --on-media-soft:#ffe6cf;
+    --cost-green:#c8e840; --green:#9fc15e; --green-soft:#9fc15e; --green-mid:#9fc15e; --green-tint:#232a14;
+    --shop-gold:#f5c842; --gold:#e8b84e; --gold-tint:#3a2e18;
+  }
+}
 /* Warm fonts apply only inside .warm; the rest of the app keeps the global sans flip below. */
 .warm, .warm *{ font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif !important; }
 .warm h1, .warm h2, .warm h3, .warm .ttl{ font-family:'Fraunces',Georgia,serif !important; }

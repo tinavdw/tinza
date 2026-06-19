@@ -285,6 +285,29 @@ function comingSoonHTML(emoji, title, subtitle){
   </div>`;
 }
 
+// ── PROFILE (Appearance: Light / Dark / Auto theme switch) ───────────
+function profileHTML(){
+  function seg(val,label){
+    var on = (typeof THEME!=='undefined') && THEME===val;
+    return '<button onclick="setTheme(\''+val+'\')" aria-pressed="'+(on?'true':'false')+'" style="flex:1;padding:11px 8px;border:none;border-radius:8px;background:'+(on?'var(--accent)':'transparent')+';color:'+(on?'#fff':'#a8997e')+';font-size:14px;font-weight:'+(on?'bold':'normal')+';cursor:pointer;font-family:Georgia,serif;">'+label+'</button>';
+  }
+  return `<div>
+    <div class="header" style="background:#1a1008;border-bottom:1px solid #6a3010;">
+      <button class="back-btn" onclick="set({screen:'home'})" style="color:var(--accent);">← Home</button>
+      <h1 style="font-size:24px;font-weight:normal;color:var(--ink);">👤 Profile</h1>
+    </div>
+    <div class="content">
+      <div style="font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">Appearance</div>
+      <div style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:5px;display:flex;gap:4px;">
+        ${seg('light','Light')}${seg('dark','Dark')}${seg('auto','Auto')}
+      </div>
+      <p style="font-size:12px;color:#8a7055;line-height:1.7;margin:10px 2px 28px;">Light keeps the warm parchment for daytime. Dark is cream on dark brown — kinder at night and won't glare in bright sun. Auto follows your phone. Covers the recipe pages today; the rest as they turn warm.</p>
+      <div style="font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">Coming soon</div>
+      <div style="font-size:13px;color:#a8997e;line-height:1.7;">Your dietary preferences, ingredients to avoid, budget tiers and units will live here.</div>
+    </div>
+  </div>`;
+}
+
 // ── PERSISTENT BOTTOM NAV BAR (fixed, every screen) ──────────────────
 function bottomBarHTML(){
   const showBack = !(S.screen==='home' && !S.viewingRecipe);
@@ -318,6 +341,19 @@ function bottomBarGo(screen){
 }
 
 function goBack(){ try{ history.back(); }catch(_e){} }
+
+// ── THEME (light | dark | auto) ───────────────────────────────────
+// Read at load (core.js runs before utils.js's first draw()) so there's no flash.
+// 'light' = parchment · 'dark' = warm-dark · 'auto' = follow the phone. Default auto.
+var THEME = (function(){ try{ var t=localStorage.getItem('tinzaTheme'); return (t==='light'||t==='dark'||t==='auto')?t:'auto'; }catch(e){ return 'auto'; } })();
+function themeIsNight(){
+  if(THEME==='dark') return true;
+  if(THEME==='auto'){ try{ return matchMedia('(prefers-color-scheme: dark)').matches; }catch(e){ return false; } }
+  return false;
+}
+function setTheme(t){ THEME=(t==='light'||t==='dark'||t==='auto')?t:'auto'; try{ localStorage.setItem('tinzaTheme', THEME); }catch(e){} draw(); }
+// In auto mode, flip live when the phone changes light/dark.
+try{ if(typeof matchMedia==='function'){ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ if(THEME==='auto') draw(); }); } }catch(e){}
 
 function draw(){
   // Close How It Works when tapping anywhere on page
@@ -416,7 +452,7 @@ function draw(){
   else if(S.screen==="tinyTummies"){ content=tinyTummiesHTML(); }
   else if(S.screen==="kiddies"){ content=kiddiesHTML(); }
   else if(S.screen==="spice"){ content=spiceRoomHTML(); }
-  else if(S.screen==="profile"){ content=comingSoonHTML("👤","Profile","Your dietary preferences, ingredients to avoid, budget tiers and units will live here. Coming soon."); }
+  else if(S.screen==="profile"){ content=profileHTML(); }
   else if(S.screen==="mymenu"){ content=comingSoonHTML("📋","My Menu","One place for everything you've planned across all sections — with a combined shopping list. Coming soon. For now, each section keeps its own plan."); }
   else{ content=homeHTML(); }
   }catch(_err){
@@ -439,8 +475,11 @@ function draw(){
   // which flips the tokenised palette to parchment + Fraunces/Mulish/DM Mono. Every other
   // screen renders on the dark shell exactly as before. tierBar + bottom nav stay outside.
   const _warm = (S.screen==='braai' || S.screen==='worldkitchen');
+  // Theme: 'night' class forces dark-warm; body.theme-auto lets the @media rule follow the phone.
+  const _night = themeIsNight();
+  try{ document.body.classList.toggle('theme-auto', THEME==='auto'); }catch(_e){}
   const _body = _warm
-    ? '<div class="warm" style="background:var(--bg);min-height:100vh;color:var(--ink);">'+content+'</div>'
+    ? '<div class="warm'+(_night?' night':'')+'" style="background:var(--bg);min-height:100vh;color:var(--ink);">'+content+'</div>'
     : content;
   root.innerHTML = tierBar + _body + bottomBarHTML();
   document.body.style.paddingBottom = "62px";
