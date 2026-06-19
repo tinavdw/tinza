@@ -1955,8 +1955,8 @@ function sectionHeader(o){
 
   const photoLayer = img
     ? `<img src="${img}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;z-index:0;" />
-       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
-    : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#160f08 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
+       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--line) 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;">${emoji}</span></div>`
+    : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--line) 0%,var(--card2) 100%);z-index:0;"><span style="font-size:52px;opacity:0.5;">${emoji}</span></div>`;
 
   const myPlanBtn = o.myPlan
     ? `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;${o.myPlan.onclick||''}" style="position:absolute;top:14px;right:16px;z-index:3;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.6);border-radius:20px;color:#fff;font-size:13px;font-weight:bold;padding:5px 13px;cursor:pointer;white-space:nowrap;">🧺 ${o.myPlan.label||'My Plan'} (${o.myPlan.count||0})</button>`
@@ -2123,9 +2123,9 @@ function ingredientsBox(rowsHTML, n){
   return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
 }
 function ingredientRow(name, amount, note){
-  return '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #1e1a10;">'
+  return '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);">'
     + '<span style="font-size:16px;color:var(--ink2);line-height:1.4;">' + name + (note ? ' <span style="color:var(--ink-soft);font-size:13px;">(' + note + ')</span>' : '') + '</span>'
-    + '<span class="mono" style="font-size:15px;color:var(--gold);font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
+    + '<span class="mono" style="font-size:16px;color:var(--gold);font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
 }
 
 // §4b.6 — method box + a single numbered step (optional timer HTML)
@@ -2138,11 +2138,11 @@ function methodBox(stepsHTML, startJs){
 }
 function methodStep(i, text, timerLabel){
   var timer = timerLabel
-    ? '<div style="margin-top:7px;"><span style="display:inline-block;background:#241608;border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
+    ? '<div style="margin-top:7px;"><span style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
     : '';
   return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
     + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
-    + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:var(--ink2);line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
+    + '<div style="flex:1;"><p style="margin:0;font-size:17px;color:var(--ink2);line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
 }
 
 // §4b.7 — Goes Well With pills
@@ -2176,10 +2176,10 @@ function crossLinkBox(o){
 function recipeActions(o){
   o = o || {};
   var add = '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
-    + (o.inPlan ? 'background:#160f08;border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
+    + (o.inPlan ? 'background:var(--card2);border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
     + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
-  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">💾 My Kitchen</button>';
-  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">⬇️ Download</button>';
+  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">💾 My Kitchen</button>';
+  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">⬇️ Download</button>';
   return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + save + dl + '</div>';
 }
 
@@ -2380,7 +2380,7 @@ function shoppingView(o){
     var gx=it.buyAmt; return gx>=1000 ? (Math.round(gx/100)/10)+'kg' : Math.round(gx)+'g';
   };
   if(!isPro){
-    return '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+    return '<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
       + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
       + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
@@ -2441,8 +2441,8 @@ function shoppingView(o){
   var share = (o.shareJs||o.gmailJs||o.printJs)
     ? '<div style="display:flex;gap:8px;margin-top:12px;">'
       + (o.shareJs ? '<button onclick="'+o.shareJs+'" style="flex:1;padding:10px;border-radius:8px;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;">📲 WhatsApp</button>' : '')
-      + (o.gmailJs ? '<button onclick="'+o.gmailJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">✉️ Email</button>' : '')
-      + (o.printJs ? '<button onclick="'+o.printJs+'" style="flex:1;padding:10px;border-radius:8px;background:#160f08;border:1px solid var(--line);color:var(--ink-soft);font-size:13px;cursor:pointer;">🖨️ Print</button>' : '')
+      + (o.gmailJs ? '<button onclick="'+o.gmailJs+'" style="flex:1;padding:10px;border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:13px;cursor:pointer;">✉️ Email</button>' : '')
+      + (o.printJs ? '<button onclick="'+o.printJs+'" style="flex:1;padding:10px;border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:13px;cursor:pointer;">🖨️ Print</button>' : '')
       + '</div>' : '';
   return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;">'
     + '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
@@ -2726,7 +2726,7 @@ function recipeView(){
     return recipe.ingredients.map((ing, i)=>{
       // Section dividers — pass through as a full-width sub-row
       if(ing === "—" || ing.startsWith("—")){
-        return '<div style="padding:7px 0;font-size:13px;color:#b56d37;font-style:italic;border-bottom:1px solid #1e1a10;">'+ing+'</div>';
+        return '<div style="padding:7px 0;font-size:13px;color:var(--ink-soft);font-style:italic;border-bottom:1px solid var(--line);">'+ing+'</div>';
       }
       // First ingredient of a SELECTED meat = main protein = covered by the quantity block above
       if(i===0 && isSelected){
@@ -2782,7 +2782,7 @@ function recipeView(){
   const methodStepsHTML = (recipe.method||[]).map((step,i)=>{
     const secs = parseStepTime(step);
     const timer = secs
-      ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:#241608;border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
+      ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
       : '';
     return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
       + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
@@ -2835,9 +2835,9 @@ function recipeView(){
         <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">${coverLine}</div>
       </div>`;
     } else if(USER_TIER === "free"){
-      return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
-        <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div>
+      return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
+        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div>
       </div>`;
     }
     return '';
@@ -2905,7 +2905,7 @@ function braaiCookingView(){
   var step = steps[idx];
   var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
   var timer = secs
-    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23f1\ufe0f '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:var(--card2);border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">\u23f1\ufe0f '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
     : '';
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
@@ -2930,7 +2930,7 @@ function braaiCookingView(){
     + '</div>'
     // nav
     + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
+    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:var(--card2);border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">\u2190 Previous</button>' : '')
     +   (last
         ? '<button onclick="set({braaiCooking:null});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">\u2713 Done</button>'
         : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step \u2192</button>')
@@ -2962,7 +2962,7 @@ function genericCookView(){
   var step = steps[idx];
   var secs = (typeof parseStepTime==='function') ? parseStepTime(step) : 0;
   var timer = secs
-    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:#241608;border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">⏱️ '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
+    ? '<div style="margin-top:18px;"><button onclick="startTimer('+secs+',\'Step '+(idx+1)+'\')" style="display:inline-block;background:var(--card2);border:1px solid '+accent+';border-radius:8px;color:var(--gold);font-size:15px;font-weight:bold;padding:7px 16px;cursor:pointer;">⏱️ '+((typeof fmtTimerLabel==='function')?fmtTimerLabel(secs):(Math.round(secs/60)+' min'))+'</button></div>'
     : '';
   var pct = Math.round(((idx+1)/steps.length)*100);
   var last = idx === steps.length-1;
@@ -2983,7 +2983,7 @@ function genericCookView(){
     +   '</div>'
     + '</div>'
     + '<div style="display:flex;gap:10px;padding:16px 22px 30px;max-width:600px;margin:0 auto;width:100%;box-sizing:border-box;">'
-    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:#160f08;border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">← Previous</button>' : '')
+    +   (idx>0 ? '<button onclick="'+setStep(idx-1)+'" style="flex:1;padding:14px;border-radius:12px;background:var(--card2);border:1px solid '+accent+';color:'+accent+';font-size:15px;cursor:pointer;">← Previous</button>' : '')
     +   (last
         ? '<button onclick="set({cookRecipe:null,cookStep:0});window.scrollTo(0,0);" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">✓ Done</button>'
         : '<button onclick="'+setStep(idx+1)+'" style="flex:2;padding:14px;border-radius:12px;background:'+accent+';border:1px solid '+accent+';color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Next step →</button>')
@@ -3041,7 +3041,7 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
+  if(USER_TIER!=='pro') return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:var(--ink-soft);">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
   return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid var(--accent);background:#1a1008;color:var(--gold);font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>
