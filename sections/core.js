@@ -2141,7 +2141,7 @@ function methodStep(i, text, timerLabel){
     ? '<div style="margin-top:7px;"><span style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;">' + timerLabel + '</span></div>'
     : '';
   return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
-    + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
+    + '<div style="min-width:26px;height:26px;border-radius:50%;background:var(--accent);border:1px solid var(--accent);color:var(--on-media);font-size:15px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">' + (i+1) + '</div>'
     + '<div style="flex:1;"><p style="margin:0;font-size:17px;color:var(--ink2);line-height:1.6;">' + text + '</p>' + timer + '</div></div>';
 }
 
@@ -2785,7 +2785,7 @@ function recipeView(){
       ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
       : '';
     return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
-      + '<div style="min-width:26px;height:26px;border-radius:50%;background:#1a0f08;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
+      + '<div style="min-width:26px;height:26px;border-radius:50%;background:var(--accent);border:1px solid var(--accent);color:var(--on-media);font-size:15px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
       + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:var(--ink2);line-height:1.6;">'+step+'</p>'+timer+'</div></div>';
   }).join('');
   const methodHTML = methodBox(methodStepsHTML, (recipe.method && recipe.method.length) ? `set({braaiCooking:{id:'${vr.id}',type:'${vr.type}',step:0}});window.scrollTo(0,0);` : '');
