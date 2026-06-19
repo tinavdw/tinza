@@ -865,7 +865,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   const _costEstimate = (()=>{
     if(!_isPro) return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
       <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-      <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R99/month</strong></div>
+      <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R50/month</strong></div>
     </div>`;
     if(r.costPP){
       const total = r.costPP * sv;

@@ -2384,7 +2384,7 @@ function shoppingView(o){
       + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
       + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
       + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
-      + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>';
+      + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R50/month</div></div>';
   }
   if(!items.length) return '';
   // pantry spices/seasonings list separately (§6.3) — never in the aisle rows or totals
@@ -2837,7 +2837,7 @@ function recipeView(){
     } else if(USER_TIER === "free"){
       return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
         <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R99/month</strong></div>
+        <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div>
       </div>`;
     }
     return '';
@@ -3041,7 +3041,7 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R99/month</strong></div></div>`;
+  if(USER_TIER!=='pro') return `<div style="background:#1a1008;border:1px dashed #5a2010;border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:#c86449;">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
   return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid var(--accent);background:#1a1008;color:var(--gold);font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>

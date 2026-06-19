@@ -625,7 +625,7 @@ function wkRecipeOpts(r, country, universal){
   var costBox = !isWkPro
     ? '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-      + '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R99/month</strong></div></div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R50/month</strong></div></div>'
     : '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;">'
       +   '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'

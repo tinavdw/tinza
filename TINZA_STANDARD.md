@@ -210,7 +210,7 @@ The +10% buffer and the pack-rounded "shop" total are **separate**: the buffer i
 ---
 
 ## 7. FREE vs PRO (locked 15 Jun 2026 — cost is PRO, not free)
-Subscription-only · **Pro R99/mo** · **NO third-party ads, ever.**
+Subscription-only · **Pro R50/mo** · **NO third-party ads, ever.**
 - **FREE gets:** all recipes (browse + cook/view) · the **+/− portion scaler** · **1 dietary restriction** · **calories shown** (the number, always) · **Anchor Ingredient**. **NO cost figures · NO My Plan · NO shopping list.**
 - **PRO gets everything else, and specifically the money + planning layer:** **all cost figures** (per-row `≈ R pp`, the qtyBox cost line, plan & shopping totals) · **My Plan** (`planView`) · **shopping list** (`shoppingView`) · the **nutrition breakdown** (the macro/detail toggle — *not* the kcal number, which is free) · Budget / Mood / 4-Ingredient / Weekly Planner / downloads / unlimited saves / full dietary / AI Chef / pantry scan / leftovers / meal-stretch / Tiny Tummies / Furry Friends + monthly letter + community + magazine.
 - **Where the line falls inside a shared component (so gating is uniform, not per-section):**

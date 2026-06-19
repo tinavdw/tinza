@@ -66,7 +66,7 @@ SA recipe & catering PWA. **Vanilla JS, no framework, no build step.**
 
 **Portion brain (Standard §6.1).** Everyday g: boneless 180 / bone-in 250 / fish 160 / veg 200 / side 150. BRAAI tier: boneless 300 / bone-in 400 / fish 280 / shellfish 320. Taper per extra guest: 1=100% · 2=70% · 3=58% · 4+=50% each, then +10% buffer + appetite. **Braai `calcMeat` uses per-meat `soloG`/`sharedG` in `data.js` as the single source of truth** — the flat `PORTION_BRAAI` cut-class override must **not** be reintroduced. Kebabs counted RAW, not by skewer.
 
-**Free / Pro (R99/mo, no third-party ads ever).**
+**Free / Pro (R50/mo, no third-party ads ever).**
 - FREE: browse + cook/view full recipes + scale with ± + 1 dietary restriction + calories shown + Anchor Ingredient. **No cost figures, no My Plan, no shopping, no nutrition breakdown.**
 - PRO: everything else — cost (food cost pp + total, green `qtyBox` cost line, gold shop-spend total) + My Plan + shopping + downloads + full nutrition + all dietary restrictions + AI Chef + pantry + leftovers + monthly letter + community + magazine.
 - Calories always free; nutrition breakdown is a Pro toggle. `planView` + `shoppingView` are Pro (peekable lock for free).

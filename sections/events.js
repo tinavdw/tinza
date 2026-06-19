@@ -1690,7 +1690,7 @@ function eventsRecipeOpts(r, guests){
     extras += !isEvPro
       ? '<div style="background:#160f08;border:1px dashed #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
         + '<div style="font-size:22px;color:#e0d4b8;letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-        + '<div style="font-size:13px;color:#e0d4b8;">\uD83D\uDCB0 Cost estimate \u2014 <strong style="color:'+evGreen+';">Tinza Pro R99/month</strong></div></div>'
+        + '<div style="font-size:13px;color:#e0d4b8;">\uD83D\uDCB0 Cost estimate \u2014 <strong style="color:'+evGreen+';">Tinza Pro R50/month</strong></div></div>'
       : '<div style="background:#160f08;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
         + '<div style="display:flex;justify-content:space-between;align-items:center;">'
         +   '<div style="font-size:13px;color:#e0d4b8;">\uD83D\uDCB0 Estimated cost \u00B7 '+guests+' guests</div>'

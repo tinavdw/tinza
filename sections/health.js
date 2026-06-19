@@ -678,7 +678,7 @@ function renderHealthMyPlan(isPro){
     +'<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">'+planHtml+'</div>'
     +(isPro
       ? '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;color:#c06020;">🔥 Calories per person</div><div style="font-size:13px;color:#e0d4b8;margin-top:2px;">All selected dishes combined</div></div><div style="font-size:26px;color:#f5c842;font-weight:bold;">'+kcalPerPerson+'<span style="font-size:13px;"> kcal</span></div></div></div>'
-      : '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:13px;color:#e0d4b8;">🔥 Calorie counter — <strong style="color:#f5c842;">Tinza Pro R99/month</strong></div></div>')
+      : '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;text-align:center;"><div style="font-size:13px;color:#e0d4b8;">🔥 Calorie counter — <strong style="color:#f5c842;">Tinza Pro R50/month</strong></div></div>')
     +'<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:14px;margin-bottom:12px;">'
       +'<div style="font-size:13px;letter-spacing:2px;color:#e0d4b8;text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>'
       +(isPro
@@ -687,7 +687,7 @@ function renderHealthMyPlan(isPro){
                 +'<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:8px;border-top:1px solid #1a1208;"><div style="font-size:13px;color:#e0d4b8;">Per person</div><div style="font-size:16px;color:#f5c842;font-weight:bold;">R'+planCostPP+'</div></div>'
                 +'<div style="font-size:13px;color:#e0d4b8;margin-top:8px;line-height:1.5;">'+planCostMatched+'/'+shopItems.length+' ingredients priced · SA&#39;s biggest retailers · Always buy 10% extra</div>'
             : '<div style="font-size:13px;color:#e0d4b8;font-style:italic;">No priced ingredients yet — add recipes with weighed ingredients to see a cost.</div>')
-        : '<div style="font-size:13px;color:#e0d4b8;">💰 Cost totals — <strong style="color:#f5c842;">Tinza Pro R99/month</strong></div>')
+        : '<div style="font-size:13px;color:#e0d4b8;">💰 Cost totals — <strong style="color:#f5c842;">Tinza Pro R50/month</strong></div>')
     +'</div>'
     +'<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;">'
       +'<div style="font-size:13px;color:#f5c842;font-weight:bold;margin-bottom:6px;">⚖️ How portions work</div>'
@@ -696,7 +696,7 @@ function renderHealthMyPlan(isPro){
     +'<div style="font-size:13px;letter-spacing:2px;color:#f5c842;text-transform:uppercase;margin-bottom:8px;">🛒 Shopping List</div>'
     +(isPro
       ? '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:13px;color:#e0d4b8;margin-bottom:8px;">Tap items you already have to tick them off</div>'+shopHtml+(shopItems.length>0?'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #1a1208;display:flex;justify-content:space-between;"><span style="font-size:13px;color:#e0d4b8;">'+shopItems.filter(function(i){return !checked['h_'+i.key];}).length+' of '+shopItems.length+' items remaining</span><button onclick="set({checkedHealthItems:{}})" style="background:none;border:none;color:#c06020;font-size:13px;cursor:pointer;text-decoration:underline;">Reset all</button></div>':'')+'</div>'
-      : '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:6px;font-family:Georgia,serif;">Full Shopping List</div><div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R99/month</div></div>')
+      : '<div style="background:#161210;border:1px solid #3a2010;border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;"><div style="font-size:32px;margin-bottom:8px;">🔒</div><div style="font-size:14px;color:#f5c842;font-weight:bold;margin-bottom:6px;font-family:Georgia,serif;">Full Shopping List</div><div style="font-size:13px;color:#e0d4b8;margin-bottom:10px;line-height:1.6;">All ingredients combined, no duplicates</div><div style="font-size:13px;color:#c06020;font-weight:bold;">Unlock with Tinza Pro — R50/month</div></div>')
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
     +'<button onclick="healthSharePlan()" style="padding:14px;border-radius:10px;border:2px solid #25d366;background:#1a1208;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;line-height:1.4;">📲 Share Plan<br><span style="font-size:13px;opacity:0.7;">🆓 Free</span></button>'
     +(isPro
