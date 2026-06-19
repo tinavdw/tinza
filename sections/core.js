@@ -2140,12 +2140,14 @@ function metaStrip(o){
     + '</div>';
 }
 
-// §4b.4 — "How portion size works" collapsible (pizza analogy). rawNote optional.
-function portionHowBox(rawNote){
+// §4b.4 — "How portion size works" collapsible. rawNote optional; bodyOverride
+// replaces the default pizza analogy (finger foods explain pieces-per-tier).
+function portionHowBox(rawNote, bodyOverride){
+  var body = bodyOverride || 'Think of it like slicing a pizza — one dish on its own gives a full helping; add it to a plan with other dishes and each helping gets smaller to share the plate, but the total food stays the same. Want more? Tap + above to add guests.';
   return '<div style="margin-bottom:12px;">'
     + '<span id="howPortion-btn" onclick="(function(){var c=document.getElementById(\'howPortion-body\');var b=document.getElementById(\'howPortion-btn\');var o=c.style.display===\'block\';c.style.display=o?\'none\':\'block\';b.textContent=o?\'▼ How portion size works\':\'▲ How portion size works\';})()" style="font-size:13px;color:var(--accent);cursor:pointer;user-select:none;">▼ How portion size works</span>'
     + '<div id="howPortion-body" style="display:none;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:6px;font-size:15px;color:var(--ink-soft);line-height:1.6;">'
-    +   'Think of it like slicing a pizza — one dish on its own gives a full helping; add it to a plan with other dishes and each helping gets smaller to share the plate, but the total food stays the same. Want more? Tap + above to add guests.'
+    +   body
     +   (rawNote ? '<div style="margin-top:8px;color:#748646;">' + rawNote + '</div>' : '')
     + '</div></div>';
 }
@@ -2673,7 +2675,7 @@ function recipePage(o){
   var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200) : '';
   var sub     = o.sub ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">' + o.sub + '</div>' : '';
   var meta    = (typeof metaStrip === 'function')     ? metaStrip(o.meta || {}) : '';
-  var portion = (typeof portionHowBox === 'function') ? portionHowBox(o.portionRawNote || '') : '';
+  var portion = (typeof portionHowBox === 'function') ? portionHowBox(o.portionRawNote || '', o.portionHowText || '') : '';
   var goes    = (typeof goesWellBox === 'function')   ? goesWellBox(o.goesWith || []) : '';
   var actions = (typeof recipeActions === 'function') ? recipeActions(o.actions || {}) : '';
   var nav     = (typeof recipeNav === 'function')     ? recipeNav(o.nav || {}) : '';
