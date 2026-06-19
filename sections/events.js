@@ -2,6 +2,36 @@
 // warm-gold highlight, behind the emoji on photoless cards. Decorative literal.
 var EVENTS_GRAD = 'radial-gradient(130% 120% at 22% 10%, #e0b34a 0%, transparent 50%), linear-gradient(155deg, #6a2747, #2a0f1e)';
 
+// ── FINGER-FOOD COST ENGINE ──────────────────────────────────────────────
+// Finger foods are priced per PIECE, then scaled by pieces-per-person. The
+// piece count comes from the occasion tier (recipe page = full tier "star")
+// or the plan's division (My Plan). Cost always follows the pieces shown at
+// that spot, so page / plan / platters agree. Buffet mains keep their costPP.
+function isFingerPieceItem(r){
+  return !!(r && r.makes && r.base300 && r.base300.some(function(i){ return i && i.pp!=null; }));
+}
+function fingerPerPieceCost(r){
+  if(!r || !r.base300 || typeof costRecipe!=='function') return 0;
+  var items = r.base300.filter(function(i){ return i && i.pp!=null; })
+    .map(function(i){ return { name:i.n, qty:i.pp, unit:(i.u||'g') }; });
+  if(!items.length) return 0;
+  return costRecipe(items, 1).cook;   // rands per single piece
+}
+function fingerTier(etype){
+  etype = etype || (typeof S!=='undefined' && S.eventFingerEventType) || 'standalone';
+  var mn = etype==='standalone'?12:etype==='premeal'?5:4;
+  var mx = etype==='standalone'?15:etype==='premeal'?6:5;
+  return { min:mn, max:mx, avg:(mn+mx)/2,
+    label: etype==='standalone'?'🥪 Snacks only':etype==='premeal'?'🍽️ Before a meal':'🔥 At a braai' };
+}
+// per-person cost = per-piece × pieces-per-person (defaults to full tier avg)
+function fingerCostPP(r, piecesPP){
+  var per = fingerPerPieceCost(r);
+  if(!per) return r.costPP||0;        // fallback to static if unpriced
+  if(piecesPP==null) piecesPP = fingerTier().avg;
+  return Math.round(per * piecesPP);
+}
+
 function eventsTopNav(accent){
   accent = accent || 'var(--accent)';
   var eAct = "set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
@@ -743,7 +773,7 @@ function eventsHTML(){
     </div>`;
 
     // ── Summary header ──
-    const totalCostPP = selectedItems.reduce((s,r)=>s+(r.costPP||0),0);
+    const totalCostPP = selectedItems.reduce((s,r)=>s+(isFingerPieceItem(r)?fingerCostPP(r,piecesPerType):(r.costPP||0)),0);
     const totalCost = totalCostPP * guests;
 
     // ── By-dish view ──
@@ -762,7 +792,7 @@ function eventsHTML(){
           <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.35;">${r.name}</div>
-            <div style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${r.costPP?' · ~R'+r.costPP+'/pp':''}</div>
+            <div style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${(function(){var c=isFingerPieceItem(r)?fingerCostPP(r,piecesPerType):r.costPP;return c?' · ~R'+c+'/pp':'';})()}</div>
           </div>
           <span onclick="openRecipe('events','${r.id}')" style="font-size:22px;color:var(--accent);flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
         </div>`;
@@ -1645,7 +1675,20 @@ function eventsRecipeOpts(r, guests){
   } else if(r.ppG){
     var tg=r.ppG*guests; qTotal=(tg>=1000?(Math.round(tg/100)/10)+(r.ppG<5?'L':'g'):tg+'g'); qPP=r.ppG+'g per person';
   } else { qPP='scaled below'; }
-  if(r.costPP){
+  var fingerCPP = null;
+  if(isFingerPieceItem(r)){
+    var _ft = fingerTier();
+    var _uw = r.unit || 'pieces';
+    qTotal = Math.round(_ft.min*guests)+'\u2013'+Math.round(_ft.max*guests)+' '+_uw;
+    qPP = _ft.min+'\u2013'+_ft.max+' per person \u00b7 '+_ft.label;
+    fingerCPP = fingerCostPP(r, _ft.avg);
+  }
+  if(fingerCPP && fingerCPP>0){
+    var fctot=fingerCPP*guests;
+    var fcostLine='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">~R'+fingerCPP+'</b> pp \u00b7 <b style="color:var(--green);">~R'+fctot.toLocaleString()+'</b> total'
+      +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">Scales with your event type \u2014 costing only, not the grocery price.</div>';
+    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+fcostLine+'</div>') : fcostLine;
+  } else if(r.costPP){
     var ctot=Math.round(r.costPP*guests);
     var costLine='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+r.costPP+'</b> pp \u00B7 <b style="color:var(--green);">R'+ctot.toLocaleString()+'</b> total'
       +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>';
@@ -1689,9 +1732,10 @@ function eventsRecipeOpts(r, guests){
   var evGreen = 'var(--accent)';
   var isEvPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
   var extras='';
-  // compact cost box (Pro-gated), driven by precomputed costPP
-  if(r.costPP){
-    var evTot = Math.round(r.costPP*guests);
+  // compact cost box (Pro-gated) — finger foods use tier-scaled per-piece cost
+  var boxCostPP = isFingerPieceItem(r) ? fingerCostPP(r, fingerTier().avg) : r.costPP;
+  if(boxCostPP){
+    var evTot = Math.round(boxCostPP*guests);
     extras += !isEvPro
       ? '<div style="background:var(--card2);border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
         + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
@@ -1700,7 +1744,7 @@ function eventsRecipeOpts(r, guests){
         + '<div style="display:flex;justify-content:space-between;align-items:center;">'
         +   '<div style="font-size:13px;color:var(--ink-soft);">\uD83D\uDCB0 Estimated cost \u00B7 '+guests+' guests</div>'
         +   '<div style="font-size:24px;color:'+evGreen+';font-weight:bold;">~R'+evTot.toLocaleString()+'</div></div>'
-        + '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:var(--gold);font-weight:bold;">~R'+r.costPP+'</span></div>'
+        + '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:var(--gold);font-weight:bold;">~R'+boxCostPP+'</span></div>'
         + '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">estimated food cost</div></div>';
   }
   if(r.tip) extras += '<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:var(--ink-soft);"><span style="color:var(--accent);">\uD83D\uDCA1 TIP: </span>'+r.tip+'</div>';
