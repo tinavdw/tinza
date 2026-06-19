@@ -1165,11 +1165,11 @@ function eventsHTML(){
         ];
         const cur=ETYPES.find(t=>t.id===(S.eventFingerEventType||'standalone'))||ETYPES[0];
         return `<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;margin-bottom:10px;overflow:hidden;">
-          <div onclick="setQuiet({fingerEventTypeOpen:!S.fingerEventTypeOpen})" style="padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;">
+          <div onclick="setQuiet({fingerEventTypeOpen:S.fingerEventTypeOpen===false})" style="padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;">
             <strong style="color:var(--accent);font-size:13px;">📏 Event type — <span style="color:var(--ink);font-weight:normal;">${cur.label}</span></strong>
-            <span style="color:var(--accent);font-size:14px;">${S.fingerEventTypeOpen?'▲':'▼'}</span>
+            <span style="color:var(--accent);font-size:14px;">${S.fingerEventTypeOpen===false?'▼':'▲'}</span>
           </div>
-          ${S.fingerEventTypeOpen?`<div style="padding:0 12px 12px;border-top:1px solid var(--card2);">
+          ${S.fingerEventTypeOpen!==false?`<div style="padding:0 12px 12px;border-top:1px solid var(--card2);">
             <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
               ${ETYPES.map(t=>{const on=(S.eventFingerEventType||'standalone')===t.id;return `<button onclick="setQuiet({eventFingerEventType:'${t.id}'})" style="flex:1;min-width:90px;padding:8px 6px;border-radius:8px;border:1px solid ${on?'var(--accent)':'var(--line2)'};background:${on?'var(--card2)':'transparent'};cursor:pointer;text-align:center;">
                 <div style="font-size:13px;color:${on?'var(--gold)':'var(--ink-soft)'};">${t.label}</div>
