@@ -607,6 +607,30 @@ const PRICE_DB = {
   "coffee": 1050,   // instant R210/200g -> R1050/kg
   "tea": 300,   // R50/80 bags -> ~R300/kg
 
+  // ── Finger-food ingredients (PRICE_DB audit, 19 Jun 2026) — were NULL -> counted R0 ──
+  // Base keys; priceOf's longest-word fallback resolves the parenthetical variants too.
+  "rump steak": 225,          // = beef rump (Roadmap R225/kg) — was the big zero
+  "shortcrust pastry": 100,   // R40/400g roll -> ~R100/kg (cf puff pastry 80)
+  "bell pepper": 50,          // = green pepper R50/kg
+  "blue cheese": 260,         // SA blue/gorgonzola ~R260/kg
+  "calamari": 130,            // frozen tubes/rings ~R130/kg
+  "cornstarch": 68,           // = cornflour R68/kg
+  "coconut biscuits": 90,     // ~ marie biscuits R90/kg
+  "oreganum": 688,            // = origanum R688/kg (SA spelling variant)
+  "sage": 688,                // dried herb ~ origanum
+  "chives": 650,              // fresh herb R13/20g -> ~R650/kg
+  "vanilla extract": 330,     // essence R330/L
+  "white pepper": 240,        // ground white pepper ~R240/kg
+  "fig": 120,                 // fresh figs ~R120/kg (seasonal)
+  "kiwi": 80,                 // ~R80/kg
+  "peppermint crisp": 306,    // 49g bar R15 -> ~R306/kg
+  "sourdough": 75,            // loaf R45/600g -> ~R75/kg
+  "digestive": 90,            // ~ marie biscuits (priceClean takes 'digestive' before the '/')
+  "vegetable oil": 48,        // = sunflower oil R48/L
+  "extra coconut": 160,       // = desiccated coconut R160/kg ('Extra Coconut (for rolling)')
+  "water": 0.02,              // municipal ~R0.02/L — keeps water ~free while resolving the miss
+  "jalape": 80,               // jalapeño: priceClean strips the n~ to 'jalape o…' -> key the surviving token, priced as chilli
+
 };
 
 const MEAT_COSTS = {

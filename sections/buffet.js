@@ -173,7 +173,7 @@ function buffetStep2(){
       title:'Starters', emoji:'🥗',
       tagline:`${isPro?selCount+' selected · ':''}${g} guests · 110g pp each`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
@@ -195,7 +195,7 @@ function buffetStep3(){
       title:'Main Dishes', emoji:'🥩',
       tagline:`${n} selected · portions reduce as you add more · ${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
@@ -217,7 +217,7 @@ function buffetStep4(){
       title:'Side Dishes', emoji:'🥘',
       tagline:`${(S.eventSelectedSides||[]).length} selected · ${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
@@ -236,7 +236,7 @@ function buffetStep5(){
       title:'Salads', emoji:'🥙',
       tagline:`${(S.eventSelectedSalads||[]).length} selected · ${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
@@ -255,7 +255,7 @@ function buffetStep6(){
       title:'Desserts', emoji:'🎂',
       tagline:`${(S.eventSelectedDesserts||[]).length} selected · ${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})", backLabel:'← Overview',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:buffetTotalSel(), label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
@@ -777,7 +777,7 @@ function buffetStep7(){
       tagline:`${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
       backJs:"set({buffetStep:1})",
-      backLabel:'← Overview',
+      backLabel:'← Buffet Planner',
       myPlan:{ count:allPortioned.length, label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">

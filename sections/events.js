@@ -1702,19 +1702,19 @@ function eventsRecipeOpts(r, guests){
   } else if(r.ppG){
     var tg=r.ppG*guests; qTotal=(tg>=1000?(Math.round(tg/100)/10)+(r.ppG<5?'L':'g'):tg+'g'); qPP=r.ppG+'g per person';
   } else { qPP='scaled below'; }
-  var fingerCPP = null;
   if(isFingerPieceItem(r)){
     var _ft = fingerTier();
-    var _uw = r.unit || 'pieces';
-    qTotal = Math.round(_ft.min*guests)+'\u2013'+Math.round(_ft.max*guests)+' '+_uw;
-    qPP = _ft.min+'\u2013'+_ft.max+' per person \u00b7 '+_ft.label;
-    fingerCPP = fingerCostPP(r, _ft.avg);
-  }
-  if(fingerCPP && fingerCPP>0){
-    var fctot=fingerCPP*guests;
-    var fcostLine='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">~R'+fingerCPP+'</b> pp \u00b7 <b style="color:var(--green);">~R'+fctot.toLocaleString()+'</b> total'
-      +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">Scales with your event type \u2014 costing only, not the grocery price.</div>';
-    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+fcostLine+'</div>') : fcostLine;
+    var _perPiece = fingerPerPieceCost(r);
+    // Recipe page = spread GUIDE, not a per-snack count. The exact "how many of
+    // THIS" lives in My Plan (tier total / snacks chosen). No contradiction.
+    qTotal = _ft.min+'\u2013'+_ft.max+' pieces pp';
+    qPP = 'across your whole spread \u00b7 '+_ft.label;
+    var _ppTxt = (_perPiece>0)
+      ? '\uD83D\uDCB0 <b style="color:var(--green);">\u2248R'+(Math.round(_perPiece*100)/100)+'</b> per piece. '
+      : '';
+    var _fNote = _ppTxt+'How many of <b>this</b> to make depends on the snacks you pick \u2014 add it to <b>My Plan</b> for your amount + spread cost.'
+      +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">Costing only \u2014 not the grocery-store price.</div>';
+    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+_fNote+'</div>') : _fNote;
   } else if(r.costPP){
     var ctot=Math.round(r.costPP*guests);
     var costLine='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+r.costPP+'</b> pp \u00B7 <b style="color:var(--green);">R'+ctot.toLocaleString()+'</b> total'
@@ -1760,7 +1760,7 @@ function eventsRecipeOpts(r, guests){
   var isEvPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
   var extras='';
   // compact cost box (Pro-gated) — finger foods use tier-scaled per-piece cost
-  var boxCostPP = isFingerPieceItem(r) ? fingerCostPP(r, fingerTier().avg) : r.costPP;
+  var boxCostPP = isFingerPieceItem(r) ? 0 : r.costPP;
   if(boxCostPP){
     var evTot = Math.round(boxCostPP*guests);
     extras += !isEvPro
@@ -1788,7 +1788,7 @@ function eventsRecipeOpts(r, guests){
 
   return {
     photoName:r.name, photoEmoji:emoji,
-    portionHowText: isFingerPieceItem(r) ? 'Finger foods are counted in pieces per person, set by the event type above \u2014 about 4\u20135 each at a braai, 5\u20136 before a meal, and 12\u201315 for a snacks-only spread. Add several snacks to a plan and that total is shared across them, so each one scales down to keep the spread sensible.' : '',
+    portionHowText: isFingerPieceItem(r) ? 'Finger foods are counted in pieces per person, set by the event type above \u2014 about 4\u20135 each at a braai, 5\u20136 before a meal, and 12\u201315 for a snacks-only spread. That total is shared across the snacks you pick, so each one scales down to keep the spread sensible. Set your exact amounts in My Plan.' : '',
     backJs:"closeRecipe()", backLabel:'\u2190 Back',
     name:r.name, sub:(r.region||''),
     meta:{ time: r.time?(r.time+' min'):'', kcal:r.kcal },
