@@ -1126,9 +1126,10 @@ function eventsHTML(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;">
         ${tabs.map(t=>{
           const isActive = et===t.id;
+          const _top = "var _r=document.getElementById('root');if(_r)_r._savedScroll=null;";
           const onClick = t.id==='kiddies'
-            ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null})`
-            : `set({eventTab:'${t.id}',eventShowShopList:false})`;
+            ? `${_top}set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null})`
+            : `${_top}set({eventTab:'${t.id}',eventShowShopList:false})`;
           return `<div onclick="${onClick}"
             style="background:${isActive?'var(--card2)':'var(--bg)'};border:1px solid ${isActive?'var(--accent)':'var(--line)'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;"
             onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='${isActive?'var(--accent)':'var(--line)'}'">
