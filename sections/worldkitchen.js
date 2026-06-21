@@ -155,7 +155,7 @@ function wkRecipeCard(r){
     if(_cpp && _cpp.priced > 0 && _cpp.total > 0) costPP = _cpp.total;
   }
   // Route through the shared Warm Spice card (Rule Zero) — World Kitchen is always inside .warm.
-  return warmCard({ name:disp, photoName:r.name, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
+  return warmCard({ name:disp, photoName:r.name, photoAlt:r.nameAlt, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
 }
 
 /* braai-style grid tile: emoji on top, bold title, subtitle. dim = coming-soon, accent = green-featured. */
@@ -664,7 +664,7 @@ function wkRecipeOpts(r, country, universal){
 
   // ── opts for the ONE shared page builder (Standard §4b) ──
   return {
-    photoName: r.name, photoEmoji: '🍽️',
+    photoName: r.name, photoAlt: r.nameAlt, photoEmoji: '🍽️',
     backJs: _back, backLabel: '← '+country,
     name: disp,
     sub: sub,
