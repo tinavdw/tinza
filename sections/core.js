@@ -1890,7 +1890,7 @@ function inWarm(){ return S.screen==='braai' || S.screen==='worldkitchen' || S.s
 //   warmCard({ name, emoji, sub, costPP, meta, openJs, toggleJs, sel, badge, grad })
 function warmCard(o){
   o = o || {};
-  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(o.name||'')) + '.jpg';
+  const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(o.photoName || o.name||'')) + '.jpg';
   const grad = o.grad || 'radial-gradient(130% 120% at 20% 8%, #e9a949 0%, transparent 52%), linear-gradient(155deg, #9c3d22, #54200f)';
   const check = o.toggleJs
     ? `<div onclick="event.stopPropagation();${o.toggleJs}" title="${o.sel?'In plan — tap to remove':'Add to plan'}" style="position:absolute;top:10px;left:11px;z-index:3;width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,0.85);background:${o.sel?'var(--cost-green)':'rgba(35,18,10,0.45)'};color:${o.sel?'#2c211a':'#fff'};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:bold;cursor:pointer;">${o.sel?'✓':''}</div>`

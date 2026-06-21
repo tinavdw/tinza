@@ -1,65 +1,48 @@
 flowchart TD
-    S([Tinza · 15 Jun · pricing pass — pause for the night]) --> DONE
+    S([Tinza · 20–21 Jun · SUPER TASK — photo bug + recipes + cross-links]) --> DONE
 
-    subgraph DONE[DONE THIS SESSION · pricing]
+    subgraph DONE[DONE THIS SESSION · staged, NOT pushed]
         direction TB
-        d1[Exotic file built · 245 items · pantry routing + 14 aliases live · egusi to pumpkin seeds]
-        d2[PRICED: kapenta 350 · mopane 450 · pumpkin seeds 150 · white loaf 15 · chorizo 350 · kale 87 · waterblommetjies 95 · kithul 98 · double cream yoghurt 50 · teff 96 · hibiscus 1400 · basa 160 · smoked pork neck 140 · gammon 200]
-        d3[ALIASED: biscuits to marie · swiss chard + molokhia + greens to spinach · steak + minced + cooked-meat to beef/pork · bean family to sugar/butter beans · goat to mutton · cod to hake · white-fish family to basa · injera to teff · shiro to chickpeas · argan to sesame oil · cured meat to smoked pork neck · sukuma to kale]
-        d4[PANTRY: mitmita to isPantryItem · grape juice + barley still open]
+        d1[P1 · browse-card photo 404 FIXED: warmCard photoName fallback in core.js · World Kitchen passes photoName:r.name · Braai already bare-name, no change · Koshari now /Koshari.jpg]
+        d2[P2 · wk_africa.js: Frango a Zambeziana REWRITTEN as a braai dish · Lula Grelhada ADDED · Ewedu ADDED · Efo Riro already existed so REPLACED w/ task object · Pounded Yam + Amala swallow chefNotes · net +2 recipes, 190 unique ids, 0 dupes]
+        d3[P3 · cross-link hook already existed as WK_CROSS_LINKS map, NOT _bcl field · added 3: libya-hummus to Tahini · pounded-yam to Efo Riro · amala to Ewedu · all targets resolve]
+        d4[P4 · pricing: palm oil + calamari already resolve · jute leaves to spinach + dried shrimp powder to prawns added to WK_ALIAS · iru locust beans left UNPRICED — pinch condiment, never guess a rand]
         d1 --> d2 --> d3 --> d4
     end
 
     DONE --> PUSH
 
-    subgraph PUSH[TO APPLY + PUSH · Claude Code, first thing]
+    subgraph PUSH[TO PUSH · GitHub Desktop, one file at a time, verify live]
         direction TB
-        p1[New PRICE_DB entries to prices.js]
-        p2[New PRICE_ALIAS to core.js · add mitmita to isPantryItem]
-        p3[node --check prices.js + core.js · push one file at a time]
+        p1[core.js — warmCard photoName fallback]
+        p2[worldkitchen.js — photoName · WK_CROSS_LINKS +3 · WK_ALIAS +2]
+        p3[wk_africa.js — Frango rewrite · Lula · Ewedu · Efo Riro · 2 chefNotes]
         p1 --> p2 --> p3
     end
 
     PUSH --> NEXT
 
-    subgraph NEXT[TOMORROW · finish the tail]
+    subgraph NEXT[REMAINING]
         direction TB
-        n1[GREP FIRST — Tina gave these ~1 week ago, confirm before re-pricing: raisins · currants · cornstarch · caramel · mixed fruit · breadcrumb · burger bun hamburger roll · bun hotdog roll · custard · almonds + sesame oil already confirmed in prices.js · sultanas aliased to raisins]
-        n2[Bucket B — pantry: spices / essences / teas — review + route out of headline]
-        n3[Bucket C — APPROVED · needs ten family rands: phyllo · firm cheese · fresh cheese · plantain · dough · cassava · pistachios · bulgur · small pasta · okra]
-        n4[Bucket D — genuine tail · see TINZA_EXOTIC_BUCKETS.md · seafood / game / tubers / fruit / nuts / bakery / breads / grains]
-        n5[Pork cuts per Meat Cut Guide: Carne de Porco + Cozido + Pierogi to shoulder · Bauernschmaus to fresh leg + ham · Bifana = loin done · cured to bacon/ham]
-        n1 --> n2 --> n3 --> n4 --> n5
+        n1[Cross-link DEFERRED — niter kibbeh cluster: no standalone niter kibbeh recipe yet, so doro-wat/shiro-wat/kitfo/tibs/gomen/misir-wat/siga-wat/atikilt-wat/firfir have nothing to link to. Build a niter kibbeh make-your-own first, then wire.]
+        n2[iru locust beans price — Tina to give a rand or confirm it stays a free pinch condiment]
+        n1 --> n2
     end
 
-    NEXT --> VETO
+    NEXT --> PHOTO
 
-    subgraph VETO[PENDING YOUR NOD]
+    subgraph PHOTO[TINA · photos still to shoot]
         direction TB
-        v1[Proxy aliases to veto if you dislike: veal to beef · bratwurst + saucisson to pork · sea bass to hake/basa · reindeer to beef · shrimp-or-minced to prawns vs beef]
-        v2[Ranges taken at upper-mid — nudge any down: basa 160 · smoked pork neck 140 · gammon 200]
-        v1 --> v2
+        ph1[Tunisia 14 · Zimbabwe 14 · Tanzania 7 · Libya 1 · Mozambique 1 + Lula]
+        ph2[New dishes: Ewedu · Efo Riro · Frango a Zambeziana]
+        ph1 --> ph2
     end
-
-    subgraph PARK[PARKED ROADMAP · unchanged, after pricing]
-        direction TB
-        k1[Finish Events migration]
-        k2[One shared guest count]
-        k3[Shared plan-row + shopping renderer — roll to Braai / World / Events]
-        k4[Spice cross-links · cosmetic sweep LAST]
-        k5[4 recipe corrections — no. 3, 4, 7, 8]
-        k1 --> k2 --> k3 --> k4 --> k5
-    end
-
-    DONE -.-> PARK
 
     classDef done fill:#16301a,stroke:#4caf50,color:#dff0df
     classDef push fill:#3a2a18,stroke:#c06020,color:#f5e8cc
     classDef next fill:#1a2436,stroke:#4a90d9,color:#dce8f5
-    classDef veto fill:#2a1c2e,stroke:#a05a9c,color:#f0e0f0
-    classDef park fill:#2a2410,stroke:#f5c842,color:#f5e8cc
+    classDef photo fill:#2a2410,stroke:#f5c842,color:#f5e8cc
     class d1,d2,d3,d4 done
     class p1,p2,p3 push
-    class n1,n2,n3,n4,n5 next
-    class v1,v2 veto
-    class k1,k2,k3,k4,k5 park
+    class n1,n2 next
+    class ph1,ph2 photo
