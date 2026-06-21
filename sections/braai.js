@@ -14,7 +14,7 @@ function braaiStep1(){
   const sections = [
     {id:'mains',   emoji:'🥩', label:'Mains',        sub:'Meats & Vegetarian',            action:"set({braiStep:2,braaiView:'browse'})",                              count:selMeats.length},
     {id:'salads',  emoji:'🥗', label:'Salads',        sub:'Cold sides & fresh salads',     action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'salads'})",    count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='salads')?.items.some(x=>x.id===id)).length},
-    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>['starchy','extras'].some(gid=>SIDES_GROUPS.find(g=>g.id===gid)?.items.some(x=>x.id===id))).length},
+    {id:'starchy', emoji:'🌽', label:'Side Meals', sub:'Pap · Creamy potato bake · Breads',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'starchy'})",   count:selSides.filter(id=>['starchy','extras'].some(gid=>SIDES_GROUPS.find(g=>g.id===gid)?.items.some(x=>x.id===id))).length},
     {id:'sauces',  emoji:'🥫', label:'Sauces',         sub:'Relishes · Dips · Marinades',  action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'relishes'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='relishes')?.items.some(x=>x.id===id)).length},
     {id:'desserts',emoji:'🍫', label:'Desserts',       sub:'Fire desserts & sweet treats', action:"set({braiStep:3,braaiView:'browse',braaiSidesFilter:'desserts'})",  count:selSides.filter(id=>SIDES_GROUPS.find(g=>g.id==='desserts')?.items.some(x=>x.id===id)).length},
   ];
@@ -172,7 +172,7 @@ function braaiStep2(){
       ${activeGroup.id==="veg"?`
         <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:#539048;line-height:1.6;">
           🥗 <strong style="color:#6aaa50;">More vegetarian options in Sides & Salads!</strong><br>
-          <span style="color:#558d46;">Chakalaka, mixed salads, potato bake, stuffed mushrooms and more — all scale to your guest count.</span><br>
+          <span style="color:#558d46;">Chakalaka, mixed salads, creamy potato bake, stuffed mushrooms and more — all scale to your guest count.</span><br>
           <button onclick="set({braiStep:3,braaiView:\'browse\',braaiSidesFilter:\'salads\'})" style="margin-top:6px;background:#1a3a18;border:1px solid #3a7a30;border-radius:6px;padding:5px 12px;font-size:13px;color:#60c050;cursor:pointer;">→ Go to Side Dishes</button</span>
         </div>`:""}
 
