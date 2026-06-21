@@ -103,7 +103,9 @@ function tinzaRoman(recipe) {
 function tinzaDisplayName(recipe) {
   var roman = tinzaRoman(recipe);
   var en = recipe.nameEn || recipe.nameAlt || '';
-  if (!en || tinzaNormalize(en) === tinzaNormalize(roman)) return roman;
+  // FIX 2: don't append a second bracket when the gloss is already baked into the
+  // name (e.g. "Appeltert (Apple Tart)" with nameAlt "Apple Tart").
+  if (!en || /\)\s*$/.test(roman) || tinzaNormalize(en) === tinzaNormalize(roman)) return roman;
   return roman + ' (' + en + ')';
 }
 
