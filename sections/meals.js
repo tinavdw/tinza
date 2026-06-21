@@ -408,18 +408,22 @@ function mealSectionHTML(sectionKey){
       ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
-        return `<div style="background:${inPlan?cfg.bg:'#161210'};border:1px solid ${inPlan?cfg.color:'#2a2a20'};border-radius:10px;padding:14px;margin-bottom:8px;">
-          <div style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;" onclick="openMealRecipe('${r.id}')">
-            <div style="width:22px;height:22px;border-radius:6px;background:${inPlan?cfg.color:'transparent'};border:2px solid ${inPlan?cfg.color:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;cursor:pointer;" onclick="event.stopPropagation();toggleMealPlan('${r.id}')">${inPlan?'✓':''}</div>
-            <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji}</span>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:16px;color:#f5e8cc;font-weight:bold;line-height:1.35;">${r.name}</div>
-              ${r.feel?`<div style="font-size:14px;color:#e0d4b8;margin-top:4px;line-height:1.4;">${r.feel}</div>`:''}
-              <div style="font-size:13px;color:#e0d4b8;margin-top:4px;">${r.cuisine} · ⏱️ ${r.time} min${r.costPP?' · ≈ R'+r.costPP+' pp':''}</div>
-            </div>
-            <span style="font-size:22px;color:#c06020;flex-shrink:0;align-self:center;line-height:1;">›</span>
-          </div>
-        </div>`;
+        // Shared Warm Spice photo card (Rule Zero) — identical to World Kitchen's
+        // wkRecipeCard. Top-left checkbox toggles the EXISTING meal plan
+        // (toggleMealPlan, NOT wkPlanToggle); the card opens via openMealRecipe.
+        // Cost chip shows ONLY when the meal carries a per-person cost (else blank).
+        const metaTxt = [r.feel, (r.time?'⏱️ '+r.time+' min':'')].filter(Boolean).join(' · ');
+        return warmCard({
+          name: r.name,
+          photoName: r.name,
+          emoji: r.emoji || '🍽️',
+          sub: r.cuisine || '',
+          meta: metaTxt,
+          costPP: r.costPP || '',
+          openJs: "openMealRecipe('"+r.id+"')",
+          toggleJs: "toggleMealPlan('"+r.id+"')",
+          sel: inPlan
+        });
       }).join('')}
       ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
       <div style="margin-top:8px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
