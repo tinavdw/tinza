@@ -1850,10 +1850,21 @@ function homeHTML(){
 // Any section (current or new) can call recipePhoto(name, emoji) and get the same box.
 // Strip accents so "Purée" matches a plain "Puree.jpg" file — one cleaner for all photo lookups
 function cleanPhotoName(s){ return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\/\\:*?"<>|]/g,' ').replace(/\s+/g,' ').trim(); }
-// Photo loader fallback: if a .jpg 404s, try the same name as .png once,
-// then fall back to the emoji panel. Lets recipe & header images be either
-// format (Tina's photos saved as .png still show). Standard §5.5 prefers
-// .jpg but the loader now accepts .png too.
+// Display-name photo fallback (FIX 1): some photos are saved under the DISPLAY
+// name "Name (Alt)" rather than the bare name. When a recipe has a nameAlt and
+// its bare name doesn't already end with ")" (the SAME rule as tinzaDisplayName,
+// so it never builds a doubled "(x) (y)" filename), emit a data-alt-src=…display
+// .jpg that the loader tries before giving up. No nameAlt → '' → no change.
+function photoAltAttr(bare, alt){
+  bare = String(bare||''); alt = String(alt||'');
+  if(!alt || /\)\s*$/.test(bare.trim())) return '';
+  var u = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(bare + ' (' + alt + ')')) + '.jpg';
+  return ' data-alt-src="' + u + '"';
+}
+// Photo loader fallback chain: bare.jpg → bare.png → display.jpg → display.png →
+// emoji panel. The display steps only run when the renderer set data-alt-src
+// (recipe has a nameAlt). Lets photos be saved under either the bare or the
+// display name, in either format. Standard §5.5 prefers .jpg.
 function photoSwap(el){
   var s = el.getAttribute('src') || '';
   if(/\.jpe?g(\?|$)/i.test(s) && !el.dataset.triedPng){
@@ -1861,15 +1872,22 @@ function photoSwap(el){
     el.setAttribute('src', s.replace(/\.jpe?g(\?|$)/i, '.png$1'));
     return;
   }
+  // bare image (jpg+png) exhausted → try the display-name image, if one was given
+  if(el.dataset.altSrc && !el.dataset.triedAlt){
+    el.dataset.triedAlt = '1';
+    el.dataset.triedPng = '';                 // re-enable jpg→png for the display image
+    el.setAttribute('src', el.dataset.altSrc);
+    return;
+  }
   el.style.display='none';
   if(el.nextElementSibling) el.nextElementSibling.style.display='flex';
 }
 
-function recipePhoto(name, emoji, height){
+function recipePhoto(name, emoji, height, nameAlt){
   height = height || 200;
   const url = 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image/' + encodeURIComponent(cleanPhotoName(name)) + '.jpg';
   return `<div style="position:relative;height:${height}px;overflow:hidden;background:#1a0e08;border-radius:10px;margin-bottom:12px;">
-    <img src="${url}" onerror="photoSwap(this)" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    <img src="${url}"${photoAltAttr(name, nameAlt)} onerror="photoSwap(this)" style="width:100%;height:100%;object-fit:cover;display:block;" />
     <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:#1a0e08;">
       <span style="font-size:48px;">${emoji||'🍽️'}</span>
       <span style="font-size:13px;color:#b47527;">📷 Photo coming soon</span>
@@ -1904,7 +1922,7 @@ function warmCard(o){
   const metaRow = (chip||meta) ? `<div style="display:flex;align-items:center;gap:9px;padding:11px 13px 12px;flex-wrap:wrap;">${chip}${meta}</div>` : '<div style="height:6px;"></div>';
   return `<div onclick="${o.openJs||''}" style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 24px -18px rgba(120,70,30,0.5);margin-bottom:14px;cursor:pointer;">
     <div style="position:relative;aspect-ratio:1200/640;display:flex;align-items:flex-end;background:${grad};">
-      <img src="${url}" onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;" />
+      <img src="${url}"${photoAltAttr(o.photoName || o.name, o.photoAlt)} onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;" />
       <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;z-index:0;"><span style="font-size:54px;opacity:0.9;">${o.emoji||'🍽️'}</span></div>
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(35,18,10,0.78),rgba(35,18,10,0.12) 45%,transparent 65%);z-index:1;"></div>
       ${check}${badge}
@@ -2678,7 +2696,7 @@ function recipePage(o){
   var back = o.backJs
     ? '<button onclick="' + o.backJs + '" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid var(--line2);border-radius:20px;color:var(--accent);font-size:13px;padding:5px 12px;cursor:pointer;">' + (o.backLabel || '← Back') + '</button>'
     : '';
-  var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200) : '';
+  var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200, o.photoAlt) : '';
   var sub     = o.sub ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">' + o.sub + '</div>' : '';
   var meta    = (typeof metaStrip === 'function')     ? metaStrip(o.meta || {}) : '';
   var portion = (typeof portionHowBox === 'function') ? portionHowBox(o.portionRawNote || '', o.portionHowText || '') : '';
