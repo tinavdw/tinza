@@ -551,7 +551,7 @@ const EVENTS_BIG_COOKING_SALADS = [
       "LAYERED ASSEMBLY: beets first, then walnuts and onion rings, then scatter cheese. Drizzle explosive dressing. Finish with fresh mint leaves — the cooling herbaceous flavour is the perfect contrast to the sweet, earthy beet."
     ],
     tip:"Roast beetroots up to 3 days ahead and refrigerate. For a luxury finish: add fresh orange segments — the citrus acidity against roasted beet and creamy cheese is a restaurant-level flavour combination." },
-  { id:"slaphakskeentjies", name:"Slaphakskeentjies (Sweet & Sour Baby Onions)", emoji:"🧅", costPP:10,
+  { id:"slaphakskeentjies", name:"Slaphakskeentjies", emoji:"🧅", costPP:10,
     perPerson:{meat:100,unit:"g"},
     base300:[
       {n:"Baby pickling onions (peeled, whole)",a:"100g per person"},
