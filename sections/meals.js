@@ -305,6 +305,207 @@ var BAKES_RECIPES = [
 
 ];
 
+// ════════════════════════════════════════════════════════════════════
+//  LUNCH — written 22 Jun 2026 from TINZA_LUNCH_BUILD_BRIEF (curation locked)
+//  Shelf array the section reads = LIGHTLUNCH_RECIPES. Cats: salads · handhelds · soups · savbakes · quick
+//  Same object shape as breakfast + new `diet:` tag (meat|veg|vegan).
+//  ⚑DUP = a master also lives elsewhere (WK/Health/SA) — swap to cross-link in the cross-link phase.
+// ════════════════════════════════════════════════════════════════════
+var LIGHTLUNCH_RECIPES = [
+
+  // ───────────────── 🥗 SALADS & BOWLS (27) — all substantial, no sides ─────────────────
+  {id:'ln-greek-salad', cat:'salads', name:'Greek Salad', emoji:'🥗', cuisine:'Greek', time:15, costPP:24, diet:'veg', // ⚑DUP
+    feel:'Sunshine in a bowl — crunch, salt and a slick of good oil.',
+    ingredients:[{n:'cucumber',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'red onion',pp:30,u:'g'},{n:'green pepper',pp:50,u:'g'},{n:'feta',pp:60,u:'g'},{n:'kalamata olives',pp:25,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'dried oregano'}],
+    method:['Chop the cucumber, tomatoes and pepper into chunky pieces and slice the onion thinly.','Pile into a bowl and scatter over the olives.','Lay a slab of feta on top, drizzle with olive oil and a squeeze of lemon, and dust with oregano.','Toss gently at the table so the feta stays in pieces.'],
+    tip:'Salt the tomatoes a few minutes ahead — the juice that draws out becomes half your dressing.',
+    nutrition:{kcal:320,protein_g:10,carbs_g:16,fat_g:25}, storage:'Best fresh; undressed it keeps a day in the fridge.'},
+
+  {id:'ln-pasta-salad', cat:'salads', name:'Pasta Salad', emoji:'🍝', cuisine:'Italian-ish', time:20, costPP:22, diet:'veg', // ⚑DUP
+    feel:'The lunchbox hero — cold, herby and somehow better the next day.',
+    ingredients:[{n:'pasta',pp:90,u:'g'},{n:'cherry tomatoes',pp:80,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'feta',pp:40,u:'g'},{n:'black olives',pp:20,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'basil',pp:3,u:'g'}],
+    method:['Boil the pasta until just tender, drain and rinse under cold water to stop it cooking.','Halve the tomatoes, dice the cucumber and crumble in the feta.','Toss everything with olive oil, lemon and torn basil.','Season well — cold pasta needs more salt than you think.'],
+    tip:'Dress it while the pasta is still slightly warm so it soaks up the oil.',
+    nutrition:{kcal:380,protein_g:12,carbs_g:52,fat_g:14}, storage:'Keeps 2 days; refresh with a splash of oil and lemon.'},
+
+  {id:'ln-caesar', cat:'salads', name:'Caesar Salad', emoji:'🥗', cuisine:'American', time:15, costPP:28, diet:'veg',
+    feel:'Crunchy, creamy, salty — the one everyone secretly orders.',
+    ingredients:[{n:'lettuce',pp:120,u:'g'},{n:'white bread',pp:1,u:''},{n:'parmesan',pp:20,u:'g'},{n:'mayonnaise',pp:25,u:'g'},{n:'anchovies',pp:8,u:'g'},{n:'garlic',pp:3,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
+    method:['Cube the bread, toss in oil and crisp in a hot pan or oven until golden — these are your croutons.','Whisk the mayo with crushed garlic, mashed anchovy, lemon and half the parmesan into a loose dressing.','Tear the cos into a bowl, coat in dressing and toss through the croutons.','Finish with the rest of the parmesan, grated over the top.'],
+    tip:'No anchovies? A dash of Worcestershire gives the same salty backbone.',
+    nutrition:{kcal:340,protein_g:12,carbs_g:20,fat_g:24}, storage:'Dressing keeps 3 days; assemble just before eating.'},
+
+  {id:'ln-caprese', cat:'salads', name:'Caprese Salad', emoji:'🍅', cuisine:'Italian', time:10, costPP:30, diet:'veg',
+    feel:'Three ingredients pretending they didn\'t just make the best plate on the table.',
+    ingredients:[{n:'tomatoes',pp:160,u:'g'},{n:'mozzarella',pp:80,u:'g'},{n:'basil',pp:5,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'balsamic vinegar',pp:8,u:'ml'}],
+    method:['Slice the tomatoes and mozzarella into rounds of the same thickness.','Layer them alternately on a plate, tucking basil leaves between.','Drizzle generously with olive oil and a little balsamic.','Season with flaky salt and pepper right before serving.'],
+    tip:'Take the mozzarella out of the fridge 20 minutes early — cold dulls its flavour.',
+    nutrition:{kcal:300,protein_g:14,carbs_g:8,fat_g:24}, storage:'Best assembled fresh.'},
+
+  {id:'ln-egg-salad', cat:'salads', name:'Egg Salad', emoji:'🥚', cuisine:'Classic', time:15, costPP:18, diet:'veg',
+    feel:'Soft, creamy and old-fashioned in the best way.',
+    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'mayonnaise',pp:25,u:'g'},{n:'lettuce',pp:60,u:'g'},{n:'spring onion',pp:15,u:'g'},{n:'wholewheat bread',pp:1,u:''},{n:'mustard',pp:5,u:'g'}],
+    method:['Hard-boil the eggs for 9 minutes, cool under cold water and peel.','Roughly chop and fold through the mayo, a little mustard and sliced spring onion.','Season well with salt and plenty of pepper.','Serve over leaves or piled onto toast.'],
+    tip:'A pinch of paprika and a squeeze of lemon lifts it from plain to moreish.',
+    nutrition:{kcal:330,protein_g:16,carbs_g:18,fat_g:22}, storage:'Keeps 2 days covered in the fridge.'},
+
+  {id:'ln-panzanella', cat:'salads', name:'Panzanella', emoji:'🍞', cuisine:'Tuscan', time:20, costPP:21, diet:'veg',
+    feel:'The Italian answer to leftover bread — juicy, garlicky, generous.',
+    ingredients:[{n:'ciabatta',pp:80,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'cucumber',pp:80,u:'g'},{n:'red onion',pp:30,u:'g'},{n:'basil',pp:4,u:'g'},{n:'olive oil',pp:18,u:'ml'},{n:'red wine vinegar',pp:8,u:'ml'}],
+    method:['Tear the bread into chunks and toast or pan-crisp until golden.','Chop the tomatoes over a bowl to catch every drop of juice, then add cucumber and thin onion.','Toss the bread through with olive oil and vinegar and let it sit 10 minutes to soak.','Fold in torn basil and season just before serving.'],
+    tip:'Slightly stale bread is the whole point — it drinks the dressing without going to mush.',
+    nutrition:{kcal:360,protein_g:8,carbs_g:44,fat_g:17}, storage:'Eat within a few hours; the bread softens over time.'},
+
+  {id:'ln-beet-goat', cat:'salads', name:'Beet & Goat Cheese Salad', emoji:'🫐', cuisine:'Bistro', time:20, costPP:32, diet:'veg',
+    feel:'Earthy, sweet beets against tangy cheese — a proper grown-up lunch.',
+    ingredients:[{n:'beetroot',pp:140,u:'g'},{n:'chevin goat cheese',pp:50,u:'g'},{n:'rocket',pp:40,u:'g'},{n:'walnuts',pp:20,u:'g'},{n:'honey',pp:8,u:'ml'},{n:'olive oil',pp:12,u:'ml'}],
+    method:['Roast or boil the beetroot until tender, then peel and cut into wedges.','Toast the walnuts in a dry pan until fragrant.','Pile rocket on a plate, add the warm beets and crumble over the goat cheese.','Drizzle with honey and oil whisked with a little lemon, and scatter the nuts.'],
+    tip:'Use ready-cooked vacuum-packed beetroot to turn this into a 10-minute lunch.',
+    nutrition:{kcal:340,protein_g:11,carbs_g:22,fat_g:24}, storage:'Components keep 3 days; assemble fresh.'},
+
+  {id:'ln-halloumi-grain', cat:'salads', name:'Warm Halloumi & Grain Salad', emoji:'🧀', cuisine:'Mediterranean', time:25, costPP:34, diet:'veg',
+    feel:'Squeaky golden halloumi over nutty grains — filling without being heavy.',
+    ingredients:[{n:'halloumi',pp:80,u:'g'},{n:'pearl barley',pp:70,u:'g'},{n:'rocket',pp:30,u:'g'},{n:'cherry tomatoes',pp:60,u:'g'},{n:'lemon',pp:0.3,u:''},{n:'olive oil',pp:12,u:'ml'},{n:'mint',pp:3,u:'g'}],
+    method:['Simmer the barley until tender, about 25 minutes, then drain and dress while warm with oil and lemon.','Slice the halloumi and fry in a dry hot pan until golden on both sides.','Fold the tomatoes and rocket through the warm grains.','Top with the halloumi and a scatter of torn mint.'],
+    tip:'Swap barley for couscous if you want it on the table in 10 minutes.',
+    nutrition:{kcal:430,protein_g:18,carbs_g:42,fat_g:22}, storage:'Grain base keeps 3 days; fry halloumi to order.'},
+
+  {id:'ln-halloumi-peach', cat:'salads', name:'Grilled Halloumi & Peach Salad', emoji:'🍑', cuisine:'Summery', time:15, costPP:33, diet:'veg',
+    feel:'Smoky, sweet and salty all at once — the salad that tastes like a braai afternoon.',
+    ingredients:[{n:'halloumi',pp:80,u:'g'},{n:'peaches',pp:90,u:'g'},{n:'rocket',pp:40,u:'g'},{n:'honey',pp:6,u:'ml'},{n:'olive oil',pp:10,u:'ml'},{n:'mint',pp:3,u:'g'}],
+    method:['Cut the peaches into wedges and the halloumi into thick slices.','Grill or pan-char both until marked and golden.','Lay over rocket and drizzle with honey, oil and lemon.','Finish with torn mint and a grind of black pepper.'],
+    tip:'Out of season? Tinned peaches, patted dry and charred hard, work beautifully.',
+    nutrition:{kcal:390,protein_g:15,carbs_g:24,fat_g:25}, storage:'Best fresh and warm.'},
+
+  {id:'ln-asian-chopped', cat:'salads', name:'Asian Chopped Salad', emoji:'🥬', cuisine:'East Asian', time:15, costPP:24, diet:'vegan',
+    feel:'Crunch on crunch with a sesame-ginger hit that wakes you up.',
+    ingredients:[{n:'cabbage',pp:100,u:'g'},{n:'carrots',pp:60,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'spring onion',pp:20,u:'g'},{n:'peanuts',pp:20,u:'g'},{n:'soy sauce',pp:12,u:'ml'},{n:'sesame oil',pp:8,u:'ml'},{n:'ginger',pp:5,u:'g'}],
+    method:['Shred the cabbage and carrots finely and slice the pepper into thin strips.','Whisk soy, sesame oil, grated ginger, lime and a little sugar into a dressing.','Toss the veg through the dressing until well coated.','Top with crushed peanuts and sliced spring onion.'],
+    tip:'Add a handful of fresh coriander and a pinch of chilli flakes for real lift.',
+    nutrition:{kcal:260,protein_g:8,carbs_g:22,fat_g:16}, storage:'Undressed slaw keeps 2 days; dress to order.'},
+
+  {id:'ln-sweetpotato-kale', cat:'salads', name:'Roasted Sweet Potato & Kale Salad', emoji:'🍠', cuisine:'Modern', time:35, costPP:23, diet:'vegan',
+    feel:'Warm, hearty and good for you in a way you can actually taste.',
+    ingredients:[{n:'sweet potato',pp:180,u:'g'},{n:'kale',pp:60,u:'g'},{n:'chickpeas',pp:80,u:'g'},{n:'olive oil',pp:14,u:'ml'},{n:'tahini',pp:15,u:'g'},{n:'lemon',pp:0.3,u:''}],
+    method:['Cube the sweet potato, toss in oil and roast at 200°C for 25 minutes until soft and caramelised.','Add the drained chickpeas for the last 10 minutes to crisp.','Massage the torn kale with a little oil and salt until it softens.','Pile everything together and drizzle with tahini loosened with lemon and water.'],
+    tip:'A pinch of cumin and smoked paprika on the sweet potato makes it sing.',
+    nutrition:{kcal:400,protein_g:12,carbs_g:54,fat_g:16}, storage:'Keeps 3 days; dressing separate.'},
+
+  {id:'ln-falafel-tahini', cat:'salads', name:'Falafel & Tahini Salad', emoji:'🧆', cuisine:'Middle Eastern', time:20, costPP:26, diet:'vegan', // ⚑DUP falafel master
+    feel:'Crisp falafel on a fresh, lemony bed — street food turned lunch bowl.',
+    ingredients:[{n:'falafel',pp:120,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'cucumber',pp:80,u:'g'},{n:'tomatoes',pp:80,u:'g'},{n:'tahini',pp:18,u:'g'},{n:'lemon',pp:0.3,u:''},{n:'parsley',pp:5,u:'g'}],
+    method:['Warm or fry the falafel until crisp and hot through.','Chop the cucumber and tomato and toss with leaves and parsley.','Loosen the tahini with lemon, water and a little garlic into a pourable sauce.','Sit the falafel on the salad and pour the tahini over.'],
+    tip:'A spoon of harissa stirred into the tahini brings welcome heat.',
+    nutrition:{kcal:420,protein_g:15,carbs_g:40,fat_g:23}, storage:'Best fresh; falafel re-crisps well in a pan.'},
+
+  {id:'ln-tofu-sesame-noodle', cat:'salads', name:'Crispy Tofu & Sesame Noodle Salad', emoji:'🍜', cuisine:'East Asian', time:25, costPP:28, diet:'vegan',
+    feel:'Cold sesame noodles with golden tofu — light but properly satisfying.',
+    ingredients:[{n:'tofu',pp:100,u:'g'},{n:'soba noodles',pp:80,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'soy sauce',pp:14,u:'ml'},{n:'sesame oil',pp:8,u:'ml'},{n:'peanuts',pp:15,u:'g'}],
+    method:['Press the tofu, cube it and fry in a little oil until golden and crisp on all sides.','Cook the noodles, drain and rinse cold.','Toss the noodles with soy, sesame oil and lime, then fold through ribboned cucumber and carrot.','Top with the tofu and crushed peanuts.'],
+    tip:'Toss the warm tofu in a spoon of soy and cornflour before frying for an extra-crisp shell.',
+    nutrition:{kcal:430,protein_g:18,carbs_g:48,fat_g:19}, storage:'Keeps a day; tofu best fresh.'},
+
+  {id:'ln-cauli-chickpea', cat:'salads', name:'Roast Cauliflower, Chickpea & Tahini Salad', emoji:'🥦', cuisine:'Middle Eastern', time:35, costPP:24, diet:'vegan',
+    feel:'Spiced, golden and hearty — a bowl that eats like a meal.',
+    ingredients:[{n:'cauliflower',pp:180,u:'g'},{n:'chickpeas',pp:90,u:'g'},{n:'tahini',pp:18,u:'g'},{n:'olive oil',pp:14,u:'ml'},{n:'lemon',pp:0.3,u:''},{n:'parsley',pp:5,u:'g'},{n:'cumin'}],
+    method:['Break the cauliflower into florets, toss with chickpeas, oil and cumin, and roast at 200°C for 25 minutes until charred.','Whisk the tahini with lemon, garlic and water into a loose dressing.','Tumble the warm roast veg onto a plate.','Drizzle with tahini and scatter chopped parsley.'],
+    tip:'A handful of pomegranate or raisins adds a sweet burst against the spice.',
+    nutrition:{kcal:390,protein_g:14,carbs_g:38,fat_g:22}, storage:'Keeps 3 days; superb cold.'},
+
+  {id:'ln-couscous-roastveg', cat:'salads', name:'Mediterranean Couscous & Roast Veg Salad', emoji:'🫑', cuisine:'Mediterranean', time:30, costPP:22, diet:'vegan',
+    feel:'Fluffy couscous studded with sweet, sticky roasted vegetables.',
+    ingredients:[{n:'couscous',pp:70,u:'g'},{n:'courgettes',pp:80,u:'g'},{n:'red pepper',pp:70,u:'g'},{n:'red onion',pp:40,u:'g'},{n:'olive oil',pp:14,u:'ml'},{n:'lemon',pp:0.3,u:''},{n:'mint',pp:4,u:'g'}],
+    method:['Chop the veg into chunks, toss in oil and roast at 200°C for 20 minutes until caramelised.','Pour boiling stock over the couscous, cover for 5 minutes, then fluff with a fork.','Fold the warm veg through the couscous with lemon and olive oil.','Finish with chopped mint and season generously.'],
+    tip:'Stir in a spoon of harissa or pesto for an instant flavour upgrade.',
+    nutrition:{kcal:370,protein_g:9,carbs_g:56,fat_g:13}, storage:'Keeps 3 days; great packed for work.'},
+
+  {id:'ln-chickpea-avo', cat:'salads', name:'Smoky Chickpea & Avocado Salad', emoji:'🥑', cuisine:'Modern', time:15, costPP:25, diet:'vegan',
+    feel:'Creamy avo, smoky chickpeas, zero effort — weekday lunch sorted.',
+    ingredients:[{n:'chickpeas',pp:100,u:'g'},{n:'avocado',pp:80,u:'g'},{n:'tomatoes',pp:80,u:'g'},{n:'red onion',pp:25,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'lemon',pp:0.3,u:''},{n:'smoked paprika'}],
+    method:['Pan-fry the drained chickpeas in oil with smoked paprika until crisp at the edges.','Dice the avocado, tomato and onion into a bowl.','Add the warm chickpeas and dress with lemon, oil and salt.','Toss gently so the avo stays in pieces.'],
+    tip:'A pinch of chilli and a handful of coriander turns this into something special.',
+    nutrition:{kcal:360,protein_g:12,carbs_g:34,fat_g:21}, storage:'Best fresh; chickpeas keep 3 days.'},
+
+  {id:'ln-taco-salad', cat:'salads', name:'Taco Salad', emoji:'🌮', cuisine:'Tex-Mex', time:20, costPP:30, diet:'meat',
+    feel:'All the joy of tacos with a fork — spiced mince, crunch and lime.',
+    ingredients:[{n:'beef mince',pp:120,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'tomatoes',pp:70,u:'g'},{n:'cheddar',pp:30,u:'g'},{n:'avocado',pp:50,u:'g'},{n:'corn chips',pp:30,u:'g'},{n:'sour cream',pp:25,u:'g'},{n:'taco spice',pp:8,u:'g'}],
+    method:['Brown the mince, breaking it up, then stir in taco spice and a splash of water and simmer until sticky.','Shred the lettuce and chop the tomato and avocado.','Layer leaves, mince, cheese and avo in a bowl.','Top with sour cream, lime and crushed corn chips.'],
+    tip:'A tin of black beans stretched through the mince makes it go further and adds fibre.',
+    nutrition:{kcal:520,protein_g:26,carbs_g:30,fat_g:32}, storage:'Keep components separate; assemble fresh.'},
+
+  {id:'ln-blt-salad', cat:'salads', name:'BLT Salad', emoji:'🥓', cuisine:'American', time:15, costPP:27, diet:'meat',
+    feel:'The sandwich, deconstructed — crisp bacon, sweet tomato, cool leaves.',
+    ingredients:[{n:'streaky bacon',pp:50,u:'g'},{n:'lettuce',pp:100,u:'g'},{n:'tomatoes',pp:100,u:'g'},{n:'white bread',pp:1,u:''},{n:'mayonnaise',pp:20,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Fry the bacon until crisp, then break into shards.','Cube and toast the bread into croutons in the bacon fat.','Toss the leaves and tomato with mayo loosened with a little lemon.','Scatter over the bacon and croutons.'],
+    tip:'Add a soft-boiled egg to turn this into a full supper.',
+    nutrition:{kcal:420,protein_g:16,carbs_g:20,fat_g:30}, storage:'Best fresh; bacon keeps 2 days.'},
+
+  {id:'ln-chicken-mayo-salad', cat:'salads', name:'Chicken Mayo Salad', emoji:'🥗', cuisine:'Classic', time:20, costPP:28, diet:'meat',
+    feel:'Tender chicken in a creamy dress — the reliable, everybody-happy lunch.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'mayonnaise',pp:25,u:'g'},{n:'spring onion',pp:15,u:'g'},{n:'lemon',pp:0.3,u:''}],
+    method:['Poach or pan-cook the chicken, cool slightly and shred.','Fold through the mayo with lemon, sliced spring onion and seasoning.','Bed of leaves and cucumber on the plate.','Pile the chicken on top.'],
+    tip:'A spoon of wholegrain mustard or curry powder takes it somewhere interesting.',
+    nutrition:{kcal:360,protein_g:30,carbs_g:8,fat_g:22}, storage:'Chicken mix keeps 2 days.'},
+
+  {id:'ln-chicken-caesar', cat:'salads', name:'Chicken Caesar Salad', emoji:'🍗', cuisine:'American', time:20, costPP:34, diet:'meat',
+    feel:'The Caesar with a reason to call it lunch — warm, golden chicken on top.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'lettuce',pp:120,u:'g'},{n:'white bread',pp:1,u:''},{n:'parmesan',pp:20,u:'g'},{n:'mayonnaise',pp:25,u:'g'},{n:'anchovies',pp:6,u:'g'},{n:'garlic',pp:3,u:'g'}],
+    method:['Season and pan-fry the chicken until golden, rest, then slice.','Make croutons from cubed bread crisped in oil.','Whisk mayo with garlic, mashed anchovy, lemon and parmesan.','Toss cos with dressing and croutons, top with the warm chicken.'],
+    tip:'Grill the chicken with a little smoked paprika for extra colour and depth.',
+    nutrition:{kcal:480,protein_g:38,carbs_g:20,fat_g:28}, storage:'Assemble fresh; dressing keeps 3 days.'},
+
+  {id:'ln-tuna-salad', cat:'salads', name:'Tuna Salad', emoji:'🐟', cuisine:'Classic', time:10, costPP:23, diet:'meat',
+    feel:'Pantry to plate in ten minutes — protein-packed and never boring.',
+    ingredients:[{n:'tuna',pp:80,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'tomatoes',pp:70,u:'g'},{n:'red onion',pp:20,u:'g'},{n:'mayonnaise',pp:18,u:'g'},{n:'lemon',pp:0.3,u:''}],
+    method:['Drain the tuna and flake it into a bowl.','Fold through mayo, lemon and finely diced onion.','Chop the salad veg and arrange on a plate.','Spoon the tuna over and season.'],
+    tip:'Swap mayo for olive oil and a few capers for a lighter, Mediterranean version.',
+    nutrition:{kcal:300,protein_g:26,carbs_g:10,fat_g:17}, storage:'Tuna mix keeps 2 days.'},
+
+  {id:'ln-prawn-avo', cat:'salads', name:'Prawn & Avo Salad', emoji:'🦐', cuisine:'Coastal', time:15, costPP:42, diet:'meat',
+    feel:'A little bit fancy — sweet prawns, buttery avo, a tangy pink dressing.',
+    ingredients:[{n:'prawns',pp:90,u:'g'},{n:'avocado',pp:80,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'mayonnaise',pp:20,u:'g'},{n:'tomato sauce',pp:8,u:'g'},{n:'lemon',pp:0.3,u:''}],
+    method:['Cook the prawns quickly in a hot pan with a little butter and garlic until pink, then cool.','Mix mayo with a little tomato sauce, lemon and a dash of Tabasco for a Marie Rose dressing.','Slice the avocado over a bed of leaves.','Pile the prawns on and spoon over the dressing.'],
+    tip:'Frozen prawns work perfectly — defrost fully and pat very dry before cooking.',
+    nutrition:{kcal:380,protein_g:22,carbs_g:9,fat_g:29}, storage:'Best fresh.'},
+
+  {id:'ln-steak-blue', cat:'salads', name:'Steak & Blue Cheese Salad', emoji:'🥩', cuisine:'Steakhouse', time:20, costPP:48, diet:'meat',
+    feel:'Hearty and a bit indulgent — pink steak against sharp, salty blue.',
+    ingredients:[{n:'rump steak',pp:120,u:'g'},{n:'rocket',pp:50,u:'g'},{n:'cherry tomatoes',pp:60,u:'g'},{n:'blue cheese',pp:30,u:'g'},{n:'red onion',pp:25,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'balsamic vinegar',pp:8,u:'ml'}],
+    method:['Season the steak well and sear hard for 2–3 minutes a side, then rest 5 minutes and slice.','Pile rocket, tomatoes and thin onion on a plate.','Crumble over the blue cheese.','Lay the steak on top and finish with oil and balsamic.'],
+    tip:'Resting is non-negotiable — slice too soon and all the juice runs out.',
+    nutrition:{kcal:480,protein_g:34,carbs_g:10,fat_g:34}, storage:'Best fresh and warm.'},
+
+  {id:'ln-schnitzel-salad', cat:'salads', name:'Crispy Chicken Schnitzel Salad', emoji:'🍗', cuisine:'Comfort', time:25, costPP:32, diet:'meat',
+    feel:'Golden, crunchy schnitzel sliced over a sharp, fresh salad — the best of both.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'breadcrumbs',pp:30,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'cake flour',pp:20,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'cherry tomatoes',pp:60,u:'g'},{n:'lemon',pp:0.3,u:''},{n:'oil',pp:15,u:'ml'}],
+    method:['Flatten the chicken, then coat in flour, beaten egg and breadcrumbs.','Shallow-fry until deep golden and cooked through, then drain and slice.','Dress the leaves and tomatoes with lemon and oil.','Lay the sliced schnitzel over the top with a wedge of lemon.'],
+    tip:'A little grated parmesan in the crumb makes the coating extra savoury.',
+    nutrition:{kcal:520,protein_g:34,carbs_g:32,fat_g:28}, storage:'Schnitzel best fresh; re-crisp in a pan.'},
+
+  {id:'ln-thai-beef', cat:'salads', name:'Thai Beef Salad', emoji:'🌶️', cuisine:'Thai', time:20, costPP:46, diet:'meat',
+    feel:'Hot, sour, salty, sweet — the salad that hits every note at once.',
+    ingredients:[{n:'rump steak',pp:110,u:'g'},{n:'lettuce',pp:60,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'red onion',pp:25,u:'g'},{n:'coriander',pp:5,u:'g'},{n:'fish sauce',pp:10,u:'ml'},{n:'lime',pp:0.5,u:''},{n:'chilli',pp:3,u:'g'}],
+    method:['Sear the steak hard, rest and slice thinly against the grain.','Make a dressing of fish sauce, lime juice, a little sugar and chopped chilli.','Toss cucumber, onion, herbs and leaves with most of the dressing.','Lay the beef over and spoon the rest of the dressing on top.'],
+    tip:'Mint and Thai basil alongside the coriander make it taste like the real thing.',
+    nutrition:{kcal:340,protein_g:30,carbs_g:12,fat_g:18}, storage:'Best fresh.'},
+
+  {id:'ln-periperi-chicken-salad', cat:'salads', name:'Peri-Peri Chicken Salad', emoji:'🔥', cuisine:'South African', time:25, costPP:33, diet:'meat',
+    feel:'Smoky, spicy Portuguese-SA chicken over cooling greens.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'peri-peri sauce',pp:20,u:'g'},{n:'lettuce',pp:80,u:'g'},{n:'tomatoes',pp:70,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'red onion',pp:25,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
+    method:['Marinate the chicken in peri-peri sauce for at least 15 minutes.','Grill or pan-fry until charred and cooked through, then slice.','Build a salad of leaves, tomato, cucumber and onion.','Top with the hot chicken and an extra drizzle of peri-peri.'],
+    tip:'Make your own peri-peri base with bird\'s-eye chilli, garlic, lemon and paprika.',
+    nutrition:{kcal:380,protein_g:34,carbs_g:12,fat_g:20}, storage:'Chicken keeps 2 days; great cold.'},
+
+  {id:'ln-nicoise', cat:'salads', name:'Tuna Niçoise', emoji:'🥚', cuisine:'French', time:25, costPP:36, diet:'meat',
+    feel:'A composed, sunny plate from the south of France — proper lunch, no apologies.',
+    ingredients:[{n:'tuna',pp:80,u:'g'},{n:'baby potatoes',pp:100,u:'g'},{n:'green beans',pp:60,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'cherry tomatoes',pp:60,u:'g'},{n:'black olives',pp:20,u:'g'},{n:'olive oil',pp:14,u:'ml'},{n:'lettuce',pp:40,u:'g'}],
+    method:['Boil the potatoes until tender and the beans until just crisp, then cool.','Soft-boil the eggs for 7 minutes, peel and halve.','Arrange leaves, potatoes, beans, tomatoes and flaked tuna in sections on a plate.','Add the egg and olives and dress with oil, lemon and a little mustard.'],
+    tip:'Keep everything in groups rather than tossed — niçoise is meant to be composed.',
+    nutrition:{kcal:430,protein_g:28,carbs_g:28,fat_g:23}, storage:'Components keep 2 days; assemble fresh.'},
+
+];
+
+
 function mealSectionHTML(sectionKey){
   const configs = {
     breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:'savoury',e:'🍳',l:'Savoury & Cooked'},{id:'warm',e:'🥣',l:'Warm & Comforting'},{id:'sweet',e:'🥐',l:'Sweet & Baked'},{id:'fresh',e:'🍓',l:'Fresh & Light'},{id:'go',e:'🥤',l:'On the Go'}]},
