@@ -2674,7 +2674,7 @@ function bakesRecipeOpts(r){
   var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:var(--ink2);line-height:1.5;">'+r.storage+'</div>') : '';
   return {
-    photoName:r.name, photoEmoji:r.emoji||'🍰',
+    photoName:r.photoName||r.name, photoEmoji:r.emoji||'🍰',
     backJs:'closeRecipe()', backLabel:'← Back',
     name:r.name,
     sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
@@ -2931,7 +2931,7 @@ function recipeView(){
   return recipePage({
     backJs:"closeRecipe()",
     backLabel:"← "+rl,
-    photoName:item.name,
+    photoName:item.photoName||item.name,
     photoEmoji:item.emoji,
     name:item.name,
     qtyHTML:quantityBlock,

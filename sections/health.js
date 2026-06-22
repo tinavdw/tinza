@@ -1046,7 +1046,7 @@ function healthGroupScreen(isPro, srv){
         {id:'vegan',      emoji:'🌿', label:'Vegan',        arr:'PLANTBASED_RECIPES', type:'ext'},
         {id:'vegetarian', emoji:'🥚', label:'Vegetarian',   arr:'VEGETARIAN_RECIPES', type:'ext'},
         {id:'raw',        emoji:'🥗', label:'Raw & Real',   arr:'RAW_AND_REAL',       type:'ext'},
-        {id:'salads',     emoji:'🥗', label:'Salads',       arr:null,                 type:'ext',  coming:true},
+        {id:'salads',     emoji:'🥗', label:'Salads',       arr:'HEALTH_SALADS',      type:'ext'},
       ]
     },
     drinks: {
@@ -1140,6 +1140,7 @@ function healthGroupScreen(isPro, srv){
     'HIGHPROTEIN_RECIPES':  typeof HIGHPROTEIN_RECIPES!=='undefined' ? HIGHPROTEIN_RECIPES : [],
     'PLANTBASED_RECIPES':   typeof PLANTBASED_RECIPES!=='undefined'  ? PLANTBASED_RECIPES  : [],
     'VEGETARIAN_RECIPES':   typeof VEGETARIAN_RECIPES!=='undefined'  ? VEGETARIAN_RECIPES  : [],
+    'HEALTH_SALADS':        typeof HEALTH_SALADS!=='undefined'       ? HEALTH_SALADS       : [],
     'GUTHEALTH_RECIPES':    typeof GUTHEALTH_RECIPES!=='undefined'   ? GUTHEALTH_RECIPES   : [],
     'DIABETIC_RECIPES':     typeof DIABETIC_RECIPES!=='undefined'    ? DIABETIC_RECIPES    : [],
     'FERMENTED_RECIPES':    typeof FERMENTED_RECIPES!=='undefined'   ? FERMENTED_RECIPES   : [],
@@ -1550,6 +1551,46 @@ const HIGHPROTEIN_RECIPES = [
    method:['Spoon cottage cheese into bowl.','Arrange cucumber and sundried tomatoes around and on top.','Scatter pumpkin seeds. Drizzle with olive oil.','Finish with fresh basil and cracked pepper.'],
    tip:'Add a soft-boiled egg for extra protein. Works as breakfast, snack or light meal.'},
 ];
+
+const HEALTH_SALADS = [
+  // ── Health Hub · Salads (9) — written 22 Jun 2026. Do NOT overlap FMF lunch salads. ──
+  {id:'hs_kale_apple', tier:'free', emoji:'🥬', name:'Kale, Apple & Seed Crunch', kcal:240, costPP:22, feel:'Bright, crunchy and alive — the salad that makes healthy feel like a treat.', badges:['🌱 Vegan','🌿 High-Fibre','🥗 Crunchy'], base300:[{n:'Kale (shredded)',pp:90,u:'g'},{n:'Apple (julienned)',pp:80,u:'g'},{n:'Pumpkin seeds',pp:20,u:'g'},{n:'Sunflower seeds',pp:15,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+    method:['Massage the shredded kale with a little olive oil and salt for a minute until softened.','Toss through the julienned apple.','Whisk olive oil, lemon juice and a touch of honey or maple for the dressing.','Top with toasted seeds and serve.'],
+    tip:'Massaging the kale is the secret — it turns it tender and takes away the bitterness.'},
+
+  {id:'hs_beet_orange', tier:'free', emoji:'🫐', name:'Roasted Beetroot, Orange & Walnut', kcal:260, costPP:26, feel:'Earthy, sweet and jewel-bright — a salad that feels a little bit special.', badges:['🌱 Vegan','🧠 Brain Food','🌿 Antioxidant'], base300:[{n:'Beetroot (roasted)',pp:120,u:'g'},{n:'Orange (segmented)',pp:80,u:'g'},{n:'Walnuts',pp:20,u:'g'},{n:'Rocket',pp:40,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Balsamic vinegar',pp:6,u:'ml'}],
+    method:['Roast the beetroot until tender, then peel and cut into wedges.','Segment the orange over a bowl to catch the juice.','Pile rocket, beetroot and orange together.','Scatter toasted walnuts and dress with oil, the orange juice and balsamic.'],
+    tip:'Use pre-cooked vacuum-packed beetroot to make this a five-minute salad.'},
+
+  {id:'hs_lentil_tomato', tier:'free', emoji:'🟤', name:'Lentil, Tomato & Herb', kcal:280, costPP:18, feel:'Hearty and herby — a protein-packed salad that genuinely fills you up.', badges:['🌱 Vegan','💪 Plant Protein','🌿 High-Fibre'], base300:[{n:'Lentils (cooked)',pp:120,u:'g'},{n:'Cherry tomatoes (halved)',pp:80,u:'g'},{n:'Cucumber (diced)',pp:50,u:'g'},{n:'Red onion (finely diced)',pp:30,u:'g'},{n:'Parsley and mint (chopped)',pp:8,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+    method:['Drain and rinse the cooked lentils.','Toss with the tomatoes, cucumber and red onion.','Dress with olive oil, lemon and plenty of chopped herbs.','Season well and let it sit 10 minutes for the flavours to mingle.'],
+    tip:'Tinned lentils work perfectly — rinse them well and they\'re ready to go.'},
+
+  {id:'hs_edamame_rice', tier:'free', emoji:'🍙', name:'Edamame & Brown Rice', kcal:320, costPP:24, feel:'Nutty, savoury and satisfying — a bowl that keeps you going all afternoon.', badges:['🌱 Vegan','💪 Plant Protein','🌾 Wholegrain'], base300:[{n:'Brown rice (cooked)',pp:120,u:'g'},{n:'Edamame (shelled)',pp:80,u:'g'},{n:'Carrot (grated)',pp:40,u:'g'},{n:'Spring onion (sliced)',pp:20,u:'g'},{n:'Soy sauce',pp:12,u:'ml'},{n:'Sesame oil',pp:6,u:'ml'},{n:'Sesame seeds',pp:5,u:'g'}],
+    method:['Cook the brown rice and let it cool to room temperature.','Steam or boil the edamame for 4 minutes, then cool.','Toss the rice, edamame, carrot and spring onion together.','Dress with soy, sesame oil and a squeeze of lime, and finish with sesame seeds.'],
+    tip:'Frozen edamame is brilliant here — quick, cheap and full of protein.'},
+
+  {id:'hs_rocket_pear', tier:'free', emoji:'🍐', name:'Rocket, Pear & Walnut', kcal:230, costPP:24, feel:'Peppery, sweet and elegant — a light salad with real character.', badges:['🌱 Vegan','🌿 Antioxidant','🥗 Light'], base300:[{n:'Rocket',pp:70,u:'g'},{n:'Pear (sliced)',pp:90,u:'g'},{n:'Walnuts',pp:20,u:'g'},{n:'Cucumber (sliced)',pp:50,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:8,u:'ml'}],
+    method:['Pile the rocket and cucumber onto a plate.','Fan over the sliced pear.','Scatter toasted walnuts on top.','Dress lightly with olive oil, lemon and a grind of black pepper.'],
+    tip:'A crumble of feta turns this from vegan to vegetarian if you like a salty note.'},
+
+  {id:'hs_butternut_feta', tier:'free', emoji:'🎃', name:'Roasted Butternut, Feta & Seed', kcal:300, costPP:26, feel:'Warm, sweet and savoury — golden butternut against salty feta.', badges:['🧀 Vegetarian','🌿 Antioxidant','🥗 Warm'], base300:[{n:'Butternut (roasted)',pp:140,u:'g'},{n:'Feta (crumbled)',pp:40,u:'g'},{n:'Rocket',pp:40,u:'g'},{n:'Pumpkin seeds',pp:20,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:8,u:'ml'}],
+    method:['Roast the cubed butternut with oil until soft and caramelised, then cool slightly.','Pile onto a bed of rocket.','Crumble over the feta and scatter the toasted seeds.','Dress with olive oil and lemon.'],
+    tip:'A pinch of chilli flakes and a drizzle of honey makes it extra special.'},
+
+  {id:'hs_chickpea_mint', tier:'free', emoji:'🫛', name:'Chickpea, Cucumber & Mint', kcal:260, costPP:18, feel:'Cool, fresh and crunchy — clean eating that actually tastes good.', badges:['🌱 Vegan','💪 Plant Protein','🥗 Refreshing'], base300:[{n:'Chickpeas (cooked)',pp:120,u:'g'},{n:'Cucumber (diced)',pp:80,u:'g'},{n:'Cherry tomatoes (halved)',pp:60,u:'g'},{n:'Red onion (finely diced)',pp:20,u:'g'},{n:'Mint (chopped)',pp:6,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+    method:['Drain and rinse the chickpeas.','Toss with the cucumber, tomatoes and red onion.','Dress with olive oil, lemon and lots of chopped mint.','Season and chill for 10 minutes before serving.'],
+    tip:'Lightly crushing some of the chickpeas helps them soak up the dressing.'},
+
+  {id:'hs_broccoli_almond', tier:'free', emoji:'🥦', name:'Broccoli, Almond & Cranberry', kcal:270, costPP:24, feel:'Crunchy, sweet and savoury — the salad that converts broccoli sceptics.', badges:['🌱 Vegan','🌿 High-Fibre','🥗 Crunchy'], base300:[{n:'Broccoli (small florets)',pp:120,u:'g'},{n:'Almonds (flaked)',pp:25,u:'g'},{n:'Dried cranberries',pp:25,u:'g'},{n:'Red onion (finely sliced)',pp:25,u:'g'},{n:'Olive oil',pp:10,u:'ml'},{n:'Lemon juice',pp:10,u:'ml'}],
+    method:['Blanch the broccoli florets for 1 minute, then plunge into cold water to keep them bright and crisp.','Toss with the cranberries and thinly sliced onion.','Whisk olive oil, lemon and a little maple for the dressing.','Top with toasted flaked almonds.'],
+    tip:'Leaving the broccoli raw and finely chopped works too if you prefer more crunch.'},
+
+  {id:'hs_cauli_tabbouleh', tier:'free', emoji:'🥬', name:'Cauliflower Tabbouleh', kcal:200, costPP:20, feel:'Light, lemony and herb-packed — all the freshness, none of the heaviness.', badges:['🌱 Vegan','🌿 Low-Carb','🥗 Fresh'], base300:[{n:'Cauliflower (riced)',pp:140,u:'g'},{n:'Parsley (finely chopped)',pp:25,u:'g'},{n:'Mint (chopped)',pp:8,u:'g'},{n:'Cherry tomatoes (diced)',pp:70,u:'g'},{n:'Spring onion (sliced)',pp:20,u:'g'},{n:'Olive oil',pp:12,u:'ml'},{n:'Lemon juice',pp:12,u:'ml'}],
+    method:['Pulse the cauliflower in a food processor into rice-sized pieces (or grate it).','Toss with a huge amount of chopped parsley and mint.','Add the diced tomato and spring onion.','Dress generously with olive oil, lemon and salt.'],
+    tip:'The herbs should outweigh everything else — a real tabbouleh is more green than grain.'},
+];
+
 
 const PLANTBASED_RECIPES = [
   {id:'pb_buddha',      tier:'free',  emoji:'🥣', name:'Rainbow Buddha Bowl',         kcal:420, costPP:22, feel:'Colourful and alive — like eating sunshine on a plate.',badges:['🌱 Vegan','🥣 Whole-Food','🌈 Nourishing'],base300:[{n:'Cooked brown rice or quinoa',pp:150,u:'g'},{n:'Roasted chickpeas',pp:80,u:'g'},{n:'Roasted sweet potato (cubed)',pp:100,u:'g'},{n:'Shredded red cabbage',pp:60,u:'g'},{n:'Avocado (sliced)',pp:60,u:'g'},{n:'Tahini dressing',pp:30,u:'ml'}],method:['Roast cubed sweet potato at 200°C for 20 min with olive oil and salt.','Roast chickpeas same tray — add at the 10-min mark.','Build bowl: rice base, then arrange sweet potato, chickpeas, cabbage, avocado.','Drizzle with tahini dressing. Eat while still warm.'],tip:'Tahini dressing: 2 tbsp tahini, 1 tbsp lemon juice, 1 tsp garlic, enough water to drizzle.'},

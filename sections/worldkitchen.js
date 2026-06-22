@@ -555,6 +555,7 @@ var WK_CROSS_LINKS = {
   'sweden-prinsesstarta':         { open:"openBakesRecipe('bk-sponge-cake')",    name:'Classic Sponge Cake',   emoji:'🍰' },
   'sri-lanka-kottu-roti':         { open:"openBakesRecipe('bk-godamba-roti')",   name:'Godamba Roti',          emoji:'🫓' },
   'boerekos-hoenderpastei':       { open:"openSpiceRecipe('bechamel-sauce')",    name:'Béchamel (White Sauce)',emoji:'🥛' },
+  'boerekos-roosterkoek':         { open:"openRecipe('side','roosterkoek')",     name:'Roosterkoek bread rolls & variations', label:'More roosterkoek in Braai', emoji:'🔥' },
   'libya-hummus':                 { open:"openSpiceRecipe('tahini')",            name:'Tahini',                emoji:'🥣' },
   'nigeria-pounded-yam':          { open:"openRecipe('world','nigeria-efo-riro')", name:'Efo Riro',           emoji:'🥬' },
   'nigeria-amala':                { open:"openRecipe('world','nigeria-ewedu')",  name:'Ewedu',                 emoji:'🍲' }
@@ -612,7 +613,7 @@ function wkRecipeOpts(r, country, universal){
   // right under the ingredients so "1 pita" etc. links to "make your own".
   var _cl = (typeof WK_CROSS_LINKS!=='undefined') ? WK_CROSS_LINKS[r.id] : null;
   if(_cl && typeof crossLinkBox==='function'){
-    notesHTML = crossLinkBox({ emoji:_cl.emoji, label:'Make your own', targetName:_cl.name, onclick:_cl.open }) + notesHTML;
+    notesHTML = crossLinkBox({ emoji:_cl.emoji, label:_cl.label||'Make your own', targetName:_cl.name, onclick:_cl.open }) + notesHTML;
   }
 
   // ── method (shared shell + steps) ──
@@ -664,7 +665,7 @@ function wkRecipeOpts(r, country, universal){
 
   // ── opts for the ONE shared page builder (Standard §4b) ──
   return {
-    photoName: r.name, photoAlt: r.nameAlt, photoEmoji: '🍽️',
+    photoName: r.photoName||r.name, photoAlt: r.nameAlt, photoEmoji: '🍽️',
     backJs: _back, backLabel: '← '+country,
     name: disp,
     sub: sub,

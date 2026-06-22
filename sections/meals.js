@@ -328,7 +328,7 @@ var LIGHTLUNCH_RECIPES = [
     tip:'Dress it while the pasta is still slightly warm so it soaks up the oil.',
     nutrition:{kcal:380,protein_g:12,carbs_g:52,fat_g:14}, storage:'Keeps 2 days; refresh with a splash of oil and lemon.'},
 
-  {id:'ln-caesar', cat:'salads', name:'Caesar Salad', emoji:'🥗', cuisine:'American', time:15, costPP:28, diet:'veg',
+  {id:'ln-caesar', cat:'salads', name:'Caesar Salad', emoji:'🥗', cuisine:'American', time:15, costPP:28, diet:'meat',
     feel:'Crunchy, creamy, salty — the one everyone secretly orders.',
     ingredients:[{n:'lettuce',pp:120,u:'g'},{n:'white bread',pp:1,u:''},{n:'parmesan',pp:20,u:'g'},{n:'mayonnaise',pp:25,u:'g'},{n:'anchovies',pp:8,u:'g'},{n:'garlic',pp:3,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
     method:['Cube the bread, toss in oil and crisp in a hot pan or oven until golden — these are your croutons.','Whisk the mayo with crushed garlic, mashed anchovy, lemon and half the parmesan into a loose dressing.','Tear the cos into a bowl, coat in dressing and toss through the croutons.','Finish with the rest of the parmesan, grated over the top.'],
@@ -503,6 +503,558 @@ var LIGHTLUNCH_RECIPES = [
     tip:'Keep everything in groups rather than tossed — niçoise is meant to be composed.',
     nutrition:{kcal:430,protein_g:28,carbs_g:28,fat_g:23}, storage:'Components keep 2 days; assemble fresh.'},
 
+
+  // ───────────────── 🍲 SOUPS (21) ─────────────────
+  {id:'ln-tomato-soup', cat:'soups', name:'Tomato Soup', emoji:'🍅', cuisine:'Classic', time:30, costPP:14, diet:'veg', // ⚑DUP
+    feel:'A warm red bowl that tastes like being looked after.',
+    ingredients:[{n:'tomatoes',pp:200,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'vegetable stock',pp:250,u:'ml'},{n:'cream',pp:25,u:'ml'},{n:'tomato paste',pp:15,u:'g'},{n:'olive oil',pp:8,u:'ml'},{n:'basil',pp:3,u:'g'}],
+    method:['Soften the chopped onion and garlic in olive oil over medium heat.','Stir in the tomato paste, then add the chopped tomatoes and stock and simmer 20 minutes.','Blend until smooth, then stir through the cream and torn basil.','Season well and serve with bread for dipping.'],
+    tip:'A pinch of sugar balances the acidity of the tomatoes beautifully.',
+    nutrition:{kcal:180,protein_g:4,carbs_g:18,fat_g:11}, storage:'Keeps 3 days; freezes well before the cream goes in.'},
+
+  {id:'ln-chicken-soup', cat:'soups', name:'Chicken Soup', emoji:'🍗', cuisine:'Classic', time:45, costPP:22, diet:'meat', // ⚑DUP
+    feel:'The bowl you reach for when the world feels like too much.',
+    ingredients:[{n:'chicken breasts',pp:100,u:'g'},{n:'carrots',pp:60,u:'g'},{n:'celery',pp:40,u:'g'},{n:'onion',pp:40,u:'g'},{n:'chicken broth',pp:350,u:'ml'},{n:'garlic',pp:4,u:'g'}],
+    method:['Soften the diced onion, carrot and celery in a little oil.','Add the chicken and broth and simmer gently for 25 minutes until the chicken is tender.','Lift out the chicken, shred it, and return it to the pot.','Season generously and finish with chopped parsley.'],
+    tip:'Simmer a parmesan rind in the broth for an extra savoury depth.',
+    nutrition:{kcal:220,protein_g:24,carbs_g:10,fat_g:9}, storage:'Keeps 3 days; freezes well.'},
+
+  {id:'ln-vegetable-soup', cat:'soups', name:'Vegetable Soup', emoji:'🥕', cuisine:'Classic', time:40, costPP:12, diet:'vegan', // ⚑DUP
+    feel:'Everything from the bottom of the veg drawer, turned into comfort.',
+    ingredients:[{n:'carrots',pp:60,u:'g'},{n:'potatoes',pp:80,u:'g'},{n:'celery',pp:40,u:'g'},{n:'onion',pp:40,u:'g'},{n:'tomatoes',pp:60,u:'g'},{n:'vegetable stock',pp:350,u:'ml'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Dice all the vegetables to a similar size.','Soften the onion in oil, then add the rest and stir for a few minutes.','Pour in the stock and simmer 25 to 30 minutes until everything is tender.','Season well and serve, blending half if you like it thicker.'],
+    tip:'Whatever veg needs using up will work — this soup is endlessly forgiving.',
+    nutrition:{kcal:150,protein_g:4,carbs_g:26,fat_g:4}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-lentil-soup', cat:'soups', name:'Lentil Soup', emoji:'🟤', cuisine:'Middle Eastern', time:40, costPP:11, diet:'vegan', // ⚑DUP
+    feel:'Humble, hearty and quietly filling — a bowl with backbone.',
+    ingredients:[{n:'lentils',pp:70,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'vegetable stock',pp:350,u:'ml'},{n:'cumin'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Soften the onion, carrot and garlic in oil with a good pinch of cumin.','Add the rinsed lentils and stock and bring to a simmer.','Cook 25 to 30 minutes until the lentils are soft, then blend partly for a creamy-but-textured finish.','Season well and finish with a squeeze of lemon.'],
+    tip:'Red lentils break down fastest and need no soaking — ideal for a quick soup.',
+    nutrition:{kcal:230,protein_g:13,carbs_g:36,fat_g:5}, storage:'Keeps 4 days; thickens as it sits — loosen with water.'},
+
+  {id:'ln-broccoli-cheese-soup', cat:'soups', name:'Broccoli & Cheese Soup', emoji:'🥦', cuisine:'Comfort', time:30, costPP:18, diet:'veg', // ⚑DUP
+    feel:'Velvety, cheesy and green — comfort that almost feels virtuous.',
+    ingredients:[{n:'broccoli',pp:150,u:'g'},{n:'potatoes',pp:50,u:'g'},{n:'onion',pp:40,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'cream',pp:20,u:'ml'}],
+    method:['Soften the onion, then add the potato, broccoli stalks and stock and simmer 15 minutes.','Add the broccoli florets and cook 5 minutes more until just tender.','Blend until smooth, then stir in the grated cheddar and cream off the heat.','Season and serve with extra cheese on top.'],
+    tip:'Keep a few florets aside to drop in whole for texture.',
+    nutrition:{kcal:280,protein_g:13,carbs_g:18,fat_g:18}, storage:'Keeps 3 days; reheat gently so the cheese stays smooth.'},
+
+  {id:'ln-butternut-soup', cat:'soups', name:'Butternut Soup', emoji:'🎃', cuisine:'South African', time:40, costPP:13, diet:'veg',
+    feel:'Sweet, silky and golden — winter in a bowl.',
+    ingredients:[{n:'butternut',pp:200,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'cream',pp:20,u:'ml'},{n:'nutmeg'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Soften the onion and garlic in oil.','Add the cubed butternut and stock and simmer 25 minutes until very soft.','Blend until silky smooth, then stir in the cream and a grating of nutmeg.','Season and serve with a swirl of cream and toasted seeds.'],
+    tip:'Roasting the butternut first instead of boiling deepens the sweetness.',
+    nutrition:{kcal:190,protein_g:4,carbs_g:28,fat_g:8}, storage:'Keeps 4 days; freezes beautifully.'},
+
+  {id:'ln-pumpkin-soup', cat:'soups', name:'Pumpkin Soup', emoji:'🎃', cuisine:'Classic', time:40, costPP:12, diet:'veg',
+    feel:'Mellow and creamy, the gentler cousin of butternut.',
+    ingredients:[{n:'pumpkin',pp:200,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'cream',pp:20,u:'ml'},{n:'ginger',pp:5,u:'g'}],
+    method:['Soften the onion, garlic and a little grated ginger in oil.','Add the pumpkin and stock and simmer 25 minutes until tender.','Blend smooth and stir through the cream.','Season well and finish with black pepper.'],
+    tip:'A pinch of cinnamon or curry powder takes pumpkin soup somewhere lovely.',
+    nutrition:{kcal:170,protein_g:4,carbs_g:24,fat_g:8}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-minestrone', cat:'soups', name:'Minestrone', emoji:'🍅', cuisine:'Italian', time:40, costPP:16, diet:'veg',
+    feel:'A bowl that eats like a meal — beans, pasta and a garden of veg.',
+    ingredients:[{n:'tomatoes',pp:100,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'celery',pp:40,u:'g'},{n:'onion',pp:40,u:'g'},{n:'butter beans',pp:60,u:'g'},{n:'pasta',pp:30,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'parmesan',pp:10,u:'g'}],
+    method:['Soften the onion, carrot and celery in oil.','Add the tomatoes, beans and stock and simmer 15 minutes.','Stir in the small pasta and cook until just tender.','Season and serve with grated parmesan and a drizzle of oil.'],
+    tip:'Add a spoon of pesto at the end for an instant flavour lift.',
+    nutrition:{kcal:260,protein_g:11,carbs_g:40,fat_g:7}, storage:'Keeps 3 days; the pasta softens, so add fresh if reheating.'},
+
+  {id:'ln-pea-ham-soup', cat:'soups', name:'Pea & Ham Soup', emoji:'🫛', cuisine:'British', time:60, costPP:19, diet:'meat',
+    feel:'Thick, smoky and old-fashioned — a soup that sticks to your ribs.',
+    ingredients:[{n:'split peas',pp:70,u:'g'},{n:'gammon',pp:70,u:'g'},{n:'onion',pp:40,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'vegetable stock',pp:350,u:'ml'}],
+    method:['Soften the onion and carrot, then add the rinsed split peas and stock.','Add the gammon and simmer gently for 45 minutes until the peas collapse.','Lift out the gammon, shred it, and return it to the pot.','Season carefully — the gammon is already salty.'],
+    tip:'A leftover ham bone simmered in the pot makes this soup extraordinary.',
+    nutrition:{kcal:300,protein_g:22,carbs_g:36,fat_g:7}, storage:'Keeps 4 days; thickens a lot — loosen with stock.'},
+
+  {id:'ln-french-onion', cat:'soups', name:'French Onion Soup', emoji:'🧅', cuisine:'French', time:60, costPP:17, diet:'veg',
+    feel:'Deep, sweet caramelised onions under a raft of bubbling cheese.',
+    ingredients:[{n:'onion',pp:200,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'baguette',pp:0.25,u:''},{n:'gruyere cheese',pp:40,u:'g'},{n:'butter',pp:10,u:'g'},{n:'garlic',pp:4,u:'g'}],
+    method:['Cook the thinly sliced onions slowly in butter for 30 minutes until deep golden and sweet.','Add the stock and a little garlic and simmer 15 minutes.','Ladle into bowls, top with toasted baguette slices and grated gruyere.','Grill until the cheese is bubbling and golden.'],
+    tip:'Patience with the onions is everything — let them go properly dark, not just soft.',
+    nutrition:{kcal:320,protein_g:13,carbs_g:30,fat_g:17}, storage:'Soup base keeps 4 days; add bread and cheese to order.'},
+
+  {id:'ln-mushroom-soup', cat:'soups', name:'Creamy Mushroom Soup', emoji:'🍄', cuisine:'Classic', time:35, costPP:18, diet:'veg',
+    feel:'Earthy, silky and a little bit luxurious.',
+    ingredients:[{n:'mushrooms',pp:180,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'vegetable stock',pp:250,u:'ml'},{n:'cream',pp:30,u:'ml'},{n:'butter',pp:10,u:'g'},{n:'thyme'}],
+    method:['Fry the sliced mushrooms in butter over high heat until deeply golden — don\'t crowd the pan.','Add the onion, garlic and thyme and soften.','Pour in the stock, simmer 10 minutes, then blend (leave some chunks if you like).','Stir in the cream, season well and serve.'],
+    tip:'Hold back a few fried mushrooms to spoon on top for texture.',
+    nutrition:{kcal:240,protein_g:7,carbs_g:12,fat_g:18}, storage:'Keeps 3 days; reheat gently.'},
+
+  {id:'ln-potato-leek-soup', cat:'soups', name:'Potato & Leek Soup', emoji:'🥔', cuisine:'French', time:40, costPP:13, diet:'veg',
+    feel:'Soft, creamy and soothing — the definition of a quiet evening.',
+    ingredients:[{n:'potatoes',pp:180,u:'g'},{n:'leek',pp:80,u:'g'},{n:'onion',pp:30,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'cream',pp:25,u:'ml'},{n:'butter',pp:10,u:'g'}],
+    method:['Soften the sliced leek and onion gently in butter without colouring.','Add the cubed potato and stock and simmer 20 minutes until tender.','Blend until smooth and silky.','Stir in the cream, season generously and serve.'],
+    tip:'Serve it chilled in summer and you have vichyssoise.',
+    nutrition:{kcal:250,protein_g:5,carbs_g:34,fat_g:11}, storage:'Keeps 3 days; freezes before cream is added.'},
+
+  {id:'ln-red-pepper-soup', cat:'soups', name:'Roasted Red Pepper Soup', emoji:'🫑', cuisine:'Mediterranean', time:45, costPP:15, diet:'vegan',
+    feel:'Smoky, sweet and a gorgeous deep red.',
+    ingredients:[{n:'red pepper',pp:180,u:'g'},{n:'tomatoes',pp:80,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'vegetable stock',pp:250,u:'ml'},{n:'olive oil',pp:10,u:'ml'},{n:'paprika'}],
+    method:['Roast the peppers and tomatoes at 220°C until blistered and soft, then peel the peppers.','Soften the onion and garlic in oil with a little smoked paprika.','Add the roasted veg and stock and simmer 10 minutes.','Blend smooth, season and finish with a drizzle of oil.'],
+    tip:'A jar of roasted peppers makes this a fast weeknight soup.',
+    nutrition:{kcal:160,protein_g:3,carbs_g:18,fat_g:9}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-chicken-sweetcorn-soup', cat:'soups', name:'Chicken & Sweetcorn Soup', emoji:'🌽', cuisine:'Chinese', time:30, costPP:18, diet:'meat',
+    feel:'Silky, comforting takeaway-style soup made better at home.',
+    ingredients:[{n:'chicken breasts',pp:80,u:'g'},{n:'sweetcorn',pp:80,u:'g'},{n:'chicken broth',pp:350,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'spring onion',pp:15,u:'g'},{n:'cornflour',pp:8,u:'g'},{n:'soy sauce',pp:10,u:'ml'}],
+    method:['Simmer the shredded chicken in the broth with the sweetcorn for 10 minutes.','Thicken with cornflour slaked in a little water until silky.','Turn off the heat and slowly stream in the beaten egg, stirring, to make ribbons.','Finish with soy sauce and sliced spring onion.'],
+    tip:'Creamed sweetcorn gives a richer, more authentic texture.',
+    nutrition:{kcal:200,protein_g:18,carbs_g:18,fat_g:6}, storage:'Keeps 2 days; reheat gently.'},
+
+  {id:'ln-tom-kha', cat:'soups', name:'Thai Coconut Soup (Tom Kha)', emoji:'🥥', cuisine:'Thai', time:30, costPP:20, diet:'vegan',
+    feel:'Fragrant, creamy and sour-sweet — a hug with lemongrass.',
+    ingredients:[{n:'coconut milk',pp:200,u:'ml'},{n:'mushrooms',pp:80,u:'g'},{n:'vegetable stock',pp:150,u:'ml'},{n:'lemongrass',pp:8,u:'g'},{n:'ginger',pp:8,u:'g'},{n:'lime',pp:0.5,u:''},{n:'soy sauce',pp:10,u:'ml'},{n:'chilli',pp:3,u:'g'}],
+    method:['Simmer the stock with bruised lemongrass, sliced ginger and chilli for 5 minutes to infuse.','Add the coconut milk and mushrooms and simmer gently 8 minutes — don\'t boil hard.','Season with soy sauce and a good squeeze of lime.','Finish with fresh coriander and extra lime to taste.'],
+    tip:'Balance is everything — keep tasting and adjust lime, soy and chilli.',
+    nutrition:{kcal:260,protein_g:4,carbs_g:12,fat_g:23}, storage:'Best fresh; keeps 2 days.'},
+
+  {id:'ln-curried-butternut-soup', cat:'soups', name:'Curried Butternut Soup', emoji:'🍛', cuisine:'Fusion', time:40, costPP:15, diet:'vegan',
+    feel:'Golden butternut with a warm curry hum and creamy coconut.',
+    ingredients:[{n:'butternut',pp:200,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'coconut milk',pp:120,u:'ml'},{n:'vegetable stock',pp:200,u:'ml'},{n:'curry powder',pp:5,u:'g'},{n:'ginger',pp:5,u:'g'}],
+    method:['Soften the onion, garlic and ginger in oil with the curry powder until fragrant.','Add the butternut and stock and simmer 25 minutes until soft.','Blend smooth, then stir in the coconut milk.','Season and finish with coriander and a squeeze of lime.'],
+    tip:'Toast the curry powder in the oil first — it wakes up all the spices.',
+    nutrition:{kcal:230,protein_g:4,carbs_g:30,fat_g:12}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-beef-barley-soup', cat:'soups', name:'Beef & Barley Soup', emoji:'🥩', cuisine:'Hearty', time:90, costPP:24, diet:'meat',
+    feel:'Slow-cooked, deeply savoury and properly filling — a meal in a bowl.',
+    ingredients:[{n:'beef stewing meat',pp:90,u:'g'},{n:'barley',pp:40,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'onion',pp:40,u:'g'},{n:'celery',pp:30,u:'g'},{n:'beef stock',pp:350,u:'ml'}],
+    method:['Brown the diced beef well in a heavy pot, then set aside.','Soften the onion, carrot and celery in the same pot.','Return the beef, add the barley and stock, and simmer gently 1 to 1.5 hours until the beef is tender and the barley plump.','Season well and serve with crusty bread.'],
+    tip:'The longer and slower it cooks, the better — this one rewards patience.',
+    nutrition:{kcal:300,protein_g:22,carbs_g:30,fat_g:10}, storage:'Keeps 4 days; thickens as the barley swells.'},
+
+  {id:'ln-chicken-noodle-soup', cat:'soups', name:'Chicken Noodle Soup', emoji:'🍜', cuisine:'Classic', time:35, costPP:18, diet:'meat',
+    feel:'The bowl that quietly fixes a bad day.',
+    ingredients:[{n:'chicken breasts',pp:80,u:'g'},{n:'egg noodles',pp:50,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'celery',pp:30,u:'g'},{n:'onion',pp:30,u:'g'},{n:'chicken broth',pp:350,u:'ml'}],
+    method:['Soften the onion, carrot and celery, then add the broth and bring to a simmer.','Add the chicken and poach gently 12 minutes, then lift out and shred.','Cook the noodles in the broth until tender.','Return the chicken, season well, and finish with parsley.'],
+    tip:'Cook the noodles separately if you\'re making it ahead, so they don\'t go soggy.',
+    nutrition:{kcal:240,protein_g:20,carbs_g:28,fat_g:5}, storage:'Keeps 2 days; noodles soften, so add fresh when reheating.'},
+
+  {id:'ln-carrot-coriander-soup', cat:'soups', name:'Carrot & Coriander Soup', emoji:'🥕', cuisine:'British', time:35, costPP:11, diet:'vegan',
+    feel:'Bright orange and fragrant — fresh and light but still comforting.',
+    ingredients:[{n:'carrots',pp:200,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'coriander',pp:5,u:'g'},{n:'cumin'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Soften the onion and garlic in oil with a pinch of ground coriander and cumin.','Add the sliced carrots and stock and simmer 25 minutes until soft.','Blend smooth, then stir through most of the chopped fresh coriander.','Season and serve topped with the rest of the coriander.'],
+    tip:'Toasting whole coriander seeds and grinding them fresh makes a real difference.',
+    nutrition:{kcal:150,protein_g:3,carbs_g:24,fat_g:5}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-black-bean-soup', cat:'soups', name:'Spicy Black Bean Soup', emoji:'🫘', cuisine:'Latin', time:35, costPP:13, diet:'vegan',
+    feel:'Smoky, spicy and substantial — a bowl with real character.',
+    ingredients:[{n:'black beans',pp:120,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'tomatoes',pp:60,u:'g'},{n:'vegetable stock',pp:250,u:'ml'},{n:'cumin'},{n:'chilli',pp:3,u:'g'}],
+    method:['Soften the onion, pepper and garlic in oil with cumin and chilli.','Add the black beans, tomatoes and stock and simmer 15 minutes.','Blend about half the soup to thicken it, leaving the rest chunky.','Season well and serve with lime, coriander and a dollop of yoghurt.'],
+    tip:'A little smoked paprika or chipotle gives it a gorgeous smoky depth.',
+    nutrition:{kcal:240,protein_g:13,carbs_g:38,fat_g:4}, storage:'Keeps 4 days; freezes well.'},
+
+  {id:'ln-sweetpotato-peanut-soup', cat:'soups', name:'Sweet Potato & Peanut Soup', emoji:'🥜', cuisine:'West African', time:40, costPP:15, diet:'vegan',
+    feel:'Creamy, nutty and warming with a gentle chilli glow.',
+    ingredients:[{n:'sweet potato',pp:180,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'peanut butter',pp:25,u:'g'},{n:'tomatoes',pp:60,u:'g'},{n:'vegetable stock',pp:300,u:'ml'},{n:'ginger',pp:5,u:'g'},{n:'chilli',pp:2,u:'g'}],
+    method:['Soften the onion, garlic, ginger and chilli in oil.','Add the cubed sweet potato, tomatoes and stock and simmer 20 minutes.','Stir in the peanut butter until melted through, then blend smooth.','Season and finish with coriander and crushed peanuts.'],
+    tip:'Smooth peanut butter blends best; add it gradually and taste as you go.',
+    nutrition:{kcal:290,protein_g:9,carbs_g:38,fat_g:13}, storage:'Keeps 4 days; thickens — loosen with stock.'},
+
+  // ───────────────── 🥪 SANDWICHES, WRAPS & ROLLS (22) ─────────────────
+  // Bread is flexible everywhere — white, brown, wholewheat, low-GI, ciabatta,
+  // wrap or roll all work. Gluten-free handled later via dietary preferences.
+  {id:'ln-falafel-wrap', cat:'handhelds', name:'Falafel Wrap', emoji:'🌯', cuisine:'Middle Eastern', time:15, costPP:24, diet:'vegan', // ⚑DUP
+    feel:'Warm, crisp falafel rolled up with cool salad and creamy tahini.',
+    ingredients:[{n:'falafel',pp:90,u:'g'},{n:'tortillas',pp:1,u:''},{n:'lettuce',pp:40,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'cucumber',pp:40,u:'g'},{n:'tahini',pp:18,u:'g'},{n:'lemon',pp:0.2,u:''}],
+    method:['Warm or fry the falafel until hot and crisp.','Loosen the tahini with lemon, water and a little garlic into a drizzly sauce.','Pile falafel and chopped salad onto the wrap, drizzle with tahini, and roll up tightly.'],
+    tip:'Any wrap or flatbread works — warm it first so it folds without cracking.',
+    nutrition:{kcal:420,protein_g:14,carbs_g:48,fat_g:20}, storage:'Best fresh; components keep 2 days.'},
+
+  {id:'ln-pita-hummus-chicken', cat:'handhelds', name:'Pita, Hummus & Chicken', emoji:'🥙', cuisine:'Mediterranean', time:20, costPP:30, diet:'meat', // ⚑DUP
+    feel:'Soft pita stuffed with warm chicken and a generous swipe of hummus.',
+    ingredients:[{n:'chicken breasts',pp:100,u:'g'},{n:'pita',pp:1,u:''},{n:'hummus',pp:40,u:'g'},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:40,u:'g'},{n:'red onion',pp:20,u:'g'}],
+    method:['Season and pan-fry the chicken until golden, then slice.','Warm the pita and open a pocket.','Spread the inside with hummus, then fill with chicken, lettuce, tomato and onion.'],
+    tip:'No pita? Any flatbread, wrap or roll works just as well.',
+    nutrition:{kcal:430,protein_g:34,carbs_g:38,fat_g:15}, storage:'Best fresh; cooked chicken keeps 2 days.'},
+
+  {id:'ln-boerewors-roll', cat:'handhelds', name:'Boerewors Roll', emoji:'🌭', cuisine:'South African', time:20, costPP:26, diet:'meat', // ⚑DUP
+    feel:'The smell of a Saturday market — wors, onions and a soft roll.',
+    ingredients:[{n:'boerewors',pp:120,u:'g'},{n:'hot dog rolls',pp:1,u:''},{n:'onion',pp:50,u:'g'},{n:'tomato sauce',pp:15,u:'g'},{n:'chutney',pp:10,u:'g'}],
+    method:['Grill or braai the boerewors until cooked through and lightly charred.','Fry the sliced onions slowly until soft and golden.','Tuck the wors into the roll, pile on the onions, and finish with tomato sauce and chutney.'],
+    tip:'Any soft roll works — a hot dog roll, a long roll or even a slice folded over.',
+    nutrition:{kcal:480,protein_g:20,carbs_g:34,fat_g:30}, storage:'Best fresh and hot.'},
+
+  {id:'ln-chicken-mayo-sarmie', cat:'handhelds', name:'Chicken Mayo Sarmie', emoji:'🥪', cuisine:'Classic', time:15, costPP:22, diet:'meat',
+    feel:'The lunchbox classic that never lets you down.',
+    ingredients:[{n:'chicken breasts',pp:90,u:'g'},{n:'white bread',pp:2,u:''},{n:'mayonnaise',pp:25,u:'g'},{n:'lettuce',pp:25,u:'g'},{n:'spring onion',pp:10,u:'g'}],
+    method:['Poach or pan-cook the chicken, cool, and shred or dice.','Fold through the mayo with sliced spring onion and seasoning.','Pile onto bread with lettuce and close.'],
+    tip:'Any bread works — white, brown, low-GI or a wrap. A little curry powder in the mayo is a lovely twist.',
+    nutrition:{kcal:380,protein_g:28,carbs_g:30,fat_g:17}, storage:'Filling keeps 2 days; assemble fresh.'},
+
+  {id:'ln-egg-mayo-sarmie', cat:'handhelds', name:'Egg Mayo Sarmie', emoji:'🥪', cuisine:'Classic', time:15, costPP:14, diet:'veg',
+    feel:'Soft, creamy and comforting — proper old-fashioned lunch.',
+    ingredients:[{n:'large eggs',pp:1.5,u:'egg'},{n:'white bread',pp:2,u:''},{n:'mayonnaise',pp:20,u:'g'},{n:'lettuce',pp:20,u:'g'}],
+    method:['Hard-boil the eggs for 9 minutes, cool, peel and mash.','Mix with mayo, salt and plenty of pepper.','Spread onto bread with lettuce and close.'],
+    tip:'Use any bread you like. A pinch of curry powder or chives lifts the filling.',
+    nutrition:{kcal:340,protein_g:14,carbs_g:30,fat_g:18}, storage:'Filling keeps 2 days.'},
+
+  {id:'ln-tuna-mayo-sarmie', cat:'handhelds', name:'Tuna Mayo Sarmie', emoji:'🥪', cuisine:'Classic', time:10, costPP:18, diet:'meat',
+    feel:'Quick, protein-packed and reliably good.',
+    ingredients:[{n:'tuna',pp:80,u:'g'},{n:'white bread',pp:2,u:''},{n:'mayonnaise',pp:20,u:'g'},{n:'red onion',pp:15,u:'g'},{n:'cucumber',pp:30,u:'g'}],
+    method:['Drain and flake the tuna, then mix with mayo and finely diced onion.','Season with pepper and a squeeze of lemon.','Layer onto bread with sliced cucumber and close.'],
+    tip:'Any bread or wrap works. Sweetcorn or chopped gherkin stirred in is a nice touch.',
+    nutrition:{kcal:330,protein_g:24,carbs_g:30,fat_g:13}, storage:'Filling keeps 1 day; best fresh.'},
+
+  {id:'ln-cheese-tomato-sarmie', cat:'handhelds', name:'Cheese & Tomato Sarmie', emoji:'🧀', cuisine:'Classic', time:10, costPP:13, diet:'veg',
+    feel:'Simple, honest and somehow always exactly right.',
+    ingredients:[{n:'cheddar',pp:40,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'white bread',pp:2,u:''},{n:'butter',pp:8,u:'g'}],
+    method:['Butter the bread.','Layer sliced cheese and tomato, seasoning the tomato with a little salt and pepper.','Close and slice.'],
+    tip:'Use any bread. A smear of chutney or mustard takes it up a notch.',
+    nutrition:{kcal:330,protein_g:13,carbs_g:30,fat_g:18}, storage:'Best fresh.'},
+
+  {id:'ln-ham-cheese-sarmie', cat:'handhelds', name:'Ham & Cheese Sarmie', emoji:'🥪', cuisine:'Classic', time:10, costPP:18, diet:'meat',
+    feel:'The dependable everyday sandwich, hot or cold.',
+    ingredients:[{n:'ham',pp:50,u:'g'},{n:'cheddar',pp:35,u:'g'},{n:'white bread',pp:2,u:''},{n:'butter',pp:8,u:'g'},{n:'mustard',pp:5,u:'g'}],
+    method:['Butter the bread and spread one side with a little mustard.','Layer the ham and cheese.','Close and eat as is, or toast in a pan until golden and melty.'],
+    tip:'Any bread works. Toasting turns it into a quick melt.',
+    nutrition:{kcal:380,protein_g:20,carbs_g:30,fat_g:19}, storage:'Best fresh; toast to order.'},
+
+  {id:'ln-blt-sandwich', cat:'handhelds', name:'BLT Sandwich', emoji:'🥓', cuisine:'American', time:15, costPP:24, diet:'meat',
+    feel:'Crisp bacon, cool lettuce, sweet tomato — a perfect trio.',
+    ingredients:[{n:'streaky bacon',pp:50,u:'g'},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'white bread',pp:2,u:''},{n:'mayonnaise',pp:15,u:'g'}],
+    method:['Fry the bacon until crisp and drain on paper towel.','Toast the bread and spread with mayo.','Layer bacon, lettuce and tomato, season, and close.'],
+    tip:'Any bread works, but toasting it keeps the sandwich from going soggy.',
+    nutrition:{kcal:400,protein_g:15,carbs_g:30,fat_g:24}, storage:'Best fresh and warm.'},
+
+  {id:'ln-jaffle', cat:'handhelds', name:'Toasted Cheese (Jaffle)', emoji:'🧇', cuisine:'South African', time:12, costPP:14, diet:'veg',
+    feel:'Golden, crunchy outside and a molten cheesy middle.',
+    ingredients:[{n:'cheddar',pp:50,u:'g'},{n:'white bread',pp:2,u:''},{n:'butter',pp:10,u:'g'},{n:'tomatoes',pp:30,u:'g'}],
+    method:['Butter the outsides of the bread.','Fill with grated cheese and a little tomato.','Toast in a jaffle iron or pan, pressing, until deep golden and the cheese has melted.'],
+    tip:'Any bread works. Add ham, chutney or a fried egg to make it a meal.',
+    nutrition:{kcal:360,protein_g:14,carbs_g:30,fat_g:21}, storage:'Best fresh and hot.'},
+
+  {id:'ln-club-sandwich', cat:'handhelds', name:'Club Sandwich', emoji:'🥪', cuisine:'American', time:20, costPP:32, diet:'meat',
+    feel:'The three-decker showstopper — a knife-and-skewer affair.',
+    ingredients:[{n:'chicken breasts',pp:80,u:'g'},{n:'streaky bacon',pp:40,u:'g'},{n:'white bread',pp:3,u:''},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:40,u:'g'},{n:'large eggs',pp:0.5,u:'egg'},{n:'mayonnaise',pp:20,u:'g'}],
+    method:['Cook the chicken and bacon, and fry or boil the egg.','Toast three slices of bread and spread with mayo.','Stack in two layers — chicken, bacon, egg, lettuce and tomato — then pin with skewers and cut into quarters.'],
+    tip:'Any bread works; toasting holds the tall stack together. Skewers stop it toppling.',
+    nutrition:{kcal:560,protein_g:34,carbs_g:42,fat_g:28}, storage:'Best fresh.'},
+
+  {id:'ln-chicken-wrap', cat:'handhelds', name:'Chicken Wrap', emoji:'🌯', cuisine:'Modern', time:15, costPP:26, diet:'meat',
+    feel:'Everything you want for lunch, rolled up and ready to grab.',
+    ingredients:[{n:'chicken breasts',pp:100,u:'g'},{n:'tortillas',pp:1,u:''},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:40,u:'g'},{n:'cheddar',pp:25,u:'g'},{n:'mayonnaise',pp:15,u:'g'}],
+    method:['Season and cook the chicken, then slice.','Spread the wrap with mayo and lay everything down the centre.','Fold in the ends and roll up tightly, then halve on the diagonal.'],
+    tip:'Any wrap or flatbread works. A spoon of peri-peri or sweet chilli is a great addition.',
+    nutrition:{kcal:430,protein_g:32,carbs_g:34,fat_g:18}, storage:'Best fresh; keeps wrapped a few hours.'},
+
+  {id:'ln-veggie-wrap', cat:'handhelds', name:'Veggie Wrap', emoji:'🌯', cuisine:'Modern', time:12, costPP:18, diet:'vegan',
+    feel:'Fresh, crunchy and good for you, with a creamy hummus base.',
+    ingredients:[{n:'tortillas',pp:1,u:''},{n:'hummus',pp:40,u:'g'},{n:'cucumber',pp:40,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'red pepper',pp:40,u:'g'},{n:'lettuce',pp:30,u:'g'},{n:'avocado',pp:40,u:'g'}],
+    method:['Spread the wrap generously with hummus.','Lay grated carrot, sliced cucumber, pepper, lettuce and avocado down the centre.','Season, fold in the ends and roll up tightly.'],
+    tip:'Any wrap works. Swap the hummus for tahini or add falafel to make it heartier.',
+    nutrition:{kcal:350,protein_g:9,carbs_g:42,fat_g:16}, storage:'Best fresh.'},
+
+  {id:'ln-chicken-caesar-wrap', cat:'handhelds', name:'Chicken Caesar Wrap', emoji:'🌯', cuisine:'American', time:18, costPP:28, diet:'meat',
+    feel:'The Caesar salad you can eat with one hand.',
+    ingredients:[{n:'chicken breasts',pp:100,u:'g'},{n:'tortillas',pp:1,u:''},{n:'lettuce',pp:40,u:'g'},{n:'parmesan',pp:15,u:'g'},{n:'mayonnaise',pp:20,u:'g'},{n:'anchovies',pp:5,u:'g'},{n:'garlic',pp:3,u:'g'}],
+    method:['Cook and slice the chicken.','Whisk the mayo with mashed anchovy, garlic, lemon and parmesan into a Caesar dressing.','Toss the lettuce and chicken in the dressing, pile onto the wrap and roll up.'],
+    tip:'Any wrap works. Leave out the anchovy for a milder dressing.',
+    nutrition:{kcal:460,protein_g:34,carbs_g:32,fat_g:22}, storage:'Best fresh.'},
+
+  {id:'ln-steak-roll', cat:'handhelds', name:'Steak Roll', emoji:'🥖', cuisine:'Steakhouse', time:25, costPP:42, diet:'meat',
+    feel:'Juicy steak and sweet onions packed into a crusty roll.',
+    ingredients:[{n:'rump steak',pp:120,u:'g'},{n:'baguette',pp:0.5,u:''},{n:'onion',pp:60,u:'g'},{n:'rocket',pp:20,u:'g'},{n:'mustard',pp:8,u:'g'},{n:'butter',pp:8,u:'g'}],
+    method:['Season the steak well and sear hard, then rest and slice thinly.','Cook the onions slowly in butter until soft and caramelised.','Fill the roll with steak, onions, rocket and a smear of mustard.'],
+    tip:'Any crusty roll, ciabatta or baguette works. Rest the steak before slicing so it stays juicy.',
+    nutrition:{kcal:540,protein_g:34,carbs_g:38,fat_g:26}, storage:'Best fresh and warm.'},
+
+  {id:'ln-gatsby', cat:'handhelds', name:'Gatsby', emoji:'🥖', cuisine:'South African', time:30, costPP:38, diet:'meat',
+    feel:'Cape Town\'s legendary shareable monster roll, loaded and saucy.',
+    ingredients:[{n:'baguette',pp:0.6,u:''},{n:'rump steak',pp:90,u:'g'},{n:'slap chips',pp:120,u:'g'},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:30,u:'g'},{n:'peri-peri sauce',pp:20,u:'g'},{n:'atchar',pp:15,u:'g'}],
+    method:['Cook the steak (or use masala steak, polony or chicken) and slice.','Fry or bake the chips until crisp.','Split a long roll, layer in the meat, chips, salad, peri-peri and atchar, then close and cut into shareable portions.'],
+    tip:'Any long roll works. The chips inside are non-negotiable — that\'s what makes it a Gatsby.',
+    nutrition:{kcal:620,protein_g:26,carbs_g:62,fat_g:30}, storage:'Best fresh and hot.'},
+
+  {id:'ln-banh-mi', cat:'handhelds', name:'Banh Mi', emoji:'🥖', cuisine:'Vietnamese', time:25, costPP:30, diet:'meat',
+    feel:'Crunchy, tangy, fresh and savoury all in one perfect bite.',
+    ingredients:[{n:'baguette',pp:0.5,u:''},{n:'chicken breasts',pp:90,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'cucumber',pp:40,u:'g'},{n:'coriander',pp:5,u:'g'},{n:'mayonnaise',pp:15,u:'g'},{n:'soy sauce',pp:10,u:'ml'},{n:'chilli',pp:3,u:'g'}],
+    method:['Marinate and cook the chicken (or pork) in soy, garlic and a little sugar, then slice.','Quick-pickle the grated carrot and cucumber ribbons in vinegar and sugar for 10 minutes.','Spread the roll with mayo, fill with meat, pickled veg, coriander and chilli.'],
+    tip:'A light, crusty roll or baguette is ideal, but any soft roll works. The pickle is what makes it sing.',
+    nutrition:{kcal:450,protein_g:28,carbs_g:46,fat_g:16}, storage:'Best fresh; pickled veg keeps a week.'},
+
+  {id:'ln-reuben', cat:'handhelds', name:'Reuben', emoji:'🥪', cuisine:'American', time:20, costPP:36, diet:'meat',
+    feel:'Hot, melty, tangy deli indulgence — a proper grilled stack.',
+    ingredients:[{n:'corned beef',pp:90,u:'g'},{n:'rye bread',pp:2,u:''},{n:'swiss cheese',pp:40,u:'g'},{n:'sauerkraut',pp:50,u:'g'},{n:'mayonnaise',pp:15,u:'g'},{n:'butter',pp:10,u:'g'}],
+    method:['Mix the mayo with a little tomato sauce and gherkin for a quick Russian dressing.','Build the sandwich with corned beef, swiss, drained sauerkraut and the dressing.','Butter the outsides and grill in a pan, pressing, until golden and the cheese melts.'],
+    tip:'Rye is traditional, but any bread grills up well. Drain the sauerkraut well so it isn\'t soggy.',
+    nutrition:{kcal:520,protein_g:26,carbs_g:34,fat_g:30}, storage:'Best fresh and hot.'},
+
+  {id:'ln-croque-monsieur', cat:'handhelds', name:'Croque Monsieur', emoji:'🧀', cuisine:'French', time:25, costPP:28, diet:'meat',
+    feel:'The fancy French toastie — ham, cheese and a blanket of bubbling sauce.',
+    ingredients:[{n:'ham',pp:50,u:'g'},{n:'gruyere cheese',pp:50,u:'g'},{n:'white bread',pp:2,u:''},{n:'milk',pp:60,u:'ml'},{n:'butter',pp:10,u:'g'},{n:'cake flour',pp:8,u:'g'}],
+    method:['Make a quick cheese sauce: melt butter, stir in flour, then whisk in the milk and half the gruyere.','Build the sandwich with ham and cheese and toast lightly.','Top with the cheese sauce and the rest of the gruyere and grill until golden and bubbling.'],
+    tip:'Any bread works. Add a fried egg on top to make it a Croque Madame.',
+    nutrition:{kcal:480,protein_g:24,carbs_g:32,fat_g:28}, storage:'Best fresh and hot.'},
+
+  {id:'ln-halloumi-wrap', cat:'handhelds', name:'Halloumi Wrap', emoji:'🌯', cuisine:'Mediterranean', time:15, costPP:26, diet:'veg',
+    feel:'Golden, squeaky halloumi with fresh salad and a lemony drizzle.',
+    ingredients:[{n:'halloumi',pp:70,u:'g'},{n:'tortillas',pp:1,u:''},{n:'lettuce',pp:30,u:'g'},{n:'tomatoes',pp:40,u:'g'},{n:'red onion',pp:20,u:'g'},{n:'hummus',pp:30,u:'g'},{n:'lemon',pp:0.2,u:''}],
+    method:['Slice and pan-fry the halloumi until golden on both sides.','Spread the wrap with hummus and add the salad.','Lay the warm halloumi on top, squeeze over lemon, and roll up.'],
+    tip:'Any wrap or flatbread works. Fry the halloumi just before serving so it stays soft inside.',
+    nutrition:{kcal:420,protein_g:18,carbs_g:38,fat_g:22}, storage:'Best fresh; fry halloumi to order.'},
+
+  {id:'ln-pulled-chicken-roll', cat:'handhelds', name:'Pulled Chicken Roll', emoji:'🍔', cuisine:'American', time:30, costPP:28, diet:'meat',
+    feel:'Sticky, smoky pulled chicken piled high with crunchy slaw.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'hamburger rolls',pp:1,u:''},{n:'bbq sauce',pp:25,u:'g'},{n:'cabbage',pp:40,u:'g'},{n:'carrots',pp:20,u:'g'},{n:'mayonnaise',pp:12,u:'g'}],
+    method:['Poach or slow-cook the chicken until very tender, then shred with two forks.','Toss the shredded chicken through the BBQ sauce.','Make a quick slaw with shredded cabbage, carrot and mayo, and pile both into the roll.'],
+    tip:'Any soft roll works. Thighs pull even more tender than breasts if you have them.',
+    nutrition:{kcal:480,protein_g:34,carbs_g:42,fat_g:18}, storage:'Pulled chicken keeps 3 days; great reheated.'},
+
+  {id:'ln-caprese-ciabatta', cat:'handhelds', name:'Caprese Ciabatta', emoji:'🥖', cuisine:'Italian', time:12, costPP:24, diet:'veg',
+    feel:'Mozzarella, tomato and basil on crusty bread — summer in a sandwich.',
+    ingredients:[{n:'ciabatta',pp:0.5,u:''},{n:'mozzarella',pp:60,u:'g'},{n:'tomatoes',pp:60,u:'g'},{n:'basil',pp:4,u:'g'},{n:'olive oil',pp:10,u:'ml'},{n:'balsamic vinegar',pp:6,u:'ml'}],
+    method:['Split the ciabatta and drizzle the cut sides with olive oil.','Layer sliced mozzarella and tomato, season, and add torn basil.','Drizzle with balsamic, close and press gently.'],
+    tip:'Any crusty bread or roll works. A griddle press turns it into a warm, melty panini.',
+    nutrition:{kcal:400,protein_g:16,carbs_g:38,fat_g:21}, storage:'Best fresh.'},
+
+  // ───────────────── 🍜 QUICK & LIGHT / HOT BOWLS (23) ─────────────────
+  {id:'ln-fried-rice', cat:'quick', name:'Fried Rice', emoji:'🍚', cuisine:'Chinese', time:20, costPP:14, diet:'veg', // ⚑DUP
+    feel:'The best way to turn last night\'s rice into today\'s lunch.',
+    ingredients:[{n:'rice',pp:80,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'frozen peas',pp:40,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'spring onion',pp:20,u:'g'},{n:'soy sauce',pp:14,u:'ml'},{n:'sesame oil',pp:6,u:'ml'}],
+    method:['Use cold, cooked rice — fresh rice goes mushy.','Scramble the egg in a hot oiled wok and set aside.','Stir-fry the peas, carrot and spring onion, add the rice and toss over high heat.','Return the egg, splash in soy and sesame oil, and toss to combine.'],
+    tip:'Day-old rice is the secret — the drier grains fry up separate and golden.',
+    nutrition:{kcal:340,protein_g:11,carbs_g:52,fat_g:10}, storage:'Best fresh; keeps 1 day.'},
+
+  {id:'ln-shakshuka', cat:'quick', name:'Shakshuka', emoji:'🍅', cuisine:'North African', time:25, costPP:18, diet:'veg', // ⚑DUP
+    feel:'Eggs poached in a bubbling, spiced tomato hug.',
+    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:40,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'tomato paste',pp:15,u:'g'},{n:'feta',pp:25,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Soften the onion and pepper in oil, then stir in tomato paste, paprika and cumin.','Add the chopped tomatoes and simmer 10 minutes until thick.','Make wells and crack in the eggs; cover and cook until the whites set.','Crumble over feta and serve with bread.'],
+    tip:'Keep the heat gentle once the eggs are in so the yolks stay soft.',
+    nutrition:{kcal:320,protein_g:17,carbs_g:18,fat_g:20}, storage:'Sauce keeps 3 days; add fresh eggs to reheat.'},
+
+  {id:'ln-buddha-bowl', cat:'quick', name:'Buddha Bowl', emoji:'🥗', cuisine:'Modern', time:25, costPP:22, diet:'vegan', // ⚑DUP
+    feel:'A bright, balanced bowl that makes you feel good after.',
+    ingredients:[{n:'rice',pp:70,u:'g'},{n:'chickpeas',pp:80,u:'g'},{n:'sweet potato',pp:100,u:'g'},{n:'avocado',pp:50,u:'g'},{n:'lettuce',pp:40,u:'g'},{n:'tahini',pp:18,u:'g'},{n:'lemon',pp:0.2,u:''}],
+    method:['Roast the cubed sweet potato and chickpeas with oil and spices until golden.','Cook the rice (brown or white).','Arrange rice, roast veg, avocado and leaves in sections in a bowl.','Drizzle with tahini loosened with lemon and water.'],
+    tip:'Build it in sections rather than mixing — it looks better and you can taste each part.',
+    nutrition:{kcal:450,protein_g:13,carbs_g:60,fat_g:18}, storage:'Components keep 3 days; assemble to order.'},
+
+  {id:'ln-mac-cheese', cat:'quick', name:'Mac & Cheese', emoji:'🧀', cuisine:'Comfort', time:30, costPP:18, diet:'veg',
+    feel:'Molten, golden-topped comfort in its purest form.',
+    ingredients:[{n:'macaroni',pp:90,u:'g'},{n:'cheddar',pp:60,u:'g'},{n:'milk',pp:200,u:'ml'},{n:'butter',pp:15,u:'g'},{n:'cake flour',pp:15,u:'g'}],
+    method:['Boil the macaroni until just tender and drain.','Make a roux with butter and flour, then whisk in the milk to a smooth sauce.','Melt in most of the cheese, season, and stir through the pasta.','Top with the rest of the cheese and grill until bubbling and golden.'],
+    tip:'A little mustard or nutmeg in the sauce makes the cheese taste even cheesier.',
+    nutrition:{kcal:520,protein_g:22,carbs_g:54,fat_g:24}, storage:'Keeps 3 days; reheat with a splash of milk.'},
+
+  {id:'ln-spaghetti-napoli', cat:'quick', name:'Spaghetti Napoli', emoji:'🍝', cuisine:'Italian', time:25, costPP:14, diet:'veg',
+    feel:'Simple, garlicky tomato pasta — Italy on a weeknight.',
+    ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'onion',pp:40,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'basil',pp:4,u:'g'},{n:'parmesan',pp:15,u:'g'}],
+    method:['Soften the onion and garlic in olive oil.','Add the chopped tomatoes and simmer 15 minutes until rich and glossy.','Cook the spaghetti and toss through the sauce with torn basil.','Serve with grated parmesan and a drizzle of oil.'],
+    tip:'A pinch of sugar and a long, slow simmer is what makes the sauce sing.',
+    nutrition:{kcal:420,protein_g:14,carbs_g:68,fat_g:11}, storage:'Sauce keeps 4 days; freezes well.'},
+
+  {id:'ln-chicken-stirfry', cat:'quick', name:'Chicken Stir-fry', emoji:'🥢', cuisine:'Chinese', time:20, costPP:28, diet:'meat',
+    feel:'Fast, fresh and full of crunch — better than takeaway.',
+    ingredients:[{n:'chicken breasts',pp:110,u:'g'},{n:'mixed stir-fry veg',pp:120,u:'g'},{n:'rice',pp:70,u:'g'},{n:'soy sauce',pp:15,u:'ml'},{n:'garlic',pp:5,u:'g'},{n:'ginger',pp:5,u:'g'},{n:'sesame oil',pp:6,u:'ml'}],
+    method:['Slice the chicken thinly and stir-fry in a hot wok until golden, then set aside.','Stir-fry the veg with garlic and ginger, keeping it crisp.','Return the chicken, add soy, a little honey and sesame oil, and toss.','Serve over steamed rice.'],
+    tip:'Have everything chopped before you start — stir-frying happens fast.',
+    nutrition:{kcal:430,protein_g:34,carbs_g:42,fat_g:12}, storage:'Best fresh; keeps 2 days.'},
+
+  {id:'ln-veg-stirfry', cat:'quick', name:'Veg Stir-fry', emoji:'🥦', cuisine:'Chinese', time:18, costPP:18, diet:'vegan',
+    feel:'A wok full of colour and crunch in under twenty minutes.',
+    ingredients:[{n:'mixed stir-fry veg',pp:160,u:'g'},{n:'tofu',pp:80,u:'g'},{n:'rice',pp:70,u:'g'},{n:'soy sauce',pp:15,u:'ml'},{n:'garlic',pp:5,u:'g'},{n:'ginger',pp:5,u:'g'},{n:'sesame oil',pp:6,u:'ml'}],
+    method:['Fry the cubed tofu until golden and set aside.','Stir-fry the veg with garlic and ginger over high heat, keeping it crisp.','Return the tofu, splash in soy and sesame oil, and toss.','Serve over rice.'],
+    tip:'Toss the tofu in cornflour before frying for a crispier shell.',
+    nutrition:{kcal:380,protein_g:14,carbs_g:48,fat_g:14}, storage:'Best fresh; keeps 2 days.'},
+
+  {id:'ln-egg-fried-rice', cat:'quick', name:'Egg Fried Rice', emoji:'🍳', cuisine:'Chinese', time:15, costPP:12, diet:'veg',
+    feel:'The five-minute saviour when the cupboard looks bare.',
+    ingredients:[{n:'rice',pp:90,u:'g'},{n:'large eggs',pp:1.5,u:'egg'},{n:'spring onion',pp:20,u:'g'},{n:'frozen peas',pp:40,u:'g'},{n:'soy sauce',pp:14,u:'ml'},{n:'sesame oil',pp:6,u:'ml'}],
+    method:['Scramble the eggs in a hot oiled wok and set aside.','Fry the peas and spring onion, then add cold cooked rice and toss over high heat.','Return the egg, splash in soy and sesame oil, and toss to combine.'],
+    tip:'Cold day-old rice is essential — it fries up light, not sticky.',
+    nutrition:{kcal:340,protein_g:12,carbs_g:50,fat_g:11}, storage:'Best fresh.'},
+
+  {id:'ln-chicken-quesadilla', cat:'quick', name:'Chicken Quesadilla', emoji:'🫓', cuisine:'Tex-Mex', time:20, costPP:26, diet:'meat',
+    feel:'Crisp, cheesy and golden, with melty chicken inside.',
+    ingredients:[{n:'tortillas',pp:1,u:''},{n:'chicken breasts',pp:90,u:'g'},{n:'cheddar',pp:50,u:'g'},{n:'red pepper',pp:40,u:'g'},{n:'onion',pp:30,u:'g'},{n:'taco spice',pp:6,u:'g'}],
+    method:['Cook the chicken with peppers, onion and taco spice, then shred.','Lay it with cheese over half a tortilla and fold.','Dry-fry in a hot pan, pressing, until golden and crisp on both sides and the cheese melts.','Cut into wedges and serve with salsa.'],
+    tip:'Don\'t overfill — a thin, even layer crisps best and won\'t spill out.',
+    nutrition:{kcal:460,protein_g:32,carbs_g:34,fat_g:22}, storage:'Best fresh and hot.'},
+
+  {id:'ln-baked-potato', cat:'quick', name:'Baked Potato & Toppings', emoji:'🥔', cuisine:'Classic', time:60, costPP:14, diet:'veg',
+    feel:'A fluffy jacket potato is a blank canvas for whatever you fancy.',
+    ingredients:[{n:'potatoes',pp:250,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'butter',pp:15,u:'g'},{n:'baked beans',pp:80,u:'g'}],
+    method:['Prick the potatoes and bake at 200°C for 50 to 60 minutes until the skin is crisp and the inside fluffy.','Split open and fluff the inside with a fork.','Add butter, then your toppings — cheese, beans, or whatever you like.','Season well and serve.'],
+    tip:'Rub the skin with oil and salt before baking for the crispest jacket.',
+    nutrition:{kcal:420,protein_g:15,carbs_g:58,fat_g:15}, storage:'Best fresh; bake extra to reheat.'},
+
+  {id:'ln-savoury-pancakes', cat:'quick', name:'Savoury Pancakes', emoji:'🥞', cuisine:'Classic', time:25, costPP:16, diet:'veg',
+    feel:'Thin, foldable pancakes wrapped around a savoury filling.',
+    ingredients:[{n:'cake flour',pp:50,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'milk',pp:120,u:'ml'},{n:'cheddar',pp:40,u:'g'},{n:'mushrooms',pp:60,u:'g'},{n:'butter',pp:10,u:'g'}],
+    method:['Whisk the flour, egg and milk into a smooth thin batter and rest 15 minutes.','Fry thin pancakes in a little butter until golden.','Fry the mushrooms and fold them with cheese into the warm pancakes.','Serve folded or rolled.'],
+    tip:'Let the batter rest — it makes the pancakes tender rather than rubbery.',
+    nutrition:{kcal:380,protein_g:16,carbs_g:38,fat_g:18}, storage:'Pancakes keep 2 days; reheat in a pan.'},
+
+  {id:'ln-sweetpotato-feta', cat:'quick', name:'Sweet Potato & Feta Bowl', emoji:'🍠', cuisine:'Modern', time:35, costPP:18, diet:'veg',
+    feel:'Sweet, salty and golden — a warm bowl that feels like a treat.',
+    ingredients:[{n:'sweet potato',pp:200,u:'g'},{n:'feta',pp:40,u:'g'},{n:'chickpeas',pp:70,u:'g'},{n:'rocket',pp:30,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'honey',pp:6,u:'ml'}],
+    method:['Roast the cubed sweet potato and chickpeas with oil until soft and caramelised.','Pile onto a bed of rocket.','Crumble over the feta and drizzle with honey and a little oil.','Season with black pepper.'],
+    tip:'A pinch of chilli flakes against the sweet potato and honey is lovely.',
+    nutrition:{kcal:430,protein_g:13,carbs_g:54,fat_g:18}, storage:'Roast veg keeps 3 days.'},
+
+  {id:'ln-chicken-rice-bowl', cat:'quick', name:'Chicken & Rice Bowl', emoji:'🍚', cuisine:'Modern', time:25, costPP:26, diet:'meat',
+    feel:'A simple, satisfying bowl that hits the spot every time.',
+    ingredients:[{n:'chicken breasts',pp:110,u:'g'},{n:'rice',pp:80,u:'g'},{n:'cucumber',pp:50,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'mayonnaise',pp:15,u:'g'},{n:'soy sauce',pp:10,u:'ml'}],
+    method:['Season and pan-fry the chicken until golden, then slice.','Cook the rice.','Build the bowl with rice, chicken and fresh veg.','Drizzle with a quick sauce of mayo, soy and sriracha.'],
+    tip:'Marinate the chicken in soy, garlic and honey for extra flavour.',
+    nutrition:{kcal:480,protein_g:34,carbs_g:56,fat_g:12}, storage:'Components keep 3 days.'},
+
+  {id:'ln-couscous-bowl', cat:'quick', name:'Couscous Bowl', emoji:'🥣', cuisine:'North African', time:20, costPP:16, diet:'vegan',
+    feel:'Fluffy, herby and quick — ready almost as fast as the kettle boils.',
+    ingredients:[{n:'couscous',pp:80,u:'g'},{n:'chickpeas',pp:70,u:'g'},{n:'cucumber',pp:50,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'parsley',pp:5,u:'g'},{n:'lemon',pp:0.3,u:''},{n:'olive oil',pp:12,u:'ml'}],
+    method:['Pour boiling stock over the couscous, cover 5 minutes, then fluff with a fork.','Fold through the chickpeas and chopped veg.','Dress with lemon, olive oil and lots of parsley.','Season well.'],
+    tip:'Stir a spoon of harissa through for warmth and depth.',
+    nutrition:{kcal:400,protein_g:12,carbs_g:60,fat_g:13}, storage:'Keeps 3 days; great packed.'},
+
+  {id:'ln-poke-bowl', cat:'quick', name:'Poke Bowl', emoji:'🐟', cuisine:'Hawaiian', time:20, costPP:40, diet:'meat',
+    feel:'Fresh, clean and a little bit special — sushi in a bowl.',
+    ingredients:[{n:'tuna',pp:90,u:'g'},{n:'rice',pp:80,u:'g'},{n:'edamame',pp:40,u:'g'},{n:'cucumber',pp:50,u:'g'},{n:'avocado',pp:50,u:'g'},{n:'soy sauce',pp:14,u:'ml'},{n:'sesame oil',pp:6,u:'ml'}],
+    method:['Cook the rice and let it cool to warm.','Dice fresh, sushi-grade tuna and toss with soy and sesame oil.','Build the bowl with rice, tuna, edamame, cucumber and avocado.','Finish with sesame seeds and a drizzle of the dressing.'],
+    tip:'Only use very fresh, sushi-grade fish for raw poke — otherwise sear it instead.',
+    nutrition:{kcal:460,protein_g:30,carbs_g:50,fat_g:15}, storage:'Eat fresh; do not keep raw fish.'},
+
+  {id:'ln-ramen', cat:'quick', name:'Ramen', emoji:'🍜', cuisine:'Japanese', time:30, costPP:26, diet:'meat',
+    feel:'A steaming bowl of savoury broth, noodles and a jammy egg.',
+    ingredients:[{n:'ramen noodles',pp:80,u:'g'},{n:'chicken broth',pp:350,u:'ml'},{n:'chicken breasts',pp:70,u:'g'},{n:'large eggs',pp:0.5,u:'egg'},{n:'spring onion',pp:20,u:'g'},{n:'soy sauce',pp:14,u:'ml'},{n:'ginger',pp:5,u:'g'}],
+    method:['Simmer the broth with ginger, garlic and soy for 10 minutes to deepen it.','Poach the chicken in the broth, then slice.','Soft-boil the eggs for 7 minutes and halve.','Cook the noodles, divide into bowls, pour over broth and top with chicken, egg and spring onion.'],
+    tip:'A spoon of miso stirred into the broth adds gorgeous savoury depth.',
+    nutrition:{kcal:470,protein_g:28,carbs_g:54,fat_g:14}, storage:'Keep broth and noodles separate; assemble fresh.'},
+
+  {id:'ln-nasi-goreng', cat:'quick', name:'Nasi Goreng', emoji:'🍚', cuisine:'Indonesian', time:25, costPP:24, diet:'meat',
+    feel:'Sweet-savoury fried rice with a fried egg crowning the top.',
+    ingredients:[{n:'rice',pp:90,u:'g'},{n:'chicken breasts',pp:80,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'soy sauce',pp:16,u:'ml'},{n:'garlic',pp:5,u:'g'},{n:'spring onion',pp:20,u:'g'},{n:'chilli',pp:3,u:'g'}],
+    method:['Stir-fry the diced chicken with garlic and chilli until cooked.','Add cold cooked rice and toss over high heat.','Season with sweet soy (soy plus a little sugar) until sticky and dark.','Top each bowl with a fried egg.'],
+    tip:'Kecap manis (sweet soy) is the authentic touch — or just add brown sugar to soy.',
+    nutrition:{kcal:460,protein_g:26,carbs_g:58,fat_g:14}, storage:'Best fresh; keeps 1 day.'},
+
+  {id:'ln-singapore-noodles', cat:'quick', name:'Singapore Noodles', emoji:'🍜', cuisine:'Chinese', time:25, costPP:30, diet:'meat',
+    feel:'Light curried noodles tangled with prawns and crunchy veg.',
+    ingredients:[{n:'rice noodles',pp:80,u:'g'},{n:'prawns',pp:70,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'red pepper',pp:40,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'curry powder',pp:6,u:'g'},{n:'soy sauce',pp:14,u:'ml'}],
+    method:['Soak the rice noodles until soft, then drain.','Scramble the egg and set aside; stir-fry the prawns and veg.','Add the noodles and curry powder and toss over high heat.','Return the egg, splash in soy, and toss to combine.'],
+    tip:'The curry powder is what makes them Singapore noodles — add it to the oil so it blooms.',
+    nutrition:{kcal:420,protein_g:20,carbs_g:54,fat_g:12}, storage:'Best fresh; keeps 1 day.'},
+
+  {id:'ln-gnocchi-tomato', cat:'quick', name:'Gnocchi & Tomato', emoji:'🥟', cuisine:'Italian', time:20, costPP:18, diet:'veg',
+    feel:'Pillowy gnocchi in a rich tomato sauce — fast, cosy comfort.',
+    ingredients:[{n:'gnocchi',pp:150,u:'g'},{n:'tomatoes',pp:120,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'onion',pp:30,u:'g'},{n:'olive oil',pp:10,u:'ml'},{n:'basil',pp:4,u:'g'},{n:'parmesan',pp:15,u:'g'}],
+    method:['Simmer a quick tomato sauce with onion, garlic and basil.','Boil the gnocchi until they float, then drain.','Toss the gnocchi through the sauce.','Serve with parmesan and a drizzle of oil.'],
+    tip:'Pan-fry the boiled gnocchi in a little butter first for crispy edges.',
+    nutrition:{kcal:400,protein_g:11,carbs_g:64,fat_g:11}, storage:'Best fresh; sauce keeps 4 days.'},
+
+  {id:'ln-halloumi-roastveg-bowl', cat:'quick', name:'Halloumi & Roast Veg Bowl', emoji:'🧀', cuisine:'Mediterranean', time:35, costPP:30, diet:'veg',
+    feel:'Golden halloumi over warm, sticky roasted vegetables.',
+    ingredients:[{n:'halloumi',pp:80,u:'g'},{n:'courgettes',pp:80,u:'g'},{n:'red pepper',pp:70,u:'g'},{n:'red onion',pp:40,u:'g'},{n:'couscous',pp:60,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'lemon',pp:0.3,u:''}],
+    method:['Roast the chopped veg with oil at 200°C for 20 minutes until caramelised.','Make the couscous with boiling stock and fluff.','Fry the sliced halloumi until golden.','Build the bowl with couscous, roast veg and halloumi, and finish with lemon.'],
+    tip:'Fry the halloumi last so it\'s hot and squeaky when it hits the bowl.',
+    nutrition:{kcal:470,protein_g:18,carbs_g:46,fat_g:24}, storage:'Roast veg keeps 3 days; fry halloumi to order.'},
+
+  {id:'ln-pap-sheba', cat:'quick', name:'Pap & Sheba', emoji:'🌽', cuisine:'South African', time:30, costPP:10, diet:'vegan',
+    feel:'Soft, comforting pap under a rich, savoury tomato-onion relish.',
+    ingredients:[{n:'maize meal',pp:80,u:'g'},{n:'tomatoes',pp:120,u:'g'},{n:'onion',pp:50,u:'g'},{n:'green pepper',pp:30,u:'g'},{n:'tomato paste',pp:10,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
+    method:['Cook the pap: rain maize meal into boiling salted water, then steam covered 20 minutes, stirring now and then.','For the sheba, fry the onion and pepper, then add tomatoes and tomato paste.','Simmer the relish until thick and rich, and season well.','Spoon the sheba over the pap.'],
+    tip:'A pinch of curry powder or chakalaka spice lifts the sheba beautifully.',
+    nutrition:{kcal:340,protein_g:7,carbs_g:62,fat_g:8}, storage:'Both keep 3 days; reheat with a splash of water.'},
+
+  {id:'ln-curry-rice', cat:'quick', name:'Curry & Rice', emoji:'🍛', cuisine:'South African', time:40, costPP:28, diet:'meat',
+    feel:'A small, warming bowl of fragrant curry over fluffy rice.',
+    ingredients:[{n:'chicken breasts',pp:110,u:'g'},{n:'rice',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'tomatoes',pp:60,u:'g'},{n:'curry powder',pp:8,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'ginger',pp:5,u:'g'}],
+    method:['Soften the onion, garlic and ginger, then toast the curry powder in the oil.','Add the chicken and brown, then the tomatoes, and simmer 20 minutes until rich.','Cook the rice.','Spoon the curry over the rice and serve with a dollop of yoghurt or chutney.'],
+    tip:'Toasting the curry powder before adding liquid wakes up all the spices.',
+    nutrition:{kcal:470,protein_g:32,carbs_g:54,fat_g:13}, storage:'Curry keeps 3 days; freezes well.'},
+
+  {id:'ln-guac-nachos', cat:'quick', name:'Guacamole & Nachos', emoji:'🥑', cuisine:'Tex-Mex', time:15, costPP:22, diet:'veg',
+    feel:'Crunchy, cheesy, loaded nachos with cool, fresh guac.',
+    ingredients:[{n:'corn chips',pp:80,u:'g'},{n:'avocado',pp:80,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'red onion',pp:20,u:'g'},{n:'lime',pp:0.3,u:''}],
+    method:['Mash the avocado with lime, finely diced onion, tomato and salt for the guacamole.','Spread the corn chips on a tray and scatter over the cheese.','Grill or bake until the cheese melts and bubbles.','Top with the guacamole and serve.'],
+    tip:'Add jalapeños, beans or sour cream to load them up. Press cling film onto the guac to keep it green.',
+    nutrition:{kcal:440,protein_g:11,carbs_g:38,fat_g:28}, storage:'Best fresh; guac keeps 1 day pressed.'},
+
+  // ───────────────── 🧆 SAVOURY BAKES & SMALL PLATES (12) ─────────────────
+  {id:'ln-samosas', cat:'savbakes', name:'Samosas', emoji:'🥟', cuisine:'Indian / Cape Malay', time:45, costPP:16, diet:'veg', // ⚑DUP
+    feel:'Crisp golden triangles with a spiced, savoury middle.',
+    ingredients:[{n:'samosa pastry',pp:4,u:''},{n:'potatoes',pp:80,u:'g'},{n:'frozen peas',pp:30,u:'g'},{n:'onion',pp:30,u:'g'},{n:'curry powder',pp:5,u:'g'},{n:'oil',pp:20,u:'ml'}],
+    method:['Cook a spiced filling of potato, peas, onion and curry powder until dry and fragrant.','Fold the pastry strips into triangle pockets and fill.','Seal the edges with a flour-and-water paste.','Deep-fry until golden and crisp, then drain.'],
+    tip:'Keep the filling on the dry side so the pastry stays crisp, not soggy.',
+    nutrition:{kcal:280,protein_g:6,carbs_g:34,fat_g:14}, storage:'Freeze uncooked; fry from frozen.'},
+
+  {id:'ln-spring-rolls', cat:'savbakes', name:'Spring Rolls', emoji:'🥢', cuisine:'Chinese', time:40, costPP:15, diet:'veg', // ⚑DUP
+    feel:'Shatteringly crisp outside, fresh and crunchy within.',
+    ingredients:[{n:'spring roll wrappers',pp:3,u:''},{n:'cabbage',pp:60,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'spring onion',pp:20,u:'g'},{n:'soy sauce',pp:10,u:'ml'},{n:'oil',pp:20,u:'ml'}],
+    method:['Stir-fry the shredded veg briefly with soy, then cool completely.','Roll the filling tightly in the wrappers, sealing the edge with paste.','Deep-fry until golden and crisp.','Drain and serve with sweet chilli sauce.'],
+    tip:'Cool the filling fully before rolling, or the wrappers go soggy and split.',
+    nutrition:{kcal:240,protein_g:5,carbs_g:30,fat_g:12}, storage:'Freeze uncooked; fry from frozen.'},
+
+  {id:'ln-bruschetta', cat:'savbakes', name:'Bruschetta', emoji:'🍅', cuisine:'Italian', time:15, costPP:16, diet:'veg', // ⚑DUP
+    feel:'Garlicky toast piled with bright, juicy tomatoes.',
+    ingredients:[{n:'ciabatta',pp:0.5,u:''},{n:'tomatoes',pp:100,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'basil',pp:4,u:'g'},{n:'olive oil',pp:14,u:'ml'}],
+    method:['Toast or griddle slices of bread until golden.','Rub the warm toast with a cut garlic clove.','Toss diced tomatoes with basil, olive oil and salt.','Spoon over the toast just before serving.'],
+    tip:'Spoon the tomato on at the last second so the toast stays crunchy.',
+    nutrition:{kcal:240,protein_g:6,carbs_g:30,fat_g:11}, storage:'Best assembled fresh.'},
+
+  {id:'ln-biltong-salad', cat:'savbakes', name:'Biltong & Salad Plate', emoji:'🥩', cuisine:'South African', time:10, costPP:34, diet:'meat', // ⚑DUP
+    feel:'A proper South African snack plate — savoury, fresh and moreish.',
+    ingredients:[{n:'biltong',pp:50,u:'g'},{n:'lettuce',pp:50,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'cucumber',pp:50,u:'g'},{n:'feta',pp:30,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
+    method:['Arrange a bed of leaves, tomato and cucumber.','Scatter over sliced biltong and crumbled feta.','Drizzle with olive oil and a squeeze of lemon.','Season with black pepper.'],
+    tip:'Add avocado and a handful of nuts to turn the plate into a full meal.',
+    nutrition:{kcal:320,protein_g:24,carbs_g:8,fat_g:21}, storage:'Best fresh; biltong keeps for ages.'},
+
+  {id:'ln-sausage-rolls', cat:'savbakes', name:'Sausage Rolls', emoji:'🌭', cuisine:'British', time:40, costPP:18, diet:'meat', // ⚑DUP
+    feel:'Flaky, golden pastry around a savoury, herby sausage middle.',
+    ingredients:[{n:'puff pastry',pp:80,u:'g'},{n:'sausage meat',pp:90,u:'g'},{n:'onion',pp:20,u:'g'},{n:'large eggs',pp:0.25,u:'egg'},{n:'mixed herbs'}],
+    method:['Mix the sausage meat with grated onion, herbs and seasoning.','Roll into a log along a strip of pastry and seal the edge underneath.','Cut into pieces, brush with beaten egg, and score the tops.','Bake at 200°C for 25 minutes until puffed and deep golden.'],
+    tip:'Chill the rolls for 10 minutes before baking so the pastry puffs higher.',
+    nutrition:{kcal:380,protein_g:12,carbs_g:26,fat_g:26}, storage:'Freeze uncooked; bake from frozen.'},
+
+  {id:'ln-hummus-veg-sticks', cat:'savbakes', name:'Hummus & Veg Sticks', emoji:'🥕', cuisine:'Mediterranean', time:10, costPP:14, diet:'vegan', // ⚑DUP
+    feel:'Fresh, crunchy and the easiest healthy snack-lunch going.',
+    ingredients:[{n:'hummus',pp:60,u:'g'},{n:'carrots',pp:60,u:'g'},{n:'cucumber',pp:60,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'celery',pp:40,u:'g'}],
+    method:['Spoon the hummus into a bowl and swirl with a little olive oil and paprika.','Cut the vegetables into sticks.','Arrange around the hummus for dipping.'],
+    tip:'Add pita wedges or olives to make it a fuller mezze plate.',
+    nutrition:{kcal:220,protein_g:8,carbs_g:24,fat_g:11}, storage:'Veg keeps 3 days in water in the fridge.'},
+
+  {id:'ln-chicken-livers-periperi', cat:'savbakes', name:'Peri-Peri Chicken Livers', emoji:'🔥', cuisine:'South African', time:25, costPP:18, diet:'meat', // ⚑DUP
+    feel:'Rich, spicy livers in a buttery peri-peri sauce — proper starter food.',
+    ingredients:[{n:'chicken livers',pp:120,u:'g'},{n:'onion',pp:40,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'peri-peri sauce',pp:20,u:'g'},{n:'tomatoes',pp:50,u:'g'},{n:'butter',pp:12,u:'g'}],
+    method:['Clean and trim the livers.','Fry the onion and garlic in butter, then add the livers and brown.','Stir in the peri-peri and tomato and simmer 8 minutes until just cooked through.','Serve hot with bread to mop up the sauce.'],
+    tip:'Don\'t overcook the livers — they should be just pink and tender inside.',
+    nutrition:{kcal:280,protein_g:24,carbs_g:8,fat_g:17}, storage:'Keeps 2 days; reheat gently.'},
+
+  {id:'ln-mini-quiches', cat:'savbakes', name:'Mini Quiches', emoji:'🥧', cuisine:'French', time:40, costPP:18, diet:'veg',
+    feel:'Buttery little tarts with a soft, savoury egg filling.',
+    ingredients:[{n:'puff pastry',pp:60,u:'g'},{n:'large eggs',pp:1,u:'egg'},{n:'cream',pp:30,u:'ml'},{n:'cheddar',pp:30,u:'g'},{n:'onion',pp:20,u:'g'},{n:'spinach',pp:30,u:'g'}],
+    method:['Line a muffin tin with pastry rounds.','Whisk the eggs with cream, cheese and seasoning.','Add a little softened onion and spinach to each, then pour in the egg mix.','Bake at 180°C for 20 to 25 minutes until set and golden.'],
+    tip:'Don\'t overfill — leave a few millimetres so they don\'t spill as they puff.',
+    nutrition:{kcal:300,protein_g:11,carbs_g:20,fat_g:20}, storage:'Keep 3 days; great cold in lunchboxes.'},
+
+  {id:'ln-savoury-muffins', cat:'savbakes', name:'Savoury Muffins', emoji:'🧁', cuisine:'Modern', time:35, costPP:14, diet:'veg',
+    feel:'Cheesy, savoury muffins that work for breakfast, lunch or a snack.',
+    ingredients:[{n:'cake flour',pp:60,u:'g'},{n:'large eggs',pp:0.5,u:'egg'},{n:'milk',pp:80,u:'ml'},{n:'cheddar',pp:40,u:'g'},{n:'baking powder',pp:3,u:'g'},{n:'oil',pp:15,u:'ml'}],
+    method:['Mix the dry ingredients in one bowl and the wet in another.','Fold together with the cheese and any extras (corn, herbs, spring onion) until just combined.','Spoon into muffin cases.','Bake at 190°C for 20 minutes until risen and golden.'],
+    tip:'Don\'t overmix — a few lumps in the batter make for lighter muffins.',
+    nutrition:{kcal:260,protein_g:9,carbs_g:30,fat_g:11}, storage:'Keep 3 days; freeze well.'},
+
+  {id:'ln-cheese-crackers-board', cat:'savbakes', name:'Cheese & Crackers Board', emoji:'🧀', cuisine:'Classic', time:10, costPP:30, diet:'veg',
+    feel:'A graze-able little board — no cooking, all pleasure.',
+    ingredients:[{n:'cheddar',pp:50,u:'g'},{n:'crackers',pp:40,u:'g'},{n:'grapes',pp:60,u:'g'},{n:'chutney',pp:20,u:'g'},{n:'nuts',pp:20,u:'g'}],
+    method:['Slice the cheese and arrange on a board with the crackers.','Add the grapes, a little pot of chutney and a handful of nuts.','Serve as a relaxed, graze-able lunch.'],
+    tip:'Mix a hard and a soft cheese, and add fresh fruit, for variety and balance.',
+    nutrition:{kcal:420,protein_g:15,carbs_g:32,fat_g:26}, storage:'Components keep well; assemble fresh.'},
+
+  {id:'ln-chicken-goujons', cat:'savbakes', name:'Chicken Goujons', emoji:'🍗', cuisine:'Comfort', time:30, costPP:24, diet:'meat',
+    feel:'Crisp, golden chicken strips that everyone reaches for.',
+    ingredients:[{n:'chicken breasts',pp:120,u:'g'},{n:'breadcrumbs',pp:40,u:'g'},{n:'large eggs',pp:0.5,u:'egg'},{n:'cake flour',pp:20,u:'g'},{n:'oil',pp:20,u:'ml'}],
+    method:['Cut the chicken into strips.','Coat each in flour, then beaten egg, then breadcrumbs.','Shallow-fry or oven-bake at 200°C until golden and cooked through.','Serve with a dipping sauce and lemon.'],
+    tip:'A little paprika and parmesan in the crumb makes the coating extra savoury.',
+    nutrition:{kcal:360,protein_g:30,carbs_g:24,fat_g:16}, storage:'Best fresh; re-crisp in the oven.'},
+
+  {id:'ln-jalapeno-poppers', cat:'savbakes', name:'Jalapeño Poppers', emoji:'🌶️', cuisine:'Tex-Mex', time:30, costPP:18, diet:'veg',
+    feel:'Creamy, cheesy and just spicy enough — properly moreish.',
+    ingredients:[{n:'jalapenos',pp:80,u:'g'},{n:'cream cheese',pp:50,u:'g'},{n:'cheddar',pp:30,u:'g'},{n:'breadcrumbs',pp:25,u:'g'},{n:'large eggs',pp:0.25,u:'egg'}],
+    method:['Halve the jalapeños and scoop out the seeds.','Mix the cream cheese with grated cheddar and fill each half.','Dip in egg and breadcrumbs.','Bake at 200°C for 18 to 20 minutes until golden and bubbling.'],
+    tip:'Leave a few seeds in if you like more heat; remove them all for milder poppers.',
+    nutrition:{kcal:260,protein_g:9,carbs_g:18,fat_g:17}, storage:'Best fresh and hot.'},
 ];
 
 
@@ -615,7 +1167,7 @@ function mealSectionHTML(sectionKey){
         // Cost chip shows ONLY when the meal carries a per-person cost (else blank).
         const metaTxt = [r.feel, (r.time?'⏱️ '+r.time+' min':'')].filter(Boolean).join(' · ');
         return warmCard({
-          name: r.name,
+          name: dietTag(r.diet)+r.name,
           photoName: r.name,
           emoji: r.emoji || '🍽️',
           sub: r.cuisine || '',
@@ -1022,6 +1574,17 @@ function anchorIngredientHTML(){
   </div>`;
 }
 
+// ── veg/vegan badge: green "V" (vegetarian) or "VG" (vegan); blank for meat or
+//    any recipe without a diet tag (so other sections are unaffected). ──
+function dietTag(d){
+  if(d!=='veg' && d!=='vegan') return '';
+  var bg    = d==='vegan' ? '#1f7a3d' : '#c8e840';   // vegan = deep green · vegetarian = lime
+  var fg    = d==='vegan' ? '#eafbe0' : '#2c3a06';
+  var label = d==='vegan' ? 'VG' : 'V';
+  var title = d==='vegan' ? 'Vegan' : 'Vegetarian';
+  return '<span title="'+title+'" style="display:inline-block;font-size:10px;font-weight:800;line-height:1;color:'+fg+';background:'+bg+';border-radius:5px;padding:2px 5px;margin-right:6px;vertical-align:middle;letter-spacing:0.02em;">'+label+'</span>';
+}
+
 function recipeResultCard(r, onClickFn, color){
   const matchBadge = r._matchCount ? `<span style="background:#1f1206;border:1px solid #c06020;border-radius:8px;font-size:13px;color:#f5c842;padding:2px 6px;margin-right:3px;">✓ ${r._matchCount} ingredient${r._matchCount>1?'s':''} matched</span>` : '';
   const sourceBadge = r._source==='db' ? `<span style="background:#161210;border:1px solid #4a3018;border-radius:8px;font-size:13px;color:#e0d4b8;padding:2px 6px;">In Tinza</span>` : '';
@@ -1093,7 +1656,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
       <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${r.name}</h1>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${r.name}</h1>
       <div style="font-size:13px;color:${color};font-style:italic;">Full recipe and method</div>
     </div>
     <div style="padding:16px;max-width:600px;margin:0 auto;">
