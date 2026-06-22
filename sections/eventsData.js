@@ -2452,7 +2452,7 @@ const EVENTS_SAUCES = [
     ],
     tip:"The salt-cure step is the professional secret — it forces all moisture out before it hits the yoghurt, guaranteeing thick, creamy consistency that doesn't turn watery. Gram measurements ensure the yoghurt-to-cucumber ratio stays perfect at any scale." },
 
-  { id:"toum", name:"Toum (Lebanese Garlic Cream)", emoji:"🧄", ppG:20,
+  { id:"toum", name:"Toum (Garlic Cream)", emoji:"🧄", ppG:20,
     base300:[
       {n:"Garlic cloves (peeled, green sprout removed)",u:"g",pp:7},
       {n:"Neutral oil (sunflower, fridge-cold)",u:"ml",pp:10},
@@ -2489,7 +2489,7 @@ const EVENTS_SAUCES = [
     ],
     tip:"The professional secret is whipping the tahini first with lemon and garlic before adding chickpeas — it creates an airy mousse that transforms the texture. For absolute smoothness, peel the chickpeas by rubbing between two kitchen towels. For large events, dried chickpeas cooked yourself are significantly more cost-effective than canned." },
 
-  { id:"tahini", name:"Homemade Tahini", emoji:"🌰", ppG:15,
+  { id:"tahini", name:"Tahini", emoji:"🌰", ppG:15,
     base300:[
       {n:"Hulled sesame seeds",u:"g",pp:12},
       {n:"Neutral oil (sunflower)",u:"ml",pp:3},
@@ -2815,7 +2815,7 @@ const EVENTS_SAUCES = [
     ],
     tip:"The sieved hard-boiled egg is the professional secret — it creates a luxurious, velvety emulsion that 'coats the palate' and elevates this from a simple mayo-ketchup mix to a gourmet condiment. Using high-quality chili sauce (not plain ketchup) adds a subtle warmth and complex spice profile." },
 
-  { id:"roquefortdressing", name:"Roquefort (Blue Cheese) Dressing", emoji:"🧀", ppG:35,
+  { id:"roquefortdressing", name:"Roquefort Blue Cheese Dressing", emoji:"🧀", ppG:35,
     base300:[
       {n:"Roquefort or quality local blue-vein cheese (crumbled)",u:"g",pp:8},
       {n:"Full-fat mayonnaise",u:"g",pp:15},
