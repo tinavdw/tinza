@@ -14,6 +14,12 @@ function setQuiet(upd){
 // you are looking at goes back one step.
 const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople'];
 let _navRestoring = false;
+// Forward app-history depth = (history entries WE pushed) − (popstate-backs WE consumed).
+// 0 = sitting on the first app screen (nothing of ours to go back into). This is the
+// app's OWN source of truth for the back stack, so closeRecipe's pop-vs-set decision is
+// deterministic instead of probing the browser's flaky history.state.tinza (which flips
+// after popstate-to-non-tinza / replaceState / mixed hardware+in-app backs).
+let _appNavDepth = 0;
 function navSnapshot(){
   try { return JSON.parse(JSON.stringify(S)); }
   catch(_e){ return Object.assign({}, S); }
@@ -35,6 +41,7 @@ function navInit(){
       NAV_DATA_KEYS.forEach(function(k){ if(k in S) restored[k] = S[k]; });
       S = restored;
       window._navSig = st.sig;
+      _appNavDepth = Math.max(0, _appNavDepth - 1);   // a back consumed one of our forward entries
       draw();
       _navRestoring = false;
     }
@@ -506,7 +513,7 @@ function draw(){
   if(!_navRestoring){
     const _sig = navSignature();
     if(window._navSig !== undefined && _sig !== window._navSig){
-      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot()}, ''); } catch(_e){}
+      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot()}, ''); _appNavDepth++; } catch(_e){}
     }
     window._navSig = _sig;
   }
@@ -2624,11 +2631,15 @@ function closeRecipe(extra){
   // destination was passed), go back to that origin recipe; otherwise clear to the screen.
   var backToRecipe = (!extra && vr && vr.returnTo && vr.returnTo._viewingRecipe) ? vr.returnTo._viewingRecipe : null;
   // Plain close (no explicit destination, no cross-link origin recipe): the recipe
-  // pushed its OWN forward history entry when it opened. CONSUME that entry with
-  // history.back() so one Back = one level — popstate restores the list snapshot.
-  // A set()→draw() close instead pushes a fresh nav state, desyncing the back stack
-  // and overshooting list→picker→hub. (extra / cross-link cases keep the set path.)
-  if(!extra && !backToRecipe && vr && typeof history !== 'undefined' && history.state && history.state.tinza){
+  // pushed exactly ONE forward history entry when it opened, so CONSUME it with
+  // history.back() — popstate's full-snapshot restore is the single authority and
+  // brings back the exact list (eventTab + cakeCat/beverageCat/wkCountry/healthGroup…).
+  // One Back = one level. The decision keys off OUR OWN _appNavDepth (>0 = there IS a
+  // prior app entry to return to), NOT the browser's flaky history.state.tinza — so the
+  // path is chosen consistently every time (no 6→7 push anomaly, no stack desync).
+  // A set()→draw() close instead would push a fresh state and overshoot list→picker→hub.
+  // (extra / cross-link / first-screen-deep-link fall through to the set path below.)
+  if(!extra && !backToRecipe && vr && _appNavDepth > 0 && typeof history !== 'undefined'){
     try { history.back(); return; } catch(_e){}
   }
   var patch = { viewingRecipe: backToRecipe, recipeServings: null };
