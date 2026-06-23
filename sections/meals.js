@@ -1491,6 +1491,12 @@ var LIGHTLUNCH_RECIPES = [
     method:['Halve the jalapeños and scoop out the seeds.','Mix the cream cheese with grated cheddar and fill each half.','Dip in egg and breadcrumbs.','Bake at 200°C for 18 to 20 minutes until golden and bubbling.'],
     tip:'Leave a few seeds in if you like more heat; remove them all for milder poppers.',
     nutrition:{kcal:260,protein_g:9,carbs_g:18,fat_g:17}, storage:'Best fresh and hot.'},
+  {id:'ln-bacon-cheese-wedges', cat:'savbakes', diet:'meat', protein:'pork', name:'Bacon Cheese Potato Wedges', emoji:'🥔', cuisine:'American', time:60, costPP:22,
+    feel:'Crisp wedges drowning in melty cheese and bacon — the plate every fork drifts toward.',
+    ingredients:[{n:'potatoes',pp:200,u:'g'},{n:'bacon',pp:15,u:'g'},{n:'cheddar cheese',pp:30,u:'g'},{n:'mozzarella',pp:15,u:'g'},{n:'plain yoghurt',pp:40,u:'g'},{n:'ranch dressing',pp:20,u:'ml'},{n:'milk',pp:10,u:'ml'},{n:'spring onion',pp:10,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
+    method:['Cut the potatoes into thick steak-fry wedges, dry well and toss with the olive oil.','Stir the yoghurt, ranch and milk together for the sauce and set aside.','Spread the wedges in a single layer on a lined tray, season, and bake at 200°C for about 40 minutes until tender and golden.','Spread half the sauce on an oven dish, lay the wedges on top and spoon over the rest, then scatter with the cheeses and bacon.','Return to the oven for 5–10 minutes until melted and bubbling, then finish with sliced spring onion.'],
+    tip:'Dry the cut wedges well before oiling so they crisp instead of steam.',
+    nutrition:{kcal:420,protein_g:16,carbs_g:38,fat_g:24}, storage:'Best fresh and hot.'},
 ];
 
 
