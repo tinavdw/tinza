@@ -2598,7 +2598,7 @@ function resolveRecipe(section, id){
 // Nav-location state keys (mirrors historyKey) — snapshotted so Back can
 // restore the exact origin screen. Selection arrays (plans) are excluded
 // on purpose: we restore WHERE you were, never what you'd chosen.
-var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe'];
+var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe','cakeCat','beverageCat'];
 
 function snapshotNav(){
   var s = {};
