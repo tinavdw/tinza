@@ -19,7 +19,7 @@ function navSnapshot(){
   catch(_e){ return Object.assign({}, S); }
 }
 function navSignature(){
-  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkCountry||'', S.wkSelectedRegion||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||''].join('|');
+  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkCountry||'', S.wkSelectedRegion||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||''].join('|');
 }
 function navInit(){
   if(window._tinzaNavInit) return;
