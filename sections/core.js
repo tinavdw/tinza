@@ -2623,6 +2623,14 @@ function closeRecipe(extra){
   // cross-link return: if we opened this recipe FROM another recipe (and no explicit
   // destination was passed), go back to that origin recipe; otherwise clear to the screen.
   var backToRecipe = (!extra && vr && vr.returnTo && vr.returnTo._viewingRecipe) ? vr.returnTo._viewingRecipe : null;
+  // Plain close (no explicit destination, no cross-link origin recipe): the recipe
+  // pushed its OWN forward history entry when it opened. CONSUME that entry with
+  // history.back() so one Back = one level — popstate restores the list snapshot.
+  // A set()→draw() close instead pushes a fresh nav state, desyncing the back stack
+  // and overshooting list→picker→hub. (extra / cross-link cases keep the set path.)
+  if(!extra && !backToRecipe && vr && typeof history !== 'undefined' && history.state && history.state.tinza){
+    try { history.back(); return; } catch(_e){}
+  }
   var patch = { viewingRecipe: backToRecipe, recipeServings: null };
   if(vr && vr.returnTo){
     for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(k in vr.returnTo) patch[k]=vr.returnTo[k]; }
