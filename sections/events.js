@@ -52,8 +52,8 @@ function fingerCostPP(r, piecesPP){
 
 function eventsTopNav(accent){
   accent = accent || 'var(--accent)';
-  var eAct = "set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
-  var hAct = "set({screen:'home',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
+  var eAct = "set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
+  var hAct = "set({screen:'home',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
   return '<div style="display:flex;gap:8px;margin-bottom:12px;">'
     + '<button onclick="'+eAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">\u2190 Events</button>'
     + '<button onclick="'+hAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">\uD83C\uDFE0 Home</button>'
@@ -1210,11 +1210,127 @@ function eventsHTML(){
     <div class="content">
 
     ${et==='beverages'?`
-      <div style="background:var(--card2);border:1px solid var(--line2);border-radius:12px;padding:20px;text-align:center;margin-top:20px;">
-        <div style="font-size:36px;margin-bottom:10px;">🍹</div>
-        <div style="font-size:15px;color:var(--gold);margin-bottom:8px;">Beverages Calculator</div>
-        <div style="font-size:13px;color:var(--accent);line-height:1.6;">Bulk spirits, wines, beers, shooters, cocktails and punches — coming soon!</div>
-      </div>
+      ${(()=>{
+        const bevCat = S.beverageCat || null;
+        if(bevCat==='myplan'){
+          const selBevs = (S.eventSelectedBeverages||[]);
+          const selRecipes = EVENTS_BEVERAGE_RECIPES.filter(b=>selBevs.includes(b.id));
+          const bevG = S.beverageGuests||50;
+          const checked = S.checkedBuffetItems||{};
+          const shopMap = {};
+          const bevEntry = (n,bevName)=>{ const k=n.toLowerCase().replace(/[^a-z0-9]/g,''); if(!shopMap[k]) shopMap[k]={name:n, ml:0, g:0, count:0, texts:[], bev:bevName}; return shopMap[k]; };
+          const bevAcc = (n,value,unit,bevName)=>{ const e=bevEntry(n,bevName); const u=(unit||'').toLowerCase();
+            if(u==='l') e.ml+=value*1000; else if(u==='ml') e.ml+=value;
+            else if(u==='kg') e.g+=value*1000; else if(u==='g') e.g+=value;
+            else e.count+=value; };                                          // numeric, no unit → a count (e.g. lemon wedges)
+          const bevText = (n,text,bevName)=>{ const e=bevEntry(n,bevName); if(text && e.texts.indexOf(text)<0) e.texts.push(text); };
+          selRecipes.forEach(bev=>{
+            const servesMatch = (bev.serves||'').toString().match(/\d+/);
+            const baseServes = servesMatch ? parseInt(servesMatch[0]) : 0;   // 0 = no number ("per glass"/"per shot")
+            const ratio = baseServes>0 ? (bevG / baseServes) : 1;            // never divide by NaN
+            (bev.base300||[]).forEach(ing=>{
+              if(!ing || !ing.n || ing.n.startsWith('—')) return;
+              const a = (ing.a||'').trim();
+              if(!a) return;
+              const p = a.split('·');
+              if(p.length>1){
+                // batch drinks: "per · total" → scale the total part by ratio
+                const m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+                if(m && m[1]) bevAcc(ing.n, parseFloat(m[1])*ratio, m[2]||'', bev.name);
+              } else if(baseServes===0){
+                // DRINKS-ONLY divergence: per-glass/per-shot = 1 serving per guest.
+                // Numeric → ×guests; non-numeric ("a bowl", "plenty") → list as-is.
+                const m = a.match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+                if(m && m[1]) bevAcc(ing.n, parseFloat(m[1])*bevG, m[2]||'', bev.name);
+                else bevText(ing.n, a, bev.name);
+              }
+            });
+          });
+          const bevFmt = e=>{ const parts=[];
+            if(e.ml>0){ const v=Math.round(e.ml*10)/10; parts.push(v>=1000?(v/1000).toFixed(v%1000?1:0)+'L':v+'ml'); }
+            if(e.g>0){ const v=Math.round(e.g*10)/10; parts.push(v>=1000?(v/1000).toFixed(1)+'kg':v+'g'); }
+            if(e.count>0) parts.push(String(Math.round(e.count)));
+            if(e.texts.length) parts.push(e.texts.join(', '));
+            return parts.join(' + ') || '—'; };
+          const shopItems = Object.values(shopMap).map(e=>({name:e.name, totalStr:bevFmt(e), bev:e.bev}));
+          return `
+            <button onclick="set({beverageCat:null})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
+            <div style="font-size:16px;color:var(--ink-soft);margin-bottom:4px;">🥂 My Drinks Plan</div>
+            <div style="font-size:13px;color:var(--accent);margin-bottom:14px;">${selRecipes.length} drink${selRecipes.length!==1?'s':''} · ${bevG} guests</div>
+            ${selRecipes.map(bev=>{
+              const servesMatch = (bev.serves||'').toString().match(/\d+/);
+              const baseServes = servesMatch ? parseInt(servesMatch[0]) : 0;
+              const batches = baseServes>0 ? Math.ceil(bevG / baseServes) : 1;
+              return `<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:8px;">
+                <div style="font-size:15px;color:var(--ink-soft);">${bev.emoji} ${bev.name}</div>
+                <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${bev.serves} · <strong style="color:var(--gold);">${batches}×</strong> batch${batches!==1?'es':''} needed for ${bevG} guests</div>
+              </div>`;
+            }).join('')}
+            <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin:12px 0 8px;">🛒 Shopping List</div>
+            <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:16px;">
+              ${shopItems.length===0?'<div style="color:var(--accent);font-size:13px;">Select drinks and set guest count to generate list</div>':
+                shopItems.map(item=>{
+                  const ck = checked['bev_'+item.name.replace(/\s/g,'_')];
+                  return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'bev_${item.name.replace(/\s/g,'_')}':!S.checkedBuffetItems['bev_${item.name.replace(/\s/g,'_')}']}})" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:${ck?0.35:1};">
+                    <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?'var(--accent)':'var(--line2)'};background:${ck?'var(--accent)':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ck?'<span style="color:#fff;font-size:13px;">✓</span>':''}</div>
+                    <div style="flex:1;"><div style="font-size:13px;color:var(--ink-soft);">${item.name}</div><div style="font-size:13px;color:var(--ink-soft);">${item.bev}</div></div>
+                    <div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--gold)'};font-weight:bold;">${item.totalStr}</div>
+                  </div>`;
+                }).join('')}
+            </div>
+            <button onclick="set({beverageCat:null})" style="width:100%;padding:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;color:var(--accent);font-size:14px;cursor:pointer;">← Back</button>
+          `;
+        }
+
+        if(bevCat) {
+          const catObj = BEVERAGE_CATEGORIES.find(c=>c.id===bevCat);
+          const catRecipes = EVENTS_BEVERAGE_RECIPES.filter(b=>b.category===bevCat);
+          return `
+            <button onclick="set({beverageCat:null})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
+            <div style="font-size:16px;color:var(--ink-soft);margin-bottom:4px;">${catObj?.label}</div>
+            <p style="font-size:13px;color:var(--accent);margin-bottom:14px;">${catObj?.desc}</p>
+            ${catRecipes.map(bev=>{
+              const isSel = (S.eventSelectedBeverages||[]).includes(bev.id);
+              return `
+              <div style="background:${isSel?'var(--card2)':'var(--card2)'};border:1px solid ${isSel?'var(--accent)':'var(--line2)'};border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+                ${isPro?`<div onclick="set({eventSelectedBeverages:toggle(S.eventSelectedBeverages||[],'${bev.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'var(--accent)':'transparent'};border:2px solid ${isSel?'var(--accent)':'var(--line2)'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
+                <div onclick="openRecipe('beverages','${bev.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:15px;color:var(--ink-soft);">${bev.emoji} ${bev.name}</div>
+                    <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${bev.serves}</div>
+                    <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">🥂 ${bev.glassware}</div>
+                  </div>
+                  <span style="color:var(--accent);font-size:20px;">→</span>
+                </div>
+              </div>
+            `}).join('')}
+          `;
+        }
+
+        return `
+          <p style="font-size:13px;color:var(--accent);font-style:italic;margin-bottom:14px;">Bulk Drinks, Cocktails & Bar 🍹🍸🥂🥤</p>
+          <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:13px;color:var(--ink-soft);">
+            🥂 <strong style="color:var(--ink-soft);">Rough quantities:</strong> ~1.5 drinks pp in the first hour, ~1/hour after · 750ml bottle ≈ 5 wine glasses or 15 tots
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+            ${BEVERAGE_CATEGORIES.map((cat,idx)=>{
+              const count = EVENTS_BEVERAGE_RECIPES.filter(r=>r.category===cat.id).length;
+              const isBig = idx < 2;
+              return `<div onclick="set({beverageCat:'${cat.id}'})" style="background:${isBig?'var(--card2)':'var(--card2)'};border:${isBig?'2px':'1px'} solid ${isBig?'var(--accent)':'var(--line2)'};border-radius:14px;padding:${isBig?'18px':'14px'};cursor:pointer;text-align:center;">
+                <div style="font-size:${isBig?'30px':'22px'};margin-bottom:6px;">${cat.label.split(' ')[0]}</div>
+                <div style="font-size:${isBig?'14px':'12px'};color:${isBig?'var(--gold)':'var(--ink-soft)'};font-weight:bold;">${cat.label.substring(cat.label.indexOf(' ')+1)}</div>
+                <div style="font-size:13px;color:var(--accent);margin-top:4px;">${cat.desc}</div>
+                <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;border-top:1px solid var(--card2);padding-top:6px;">${count} recipe${count!==1?'s':''}</div>
+              </div>`;
+            }).join('')}
+          </div>
+          ${isPro&&(S.eventSelectedBeverages||[]).length>0?`
+            <button onclick="set({beverageCat:'myplan'})" style="width:100%;padding:14px;background:var(--card2);border:2px solid var(--accent);border-radius:12px;color:var(--gold);font-size:14px;cursor:pointer;margin-top:4px;">
+              🥂 My Drinks Plan — ${(S.eventSelectedBeverages||[]).length} drink${(S.eventSelectedBeverages||[]).length!==1?'s':''} selected
+            </button>
+          `:''}
+        `;
+      })()}
     `:''}
 
     ${et==='fingerfoods'?`
@@ -1984,4 +2100,112 @@ if(typeof RECIPE_SOURCES !== 'undefined'){
 }
 if(typeof RECIPE_BUILDERS !== 'undefined'){
   RECIPE_BUILDERS.cakes = function(item, recipe, vr){ return cakesRecipeOpts(item, (S.cakeGuests||50)); };
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BEVERAGES → universal opener (Standard §4b). Cloned from CAKES.
+   Source finds the drink in EVENTS_BEVERAGE_RECIPES; builder folds the
+   batches-needed logic into the shared green qtyBox, scales base300 through
+   the shared ingredient row (per-glass · scaled total), renders method via the
+   shared method box, wires a real Add-to-Plan toggle (eventSelectedBeverages).
+   Guest count = S.beverageGuests (its own 10–500 slider). serves can be a range
+   ("15–20"), "6 per bottle", or wordy ("per glass"/"per shot") — the first integer
+   drives batches; NO integer → batches=1, ratio=1 (shows per-glass amounts, no NaN).
+   No cook mode (drinks never had one). Extra badges: 🥂 glassware · 📝 serveNote.
+   ═══════════════════════════════════════════════════════════════════ */
+function beveragesResolve(id){
+  var arr = (typeof EVENTS_BEVERAGE_RECIPES!=='undefined') ? EVENTS_BEVERAGE_RECIPES : [];
+  return arr.find(function(b){ return b && b.id===id; }) || null;
+}
+
+function beveragesRecipeOpts(bev, guests){
+  if(!bev) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'← Back',
+    nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
+  guests = guests || 50;
+  var emoji = bev.emoji || '🍹';
+
+  // serves number (first integer) → batches; guard "per glass"/"per shot" (no number → 1)
+  var servesParts = String(bev.serves||'').match(/\d+/g);
+  var servesNum = servesParts ? parseInt(servesParts[0],10) : 0;            // 0 = no number
+  var batchesNeeded = servesNum>0 ? Math.max(1, Math.ceil(guests / servesNum)) : 1;
+  var slicesOver = servesNum>0 ? (batchesNeeded * servesNum) - guests : 0;
+
+  // ── SUB: badge row (serves · glassware · serving note) — mirrors cakes ──
+  function badge(txt){ return '<span style="display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--ink-soft);padding:3px 9px;margin:0 6px 6px 0;">'+txt+'</span>'; }
+  var sub = '<div style="margin-top:4px;">'
+    + badge('🍹 Serves '+bev.serves)
+    + badge('🥂 '+bev.glassware)
+    + '</div>'
+    + (bev.serveNote ? '<div style="margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:italic;line-height:1.4;">📝 '+bev.serveNote+'</div>' : '');
+
+  // ── QTY (shared green box): batches needed + extra servings + 10% tip ──
+  var qInfo = (slicesOver>0 ? slicesOver+' extra serving'+(slicesOver!==1?'s':'')+' — keep for top-ups<br>' : '')
+    + '💡 Cater for ~1.5 drinks per person in the first hour, ~1/hour after.';
+  var qtyHTML = qtyBox({
+    label:'How Much To Make', sub: guests+' guests · serves '+bev.serves+' per batch',
+    total: batchesNeeded+'× batch'+(batchesNeeded!==1?'es':''),
+    ppLine: 'one batch serves '+bev.serves, n: guests, info: qInfo,
+    decJs:"setQuiet({beverageGuests:Math.max(10,(S.beverageGuests||50)-((S.beverageGuests||50)<=20?1:5))})",
+    incJs:"setQuiet({beverageGuests:Math.min(500,(S.beverageGuests||50)+((S.beverageGuests||50)<20?1:5))})"
+  });
+
+  // ── INGREDIENTS (shared box/row): per-glass · scaled total; "—" = sub-head ──
+  var ratio = servesNum>0 ? (guests / servesNum) : 1;                       // never divide by NaN
+  function fmtScaled(totalPart){
+    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)/);
+    if(!m || ratio===1) return totalPart;
+    var base = parseFloat(m[1]), unit = m[2];
+    var scaled = Math.round(base*ratio*10)/10;
+    if(unit==='g'  && scaled>=1000) return (scaled/1000).toFixed(1)+'kg';
+    if(unit==='kg')                 return scaled.toFixed(1)+'kg';
+    if(unit==='ml' && scaled>=1000) return (scaled/1000).toFixed(1)+'L';
+    return scaled+unit;
+  }
+  var ingRows = (bev.base300||[]).map(function(ing){
+    if(!ing || !ing.n) return '';
+    if(ing.n.trim().charAt(0)==='—'){
+      return '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin:12px 0 6px;padding-top:8px;border-top:1px solid var(--line);">'+ing.n.replace('—','').trim()+'</div>';
+    }
+    if(!ing.a) return ingredientRow(ing.n, '', '');
+    var parts = ing.a.split('·');
+    if(parts.length>1){
+      var perPart = parts[0].trim(), totalPart = fmtScaled(parts[1].trim());
+      var amt = '<span style="color:var(--ink-soft);font-size:13px;font-weight:normal;">'+perPart+' · </span>'+totalPart;
+      return ingredientRow(ing.n, amt, '');
+    }
+    return ingredientRow(ing.n, ing.a, '');
+  }).join('');
+  var ingredientsHTML = ingRows ? ingredientsBox(ingRows, guests) : '';
+
+  // ── METHOD (shared box/steps) — no timers / cook mode for drinks ──
+  var methodHTML = '';
+  if(bev.method && bev.method.length){
+    var stepsHTML = bev.method.map(function(s,i){ return methodStep(i, s, ''); }).join('');
+    methodHTML = methodBox(stepsHTML, '');
+  }
+
+  // ── EXTRAS: tip only (no Baker Briefing — that is cakes-specific) ──
+  var extras = '';
+  if(bev.tip) extras += '<div style="background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:var(--ink-soft);"><span style="color:var(--accent);">💡 TIP: </span>'+bev.tip+'</div>';
+
+  // ── ACTIONS: real plan toggle (eventSelectedBeverages) ──
+  var inPlan = ((S.eventSelectedBeverages||[]).indexOf(bev.id) >= 0);
+  var addJs  = "set({eventSelectedBeverages:toggle(S.eventSelectedBeverages||[],'"+bev.id+"')})";
+  var planCount = (S.eventSelectedBeverages||[]).length;
+
+  return {
+    photoName:bev.name, photoEmoji:emoji,
+    backJs:"closeRecipe()", backLabel:'← Back',
+    name:bev.name, sub:sub, meta:{},
+    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    actions:{ addJs:addJs, inPlan:inPlan },
+    nav:{ backJs:"closeRecipe()", planJs:"closeRecipe({beverageCat:'myplan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
+  };
+}
+
+if(typeof RECIPE_SOURCES !== 'undefined'){
+  RECIPE_SOURCES.beverages = function(id){ return beveragesResolve(id); };
+}
+if(typeof RECIPE_BUILDERS !== 'undefined'){
+  RECIPE_BUILDERS.beverages = function(item, recipe, vr){ return beveragesRecipeOpts(item, (S.beverageGuests||50)); };
 }
