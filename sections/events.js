@@ -1912,7 +1912,7 @@ function eventsRecipeOpts(r, guests){
   var planCount = (S[planKey]||[]).length;
 
   return {
-    photoName:r.name, photoEmoji:emoji,
+    photoName:r.photoName||r.name, photoEmoji:emoji,
     portionHowText: isFingerPieceItem(r) ? 'Finger foods are counted in pieces per person, set by the event type above \u2014 about 4\u20135 each at a braai, 5\u20136 before a meal, and 12\u201315 for a snacks-only spread. That total is shared across the snacks you pick, so each one scales down to keep the spread sensible. Set your exact amounts in My Plan.' : '',
     backJs:"closeRecipe()", backLabel:'\u2190 Back',
     name:r.name, sub:(r.region||''),

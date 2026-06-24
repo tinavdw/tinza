@@ -1178,7 +1178,7 @@ const EVENTS_CULTURAL = [
 
 const EVENTS_FINGER_FOODS = {
 meaty:[
-    { id:"minibeefmeatballs", name:"Mini Beef Meatballs", emoji:"🥩", makes:42, costPP:6,
+    { id:"minibeefmeatballs", name:"Mini Beef Meatballs", photoName:"Mini Meatballs", emoji:"🥩", makes:42, costPP:6,
       base300:[
         {n:"Beef mince (85% lean)",a:"1.05kg",u:"g",pp:25},
         {n:"White bread no crusts (soaked in milk — panade)",a:"126g",u:"g",pp:3},
