@@ -42,6 +42,7 @@ function navInit(){
       S = restored;
       window._navSig = st.sig;
       _appNavDepth = Math.max(0, _appNavDepth - 1);   // a back consumed one of our forward entries
+      if(st._scroll != null){ var _r = document.getElementById('root'); if(_r) _r._savedScroll = st._scroll; }
       draw();
       _navRestoring = false;
     }
@@ -2611,13 +2612,16 @@ function snapshotNav(){
   var s = {};
   for(var i=0;i<NAV_KEYS.length;i++){ var k=NAV_KEYS[i]; if(S[k]!==undefined) s[k]=S[k]; }
   var root = document.getElementById('root');
-  s._scroll = root ? (root._savedScroll || root.scrollTop || 0) : 0;
+  s._scroll = (root && root._savedScroll != null) ? root._savedScroll : (window.scrollY || (document.scrollingElement && document.scrollingElement.scrollTop) || 0);
   s._viewingRecipe = S.viewingRecipe || null;   // so a recipe→recipe cross-link can return to the origin recipe
   return s;
 }
 
 function openRecipe(section, id, opts){
   opts = opts || {};
+  // Persist the live list scroll onto the history entry we're leaving, so Back (popstate)
+  // returns to the exact spot. App scrolls on <html>, so window.scrollY is the real value.
+  try { var _st = history.state; if(_st && _st.tinza){ _st._scroll = window.scrollY; history.replaceState(_st, ''); } } catch(_e){}
   var returnTo = opts.returnTo || snapshotNav();
   var root = document.getElementById('root');
   if(root) root._savedScroll = 0; // the recipe itself opens at the top
