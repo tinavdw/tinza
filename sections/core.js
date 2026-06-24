@@ -1797,7 +1797,7 @@ function homeHTML(){
     {s:"feedfamily", e:"🍽️", t:"Feeding My Family",        sub:"Breakfast · Light Lunch · Supper · Bakes & Cakes",  b:"var(--accent)", bg:"var(--card2)"},
     // Row 3 — speciality
     {s:"health",     e:"🌿", t:"Health Hub",              sub:"Juices · Smoothies · Raw · Fermented",              b:"var(--accent)", bg:"var(--card2)"},
-    {s:"events",     e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"var(--accent)", bg:"var(--card2)"},
+    {s:"events", reset:"eventTab:null,buffetStep:1,cakeCat:null,beverageCat:null,eventActiveRecipe:null", e:"🎉", t:"Events & Celebrations",   sub:"Buffet · Finger Foods · Cakes · Beverages",         b:"var(--accent)", bg:"var(--card2)"},
     {s:"tinyfurry",  e:"🍼🐾", t:"Tiny & Furry",         sub:"Tiny Tummies (babies & toddlers) · Furry Friends (dogs & cats)", b:"var(--accent)", bg:"var(--card2)"},
   ];
 
@@ -1825,7 +1825,7 @@ function homeHTML(){
       <!-- Recipe Sections -->
       <div style="font-size:13px;letter-spacing:2px;color:#b0986a;text-transform:uppercase;margin-bottom:10px;">📖 Recipes</div>
       ${recipeSections.map(o=>`
-        <button onclick="set({screen:'${o.s}'})"
+        <button onclick="set({screen:'${o.s}'${o.reset?','+o.reset:''}})"
           style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;">
           <span style="font-size:30px;flex-shrink:0;">${o.e}</span>
           <div style="flex:1;">
@@ -1839,7 +1839,7 @@ function homeHTML(){
       <div style="font-size:13px;letter-spacing:2px;color:#b0986a;text-transform:uppercase;margin:16px 0 10px;">⚡ Smart Features</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
         ${featureTools.map(o=>`
-          <button onclick="set({screen:'${o.s}'})"
+          <button onclick="set({screen:'${o.s}'${o.reset?','+o.reset:''}})"
             style="display:flex;flex-direction:column;align-items:flex-start;padding:14px;background:${o.bg};border:2px solid ${o.b};border-radius:14px;cursor:pointer;text-align:left;">
             <span style="font-size:26px;margin-bottom:6px;">${o.e}</span>
             <div style="font-size:13px;color:var(--ink);margin-bottom:3px;font-weight:bold;">${o.t}</div>
