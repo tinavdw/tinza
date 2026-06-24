@@ -1124,6 +1124,7 @@ function eventsHTML(){
       : '';
     return warmCard({
       name: r.name,
+      photoName: r.photoName || r.name,
       emoji: r.emoji || '🍽️',
       meta: eMeta,
       costPP: (isPlus && !_isFinger && r.costPP) ? r.costPP : '',
