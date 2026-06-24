@@ -1292,19 +1292,17 @@ function eventsHTML(){
             <p style="font-size:13px;color:var(--accent);margin-bottom:14px;">${catObj?.desc}</p>
             ${catRecipes.map(bev=>{
               const isSel = (S.eventSelectedBeverages||[]).includes(bev.id);
-              return `
-              <div style="background:${isSel?'var(--card2)':'var(--card2)'};border:1px solid ${isSel?'var(--accent)':'var(--line2)'};border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
-                ${isPro?`<div onclick="set({eventSelectedBeverages:toggle(S.eventSelectedBeverages||[],'${bev.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'var(--accent)':'transparent'};border:2px solid ${isSel?'var(--accent)':'var(--line2)'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
-                <div onclick="openRecipe('beverages','${bev.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
-                  <div>
-                    <div style="font-size:15px;color:var(--ink-soft);">${bev.emoji} ${bev.name}</div>
-                    <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${bev.serves}</div>
-                    <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">🥂 ${bev.glassware}</div>
-                  </div>
-                  <span style="color:var(--accent);font-size:20px;">→</span>
-                </div>
-              </div>
-            `}).join('')}
+              return warmCard({
+                name: bev.name,
+                photoName: bev.photoName || bev.name,
+                emoji: bev.emoji || '🍹',
+                meta: 'Serves ' + bev.serves + ' · 🥂 ' + bev.glassware,
+                openJs: `openRecipe('beverages','${bev.id}')`,
+                toggleJs: isPro ? `setQuiet({eventSelectedBeverages:toggle(S.eventSelectedBeverages||[],'${bev.id}')})` : '',
+                sel: isSel,
+                grad: EVENTS_GRAD
+              });
+            }).join('')}
           `;
         }
 
@@ -1682,19 +1680,17 @@ function eventsHTML(){
             <p style="font-size:13px;color:var(--accent);margin-bottom:14px;">${catObj?.desc}</p>
             ${catRecipes.map(cake=>{
               const isSel = (S.eventSelectedCakes||[]).includes(cake.id);
-              return `
-              <div style="background:${isSel?'var(--card2)':'var(--card2)'};border:1px solid ${isSel?'var(--accent)':'var(--line2)'};border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
-                ${isPro?`<div onclick="set({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})" style="width:24px;height:24px;border-radius:6px;background:${isSel?'var(--accent)':'transparent'};border:2px solid ${isSel?'var(--accent)':'var(--line2)'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:14px;color:white;">${isSel?'✓':''}</div>`:''}
-                <div onclick="openRecipe('cakes','${cake.id}')" style="flex:1;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
-                  <div>
-                    <div style="font-size:15px;color:var(--ink-soft);">${cake.emoji} ${cake.name}</div>
-                    <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${cake.serves}</div>
-                    <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">🍦 ${cake.icingType}</div>
-                  </div>
-                  <span style="color:var(--accent);font-size:20px;">→</span>
-                </div>
-              </div>
-            `}).join('')}
+              return warmCard({
+                name: cake.name,
+                photoName: cake.photoName || cake.name,
+                emoji: cake.emoji || '🎂',
+                meta: 'Serves ' + cake.serves + ' · 🍦 ' + cake.icingType,
+                openJs: `openRecipe('cakes','${cake.id}')`,
+                toggleJs: isPro ? `setQuiet({eventSelectedCakes:toggle(S.eventSelectedCakes||[],'${cake.id}')})` : '',
+                sel: isSel,
+                grad: EVENTS_GRAD
+              });
+            }).join('')}
           `;
         }
 
@@ -2087,7 +2083,7 @@ function cakesRecipeOpts(cake, guests){
   var planCount = (S.eventSelectedCakes||[]).length;
 
   return {
-    photoName:cake.name, photoEmoji:emoji,
+    photoName:cake.photoName||cake.name, photoEmoji:emoji,
     backJs:"closeRecipe()", backLabel:'\u2190 Back',
     name:cake.name, sub:sub, meta:{},
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
@@ -2195,7 +2191,7 @@ function beveragesRecipeOpts(bev, guests){
   var planCount = (S.eventSelectedBeverages||[]).length;
 
   return {
-    photoName:bev.name, photoEmoji:emoji,
+    photoName:bev.photoName||bev.name, photoEmoji:emoji,
     backJs:"closeRecipe()", backLabel:'← Back',
     name:bev.name, sub:sub, meta:{},
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
