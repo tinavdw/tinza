@@ -267,6 +267,13 @@ function buffetStep6(){
   </div>`;
 }
 
+// ── STEP 2: shared shopping engine — toggle by item NAME (shoppingView contract) ──
+window.buffetToggleShop = function(name){
+  const c = Object.assign({}, S.checkedBuffetItems||{});
+  c[name] = !c[name];
+  setQuiet({checkedBuffetItems:c});
+};
+
 function buffetStep7(){
   const g = S.eventGuests;
   const isPro = tierAllows('pro');
@@ -278,20 +285,6 @@ function buffetStep7(){
   const allPortioned = [...starters,...mains,...sides,...salads,...desserts];
   const totalCost = allPortioned.reduce((s,r)=>s+((r.costPP||0)*g),0);
   const costPP    = allPortioned.reduce((s,r)=>s+(r.costPP||0),0);
-
-  function section(label, arr, stateKey){
-    if(!arr.length) return '';
-    return `<div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin:14px 0 6px;">${label}</div>
-      <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:8px;">
-        ${arr.map(r=>planDishRow({
-          emoji:r.emoji||'🍽️', name:r.name,
-          lines:[`${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>`],
-          costTotal:(isPro&&r.costPP)?Math.round(r.costPP*g):null,
-          openJs:`openEventRecipe('${r.id}')`,
-          removeJs:`setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`
-        })).join('')}
-      </div>`;
-  }
 
   // ── SHOPPING LIST CATEGORY KEYS ──
   const BUTCHERY_KEYS=['beef','lamb','pork','chicken','hake','fish','mince','snoek','mutton','venison','wors','prosciutto','biltong','bacon','prawns','shrimp','prawn meat','prawn','liver','tripe','viennas','cocktail','mussel','seafood','calamari','tuna','sardine','pilchard','anchovy'];
@@ -691,149 +684,87 @@ function buffetStep7(){
     return `<strong style="color:var(--gold);">${qty}</strong>`;
   }
 
-  const itemMap = new Map();
-  allPortioned.forEach(r=>{
-    const ingrs = r.base300 || [];
-    ingrs.forEach((ing, idx)=>{
-      if(!ing.n) return;
-      const rawName = ing.n;
-      const rawLower = rawName.toLowerCase();
-      
-      // Skip non-shopping items
-      if(rawName.startsWith('—') || rawLower.includes('buying guide') || 
-         rawLower.includes('serve with') || rawLower.includes('to serve') ||
-         rawLower === 'water' || rawLower.includes('warm water') ||
-         rawLower.includes('boiling water') || rawLower.includes('cold water') ||
-         rawLower.includes('to taste') || rawLower === 'salt and pepper' && idx > 0) return;
-
-      // Apply all name improvements FIRST
-      const improved = improveIngredientName(rawName, ing.a||'', g);
-      const practical = practicalIngredient(improved.name, improved.amt);
-      
-      // NOW compute norm on the cleaned/practical name
-      const norm = normName(practical.name);
-      const lower = practical.name.toLowerCase();
-      const cat = getCategory(rawLower); // use original lower for category
-      const scaledNote = extractScaled(practical.amt, g, idx===0, r.perPerson?.meat, r.perPerson?.unit||'g');
-
-      if(itemMap.has(norm)){
-        const existing = itemMap.get(norm);
-        if(!existing.recipes.includes(r.name)) existing.recipes.push(r.name);
-        // Accumulate quantities where possible — pick the one with a quantity
-        if(!existing.scaledNote && scaledNote) existing.scaledNote = scaledNote;
-      } else {
-        const key = norm.replace(/\s/g,'_').slice(0,20)+'_'+Math.random().toString(36).slice(2,6);
-        itemMap.set(norm, {key, name:practical.name, amt:practical.amt, scaledNote, cat, recipes:[r.name]});
-      }
+  // ── STEP 2 — feed the shared engine (buildPlanData → shoppingView) ──
+  // buffet ingredients are per-portion FORMULAS; reuse buffet's own quantity brain
+  // (improveIngredientName→practicalIngredient→computeQuantity) to scale to g guests,
+  // then parse the result back to numeric {amt,unit} for buildPlanData.
+  function parseAmt(s){
+    if(!s) return null;
+    const t = String(s).trim().toLowerCase();
+    if(!t || /to taste|as needed/.test(t)) return null;
+    // Always return BASE units the shared engine expects: buildPlanData sums and
+    // costs `amt` as grams / ml (cookCost = amt/1000 × price; pack ladders in g).
+    // So kg→g and L→ml (×1000) — otherwise a "1.6kg" result is read as 1.6 GRAMS
+    // (that scaled Cucumber 80g pp → "2g" and inverted the two-cost totals).
+    const norm = (amt, u) => (u==='kg') ? {amt:amt*1000, unit:'g'}
+                           : (u==='l')  ? {amt:amt*1000, unit:'ml'}
+                           : {amt, unit:(u==='ml'?'ml':'g')};
+    let m;
+    if(m = t.match(/(\d+)\s*[×x]\s*([\d.]+)\s*(g|kg|ml|l)\b/)){
+      return norm(parseInt(m[1],10) * parseFloat(m[2]), m[3]);
+    }
+    if(m = t.match(/([\d.]+)\s*(kg|g|ml|l)\b/)) return norm(parseFloat(m[1]), m[2]);
+    if(m = t.match(/^~?\s*(\d+)\b/))            return {amt:parseInt(m[1],10), unit:'pcs'};
+    return null;
+  }
+  function courseDishes(portioned, group, stateKey){
+    return portioned.map(function(r){
+      var ingredients = [];
+      (r.base300||[]).forEach(function(ing, idx){
+        if(!ing || !ing.n) return;
+        var rawName = ing.n, rawLower = rawName.toLowerCase();
+        if(rawName.startsWith('—') || rawLower.includes('buying guide') ||
+           rawLower.includes('serve with') || rawLower.includes('to serve') ||
+           rawLower === 'water' || rawLower.includes('warm water') ||
+           rawLower.includes('boiling water') || rawLower.includes('cold water') ||
+           rawLower.includes('to taste') || (rawLower === 'salt and pepper' && idx > 0)) return;
+        var improved  = improveIngredientName(rawName, ing.a||'', g);
+        var practical = practicalIngredient(improved.name, improved.amt);
+        var qty = computeQuantity(practical.amt, g, idx===0, r.perPerson && r.perPerson.meat, (r.perPerson && r.perPerson.unit)||'g');
+        var pa = parseAmt(qty) || parseAmt(practical.amt);
+        if(!pa) return;
+        ingredients.push({ name:practical.name, amt:pa.amt, unit:pa.unit, priceName:practical.name });
+      });
+      return {
+        ingredients: ingredients, guests: g, kcalPP: (r.kcalPP!=null ? r.kcalPP : null),
+        group: group, emoji: r.emoji || '🍽️', name: r.name,
+        lines: [`${r.gPerPerson}g pp · <strong>${r.totalKg}kg total</strong>`],
+        openJs: `openEventRecipe('${r.id}')`,
+        removeJs: `setQuiet({${stateKey}:toggle(S.${stateKey}||[],'${r.id}')})`
+      };
     });
-  });
-  // Add salt and pepper as single pantry item
-  if(allPortioned.length > 0){
-    itemMap.set('salt pepper', {key:'salt_pepper_consolidated', name:'Salt and pepper', amt:'to taste', scaledNote:'', cat:'pantry', recipes:['All dishes']});
-  }
-  const shopItems = Array.from(itemMap.values());
-  const checked = S.checkedBuffetItems||{};
-  const remaining = shopItems.filter(i=>!checked[i.key]).length;
-
-  function shopCategory(title, cat, emoji){
-    const items = shopItems.filter(i=>i.cat===cat);
-    if(!items.length) return '';
-    return `<div style="margin-bottom:4px;">
-      ${items.map(i=>{
-        const ck = checked[i.key];
-        const qty = i.scaledNote ? i.scaledNote.replace(/<[^>]+>/g,'').trim() : '';
-        // Always show something in yellow on the right
-        const rightDisplay = qty || (i.amt && i.amt !== 'to taste' && i.amt !== 'as needed' ? i.amt : '');
-        const recipeLabel = i.recipes.length===1
-          ? `<span style="font-size:13px;color:var(--ink-soft);">${i.recipes[0]}</span>`
-          : `<span style="font-size:13px;color:var(--accent);">${i.recipes.length} dishes</span>`;
-        return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'${i.key}':!S.checkedBuffetItems['${i.key}']}})"
-          style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:${ck?0.35:1};">
-          <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?BC:'var(--line2)'};background:${ck?BC:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            ${ck?'<span style="color:#fff;font-size:13px;">✓</span>':''}
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--ink-soft)'};text-decoration:${ck?'line-through':'none'};">${i.name}</div>
-            ${recipeLabel}
-          </div>
-          ${rightDisplay?`<div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--gold)'};font-weight:bold;flex-shrink:0;margin-left:12px;text-align:right;max-width:120px;">${rightDisplay}</div>`:''}
-        </div>`;
-      }).join('')}
-    `;
   }
 
-  const whatsappMsg = encodeURIComponent(
-    `🍽️ Tinza Buffet Plan — ${g} guests\n\n`
-    +allPortioned.map(r=>`${r.emoji||'•'} ${r.name}: ${r.totalKg}kg`).join('\n')
-    +(isPro?`\n\n💰 Total: ~R${Math.round(totalCost).toLocaleString()} (R${Math.round(costPP)}/pp)`:'')
-    +`\n\n🛒 Shopping List:\n`
-    +shopItems.filter(i=>!checked[i.key]).map(i=>i.name+(i.amt?' — '+i.amt:'')+(i.scaledNote?' ('+i.scaledNote.replace(/<[^>]+>/g,'')+')'  :'')).join('\n')
+  const planDishes = [].concat(
+    courseDishes(starters, '🥗 STARTERS', 'eventSelectedStarters'),
+    courseDishes(mains,    '🥩 MAINS',    'eventSelectedMains'),
+    courseDishes(sides,    '🥘 SIDES',    'eventSelectedSides'),
+    courseDishes(salads,   '🥙 SALADS',   'eventSelectedSalads'),
+    courseDishes(desserts, '🎂 DESSERTS', 'eventSelectedDesserts')
   );
 
-  return `<div>
-    ${sectionHeader({
-      title:'Your Buffet Plan',
-      emoji:'🍽️',
-      tagline:`${g} guests`,
+  const waMsg = encodeURIComponent(
+    `🍽️ Tinza Buffet Plan — ${g} guests\n\n`
+    + allPortioned.map(function(r){ return `${r.emoji||'•'} ${r.name}: ${r.totalKg}kg`; }).join('\n')
+  );
+  const startAgainBtn = `<button onclick="set({buffetStep:1,eventSelectedStarters:[],eventSelectedMains:[],eventSelectedSides:[],eventSelectedSalads:[],eventSelectedDesserts:[],checkedBuffetItems:{}})" style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:var(--card2);border:2px solid var(--line2);color:var(--accent);font-size:13px;margin-bottom:16px;">🔄 Start again</button>`;
+
+  return planView({
+    header:{
+      title:'Your Buffet Plan', emoji:'🍽️', tagline:`${g} guests`,
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({buffetStep:1})",
-      backLabel:'← Buffet Planner',
+      backJs:"set({buffetStep:1})", backLabel:'← Buffet Planner',
       myPlan:{ count:allPortioned.length, label:'My Plan', onclick:"set({buffetStep:7})" }
-    })}
-    <div class="content">
-      ${buffetQuickNav(7,true)}
-      ${allPortioned.length===0?`<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:20px;text-align:center;color:var(--accent);font-size:13px;">${isPro?'No dishes selected — ':'Browse recipes below — '}<button onclick="set({buffetStep:2})" style="background:none;border:none;color:${BC};cursor:pointer;font-size:13px;text-decoration:underline;">go back</button></div>`:''}
-
-      ${section('🥗 STARTERS',starters,'eventSelectedStarters')}
-      ${section('🥩 MAINS',mains,'eventSelectedMains')}
-      ${section('🥘 SIDES',sides,'eventSelectedSides')}
-      ${section('🥙 SALADS',salads,'eventSelectedSalads')}
-      ${section('🎂 DESSERTS',desserts,'eventSelectedDesserts')}
-
-      ${allPortioned.length>0?`
-        ${isPro?`<div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="font-size:13px;color:var(--ink-soft);">Total dishes</span>
-            <span style="font-size:13px;color:var(--gold);font-weight:bold;">${allPortioned.length} dishes</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="font-size:13px;color:var(--ink-soft);">Cost per person</span>
-            <span style="font-size:15px;color:var(--green);font-weight:bold;">~R${Math.round(costPP)}</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--line2);">
-            <span style="font-size:14px;color:var(--ink-soft);">Estimated total</span>
-            <span style="font-size:20px;color:var(--green);font-weight:bold;">~R${Math.round(totalCost).toLocaleString()}</span>
-          </div>
-        </div>`:`<div style="background:var(--card2);border:1px dashed var(--gold);border-radius:10px;padding:10px 14px;margin:12px 0;text-align:center;font-size:13px;color:var(--gold);">👑 <strong>Tinza Pro</strong> — unlock costs, shopping list &amp; WhatsApp share</div>`}
-
-        <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;margin-top:16px;">🛒 Shopping List</div>
-        ${!isPro?`<div style="background:var(--card2);border:1px dashed var(--line2);border-radius:10px;padding:20px;text-align:center;margin-bottom:14px;"><div style="font-size:28px;margin-bottom:8px;">🔒</div><div style="font-size:13px;color:var(--accent);font-weight:bold;margin-bottom:4px;">Shopping List — Pro feature</div><div style="font-size:13px;color:var(--ink-soft);line-height:1.6;">Tap items you already have to remove them.<br>Share your list via WhatsApp.</div></div>`:`
-        <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:14px;">
-          <div style="background:var(--card2);border:1px solid var(--line2);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:var(--ink-mut);line-height:1.6;">
-            💡 <strong style="color:var(--gold);">Prices based on SA&#39;s biggest retailers — last updated May 2026.</strong> Buying in bulk, shopping specials, local markets or farm stalls will be cheaper. Use these as a planning guide only.
-          </div>
-          <div style="font-size:13px;color:var(--accent);margin-bottom:10px;">✅ Tap items you already have to remove them from your list</div>
-          ${shopCategory('Meat, Fish & Poultry','butchery','🥩')}
-          ${shopCategory('Dairy & Eggs','dairy','🥛')}
-          ${shopCategory('Starches & Baked Goods','starch','🌾')}
-          ${shopCategory('Tinned & Jarred Goods','tinned','🥫')}
-          ${shopCategory('Fresh Vegetables & Fruit','veg','🥦')}
-          ${shopCategory('Herbs & Spices','herbs','🌿')}
-          ${shopCategory('Pantry & Condiments','pantry','🥫')}
-          ${shopItems.length>0?`<div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--card2);margin-top:4px;">
-            <span style="font-size:13px;color:var(--accent);">${remaining} of ${shopItems.length} items remaining</span>
-            <button onclick="set({checkedBuffetItems:{}})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;text-decoration:underline;">Reset all</button>
-          </div>`:''}
-        </div>`}
-
-        <div class="grid2" style="gap:10px;margin-bottom:16px;">
-          <button onclick="set({buffetStep:1,eventSelectedStarters:[],eventSelectedMains:[],eventSelectedSides:[],eventSelectedSalads:[],eventSelectedDesserts:[],checkedBuffetItems:{}})" style="padding:14px;border-radius:10px;cursor:pointer;background:var(--card2);border:2px solid var(--line2);color:var(--accent);font-size:13px;">🔄 Start again</button>
-          ${isPro?`<a href="https://wa.me/?text=${whatsappMsg}" target="_blank" style="display:flex;align-items:center;justify-content:center;padding:14px;border-radius:10px;background:var(--card2);border:2px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;text-decoration:none;">📱 Share via WhatsApp</a>`:`<button onclick="alert('Upgrade to Tinza Pro to share your shopping list via WhatsApp')" style="padding:14px;border-radius:10px;cursor:pointer;background:var(--bg);border:2px solid var(--card2);color:var(--accent);font-size:13px;">🔒 WhatsApp Share (Pro)</button>`}
-        </div>
-        ${isPro?`<button onclick="window.printPlan('buffet')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:var(--card2);border:2px solid var(--gold);color:var(--gold);font-size:13px;font-weight:bold;margin-bottom:16px;">🖨️ Print / Save as PDF <span style="font-size:13px;opacity:0.7;">👑 Pro</span></button>`:''}
-      `:''}
-    </div>
-  </div>`;
+    },
+    quickNavHTML: buffetQuickNav(7, true),
+    dishes: planDishes,
+    checked: S.checkedBuffetItems||{},
+    toggleFn: 'buffetToggleShop',
+    shareJs: `window.open('https://wa.me/?text=${waMsg}','_blank')`,
+    printJs: "window.printPlan('buffet')",
+    empty: `No dishes selected yet — <button onclick="set({buffetStep:1})" style="background:none;border:none;color:var(--accent);text-decoration:underline;cursor:pointer;font-size:14px;">go back to the planner</button>.`,
+    footerHTML: startAgainBtn
+  });
 }
 
 // ── EVENTS & CELEBRATIONS RENDER ──────────────────────────────────

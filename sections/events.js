@@ -1104,6 +1104,7 @@ function eventsHTML(){
     if(bs===5) return buffetStep5();
     if(bs===6) return buffetStep6();
     if(bs===7) return buffetStep7();
+    if(bs===8) return buffetStep8();
     return buffetStep1();
   }
 

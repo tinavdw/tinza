@@ -510,7 +510,7 @@ var SPICE_DB = [
         { qty:3, unit:"g", name:"coriander seeds" },
         { qty:2, unit:"g", name:"ground ginger" },
         { qty:2, unit:"g", name:"garlic powder" },
-        { qty:2, unit:"g", name:"garam masala" },
+        { qty:2, unit:"g", name:"Garam Masala" },
         { qty:1, unit:"g", name:"turmeric" },
         { qty:1, unit:"g", name:"green cardamom pods" },
         { qty:1, unit:"g", name:"cinnamon" },
@@ -2266,7 +2266,7 @@ var SPICE_DB = [
         { qty:10, unit:"ml", name:"sesame oil" },
         { qty:6, unit:"g", name:"garlic cloves" },
         { qty:5, unit:"g", name:"sriracha" },
-        { qty:2, unit:"g", name:"Chinese five spice" }
+        { qty:2, unit:"g", name:"Chinese Five Spice" }
       ],
       method: "Whisk all the ingredients together until smooth (miso stands in beautifully for the traditional fermented soybean paste). Thin with a splash of water if needed. Use as a glaze for pork and duck, a stir-fry seasoning, or the smear in pancakes and lettuce wraps."
     },
