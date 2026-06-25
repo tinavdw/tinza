@@ -2470,10 +2470,11 @@ function shoppingView(o){
     var nm = (it.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     var loose = it.loose ? ' <span style="color:#9a6238;font-size:12px;">loose</span>' : '';
     var priceStr = (it.buyCost!=null) ? ' · ' + money(it.buyCost) : '';
+    var qty = (it.qtyStr!=null) ? it.qtyStr : fmtBuy(it);   // optional per-item display override; falls back to the computed buy amount
     rows += '<div onclick="' + (toggleFn ? toggleFn+"('"+nm+"')" : '') + '" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:'+(on?'0.4':'1')+';">'
       + '<div style="width:20px;height:20px;border-radius:4px;border:2px solid var(--accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:'+(on?'var(--accent)':'transparent')+';color:#fff;font-size:13px;">'+(on?'✓':'')+'</div>'
       + '<span style="flex:1;font-size:15px;color:'+(on?'var(--ink-dim)':'var(--ink2)')+';'+(on?'text-decoration:line-through;':'')+'">'+it.name+loose+'</span>'
-      + '<span style="font-size:15px;color:'+(on?'var(--ink-dim)':'var(--gold)')+';font-weight:bold;white-space:nowrap;">'+fmtBuy(it)+priceStr+'</span></div>';
+      + '<span style="font-size:15px;color:'+(on?'var(--ink-dim)':'var(--gold)')+';font-weight:bold;white-space:nowrap;">'+qty+priceStr+'</span></div>';
   });
   // §6.3 Pantry group — "you may already have", listed but NOT in the totals
   var pantryBlock = pantryItems.length
