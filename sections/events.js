@@ -122,53 +122,6 @@ function eventsHTML(){
     return `<button onclick="set({${category}:toggle(S.${category}||[],'${id}')})" style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 10px;font-size:13px;color:var(--ink-soft);cursor:pointer;margin:2px;">${check}${label}</button>`;
   }
 
-  // ── PLANNING SUMMARY PANEL (Pro only) ──
-  function plannerSummary(){
-  const isPro = tierAllows('pro');
-    if(!isPro) return '';
-    const mains    = calcPortions(EVENTS_BIG_COOKING_MAINS.filter(r=>S.eventSelectedMains.includes(r.id)),    'mains',    guests);
-    const sides    = calcPortions(EVENTS_BIG_COOKING_SIDES.filter(r=>S.eventSelectedSides.includes(r.id)),    'sides',    guests);
-    const salads   = calcPortions(EVENTS_BIG_COOKING_SALADS.filter(r=>S.eventSelectedSalads.includes(r.id)),  'salads',   guests);
-    const starters = calcPortions(EVENTS_STARTERS.filter(r=>S.eventSelectedStarters.includes(r.id)),          'starters', guests);
-    const desserts = calcPortions(EVENTS_DESSERTS.filter(r=>S.eventSelectedDesserts.includes(r.id)),          'desserts', guests);
-    const totalSelected = mains.length+sides.length+salads.length+starters.length+desserts.length;
-
-    if(totalSelected===0) return `<div style="background:var(--card2);border:1px solid #806000;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--gold);">👆 Tap dishes below to add them to your buffet. Portions auto-scale as you add more.</div>`;
-
-    const allPortioned = [...mains,...sides,...salads,...starters,...desserts];
-    const totalCost = allPortioned.reduce((sum,r)=> sum + ((r.costPP||0)*guests), 0);
-    const costPP    = allPortioned.reduce((sum,r)=> sum + (r.costPP||0), 0);
-
-    function rows(arr, label){
-      if(!arr.length) return '';
-      return `<div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin:8px 0 4px;">${label}</div>`
-        + arr.map(r=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--card2);font-size:13px;">
-          <span style="color:var(--ink-soft);">${r.emoji||''} ${r.name}${r.boneIn?' (bone-in)':''}</span>
-          <span style="color:var(--gold);flex-shrink:0;margin-left:8px;">${r.gPerPerson}g pp · ${r.totalKg}kg</span>
-        </div>`).join('');
-    }
-
-    const disclaimer = guests>=50?`<div style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13px;color:var(--accent);">⚠️ ${guests}+ guests: Based on catering standards with 10% buffer. Always confirm with an experienced caterer.</div>`:'';
-
-    return `<div style="background:var(--card2);border:2px solid var(--accent);border-radius:12px;padding:14px;margin-bottom:16px;">
-      <div style="font-size:13px;color:var(--gold);margin-bottom:10px;">📋 Your buffet — ${guests} guests</div>
-      ${rows(starters,'🥗 Starters')}
-      ${rows(mains,'🥩 Mains')}
-      ${rows(sides,'🥘 Sides')}
-      ${rows(salads,'🥙 Salads')}
-      ${rows(desserts,'🎂 Desserts')}
-      <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--line2);">
-        <span style="font-size:13px;color:var(--ink-soft);">Estimated total cost</span>
-        <span style="font-size:15px;color:var(--gold);font-weight:bold;">~R${Math.round(totalCost).toLocaleString()} · R${Math.round(costPP)}/pp</span>
-      </div>
-      ${disclaimer}
-      <button onclick="set({eventShowShopList:!S.eventShowShopList})" style="width:100%;margin-top:10px;padding:10px;background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;cursor:pointer;">
-        ${S.eventShowShopList?'▲ Hide shopping list':'🛒 Generate shopping list'}
-      </button>
-      ${S.eventShowShopList?shopListHTML(mains,sides,salads,starters,desserts):''}
-    </div>`;
-  }
-
   // ── SAVOURY PLATTER DATA ──
   const SAVOURY_PLATTERS = {
     sandwiches: {
