@@ -2512,6 +2512,7 @@ function shoppingView(o){
   var about = '<div style="margin-top:14px;">'
     + '<div id="shop-about-tog" onclick="(function(){var b=document.getElementById(\'shop-about-body\');var t=document.getElementById(\'shop-about-tog\');var o=b.style.display===\'block\';b.style.display=o?\'none\':\'block\';t.innerHTML=(o?\'▼\':\'▲\')+\' About these prices &amp; totals\';})()" style="font-size:13px;color:#b56d37;cursor:pointer;user-select:none;padding:6px 0;">▼ About these prices &amp; totals</div>'
     + '<div id="shop-about-body" style="display:none;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--ink-soft);line-height:1.6;">'+aboutBody+'</div></div>';
+  if(o.noCost){ totalsBlock=''; about=''; }   // quantities-only lists (e.g. drinks): no cost totals / price explainer
   var share = (o.shareJs||o.gmailJs||o.printJs)
     ? '<div style="display:flex;gap:8px;margin-top:12px;">'
       + (o.shareJs ? '<button onclick="'+o.shareJs+'" style="flex:1;padding:10px;border-radius:8px;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;cursor:pointer;">📲 WhatsApp</button>' : '')
@@ -2520,7 +2521,7 @@ function shoppingView(o){
       + '</div>' : '';
   return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;">'
     + '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List</div>'
-    + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · SA retail prices, planning guide only</div>'
+    + '<div style="font-size:13px;color:#b56d37;margin-bottom:8px;">✅ Tap items you already have · '+(o.noCost?'quantities for your guest count':'SA retail prices, planning guide only')+'</div>'
     + rows + pantryBlock + totalsBlock + about + share + '</div>';
 }
 

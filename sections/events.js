@@ -1171,43 +1171,10 @@ function eventsHTML(){
           const selBevs = (S.eventSelectedBeverages||[]);
           const selRecipes = EVENTS_BEVERAGE_RECIPES.filter(b=>selBevs.includes(b.id));
           const bevG = S.beverageGuests||50;
-          const checked = S.checkedBuffetItems||{};
-          const shopMap = {};
-          const bevEntry = (n,bevName)=>{ const k=n.toLowerCase().replace(/[^a-z0-9]/g,''); if(!shopMap[k]) shopMap[k]={name:n, ml:0, g:0, count:0, texts:[], bev:bevName}; return shopMap[k]; };
-          const bevAcc = (n,value,unit,bevName)=>{ const e=bevEntry(n,bevName); const u=(unit||'').toLowerCase();
-            if(u==='l') e.ml+=value*1000; else if(u==='ml') e.ml+=value;
-            else if(u==='kg') e.g+=value*1000; else if(u==='g') e.g+=value;
-            else e.count+=value; };                                          // numeric, no unit → a count (e.g. lemon wedges)
-          const bevText = (n,text,bevName)=>{ const e=bevEntry(n,bevName); if(text && e.texts.indexOf(text)<0) e.texts.push(text); };
-          selRecipes.forEach(bev=>{
-            const servesMatch = (bev.serves||'').toString().match(/\d+/);
-            const baseServes = servesMatch ? parseInt(servesMatch[0]) : 0;   // 0 = no number ("per glass"/"per shot")
-            const ratio = baseServes>0 ? (bevG / baseServes) : 1;            // never divide by NaN
-            (bev.base300||[]).forEach(ing=>{
-              if(!ing || !ing.n || ing.n.startsWith('—')) return;
-              const a = (ing.a||'').trim();
-              if(!a) return;
-              const p = a.split('·');
-              if(p.length>1){
-                // batch drinks: "per · total" → scale the total part by ratio
-                const m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
-                if(m && m[1]) bevAcc(ing.n, parseFloat(m[1])*ratio, m[2]||'', bev.name);
-              } else if(baseServes===0){
-                // DRINKS-ONLY divergence: per-glass/per-shot = 1 serving per guest.
-                // Numeric → ×guests; non-numeric ("a bowl", "plenty") → list as-is.
-                const m = a.match(/^([\d.]+)\s*(g|kg|ml|L)?/);
-                if(m && m[1]) bevAcc(ing.n, parseFloat(m[1])*bevG, m[2]||'', bev.name);
-                else bevText(ing.n, a, bev.name);
-              }
-            });
-          });
-          const bevFmt = e=>{ const parts=[];
-            if(e.ml>0){ const v=Math.round(e.ml*10)/10; parts.push(v>=1000?(v/1000).toFixed(v%1000?1:0)+'L':v+'ml'); }
-            if(e.g>0){ const v=Math.round(e.g*10)/10; parts.push(v>=1000?(v/1000).toFixed(1)+'kg':v+'g'); }
-            if(e.count>0) parts.push(String(Math.round(e.count)));
-            if(e.texts.length) parts.push(e.texts.join(', '));
-            return parts.join(' + ') || '—'; };
-          const shopItems = Object.values(shopMap).map(e=>({name:e.name, totalStr:bevFmt(e), bev:e.bev}));
+          const bevWaMsg = encodeURIComponent(
+            `🥂 Tinza Drinks Plan — ${bevG} guests\n\n`
+            + drinkShopItems(selRecipes, bevG).map(function(it){ return `• ${it.name}: ${it.qtyStr}`; }).join('\n')
+          );
           return `
             <button onclick="set({beverageCat:null})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
             <div style="font-size:16px;color:var(--ink-soft);margin-bottom:4px;">🥂 My Drinks Plan</div>
@@ -1221,18 +1188,16 @@ function eventsHTML(){
                 <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${bev.serves} · <strong style="color:var(--gold);">${batches}×</strong> batch${batches!==1?'es':''} needed for ${bevG} guests</div>
               </div>`;
             }).join('')}
-            <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin:12px 0 8px;">🛒 Shopping List</div>
-            <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:16px;">
-              ${shopItems.length===0?'<div style="color:var(--accent);font-size:13px;">Select drinks and set guest count to generate list</div>':
-                shopItems.map(item=>{
-                  const ck = checked['bev_'+item.name.replace(/\s/g,'_')];
-                  return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'bev_${item.name.replace(/\s/g,'_')}':!S.checkedBuffetItems['bev_${item.name.replace(/\s/g,'_')}']}})" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:${ck?0.35:1};">
-                    <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?'var(--accent)':'var(--line2)'};background:${ck?'var(--accent)':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ck?'<span style="color:#fff;font-size:13px;">✓</span>':''}</div>
-                    <div style="flex:1;"><div style="font-size:13px;color:var(--ink-soft);">${item.name}</div><div style="font-size:13px;color:var(--ink-soft);">${item.bev}</div></div>
-                    <div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--gold)'};font-weight:bold;">${item.totalStr}</div>
-                  </div>`;
-                }).join('')}
-            </div>
+            ${selRecipes.length===0
+              ? '<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:16px;color:var(--accent);font-size:13px;">Select drinks and set guest count to generate list</div>'
+              : shoppingView({
+                  items: drinkShopItems(selRecipes, bevG),
+                  totals: { cookTotal:null, buyTotal:null },
+                  checked: S.checkedBeverageItems||{},
+                  toggleFn: 'beverageToggleShop',
+                  shareJs: `window.open('https://wa.me/?text=${bevWaMsg}','_blank')`,
+                  noCost: true
+                })}
             <button onclick="set({beverageCat:null})" style="width:100%;padding:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;color:var(--accent);font-size:14px;cursor:pointer;">← Back</button>
           `;
         }
@@ -1576,26 +1541,10 @@ function eventsHTML(){
           const selCakes = (S.eventSelectedCakes||[]);
           const selRecipes = CELEBRATION_CAKE_RECIPES.filter(c=>selCakes.includes(c.id));
           const cakeG = S.cakeGuests||50;
-          const checked = S.checkedBuffetItems||{};
-          const shopMap = {};
-          selRecipes.forEach(cake=>{
-            const servesMatch = (cake.serves||'100').toString().match(/\d+/);
-            const baseServes = servesMatch ? parseInt(servesMatch[0]) : 100;
-            const ratio = cakeG / baseServes;
-            cake.base300.forEach(ing=>{
-              if(ing.n.startsWith('—')) return;
-              const p = ing.a.split('·');
-              if(p.length<2) return;
-              const numMatch = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)/);
-              if(!numMatch) return;
-              const scaled = Math.round(parseFloat(numMatch[1]) * ratio * 10)/10;
-              const unit = numMatch[2];
-              const totalStr = unit==='g'&&scaled>=1000?(scaled/1000).toFixed(1)+'kg':unit==='ml'&&scaled>=1000?(scaled/1000).toFixed(1)+'L':scaled+unit;
-              const key = ing.n.toLowerCase().replace(/[^a-z0-9]/g,'');
-              if(!shopMap[key]) shopMap[key] = {name:ing.n, totalStr, cake:cake.name};
-            });
-          });
-          const shopItems = Object.values(shopMap);
+          const cakeWaMsg = encodeURIComponent(
+            `🎂 Tinza Cake Plan — ${cakeG} guests\n\n`
+            + cakeShopItems(selRecipes, cakeG).map(function(it){ return `• ${it.name}: ${it.qtyStr}`; }).join('\n')
+          );
           return `
             <button onclick="set({cakeCat:null})" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:14px;padding:0;">← All Categories</button>
             <div style="font-size:16px;color:var(--ink-soft);margin-bottom:4px;">🎂 My Cake Plan</div>
@@ -1609,18 +1558,16 @@ function eventsHTML(){
                 <div style="font-size:13px;color:var(--accent);margin-top:3px;">Serves ${cake.serves} · <strong style="color:var(--gold);">${batches}×</strong> batch${batches!==1?'es':''} needed for ${cakeG} guests</div>
               </div>`;
             }).join('')}
-            <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin:12px 0 8px;">🛒 Shopping List</div>
-            <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:16px;">
-              ${shopItems.length===0?'<div style="color:var(--accent);font-size:13px;">Select cakes and set guest count to generate list</div>':
-                shopItems.map(item=>{
-                  const ck = checked['cake_'+item.name.replace(/\s/g,'_')];
-                  return `<div onclick="setQuiet({checkedBuffetItems:{...S.checkedBuffetItems,'cake_${item.name.replace(/\s/g,'_')}':!S.checkedBuffetItems['cake_${item.name.replace(/\s/g,'_')}']}})" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card2);cursor:pointer;opacity:${ck?0.35:1};">
-                    <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ck?'var(--accent)':'var(--line2)'};background:${ck?'var(--accent)':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ck?'<span style="color:#fff;font-size:13px;">✓</span>':''}</div>
-                    <div style="flex:1;"><div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--ink-soft)'};">${item.name}</div><div style="font-size:13px;color:var(--ink-soft);">${item.cake}</div></div>
-                    <div style="font-size:13px;color:${ck?'var(--ink-soft)':'var(--gold)'};font-weight:bold;">${item.totalStr}</div>
-                  </div>`;
-                }).join('')}
-            </div>
+            ${selRecipes.length===0
+              ? '<div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:16px;color:var(--accent);font-size:13px;">Select cakes and set guest count to generate list</div>'
+              : shoppingView({
+                  items: cakeShopItems(selRecipes, cakeG),
+                  totals: { cookTotal:null, buyTotal:null },
+                  checked: S.checkedCakeItems||{},
+                  toggleFn: 'cakeToggleShop',
+                  shareJs: `window.open('https://wa.me/?text=${cakeWaMsg}','_blank')`,
+                  noCost: true
+                })}
             <button onclick="set({cakeCat:null})" style="width:100%;padding:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;color:var(--accent);font-size:14px;cursor:pointer;">← Back</button>
           `;
         }
@@ -2160,3 +2107,74 @@ if(typeof RECIPE_SOURCES !== 'undefined'){
 if(typeof RECIPE_BUILDERS !== 'undefined'){
   RECIPE_BUILDERS.beverages = function(item, recipe, vr){ return beveragesRecipeOpts(item, (S.beverageGuests||50)); };
 }
+
+// Drinks shopping list = QUANTITIES only (no cost). Scales each drink's base300 to
+// the guest count (batch drinks by serves-ratio, per-glass/per-shot by ×guests),
+// merges by ingredient into a pre-formatted qtyStr, and tags the 🥂 Bar & Drinks
+// aisle — fed straight into the shared shoppingView({noCost:true}).
+function drinkShopItems(selRecipes, bevG){
+  var shopMap = {};
+  var entry = function(n){ var k=n.toLowerCase().replace(/[^a-z0-9]/g,''); if(!shopMap[k]) shopMap[k]={name:n, ml:0, g:0, count:0, texts:[]}; return shopMap[k]; };
+  var acc = function(n,value,unit){ var e=entry(n); var u=(unit||'').toLowerCase();
+    if(u==='l') e.ml+=value*1000; else if(u==='ml') e.ml+=value;
+    else if(u==='kg') e.g+=value*1000; else if(u==='g') e.g+=value;
+    else e.count+=value; };
+  var txt = function(n,text){ var e=entry(n); if(text && e.texts.indexOf(text)<0) e.texts.push(text); };
+  (selRecipes||[]).forEach(function(bev){
+    var sm = (bev.serves||'').toString().match(/\d+/);
+    var baseServes = sm ? parseInt(sm[0]) : 0;
+    var ratio = baseServes>0 ? (bevG / baseServes) : 1;
+    (bev.base300||[]).forEach(function(ing){
+      if(!ing || !ing.n || ing.n.startsWith('—')) return;
+      var a = (ing.a||'').trim(); if(!a) return;
+      var p = a.split('·');
+      if(p.length>1){
+        var m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+        if(m && m[1]) acc(ing.n, parseFloat(m[1])*ratio, m[2]||'');
+      } else if(baseServes===0){
+        var m2 = a.match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+        if(m2 && m2[1]) acc(ing.n, parseFloat(m2[1])*bevG, m2[2]||'');
+        else txt(ing.n, a);
+      }
+    });
+  });
+  var fmt = function(e){ var parts=[];
+    if(e.ml>0){ var v=Math.round(e.ml*10)/10; parts.push(v>=1000?(v/1000).toFixed(v%1000?1:0)+'L':v+'ml'); }
+    if(e.g>0){ var v2=Math.round(e.g*10)/10; parts.push(v2>=1000?(v2/1000).toFixed(1)+'kg':v2+'g'); }
+    if(e.count>0) parts.push(String(Math.round(e.count)));
+    if(e.texts.length) parts.push(e.texts.join(', '));
+    return parts.join(' + ') || '—'; };
+  return Object.keys(shopMap).map(function(k){ var e=shopMap[k]; return { name:e.name, qtyStr:fmt(e), aisle:'🥂 Bar & Drinks' }; });
+}
+window.beverageToggleShop = function(name){ var m=Object.assign({}, S.checkedBeverageItems||{}); m[name]=!m[name]; setQuiet({checkedBeverageItems:m}); };
+
+// Cake shopping list = QUANTITIES only (no cost). Scales each cake's base300 by the
+// guest/serves ratio, merges by ingredient into a pre-formatted qtyStr, tags the
+// 🎂 Baking & Cake aisle — fed straight into the shared shoppingView({noCost:true}).
+function cakeShopItems(selRecipes, cakeG){
+  var shopMap = {};
+  var entry = function(n){ var k=n.toLowerCase().replace(/[^a-z0-9]/g,''); if(!shopMap[k]) shopMap[k]={name:n, ml:0, g:0, count:0}; return shopMap[k]; };
+  var acc = function(n,value,unit){ var e=entry(n); var u=(unit||'').toLowerCase();
+    if(u==='l') e.ml+=value*1000; else if(u==='ml') e.ml+=value;
+    else if(u==='kg') e.g+=value*1000; else if(u==='g') e.g+=value;
+    else e.count+=value; };
+  (selRecipes||[]).forEach(function(cake){
+    var sm = (cake.serves||'100').toString().match(/\d+/);
+    var baseServes = sm ? parseInt(sm[0]) : 100;
+    var ratio = cakeG / baseServes;
+    (cake.base300||[]).forEach(function(ing){
+      if(!ing || !ing.n || ing.n.startsWith('—')) return;
+      var p = (ing.a||'').split('·');
+      if(p.length<2) return;
+      var m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+      if(m && m[1]) acc(ing.n, parseFloat(m[1])*ratio, m[2]||'');
+    });
+  });
+  var fmt = function(e){ var parts=[];
+    if(e.ml>0){ var v=Math.round(e.ml*10)/10; parts.push(v>=1000?(v/1000).toFixed(v%1000?1:0)+'L':v+'ml'); }
+    if(e.g>0){ var v2=Math.round(e.g*10)/10; parts.push(v2>=1000?(v2/1000).toFixed(1)+'kg':v2+'g'); }
+    if(e.count>0) parts.push(String(Math.round(e.count)));
+    return parts.join(' + ') || '—'; };
+  return Object.keys(shopMap).map(function(k){ var e=shopMap[k]; return { name:e.name, qtyStr:fmt(e), aisle:'🎂 Baking & Cake' }; });
+}
+window.cakeToggleShop = function(name){ var m=Object.assign({}, S.checkedCakeItems||{}); m[name]=!m[name]; setQuiet({checkedCakeItems:m}); };
