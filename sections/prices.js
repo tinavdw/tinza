@@ -631,6 +631,53 @@ const PRICE_DB = {
   "water": 0.02,              // municipal ~R0.02/L — keeps water ~free while resolving the miss
   "jalape": 80,               // jalapeño: priceClean strips the n~ to 'jalape o…' -> key the surviving token, priced as chilli
 
+
+  // ── Tina prices, 26 Jun (from filled worklist) ──
+  "ciabatta": 113,
+  "gnocchi": 100,
+  "falafel": 224,
+  "pizza base_each": 20,
+  "atchar": 123,
+  "coleslaw": 83,
+  "ranch dressing": 67,
+  "tofu": 225,
+  "tempeh": 318,
+  "edamame": 140,
+  "granola": 163,
+  "pepperoni": 550,
+  "asparagus": 513,
+  "blackberries": 375,
+  "grapefruit": 26,
+  "peaches": 35,
+  "medjool dates": 140,
+  "medjool date": 140,
+  "parsnip": 104,
+  "sprouts": 193,
+  "microgreens": 193,
+  "lemongrass": 500,
+  "tamari": 867,
+  "erythritol": 190,
+  "xylitol": 190,
+  "espresso": 800,
+  "whipping cream": 148,
+  "fresh cream": 148,
+  "watermelon": 30,        // R30/kg — pre-cut bumps it (Tina, 26 Jun)
+  "quinoa": 240,           // R120/500g (Tina, 26 Jun)
+  "ricotta": 200,
+  "mascarpone": 280,
+  "roquefort": 470,
+  "swiss cheese": 940,
+  "goat cheese": 650,
+  "chevre": 650,
+  "chevin goat cheese": 650,
+  "taco spice": 500,
+  "cajun spice": 250,
+  "fajita spice": 800,
+  "masala spice": 200,
+  "breyani masala": 200,
+  "potjiekos spice blend": 188,
+  "smoky spice": 900,
+  "smoky spice rub": 900,
 };
 
 const MEAT_COSTS = {

@@ -700,8 +700,6 @@ var PRICE_ALIAS = {  // ── E1 alias pass · Tina-confirmed (lamb=stewing/nec
   "carrot sliced thin": "carrots",
   "pear": "pears",
   "pear sliced": "pears",
-  "watermelon cubed": "melon",
-  "watermelon flesh no rind": "melon",
 
   "chips":"potato",
   "lamb chops":"lamb braai chops",

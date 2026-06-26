@@ -1,97 +1,87 @@
 flowchart TD
-    START["🌙 TINZA — where we are (carry into new chat)"]
+    START["🌙 TINZA — carry into new chat (session 26 Jun)"]
 
-    subgraph DONE["✅ DONE — Events sameness so far"]
-        D0["core.js shoppingView: 2 additive hooks — qtyStr + noCost; food sections byte-identical"]
-        D1["Buffet My Plan → shared planView + shoppingView (pilot) + unit-fix + sauce dispatch"]
-        D2["Beverages My Plan → shared shoppingView noCost: drinkShopItems + beverageToggleShop"]
-        D3["Cakes My Plan → shared shoppingView noCost: cakeShopItems + cakeToggleShop. FIXED shared-ingredient sum + eggs/counts"]
-        D6["E1 ✓ Finger Foods My Plan → shared shoppingView noCost: NEW fingerShopItems (multi-aisle adapter: per-piece × total pieces, categorise+sort) + NEW fingerToggleShop + checkedFingerItems. Dropped '· N dishes' note + aisle-grouped WhatsApp for sameness (flat list like Cakes). core.js fingerShopToggle LEFT INTACT (tinyTummies still uses it). node --check green."]
-        DW3["W3 ✓ CLAUDE.md built at repo root — all locked rules (sameness · stability/push · palette · portion brain · tiers · ingredient std · costing · events arch · DoD)"]
+    subgraph PUSH["⬆️ PENDING PUSH (validated, node --check green)"]
+        PU1["prices.js → 1274 lines (45 Tina prices locked)"]
+        PU2["core.js → 3184 lines (42 aliases in; watermelon→melon alias removed)"]
+        PU3["events.js → faint 'Buying vs cooking' box removed (E1 polish)"]
     end
 
-    subgraph EVENTS["⏳ FINISH EVENTS SAMENESS (next, locked order)"]
-        E2["Kiddies My Plan → migrate (KIDS_THEMES lives in buffet.js)"]
-        E3["DELETE Cultural block events.js ~L1449 (dead code; Cultural to World Kitchen) — do NOT migrate"]
-        E4["EB2 bug: selected sauces never reach buffet plan (eventSelectedSauces excluded from allPortioned)"]
-        E5["Dead-code cull: leftover consts in buffetStep7 (isPro/costPP/totalCost) + S10 dead finger funcs"]
+    subgraph DONE["✅ DONE this session"]
+        D6["E1 ✓ Finger Foods My Plan → shared shoppingView noCost (pushed)"]
+        DW3["W3 ✓ CLAUDE.md at repo root"]
+        DP["✓ price-audit.js tool (node Tools/price-audit.js) — re-run to catch drift"]
+        DAL["✓ Alias pass: 42 aliases (oil→sunflower, lamb→lamb neck per Cut Guide, nuts→mixed, black→red kidney, pasta shapes, etc.)"]
+        DPR["✓ 45 prices locked from Tina worklist → costing now 90% (was 85%). Genuinely-missing 80→31"]
     end
 
-    subgraph AFTER["➡️ AFTER EVENTS (locked order)"]
-        A1["Spice migration (TINZA_SPICE_MIGRATION.md — browse to shared warmCard)"]
-        A2["Universal opener + page-compare pass"]
+    subgraph PRICELEFT["💰 PRICE — still open"]
+        PL1["31 genuinely missing = mostly booze (quantity-only, may skip) + niche + non-food"]
+        PL2["2 flags set, change anytime: asparagus = fresh R513/kg (tinned alt R197); espresso = instant R800/kg (brewed-ml may over-cost)"]
+        PL3["PACK_DB still ~95% gaps → lists show cooking amounts not packets. Deferred, Checkers-gated"]
     end
 
-    subgraph SMOKE["🔎 E1 LIVE SMOKE-TEST (Tina, on phone after deploy)"]
-        SM1["My Plan opens · snacks list · pieces-pp summary correct"]
-        SM2["Scale guests +/- → quantities reflow"]
-        SM3["Shopping list sums shared ingredients across snacks · aisle-grouped"]
-        SM4["Tick item → greys out · WhatsApp button sends flat list"]
-        SM5["Tiny Tummies shopping list STILL works (shared core.js fingerShopToggle)"]
+    subgraph CONTENT["📝 CONTENT TO-DOs (batched recipe session)"]
+        C1["New recipes + cross-links: gnocchi, fresh pasta (egg+flour), pizza base, ciabatta, falafel, slap chips"]
+        C2["ranch dressing → Spice ▸ Salad Dressings"]
+        C3["coleslaw + atchar: recipes exist → just cross-link"]
+        C4["parsnip: add substitute note ('hard to find')"]
+        C5["pine-nut recipes (pesto): trivia note — macadamia = budget swap"]
     end
 
-    subgraph STRAG["🔧 STRAGGLERS / DATA"]
-        S1["S1 Toum rename wk_africa.js ~L132 to Toum (Garlic Cream)"]
-        S2["S2 Regenerate Photo Studio from live data; done derives from photo existence"]
-        S4["S4 Colon Cleanse Fibre.jpg.zip double-extension photo"]
-        S6["S6 PACK_DB tuning: sweet potato / vine tomato round-ups → mark loosable"]
-        S8["S8 Combined-ingredient lines → split into priceable items"]
-        S9["S9 cake base300 duplicate names — unify so shopping list merges"]
-        S10["S10 NEW: fingerSummary() + fingerShopListHTML() are DEAD CODE (fingerSummary never called) → cull with E5"]
+    subgraph EVENTS["⏳ FINISH EVENTS SAMENESS (locked order)"]
+        E2["E2 Kiddies My Plan → migrate (KIDS_THEMES in buffet.js) — decide AR3 first"]
+        E3["DELETE Cultural block (dead code → World Kitchen)"]
+        E4["EB2 bug: selected sauces never reach buffet plan"]
+        E5["Dead-code cull: buffetStep7 + S10 (dead fingerSummary/fingerShopListHTML)"]
     end
 
-    subgraph UXOPT["💡 UX / OPTIONS (decide later)"]
-        U1["My Cake Plan buried — add a My Cake Plan button on browse screen"]
-        U2["Costed cakes — Pro what-this-cake-order-costs. Decide after launch"]
+    subgraph ARCH["🏗️ ARCHITECTURE (the real whole-app fix)"]
+        AR2["ENDGAME: route every plan through buildPlanData → dedup (normIngredientKey fixes cheddar-twice), costing, aisle, PACK_DB all FREE + identical"]
+        AR3["⚠️ Don't build E2 as a 4th noCost adapter by reflex — interim adapter, or buildPlanData migration as the template?"]
     end
 
-    subgraph FEAT["🧩 QUEUED FEATURES"]
-        F1["Wedding Bar Planner (barplanner.js, Pro-only) — TINZA_WEDDING_BAR_PLANNER.md (spec LOCKED, build from spec)"]
-        F3["Deluxe tier — gate as tier LEVEL 0/1/2, NOT boolean"]
+    subgraph FEAT["🧩 QUEUED / PARKED"]
+        F1["Wedding Bar Planner (barplanner.js, Pro) — spec LOCKED"]
+        F3["Deluxe tier — gate level 0/1/2"]
+        FSCOUT["Live price scout — monthly GitHub Action + Apify (Checkers/Sixty60 + PnP), flag deviations. Drop Spar v1. Niche via search. Roast-pass first, post-launch"]
     end
 
-    subgraph WORK["⚙️ WORKFLOW UPGRADES"]
-        W2["#2 Definition-of-Done per migration — now baked into CLAUDE.md §10. Keep WRITTEN, not Playwright"]
-        W1["#1 Roast pass — contrarian council for BUSINESS/LAUNCH calls (Deluxe · sequencing · marketing plan). NOT the migration grind"]
-        W4["Habit: log recurring bugs in Known Issues (doing via flowchart — stay disciplined)"]
+    subgraph WORK["⚙️ WORKFLOW"]
+        W1["Roast pass — business/launch calls (scout, Deluxe, marketing)"]
+        W2["DoD per migration (CLAUDE.md §10)"]
+        PSTAB["Run price-audit.js before+after data sessions — resolve% drop = something broke"]
     end
 
-    subgraph MKTG["📣 MARKETING / GROWTH — explore"]
-        M1["BUILD a real Tinza marketing plan (own session): positioning · audience · channels · pillars · launch seq · cadence. Run #1 Roast first"]
-        M2["Tooling: Canva Pro ✓ + Claude Cowork (Canva connector). Feed locked palette + fonts so assets on-brand"]
-        M5["PRE-LAUNCH (8 wks out): WAITLIST + pain-point content. SA channels: organic IG/FB/TikTok + WhatsApp + email. IGNORE App Store/ASO"]
-        M3["Tinza-FIRST. If Tinza does well → park fermentastic.co.za"]
-        M4["DECIDE before effort: Fermentastic Shopify → Netlify move — defer if it may be parked (Tinza-first)"]
+    subgraph MKTG["📣 MARKETING (own session, Roast first)"]
+        M1["Build marketing plan; Canva Pro + Cowork; Tinza-first → park Fermentastic"]
     end
 
-    LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · ~376 photos · sameness = critical path"]
+    LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · sameness + accurate costing"]
 
-    START --> DONE --> EVENTS --> AFTER
-    DONE -.-> SMOKE
-    EVENTS -.-> STRAG
+    START --> PUSH --> DONE --> PRICELEFT --> EVENTS --> ARCH --> LAUNCH
+    DONE -.-> CONTENT
     EVENTS -.-> WORK
-    AFTER -.-> LAUNCH
-    STRAG -.-> LAUNCH
-    UXOPT -.-> LAUNCH
+    CONTENT -.-> LAUNCH
     FEAT -.-> LAUNCH
-    WORK -.-> LAUNCH
     MKTG -.-> LAUNCH
 
+    classDef push fill:#b5462b,stroke:#2c211a,color:#fff
     classDef done fill:#46530c,stroke:#2c211a,color:#fff
-    classDef now fill:#b5462b,stroke:#2c211a,color:#fff
-    classDef next fill:#d98a2b,stroke:#2c211a,color:#2c211a
-    classDef strag fill:#876213,stroke:#2c211a,color:#fff
+    classDef price fill:#876213,stroke:#2c211a,color:#fff
+    classDef content fill:#fbf3e6,stroke:#876213,color:#2c211a
+    classDef now fill:#d98a2b,stroke:#2c211a,color:#2c211a
+    classDef arch fill:#b5462b,stroke:#2c211a,color:#fff
     classDef feat fill:#fffaf2,stroke:#b5462b,color:#2c211a
     classDef work fill:#fbf3e6,stroke:#46530c,color:#2c211a
     classDef mktg fill:#fffaf2,stroke:#d98a2b,color:#2c211a
-    classDef smoke fill:#fbf3e6,stroke:#b5462b,color:#2c211a
 
-    class D0,D1,D2,D3,D6,DW3 done
+    class PU1,PU2,PU3 push
+    class D6,DW3,DP,DAL,DPR done
+    class PL1,PL2,PL3 price
+    class C1,C2,C3,C4,C5 content
     class E2,E3,E4,E5 now
-    class A1,A2 next
-    class S1,S2,S4,S6,S8,S9,S10 strag
-    class U1,U2 next
-    class F1,F3 feat
-    class W1,W2,W4 work
-    class M1,M2,M3,M4,M5 mktg
-    class SM1,SM2,SM3,SM4,SM5 smoke
+    class AR2,AR3 arch
+    class F1,F3,FSCOUT feat
+    class W1,W2,PSTAB work
+    class M1 mktg
