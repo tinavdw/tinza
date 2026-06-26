@@ -1,36 +1,40 @@
 flowchart TD
-    START["🌙 TINZA — carry into NEW chat. Costing now 91% real prices."]
+    START["🌙 TINZA — carry into NEW chat. Costing 91% real. Kiddies plan on shared engine + Kiddies menu STANDARD now locked."]
 
-    subgraph PUSH["⬆️ ONE small re-push pending"]
-        PU1["prices.js — tinned asparagus R197 added (fresh stays R513). Last price change. Everything else already pushed ✓"]
+    subgraph PUSH["⬆️ NEXT PUSH (batched — Netlify credits)"]
+        PU1["prices.js — tinned asparagus R197 (fresh stays R513)"]
+        PU2["kiddies.js — E2 My Plan on shared planView→buildPlanData→shoppingView. node --check ✓, harness-proven (2.0× scaling, snacks expand, dips lossiness inherited). Push BOTH together."]
     end
 
-    subgraph NEXT["🎯 NEXT TASK — E2 Kiddies My Plan → buildPlanData (DECISION LOCKED)"]
-        K0["WHY buildPlanData not a 4th noCost adapter: real per-kid costing (cake+cooldrink now priced), auto dedup (normIngredientKey), auto aisle + pack-rounding, no debt to unwind. Buffet already proved the pattern."]
-        K1["SCOPE (read live first): kidsPlanItems() builds items each with base12 (ingredients for 12 kids). kidsPlanHTML() L738 renders bespoke cost (costPP×k) + shop."]
-        K2["ADAPTER: for each non-removed item, scale base12 ingredients by k/12 → {name, amt, unit, priceName}. Collect dishes[] → planView({dishes,...}) (copy Buffet buffet.js STEP 2 ~L687-752)."]
-        K3["REPLACES bespoke kidsPlanHTML cost+shop block with shared planView → buildPlanData → shoppingView. Keep per-kid (k) selector + theme/budget UI."]
-        K4["GOTCHAS: base12 scaling (×k/12 BEFORE feeding — buildPlanData never re-portions); cake/drink/popcorn/dips items; extra snacks carry costPP directly; confirm base12 ingredient field names {n,amt,unit?} in live code."]
-        K5["DoD (CLAUDE.md §10): plan opens · k +/- rescales · shopping sums shared ingredients · scroll restores · node --check · live phone test."]
-    end
-
-    subgraph DONE["✅ DONE this session"]
-        D6["E1 Finger Foods → shared shoppingView (pushed)"]
-        DW3["CLAUDE.md at repo root"]
-        DP["price-audit.js tool (node Tools/price-audit.js)"]
-        DAL["50 aliases total (oil→sunflower, lamb→lamb neck, broths→stock, brewed espresso→coffee, greens→lettuce, pasta shapes, etc.)"]
-        DPR["46 real prices locked (Tina). 85%→91%. Watermelon≠melon fixed. Toum renamed."]
-    end
-
-    subgraph CONTENT["📝 PARKED — batched recipe session"]
-        C1["New recipes + cross-links: gnocchi, fresh pasta, pizza base, ciabatta, falafel, slap chips"]
-        C2["ranch dressing → Spice ▸ Salad Dressings · parsnip substitute note · pine-nut→macadamia trivia"]
-    end
-
-    subgraph EVENTS["⏳ AFTER KIDDIES — finish Events"]
+    subgraph NEXT["🎯 NEXT TASK — finish Events sameness"]
         E3["DELETE Cultural block (dead → World Kitchen)"]
         E4["EB2: selected sauces never reach buffet plan"]
         E5["Dead-code cull: buffetStep7 + S10 (dead fingerSummary/fingerShopListHTML)"]
+    end
+
+    subgraph STD["📐 LOCKED — KIDDIES PARTY MENU STANDARD (TINZA_KIDDIES_STANDARD.md)"]
+        ST1["CORE = 8 dishes/theme: 3 meaty · 2 savoury · 2 sweet · 1 healthy. Meaty = meaty:true flag on savoury type (no new browse cat)."]
+        ST2["ADD-ON SPINE: 1 cake · 1 popcorn (add-on ONLY) · 2 dips (was 3) · 1 crisps (120g per 4 kids) · cooldrink"]
+        ST3["PORTION = set amount per child, NO tiers (kids≠finger-foods, menu is curated not pick-your-own). Meaty 2 · savoury 2 · sweet 2 (1 if full-serving) · healthy 1 · cake 1 slice · popcorn 1 cup · crisps 30g · drink 400ml."]
+        ST4["COOLDRINK 400ml/child — homemade scaled to 4800ml/12 AND store-bought 2x200ml. Fixes current 208-417ml drift."]
+        ST5["PARKED knob: 'little/big kids' age-appetite toggle (x0.7) — NOT occasion tiers. Post-launch."]
+    end
+
+    subgraph KIDCONTENT["📝 NEXT-ish — Kiddies Standard rollout (fill plan READY, data-only)"]
+        KC1["FILL PLAN DECIDED → TINZA_KIDDIES_FILL_PLAN.md. 12 themes balanced to 3 meaty/2 sav/2 sweet/1 healthy; ~20 ➕ adds all from existing photographed library (chicken strips, viennas, meatballs, kebabs, sosaties, rump bites, margherita, cheese puffs/pinwheels, cupcakes, fruit skewers). Cake+drink already palette-matched. Over-count dishes → addable pool (not deleted)."]
+        KC2["Re-tag savoury→meaty/savoury · remove doubled popcorn (Unicorn, Space) + refill sweet · drop 1 dip x12 · rescale 12 drinks to 4800ml/12 · set per-child counts + rebuild base12"]
+    end
+
+    subgraph CONTENT["📝 PARKED — other recipe/data"]
+        C1["New recipes: gnocchi, fresh pasta, pizza base, ciabatta, falafel, slap chips"]
+        C2["ranch → Spice ▸ Salad Dressings · parsnip sub · pine-nut→macadamia trivia"]
+        C3["Tidy ~11 dip strings (kidsDipsRecipe ADD map) free-text → structured so dips cost fully. Non-blocking."]
+    end
+
+    subgraph DONE["✅ DONE — E2 Kiddies My Plan → buildPlanData"]
+        D1["kidsPlanDishes() adapter + kidsParseIng() parser; X_ snacks expanded (real base300, costed); crisps preserved; +/- → S.kidsCount; kidsToggleShop+S.kidsCheckedShop"]
+        D2["Culled: kidsConsolidate/kidsFmtAmt/kidsPrice/kidsAisle/kidsNorm. Kept: kidsKeyLabel, kidsPlanItems."]
+        D0["EARLIER: E1 Finger Foods shoppingView · CLAUDE.md root · price-audit.js · 50 aliases · 46 real prices (85→91%)"]
     end
 
     subgraph LATER["➡️ THEN"]
@@ -39,23 +43,25 @@ flowchart TD
     end
 
     subgraph PRICELEFT["💰 PRICE — open (non-blocking)"]
-        PL1["31 missing = mostly booze (skip) + niche; 80 alias gaps (diminishing returns)"]
-        PL2["PACK_DB ~95% gaps → lists show cooking amounts not packets. Checkers-gated, deferred"]
-        PSTAB["Run price-audit.js before+after data sessions to catch drift"]
+        PL1["31 missing = mostly booze (skip) + niche; 80 alias gaps"]
+        PL2["PACK_DB ~95% gaps → Checkers-gated, deferred"]
+        PSTAB["price-audit.js before+after data sessions"]
     end
 
     subgraph PARKED["🧩 PARKED FEATURES"]
         F1["Wedding Bar Planner (spec LOCKED)"]
         F3["Deluxe tier (level 0/1/2)"]
-        FSCOUT["Live price scout (Apify Checkers+PnP, monthly, flag deviations) — Roast-pass first, post-launch"]
+        FSCOUT["Live price scout (Apify) — Roast-pass first, post-launch"]
         MK["Marketing plan session (Canva+Cowork, Tinza-first)"]
     end
 
     LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · sameness + accurate costing"]
 
-    START --> PUSH --> NEXT --> EVENTS --> LATER --> LAUNCH
-    NEXT -.-> DONE
+    START --> PUSH --> NEXT --> LATER --> LAUNCH
+    NEXT -.-> STD
+    STD -.-> KIDCONTENT
     NEXT -.-> CONTENT
+    NEXT -.-> DONE
     LATER -.-> PRICELEFT
     PARKED -.-> LAUNCH
 
@@ -63,14 +69,14 @@ flowchart TD
     classDef next fill:#d98a2b,stroke:#2c211a,color:#2c211a
     classDef done fill:#46530c,stroke:#2c211a,color:#fff
     classDef content fill:#fbf3e6,stroke:#876213,color:#2c211a
-    classDef now fill:#fff3e0,stroke:#b5462b,color:#2c211a
+    classDef std fill:#3a2e0c,stroke:#c8a020,color:#f5e8cc
     classDef price fill:#876213,stroke:#2c211a,color:#fff
     classDef feat fill:#fffaf2,stroke:#b5462b,color:#2c211a
 
-    class PU1 push
-    class K0,K1,K2,K3,K4,K5 next
-    class D6,DW3,DP,DAL,DPR done
-    class C1,C2 content
-    class E3,E4,E5,A1,A2 now
+    class PU1,PU2 push
+    class E3,E4,E5,A1,A2 next
+    class D0,D1,D2 done
+    class ST1,ST2,ST3,ST4,ST5 std
+    class KC1,KC2,C1,C2,C3 content
     class PL1,PL2,PSTAB price
     class F1,F3,FSCOUT,MK feat
