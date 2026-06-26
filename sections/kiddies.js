@@ -37,46 +37,30 @@ function kidsName(label,rest){
 }
 
 
-// braai-style photo header
+// Shared section banner (sectionHeader) + the Events ←/🏠 nav strip, exactly like
+// the other Events sub-sections (buffet renders sectionHeader + eventsTopNav too).
+// Themed via the per-theme header image; emoji-on-gradient fallback when it 404s.
+// `tint` is no longer used (the banner is photo-based) — kept in the signature so
+// the existing call sites need no change.
 function kidsHeader(title,subtitle,backAction,backLabel,headerImg,tint){
-  tint = tint || 'var(--card2)';
-  return `${eventsTopNav('var(--accent)')}<div class="header" style="padding:0;overflow:hidden;">
-    <div style="position:relative;height:155px;background:linear-gradient(135deg,var(--card2) 0%,${tint} 100%);">
-      <img src="https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image%20header/${encodeURIComponent(headerImg)}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(8,4,2,0.88) 100%);"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px 10px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <button onclick="${backAction}" style="flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid var(--accent);color:var(--accent);font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;white-space:nowrap;">${backLabel}</button>
-        </div>
-        <h1 style="font-size:20px;font-weight:bold;color:var(--ink);margin:0 0 2px;text-shadow:0 2px 6px rgba(0,0,0,0.9);">${title}</h1>
-        <p style="margin:0;font-size:11px;color:var(--ink-mut);font-style:italic;">${subtitle}</p>
-      </div>
-    </div>
-  </div>`;
+  return eventsTopNav('var(--accent)') + sectionHeader({
+    title: title, emoji: '', tagline: subtitle,
+    img: 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image%20header/'+encodeURIComponent(headerImg||'')+'.jpg',
+    backJs: backAction, backLabel: backLabel
+  });
 }
 
-// how-it-works collapsible + kid counter + slider  (braai control bar)
+// Shared ± kid-count stepper (guestStepperCard) — the same stepper every My Plan
+// page uses. Slider dropped for sameness; the How-it-works copy rides in
+// portionHowHTML as a collapsible. +/- still drive S.kidsCount → rescales the plan.
 function kidsControlBar(k,openKey,isOpen,howHTML){
-  return `<div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;margin-bottom:10px;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button onclick="set({${openKey}:!S.${openKey}})" style="background:none;border:none;padding:0;color:var(--accent);font-size:12px;font-family:Georgia,serif;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;">
-        <span style="font-size:10px;">${isOpen?'▲':'▼'}</span>
-        <span style="text-decoration:underline;text-underline-offset:2px;">How it works</span>
-      </button>
-      <div style="width:1px;height:20px;background:var(--line2);flex-shrink:0;"></div>
-      <div style="display:flex;align-items:center;gap:8px;flex:1;">
-        <button onclick="set({kidsCount:Math.max(4,(S.kidsCount||12)-1)})" style="width:26px;height:26px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--accent);font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">−</button>
-        <span style="font-size:22px;color:var(--accent);font-weight:bold;min-width:28px;text-align:center;">${k}</span>
-        <button onclick="set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})" style="width:26px;height:26px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--accent);font-size:16px;line-height:1;cursor:pointer;flex-shrink:0;">+</button>
-        <input type="range" min="4" max="50" value="${k}" oninput="S.kidsCount=parseInt(this.value);draw();" style="flex:1;accent-color:var(--accent);height:4px;">
-      </div>
-      <span style="font-size:10px;color:var(--ink-mut);flex-shrink:0;">kids</span>
-    </div>
-    ${isOpen?`
-    <div onclick="event.stopPropagation()" style="margin-top:8px;padding:10px 12px;background:var(--card2);border-left:2px solid var(--accent);border-radius:0 6px 6px 0;">
-      <div style="font-size:12px;color:var(--ink-soft);line-height:2;">${howHTML}</div>
-    </div>`:''}
-  </div>`;
+  var how = `<div onclick="set({${openKey}:!S.${openKey}})" style="margin-top:10px;color:var(--accent);font-size:12px;font-family:Georgia,serif;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:10px;">${isOpen?'▲':'▼'}</span><span style="text-decoration:underline;text-underline-offset:2px;">How it works</span></div>${isOpen?`<div style="margin-top:6px;font-size:12px;color:var(--ink-soft);line-height:2;">${howHTML}</div>`:''}`;
+  return guestStepperCard({
+    label:'Kids', value:k, note:'the whole party menu scales to this',
+    decJs:"set({kidsCount:Math.max(4,(S.kidsCount||12)-1)})",
+    incJs:"set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})",
+    portionHowHTML: how
+  });
 }
 
 // budget pills removed (Easy/Medium/Fancy dropped — single menu per theme)
@@ -245,7 +229,7 @@ function kidsDrinkRecipe(th){
     base12:d.base12||{}, method:sb+(d.method||'Mix together and chill well. Serve cold.')};
 }
 function kidsCrispsRecipe(){
-  return {name:'Crisps', type:'crisps', emoji:'🥔', per:'¼ packet', kcal:130,
+  return {name:'Crisps', photoName:'Crisps', type:'crisps', emoji:'🥔', per:'¼ packet', kcal:130,
     base12:{crisps:'360g crisps'},
     method:'Buy one large (120g) packet of crisps for every 4 kids and tip into bowls. For a healthy table, swap the crisps for carrot and cucumber sticks plus rice cakes.'};
 }
@@ -369,12 +353,6 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       ${recCard('🥣',dipRec.name,'🥣 3 homemade dips · ~'+dipRec.kcal+' kcal · '+dipRec.time+' min',dipRec.name)}`;
   }
   else { // planner
-    const dShow=S.kidsShowDecor, tShow=S.kidsShowTimeline;
-    const box=(open,key,title,inner)=>`<div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:8px;">
-      <div onclick="set({${key}:!S.${key}})" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;min-height:24px;">
-        <div style="font-size:13px;color:var(--ink);font-weight:bold;font-family:Georgia,serif;">${title}</div>
-        <div style="font-size:11px;color:var(--accent);">${open?'▲ Hide':'▼ Show'}</div>
-      </div>${open?`<div onclick="event.stopPropagation()" style="margin-top:10px;">${inner}</div>`:''}</div>`;
     const dec=th.decor||{}, zones=th.zones||[], tl=th.timeline||{};
     const decorInner=`
       <div style="font-size:11px;color:var(--accent);margin-bottom:5px;">🌿 Budget Decor</div>${(dec.budget||[]).map(d=>`<div style="font-size:11px;color:var(--ink-soft);margin-bottom:3px;">· ${d}</div>`).join('')}
@@ -386,9 +364,9 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       ${tl.one?`<div style="display:flex;gap:8px;margin-bottom:6px;"><div style="font-size:16px;">🌙</div><div><div style="font-size:10px;color:var(--accent);">1 Day Ahead</div><div style="font-size:11px;color:var(--ink);">${tl.one}</div></div></div>`:''}
       ${tl.morning?`<div style="display:flex;gap:8px;"><div style="font-size:16px;">☀️</div><div><div style="font-size:10px;color:var(--accent);">Party Morning</div><div style="font-size:11px;color:var(--ink);">${tl.morning}</div></div></div>`:''}`;
     body = `
-      ${(dec.budget||dec.styled||zones.length)?box(dShow,'kidsShowDecor','🎈 Decor Ideas',decorInner):''}
-      ${(tl.two||tl.one||tl.morning)?box(tShow,'kidsShowTimeline','⏱️ Prep Timeline',tlInner):''}
-      ${th.games?`<div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink);font-weight:bold;font-family:Georgia,serif;margin-bottom:6px;">🎮 Party Games</div><div style="font-size:11px;color:var(--ink-soft);line-height:1.7;">${th.games}</div></div>`:''}
+      ${(dec.budget||dec.styled||zones.length)?recipeBox('🎈 Decor Ideas',decorInner):''}
+      ${(tl.two||tl.one||tl.morning)?recipeBox('⏱️ Prep Timeline',tlInner):''}
+      ${th.games?recipeBox('🎮 Party Games',`<div style="font-size:11px;color:var(--ink-soft);line-height:1.7;">${th.games}</div>`):''}
       ${((typeof tierAllows==='function')?tierAllows('pro'):false)
         ? `<div onclick="set({kidsScreen:'plan',kidsCategory:'plan'})" style="background:var(--card2);border:1px solid var(--accent);border-radius:10px;padding:16px;margin-bottom:8px;text-align:center;cursor:pointer;">
         <div style="font-size:13px;color:var(--accent);margin-bottom:4px;font-family:Georgia,serif;">📋 Full Shopping List</div>
