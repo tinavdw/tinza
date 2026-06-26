@@ -645,7 +645,8 @@ const PRICE_DB = {
   "edamame": 140,
   "granola": 163,
   "pepperoni": 550,
-  "asparagus": 513,
+  "asparagus": 513,           // fresh, 150g/R77 (Tina)
+  "tinned asparagus": 197,    // bottled/tinned 330g/R65 (Tina)
   "blackberries": 375,
   "grapefruit": 26,
   "peaches": 35,

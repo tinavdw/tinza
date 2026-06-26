@@ -1,87 +1,76 @@
 flowchart TD
-    START["🌙 TINZA — carry into new chat (session 26 Jun)"]
+    START["🌙 TINZA — carry into NEW chat. Costing now 91% real prices."]
 
-    subgraph PUSH["⬆️ PENDING PUSH (validated, node --check green)"]
-        PU1["prices.js → 1274 lines (45 Tina prices locked)"]
-        PU2["core.js → 3184 lines (42 aliases in; watermelon→melon alias removed)"]
-        PU3["events.js → faint 'Buying vs cooking' box removed (E1 polish)"]
+    subgraph PUSH["⬆️ ONE small re-push pending"]
+        PU1["prices.js — tinned asparagus R197 added (fresh stays R513). Last price change. Everything else already pushed ✓"]
+    end
+
+    subgraph NEXT["🎯 NEXT TASK — E2 Kiddies My Plan → buildPlanData (DECISION LOCKED)"]
+        K0["WHY buildPlanData not a 4th noCost adapter: real per-kid costing (cake+cooldrink now priced), auto dedup (normIngredientKey), auto aisle + pack-rounding, no debt to unwind. Buffet already proved the pattern."]
+        K1["SCOPE (read live first): kidsPlanItems() builds items each with base12 (ingredients for 12 kids). kidsPlanHTML() L738 renders bespoke cost (costPP×k) + shop."]
+        K2["ADAPTER: for each non-removed item, scale base12 ingredients by k/12 → {name, amt, unit, priceName}. Collect dishes[] → planView({dishes,...}) (copy Buffet buffet.js STEP 2 ~L687-752)."]
+        K3["REPLACES bespoke kidsPlanHTML cost+shop block with shared planView → buildPlanData → shoppingView. Keep per-kid (k) selector + theme/budget UI."]
+        K4["GOTCHAS: base12 scaling (×k/12 BEFORE feeding — buildPlanData never re-portions); cake/drink/popcorn/dips items; extra snacks carry costPP directly; confirm base12 ingredient field names {n,amt,unit?} in live code."]
+        K5["DoD (CLAUDE.md §10): plan opens · k +/- rescales · shopping sums shared ingredients · scroll restores · node --check · live phone test."]
     end
 
     subgraph DONE["✅ DONE this session"]
-        D6["E1 ✓ Finger Foods My Plan → shared shoppingView noCost (pushed)"]
-        DW3["W3 ✓ CLAUDE.md at repo root"]
-        DP["✓ price-audit.js tool (node Tools/price-audit.js) — re-run to catch drift"]
-        DAL["✓ Alias pass: 42 aliases (oil→sunflower, lamb→lamb neck per Cut Guide, nuts→mixed, black→red kidney, pasta shapes, etc.)"]
-        DPR["✓ 45 prices locked from Tina worklist → costing now 90% (was 85%). Genuinely-missing 80→31"]
+        D6["E1 Finger Foods → shared shoppingView (pushed)"]
+        DW3["CLAUDE.md at repo root"]
+        DP["price-audit.js tool (node Tools/price-audit.js)"]
+        DAL["50 aliases total (oil→sunflower, lamb→lamb neck, broths→stock, brewed espresso→coffee, greens→lettuce, pasta shapes, etc.)"]
+        DPR["46 real prices locked (Tina). 85%→91%. Watermelon≠melon fixed. Toum renamed."]
     end
 
-    subgraph PRICELEFT["💰 PRICE — still open"]
-        PL1["31 genuinely missing = mostly booze (quantity-only, may skip) + niche + non-food"]
-        PL2["2 flags set, change anytime: asparagus = fresh R513/kg (tinned alt R197); espresso = instant R800/kg (brewed-ml may over-cost)"]
-        PL3["PACK_DB still ~95% gaps → lists show cooking amounts not packets. Deferred, Checkers-gated"]
+    subgraph CONTENT["📝 PARKED — batched recipe session"]
+        C1["New recipes + cross-links: gnocchi, fresh pasta, pizza base, ciabatta, falafel, slap chips"]
+        C2["ranch dressing → Spice ▸ Salad Dressings · parsnip substitute note · pine-nut→macadamia trivia"]
     end
 
-    subgraph CONTENT["📝 CONTENT TO-DOs (batched recipe session)"]
-        C1["New recipes + cross-links: gnocchi, fresh pasta (egg+flour), pizza base, ciabatta, falafel, slap chips"]
-        C2["ranch dressing → Spice ▸ Salad Dressings"]
-        C3["coleslaw + atchar: recipes exist → just cross-link"]
-        C4["parsnip: add substitute note ('hard to find')"]
-        C5["pine-nut recipes (pesto): trivia note — macadamia = budget swap"]
-    end
-
-    subgraph EVENTS["⏳ FINISH EVENTS SAMENESS (locked order)"]
-        E2["E2 Kiddies My Plan → migrate (KIDS_THEMES in buffet.js) — decide AR3 first"]
-        E3["DELETE Cultural block (dead code → World Kitchen)"]
-        E4["EB2 bug: selected sauces never reach buffet plan"]
+    subgraph EVENTS["⏳ AFTER KIDDIES — finish Events"]
+        E3["DELETE Cultural block (dead → World Kitchen)"]
+        E4["EB2: selected sauces never reach buffet plan"]
         E5["Dead-code cull: buffetStep7 + S10 (dead fingerSummary/fingerShopListHTML)"]
     end
 
-    subgraph ARCH["🏗️ ARCHITECTURE (the real whole-app fix)"]
-        AR2["ENDGAME: route every plan through buildPlanData → dedup (normIngredientKey fixes cheddar-twice), costing, aisle, PACK_DB all FREE + identical"]
-        AR3["⚠️ Don't build E2 as a 4th noCost adapter by reflex — interim adapter, or buildPlanData migration as the template?"]
+    subgraph LATER["➡️ THEN"]
+        A1["Spice migration"]
+        A2["Roll buildPlanData to ALL remaining plans + universal opener + page-compare"]
     end
 
-    subgraph FEAT["🧩 QUEUED / PARKED"]
-        F1["Wedding Bar Planner (barplanner.js, Pro) — spec LOCKED"]
-        F3["Deluxe tier — gate level 0/1/2"]
-        FSCOUT["Live price scout — monthly GitHub Action + Apify (Checkers/Sixty60 + PnP), flag deviations. Drop Spar v1. Niche via search. Roast-pass first, post-launch"]
+    subgraph PRICELEFT["💰 PRICE — open (non-blocking)"]
+        PL1["31 missing = mostly booze (skip) + niche; 80 alias gaps (diminishing returns)"]
+        PL2["PACK_DB ~95% gaps → lists show cooking amounts not packets. Checkers-gated, deferred"]
+        PSTAB["Run price-audit.js before+after data sessions to catch drift"]
     end
 
-    subgraph WORK["⚙️ WORKFLOW"]
-        W1["Roast pass — business/launch calls (scout, Deluxe, marketing)"]
-        W2["DoD per migration (CLAUDE.md §10)"]
-        PSTAB["Run price-audit.js before+after data sessions — resolve% drop = something broke"]
-    end
-
-    subgraph MKTG["📣 MARKETING (own session, Roast first)"]
-        M1["Build marketing plan; Canva Pro + Cowork; Tinza-first → park Fermentastic"]
+    subgraph PARKED["🧩 PARKED FEATURES"]
+        F1["Wedding Bar Planner (spec LOCKED)"]
+        F3["Deluxe tier (level 0/1/2)"]
+        FSCOUT["Live price scout (Apify Checkers+PnP, monthly, flag deviations) — Roast-pass first, post-launch"]
+        MK["Marketing plan session (Canva+Cowork, Tinza-first)"]
     end
 
     LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · sameness + accurate costing"]
 
-    START --> PUSH --> DONE --> PRICELEFT --> EVENTS --> ARCH --> LAUNCH
-    DONE -.-> CONTENT
-    EVENTS -.-> WORK
-    CONTENT -.-> LAUNCH
-    FEAT -.-> LAUNCH
-    MKTG -.-> LAUNCH
+    START --> PUSH --> NEXT --> EVENTS --> LATER --> LAUNCH
+    NEXT -.-> DONE
+    NEXT -.-> CONTENT
+    LATER -.-> PRICELEFT
+    PARKED -.-> LAUNCH
 
     classDef push fill:#b5462b,stroke:#2c211a,color:#fff
+    classDef next fill:#d98a2b,stroke:#2c211a,color:#2c211a
     classDef done fill:#46530c,stroke:#2c211a,color:#fff
-    classDef price fill:#876213,stroke:#2c211a,color:#fff
     classDef content fill:#fbf3e6,stroke:#876213,color:#2c211a
-    classDef now fill:#d98a2b,stroke:#2c211a,color:#2c211a
-    classDef arch fill:#b5462b,stroke:#2c211a,color:#fff
+    classDef now fill:#fff3e0,stroke:#b5462b,color:#2c211a
+    classDef price fill:#876213,stroke:#2c211a,color:#fff
     classDef feat fill:#fffaf2,stroke:#b5462b,color:#2c211a
-    classDef work fill:#fbf3e6,stroke:#46530c,color:#2c211a
-    classDef mktg fill:#fffaf2,stroke:#d98a2b,color:#2c211a
 
-    class PU1,PU2,PU3 push
+    class PU1 push
+    class K0,K1,K2,K3,K4,K5 next
     class D6,DW3,DP,DAL,DPR done
-    class PL1,PL2,PL3 price
-    class C1,C2,C3,C4,C5 content
-    class E2,E3,E4,E5 now
-    class AR2,AR3 arch
-    class F1,F3,FSCOUT feat
-    class W1,W2,PSTAB work
-    class M1 mktg
+    class C1,C2 content
+    class E3,E4,E5,A1,A2 now
+    class PL1,PL2,PSTAB price
+    class F1,F3,FSCOUT,MK feat
