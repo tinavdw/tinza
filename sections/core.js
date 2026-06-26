@@ -657,7 +657,16 @@ function calcSideCost(side){
 // costRecipe() turns amounts into the COOK number now and the pack-rounded
 // BUY number the moment PACK_DB is live. Never fake a price — an unresolved
 // name returns null and the caller HIDES the figure (same as World).
-var PRICE_ALIAS = {  // ── E1 alias pass · Tina-confirmed (lamb=stewing/neck per cut guide; nuts=mixed; black=red kidney) ──
+var PRICE_ALIAS = {  // ── loose-ends alias pass (26 Jun): broths→stock, brewed espresso→coffee, greens→lettuce, gruyère ──
+  "mixed greens": "lettuce",
+  "vegetable broth": "low-sodium vegetable stock",
+  "low sodium vegetable broth": "low-sodium vegetable stock",
+  "low sodium broth": "stock",
+  "bone broth homemade or low sodium": "low-sodium bone broth",
+  "strong espresso chilled": "coffee",
+  "fresh espresso cooled": "coffee",
+  "gruy re or emmental grated fresh": "emmental cheese",
+  // ── E1 alias pass · Tina-confirmed (lamb=stewing/neck per cut guide; nuts=mixed; black=red kidney) ──
   "lamb": "lamb neck",
   "nuts": "mixed nuts",
   "black beans canned drained": "red kidney beans",

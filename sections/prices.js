@@ -658,7 +658,7 @@ const PRICE_DB = {
   "tamari": 867,
   "erythritol": 190,
   "xylitol": 190,
-  "espresso": 800,
+  "instant espresso": 800,   // R160/200g (Tina) — brewed espresso costs as coffee via alias
   "whipping cream": 148,
   "fresh cream": 148,
   "watermelon": 30,        // R30/kg — pre-cut bumps it (Tina, 26 Jun)
