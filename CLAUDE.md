@@ -1,161 +1,155 @@
-# CLAUDE.md — Tinza working agreement (read this first, every session)
+# CLAUDE.md — Tinza
 
-> Auto-loaded by Claude Code at the start of every session. This is the operational spine.
-> The **deep** standard lives in `TINZA_STANDARD.md`. **If this file and chat ever disagree, the Standard wins.**
-
----
-
-## ⚠️ RULE ZERO — SAMENESS IS LAW (top priority, no exceptions)
-
-**Every single page must LOOK and FUNCTION identically.** This applies to:
-- finished pages,
-- half-built pages,
-- **and pages that don't exist yet.**
-
-A new section is **born matching the standard** — it is never built loose and "made to match later." If you scaffold a page, you scaffold it from the standard on line one.
-
-**The reference implementations are World Kitchen and Braai.** They ARE the standard — we're close to locking them as the gold pair, and everything else follows from them. When anything is ambiguous, open World Kitchen and Braai, and copy them **exactly**.
-
-Sameness is required **down to the smallest detail**: header photo treatment + height, the My Plan white overlay pill, collapsible behaviour, box styling, pill rows, nav, spacing, colours, and font sizes (title 22 / name 16 / line 14 / labels 13 / body 16). **Rooms differ ONLY by photo + emoji — nothing else.**
-
-**Mechanism (this is the whole game):** sameness comes ONLY from shared `core.js` functions — *build once, call everywhere.* If two pages differ, the fix is to route BOTH through the same shared function. **Never** hand-patch one page to imitate another — that creates drift, and drift is the enemy.
-
-> Before declaring any page "done," open it beside World Kitchen and Braai and confirm pixel-for-pixel, behaviour-for-behaviour parity.
+> Read this every session before touching code. These are **locked rules**, not suggestions.
+> Repo: `tinavdw/tinza` · Live: https://tinza.netlify.app · Vanilla JS, modular `sections/` + shared `core.js`.
 
 ---
 
-## 0. Session protocol (do this before touching any code)
+## 0. RULE ZERO — SAMENESS (top priority)
 
-1. Open **https://tinza.netlify.app** and confirm what currently works. Don't trust memory — confirm.
-2. Read the two governing docs fresh (they may have changed since this file):
-   - `TINZA_STANDARD.md` (v1.8 — design + portion + costing law)
-   - `TINZA_HANDOFF.md` (running backlog + last session's to-do)
-   - Fetch via `curl -sL raw.githubusercontent.com/tinavdw/tinza/main/<path>` — **never** the GitHub API.
-3. **`TINZA_STANDARD.md` wins over anything said in chat.**
-4. `node --check sections/<file>.js` must pass before any file is committed. No exceptions.
-5. Close every session by updating `TINZA_HANDOFF.md`: summary + Mermaid flowchart + full to-do + carried backlog.
+Every page looks and functions **identically**. Uniformity comes **ONLY** from shared `core.js`
+functions using `var(--token)` — never from per-section hand-rolled markup, never hardcoded hex.
 
----
+- Shared builds ALWAYS roll to **ALL** sections simultaneously.
+- If two sections differ, that is a bug to close, not a style choice.
+- Shared renderers: `warmCard`, `recipeRow`, `qtyBox`, `sectionHeader`, `methodStep`,
+  `crossLinkBox`, `goesWellBox`, `planDishRow`, `shoppingView`, `planView`, `recipePage`.
 
-## 1. What Tinza is
-
-SA recipe & catering PWA. **Vanilla JS, no framework, no build step.**
-- Repo: `tinavdw/tinza`, branch `main`. Live: `tinza.netlify.app`. Local clone: `…\Documents\GitHub\tinza`.
-- Deploy: push to `main` → Netlify auto-builds.
-- Shape: a 98-line `index.html` shell loads `core.js` + the section files in `sections/`.
-- No test suite, no bundler. "Build" = `node --check`. "Test" = load the live site and click through against World/Braai.
+**Migration sequence (Standard §10):**
+recipe-opener migrations → cross-links → ONE shared plan-row + shopping renderer → cosmetic sweep LAST.
+**Tactical order right now:** FINISH EVENTS → Spice → universal opener + page-compare.
 
 ---
 
-## 2. Architecture — the rules that keep it sane
+## 1. STABILITY RULES (non-negotiable)
 
-**`core.js` is sacred.** Before editing it: back it up and note `wc -l` before/after. It holds everything shared:
-- Universal recipe opener: `openRecipe(section,id)`, `closeRecipe()`, `RECIPE_SOURCES`, `RECIPE_BUILDERS`
-- Shared UI builders: `sectionHeader()`, `qtyBox()`, `recipePhoto()`
-- Pricing engine: `lookupPrice()`, `ingredientCost()`, `calcRecipeCost()`, plus `PRICE_DB` + ingredient aliases
-- The portion brain (`calcMeat`, portion tables)
-
-**Section files** (each must match Braai **v33** exactly — see Rule Zero):
-`data.js` (Braai) · `worldkitchen.js` + `wk_southafrica.js` / `wk_europe.js` / others · `health.js` · `kiddies.js` · `buffet.js` · `eventsData.js` · `spice.js` · `meals.js` · `prices.js`.
-
-**Rendering:** state-driven, set/draw pattern (set state → redraw).
+1. **Never edit a working section** unless that section IS the session's purpose.
+2. **Start every session at https://tinza.netlify.app** — confirm what works before changing anything.
+3. **GitHub is the backup.** If something breaks, restore from the last commit.
+4. **`node --check` before every push.** No exceptions.
+5. **Go into the actual live code to verify.** Never trust summaries or stale line numbers.
+6. **Every section matches braai v33 exactly.** No exceptions.
 
 ---
 
-## 3. Locked standards (the non-negotiables)
+## 2. PUSH WORKFLOW (GitHub Desktop)
 
-**Portion brain (Standard §6.1).** Everyday g: boneless 180 / bone-in 250 / fish 160 / veg 200 / side 150. BRAAI tier: boneless 300 / bone-in 400 / fish 280 / shellfish 320. Taper per extra guest: 1=100% · 2=70% · 3=58% · 4+=50% each, then +10% buffer + appetite. **Braai `calcMeat` uses per-meat `soloG`/`sharedG` in `data.js` as the single source of truth** — the flat `PORTION_BRAAI` cut-class override must **not** be reintroduced. Kebabs counted RAW, not by skewer.
-
-**Free / Pro (R50/mo, no third-party ads ever).**
-- FREE: browse + cook/view full recipes + scale with ± + 1 dietary restriction + calories shown + Anchor Ingredient. **No cost figures, no My Plan, no shopping, no nutrition breakdown.**
-- PRO: everything else — cost (food cost pp + total, green `qtyBox` cost line, gold shop-spend total) + My Plan + shopping + downloads + full nutrition + all dietary restrictions + AI Chef + pantry + leftovers + monthly letter + community + magazine.
-- Calories always free; nutrition breakdown is a Pro toggle. `planView` + `shoppingView` are Pro (peekable lock for free).
-
-**Two-cost model (app-wide).** "What the food costs" (exact grams) vs "What you'll spend at the shops" (pack-rounded). **One** shared Braai+WK+Events plan/shopping renderer. Pantry items grouped as "you may already have."
-
-**Plan dish-row (Standard §4c).** name + grams TOTAL under name ("480g total") + GREEN per-dish food-cost TOTAL on the right (`#c8e840`, label "Food cost", total for all guests not per person, hidden if unpriced). Gold `#f5c842` = shopping list only.
-
-**Ingredient standard.** Name = what you BUY, matching `PRICE_DB`. Amount = weight (g/kg) + pack hint; count for unit-sold items. One ingredient per line, no "+" lines. Prep goes in the METHOD, not the name.
-
-**Gelatin / coffee (locked 16 Jun).** Gelatin: bloom in cold water (~5× its weight) → dissolve gently, never boil; 10g/500ml soft, 15–20g/500ml firm, leaf 1≈2g. Gelatin is a **costed ingredient, not pantry.** Coffee: ~1 tsp (5ml) instant / 250ml water; ~2 tsp/250ml for a tiramisu dip. Never "add coffee".
-
-**Pricing convention.** Duplicate entry → take the dearer. Single range → take the middle. Walnuts R37/100g · Kudu R195/kg · Parmesan block R500/kg (ingredient) / grated R100/150g (topping) · fresh herbs R13/20g.
-
-**Voice & design — "quiet kitchen energy."** Terse, knowing, slightly wry; plain words with adult thoughts; warmth earned through specific sensory detail; never explain down to the reader. A "How This Feels" one-liner on every recipe.
+1. `node --check` each changed file.
+2. In GitHub Desktop: **Show in Explorer** → drag file into `sections/` → delete old →
+   rename / Replace → commit → push.
+3. `LF→CRLF` warning is **harmless** — ignore it.
+4. **Netlify is credit-based.** Batch validated files into ONE push. Turn off unneeded deploy previews.
+5. **PWA service-worker caches aggressively** — clear cache + reopen after every deploy.
+6. Always push to GitHub after each completed session.
 
 ---
 
-## 4. Build sequence (don't skip ahead)
+## 3. DESIGN SYSTEM (locked)
 
-`recipe-opener migrations` → `cross-links` → `ONE shared plan-row + shopping renderer` → `cosmetic sameness sweep` → `then fill recipes`.
+**Palette — warm Spice, ships LIGHT + DARK (dark = intentional night mode, not drift).**
 
-Note: per Rule Zero, sameness is not only the late "cosmetic sweep" — it is enforced **as you build**, on every page, the moment it's touched or created.
+| Use | Token / Hex | Rule |
+|-----|-------------|------|
+| Food-cost **text** | deeper green `#46530c` | GREEN = food cost ONLY |
+| Shop-spend **text** | deeper gold `#876213` | GOLD = shop-spend ONLY |
+| Accent dots / chip fills | bright green `#c8e840` · bright gold `#f5c842` | fills only, never text |
 
-Tactical order in flight: **finish Events → Spice → compare all ready pages.**
+**Never mix green and gold meaning.** Green = food cost. Gold = shop-spend. Full stop.
 
----
+**Fonts:** Mulish = body/UI · Fraunces = h1/h2/h3/titles · DM Mono = numbers/chips.
 
-## 5. Current backlog (snapshot — keep in sync with TINZA_HANDOFF.md)
-
-**Baseline is current:** the 7 files from 16 Jun (`meals.js`, `prices.js`, `core.js`, `spice.js`, `health.js`, `wk_europe.js`, `eventsData.js`) **plus the latest meals work are pushed to `main`.**
-
-### Immediately next: CROSS-LINKS (its own session)
-- Build `openBakesRecipe(id)` helper — breads are **not** on the universal opener yet.
-- Inspect `worldkitchen.js` recipe builder to see how links render.
-- Wire the 9 links: Hawawshi→pita · Rfissa→msemen · Beyti→lavash · Zapiekanka→baguette · Bauernschmaus→dumplings · Hortobágyi→pancakes · Risalamande→cherry sauce · Prinsesstårta→sponge · Kottu→godamba.
-
-### Carried backlog
-- Events opener migration → shared §4c plan-row renderer → Events My Plan white overlay → cull dead Events code.
-- ONE shared plan-row + shop-spend total renderer across Braai / World Kitchen / Events.
-- Braai "Start Cooking" bug: `openCookingMode()` is undefined repo-wide — give Braai the migrated cook-mode pattern, or remove the button as interim.
-- Marinade scaling in `buildShoppingList()` (~line 713) still uses the old `meatSpreadMult` model — only main-protein portion was corrected.
-- Recipe corrections #3, #4, #7, #8 (awaiting screenshots/text).
-- Kiddies: `icing_butter`/`icing_milk` → plain butter/milk sweep across all 12 themes; cooldrink unify to 400ml/kid + ± adjuster; full methods/ingredients audit.
-- Spice cross-links; then fill recipes (recipes filled LAST, after the spine is uniform).
-
-### Optional / parked
-- Price last pantry odds: `sambar`, `khmeli suneli`, `tarhana` (fine unpriced as pinch pantry).
-- Decide whether `bf-pancakes` moves from Breakfast into Bakes.
+**Hard rule:** sameness only via shared `core.js` functions using `var(--token)`. Never hardcode hex in a section.
 
 ---
 
-## 6. Flowchart
+## 4. COSTING (locked §6.4 / §4c)
 
-```mermaid
-flowchart TD
-  ZERO["RULE ZERO · every page identical — finished, half-built, and not-yet-built · World + Braai = standard · sameness only via shared core.js"]
-
-  ZERO --> ROOT["Build sequence"]
-  ROOT --> OPEN["1 · recipe-opener migrations"]
-  OPEN --> XL["2 · cross-links"]
-  XL --> REN["3 · ONE shared plan-row + shopping renderer"]
-  REN --> COS["4 · sameness sweep"]
-  COS --> FILL["5 · fill recipes (LAST)"]
-
-  OPEN --> EV["Events: opener migration → §4c plan-row → My Plan overlay → cull dead code"]
-  OPEN --> BR["Braai: fix openCookingMode() undefined"]
-
-  XL --> XLNEXT["NEXT SESSION: openBakesRecipe() helper → inspect worldkitchen.js builder → wire 9 links"]
-
-  ROOT --> BUGS["Known bugs / debt"]
-  BUGS --> B1["Marinade scaling buildShoppingList ~L713 still old meatSpreadMult"]
-  BUGS --> B2["Corrections #3 #4 #7 #8 — awaiting screenshots"]
-
-  ROOT --> KID["Kiddies: icing sweep · 400ml/kid cooldrink + ± · methods audit"]
-```
+- **Plan dish-row** = dish name + grams TOTAL under the name + GREEN per-dish food-cost TOTAL
+  on the right (label "Food cost").
+- **Gold = shopping list only** — the two-total shopping view:
+  - "What food costs" (green) + "What you'll spend" (gold) + plain-English gap explanation.
+- `shoppingView` additive hooks (backward-compatible, byte-identical for food sections):
+  - `qtyStr` = pre-formatted qty per item.
+  - `noCost` = hide cost totals/explainer (used by Beverages, Cakes).
 
 ---
 
-## 7. Commands cheat-sheet
+## 5. PORTION BRAIN (locked §6.1)
 
-```bash
-# verify a file parses (before every commit)
-node --check sections/core.js
+- Everyday grams: boneless **180**, bone-in **250**, fish **160**, veg **200**, side **150**.
+- BRAAI tier: boneless **300**, bone-in **400**, fish **280**, shellfish **320**.
+- `calcMeat` reads the **CUT** via `braaiBaseG` (`BRAAI_CUT → PORTION_BRAAI`),
+  **NOT** per-meat `soloG`/`sharedG`.
+- Taper: 1 = 100%, 2 = 70%, 3 = 58%, 4+ = 50% each. Then +10% buffer + appetite.
+- Excluded from taper: Budget / Tiny / Furry / Anchor.
 
-# pull a governing doc fresh
-curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_STANDARD.md
-curl -sL raw.githubusercontent.com/tinavdw/tinza/main/TINZA_HANDOFF.md
+---
 
-# line-count guard before/after editing core.js
-wc -l sections/core.js
-```
+## 6. FREE / PAID (locked)
+
+- **No third-party ads. Ever.**
+- **Pro = R50/month (FINAL).** Matches SA market.
+- **Access gate = numeric tier level** `0 = Free`, `1 = Pro`, `2 = Deluxe` — **NOT a boolean.**
+  (Lets Deluxe land later without re-plumbing.)
+- **Free:** browse · cook/view full recipes · scale +/- · 1 dietary restriction · calories ·
+  Anchor Ingredient open.
+- **Pro:** everything else — cost · My Plan · shopping · downloads · full nutrition breakdown ·
+  all dietary restrictions · AI Chef · pantry · leftovers · etc.
+- **Calories always free; full nutrition breakdown = Pro.**
+
+---
+
+## 7. INGREDIENT STANDARD
+
+- **Name** = what you BUY, matching `PRICE_DB`.
+- **Amount** = weight (g/kg) + pack hint.
+- **One ingredient per line.** No "+" combined lines. (Split "Oil and butter" etc. into priceable items.)
+- **Prep goes in METHOD**, never in the ingredient name.
+- Duplicate rules: same dish + same name → keep most comprehensive.
+  Same ingredients + different cultural names → keep both.
+
+---
+
+## 8. EVENTS ARCHITECTURE (locked)
+
+- "Events" is an **umbrella name only**.
+- Every item — **Buffet · Cakes · Beverages · Finger Foods · Kiddies** — is an equal standalone
+  section with its **OWN My Plan**.
+- **Cultural tab deleted** (content → World Kitchen). Do NOT migrate the Cultural block — delete it.
+- **Finger Foods = its own standalone section.**
+
+---
+
+## 9. NAMING
+
+- "Starchy" / "Starches" → **"Side Meals"** everywhere.
+- Toum master name = **"Toum (Garlic Cream)"**.
+
+---
+
+## 10. DEFINITION OF DONE (verify before saying "done")
+
+A migration is NOT done until Claude has **verified in live code**:
+
+- [ ] My Plan **opens** for the section.
+- [ ] Scale **+/-** works and re-costs correctly.
+- [ ] Shopping list **sums shared ingredients** across selected dishes (no silent drops; counts/eggs appear).
+- [ ] **Scroll restores** on back-nav (popstate → `root._savedScroll` → `draw()`).
+- [ ] Routing/dispatch: no stale tab short-circuit; selected sauces reach the plan.
+- [ ] `node --check` passes on every changed file.
+
+Keep this WRITTEN (not Playwright). When a bug recurs, log it in **Known Issues** so it can't silently return.
+
+---
+
+## 11. SESSION WORKFLOW
+
+1. Start from **`TINZA_NOW.mermaid`** (canonical session-state). It's uploaded at session start,
+   updated at session end.
+2. **Verify findings in live code** — never trust summaries or stale line-number references.
+3. Hand back **exact Claude Code briefs**: find/replace anchors + backup command + `node --check`,
+   in ONE pasteable block.
+4. End every session with an **updated flowchart**.
+
+**Reference docs:** `TINZA_BUILD_CHECKLIST.md` (Part 1 = A–P checklist, Part 2 = locked design system) ·
+`TINZA_WEDDING_BAR_PLANNER.md` · `TINZA_SPICE_MIGRATION.md`.

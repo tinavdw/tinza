@@ -780,83 +780,12 @@ function eventsHTML(){
       }).join('')}
     </div>`;
 
-    // ── Consolidated shopping list — categorised by supermarket aisle ──
-    const MEAT_KEYS    = ['chicken','beef','lamb','pork','mince','prawn','calamari','salmon','tuna','sardine','fish','salami','ham','bacon','biltong','turkey','wors','sausage','boerewors'];
-    const DAIRY_KEYS   = ['egg','milk','cream','butter','cheese','mozzarella','parmesan','brie','feta','cream cheese','yoghurt','kefir','goat milk'];
-    const PRODUCE_KEYS = ['tomato','onion','garlic','lemon','basil','parsley','dill','thyme','coriander','chive','rocket','spinach','cucumber','fig','mushroom','pepper','pineapple','avocado','potato','zucchini','apple','celery','jalap','ginger','lettuce'];
-    const BAKERY_KEYS  = ['bread','flour','dough','yeast','ciabatta','sourdough','pastry','puff'];
-    const PANTRY_KEYS  = ['oil','vinegar','mayo','mayonnaise','mustard','ketchup','salt','pepper','sugar','honey','pesto','capers','balsamic','worcestershire','paprika','cumin','oreganum','cayenne','soy','tahini','jam','sauce','paste','stock','oat','rice','pasta','coconut','chocolate'];
-
-    function categorise(name){
-      const n = name.toLowerCase();
-      if(MEAT_KEYS.some(k=>n.includes(k))) return 'meat';
-      if(DAIRY_KEYS.some(k=>n.includes(k))) return 'dairy';
-      if(PRODUCE_KEYS.some(k=>n.includes(k))) return 'produce';
-      if(BAKERY_KEYS.some(k=>n.includes(k))) return 'bakery';
-      if(PANTRY_KEYS.some(k=>n.includes(k))) return 'pantry';
-      return 'other';
-    }
-
-    const ingredientMap = {};
-    function addIngredient(name, pp, unit, qty, fromDish){
-      if(pp==null||qty==0) return;
-      const raw = pp * qty;
-      const key = name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
-      if(ingredientMap[key]){
-        ingredientMap[key].raw += raw;
-        if(fromDish && !ingredientMap[key].dishes.includes(fromDish)) ingredientMap[key].dishes.push(fromDish);
-      } else {
-        ingredientMap[key] = {name, raw, unit, cat:categorise(name), dishes:fromDish?[fromDish]:[]};
-      }
-    }
-    selectedItems.forEach(r=>{
-      const totalPcs = piecesPerType * guests;
-      (r.base300||[]).forEach(i=>{
-        if(i&&i.n&&i.pp!=null) addIngredient(i.n, i.pp, i.u||'', totalPcs, r.name);
-      });
-    });
-
-    function fmtShop(raw, unit){
-      const u = unit||'';
-      if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
-      if(u==='slices') return Math.ceil(raw)+' slices';
-      return Math.round(raw*10)/10+(u||'');
-    }
-
-    const CAT_ORDER = ['meat','dairy','produce','bakery','pantry','other'];
-    const CAT_LABELS = {meat:'🥩 Butchery & Meat', dairy:'🥛 Dairy & Fridge', produce:'🥦 Fresh Produce', bakery:'🍞 Bakery', pantry:'🫙 Pantry & Dry Goods', other:'🛒 Other'};
-
-    const allShopItems = Object.values(ingredientMap);
-
-    function buildShopHTML(){
-      if(!allShopItems.length) return '';
-      var cart = S.fingerShopCart||{};
-      var html = '<div style="margin-bottom:16px;">';
-      html += '<div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">🛒 Shopping List — All '+guests+' Guests</div>';
-      html += '<div style="font-size:13px;color:var(--accent);margin-bottom:10px;">Sorted by supermarket aisle · tap to tick off · shared note = used in multiple dishes</div>';
-      CAT_ORDER.forEach(function(cat){
-        var items = allShopItems.filter(function(i){return i.cat===cat;}).sort(function(a,b){return shopSortKey(a.name).localeCompare(shopSortKey(b.name));});
-        if(!items.length) return;
-        html += '<div style="margin-bottom:12px;">';
-        html += '<div style="font-size:13px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--line2);margin-bottom:6px;">'+CAT_LABELS[cat]+'</div>';
-        items.forEach(function(i){
-          var display = fmtShop(i.raw, i.unit);
-          var key = i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
-          var inCart = cart[key];
-          var shared = i.dishes.length>1 ? ' <span style="font-size:13px;color:var(--ink-mut);">· '+i.dishes.length+' dishes</span>' : '';
-          html += '<div onclick="fingerShopToggle(\''+key+'\')" ';
-          html += 'style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer;opacity:'+(inCart?'0.4':'1')+';">';
-          html += '<div style="width:20px;height:20px;border-radius:4px;border:2px solid '+(inCart?'var(--accent)':'var(--line2)')+';background:'+(inCart?'var(--accent)':'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:white;">'+(inCart?'✓':'')+'</div>';
-          html += '<span style="flex:1;font-size:13px;color:'+(inCart?'var(--ink-soft)':'var(--ink-soft)')+';text-decoration:'+(inCart?'line-through':'none')+';">'+i.name+shared+'</span>';
-          html += '<span style="font-size:13px;color:'+(inCart?'var(--ink-soft)':'var(--gold)')+';font-weight:bold;flex-shrink:0;">'+display+'</span>';
-          html += '</div>';
-        });
-        html += '</div>';
-      });
-      html += '</div>';
-      return html;
-    }
-    var shopHTML = buildShopHTML();
+    // ── Consolidated shopping list → shared shoppingView (E1 migration) ──
+    const shopItems = fingerShopItems(selectedItems, piecesPerType*guests);
+    const fingerWaMsg = encodeURIComponent(
+      '🥪 Finger Food Shopping List — '+guests+' guests\n\n'
+      + shopItems.map(function(it){ return '• '+it.name+': '+it.qtyStr; }).join('\n')
+    );
     return `<div>
       ${fingerQuickNav('myplan')}
 
@@ -871,23 +800,15 @@ function eventsHTML(){
       </div>
 
       ${byDishHTML}
-      ${shopHTML}
-      ${allShopItems.length ? packSizeNote('var(--accent)') : ''}
-
-      ${(()=>{
-        if(!allShopItems.length) return '';
-        const wa = 'https://wa.me/?text='+encodeURIComponent(
-          '🛒 *Finger Food Shopping List — '+guests+' guests*\n\n'
-          + CAT_ORDER.map(cat=>{
-              const items = allShopItems.filter(i=>i.cat===cat).sort((a,b)=>shopSortKey(a.name).localeCompare(shopSortKey(b.name)));
-              if(!items.length) return '';
-              return '*'+CAT_LABELS[cat]+'*\n'+items.map(i=>'• '+i.name+': '+fmtShop(i.raw,i.unit)).join('\n');
-            }).filter(Boolean).join('\n\n')
-        );
-        return `<a href="${wa}" target="_blank" style="display:block;width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #25d366;background:var(--bg);color:#25d366;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;box-sizing:border-box;">
-          📲 Send Shopping List via WhatsApp
-        </a>`;
-      })()}
+      ${shoppingView({
+        items: shopItems,
+        totals: { cookTotal:null, buyTotal:null },
+        checked: S.checkedFingerItems||{},
+        toggleFn: 'fingerToggleShop',
+        shareJs: shopItems.length ? `window.open('https://wa.me/?text=${fingerWaMsg}','_blank')` : '',
+        noCost: true
+      })}
+      ${shopItems.length ? packSizeNote('var(--accent)') : ''}
       <button onclick="set({fingerView:'browse'})" style="width:100%;padding:12px;margin-top:4px;border-radius:10px;border:1px solid var(--line2);background:var(--card2);color:var(--accent);font-size:13px;cursor:pointer;">
         ← Back to Browse
       </button>
@@ -2178,3 +2099,40 @@ function cakeShopItems(selRecipes, cakeG){
   return Object.keys(shopMap).map(function(k){ var e=shopMap[k]; return { name:e.name, qtyStr:fmt(e), aisle:'🎂 Baking & Cake' }; });
 }
 window.cakeToggleShop = function(name){ var m=Object.assign({}, S.checkedCakeItems||{}); m[name]=!m[name]; setQuiet({checkedCakeItems:m}); };
+
+// 🥪 Finger-food shopping (E1) — per-piece amounts × total pieces, accumulated by
+// ingredient, multi-aisle categorised + pre-sorted, fed to shared shoppingView({noCost:true}).
+function fingerShopItems(selectedItems, totalPcs){
+  var MEAT_KEYS=['chicken','beef','lamb','pork','mince','prawn','calamari','salmon','tuna','sardine','fish','salami','ham','bacon','biltong','turkey','wors','sausage','boerewors'];
+  var DAIRY_KEYS=['egg','milk','cream','butter','cheese','mozzarella','parmesan','brie','feta','cream cheese','yoghurt','kefir','goat milk'];
+  var PRODUCE_KEYS=['tomato','onion','garlic','lemon','basil','parsley','dill','thyme','coriander','chive','rocket','spinach','cucumber','fig','mushroom','pepper','pineapple','avocado','potato','zucchini','apple','celery','jalap','ginger','lettuce'];
+  var BAKERY_KEYS=['bread','flour','dough','yeast','ciabatta','sourdough','pastry','puff'];
+  var PANTRY_KEYS=['oil','vinegar','mayo','mayonnaise','mustard','ketchup','salt','pepper','sugar','honey','pesto','capers','balsamic','worcestershire','paprika','cumin','oreganum','cayenne','soy','tahini','jam','sauce','paste','stock','oat','rice','pasta','coconut','chocolate'];
+  var AISLE={meat:'🥩 Butchery & Meat',dairy:'🥛 Dairy & Fridge',produce:'🥦 Fresh Produce',bakery:'🍞 Bakery',pantry:'🫙 Pantry & Dry Goods',other:'🛒 Other'};
+  var ORDER=['meat','dairy','produce','bakery','pantry','other'];
+  function cat(name){ var n=(name||'').toLowerCase();
+    if(MEAT_KEYS.some(function(k){return n.indexOf(k)>-1;}))return 'meat';
+    if(DAIRY_KEYS.some(function(k){return n.indexOf(k)>-1;}))return 'dairy';
+    if(PRODUCE_KEYS.some(function(k){return n.indexOf(k)>-1;}))return 'produce';
+    if(BAKERY_KEYS.some(function(k){return n.indexOf(k)>-1;}))return 'bakery';
+    if(PANTRY_KEYS.some(function(k){return n.indexOf(k)>-1;}))return 'pantry';
+    return 'other'; }
+  var map={};
+  (selectedItems||[]).forEach(function(r){
+    (r.base300||[]).forEach(function(i){
+      if(!i||!i.n||i.pp==null) return;
+      var key=i.n.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
+      var raw=i.pp*totalPcs;
+      if(map[key]){ map[key].raw+=raw; }
+      else { map[key]={name:i.n, raw:raw, unit:i.u||'', cat:cat(i.n)}; }
+    });
+  });
+  function fmt(raw,unit){ var u=unit||'';
+    if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
+    if(u==='slices') return Math.ceil(raw)+' slices';
+    return Math.round(raw*10)/10+(u||''); }
+  return Object.keys(map).map(function(k){ return map[k]; })
+    .sort(function(a,b){ var d=ORDER.indexOf(a.cat)-ORDER.indexOf(b.cat); return d!==0?d:shopSortKey(a.name).localeCompare(shopSortKey(b.name)); })
+    .map(function(e){ return { name:e.name, qtyStr:fmt(e.raw,e.unit), aisle:AISLE[e.cat] }; });
+}
+window.fingerToggleShop = function(name){ var m=Object.assign({}, S.checkedFingerItems||{}); m[name]=!m[name]; setQuiet({checkedFingerItems:m}); };
