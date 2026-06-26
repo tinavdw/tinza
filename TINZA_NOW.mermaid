@@ -1,69 +1,83 @@
 flowchart TD
-    START["🌙 TINZA — carry into NEW chat. Costing 91% real. Kiddies plan on shared engine + Kiddies menu STANDARD now locked."]
+    START["🌙 TINZA — carry into NEW chat. Costing 91% real. LIVE: kiddies+prices (5256871) + E4 sauces-in-allPortioned (cd35b47) + buffetStep8 Sauces-step sameness (pics/open/add work). STAGED → one buffet.js push, 2 fixes: (1) planDishes sauce rows L745 [applied], (2) Start-again reset L751 add eventSelectedSauces:[] [to apply]. Closes the full sauce chain: select→open→rows→totals→reset all consistent."]
 
-    subgraph PUSH["⬆️ NEXT PUSH (batched — Netlify credits)"]
-        PU1["prices.js — tinned asparagus R197 (fresh stays R513)"]
-        PU2["kiddies.js — E2 My Plan on shared planView→buildPlanData→shoppingView. node --check ✓, harness-proven (2.0× scaling, snacks expand, dips lossiness inherited). Push BOTH together."]
+    subgraph PUSH["⬆️ NEXT PUSH — one buffet.js commit, 2 staged sauce fixes"]
+        PU1["(1) planDishes sauce rows — APPLIED L745: courseDishes(sauces, '🥫 SAUCES & GRAVIES', 'eventSelectedSauces'). Fixes 'cant go to plan' (sauces were only in allPortioned totals/count, never the rendered rows). node --check PASS, staged."]
+        PU2["(2) Start-again reset — APPLIED L752: added eventSelectedSauces:[] after eventSelectedDesserts:[] (it cleared 5 courses but forgot sauces → stale sauces lingered after reset). node --check PASS, staged. → push BOTH, clear cache, test sauces-only plan populates + Start-again clears sauces."]
     end
 
-    subgraph NEXT["🎯 NEXT TASK — finish Events sameness"]
-        E3["DELETE Cultural block (dead → World Kitchen)"]
-        E4["EB2: selected sauces never reach buffet plan"]
-        E5["Dead-code cull: buffetStep7 + S10 (dead fingerSummary/fingerShopListHTML)"]
+    subgraph NEXT["🎯 NEXT TASK — finish Events sameness (E4 done)"]
+        E3["E3 — DELETE Cultural block. ⚠️ NOT a one-liner: ~180 live-looking lines events.js 1270-1451 + NAV_KEYS (activeCulturalGroup/activeCulturalRecipe) + culturalGroupGo() core.js:3025 + activeCulturalRecipe setter meals.js:2378 + EVENTS_CULTURAL data + eventSelectedCultural state. Audit reachability first, then careful excision."]
+        E5["E5 — Dead-code cull, RE-SCOPED. ✅ Cull ONLY dead fingerSummary (events.js:820, zero callers) + fingerShopListHTML (only called inside fingerSummary). ❌ buffetStep7 is the LIVE My Plan renderer (9+ set({buffetStep:7}) call sites) — DO NOT DELETE. Old note was wrong."]
+    end
+
+    subgraph E4FOLLOW["🔧 E4 follow-ons (optional, post-push decisions)"]
+        EF1["Cosmetic: calcPortions('sauces') hits else branch → 100g/pp headline, so sauce kg over-displays in plan list (cost+shopping correct via base300). Add a 'sauces' branch if it bugs Tina."]
+        EF2["Mains step (step 3) renders a duplicate 'Sauces & Gravies' sub-block wired to eventSelectedMains (buffet.js:206) → sauce ticked there mis-files as a main. Decide: delete sub-block (step 8 is canonical home) vs rewire to eventSelectedSauces."]
     end
 
     subgraph STD["📐 LOCKED — KIDDIES PARTY MENU STANDARD (TINZA_KIDDIES_STANDARD.md)"]
         ST1["CORE = 8 dishes/theme: 3 meaty · 2 savoury · 2 sweet · 1 healthy. Meaty = meaty:true flag on savoury type (no new browse cat)."]
-        ST2["ADD-ON SPINE: 1 cake · 1 popcorn (add-on ONLY) · 2 dips (was 3) · 1 crisps (120g per 4 kids) · cooldrink"]
-        ST3["PORTION = set amount per child, NO tiers (kids≠finger-foods, menu is curated not pick-your-own). Meaty 2 · savoury 2 · sweet 2 (1 if full-serving) · healthy 1 · cake 1 slice · popcorn 1 cup · crisps 30g · drink 400ml."]
-        ST4["COOLDRINK 400ml/child — homemade scaled to 4800ml/12 AND store-bought 2x200ml. Fixes current 208-417ml drift."]
-        ST5["PARKED knob: 'little/big kids' age-appetite toggle (x0.7) — NOT occasion tiers. Post-launch."]
+        ST2["ADD-ON SPINE: 1 cake · 1 popcorn (add-on ONLY) · 2 dips · 1 crisps (120g per 4 kids) · cooldrink"]
+        ST3["PORTION = set amount per child, NO tiers. Meaty 2 · savoury 2 · sweet 2 (1 if full-serving) · healthy 1 · cake 1 slice · popcorn 1 cup · crisps 30g · drink 400ml."]
+        ST4["COOLDRINK 400ml/child — homemade scaled to 4800ml/12 AND store-bought 2x200ml."]
+        ST5["PARKED knob: 'little/big kids' age-appetite toggle (x0.7). Post-launch."]
     end
 
     subgraph KIDCONTENT["📝 NEXT-ish — Kiddies Standard rollout (fill plan READY, data-only)"]
-        KC1["FILL PLAN DECIDED → TINZA_KIDDIES_FILL_PLAN.md. 12 themes balanced to 3 meaty/2 sav/2 sweet/1 healthy; ~20 ➕ adds all from existing photographed library (chicken strips, viennas, meatballs, kebabs, sosaties, rump bites, margherita, cheese puffs/pinwheels, cupcakes, fruit skewers). Cake+drink already palette-matched. Over-count dishes → addable pool (not deleted)."]
+        KC1["FILL PLAN → TINZA_KIDDIES_FILL_PLAN.md. 12 themes balanced to 3 meaty/2 sav/2 sweet/1 healthy; ~20 adds from existing photographed library. Over-count dishes → addable pool (not deleted)."]
         KC2["Re-tag savoury→meaty/savoury · remove doubled popcorn (Unicorn, Space) + refill sweet · drop 1 dip x12 · rescale 12 drinks to 4800ml/12 · set per-child counts + rebuild base12"]
     end
 
     subgraph CONTENT["📝 PARKED — other recipe/data"]
         C1["New recipes: gnocchi, fresh pasta, pizza base, ciabatta, falafel, slap chips"]
         C2["ranch → Spice ▸ Salad Dressings · parsnip sub · pine-nut→macadamia trivia"]
-        C3["Tidy ~11 dip strings (kidsDipsRecipe ADD map) free-text → structured so dips cost fully. Non-blocking."]
+        C3["Tidy ~11 dip strings (kidsDipsRecipe ADD map) free-text → structured. Non-blocking."]
     end
 
-    subgraph DONE["✅ DONE — E2 Kiddies My Plan → buildPlanData"]
-        D1["kidsPlanDishes() adapter + kidsParseIng() parser; X_ snacks expanded (real base300, costed); crisps preserved; +/- → S.kidsCount; kidsToggleShop+S.kidsCheckedShop"]
-        D2["Culled: kidsConsolidate/kidsFmtAmt/kidsPrice/kidsAisle/kidsNorm. Kept: kidsKeyLabel, kidsPlanItems."]
+    subgraph DONE["✅ DONE"]
+        D5["buffetStep8 Sauces-step sameness — bespoke emoji card → shared buffetItemCard (L779). Real photos + recipe-open + add-to-plan all working LIVE. (My Plan nav was a SEPARATE bug → planDishes, see NEXT PUSH)"]
+        D4["E4/EB2 part 1 — sauces in allPortioned (buffetStep7). PUSHED ✅ (cd35b47). Incomplete: didn't reach planDishes → see NEXT PUSH for the completion."]
+        D1["E2 Kiddies My Plan → buildPlanData. kidsPlanDishes() adapter + kidsParseIng() parser; X_ snacks expanded+costed; crisps preserved; +/- → S.kidsCount. PUSHED ✅ (commit 5256871)"]
+        DP["prices.js — tinned asparagus R197 (fresh stays R513). PUSHED ✅"]
         D0["EARLIER: E1 Finger Foods shoppingView · CLAUDE.md root · price-audit.js · 50 aliases · 46 real prices (85→91%)"]
     end
 
     subgraph LATER["➡️ THEN"]
         A1["Spice migration"]
-        A2["Roll buildPlanData to ALL remaining plans + universal opener + page-compare"]
+        A2["Roll buildPlanData to ALL remaining plans + universal opener + page-compare. NOTE: Buffet plan is STILL on the OLD bespoke path (buffetStep7 has its own calcPortions + shopListHTML + category keys + base300 loop) — NOT yet on buildPlanData/shoppingView. Buffet migration belongs here."]
     end
 
-    subgraph PRICELEFT["💰 PRICE — open (non-blocking)"]
+    subgraph PRICELEFT["💰 PRICE — NOW near-term (launch keystone)"]
+        PLWF["Tooled-manual price-update workflow. Sharpen price-audit.js → rank by plan-frequency (keep ~150 fresh), flag STALE/MISSING/DRIFT, each price carries last-updated date → app shows 'SA retail, updated {month}'. Monthly Sixty60 pass. SHIP THIS; scout is v2."]
+        PLAVG["AVG-WEIGHT + BUY-UNIT db (TINZA_AVG_WEIGHT_DB.md) LOCKED: packet-default + whole each-list + ready-cut note on butternut/pumpkin/broc/cauli. Weights ship now; prices = Checkers. Wire into buildPlanData/shoppingView (gated). OPEN Qs for Tina: confirm each-list (pumpkin/butternut/gem squash?), sanity-check weights, Checkers prices later."]
         PL1["31 missing = mostly booze (skip) + niche; 80 alias gaps"]
-        PL2["PACK_DB ~95% gaps → Checkers-gated, deferred"]
-        PSTAB["price-audit.js before+after data sessions"]
+        PL2["PACK_DB ~95% gaps → folds into avg-weight/buy-unit wiring above"]
     end
 
     subgraph PARKED["🧩 PARKED FEATURES"]
         F1["Wedding Bar Planner (spec LOCKED)"]
         F3["Deluxe tier (level 0/1/2)"]
-        FSCOUT["Live price scout (Apify) — Roast-pass first, post-launch"]
+        FSCOUT["Live price scout (Apify) = v2 of price workflow — post-launch, roast-pass first. NOT a launch dependency."]
         MK["Marketing plan session (Canva+Cowork, Tinza-first)"]
+    end
+
+    subgraph WORKFLOW["🧰 QUEUED WORKFLOW UPGRADES"]
+        W1["Definition-of-Done verification checklist per migration (catch silent scroll/routing/dispatch bugs)"]
+        W2["Roast / anti-sycophancy pass for business + launch decisions"]
     end
 
     LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · sameness + accurate costing"]
 
     START --> PUSH --> NEXT --> LATER --> LAUNCH
+    NEXT -.-> E4FOLLOW
     NEXT -.-> STD
     STD -.-> KIDCONTENT
     NEXT -.-> CONTENT
     NEXT -.-> DONE
     LATER -.-> PRICELEFT
     PARKED -.-> LAUNCH
+    WORKFLOW -.-> LAUNCH
 
     classDef push fill:#b5462b,stroke:#2c211a,color:#fff
     classDef next fill:#d98a2b,stroke:#2c211a,color:#2c211a
@@ -74,9 +88,10 @@ flowchart TD
     classDef feat fill:#fffaf2,stroke:#b5462b,color:#2c211a
 
     class PU1,PU2 push
-    class E3,E4,E5,A1,A2 next
-    class D0,D1,D2 done
+    class E3,E5,A1,A2 next
+    class EF1,EF2 content
+    class D0,D1,D2,D4,D5,DP done
     class ST1,ST2,ST3,ST4,ST5 std
     class KC1,KC2,C1,C2,C3 content
-    class PL1,PL2,PSTAB price
-    class F1,F3,FSCOUT,MK feat
+    class PL1,PL2,PLWF,PLAVG price
+    class F1,F3,FSCOUT,MK,W1,W2 feat

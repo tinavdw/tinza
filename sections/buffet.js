@@ -741,14 +741,15 @@ function buffetStep7(){
     courseDishes(mains,    '🥩 MAINS',    'eventSelectedMains'),
     courseDishes(sides,    '🥘 SIDES',    'eventSelectedSides'),
     courseDishes(salads,   '🥙 SALADS',   'eventSelectedSalads'),
-    courseDishes(desserts, '🎂 DESSERTS', 'eventSelectedDesserts')
+    courseDishes(desserts, '🎂 DESSERTS', 'eventSelectedDesserts'),
+    courseDishes(sauces,   '🥫 SAUCES & GRAVIES', 'eventSelectedSauces')
   );
 
   const waMsg = encodeURIComponent(
     `🍽️ Tinza Buffet Plan — ${g} guests\n\n`
     + allPortioned.map(function(r){ return `${r.emoji||'•'} ${r.name}: ${r.totalKg}kg`; }).join('\n')
   );
-  const startAgainBtn = `<button onclick="set({buffetStep:1,eventSelectedStarters:[],eventSelectedMains:[],eventSelectedSides:[],eventSelectedSalads:[],eventSelectedDesserts:[],checkedBuffetItems:{}})" style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:var(--card2);border:2px solid var(--line2);color:var(--accent);font-size:13px;margin-bottom:16px;">🔄 Start again</button>`;
+  const startAgainBtn = `<button onclick="set({buffetStep:1,eventSelectedStarters:[],eventSelectedMains:[],eventSelectedSides:[],eventSelectedSalads:[],eventSelectedDesserts:[],eventSelectedSauces:[],checkedBuffetItems:{}})" style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:var(--card2);border:2px solid var(--line2);color:var(--accent);font-size:13px;margin-bottom:16px;">🔄 Start again</button>`;
 
   return planView({
     header:{
