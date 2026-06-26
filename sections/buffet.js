@@ -282,7 +282,8 @@ function buffetStep7(){
   const sides    = calcPortions(EVENTS_BIG_COOKING_SIDES.filter(r=>(S.eventSelectedSides||[]).includes(r.id)),   'sides',    g);
   const salads   = calcPortions(EVENTS_BIG_COOKING_SALADS.filter(r=>(S.eventSelectedSalads||[]).includes(r.id)), 'salads',   g);
   const desserts = calcPortions(EVENTS_DESSERTS.filter(r=>(S.eventSelectedDesserts||[]).includes(r.id)),         'desserts', g);
-  const allPortioned = [...starters,...mains,...sides,...salads,...desserts];
+  const sauces   = calcPortions(EVENTS_SAUCES.filter(r=>(S.eventSelectedSauces||[]).includes(r.id)),             'sauces',   g);
+  const allPortioned = [...starters,...mains,...sides,...salads,...desserts,...sauces];
   const totalCost = allPortioned.reduce((s,r)=>s+((r.costPP||0)*g),0);
   const costPP    = allPortioned.reduce((s,r)=>s+(r.costPP||0),0);
 
