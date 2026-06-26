@@ -776,22 +776,7 @@ function buffetStep8(){
   const saucesToShow = ['beefgravy','mintsauce','applesauce','tartaresauce','creamymustardsauce','peppersauce','chimichurri','monkeygland','cheesesauce','lemonherbsauce','periperi'];
   const sauceList = EVENTS_SAUCES.filter(s=>saucesToShow.includes(s.id));
 
-  const sauceCards = sauceList.map(r=>{
-    const isSel = selSauces.includes(r.id);
-    const cardBg = isSel ? 'var(--card2)' : 'var(--card)';
-    const cardBdr = isSel ? 'var(--accent)' : 'var(--line)';
-    const checkBox = isPro ? '<div style="width:22px;height:22px;border-radius:6px;background:'+(isSel?'var(--accent)':'transparent')+';border:2px solid '+(isSel?'var(--accent)':'var(--line2)')+';display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink);flex-shrink:0;">'+(isSel?'&#x2713;':'')+'</div>' : '';
-    const clickAction = isPro ? "set({eventSelectedSauces:toggle(S.eventSelectedSauces,'"+r.id+"')})" : '';
-    return '<div onclick="'+clickAction+'" style="background:'+cardBg+';border:1px solid '+cardBdr+';border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;">'
-      + checkBox
-      + '<span style="font-size:20px;flex-shrink:0;line-height:1.35;">'+(r.emoji||'🥫')+'</span>'
-      + '<div style="flex:1;min-width:0;">'
-      + '<div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.35;">'+r.name+'</div>'
-      + (r.costPP ? '<div style="font-size:13px;color:var(--ink-mut);margin-top:4px;">~R'+r.costPP+'/pp</div>' : '')
-      + '</div>'
-      + '<span onclick="event.stopPropagation();openRecipe(\"events\",\"'+r.id+'\")" style="font-size:22px;color:var(--accent);flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>'
-      + '</div>';
-  }).join('');
+  const sauceCards = sauceList.map(r=>buffetItemCard(r,'eventSelectedSauces','eventSelectedSauces')).join('');
 
   return '<div>'
     + sectionHeader({
