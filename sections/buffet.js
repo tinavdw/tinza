@@ -287,26 +287,6 @@ function buffetStep7(){
   const totalCost = allPortioned.reduce((s,r)=>s+((r.costPP||0)*g),0);
   const costPP    = allPortioned.reduce((s,r)=>s+(r.costPP||0),0);
 
-  // ── SHOPPING LIST CATEGORY KEYS ──
-  const BUTCHERY_KEYS=['beef','lamb','pork','chicken','hake','fish','mince','snoek','mutton','venison','wors','prosciutto','biltong','bacon','prawns','shrimp','prawn meat','prawn','liver','tripe','viennas','cocktail','mussel','seafood','calamari','tuna','sardine','pilchard','anchovy'];
-  const DAIRY_KEYS=['cream','milk','butter','cheese','yoghurt','feta','egg','sour cream','condensed','mozzarella','parmesan','cheddar','mascarpone'];
-  const STARCH_KEYS=['flour','rice','pasta','bread','maize','samp','couscous','biscuit','cornflour','bicarb','baking powder','yeast','oats','lasagna','spaghetti','macaroni','noodle','puff pastry','pastry','vetkoek','dough'];
-  const VEG_KEYS=['onion','garlic','tomato','potato','carrot','lemon','lime','apple','butternut','pumpkin','pepper','spinach','mushroom','cabbage','parsley','mint','coriander','ginger','basil','celery','rocket','watercress','beetroot','avocado','melon','mango','pear','lettuce','spring onion','leek','courgette','broccoli','cauliflower','green bean','cucumber','radish'];
-  const TINNED_KEYS=['tinned','tin ','canned','passata','baked beans','kidney beans','chickpeas','coconut milk','tomato paste','stock cube','stock powder','condensed milk'];
-  const HERB_KEYS=['spice','seasoning','nutmeg','cinnamon','paprika','cumin','turmeric','bay leaf','thyme','rosemary','oregano','origanum','mixed herbs','curry powder','masala','garam','chilli flakes','dried herb','dried spice','all spice','fennel seed','caraway'];
-  const PANTRY_KEYS=['salt','pepper','oil','vinegar','soy sauce','worcestershire','honey','sugar','jam','chutney','mustard','mayonnaise','sauce','stock cube','stock powder','stock','tamarind','brandy','wine','beer','balsamic','peri-peri','fish sauce','oyster sauce','tomato sauce','ketchup'];
-
-  function getCategory(lower){
-    if(BUTCHERY_KEYS.some(k=>lower.includes(k))) return 'butchery';
-    if(DAIRY_KEYS.some(k=>lower.includes(k))) return 'dairy';
-    if(STARCH_KEYS.some(k=>lower.includes(k))) return 'starch';
-    if(TINNED_KEYS.some(k=>lower.includes(k))) return 'tinned';
-    if(VEG_KEYS.some(k=>lower.includes(k))) return 'veg';
-    if(HERB_KEYS.some(k=>lower.includes(k))) return 'herbs';
-    if(PANTRY_KEYS.some(k=>lower.includes(k))) return 'pantry';
-    return 'pantry';
-  }
-
   // Strip cooking instructions from ingredient names for shopping list
   function cleanIngredientName(name){
     return name
@@ -513,18 +493,6 @@ function buffetStep7(){
     return {name:n, amt:a};
   }
 
-  // Normalise ingredient name for deduplication — strips cooking instructions first
-  function normName(n){
-    const cleaned = cleanIngredientName(n);
-    return cleaned.toLowerCase()
-      .replace(/b[eé]schamel\s*[—\-:]\s*/i,'')
-      .replace(/\(.*?\)/g,'')          // remove bracketed info
-      .replace(/—.*$/,'')              // remove everything after em dash
-      .replace(/[^a-z\s]/g,'')
-      .replace(/\s+/g,' ').trim()
-      .split(' ').slice(0,2).join(' '); // 2 words for better merging
-  }
-
   // Always compute the final quantity for 'g' guests — never show a formula
   function computeQuantity(amtStr, guestCount, isFirstIng, perPersonMeat, meatUnit){
     if(!amtStr) {
@@ -677,12 +645,6 @@ function buffetStep7(){
     }
 
     return '';
-  }
-
-  function extractScaled(amtStr, guestCount, isFirstIngredient, perPersonMeat, meatUnit){
-    const qty = computeQuantity(amtStr, guestCount, isFirstIngredient, perPersonMeat, meatUnit);
-    if(!qty) return '';
-    return `<strong style="color:var(--gold);">${qty}</strong>`;
   }
 
   // ── STEP 2 — feed the shared engine (buildPlanData → shoppingView) ──

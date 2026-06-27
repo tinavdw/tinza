@@ -1,5 +1,5 @@
 // ===== TINZA EVENTS DATA — recovered from pre-split monolith =====
-// Big cooking (mains/sides/salads), starters, desserts, cultural,
+// Big cooking (mains/sides/salads), starters, desserts,
 // finger foods, sauces, cake categories + recipes, portion rules.
 
 const EVENTS_BIG_COOKING_MAINS = [
@@ -1126,55 +1126,6 @@ const EVENTS_DESSERTS = [
     tip:"This reheats beautifully — perfect for large events. The apricot jam layer is a uniquely South African upgrade that guests always ask about. Always use sturdy bread — thin sandwich bread collapses into mush in the custard." },
 ];
 
-const EVENTS_CULTURAL = [
-  { id:"durbancurry", name:"Durban Lamb Curry", emoji:"🍛", group:"durbanindian", region:"Durban Indian Heritage", costPP:48,
-    perPerson:{meat:200,unit:"g"},
-    base300:[{n:"Lamb on the bone",a:"200g per person"},{n:"Cooking oil",a:"15ml per person"},{n:"Onion (finely sliced)",a:"100g per person"},{n:"Garlic + ginger paste",a:"10ml per person"},{n:"Durban masala (hot)",a:"15ml per person"},{n:"Turmeric",a:"2.5ml per person"},{n:"Coriander + cumin powder",a:"5ml per person"},{n:"Tinned tomatoes",a:"80g per person"},{n:"Potatoes",a:"1 large per person"},{n:"Fresh curry leaves",a:"3–4 per person"},{n:"Whole spices (fennel, cinnamon, star anise, cardamom)",a:"1 tsp per 6 people"}],
-    method:["TEMPERING: Heat oil. Add whole spices and curry leaves 30 seconds.","Add onions. Fry 15–20 min until DARK golden-brown.","Add garlic-ginger paste 2 min. Add spices 1 min.","Brown lamb in batches.","Add tomatoes + just enough water to cover. Simmer 90 min.","Add potatoes last 30 min."],
-    tip:"Bone-in lamb is non-negotiable. Serve with basmati rice, roti and carrot salad.",
-    sides:["Basmati rice","Roti or naan","Grated carrot salad"] },
-  { id:"samoosas", name:"Durban Samoosas", emoji:"🔺", group:"durbanindian", region:"Durban Indian Heritage", costPP:18,
-    perPerson:{meat:3,unit:"samoosas"},
-    base300:[{n:"Lamb or beef mince",a:"30g per samoosa"},{n:"Onion (very finely minced)",a:"15g per samoosa"},{n:"Fresh coriander",a:"5g per samoosa"},{n:"Green chilli",a:"1g per samoosa"},{n:"Roasted cumin + coriander",a:"1g per samoosa"},{n:"Samoosa pastry strips",a:"1 strip per samoosa"},{n:"Flour + water paste (for sealing)",a:"2 tbsp flour + water"},{n:"Oil for deep frying",a:"1 litre per 50 samoosas"}],
-    method:["Cook mince dry — no oil, no water. Cool completely.","Add onion, spices and coriander. Filling must be completely dry.","Fold into pastry strips in triangle. Seal with flour-water paste.","Fry at 170–180°C until golden and crisp."],
-    tip:"Dry filling = crisp samoosa. Serve with mint chutney and tamarind chutney.",
-    sides:["Mint & coriander chutney","Tamarind chutney"] },
-  { id:"denningvleis", name:"Denningvleis", emoji:"🍖", group:"capemalay", region:"Cape Malay Heritage", costPP:46, halalFlag:true,
-    halalNote:"⚠️ Use halal-certified lamb.",
-    perPerson:{meat:200,unit:"g"},
-    heritage:"One of the oldest Cape Malay dishes — brought to the Cape from Indonesia and Malaysia. Tamarind is a direct culinary link to the East.",
-    base300:[{n:"Lamb neck or rib chops (bone-in)",a:"200g per person"},{n:"Onion",a:"40g per person"},{n:"Garlic",a:"2g per person"},{n:"Tamarind paste",a:"5ml per person"},{n:"Brown sugar",a:"5g per person"},{n:"Red wine vinegar",a:"5ml per person"},{n:"Lamb stock",a:"50ml per person"},{n:"Whole allspice, cloves, bay leaves",a:"1.5g per person"}],
-    method:["Brown lamb in very hot oil until DARK crust forms.","Fry onions and garlic until golden.","Add spices 2 min. Return lamb. Add stock, tamarind, sugar, vinegar.","Simmer covered 90 min–2 hours until very tender.","Sauce should be dark, sticky and jammy."],
-    tip:"Make the day before. Serve with yellow rice and raisins.",
-    sides:["Yellow rice with raisins","Tomato & onion sambal"] },
-  { id:"breyanipilaf", name:"Cape Malay Breyani", emoji:"🍛", group:"capemalay", region:"Cape Malay Heritage", costPP:70, halalFlag:true,
-    halalNote:"⚠️ Use halal-certified meat.",
-    perPerson:{meat:180,unit:"g"},
-    heritage:"Rooted in the 17th-century Cape spice trade — a layered masterpiece steamed together with saffron.",
-    base300:[{n:"Lamb or chicken pieces",a:"180g per person"},{n:"Basmati rice",a:"80g per person"},{n:"Brown lentils (soaked, par-boiled al dente)",a:"12.5g per person"},{n:"Plain yoghurt (for marinating)",a:"40ml per person"},{n:"Onion (for crispy beresta)",a:"30g per person"},{n:"Ghee",a:"10ml per person"},{n:"Breyani masala",a:"3ml per person"},{n:"Saffron (bloomed in warm milk)",a:"0.1g per person"}],
-    method:["MARINATE: coat meat in yoghurt and spices. Minimum 4 hours.","BERESTA: fry onions in ghee until very dark and crispy.","Brown marinated meat in batches.","Par-cook rice to 70% done. Drain.","LAYER: meat, rice, saffron milk, crispy onions.","DUM: seal pot with flour-paste dough. Cook on lowest heat 35–45 min."],
-    tip:"Use a wide flat-bottomed pot for 30+ guests. The flour-paste seal is what makes it breyani.",
-    sides:["Tomato & onion sambal","Cucumber raita"] },
-  { id:"bobotie", name:"Bobotie", emoji:"🇿🇦", group:"capedutch", region:"Cape Dutch / Cape Malay Heritage", costPP:45,
-    perPerson:{meat:150,unit:"g"},
-    heritage:"South Africa's national dish — Cape Dutch cuisine with deep Cape Malay influence.",
-    base300:[{n:"Beef or lamb mince",a:"150g per person"},{n:"Onion",a:"30g per person"},{n:"Cape Malay curry powder",a:"1.8g per person"},{n:"Turmeric",a:"1g per person"},{n:"Apricot jam",a:"10ml per person"},{n:"Chutney",a:"10ml per person"},{n:"White bread (soaked in milk until pulp)",a:"½ slice per person"},{n:"Milk",a:"30ml per person"},{n:"Raisins",a:"10g per person"},{n:"Almonds",a:"5g per person"},{n:"Bay leaves",a:"1 per 3 people"},{n:"Eggs (for custard)",a:"½ per person"},{n:"Milk (for custard)",a:"60ml per person"}],
-    method:["Fry onion. Add spices. Add mince — brown well. Add jam, chutney.","Mix bread pulp, raisins, almonds into mince. Press into dish.","Tuck bay leaves deep into meat.","Whisk eggs, milk, pinch turmeric. Pour slowly over mince.","Bake 170°C 45 min. REST 15 min before serving."],
-    tip:"Use several smaller dishes for 30+ guests. Rest so custard firms up. Serve with yellow rice, banana sambal.",
-    sides:["Yellow rice with turmeric and raisins","Banana sambal","Peach chutney"] },
-  { id:"umngqushomain", name:"Umngqusho (Samp & Beans)", emoji:"🌽", group:"xhosa", region:"Xhosa Heritage", costPP:4,
-    perPerson:{meat:150,unit:"g"},
-    base300:[{n:"Samp (dried — soak overnight)",a:"100g per person"},{n:"Sugar beans (soak overnight separately)",a:"50g per person"},{n:"Butter",a:"15g per person"},{n:"Onion (fried golden)",a:"15g per person"},{n:"Crushed garlic",a:"2g per person"},{n:"Salt and pepper",a:"generous"}],
-    method:["SOAK samp and beans separately overnight.","Combine. Cover with fresh water 5cm above. Simmer 3 hours.","Fry onion in butter until golden. Add to samp. Season well."],
-    tip:"Nelson Mandela's favourite dish. The overnight soak is not optional." },
-  { id:"chickensoup", name:"Jewish Chicken Soup & Matzo Balls", emoji:"✡️", group:"jewish", region:"Jewish Heritage", costPP:45, kosherFlag:true,
-    kosherNote:"⚠️ Keep meat and dairy separate. Use kosher-certified chicken.",
-    perPerson:{meat:250,unit:"ml soup"},
-    heritage:"Called Jewish Penicillin. The golden clarity of the broth comes from patience alone.",
-    base300:[{n:"Whole chicken or soup hen",a:"250g per person"},{n:"Carrot",a:"50g per person"},{n:"Celery",a:"30g per person"},{n:"Onion (halved, skin on)",a:"50g per person"},{n:"Parsnip — the grandmother secret",a:"30g per person"},{n:"Fresh dill and parsley",a:"handful per 6 people"},{n:"Salt",a:"generous"},{n:"— MATZO BALLS:",a:""},{n:"Matzo meal",a:"16g per person"},{n:"Eggs",a:"⅓ per person"},{n:"Oil",a:"5ml per person"}],
-    method:["Place chicken in pot. Cover with COLD water.","Bring SLOWLY to simmer. Skim all foam for 20 min.","Add vegetables. Simmer at a smile (tiny bubbles) 2–3 hours.","Strain. Refrigerate overnight — skim fat for crystal-clear broth.","MATZO BALLS: mix until just combined. Refrigerate 30 min. Roll walnut-sized balls.","Simmer balls in a SEPARATE pot 20 min. Never in the soup."],
-    tip:"Make the day before. Cook matzo balls separately — they cloud the soup." },
-];
 
 const EVENTS_FINGER_FOODS = {
 meaty:[
@@ -2874,22 +2825,6 @@ const EVENTS_SAUCES = [
 
 ];
 
-const CULTURAL_GROUPS = [
-  { id:"durbanindian", label:"Durban Indian", emoji:"🇮🇳", coming:false },
-  { id:"capemalay",    label:"Cape Malay",    emoji:"☪️",  coming:false },
-  { id:"capedutch",   label:"Cape Dutch",    emoji:"🇿🇦", coming:false },
-  { id:"xhosa",       label:"Xhosa",         emoji:"🌍",  coming:false },
-  { id:"zulu",        label:"Zulu",          emoji:"🌍",  coming:true  },
-  { id:"sotho",       label:"Sotho",         emoji:"🌍",  coming:true  },
-  { id:"afrikaner",   label:"Afrikaner",     emoji:"🍺",  coming:true  },
-  { id:"jewish",      label:"Jewish",        emoji:"✡️",  coming:false },
-  { id:"portuguese",  label:"Portuguese",    emoji:"🇵🇹", coming:true  },
-  { id:"greek",       label:"Greek",         emoji:"🇬🇷", coming:true  },
-  { id:"pakistani",   label:"Pakistani",     emoji:"🇵🇰", coming:true  },
-  { id:"chinese",     label:"Chinese",       emoji:"🇨🇳", coming:true  },
-  { id:"zimbabwean",  label:"Zimbabwean",    emoji:"🇿🇼", coming:true  },
-  { id:"british",     label:"British",       emoji:"🇬🇧", coming:true  },
-];
 
 const PORTION_RULES = {
   mains:   { base:200, cap:400, scale:[1.0, 0.70, 0.55, 0.50] },

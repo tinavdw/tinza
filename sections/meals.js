@@ -2375,7 +2375,7 @@ function toggleMealPlan(id){
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe
-  set({activeCulturalRecipe: id, _wkRecipe: id});
+  set({_wkRecipe: id});
 }
 function openEventRecipe(id){
   const allEventArrays = [

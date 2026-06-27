@@ -536,7 +536,7 @@ function openEvent(id,t){
   // Look up recipe from all events arrays
   const all=[
     ...EVENTS_BIG_COOKING_MAINS,...EVENTS_BIG_COOKING_SIDES,...EVENTS_BIG_COOKING_SALADS,
-    ...EVENTS_STARTERS,...EVENTS_DESSERTS,...EVENTS_CULTURAL,...EVENTS_SAUCES,
+    ...EVENTS_STARTERS,...EVENTS_DESSERTS,...EVENTS_SAUCES,
     ...(EVENTS_FINGER_FOODS.meaty||[]),...(EVENTS_FINGER_FOODS.pastry||[]),
     ...(EVENTS_FINGER_FOODS.sweet||[]),...(EVENTS_FINGER_FOODS.veggie||[]),
     ...(EVENTS_FINGER_FOODS.savoury||[]),
@@ -2660,7 +2660,7 @@ function resolveRecipe(section, id){
 // Nav-location state keys (mirrors historyKey) — snapshotted so Back can
 // restore the exact origin screen. Selection arrays (plans) are excluded
 // on purpose: we restore WHERE you were, never what you'd chosen.
-var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','activeCulturalGroup','activeCulturalRecipe','cakeCat','beverageCat'];
+var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat'];
 
 function snapshotNav(){
   var s = {};
@@ -3022,9 +3022,6 @@ function recipeView(){
 }
 
 // ── BRAAI ─────────────────────────────────────────────────────────
-function culturalGroupGo(id){
-  set({activeCulturalGroup:id, activeCulturalRecipe:null});
-}
 
 // Braai step-by-step cooking mode — mirrors wkCookingView (Standard §4b cook mode).
 // State: S.braaiCooking = {id, type, step}. Re-resolves the recipe so no quote-laden
