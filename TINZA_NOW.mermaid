@@ -1,14 +1,14 @@
 flowchart TD
-    START["🌙 TINZA — carry into NEW chat. Costing 91% real. LIVE: kiddies+prices (5256871) + E4 sauces-in-allPortioned (cd35b47) + buffetStep8 Sauces-step sameness (pics/open/add work). STAGED → one buffet.js push, 2 fixes: (1) planDishes sauce rows L745 [applied], (2) Start-again reset L751 add eventSelectedSauces:[] [to apply]. Closes the full sauce chain: select→open→rows→totals→reset all consistent."]
+    START["🌞 TINZA — carry into NEW chat. Costing 91% real. Sauce chain LIVE (0135351). NEW (push): Photo Studio REBUILT via eval-load of live data (reliable, not regex) → 1862 recipes · 764 shot · 1098 outstanding. Old snapshot had missed 783 dishes (most of Health/Braai/Meals). Near-done: Africa(1) SA(6) Braai(8) Health(9) Kiddies(1). Big shoot-lists: Europe(562) Meals(191) Spice(106) Asia(102) Events-booze(66) Breakfast(45). photoName shares (potato bake) now resolve. Kiddies = reuses existing library. E5 finger-cull DONE (staged → push events.js). NEXT CODE TASK = E3 (Cultural excision)."]
 
-    subgraph PUSH["⬆️ NEXT PUSH — one buffet.js commit, 2 staged sauce fixes"]
-        PU1["(1) planDishes sauce rows — APPLIED L745: courseDishes(sauces, '🥫 SAUCES & GRAVIES', 'eventSelectedSauces'). Fixes 'cant go to plan' (sauces were only in allPortioned totals/count, never the rendered rows). node --check PASS, staged."]
-        PU2["(2) Start-again reset — APPLIED L752: added eventSelectedSauces:[] after eventSelectedDesserts:[] (it cleared 5 courses but forgot sauces → stale sauces lingered after reset). node --check PASS, staged. → push BOTH, clear cache, test sauces-only plan populates + Start-again clears sauces."]
+    subgraph PUSH["⬆️ NEXT PUSH"]
+        PU1["TINZA_PHOTO_STUDIO.html — REBUILT via sandbox eval-load of section data (reliable across all schemas; regex undercounted Health 66→167 etc.). 1862 recipes · 764 shot · 1098 outstanding. Shot-status = app resolver (name / name+(nameAlt) / photoName) vs 877 files; photoName shares resolve. Opens on Outstanding, grouped by region, auto-rechecks live GitHub on open. 1079 prompts carried over, 783 generated (simpler template). Replace file + push (stable URL)."]
+        PU2["⚠️ Still pending: kiddies 'crisps' → file 'Crisps.jpg' case 404 on live. Rename file to crisps.jpg OR add photoName:'Crisps'."]
     end
 
     subgraph NEXT["🎯 NEXT TASK — finish Events sameness (E4 done)"]
         E3["E3 — DELETE Cultural block. ⚠️ NOT a one-liner: ~180 live-looking lines events.js 1270-1451 + NAV_KEYS (activeCulturalGroup/activeCulturalRecipe) + culturalGroupGo() core.js:3025 + activeCulturalRecipe setter meals.js:2378 + EVENTS_CULTURAL data + eventSelectedCultural state. Audit reachability first, then careful excision."]
-        E5["E5 — Dead-code cull, RE-SCOPED. ✅ Cull ONLY dead fingerSummary (events.js:820, zero callers) + fingerShopListHTML (only called inside fingerSummary). ❌ buffetStep7 is the LIVE My Plan renderer (9+ set({buffetStep:7}) call sites) — DO NOT DELETE. Old note was wrong."]
+        E5["✅ E5 DONE (staged, not pushed) — dead fingerSummary + fingerShopListHTML island removed from events.js (~95 lines, old L819–913). node --check PASS · 0 remaining matches · shopListHTML preserved (now L819) · buffetStep7 untouched · backup moved to %TEMP%. Push events.js with the batch."]
     end
 
     subgraph E4FOLLOW["🔧 E4 follow-ons (optional, post-push decisions)"]
@@ -36,8 +36,8 @@ flowchart TD
     end
 
     subgraph DONE["✅ DONE"]
-        D5["buffetStep8 Sauces-step sameness — bespoke emoji card → shared buffetItemCard (L779). Real photos + recipe-open + add-to-plan all working LIVE. (My Plan nav was a SEPARATE bug → planDishes, see NEXT PUSH)"]
-        D4["E4/EB2 part 1 — sauces in allPortioned (buffetStep7). PUSHED ✅ (cd35b47). Incomplete: didn't reach planDishes → see NEXT PUSH for the completion."]
+        DSAUCE["🥫 SAUCE CHAIN — fully live (0135351). (a) E4 plan inclusion: sauces in allPortioned L286 + planDishes L745. (b) buffetStep8 sameness: bespoke card → buffetItemCard L779 (real photos + open + add). (c) Start-again reset L752 clears sauces. All four buffet sinks now account for sauces: count, totals, rendered rows, reset."]
+        D4["E4/EB2 — sauces reach buffet plan (both allPortioned + planDishes). PUSHED ✅"]
         D1["E2 Kiddies My Plan → buildPlanData. kidsPlanDishes() adapter + kidsParseIng() parser; X_ snacks expanded+costed; crisps preserved; +/- → S.kidsCount. PUSHED ✅ (commit 5256871)"]
         DP["prices.js — tinned asparagus R197 (fresh stays R513). PUSHED ✅"]
         D0["EARLIER: E1 Finger Foods shoppingView · CLAUDE.md root · price-audit.js · 50 aliases · 46 real prices (85→91%)"]
@@ -65,6 +65,8 @@ flowchart TD
     subgraph WORKFLOW["🧰 QUEUED WORKFLOW UPGRADES"]
         W1["Definition-of-Done verification checklist per migration (catch silent scroll/routing/dispatch bugs)"]
         W2["Roast / anti-sycophancy pass for business + launch decisions"]
+        W3["Claude Code custom slash commands (.claude/commands/*.md or skills): /safe-edit (backup + node --check + move .bak out = TINZA stability rules), /photo-audit wrapper. Claude to draft the command files next session."]
+        W4["OPTIONAL: enrich the 783 generated Photo Studio prompts (newly-included dishes) with bespoke plating-surface/garnish styling to match the original hand-tuned ones. Non-urgent."]
     end
 
     LAUNCH["🚀 Launch: SA-first · PayFast R50/mo · sameness + accurate costing"]
@@ -88,10 +90,11 @@ flowchart TD
     classDef feat fill:#fffaf2,stroke:#b5462b,color:#2c211a
 
     class PU1,PU2 push
-    class E3,E5,A1,A2 next
+    class E3,A1,A2 next
+    class E5 done
     class EF1,EF2 content
-    class D0,D1,D2,D4,D5,DP done
+    class D0,D1,D2,D4,DSAUCE,DP done
     class ST1,ST2,ST3,ST4,ST5 std
     class KC1,KC2,C1,C2,C3 content
     class PL1,PL2,PLWF,PLAVG price
-    class F1,F3,FSCOUT,MK,W1,W2 feat
+    class F1,F3,FSCOUT,MK,W1,W2,W3,W4 feat
