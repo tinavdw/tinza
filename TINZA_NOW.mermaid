@@ -1,77 +1,88 @@
-%% TINZA_NOW — session handoff · 27 Jun 2026 (PM session 2 · full)
+%% TINZA_NOW — session handoff · 27 Jun 2026 (session 4)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  subgraph SHIP[" 🚀 PUSH QUEUE — nothing pushed this session (design + drafts only) "]
-    P1[Patch 3 heroes into meals.js from draft docs:<br/>sp-beef-stew · sp-roast-chicken · sp-spag-bol]
-    P2[Confirm watchlist names in PRICE_DB FIRST]
-    P3[node --check · then push via GitHub Desktop]
+  subgraph DONE[" ✅ DONE THIS SESSION "]
+    DA0[💡 didYouKnow RENDER wired — the 3 patched 💡 fields now SHOW in-app]
+    DA1[meals.js · recipeDetailFromResult · new 💡 Did You Know box under Tip (covers all Meals/Supper opens)]
+    DA2[core.js · bakesRecipeOpts · dykBox added to extras slot → Events/Cakes/migrated sections inherit when they get the field]
+    DA3[Both purely additive: no didYouKnow = renders nothing · zero risk to existing recipes · node --check PASSED both]
+    D0[Earlier: caught push committed DRAFT .md docs + images, NOT sections/meals.js]
+    D1[🍝 sp-spag-bol → 5 versions · Slow Ragù·Budget·Quick·Veg·Classic · +didYouKnow · FIX cat:'pasta'→'pastapizza']
+    D2[🥘 sp-beef-stew → Farmhouse · 5 versions · Farmhouse·Budget·Quick·Red Wine·🔥Over Coals · +didYouKnow]
+    D3[🍗 sp-roast-chicken → Lemon & Herb Roast Chicken & Veg · 4 versions · +didYouKnow]
   end
 
-  subgraph DRAFTS[" ✅ CONTENT-FINAL DRAFTS (in outputs · ready to patch) "]
-    DR1[🥘 Farmhouse Beef Stew · 5 versions<br/>🥘Farmhouse · 💰Budget · ⚡Quick · 🍷Red Wine · 🔥Over Coals]
-    DR2[🍗 Lemon & Herb Roast Chicken & Veg · 4 versions<br/>🍗Lemon&Herb · 💰Budget · ⚡Quick · ❤️Healthy chicken breasts]
-    DR3[🍝 Spaghetti Bolognese · 5 versions re-aligned from pilot<br/>🍝Slow Ragù · 💰Budget beef-only HL+KS · ⚡Quick · 🌱Veg · 🏆Classic]
-    DR4[All 3 carry the new 💡 didYouKnow field]
+  subgraph PUSHNOW[" 🚀 DO RIGHT AFTER THIS SESSION "]
+    PN1[GitHub Desktop: drag patched meals.js AND core.js into sections/ → replace → commit → push]
+    PN2[Preview: version selectors work · 💡 Did You Know now shows under the Tip on all 3 heroes ✓]
   end
 
-  subgraph DESIGN[" 🔒 DESIGN LOCKED THIS SESSION "]
-    DS1[VERSION SYSTEM · TINZA_DISH_FAMILIES.md<br/>Default+twist · 💰Budget · ⚡Quick&Easy · 🌱Veg · 🥑Keto · ❤️Healthy · 🏆Classic<br/>Budget≠Quick · popularity cap · tags live per-VERSION]
-    DS2[12 DIETARY TAGS · V VE PE KT GF DF DB LGI HF AI HL KS<br/>hard=hide everywhere · soft=badge+search-filter · set at signup editable in Settings]
-    DS3[RELIGIOUS TAGS = FILTER not swap · Halaal≠Kosher table locked<br/>health=guidance · religious=filter-only · never certify · budget often most inclusive]
+  subgraph BUILDS[" 🔧 SHARED BUILDS (touch core.js/spice.js/braai · app-wide) "]
+    BD2[POTJIE SHELF in Braai · oxtail·lamb knuckle·chicken·venison · cross-link from 🔥Over Coals]
+    BD3[STOCK CROSS-LINKS · stock mentions → Spice Step-5 stock recipe · spice.js IDs + core.js helper]
+    BD4[Version selector → roll into universal recipePage · WK/Health/Events inherit]
+    BD5[Dietary filter ENGINE · hard=hide · soft=badge only ticked tags · per-version tagging]
+    BD6[Profile signup tick 12 tags · editable Settings · under tier switcher]
+    BD7[Free/Pro gate on version selector · diet-appropriate default for Free]
+    BD8[add:[]/swap:[] variations mechanism · re-cost + shopping list · backlog]
+    BD9[Cross-links: fish&chips→Chips · burger&chips→Chips · bangers&mash→Mash]
+  end
+
+  subgraph PRICE[" 💰 PRICE_DB — confirm watchlist (affects My Plan costing, not display) "]
+    PR1[Beef stew: bay leaves · thyme · Worcestershire sauce · beef stock powder]
+    PR2[Roast chicken: lemon · rosemary · chicken breasts · sweet potatoes · green beans]
+    PR3[Spag bol: brown lentils ✓ exists · others already priced]
+    PR4[Upload PRICE_DB / spice.js next session → run price-audit on these names]
+  end
+
+  subgraph NEXT[" 🍳 NEXT — prove pipeline TRAVELS across sections "]
+    N1[Jump section · pick a hero from World Kitchen / Health / Events<br/>candidates: Cape Malay curry (sp-capemalay-curry live) · Bobotie · a Health hero]
+    N2[Each: read live recipe → upgrade → version → tag → didYouKnow → name]
+    N3[Do a FEW sections deep before resuming cosmetic sameness sweep]
+  end
+
+  subgraph DESIGN[" 🔒 DESIGN LOCKED (carry forward) "]
+    DS1[VERSION SYSTEM · TINZA_DISH_FAMILIES.md · Default+twist·💰Budget·⚡Quick·🌱Veg·🥑Keto·❤️Healthy·🏆Classic]
+    DS2[12 DIETARY TAGS · V VE PE KT GF DF DB LGI HF AI HL KS · hard=hide · soft=badge+filter · per-VERSION]
+    DS3[RELIGIOUS TAGS = FILTER not swap · Halaal≠Kosher · never certify · budget often most inclusive]
     DS4[REAL FOOD ONLY · stock powder OK · soup powder NO · condiments OK]
-    DS5[NAMING · TINZA_DISH_NAMING.md · derived from finished recipe<br/>global names only Plaas→Farmhouse · pipeline upgrade→version→tag→name]
-    DS6[TIER GATE · Free=1 version default/diet-appropriate · Pro=full selector<br/>old Budget TIERS Pantry/Everyday/Indulge ELIMINATED]
-    DS7[💡 DID YOU KNOW · TINZA_DIDYOUKNOW_STANDARD.md · the FOURTH voice<br/>4 flavours: 🏛️heritage · 🔬science · 🌱grow-your-own SIGNATURE · 💡trivia<br/>every dish · most-surprising wins · facts must be TRUE]
-    DS8[🌱 GROW-YOUR-OWN = Tinza signature · merge the screen with the real<br/>everyone has a window · founder's R100 heirloom garlic 14yrs = real proof story]
+    DS5[NAMING · TINZA_DISH_NAMING.md · derived from finished recipe · global names · Plaas→Farmhouse]
+    DS6[TIER GATE · Free=1 version default/diet-appropriate · Pro=full selector · old Budget tiers ELIMINATED]
+    DS7[💡 DID YOU KNOW · 4 flavours 🏛️heritage·🔬science·🌱grow-your-own SIGNATURE·💡trivia · every dish · TRUE]
+    DS8[🌱 GROW-YOUR-OWN = Tinza signature · merge screen with real · founder R100 heirloom garlic 14yrs]
     DS9[🔥 Over Coals = global potjie version name · a-la-carte few dishes]
   end
 
   subgraph PHILOSOPHY[" 💛 THE WHY (founding-members pitch material) "]
-    PH1[Tinza must ADD VALUE · make people enthusiastic about cooking<br/>interesting + fun to browse · never boring one-dimensional]
+    PH1[Tinza must ADD VALUE · make people enthusiastic about cooking · never boring one-dimensional]
     PH2[Versions turn a flat list into a rabbit-hole you explore]
     PH3[didYouKnow makes you come away wondering · even if you don't cook it]
     PH4[Cooking is still real · merge the screen with the real · grounding not just stomach-filling]
   end
 
-  subgraph NEXT[" 🍳 NEXT — prove pipeline TRAVELS across sections "]
-    N1[Jump section · pick a hero from World Kitchen / Health / Events<br/>candidates: Cape Malay curry · Bobotie · a Health hero]
-    N2[Each: read live recipe → upgrade → version → tag → didYouKnow → name]
-    N3[Do a FEW sections deep before resuming cosmetic sameness sweep]
-  end
-
-  subgraph BUILDS[" 🔧 SHARED BUILDS (touch core.js/spice.js/braai · app-wide) "]
-    BD1[Add didYouKnow field to recipe render in core.js · shows under tip]
-    BD2[POTJIE SHELF in Braai · oxtail·lamb knuckle·chicken·venison · cross-link from 🔥Over Coals]
-    BD3[STOCK CROSS-LINKS · stock mentions → Spice Step-5 stock recipe · needs spice.js IDs + core.js helper]
-    BD4[Version selector → roll into universal recipePage · WK/Health/Events inherit]
-    BD5[Dietary filter ENGINE · hard=hide · soft=badge only ticked tags · per-version tagging]
-    BD6[Profile signup tick 12 tags · editable Settings · under tier switcher]
-    BD7[Free/Pro gate on version selector · diet-appropriate default for Free]
-    BD8[add:[]/swap:[] variations mechanism · re-cost + shopping list · backlog B5]
-    BD9[Cross-links: fish&chips→Chips · burger&chips→Chips · bangers&mash→Mash]
-  end
-
   subgraph BACKLOG[" 📋 BIGGER BACKLOG "]
-    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+<br/>watchlist: bay leaves·thyme·rosemary·Worcestershire·beef stock powder·lemon·chicken breasts·sweet potatoes·green beans]
+    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+]
     B2[Weekly meal planner → ONE costed shopping list · biggest commercial lever]
     B3[Planner modes · home week · retreat · camping food-safety · hiking · school-lunch]
     B4[Marketing · founding-members + waitlist · merge-screen-with-real angle · SA channels]
   end
 
-  START --> SHIP --> DRAFTS --> DESIGN
-  DESIGN --> PHILOSOPHY --> NEXT --> BUILDS --> BACKLOG
+  START --> DONE --> PUSHNOW --> BUILDS
+  BUILDS --> PRICE --> NEXT --> DESIGN
+  DESIGN --> PHILOSOPHY --> BACKLOG
 
   subgraph RULES[" ⚙️ LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
-    X2[Sameness · every section = braai v33 · shared core.js · var --token]
-    X3[Name DERIVED from recipe · global names only · never name a thin recipe]
-    X4[Tags per-VERSION · hard=hide soft=badge · religious=filter-only · health=guidance not medical]
-    X5[Real food only · stock powder yes soup powder no · condiments yes]
-    X6[Every dish gets a 💡 didYouKnow · most-surprising · TRUE · grow-your-own where it fits]
-    X7[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X8[Free=1 version · Pro=full selector · no third-party ads ever]
-    X9[End every session with updated TINZA_NOW.mermaid]
+    X2[Drafts ≠ code · a recipe must be PATCHED INTO sections/meals.js to go live · pushing the .md doc is not enough]
+    X3[Sameness · every section = braai v33 · shared core.js · var --token]
+    X4[Name DERIVED from recipe · global names only · never name a thin recipe]
+    X5[Tags per-VERSION · hard=hide soft=badge · religious=filter-only · health=guidance not medical]
+    X6[Real food only · stock powder yes soup powder no · condiments yes]
+    X7[Every dish gets a 💡 didYouKnow · most-surprising · TRUE · grow-your-own where it fits]
+    X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
+    X9[Free=1 version · Pro=full selector · no third-party ads ever]
+    X10[End every session with updated TINZA_NOW.mermaid]
   end

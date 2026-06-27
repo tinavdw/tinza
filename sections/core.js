@@ -2749,6 +2749,7 @@ function bakesRecipeOpts(r){
     incJs:"set({recipeServings:(S.recipeServings||S.people||4)+1})"
   });
   var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
+  var dykBox   = r.didYouKnow ? recipeBox('💡 Did You Know', '<div style="font-size:15px;color:var(--ink2);line-height:1.6;">'+r.didYouKnow+'</div>') : '';
   var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:var(--ink2);line-height:1.5;">'+r.storage+'</div>') : '';
   return {
     photoName:r.photoName||r.name, photoEmoji:r.emoji||'🍰',
@@ -2757,7 +2758,7 @@ function bakesRecipeOpts(r){
     sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
     meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
-    extrasHTML: tipBox + storeBox,
+    extrasHTML: tipBox + dykBox + storeBox,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }
   };
 }
