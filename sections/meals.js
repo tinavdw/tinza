@@ -213,7 +213,7 @@ var SUPPER_RECIPES = [
     nutrition:{kcal:540,protein_g:34,carbs_g:62,fat_g:16}, storage:'Keeps 3 days; reheats well, add a splash of water to loosen the glaze.'},
   {id:'sp-bunny-chow', cat:'plates', diet:'meat', protein:'lamb', name:'Durban Bunny Chow', emoji:'🍛', cuisine:'South African', time:60, costPP:42,
     feel:'Durban street food at its finest — a hollowed half-loaf filled with rich, fragrant lamb curry.',
-    ingredients:[{n:'lamb',pp:150,u:'g'},{n:'onion',pp:70,u:'g'},{n:'tomato',pp:100,u:'g'},{n:'curry powder',pp:8,u:'g'},{n:'potato',pp:80,u:'g'},{n:'white bread',pp:0.5,u:'loaf'},{n:'garlic-ginger paste',pp:8,u:'g'},{n:'oil',pp:12,u:'ml'}],
+    ingredients:[{n:'lamb',pp:150,u:'g'},{n:'onion',pp:70,u:'g'},{n:'tomato',pp:100,u:'g'},{n:'curry powder',pp:8,u:'g'},{n:'potato',pp:80,u:'g'},{n:'white loaf',pp:350,u:'g'},{n:'garlic-ginger paste',pp:8,u:'g'},{n:'oil',pp:12,u:'ml'}],
     method:['Brown the lamb, then soften the onion with the garlic, ginger and curry powder.','Add the tomato and a little water and simmer until it forms a thick masala.','Add the potato and cook gently until the lamb is tender and the gravy is rich, about 45 minutes.','Hollow out a half-loaf of bread to make a bowl.','Spoon the curry into the bread and top with the soft centre you pulled out.'],
     tip:'Keep the curry thick so it does not soak through the bread too fast.',
     nutrition:{kcal:680,protein_g:32,carbs_g:70,fat_g:30}, storage:'Make the curry ahead (keeps 3 days, freezes well) and fill the bread fresh.'},

@@ -1,41 +1,43 @@
-%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, part 3)
+%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, part 4)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[PUSH TWO FILES this time: core.js engine-fix + meals.js audit. Both node --check PASS · no dupe IDs. core.js fix is APP-WIDE.]
-  NEXT[NEXT UP — pick one: A add ~18 MISSING ingredient prices so the 57 skipped recipes can cost · B roll the costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C clickable cross-links BD11 · D more recipes]
+  STATUS[ENGINE FIX IS LIVE now — confirmed in commit e9285f5 'core'. At session start it was NOT live yet; Tina pushed it mid-session, re-verified present. This session = MISSING-PRICE / ALIAS LOCK + bread root-cause fix. PUSH 3 FILES: prices.js + packs.js + meals.js. core.js NOT touched this session.]
+  NEXT[NEXT UP — pick one: A RE-AUDIT the 57 now-resolving recipes headline costPP · B roll costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C fill last gaps hot-dog/vienna sausages + tinned-beans alias · D apply the 5 Italian dish renames to data · E clickable cross-links BD11]
   START --> STATUS --> NEXT
 
-  subgraph DONE5C[" DONE THIS SESSION 5 part 3 — HONEST COSTING "]
-    BUG1[ENGINE BUG FOUND + FIXED core.js — count-priced items avocado lemon lime apple given in GRAMS were read as that-many-WHOLE-items. 80g avocado was costing R1040. Affected 19 Meals recipes LIVE incl My Plan/shopping]
-    BUG2[FIX per locked TINZA_AVG_WEIGHT_DB — added AVG_WEIGHT_G map avocado 200 lemon 100 lime 70 apple 150 egg 58 etc + unitToGrams helper. Count item given by weight now: COOK = grams/avgWeight x price exact green · BUY = ceil to whole units gold]
-    BUG3[Patched BOTH cost paths: costRecipe + plan/shopping per-ingredient. Verified prawn-avo R1079 to R44 · chickpea-avo R1058 to R23 · buddha-bowl R668 to R21 · pork-belly R284 to R35 · controls unchanged · avocado/egg single-item math correct]
-    BUG4[This fix is APP-WIDE — every section's My Plan/shopping now costs avocado/lemon/etc correctly, not just Meals]
-    AUD1[costPP HEADLINE AUDIT ran on the FIXED engine — 226 Meals recipes · 154 updated · 72 already correct · 0 structural errors · ZERO remaining absurd values]
-    AUD2[RULE: each version costPP = its own food-cost/pp · recipe-level costPP = its DEFAULT version cost so the list CARD matches what opens. spag-bol card R34 to R59 now equals its Slow Ragu default]
-    AUD3[57 recipes LEFT UNTOUCHED — contain NULL-priced ingredients can't cost honestly. Honest skip not a fudge]
-    AUD4[Both core.js + meals.js node --check PASS · staged to push]
+  subgraph DONE5D[" DONE THIS SESSION 5 part 4 — MISSING-PRICE / ALIAS LOCK "]
+    RC1[ROOT CAUSE of the 57 NULLs found — NOT mostly missing prices. Bread/buns/tortillas are written as COUNTS in recipes u-blank or u-each but were stored as plain WEIGHT keys → priceOf returned weight → costRecipe has NO count branch for those units → NULL]
+    FX1[FIX is DATA ONLY no engine change. Added star_each COUNT keys per slice/unit: white/brown/wholewheat/rye/sourdough/thick bread · tortillas · tortilla wrap · burger bun · hamburger roll. priceOf now returns per-count → resolves u-blank and u-each]
+    FX2[PACK_DB COUNT-LADDERS added so SHOP-SPEND gold rounds up to a whole loaf 22 slices / pack 8 wraps / 6 buns. Card shows per-slice food cost green · shopping list shows whole-loaf gold]
+    FX3[Generic bread LEFT weight-priced for breadcrumb/binder gram use. BUNNY CHOW corrected per Tina — uses UNSLICED loaf cut in half + hollowed like the bobotie pumpkin, NOT sandwich slices. Now white loaf 350g by weight; verified R8 cook / R15 buy whole loaf]
+    LK1[BREAD SLICE STANDARD LOCKED — 700g SA loaf approx 22 slices at 30g/slice. Industry slice 33g · Albany 24 · 30g per TINZA_AVG_WEIGHT_DB sits mid-band. Per-slice price = loaf price ÷ 22]
+    LK2[TINA-CONFIRMED PRICES LOCKED — stout R27/750ml→R36/L · green curry paste R48/50g→R960/kg · gochujang R77/240g→R321/kg sub 50:50 tomato paste + hot sauce · mixed seafood = seafood mix R157 · UNSLICED white loaf R15/700g→R21.43/kg for hollowed-loaf dishes bunny chow, cheaper than sliced R21]
+    VF1[VERIFIED via node harness — ALL affected recipes ZERO NULL + sane: 2 slices R2 · bunny chow 11 slices R10 · tortillas x2 R13 · stout 80ml R3 · curry 20g R19 · gochujang 20g R6 · seafood 120g R19. Avocado control intact 80g→R5 cook/R13 buy. node --check PASS on all 4 files]
+    NM1[5 GNOCCHI/PASTA PROPER ITALIAN NAMES decided — PENDING APPLY to data: 1 Gnocchi alla Boscaiola creamy mushroom+cream, spinach=Fiorentina touch · 2 Gnocchi alla Sorrentina already correct · 3 Gnocchi di Zucca al Burro e Salvia butternut+brown butter+sage · 4 Tagliatelle al Ragu alla Bolognese · 5 Tonnarelli Cacio e Pepe — tonnarelli is the authentic fresh-egg Roman cut]
   end
 
   subgraph PUSHNOW[" DO RIGHT AFTER THIS SESSION "]
-    PN1[Push BOTH: sections/core.js (engine fix) + sections/meals.js (audited headlines). GitHub Desktop only]
-    PN2[After push: eyeball a few costs on tinza.netlify.app. Honest numbers are higher than before — if any single one feels wrong it is a PRICE_DB PRICE to verify not the audit. Ties to monthly Sixty60 pass]
+    PN1[Push THREE: sections/prices.js + sections/packs.js + sections/meals.js. GitHub Desktop only. core.js NOT changed this session]
+    PN2[After push: eyeball a few bread/wrap/stout/curry recipes on tinza.netlify.app — they should now COST instead of showing blank. Estimate prices flagged below want a Sixty60 check]
   end
 
-  subgraph BACKLOGNEW[" NEW BACKLOG from this session "]
-    NB1[MISSING PRICES — ~18 ingredients block 57 recipes from costing: white bread · thick/sourdough bread · tortilla wrap/tortillas · burger buns/bun · soft roll · hot dog sausages · tinned beans · stout · mixed seafood · green curry paste · gochujang · whole spices cinnamon-cardamom-clove-bay. Add to PRICE_DB+aliases then re-audit those 57]
-    NB2[ROLL costPP AUDIT to other sections — WK/Health/Events/Braai/Kiddies headlines may still be stale. Engine now safe so re-audit is valid. Same script]
-    NB3[AVG_WEIGHT_G can extend — doc also lists bread slice 30 ham slice 18 cheese slice 20 etc for when those get count-priced]
+  subgraph GAPSNEW[" SMALL GAPS STILL OPEN from this session "]
+    G1[hot dog sausages + vienna sausages still NULL — need a price]
+    G2[tinned beans NULL — add alias → baked beans R41 or its own price]
+    G3[ESTIMATE prices to verify on Sixty60 pass: rye bread_each R1.65 · sourdough_each R2.80 · thick white_each R1.40 · hamburger roll/burger bun_each R4.30]
+    G4[whole-spice-as-count edge low-pri — cinnamon stick / cardamom pod given as count would mis-cost; only if a recipe uses them by count]
   end
 
-  subgraph PRIORWORK[" ALSO DONE EARLIER THIS SESSION (already pushed or in meals.js) "]
-    P1[Staples shelf: Potato/Butternut Gnocchi · Fresh Egg Pasta · Pizza Dough · Napoletana sauce]
-    P2[5 pizzas expanded Margherita Pepperoni BBQ Regina Mediterranean · dual wood-fired/oven cook]
-    P3[5 gnocchi/pasta DISHES cross-linking to make-your-own staples: Creamy Gnocchi · Sorrentina · Brown-Butter Gnocchi · Tagliatelle al Ragu · Cacio e Pepe]
-    P4[FINDING: World Kitchen has NO Italy/France — never existed in git history. Fresh build when ready]
+  subgraph REAUDIT[" THE RE-AUDIT 57 — now unblocked "]
+    RA1[The 57 recipes skipped last session for NULL ingredients now mostly RESOLVE. Re-run the costPP headline audit on them so list-card costPP matches the engine. Same script as last session]
+    RA2[RULE carried — each version costPP = its own food-cost/pp · recipe-level costPP = its DEFAULT version cost so the card matches what opens]
+    RB2[Then NB2 — roll the same costPP audit across WK/Health/Events/Braai/Kiddies now the engine + bread are honest]
   end
+
+  START --> DONE5D --> PUSHNOW --> GAPSNEW --> REAUDIT
 
   subgraph SHARED[" SHARED BUILDS / CROSS-LINKS "]
     BD11[GOES-WELL-WITH CLICKABLE Tina link ALL — WK_CROSS_LINKS to array · pills tappable · STILL PENDING]
@@ -44,30 +46,29 @@ flowchart TD
   end
 
   subgraph DESIGN[" DESIGN LOCKED carry forward "]
+    DSC[COSTING MODEL — count item BY WEIGHT = grams/avgWeight x each-price green exact · whole units gold via AVG_WEIGHT_G. count item BY COUNT u-blank/u-each = ceil x each-price green · PACK_DB ladder rounds to loaf/pack gold]
     DS7[DID YOU KNOW · every dish · most-surprising · TRUE]
-    DSP[PIZZA STANDARD — thin sauce · uncooked Napoletana · cook AS HOT AS POSSIBLE not 180C · preheat stone 30 min]
+    DSP[PIZZA STANDARD — thin sauce · uncooked Napoletana · cook AS HOT AS POSSIBLE · preheat stone 30 min]
     DSG[PASTA/GNOCCHI STANDARD — toss pasta IN the sauce · gnocchi done when they float · DISHES cross-link to staples]
-    DSC[COSTING MODEL LOCKED clarified — count item by weight = grams/avgWeight x each-price green exact · whole units gold. AVG_WEIGHT_G is the costing brain per TINZA_AVG_WEIGHT_DB]
   end
 
   subgraph BACKLOG[" BIGGER BACKLOG "]
-    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+ — now also chase the ~18 NULL ingredients]
+    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+ — verify the estimate prices + clear hot-dog/vienna/tinned-beans]
     B2[Weekly meal planner to ONE costed shopping list]
     B4[Marketing · founding-members + waitlist]
     B6c[WK ITALY + FRANCE fresh build · heritage + cross-link to Meals]
     B7[WK_CROSS_LINKS to ARRAY per recipe unlocks Bobotie + dish-to-staple links]
   end
 
-  START --> DONE5C --> PUSHNOW --> BACKLOGNEW
-  BACKLOGNEW --> PRIORWORK --> SHARED --> DESIGN --> BACKLOG
+  REAUDIT --> SHARED --> DESIGN --> BACKLOG
 
   subgraph RULES[" LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
     X2[Drafts not code · must be PATCHED INTO sections .js to go live]
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
-    X7[Every dish gets a didYouKnow · TRUE]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X11[Costing keystone — verify EVERY ingredient resolves zero NULL · headline costPP = engine value · count-by-weight uses AVG_WEIGHT_G]
-    X12[NEW — engine changes live in core.js are APP-WIDE high-risk: patch surgically + before/after cost tests + node --check + backup before edit]
+    X11[Costing keystone — verify EVERY ingredient resolves zero NULL · headline costPP = engine value]
+    X12[Engine changes in core.js are APP-WIDE high-risk: patch surgically + before/after cost tests + node --check + backup. PREFER DATA fixes prices.js/packs.js over engine edits — this session fixed 57 NULLs with zero engine change]
+    X13[NEW — count-priced staples bread/buns/wraps: PRICE_DB name_each per slice/unit + PACK_DB ladder for loaf/pack gold. Recipes express them as u-blank or u-each. Generic bread stays weight for gram binder use]
     X10[End every session with updated TINZA_NOW.mermaid]
   end

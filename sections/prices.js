@@ -393,11 +393,12 @@ const PRICE_DB = {
   "frozen spinach": 107,      // R80/750g → R107/kg
   "frozen blueberries": 140,  // R140/kg
 
-  // ── BREAD & PASTRY ──
-  "brown bread": 18,          // each
-  "white bread": 21,          // each
-  "hamburger rolls": 3,       // each
-  "bread": 18,
+  // ── BREAD & PASTRY ── (slices/buns/wraps are count-priced via *_each in the SESSION ADD block below;
+  //                        these weight keys only cover gram uses e.g. breadcrumb/binder)
+  "brown bread": 26,          // R18/700g loaf → R26/kg (gram use only)
+  "white bread": 30,          // R21/700g loaf → R30/kg (gram use only; _each wins for slices)
+  "hamburger rolls": 3,       // legacy weight key — superseded by hamburger roll_each below
+  "bread": 18,                // generic — breadcrumb/binder gram use
 
   // ── CEREAL ──
   "oats": 50,                 // per kg
@@ -680,6 +681,29 @@ const PRICE_DB = {
   "potjiekos spice blend": 188,
   "smoky spice": 900,
   "smoky spice rub": 900,
+
+  // ══════════ SESSION ADD · 27 Jun 2026 (part 4 — missing-price / alias lock) ══════════
+  // COUNT-PRICED bread/buns/wraps (per slice/unit). These resolve u:'' and u:'each'
+  // recipe lines. Shop-spend (gold) rounds up to a whole loaf/pack via PACK_DB ladders.
+  "white bread_each": 0.95,        // R21 loaf ÷ 22 slices
+  "brown bread_each": 0.82,        // R18 loaf ÷ 22 slices
+  "wholewheat bread_each": 0.91,   // ~R20 loaf ÷ 22 slices
+  "rye bread_each": 1.65,          // ESTIMATE ~R30 loaf ÷ 18 — verify on Sixty60 pass
+  "sourdough bread_each": 2.80,    // ESTIMATE pricier loaf ~14 slices — verify
+  "thick white bread_each": 1.40,  // thick cut ~16 slices/loaf — verify
+  "hamburger roll_each": 4.30,     // ~R26 / 6-pack — verify
+  "burger bun_each": 4.30,         // = hamburger roll
+  "tortillas_each": 6.25,          // R50 / 8 wraps
+  "tortilla wrap_each": 6.25,      // = tortillas (singular synonym; 'wraps' plural-strips to this)
+
+  // UNSLICED loaf — for hollowed-loaf dishes (bunny chow), used BY WEIGHT. Cheaper than sliced.
+  "white loaf": 21.43,             // unsliced white loaf R15 / 700g → R21.43/kg  (half loaf 350g ≈ R7.50)
+
+  // WEIGHT/VOLUME prices (prices confirmed by Tina 27 Jun)
+  "stout": 36,                     // R27 / 750ml → R36/L
+  "green curry paste": 960,        // R48 / 50g
+  "gochujang": 321,                // R77 / 240g  (sub 50:50 tomato paste + hot sauce)
+  "mixed seafood": 157,            // = seafood mix (R110/700g → R157/kg)
 };
 
 const MEAT_COSTS = {

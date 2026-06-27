@@ -136,6 +136,21 @@ const PACK_DB = {
 
   // ── BY EACH · TRAY LADDER ──
   "eggs":              { each: true, ladder: [6, 12, 18, 24] },
-  "eggs_each":         { each: true, ladder: [6, 12, 18, 24] }
+  "eggs_each":         { each: true, ladder: [6, 12, 18, 24] },
+
+  // ── BY EACH · BREAD / WRAPS / BUNS (round up to a whole loaf/pack for shop-spend) ──
+  "white bread":       { each: true, ladder: [22] },   // 700g loaf ≈ 22 slices
+  "brown bread":       { each: true, ladder: [22] },
+  "wholewheat bread":  { each: true, ladder: [22] },
+  "rye bread":         { each: true, ladder: [18] },
+  "sourdough bread":   { each: true, ladder: [14] },
+  "thick white bread": { each: true, ladder: [16] },
+  "tortillas":         { each: true, ladder: [8] },
+  "tortilla wrap":     { each: true, ladder: [8] },
+  "burger bun":        { each: true, ladder: [6] },
+  "hamburger roll":    { each: true, ladder: [6] },
+
+  // ── BY PACK · UNSLICED LOAF (hollowed-loaf dishes; round up to a whole R15 loaf) ──
+  "white loaf":        { size: 700, price: 15 }
 
 };
