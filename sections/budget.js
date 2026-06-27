@@ -204,3 +204,48 @@ function portionHelpContent() {
     + '</div>';
 }
 
+// ── BUDGET RECIPE FINDER (rebuilt 27 Jun — lost in the monolith→module split) ──
+// Filters every priced meal recipe down to what fits "I've got Rxxx for N people",
+// cheapest first. Pure local filter, no AI dependency — always works.
+function _budgetPool(){
+  var pool = [];
+  if(typeof BREAKFAST_RECIPES   !== 'undefined') pool = pool.concat(BREAKFAST_RECIPES);
+  if(typeof LIGHTLUNCH_RECIPES  !== 'undefined') pool = pool.concat(LIGHTLUNCH_RECIPES);
+  if(typeof SUPPER_RECIPES      !== 'undefined') pool = pool.concat(SUPPER_RECIPES);
+  if(typeof SIDES_BASICS_RECIPES!== 'undefined') pool = pool.concat(SIDES_BASICS_RECIPES);
+  // Bakes (cakes/biscuits/breads) deliberately excluded — this is a budget MEAL finder.
+  return pool;
+}
+function findBudgetRecipes(){
+  var budget = parseFloat(S.budgetAmount||0);
+  var people = parseInt(S.budgetPeople||4) || 1;
+  if(!budget || budget <= 0){ setQuiet({_budgetError:'Enter a budget first 💰', _budgetResults:null}); return; }
+  var per = budget / people;
+  var q = (S.budgetSearch||'').trim().toLowerCase();
+  var seen = {};
+  var pool = _budgetPool().filter(function(r){
+    if(!r || !r.costPP) return false;                                  // only priced recipes
+    if(r.costPP > per) return false;                                   // within per-person budget
+    if(q && (r.name||'').toLowerCase().indexOf(q) < 0) return false;   // honour the search box
+    if(seen[r.id]) return false; seen[r.id] = 1;                       // de-dupe
+    return true;
+  }).sort(function(a,b){ return (a.costPP||0) - (b.costPP||0); });     // cheapest first
+  if(!pool.length){
+    window._tinzaBudgetPage = [];
+    setQuiet({_budgetError:null, _budgetLoading:false, _budgetResults:[{_nomore:true}]});
+    return;
+  }
+  window._budgetPoolAll = pool;
+  window._budgetShown   = Math.min(6, pool.length);
+  var page = pool.slice(0, window._budgetShown);
+  window._tinzaBudgetPage = page;                                      // openBudgetRecipe() reads this
+  setQuiet({_budgetError:null, _budgetLoading:false, _budgetResults:page});
+}
+function getMoreBudgetRecipes(){
+  var pool = window._budgetPoolAll || [];
+  if(!pool.length){ findBudgetRecipes(); return; }
+  window._budgetShown = Math.min((window._budgetShown||6) + 3, pool.length);
+  var page = pool.slice(0, window._budgetShown);
+  window._tinzaBudgetPage = page;
+  setQuiet({_budgetResults:page});
+}
