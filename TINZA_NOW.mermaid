@@ -1,91 +1,73 @@
-%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5)
+%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, part 3)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[🟢 END OF SESSION 5 — ONE FILE TO PUSH: sections/meals.js. Built the Staples shelf + Napoletana sauce + 5 expanded pizzas. node --check PASSED · 48/48 new ingredients price · zero NULLs · no dupe IDs.]
-  NEXT[👉 NEXT UP — Tina: 'carry on with more recipes'. Also queued: BD11 clickable goes-well-with + NEW dish→staple 'make your own' cross-links · photos for new pizzas]
+  STATUS[PUSH TWO FILES this time: core.js engine-fix + meals.js audit. Both node --check PASS · no dupe IDs. core.js fix is APP-WIDE.]
+  NEXT[NEXT UP — pick one: A add ~18 MISSING ingredient prices so the 57 skipped recipes can cost · B roll the costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C clickable cross-links BD11 · D more recipes]
   START --> STATUS --> NEXT
 
-  subgraph DONE[" ✅ DONE THIS SESSION (5) "]
-    SH0[🥔 NEW SHELF — Meals · Sides & Basics gains a 'Staples & Doughs' category pill cat:'staples'. B6b DELIVERED]
-    SH1[🥔 POTATO GNOCCHI · 4 versions · Classic eggless default·Egg-enriched·Ricotta gnudi·Baked-potato · +didYouKnow gnocchi pre-date the potato · goesWith sauces]
-    SH2[🎃 BUTTERNUT GNOCCHI · 3 versions · Classic·Sweet potato·Warm-spiced · +didYouKnow Mantua/amaretti · separate recipe per B6b lock]
-    SH3[🍝 FRESH EGG PASTA · 5 versions · Classic egg default·Semolina bite·Eggless vegan·Spinach verde·Herb&pepper · +didYouKnow North egg vs South semolina · 1 egg:100g flour rule]
-    PZ0[🍕 PIZZA DOUGH staple · 5 versions · Classic same-day default·Overnight cold-ferment·Freezer dough·No-knead·Wholewheat · +didYouKnow Vera Pizza Napoletana law/00 flour]
-    PZ1[🍅 NAPOLETANA PIZZA SAUCE · Basic Sauces cat:'sauces' · 4 versions · Classic no-cook default·Garlic&herb·Rich cooked sugo·Arrabbiata · DISTINCT from pap tomato sauce · raw San Marzano fact]
-    PZ2[🍕 5 PIZZAS EXPANDED · Margherita·Pepperoni·BBQ Chicken·🆕Regina ham&mushroom·🆕Mediterranean Veg · each 4 versions · fuller step-by-step method]
-    PZ3[🔥 DUAL COOK on every pizza version — WOOD-FIRED ~400°C+ 60-90s turning once · HOME OVEN 240-260°C on preheated stone/steel/tray 8-12 min. Tina's 180°C gently corrected: 180 = pale soft base, save for thick pan pizza]
-    PZ4[🔗 make-your-own note in each pizza tip → Pizza Dough + Napoletana in Sides & Basics. NON-clickable for now (BD11 will wire)]
-    FR1[❄️ FREEZING RESEARCH done (web) → baked into Pizza Dough storage + Freezer version: RAW DOUGH BALLS best — freeze after 1st rise, extra oil, thaw fridge then proof. PAR-BAKE bases for speed 5-7min @220°C until pale. Freeze SAUCE SEPARATELY (sauce on raw dough = soggy). Avoid freezing fully-cooked]
-    CS1[💰 COSTING VERIFIED via app's own priceOf/costRecipe — all 48 new ingredient names resolve, ZERO NULL. '00 flour' NULL so costed as bread/cake flour, 00 named in method text only. jalapeño NULL → used 'chilli']
-    CS2[💰 14 headline costPP CORRECTED to engine: pizzas R46-65 (bought pizza base R20 + mozzarella R275/kg drive it) · butternut gnocchi R14 (parmesan) · ricotta gnudi R37 · dough/sauce R6. Homemade base ~R6 vs bought R20 = saves ~R14]
-    CS3[node --check PASSED at every step · no duplicate IDs introduced]
+  subgraph DONE5C[" DONE THIS SESSION 5 part 3 — HONEST COSTING "]
+    BUG1[ENGINE BUG FOUND + FIXED core.js — count-priced items avocado lemon lime apple given in GRAMS were read as that-many-WHOLE-items. 80g avocado was costing R1040. Affected 19 Meals recipes LIVE incl My Plan/shopping]
+    BUG2[FIX per locked TINZA_AVG_WEIGHT_DB — added AVG_WEIGHT_G map avocado 200 lemon 100 lime 70 apple 150 egg 58 etc + unitToGrams helper. Count item given by weight now: COOK = grams/avgWeight x price exact green · BUY = ceil to whole units gold]
+    BUG3[Patched BOTH cost paths: costRecipe + plan/shopping per-ingredient. Verified prawn-avo R1079 to R44 · chickpea-avo R1058 to R23 · buddha-bowl R668 to R21 · pork-belly R284 to R35 · controls unchanged · avocado/egg single-item math correct]
+    BUG4[This fix is APP-WIDE — every section's My Plan/shopping now costs avocado/lemon/etc correctly, not just Meals]
+    AUD1[costPP HEADLINE AUDIT ran on the FIXED engine — 226 Meals recipes · 154 updated · 72 already correct · 0 structural errors · ZERO remaining absurd values]
+    AUD2[RULE: each version costPP = its own food-cost/pp · recipe-level costPP = its DEFAULT version cost so the list CARD matches what opens. spag-bol card R34 to R59 now equals its Slow Ragu default]
+    AUD3[57 recipes LEFT UNTOUCHED — contain NULL-priced ingredients can't cost honestly. Honest skip not a fudge]
+    AUD4[Both core.js + meals.js node --check PASS · staged to push]
   end
 
-  subgraph FINDING[" 🔍 KEY FINDING — World Kitchen has NO Italy "]
-    WK1[Checked ALL wk_*.js: 19 European countries present (Spain·Greece·Portugal·Turkey·Switzerland·Poland·Hungary·Georgia·Austria·Nordics·etc) but ITALY and FRANCE are BOTH MISSING entirely]
-    WK2[Only 'pizza' strings in WK = a Czech baguette + Turkish lahmacun/pide trivia. Only Italian-ish dish = a saffron risotto filed under Switzerland/Ticino]
-    WK3[⇒ Meals pizzas are the ONLY pizzas in the whole app → safely CANONICAL, zero duplication risk. Logged WK Italy/France as backlog]
+  subgraph PUSHNOW[" DO RIGHT AFTER THIS SESSION "]
+    PN1[Push BOTH: sections/core.js (engine fix) + sections/meals.js (audited headlines). GitHub Desktop only]
+    PN2[After push: eyeball a few costs on tinza.netlify.app. Honest numbers are higher than before — if any single one feels wrong it is a PRICE_DB PRICE to verify not the audit. Ties to monthly Sixty60 pass]
   end
 
-  subgraph PUSHNOW[" 🚀 DO RIGHT AFTER THIS SESSION "]
-    PN1[Push sections/meals.js — contains: Staples shelf (gnocchi×2 + fresh pasta + pizza dough) · Napoletana in Basic Sauces · 5 expanded pizzas · the 'Staples & Doughs' category pill]
-    PN2[GitHub Desktop only · LF→CRLF warning harmless · node --check already PASSED]
-    PN3[After push: verify on tinza.netlify.app — Sides & Basics shows new Staples pill · Supper › Pasta & Pizza shows 5 pizzas with version chips]
+  subgraph BACKLOGNEW[" NEW BACKLOG from this session "]
+    NB1[MISSING PRICES — ~18 ingredients block 57 recipes from costing: white bread · thick/sourdough bread · tortilla wrap/tortillas · burger buns/bun · soft roll · hot dog sausages · tinned beans · stout · mixed seafood · green curry paste · gochujang · whole spices cinnamon-cardamom-clove-bay. Add to PRICE_DB+aliases then re-audit those 57]
+    NB2[ROLL costPP AUDIT to other sections — WK/Health/Events/Braai/Kiddies headlines may still be stale. Engine now safe so re-audit is valid. Same script]
+    NB3[AVG_WEIGHT_G can extend — doc also lists bread slice 30 ham slice 18 cheese slice 20 etc for when those get count-priced]
   end
 
-  subgraph SHARED[" 🔧 SHARED BUILDS / CROSS-LINKS (next) "]
-    BD11[🆕 GOES-WELL-WITH CLICKABLE (Tina: link ALL) — make pills tappable to their recipe · WK_CROSS_LINKS→array · STILL PENDING from session 4]
-    XL1[🆕 DISH→STAPLE 'make your own' cross-links — pizzas → Pizza Dough + Napoletana · future gnocchi/pasta DISHES → staples. Pairs with BD11 array work]
-    BD2[POTJIE SHELF in Braai · oxtail·lamb knuckle·chicken·venison · cross-link from 🔥Over Coals]
-    BD4[Version selector → roll into universal recipePage · WK/Health/Events inherit]
-    BD5[Dietary filter ENGINE · hard=hide · soft=badge · per-version tagging]
-    BD10[✅ DONE earlier — WK version engine wired]
+  subgraph PRIORWORK[" ALSO DONE EARLIER THIS SESSION (already pushed or in meals.js) "]
+    P1[Staples shelf: Potato/Butternut Gnocchi · Fresh Egg Pasta · Pizza Dough · Napoletana sauce]
+    P2[5 pizzas expanded Margherita Pepperoni BBQ Regina Mediterranean · dual wood-fired/oven cook]
+    P3[5 gnocchi/pasta DISHES cross-linking to make-your-own staples: Creamy Gnocchi · Sorrentina · Brown-Butter Gnocchi · Tagliatelle al Ragu · Cacio e Pepe]
+    P4[FINDING: World Kitchen has NO Italy/France — never existed in git history. Fresh build when ready]
   end
 
-  subgraph PHOTOS[" 📸 PHOTOS NEEDED (son's AI photography) "]
-    PH1[Pepperoni Pizza (was on the needs-photo dashboard) · 🆕 Regina Pizza · 🆕 Mediterranean Veg Pizza · the 4 new Staples (gnocchi×2, fresh pasta, pizza dough)]
-    PH2[Tools/photo-audit.js --missing = authoritative tracker · versions don't touch photoName so existing photos kept]
+  subgraph SHARED[" SHARED BUILDS / CROSS-LINKS "]
+    BD11[GOES-WELL-WITH CLICKABLE Tina link ALL — WK_CROSS_LINKS to array · pills tappable · STILL PENDING]
+    XL1[DISH-to-STAPLE make-your-own links currently NOTES in tips — make clickable with BD11 array work]
+    BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
   end
 
-  subgraph NEXTRECIPES[" 🍳 NEXT — carry on with more recipes (Tina) "]
-    NR1[Keep upgrading heroes section-by-section: read live → upgrade → version → tag → didYouKnow → name]
-    NR2[Candidate next: gnocchi/pasta DISHES that cross-link to the new staples (e.g. Creamy Spinach & Mushroom Gnocchi) · more Supper heroes]
-    NR3[Prove pipeline travels: pick a World Kitchen / Health hero next]
+  subgraph DESIGN[" DESIGN LOCKED carry forward "]
+    DS7[DID YOU KNOW · every dish · most-surprising · TRUE]
+    DSP[PIZZA STANDARD — thin sauce · uncooked Napoletana · cook AS HOT AS POSSIBLE not 180C · preheat stone 30 min]
+    DSG[PASTA/GNOCCHI STANDARD — toss pasta IN the sauce · gnocchi done when they float · DISHES cross-link to staples]
+    DSC[COSTING MODEL LOCKED clarified — count item by weight = grams/avgWeight x each-price green exact · whole units gold. AVG_WEIGHT_G is the costing brain per TINZA_AVG_WEIGHT_DB]
   end
 
-  subgraph DESIGN[" 🔒 DESIGN LOCKED (carry forward) "]
-    DS1[VERSION SYSTEM · Default+twist·💰Budget·⚡Quick·🌱Veg·🥑Keto·❤️Healthy·🏆Classic · 🔥Over Coals]
-    DS2[12 DIETARY TAGS · V VE PE KT GF DF DB LGI HF AI HL KS · hard=hide · soft=badge+filter · per-VERSION]
-    DS5[NAMING · derived from finished recipe · global names · Plaas→Farmhouse]
-    DS6[TIER GATE · Free=1 version default/diet-appropriate · Pro=full selector]
-    DS7[💡 DID YOU KNOW · every dish · most-surprising · TRUE · grow-your-own where it fits]
-    DS9[🔥 Over Coals / wood-fired = real-fire cooking option · pizzas now carry dual wood-fired+oven method]
-    DSP[🍕 PIZZA STANDARD (locked this session): thin layer of sauce · sauce uncooked (Napoletana) · cheese border left clear · cook AS HOT AS POSSIBLE not 180°C · preheat stone/steel/tray 30 min · basil/rocket added AFTER bake]
+  subgraph BACKLOG[" BIGGER BACKLOG "]
+    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+ — now also chase the ~18 NULL ingredients]
+    B2[Weekly meal planner to ONE costed shopping list]
+    B4[Marketing · founding-members + waitlist]
+    B6c[WK ITALY + FRANCE fresh build · heritage + cross-link to Meals]
+    B7[WK_CROSS_LINKS to ARRAY per recipe unlocks Bobotie + dish-to-staple links]
   end
 
-  subgraph BACKLOG[" 📋 BIGGER BACKLOG "]
-    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+]
-    B2[Weekly meal planner → ONE costed shopping list · biggest commercial lever]
-    B4[Marketing · founding-members + waitlist · merge-screen-with-real angle · SA channels]
-    B5[HERITAGE VERSION as a repeatable type — 'old/original recipe' angle across dishes]
-    B6c[🆕 WK ITALY (+ FRANCE) SECTION — both missing from World Kitchen. Italy would hold heritage dishes (Naples pizza story · ragù on tagliatelle · cacio e pepe) + cross-link to Meals pizzas/pasta]
-    B6b[✅ DONE — staple base recipes (gnocchi ×2, fresh pasta) built. Pizza Dough now also a staple. Remaining: build the DISHES that cross-link to them]
-    B7[WK_CROSS_LINKS → support an ARRAY per recipe (Bobotie needs 2). Same array work unlocks pizza→dough+sauce links]
-  end
+  START --> DONE5C --> PUSHNOW --> BACKLOGNEW
+  BACKLOGNEW --> PRIORWORK --> SHARED --> DESIGN --> BACKLOG
 
-  START --> DONE --> FINDING --> PUSHNOW --> SHARED
-  SHARED --> PHOTOS --> NEXTRECIPES --> DESIGN --> BACKLOG
-
-  subgraph RULES[" ⚙️ LOCKED RULES "]
+  subgraph RULES[" LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
-    X2[Drafts ≠ code · a recipe must be PATCHED INTO sections/*.js to go live]
+    X2[Drafts not code · must be PATCHED INTO sections .js to go live]
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
-    X7[Every dish gets a 💡 didYouKnow · most-surprising · TRUE]
+    X7[Every dish gets a didYouKnow · TRUE]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X9[Free=1 version · Pro=full selector · no third-party ads ever]
-    X11[Costing keystone — verify EVERY new ingredient resolves via priceOf before push · zero NULL]
+    X11[Costing keystone — verify EVERY ingredient resolves zero NULL · headline costPP = engine value · count-by-weight uses AVG_WEIGHT_G]
+    X12[NEW — engine changes live in core.js are APP-WIDE high-risk: patch surgically + before/after cost tests + node --check + backup before edit]
     X10[End every session with updated TINZA_NOW.mermaid]
   end

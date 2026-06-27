@@ -889,6 +889,26 @@ var PRICE_ALIAS = {  // ── loose-ends alias pass (26 Jun): broths→stock, b
   "garlic cloves":"garlic","garlic clove":"garlic",
 
 };
+
+// ── AVG WEIGHT (g per unit) — the "costing brain" from TINZA_AVG_WEIGHT_DB (locked).
+// Lets the engine convert a recipe WEIGHT into whole units for count-priced items
+// (avocado, lemon, etc. are sold each), so grams cost at the per-gram rate (green =
+// exact food cost) and the trolley rounds up to whole units (gold = shop spend).
+// Without this, "80 g avocado" was read as "80 avocados". Keyed by priceOf() key.
+var AVG_WEIGHT_G = {
+  avocado:200, lemon:100, lime:70, apple:150, banana:120,
+  tomato:120, onion:150, "green pepper":150, "red pepper":150, carrot:80,
+  "corn on the cob":200, corn:200, mielie:200, garlic:50, egg:58,
+  "hamburger roll":65, "burger buns":65, "hot-dog roll":50, vienna:30,
+  "russian sausage":90, tortilla:60, "large tortilla":60
+};
+// recipe unit → grams (null if not a weight/volume unit, e.g. 'each'/'egg')
+function unitToGrams(qty, unit){
+  if(unit==='g'||unit==='ml') return qty;
+  if(unit==='kg'||unit==='l') return qty*1000;
+  return null;
+}
+
 function priceClean(name){
   return String(name||'').toLowerCase().split('/')[0]
     .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
@@ -930,19 +950,28 @@ function costRecipe(items,n){
     if(it==null || it.qty==null) return;
     var pr = priceOf(it.name);
     if(!pr){ missing.push(it.name); return; }
-    var q = it.qty*n, c=0;
-    if(pr.per==='count')      c = Math.ceil(q)*pr.price;
-    else if(it.unit==='g')    c = (q/1000)*pr.price;
-    else if(it.unit==='kg')   c = q*pr.price;
-    else if(it.unit==='ml')   c = (q/1000)*pr.price;
-    else if(it.unit==='l')    c = q*pr.price;
+    var q = it.qty*n, c=0, b=0;
+    if(pr.per==='count'){
+      var gC = unitToGrams(q, it.unit);
+      if(gC!=null && AVG_WEIGHT_G[pr.key]){      // weight given for an each-priced item → convert
+        var unitsC = gC / AVG_WEIGHT_G[pr.key];
+        c = unitsC * pr.price;                   // COOK: exact food cost (green)
+        b = Math.ceil(unitsC) * pr.price;        // BUY: whole units (gold)
+      } else {                                   // count given as a count
+        c = Math.ceil(q) * pr.price; b = c;
+      }
+    }
+    else if(it.unit==='g')    { c = (q/1000)*pr.price; b = c; }
+    else if(it.unit==='kg')   { c = q*pr.price; b = c; }
+    else if(it.unit==='ml')   { c = (q/1000)*pr.price; b = c; }
+    else if(it.unit==='l')    { c = q*pr.price; b = c; }
     else { missing.push(it.name); return; }
     cook += c; priced++;
     if(pr.pack && pr.pack.size && pr.per!=='count'){
       var need = (it.unit==='kg'||it.unit==='l') ? q*1000 : q;
       var packs = Math.ceil(need/pr.pack.size);
       buy += packs*(pr.pack.price!=null ? pr.pack.price : (pr.pack.size/1000)*pr.price);
-    } else { buy += c; }
+    } else { buy += b; }
   });
   return { cook:Math.round(cook), buy:Math.round(buy), priced:priced, missing:missing };
 }
@@ -1054,11 +1083,19 @@ function buildShoppingList(){
     const need = it.amt;
     // COOK — exact, no buffer
     if(!pr) it.cookCost = null;
-    else if(pr.per === 'count') it.cookCost = Math.round(Math.ceil(need) * pr.price);
+    else if(pr.per === 'count'){
+      const gP = unitToGrams(need, it.unit);
+      if(gP!=null && AVG_WEIGHT_G[pr.key]) it.cookCost = Math.round((gP / AVG_WEIGHT_G[pr.key]) * pr.price);
+      else it.cookCost = Math.round(Math.ceil(need) * pr.price);
+    }
     else it.cookCost = Math.round((need / 1000) * pr.price);
     // BUY — what you actually put in the trolley
     it.loose = false; it.packLine = false; it.buyAmt = need; it.buyUnit = it.unit; it.buyPacks = 0; it.packSize = 0;
     if(!pr){ it.buyCost = null; }
+    else if(pr.per === 'count' && unitToGrams(need, it.unit)!=null && AVG_WEIGHT_G[pr.key]){  // weight given for an each-priced item → whole units
+      const u = Math.ceil(unitToGrams(need, it.unit) / AVG_WEIGHT_G[pr.key]);
+      it.buyAmt = u; it.buyUnit = 'pcs'; it.buyCost = Math.round(u * pr.price);
+    }
     else if(pr.per === 'count' && pk && pk.ladder){            // eggs — round up the tray ladder
       const n0 = Math.ceil(need), last = pk.ladder[pk.ladder.length - 1];
       const rung = pk.ladder.find(r => r >= n0) || (last * Math.ceil(n0 / last));
