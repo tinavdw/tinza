@@ -33,6 +33,11 @@ flowchart TD
     HM2[Additive: entries with no 'heat' render nothing → existing 122 untouched · heatMeterHTML tested 0–4 + null]
     HM3[🫙 Apricot Chutney PATCHED into spice.js (chutneys-atchars) with heat:1 (Mild) — supersedes the draft · push-ready ✅]
     HM4[NEXT: heat-rating pass on spicy shelves (chilli sauces SPICE_SAUCE_CHILLI list exists · atchars · sambals · hot blends like berbere/harissa/peri-peri)]
+    FX1[🐞 PARSER FIX (worldkitchen.js): unit regex grabbed a letter from the name — '½ large egg'→'0.5L arge egg', '1 garlic clove'→'1g arlic clove', '1 lemon'→'1L emon'. Added (?![a-z]) lookahead]
+    FX2[Regression-tested: 5232 WK ingredient lines · only 20 changed · ALL were this bug · now parse as proper countable items]
+    FX3[🐞 BUDGET MISSING was a wrong-file push — live bobotie had 4 versions. RE-DELIVERED 5-version wk_southafrica.js (push THIS one)]
+    FX4[Bobotie data: '½ large egg'→'½ egg' · 'pinch ground cloves & cinnamon' SPLIT → two 'to taste' lines (per-serving, so to-taste is right — 2g each ×guests would overpower)]
+    FX5[Spag bol default = 🍝 Slow Ragù (confirmed) · Apricot Chutney = Mrs Ball's-style, Tina loves it · PHOTOS: versions don't touch photoName → all Tina's existing photos kept]
   end
 
   subgraph PUSHNOW[" 🚀 DO RIGHT AFTER THIS SESSION "]
@@ -51,6 +56,10 @@ flowchart TD
     BD8[add:[]/swap:[] variations mechanism · re-cost + shopping list · backlog]
     BD9[Cross-links: fish&chips→Chips · burger&chips→Chips · bangers&mash→Mash]
     BD10[✅ DONE — WK version engine wired into wkRecipeOpts + recipePage slot. Next layer: standout 💡 box in WK (trivia still in info-row)]
+    BD11[🆕 GOES-WELL-WITH LINKING (Tina: link ALL of them) — make the pills clickable to their recipe · needs WK_CROSS_LINKS→array · map: yellow rice→WK rice · extra chutney→Spice apricot-chutney · tomato-onion sambal→Spice sambal]
+    BD12[✅ DONE — GOES-WELL-WITH in MEALS: render added to recipeDetailFromResult (shared pill style) + goesWith data on spag bol·beef stew·roast chicken · shows only where authored]
+    BD13[✅ DONE — spag bol 'tagliatelle' → 'tagliatelle or spaghetti' (still costs as spaghetti via substring)]
+    BD14[🆕 CODE BUG-SWEEP — run after pushing this batch · brief = TINZA_BUGSWEEP_BRIEF.md (targets: parser-bug class · version engine · price resolution · heat/dyk/goeswith · dead cross-links)]
   end
 
   subgraph PRICE[" 💰 PRICE_DB — watchlist AUDITED ✅ (27 Jun) "]
