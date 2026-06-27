@@ -886,6 +886,7 @@ var PRICE_ALIAS = {  // ── loose-ends alias pass (26 Jun): broths→stock, b
   "corn starch":"cornflour",
   "potato starch":"cornflour",
   "tapioca starch":"cornflour",
+  "garlic cloves":"garlic","garlic clove":"garlic",
 
 };
 function priceClean(name){
@@ -2834,9 +2835,10 @@ function versionStripHTML(r, color){
   var active = activeVersionName(r);
   var chips = r.versions.map(function(v){
     var on = v.name===active;
-    var label = (v.icon?v.icon+' ':'') + v.name;
-    var nm = String(v.name).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return '<button onclick="setRecipeVersion(\''+r.id+'\',\''+nm+'\')" style="cursor:pointer;border:1px solid '+color+';border-radius:999px;padding:7px 12px;font-size:13px;font-weight:bold;white-space:nowrap;'
+    var label = String((v.icon?v.icon+' ':'') + v.name).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var nm  = String(v.name).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+    var rid = String(r.id).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+    return '<button onclick="setRecipeVersion(\''+rid+'\',\''+nm+'\')" style="cursor:pointer;border:1px solid '+color+';border-radius:999px;padding:7px 12px;font-size:13px;font-weight:bold;white-space:nowrap;'
       + (on ? 'background:'+color+';color:#0f0e0c;' : 'background:transparent;color:'+color+';') + '">'+label+'</button>';
   }).join('');
   return '<div style="margin-bottom:14px;">'

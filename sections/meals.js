@@ -1866,8 +1866,8 @@ async function findAnchorIngredient(){
   setQuiet({_anchorLoading:true, _anchorResults:null, _anchorError:null});
 
   // Parse quantity if given e.g. "beef mince 300g" or "whole chicken 1.1kg"
-  const qtyMatch = raw.match(/([\d.]+)\s*(g|kg|ml|L|l)/i);
-  const ingredient = raw.replace(/([\d.]+)\s*(g|kg|ml|L|l)/gi,'').trim();
+  const qtyMatch = raw.match(/([\d.]+)\s*(g|kg|ml|L|l)(?![a-z])/i);
+  const ingredient = raw.replace(/([\d.]+)\s*(g|kg|ml|L|l)(?![a-z])/gi,'').replace(/^\s*[\d.]+\s+/,'').trim();
   const userQty = qtyMatch ? parseFloat(qtyMatch[1]) * (qtyMatch[2].toLowerCase()==='kg'?1000:qtyMatch[2].toLowerCase()==='l'?1000:1) : null;
   const userUnit = qtyMatch ? (qtyMatch[2].toLowerCase()==='kg'?'g':qtyMatch[2].toLowerCase()==='l'?'ml':qtyMatch[2].toLowerCase()) : null;
 

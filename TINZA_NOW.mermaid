@@ -60,6 +60,9 @@ flowchart TD
     BD12[✅ DONE — GOES-WELL-WITH in MEALS: render added to recipeDetailFromResult (shared pill style) + goesWith data on spag bol·beef stew·roast chicken · shows only where authored]
     BD13[✅ DONE — spag bol 'tagliatelle' → 'tagliatelle or spaghetti' (still costs as spaghetti via substring)]
     BD14[🆕 CODE BUG-SWEEP — run after pushing this batch · brief = TINZA_BUGSWEEP_BRIEF.md (targets: parser-bug class · version engine · price resolution · heat/dyk/goeswith · dead cross-links)]
+    BD14a[✅ DONE 27 Jun — BUGSWEEP RAN (parallel agents, self-corrected 2 false positives). FIXED: #1 garlic cloves → garlic in BOTH PRICE_ALIAS + WK_ALIAS was R1022 cloves now R280 · #2 meals.js anchor regex unit-grab + leading-count strip 1 lemon→lemon. Files: core.js·meals.js·worldkitchen.js · node --check ✓]
+    BD14b[✅ DONE 27 Jun — parser-hardening batch: #3/#4 events.js ALL 5 unit-grab sites got (?![a-z]) (1574·1690·1769·1772·1806) · #5 core.js versionStripHTML now HTML-escapes label + escapes double-quote in nm + escapes r.id. node --check ✓. Files: events.js·core.js]
+    BD14c[ℹ️ CONFIRMED SAFE by sweep: WK_CROSS_LINKS all resolve (Nigeria links NOT dead) · buffet.js parseAmt safe (trailing \\b) · version engine · heat meter · node --check 27/27 · load order · no dup ids. ~185 NULL prices = known PRICELEFT backlog not a regression]
   end
 
   subgraph PRICE[" 💰 PRICE_DB — watchlist AUDITED ✅ (27 Jun) "]
@@ -102,6 +105,7 @@ flowchart TD
     B4[Marketing · founding-members + waitlist · merge-screen-with-real angle · SA channels]
     B5[🆕 HERITAGE VERSION as a repeatable type (Tina: 'do more of these') — the 'old/original recipe' angle across dishes, like 💰⚡🌱 are standard version types]
     B6[🆕 FMF STAPLES SECTION — home for yellow rice/geelrys, pap, samp, etc. (scope structure; yellow rice already lives in World Kitchen — decide: move, share, or cross-link)]
+    B6b[🔒 LOCKED (Tina, 27 Jun) — STAPLE BASE RECIPES to build in Meals staples: 🥔 Potato Gnocchi · 🎃 Butternut Gnocchi · 🍝 Fresh Pasta (egg pasta). Gnocchi/pasta DISHES (e.g. Creamy Spinach & Mushroom Gnocchi) then cross-link → 'make your own'. gnocchi already in PRICE_DB]
     B7[🆕 WK_CROSS_LINKS → support an ARRAY of links per recipe (Bobotie needs 2: → Yellow Rice + → Apricot Chutney). Then wire bobotie cross-links]
   end
 

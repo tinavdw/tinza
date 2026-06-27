@@ -1571,7 +1571,7 @@ function cakesRecipeOpts(cake, guests){
   // ── INGREDIENTS (shared box/row): per-portion · scaled total; "—" = sub-head ──
   var ratio = guests / servesNum;
   function fmtScaled(totalPart){
-    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)/);
+    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)(?![a-z])/);
     if(!m || ratio===1) return totalPart;
     var base = parseFloat(m[1]), unit = m[2];
     var scaled = Math.round(base*ratio*10)/10;
@@ -1687,7 +1687,7 @@ function beveragesRecipeOpts(bev, guests){
   // ── INGREDIENTS (shared box/row): per-glass · scaled total; "—" = sub-head ──
   var ratio = servesNum>0 ? (guests / servesNum) : 1;                       // never divide by NaN
   function fmtScaled(totalPart){
-    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)/);
+    var m = totalPart.match(/^([\d.]+)\s*(g|kg|ml|L)(?![a-z])/);
     if(!m || ratio===1) return totalPart;
     var base = parseFloat(m[1]), unit = m[2];
     var scaled = Math.round(base*ratio*10)/10;
@@ -1766,10 +1766,10 @@ function drinkShopItems(selRecipes, bevG){
       var a = (ing.a||'').trim(); if(!a) return;
       var p = a.split('·');
       if(p.length>1){
-        var m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+        var m = p[1].trim().match(/^([\d.]+)\s*((?:g|kg|ml|L)(?![a-z]))?/);
         if(m && m[1]) acc(ing.n, parseFloat(m[1])*ratio, m[2]||'');
       } else if(baseServes===0){
-        var m2 = a.match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+        var m2 = a.match(/^([\d.]+)\s*((?:g|kg|ml|L)(?![a-z]))?/);
         if(m2 && m2[1]) acc(ing.n, parseFloat(m2[1])*bevG, m2[2]||'');
         else txt(ing.n, a);
       }
@@ -1803,7 +1803,7 @@ function cakeShopItems(selRecipes, cakeG){
       if(!ing || !ing.n || ing.n.startsWith('—')) return;
       var p = (ing.a||'').split('·');
       if(p.length<2) return;
-      var m = p[1].trim().match(/^([\d.]+)\s*(g|kg|ml|L)?/);
+      var m = p[1].trim().match(/^([\d.]+)\s*((?:g|kg|ml|L)(?![a-z]))?/);
       if(m && m[1]) acc(ing.n, parseFloat(m[1])*ratio, m[2]||'');
     });
   });
