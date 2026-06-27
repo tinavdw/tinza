@@ -13,11 +13,16 @@ flowchart TD
     D1[🍝 sp-spag-bol → 5 versions · Slow Ragù·Budget·Quick·Veg·Classic · +didYouKnow · FIX cat:'pasta'→'pastapizza']
     D2[🥘 sp-beef-stew → Farmhouse · 5 versions · Farmhouse·Budget·Quick·Red Wine·🔥Over Coals · +didYouKnow]
     D3[🍗 sp-roast-chicken → Lemon & Herb Roast Chicken & Veg · 4 versions · +didYouKnow]
+    DT1[🍛 PIPELINE-TRAVELS TEST · Bobotie (World Kitchen) upgraded + PATCHED into wk_southafrica.js · push-ready ✅]
+    DT2[Finding: CONTENT travels clean · WK already renders trivia as 💡 Did You Know → fact shows on patch, no render code]
+    DT3[Finding: VERSIONS do NOT travel · WK uses own wkRecipeOpts, no version engine → logged as shared-build BD10]
+    DT4[Bobotie LOCKED: ✅ almonds in · ✅ fact #1 (1609 Dutch cookbook) · ✅ name 'Bobotie' (sub: Golden Spiced Mince Bake)]
+    DT5[History note: bobotie = Monday-leftovers dish (Sunday roast hand-minced) → mince is correct for modern recipe · alt-fact #2 banked]
   end
 
   subgraph PUSHNOW[" 🚀 DO RIGHT AFTER THIS SESSION "]
-    PN1[GitHub Desktop: drag patched meals.js AND core.js into sections/ → replace → commit → push]
-    PN2[Preview: version selectors work · 💡 Did You Know now shows under the Tip on all 3 heroes ✓]
+    PN1[GitHub Desktop: push meals.js + core.js (re-push core.js for the dried-italian-herbs alias) + wk_southafrica.js (Bobotie)]
+    PN2[Preview: version selectors work · 💡 Did You Know shows on the 3 heroes ✓ · Bobotie 💡 shows via trivia ✓]
   end
 
   subgraph BUILDS[" 🔧 SHARED BUILDS (touch core.js/spice.js/braai · app-wide) "]
@@ -29,13 +34,15 @@ flowchart TD
     BD7[Free/Pro gate on version selector · diet-appropriate default for Free]
     BD8[add:[]/swap:[] variations mechanism · re-cost + shopping list · backlog]
     BD9[Cross-links: fish&chips→Chips · burger&chips→Chips · bangers&mash→Mash]
+    BD10[NEW (from Bobotie test): WK version engine → wire applyRecipeVersion + version strip into wkRecipeOpts<br/>+ give WK a standout 💡 box (currently trivia lumped in info-row, not a Meals-style box)]
   end
 
-  subgraph PRICE[" 💰 PRICE_DB — confirm watchlist (affects My Plan costing, not display) "]
-    PR1[Beef stew: bay leaves · thyme · Worcestershire sauce · beef stock powder]
-    PR2[Roast chicken: lemon · rosemary · chicken breasts · sweet potatoes · green beans]
-    PR3[Spag bol: brown lentils ✓ exists · others already priced]
-    PR4[Upload PRICE_DB / spice.js next session → run price-audit on these names]
+  subgraph PRICE[" 💰 PRICE_DB — watchlist AUDITED ✅ (27 Jun) "]
+    PR1[Audited all 52 ingredients across 3 heroes + Bobotie via app's own lookupPrice (exact→alias→substring)]
+    PR2[51/52 resolve · all flagged watchlist items price correctly (bay·thyme·Worcestershire·stock powder·lemon·rosemary·chicken breasts·sweet potatoes·green beans·almonds·chutney·curry powder·sultanas)]
+    PR3[ONE gap fixed: 'dried Italian herbs' → alias to 'mixed herbs' · folded into core.js push]
+    PR4[Spot-checked substring prices sensible: stewing meat→beef stew R100/kg · chutney R98 · almonds R330 · stock powder R50]
+    PR5[Next: monthly Sixty60 pass for drift · PRICE_DB 95%+ keystone still ahead]
   end
 
   subgraph NEXT[" 🍳 NEXT — prove pipeline TRAVELS across sections "]
