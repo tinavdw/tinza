@@ -1,69 +1,139 @@
-# TINZA DISH FAMILIES (living reference)
-*The "one base, many ways, one photo" program. Turns dull/duplicated recipes into premium families with depth AND breadth — and shares photos to cut the shoot backlog. Pairs with TINZA_RECIPE_DEPTH_STANDARD.md.*
+# 🍽️ TINZA DISH FAMILIES — versions, dietary tags & tier gate
+*Locked 27 Jun 2026. Master reference for the version system and the dietary system — they are two halves of one mechanism, so they live together.*
+*Companion doc: `TINZA_DISH_NAMING.md` (naming is the LAST step of the recipe pipeline).*
 
-## The model (LOCKED — Tina's call)
-**Keep each cultural entry in its country section, share ONE base + photo, cross-link.** World Kitchen stays browsable by country; we don't merge mandazi out of Kenya. We just stop treating cousins as strangers.
+---
 
-## Three mechanisms (they build differently)
-0. **`versions` selector — ALTERNATE FULL VERSIONS of a hero recipe (Tina's extension).** One recipe, several complete versions; the DEFAULT is the deepened wow version. **Versions = serving different PEOPLE from one recipe:**
-   - ⚡ Quick → the one in a hurry · 🏆 Classic / ⭐ Tinza's Best → the connoisseur · 🌱 Vegetarian → the dietary need · 💰 Budget → the cost-conscious · and STYLE axes too (🎏 old-country vs ✨ trendy for fish & chips).
-   - **À LA CARTE:** each recipe declares only the versions that make sense for IT — never force all of them (that's padding, breaks the depth standard). Spag bol → Best/Quick/Veg/Classic. Fish & chips → Best/Quick/Budget/old-country/trendy.
-   - **💰 Budget is the secret weapon:** "budget" is real here because the costing engine proves it — swap to a cheaper cut, stretch with veg/starch, and the green/gold price visibly drops on screen. Only Tinza can show the saving. Ties straight to the Rand-costing differentiator.
-   - Shape: `versions:[{name:"Tinza's Best", default:true, feel, ingredients:[…], method:[…], costPP, time}, {name:'Quick', …}, {name:'Budget', …}, …]`
-   - Selecting a version swaps the whole displayed recipe AND feeds THAT version's ingredients to the plan/shopping builder → cost/time/shopping list all update. Same shopping-flow as addable variations.
-   - This is how "too basic" originals survive: the old 6-ingredient spag bol becomes the ⚡ Quick version under the wow default. Everyone served from one entry.
-   - Use for HERO recipes (mains/suppers). Building-blocks usually just need add-on `variations` (below), not full versions.
-1. **`variations` strip — DISPLAY + ADDABLE (Tina's upgrade).** Riffs on a SINGLE recipe (same dish, small twists, no new recipe). Pap → 12 ways.
-   - Basic shape (display only): `{name:'Cheese & Pepper', how:'Cheddar and butter melted through.'}`
-   - **ADDABLE shape (the wow):** the variation carries the EXTRA ingredients it introduces →
-     `{name:'Peanut Butter & Banana', how:'Stir through the hot pap.', add:[{n:'peanut butter',pp:20,u:'g'},{n:'banana',pp:60,u:'g'}]}`
-   - Each variation chip gets a **"Use this version"** toggle (distinct from "see how"). On select: store `S.recipeVariation[recipeId]=idx`; the plan/shopping builder feeds buildPlanData `base.ingredients + variation.add`. → green/gold cost re-computes, shopping list includes the add-ons. The user shops for THEIR chosen version. No recipe-website does this.
-   - v1 = additive (`add`) only — covers ~90%. v2 niceties: `swap:[{out:'water',in:'milk'}]` for "cook in milk not water". Keep v1 simple.
-   - Build: variation `add` field + "Use this version" button + `S.recipeVariation` state + fold into plan builder. Small, sits on existing engine.
-2. **`family` tag** — distinct sibling RECIPES that are cousins (mandazi, puff-puff, vetkoek), each a full recipe in its own section, sharing a photo + cross-linked.
-   - Shape on each member: `family:'frieddough'` + `photoName:'<shared family photo>'`
-   - Registry: `FAMILIES = { frieddough:{ label:'Fried Dough', photoName:'…', baseId:'<richest member = canonical technique>', members:['vetkoek','mandazi','puffpuff','magwinya'] }, … }`
-   - Renderer: a "Part of the Fried Dough family — see also: Mandazi, Puff-Puff…" cross-link strip.
-   - **Photo win:** `photoName` already supports shared images (no new code). One shoot covers the whole family.
+## THE RECIPE PIPELINE (order is locked)
 
-A recipe can use BOTH.
+**1. Recipe upgrade** (depth standard — real ingredients + proper method)
+**→ 2. Build version categories** (count scaled to popularity)
+**→ 3. Tag each version** (dietary tags live per-VERSION, not per-dish)
+**→ 4. Derive the name** of the parent dish + each version, from the finished recipe
 
-## Two family TYPES (Tina's rule — the split is by what the food IS, not cuisine)
-- **TYPE A — Building blocks** → ONE shared photo + `variations` strip. The base is genuinely the same thing; variations are fillings/toppings/twists. Photo-sharing applies here.
-  - Fried Dough (vetkoek incl. mini, magwinya, mandazi, puff-puff) · Maize Porridge · Flatbread · Fritters · Syrup-Soaked Fried Sweets · Thin Pancakes.
-- **TYPE B — Composed meals** → KEEP as individual recipes, EACH its own hero photo. Collapsing them throws away the shot that sells the dish. NO shared-photo collapse. But still: cross-link siblings for discovery/browsing, fill missing cousins, and dedup true duplicates.
-  - Marinated Skewers · Quiche/Savoury Pie · Fried Rice.
-  - Note on Fried Rice: "leave as is" = don't squash under one photo. We DO still add Thailand (khao pad, pineapple-in-shell, crab, basil/krapow) + nasi goreng/chahan/Yangzhou — each its own dish + shot. Breadth kept, hero pics kept.
+Never name or tag a thin recipe. Fix the recipe first.
 
-## Family map (first pass — members found · dups to merge · cousins to ADD)
-1. **Fried Dough (savoury/breakfast)** — have: Vetkoek (6 near-dups → merge to 1 + variations), Magwinya (was removed, re-add). ADD: 🇰🇪 Mandazi, 🇳🇬 Puff-Puff. [Koeksister REMOVED → own family below]
-2. **Syrup-Soaked Fried Sweets** *(NEW, born from koeksister split)* — have: Koeksister, Koeksister Bites, Mini Cocktail Koeksisters (→ merge + variations). ADD: 🇿🇦 Cape Malay koesister (spiced/coconut), 🇬🇷 Loukoumades, 🇹🇷 Tulumba, 🇮🇳 Jalebi, 🇪🇸 Churros-in-syrup.
-3. **Flatbread** — have: Roti (Godamba, Whole Wheat), Pita, Lavash, Msemen, Braai Flatbread, Soft Tortilla. ADD: 🇮🇳 Naan, Chapati, Paratha. (Note: "Spanish Tortilla" is an omelette — NOT this family.)
-4. **Maize Porridge** — have: Mealie Pap & Milk, Putu/Phutu/Stywe Pap, Pap & Sous (4 dups → merge to a clean SA set + variations). ADD: 🇰🇪 Ugali, 🇿🇼 Sadza, 🇿🇲 Nshima, Polenta, Grits.
-5. **Marinated Skewers** — have: Sosaties, Lamb Sosaties, Beef/Chicken Kebabs, Beef Kofta, Beef Souvlaki, Adana, Paneer Tikka, Seafood Espetada, Pork Curry Sosaties. Consolidate technique; cross-link cultures. (Kiddies fruit skewers are a separate thing — leave.)
-6. **Fried Rice** — have: Egg/Garlic/Mushroom/Kimchi Fried Rice, Nasi Goreng, Breyani-adjacent. ADD: 🇹🇭 **Thailand untouched** — Khao Pad, Pineapple Fried Rice (in the shell), Crab Fried Rice, Basil (Krapow) Fried Rice; 🇯🇵 Chahan; 🇨🇳 Yangzhou. One wok photo, many countries.
-7. **Thin Pancakes/Crêpes** — have: Pannekoek, Crêpes, Fluffy/Savoury/Banana/Oat Pancakes. ADD: 🇫🇷 thin crêpe base, 🇮🇳 Dosa, Blini. Sweet+savoury variations.
-8. **Quiche / Savoury Pie** — have: Crustless/Mini/Tiny Quiche, Spinach & Feta Quiche (dedup), Chicken/Cottage/Shepherd/Fish Pie. Merge the quiche dups → base + fillings variations.
-9. **Fritters** — have: Mielie Fritters, Falafel. ADD: 🇮🇳 Pakora, Bhajia. Thin family, easy wins.
+---
 
-## Building-block bases — DEDUP + ADDABLE VARIATIONS (Health + Breakfast, audited)
-These aren't cross-cultural cousins — they're single dishes with too many near-duplicate flavour versions. Collapse to a few rich bases + addable variations. ~32 near-dups → ~17 distinct bases.
-- **⚠️ CROSS-SECTION DUP (Tina's fix — split by intent, cross-link, NO duplication):** oats AND smoothies live in BOTH Meals-Breakfast and Health. Oats ~17 total across the two (3 berry, 2 bircher, 2 overnight/classic, banana ×3). FIX: keep the genuinely HEALTHY version in Health, the everyday/INDULGENT version in Meals (cocoa banana, choc hazelnut, banana honey → Meals; berry & chia, booster ones → Health). Each recipe lives in ONE section only. Add a cross-link button — "More oats in Breakfast →" on Health's tab and the reverse — so users hop for variety without us duplicating. NO shared-array refactor. Per overlapping pair, Claude drafts the keep/move call, Tina confirms.
-- **Overnight Oats (8 now)** → 1 base "Overnight Oats" + addable variations (Berry & Chia, PB Banana, Choc Hazelnut, Cocoa Banana). Keep Bircher / Kheer / Fruit Compote as distinct (different technique).
-- **Smoothies (13 now)** → ~6 bases (Green, Berry, Tropical Mango, Choc Protein, Avo Banana). 3-berry + 2-green dups merge. "Function" ones (Vision/Brain/Maca/Colon/Immune/Heart) → BOOSTER add-ons (+ spinach & spirulina, + maca, etc.).
-- **Fresh Juices (11 now)** → ~6 bases (Orange & Carrot, Green, Beetroot & Apple, Watermelon Mint, Pineapple Turmeric, Berry). Cleanse/immune/anti-inflam/digestive → add-ons (+ ginger, + celery, + turmeric). Tina's "add almond milk / more pawpaw / add oats".
-- **Other Type A building-blocks to add variations:** Steamed Bread (ujeqe/dombolo — also a cross-cultural family across Africa), Scrambled Eggs, Yoghurt + Granola, plus the doughs/breads/pap already mapped above.
-- Health schema note: these use `shopping:[{n,pp,u}]` + `howItFeels` (not `ingredients`/`feel`) — adapter already handles it.
+## 1 · THE VERSION SYSTEM
 
-## Why this is a triple win
-- **Premium oomph:** one dish carries a caterer's depth + a world of variations — un-Googleable. Addable variations make the shopping list personal to the chosen version.
-- **Photo backlog:** TYPE A families share `photoName` → fewer shoots. (Rough: the Type A families could collapse 40+ would-be shots into ~10–12.) TYPE B keeps individual hero shots (no saving there, but cross-links add discovery).
-- **Kills duplication:** the 44-duplicate problem and the pap×4 / vetkoek×6 / quiche×N sprawl resolve into clean bases (Type A merges to base+variations; Type B merges only TRUE duplicates).
+A **version** = one dish cooked a different way. Same dish, different build.
 
-## Build sequence (when Tina's ready)
-1. Lock data shapes (above). 2. Small renderer add: `variations` strip (Type A) + `family` cross-link strip (both types). 3. Per family: Type A → pick/write hero base, tag members, point `photoName` at one shared image, add variations, fill cousins; Type B → keep recipes, cross-link, fill cousins, dedup. 4. Start with **Fried Dough + Maize Porridge** (Type A — most duplicated + most photo-saving), then Fried Rice breadth (Type B — Thailand).
+### Canonical version types
+| Type | Emoji | Optimises for | Kind |
+|---|---|---|---|
+| **Default** | — | taste / the full experience | the hero — comprehensive classic **+ Tinza twist baked in** |
+| **Budget** | 💰 | money | situational |
+| **Quick & Easy** | ⚡ | time / effort | situational |
+| **Vegetarian** | 🌱 | meat-free | dietary (carries V tag) |
+| **Keto** | 🥑 | low-carb | dietary (carries KT tag) |
+| **Healthy** | ❤️ | nutrition / lighter | dietary — **cross-links to Health Hub**, doesn't duplicate |
 
-## Open / parked
-- Confirm each missing cousin is wanted before adding (don't bloat World Kitchen).
-- Heritage cousins (Cape Malay koesister, mandazi, ugali) get Tina's hard correction pass.
-- Decide canonical "base" member per family (the one whose photo + core method represents the group).
+### Two kinds of version (keep distinct)
+- **Situational** — Budget, Quick & Easy. Solve money/time. No dietary tag.
+- **Dietary** — Vegetarian, Keto, Healthy. Built to *earn a dietary tag* so a filtered user can still eat the dish.
+
+### Locked rules
+- **Default = best version, always present.** Tinza twist is baked into the default — it is NOT a separate "Tinza" version. (Decision 27 Jun: Tinza folded into default.)
+- **Budget ≠ Quick.** Different axes — a quick build (jarred sauce, pre-grated cheese) can cost *more* than a scratch budget build. Never merge them.
+  - *Exception:* if a specific dish's cheapest build genuinely IS its easiest, ship ONE labelled with the bigger selling point. Don't pad slots.
+- **A version only takes types that genuinely fit.** No Vegetarian version of a steak. Pick from the menu; don't fill every slot.
+- **Popularity cap:**
+  - Hero (Spag Bol, Lasagne, Roast Chicken) → 4–5 versions
+  - Popular → 2–3
+  - Standard → 1–2 alternatives
+  - Simple / obscure → 1, no versions
+- **Method versions** (🔥 Over Coals · 🐌 Slow-cooker · Air-fryer) = **a-la-carte extras**, only on dishes where they make sense. NOT part of the universal menu.
+  - **🔥 Over Coals** is the global name for a potjie/coals version (never "SA method"). Use on a *few* suited dishes only, and **cross-link to the dedicated Potjie shelf in Braai** (potjiekos lives there as its own recipes too: oxtail, lamb knuckle, chicken & veg, venison).
+
+### "Real food only" — ingredient honesty (locked 27 Jun)
+The depth standard is about depth a cook can't Google in 5 min, so shortcuts that *replace* cooking are banned:
+- **Stock powder = FINE** (concentrated real stock) · **Soup powder = NO** (a flavour-shortcut packet).
+- **Condiments = FINE** as real kitchen building blocks: Worcestershire, mustard, soy, fish sauce, chutney.
+- Budget versions stretch with *more veg / less meat / honest thickening (flour + stock)* — never with a packet.
+
+### Swaps within a version (swap-aware versions)
+A version can be **adapted by a stated swap** instead of being hidden — e.g. a meat-free swap on a non-religious dish.
+- Convention: a `swap:` line on the version (text now; full `add:[]`/`swap:[]` re-costing mechanism = backlog B5).
+- **Honesty gate:** offer a swap ONLY where the result is still a real, good dish.
+
+### 🚫 RELIGIOUS TAGS = FILTER, NEVER SWAP (locked, conservative)
+**Halaal and Kosher get NO swap-guidance.** The app never says "to make this Halaal, leave out X." Religious observance + certification is the user's call, not the app's — getting it subtly wrong is worse than not claiming it. So religious-tag users **only ever see naturally-compliant versions** (the default is built to be one).
+
+Halaal ≠ Kosher — they are different laws:
+| | No pork | Alcohol | Other |
+|---|---|---|---|
+| **Halaal** | yes | no alcohol | — |
+| **Kosher** | yes | wine only if *certified kosher* | no meat + dairy together |
+
+Consequences:
+- A **wine** version → not Halaal (alcohol) and not Kosher (uncertified wine). Filtered out for both; they land on the default.
+- A **creamy/cheesy meat** dish → breaks **Kosher** (meat+dairy) even with no pork/wine. Tag accordingly.
+- Frame health tags as guidance (not medical); frame religious tags as **filter-only** (not certification).
+
+### Cross-link real ingredients to their recipes
+Where a recipe calls for a homemade staple (stock, broth, pesto, dressings), **cross-link to that recipe** (e.g. `beef stock` → Spice Step-5 stock recipe). Makes "real food only" useful, not just a rule, and pulls users deeper. *(Wiring needs the Spice recipe IDs + the core.js cross-link helper — shared build, applies app-wide.)*
+
+### Tags live per-VERSION, not per-dish
+Out of 4 Lasagne versions, maybe only 1 is Heart-Friendly. So:
+- Each version is tagged at build-time.
+- A **dish surfaces** in a filtered view if **any version qualifies**.
+- Tapping in **opens to the qualifying version** by default.
+
+---
+
+## 2 · THE DIETARY SYSTEM
+
+### The 12 locked tags
+| Code | Tag | Hard / Soft |
+|---|---|---|
+| V | Vegetarian | 🚫 Hard |
+| VE | Vegan | 🚫 Hard |
+| PE | Pescatarian | 🚫 Hard |
+| HL | Halal | 🚫 Hard |
+| KS | Kosher | 🚫 Hard |
+| GF | Gluten Free | 🚫 Hard (allergy-based) |
+| DF | Dairy Free | 🚫 Hard (allergy-based) |
+| KT | Keto | 💚 Soft |
+| LGI | Low-GI | 💚 Soft |
+| DB | Diabetic Friendly | 💚 Soft |
+| HF | Heart Friendly | 💚 Soft |
+| AI | Anti-Inflammatory | 💚 Soft |
+
+### Hard vs Soft behaviour (locked)
+**🚫 Hard — "I can't / won't eat this"** → filter out EVERYWHERE, feed included.
+A vegan never sees meat lasagne in their feed at all — not even badged. Just hidden. (Pescatarian behaves like Vegetarian: fish yes, meat no.)
+
+**💚 Soft — "this is better for me"** → badge in the feed, hard-filter only on search.
+A heart-conscious user still eats normally → show the full feed with ❤️ marking the good versions. Only when they actively search/filter "Heart-Friendly" does it hide the rest.
+
+### Feed vs Search
+- **Feed / browse / My Family / sections** = organised by section. Hard restrictions hidden silently. Soft prefs **badged** — but **only the badges matching the user's ticked tags** (no badge-clutter; personalised density).
+- **Search** = can hard-filter on ANYTHING the user asks for (soft tags included).
+
+### Where tags are set
+- Ticked at **signup**, saved to profile.
+- **Editable later in Settings** (people develop conditions / change their minds).
+- Live app-wide, sitting under the tier switcher on every screen.
+- Multiple tags active at once.
+
+### Framing (liability — locked early, still holds)
+Health tags are **friendly guidelines, never medical claims.** "Heart-Friendly" = helpful marker. Never "treats heart disease." Describe as low-sugar / low-carb / lighter, not as medical treatment.
+
+---
+
+## 3 · THE TIER GATE
+
+- **Free** = sees **ONE version per dish only.**
+  - Normally the **Default** (best version — Free never feels stingy, they eat well).
+  - **If the default breaks the user's hard dietary restriction**, the dish **opens on its qualifying version instead** (their diet-appropriate default). Still one version — just the right one. Quietly signals more versions exist → soft nudge to Pro.
+- **Pro (R50/mo)** = the **full version selector** — Budget, Quick & Easy, Vegetarian, Keto, Healthy. *"Cook it your way"* is the upgrade reason.
+- **Budget TIERS eliminated.** The old Pantry / Everyday / Indulge tier concept is dead — replaced by the **Budget version** (per-dish) + the standalone **Budget Planner** section. Budget is no longer a global user setting.
+
+This sits inside the existing locked Free/Paid split (Free = browse + full recipes + scaling + 1 dietary restriction + calories; Pro = cost figures, My Plan, shopping, nutrition breakdown, **and now the version selector**).
+
+---
+
+## OPEN / NEXT
+- **Spag Bol pilot needs re-aligning** to canonical types. Currently live as ⭐Best · ⚡Quick · 🌱Veg · 🏆Classic → should become Default (+twist) · 💰Budget · ⚡Quick & Easy · 🌱Veg (or as the recipe warrants).
+- **Recipe-upgrade workstream is now LIVE.** First dishes: Beef Stew (currently 6 ingredients — too thin) + Roast Chicken & Veg. Pipeline each: upgrade → version → tag → name.
