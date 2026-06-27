@@ -18,11 +18,27 @@ flowchart TD
     DT3[Finding: VERSIONS do NOT travel · WK uses own wkRecipeOpts, no version engine → logged as shared-build BD10]
     DT4[Bobotie LOCKED: ✅ almonds in · ✅ fact #1 (1609 Dutch cookbook) · ✅ name 'Bobotie' (sub: Golden Spiced Mince Bake)]
     DT5[History note: bobotie = Monday-leftovers dish (Sunday roast hand-minced) → mince is correct for modern recipe · alt-fact #2 banked]
+    BX1[🔧 BD10 DONE — World Kitchen VERSION ENGINE wired (reuses the shared Meals engine)]
+    BX2[core.js: recipePage gains a versionHTML slot (additive) · applyRecipeVersion overlay extended with WK fields (howThisFeels·cookTime·chefNotes·kcal·trivia·pairsWith)]
+    BX3[worldkitchen.js: wkRecipeOpts applies version at top (cost+ingredients+method follow) · passes versionStripHTML into opts]
+    BX4[Proven via harness on real engine fns: default+select swap WK fields · versionless recipe untouched (zero regression) · node --check both]
+    BX5[PLUMBING only — no WK recipe has a versions[] array yet, so nothing changes visually until one is authored. Bobotie ×N = obvious first]
+    BV1[🍛 BOBOTIE ×5 VERSIONS PATCHED into wk_southafrica.js · push-ready ✅ · first WK recipe with chips]
+    BV2[Versions: 🏆 Classic (beef, default) · 💰 Budget (less mince + grated carrot, no almonds) · 🏛️ 1600s Original (lamb) · 🌱 Lentil · 🎃 In a Pumpkin (par-bake 35 min, locked)]
+    BV3[Design call (Tina): lamb rare+pricey in SA → ONLY heritage version uses it; everyday default beef. Historically true (1600s Cape = mutton/lamb)]
+    BV4[lamb mince R200/kg in prices.js (Tina-sourced R180–260) · 🏛️+🎃 override the 💡; Classic/Budget/Lentil keep 1609 fact]
+    BV5[Heritage name LOCKED: '1600s Original']
+    BV6[🫙 APRICOT CHUTNEY (blatjang) drafted for spice.js chutneys-atchars shelf → TINZA_APRICOT_CHUTNEY_DRAFT.md · all ingredients price · awaiting review then patch]
+    HM1[🌶️ HEAT METER built in spice.js — field 'heat' 0–4 · None·Mild·Medium·Hot·Fiery · 4-pip meter under flavour chips (locked scale, Tina)]
+    HM2[Additive: entries with no 'heat' render nothing → existing 122 untouched · heatMeterHTML tested 0–4 + null]
+    HM3[🫙 Apricot Chutney PATCHED into spice.js (chutneys-atchars) with heat:1 (Mild) — supersedes the draft · push-ready ✅]
+    HM4[NEXT: heat-rating pass on spicy shelves (chilli sauces SPICE_SAUCE_CHILLI list exists · atchars · sambals · hot blends like berbere/harissa/peri-peri)]
   end
 
   subgraph PUSHNOW[" 🚀 DO RIGHT AFTER THIS SESSION "]
-    PN1[GitHub Desktop: push meals.js + core.js (re-push core.js for the dried-italian-herbs alias) + wk_southafrica.js (Bobotie)]
-    PN2[Preview: version selectors work · 💡 Did You Know shows on the 3 heroes ✓ · Bobotie 💡 shows via trivia ✓]
+    PN1[Push latest core.js (💡 render + dried-italian-herbs alias + WK version engine) + worldkitchen.js (version wiring) + wk_southafrica.js (Bobotie ×5 versions) + prices.js (lamb mince R200) + spice.js (heat meter + apricot chutney)]
+    PN2[Already pushed earlier: meals.js · wk_southafrica.js (Bobotie base) · first core.js]
+    PN3[After push: Bobotie is the FIRST WK recipe with version chips — 🏆/🏛️/🌱/🎃 select & swap live · Apricot Chutney live in Spice with 🌶️ Mild meter]
   end
 
   subgraph BUILDS[" 🔧 SHARED BUILDS (touch core.js/spice.js/braai · app-wide) "]
@@ -34,7 +50,7 @@ flowchart TD
     BD7[Free/Pro gate on version selector · diet-appropriate default for Free]
     BD8[add:[]/swap:[] variations mechanism · re-cost + shopping list · backlog]
     BD9[Cross-links: fish&chips→Chips · burger&chips→Chips · bangers&mash→Mash]
-    BD10[NEW (from Bobotie test): WK version engine → wire applyRecipeVersion + version strip into wkRecipeOpts<br/>+ give WK a standout 💡 box (currently trivia lumped in info-row, not a Meals-style box)]
+    BD10[✅ DONE — WK version engine wired into wkRecipeOpts + recipePage slot. Next layer: standout 💡 box in WK (trivia still in info-row)]
   end
 
   subgraph PRICE[" 💰 PRICE_DB — watchlist AUDITED ✅ (27 Jun) "]
@@ -75,6 +91,9 @@ flowchart TD
     B2[Weekly meal planner → ONE costed shopping list · biggest commercial lever]
     B3[Planner modes · home week · retreat · camping food-safety · hiking · school-lunch]
     B4[Marketing · founding-members + waitlist · merge-screen-with-real angle · SA channels]
+    B5[🆕 HERITAGE VERSION as a repeatable type (Tina: 'do more of these') — the 'old/original recipe' angle across dishes, like 💰⚡🌱 are standard version types]
+    B6[🆕 FMF STAPLES SECTION — home for yellow rice/geelrys, pap, samp, etc. (scope structure; yellow rice already lives in World Kitchen — decide: move, share, or cross-link)]
+    B7[🆕 WK_CROSS_LINKS → support an ARRAY of links per recipe (Bobotie needs 2: → Yellow Rice + → Apricot Chutney). Then wire bobotie cross-links]
   end
 
   START --> DONE --> PUSHNOW --> BUILDS

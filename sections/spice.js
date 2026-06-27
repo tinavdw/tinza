@@ -131,6 +131,37 @@ var SPICE_DB = [
   },
 
   {
+    id: "apricot-chutney",
+    name: "Apricot Chutney",
+    type: "chutney",
+    shelf: "chutneys-atchars",
+    region: "South Africa · Cape Malay",
+    flavourChips: ["Sweet", "Tangy", "Mild-spiced"],
+    heat: 1,
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:250, step:250, label:"1 jar" },
+      ingredients: [
+        { qty:150, unit:"g", name:"dried apricots" },
+        { qty:80, unit:"g", name:"onion" },
+        { qty:60, unit:"g", name:"brown sugar" },
+        { qty:120, unit:"ml", name:"brown vinegar" },
+        { qty:120, unit:"ml", name:"water" },
+        { qty:5, unit:"g", name:"garlic" },
+        { qty:5, unit:"g", name:"fresh ginger" },
+        { qty:3, unit:"g", name:"mild curry powder" },
+        { qty:5, unit:"g", name:"salt" },
+        { qty:1, unit:"g", name:"chilli flakes (optional)" }
+      ],
+      method: "Snip the dried apricots small and soak in the water 30 minutes to soften. Finely chop the onion, garlic and ginger. Tip everything — apricots and their soaking water, onion, garlic, ginger, sugar, vinegar, curry powder, salt and chilli — into a pot. Bring to a gentle simmer and cook 25–35 minutes, stirring now and then, until the apricots break down and the chutney is thick, glossy and jammy. Mash to the texture you like, chunky or smooth. Spoon into a sterilised jar while hot; it keeps in the fridge for weeks and deepens over a few days. Serve alongside bobotie, curries, cold meats and cheese."
+    },
+    pairsWith: ["bobotie", "curries", "cold meats", "cheese & crackers"],
+    aliases: ["apricot chutney", "blatjang", "appelkoos blatjang", "apricot blatjang"],
+    story: "Blatjang is the Cape Malay name for fruit chutney — a sweet-spiced preserve that became inseparable from the South African table, the standing partner to bobotie, bredies and cold meats. Apricot is its most-loved version.",
+    howThisFeels: ""
+  },
+
+  {
     id: "chimichurri",
     name: "Chimichurri",
     type: "sauce",
@@ -3904,6 +3935,22 @@ var SPICE_CHIPCOLOR = {
   "Hot":"#c03020", "Aromatic":"#b07040", "Herby":"#609040"
 };
 
+// ── HEAT METER (locked 27 Jun) · field: heat 0–4 · None·Mild·Medium·Hot·Fiery ──
+// 4-pip 🌶️ meter. Additive: entries with no `heat` render nothing (untouched).
+var SPICE_HEAT = ["None","Mild","Medium","Hot","Fiery"];
+var SPICE_HEAT_COLOR = ["#9a8a78","#cBA84c","#e08a2a","#e0562a","#e0431f"];
+function heatMeterHTML(level){
+  if(level==null) return "";
+  level = Math.max(0, Math.min(4, level|0));
+  var pips = "";
+  for(var i=1;i<=4;i++){
+    pips += '<span style="font-size:14px;'+(i<=level?"opacity:1;":"filter:grayscale(1);opacity:0.25;")+'">🌶️</span>';
+  }
+  return '<div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;">'
+    + '<span style="display:inline-flex;gap:2px;">'+pips+'</span>'
+    + '<span style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:'+SPICE_HEAT_COLOR[level]+';">'+SPICE_HEAT[level]+'</span></div>';
+}
+
 function spiceDB(){ return (typeof SPICE_DB!=="undefined" && SPICE_DB) || []; }
 function spiceEntriesFor(shelfId){ return spiceDB().filter(e=>e.shelf===shelfId); }
 
@@ -4166,6 +4213,7 @@ function spiceEntryView(){
 
   const w = SPICE_WHENMAP[e.whenToUse] || {};
   const chips = (e.flavourChips||[]).slice(0,3).map(c=>`<span style="font-size:13px;color:${SPICE_CHIPCOLOR[c]||'#a08050'};border:1px solid ${SPICE_CHIPCOLOR[c]||'#a08050'};border-radius:20px;padding:4px 12px;">${c}</span>`).join("");
+  const heatMeter = heatMeterHTML(e.heat);
 
   const my = e.makeYourOwn;
   const y = my.yield;
@@ -4258,6 +4306,7 @@ function spiceEntryView(){
       <div style="font-size:13px;color:#c0a274;font-style:italic;margin-bottom:10px;">${e.region}</div>
 
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">${chips}</div>
+      ${heatMeter}
 
       ${w.label?`<div style="display:inline-flex;align-items:center;gap:7px;background:#16100a;border:1px solid ${w.c};border-radius:10px;padding:8px 12px;margin-bottom:14px;">
         <span style="font-size:16px;">${w.e}</span>

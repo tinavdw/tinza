@@ -2788,6 +2788,7 @@ function recipePage(o){
     +   '<h1 style="font-size:22px;font-weight:bold;color:var(--ink);margin:8px 0 2px;line-height:1.25;">' + (o.name || '') + '</h1>'
     +   sub
     +   meta
+    +   (o.versionHTML || '')      // version selector slot — sections that pass it (Meals-style strip)
     +   (o.qtyHTML || '')
     +   portion
     +   (o.ingredientsHTML || '')
@@ -2817,7 +2818,7 @@ function applyRecipeVersion(r){
   var name = activeVersionName(r);
   var v = r.versions.find(function(x){return x.name===name;}) || r.versions[0];
   var out = Object.assign({}, r);
-  ['feel','ingredients','method','costPP','time','nutrition','tip','storage'].forEach(function(k){
+  ['feel','ingredients','method','costPP','time','nutrition','tip','storage','howThisFeels','cookTime','chefNotes','kcal','trivia','pairsWith'].forEach(function(k){
     if(v[k]!=null) out[k]=v[k];
   });
   out._activeVersion = v.name;

@@ -113,6 +113,7 @@ const PRICE_DB = {
   "leg of lamb": 190,
   "lamb roast": 190,
   "lamb neck": 180,
+  "lamb mince": 200,        // 27 Jun · Tina-confirmed (SA range R180–260/kg; standard mince ~R200; heritage version only)
   "lamb shank": 190,
   "lamb potjiekos": 130,
   "lamb knuckles": 200,

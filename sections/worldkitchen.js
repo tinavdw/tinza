@@ -563,6 +563,7 @@ var WK_CROSS_LINKS = {
 
 /* ── v33 RECIPE DETAIL ── */
 function wkRecipeOpts(r, country, universal){
+  r = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;  // BD10: overlay chosen version before cost/render
   var green='var(--accent)';
   var n = Math.max(1, S.wkServings || 1);
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
@@ -670,6 +671,7 @@ function wkRecipeOpts(r, country, universal){
     name: disp,
     sub: sub,
     meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },
+    versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, green) : '',
     qtyHTML: qtyHTML,
     portionRawNote: rawCarb ? 'Amounts shown are <strong style="color:var(--ink-soft);">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.' : '',
     ingredientsHTML: ingredientsHTML,
