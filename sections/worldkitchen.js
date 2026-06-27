@@ -397,7 +397,7 @@ function wkParseIngredients(str){
     var body = chunk.replace(/\([^)]*\)/g,'').trim();
 
     // leading quantity? "40g rice", "1/4 egg", "3g cardamom + cinnamon", "120–150ml water" (range)
-    var m = body.match(/^([0-9]+\/[0-9]+|[0-9]+(?:\.[0-9]+)?|[¼½¾⅓⅔⅛])\s*(?:[–—-]\s*[0-9]+(?:\.[0-9]+)?)?\s*(kg|g|ml|l)?\s*(.*)$/i);
+    var m = body.match(/^([0-9]+\/[0-9]+|[0-9]+(?:\.[0-9]+)?|[¼½¾⅓⅔⅛])\s*(?:[–—-]\s*[0-9]+(?:\.[0-9]+)?)?\s*((?:kg|g|ml|l)(?![a-z]))?\s*(.*)$/i);
     if(m && wkParseQty(m[1]) != null && (m[2] || m[3])){
       var qty  = wkParseQty(m[1]);
       var unit = m[2] ? m[2].toLowerCase() : null;     // null => countable (eggs etc.)
