@@ -131,7 +131,13 @@ var SUPPER_RECIPES = [
     ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'garlic'},{n:'cheddar',pp:20,u:'g'}],
     method:['Soften the chopped onion, carrot and garlic in a little oil.','Add the mince and brown well, breaking up any lumps.','Stir in the tomatoes and simmer gently for 25 minutes until thick and glossy.','Cook the spaghetti, drain, and serve topped with the sauce and grated cheddar.'],
     tip:'A long, slow simmer is the whole secret — give the sauce time and it rewards you.',
-    nutrition:{kcal:540,protein_g:28,carbs_g:64,fat_g:18}, storage:'Sauce keeps 3 days and freezes 2 months.'},
+    nutrition:{kcal:540,protein_g:28,carbs_g:64,fat_g:18}, storage:'Sauce keeps 3 days and freezes 2 months.',
+    versions:[
+      {name:"Tinza's Best",icon:'⭐',default:true,time:135,costPP:54,feel:'Not the 20-minute version — a true slow ragù, built on a sweet soffritto and finished with a secret splash of milk. The kind of sauce that makes the house smell like Sunday.',ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:90,u:'g'},{n:'pork mince',pp:40,u:'g'},{n:'streaky bacon',pp:20,u:'g'},{n:'onion',pp:40,u:'g'},{n:'carrots',pp:30,u:'g'},{n:'celery',pp:30,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'tomato paste',pp:12,u:'g'},{n:'tinned tomatoes',pp:120,u:'g'},{n:'red wine',pp:30,u:'ml'},{n:'beef stock',pp:60,u:'ml'},{n:'full cream milk',pp:40,u:'ml'},{n:'olive oil',pp:8,u:'ml'},{n:'parmesan',pp:15,u:'g'},{n:'dried Italian herbs',pp:1,u:'g'}],method:['Sweat finely diced onion, carrot and celery in the olive oil over low heat 10–12 min — the soffritto is the flavour base.','Render the bacon, add the garlic for a minute, then brown the beef and pork mince HARD in batches for deep colour.','Cook out the tomato paste 2 min, pour in the red wine and reduce almost away.','Add the tinned tomatoes, stock and a splash of milk; simmer the lowest heat 1.5–2 hours.','Toss the cooked spaghetti THROUGH the sauce with a little pasta water; finish with parmesan.']},
+      {name:'Quick',icon:'⚡',time:30,costPP:34,feel:'On the table in 30 — the honest weeknight rescue when time is short.',ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic'},{n:'cheddar',pp:20,u:'g'}],method:['Soften the chopped onion and garlic in a little oil.','Add the mince and brown well, breaking up the lumps.','Stir in the tomatoes and simmer 20 min until thick.','Toss with spaghetti and top with grated cheddar.']},
+      {name:'Vegetarian',icon:'🌱',time:50,costPP:30,feel:'Lentils and mushrooms bring all the savoury depth — you won’t miss the meat.',ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'brown lentils',pp:70,u:'g'},{n:'mushrooms',pp:80,u:'g'},{n:'onion',pp:40,u:'g'},{n:'carrots',pp:30,u:'g'},{n:'celery',pp:30,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'tomato paste',pp:12,u:'g'},{n:'tinned tomatoes',pp:120,u:'g'},{n:'red wine',pp:25,u:'ml'},{n:'olive oil',pp:8,u:'ml'},{n:'parmesan',pp:15,u:'g'},{n:'dried Italian herbs',pp:1,u:'g'}],method:['Sweat the soffritto slowly in olive oil.','Brown the chopped mushrooms hard for umami depth.','Add the lentils, tomato paste and wine, then the tinned tomatoes; simmer 30 min.','Finish with parmesan and toss through the pasta.']},
+      {name:'Classic',icon:'🏆',time:150,costPP:56,feel:'The Bologna original — tagliatelle, pancetta, a whisper of tomato, white wine and a splash of milk.',ingredients:[{n:'tagliatelle',pp:90,u:'g'},{n:'beef mince',pp:110,u:'g'},{n:'streaky bacon',pp:25,u:'g'},{n:'onion',pp:40,u:'g'},{n:'carrots',pp:30,u:'g'},{n:'celery',pp:30,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'tomato paste',pp:8,u:'g'},{n:'white wine',pp:30,u:'ml'},{n:'full cream milk',pp:50,u:'ml'},{n:'beef stock',pp:40,u:'ml'},{n:'parmesan',pp:15,u:'g'}],method:['Soffritto with the pancetta until soft and sweet.','Brown the beef gently, add the white wine and let it cook off.','Stir in the milk (the authentic touch) and just a little tomato paste.','Simmer the gentlest 2.5 hours; serve on tagliatelle, never spaghetti.']}
+    ]},
 
   // ── 🍛 STEWS & CURRIES ──
   {id:'sp-capemalay-curry', cat:'stewscurries', diet:'meat', protein:'chicken', name:'Cape Malay Chicken Curry', emoji:'🍛', cuisine:'Cape Malay', time:55, costPP:36,
@@ -2042,6 +2048,7 @@ function recipeResultCard(r, onClickFn, color){
 }
 
 function recipeDetailFromResult(r, backAction, servings, color, bg, border){
+  if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);   // ⭐ versions: render the chosen version
   const sv = S._budgetActiveRecipe ? (S.budgetPeople||4)
            : S.moodActiveRecipe    ? (S.moodServings||1)
            : (S.searchServings||4);
@@ -2104,6 +2111,8 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     <div style="padding:16px;max-width:600px;margin:0 auto;">
 
       ${r.feel?`<div style="font-style:italic;color:${color};font-size:13px;text-align:center;line-height:1.5;margin-bottom:14px;">“${r.feel}”</div>`:''}
+
+      ${typeof versionStripHTML==='function'?versionStripHTML(r,color):''}
 
       <!-- How much to make block -->
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
@@ -2371,7 +2380,9 @@ function toggleMealPlan(id){
   };
   const r = (sectionRecipes[sec]||[]).find(x=>x.id===id);
   if(!r) return;
-  togglePlanItem('mealPlan', {id:r.id, name:r.name, emoji:r.emoji||'🍽️', time:r.time||0, ingredients:r.ingredients||[], costPP:r.costPP||0, nutrition:r.nutrition||null, serves:1});
+  const rv = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // ⭐ versions: plan the chosen version
+  const vname = (rv.versions && rv._activeVersion) ? ' ('+rv._activeVersion+')' : '';
+  togglePlanItem('mealPlan', {id:rv.id, name:rv.name+vname, emoji:rv.emoji||'🍽️', time:rv.time||0, ingredients:rv.ingredients||[], costPP:rv.costPP||0, nutrition:rv.nutrition||null, serves:1});
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe
