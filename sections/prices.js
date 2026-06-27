@@ -704,6 +704,11 @@ const PRICE_DB = {
   "green curry paste": 960,        // R48 / 50g
   "gochujang": 321,                // R77 / 240g  (sub 50:50 tomato paste + hot sauce)
   "mixed seafood": 157,            // = seafood mix (R110/700g → R157/kg)
+
+  // SESSION ADD continued · 27 Jun (part 5)
+  "hot dog sausages_each": 2.83,   // smoked viennas R84.99/kg ÷ ~30 per 1kg pack
+  "smoked viennas_each": 2.83,     // = hot dog sausages
+  "tinned beans": 41,              // savoury tinned beans — baked-bean proxy (R17/410g → R41/kg)
 };
 
 const MEAT_COSTS = {

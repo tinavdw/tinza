@@ -1,74 +1,66 @@
-%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, part 4)
+%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, parts 4+5)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[ENGINE FIX IS LIVE now — confirmed in commit e9285f5 'core'. At session start it was NOT live yet; Tina pushed it mid-session, re-verified present. This session = MISSING-PRICE / ALIAS LOCK + bread root-cause fix. PUSH 3 FILES: prices.js + packs.js + meals.js. core.js NOT touched this session.]
-  NEXT[NEXT UP — pick one: A RE-AUDIT the 57 now-resolving recipes headline costPP · B roll costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C fill last gaps hot-dog/vienna sausages + tinned-beans alias · D apply the 5 Italian dish renames to data · E clickable cross-links BD11]
+  STATUS[Engine fix already LIVE commit e9285f5. Parts 1-3 this session pushed live tip 3145f6f. PARTS 4+5 ready to push: prices.js + packs.js + meals.js + 1 IMAGE RENAME manual. node --check PASS all.]
+  NEXT[NEXT UP — pick: A RE-AUDIT the now-resolving recipes headline costPP · B roll costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C verify ESTIMATE prices on Sixty60 pass · D resolve DUPLICATE-NAME gnocchi line 262 · E clickable cross-links BD11]
   START --> STATUS --> NEXT
 
-  subgraph DONE5D[" DONE THIS SESSION 5 part 4 — MISSING-PRICE / ALIAS LOCK "]
-    RC1[ROOT CAUSE of the 57 NULLs found — NOT mostly missing prices. Bread/buns/tortillas are written as COUNTS in recipes u-blank or u-each but were stored as plain WEIGHT keys → priceOf returned weight → costRecipe has NO count branch for those units → NULL]
-    FX1[FIX is DATA ONLY no engine change. Added star_each COUNT keys per slice/unit: white/brown/wholewheat/rye/sourdough/thick bread · tortillas · tortilla wrap · burger bun · hamburger roll. priceOf now returns per-count → resolves u-blank and u-each]
-    FX2[PACK_DB COUNT-LADDERS added so SHOP-SPEND gold rounds up to a whole loaf 22 slices / pack 8 wraps / 6 buns. Card shows per-slice food cost green · shopping list shows whole-loaf gold]
-    FX3[Generic bread LEFT weight-priced for breadcrumb/binder gram use. BUNNY CHOW corrected per Tina — uses UNSLICED loaf cut in half + hollowed like the bobotie pumpkin, NOT sandwich slices. Now white loaf 350g by weight; verified R8 cook / R15 buy whole loaf]
-    LK1[BREAD SLICE STANDARD LOCKED — 700g SA loaf approx 22 slices at 30g/slice. Industry slice 33g · Albany 24 · 30g per TINZA_AVG_WEIGHT_DB sits mid-band. Per-slice price = loaf price ÷ 22]
-    LK2[TINA-CONFIRMED PRICES LOCKED — stout R27/750ml→R36/L · green curry paste R48/50g→R960/kg · gochujang R77/240g→R321/kg sub 50:50 tomato paste + hot sauce · mixed seafood = seafood mix R157 · UNSLICED white loaf R15/700g→R21.43/kg for hollowed-loaf dishes bunny chow, cheaper than sliced R21]
-    VF1[VERIFIED via node harness — ALL affected recipes ZERO NULL + sane: 2 slices R2 · bunny chow 11 slices R10 · tortillas x2 R13 · stout 80ml R3 · curry 20g R19 · gochujang 20g R6 · seafood 120g R19. Avocado control intact 80g→R5 cook/R13 buy. node --check PASS on all 4 files]
-    NM1[5 GNOCCHI/PASTA PROPER ITALIAN NAMES decided — PENDING APPLY to data: 1 Gnocchi alla Boscaiola creamy mushroom+cream, spinach=Fiorentina touch · 2 Gnocchi alla Sorrentina already correct · 3 Gnocchi di Zucca al Burro e Salvia butternut+brown butter+sage · 4 Tagliatelle al Ragu alla Bolognese · 5 Tonnarelli Cacio e Pepe — tonnarelli is the authentic fresh-egg Roman cut]
+  subgraph DONE4[" DONE PART 4 — MISSING-PRICE / ALIAS LOCK + BREAD ROOT CAUSE "]
+    RC1[ROOT CAUSE of the NULLs — bread/buns/tortillas written as COUNTS u-blank or u-each but stored as plain WEIGHT keys → priceOf returned weight → costRecipe had no count branch → NULL. Fix is DATA ONLY no engine change]
+    FX1[Added star_each COUNT keys per slice/unit: white/brown/wholewheat/rye/sourdough/thick bread · tortillas · tortilla wrap · burger bun · hamburger roll. PACK_DB count-ladders round shop-spend gold to whole loaf 22 / pack 8 wraps / 6 buns]
+    LK1[BREAD SLICE STANDARD LOCKED — 700g SA loaf approx 22 slices at 30g/slice. Per-slice = loaf ÷ 22]
+    FX3[BUNNY CHOW corrected per Tina — uses UNSLICED loaf cut in half + hollowed like the bobotie pumpkin, NOT slices. Now white loaf 350g by weight; UNSLICED white loaf R15/700g→R21.43/kg cheaper than sliced R21. Verified R8 cook / R15 buy whole loaf]
+    LK2[PRICES LOCKED — stout R36/L · green curry paste R960/kg · gochujang R321/kg sub 50:50 tomato paste+hot sauce · mixed seafood = seafood mix R157 · white loaf R15 unsliced]
   end
+
+  subgraph DONE5[" DONE PART 5 — DISH RENAMES + PHOTO WIRING + LAST PRICES "]
+    NM1[5 GNOCCHI/PASTA dishes renamed to proper ITALIAN names APPLIED in meals.js: 1 sp-creamy-gnocchi → Gnocchi alla Boscaiola woodcutters mushroom+cream, Tina chose this over Fiorentina · 2 sp-gnocchi-sorrentina = Gnocchi alla Sorrentina unchanged · 3 sp-brown-butter-gnocchi → Gnocchi di Zucca al Burro e Salvia · 4 sp-tagliatelle-ragu → Tagliatelle al Ragu alla Bolognese · 5 sp-cacio-e-pepe → Tonnarelli Cacio e Pepe]
+    PH1[PHOTO WIRING — Tina names photos by the BARE name first-part. Renaming the DISPLAY name would break the photo, so each renamed dish got photoName = its ORIGINAL/file name. All 5 photos verified to resolve against Images/Image/*.jpg]
+    PH2[FIXED 2 already-broken photos: Brown Butter dish name lacked 'Butternut' but file is 'Brown Butter & Sage Butternut Gnocchi.jpg' — photoName now points to it. Tagliatelle file had accent 'Ragù' which cleanPhotoName strips → unreachable]
+    PH3[ACCENT RULE — cleanPhotoName STRIPS diacritics, so photo FILENAMES must be accent-free. Renamed file in repo Tagliatelle al Ragù.jpg → Tagliatelle al Ragu.jpg. TINA MUST do this rename in her Images/Image folder too then push]
+    PR5[LAST PRICES — smoked viennas = hot dog sausages R84.99/kg ÷ ~30 per 1kg pack = R2.83 each count-priced, PACK ladder 30 → R85 pack gold. tinned beans R41/kg baked-bean proxy by weight. Both verified zero NULL]
+  end
+
+  START --> DONE4 --> DONE5
 
   subgraph PUSHNOW[" DO RIGHT AFTER THIS SESSION "]
-    PN1[Push THREE: sections/prices.js + sections/packs.js + sections/meals.js. GitHub Desktop only. core.js NOT changed this session]
-    PN2[After push: eyeball a few bread/wrap/stout/curry recipes on tinza.netlify.app — they should now COST instead of showing blank. Estimate prices flagged below want a Sixty60 check]
+    PN1[Push THREE .js: sections/prices.js + sections/packs.js + sections/meals.js. GitHub Desktop. core.js NOT changed in parts 4-5]
+    PN2[MANUAL IMAGE STEP — in Images/Image rename Tagliatelle al Ragù.jpg → Tagliatelle al Ragu.jpg drop the accent, then commit+push. Without it the Tagliatelle photo stays blank emoji]
+    PN3[After push eyeball on tinza.netlify.app: the 5 Italian dishes show proper names + their photos; bread/wrap/vienna/curry recipes now COST]
   end
 
-  subgraph GAPSNEW[" SMALL GAPS STILL OPEN from this session "]
-    G1[hot dog sausages + vienna sausages still NULL — need a price]
-    G2[tinned beans NULL — add alias → baked beans R41 or its own price]
-    G3[ESTIMATE prices to verify on Sixty60 pass: rye bread_each R1.65 · sourdough_each R2.80 · thick white_each R1.40 · hamburger roll/burger bun_each R4.30]
-    G4[whole-spice-as-count edge low-pri — cinnamon stick / cardamom pod given as count would mis-cost; only if a recipe uses them by count]
+  subgraph GAPS[" GAPS STILL OPEN "]
+    G3[ESTIMATE prices to verify on Sixty60 pass: rye bread_each R1.65 · sourdough_each R2.80 · thick white_each R1.40 · hamburger roll/burger bun_each R4.30 · vienna ~30/pack count]
+    G5[DUPLICATE NAME — line 262 sp-spinach-mushroom-gnocchi cat plates still named 'Creamy Spinach & Mushroom Gnocchi' same as the renamed staple. Decide: rename, merge, or differentiate]
   end
 
-  subgraph REAUDIT[" THE RE-AUDIT 57 — now unblocked "]
-    RA1[The 57 recipes skipped last session for NULL ingredients now mostly RESOLVE. Re-run the costPP headline audit on them so list-card costPP matches the engine. Same script as last session]
-    RA2[RULE carried — each version costPP = its own food-cost/pp · recipe-level costPP = its DEFAULT version cost so the card matches what opens]
-    RB2[Then NB2 — roll the same costPP audit across WK/Health/Events/Braai/Kiddies now the engine + bread are honest]
+  subgraph REAUDIT[" RE-AUDIT — now unblocked "]
+    RA1[Recipes skipped last session for NULL ingredients now mostly RESOLVE. Re-run the costPP headline audit so list-card costPP matches the engine. Then roll across WK/Health/Events/Braai/Kiddies]
   end
 
-  START --> DONE5D --> PUSHNOW --> GAPSNEW --> REAUDIT
+  DONE5 --> PUSHNOW --> GAPS --> REAUDIT
 
-  subgraph SHARED[" SHARED BUILDS / CROSS-LINKS "]
-    BD11[GOES-WELL-WITH CLICKABLE Tina link ALL — WK_CROSS_LINKS to array · pills tappable · STILL PENDING]
-    XL1[DISH-to-STAPLE make-your-own links currently NOTES in tips — make clickable with BD11 array work]
+  subgraph CARRY[" CARRY FORWARD "]
+    BD11[GOES-WELL-WITH CLICKABLE — WK_CROSS_LINKS to array · pills tappable · PENDING]
+    XL1[DISH-to-STAPLE make-your-own links — make clickable with BD11 array]
     BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
-  end
-
-  subgraph DESIGN[" DESIGN LOCKED carry forward "]
-    DSC[COSTING MODEL — count item BY WEIGHT = grams/avgWeight x each-price green exact · whole units gold via AVG_WEIGHT_G. count item BY COUNT u-blank/u-each = ceil x each-price green · PACK_DB ladder rounds to loaf/pack gold]
-    DS7[DID YOU KNOW · every dish · most-surprising · TRUE]
-    DSP[PIZZA STANDARD — thin sauce · uncooked Napoletana · cook AS HOT AS POSSIBLE · preheat stone 30 min]
-    DSG[PASTA/GNOCCHI STANDARD — toss pasta IN the sauce · gnocchi done when they float · DISHES cross-link to staples]
-  end
-
-  subgraph BACKLOG[" BIGGER BACKLOG "]
-    B1[Pricing keystone · monthly Sixty60 pass · PRICE_DB 95%+ — verify the estimate prices + clear hot-dog/vienna/tinned-beans]
-    B2[Weekly meal planner to ONE costed shopping list]
+    B2[Weekly meal planner → ONE costed shopping list]
     B4[Marketing · founding-members + waitlist]
     B6c[WK ITALY + FRANCE fresh build · heritage + cross-link to Meals]
-    B7[WK_CROSS_LINKS to ARRAY per recipe unlocks Bobotie + dish-to-staple links]
   end
 
-  REAUDIT --> SHARED --> DESIGN --> BACKLOG
+  REAUDIT --> CARRY
 
   subgraph RULES[" LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
-    X2[Drafts not code · must be PATCHED INTO sections .js to go live]
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
     X11[Costing keystone — verify EVERY ingredient resolves zero NULL · headline costPP = engine value]
-    X12[Engine changes in core.js are APP-WIDE high-risk: patch surgically + before/after cost tests + node --check + backup. PREFER DATA fixes prices.js/packs.js over engine edits — this session fixed 57 NULLs with zero engine change]
-    X13[NEW — count-priced staples bread/buns/wraps: PRICE_DB name_each per slice/unit + PACK_DB ladder for loaf/pack gold. Recipes express them as u-blank or u-each. Generic bread stays weight for gram binder use]
+    X12[Engine core.js changes are APP-WIDE high-risk. PREFER DATA fixes prices.js/packs.js — parts 4-5 fixed all NULLs + renames with ZERO engine change]
+    X13[Count-priced staples bread/buns/wraps/viennas: PRICE_DB name_each per slice/unit + PACK_DB ladder for loaf/pack gold. Recipes use u-blank or u-each. Generic bread stays weight for gram binder use]
+    X14[PHOTOS — saved under the BARE dish name. To rename a DISPLAY name, set photoName = the file's name so the photo survives. FILENAMES MUST BE ACCENT-FREE cleanPhotoName strips diacritics]
     X10[End every session with updated TINZA_NOW.mermaid]
   end

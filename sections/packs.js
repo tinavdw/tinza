@@ -151,6 +151,10 @@ const PACK_DB = {
   "hamburger roll":    { each: true, ladder: [6] },
 
   // ── BY PACK · UNSLICED LOAF (hollowed-loaf dishes; round up to a whole R15 loaf) ──
-  "white loaf":        { size: 700, price: 15 }
+  "white loaf":        { size: 700, price: 15 },
+
+  // ── BY EACH · SMOKED VIENNAS / HOT DOG SAUSAGES (1kg pack ≈ 30) ──
+  "hot dog sausages":  { each: true, ladder: [30] },
+  "smoked viennas":    { each: true, ladder: [30] }
 
 };
