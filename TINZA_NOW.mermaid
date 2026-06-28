@@ -4,8 +4,8 @@ flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[ALL pushed live this session: prices.js + packs.js + meals.js + events.js + beveragesData.js. Fruit Punch 5-version card is LIVE. Plan now — FINISH Beverages as a unit, THEN Braai.]
-  NEXT[NEXT UP — Code verifies + wires barplanner.js then PUSH · PHASE 2 whole-beverage pass versions + order · PHASE 3 Braai makeover]
+  STATUS[Earlier pushed live: prices.js + packs.js + meals.js + events.js + beveragesData.js. BAR PLANNER now WIRED + VERIFIED by Code node-check PASS, core.js untouched, engine matches spec — 3 files staged to push: barplanner.js + events.js + index.html.]
+  NEXT[NEXT UP — PUSH the 3 Bar Planner files + live-eyeball Beverages → Bar Planner · PHASE 2 whole-beverage pass versions + order · PHASE 3 Braai makeover]
   START --> STATUS --> NEXT
 
   subgraph DONE6[" DONE + PUSHED THIS SESSION "]
@@ -16,7 +16,7 @@ flowchart TD
 
   START --> DONE6
 
-  subgraph BARPLAN[" PHASE 1 — BAR PLANNER the Drinks Brain · SCAFFOLD BUILT 28 Jun barplanner.js node-check PASS · Code to verify + wire "]
+  subgraph BARPLAN[" PHASE 1 — BAR PLANNER the Drinks Brain · WIRED + VERIFIED by Code 28 Jun · node-check PASS · ready to push "]
     BP0[OWN FILE barplanner.js — locked deliberately to keep it OUT of events.js. PRO-ONLY]
     BP1[INPUTS — headcount · 5-hour default duration on a slider · 25ml single-tot default]
     BP2[DRINKS BRAIN maths — about 1 drink/guest/hr, 2 in hour 1, + buffer. Three drink types tot+mixer · tot-neat · unit. Mixer auto-pair brandy to Coke 200ml · gin to tonic 150ml]
@@ -26,6 +26,7 @@ flowchart TD
     BP6[EXTRAS — ice 1kg per 2-3 guests · MCC toast line 1 glass/guest · SA packs beer-cider cases of 24, wine 12 · midPrice per item benchmarked Checkers LiquorShop / Tops mid-shelf, premium costs more note]
     BP7[OUTPUT — costed tick-list + quantities + mode note. SCAFFOLD done: data + drinksBrain engine + full render Pro-gated own file. Tested 50g/5h Full Bar = 345 drinks R5055. NEXT — Code wires events.js hook beverageCat barplanner + verifies maths incl spirit-picker swap, prices are ESTIMATES to verify, split preset-driven slider later]
     BP8[GLOBAL-READY — spirits are a generic global menu Brandy/Whisky-Scotch/Bourbon/Gin/Vodka/Rum/Tequila/Cane with a Spirit-of-choice picker. SA brands in eg examples only. SA default brandy · Rand prices. Currency + per-region price overlay = future layer]
+    BP9[WIRING DONE by Code — index.html script tag L162 · events.js render branch L996 before the generic bevCat lookup · category tile L1071. core.js + beveragesData.js untouched. PUSH 3 files then LIVE-eyeball click-through. midPrices still ESTIMATES to verify pre-launch]
   end
 
   subgraph PHASE2[" PHASE 2 — WHOLE BEVERAGE SECTION PASS "]

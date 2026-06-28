@@ -993,6 +993,7 @@ function eventsHTML(){
     ${et==='beverages'?`
       ${(()=>{
         const bevCat = S.beverageCat || null;
+        if(bevCat==='barplanner') return barPlannerHTML();
         if(bevCat==='myplan'){
           const selBevs = (S.eventSelectedBeverages||[]);
           const selRecipes = EVENTS_BEVERAGE_RECIPES.filter(b=>selBevs.includes(b.id));
@@ -1067,6 +1068,12 @@ function eventsHTML(){
                 <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;border-top:1px solid var(--card2);padding-top:6px;">${count} recipe${count!==1?'s':''}</div>
               </div>`;
             }).join('')}
+            <div onclick="set({beverageCat:'barplanner'})" style="background:var(--card2);border:1px solid var(--line2);border-radius:14px;padding:14px;cursor:pointer;text-align:center;">
+              <div style="font-size:22px;margin-bottom:6px;">🍸</div>
+              <div style="font-size:12px;color:var(--ink-soft);font-weight:bold;">Bar Planner</div>
+              <div style="font-size:13px;color:var(--accent);margin-top:4px;">How much to buy for the whole event</div>
+              <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;border-top:1px solid var(--card2);padding-top:6px;">Pro 👑</div>
+            </div>
           </div>
           ${isPro&&(S.eventSelectedBeverages||[]).length>0?`
             <button onclick="set({beverageCat:'myplan'})" style="width:100%;padding:14px;background:var(--card2);border:2px solid var(--accent);border-radius:12px;color:var(--gold);font-size:14px;cursor:pointer;margin-top:4px;">
