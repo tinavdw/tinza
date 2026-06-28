@@ -30,7 +30,9 @@ flowchart TD
   end
 
   subgraph PHASE2[" PHASE 2 — WHOLE BEVERAGE SECTION PASS "]
-    P2a[Roll the versions/options treatment across all 48 drinks like Fruit Punch where it adds value]
+    P2a[Roll the versions/options treatment across drinks like Fruit Punch where it adds value]
+    P2d[COCKTAIL EXPANSION batch BUILT 28 Jun new_drinks_batch.js — 17 cocktails + Rock Shandy mocktail node-check PASS. Code caught mimosa+bellini already exist in BUBBLY cat — REMOVED from batch. Expected after insert cocktails 9→26 mocktails 6→7 total 48→66. Mocktail chips on Tequila Sunrise · Moscow Mule · Bloody Mary. Pornstar→Passionfruit Martini real name in Did You Know. TODO drop file in repo so Code can read it]
+    P2e[OPTIONAL — upgrade existing bubbly Mimosa + Bellini with Did You Know + sparkling-grape Mocktail version chips to match new cocktails polish]
     P2b[Give the categories proper ORDER. Current groups Punches and Jugs · Cocktails · Shooters · Mocktails and Soft · Homemade and Cream · Hot Drinks · Welcome and Bubbly · Coffee-Tea]
     P2c[Drinks shopping list version-aware — make drinkShopItems read the chosen version not just base Classic]
   end
@@ -46,6 +48,7 @@ flowchart TD
   subgraph CARRY[" CARRY FORWARD "]
     SP4[BAGELS FIX — Bakes 2-Ingredient Bagels really 5. Swap to SELF-RAISING flour, egg wash optional, honest name kept]
     PH1[Plain dough photos missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi]
+    PH2[NEW cocktail photos to shoot — ~19 new drinks need heroes. Versioned ones share one photo. Remember ACCENT-FREE filenames eg Pina Colada.jpg]
     BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
     B2[Weekly meal planner to ONE costed shopping list]
     B4[Marketing · founding-members + waitlist · 8 weeks out]
@@ -65,6 +68,7 @@ flowchart TD
     X18[Bar Planner lives in its OWN barplanner.js · never bolt into events.js]
     X19[WHOLE Events section = PRO tier 1 — Buffet · Cakes · Finger Foods · Kiddies Parties · Beverages · Bar Planner. No separate Deluxe needed for Events]
     X20[GLOBAL skeleton, regional data — generic category names that read worldwide, regional brand/ingredient examples + Rand prices as the DEFAULT layer. Currency/region overlay is a future layer]
+    X21[COCKTAILS = alcoholic entries with an optional Mocktail VERSION chip where a natural non-alc twin exists. KEEP the Mocktails CATEGORY for standalone + famous non-alc drinks — version-chips do NOT show in mocktails browse or survive the no-alcohol filter, so true mocktails must stay their own entries]
     X10[End every session with updated TINZA_NOW.mermaid]
   end
 end
