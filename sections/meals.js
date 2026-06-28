@@ -5,1577 +5,16 @@
 // ════════════════════════════════════════════════════════════════
 var BREAKFAST_RECIPES = [
   {
-    "id": "bf-porridge-pap",
-    "cat": "warm",
-    "name": "Porridge & Pap",
-    "emoji": "🥣",
-    "cuisine": "South African",
-    "photoName": "Porridge and Pap",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
-    "feel": "The taste of a thousand farm mornings.",
-    "ingredients": [
-      {
-        "n": "maize meal",
-        "pp": 60,
-        "u": "g"
-      },
-      {
-        "n": "water",
-        "pp": 250,
-        "u": "ml"
-      },
-      {
-        "n": "milk",
-        "pp": 120,
-        "u": "ml"
-      },
-      {
-        "n": "sugar",
-        "pp": 10,
-        "u": "g"
-      },
-      {
-        "n": "salt"
-      }
-    ],
-    "method": [
-      "Bring the water and a pinch of salt to the boil.",
-      "Rain in the maize meal while stirring to avoid lumps.",
-      "Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.",
-      "Serve in bowls with cold milk and a sprinkle of sugar."
-    ],
-    "costPP": 4,
-    "time": 20,
-    "nutrition": {
-      "kcal": 250,
-      "protein_g": 6,
-      "carbs_g": 52,
-      "fat_g": 3
-    },
-    "tip": "For stiff pap use less water; for soft breakfast pap keep it loose and pourable.",
-    "storage": "Keeps 3 days; reheat with a splash of water.",
-    "versions": [
-      {
-        "name": "Mealie Pap & Milk",
-        "icon": "🌽",
-        "default": true,
-        "feel": "The taste of a thousand farm mornings.",
-        "ingredients": [
-          {
-            "n": "maize meal",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "water",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "milk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Bring the water and a pinch of salt to the boil.",
-          "Rain in the maize meal while stirring to avoid lumps.",
-          "Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.",
-          "Serve in bowls with cold milk and a sprinkle of sugar."
-        ],
-        "costPP": 4,
-        "time": 20,
-        "nutrition": {
-          "kcal": 250,
-          "protein_g": 6,
-          "carbs_g": 52,
-          "fat_g": 3
-        },
-        "tip": "For stiff pap use less water; for soft breakfast pap keep it loose and pourable.",
-        "storage": "Keeps 3 days; reheat with a splash of water."
-      },
-      {
-        "name": "Maltabella",
-        "icon": "🌾",
-        "feel": "Dark, malty and warm — the porridge that raised a country.",
-        "ingredients": [
-          {
-            "n": "sorghum meal",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "water",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk the sorghum meal into the cold water with a pinch of salt.",
-          "Bring to a boil over medium heat, stirring constantly.",
-          "Turn low and simmer 8 to 10 minutes until thick and glossy.",
-          "Stir in the milk and serve with sugar and more milk."
-        ],
-        "costPP": 8,
-        "time": 15,
-        "nutrition": {
-          "kcal": 240,
-          "protein_g": 7,
-          "carbs_g": 47,
-          "fat_g": 3
-        },
-        "tip": "Always start in cold water to keep it lump-free.",
-        "storage": "Keeps 2 days; loosen with milk."
-      },
-      {
-        "name": "Maizena",
-        "icon": "🥛",
-        "feel": "Smooth, silky and gentle — the porridge of small mornings.",
-        "ingredients": [
-          {
-            "n": "cornflour",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 300,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Mix the cornflour to a paste with a little of the cold milk.",
-          "Heat the rest of the milk with a pinch of salt.",
-          "Whisk in the paste and stir over low heat until smooth and thick.",
-          "Sweeten to taste and serve."
-        ],
-        "costPP": 6,
-        "time": 12,
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 9,
-          "carbs_g": 38,
-          "fat_g": 6
-        },
-        "tip": "Keep whisking as it thickens so it stays velvety.",
-        "storage": "Best fresh; thickens on standing."
-      },
-      {
-        "name": "Putu Pap",
-        "icon": "🥄",
-        "feel": "Dry, crumbly pap — comfort by the spoonful.",
-        "ingredients": [
-          {
-            "n": "maize meal",
-            "pp": 70,
-            "u": "g"
-          },
-          {
-            "n": "water",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "milk",
-            "pp": 100,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Bring the salted water to a boil and add the maize meal in a heap, do not stir.",
-          "Cover and steam on low for 10 minutes.",
-          "Now fork it through so it crumbles into soft grains.",
-          "Serve with milk and sugar, or with amasi."
-        ],
-        "costPP": 3,
-        "time": 25,
-        "nutrition": {
-          "kcal": 250,
-          "protein_g": 6,
-          "carbs_g": 52,
-          "fat_g": 3
-        },
-        "tip": "The no-stir start is what gives putu its crumbly texture.",
-        "storage": "Keeps 3 days; steam to refresh."
-      },
-      {
-        "name": "Cheesy Krummelpap",
-        "icon": "🧀",
-        "feel": "Crumbly pap turned rich and savoury with melting cheese.",
-        "ingredients": [
-          {
-            "n": "maize meal",
-            "pp": 70,
-            "u": "g"
-          },
-          {
-            "n": "water",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "cheddar",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Make crumbly pap: heap the maize meal into salted boiling water, cover and steam 10 minutes, then fork through.",
-          "Stir the butter through while hot.",
-          "Fold in the grated cheddar so it just melts.",
-          "Serve straight away."
-        ],
-        "costPP": 9,
-        "time": 25,
-        "nutrition": {
-          "kcal": 330,
-          "protein_g": 12,
-          "carbs_g": 48,
-          "fat_g": 12
-        },
-        "tip": "Lovely with crispy bacon bits stirred in.",
-        "storage": "Best fresh."
-      }
-    ]
-  },
-  {
-    "id": "bf-oats",
-    "cat": "warm",
-    "name": "Oats",
-    "emoji": "🥣",
+    "id": "bf-cheese-and-tomato-omelette",
+    "cat": "eggs",
+    "name": "Cheese & Tomato Omelette",
+    "emoji": "🧀",
     "cuisine": "Global",
-    "photoName": "Oats",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
-    "feel": "A warm bowl that quietly says the day can wait.",
-    "ingredients": [
-      {
-        "n": "rolled oats",
-        "pp": 50,
-        "u": "g"
-      },
-      {
-        "n": "milk",
-        "pp": 250,
-        "u": "ml"
-      },
-      {
-        "n": "honey",
-        "pp": 15,
-        "u": "g"
-      },
-      {
-        "n": "cinnamon"
-      },
-      {
-        "n": "salt"
-      }
-    ],
-    "method": [
-      "Combine the oats, milk and a pinch of salt in a pot.",
-      "Cook over medium heat, stirring often, for 5 to 6 minutes until thick and creamy.",
-      "Stir through the honey and a pinch of cinnamon.",
-      "Spoon into bowls and top with fruit or a splash more milk."
-    ],
-    "costPP": 10,
+    "photoName": "Cheese & Tomato Omelette",
     "time": 10,
-    "nutrition": {
-      "kcal": 290,
-      "protein_g": 11,
-      "carbs_g": 48,
-      "fat_g": 7
-    },
-    "tip": "Swap half the milk for water if you like it lighter, or use all milk for extra creaminess.",
-    "storage": "Keeps 2 days; loosen with milk when reheating.",
-    "versions": [
-      {
-        "name": "Creamy",
-        "icon": "🥣",
-        "default": true,
-        "feel": "A warm bowl that quietly says the day can wait.",
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Combine the oats, milk and a pinch of salt in a pot.",
-          "Cook over medium heat, stirring often, for 5 to 6 minutes until thick and creamy.",
-          "Stir through the honey and a pinch of cinnamon.",
-          "Spoon into bowls and top with fruit or a splash more milk."
-        ],
-        "costPP": 10,
-        "time": 10,
-        "nutrition": {
-          "kcal": 290,
-          "protein_g": 11,
-          "carbs_g": 48,
-          "fat_g": 7
-        },
-        "tip": "Swap half the milk for water if you like it lighter, or use all milk for extra creaminess.",
-        "storage": "Keeps 2 days; loosen with milk when reheating."
-      },
-      {
-        "name": "Overnight Jar",
-        "icon": "🫙",
-        "feel": "Tomorrow-morning sorted before you go to bed.",
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "yoghurt",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          }
-        ],
-        "method": [
-          "Stir the oats, milk, yoghurt and honey together in a jar.",
-          "Add sliced banana or any fruit.",
-          "Seal and chill overnight.",
-          "Eat cold straight from the jar."
-        ],
-        "costPP": 12,
-        "time": 5,
-        "nutrition": {
-          "kcal": 320,
-          "protein_g": 12,
-          "carbs_g": 52,
-          "fat_g": 7
-        },
-        "tip": "Layer in fruit and a spoon of peanut butter for variety each night.",
-        "storage": "Keeps 3 days in the fridge."
-      },
-      {
-        "name": "Malva / Melktert Oats",
-        "icon": "🍮",
-        "feel": "Two of our best puddings — melktert and malva — turned into a warm breakfast bowl.",
-        "time": 10,
-        "costPP": 9,
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 12,
-            "u": "g"
-          },
-          {
-            "n": "apricot jam",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 15,
-            "u": "ml"
-          },
-          {
-            "n": "vanilla essence"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Cook the oats in the milk with a pinch of salt over medium heat, stirring, until creamy.",
-          "Stir in the sugar and vanilla.",
-          "Swirl the apricot jam through.",
-          "Dust generously with cinnamon-sugar.",
-          "Finish with a splash of cream over the top — like custard on malva."
-        ],
-        "tip": "The splash of cream at the end is what makes it taste like pudding, not porridge.",
-        "nutrition": {
-          "kcal": 320,
-          "protein_g": 11,
-          "carbs_g": 52,
-          "fat_g": 8
-        },
-        "storage": "Best fresh and warm. Keeps 2 days in the fridge; loosen with a splash of milk when reheating. Cooked oats freeze up to 1 month."
-      },
-      {
-        "name": "Rooibos & Honey Oats",
-        "icon": "🍵",
-        "feel": "Earthy, naturally sweet rooibos cooked right into the oats — a proper SA cuppa in a bowl.",
-        "time": 10,
-        "costPP": 7,
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "rooibos tea",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "milk",
-            "pp": 100,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 12,
-            "u": "ml"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Brew a strong cup of rooibos.",
-          "Cook the oats in the rooibos and milk with a pinch of salt until creamy.",
-          "Stir in the honey.",
-          "Top with a little extra honey and a dusting of cinnamon."
-        ],
-        "tip": "Brew the rooibos strong — it should taste of tea, not just tint the oats.",
-        "nutrition": {
-          "kcal": 280,
-          "protein_g": 10,
-          "carbs_g": 48,
-          "fat_g": 6
-        },
-        "storage": "Best fresh. Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month."
-      },
-      {
-        "name": "Peppermint Crisp Oats",
-        "icon": "🌿",
-        "feel": "Peppermint Crisp tart for breakfast — caramel-swirled oats under a shower of minty chocolate.",
-        "time": 8,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "caramel treat",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "Peppermint Crisp chocolate",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Cook the oats in the milk with a pinch of salt until creamy.",
-          "Swirl the caramel through.",
-          "Grate over most of the Peppermint Crisp.",
-          "Top with the last of the grated chocolate.",
-          "Eat while the chocolate is melting into the warm oats."
-        ],
-        "tip": "A treat-day bowl — grate the chocolate right at the end so it melts, not seizes.",
-        "nutrition": {
-          "kcal": 380,
-          "protein_g": 11,
-          "carbs_g": 58,
-          "fat_g": 13
-        },
-        "storage": "Best fresh and warm while the chocolate melts. The plain caramel oats keep 2 days; add the chocolate when serving. Freezes (without chocolate) up to 1 month."
-      },
-      {
-        "name": "Curry & Coconut Oats",
-        "icon": "🍛",
-        "feel": "Savoury, golden and aromatic — oats reimagined as a cosy spiced bowl, breakfast or light supper.",
-        "time": 12,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "coconut milk",
-            "pp": 125,
-            "u": "ml"
-          },
-          {
-            "n": "water",
-            "pp": 125,
-            "u": "ml"
-          },
-          {
-            "n": "cashews",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "desiccated coconut",
-            "pp": 5,
-            "u": "g"
-          },
-          {
-            "n": "curry powder"
-          },
-          {
-            "n": "turmeric"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Cook the oats in the coconut milk and water with a pinch of salt until creamy.",
-          "Stir in the curry powder and a pinch of turmeric and cook 2 minutes more.",
-          "Taste and season.",
-          "Toast the cashews and coconut in a dry pan, then scatter over.",
-          "A squeeze of lime or some fresh coriander lifts it beautifully."
-        ],
-        "tip": "Toast the cashews and coconut first in a dry pan — it doubles their flavour.",
-        "nutrition": {
-          "kcal": 340,
-          "protein_g": 9,
-          "carbs_g": 38,
-          "fat_g": 18
-        },
-        "storage": "Best fresh. Keeps 2 days in the fridge; loosen with a splash of water or coconut milk when reheating. Freezes up to 1 month — add the cashews fresh."
-      },
-      {
-        "name": "Custard Protein Oats",
-        "icon": "💪",
-        "feel": "Thick, custardy and high-protein — oats that taste like warm cake batter.",
-        "time": 10,
-        "costPP": 9,
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 250,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          },
-          {
-            "n": "vanilla essence"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Pulse the oats in a blender until they look like fine flour.",
-          "Whisk the oat flour into the milk in a pot with a pinch of salt and cook, stirring, until thick.",
-          "Take the pot off the boil, beat the egg in a cup, then whisk it in fast so it cooks into a custard, not scrambles.",
-          "Stir in the vanilla and honey.",
-          "Dust with cinnamon and serve thick and creamy."
-        ],
-        "tip": "Off the boil and whisk fast when the egg goes in — that is what makes it custardy instead of scrambled.",
-        "nutrition": {
-          "kcal": 360,
-          "protein_g": 18,
-          "carbs_g": 50,
-          "fat_g": 11
-        },
-        "storage": "Best fresh and warm. Keeps 1 day in the fridge (it sets firm — loosen with hot milk). The egg means it is best not frozen."
-      },
-      {
-        "name": "Bircher",
-        "icon": "🥶",
-        "feel": "Cool and gentle, like an early morning before the house wakes.",
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "frozen berries",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Combine the oats, milk, berries and honey.",
-          "Refrigerate overnight.",
-          "Stir before eating and let it soften slightly at room temperature."
-        ],
-        "costPP": 19,
-        "time": 5,
-        "nutrition": {
-          "kcal": 290,
-          "protein_g": 9,
-          "carbs_g": 50,
-          "fat_g": 5
-        },
-        "tip": "Stir halfway through soaking for an even texture. (Overnight — 5 min active.)",
-        "storage": "Fridge, up to 2 days."
-      },
-      {
-        "name": "Mango",
-        "icon": "🥭",
-        "feel": "Bright and easy, like a warm breeze through an open window.",
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 200,
-            "u": "ml"
-          },
-          {
-            "n": "mango",
-            "pp": 100,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Cook the oats in the milk until soft.",
-          "Stir in the chopped mango at the end.",
-          "Finish with honey."
-        ],
-        "costPP": 13,
-        "time": 10,
-        "nutrition": {
-          "kcal": 300,
-          "protein_g": 9,
-          "carbs_g": 52,
-          "fat_g": 6
-        },
-        "tip": "Add the mango right at the end to keep it bright.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Baked Berry",
-        "icon": "🫐",
-        "feel": "Cosy and baked through, like something shared at a quiet table.",
-        "ingredients": [
-          {
-            "n": "rolled oats",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "frozen berries",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Mix all the ingredients together.",
-          "Pour into a small dish and bake until set and lightly golden.",
-          "Let it cool slightly before eating."
-        ],
-        "costPP": 23,
-        "time": 25,
-        "nutrition": {
-          "kcal": 340,
-          "protein_g": 12,
-          "carbs_g": 50,
-          "fat_g": 9
-        },
-        "tip": "Let it rest a few minutes before serving for the best texture.",
-        "storage": "Fridge, up to 2 days."
-      }
-    ],
-    "freezes": true,
-    "fridgeDays": 2
-  },
-  {
-    "id": "bf-fruit-yoghurt-bowls",
-    "cat": "fresh",
-    "name": "Fruit & Yoghurt Bowls",
-    "emoji": "🍓",
-    "cuisine": "Global",
-    "photoName": "Fruit and Yoghurt Bowl",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
-    "feel": "Cool, crunchy and bright — breakfast without the fuss.",
-    "ingredients": [
-      {
-        "n": "plain yoghurt",
-        "pp": 150,
-        "u": "g"
-      },
-      {
-        "n": "granola",
-        "pp": 40,
-        "u": "g"
-      },
-      {
-        "n": "mixed berries",
-        "pp": 60,
-        "u": "g"
-      },
-      {
-        "n": "honey",
-        "pp": 10,
-        "u": "g"
-      }
-    ],
-    "method": [
-      "Spoon the yoghurt into a bowl.",
-      "Top with granola and berries.",
-      "Drizzle with honey and serve straight away so the granola stays crunchy."
-    ],
-    "costPP": 22,
-    "time": 5,
-    "nutrition": {
-      "kcal": 280,
-      "protein_g": 12,
-      "carbs_g": 42,
-      "fat_g": 8
-    },
-    "tip": "Layer it in a glass jar the night before, granola on top, for a grab-and-go version.",
-    "storage": "Assemble fresh; keep components separate.",
-    "versions": [
-      {
-        "name": "Yoghurt & Granola",
-        "icon": "🥣",
-        "default": true,
-        "feel": "Cool, crunchy and bright — breakfast without the fuss.",
-        "ingredients": [
-          {
-            "n": "plain yoghurt",
-            "pp": 150,
-            "u": "g"
-          },
-          {
-            "n": "granola",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "mixed berries",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Spoon the yoghurt into a bowl.",
-          "Top with granola and berries.",
-          "Drizzle with honey and serve straight away so the granola stays crunchy."
-        ],
-        "costPP": 22,
-        "time": 5,
-        "nutrition": {
-          "kcal": 280,
-          "protein_g": 12,
-          "carbs_g": 42,
-          "fat_g": 8
-        },
-        "tip": "Layer it in a glass jar the night before, granola on top, for a grab-and-go version.",
-        "storage": "Assemble fresh; keep components separate."
-      },
-      {
-        "name": "Amasi & Fruit",
-        "icon": "🥛",
-        "feel": "Tangy, cool amasi over sweet fruit — an old friend.",
-        "ingredients": [
-          {
-            "n": "amasi",
-            "pp": 200,
-            "u": "ml"
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "berries",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Pour the amasi into a bowl.",
-          "Top with sliced banana and berries.",
-          "Drizzle with honey and serve cold."
-        ],
-        "costPP": 12,
-        "time": 5,
-        "nutrition": {
-          "kcal": 220,
-          "protein_g": 9,
-          "carbs_g": 34,
-          "fat_g": 5
-        },
-        "tip": "Lovely with a spoon of crunchy granola over the top.",
-        "storage": "Assemble fresh."
-      },
-      {
-        "name": "Cottage & Peaches",
-        "icon": "🍑",
-        "feel": "Light, high-protein and quietly delicious.",
-        "ingredients": [
-          {
-            "n": "cottage cheese",
-            "pp": 100,
-            "u": "g"
-          },
-          {
-            "n": "tinned peaches",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "ml"
-          },
-          {
-            "n": "cinnamon"
-          }
-        ],
-        "method": [
-          "Spoon the cottage cheese into a bowl.",
-          "Top with sliced peaches.",
-          "Drizzle with honey and a dusting of cinnamon."
-        ],
-        "costPP": 22,
-        "time": 5,
-        "nutrition": {
-          "kcal": 200,
-          "protein_g": 16,
-          "carbs_g": 22,
-          "fat_g": 5
-        },
-        "tip": "Any soft fruit works; try it with grated apple in winter.",
-        "storage": "Assemble fresh."
-      },
-      {
-        "name": "Tropical Fruit",
-        "icon": "🍍",
-        "feel": "A bright, juicy plate that wakes the whole table up.",
-        "ingredients": [
-          {
-            "n": "pineapple",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "pawpaw",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "lemon",
-            "pp": 0.2,
-            "u": ""
-          }
-        ],
-        "method": [
-          "Cut the pineapple, pawpaw and banana into bite-sized pieces.",
-          "Arrange on a plate.",
-          "Squeeze over a little lemon or lime to lift it."
-        ],
-        "costPP": 12,
-        "time": 8,
-        "nutrition": {
-          "kcal": 150,
-          "protein_g": 2,
-          "carbs_g": 38,
-          "fat_g": 1
-        },
-        "tip": "A sprinkle of toasted coconut makes it feel special.",
-        "storage": "Best fresh; keeps 1 day cut."
-      },
-      {
-        "name": "Boererusk & Amasi Bowl",
-        "icon": "🍮",
-        "feel": "Beskuit dunked in maas — the oldest, most comforting SA breakfast there is.",
-        "time": 5,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "buttermilk rusks",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "amasi",
-            "pp": 200,
-            "u": "ml"
-          },
-          {
-            "n": "mixed berries",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Roughly crumble the rusks into a bowl.",
-          "Pour over the amasi and let it soak for a minute to soften.",
-          "Drizzle with honey.",
-          "Top with the berries."
-        ],
-        "tip": "Let the rusks soak just a minute — soft on the outside, still a little crunch in the middle.",
-        "nutrition": {
-          "kcal": 280,
-          "protein_g": 10,
-          "carbs_g": 42,
-          "fat_g": 8
-        },
-        "storage": "Assemble fresh and eat soon — the rusks go soggy if it stands. Not for freezing."
-      },
-      {
-        "name": "Stewed Fruit & Yoghurt",
-        "icon": "🍑",
-        "feel": "Gestoofde vrugte over cool yoghurt — a Sunday-at-ouma's kind of breakfast.",
-        "time": 15,
-        "costPP": 10,
-        "ingredients": [
-          {
-            "n": "dried fruit",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "plain yoghurt",
-            "pp": 120,
-            "u": "g"
-          },
-          {
-            "n": "water",
-            "pp": 100,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "ml"
-          },
-          {
-            "n": "cinnamon"
-          }
-        ],
-        "method": [
-          "Simmer the dried fruit in the water with a stick of cinnamon until plump and soft, about 10 minutes.",
-          "Let it cool a little.",
-          "Spoon the warm stewed fruit over the yoghurt.",
-          "Drizzle with honey."
-        ],
-        "tip": "Make a big batch of the stewed fruit; it keeps for days and freezes well.",
-        "nutrition": {
-          "kcal": 250,
-          "protein_g": 8,
-          "carbs_g": 48,
-          "fat_g": 4
-        },
-        "storage": "The stewed fruit keeps 5 days in the fridge and freezes up to 3 months — spoon over fresh yoghurt each time."
-      },
-      {
-        "name": "Granadilla & Honey Yoghurt",
-        "icon": "🥭",
-        "feel": "Thick yoghurt under tart, perfumed granadilla — summer in three spoons.",
-        "time": 5,
-        "costPP": 11,
-        "ingredients": [
-          {
-            "n": "plain yoghurt",
-            "pp": 150,
-            "u": "g"
-          },
-          {
-            "n": "granadilla",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "rolled oats",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Spoon the yoghurt into a bowl.",
-          "Scoop the granadilla pulp over the top.",
-          "Drizzle with honey.",
-          "Toast the oats in a dry pan for a minute and scatter over for crunch."
-        ],
-        "tip": "Toast the oats or some seeds in a dry pan — the crunch is what makes the bowl.",
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 9,
-          "carbs_g": 32,
-          "fat_g": 6
-        },
-        "storage": "Assemble fresh and eat right away. Not for freezing."
-      },
-      {
-        "name": "Stone Fruit & Hot Honey",
-        "icon": "🍯",
-        "feel": "Sweet summer stone fruit with a sneaky chilli-honey kick — sophisticated and a little surprising.",
-        "time": 5,
-        "costPP": 13,
-        "ingredients": [
-          {
-            "n": "plain yoghurt",
-            "pp": 150,
-            "u": "g"
-          },
-          {
-            "n": "peaches",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "nectarine",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "rolled oats",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 12,
-            "u": "ml"
-          },
-          {
-            "n": "hot sauce"
-          },
-          {
-            "n": "fresh mint"
-          }
-        ],
-        "method": [
-          "Spoon the yoghurt into a bowl.",
-          "Slice the peach and nectarine over the top.",
-          "Stir a dash of hot sauce into the honey to make hot honey.",
-          "Drizzle the hot honey over the fruit.",
-          "Scatter with toasted oats and a few torn mint leaves."
-        ],
-        "tip": "Hot honey is just honey plus a dash of your favourite hot sauce — start small, you want a whisper of heat, not a burn.",
-        "nutrition": {
-          "kcal": 260,
-          "protein_g": 9,
-          "carbs_g": 40,
-          "fat_g": 6
-        },
-        "storage": "Assemble fresh and eat right away. The hot honey keeps in a jar for weeks. Not for freezing."
-      }
-    ],
-    "freezes": false,
-    "fridgeDays": 1
-  },
-  {
-    "id": "bf-toast-toppers",
-    "cat": "go",
-    "name": "Toast Toppers",
-    "emoji": "🍞",
-    "cuisine": "Global",
-    "photoName": "Toast Toppers",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
-    "feel": "Creamy, green and a little bit smug — in the best way.",
-    "ingredients": [
-      {
-        "n": "avocado",
-        "pp": 0.5,
-        "u": ""
-      },
-      {
-        "n": "sourdough bread",
-        "pp": 1,
-        "u": ""
-      },
-      {
-        "n": "olive oil",
-        "pp": 5,
-        "u": "ml"
-      },
-      {
-        "n": "lemon juice"
-      },
-      {
-        "n": "salt & pepper"
-      },
-      {
-        "n": "chilli flakes"
-      }
-    ],
-    "method": [
-      "Toast the bread until golden.",
-      "Mash the avocado with a squeeze of lemon, salt and pepper.",
-      "Spread thickly onto the toast.",
-      "Finish with a drizzle of olive oil and a pinch of chilli flakes."
-    ],
-    "costPP": 16,
-    "time": 8,
-    "nutrition": {
-      "kcal": 300,
-      "protein_g": 7,
-      "carbs_g": 28,
-      "fat_g": 19
-    },
-    "tip": "A poached egg on top turns this into a proper meal.",
-    "storage": "Best fresh; avocado browns quickly.",
-    "versions": [
-      {
-        "name": "Smashed Avo",
-        "icon": "🥑",
-        "default": true,
-        "feel": "Creamy, green and a little bit smug — in the best way.",
-        "ingredients": [
-          {
-            "n": "avocado",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "sourdough bread",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "olive oil",
-            "pp": 5,
-            "u": "ml"
-          },
-          {
-            "n": "lemon juice"
-          },
-          {
-            "n": "salt & pepper"
-          },
-          {
-            "n": "chilli flakes"
-          }
-        ],
-        "method": [
-          "Toast the bread until golden.",
-          "Mash the avocado with a squeeze of lemon, salt and pepper.",
-          "Spread thickly onto the toast.",
-          "Finish with a drizzle of olive oil and a pinch of chilli flakes."
-        ],
-        "costPP": 16,
-        "time": 8,
-        "nutrition": {
-          "kcal": 300,
-          "protein_g": 7,
-          "carbs_g": 28,
-          "fat_g": 19
-        },
-        "tip": "A poached egg on top turns this into a proper meal.",
-        "storage": "Best fresh; avocado browns quickly."
-      },
-      {
-        "name": "PB & Banana",
-        "icon": "🍌",
-        "feel": "The lunchbox hero, fast and filling.",
-        "ingredients": [
-          {
-            "n": "white bread",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "peanut butter",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "banana",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "honey",
-            "pp": 5,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Toast the bread.",
-          "Spread thickly with peanut butter.",
-          "Lay over sliced banana.",
-          "Drizzle with honey and serve."
-        ],
-        "costPP": 9,
-        "time": 5,
-        "nutrition": {
-          "kcal": 360,
-          "protein_g": 11,
-          "carbs_g": 48,
-          "fat_g": 15
-        },
-        "tip": "Use brown bread for extra staying power before school.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Honey Brick",
-        "icon": "🍯",
-        "feel": "A thick toast block, custard-soaked and baked sweet and golden.",
-        "ingredients": [
-          {
-            "n": "unsliced white loaf",
-            "pp": 0.25,
-            "u": ""
-          },
-          {
-            "n": "butter",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 20,
-            "u": "ml"
-          },
-          {
-            "n": "cream",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Cut a thick brick of bread and score the top into cubes, not all the way through.",
-          "Brush all over with melted butter and honey.",
-          "Bake at 180°C until toasty and golden, about 12 minutes.",
-          "Pull the cubes apart, drizzle with cream and more honey."
-        ],
-        "costPP": 10,
-        "time": 20,
-        "nutrition": {
-          "kcal": 360,
-          "protein_g": 6,
-          "carbs_g": 48,
-          "fat_g": 17
-        },
-        "tip": "Day-old bread holds the brick shape best.",
-        "storage": "Best fresh and warm."
-      },
-      {
-        "name": "French Toast",
-        "icon": "🍳",
-        "feel": "Day-old bread, reborn as something special.",
-        "ingredients": [
-          {
-            "n": "thick white bread",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 60,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "cinnamon"
-          }
-        ],
-        "method": [
-          "Whisk the eggs, milk, sugar and a pinch of cinnamon in a shallow dish.",
-          "Soak each slice of bread for a few seconds per side.",
-          "Fry in butter over medium heat until golden on both sides.",
-          "Serve dusted with cinnamon sugar or a drizzle of syrup."
-        ],
-        "costPP": 12,
-        "time": 15,
-        "nutrition": {
-          "kcal": 360,
-          "protein_g": 13,
-          "carbs_g": 44,
-          "fat_g": 15
-        },
-        "tip": "Slightly stale bread soaks up the custard best without going soggy.",
-        "storage": "Best fresh; eat the same morning."
-      },
-      {
-        "name": "Chakalaka Beans",
-        "icon": "🫘",
-        "feel": "Beans on toast with a proper South African kick.",
-        "ingredients": [
-          {
-            "n": "baked beans",
-            "pp": 120,
-            "u": "g"
-          },
-          {
-            "n": "chakalaka",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "white bread",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "butter",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Warm the baked beans and chakalaka together in a small pot.",
-          "Toast and butter the bread.",
-          "Pile the spiced beans over the toast and serve hot."
-        ],
-        "costPP": 11,
-        "time": 12,
-        "nutrition": {
-          "kcal": 320,
-          "protein_g": 13,
-          "carbs_g": 50,
-          "fat_g": 8
-        },
-        "tip": "A handful of grated cheese melted on top is never wrong.",
-        "storage": "The bean mix keeps 3 days."
-      },
-      {
-        "name": "Savoury Mince",
-        "icon": "🥩",
-        "feel": "Rich, oniony mince piled on buttered toast.",
-        "ingredients": [
-          {
-            "n": "beef mince",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "onion",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "tomatoes",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "white bread",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "oil",
-            "pp": 5,
-            "u": "ml"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Brown the mince with the chopped onion in the oil over medium-high heat.",
-          "Add the chopped tomato and a splash of water and simmer until thick.",
-          "Season well.",
-          "Spoon over hot buttered toast."
-        ],
-        "costPP": 15,
-        "time": 20,
-        "nutrition": {
-          "kcal": 420,
-          "protein_g": 24,
-          "carbs_g": 30,
-          "fat_g": 22
-        },
-        "tip": "A dash of Worcestershire or chutney rounds it out beautifully.",
-        "storage": "Mince keeps 3 days."
-      }
-    ]
-  },
-  {
-    "id": "bf-eggs",
-    "cat": "savoury",
-    "name": "Eggs, Your Way",
-    "emoji": "🍳",
-    "cuisine": "Global",
-    "photoName": "Eggs",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "costPP": 17,
     "feel": "The everyday omelette that never lets you down.",
+    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -1607,502 +46,45 @@ var BREAKFAST_RECIPES = [
       "As the edges set, scatter over the grated cheddar and chopped tomato.",
       "Fold in half, slide onto a plate and serve."
     ],
-    "costPP": 17,
-    "time": 10,
+    "tip": "Take it off the heat while the centre is still a touch soft; it carries on cooking.",
     "nutrition": {
       "kcal": 340,
       "protein_g": 22,
       "carbs_g": 4,
       "fat_g": 26
     },
-    "tip": "Take it off the heat while the centre is still a touch soft; it carries on cooking.",
-    "storage": "Best fresh.",
-    "versions": [
-      {
-        "name": "Cheese & Tomato",
-        "icon": "🧀",
-        "default": true,
-        "feel": "The everyday omelette that never lets you down.",
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 3,
-            "u": "egg"
-          },
-          {
-            "n": "cheddar",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "tomatoes",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Beat the eggs with salt and pepper.",
-          "Melt the butter in a pan over medium heat and pour in the eggs.",
-          "As the edges set, scatter over the grated cheddar and chopped tomato.",
-          "Fold in half, slide onto a plate and serve."
-        ],
-        "costPP": 17,
-        "time": 10,
-        "nutrition": {
-          "kcal": 340,
-          "protein_g": 22,
-          "carbs_g": 4,
-          "fat_g": 26
-        },
-        "tip": "Take it off the heat while the centre is still a touch soft; it carries on cooking.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Mushroom & Feta",
-        "icon": "🍄",
-        "feel": "Earthy mushrooms and salty feta, folded warm.",
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 3,
-            "u": "egg"
-          },
-          {
-            "n": "mushrooms",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "feta",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Fry the sliced mushrooms in half the butter until golden, then set aside.",
-          "Beat the eggs, melt the rest of the butter and pour them in.",
-          "As they set, add the mushrooms and crumbled feta over one half.",
-          "Fold over and serve."
-        ],
-        "costPP": 20,
-        "time": 12,
-        "nutrition": {
-          "kcal": 330,
-          "protein_g": 21,
-          "carbs_g": 3,
-          "fat_g": 26
-        },
-        "tip": "Cook the mushrooms first and dry, so the omelette does not go watery.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Hash Brown",
-        "icon": "🥔",
-        "feel": "Crispy potato cooked right into a loaded omelette.",
-        "ingredients": [
-          {
-            "n": "potatoes",
-            "pp": 120,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 3,
-            "u": "egg"
-          },
-          {
-            "n": "cheddar",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "green pepper",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "oil",
-            "pp": 8,
-            "u": "ml"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Grate the potato, squeeze out the water and fry in the oil until golden and crisp.",
-          "Pour the beaten eggs over the potato.",
-          "As they set, add the chopped pepper and grated cheddar to one half.",
-          "Fold over and serve."
-        ],
-        "costPP": 17,
-        "time": 20,
-        "nutrition": {
-          "kcal": 380,
-          "protein_g": 19,
-          "carbs_g": 24,
-          "fat_g": 23
-        },
-        "tip": "Squeezing the grated potato dry is what gets you crisp, not soggy.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Masala Scramble",
-        "icon": "🌶️",
-        "feel": "Soft scrambled eggs lifted with onion, chilli and masala.",
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 3,
-            "u": "egg"
-          },
-          {
-            "n": "onion",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "tomatoes",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "green chilli",
-            "pp": 5,
-            "u": "g"
-          },
-          {
-            "n": "oil",
-            "pp": 6,
-            "u": "ml"
-          },
-          {
-            "n": "masala"
-          },
-          {
-            "n": "fresh coriander"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Soften the chopped onion and chilli in the oil over medium heat.",
-          "Stir in the chopped tomato and a spoon of masala and cook for 2 minutes.",
-          "Pour in the beaten eggs and stir gently until just set.",
-          "Finish with chopped coriander and serve with bread or roti."
-        ],
-        "costPP": 12,
-        "time": 15,
-        "nutrition": {
-          "kcal": 260,
-          "protein_g": 17,
-          "carbs_g": 7,
-          "fat_g": 18
-        },
-        "tip": "Pull it off the heat while still glossy; the eggs firm up as you plate.",
-        "storage": "Best fresh."
-      },
-      {
-        "name": "Cloud Eggs",
-        "icon": "☁️",
-        "feel": "Whipped egg-white clouds with a sunny yolk nested in.",
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 2,
-            "u": "egg"
-          },
-          {
-            "n": "cheddar",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Separate the eggs, keeping the yolks whole.",
-          "Whisk the whites with a pinch of salt to stiff peaks and fold in the grated cheddar.",
-          "Spoon into clouds on a lined tray and bake at 230°C for 3 minutes.",
-          "Make a dip in each, slip in a yolk and bake 3 minutes more."
-        ],
-        "costPP": 9,
-        "time": 12,
-        "nutrition": {
-          "kcal": 180,
-          "protein_g": 14,
-          "carbs_g": 1,
-          "fat_g": 13
-        },
-        "tip": "Watch them closely; the whites colour fast at high heat.",
-        "storage": "Best fresh."
-      }
-    ]
+    "storage": "Best fresh."
   },
   {
-    "id": "bf-pancakes",
-    "cat": "sweet",
-    "name": "Pancakes",
-    "emoji": "🥞",
+    "id": "bf-mushroom-and-feta-omelette",
+    "cat": "eggs",
+    "name": "Mushroom & Feta Omelette",
+    "emoji": "🍄",
     "cuisine": "Global",
-    "photoName": "Pancakes",
-    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
-    "feel": "Thin, lacy pancakes rolled with cinnamon sugar.",
-    "ingredients": [
-      {
-        "n": "cake flour",
-        "pp": 40,
-        "u": "g"
-      },
-      {
-        "n": "large eggs",
-        "pp": 1,
-        "u": "egg"
-      },
-      {
-        "n": "milk",
-        "pp": 120,
-        "u": "ml"
-      },
-      {
-        "n": "oil",
-        "pp": 5,
-        "u": "ml"
-      },
-      {
-        "n": "sugar",
-        "pp": 10,
-        "u": "g"
-      },
-      {
-        "n": "cinnamon"
-      },
-      {
-        "n": "salt"
-      }
-    ],
-    "method": [
-      "Whisk the flour, egg, milk, oil and a pinch of salt to a thin, smooth batter.",
-      "Pour a thin layer into a hot greased pan and swirl to coat.",
-      "Cook until the edges lift, flip and cook the other side.",
-      "Sprinkle with cinnamon sugar, roll up and serve."
-    ],
-    "costPP": 7,
-    "time": 20,
-    "nutrition": {
-      "kcal": 230,
-      "protein_g": 7,
-      "carbs_g": 34,
-      "fat_g": 8
-    },
-    "tip": "Rest the batter 10 minutes for thinner, more tender pancakes.",
-    "storage": "Best fresh; stack with paper between to reheat.",
-    "versions": [
-      {
-        "name": "Pannekoek",
-        "icon": "🥞",
-        "default": true,
-        "feel": "Thin, lacy pancakes rolled with cinnamon sugar.",
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "oil",
-            "pp": 5,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk the flour, egg, milk, oil and a pinch of salt to a thin, smooth batter.",
-          "Pour a thin layer into a hot greased pan and swirl to coat.",
-          "Cook until the edges lift, flip and cook the other side.",
-          "Sprinkle with cinnamon sugar, roll up and serve."
-        ],
-        "costPP": 7,
-        "time": 20,
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 7,
-          "carbs_g": 34,
-          "fat_g": 8
-        },
-        "tip": "Rest the batter 10 minutes for thinner, more tender pancakes.",
-        "storage": "Best fresh; stack with paper between to reheat."
-      },
-      {
-        "name": "Plaatkoekies",
-        "icon": "🥞",
-        "feel": "Little thick drop scones, golden and fluffy.",
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 80,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "baking powder",
-            "pp": 2,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk all the ingredients to a thick, smooth batter.",
-          "Drop spoonfuls onto a hot greased pan.",
-          "When bubbles rise and pop, flip and cook the other side until golden.",
-          "Serve with butter and jam or syrup."
-        ],
-        "costPP": 7,
-        "time": 15,
-        "nutrition": {
-          "kcal": 240,
-          "protein_g": 7,
-          "carbs_g": 38,
-          "fat_g": 6
-        },
-        "tip": "Wait for the bubbles before flipping; that is when they are ready.",
-        "storage": "Keeps 2 days; toast to refresh."
-      },
-      {
-        "name": "Crêpes",
-        "icon": "🇫🇷",
-        "feel": "Paper-thin and tender, ready for any filling.",
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 35,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "butter",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk everything to a very thin, smooth batter and rest if you can.",
-          "Pour a thin layer into a hot buttered pan and swirl.",
-          "Cook until set and lightly golden, then flip briefly.",
-          "Fill with whatever you love and fold."
-        ],
-        "costPP": 7,
-        "time": 20,
-        "nutrition": {
-          "kcal": 200,
-          "protein_g": 7,
-          "carbs_g": 26,
-          "fat_g": 8
-        },
-        "tip": "The first crêpe is always a test one; do not worry about it.",
-        "storage": "Stack with paper; keeps 2 days."
-      }
-    ]
-  },
-  {
-    "id": "bf-fry-up",
-    "cat": "savoury",
-    "name": "Fry-Up",
-    "emoji": "🥓",
-    "cuisine": "South African",
-    "photoName": "Fry Up",
-    "didYouKnow": "To be sold as “boerewors” in South Africa, the law requires at least 90% meat — anything less has to be labelled as something else.",
-    "feel": "The smell that pulls everyone out of bed.",
+    "photoName": "Mushroom & Feta Omelette",
+    "time": 12,
+    "costPP": 20,
+    "feel": "Earthy mushrooms and salty feta, folded warm.",
+    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
     "ingredients": [
       {
         "n": "large eggs",
-        "pp": 2,
+        "pp": 3,
         "u": "egg"
       },
       {
-        "n": "streaky bacon",
-        "pp": 60,
+        "n": "mushrooms",
+        "pp": 50,
         "u": "g"
       },
       {
-        "n": "tomatoes",
-        "pp": 80,
+        "n": "feta",
+        "pp": 25,
         "u": "g"
-      },
-      {
-        "n": "white bread",
-        "pp": 2,
-        "u": ""
       },
       {
         "n": "butter",
-        "pp": 10,
+        "pp": 8,
         "u": "g"
       },
       {
@@ -2110,500 +92,182 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Fry the bacon in a dry pan over medium heat until crisp, then set aside on paper towel.",
-      "Halve the tomatoes and fry cut-side down in the bacon fat until soft and caramelised.",
-      "Fry the eggs to your liking in the same pan.",
-      "Toast and butter the bread, plate everything together, season and serve hot."
+      "Fry the sliced mushrooms in half the butter until golden, then set aside.",
+      "Beat the eggs, melt the rest of the butter and pour them in.",
+      "As they set, add the mushrooms and crumbled feta over one half.",
+      "Fold over and serve."
     ],
-    "costPP": 26,
-    "time": 15,
+    "tip": "Cook the mushrooms first and dry, so the omelette does not go watery.",
     "nutrition": {
-      "kcal": 430,
-      "protein_g": 24,
-      "carbs_g": 22,
-      "fat_g": 28
+      "kcal": 330,
+      "protein_g": 21,
+      "carbs_g": 3,
+      "fat_g": 26
     },
-    "tip": "Cook the eggs last so the yolks stay runny and warm on the plate.",
-    "storage": "Best fresh; cooked bacon keeps 2 days in the fridge.",
-    "versions": [
-      {
-        "name": "Bacon & Eggs",
-        "icon": "🥓",
-        "default": true,
-        "feel": "The smell that pulls everyone out of bed.",
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 2,
-            "u": "egg"
-          },
-          {
-            "n": "streaky bacon",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "tomatoes",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "white bread",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "butter",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Fry the bacon in a dry pan over medium heat until crisp, then set aside on paper towel.",
-          "Halve the tomatoes and fry cut-side down in the bacon fat until soft and caramelised.",
-          "Fry the eggs to your liking in the same pan.",
-          "Toast and butter the bread, plate everything together, season and serve hot."
-        ],
-        "costPP": 26,
-        "time": 15,
-        "nutrition": {
-          "kcal": 430,
-          "protein_g": 24,
-          "carbs_g": 22,
-          "fat_g": 28
-        },
-        "tip": "Cook the eggs last so the yolks stay runny and warm on the plate.",
-        "storage": "Best fresh; cooked bacon keeps 2 days in the fridge."
-      },
-      {
-        "name": "Boerewors & Eggs",
-        "icon": "🌭",
-        "feel": "A coil of wors and a soft egg — a proper farm start.",
-        "ingredients": [
-          {
-            "n": "boerewors",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 2,
-            "u": "egg"
-          },
-          {
-            "n": "tomatoes",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "white bread",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Fry the boerewors in a pan over medium heat, turning, until browned and cooked through.",
-          "Halve the tomatoes and fry them cut-side down in the wors fat until soft.",
-          "Fry the eggs to your liking in the same pan.",
-          "Toast the bread, plate everything together and season."
-        ],
-        "costPP": 18,
-        "time": 20,
-        "nutrition": {
-          "kcal": 460,
-          "protein_g": 24,
-          "carbs_g": 18,
-          "fat_g": 32
-        },
-        "tip": "Do not prick the wors; keeping it whole holds the juices in.",
-        "storage": "Best fresh; cooked wors keeps 2 days."
-      }
-    ]
+    "storage": "Best fresh."
   },
   {
-    "id": "bf-waffles",
-    "cat": "sweet",
-    "name": "Waffles",
-    "emoji": "🧇",
+    "id": "bf-hash-brown-omelette",
+    "cat": "eggs",
+    "name": "Hash Brown Omelette",
+    "emoji": "🥔",
     "cuisine": "Global",
-    "photoName": "Waffles",
-    "freezes": true,
-    "fridgeDays": 2,
+    "photoName": "Hash Brown Omelette",
     "time": 20,
-    "costPP": 9,
-    "feel": "Crisp pockets, soft middle — the waffle every other one is measured against.",
-    "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
-    ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "costPP": 17,
+    "feel": "Crispy potato cooked right into a loaded omelette.",
+    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
     "ingredients": [
       {
-        "n": "cake flour",
-        "pp": 75,
-        "u": "g"
-      },
-      {
-        "n": "buttermilk",
+        "n": "potatoes",
         "pp": 120,
-        "u": "ml"
+        "u": "g"
       },
       {
         "n": "large eggs",
-        "pp": 1,
+        "pp": 3,
         "u": "egg"
       },
       {
-        "n": "butter",
-        "pp": 20,
+        "n": "cheddar",
+        "pp": 25,
         "u": "g"
       },
       {
-        "n": "sugar",
-        "pp": 10,
+        "n": "green pepper",
+        "pp": 30,
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "oil",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Grate the potato, squeeze out the water and fry in the oil until golden and crisp.",
+      "Pour the beaten eggs over the potato.",
+      "As they set, add the chopped pepper and grated cheddar to one half.",
+      "Fold over and serve."
+    ],
+    "tip": "Squeezing the grated potato dry is what gets you crisp, not soggy.",
+    "nutrition": {
+      "kcal": 380,
+      "protein_g": 19,
+      "carbs_g": 24,
+      "fat_g": 23
+    },
+    "storage": "Best fresh."
+  },
+  {
+    "id": "bf-masala-scramble",
+    "cat": "eggs",
+    "name": "Masala Scramble (Akoori)",
+    "emoji": "🌶️",
+    "cuisine": "Global",
+    "photoName": "Masala Scramble",
+    "time": 15,
+    "costPP": 12,
+    "feel": "Soft scrambled eggs lifted with onion, chilli and masala.",
+    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 3,
+        "u": "egg"
+      },
+      {
+        "n": "onion",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "green chilli",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "oil",
+        "pp": 6,
+        "u": "ml"
+      },
+      {
+        "n": "masala"
+      },
+      {
+        "n": "fresh coriander"
       },
       {
         "n": "salt"
       }
     ],
     "method": [
-      "Whisk the flour, sugar, baking powder and a pinch of salt together in a bowl.",
-      "In a jug, beat the egg with the buttermilk and melted butter.",
-      "Fold the wet into the dry until just combined — a few lumps are fine, do not overmix.",
-      "Spoon into a hot, greased waffle iron and close; cook until the steam slows and it is deep golden, about 4 minutes.",
-      "Lift out and serve straight away while crisp."
+      "Soften the chopped onion and chilli in the oil over medium heat.",
+      "Stir in the chopped tomato and a spoon of masala and cook for 2 minutes.",
+      "Pour in the beaten eggs and stir gently until just set.",
+      "Finish with chopped coriander and serve with bread or roti."
     ],
-    "tip": "Do not open the iron too early — let the steam slowing down tell you it is done.",
+    "tip": "Pull it off the heat while still glossy; the eggs firm up as you plate.",
     "nutrition": {
-      "kcal": 380,
-      "protein_g": 10,
-      "carbs_g": 48,
-      "fat_g": 16
+      "kcal": 260,
+      "protein_g": 17,
+      "carbs_g": 7,
+      "fat_g": 18
     },
-    "storage": "Best fresh and crisp. Keeps 2 days in the fridge and freezes well — crisp straight from frozen in a toaster.",
-    "versions": [
+    "storage": "Best fresh."
+  },
+  {
+    "id": "bf-cloud-eggs",
+    "cat": "eggs",
+    "name": "Cloud Eggs",
+    "emoji": "☁️",
+    "cuisine": "Global",
+    "photoName": "Cloud Eggs",
+    "time": 12,
+    "costPP": 9,
+    "feel": "Whipped egg-white clouds with a sunny yolk nested in.",
+    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "ingredients": [
       {
-        "name": "Classic Buttermilk",
-        "icon": "⭐",
-        "default": true,
-        "feel": "Crisp pockets, soft middle — the waffle every other one is measured against.",
-        "time": 20,
-        "costPP": 9,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 75,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk the flour, sugar, baking powder and a pinch of salt together in a bowl.",
-          "In a jug, beat the egg with the buttermilk and melted butter.",
-          "Fold the wet into the dry until just combined — a few lumps are fine, do not overmix.",
-          "Spoon into a hot, greased waffle iron and close; cook until the steam slows and it is deep golden, about 4 minutes.",
-          "Lift out and serve straight away while crisp, with butter and syrup or fresh fruit."
-        ],
-        "tip": "Do not open the iron too early — let the steam slowing down tell you it is done.",
-        "nutrition": {
-          "kcal": 380,
-          "protein_g": 10,
-          "carbs_g": 48,
-          "fat_g": 16
-        },
-        "storage": "Best fresh and crisp. Keeps 2 days in the fridge and freezes well — crisp straight from frozen in a toaster."
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
       },
       {
-        "name": "Banana & Pecan",
-        "icon": "🍌",
-        "feel": "Banana-sweet and nutty — pudding that gets to be breakfast.",
-        "time": 22,
-        "costPP": 13,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 75,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 110,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "banana",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "pecan nuts",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "honey",
-            "pp": 10,
-            "u": "ml"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Mash half the banana and slice the rest for the top.",
-          "Whisk the flour, sugar, baking powder and salt; in a jug beat the egg, buttermilk, melted butter and mashed banana.",
-          "Fold the wet into the dry, then stir through most of the chopped pecans.",
-          "Cook in a hot, greased waffle iron until deep golden, about 4 minutes.",
-          "Top with the sliced banana, the rest of the pecans and a drizzle of honey."
-        ],
-        "tip": "A very ripe, speckled banana gives the most flavour and natural sweetness.",
-        "nutrition": {
-          "kcal": 470,
-          "protein_g": 11,
-          "carbs_g": 58,
-          "fat_g": 22
-        },
-        "storage": "Best fresh. The plain waffle keeps 2 days and freezes well; slice the banana only when serving so it does not brown."
+        "n": "cheddar",
+        "pp": 15,
+        "u": "g"
       },
       {
-        "name": "Cheesy Savoury",
-        "icon": "🧀",
-        "feel": "No sugar here — a crisp, cheesy waffle built to carry a runny egg.",
-        "time": 22,
-        "costPP": 13,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 75,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 2,
-            "u": "egg"
-          },
-          {
-            "n": "cheddar",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk the flour, baking powder and a good pinch of salt — no sugar in this one.",
-          "Beat one egg with the buttermilk and melted butter, then fold into the dry with the grated cheddar.",
-          "Cook in a hot, greased waffle iron until golden and crisp, about 4 to 5 minutes.",
-          "Meanwhile fry the second egg to your liking.",
-          "Slide the fried egg onto the warm waffle, grind over black pepper and serve — smashed avo alongside is lekker."
-        ],
-        "tip": "Skip the sugar completely; the cheese and a runny yolk are the whole show.",
-        "nutrition": {
-          "kcal": 420,
-          "protein_g": 18,
-          "carbs_g": 38,
-          "fat_g": 22
-        },
-        "storage": "Best fresh. Keeps 2 days in the fridge and freezes well — reheat in a toaster straight from frozen."
-      },
-      {
-        "name": "Choc Chip",
-        "icon": "🍫",
-        "feel": "Melty chocolate pockets — the treat-morning waffle.",
-        "time": 20,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 75,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "dark chocolate",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 12,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Whisk the flour, sugar, baking powder and salt.",
-          "Beat the egg, buttermilk and melted butter, then fold into the dry.",
-          "Stir through the chopped dark chocolate.",
-          "Cook in a hot, greased waffle iron until set and golden, about 4 minutes — chocolate ones stay a touch softer.",
-          "Dust with icing sugar and serve, with berries or a scoop of yoghurt if you like."
-        ],
-        "tip": "Chop a slab rather than using chips — the puddles of melted chocolate are better.",
-        "nutrition": {
-          "kcal": 470,
-          "protein_g": 11,
-          "carbs_g": 60,
-          "fat_g": 21
-        },
-        "storage": "Best fresh and warm while the chocolate is soft. Keeps 2 days and freezes well; re-crisp in a toaster."
-      },
-      {
-        "name": "Bacon & Syrup",
-        "icon": "🥓",
-        "feel": "Crisp bacon, deep golden waffle, a flood of syrup — the diner classic.",
-        "time": 22,
-        "costPP": 15,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 75,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "streaky bacon",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "golden syrup",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Fry the bacon until crisp, then set it aside and keep the pan.",
-          "Whisk the flour, sugar, baking powder and salt; beat the egg, buttermilk and melted butter and fold together.",
-          "Cook in a hot, greased waffle iron until deep golden, about 4 minutes.",
-          "Lay the crisp bacon over the warm waffle.",
-          "Pour the syrup generously over the lot — the salty-sweet is the whole point (maple syrup if you have it)."
-        ],
-        "tip": "Let the syrup run into the bacon; salty-sweet is exactly why this American classic works.",
-        "nutrition": {
-          "kcal": 520,
-          "protein_g": 16,
-          "carbs_g": 62,
-          "fat_g": 24
-        },
-        "storage": "Best fresh. The waffle keeps 2 days and freezes well — crisp from frozen; cooked bacon keeps 2 days."
+        "n": "salt & pepper"
       }
-    ]
+    ],
+    "method": [
+      "Separate the eggs, keeping the yolks whole.",
+      "Whisk the whites with a pinch of salt to stiff peaks and fold in the grated cheddar.",
+      "Spoon into clouds on a lined tray and bake at 230°C for 3 minutes.",
+      "Make a dip in each, slip in a yolk and bake 3 minutes more."
+    ],
+    "tip": "Watch them closely; the whites colour fast at high heat.",
+    "nutrition": {
+      "kcal": 180,
+      "protein_g": 14,
+      "carbs_g": 1,
+      "fat_g": 13
+    },
+    "storage": "Best fresh."
   },
   {
     "id": "bf-frittata",
-    "cat": "savoury",
+    "cat": "eggs",
     "name": "Frittata",
     "emoji": "🍳",
     "cuisine": "Italian",
@@ -2964,16 +628,2166 @@ var BREAKFAST_RECIPES = [
     ]
   },
   {
-    "id": "bf-muffins",
-    "cat": "go",
-    "name": "Muffins",
+    "id": "bf-omelette-waffle",
+    "cat": "eggs",
+    "name": "Omelette Waffle",
+    "emoji": "🧇",
+    "cuisine": "Global",
+    "photoName": "Omelette Waffle",
+    "freezes": false,
+    "fridgeDays": 1,
+    "time": 12,
+    "costPP": 16,
+    "feel": "All the joy of an omelette with none of the flipping — the iron does the work.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit",
+      "Berry Smoothie"
+    ],
+    "didYouKnow": "A waffle iron is really just two hot, patterned plates — which is why it cooks almost anything pourable, not only batter. Beaten egg sets into those pockets with crisp, lacy edges and a fluffy middle, and because both sides cook at once there is no flip and no fold to go wrong. It is one of the highest-protein ways to start the day on a single appliance.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 3,
+        "u": "egg"
+      },
+      {
+        "n": "ham",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "baby spinach",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 15,
+        "u": "ml"
+      },
+      {
+        "n": "butter",
+        "pp": 6,
+        "u": "g"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Heat the waffle iron and grease it really well with butter — egg loves to stick, so be generous.",
+      "Beat the eggs with the milk, salt and pepper.",
+      "Stir in the chopped ham, grated cheddar and chopped spinach.",
+      "Pour into the hot iron, close gently and cook until set and golden, about 4 to 5 minutes — do not peek too early.",
+      "Lift out carefully with a fork and serve straight away. No flipping, no folding."
+    ],
+    "tip": "Grease the iron well and keep it closed; if you open it early the egg tears and sticks.",
+    "nutrition": {
+      "kcal": 330,
+      "protein_g": 24,
+      "carbs_g": 4,
+      "fat_g": 23
+    },
+    "storage": "Best fresh; keeps 1 day in the fridge and is lekker cold in a lunchbox. Not for freezing — the egg goes rubbery."
+  },
+  {
+    "id": "bf-snoek-scramble",
+    "cat": "eggs",
+    "name": "Smoked Snoek Scrambled Eggs",
+    "emoji": "🐟",
+    "cuisine": "South African (Cape)",
+    "photoName": "Smoked Snoek Scrambled Eggs",
+    "time": 12,
+    "costPP": 22,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Smoky Cape snoek folded through soft, buttery eggs — the sea at breakfast.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "Snoek is a long, fierce Cape fish, traditionally hot-smoked over wood until the flesh turns golden and flakes into smoky shards. A jar or vacuum-pack of smoked snoek is a Cape pantry staple, and folding it through scrambled eggs is one of the oldest, simplest ways to stretch a little of it into a whole breakfast.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 3,
+        "u": "egg"
+      },
+      {
+        "n": "smoked snoek",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "spring onion",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 15,
+        "u": "ml"
+      },
+      {
+        "n": "white bread",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Flake the smoked snoek, checking carefully for little bones.",
+      "Beat the eggs with the cream and a good grind of pepper.",
+      "Melt the butter over low heat and soften the chopped spring onion.",
+      "Pour in the eggs and stir gently, folding the flaked snoek through as they begin to set.",
+      "Pull off the heat while still soft and glossy, and serve on buttered toast."
+    ],
+    "tip": "Go easy on salt — smoked snoek brings plenty of its own — and check carefully for bones.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 28,
+      "carbs_g": 14,
+      "fat_g": 22
+    },
+    "storage": "Best eaten straight away; scrambled eggs do not keep or freeze well. Leftover flaked snoek keeps 2 days in the fridge."
+  },
+  {
+    "id": "bf-chakalaka-baked-eggs",
+    "cat": "eggs",
+    "name": "Chakalaka Baked Eggs",
+    "emoji": "🫘",
+    "cuisine": "South African",
+    "photoName": "Chakalaka Baked Eggs",
+    "time": 18,
+    "costPP": 14,
+    "freezes": false,
+    "fridgeDays": 3,
+    "feel": "A proper South African shakshuka — eggs baked into spicy chakalaka, scooped up with bread.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "Chakalaka was born in the townships and mine hostels around Johannesburg, a fiery cook-up of onion, pepper, chilli and curry spice built to make plain food sing. Cracking eggs straight into a bubbling pan of it turns a relish into a whole meal — South Africa's answer to shakshuka.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "chakalaka",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "oil",
+        "pp": 6,
+        "u": "ml"
+      },
+      {
+        "n": "fresh coriander"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Soften the chopped onion in the oil in an oven-safe pan, then add the chopped tomato and cook to a thick base.",
+      "Stir in the chakalaka with a splash of water and bring to a gentle bubble.",
+      "Make wells in the sauce and crack in the eggs.",
+      "Cover and cook on low (or in a 180°C oven) until the whites set but the yolks stay soft, about 6 to 8 minutes.",
+      "Scatter with grated cheddar and coriander, and serve from the pan with bread to dip."
+    ],
+    "tip": "Keep the heat low once the eggs are in, so the yolks stay soft while the whites set.",
+    "nutrition": {
+      "kcal": 260,
+      "protein_g": 15,
+      "carbs_g": 18,
+      "fat_g": 14
+    },
+    "storage": "Best eaten fresh from the pan. The chakalaka base keeps 3 days in the fridge and freezes well on its own — add fresh eggs each time. Cooked eggs do not freeze."
+  },
+  {
+    "id": "bf-turkish-eggs",
+    "cat": "eggs",
+    "name": "Turkish Eggs",
+    "emoji": "🥚",
+    "cuisine": "Turkish",
+    "photoName": "Turkish Eggs",
+    "time": 15,
+    "costPP": 15,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Soft poached eggs on cool garlicky yoghurt under a pool of warm chilli butter — try it once and you crave it.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "Known as cilbir, this is one of the oldest recorded egg dishes — it was served in the Ottoman palace kitchens of the 15th century. The magic is the contrast: cool, tangy garlic yoghurt against hot poached eggs and nutty, spiced butter.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "plain yoghurt",
+        "pp": 120,
+        "u": "g"
+      },
+      {
+        "n": "garlic",
+        "pp": 0.5,
+        "u": "clove"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "paprika"
+      },
+      {
+        "n": "white vinegar",
+        "pp": 5,
+        "u": "ml"
+      },
+      {
+        "n": "fresh dill"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Stir the crushed garlic and a pinch of salt into the yoghurt and spread it over a plate — room-temperature yoghurt is nicest.",
+      "Bring a pot of water to a gentle simmer with a splash of vinegar, and poach the eggs for about 3 minutes for soft yolks.",
+      "Melt the butter until it foams and smells nutty, then stir in the paprika off the heat.",
+      "Sit the drained poached eggs on the garlicky yoghurt.",
+      "Spoon the warm spiced butter over, scatter with dill, and serve with bread."
+    ],
+    "tip": "Take the yoghurt out early — room-temperature yoghurt against hot eggs is the whole point.",
+    "nutrition": {
+      "kcal": 320,
+      "protein_g": 18,
+      "carbs_g": 8,
+      "fat_g": 24
+    },
+    "storage": "Best assembled fresh. The garlicky yoghurt keeps 2 days in the fridge — poach the eggs to order. Not for freezing."
+  },
+  {
+    "id": "bf-shakshuka",
+    "cat": "eggs",
+    "name": "Shakshuka",
+    "emoji": "🍅",
+    "cuisine": "North African / Middle Eastern",
+    "time": 25,
+    "costPP": 24,
+    "feel": "Eggs poached in a bubbling, spiced tomato hug.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "red pepper",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "tomato paste",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "olive oil",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "paprika & cumin"
+      }
+    ],
+    "method": [
+      "Soften the chopped onion and pepper in olive oil over medium heat, about 5 minutes.",
+      "Stir in the tomato paste, paprika and cumin, then add the chopped tomatoes. Simmer 10 minutes until thick.",
+      "Make wells in the sauce and crack in the eggs. Cover and cook until the whites set but the yolks stay soft.",
+      "Serve straight from the pan with bread for dipping."
+    ],
+    "tip": "A handful of crumbled feta over the top just before serving is never a mistake.",
+    "nutrition": {
+      "kcal": 310,
+      "protein_g": 16,
+      "carbs_g": 18,
+      "fat_g": 20
+    },
+    "storage": "Sauce keeps 3 days; add fresh eggs when reheating.",
+    "photoName": "Shakshuka"
+  },
+  {
+    "id": "bf-egg-wrap",
+    "cat": "eggs",
+    "name": "Breakfast Egg Wrap",
+    "emoji": "🌯",
+    "cuisine": "Global",
+    "time": 12,
+    "costPP": 18,
+    "feel": "A whole fry-up, rolled up and running out the door.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "tortilla wrap",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "cheddar",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 6,
+        "u": "g"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Scramble the eggs softly in butter, seasoning as you go.",
+      "Warm the tortilla in a dry pan for a few seconds.",
+      "Pile the eggs down the middle, top with grated cheddar and chopped tomato.",
+      "Roll up tightly, slice in half and go."
+    ],
+    "tip": "Wrap it in foil to keep it warm and hold it together on the road.",
+    "nutrition": {
+      "kcal": 390,
+      "protein_g": 21,
+      "carbs_g": 26,
+      "fat_g": 22
+    },
+    "storage": "Best fresh; eat within a few hours.",
+    "photoName": "Breakfast Egg Wrap"
+  },
+  {
+    "id": "bf-bacon-and-eggs",
+    "cat": "fryups",
+    "name": "Bacon & Eggs",
+    "emoji": "🥓",
+    "cuisine": "South African",
+    "photoName": "Bacon & Eggs",
+    "time": 15,
+    "costPP": 26,
+    "feel": "The smell that pulls everyone out of bed.",
+    "didYouKnow": "To be sold as “boerewors” in South Africa, the law requires at least 90% meat — anything less has to be labelled as something else.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "streaky bacon",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "butter",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Fry the bacon in a dry pan over medium heat until crisp, then set aside on paper towel.",
+      "Halve the tomatoes and fry cut-side down in the bacon fat until soft and caramelised.",
+      "Fry the eggs to your liking in the same pan.",
+      "Toast and butter the bread, plate everything together, season and serve hot."
+    ],
+    "tip": "Cook the eggs last so the yolks stay runny and warm on the plate.",
+    "nutrition": {
+      "kcal": 430,
+      "protein_g": 24,
+      "carbs_g": 22,
+      "fat_g": 28
+    },
+    "storage": "Best fresh; cooked bacon keeps 2 days in the fridge."
+  },
+  {
+    "id": "bf-boerewors-and-eggs",
+    "cat": "fryups",
+    "name": "Boerewors & Eggs",
+    "emoji": "🌭",
+    "cuisine": "South African",
+    "photoName": "Boerewors & Eggs",
+    "time": 20,
+    "costPP": 18,
+    "feel": "A coil of wors and a soft egg — a proper farm start.",
+    "didYouKnow": "To be sold as “boerewors” in South Africa, the law requires at least 90% meat — anything less has to be labelled as something else.",
+    "ingredients": [
+      {
+        "n": "boerewors",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "white bread",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Fry the boerewors in a pan over medium heat, turning, until browned and cooked through.",
+      "Halve the tomatoes and fry them cut-side down in the wors fat until soft.",
+      "Fry the eggs to your liking in the same pan.",
+      "Toast the bread, plate everything together and season."
+    ],
+    "tip": "Do not prick the wors; keeping it whole holds the juices in.",
+    "nutrition": {
+      "kcal": 460,
+      "protein_g": 24,
+      "carbs_g": 18,
+      "fat_g": 32
+    },
+    "storage": "Best fresh; cooked wors keeps 2 days."
+  },
+  {
+    "id": "bf-smashed-avo-toast",
+    "cat": "toast",
+    "name": "Smashed Avo Toast",
+    "emoji": "🥑",
+    "cuisine": "Global",
+    "photoName": "Smashed Avo Toast",
+    "time": 8,
+    "costPP": 16,
+    "feel": "Creamy, green and a little bit smug — in the best way.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "avocado",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "sourdough bread",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "olive oil",
+        "pp": 5,
+        "u": "ml"
+      },
+      {
+        "n": "lemon juice"
+      },
+      {
+        "n": "salt & pepper"
+      },
+      {
+        "n": "chilli flakes"
+      }
+    ],
+    "method": [
+      "Toast the bread until golden.",
+      "Mash the avocado with a squeeze of lemon, salt and pepper.",
+      "Spread thickly onto the toast.",
+      "Finish with a drizzle of olive oil and a pinch of chilli flakes."
+    ],
+    "tip": "A poached egg on top turns this into a proper meal.",
+    "nutrition": {
+      "kcal": 300,
+      "protein_g": 7,
+      "carbs_g": 28,
+      "fat_g": 19
+    },
+    "storage": "Best fresh; avocado browns quickly."
+  },
+  {
+    "id": "bf-peanut-butter-and-banana-toast",
+    "cat": "toast",
+    "name": "Peanut Butter & Banana Toast",
+    "emoji": "🍌",
+    "cuisine": "Global",
+    "photoName": "Peanut Butter & Banana Toast",
+    "time": 5,
+    "costPP": 9,
+    "feel": "The lunchbox hero, fast and filling.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "peanut butter",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "banana",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "honey",
+        "pp": 5,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Toast the bread.",
+      "Spread thickly with peanut butter.",
+      "Lay over sliced banana.",
+      "Drizzle with honey and serve."
+    ],
+    "tip": "Use brown bread for extra staying power before school.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 11,
+      "carbs_g": 48,
+      "fat_g": 15
+    },
+    "storage": "Best fresh."
+  },
+  {
+    "id": "bf-honey-brick-toast",
+    "cat": "toast",
+    "name": "Honey Brick Toast",
+    "emoji": "🍯",
+    "cuisine": "Global",
+    "photoName": "Honey Brick Toast",
+    "time": 20,
+    "costPP": 10,
+    "feel": "A thick toast block, custard-soaked and baked sweet and golden.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "unsliced white loaf",
+        "pp": 0.25,
+        "u": ""
+      },
+      {
+        "n": "butter",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 20,
+        "u": "ml"
+      },
+      {
+        "n": "cream",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 8,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Cut a thick brick of bread and score the top into cubes, not all the way through.",
+      "Brush all over with melted butter and honey.",
+      "Bake at 180°C until toasty and golden, about 12 minutes.",
+      "Pull the cubes apart, drizzle with cream and more honey."
+    ],
+    "tip": "Day-old bread holds the brick shape best.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 6,
+      "carbs_g": 48,
+      "fat_g": 17
+    },
+    "storage": "Best fresh and warm."
+  },
+  {
+    "id": "bf-chakalaka-beans-on-toast",
+    "cat": "toast",
+    "name": "Chakalaka Beans on Toast",
+    "emoji": "🫘",
+    "cuisine": "Global",
+    "photoName": "Chakalaka Beans on Toast",
+    "time": 12,
+    "costPP": 11,
+    "feel": "Beans on toast with a proper South African kick.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "baked beans",
+        "pp": 120,
+        "u": "g"
+      },
+      {
+        "n": "chakalaka",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "butter",
+        "pp": 8,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Warm the baked beans and chakalaka together in a small pot.",
+      "Toast and butter the bread.",
+      "Pile the spiced beans over the toast and serve hot."
+    ],
+    "tip": "A handful of grated cheese melted on top is never wrong.",
+    "nutrition": {
+      "kcal": 320,
+      "protein_g": 13,
+      "carbs_g": 50,
+      "fat_g": 8
+    },
+    "storage": "The bean mix keeps 3 days."
+  },
+  {
+    "id": "bf-savoury-mince-on-toast",
+    "cat": "toast",
+    "name": "Savoury Mince on Toast",
+    "emoji": "🥩",
+    "cuisine": "Global",
+    "photoName": "Savoury Mince on Toast",
+    "time": 20,
+    "costPP": 15,
+    "feel": "Rich, oniony mince piled on buttered toast.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "beef mince",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "tomatoes",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "oil",
+        "pp": 5,
+        "u": "ml"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Brown the mince with the chopped onion in the oil over medium-high heat.",
+      "Add the chopped tomato and a splash of water and simmer until thick.",
+      "Season well.",
+      "Spoon over hot buttered toast."
+    ],
+    "tip": "A dash of Worcestershire or chutney rounds it out beautifully.",
+    "nutrition": {
+      "kcal": 420,
+      "protein_g": 24,
+      "carbs_g": 30,
+      "fat_g": 22
+    },
+    "storage": "Mince keeps 3 days."
+  },
+  {
+    "id": "bf-cinnamon-french-toast",
+    "cat": "pancakes",
+    "name": "Cinnamon French Toast",
+    "emoji": "🍳",
+    "cuisine": "Global",
+    "photoName": "Cinnamon French Toast",
+    "time": 15,
+    "costPP": 12,
+    "feel": "Day-old bread, reborn as something special.",
+    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "ingredients": [
+      {
+        "n": "thick white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 60,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 8,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "cinnamon"
+      }
+    ],
+    "method": [
+      "Whisk the eggs, milk, sugar and a pinch of cinnamon in a shallow dish.",
+      "Soak each slice of bread for a few seconds per side.",
+      "Fry in butter over medium heat until golden on both sides.",
+      "Serve dusted with cinnamon sugar or a drizzle of syrup."
+    ],
+    "tip": "Slightly stale bread soaks up the custard best without going soggy.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 13,
+      "carbs_g": 44,
+      "fat_g": 15
+    },
+    "storage": "Best fresh; eat the same morning."
+  },
+  {
+    "id": "bf-pannekoek",
+    "cat": "pancakes",
+    "name": "Pannekoek",
+    "emoji": "🥞",
+    "cuisine": "Global",
+    "photoName": "Pannekoek",
+    "time": 20,
+    "costPP": 7,
+    "feel": "Thin, lacy pancakes rolled with cinnamon sugar.",
+    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "oil",
+        "pp": 5,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk the flour, egg, milk, oil and a pinch of salt to a thin, smooth batter.",
+      "Pour a thin layer into a hot greased pan and swirl to coat.",
+      "Cook until the edges lift, flip and cook the other side.",
+      "Sprinkle with cinnamon sugar, roll up and serve."
+    ],
+    "tip": "Rest the batter 10 minutes for thinner, more tender pancakes.",
+    "nutrition": {
+      "kcal": 230,
+      "protein_g": 7,
+      "carbs_g": 34,
+      "fat_g": 8
+    },
+    "storage": "Best fresh; stack with paper between to reheat."
+  },
+  {
+    "id": "bf-crumpets",
+    "cat": "pancakes",
+    "name": "Crumpets (Plaatkoekies)",
+    "emoji": "🥞",
+    "cuisine": "Global",
+    "photoName": "Crumpets",
+    "time": 15,
+    "costPP": 7,
+    "feel": "Little thick drop scones, golden and fluffy.",
+    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 80,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 8,
+        "u": "g"
+      },
+      {
+        "n": "baking powder",
+        "pp": 2,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk all the ingredients to a thick, smooth batter.",
+      "Drop spoonfuls onto a hot greased pan.",
+      "When bubbles rise and pop, flip and cook the other side until golden.",
+      "Serve with butter and jam or syrup."
+    ],
+    "tip": "Wait for the bubbles before flipping; that is when they are ready.",
+    "nutrition": {
+      "kcal": 240,
+      "protein_g": 7,
+      "carbs_g": 38,
+      "fat_g": 6
+    },
+    "storage": "Keeps 2 days; toast to refresh."
+  },
+  {
+    "id": "bf-crepes",
+    "cat": "pancakes",
+    "name": "Crêpes",
+    "emoji": "🇫🇷",
+    "cuisine": "Global",
+    "photoName": "Crepes",
+    "time": 20,
+    "costPP": 7,
+    "feel": "Paper-thin and tender, ready for any filling.",
+    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 35,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "butter",
+        "pp": 8,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk everything to a very thin, smooth batter and rest if you can.",
+      "Pour a thin layer into a hot buttered pan and swirl.",
+      "Cook until set and lightly golden, then flip briefly.",
+      "Fill with whatever you love and fold."
+    ],
+    "tip": "The first crêpe is always a test one; do not worry about it.",
+    "nutrition": {
+      "kcal": 200,
+      "protein_g": 7,
+      "carbs_g": 26,
+      "fat_g": 8
+    },
+    "storage": "Stack with paper; keeps 2 days."
+  },
+  {
+    "id": "bf-classic-buttermilk-waffles",
+    "cat": "pancakes",
+    "name": "Classic Buttermilk Waffles",
+    "emoji": "🧇",
+    "cuisine": "Global",
+    "photoName": "Classic Buttermilk Waffles",
+    "time": 20,
+    "costPP": 9,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Crisp pockets, soft middle — the waffle every other one is measured against.",
+    "goesWith": [
+      "Berry Smoothie",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 75,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk the flour, sugar, baking powder and a pinch of salt together in a bowl.",
+      "In a jug, beat the egg with the buttermilk and melted butter.",
+      "Fold the wet into the dry until just combined — a few lumps are fine, do not overmix.",
+      "Spoon into a hot, greased waffle iron and close; cook until the steam slows and it is deep golden, about 4 minutes.",
+      "Lift out and serve straight away while crisp, with butter and syrup or fresh fruit."
+    ],
+    "tip": "Do not open the iron too early — let the steam slowing down tell you it is done.",
+    "nutrition": {
+      "kcal": 380,
+      "protein_g": 10,
+      "carbs_g": 48,
+      "fat_g": 16
+    },
+    "storage": "Best fresh and crisp. Keeps 2 days in the fridge and freezes well — crisp straight from frozen in a toaster."
+  },
+  {
+    "id": "bf-banana-and-pecan-waffles",
+    "cat": "pancakes",
+    "name": "Banana & Pecan Waffles",
+    "emoji": "🍌",
+    "cuisine": "Global",
+    "photoName": "Banana & Pecan Waffles",
+    "time": 22,
+    "costPP": 13,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Banana-sweet and nutty — pudding that gets to be breakfast.",
+    "goesWith": [
+      "Berry Smoothie",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 75,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 110,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "banana",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "pecan nuts",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Mash half the banana and slice the rest for the top.",
+      "Whisk the flour, sugar, baking powder and salt; in a jug beat the egg, buttermilk, melted butter and mashed banana.",
+      "Fold the wet into the dry, then stir through most of the chopped pecans.",
+      "Cook in a hot, greased waffle iron until deep golden, about 4 minutes.",
+      "Top with the sliced banana, the rest of the pecans and a drizzle of honey."
+    ],
+    "tip": "A very ripe, speckled banana gives the most flavour and natural sweetness.",
+    "nutrition": {
+      "kcal": 470,
+      "protein_g": 11,
+      "carbs_g": 58,
+      "fat_g": 22
+    },
+    "storage": "Best fresh. The plain waffle keeps 2 days and freezes well; slice the banana only when serving so it does not brown."
+  },
+  {
+    "id": "bf-cheesy-savoury-waffles",
+    "cat": "pancakes",
+    "name": "Cheesy Savoury Waffles",
+    "emoji": "🧀",
+    "cuisine": "Global",
+    "photoName": "Cheesy Savoury Waffles",
+    "time": 22,
+    "costPP": 13,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "No sugar here — a crisp, cheesy waffle built to carry a runny egg.",
+    "goesWith": [
+      "Berry Smoothie",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 75,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
+      {
+        "n": "cheddar",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk the flour, baking powder and a good pinch of salt — no sugar in this one.",
+      "Beat one egg with the buttermilk and melted butter, then fold into the dry with the grated cheddar.",
+      "Cook in a hot, greased waffle iron until golden and crisp, about 4 to 5 minutes.",
+      "Meanwhile fry the second egg to your liking.",
+      "Slide the fried egg onto the warm waffle, grind over black pepper and serve — smashed avo alongside is lekker."
+    ],
+    "tip": "Skip the sugar completely; the cheese and a runny yolk are the whole show.",
+    "nutrition": {
+      "kcal": 420,
+      "protein_g": 18,
+      "carbs_g": 38,
+      "fat_g": 22
+    },
+    "storage": "Best fresh. Keeps 2 days in the fridge and freezes well — reheat in a toaster straight from frozen."
+  },
+  {
+    "id": "bf-choc-chip-waffles",
+    "cat": "pancakes",
+    "name": "Choc Chip Waffles",
+    "emoji": "🍫",
+    "cuisine": "Global",
+    "photoName": "Choc Chip Waffles",
+    "time": 20,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Melty chocolate pockets — the treat-morning waffle.",
+    "goesWith": [
+      "Berry Smoothie",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 75,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "dark chocolate",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk the flour, sugar, baking powder and salt.",
+      "Beat the egg, buttermilk and melted butter, then fold into the dry.",
+      "Stir through the chopped dark chocolate.",
+      "Cook in a hot, greased waffle iron until set and golden, about 4 minutes — chocolate ones stay a touch softer.",
+      "Dust with icing sugar and serve, with berries or a scoop of yoghurt if you like."
+    ],
+    "tip": "Chop a slab rather than using chips — the puddles of melted chocolate are better.",
+    "nutrition": {
+      "kcal": 470,
+      "protein_g": 11,
+      "carbs_g": 60,
+      "fat_g": 21
+    },
+    "storage": "Best fresh and warm while the chocolate is soft. Keeps 2 days and freezes well; re-crisp in a toaster."
+  },
+  {
+    "id": "bf-bacon-and-syrup-waffles",
+    "cat": "pancakes",
+    "name": "Bacon & Syrup Waffles",
+    "emoji": "🥓",
+    "cuisine": "Global",
+    "photoName": "Bacon & Syrup Waffles",
+    "time": 22,
+    "costPP": 15,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Crisp bacon, deep golden waffle, a flood of syrup — the diner classic.",
+    "goesWith": [
+      "Berry Smoothie",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 75,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "streaky bacon",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "golden syrup",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Fry the bacon until crisp, then set it aside and keep the pan.",
+      "Whisk the flour, sugar, baking powder and salt; beat the egg, buttermilk and melted butter and fold together.",
+      "Cook in a hot, greased waffle iron until deep golden, about 4 minutes.",
+      "Lay the crisp bacon over the warm waffle.",
+      "Pour the syrup generously over the lot — the salty-sweet is the whole point (maple syrup if you have it)."
+    ],
+    "tip": "Let the syrup run into the bacon; salty-sweet is exactly why this American classic works.",
+    "nutrition": {
+      "kcal": 520,
+      "protein_g": 16,
+      "carbs_g": 62,
+      "fat_g": 24
+    },
+    "storage": "Best fresh. The waffle keeps 2 days and freezes well — crisp from frozen; cooked bacon keeps 2 days."
+  },
+  {
+    "id": "bf-mealie-pap-and-milk",
+    "cat": "oats",
+    "name": "Mealie Pap & Milk",
+    "emoji": "🌽",
+    "cuisine": "South African",
+    "photoName": "Mealie Pap & Milk",
+    "time": 20,
+    "costPP": 4,
+    "feel": "The taste of a thousand farm mornings.",
+    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "ingredients": [
+      {
+        "n": "maize meal",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "water",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "milk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Bring the water and a pinch of salt to the boil.",
+      "Rain in the maize meal while stirring to avoid lumps.",
+      "Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.",
+      "Serve in bowls with cold milk and a sprinkle of sugar."
+    ],
+    "tip": "For stiff pap use less water; for soft breakfast pap keep it loose and pourable.",
+    "nutrition": {
+      "kcal": 250,
+      "protein_g": 6,
+      "carbs_g": 52,
+      "fat_g": 3
+    },
+    "storage": "Keeps 3 days; reheat with a splash of water."
+  },
+  {
+    "id": "bf-maltabella",
+    "cat": "oats",
+    "name": "Maltabella",
+    "emoji": "🌾",
+    "cuisine": "South African",
+    "photoName": "Maltabella",
+    "time": 15,
+    "costPP": 8,
+    "feel": "Dark, malty and warm — the porridge that raised a country.",
+    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "ingredients": [
+      {
+        "n": "sorghum meal",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "water",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Whisk the sorghum meal into the cold water with a pinch of salt.",
+      "Bring to a boil over medium heat, stirring constantly.",
+      "Turn low and simmer 8 to 10 minutes until thick and glossy.",
+      "Stir in the milk and serve with sugar and more milk."
+    ],
+    "tip": "Always start in cold water to keep it lump-free.",
+    "nutrition": {
+      "kcal": 240,
+      "protein_g": 7,
+      "carbs_g": 47,
+      "fat_g": 3
+    },
+    "storage": "Keeps 2 days; loosen with milk."
+  },
+  {
+    "id": "bf-maizena",
+    "cat": "oats",
+    "name": "Maizena",
+    "emoji": "🥛",
+    "cuisine": "South African",
+    "photoName": "Maizena",
+    "time": 12,
+    "costPP": 6,
+    "feel": "Smooth, silky and gentle — the porridge of small mornings.",
+    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "ingredients": [
+      {
+        "n": "cornflour",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 300,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Mix the cornflour to a paste with a little of the cold milk.",
+      "Heat the rest of the milk with a pinch of salt.",
+      "Whisk in the paste and stir over low heat until smooth and thick.",
+      "Sweeten to taste and serve."
+    ],
+    "tip": "Keep whisking as it thickens so it stays velvety.",
+    "nutrition": {
+      "kcal": 230,
+      "protein_g": 9,
+      "carbs_g": 38,
+      "fat_g": 6
+    },
+    "storage": "Best fresh; thickens on standing."
+  },
+  {
+    "id": "bf-putu-pap",
+    "cat": "oats",
+    "name": "Putu Pap",
+    "emoji": "🥄",
+    "cuisine": "South African",
+    "photoName": "Putu Pap",
+    "time": 25,
+    "costPP": 3,
+    "feel": "Dry, crumbly pap — comfort by the spoonful.",
+    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "ingredients": [
+      {
+        "n": "maize meal",
+        "pp": 70,
+        "u": "g"
+      },
+      {
+        "n": "water",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "milk",
+        "pp": 100,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Bring the salted water to a boil and add the maize meal in a heap, do not stir.",
+      "Cover and steam on low for 10 minutes.",
+      "Now fork it through so it crumbles into soft grains.",
+      "Serve with milk and sugar, or with amasi."
+    ],
+    "tip": "The no-stir start is what gives putu its crumbly texture.",
+    "nutrition": {
+      "kcal": 250,
+      "protein_g": 6,
+      "carbs_g": 52,
+      "fat_g": 3
+    },
+    "storage": "Keeps 3 days; steam to refresh."
+  },
+  {
+    "id": "bf-cheesy-krummelpap",
+    "cat": "oats",
+    "name": "Cheesy Krummelpap",
+    "emoji": "🧀",
+    "cuisine": "South African",
+    "photoName": "Cheesy Krummelpap",
+    "time": 25,
+    "costPP": 9,
+    "feel": "Crumbly pap turned rich and savoury with melting cheese.",
+    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "ingredients": [
+      {
+        "n": "maize meal",
+        "pp": 70,
+        "u": "g"
+      },
+      {
+        "n": "water",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "cheddar",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 8,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Make crumbly pap: heap the maize meal into salted boiling water, cover and steam 10 minutes, then fork through.",
+      "Stir the butter through while hot.",
+      "Fold in the grated cheddar so it just melts.",
+      "Serve straight away."
+    ],
+    "tip": "Lovely with crispy bacon bits stirred in.",
+    "nutrition": {
+      "kcal": 330,
+      "protein_g": 12,
+      "carbs_g": 48,
+      "fat_g": 12
+    },
+    "storage": "Best fresh."
+  },
+  {
+    "id": "bf-creamy-oats",
+    "cat": "oats",
+    "name": "Creamy Oats",
+    "emoji": "🥣",
+    "cuisine": "Global",
+    "photoName": "Creamy Oats",
+    "time": 10,
+    "costPP": 10,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "A warm bowl that quietly says the day can wait.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Combine the oats, milk and a pinch of salt in a pot.",
+      "Cook over medium heat, stirring often, for 5 to 6 minutes until thick and creamy.",
+      "Stir through the honey and a pinch of cinnamon.",
+      "Spoon into bowls and top with fruit or a splash more milk."
+    ],
+    "tip": "Swap half the milk for water if you like it lighter, or use all milk for extra creaminess.",
+    "nutrition": {
+      "kcal": 290,
+      "protein_g": 11,
+      "carbs_g": 48,
+      "fat_g": 7
+    },
+    "storage": "Keeps 2 days; loosen with milk when reheating."
+  },
+  {
+    "id": "bf-overnight-oats",
+    "cat": "oats",
+    "name": "Overnight Oats",
+    "emoji": "🫙",
+    "cuisine": "Global",
+    "photoName": "Overnight Oats",
+    "time": 5,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Tomorrow-morning sorted before you go to bed.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "yoghurt",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      }
+    ],
+    "method": [
+      "Stir the oats, milk, yoghurt and honey together in a jar.",
+      "Add sliced banana or any fruit.",
+      "Seal and chill overnight.",
+      "Eat cold straight from the jar."
+    ],
+    "tip": "Layer in fruit and a spoon of peanut butter for variety each night.",
+    "nutrition": {
+      "kcal": 320,
+      "protein_g": 12,
+      "carbs_g": 52,
+      "fat_g": 7
+    },
+    "storage": "Keeps 3 days in the fridge."
+  },
+  {
+    "id": "bf-malva-melktert-oats",
+    "cat": "oats",
+    "name": "Malva / Melktert Oats",
+    "emoji": "🍮",
+    "cuisine": "Global",
+    "photoName": "Malva / Melktert Oats",
+    "time": 10,
+    "costPP": 9,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Two of our best puddings — melktert and malva — turned into a warm breakfast bowl.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "apricot jam",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 15,
+        "u": "ml"
+      },
+      {
+        "n": "vanilla essence"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Cook the oats in the milk with a pinch of salt over medium heat, stirring, until creamy.",
+      "Stir in the sugar and vanilla.",
+      "Swirl the apricot jam through.",
+      "Dust generously with cinnamon-sugar.",
+      "Finish with a splash of cream over the top — like custard on malva."
+    ],
+    "tip": "The splash of cream at the end is what makes it taste like pudding, not porridge.",
+    "nutrition": {
+      "kcal": 320,
+      "protein_g": 11,
+      "carbs_g": 52,
+      "fat_g": 8
+    },
+    "storage": "Best fresh and warm. Keeps 2 days in the fridge; loosen with a splash of milk when reheating. Cooked oats freeze up to 1 month."
+  },
+  {
+    "id": "bf-rooibos-and-honey-oats",
+    "cat": "oats",
+    "name": "Rooibos & Honey Oats",
+    "emoji": "🍵",
+    "cuisine": "Global",
+    "photoName": "Rooibos & Honey Oats",
+    "time": 10,
+    "costPP": 7,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Earthy, naturally sweet rooibos cooked right into the oats — a proper SA cuppa in a bowl.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "rooibos tea",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "milk",
+        "pp": 100,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 12,
+        "u": "ml"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Brew a strong cup of rooibos.",
+      "Cook the oats in the rooibos and milk with a pinch of salt until creamy.",
+      "Stir in the honey.",
+      "Top with a little extra honey and a dusting of cinnamon."
+    ],
+    "tip": "Brew the rooibos strong — it should taste of tea, not just tint the oats.",
+    "nutrition": {
+      "kcal": 280,
+      "protein_g": 10,
+      "carbs_g": 48,
+      "fat_g": 6
+    },
+    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month."
+  },
+  {
+    "id": "bf-peppermint-crisp-oats",
+    "cat": "oats",
+    "name": "Peppermint Crisp Oats",
+    "emoji": "🌿",
+    "cuisine": "Global",
+    "photoName": "Peppermint Crisp Oats",
+    "time": 8,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Peppermint Crisp tart for breakfast — caramel-swirled oats under a shower of minty chocolate.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "caramel treat",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "Peppermint Crisp chocolate",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Cook the oats in the milk with a pinch of salt until creamy.",
+      "Swirl the caramel through.",
+      "Grate over most of the Peppermint Crisp.",
+      "Top with the last of the grated chocolate.",
+      "Eat while the chocolate is melting into the warm oats."
+    ],
+    "tip": "A treat-day bowl — grate the chocolate right at the end so it melts, not seizes.",
+    "nutrition": {
+      "kcal": 380,
+      "protein_g": 11,
+      "carbs_g": 58,
+      "fat_g": 13
+    },
+    "storage": "Best fresh and warm while the chocolate melts. The plain caramel oats keep 2 days; add the chocolate when serving. Freezes (without chocolate) up to 1 month."
+  },
+  {
+    "id": "bf-curry-and-coconut-oats",
+    "cat": "oats",
+    "name": "Curry & Coconut Oats",
+    "emoji": "🍛",
+    "cuisine": "Global",
+    "photoName": "Curry & Coconut Oats",
+    "time": 12,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Savoury, golden and aromatic — oats reimagined as a cosy spiced bowl, breakfast or light supper.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "coconut milk",
+        "pp": 125,
+        "u": "ml"
+      },
+      {
+        "n": "water",
+        "pp": 125,
+        "u": "ml"
+      },
+      {
+        "n": "cashews",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "desiccated coconut",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "curry powder"
+      },
+      {
+        "n": "turmeric"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Cook the oats in the coconut milk and water with a pinch of salt until creamy.",
+      "Stir in the curry powder and a pinch of turmeric and cook 2 minutes more.",
+      "Taste and season.",
+      "Toast the cashews and coconut in a dry pan, then scatter over.",
+      "A squeeze of lime or some fresh coriander lifts it beautifully."
+    ],
+    "tip": "Toast the cashews and coconut first in a dry pan — it doubles their flavour.",
+    "nutrition": {
+      "kcal": 340,
+      "protein_g": 9,
+      "carbs_g": 38,
+      "fat_g": 18
+    },
+    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with a splash of water or coconut milk when reheating. Freezes up to 1 month — add the cashews fresh."
+  },
+  {
+    "id": "bf-custard-protein-oats",
+    "cat": "oats",
+    "name": "Custard Protein Oats",
+    "emoji": "💪",
+    "cuisine": "Global",
+    "photoName": "Custard Protein Oats",
+    "time": 10,
+    "costPP": 9,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Thick, custardy and high-protein — oats that taste like warm cake batter.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 250,
+        "u": "ml"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "vanilla essence"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Pulse the oats in a blender until they look like fine flour.",
+      "Whisk the oat flour into the milk in a pot with a pinch of salt and cook, stirring, until thick.",
+      "Take the pot off the boil, beat the egg in a cup, then whisk it in fast so it cooks into a custard, not scrambles.",
+      "Stir in the vanilla and honey.",
+      "Dust with cinnamon and serve thick and creamy."
+    ],
+    "tip": "Off the boil and whisk fast when the egg goes in — that is what makes it custardy instead of scrambled.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 18,
+      "carbs_g": 50,
+      "fat_g": 11
+    },
+    "storage": "Best fresh and warm. Keeps 1 day in the fridge (it sets firm — loosen with hot milk). The egg means it is best not frozen."
+  },
+  {
+    "id": "bf-bircher-oats",
+    "cat": "oats",
+    "name": "Bircher Oats",
+    "emoji": "🥶",
+    "cuisine": "Global",
+    "photoName": "Bircher Oats",
+    "time": 5,
+    "costPP": 19,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Cool and gentle, like an early morning before the house wakes.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "frozen berries",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Combine the oats, milk, berries and honey.",
+      "Refrigerate overnight.",
+      "Stir before eating and let it soften slightly at room temperature."
+    ],
+    "tip": "Stir halfway through soaking for an even texture. (Overnight — 5 min active.)",
+    "nutrition": {
+      "kcal": 290,
+      "protein_g": 9,
+      "carbs_g": 50,
+      "fat_g": 5
+    },
+    "storage": "Fridge, up to 2 days."
+  },
+  {
+    "id": "bf-mango-oats",
+    "cat": "oats",
+    "name": "Mango Oats",
+    "emoji": "🥭",
+    "cuisine": "Global",
+    "photoName": "Mango Oats",
+    "time": 10,
+    "costPP": 13,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Bright and easy, like a warm breeze through an open window.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 200,
+        "u": "ml"
+      },
+      {
+        "n": "mango",
+        "pp": 100,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Cook the oats in the milk until soft.",
+      "Stir in the chopped mango at the end.",
+      "Finish with honey."
+    ],
+    "tip": "Add the mango right at the end to keep it bright.",
+    "nutrition": {
+      "kcal": 300,
+      "protein_g": 9,
+      "carbs_g": 52,
+      "fat_g": 6
+    },
+    "storage": "Best fresh."
+  },
+  {
+    "id": "bf-baked-berry-oats",
+    "cat": "oats",
+    "name": "Baked Berry Oats",
+    "emoji": "🫐",
+    "cuisine": "Global",
+    "photoName": "Baked Berry Oats",
+    "time": 25,
+    "costPP": 23,
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Cosy and baked through, like something shared at a quiet table.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "frozen berries",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Mix all the ingredients together.",
+      "Pour into a small dish and bake until set and lightly golden.",
+      "Let it cool slightly before eating."
+    ],
+    "tip": "Let it rest a few minutes before serving for the best texture.",
+    "nutrition": {
+      "kcal": 340,
+      "protein_g": 12,
+      "carbs_g": 50,
+      "fat_g": 9
+    },
+    "storage": "Fridge, up to 2 days."
+  },
+  {
+    "id": "bf-bacon-atchar-and-cheddar-muffins",
+    "cat": "baked",
+    "name": "Bacon, Atchar & Cheddar Muffins",
     "emoji": "🧁",
     "cuisine": "Global",
-    "photoName": "Muffins",
-    "freezes": true,
-    "fridgeDays": 3,
+    "photoName": "Bacon, Atchar & Cheddar Muffins",
     "time": 35,
     "costPP": 15,
+    "freezes": true,
+    "fridgeDays": 3,
     "feel": "Smoky bacon, tangy atchar, melty cheddar — a braai in a breakfast muffin.",
     "goesWith": [
       "Smoothies",
@@ -3037,409 +2851,396 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 20,
       "fat_g": 14
     },
-    "storage": "Keeps 3 days airtight; freezes well — warm before eating.",
-    "versions": [
-      {
-        "name": "Bacon, Atchar & Cheddar",
-        "icon": "⭐",
-        "default": true,
-        "feel": "Smoky bacon, tangy atchar, melty cheddar — a braai in a breakfast muffin.",
-        "time": 35,
-        "costPP": 15,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 0.5,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 60,
-            "u": "ml"
-          },
-          {
-            "n": "oil",
-            "pp": 15,
-            "u": "ml"
-          },
-          {
-            "n": "streaky bacon",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "atchar",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "cheddar",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and line a muffin tin.",
-          "Fry the chopped bacon until crisp.",
-          "Whisk the flour, baking powder and salt in one bowl; beat the egg, milk and oil in another.",
-          "Fold the wet into the dry, then stir through the bacon, chopped atchar and grated cheddar — do not overmix.",
-          "Spoon into the tin and bake 18 to 20 minutes until golden and risen."
-        ],
-        "tip": "Do not overmix the batter; a few lumps keep them light, overworking makes them tough.",
-        "nutrition": {
-          "kcal": 240,
-          "protein_g": 9,
-          "carbs_g": 20,
-          "fat_g": 14
-        },
-        "storage": "Keeps 3 days airtight; freezes well — warm before eating."
-      },
-      {
-        "name": "Potato & Sour Cream",
-        "icon": "🥔",
-        "feel": "A twice-baked potato you can hold in one hand — rich, savoury and moreish.",
-        "time": 38,
-        "costPP": 9,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 0.5,
-            "u": "egg"
-          },
-          {
-            "n": "sour cream",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "oil",
-            "pp": 10,
-            "u": "ml"
-          },
-          {
-            "n": "potatoes",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "cheddar",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "spring onion",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and line a muffin tin.",
-          "Grate the raw potato, rinse it, then squeeze it really dry in a cloth.",
-          "Whisk the flour, baking powder and salt; beat the egg, sour cream, milk and oil.",
-          "Fold together with the potato, grated cheddar and chopped spring onion.",
-          "Spoon into the tin and bake 20 to 22 minutes until golden."
-        ],
-        "tip": "Squeeze the grated potato bone-dry, or the muffins stay wet in the middle.",
-        "nutrition": {
-          "kcal": 220,
-          "protein_g": 7,
-          "carbs_g": 24,
-          "fat_g": 11
-        },
-        "storage": "Keeps 3 days airtight in the fridge, best warmed; freezes well up to 1 month."
-      },
-      {
-        "name": "Cottage Cheese & Quinoa",
-        "icon": "💪",
-        "feel": "Flourless and protein-packed — a savoury muffin that actually keeps you full.",
-        "time": 35,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "large eggs",
-            "pp": 1,
-            "u": "egg"
-          },
-          {
-            "n": "cottage cheese",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "cooked quinoa",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "baby spinach",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "cheddar",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt & pepper"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and grease a muffin tin really well.",
-          "Beat the eggs, then stir in the cottage cheese, cooked quinoa, chopped spinach and grated cheddar.",
-          "Season with salt and pepper.",
-          "Spoon into the greased tin.",
-          "Bake 20 to 25 minutes until set and golden."
-        ],
-        "tip": "Grease the tin really well — these are egg-set, so they like to stick.",
-        "nutrition": {
-          "kcal": 160,
-          "protein_g": 13,
-          "carbs_g": 8,
-          "fat_g": 9
-        },
-        "storage": "Keeps 3 days chilled, good cold in a lunchbox; freezes well up to 1 month."
-      },
-      {
-        "name": "Carrot & Pineapple",
-        "icon": "🥕",
-        "feel": "Carrot cake's wholesome cousin — sweet, spiced and full of good things.",
-        "time": 35,
-        "costPP": 10,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 0.5,
-            "u": "egg"
-          },
-          {
-            "n": "oil",
-            "pp": 25,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "carrots",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "tinned pineapple",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "raisins",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "cinnamon"
-          },
-          {
-            "n": "bicarbonate of soda"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and line a muffin tin.",
-          "Whisk the flour, baking powder, bicarb, cinnamon, salt and sugar.",
-          "Beat the egg and oil together.",
-          "Fold the wet into the dry with the grated carrot, drained crushed pineapple and raisins.",
-          "Spoon into the tin and bake 20 to 22 minutes until risen and golden."
-        ],
-        "tip": "Drain the pineapple well so the batter is not too wet.",
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 4,
-          "carbs_g": 34,
-          "fat_g": 10
-        },
-        "storage": "Keeps 4 days airtight; stays moist; freezes well."
-      },
-      {
-        "name": "Biltong & Cheese",
-        "icon": "🥩",
-        "feel": "Two of the most South African things there are, baked into breakfast.",
-        "time": 35,
-        "costPP": 16,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 0.5,
-            "u": "egg"
-          },
-          {
-            "n": "milk",
-            "pp": 70,
-            "u": "ml"
-          },
-          {
-            "n": "oil",
-            "pp": 15,
-            "u": "ml"
-          },
-          {
-            "n": "biltong",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "cheddar",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and line a muffin tin.",
-          "Whisk the flour, baking powder and just a little salt.",
-          "Beat the egg, milk and oil.",
-          "Fold the wet into the dry, then stir through the chopped biltong and grated cheddar.",
-          "Spoon into the tin and bake 18 to 20 minutes until golden."
-        ],
-        "tip": "Go easy on the added salt — the biltong brings plenty of its own.",
-        "nutrition": {
-          "kcal": 240,
-          "protein_g": 13,
-          "carbs_g": 19,
-          "fat_g": 12
-        },
-        "storage": "Keeps 3 days airtight; freezes well."
-      },
-      {
-        "name": "Malva Pudding Muffin",
-        "icon": "🍮",
-        "feel": "South Africa's favourite pudding, shrunk into a sticky breakfast muffin.",
-        "time": 35,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 55,
-            "u": "g"
-          },
-          {
-            "n": "large eggs",
-            "pp": 0.5,
-            "u": "egg"
-          },
-          {
-            "n": "sugar",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "apricot jam",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 50,
-            "u": "ml"
-          },
-          {
-            "n": "butter",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "brown vinegar",
-            "pp": 3,
-            "u": "ml"
-          },
-          {
-            "n": "bicarbonate of soda"
-          },
-          {
-            "n": "baking powder"
-          }
-        ],
-        "method": [
-          "Heat the oven to 180°C and line a muffin tin.",
-          "Beat the egg and most of the sugar, then mix in the apricot jam, half the melted butter, the milk and a splash of vinegar.",
-          "Fold in the flour, baking powder and bicarb and spoon into the tin.",
-          "Bake 18 to 20 minutes until risen and deep golden.",
-          "While they bake, warm the cream, the rest of the butter and the last of the sugar into a quick caramel, and spoon it over the hot muffins so it soaks in."
-        ],
-        "tip": "Spoon the warm sauce over while the muffins are hot so they drink it right up.",
-        "nutrition": {
-          "kcal": 280,
-          "protein_g": 4,
-          "carbs_g": 40,
-          "fat_g": 12
-        },
-        "storage": "Keeps 2 days in the fridge; reheat gently for the stickiness. Freeze the plain muffins up to 1 month and sauce after warming."
-      }
-    ]
+    "storage": "Keeps 3 days airtight; freezes well — warm before eating."
   },
   {
-    "id": "bf-scones",
-    "cat": "go",
-    "name": "Scones",
+    "id": "bf-potato-and-sour-cream-muffins",
+    "cat": "baked",
+    "name": "Potato & Sour Cream Muffins",
+    "emoji": "🥔",
+    "cuisine": "Global",
+    "photoName": "Potato & Sour Cream Muffins",
+    "time": 38,
+    "costPP": 9,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "A twice-baked potato you can hold in one hand — rich, savoury and moreish.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 0.5,
+        "u": "egg"
+      },
+      {
+        "n": "sour cream",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "oil",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "potatoes",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "spring onion",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 180°C and line a muffin tin.",
+      "Grate the raw potato, rinse it, then squeeze it really dry in a cloth.",
+      "Whisk the flour, baking powder and salt; beat the egg, sour cream, milk and oil.",
+      "Fold together with the potato, grated cheddar and chopped spring onion.",
+      "Spoon into the tin and bake 20 to 22 minutes until golden."
+    ],
+    "tip": "Squeeze the grated potato bone-dry, or the muffins stay wet in the middle.",
+    "nutrition": {
+      "kcal": 220,
+      "protein_g": 7,
+      "carbs_g": 24,
+      "fat_g": 11
+    },
+    "storage": "Keeps 3 days airtight in the fridge, best warmed; freezes well up to 1 month."
+  },
+  {
+    "id": "bf-cottage-cheese-and-quinoa-muffins",
+    "cat": "baked",
+    "name": "Cottage Cheese & Quinoa Muffins",
+    "emoji": "💪",
+    "cuisine": "Global",
+    "photoName": "Cottage Cheese & Quinoa Muffins",
+    "time": 35,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Flourless and protein-packed — a savoury muffin that actually keeps you full.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 1,
+        "u": "egg"
+      },
+      {
+        "n": "cottage cheese",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "cooked quinoa",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "baby spinach",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Heat the oven to 180°C and grease a muffin tin really well.",
+      "Beat the eggs, then stir in the cottage cheese, cooked quinoa, chopped spinach and grated cheddar.",
+      "Season with salt and pepper.",
+      "Spoon into the greased tin.",
+      "Bake 20 to 25 minutes until set and golden."
+    ],
+    "tip": "Grease the tin really well — these are egg-set, so they like to stick.",
+    "nutrition": {
+      "kcal": 160,
+      "protein_g": 13,
+      "carbs_g": 8,
+      "fat_g": 9
+    },
+    "storage": "Keeps 3 days chilled, good cold in a lunchbox; freezes well up to 1 month."
+  },
+  {
+    "id": "bf-carrot-and-pineapple-muffins",
+    "cat": "baked",
+    "name": "Carrot & Pineapple Muffins",
+    "emoji": "🥕",
+    "cuisine": "Global",
+    "photoName": "Carrot & Pineapple Muffins",
+    "time": 35,
+    "costPP": 10,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Carrot cake's wholesome cousin — sweet, spiced and full of good things.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 0.5,
+        "u": "egg"
+      },
+      {
+        "n": "oil",
+        "pp": 25,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "carrots",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "tinned pineapple",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "raisins",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
+        "n": "bicarbonate of soda"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 180°C and line a muffin tin.",
+      "Whisk the flour, baking powder, bicarb, cinnamon, salt and sugar.",
+      "Beat the egg and oil together.",
+      "Fold the wet into the dry with the grated carrot, drained crushed pineapple and raisins.",
+      "Spoon into the tin and bake 20 to 22 minutes until risen and golden."
+    ],
+    "tip": "Drain the pineapple well so the batter is not too wet.",
+    "nutrition": {
+      "kcal": 230,
+      "protein_g": 4,
+      "carbs_g": 34,
+      "fat_g": 10
+    },
+    "storage": "Keeps 4 days airtight; stays moist; freezes well."
+  },
+  {
+    "id": "bf-biltong-and-cheese-muffins",
+    "cat": "baked",
+    "name": "Biltong & Cheese Muffins",
+    "emoji": "🥩",
+    "cuisine": "Global",
+    "photoName": "Biltong & Cheese Muffins",
+    "time": 35,
+    "costPP": 16,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Two of the most South African things there are, baked into breakfast.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 0.5,
+        "u": "egg"
+      },
+      {
+        "n": "milk",
+        "pp": 70,
+        "u": "ml"
+      },
+      {
+        "n": "oil",
+        "pp": 15,
+        "u": "ml"
+      },
+      {
+        "n": "biltong",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 180°C and line a muffin tin.",
+      "Whisk the flour, baking powder and just a little salt.",
+      "Beat the egg, milk and oil.",
+      "Fold the wet into the dry, then stir through the chopped biltong and grated cheddar.",
+      "Spoon into the tin and bake 18 to 20 minutes until golden."
+    ],
+    "tip": "Go easy on the added salt — the biltong brings plenty of its own.",
+    "nutrition": {
+      "kcal": 240,
+      "protein_g": 13,
+      "carbs_g": 19,
+      "fat_g": 12
+    },
+    "storage": "Keeps 3 days airtight; freezes well."
+  },
+  {
+    "id": "bf-malva-pudding-muffin",
+    "cat": "baked",
+    "name": "Malva Pudding Muffin",
+    "emoji": "🍮",
+    "cuisine": "Global",
+    "photoName": "Malva Pudding Muffin",
+    "time": 35,
+    "costPP": 12,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "South Africa's favourite pudding, shrunk into a sticky breakfast muffin.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 55,
+        "u": "g"
+      },
+      {
+        "n": "large eggs",
+        "pp": 0.5,
+        "u": "egg"
+      },
+      {
+        "n": "sugar",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "apricot jam",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 50,
+        "u": "ml"
+      },
+      {
+        "n": "butter",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "brown vinegar",
+        "pp": 3,
+        "u": "ml"
+      },
+      {
+        "n": "bicarbonate of soda"
+      },
+      {
+        "n": "baking powder"
+      }
+    ],
+    "method": [
+      "Heat the oven to 180°C and line a muffin tin.",
+      "Beat the egg and most of the sugar, then mix in the apricot jam, half the melted butter, the milk and a splash of vinegar.",
+      "Fold in the flour, baking powder and bicarb and spoon into the tin.",
+      "Bake 18 to 20 minutes until risen and deep golden.",
+      "While they bake, warm the cream, the rest of the butter and the last of the sugar into a quick caramel, and spoon it over the hot muffins so it soaks in."
+    ],
+    "tip": "Spoon the warm sauce over while the muffins are hot so they drink it right up.",
+    "nutrition": {
+      "kcal": 280,
+      "protein_g": 4,
+      "carbs_g": 40,
+      "fat_g": 12
+    },
+    "storage": "Keeps 2 days in the fridge; reheat gently for the stickiness. Freeze the plain muffins up to 1 month and sauce after warming."
+  },
+  {
+    "id": "bf-strawberry-and-black-pepper-scones",
+    "cat": "baked",
+    "name": "Strawberry & Black Pepper Scones",
     "emoji": "🥮",
     "cuisine": "Global",
-    "photoName": "Scones",
+    "photoName": "Strawberry & Black Pepper Scones",
     "time": 30,
     "costPP": 12,
     "freezes": true,
@@ -3514,411 +3315,800 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 32,
       "fat_g": 10
     },
-    "storage": "Best the day they are baked. Keep 2 days airtight in the fridge; freeze unglazed up to 2 months and add the glaze after warming.",
-    "versions": [
-      {
-        "name": "Strawberry & Black Pepper",
-        "icon": "⭐",
-        "default": true,
-        "feel": "Sweet strawberries with a sneaky kick of black pepper — a bakery scone that gets people talking.",
-        "time": 30,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 12,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 45,
-            "u": "ml"
-          },
-          {
-            "n": "fresh strawberries",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "maple syrup",
-            "pp": 10,
-            "u": "ml"
-          },
-          {
-            "n": "icing sugar",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "black pepper"
-          },
-          {
-            "n": "vanilla essence"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, sugar, baking powder, freshly cracked black pepper and salt together.",
-          "Grate in the very cold butter and rub it through until the mix looks like coarse crumbs.",
-          "Gently fold in the diced strawberries, then add the cream and vanilla and mix just until it comes together — do not overwork.",
-          "Pat to 2cm thick, cut into wedges, brush with a little cream and bake 15 to 18 minutes until golden.",
-          "Whisk the icing sugar with the maple syrup and a splash of milk, and drizzle over once cool."
-        ],
-        "tip": "The black pepper is the magic — do not skip it; it makes the strawberries taste more like themselves.",
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 4,
-          "carbs_g": 32,
-          "fat_g": 10
-        },
-        "storage": "Best the day they are baked. Keep 2 days airtight in the fridge; freeze unglazed up to 2 months and add the glaze after warming."
-      },
-      {
-        "name": "Buttermilk, Jam & Cream",
-        "icon": "🍓",
-        "feel": "The teatime classic — but split it open for homemade strawberry jam, not the shop stuff.",
-        "time": 25,
-        "costPP": 9,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 45,
-            "u": "ml"
-          },
-          {
-            "n": "strawberry jam",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, sugar, baking powder and salt.",
-          "Rub the cold butter through until the mix looks like coarse crumbs.",
-          "Add the buttermilk and mix just to a soft dough — do not overwork.",
-          "Pat to 2cm thick, cut into rounds, brush with a little buttermilk and bake 12 to 15 minutes until risen and golden.",
-          "Split warm and serve with homemade strawberry jam and whipped cream."
-        ],
-        "tip": "Make your own Strawberry Jam in the Spice room — it is the difference between nice and unforgettable.",
-        "nutrition": {
-          "kcal": 210,
-          "protein_g": 5,
-          "carbs_g": 30,
-          "fat_g": 8
-        },
-        "storage": "Best fresh and warm. Plain scones keep 3 days airtight; freeze up to 2 months and warm from frozen. Add jam and cream only when serving."
-      },
-      {
-        "name": "Jalapeno & Cheddar",
-        "icon": "🌶️",
-        "feel": "Sharp cheddar and a slow chilli warmth — the savoury scone that does not even need butter.",
-        "time": 30,
-        "costPP": 10,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "cheddar",
-            "pp": 35,
-            "u": "g"
-          },
-          {
-            "n": "jalapenos",
-            "pp": 12,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 50,
-            "u": "ml"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, baking powder and salt.",
-          "Rub the cold butter through to coarse crumbs.",
-          "Stir through the grated cheddar and finely chopped, deseeded jalapenos.",
-          "Add the buttermilk and mix just to a soft dough.",
-          "Pat to 2cm, cut into wedges, brush with buttermilk and bake 15 to 18 minutes until golden."
-        ],
-        "tip": "Deseed the jalapenos for warmth without blowing anyone's head off.",
-        "nutrition": {
-          "kcal": 220,
-          "protein_g": 8,
-          "carbs_g": 22,
-          "fat_g": 12
-        },
-        "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and refresh in a warm oven for 5 minutes."
-      },
-      {
-        "name": "Butternut, Feta & Chive",
-        "icon": "🎃",
-        "feel": "Golden, naturally sweet butternut against salty feta — proper SA tea-time.",
-        "time": 35,
-        "costPP": 10,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "butternut",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "feta",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "chives",
-            "pp": 8,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 30,
-            "u": "ml"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "cayenne pepper"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, baking powder, salt and a pinch of cayenne.",
-          "Rub the cold butter through to coarse crumbs, then stir in the crumbled feta and chopped chives.",
-          "Mix the cold, well-drained butternut puree with the cream, add to the dry mix and bring to a soft dough.",
-          "Pat to 2cm, cut into wedges, brush with a little cream.",
-          "Bake 18 to 20 minutes until firm and lightly golden."
-        ],
-        "tip": "Drain the butternut puree well, or the dough turns sticky.",
-        "nutrition": {
-          "kcal": 210,
-          "protein_g": 7,
-          "carbs_g": 24,
-          "fat_g": 10
-        },
-        "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and warm before eating."
-      },
-      {
-        "name": "Earl Grey, Honey & Lavender",
-        "icon": "🫖",
-        "feel": "A whole pot of fancy tea baked into a scone — earthy bergamot and a whisper of lavender.",
-        "time": 28,
-        "costPP": 11,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "sugar",
-            "pp": 10,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "cream",
-            "pp": 45,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "ml"
-          },
-          {
-            "n": "Earl Grey tea",
-            "pp": 1,
-            "u": "g"
-          },
-          {
-            "n": "culinary lavender"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "vanilla essence"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, sugar, baking powder, salt, finely ground Earl Grey leaves and a small pinch of dried lavender.",
-          "Rub the cold butter through to coarse crumbs.",
-          "Whisk the cream, honey and vanilla, add to the dry mix and bring to a soft dough.",
-          "Pat to 2cm, cut into wedges.",
-          "Bake 14 to 16 minutes until the edges turn golden."
-        ],
-        "tip": "Grind the tea fine and go gentle on the lavender — a little perfume goes a long way.",
-        "nutrition": {
-          "kcal": 220,
-          "protein_g": 4,
-          "carbs_g": 30,
-          "fat_g": 10
-        },
-        "storage": "Best fresh. Keep 3 days airtight; freeze up to 2 months and warm before serving with extra honey."
-      },
-      {
-        "name": "Blue Cheese, Fig & Walnut",
-        "icon": "🧀",
-        "feel": "A cheeseboard you can hold — funky blue cheese, sweet figs and toasty walnuts.",
-        "time": 30,
-        "costPP": 14,
-        "ingredients": [
-          {
-            "n": "cake flour",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "blue cheese",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "dried figs",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "walnuts",
-            "pp": 15,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "buttermilk",
-            "pp": 45,
-            "u": "ml"
-          },
-          {
-            "n": "sugar",
-            "pp": 5,
-            "u": "g"
-          },
-          {
-            "n": "baking powder"
-          },
-          {
-            "n": "black pepper"
-          },
-          {
-            "n": "salt"
-          }
-        ],
-        "method": [
-          "Heat the oven to 200°C and line a tray.",
-          "Whisk the flour, sugar, baking powder, salt and a little black pepper.",
-          "Rub the cold butter through to coarse crumbs.",
-          "Fold in the crumbled blue cheese, chopped dried figs and toasted, chopped walnuts.",
-          "Add the buttermilk and mix just to a soft dough.",
-          "Pat to 2cm, cut into wedges and bake 15 to 18 minutes until golden."
-        ],
-        "tip": "Toast the walnuts first; it wakes up their flavour against the blue cheese.",
-        "nutrition": {
-          "kcal": 250,
-          "protein_g": 8,
-          "carbs_g": 26,
-          "fat_g": 13
-        },
-        "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and refresh in a warm oven."
-      }
-    ]
+    "storage": "Best the day they are baked. Keep 2 days airtight in the fridge; freeze unglazed up to 2 months and add the glaze after warming."
   },
   {
-    "id": "bf-smoothies",
-    "cat": "go",
-    "name": "Smoothies",
-    "emoji": "🥤",
+    "id": "bf-buttermilk-jam-and-cream-scones",
+    "cat": "baked",
+    "name": "Buttermilk, Jam & Cream Scones",
+    "emoji": "🍓",
     "cuisine": "Global",
-    "photoName": "Smoothie",
+    "photoName": "Buttermilk, Jam & Cream Scones",
+    "time": 25,
+    "costPP": 9,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "The teatime classic — but split it open for homemade strawberry jam, not the shop stuff.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 45,
+        "u": "ml"
+      },
+      {
+        "n": "strawberry jam",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 200°C and line a tray.",
+      "Whisk the flour, sugar, baking powder and salt.",
+      "Rub the cold butter through until the mix looks like coarse crumbs.",
+      "Add the buttermilk and mix just to a soft dough — do not overwork.",
+      "Pat to 2cm thick, cut into rounds, brush with a little buttermilk and bake 12 to 15 minutes until risen and golden.",
+      "Split warm and serve with homemade strawberry jam and whipped cream."
+    ],
+    "tip": "Make your own Strawberry Jam in the Spice room — it is the difference between nice and unforgettable.",
+    "nutrition": {
+      "kcal": 210,
+      "protein_g": 5,
+      "carbs_g": 30,
+      "fat_g": 8
+    },
+    "storage": "Best fresh and warm. Plain scones keep 3 days airtight; freeze up to 2 months and warm from frozen. Add jam and cream only when serving."
+  },
+  {
+    "id": "bf-jalapeno-and-cheddar-scones",
+    "cat": "baked",
+    "name": "Jalapeno & Cheddar Scones",
+    "emoji": "🌶️",
+    "cuisine": "Global",
+    "photoName": "Jalapeno & Cheddar Scones",
+    "time": 30,
+    "costPP": 10,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Sharp cheddar and a slow chilli warmth — the savoury scone that does not even need butter.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 35,
+        "u": "g"
+      },
+      {
+        "n": "jalapenos",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 50,
+        "u": "ml"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 200°C and line a tray.",
+      "Whisk the flour, baking powder and salt.",
+      "Rub the cold butter through to coarse crumbs.",
+      "Stir through the grated cheddar and finely chopped, deseeded jalapenos.",
+      "Add the buttermilk and mix just to a soft dough.",
+      "Pat to 2cm, cut into wedges, brush with buttermilk and bake 15 to 18 minutes until golden."
+    ],
+    "tip": "Deseed the jalapenos for warmth without blowing anyone's head off.",
+    "nutrition": {
+      "kcal": 220,
+      "protein_g": 8,
+      "carbs_g": 22,
+      "fat_g": 12
+    },
+    "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and refresh in a warm oven for 5 minutes."
+  },
+  {
+    "id": "bf-butternut-feta-and-chive-scones",
+    "cat": "baked",
+    "name": "Butternut, Feta & Chive Scones",
+    "emoji": "🎃",
+    "cuisine": "Global",
+    "photoName": "Butternut, Feta & Chive Scones",
+    "time": 35,
+    "costPP": 10,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Golden, naturally sweet butternut against salty feta — proper SA tea-time.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "butternut",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "feta",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "chives",
+        "pp": 8,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 30,
+        "u": "ml"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "cayenne pepper"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 200°C and line a tray.",
+      "Whisk the flour, baking powder, salt and a pinch of cayenne.",
+      "Rub the cold butter through to coarse crumbs, then stir in the crumbled feta and chopped chives.",
+      "Mix the cold, well-drained butternut puree with the cream, add to the dry mix and bring to a soft dough.",
+      "Pat to 2cm, cut into wedges, brush with a little cream.",
+      "Bake 18 to 20 minutes until firm and lightly golden."
+    ],
+    "tip": "Drain the butternut puree well, or the dough turns sticky.",
+    "nutrition": {
+      "kcal": 210,
+      "protein_g": 7,
+      "carbs_g": 24,
+      "fat_g": 10
+    },
+    "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and warm before eating."
+  },
+  {
+    "id": "bf-earl-grey-honey-and-lavender-scones",
+    "cat": "baked",
+    "name": "Earl Grey, Honey & Lavender Scones",
+    "emoji": "🫖",
+    "cuisine": "Global",
+    "photoName": "Earl Grey, Honey & Lavender Scones",
+    "time": 28,
+    "costPP": 11,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "A whole pot of fancy tea baked into a scone — earthy bergamot and a whisper of lavender.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "sugar",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 45,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "Earl Grey tea",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "culinary lavender"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "vanilla essence"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 200°C and line a tray.",
+      "Whisk the flour, sugar, baking powder, salt, finely ground Earl Grey leaves and a small pinch of dried lavender.",
+      "Rub the cold butter through to coarse crumbs.",
+      "Whisk the cream, honey and vanilla, add to the dry mix and bring to a soft dough.",
+      "Pat to 2cm, cut into wedges.",
+      "Bake 14 to 16 minutes until the edges turn golden."
+    ],
+    "tip": "Grind the tea fine and go gentle on the lavender — a little perfume goes a long way.",
+    "nutrition": {
+      "kcal": 220,
+      "protein_g": 4,
+      "carbs_g": 30,
+      "fat_g": 10
+    },
+    "storage": "Best fresh. Keep 3 days airtight; freeze up to 2 months and warm before serving with extra honey."
+  },
+  {
+    "id": "bf-blue-cheese-fig-and-walnut-scones",
+    "cat": "baked",
+    "name": "Blue Cheese, Fig & Walnut Scones",
+    "emoji": "🧀",
+    "cuisine": "Global",
+    "photoName": "Blue Cheese, Fig & Walnut Scones",
+    "time": 30,
+    "costPP": 14,
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "A cheeseboard you can hold — funky blue cheese, sweet figs and toasty walnuts.",
+    "goesWith": [
+      "Smoothies",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "ingredients": [
+      {
+        "n": "cake flour",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "blue cheese",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "dried figs",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "walnuts",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "buttermilk",
+        "pp": 45,
+        "u": "ml"
+      },
+      {
+        "n": "sugar",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "baking powder"
+      },
+      {
+        "n": "black pepper"
+      },
+      {
+        "n": "salt"
+      }
+    ],
+    "method": [
+      "Heat the oven to 200°C and line a tray.",
+      "Whisk the flour, sugar, baking powder, salt and a little black pepper.",
+      "Rub the cold butter through to coarse crumbs.",
+      "Fold in the crumbled blue cheese, chopped dried figs and toasted, chopped walnuts.",
+      "Add the buttermilk and mix just to a soft dough.",
+      "Pat to 2cm, cut into wedges and bake 15 to 18 minutes until golden."
+    ],
+    "tip": "Toast the walnuts first; it wakes up their flavour against the blue cheese.",
+    "nutrition": {
+      "kcal": 250,
+      "protein_g": 8,
+      "carbs_g": 26,
+      "fat_g": 13
+    },
+    "storage": "Best fresh. Keep 3 days airtight in the fridge; freeze up to 2 months and refresh in a warm oven."
+  },
+  {
+    "id": "bf-yoghurt-and-granola-bowl",
+    "cat": "smoothies",
+    "name": "Yoghurt & Granola Bowl",
+    "emoji": "🥣",
+    "cuisine": "Global",
+    "photoName": "Yoghurt & Granola Bowl",
+    "time": 5,
+    "costPP": 22,
     "freezes": false,
     "fridgeDays": 1,
+    "feel": "Cool, crunchy and bright — breakfast without the fuss.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "plain yoghurt",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "granola",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "mixed berries",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Spoon the yoghurt into a bowl.",
+      "Top with granola and berries.",
+      "Drizzle with honey and serve straight away so the granola stays crunchy."
+    ],
+    "tip": "Layer it in a glass jar the night before, granola on top, for a grab-and-go version.",
+    "nutrition": {
+      "kcal": 280,
+      "protein_g": 12,
+      "carbs_g": 42,
+      "fat_g": 8
+    },
+    "storage": "Assemble fresh; keep components separate."
+  },
+  {
+    "id": "bf-amasi-and-fruit-bowl",
+    "cat": "smoothies",
+    "name": "Amasi & Fruit Bowl",
+    "emoji": "🥛",
+    "cuisine": "Global",
+    "photoName": "Amasi & Fruit Bowl",
+    "time": 5,
+    "costPP": 12,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Tangy, cool amasi over sweet fruit — an old friend.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "amasi",
+        "pp": 200,
+        "u": "ml"
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "berries",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Pour the amasi into a bowl.",
+      "Top with sliced banana and berries.",
+      "Drizzle with honey and serve cold."
+    ],
+    "tip": "Lovely with a spoon of crunchy granola over the top.",
+    "nutrition": {
+      "kcal": 220,
+      "protein_g": 9,
+      "carbs_g": 34,
+      "fat_g": 5
+    },
+    "storage": "Assemble fresh."
+  },
+  {
+    "id": "bf-cottage-cheese-and-peaches",
+    "cat": "smoothies",
+    "name": "Cottage Cheese & Peaches",
+    "emoji": "🍑",
+    "cuisine": "Global",
+    "photoName": "Cottage Cheese & Peaches",
+    "time": 5,
+    "costPP": 22,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Light, high-protein and quietly delicious.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "cottage cheese",
+        "pp": 100,
+        "u": "g"
+      },
+      {
+        "n": "tinned peaches",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "cinnamon"
+      }
+    ],
+    "method": [
+      "Spoon the cottage cheese into a bowl.",
+      "Top with sliced peaches.",
+      "Drizzle with honey and a dusting of cinnamon."
+    ],
+    "tip": "Any soft fruit works; try it with grated apple in winter.",
+    "nutrition": {
+      "kcal": 200,
+      "protein_g": 16,
+      "carbs_g": 22,
+      "fat_g": 5
+    },
+    "storage": "Assemble fresh."
+  },
+  {
+    "id": "bf-tropical-fruit-plate",
+    "cat": "smoothies",
+    "name": "Tropical Fruit Plate",
+    "emoji": "🍍",
+    "cuisine": "Global",
+    "photoName": "Tropical Fruit Plate",
+    "time": 8,
+    "costPP": 12,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "A bright, juicy plate that wakes the whole table up.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "pineapple",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "pawpaw",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "lemon",
+        "pp": 0.2,
+        "u": ""
+      }
+    ],
+    "method": [
+      "Cut the pineapple, pawpaw and banana into bite-sized pieces.",
+      "Arrange on a plate.",
+      "Squeeze over a little lemon or lime to lift it."
+    ],
+    "tip": "A sprinkle of toasted coconut makes it feel special.",
+    "nutrition": {
+      "kcal": 150,
+      "protein_g": 2,
+      "carbs_g": 38,
+      "fat_g": 1
+    },
+    "storage": "Best fresh; keeps 1 day cut."
+  },
+  {
+    "id": "bf-boererusk-and-amasi-bowl",
+    "cat": "smoothies",
+    "name": "Boererusk & Amasi Bowl",
+    "emoji": "🍮",
+    "cuisine": "Global",
+    "photoName": "Boererusk & Amasi Bowl",
+    "time": 5,
+    "costPP": 12,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Beskuit dunked in maas — the oldest, most comforting SA breakfast there is.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "buttermilk rusks",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "amasi",
+        "pp": 200,
+        "u": "ml"
+      },
+      {
+        "n": "mixed berries",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Roughly crumble the rusks into a bowl.",
+      "Pour over the amasi and let it soak for a minute to soften.",
+      "Drizzle with honey.",
+      "Top with the berries."
+    ],
+    "tip": "Let the rusks soak just a minute — soft on the outside, still a little crunch in the middle.",
+    "nutrition": {
+      "kcal": 280,
+      "protein_g": 10,
+      "carbs_g": 42,
+      "fat_g": 8
+    },
+    "storage": "Assemble fresh and eat soon — the rusks go soggy if it stands. Not for freezing."
+  },
+  {
+    "id": "bf-stewed-fruit-and-yoghurt-bowl",
+    "cat": "smoothies",
+    "name": "Stewed Fruit & Yoghurt Bowl",
+    "emoji": "🍑",
+    "cuisine": "Global",
+    "photoName": "Stewed Fruit & Yoghurt Bowl",
+    "time": 15,
+    "costPP": 10,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Gestoofde vrugte over cool yoghurt — a Sunday-at-ouma's kind of breakfast.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "dried fruit",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "plain yoghurt",
+        "pp": 120,
+        "u": "g"
+      },
+      {
+        "n": "water",
+        "pp": 100,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "cinnamon"
+      }
+    ],
+    "method": [
+      "Simmer the dried fruit in the water with a stick of cinnamon until plump and soft, about 10 minutes.",
+      "Let it cool a little.",
+      "Spoon the warm stewed fruit over the yoghurt.",
+      "Drizzle with honey."
+    ],
+    "tip": "Make a big batch of the stewed fruit; it keeps for days and freezes well.",
+    "nutrition": {
+      "kcal": 250,
+      "protein_g": 8,
+      "carbs_g": 48,
+      "fat_g": 4
+    },
+    "storage": "The stewed fruit keeps 5 days in the fridge and freezes up to 3 months — spoon over fresh yoghurt each time."
+  },
+  {
+    "id": "bf-granadilla-and-honey-bowl",
+    "cat": "smoothies",
+    "name": "Granadilla & Honey Bowl",
+    "emoji": "🥭",
+    "cuisine": "Global",
+    "photoName": "Granadilla & Honey Bowl",
+    "time": 5,
+    "costPP": 11,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Thick yoghurt under tart, perfumed granadilla — summer in three spoons.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "plain yoghurt",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "granadilla",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "rolled oats",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 10,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "Spoon the yoghurt into a bowl.",
+      "Scoop the granadilla pulp over the top.",
+      "Drizzle with honey.",
+      "Toast the oats in a dry pan for a minute and scatter over for crunch."
+    ],
+    "tip": "Toast the oats or some seeds in a dry pan — the crunch is what makes the bowl.",
+    "nutrition": {
+      "kcal": 230,
+      "protein_g": 9,
+      "carbs_g": 32,
+      "fat_g": 6
+    },
+    "storage": "Assemble fresh and eat right away. Not for freezing."
+  },
+  {
+    "id": "bf-stone-fruit-and-hot-honey-bowl",
+    "cat": "smoothies",
+    "name": "Stone Fruit & Hot Honey Bowl",
+    "emoji": "🍯",
+    "cuisine": "Global",
+    "photoName": "Stone Fruit & Hot Honey Bowl",
+    "time": 5,
+    "costPP": 13,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Sweet summer stone fruit with a sneaky chilli-honey kick — sophisticated and a little surprising.",
+    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "ingredients": [
+      {
+        "n": "plain yoghurt",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "peaches",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "nectarine",
+        "pp": 1,
+        "u": ""
+      },
+      {
+        "n": "rolled oats",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "honey",
+        "pp": 12,
+        "u": "ml"
+      },
+      {
+        "n": "hot sauce"
+      },
+      {
+        "n": "fresh mint"
+      }
+    ],
+    "method": [
+      "Spoon the yoghurt into a bowl.",
+      "Slice the peach and nectarine over the top.",
+      "Stir a dash of hot sauce into the honey to make hot honey.",
+      "Drizzle the hot honey over the fruit.",
+      "Scatter with toasted oats and a few torn mint leaves."
+    ],
+    "tip": "Hot honey is just honey plus a dash of your favourite hot sauce — start small, you want a whisper of heat, not a burn.",
+    "nutrition": {
+      "kcal": 260,
+      "protein_g": 9,
+      "carbs_g": 40,
+      "fat_g": 6
+    },
+    "storage": "Assemble fresh and eat right away. The hot honey keeps in a jar for weeks. Not for freezing."
+  },
+  {
+    "id": "bf-berry-banana-smoothie",
+    "cat": "smoothies",
+    "name": "Berry Banana Smoothie",
+    "emoji": "🥤",
+    "cuisine": "Global",
+    "photoName": "Berry Banana Smoothie",
     "time": 5,
     "costPP": 18,
+    "freezes": false,
+    "fridgeDays": 1,
     "feel": "Breakfast you can drink with one hand on the car keys.",
     "goesWith": [
       "Toast Toppers",
@@ -3964,726 +4154,352 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 38,
       "fat_g": 4
     },
-    "storage": "Drink fresh; keeps a few hours chilled. Not for freezing once blended — freeze the fruit first for a thicker drink.",
-    "versions": [
-      {
-        "name": "Berry Banana",
-        "icon": "⭐",
-        "default": true,
-        "feel": "Breakfast you can drink with one hand on the car keys.",
-        "time": 5,
-        "costPP": 18,
-        "ingredients": [
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "mixed berries",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "plain yoghurt",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Add the banana, berries, yoghurt, milk and honey to a blender.",
-          "Blend until smooth, about 30 seconds.",
-          "Pour into a glass or travel bottle and go."
-        ],
-        "tip": "Freeze the banana and berries first for a thicker, colder smoothie.",
-        "nutrition": {
-          "kcal": 220,
-          "protein_g": 9,
-          "carbs_g": 38,
-          "fat_g": 4
-        },
-        "storage": "Drink fresh; keeps a few hours chilled. Not for freezing once blended — freeze the fruit first for a thicker drink."
-      },
-      {
-        "name": "Green",
-        "icon": "🥬",
-        "feel": "A whole salad you can drink without noticing.",
-        "time": 5,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "spinach",
-            "pp": 30,
-            "u": "g"
-          },
-          {
-            "n": "banana",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "apple",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Add the spinach, banana, apple, milk and honey to a blender.",
-          "Blend until completely smooth.",
-          "Pour and drink right away."
-        ],
-        "tip": "A handful of spinach disappears completely behind the fruit.",
-        "nutrition": {
-          "kcal": 210,
-          "protein_g": 7,
-          "carbs_g": 40,
-          "fat_g": 4
-        },
-        "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
-      },
-      {
-        "name": "Tropical",
-        "icon": "🥭",
-        "feel": "A holiday in a glass — sunshine mango and tangy granadilla.",
-        "time": 5,
-        "costPP": 16,
-        "ingredients": [
-          {
-            "n": "mango",
-            "pp": 100,
-            "u": "g"
-          },
-          {
-            "n": "granadilla",
-            "pp": 2,
-            "u": ""
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "plain yoghurt",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 100,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Scoop out the granadilla pulp.",
-          "Blend the mango, banana, yoghurt and milk until smooth.",
-          "Stir through most of the granadilla pulp, keeping a little to spoon on top.",
-          "Pour and drink right away."
-        ],
-        "tip": "Frozen mango makes it thick and frosty; keep a spoon of granadilla for the top.",
-        "nutrition": {
-          "kcal": 240,
-          "protein_g": 8,
-          "carbs_g": 45,
-          "fat_g": 4
-        },
-        "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
-      },
-      {
-        "name": "Peanut Butter Banana",
-        "icon": "🥜",
-        "feel": "Thick, nutty and filling — breakfast that actually holds you to lunch.",
-        "time": 5,
-        "costPP": 12,
-        "ingredients": [
-          {
-            "n": "banana",
-            "pp": 1,
-            "u": ""
-          },
-          {
-            "n": "peanut butter",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "oats",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 200,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Add the banana, peanut butter, oats, milk and honey to a blender.",
-          "Blend until completely smooth, about 30 seconds.",
-          "Pour and drink."
-        ],
-        "tip": "The spoon of oats thickens it and keeps you full far longer.",
-        "nutrition": {
-          "kcal": 360,
-          "protein_g": 14,
-          "carbs_g": 42,
-          "fat_g": 16
-        },
-        "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
-      },
-      {
-        "name": "Amasi Berry",
-        "icon": "🧉",
-        "feel": "Tangy maas and berries — creamy, local, and full of good bacteria.",
-        "time": 5,
-        "costPP": 13,
-        "ingredients": [
-          {
-            "n": "amasi",
-            "pp": 200,
-            "u": "ml"
-          },
-          {
-            "n": "mixed berries",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Add the amasi, berries, banana and honey to a blender.",
-          "Blend until smooth.",
-          "Pour and drink right away."
-        ],
-        "tip": "Amasi brings both the tang and the protein, so no yoghurt is needed.",
-        "nutrition": {
-          "kcal": 210,
-          "protein_g": 11,
-          "carbs_g": 32,
-          "fat_g": 4
-        },
-        "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
-      },
-      {
-        "name": "Red Berry & Beet",
-        "icon": "🫐",
-        "feel": "Earthy beetroot and sweet berries — vivid pink and packed with iron.",
-        "time": 5,
-        "costPP": 15,
-        "ingredients": [
-          {
-            "n": "cooked beetroot",
-            "pp": 50,
-            "u": "g"
-          },
-          {
-            "n": "mixed berries",
-            "pp": 80,
-            "u": "g"
-          },
-          {
-            "n": "banana",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "plain yoghurt",
-            "pp": 60,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 120,
-            "u": "ml"
-          },
-          {
-            "n": "honey",
-            "pp": 8,
-            "u": "g"
-          }
-        ],
-        "method": [
-          "Add the cooked beetroot, berries, banana, yoghurt, milk and honey to a blender.",
-          "Blend until completely smooth.",
-          "Pour and drink right away."
-        ],
-        "tip": "Use pre-cooked beetroot; the berries hide the earthiness completely.",
-        "nutrition": {
-          "kcal": 230,
-          "protein_g": 8,
-          "carbs_g": 42,
-          "fat_g": 4
-        },
-        "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
-      },
-      {
-        "name": "Avocado & Date",
-        "icon": "🥑",
-        "feel": "Thick as a milkshake, rich and silky — avo does what ice cream pretends to.",
-        "time": 5,
-        "costPP": 16,
-        "ingredients": [
-          {
-            "n": "avocado",
-            "pp": 0.5,
-            "u": ""
-          },
-          {
-            "n": "pitted dates",
-            "pp": 3,
-            "u": ""
-          },
-          {
-            "n": "blueberries",
-            "pp": 40,
-            "u": "g"
-          },
-          {
-            "n": "milk",
-            "pp": 180,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Pit the dates (soak in a little warm water for a few minutes if they are firm).",
-          "Scoop out the avocado.",
-          "Blend the avocado, dates, blueberries and milk until completely smooth and thick.",
-          "Pour and drink right away."
-        ],
-        "tip": "A ripe avo makes it luxuriously thick — no yoghurt or ice cream needed, and the dates do all the sweetening.",
-        "nutrition": {
-          "kcal": 320,
-          "protein_g": 6,
-          "carbs_g": 38,
-          "fat_g": 17
-        },
-        "storage": "Best fresh — the avo browns if kept, so blend and drink. Not for freezing."
-      }
-    ]
+    "storage": "Drink fresh; keeps a few hours chilled. Not for freezing once blended — freeze the fruit first for a thicker drink."
   },
   {
-    "id": "bf-omelette-waffle",
-    "cat": "savoury",
-    "name": "Omelette Waffle",
-    "emoji": "🧇",
+    "id": "bf-green-smoothie",
+    "cat": "smoothies",
+    "name": "Green Smoothie",
+    "emoji": "🥬",
     "cuisine": "Global",
-    "photoName": "Omelette Waffle",
+    "photoName": "Green Smoothie",
+    "time": 5,
+    "costPP": 12,
     "freezes": false,
     "fridgeDays": 1,
-    "time": 12,
-    "costPP": 16,
-    "feel": "All the joy of an omelette with none of the flipping — the iron does the work.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit",
-      "Berry Smoothie"
-    ],
-    "didYouKnow": "A waffle iron is really just two hot, patterned plates — which is why it cooks almost anything pourable, not only batter. Beaten egg sets into those pockets with crisp, lacy edges and a fluffy middle, and because both sides cook at once there is no flip and no fold to go wrong. It is one of the highest-protein ways to start the day on a single appliance.",
-    "ingredients": [
-      {
-        "n": "large eggs",
-        "pp": 3,
-        "u": "egg"
-      },
-      {
-        "n": "ham",
-        "pp": 40,
-        "u": "g"
-      },
-      {
-        "n": "cheddar",
-        "pp": 30,
-        "u": "g"
-      },
-      {
-        "n": "baby spinach",
-        "pp": 30,
-        "u": "g"
-      },
-      {
-        "n": "milk",
-        "pp": 15,
-        "u": "ml"
-      },
-      {
-        "n": "butter",
-        "pp": 6,
-        "u": "g"
-      },
-      {
-        "n": "salt & pepper"
-      }
-    ],
-    "method": [
-      "Heat the waffle iron and grease it really well with butter — egg loves to stick, so be generous.",
-      "Beat the eggs with the milk, salt and pepper.",
-      "Stir in the chopped ham, grated cheddar and chopped spinach.",
-      "Pour into the hot iron, close gently and cook until set and golden, about 4 to 5 minutes — do not peek too early.",
-      "Lift out carefully with a fork and serve straight away. No flipping, no folding."
-    ],
-    "tip": "Grease the iron well and keep it closed; if you open it early the egg tears and sticks.",
-    "nutrition": {
-      "kcal": 330,
-      "protein_g": 24,
-      "carbs_g": 4,
-      "fat_g": 23
-    },
-    "storage": "Best fresh; keeps 1 day in the fridge and is lekker cold in a lunchbox. Not for freezing — the egg goes rubbery."
-  },
-  {
-    "id": "bf-snoek-scramble",
-    "cat": "savoury",
-    "name": "Smoked Snoek Scrambled Eggs",
-    "emoji": "🐟",
-    "cuisine": "South African (Cape)",
-    "photoName": "Smoked Snoek Scrambled Eggs",
-    "time": 12,
-    "costPP": 22,
-    "freezes": false,
-    "fridgeDays": 1,
-    "feel": "Smoky Cape snoek folded through soft, buttery eggs — the sea at breakfast.",
+    "feel": "A whole salad you can drink without noticing.",
     "goesWith": [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "Snoek is a long, fierce Cape fish, traditionally hot-smoked over wood until the flesh turns golden and flakes into smoky shards. A jar or vacuum-pack of smoked snoek is a Cape pantry staple, and folding it through scrambled eggs is one of the oldest, simplest ways to stretch a little of it into a whole breakfast.",
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
     "ingredients": [
       {
-        "n": "large eggs",
-        "pp": 3,
-        "u": "egg"
-      },
-      {
-        "n": "smoked snoek",
-        "pp": 50,
+        "n": "spinach",
+        "pp": 30,
         "u": "g"
       },
       {
-        "n": "butter",
-        "pp": 10,
-        "u": "g"
-      },
-      {
-        "n": "spring onion",
-        "pp": 15,
-        "u": "g"
-      },
-      {
-        "n": "cream",
-        "pp": 15,
-        "u": "ml"
-      },
-      {
-        "n": "white bread",
+        "n": "banana",
         "pp": 1,
         "u": ""
       },
       {
-        "n": "salt & pepper"
+        "n": "apple",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "ml"
       }
     ],
     "method": [
-      "Flake the smoked snoek, checking carefully for little bones.",
-      "Beat the eggs with the cream and a good grind of pepper.",
-      "Melt the butter over low heat and soften the chopped spring onion.",
-      "Pour in the eggs and stir gently, folding the flaked snoek through as they begin to set.",
-      "Pull off the heat while still soft and glossy, and serve on buttered toast."
+      "Add the spinach, banana, apple, milk and honey to a blender.",
+      "Blend until completely smooth.",
+      "Pour and drink right away."
     ],
-    "tip": "Go easy on salt — smoked snoek brings plenty of its own — and check carefully for bones.",
+    "tip": "A handful of spinach disappears completely behind the fruit.",
     "nutrition": {
-      "kcal": 360,
-      "protein_g": 28,
-      "carbs_g": 14,
-      "fat_g": 22
+      "kcal": 210,
+      "protein_g": 7,
+      "carbs_g": 40,
+      "fat_g": 4
     },
-    "storage": "Best eaten straight away; scrambled eggs do not keep or freeze well. Leftover flaked snoek keeps 2 days in the fridge."
+    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
   },
   {
-    "id": "bf-chakalaka-baked-eggs",
-    "cat": "savoury",
-    "name": "Chakalaka Baked Eggs",
-    "emoji": "🫘",
-    "cuisine": "South African",
-    "photoName": "Chakalaka Baked Eggs",
-    "time": 18,
-    "costPP": 14,
+    "id": "bf-tropical-smoothie",
+    "cat": "smoothies",
+    "name": "Tropical Smoothie",
+    "emoji": "🥭",
+    "cuisine": "Global",
+    "photoName": "Tropical Smoothie",
+    "time": 5,
+    "costPP": 16,
     "freezes": false,
-    "fridgeDays": 3,
-    "feel": "A proper South African shakshuka — eggs baked into spicy chakalaka, scooped up with bread.",
+    "fridgeDays": 1,
+    "feel": "A holiday in a glass — sunshine mango and tangy granadilla.",
     "goesWith": [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "Chakalaka was born in the townships and mine hostels around Johannesburg, a fiery cook-up of onion, pepper, chilli and curry spice built to make plain food sing. Cracking eggs straight into a bubbling pan of it turns a relish into a whole meal — South Africa's answer to shakshuka.",
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
     "ingredients": [
       {
-        "n": "large eggs",
-        "pp": 2,
-        "u": "egg"
-      },
-      {
-        "n": "chakalaka",
-        "pp": 150,
+        "n": "mango",
+        "pp": 100,
         "u": "g"
       },
       {
-        "n": "tomatoes",
+        "n": "granadilla",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "plain yoghurt",
         "pp": 80,
         "u": "g"
       },
       {
-        "n": "onion",
-        "pp": 30,
-        "u": "g"
-      },
-      {
-        "n": "cheddar",
-        "pp": 20,
-        "u": "g"
-      },
-      {
-        "n": "oil",
-        "pp": 6,
+        "n": "milk",
+        "pp": 100,
         "u": "ml"
-      },
-      {
-        "n": "fresh coriander"
-      },
-      {
-        "n": "salt"
       }
     ],
     "method": [
-      "Soften the chopped onion in the oil in an oven-safe pan, then add the chopped tomato and cook to a thick base.",
-      "Stir in the chakalaka with a splash of water and bring to a gentle bubble.",
-      "Make wells in the sauce and crack in the eggs.",
-      "Cover and cook on low (or in a 180°C oven) until the whites set but the yolks stay soft, about 6 to 8 minutes.",
-      "Scatter with grated cheddar and coriander, and serve from the pan with bread to dip."
+      "Scoop out the granadilla pulp.",
+      "Blend the mango, banana, yoghurt and milk until smooth.",
+      "Stir through most of the granadilla pulp, keeping a little to spoon on top.",
+      "Pour and drink right away."
     ],
-    "tip": "Keep the heat low once the eggs are in, so the yolks stay soft while the whites set.",
+    "tip": "Frozen mango makes it thick and frosty; keep a spoon of granadilla for the top.",
     "nutrition": {
-      "kcal": 260,
-      "protein_g": 15,
-      "carbs_g": 18,
-      "fat_g": 14
+      "kcal": 240,
+      "protein_g": 8,
+      "carbs_g": 45,
+      "fat_g": 4
     },
-    "storage": "Best eaten fresh from the pan. The chakalaka base keeps 3 days in the fridge and freezes well on its own — add fresh eggs each time. Cooked eggs do not freeze."
+    "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
   },
   {
-    "id": "bf-turkish-eggs",
-    "cat": "savoury",
-    "name": "Turkish Eggs",
-    "emoji": "🥚",
-    "cuisine": "Turkish",
-    "photoName": "Turkish Eggs",
-    "time": 15,
-    "costPP": 15,
+    "id": "bf-peanut-butter-banana-smoothie",
+    "cat": "smoothies",
+    "name": "Peanut Butter Banana Smoothie",
+    "emoji": "🥜",
+    "cuisine": "Global",
+    "photoName": "Peanut Butter Banana Smoothie",
+    "time": 5,
+    "costPP": 12,
     "freezes": false,
     "fridgeDays": 1,
-    "feel": "Soft poached eggs on cool garlicky yoghurt under a pool of warm chilli butter — try it once and you crave it.",
+    "feel": "Thick, nutty and filling — breakfast that actually holds you to lunch.",
     "goesWith": [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "Known as cilbir, this is one of the oldest recorded egg dishes — it was served in the Ottoman palace kitchens of the 15th century. The magic is the contrast: cool, tangy garlic yoghurt against hot poached eggs and nutty, spiced butter.",
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
     "ingredients": [
       {
-        "n": "large eggs",
-        "pp": 2,
-        "u": "egg"
-      },
-      {
-        "n": "plain yoghurt",
-        "pp": 120,
-        "u": "g"
-      },
-      {
-        "n": "garlic",
-        "pp": 0.5,
-        "u": "clove"
-      },
-      {
-        "n": "butter",
-        "pp": 20,
-        "u": "g"
-      },
-      {
-        "n": "paprika"
-      },
-      {
-        "n": "white vinegar",
-        "pp": 5,
-        "u": "ml"
-      },
-      {
-        "n": "fresh dill"
-      },
-      {
-        "n": "salt"
-      }
-    ],
-    "method": [
-      "Stir the crushed garlic and a pinch of salt into the yoghurt and spread it over a plate — room-temperature yoghurt is nicest.",
-      "Bring a pot of water to a gentle simmer with a splash of vinegar, and poach the eggs for about 3 minutes for soft yolks.",
-      "Melt the butter until it foams and smells nutty, then stir in the paprika off the heat.",
-      "Sit the drained poached eggs on the garlicky yoghurt.",
-      "Spoon the warm spiced butter over, scatter with dill, and serve with bread."
-    ],
-    "tip": "Take the yoghurt out early — room-temperature yoghurt against hot eggs is the whole point.",
-    "nutrition": {
-      "kcal": 320,
-      "protein_g": 18,
-      "carbs_g": 8,
-      "fat_g": 24
-    },
-    "storage": "Best assembled fresh. The garlicky yoghurt keeps 2 days in the fridge — poach the eggs to order. Not for freezing."
-  },
-  {
-    "id": "bf-shakshuka",
-    "cat": "savoury",
-    "name": "Shakshuka",
-    "emoji": "🍅",
-    "cuisine": "North African / Middle Eastern",
-    "time": 25,
-    "costPP": 24,
-    "feel": "Eggs poached in a bubbling, spiced tomato hug.",
-    "ingredients": [
-      {
-        "n": "large eggs",
-        "pp": 2,
-        "u": "egg"
-      },
-      {
-        "n": "tomatoes",
-        "pp": 150,
-        "u": "g"
-      },
-      {
-        "n": "onion",
-        "pp": 40,
-        "u": "g"
-      },
-      {
-        "n": "red pepper",
-        "pp": 50,
-        "u": "g"
-      },
-      {
-        "n": "tomato paste",
-        "pp": 15,
-        "u": "g"
-      },
-      {
-        "n": "olive oil",
-        "pp": 8,
-        "u": "ml"
-      },
-      {
-        "n": "paprika & cumin"
-      }
-    ],
-    "method": [
-      "Soften the chopped onion and pepper in olive oil over medium heat, about 5 minutes.",
-      "Stir in the tomato paste, paprika and cumin, then add the chopped tomatoes. Simmer 10 minutes until thick.",
-      "Make wells in the sauce and crack in the eggs. Cover and cook until the whites set but the yolks stay soft.",
-      "Serve straight from the pan with bread for dipping."
-    ],
-    "tip": "A handful of crumbled feta over the top just before serving is never a mistake.",
-    "nutrition": {
-      "kcal": 310,
-      "protein_g": 16,
-      "carbs_g": 18,
-      "fat_g": 20
-    },
-    "storage": "Sauce keeps 3 days; add fresh eggs when reheating."
-  },
-  {
-    "id": "bf-egg-wrap",
-    "cat": "go",
-    "name": "Breakfast Egg Wrap",
-    "emoji": "🌯",
-    "cuisine": "Global",
-    "time": 12,
-    "costPP": 18,
-    "feel": "A whole fry-up, rolled up and running out the door.",
-    "ingredients": [
-      {
-        "n": "large eggs",
-        "pp": 2,
-        "u": "egg"
-      },
-      {
-        "n": "tortilla wrap",
+        "n": "banana",
         "pp": 1,
         "u": ""
       },
       {
-        "n": "cheddar",
+        "n": "peanut butter",
         "pp": 25,
         "u": "g"
       },
       {
-        "n": "tomatoes",
+        "n": "oats",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 200,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Add the banana, peanut butter, oats, milk and honey to a blender.",
+      "Blend until completely smooth, about 30 seconds.",
+      "Pour and drink."
+    ],
+    "tip": "The spoon of oats thickens it and keeps you full far longer.",
+    "nutrition": {
+      "kcal": 360,
+      "protein_g": 14,
+      "carbs_g": 42,
+      "fat_g": 16
+    },
+    "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
+  },
+  {
+    "id": "bf-amasi-berry-smoothie",
+    "cat": "smoothies",
+    "name": "Amasi Berry Smoothie",
+    "emoji": "🧉",
+    "cuisine": "Global",
+    "photoName": "Amasi Berry Smoothie",
+    "time": 5,
+    "costPP": 13,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Tangy maas and berries — creamy, local, and full of good bacteria.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "ingredients": [
+      {
+        "n": "amasi",
+        "pp": 200,
+        "u": "ml"
+      },
+      {
+        "n": "mixed berries",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Add the amasi, berries, banana and honey to a blender.",
+      "Blend until smooth.",
+      "Pour and drink right away."
+    ],
+    "tip": "Amasi brings both the tang and the protein, so no yoghurt is needed.",
+    "nutrition": {
+      "kcal": 210,
+      "protein_g": 11,
+      "carbs_g": 32,
+      "fat_g": 4
+    },
+    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
+  },
+  {
+    "id": "bf-red-berry-and-beet-smoothie",
+    "cat": "smoothies",
+    "name": "Red Berry & Beet Smoothie",
+    "emoji": "🫐",
+    "cuisine": "Global",
+    "photoName": "Red Berry & Beet Smoothie",
+    "time": 5,
+    "costPP": 15,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Earthy beetroot and sweet berries — vivid pink and packed with iron.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "ingredients": [
+      {
+        "n": "cooked beetroot",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "mixed berries",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "banana",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "plain yoghurt",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 120,
+        "u": "ml"
+      },
+      {
+        "n": "honey",
+        "pp": 8,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Add the cooked beetroot, berries, banana, yoghurt, milk and honey to a blender.",
+      "Blend until completely smooth.",
+      "Pour and drink right away."
+    ],
+    "tip": "Use pre-cooked beetroot; the berries hide the earthiness completely.",
+    "nutrition": {
+      "kcal": 230,
+      "protein_g": 8,
+      "carbs_g": 42,
+      "fat_g": 4
+    },
+    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
+  },
+  {
+    "id": "bf-avocado-and-date-smoothie",
+    "cat": "smoothies",
+    "name": "Avocado & Date Smoothie",
+    "emoji": "🥑",
+    "cuisine": "Global",
+    "photoName": "Avocado & Date Smoothie",
+    "time": 5,
+    "costPP": 16,
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Thick as a milkshake, rich and silky — avo does what ice cream pretends to.",
+    "goesWith": [
+      "Toast Toppers",
+      "Fresh Fruit"
+    ],
+    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "ingredients": [
+      {
+        "n": "avocado",
+        "pp": 0.5,
+        "u": ""
+      },
+      {
+        "n": "pitted dates",
+        "pp": 3,
+        "u": ""
+      },
+      {
+        "n": "blueberries",
         "pp": 40,
         "u": "g"
       },
       {
-        "n": "butter",
-        "pp": 6,
-        "u": "g"
-      },
-      {
-        "n": "salt & pepper"
+        "n": "milk",
+        "pp": 180,
+        "u": "ml"
       }
     ],
     "method": [
-      "Scramble the eggs softly in butter, seasoning as you go.",
-      "Warm the tortilla in a dry pan for a few seconds.",
-      "Pile the eggs down the middle, top with grated cheddar and chopped tomato.",
-      "Roll up tightly, slice in half and go."
+      "Pit the dates (soak in a little warm water for a few minutes if they are firm).",
+      "Scoop out the avocado.",
+      "Blend the avocado, dates, blueberries and milk until completely smooth and thick.",
+      "Pour and drink right away."
     ],
-    "tip": "Wrap it in foil to keep it warm and hold it together on the road.",
+    "tip": "A ripe avo makes it luxuriously thick — no yoghurt or ice cream needed, and the dates do all the sweetening.",
     "nutrition": {
-      "kcal": 390,
-      "protein_g": 21,
-      "carbs_g": 26,
-      "fat_g": 22
+      "kcal": 320,
+      "protein_g": 6,
+      "carbs_g": 38,
+      "fat_g": 17
     },
-    "storage": "Best fresh; eat within a few hours."
+    "storage": "Best fresh — the avo browns if kept, so blend and drink. Not for freezing."
   }
 ];
 
@@ -6309,7 +6125,7 @@ var SIDES_BASICS_RECIPES = [
 
 function mealSectionHTML(sectionKey){
   const configs = {
-    breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:'savoury',e:'🍳',l:'Savoury & Cooked'},{id:'warm',e:'🥣',l:'Warm & Comforting'},{id:'sweet',e:'🥐',l:'Sweet & Baked'},{id:'fresh',e:'🍓',l:'Fresh & Light'},{id:'go',e:'🥤',l:'On the Go'}]},
+    breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:"eggs",e:"🍳",l:"Eggs"},{id:"fryups",e:"🥓",l:"Fry-Ups"},{id:"toast",e:"🍞",l:"Toast"},{id:"pancakes",e:"🥞",l:"Pancakes & Waffles"},{id:"oats",e:"🥣",l:"Oats & Porridge"},{id:"baked",e:"🧁",l:"Baked"},{id:"smoothies",e:"🥤",l:"Smoothies & Bowls"}]},
     lightlunch: {title:"Light Lunch",       emoji:"🥗", color:"#30a070", bg:"#081810", border:"#1a4025", recipes:typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],sub:"Salads · Wraps · Soups · Quick meals", cats:[{id:'salads',e:'🥗',l:'Salads & Bowls'},{id:'handhelds',e:'🥪',l:'Sandwiches & Wraps'},{id:'soups',e:'🍲',l:'Soups'},{id:'savbakes',e:'🥧',l:'Savoury Bakes'},{id:'quick',e:'⚡',l:'Quick & Light'}]},
     supper:     {title:"Supper",            emoji:"🍽️", color:"#6080d0", bg:"#080f18", border:"#1a2840", recipes:typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],        sub:"Evening meals · Family dinners", cats:[{id:'plates',e:'🍳',l:'Homestyle Plates'},{id:'pastapizza',e:'🍝',l:'Pasta & Pizza'},{id:'stewscurries',e:'🍛',l:'Stews, Curries & One-Pots'},{id:'ovenbakes',e:'🥧',l:'Oven Bakes & Roasts'},{id:'friedgrilled',e:'🍔',l:'Fried & Grilled'}]},
     bakes:      {title:"Bakes & Cakes",     emoji:"🧁", color:"#d06080", bg:"#180810", border:"#401020", recipes:typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],          sub:"Cakes · Biscuits · Breads · Desserts", cats:[{id:'breads',e:'🍞',l:'Breads & Rolls'},{id:'flatbreads',e:'🫓',l:'Flatbreads'},{id:'quickbreads',e:'🧁',l:'Muffins & Quick Breads'},{id:'biscuits',e:'🍪',l:'Biscuits & Rusks'},{id:'cakes',e:'🎂',l:'Cakes & Cupcakes'},{id:'pastries',e:'🥐',l:'Pastries & Tarts'}]},
@@ -6950,7 +6766,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
             <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#908066;font-size:13px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
           </div>`;
         }).join('')}
-        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>
+        ${(r.ingredients||[]).some(i=>/rice|pap|mealie|samp|meat|mince|chicken|beef|lamb|pork|steak|wors|sausage|fish|snoek|bacon|biltong|chop|\brib/i.test(i.n))?`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>`:''}
       </div>
 
       <!-- Method -->
@@ -7184,7 +7000,7 @@ function openMealRecipe(id){
   };
   const arr = sectionRecipes[sec]||[];
   const r = arr.find(x=>x.id===id);
-  if(r) setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec})});
+  if(r){ const _root=document.getElementById('root'); if(_root) _root._savedScroll=0; setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec})}); }
 }
 function toggleMealPlan(id){
   const sec = S.screen||'';
