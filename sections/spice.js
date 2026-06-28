@@ -3904,8 +3904,31 @@ var SPICE_DB = [
     aliases: ["mixed nut butter", "nut blend spread"],
     story: "Mixing nuts gives you the best of each — depth from almonds and creaminess from cashews. It is a simple way to build flavour without extra effort. The balance is what makes it special.",
     howThisFeels: "Layered and steady, like familiar flavours coming together quietly."
-  }
+  },
 
+
+  {
+    id: "strawberry-jam",
+    name: "Strawberry Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"fresh strawberries" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Hull and roughly chop the strawberries, then combine with the sugar and a good squeeze of lemon juice in a wide pot and let them sit 15 minutes until the juices run. Bring to a rolling boil over medium-high heat, stirring often, and boil hard for 15 to 20 minutes. Test for set by dropping a little onto a cold saucer — if it wrinkles when you push it, it is ready. Skim off any foam and pour into clean, hot, sterilised jars and seal while hot. Use a wide pot, not a deep one: more surface area sets it far faster. Sealed jars keep for months in the cupboard; once opened, refrigerate up to 3 weeks, or freeze as freezer-jam up to 6 months."
+    },
+    pairsWith: ["scones", "buttered toast", "croissants", "yoghurt", "rice pudding"],
+    aliases: ["jam", "strawberry jam", "strawberry preserve", "strawberry conserve"],
+    story: "Summer strawberries caught in a jar — nothing like the shop stuff. Jam sets thanks to pectin, a natural gum in fruit that firms up when boiled with sugar and acid. Strawberries are low in pectin, which is why a squeeze of lemon juice is the old trick: the acid helps the set and brightens the flavour at the same time.",
+    howThisFeels: "Bright, sweet and a little jammy-sticky — the taste of summer on a warm scone."
+  }
 ];
 
 if (typeof window !== "undefined") window.SPICE_DB = SPICE_DB;

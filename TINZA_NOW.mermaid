@@ -1,74 +1,86 @@
-%% TINZA_NOW — session handoff · 28 Jun 2026 (session 6)
+%% TINZA_NOW — session handoff · 28 Jun 2026 (session 8 · BREAKFAST MERGE DONE — meals.js + spice.js built & validated, ready to push)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[Earlier pushed live: prices.js + packs.js + meals.js + events.js + beveragesData.js. BAR PLANNER now WIRED + VERIFIED by Code node-check PASS, core.js untouched, engine matches spec — 3 files staged to push: barplanner.js + events.js + index.html.]
-  NEXT[NEXT UP — PUSH the 3 Bar Planner files + live-eyeball Beverages → Bar Planner · PHASE 2 whole-beverage pass versions + order · PHASE 3 Braai makeover]
+  STATUS[SESSION 8 = THE BREAKFAST MERGE. ⚠ CRITICAL LIVE FINDING confirmed against meals.js: the live breakfast was STILL the OLD flat 14-dish structure — the bf_bundles.js restructure had NEVER been merged. So this session did bundle-ON-MERGE in one go: laid the 7 restructured cards into BREAKFAST_RECIPES, folded the old flat dishes into them, AND added all session-7 content. RESULT = meals.js + spice.js rebuilt, node --check PASS, only the BREAKFAST_RECIPES block changed (rest of meals.js byte-identical). NOT yet pushed — Tina pushes via GitHub Desktop.]
+  NEXT[➡️ NEXT = PUSH + live-eyeball. Drag meals.js + spice.js into sections/ (replace) · commit · push (one push, both files) · then click through breakfast on tinza.netlify.app. After push: shoot the 10 new photos · verify PRICE_DB gaps · then app-wide X25 retrofit + Collections build, then back to ROADMAP (bundling/upscaling other sections → sameness).]
   START --> STATUS --> NEXT
 
-  subgraph DONE6[" DONE + PUSHED THIS SESSION "]
-    D1[Steps 1-2-3: parts 4+5 live · viennas 24/pack R3.54 · duplicate gnocchi deleted Boscaiola kept]
-    D2[Beverages versions WIRED — drinks builder renders version-chips via shared core.js fns, base300 overlaid in builder, ZERO core.js change. Did You Know added to drinks]
-    D3[Fruit Punch — one card one photo 5 versions Classic default 🧃 · Summer Berries 🫐 · Tropical 🍍 · Sparkling Wine 🥂 ALC · Spiked 🍸 ALC. pā̃c five Did You Know. Text amounts]
+  subgraph DONE8[" ✅ DONE THIS SESSION (built + validated, ready to push) "]
+    M1[meals.js — BREAKFAST_RECIPES fully rebuilt = 18 cards/dishes. node --check PASS. Only the breakfast array changed; everything else identical.]
+    M2[7 RESTRUCTURE CARDS from bf_bundles.js: 🥣 Porridge & Pap 5 · 🥣 Oats · 🍓 Fruit & Yoghurt Bowls · 🍞 Toast Toppers 6 · 🍳 Eggs Your Way 5 · 🥞 Pancakes 3 · 🥓 Fry-Up 2. Old flat dishes folded in: Bacon&Eggs→Fry-Up · Creamy/Mango/BakedBerry/Bircher oats→Oats · MealiePap→Porridge&Pap · AvoToast/FrenchToast→ToastToppers · Granola→Bowls.]
+    M3[OATS card = 10 chips. Creamy default + Overnight Jar anchors + 5 interesting (Malva-Melktert · Rooibos&Honey · Peppermint Crisp · Curry&Coconut · Custard Protein) + Bircher · Mango · Baked Berry. DROPPED per Tina = Banana-Honey + Apple-Cinnamon. Card freezes:true fridgeDays:2 X25.]
+    M4[BOWLS card = 8 chips. Existing 4 (Granola default · Amasi&Fruit · Cottage&Peaches · Tropical) + 4 interesting (Boererusk&Amasi · Stewed Fruit · Granadilla&Honey · Stone Fruit & Hot Honey). Card freezes:false fridgeDays:1 X25.]
+    M5[NEW CARDS added: 🧇 Waffles 5 · 🍳 Frittata 5 · 🧁 Muffins 6 · 🥮 Scones 6 · 🥤 Smoothies 7 (replaces old single Berry-Banana Smoothie; default folds it in). All carry X25 freezes/fridgeDays.]
+    M6[STANDALONE added: 🧇 Omelette Waffle (Tina's call = STANDALONE WOW, own photo, NOT folded into Eggs) · 🐟 Smoked Snoek Scrambled Eggs · 🫘 Chakalaka Baked Eggs (brinner) · 🥚 Turkish Eggs.]
+    M7[SURVIVING LIVE WOWS preserved verbatim: 🍅 Shakshuka · 🌯 Breakfast Egg Wrap. They keep their existing photo convention — left untouched.]
+    M8[spice.js — 🍓 Strawberry Jam added. Drafted in the wrong (meals) shape → CONVERTED to the SPICE_DB shape (type/shelf/makeYourOwn/story/howThisFeels). Lands on the jams-preserves shelf (was EMPTY, now 1). node --check PASS. basil-pesto intact, SPICE_DB now 144.]
   end
 
-  START --> DONE6
+  START --> DONE8
 
-  subgraph BARPLAN[" PHASE 1 — BAR PLANNER the Drinks Brain · WIRED + VERIFIED by Code 28 Jun · node-check PASS · ready to push "]
-    BP0[OWN FILE barplanner.js — locked deliberately to keep it OUT of events.js. PRO-ONLY]
-    BP1[INPUTS — headcount · 5-hour default duration on a slider · 25ml single-tot default]
-    BP2[DRINKS BRAIN maths — about 1 drink/guest/hr, 2 in hour 1, + buffer. Three drink types tot+mixer · tot-neat · unit. Mixer auto-pair brandy to Coke 200ml · gin to tonic 150ml]
-    BP3[SPLIT — 25/25/25/25 Spirits/Wine/Cider-Coolers-Beer/Soft · auto-rebalance to 33/33/33 when a category toggled off]
-    BP4[PRESETS — Full Bar · Wine and Bubbly · Beer and Wine · Brandy-and-Coke Highveld]
-    BP5[BAR MODES — Open · Cash · Limited set an R-tab e.g. R5000 shows how many drinks it covers before cash bar]
-    BP6[EXTRAS — ice 1kg per 2-3 guests · MCC toast line 1 glass/guest · SA packs beer-cider cases of 24, wine 12 · midPrice per item benchmarked Checkers LiquorShop / Tops mid-shelf, premium costs more note]
-    BP7[OUTPUT — costed tick-list + quantities + mode note. SCAFFOLD done: data + drinksBrain engine + full render Pro-gated own file. Tested 50g/5h Full Bar = 345 drinks R5055. NEXT — Code wires events.js hook beverageCat barplanner + verifies maths incl spirit-picker swap, prices are ESTIMATES to verify, split preset-driven slider later]
-    BP8[GLOBAL-READY — spirits are a generic global menu Brandy/Whisky-Scotch/Bourbon/Gin/Vodka/Rum/Tequila/Cane with a Spirit-of-choice picker. SA brands in eg examples only. SA default brandy · Rand prices. Currency + per-region price overlay = future layer]
-    BP9[WIRING DONE by Code — index.html script tag L162 · events.js render branch L996 before the generic bevCat lookup · category tile L1071. core.js + beveragesData.js untouched. PUSH 3 files then LIVE-eyeball click-through. midPrices still ESTIMATES to verify pre-launch]
+  subgraph CROSSLINK[" ⚠ CROSS-LINKS — clickable DEFERRED (key learning) "]
+    CL1[Breakfast recipes render via the MEALS path = recipeDetailFromResult (openMealRecipe→mealActiveRecipe), NOT the universal recipeView. So BRAAI_CROSS_LINKS (keyed by id in core.js) does NOT reach breakfast, and the meals recipe-detail has no clickable crossLinkBox yet.]
+    CL2[DECISION: did NOT touch core.js this session (locked rule: core.js = high-risk, only if it IS the session purpose). The Frittata→Basil-Pesto and Scones→Strawberry-Jam pointers ride as TEXT in the version tips (the existing meals convention — same as the pizza 'make your own base in Sides & Basics' tips).]
+    CL3[FUTURE Claude Code task = add crossLinkBox support into recipeDetailFromResult so meals/breakfast get the same clickable 'Make your own' card the Braai dishes have. Then register bf-frittata→openSpiceRecipe('basil-pesto') and bf-scones→openSpiceRecipe('strawberry-jam'). Purely additive — nothing breaks without it. Ties into BD11/P3c clickable goes-well-with.]
   end
 
-  subgraph PHASE2[" PHASE 2 — WHOLE BEVERAGE SECTION PASS "]
-    P2a[Roll the versions/options treatment across drinks like Fruit Punch where it adds value]
-    P2d[COCKTAIL EXPANSION batch BUILT 28 Jun new_drinks_batch.js — 17 cocktails + Rock Shandy mocktail node-check PASS. Code caught mimosa+bellini already exist in BUBBLY cat — REMOVED from batch. Expected after insert cocktails 9→26 mocktails 6→7 total 48→66. Mocktail chips on Tequila Sunrise · Moscow Mule · Bloody Mary. Pornstar→Passionfruit Martini real name in Did You Know. TODO drop file in repo so Code can read it]
-    P2e[OPTIONAL — upgrade existing bubbly Mimosa + Bellini with Did You Know + sparkling-grape Mocktail version chips to match new cocktails polish]
-    P2b[Give the categories proper ORDER. Current groups Punches and Jugs · Cocktails · Shooters · Mocktails and Soft · Homemade and Cream · Hot Drinks · Welcome and Bubbly · Coffee-Tea]
-    P2c[Drinks shopping list version-aware — make drinkShopItems read the chosen version not just base Classic]
+  subgraph PUSH[" PUSH + VERIFY CHECKLIST "]
+    PU1[node --check meals.js + spice.js = DONE PASS]
+    PU2[GitHub Desktop: Show in Explorer → drag meals.js + spice.js into sections → delete old, Replace → ONE commit → push. LF→CRLF warning harmless.]
+    PU3[LIVE-eyeball tinza.netlify.app breakfast: 5 pills render · Oats 10 chips · Bowls 8 chips · new cards open · Smoothies replaced the old single · Shakshuka + Egg Wrap still there · costing recomputes once PRICE_DB gaps resolve.]
+    PU4[Spice room: Jams & Preserves shelf now shows Strawberry Jam.]
   end
 
-  subgraph PHASE3[" PHASE 3 — BRAAI MAKEOVER "]
-    P3a[Planner cards to full expanded recipes. First PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
-    P3b[Make-your-own links — POTATO SALAD to NEW Homemade Mayonnaise in Spice Sauces · SOURDOUGH to fer_sourdough starter in Health Hub]
-    P3c[Goes-well-with pills clickable to real recipes]
+  DONE8 --> CROSSLINK --> PUSH
+
+  subgraph PHOTOS[" 📸 PHOTO SHOOT LIST (new, accent-free filenames) "]
+    PHO1[NEW standalone/new-card photos: Waffles · Frittata · Muffins · Scones · Smoothie · Omelette Waffle · Strawberry Jam · Smoked Snoek Scrambled Eggs · Chakalaka Baked Eggs · Turkish Eggs.]
+    PHO2[BUNDLE-CARD photos from the restructure (shoot if not already done): Porridge and Pap · Oats · Fruit and Yoghurt Bowl · Toast Toppers · Eggs · Pancakes · Fry Up. Oats & Bowls interesting chips SHARE their card photo — no per-chip shots.]
+    PHO3[Studio is a STATIC snapshot — regenerate from live data after this push.]
   end
 
-  DONE6 --> BARPLAN --> PHASE2 --> PHASE3
+  subgraph PRICEDB[" 💰 PRICE_DB — verify/add (costs recompute once resolved) "]
+    PR1[Specialty/most-likely-missing: atchar · biltong · quinoa · cottage cheese · sour cream · smoked snoek · thick/Greek yoghurt · fresh dill · rooibos tea · Peppermint Crisp chocolate · caramel treat · coconut milk · cashews · desiccated coconut · buttermilk rusks · dried fruit · granadilla · maple syrup · golden syrup · apricot jam · culinary lavender · blue cheese · dried figs · walnuts · jalapenos · pecan nuts · nectarine · peaches · hot sauce · chorizo · feta · basil pesto · fresh basil · baby marrow · sweet potato · sweetcorn · dark chocolate · streaky bacon · buttermilk · fresh strawberries · jam sugar · mango · beetroot · peanut butter · pitted dates · avocado · amasi. costPP + nutrition on candidates are DRAFT estimates — engine recomputes.]
+  end
+
+  PUSH --> PHOTOS --> PRICEDB
+
+  subgraph OPEN[" STILL OPEN AFTER MERGE "]
+    O1[Clickable breakfast cross-links (Claude Code, see CROSSLINK).]
+    O2[App-wide X25 storage retrofit across older sections (its own task).]
+    O3[Optional Pesto & Goat Cheese egg chip for Eggs-Your-Way (Tina's call, not built).]
+    O4[Collections build — #1 Breakfast for Supper: front-door Supper shelf + Budget suggester (brinner-tagged pool). Chakalaka Baked Eggs + Omelette Waffle already brinner-eligible.]
+  end
+
+  PRICEDB --> OPEN
+
+  subgraph ROADMAP[" ROADMAP / PRIORITY ORDER (locked 28 Jun) "]
+    RM1[1. STAPLE BUNDLING across the whole app — bundle near-identical staples into one card + version chips + one photo. BREAKFAST = proven. Next sections to bundle.]
+    RM1 --> RM2[2. RECIPE ENHANCEMENT / UPSCALING + VARIATIONS across the whole app — depth is what makes Tinza worth paying for.]
+    RM2 --> RM3[3. THEN resume SAMENESS cosmetic work.]
+  end
 
   subgraph CARRY[" CARRY FORWARD "]
-    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels really 5. Swap to SELF-RAISING flour, egg wash optional, honest name kept]
-    PH1[Plain dough photos missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi]
-    PH2[NEW cocktail photos to shoot — ~19 new drinks need heroes. Versioned ones share one photo. Remember ACCENT-FREE filenames eg Pina Colada.jpg]
-    BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
-    B2[Weekly meal planner to ONE costed shopping list]
-    B4[Marketing · founding-members + waitlist · 8 weeks out]
-    B6c[WK ITALY + FRANCE fresh build]
+    C0[BAR PLANNER 3 files (barplanner.js + events.js + index.html) staged earlier — confirm pushed/live.]
+    C1[COCKTAIL EXPANSION batch new_drinks_batch.js — drop in repo so Code can read; bubbly_upgrades.js replace 2 entries; PHASE 2/3 beverage + braai passes.]
+    C2[Plain dough photos missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi.]
+    C3[Weekly meal planner → ONE costed shopping list · Marketing founding-members + waitlist 8 weeks out · WK Italy + France build · Potjie shelf in Braai.]
   end
 
-  PHASE3 --> CARRY
+  OPEN --> ROADMAP --> CARRY
 
   subgraph RULES[" LOCKED RULES "]
-    X1[node --check before every push · GitHub Desktop only]
-    X3[Sameness · every section = braai v33 · shared core.js · var --token]
-    X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X12[Engine core.js changes are app-wide high-risk. PREFER data + builder fixes]
-    X15[Expanded-recipe standard = method + How This Feels + Variations + Did You Know + clickable Goes-well-with]
-    X16[Goes-well-with pills ALWAYS link to a real recipe]
-    X17[Alcohol at RECIPE/VERSION level · non-alc default chip · boozy versions adults-only note]
-    X18[Bar Planner lives in its OWN barplanner.js · never bolt into events.js]
-    X19[WHOLE Events section = PRO tier 1 — Buffet · Cakes · Finger Foods · Kiddies Parties · Beverages · Bar Planner. No separate Deluxe needed for Events]
-    X20[GLOBAL skeleton, regional data — generic category names that read worldwide, regional brand/ingredient examples + Rand prices as the DEFAULT layer. Currency/region overlay is a future layer]
-    X21[COCKTAILS = alcoholic entries with an optional Mocktail VERSION chip where a natural non-alc twin exists. KEEP the Mocktails CATEGORY for standalone + famous non-alc drinks — version-chips do NOT show in mocktails browse or survive the no-alcohol filter, so true mocktails must stay their own entries]
-    X10[End every session with updated TINZA_NOW.mermaid]
+    X1[node --check before every push · GitHub Desktop only · ONE push for batched files (Netlify credits).]
+    X3[Sameness · every section = braai v33 · shared core.js · var --token.]
+    X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix.]
+    X12[Engine core.js changes are app-wide high-risk. PREFER data + builder fixes. (Why clickable breakfast cross-links were deferred, not hacked.)]
+    X22[BREAKFAST goes-well-with = a DRINK + a fresh/protein side, never a dinner side. Must point at a real Tinza recipe.]
+    X23[COLLECTIONS = themed LENSES over the library, never new sections. Dish keeps ONE home + a soft tag. Collection #1 = Breakfast for Supper.]
+    X24[INTERESTING-DISHES IDENTITY — Tinza's moat = interesting dishes nobody can just google, in the Tinza treatment (honest rands + SA soul + the story). Every shelf = dependable anchors + skew interesting.]
+    X25[STORAGE STANDARD — every recipe states fridge-days + freeze; card-level freezes:bool + fridgeDays:N (filterable). Powers Quick-Cooking + Freezer-Friendly collections. App-wide retrofit still pending.]
+    X10[End every session with updated TINZA_NOW.mermaid.]
   end
 end

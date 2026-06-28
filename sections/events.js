@@ -1781,6 +1781,12 @@ function drinkShopItems(selRecipes, bevG){
     else e.count+=value; };
   var txt = function(n,text){ var e=entry(n); if(text && e.texts.indexOf(text)<0) e.texts.push(text); };
   (selRecipes||[]).forEach(function(bev){
+    // version-aware: if this drink has a chosen version, use ITS base300
+    if(bev.versions && bev.versions.length && typeof activeVersionName==='function'){
+      var _vn = activeVersionName(bev);
+      var _v  = bev.versions.find(function(x){ return x.name===_vn; });
+      if(_v && _v.base300) bev = Object.assign({}, bev, {base300:_v.base300});
+    }
     var sm = (bev.serves||'').toString().match(/\d+/);
     var baseServes = sm ? parseInt(sm[0]) : 0;
     var ratio = baseServes>0 ? (bevG / baseServes) : 1;
