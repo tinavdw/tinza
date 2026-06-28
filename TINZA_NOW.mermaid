@@ -4,61 +4,66 @@ flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[Steps 1-2-3 DONE and PUSHED live this session prices.js + packs.js + meals.js. Beverages version-system wired + Fruit Punch 5-version card built — TWO files prepped node --check PASS ready to push: events.js + beveragesData.js.]
-  NEXT[NEXT UP — 1 PUSH events.js + beveragesData.js · 2 eyeball Fruit Punch chips live · 3 start expanded-recipe rollout sprint Braai first]
+  STATUS[ALL pushed live this session: prices.js + packs.js + meals.js + events.js + beveragesData.js. Fruit Punch 5-version card is LIVE. Plan now — FINISH Beverages as a unit, THEN Braai.]
+  NEXT[NEXT UP — Code verifies + wires barplanner.js then PUSH · PHASE 2 whole-beverage pass versions + order · PHASE 3 Braai makeover]
   START --> STATUS --> NEXT
 
-  subgraph CLOSED[" CLOSED + PUSHED THIS SESSION "]
-    S1[STEP 1 — parts 4+5 live commit b69098b. 5 Italian renames · bread/vienna/stout fixes · accent-free Tagliatelle photo]
-    S2[STEP 2 — Sixty60 verify. 4 of 5 estimates held. Fixed smoked viennas 24 per 1kg not 30 → each R3.54 + ladder 24. PUSHED]
-    S3[STEP 3 — duplicate gnocchi deleted, Boscaiola kept as the superset. PUSHED]
+  subgraph DONE6[" DONE + PUSHED THIS SESSION "]
+    D1[Steps 1-2-3: parts 4+5 live · viennas 24/pack R3.54 · duplicate gnocchi deleted Boscaiola kept]
+    D2[Beverages versions WIRED — drinks builder renders version-chips via shared core.js fns, base300 overlaid in builder, ZERO core.js change. Did You Know added to drinks]
+    D3[Fruit Punch — one card one photo 5 versions Classic default 🧃 · Summer Berries 🫐 · Tropical 🍍 · Sparkling Wine 🥂 ALC · Spiked 🍸 ALC. pā̃c five Did You Know. Text amounts]
   end
 
-  START --> CLOSED
+  START --> DONE6
 
-  subgraph BEV[" BUILT THIS SESSION — BEVERAGES VERSIONS + FRUIT PUNCH "]
-    BVa[WIRING — drinks builder in events.js now renders version-chips via the SHARED core.js fns versionStripHTML + applyRecipeVersion, plus base300/serveNote overlaid in the builder so NO core.js change. Also added Did You Know rendering to drinks. Any drink can now carry versions]
-    BVb[FRUIT PUNCH — one card, one photo, 5 versions: Classic default 🧃 · Summer Berries 🫐 · Tropical 🍍 SA granadilla · Sparkling Wine 🥂 ALC · Spiked 🍸 ALC. Non-alc default · 2 alcoholic carry adults-only serveNote. pā̃c five Did You Know on the card. Text amounts now cost later]
-    BVc[KNOWN FOLLOW-UP — drinks SHOPPING list still reads the BASE Classic amounts regardless of chosen version drinkShopItems not version-aware. Recipe card is correct. Wire later if it matters + cost the punch later]
+  subgraph BARPLAN[" PHASE 1 — BAR PLANNER the Drinks Brain · SCAFFOLD BUILT 28 Jun barplanner.js node-check PASS · Code to verify + wire "]
+    BP0[OWN FILE barplanner.js — locked deliberately to keep it OUT of events.js. PRO-ONLY]
+    BP1[INPUTS — headcount · 5-hour default duration on a slider · 25ml single-tot default]
+    BP2[DRINKS BRAIN maths — about 1 drink/guest/hr, 2 in hour 1, + buffer. Three drink types tot+mixer · tot-neat · unit. Mixer auto-pair brandy to Coke 200ml · gin to tonic 150ml]
+    BP3[SPLIT — 25/25/25/25 Spirits/Wine/Cider-Coolers-Beer/Soft · auto-rebalance to 33/33/33 when a category toggled off]
+    BP4[PRESETS — Full Bar · Wine and Bubbly · Beer and Wine · Brandy-and-Coke Highveld]
+    BP5[BAR MODES — Open · Cash · Limited set an R-tab e.g. R5000 shows how many drinks it covers before cash bar]
+    BP6[EXTRAS — ice 1kg per 2-3 guests · MCC toast line 1 glass/guest · SA packs beer-cider cases of 24, wine 12 · midPrice per item benchmarked Checkers LiquorShop / Tops mid-shelf, premium costs more note]
+    BP7[OUTPUT — costed tick-list + quantities + mode note. SCAFFOLD done: data + drinksBrain engine + full render Pro-gated own file. Tested 50g/5h Full Bar = 345 drinks R5055. NEXT — Code wires events.js hook beverageCat barplanner + verifies maths incl spirit-picker swap, prices are ESTIMATES to verify, split preset-driven slider later]
+    BP8[GLOBAL-READY — spirits are a generic global menu Brandy/Whisky-Scotch/Bourbon/Gin/Vodka/Rum/Tequila/Cane with a Spirit-of-choice picker. SA brands in eg examples only. SA default brandy · Rand prices. Currency + per-region price overlay = future layer]
   end
 
-  subgraph PUSHNOW[" DO RIGHT NOW — push 2 files "]
-    PN1[Push events.js + beveragesData.js. GitHub Desktop Replace + commit + push]
-    PN2[Eyeball live: Beverages → Fruit Punch shows Choose your version chips · tapping swaps ingredients + method · default is Classic non-alc · boozy versions show adults-only note · Did You Know shows]
+  subgraph PHASE2[" PHASE 2 — WHOLE BEVERAGE SECTION PASS "]
+    P2a[Roll the versions/options treatment across all 48 drinks like Fruit Punch where it adds value]
+    P2b[Give the categories proper ORDER. Current groups Punches and Jugs · Cocktails · Shooters · Mocktails and Soft · Homemade and Cream · Hot Drinks · Welcome and Bubbly · Coffee-Tea]
+    P2c[Drinks shopping list version-aware — make drinkShopItems read the chosen version not just base Classic]
   end
 
-  CLOSED --> BEV --> PUSHNOW
-
-  subgraph SPRINT[" BIG SPRINT — EXPANDED-RECIPE ROLLOUT ACROSS WHOLE APP "]
-    SP0[Expanded standard = method + How This Feels + VARIATIONS + Did You Know + clickable Goes-well-with. Roll across Braai · WK · Health · Kiddies · Events]
-    SP1[BRAAI MAKEOVER — planner cards to full recipes. First PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
-    SP2[MAKE-YOUR-OWN CROSS-LINKS — POTATO SALAD to NEW Homemade Mayonnaise recipe in Spice Sauces · SOURDOUGH BREAD to existing fer_sourdough starter in Health Hub Fermented]
-    SP3[GOES-WELL-WITH LOCKED CLICKABLE — every pill links to a real recipe]
-    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels is really 5. Swap plain flour + baking powder + salt to SELF-RAISING flour, egg wash optional → honest name kept]
+  subgraph PHASE3[" PHASE 3 — BRAAI MAKEOVER "]
+    P3a[Planner cards to full expanded recipes. First PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
+    P3b[Make-your-own links — POTATO SALAD to NEW Homemade Mayonnaise in Spice Sauces · SOURDOUGH to fer_sourdough starter in Health Hub]
+    P3c[Goes-well-with pills clickable to real recipes]
   end
 
-  PUSHNOW --> SPRINT
+  DONE6 --> BARPLAN --> PHASE2 --> PHASE3
 
   subgraph CARRY[" CARRY FORWARD "]
-    PH1[Plain dough photos still missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi]
+    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels really 5. Swap to SELF-RAISING flour, egg wash optional, honest name kept]
+    PH1[Plain dough photos missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi]
     BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
     B2[Weekly meal planner to ONE costed shopping list]
     B4[Marketing · founding-members + waitlist · 8 weeks out]
-    B6c[WK ITALY + FRANCE fresh build · heritage + cross-link to Meals]
+    B6c[WK ITALY + FRANCE fresh build]
   end
 
-  SPRINT --> CARRY
+  PHASE3 --> CARRY
 
   subgraph RULES[" LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X11[Costing keystone — every ingredient resolves zero NULL · headline costPP = engine value]
-    X12[Engine core.js changes are app-wide high-risk. PREFER data + builder fixes — beverages versions added with ZERO core.js change]
-    X14[PHOTOS saved under the BARE dish name · photoName to rename display · FILENAMES ACCENT-FREE]
+    X12[Engine core.js changes are app-wide high-risk. PREFER data + builder fixes]
     X15[Expanded-recipe standard = method + How This Feels + Variations + Did You Know + clickable Goes-well-with]
     X16[Goes-well-with pills ALWAYS link to a real recipe]
-    X17[Alcohol handled at RECIPE/VERSION level · non-alc default chip · boozy versions carry adults-only note · never lead a family view with booze]
+    X17[Alcohol at RECIPE/VERSION level · non-alc default chip · boozy versions adults-only note]
+    X18[Bar Planner lives in its OWN barplanner.js · never bolt into events.js]
+    X19[WHOLE Events section = PRO tier 1 — Buffet · Cakes · Finger Foods · Kiddies Parties · Beverages · Bar Planner. No separate Deluxe needed for Events]
+    X20[GLOBAL skeleton, regional data — generic category names that read worldwide, regional brand/ingredient examples + Rand prices as the DEFAULT layer. Currency/region overlay is a future layer]
     X10[End every session with updated TINZA_NOW.mermaid]
   end
 end
