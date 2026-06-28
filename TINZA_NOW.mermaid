@@ -1,66 +1,67 @@
-%% TINZA_NOW — session handoff · 27 Jun 2026 (session 5, parts 4+5)
+%% TINZA_NOW — session handoff · 28 Jun 2026 (session 6)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[Engine fix already LIVE commit e9285f5. Parts 1-3 this session pushed live tip 3145f6f. PARTS 4+5 ready to push: prices.js + packs.js + meals.js + 1 IMAGE RENAME manual. node --check PASS all.]
-  NEXT[NEXT UP — pick: A RE-AUDIT the now-resolving recipes headline costPP · B roll costPP audit to OTHER sections WK/Health/Events/Braai/Kiddies · C verify ESTIMATE prices on Sixty60 pass · D resolve DUPLICATE-NAME gnocchi line 262 · E clickable cross-links BD11]
+  STATUS[Steps 1-2-3 all CLOSED this session. THREE files prepped + node --check PASS, ready to push: prices.js + packs.js + meals.js. Step 1 parts 4+5 already live from last night commit b69098b.]
+  NEXT[NEXT UP — 1 PUSH the 3 prepped files · 2 DECIDE Fruit Punch structure separate-entries vs split-version-cards · 3 start expanded-recipe rollout sprint Braai first]
   START --> STATUS --> NEXT
 
-  subgraph DONE4[" DONE PART 4 — MISSING-PRICE / ALIAS LOCK + BREAD ROOT CAUSE "]
-    RC1[ROOT CAUSE of the NULLs — bread/buns/tortillas written as COUNTS u-blank or u-each but stored as plain WEIGHT keys → priceOf returned weight → costRecipe had no count branch → NULL. Fix is DATA ONLY no engine change]
-    FX1[Added star_each COUNT keys per slice/unit: white/brown/wholewheat/rye/sourdough/thick bread · tortillas · tortilla wrap · burger bun · hamburger roll. PACK_DB count-ladders round shop-spend gold to whole loaf 22 / pack 8 wraps / 6 buns]
-    LK1[BREAD SLICE STANDARD LOCKED — 700g SA loaf approx 22 slices at 30g/slice. Per-slice = loaf ÷ 22]
-    FX3[BUNNY CHOW corrected per Tina — uses UNSLICED loaf cut in half + hollowed like the bobotie pumpkin, NOT slices. Now white loaf 350g by weight; UNSLICED white loaf R15/700g→R21.43/kg cheaper than sliced R21. Verified R8 cook / R15 buy whole loaf]
-    LK2[PRICES LOCKED — stout R36/L · green curry paste R960/kg · gochujang R321/kg sub 50:50 tomato paste+hot sauce · mixed seafood = seafood mix R157 · white loaf R15 unsliced]
+  subgraph CLOSED[" CLOSED THIS SESSION — STEPS 1 2 3 "]
+    S1[STEP 1 DONE — Tina pushed parts 4+5 last night commit b69098b. Verified live: 5 Italian renames in · bread/vienna/stout price fixes in · accent-free Tagliatelle al Ragu.jpg added. node --check PASS all 3 files]
+    S2[STEP 2 DONE — Sixty60 price verify. 4 of 5 estimates held: rye R1.65 · sourdough R2.80 spot-check only · thick white R1.40 · burger bun R4.30. ONE error fixed — smoked viennas are 24 per 1kg pack NOT 30, so each R2.83 to R3.54 and PACK ladder 30 to 24. Cocktail viennas differ 60-70/kg but are weight-priced so untouched]
+    S3[STEP 3 DONE — duplicate gnocchi resolved. Old sp-spinach-mushroom-gnocchi at plates was the SAME dish as the renamed Gnocchi alla Boscaiola which is a full superset versions + Did You Know + goesWith + make-your-own link. DELETED the duplicate per locked rule keep-most-comprehensive. Photo collision resolved — only Boscaiola now uses the shared jpg]
   end
 
-  subgraph DONE5[" DONE PART 5 — DISH RENAMES + PHOTO WIRING + LAST PRICES "]
-    NM1[5 GNOCCHI/PASTA dishes renamed to proper ITALIAN names APPLIED in meals.js: 1 sp-creamy-gnocchi → Gnocchi alla Boscaiola woodcutters mushroom+cream, Tina chose this over Fiorentina · 2 sp-gnocchi-sorrentina = Gnocchi alla Sorrentina unchanged · 3 sp-brown-butter-gnocchi → Gnocchi di Zucca al Burro e Salvia · 4 sp-tagliatelle-ragu → Tagliatelle al Ragu alla Bolognese · 5 sp-cacio-e-pepe → Tonnarelli Cacio e Pepe]
-    PH1[PHOTO WIRING — Tina names photos by the BARE name first-part. Renaming the DISPLAY name would break the photo, so each renamed dish got photoName = its ORIGINAL/file name. All 5 photos verified to resolve against Images/Image/*.jpg]
-    PH2[FIXED 2 already-broken photos: Brown Butter dish name lacked 'Butternut' but file is 'Brown Butter & Sage Butternut Gnocchi.jpg' — photoName now points to it. Tagliatelle file had accent 'Ragù' which cleanPhotoName strips → unreachable]
-    PH3[ACCENT RULE — cleanPhotoName STRIPS diacritics, so photo FILENAMES must be accent-free. Renamed file in repo Tagliatelle al Ragù.jpg → Tagliatelle al Ragu.jpg. TINA MUST do this rename in her Images/Image folder too then push]
-    PR5[LAST PRICES — smoked viennas = hot dog sausages R84.99/kg ÷ ~30 per 1kg pack = R2.83 each count-priced, PACK ladder 30 → R85 pack gold. tinned beans R41/kg baked-bean proxy by weight. Both verified zero NULL]
+  START --> CLOSED
+
+  subgraph PUSHNOW[" DO RIGHT NOW — push the 3 prepped files "]
+    PN1[Push prices.js viennas 3.54 · packs.js vienna ladders 24 · meals.js 262 deleted. GitHub Desktop Replace + commit + push. core.js NOT touched]
+    PN2[Optional tidy — delete orphan accented Tagliatelle photo with the grave accent · delete stray Creamy Spinach.jpg. Both harmless if left]
+    PN3[After push eyeball live: vienna recipes cost a touch higher · only ONE creamy gnocchi remains in pastapizza · plates tab no longer shows the dupe]
   end
 
-  START --> DONE4 --> DONE5
+  CLOSED --> PUSHNOW
 
-  subgraph PUSHNOW[" DO RIGHT AFTER THIS SESSION "]
-    PN1[Push THREE .js: sections/prices.js + sections/packs.js + sections/meals.js. GitHub Desktop. core.js NOT changed in parts 4-5]
-    PN2[MANUAL IMAGE STEP — in Images/Image rename Tagliatelle al Ragù.jpg → Tagliatelle al Ragu.jpg drop the accent, then commit+push. Without it the Tagliatelle photo stays blank emoji]
-    PN3[After push eyeball on tinza.netlify.app: the 5 Italian dishes show proper names + their photos; bread/wrap/vienna/curry recipes now COST]
+  subgraph DECIDE[" PENDING DECISION — BEVERAGES FRUIT PUNCH "]
+    BV1[Tina shooting Fruit Punch photos now. Wants 3 alcoholic + 2 non-alcoholic variants — different spirit/mixer/fruit/fizz. Beverages currently uses SEPARATE flat entries · NO version-chips yet · Mocktails category is the alcohol-free zone for kids and drivers]
+    BV2[FORK affects the photo shoot — version-chips share ONE photo. OPTION A separate entries = own photo each, up to 5 heroes, matches current pattern. OPTION B split into 2 version-cards non-alc 2 + alcoholic 3 = only 2 heroes]
+    BV3[RULE either way — never bundle all 5 under one card with a possibly-alcoholic default chip. Keep 2 non-alc clearly kid-safe + filterable · 3 alcoholic carry an alcohol badge so dietary hide works]
   end
 
-  subgraph GAPS[" GAPS STILL OPEN "]
-    G3[ESTIMATE prices to verify on Sixty60 pass: rye bread_each R1.65 · sourdough_each R2.80 · thick white_each R1.40 · hamburger roll/burger bun_each R4.30 · vienna ~30/pack count]
-    G5[DUPLICATE NAME — line 262 sp-spinach-mushroom-gnocchi cat plates still named 'Creamy Spinach & Mushroom Gnocchi' same as the renamed staple. Decide: rename, merge, or differentiate]
+  PUSHNOW --> DECIDE
+
+  subgraph SPRINT[" BIG SPRINT — EXPANDED-RECIPE ROLLOUT ACROSS WHOLE APP "]
+    SP0[Expanded standard = method + How This Feels + VARIATIONS + Did You Know + clickable Goes-well-with. Currently only Meals 20 recipes. Roll everywhere Braai · WK · Health · Kiddies · Events]
+    SP1[BRAAI MAKEOVER — items are planner cards not full recipes. Upgrade chosen ones. First targets PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
+    SP2[MAKE-YOUR-OWN CROSS-LINKS — pattern confirmed. POTATO SALAD link to a NEW Homemade Mayonnaise recipe to build in Spice Sauces. SOURDOUGH BREAD link to existing fer_sourdough Classic Sourdough Starter in Health Hub Fermented]
+    SP3[GOES-WELL-WITH LOCKED CLICKABLE — every pill links to a real recipe. Needs cross-link array + tappable pills]
+    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels is really 5. Honest fix during Bakes pass: swap plain flour + baking powder + salt to SELF-RAISING flour, treat egg wash as optional → genuinely 2 ingredients, keeps the catchy name]
   end
 
-  subgraph REAUDIT[" RE-AUDIT — now unblocked "]
-    RA1[Recipes skipped last session for NULL ingredients now mostly RESOLVE. Re-run the costPP headline audit so list-card costPP matches the engine. Then roll across WK/Health/Events/Braai/Kiddies]
-  end
-
-  DONE5 --> PUSHNOW --> GAPS --> REAUDIT
+  DECIDE --> SPRINT
 
   subgraph CARRY[" CARRY FORWARD "]
-    BD11[GOES-WELL-WITH CLICKABLE — WK_CROSS_LINKS to array · pills tappable · PENDING]
-    XL1[DISH-to-STAPLE make-your-own links — make clickable with BD11 array]
+    PH1[Plain dough photos still missing in repo — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi. Add to photo-shoot list]
     BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
-    B2[Weekly meal planner → ONE costed shopping list]
-    B4[Marketing · founding-members + waitlist]
+    B2[Weekly meal planner to ONE costed shopping list]
+    B4[Marketing · founding-members + waitlist · 8 weeks out]
     B6c[WK ITALY + FRANCE fresh build · heritage + cross-link to Meals]
   end
 
-  REAUDIT --> CARRY
+  SPRINT --> CARRY
 
   subgraph RULES[" LOCKED RULES "]
     X1[node --check before every push · GitHub Desktop only]
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
-    X11[Costing keystone — verify EVERY ingredient resolves zero NULL · headline costPP = engine value]
-    X12[Engine core.js changes are APP-WIDE high-risk. PREFER DATA fixes prices.js/packs.js — parts 4-5 fixed all NULLs + renames with ZERO engine change]
-    X13[Count-priced staples bread/buns/wraps/viennas: PRICE_DB name_each per slice/unit + PACK_DB ladder for loaf/pack gold. Recipes use u-blank or u-each. Generic bread stays weight for gram binder use]
-    X14[PHOTOS — saved under the BARE dish name. To rename a DISPLAY name, set photoName = the file's name so the photo survives. FILENAMES MUST BE ACCENT-FREE cleanPhotoName strips diacritics]
+    X11[Costing keystone — every ingredient resolves zero NULL · headline costPP = engine value]
+    X12[Engine core.js changes are app-wide high-risk. PREFER data fixes prices.js/packs.js]
+    X14[PHOTOS saved under the BARE dish name. To rename a DISPLAY name set photoName = the file name. FILENAMES MUST BE ACCENT-FREE]
+    X15[Expanded-recipe standard = method + How This Feels + Variations + Did You Know + clickable Goes-well-with. Target shape for EVERY recipe app-wide]
+    X16[Goes-well-with pills ALWAYS link to a real recipe. No dead chips]
+    X17[NEW — Alcohol handled at RECIPE level not version level so dietary hide + kid-safe findability work. Never bundle alcoholic + non-alcoholic under one default chip]
     X10[End every session with updated TINZA_NOW.mermaid]
   end
+end

@@ -153,8 +153,8 @@ const PACK_DB = {
   // ── BY PACK · UNSLICED LOAF (hollowed-loaf dishes; round up to a whole R15 loaf) ──
   "white loaf":        { size: 700, price: 15 },
 
-  // ── BY EACH · SMOKED VIENNAS / HOT DOG SAUSAGES (1kg pack ≈ 30) ──
-  "hot dog sausages":  { each: true, ladder: [30] },
-  "smoked viennas":    { each: true, ladder: [30] }
+  // ── BY EACH · SMOKED VIENNAS / HOT DOG SAUSAGES (1kg pack = 24, standard-size; cocktail viennas differ ~60-70) ──
+  "hot dog sausages":  { each: true, ladder: [24] },
+  "smoked viennas":    { each: true, ladder: [24] }
 
 };

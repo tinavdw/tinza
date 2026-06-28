@@ -706,8 +706,8 @@ const PRICE_DB = {
   "mixed seafood": 157,            // = seafood mix (R110/700g → R157/kg)
 
   // SESSION ADD continued · 27 Jun (part 5)
-  "hot dog sausages_each": 2.83,   // smoked viennas R84.99/kg ÷ ~30 per 1kg pack
-  "smoked viennas_each": 2.83,     // = hot dog sausages
+  "hot dog sausages_each": 3.54,   // smoked viennas R84.99/kg ÷ 24 per 1kg pack (standard-size)
+  "smoked viennas_each": 3.54,     // = hot dog sausages
   "tinned beans": 41,              // savoury tinned beans — baked-bean proxy (R17/410g → R41/kg)
 };
 
