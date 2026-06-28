@@ -4,46 +4,43 @@ flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[Steps 1-2-3 all CLOSED this session. THREE files prepped + node --check PASS, ready to push: prices.js + packs.js + meals.js. Step 1 parts 4+5 already live from last night commit b69098b.]
-  NEXT[NEXT UP — 1 PUSH the 3 prepped files · 2 DECIDE Fruit Punch structure separate-entries vs split-version-cards · 3 start expanded-recipe rollout sprint Braai first]
+  STATUS[Steps 1-2-3 DONE and PUSHED live this session prices.js + packs.js + meals.js. Beverages version-system wired + Fruit Punch 5-version card built — TWO files prepped node --check PASS ready to push: events.js + beveragesData.js.]
+  NEXT[NEXT UP — 1 PUSH events.js + beveragesData.js · 2 eyeball Fruit Punch chips live · 3 start expanded-recipe rollout sprint Braai first]
   START --> STATUS --> NEXT
 
-  subgraph CLOSED[" CLOSED THIS SESSION — STEPS 1 2 3 "]
-    S1[STEP 1 DONE — Tina pushed parts 4+5 last night commit b69098b. Verified live: 5 Italian renames in · bread/vienna/stout price fixes in · accent-free Tagliatelle al Ragu.jpg added. node --check PASS all 3 files]
-    S2[STEP 2 DONE — Sixty60 price verify. 4 of 5 estimates held: rye R1.65 · sourdough R2.80 spot-check only · thick white R1.40 · burger bun R4.30. ONE error fixed — smoked viennas are 24 per 1kg pack NOT 30, so each R2.83 to R3.54 and PACK ladder 30 to 24. Cocktail viennas differ 60-70/kg but are weight-priced so untouched]
-    S3[STEP 3 DONE — duplicate gnocchi resolved. Old sp-spinach-mushroom-gnocchi at plates was the SAME dish as the renamed Gnocchi alla Boscaiola which is a full superset versions + Did You Know + goesWith + make-your-own link. DELETED the duplicate per locked rule keep-most-comprehensive. Photo collision resolved — only Boscaiola now uses the shared jpg]
+  subgraph CLOSED[" CLOSED + PUSHED THIS SESSION "]
+    S1[STEP 1 — parts 4+5 live commit b69098b. 5 Italian renames · bread/vienna/stout fixes · accent-free Tagliatelle photo]
+    S2[STEP 2 — Sixty60 verify. 4 of 5 estimates held. Fixed smoked viennas 24 per 1kg not 30 → each R3.54 + ladder 24. PUSHED]
+    S3[STEP 3 — duplicate gnocchi deleted, Boscaiola kept as the superset. PUSHED]
   end
 
   START --> CLOSED
 
-  subgraph PUSHNOW[" DO RIGHT NOW — push the 3 prepped files "]
-    PN1[Push prices.js viennas 3.54 · packs.js vienna ladders 24 · meals.js 262 deleted. GitHub Desktop Replace + commit + push. core.js NOT touched]
-    PN2[Optional tidy — delete orphan accented Tagliatelle photo with the grave accent · delete stray Creamy Spinach.jpg. Both harmless if left]
-    PN3[After push eyeball live: vienna recipes cost a touch higher · only ONE creamy gnocchi remains in pastapizza · plates tab no longer shows the dupe]
+  subgraph BEV[" BUILT THIS SESSION — BEVERAGES VERSIONS + FRUIT PUNCH "]
+    BVa[WIRING — drinks builder in events.js now renders version-chips via the SHARED core.js fns versionStripHTML + applyRecipeVersion, plus base300/serveNote overlaid in the builder so NO core.js change. Also added Did You Know rendering to drinks. Any drink can now carry versions]
+    BVb[FRUIT PUNCH — one card, one photo, 5 versions: Classic default 🧃 · Summer Berries 🫐 · Tropical 🍍 SA granadilla · Sparkling Wine 🥂 ALC · Spiked 🍸 ALC. Non-alc default · 2 alcoholic carry adults-only serveNote. pā̃c five Did You Know on the card. Text amounts now cost later]
+    BVc[KNOWN FOLLOW-UP — drinks SHOPPING list still reads the BASE Classic amounts regardless of chosen version drinkShopItems not version-aware. Recipe card is correct. Wire later if it matters + cost the punch later]
   end
 
-  CLOSED --> PUSHNOW
-
-  subgraph DECIDE[" PENDING DECISION — BEVERAGES FRUIT PUNCH "]
-    BV1[Tina shooting Fruit Punch photos now. Wants 3 alcoholic + 2 non-alcoholic variants — different spirit/mixer/fruit/fizz. Beverages currently uses SEPARATE flat entries · NO version-chips yet · Mocktails category is the alcohol-free zone for kids and drivers]
-    BV2[FORK affects the photo shoot — version-chips share ONE photo. OPTION A separate entries = own photo each, up to 5 heroes, matches current pattern. OPTION B split into 2 version-cards non-alc 2 + alcoholic 3 = only 2 heroes]
-    BV3[RULE either way — never bundle all 5 under one card with a possibly-alcoholic default chip. Keep 2 non-alc clearly kid-safe + filterable · 3 alcoholic carry an alcohol badge so dietary hide works]
+  subgraph PUSHNOW[" DO RIGHT NOW — push 2 files "]
+    PN1[Push events.js + beveragesData.js. GitHub Desktop Replace + commit + push]
+    PN2[Eyeball live: Beverages → Fruit Punch shows Choose your version chips · tapping swaps ingredients + method · default is Classic non-alc · boozy versions show adults-only note · Did You Know shows]
   end
 
-  PUSHNOW --> DECIDE
+  CLOSED --> BEV --> PUSHNOW
 
   subgraph SPRINT[" BIG SPRINT — EXPANDED-RECIPE ROLLOUT ACROSS WHOLE APP "]
-    SP0[Expanded standard = method + How This Feels + VARIATIONS + Did You Know + clickable Goes-well-with. Currently only Meals 20 recipes. Roll everywhere Braai · WK · Health · Kiddies · Events]
-    SP1[BRAAI MAKEOVER — items are planner cards not full recipes. Upgrade chosen ones. First targets PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
-    SP2[MAKE-YOUR-OWN CROSS-LINKS — pattern confirmed. POTATO SALAD link to a NEW Homemade Mayonnaise recipe to build in Spice Sauces. SOURDOUGH BREAD link to existing fer_sourdough Classic Sourdough Starter in Health Hub Fermented]
-    SP3[GOES-WELL-WITH LOCKED CLICKABLE — every pill links to a real recipe. Needs cross-link array + tappable pills]
-    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels is really 5. Honest fix during Bakes pass: swap plain flour + baking powder + salt to SELF-RAISING flour, treat egg wash as optional → genuinely 2 ingredients, keeps the catchy name]
+    SP0[Expanded standard = method + How This Feels + VARIATIONS + Did You Know + clickable Goes-well-with. Roll across Braai · WK · Health · Kiddies · Events]
+    SP1[BRAAI MAKEOVER — planner cards to full recipes. First PORK BRAAI CHOPS · POTATO SALAD with variations + potato/salad info]
+    SP2[MAKE-YOUR-OWN CROSS-LINKS — POTATO SALAD to NEW Homemade Mayonnaise recipe in Spice Sauces · SOURDOUGH BREAD to existing fer_sourdough starter in Health Hub Fermented]
+    SP3[GOES-WELL-WITH LOCKED CLICKABLE — every pill links to a real recipe]
+    SP4[BAGELS FIX — Bakes 2-Ingredient Bagels is really 5. Swap plain flour + baking powder + salt to SELF-RAISING flour, egg wash optional → honest name kept]
   end
 
-  DECIDE --> SPRINT
+  PUSHNOW --> SPRINT
 
   subgraph CARRY[" CARRY FORWARD "]
-    PH1[Plain dough photos still missing in repo — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi. Add to photo-shoot list]
+    PH1[Plain dough photos still missing — Potato Gnocchi · Fresh Egg Pasta · plain Pizza Dough · plain Butternut Gnocchi]
     BD2[POTJIE SHELF in Braai · cross-link from Over-Coals]
     B2[Weekly meal planner to ONE costed shopping list]
     B4[Marketing · founding-members + waitlist · 8 weeks out]
@@ -57,11 +54,11 @@ flowchart TD
     X3[Sameness · every section = braai v33 · shared core.js · var --token]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix]
     X11[Costing keystone — every ingredient resolves zero NULL · headline costPP = engine value]
-    X12[Engine core.js changes are app-wide high-risk. PREFER data fixes prices.js/packs.js]
-    X14[PHOTOS saved under the BARE dish name. To rename a DISPLAY name set photoName = the file name. FILENAMES MUST BE ACCENT-FREE]
-    X15[Expanded-recipe standard = method + How This Feels + Variations + Did You Know + clickable Goes-well-with. Target shape for EVERY recipe app-wide]
-    X16[Goes-well-with pills ALWAYS link to a real recipe. No dead chips]
-    X17[NEW — Alcohol handled at RECIPE level not version level so dietary hide + kid-safe findability work. Never bundle alcoholic + non-alcoholic under one default chip]
+    X12[Engine core.js changes are app-wide high-risk. PREFER data + builder fixes — beverages versions added with ZERO core.js change]
+    X14[PHOTOS saved under the BARE dish name · photoName to rename display · FILENAMES ACCENT-FREE]
+    X15[Expanded-recipe standard = method + How This Feels + Variations + Did You Know + clickable Goes-well-with]
+    X16[Goes-well-with pills ALWAYS link to a real recipe]
+    X17[Alcohol handled at RECIPE/VERSION level · non-alc default chip · boozy versions carry adults-only note · never lead a family view with booze]
     X10[End every session with updated TINZA_NOW.mermaid]
   end
 end

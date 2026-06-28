@@ -1659,6 +1659,19 @@ function beveragesRecipeOpts(bev, guests){
   guests = guests || 50;
   var emoji = bev.emoji || '🍹';
 
+  // ⭐ VERSIONS — overlay the chosen version onto a COPY (shared core.js fns).
+  // applyRecipeVersion handles feel/method/tip/etc; base300 + serveNote/glassware
+  // aren't in its key list, so overlay those explicitly. The base entry stays the
+  // default for shopping / back-compat. A drink with NO versions is untouched.
+  if(bev.versions && bev.versions.length && typeof activeVersionName==='function'){
+    bev = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(bev) : Object.assign({}, bev);
+    var _vn = activeVersionName(bev);
+    var _v  = (bev.versions||[]).find(function(x){ return x.name===_vn; });
+    if(_v){ ['base300','serveNote','glassware'].forEach(function(k){ if(_v[k]!=null) bev[k]=_v[k]; }); }
+  }
+  var verStrip = (bev.versions && bev.versions.length && typeof versionStripHTML==='function')
+    ? versionStripHTML(bev,'var(--accent)') : '';
+
   // serves number (first integer) → batches; guard "per glass"/"per shot" (no number → 1)
   var servesParts = String(bev.serves||'').match(/\d+/g);
   var servesNum = servesParts ? parseInt(servesParts[0],10) : 0;            // 0 = no number
@@ -1719,8 +1732,11 @@ function beveragesRecipeOpts(bev, guests){
     methodHTML = methodBox(stepsHTML, '');
   }
 
-  // ── EXTRAS: tip only (no Baker Briefing — that is cakes-specific) ──
+  // ── EXTRAS: Did You Know + tip (no Baker Briefing — that is cakes-specific) ──
   var extras = '';
+  if(bev.didYouKnow) extras += (typeof recipeBox==='function')
+    ? recipeBox('💡 Did You Know', '<div style="font-size:15px;color:var(--ink2);line-height:1.6;">'+bev.didYouKnow+'</div>')
+    : '<div style="background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:var(--ink-soft);"><span style="color:var(--accent);">💡 DID YOU KNOW: </span>'+bev.didYouKnow+'</div>';
   if(bev.tip) extras += '<div style="background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;color:var(--ink-soft);"><span style="color:var(--accent);">💡 TIP: </span>'+bev.tip+'</div>';
 
   // ── ACTIONS: real plan toggle (eventSelectedBeverages) ──
@@ -1732,7 +1748,7 @@ function beveragesRecipeOpts(bev, guests){
     photoName:bev.photoName||bev.name, photoEmoji:emoji,
     backJs:"closeRecipe()", backLabel:'← Back',
     name:bev.name, sub:sub, meta:{},
-    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    qtyHTML:verStrip+qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },
     nav:{ backJs:"closeRecipe()", planJs:"closeRecipe({beverageCat:'myplan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
   };
