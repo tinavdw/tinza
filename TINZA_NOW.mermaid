@@ -1,66 +1,80 @@
-%% TINZA_NOW — session handoff · 28 Jun 2026 (session 9 · BREAKFAST UN-BUNDLED — every dish its own card + photo, 7-bucket browse)
+%% TINZA_NOW — session handoff · 29 Jun 2026 (session 10 · BREAKFAST DID-YOU-KNOW SWEEP + NULL-COST GAPS CLOSED + bugsweep verified)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  PIVOT[BIG DECISION — bundling was WRONG for breakfast, now corrected. Bundling existed to solve the PAP problem (piles of near-identical dishes). But Tina made the dishes interesting, so the rule started hiding the very dishes that are the moat + stealing their photo. NEW LOCKED RULE: one-card-with-chips ONLY for true same-dish-different-way (Bobotie = classic/budget/lamb). EVERYTHING ELSE = its own card + its own photo. The breakfast bundles were different dishes crammed together, so they ALL come apart. Even pap gets its own spot + pic — photos are AI-generated = doable, never a reason to skip.]
-  STATUS[SESSION 9 = un-bundled the whole breakfast section. meals.js rebuilt: 18 bundle cards to 70 INDIVIDUAL dishes, each with its own photoName, sorted into 7 browse categories. node --check PASS. Also folded in 2 fixes from Tina's live review: open-recipe scroll-to-top (was opening mid/bottom) + the Raw/dry-weights footnote now only shows on rice/pap/meat dishes. NOT yet pushed.]
-  START --> PIVOT --> STATUS
+  STATUS[SESSION 10 did THREE things. 1) Made every breakfast Did-You-Know UNIQUE: the explode-from-chips had left whole groups sharing ONE card's fact (5 omelettes/scrambles on egg-floats, 6 toasts, 5 waffles, 5 pap, 10 oats, 6 muffins, 6 scones, 8 bowls, 7 smoothies, 2 EMPTY). Wrote 65 fresh dish-specific facts; kept shared facts where they truly belong (boerewors-law to Boerewors & Eggs, sorghum to Maltabella, beta-glucan to plain Creamy Oats, amasi to Amasi & Fruit Bowl); left the 5 already-unique cards alone. 2) Closed all 9 breakfast NULL-cost gaps + 1 carryover bug in prices.js. 3) Refreshed the stale 5-pill comment. node --check PASS on meals.js + prices.js. core.js untouched. >>> READY TO PUSH (2 files, not yet pushed).]
+  START --> STATUS
 
-  subgraph CATS[" NEW BROWSE CATEGORIES (data-driven cats array, no core.js) "]
-    CAT1[Eggs 12 · Fry-Ups 2 · Toast 5 · Pancakes & Waffles 9 · Oats & Porridge 15 · Baked 12 · Smoothies & Bowls 15. Navigation only; every dish its own card inside. Line = is the egg the dish or riding shotgun? Shakshuka/Cloud Eggs = Eggs; Bacon & Eggs = Fry-Up. Toast folded into cooked-plate family. French Toast under Pancakes & Waffles.]
+  subgraph DONE_DYK[" DONE — Did-You-Know sweep (meals.js) "]
+    D1[65 of 70 breakfast dishes given a UNIQUE didYouKnow. 0 duplicates, 0 empties across all 70. Each fact dish-specific + interesting = X24 moat.]
+    D2[5 cards untouched (already unique): Frittata · Omelette Waffle · Smoked Snoek · Chakalaka Baked Eggs · Turkish Eggs.]
+    D3[BOBOTIE DECISION (Tina): NO merges. Un-bundle STANDS. Omelettes + scrambles stay separate. 'Bobotie treatment' = upscale-to-standard, NOT fold.]
   end
 
-  subgraph DONE9[" DONE THIS SESSION (built + validated, ready to push) "]
-    D1[meals.js — BREAKFAST_RECIPES = 70 individual dishes (was 18 cards). Frittata kept as the one true-Bobotie card (filling-chips); everything else individual.. Each chip exploded into its own object: own id · name · photoName (accent-free) · cat · full method/cost/nutrition/storage. node --check PASS.]
-    D2[cats array swapped 5 old pills to 7 new buckets (pure data). Pills + N-options header auto-render off the array.]
-    D3[FIX: openMealRecipe sets _savedScroll=0 so recipes open at the TOP.]
-    D4[FIX: the Raw/dry-weights note now only renders when an ingredient is rice/pap/mealie/meat/wors/fish/bacon — gone from toast/oats/smoothies/eggs/bowls. meals.js render, no core.js.]
-    D5[Naming on explode: omelettes got Omelette, waffles Waffles, frittatas Frittata, scones Scones, smoothies Smoothie, Crepes photoName accent-free, Masala Scramble Akoori, Crumpets Plaatkoekies. Pap names kept to reuse existing pap photos.]
+  subgraph BUGSWEEP[" BUGSWEEP RESULT (Claude Code) — breakfast restructure VERIFIED CLEAN "]
+    B1[node --check 28/28 · health-check ALL CLEAR (30 onclicks resolve, 26 version blocks 0 issues, no dup-id collisions).]
+    B2[(a) 70 dishes under 7 pills, 0 orphans, 0 empty pills. (b) recipes open at TOP (openMealRecipe _savedScroll=0, meals.js:7003). (c) zero stale old-cat refs in LIVE code; bf-berry-smoothie fully gone. (d) breakfast_full_batch.js = DEAD (defines only BREAKFAST_BATCH, referenced nowhere, not in index.html).]
+    B3[Parser bugs from earlier sweep now FIXED in live repo: meals.js anchor parser + events.js fmtScaled both carry (?![a-z]).]
   end
 
-  PIVOT --> CATS --> DONE9
-
-  subgraph EYEBALL[" FOR TINA TO RED-PEN "]
-    E1[FRITTATA — DECIDED: kept as the ONE card-with-filling-chips (true Bobotie: same wedge, swap the filling, one honest photo). The single allowed bundle in breakfast.]
-    E2[FRY-UPS bucket thin (2) — Bacon & Eggs + Boerewors & Eggs. Viennas + full fry-up to add.]
-    E3[HONEY BRICK TOAST method still confusing (cut a thick brick of bread and score). Needs clearer rewrite — flagged, not yet done.]
-    E4[DID-YOU-KNOW variety — each ex-chip inherits its card DYK, so all 5 ex-omelettes share the egg-floats fact. Now separate dishes, per-dish DYK can be written = polish, not blocking.]
-    E5[Borderline homes: Omelette Waffle to Eggs · Egg Wrap to Eggs · Honey Brick to Toast or Baked?]
+  subgraph PRICEFIX[" DONE — breakfast NULL-cost gaps CLOSED (prices.js) "]
+    PF1[+10 exact PRICE_DB keys. Harness re-run: 9 breakfast NULLs + 1 carryover = 0 NULL now. Exact keys resolve BEFORE substring matcher, no mis-matches. node --check PASS.]
+    PF2[Reuse Tina's real prices: berries=120(mixed berries) · masala=300(garam masala) · nectarine=35(peaches) · jalapenos=80(chilli). RED-PEN: masala to durban-masala-350? jalapenos real jar price if pickled? nectarine ok as peaches proxy?]
+    PF3[NEW — Tina-sourced real shop prices: amasi 19(2kg/R38) · cashews 350(100g/R35) · dried fruit 240(500g/R120) · hot sauce 120 AVG(250ml/R30) · culinary lavender 3500(10g/R35). All confirmed, no estimates left.]
+    PF4[BONUS bug FIXED: garlic cloves=280 exact key kills old garlic-cloves to cloves(R1022) mis-match (carryover, not breakfast).]
+    PF5[meals.js head comment refreshed 5-pill to live 7-category scheme (cosmetic).]
   end
 
-  DONE9 --> EYEBALL
+  STATUS --> DONE_DYK --> BUGSWEEP --> PRICEFIX
 
-  subgraph PHOTOS[" PHOTO LIST (AI-generated — Tina + son) "]
-    P1[Each of the ~70 dishes wants its OWN photo (filename = photoName, accent-free). Pap dishes already have photos (names kept to match). The rest need shooting — the trade Tina accepted. Regenerate Photo Studio off live data after push.]
+  subgraph PUSH[" PUSH + VERIFY (this session = 2 files) "]
+    PU1[node --check PASS on meals.js + prices.js. core.js NOT touched (X12 respected).]
+    PU2[GitHub Desktop: push meals.js (DYK + comment) AND prices.js (10 cost gaps) — batch into ONE push to save Netlify credits.]
+    PU3[LIVE eyeball: open breakfast recipes across buckets — each Did-You-Know reads different; cost now shows on dishes that were blank (Masala Scramble, Curry-Coconut Oats, scones, amasi bowls, etc.).]
+    PU4[Tina's own GitHub Desktop step: DELETE sections/breakfast_full_batch.js (dead + safe). Separate from the replace-and-push flow.]
   end
 
-  subgraph PUSH[" PUSH + VERIFY "]
-    PU1[node --check meals.js = PASS. spice.js Strawberry Jam already pushed last session.]
-    PU2[GitHub Desktop: drag meals.js into sections, Replace, commit, push (one push).]
-    PU3[LIVE eyeball: 7 pills render · tap Pancakes & Waffles, waffles findable · every dish its own card · recipes open at top · no weights-note on toast.]
+  PRICEFIX --> PUSH
+
+  subgraph UPSCALE_LEFT[" UPSCALE STILL OUTSTANDING (rest of the Frittata standard) "]
+    U1[goesWith MISSING on 41 breakfast dishes — add 2-3 pairing pills each (plain label pills, not links).]
+    U2[STORAGE STANDARD (X25) freezes/fridgeDays keys missing on ~24 dishes. Many already have GOOD storage TEXT (just need keys ADDED); the lazy 'Best fresh.' ones need a real line + keys.]
+    U3[feel polish on a handful of flat ones — optional, low priority.]
   end
 
-  EYEBALL --> PHOTOS --> PUSH
+  PUSH --> UPSCALE_LEFT
 
-  subgraph NEXT[" NEXT "]
-    N1[1. Tina eyeballs the 74-dish list + red-pen items, tweak names/homes, push.]
-    N2[2. Photo generation pass for the new individual dishes.]
-    N3[3. Polish: Honey Brick method rewrite · per-dish Did You Know variety.]
-    N4[4. This no-bundle + category-browse pattern becomes the TEMPLATE for re-checking every other section. Then ROADMAP: recipe upscaling, then sameness.]
+  subgraph NEXT[" NEXT / TOMORROW "]
+    N1[1. Push this session (meals.js + prices.js), live-eyeball, delete dead breakfast_full_batch.js.]
+    N2[2. HOT SAUCE in Spice: build a few hot-sauce versions in Spice > Sauces (Salad-Dressings / Pesto pattern), then cross-link from Stone Fruit & Hot Honey Bowl via shared crossLinkBox 'Make your own'. PRICE_DB hot sauce 120 is a placeholder AVERAGE until then (hundreds of sauces, hard to pin one price).]
+    N3[3. Finish breakfast upscale: goesWith + storage keys (U1/U2) = next non-destructive meals.js sweep.]
+    N4[4. CATEGORY UI = breakfast browse from sliding pills to BOX-GRID (like Events Choose-Your-Courses + Braai What-Are-You-Planning). Each tile a SUBTITLE of what's inside. Add a sub field per cat.]
+    N5[5. MERGE Toast into Fry-Ups = one Meats & Breads bucket (thin Fry-Ups fix). Down to 6 buckets. Tina's call.]
+    N6[6. ROLL THE PATTERN across rest of FMF: Lunch/Supper · Bakes · Sides & Basics.]
+    N7[7. Honey Brick Toast method rewrite (thick brick, scored — still confusing).]
   end
 
-  PUSH --> NEXT
+  UPSCALE_LEFT --> NEXT
+
+  subgraph OLD_OPEN[" OLDER OPEN ITEMS (carry-forward) "]
+    O1[Chorizo + Mielie rename. Toum straggler wk_africa.js ~L132: 'Toum' to 'Toum (Garlic Cream)' (photo already 200).]
+    O2[Duplicate-name gnocchi at meals.js line 262 — still pending.]
+    O3[X25 storage-standard retrofit across EARLIER recipe bundles (app-wide).]
+    O4[Photo Studio: Tina shooting breakfast bucket-by-bucket (70 dishes queued, studio ~1887).]
+  end
+
+  NEXT --> OLD_OPEN
 
   subgraph RULES[" LOCKED RULES "]
-    X0[NO BUNDLES. One card + chips ONLY for true same-dish-different-way (Bobotie). Every distinct dish = its own card + its own photo. Photos are AI-generated, never a reason to skip. Browse by CATEGORY for discovery, not by cramming dishes under one tile.]
-    X1[node --check before every push · GitHub Desktop only · one push for batched files.]
+    X0[NO BUNDLES. One card + chips ONLY for true same-dish-different-way (Bobotie). Omelettes/scrambles stay separate (re-confirmed).]
+    X1[node --check before every push · GitHub Desktop only · one push for batched files · batch to save Netlify credits.]
     X3[Sameness · every section = braai v33 · shared core.js · var --token.]
     X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix.]
-    X12[core.js = app-wide high-risk. PREFER data + builder fixes. Breakfast cats + scroll + footnote all done in meals.js, zero core.js this session.]
-    X24[INTERESTING-DISHES IDENTITY — the moat = dishes nobody can google, in the Tinza treatment. Exactly the dishes that must NOT be buried as chips.]
-    X25[STORAGE STANDARD — every recipe states fridge-days + freeze; card freezes/fridgeDays. App-wide retrofit pending.]
+    X12[core.js = app-wide high-risk. PREFER data fixes. This session: price gaps done as exact PRICE_DB keys in prices.js, ZERO core.js.]
+    X24[INTERESTING-DISHES IDENTITY = the moat. Every Did-You-Know dish-specific + interesting, never generic. Now true across all 70 breakfast dishes.]
+    X25[STORAGE STANDARD — fridge-days + freeze on every recipe. Breakfast retrofit still outstanding (U2). App-wide pending.]
     X10[End every session with updated TINZA_NOW.mermaid.]
   end
 end

@@ -709,6 +709,18 @@ const PRICE_DB = {
   "hot dog sausages_each": 3.54,   // smoked viennas R84.99/kg ÷ 24 per 1kg pack (standard-size)
   "smoked viennas_each": 3.54,     // = hot dog sausages
   "tinned beans": 41,              // savoury tinned beans — baked-bean proxy (R17/410g → R41/kg)
+  // ── breakfast NULL-cost gaps (29 Jun · from bugsweep) ──
+  // exact keys: resolve before the substring matcher, so no mis-matches
+  "berries": 120,                  // = mixed berries (frozen)
+  "masala": 300,                   // = garam masala (akoori scramble) — confirmed
+  "nectarine": 35,                 // = peaches proxy (in season ~R40/kg)
+  "jalapenos": 80,                 // = chilli proxy — confirmed FRESH (recipe deseeds + finely chops)
+  "garlic cloves": 280,            // = garlic — exact key KILLS the old "garlic cloves"→cloves(R1022) mis-match (carryover, not breakfast)
+  "amasi": 19,                     // 2kg/R38 → R19/kg (Tina)
+  "cashews": 350,                  // 100g/R35 → R350/kg (Tina)
+  "dried fruit": 240,              // mixed, 500g/R120 → R240/kg (Tina)
+  "hot sauce": 120,                // 250ml/~R30 → R120/L, AVERAGE (Tina) — many sauces; see Spice cross-link TODO
+  "culinary lavender": 3500,       // 10g/R35 → R3500/kg (Tina); used in pinches
 };
 
 const MEAT_COSTS = {

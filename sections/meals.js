@@ -1,6 +1,6 @@
 // ════════════════════════════════════════════════════════════════
-//  BREAKFAST RECIPE LIBRARY — seeded across the 5 locked pills
-//  cat: savoury | warm | sweet | fresh | go
+//  BREAKFAST RECIPE LIBRARY — 70 dishes across 7 browse categories
+//  cat: eggs | fryups | toast | pancakes | oats | baked | smoothies
 //  ingredient shape: {n: buy-name, pp: per-person amount, u: g|ml|egg|''}
 // ════════════════════════════════════════════════════════════════
 var BREAKFAST_RECIPES = [
@@ -14,7 +14,7 @@ var BREAKFAST_RECIPES = [
     "time": 10,
     "costPP": 17,
     "feel": "The everyday omelette that never lets you down.",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "didYouKnow": "The plain omelette is famously the dish French chefs are judged on — get it tender and barely coloured and you can cook. The cheese-and-tomato version is South Africa's everyday answer to it: the first filling most of us ever learned to fold.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -65,7 +65,7 @@ var BREAKFAST_RECIPES = [
     "time": 12,
     "costPP": 20,
     "feel": "Earthy mushrooms and salty feta, folded warm.",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "didYouKnow": "Feta is so tied to Greece that it has had protected status in Europe since 2002 — only brined sheep-and-goat's-milk cheese made there may legally be called feta. That brine is also why it needs no extra salt in your eggs.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -116,7 +116,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 17,
     "feel": "Crispy potato cooked right into a loaded omelette.",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "didYouKnow": "Cook grated potato right into beaten eggs and you're one step from the Spanish tortilla, basically the national dish in a thicker form. The trick to crisp potato is wringing the gratings dry in a cloth first — wet potato steams instead of browning.",
     "ingredients": [
       {
         "n": "potatoes",
@@ -172,7 +172,7 @@ var BREAKFAST_RECIPES = [
     "time": 15,
     "costPP": 12,
     "feel": "Soft scrambled eggs lifted with onion, chilli and masala.",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "didYouKnow": "Akoori is the Parsi spiced scramble of India, carried to South Africa by the community who settled in Natal from the 1860s. The eggs are kept deliberately soft and folded off the heat, so the masala stays bright rather than turning rubbery.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -234,7 +234,7 @@ var BREAKFAST_RECIPES = [
     "time": 12,
     "costPP": 9,
     "feel": "Whipped egg-white clouds with a sunny yolk nested in.",
-    "didYouKnow": "A fresh egg sinks and lies flat in water; as it ages the air pocket inside grows, so a stale one stands up or floats — the cook’s oldest freshness test.",
+    "didYouKnow": "Cloud eggs went viral around 2017, but the trick is far older — French cooks were baking whipped whites with a yolk dropped in as 'oeufs a la neige', eggs in snow, back in the 1800s. Whisking the whites is pure meringue science: you beat air into the protein so it sets light and billowy instead of flat.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -962,7 +962,8 @@ var BREAKFAST_RECIPES = [
       "fat_g": 20
     },
     "storage": "Sauce keeps 3 days; add fresh eggs when reheating.",
-    "photoName": "Shakshuka"
+    "photoName": "Shakshuka",
+    "didYouKnow": "Shakshuka means 'a mixture' in North African Arabic and most likely began in Tunisia before spreading across the Middle East. Poaching the eggs straight in the sauce, rather than in water, lets them drink up all the smoky paprika and cumin — and leaves you one less pot to wash."
   },
   {
     "id": "bf-egg-wrap",
@@ -1017,7 +1018,8 @@ var BREAKFAST_RECIPES = [
       "fat_g": 22
     },
     "storage": "Best fresh; eat within a few hours.",
-    "photoName": "Breakfast Egg Wrap"
+    "photoName": "Breakfast Egg Wrap",
+    "didYouKnow": "The flour tortilla was built for exactly this job — sturdy enough to hold a hot filling and eat one-handed on the move. Folding the egg around everything while it's still wet in the pan glues the whole wrap shut, so nothing escapes on the school run."
   },
   {
     "id": "bf-bacon-and-eggs",
@@ -1029,7 +1031,7 @@ var BREAKFAST_RECIPES = [
     "time": 15,
     "costPP": 26,
     "feel": "The smell that pulls everyone out of bed.",
-    "didYouKnow": "To be sold as “boerewors” in South Africa, the law requires at least 90% meat — anything less has to be labelled as something else.",
+    "didYouKnow": "The big bacon-and-eggs breakfast isn't ancient tradition — it was popularised in 1920s America by a public-relations man, Edward Bernays, hired to sell more bacon. He got doctors to endorse a 'hearty' start to the day, and the pairing stuck worldwide.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -1085,7 +1087,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 18,
     "feel": "A coil of wors and a soft egg — a proper farm start.",
-    "didYouKnow": "To be sold as “boerewors” in South Africa, the law requires at least 90% meat — anything less has to be labelled as something else.",
+    "didYouKnow": "By South African law, anything sold as boerewors must be at least 90% meat, with strict limits on fat and fillers — it's one of very few foods with its own legal recipe. Coiled and fried alongside a soft egg, it's farm-stall breakfast at its most honest.",
     "ingredients": [
       {
         "n": "boerewors",
@@ -1136,7 +1138,7 @@ var BREAKFAST_RECIPES = [
     "time": 8,
     "costPP": 16,
     "feel": "Creamy, green and a little bit smug — in the best way.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "Avo toast became a global symbol of millennial spending, but South Africa has been eating it for generations — we're one of the world's biggest avocado growers, with the Tzaneen and Levubu valleys shipping fruit to Europe. A squeeze of lemon keeps the green from browning.",
     "ingredients": [
       {
         "n": "avocado",
@@ -1188,7 +1190,7 @@ var BREAKFAST_RECIPES = [
     "time": 5,
     "costPP": 9,
     "feel": "The lunchbox hero, fast and filling.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "This is basically Elvis's favourite sandwich, minus the frying — he was famous for his peanut-butter-and-banana toasties. The combination works because the banana's sweetness balances the peanut butter's salt, and both are slow-release fuel that carries a lunchbox eater through to break.",
     "ingredients": [
       {
         "n": "white bread",
@@ -1236,7 +1238,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 10,
     "feel": "A thick toast block, custard-soaked and baked sweet and golden.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "Honey brick toast — a thick block of bread cubed, soaked in honey butter and baked — is a Korean cafe favourite that swept dessert spots around the world. Scoring it into cubes before baking lets every cut surface crisp and catch the honey, so it's crunchy outside and pillowy within.",
     "ingredients": [
       {
         "n": "unsliced white loaf",
@@ -1289,7 +1291,7 @@ var BREAKFAST_RECIPES = [
     "time": 12,
     "costPP": 11,
     "feel": "Beans on toast with a proper South African kick.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "Chakalaka was born in the mines and townships around Johannesburg, where workers jazzed up tinned beans and whatever veg they had into a fiery relish. Stirred through baked beans on toast, it turns the most basic pantry breakfast into something with real backbone.",
     "ingredients": [
       {
         "n": "baked beans",
@@ -1336,7 +1338,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 15,
     "feel": "Rich, oniony mince piled on buttered toast.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "Savoury mince on toast is the thrifty cook's best friend — a little mince stretched with onion and tomato feeds a whole table cheaply. It's a direct descendant of the British 'mince on toast' that came to South African kitchens and simply never left.",
     "ingredients": [
       {
         "n": "beef mince",
@@ -1392,7 +1394,7 @@ var BREAKFAST_RECIPES = [
     "time": 15,
     "costPP": 12,
     "feel": "Day-old bread, reborn as something special.",
-    "didYouKnow": "Toasting isn’t just for crunch — the browning (the Maillard reaction) creates hundreds of new flavour compounds that plain bread simply doesn’t have.",
+    "didYouKnow": "French toast isn't really French — the Romans were already soaking stale bread in milk and egg, and the French call it 'pain perdu', meaning 'lost bread', because it rescues a loaf that would otherwise be thrown away.",
     "ingredients": [
       {
         "n": "thick white bread",
@@ -1448,7 +1450,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 7,
     "feel": "Thin, lacy pancakes rolled with cinnamon sugar.",
-    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "didYouKnow": "Pannekoek came with the Dutch and became a South African church-bazaar institution — thin, rolled with cinnamon sugar and sold by the dozen. The Dutch claim is so strong that the Netherlands has whole restaurants, pannenkoekenhuizen, devoted to nothing else.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1507,7 +1509,7 @@ var BREAKFAST_RECIPES = [
     "time": 15,
     "costPP": 7,
     "feel": "Little thick drop scones, golden and fluffy.",
-    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "didYouKnow": "What South Africans call crumpets aren't the holey British kind at all — they're closer to American pancakes or Scottish drop scones, which is why Afrikaans calls them plaatkoekies, little plate-cakes. When the bubbles rise and pop on top, it's time to flip.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1563,7 +1565,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 7,
     "feel": "Paper-thin and tender, ready for any filling.",
-    "didYouKnow": "Pannekoek and crêpes are essentially the same thin batter — the real difference is the name and the filling, from Dutch farm kitchens to Paris street carts.",
+    "didYouKnow": "In France, 2 February is Crepe Day, and tradition says if you flip a crepe one-handed while holding a coin you'll have luck all year. Resting the batter before cooking lets the flour relax, which is the real secret to crepes that are tender rather than rubbery.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1621,7 +1623,7 @@ var BREAKFAST_RECIPES = [
       "Fresh Berries",
       "Crispy Bacon"
     ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "didYouKnow": "The 'Belgian' waffle the world knows was launched at the 1964 New York World's Fair — deeper pockets, lighter batter, piled with cream and strawberries. Buttermilk's acid reacts with the raising agent for extra lift, and lends a gentle tang under the syrup.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1688,7 +1690,7 @@ var BREAKFAST_RECIPES = [
       "Fresh Berries",
       "Crispy Bacon"
     ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "didYouKnow": "Pecans are one of the only major nuts native to North America, and South Africa is now among the world's top growers, with much of the Northern Cape crop heading abroad. The riper the banana, the sweeter the batter — so reach for the speckled ones going soft in the bowl.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1770,7 +1772,7 @@ var BREAKFAST_RECIPES = [
       "Fresh Berries",
       "Crispy Bacon"
     ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "didYouKnow": "Waffles began life savoury, not sweet — medieval ones were pressed between hot iron plates over a fire, often with cheese inside. The American soul-food classic of chicken and waffles keeps that tradition alive, and a cheesy waffle makes a fine bed for a fried egg.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1837,7 +1839,7 @@ var BREAKFAST_RECIPES = [
       "Fresh Berries",
       "Crispy Bacon"
     ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "didYouKnow": "The chocolate chip was a happy accident — Ruth Wakefield chopped a chocolate bar into her 1930s cookie dough expecting it to melt and spread, but it held its shape, and the chip was born. In a hot waffle those chips go molten, then set again as it cools.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1909,7 +1911,7 @@ var BREAKFAST_RECIPES = [
       "Fresh Berries",
       "Crispy Bacon"
     ],
-    "didYouKnow": "Those deep pockets are not just pretty — the grid hugely increases the surface area, so a waffle crisps far more than a flat pancake while the wells cradle pools of butter and syrup. The name comes from the Dutch \"wafel\", and the hinged irons go back to the Middle Ages, when bakers pressed batter between two patterned metal plates held over the fire.",
+    "didYouKnow": "That irresistible sweet-and-salty pull of bacon under syrup is two of your tongue's reward systems firing at once — salt and sugar together light up the brain more than either does alone. Which is exactly why you can never stop at one.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1979,7 +1981,7 @@ var BREAKFAST_RECIPES = [
     "time": 20,
     "costPP": 4,
     "feel": "The taste of a thousand farm mornings.",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "didYouKnow": "Maize isn't originally African at all — it came from the Americas with Portuguese traders, which is why 'mielie' traces back to the Portuguese 'milho'. In barely four hundred years it became the staple that pap, the country's most-eaten breakfast, is built on.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -2030,7 +2032,7 @@ var BREAKFAST_RECIPES = [
     "time": 15,
     "costPP": 8,
     "feel": "Dark, malty and warm — the porridge that raised a country.",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "didYouKnow": "Maltabella is made from sorghum, one of Africa's oldest cultivated grains, grown here for thousands of years before maize ever arrived. Its dark colour and malty depth come from the grain being malted — the very same first step used in brewing.",
     "ingredients": [
       {
         "n": "sorghum meal",
@@ -2081,7 +2083,7 @@ var BREAKFAST_RECIPES = [
     "time": 12,
     "costPP": 6,
     "feel": "Smooth, silky and gentle — the porridge of small mornings.",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "didYouKnow": "'Maizena' is really a brand of cornflour that became the word for the porridge itself, the way we say Jik or Pritt. Cornflour is almost pure starch, so it thickens milk into something silky and smooth with no grain or grit — gentle enough for small tummies and sore throats.",
     "ingredients": [
       {
         "n": "cornflour",
@@ -2127,7 +2129,7 @@ var BREAKFAST_RECIPES = [
     "time": 25,
     "costPP": 3,
     "feel": "Dry, crumbly pap — comfort by the spoonful.",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "didYouKnow": "Putu pap is all about the crumble — cooked dry and steamed rather than stirred smooth, so it falls apart in soft grains. It's the traditional partner to a braai and to sour milk, and coaxing out that dry, fluffy texture without lumps is a real test of a cook's hand.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -2178,7 +2180,7 @@ var BREAKFAST_RECIPES = [
     "time": 25,
     "costPP": 9,
     "feel": "Crumbly pap turned rich and savoury with melting cheese.",
-    "didYouKnow": "Sorghum — the grain behind Maltabella — is one of Africa’s oldest cultivated cereals, grown for thousands of years before maize ever arrived from the Americas.",
+    "didYouKnow": "'Krummelpap' literally means crumb porridge — the driest pap of all, steamed until it breaks into loose crumbs. Stirring cheese through warm krummelpap is a Sunday-after-the-braai trick that turns last night's side dish into a rich, savoury breakfast.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -2231,7 +2233,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "A warm bowl that quietly says the day can wait.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that swells and thickens as it heats — the same fibre shown to help lower cholesterol. Stirring often coaxes more of it out, which is why patiently-stirred oats are silkier than rushed ones.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2282,7 +2284,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Tomorrow-morning sorted before you go to bed.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Overnight oats need no stove at all — cold milk and time do the work, the oats slowly drinking it in until they're soft and pudding-thick by morning. The acid in the yoghurt also begins breaking down the starch, which is why they taste mellower than cooked oats.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2337,7 +2339,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Two of our best puddings — melktert and malva — turned into a warm breakfast bowl.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "This bowl smuggles two South African pudding legends into breakfast: malva, with its apricot-jam sweetness, and melktert, all milk, sugar and cinnamon. Malva pudding's name is thought to come from 'malvasia', a sweet wine once served alongside it.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2402,7 +2404,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Earthy, naturally sweet rooibos cooked right into the oats — a proper SA cuppa in a bowl.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Rooibos grows wild nowhere on earth except the Cederberg mountains of the Western Cape — every cup in the world traces back to that one small region. It's naturally caffeine-free, so cooking the oats in strong rooibos adds earthy sweetness without a single jitter.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2458,7 +2460,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Peppermint Crisp tart for breakfast — caramel-swirled oats under a shower of minty chocolate.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Peppermint Crisp tart is about as South African as a dessert gets, even though the chocolate bar itself started in Britain — it's the local factory that keeps it alive, and we eat far more of it than anyone else. Caramel, mint chocolate and oats is simply that famous tart turned into breakfast.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2512,7 +2514,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Savoury, golden and aromatic — oats reimagined as a cosy spiced bowl, breakfast or light supper.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "There's no rule that oats must be sweet — across Asia, savoury grain porridges like congee are everyday breakfasts. Toasting curry powder and turmeric into coconut milk turns humble oats into something closer to a gentle, golden, spiced soup.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2577,7 +2579,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Thick, custardy and high-protein — oats that taste like warm cake batter.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Stir a beaten egg into hot oats and you've quietly made custard — the egg thickens and enriches them exactly as it would a tart filling. The trick is to add it off the heat and stir fast, 'tempering' it so it turns silky instead of scrambling.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2637,7 +2639,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Cool and gentle, like an early morning before the house wakes.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Bircher muesli was invented around 1900 by Swiss doctor Maximilian Bircher-Benner, who fed his patients raw soaked oats with grated apple and believed deeply in uncooked food. The original was softened overnight and loosened with a little cream by morning — much as we still make it.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2686,7 +2688,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Bright and easy, like a warm breeze through an open window.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "South Africa's mangoes ripen mostly in the summer heat of Limpopo and Mpumalanga. A mango is ready when it gives gently to a squeeze and smells sweet at the stem — stir it in off the heat so it stays bright and fragrant rather than stewed dull.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2735,7 +2737,7 @@ var BREAKFAST_RECIPES = [
     "freezes": true,
     "fridgeDays": 2,
     "feel": "Cosy and baked through, like something shared at a quiet table.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that thickens as it cooks — the same fibre that helps keep you full all morning.",
+    "didYouKnow": "Add an egg and bake your oats and they set like a soft, spoonable cake — the same trick behind the old-fashioned baked oatmeal farmhouse kitchens made to feed a crowd from one dish. The berries sink, burst and stain the whole thing purple as it bakes.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -2793,7 +2795,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Atchar — spicy pickled green mango — came to South Africa with indentured Indian workers in the 1860s and became a kasi staple, the relish that lifts a plate of pap or a kota. Folded into a savoury muffin, its sour-spicy kick cuts straight through the bacon and cheese.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -2869,7 +2871,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Potato is a quiet baker's weapon — its starch clings to moisture, which is why potato breads and these muffins stay soft for days longer than plain ones. The sour cream works from the other side, its acid keeping the crumb tender.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -2950,7 +2952,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Quinoa was sacred to the Incas, who called it the 'mother grain', and it's one of the few plant foods carrying all nine essential amino acids — a complete protein. Paired with cottage cheese and egg, these are about as protein-dense as a muffin gets.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -3016,7 +3018,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Carrot found its way into cakes because it's naturally sweet — a trick that took off in wartime Britain when sugar was rationed. Add pineapple and you've essentially got the 1970s American 'Morning Glory' muffin, moist enough to keep for days.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3098,7 +3100,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Biltong isn't jerky — it's air-dried rather than cooked, and cured with vinegar and coriander the way Dutch settlers preserved meat for long treks inland. Chopped into a cheesy muffin, it brings a deep, salty savouriness nothing else quite matches.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3169,7 +3171,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A muffin is a \"quick bread\" — no yeast, no proving, just baking powder doing the lifting, which is why you go from bowl to oven in minutes. The one golden rule is the muffin method: stir the wet into the dry only until just combined. Overmix and you build gluten, and light breakfast muffins turn into little rubber balls.",
+    "didYouKnow": "Malva pudding is a Cape Dutch classic, and its sticky, spongy magic comes from an unlikely pair: apricot jam for flavour and a splash of vinegar, whose acid reacts with bicarb to tenderise the crumb. Baked as a muffin, it's pudding you're allowed to eat for breakfast.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3250,7 +3252,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "A grind of black pepper with strawberries sounds odd, but it's an old chef's trick — the pepper's warmth lifts the berry's perfume and sweetness, much as a pinch of salt does. Victorian tables were already serving the two together.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3333,7 +3335,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "Britain has a genuine, century-old feud over scones: in Cornwall the jam goes on first, in Devon the cream — and locals take sides seriously. Buttermilk is the South African baker's shortcut to a tall, tender scone, its acid giving extra rise.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3405,7 +3407,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "Most of a jalapeno's heat isn't in the seeds but in the pale membrane they cling to, so scrape that out for a milder scone. Cheddar is the perfect partner because capsaicin, the fiery compound, dissolves in fat — meaning the cheese literally tames the burn.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3472,7 +3474,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "Butternut is a surprisingly modern vegetable — it was bred in Massachusetts in the 1940s to be sweeter and easier to peel than the squashes before it. Roasted into a scone with salty feta, its natural sugars caramelise and balance the cheese.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3547,7 +3549,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "Earl Grey gets its perfume from bergamot, a small bitter citrus grown mainly in Calabria, and is named after a 19th-century British prime minister. Lavender belongs to the same aromatic family as mint and rosemary, so use it sparingly — too much and a scone starts tasting of soap.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3625,7 +3627,7 @@ var BREAKFAST_RECIPES = [
       "Smoothies",
       "Fresh Fruit"
     ],
-    "didYouKnow": "The secret to a tall, flaky scone is cold hands and a light touch: keep the butter cold so it steams into layers, and bring the dough together only just — overworking makes them tough and flat. And never twist the cutter; press it straight down, or the scones rise lopsided.",
+    "didYouKnow": "The blue veins in blue cheese are an edible mould, Penicillium roqueforti, once grown in the cool limestone caves of Roquefort in France. Its sharp saltiness is a classic foil for sweet figs and bitter walnuts — sweet, salty and savoury in a single bite.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -3701,7 +3703,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Cool, crunchy and bright — breakfast without the fuss.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Granola has a surprisingly serious past — it was invented in 1860s America as a health food called 'granula', baked so hard it had to be soaked overnight just to be chewable. Today's looser, honey-clustered version is far kinder to the teeth.",
     "ingredients": [
       {
         "n": "plain yoghurt",
@@ -3750,7 +3752,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Tangy, cool amasi over sweet fruit — an old friend.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Amasi is made by letting raw milk sour and thicken on its own, traditionally in a calabash or hide sack, and it's one of South Africa's oldest foods, eaten long before fridges existed. The natural fermentation makes it easier to digest than fresh milk, even for many who are lactose-sensitive.",
     "ingredients": [
       {
         "n": "amasi",
@@ -3799,7 +3801,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Light, high-protein and quietly delicious.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Cottage cheese got its name because it was the simple cheese people made at home in cottages, from milk left to curdle — it's the very 'curds and whey' of Little Miss Muffet. Its slow-digesting casein protein is why such a light bowl keeps you full for hours.",
     "ingredients": [
       {
         "n": "cottage cheese",
@@ -3846,7 +3848,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "A bright, juicy plate that wakes the whole table up.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Pawpaw contains papain, an enzyme so good at breaking down protein that it's sold as a meat tenderiser — which is also why fresh pawpaw refuses to set in jelly. A squeeze of lemon over the plate keeps the cut fruit bright and stops the banana browning.",
     "ingredients": [
       {
         "n": "pineapple",
@@ -3895,7 +3897,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Beskuit dunked in maas — the oldest, most comforting SA breakfast there is.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Beskuit are twice-baked to drive out every trace of moisture so they keep for months, which is precisely why the Voortrekkers carried them across the country by ox-wagon. Dunked in amasi, that rock-hard rusk softens into the oldest, most comforting breakfast we have.",
     "ingredients": [
       {
         "n": "buttermilk rusks",
@@ -3945,7 +3947,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Gestoofde vrugte over cool yoghurt — a Sunday-at-ouma's kind of breakfast.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "South Africa's dried-fruit tradition runs deep in the hot Western Cape valleys, where apricots, peaches and pears were sun-dried to last the year. Drying pulls out the water and concentrates the sugars, so even a small handful, stewed soft, sweetens a whole bowl.",
     "ingredients": [
       {
         "n": "dried fruit",
@@ -3998,7 +4000,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Thick yoghurt under tart, perfumed granadilla — summer in three spoons.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Granadilla is our name for passion fruit, and the 'passion' is religious rather than romantic — Spanish missionaries read the flower's parts as symbols of the crucifixion. Those crunchy black seeds are perfectly edible and full of fibre.",
     "ingredients": [
       {
         "n": "plain yoghurt",
@@ -4048,7 +4050,7 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Sweet summer stone fruit with a sneaky chilli-honey kick — sophisticated and a little surprising.",
-    "didYouKnow": "Amasi — naturally soured milk — is one of South Africa’s oldest foods, traditionally cultured in a calabash gourd long before fridges existed.",
+    "didYouKnow": "Hot honey, honey infused with chilli, feels modern but has old roots: Italians have drizzled spicy 'miele piccante' over cheese for generations. Peaches and nectarines are 'stone fruit', or drupes, named for the single hard pip at the centre — and the chilli's heat makes their sweetness sing.",
     "ingredients": [
       {
         "n": "plain yoghurt",
@@ -4114,7 +4116,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "Frozen berries often beat fresh in a smoothie — they're picked and frozen at peak ripeness, locking in the goodness, and they chill the drink without watering it down the way ice does. The banana is what turns it thick and creamy instead of thin.",
     "ingredients": [
       {
         "n": "banana",
@@ -4172,7 +4174,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "You genuinely can't taste mild baby spinach once banana and apple are in the blender — the sweetness hides it entirely, which is how green smoothies sneak a serving of leaves past fussy eaters. Blending also breaks the cell walls, making the iron and folate easier to absorb.",
     "ingredients": [
       {
         "n": "spinach",
@@ -4230,7 +4232,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "Mango is the most-eaten fruit on the planet, ahead of both apples and bananas, and it grows right across South Africa's warm Lowveld. A spoonful of granadilla lifts the whole blend, because its sharp, perfumed aroma is what the brain reads as 'tropical'.",
     "ingredients": [
       {
         "n": "mango",
@@ -4289,7 +4291,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "Peanuts aren't nuts at all — they're legumes, growing underground like beans, which is part of why they're so high in protein. Blended with banana and oats, this is a near-complete little meal in a glass: protein, slow carbs and potassium together.",
     "ingredients": [
       {
         "n": "banana",
@@ -4347,7 +4349,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "Amasi is South Africa's home-grown answer to kefir or drinking yoghurt — the natural souring fills it with the same kind of friendly bacteria that keep a gut happy. Its built-in tang also means this smoothie needs far less honey than one made with plain milk.",
     "ingredients": [
       {
         "n": "amasi",
@@ -4400,7 +4402,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "That electric red-purple comes from betalains, the same pigments that stain a board after you chop beetroot — and they're powerful antioxidants. Athletes drink beetroot for its natural nitrates, shown to help the body use oxygen more efficiently.",
     "ingredients": [
       {
         "n": "cooked beetroot",
@@ -4463,7 +4465,7 @@ var BREAKFAST_RECIPES = [
       "Toast Toppers",
       "Fresh Fruit"
     ],
-    "didYouKnow": "A smoothie only earns its place at breakfast if it actually fills you — blended fruit on its own spikes your sugar and leaves you hungry by mid-morning. The fix is something with staying power: yoghurt or amasi for protein, and banana, oats or peanut butter for slow-release energy. That is the whole difference between a drink and a breakfast.",
+    "didYouKnow": "Avocado is the secret to the creamiest smoothie there is — its gentle fat blends to a milkshake thickness with no cream at all, and you'd never taste it behind the dates. Those dates bring a natural caramel sweetness plus fibre, so there's no need for any added sugar.",
     "ingredients": [
       {
         "n": "avocado",
