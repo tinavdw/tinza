@@ -723,8 +723,25 @@ const PRICE_DB = {
   "hot sauce": 120,                // 250ml/~R30 → R120/L, AVERAGE (Tina) — many sauces; see Spice cross-link TODO
   "culinary lavender": 3500,       // 10g/R35 → R3500/kg (Tina); used in pinches
   // ── FMF plates batch gaps (29 Jun) ──
-  "economy steak": 90,             // ESTIMATE — cheap braising cut (blade/chuck); confirm
+  "economy steak": 90,             // ESTIMATE — cheap braising cut (blade/chuck); confirm (NOTE: recipes renamed to "tenderised steak" — key below)
   "trout fillet": 180,             // ESTIMATE — rainbow trout, cheaper than salmon; confirm
+  // ── FMF price-gap sweep (29 Jun · session 12) — closes R0 holes found by the live priceOf audit ──
+  "tenderised steak": 110,         // Tina-confirmed — Checkers ~R99–110/kg (the renamed "economy steak"; fixes 3 budget versions that were costing R0)
+  "whiting": 90,                   // ESTIMATE — cheap firm white fish (Fish & Chips budget); covers "whiting fillets" via substring
+  "russian sausage": 95,           // ESTIMATE — SA Russian; "russian sausages" plural-resolves to this
+  "ramen noodles": 50,             // ESTIMATE — instant/fresh ramen
+  "soba noodles": 75,              // ESTIMATE — buckwheat, dearer than wheat
+  "rice noodles": 45,              // ESTIMATE — was mis-resolving to plain rice R27; exact key fixes
+  "noodles": 80,                   // Tina-sourced — egg noodles 454g @ R35–40 ≈ R80/kg (also the target for the renamed "egg noodles" soup)
+  "mixed stir fry veg": 45,        // ESTIMATE — frozen stir-fry mix (cleaned key form, no hyphen)
+  "spring roll wrappers": 60,      // ESTIMATE — pastry sheets; small per-recipe use
+  "slap chips": 35,                // ESTIMATE — frozen thick-cut chips
+  "corn chips": 120,               // ESTIMATE — tortilla/corn chips (~R30/250g)
+  "instant gravy": 90,             // ESTIMATE — gravy powder; pinch use
+  "dried chillies": 200,           // ESTIMATE — dried/concentrated (was R0; "dried" stripped to "chillies" which matched nothing)
+  "chilli flakes": 180,            // ESTIMATE — dried flakes; was mis-resolving to FRESH chilli R80
+  "brandy": 200,                   // ESTIMATE — per litre (used in ml)
+  "spice mix": 120,                // ESTIMATE — generic blend; vague name, consider naming the specific spice in-recipe
 };
 
 const MEAT_COSTS = {
