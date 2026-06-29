@@ -47,10 +47,23 @@ flowchart TD
 
   PUSH --> RUNWAY
 
+  subgraph STAPLES_FR[" STAPLES + FRENCH FOUNDATIONS (this push) "]
+    SF1[LASAGNE refined per Tina: Classic ragù now includes CELERY (full soffritto onion+carrot+celery); BUDGET white layer rebuilt as a MOCK BÉCHAMEL — margarine roux + well-diluted beef stock instead of milk+butter (costPP 28). Budget DYK = the mock-béchamel thrift trick.]
+    SF2[NEW base sauce sb-bechamel — Béchamel (White Sauce) in Sides>Basic Sauces: Classic (milk+butter) / Thrifty (margarine) / Cheese-Mornay. The original béchamel now "stored" + reusable; mock-béchamel beef-stock swap noted for meaty bakes.]
+    SF3[NEW base sauce sb-mince-sauce — Classic French Mince Sauce in Sides>Basic Sauces: mirepoix + streaky bacon + red wine + bouquet garni, slow 1hr+ simmer (Classic French) / Weeknight. Factual Robert Carrier nod in DYK (no fabricated quotes). The proper mother mince for spag bol / lasagne / cottage pie.]
+    SF4[PRICE add: margarine = R70/kg (R35/500g) in prices.js. All other new ings (beef stock, celery, bay leaves, fresh thyme, nutmeg, red wine) already priced. node --check PASS on meals.js + prices.js.]
+    SF5[NEW DOC TINZA_TECHNIQUES.md — old-school reference (bouquet garni fresh+pouch / mock béchamel / mirepoix-soffritto) to reuse when building FRENCH + classical dishes. Tina flagged bouquet garni as Old School Knowledge for the French section.]
+    SF6[PUSH = meals.js + prices.js (one deploy). NOTE: built on top of the un-pushed pasta BATCH 2 — so this single meals.js carries BOTH pasta batch 2 AND these staples. Pushing it ships everything pending.]
+  end
+
+  subgraph COORD[" COORDINATION "]
+    CO1[PARALLEL NOTE 2026-06-29: Tina now also runs Claude Code via the DESKTOP APP (Code tab, Local·tinza·main) after the terminal install broke. If Claude Code edits meals.js too, Tina must push that first, then tell chat-Claude to re-clone fresh before the next batch to avoid clobbering. Chat-Claude owned meals.js for the pasta batches.]
+  end
+
   subgraph PASTAPIZZA[" FMF SUPPER · Pasta & Pizza Bobotie run "]
     PP0[Category = 23 dishes. 11 were already done (Spag Bol gold-standard · 6 pizzas · 5 gnocchi/Italian staples). 12 flat dishes needed treatment.]
     PP1[BATCH 1 DONE — ready to push (meals.js only, all ingredients price, node --check PASS): sp-mac-cheese (4v) · sp-spag-meatballs (3v) · sp-chicken-alfredo (3v) · sp-carbonara (2v) · sp-tuna-pasta-bake (3v) · sp-lasagne (3v). Each: version chips + per-version didYouKnow + beginner-proof methods + goesWith + storage/freezes/fridgeDays, mirroring Spag Bol.]
-    PP2[BATCH 2 TODO — next push: sp-prawn-linguine · sp-cannelloni · sp-pesto-chicken-pasta · sp-cajun-pasta · sp-feta-tomato-pasta · sp-pumpkin-sage-pasta. Same treatment, then category complete.]
+    PP2[BATCH 2 DONE — ready to push (meals.js only, all 41 ingredients price, node --check PASS): sp-prawn-linguine (3v) · sp-cannelloni (3v) · sp-pesto-chicken-pasta (3v) · sp-cajun-pasta (3v) · sp-feta-tomato-pasta (3v) · sp-pumpkin-sage-pasta (3v). PASTA & PIZZA CATEGORY NOW 23/23 COMPLETE.]
     PP0-->PP1-->PP2
   end
 

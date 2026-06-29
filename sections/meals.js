@@ -5536,6 +5536,11 @@ var SUPPER_RECIPES = [
             "u": "g"
           },
           {
+            "n": "celery",
+            "pp": 25,
+            "u": "g"
+          },
+          {
             "n": "garlic",
             "pp": 5,
             "u": "g"
@@ -5577,7 +5582,7 @@ var SUPPER_RECIPES = [
           }
         ],
         "method": [
-          "Make the ragù: soften the chopped onion, carrot and garlic in the olive oil, then brown the mince well. Stir in the tomato paste, tinned tomatoes and herbs and simmer 25–30 min until thick.",
+          "Make the ragù: soften the chopped onion, carrot, celery and garlic in the olive oil — this trio of onion, carrot and celery is the classic soffritto, the sweet base every good sauce is built on. Then brown the mince well, stir in the tomato paste, tinned tomatoes and herbs, and simmer 25–30 min until thick.",
           "Make the béchamel (white sauce): melt the butter, stir in the flour and cook 1–2 min, then whisk in the milk slowly until smooth and thick.",
           "Layer in a dish: a little ragù on the base, then sheets, ragù, a little béchamel — repeat, finishing with béchamel on top.",
           "Scatter the cheddar and parmesan over and bake at 180°C until golden and bubbling, 35–40 min.",
@@ -5589,7 +5594,7 @@ var SUPPER_RECIPES = [
         "name": "Budget",
         "icon": "💰",
         "time": 70,
-        "costPP": 30,
+        "costPP": 28,
         "nutrition": {
           "kcal": 560,
           "protein_g": 26,
@@ -5629,18 +5634,13 @@ var SUPPER_RECIPES = [
             "u": "g"
           },
           {
-            "n": "garlic",
-            "pp": 5,
+            "n": "celery",
+            "pp": 25,
             "u": "g"
           },
           {
-            "n": "milk",
-            "pp": 150,
-            "u": "ml"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
+            "n": "garlic",
+            "pp": 5,
             "u": "g"
           },
           {
@@ -5662,15 +5662,25 @@ var SUPPER_RECIPES = [
             "n": "olive oil",
             "pp": 6,
             "u": "ml"
+          },
+          {
+            "n": "margarine",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "beef stock",
+            "pp": 200,
+            "u": "ml"
           }
         ],
         "method": [
           "Soften the onion, grated carrot and garlic in the oil, then brown the mince. Add the tomato paste, tinned tomatoes and herbs and simmer 25 min.",
-          "Make a béchamel: melt the butter, stir in the flour 1–2 min, whisk in the milk until thick.",
+          "Make the white layer the thrifty way: melt a hard cooking margarine — the 80%-fat kind (a Rama brick is reliable); low-fat tub spreads are mostly water and won’t make a proper roux. Stir in the flour and cook 1–2 min, then whisk in warm, well-diluted beef stock until smooth and thick. This savoury \"mock béchamel\" costs a fraction of a milk one and suits a meaty lasagne beautifully.",
           "Layer ragù, sheets and béchamel, finishing with béchamel and the cheddar.",
           "Bake at 180°C until golden, 35–40 min, and rest before cutting."
         ],
-        "didYouKnow": "Adding grated carrot to a meat sauce is an old thrift trick that doubles as seasoning — as carrots cook they release natural sugar, which balances the acidity of the tomatoes so you don't need to add any."
+        "didYouKnow": "You don’t need milk and butter for the white layer: a roux of margarine and well-diluted beef stock makes a savoury \"mock béchamel\" that’s cheaper and, in a meaty lasagne, even more moreish. It’s an old thrift-kitchen trick from the days when milk and butter were dear."
       },
       {
         "name": "Quick",
@@ -5753,6 +5763,83 @@ var SUPPER_RECIPES = [
           "Cover with foil and bake at 190°C for 30 min, then uncover 10 min to brown. Rest before cutting."
         ],
         "didYouKnow": "No-precook lasagne sheets are simply rolled thinner and pre-dried, so they soften by soaking up moisture from the sauce as they bake. That is why a quicker lasagne needs a slightly wetter, looser sauce than a traditional one."
+      }
+    ],
+    "ingredients": [
+      {
+        "n": "lasagne sheets",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "beef mince",
+        "pp": 110,
+        "u": "g"
+      },
+      {
+        "n": "tinned tomatoes",
+        "pp": 150,
+        "u": "g"
+      },
+      {
+        "n": "tomato paste",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "carrots",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "celery",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "garlic",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "butter",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "flour",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "cheddar",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "parmesan",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "olive oil",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "dried Italian herbs",
+        "pp": 1,
+        "u": "g"
       }
     ]
   },
@@ -10073,30 +10160,859 @@ var SUPPER_RECIPES = [
       {name:'Pepperoni & mushroom',icon:'🍄',time:30,costPP:67,nutrition:{kcal:700,protein_g:31,carbs_g:76,fat_g:33},feel:'Earthy mushrooms alongside the spicy pepperoni — a little more substantial, a little more grown-up.',ingredients:[{n:'pizza base',pp:1,u:'each'},{n:'tomato passata',pp:60,u:'g'},{n:'mozzarella',pp:65,u:'g'},{n:'pepperoni',pp:35,u:'g'},{n:'mushrooms',pp:50,u:'g'},{n:'oregano',pp:1,u:'g'},{n:'olive oil',pp:8,u:'ml'}],method:['Preheat the stone or tray hot.','Spread thinly with oregano passata; scatter mozzarella.','Arrange the thinly sliced mushrooms and pepperoni on top.','WOOD-FIRED: 60 to 90 sec. HOME OVEN (240 to 260°C): 9 to 12 minutes until the mushrooms are golden and the pepperoni crisp.','Slice and serve.']},
       {name:'Meat feast',icon:'🥩',time:30,costPP:71,nutrition:{kcal:780,protein_g:38,carbs_g:74,fat_g:42},feel:'Pepperoni, salami and ham piled together — for when one meat simply will not do.',ingredients:[{n:'pizza base',pp:1,u:'each'},{n:'tomato passata',pp:60,u:'g'},{n:'mozzarella',pp:65,u:'g'},{n:'pepperoni',pp:30,u:'g'},{n:'salami',pp:25,u:'g'},{n:'ham',pp:30,u:'g'},{n:'oregano',pp:1,u:'g'}],method:['Preheat the stone or tray screaming hot.','Spread thinly with oregano passata; scatter mozzarella.','Layer on the pepperoni, salami and torn ham.','WOOD-FIRED: 60 to 90 sec. HOME OVEN (240 to 260°C): 9 to 12 minutes until crisp and bubbling.','Slice and serve hot.']}
     ]},
-  {id:'sp-prawn-linguine', cat:'pastapizza', diet:'meat', protein:'fish', name:'Garlic Prawn Linguine', emoji:'🦐', cuisine:'Italian', time:25, costPP:57,
-    feel:'Juicy prawns tossed with garlic, chilli, lemon and linguine — a coastal supper in 25 minutes.',
-    ingredients:[{n:'prawns',pp:120,u:'g'},{n:'linguine',pp:80,u:'g'},{n:'garlic',pp:10,u:'g'},{n:'chilli',pp:2,u:'g'},{n:'lemon',pp:15,u:'g'},{n:'fresh parsley',pp:4,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'butter',pp:10,u:'g'}],
-    method:['Cook the linguine until just tender.','Sizzle the garlic and chilli in oil and butter, then add the prawns and cook until just pink.','Add a squeeze of lemon and a splash of pasta water.','Toss the linguine through with the parsley and serve.'],
-    tip:'Do not overcook the prawns — they are done the moment they turn pink and curl.',
-    nutrition:{kcal:560,protein_g:32,carbs_g:64,fat_g:18}, storage:'Best fresh.'},
-  {id:'sp-cannelloni', cat:'pastapizza', diet:'veg', protein:'veg', name:'Spinach & Ricotta Cannelloni', emoji:'🥬', cuisine:'Italian', time:50, costPP:60,
-    feel:'Pasta tubes stuffed with creamy spinach and ricotta, blanketed in tomato sauce and melted cheese.',
-    ingredients:[{n:'cannelloni tubes',pp:90,u:'g'},{n:'ricotta',pp:80,u:'g'},{n:'baby spinach',pp:60,u:'g'},{n:'tomato passata',pp:120,u:'g'},{n:'mozzarella',pp:40,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'parmesan',pp:15,u:'g'}],
-    method:['Wilt the spinach, squeeze dry and mix with the ricotta and parmesan.','Spoon the filling into the cannelloni tubes.','Lay them in a dish over a little passata, cover with the rest of the passata and the mozzarella.','Bake at 180C until bubbling and the pasta is tender, about 30 minutes.'],
-    tip:'Use a piping bag or a small spoon and a steady hand to fill the tubes without splitting them.',
-    nutrition:{kcal:520,protein_g:24,carbs_g:56,fat_g:22}, storage:'Keeps 3 days; freezes well before baking.'},
-  {id:'sp-pesto-chicken-pasta', cat:'pastapizza', diet:'meat', protein:'chicken', name:'Pesto Chicken Pasta', emoji:'🌿', cuisine:'Italian-inspired', time:25, costPP:54,
-    feel:'Fragrant basil pesto coating pasta with golden chicken and bursts of cherry tomato.',
-    ingredients:[{n:'chicken breast',pp:130,u:'g'},{n:'pasta',pp:80,u:'g'},{n:'basil pesto',pp:30,u:'g'},{n:'cherry tomatoes',pp:60,u:'g'},{n:'parmesan',pp:15,u:'g'},{n:'olive oil',pp:10,u:'ml'}],
-    method:['Cook the pasta until just tender, saving a little water.','Sear the sliced chicken in oil until golden.','Add the cherry tomatoes and warm until they soften.','Toss through the pasta, pesto and a splash of pasta water to make it glossy.','Finish with parmesan.'],
-    tip:'Stir the pesto in off the heat so it stays fresh and green rather than dulling.',
-    nutrition:{kcal:580,protein_g:36,carbs_g:54,fat_g:26}, storage:'Keeps 2 days; lovely cold as a pasta salad.'},
-  {id:'sp-cajun-pasta', cat:'pastapizza', diet:'meat', protein:'chicken', name:'One-Pan Cajun Chicken & Sausage Pasta', emoji:'🌶️', cuisine:'Cajun', time:35, costPP:32,
-    feel:'Smoky Cajun chicken and sausage in a creamy tomato sauce with pasta cooked right in the pan.',
-    ingredients:[{n:'chicken breast',pp:100,u:'g'},{n:'sausage',pp:50,u:'g'},{n:'pasta',pp:80,u:'g'},{n:'cream',pp:40,u:'ml'},{n:'tomato',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'Cajun spice',pp:6,u:'g'},{n:'chicken stock',pp:200,u:'ml'},{n:'oil',pp:10,u:'ml'}],
-    method:['Brown the chicken and sliced sausage with the Cajun spice, then set aside.','Soften the onion, add the tomato, stock and pasta and simmer until the pasta is tender and the liquid reduced.','Stir in the cream and return the meat.','Simmer briefly into a glossy one-pan sauce.'],
-    tip:'Cooking the pasta in the sauce means one pan and a richer flavour — just stir so it does not stick.',
-    nutrition:{kcal:620,protein_g:34,carbs_g:64,fat_g:26}, storage:'Keeps 3 days; loosen with stock when reheating.'},
+  {
+    "id": "sp-prawn-linguine",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "fish",
+    "name": "Garlic Prawn Linguine",
+    "emoji": "🦐",
+    "cuisine": "Italian",
+    "time": 25,
+    "costPP": 57,
+    "feel": "Juicy prawns tossed with garlic, chilli, lemon and linguine — a coastal supper in 25 minutes, built on nothing but good olive oil and a squeeze of fresh lemon.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Lemon wedges",
+      "Crusty bread",
+      "A glass of white"
+    ],
+    "didYouKnow": "Prawns cook in barely two minutes because their muscle has very little connective tissue — there is almost nothing to break down. That is also why they turn from tender to rubbery so fast: overcook them by a minute and the proteins squeeze tight.",
+    "nutrition": {
+      "kcal": 560,
+      "protein_g": 32,
+      "carbs_g": 64,
+      "fat_g": 18
+    },
+    "storage": "Best eaten fresh — prawns toughen and go rubbery when reheated. If you must keep it, store 1 day and warm very gently. Not suited to freezing once cooked.",
+    "freezes": false,
+    "fridgeDays": 1,
+    "versions": [
+      {
+        "name": "Garlic & Chilli",
+        "icon": "🏆",
+        "default": true,
+        "time": 25,
+        "costPP": 57,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 32,
+          "carbs_g": 64,
+          "fat_g": 18
+        },
+        "feel": "Juicy prawns tossed with garlic, chilli, lemon and linguine — a coastal supper in 25 minutes, built on nothing but good olive oil and a squeeze of fresh lemon.",
+        "ingredients": [
+          {
+            "n": "prawns",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "linguine",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "chilli",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "lemon",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "fresh parsley",
+            "pp": 4,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 15,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Get the linguine boiling in well-salted water and cook until just tender. Save a mug of the pasta water before draining.",
+          "While it cooks, gently sizzle the sliced garlic and chilli in the olive oil and butter over medium heat — keep it gentle, burnt garlic turns bitter.",
+          "Turn the heat up, add the prawns and cook just until they turn pink and curl, about 2 minutes a side. The moment they are pink they are done — any longer and they go rubbery.",
+          "Add a good squeeze of lemon and a splash of pasta water to make a light sauce, then toss the drained linguine through with the parsley."
+        ],
+        "didYouKnow": "Prawns cook in barely two minutes because their muscle has very little connective tissue — there is almost nothing to break down. That is also why they turn from tender to rubbery so fast: overcook them by a minute and the proteins squeeze tight."
+      },
+      {
+        "name": "Tomato & Wine",
+        "icon": "🍅",
+        "time": 30,
+        "costPP": 60,
+        "nutrition": {
+          "kcal": 580,
+          "protein_g": 32,
+          "carbs_g": 62,
+          "fat_g": 18
+        },
+        "feel": "The same prawns and linguine, but in a light tomato-and-white-wine sauce — a little richer, a little more special, the kind of thing you would order out.",
+        "ingredients": [
+          {
+            "n": "prawns",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "linguine",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "chilli",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "white wine",
+            "pp": 30,
+            "u": "ml"
+          },
+          {
+            "n": "fresh parsley",
+            "pp": 4,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 12,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the linguine until just tender, saving a little pasta water.",
+          "Sizzle the garlic and chilli gently in the oil, add the halved cherry tomatoes and let them soften and collapse, 3–4 min.",
+          "Pour in the white wine and let it bubble hard for a minute to cook off the sharp alcohol, leaving just the flavour.",
+          "Add the prawns and cook until just pink, then toss the linguine and parsley through with a splash of pasta water."
+        ],
+        "didYouKnow": "When you add wine to a hot pan and let it bubble, the alcohol boils off at 78°C — well below water — so the harsh edge cooks away in about a minute while the fruity, savoury flavours stay behind."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 25,
+        "costPP": 42,
+        "nutrition": {
+          "kcal": 540,
+          "protein_g": 30,
+          "carbs_g": 64,
+          "fat_g": 15
+        },
+        "feel": "Frozen prawns, no wine, and the same big garlic-and-lemon flavour — a treat-feeling supper that does not cost a treat-sized amount.",
+        "ingredients": [
+          {
+            "n": "frozen prawns",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "spaghetti",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "chilli",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "lemon",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 12,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the spaghetti until just tender, saving a little pasta water.",
+          "Thaw the prawns quickly by sitting them in a bowl of cool water for a few minutes, then pat dry — dry prawns brown instead of stewing.",
+          "Sizzle the garlic and chilli gently in the oil, add the prawns and cook just until pink.",
+          "Squeeze in the lemon, add a splash of pasta water, and toss the spaghetti through."
+        ],
+        "didYouKnow": "Frozen prawns are often fresher than \"fresh\" ones — most are flash-frozen on the boat within hours of being caught, while the ones on the fish counter have usually been thawed from that same freeze. Buying them frozen just means you thaw them yourself."
+      }
+    ]
+  },
+  {
+    "id": "sp-cannelloni",
+    "cat": "pastapizza",
+    "diet": "veg",
+    "protein": "veg",
+    "name": "Spinach & Ricotta Cannelloni",
+    "emoji": "🥬",
+    "cuisine": "Italian",
+    "time": 50,
+    "costPP": 60,
+    "feel": "Pasta tubes stuffed with creamy spinach and ricotta, blanketed in tomato sauce and melted mozzarella, baked until bubbling. A proper make-ahead crowd-pleaser.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Roast vegetables",
+      "Grated parmesan",
+      "A glass of red"
+    ],
+    "didYouKnow": "Ricotta isn't really a cheese in the usual sense — it's made from the watery whey left over after other cheeses are made. \"Ricotta\" means \"re-cooked\": the whey is heated again until soft curds form, which is why it's so light and milky.",
+    "nutrition": {
+      "kcal": 520,
+      "protein_g": 24,
+      "carbs_g": 56,
+      "fat_g": 22
+    },
+    "storage": "Keeps 3 days and reheats beautifully. Freezes well — assemble but don't bake, freeze, then bake from frozen with foil on for an easy future supper.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Classic Baked",
+        "icon": "🏆",
+        "default": true,
+        "time": 50,
+        "costPP": 60,
+        "nutrition": {
+          "kcal": 520,
+          "protein_g": 24,
+          "carbs_g": 56,
+          "fat_g": 22
+        },
+        "feel": "Pasta tubes stuffed with creamy spinach and ricotta, blanketed in tomato sauce and melted mozzarella, baked until bubbling. A proper make-ahead crowd-pleaser.",
+        "ingredients": [
+          {
+            "n": "cannelloni tubes",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "ricotta",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tomato passata",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "mozzarella",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Wilt the spinach in a dry pan or with a splash of water, then squeeze it really dry in a cloth — wet spinach makes a watery filling.",
+          "Chop the spinach and mix with the ricotta, parmesan, a little garlic, salt and pepper.",
+          "Spoon or pipe the filling into the cannelloni tubes — a small spoon, or a sandwich bag with a corner snipped off, works well.",
+          "Spread a little passata in a dish, lay the tubes on top, then cover with the rest of the passata and the mozzarella.",
+          "Bake at 180°C until the pasta is tender and the top is golden and bubbling, 30–35 min. The tubes soften by drinking up the sauce, so make sure they are well covered."
+        ],
+        "didYouKnow": "Ricotta isn't really a cheese in the usual sense — it's made from the watery whey left over after other cheeses are made. \"Ricotta\" means \"re-cooked\": the whey is heated again until soft curds form, which is why it's so light and milky."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 50,
+        "costPP": 44,
+        "nutrition": {
+          "kcal": 470,
+          "protein_g": 26,
+          "carbs_g": 56,
+          "fat_g": 16
+        },
+        "feel": "Smooth cottage cheese in place of ricotta and cheddar on top — the same comforting baked tubes for a good bit less.",
+        "ingredients": [
+          {
+            "n": "cannelloni tubes",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "cottage cheese",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tomato passata",
+            "pp": 130,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Wilt the spinach and squeeze it really dry, then chop.",
+          "Mix with the cottage cheese, garlic, salt and pepper. For a smoother filling, give the cottage cheese a quick mash or blend first.",
+          "Fill the tubes, lay them over a little passata, then cover with the rest plus the cheddar.",
+          "Bake at 180°C until tender and golden, 30–35 min."
+        ],
+        "didYouKnow": "Cottage cheese and ricotta are close cousins — both are fresh, unaged curd cheeses. Cottage cheese is lumpier and tangier because the curds are rinsed and left whole, while ricotta's curds are finer, but in a baked filling they behave almost identically."
+      },
+      {
+        "name": "Extra Veg",
+        "icon": "🌱",
+        "time": 55,
+        "costPP": 58,
+        "nutrition": {
+          "kcal": 510,
+          "protein_g": 24,
+          "carbs_g": 54,
+          "fat_g": 22
+        },
+        "feel": "The classic, with sautéed mushrooms folded through the filling for an earthy, meaty depth — proof a veg dish can feel hearty.",
+        "ingredients": [
+          {
+            "n": "cannelloni tubes",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "ricotta",
+            "pp": 70,
+            "u": "g"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "mushrooms",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tomato passata",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "mozzarella",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 10,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Fry the chopped mushrooms in a little oil until golden and any water has cooked off — this stops the filling going soggy.",
+          "Wilt and squeeze the spinach dry, chop, and mix with the mushrooms, ricotta, parmesan and garlic.",
+          "Fill the tubes, lay over a little passata, then cover with the rest and the mozzarella.",
+          "Bake at 180°C until tender and golden, 30–35 min."
+        ],
+        "didYouKnow": "Mushrooms are about 90% water, which is why they shrink so dramatically in the pan. Cooking that water off first concentrates their savoury, almost meaty flavour (umami) and stops them watering down your filling."
+      }
+    ]
+  },
+  {
+    "id": "sp-pesto-chicken-pasta",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "chicken",
+    "name": "Pesto Chicken Pasta",
+    "emoji": "🌿",
+    "cuisine": "Italian-inspired",
+    "time": 25,
+    "costPP": 54,
+    "feel": "Fragrant basil pesto coating pasta with golden chicken and bursts of sweet cherry tomato — fast, fresh and green.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Cherry tomatoes",
+      "Grated parmesan",
+      "Toasted pine nuts"
+    ],
+    "didYouKnow": "Pesto gets its name from how it was traditionally made — \"pestare\" means to pound or crush, in a pestle and mortar (same root word). The basil is bruised, not blended, which keeps the oils from heating up and turning bitter.",
+    "nutrition": {
+      "kcal": 580,
+      "protein_g": 36,
+      "carbs_g": 54,
+      "fat_g": 26
+    },
+    "storage": "Keeps 2 days and is lovely cold as a pasta salad the next day. The pesto can dull in colour but the flavour holds. Not suited to freezing.",
+    "freezes": false,
+    "fridgeDays": 2,
+    "versions": [
+      {
+        "name": "Classic Pesto",
+        "icon": "🏆",
+        "default": true,
+        "time": 25,
+        "costPP": 54,
+        "nutrition": {
+          "kcal": 580,
+          "protein_g": 36,
+          "carbs_g": 54,
+          "fat_g": 26
+        },
+        "feel": "Fragrant basil pesto coating pasta with golden chicken and bursts of sweet cherry tomato — fast, fresh and green.",
+        "ingredients": [
+          {
+            "n": "chicken breast",
+            "pp": 130,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "basil pesto",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 10,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the pasta until just tender, saving a mug of pasta water before draining.",
+          "Season the sliced chicken and sear in the oil over medium-high heat until golden and cooked through, 5–6 min.",
+          "Add the halved cherry tomatoes and warm just until they start to soften.",
+          "Take the pan OFF the heat, then stir in the pesto with the drained pasta and a splash of pasta water — adding pesto off the heat keeps it fresh and green instead of dull and oily."
+        ],
+        "didYouKnow": "Pesto gets its name from how it was traditionally made — \"pestare\" means to pound or crush, in a pestle and mortar (same root word). The basil is bruised, not blended, which keeps the oils from heating up and turning bitter."
+      },
+      {
+        "name": "Creamy Pesto",
+        "icon": "🍃",
+        "time": 25,
+        "costPP": 56,
+        "nutrition": {
+          "kcal": 640,
+          "protein_g": 36,
+          "carbs_g": 54,
+          "fat_g": 34
+        },
+        "feel": "A spoon of cream stirred through the pesto makes it mellow and silky — the version kids tend to fall for.",
+        "ingredients": [
+          {
+            "n": "chicken breast",
+            "pp": 130,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "basil pesto",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 50,
+            "u": "ml"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 10,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the pasta until just tender, saving a little pasta water.",
+          "Sear the seasoned sliced chicken in the oil until golden and cooked through.",
+          "Add the cherry tomatoes briefly, then lower the heat and pour in the cream, letting it warm through (don't boil hard or it can split).",
+          "Off the heat, stir in the pesto and the drained pasta, loosening with pasta water. The cream softens the pesto's punch into something rounder."
+        ],
+        "didYouKnow": "Stirring cream into pesto does more than mellow it — the fat in cream carries flavour and coats the tongue, which is why creamy sauces taste richer and \"rounder\" than oily ones, even with less pesto."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 25,
+        "costPP": 40,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 30,
+          "carbs_g": 60,
+          "fat_g": 22
+        },
+        "feel": "A little less chicken, pasta doing the heavy lifting, and pesto stretched with a splash of oil and parmesan — still vivid and green, easy on the pocket.",
+        "ingredients": [
+          {
+            "n": "chicken breast",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 95,
+            "u": "g"
+          },
+          {
+            "n": "basil pesto",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 12,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the pasta until just tender, saving plenty of pasta water.",
+          "Sear the seasoned sliced chicken in the oil until golden and cooked.",
+          "Off the heat, loosen the pesto with a little olive oil and a good splash of starchy pasta water so it stretches and coats everything.",
+          "Toss the pasta and chicken through, finishing with parmesan."
+        ],
+        "didYouKnow": "Starchy pasta water is a cook's secret weapon: the dissolved starch helps oil and pesto cling to the pasta and stretch into a glossy sauce. A few spoonfuls can make a little pesto coat a whole bowl — never tip it all down the drain."
+      }
+    ]
+  },
+  {
+    "id": "sp-cajun-pasta",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "chicken",
+    "name": "One-Pan Cajun Chicken & Sausage Pasta",
+    "emoji": "🌶️",
+    "cuisine": "Cajun",
+    "time": 35,
+    "costPP": 32,
+    "feel": "Smoky Cajun chicken and sausage in a creamy tomato sauce, with the pasta cooked right in the pan so it drinks up all that flavour. One pot, big reward.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Crusty bread",
+      "Grated cheese",
+      "Sliced spring onion"
+    ],
+    "didYouKnow": "Cajun seasoning comes from the Acadian French who settled in Louisiana — \"Cajun\" is a worn-down version of \"Acadian\". The smoky warmth usually comes from paprika and cayenne rather than one fiery chilli, which is why it's deeply flavoured without being blistering.",
+    "nutrition": {
+      "kcal": 620,
+      "protein_g": 34,
+      "carbs_g": 64,
+      "fat_g": 26
+    },
+    "storage": "Keeps 3 days; the sauce thickens in the fridge, so loosen with a splash of stock or milk when reheating. Freezes in portions for up to 2 months.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Creamy Cajun",
+        "icon": "🏆",
+        "default": true,
+        "time": 35,
+        "costPP": 32,
+        "nutrition": {
+          "kcal": 620,
+          "protein_g": 34,
+          "carbs_g": 64,
+          "fat_g": 26
+        },
+        "feel": "Smoky Cajun chicken and sausage in a creamy tomato sauce, with the pasta cooked right in the pan so it drinks up all that flavour. One pot, big reward.",
+        "ingredients": [
+          {
+            "n": "chicken breast",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "sausage",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 40,
+            "u": "ml"
+          },
+          {
+            "n": "tomato",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "Cajun spice",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "stock",
+            "pp": 200,
+            "u": "ml"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Brown the sliced chicken and sausage with the Cajun spice in the oil over medium-high heat, then lift out — browning is where the smoky flavour builds.",
+          "Soften the onion and garlic in the same pan, then add the chopped tomato and let it break down.",
+          "Pour in the stock and the dry pasta, stir, and simmer until the pasta is tender and the liquid has reduced to a sauce, 12–15 min — stir now and then so it doesn't stick.",
+          "Return the chicken and sausage, stir in the cream, and warm through."
+        ],
+        "didYouKnow": "Cajun seasoning comes from the Acadian French who settled in Louisiana — \"Cajun\" is a worn-down version of \"Acadian\". The smoky warmth usually comes from paprika and cayenne rather than one fiery chilli, which is why it's deeply flavoured without being blistering."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 35,
+        "costPP": 24,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 32,
+          "carbs_g": 66,
+          "fat_g": 16
+        },
+        "feel": "Chicken only, no sausage, milk in place of cream — the same smoky one-pan comfort, stretched for the whole family.",
+        "ingredients": [
+          {
+            "n": "chicken breast",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 60,
+            "u": "ml"
+          },
+          {
+            "n": "tomato",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "Cajun spice",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "stock",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Brown the sliced chicken with the Cajun spice, then lift out.",
+          "Soften the onion and garlic, add the tomato and let it break down.",
+          "Add the stock and dry pasta and simmer until the pasta is tender and the liquid reduced, 12–15 min.",
+          "Return the chicken and stir in the milk to make it creamy — keep the heat gentle so the milk doesn't split."
+        ],
+        "didYouKnow": "A splash of milk can stand in for cream in a tomato sauce, but it needs gentle heat — the acid in tomatoes can curdle milk if it boils hard. Adding it at the end, off a rolling boil, keeps it smooth."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 25,
+        "costPP": 30,
+        "nutrition": {
+          "kcal": 640,
+          "protein_g": 28,
+          "carbs_g": 64,
+          "fat_g": 32
+        },
+        "feel": "Smoked sausage does the flavour work so you skip browning chicken — everything simmered together for a fiery weeknight bowl in 25 minutes.",
+        "ingredients": [
+          {
+            "n": "smoked sausage",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 40,
+            "u": "ml"
+          },
+          {
+            "n": "tomato",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "Cajun spice",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "stock",
+            "pp": 200,
+            "u": "ml"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Brown the sliced smoked sausage with the Cajun spice — it's already cooked, so it just needs colour and a minute to release its smoky fat.",
+          "Soften the onion and garlic, add the tomato, then the stock and dry pasta.",
+          "Simmer until the pasta is tender and saucy, 12–15 min.",
+          "Stir in the cream and warm through."
+        ],
+        "didYouKnow": "Smoked sausage is already fully cooked, so it only needs warming and a quick browning to wake up its flavour. That's why it's the fastest protein for a weeknight pan — no worrying whether it's cooked through."
+      }
+    ]
+  },
   {
     "id": "sp-carbonara",
     "cat": "pastapizza",
@@ -10224,18 +11140,417 @@ var SUPPER_RECIPES = [
       }
     ]
   },
-  {id:'sp-feta-tomato-pasta', cat:'pastapizza', diet:'veg', protein:'veg', name:'Baked Feta & Tomato Pasta', emoji:'🧀', cuisine:'Mediterranean', time:35, costPP:40,
-    feel:'A whole block of feta baked with sweet cherry tomatoes until creamy, then tossed into pasta — the famous viral one.',
-    ingredients:[{n:'feta',pp:70,u:'g'},{n:'cherry tomatoes',pp:120,u:'g'},{n:'pasta',pp:90,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'fresh basil',pp:4,u:'g'}],
-    method:['Put the feta in the middle of a dish, surround with cherry tomatoes and garlic, drizzle with oil and bake at 200C until the tomatoes burst and the feta is soft, about 25 minutes.','Cook the pasta meanwhile.','Mash the feta and tomatoes into a creamy sauce.','Fold through the pasta with fresh basil.'],
-    tip:'Let the tomatoes blister and collapse — that sweetness is what makes the sauce.',
-    nutrition:{kcal:540,protein_g:18,carbs_g:66,fat_g:22}, storage:'Keeps 2 days; nice cold too.'},
-  {id:'sp-pumpkin-sage-pasta', cat:'pastapizza', diet:'veg', protein:'veg', name:'Creamy Pumpkin & Sage Rigatoni', emoji:'🎃', cuisine:'Italian-inspired', time:35, costPP:36,
-    feel:'Velvety roasted pumpkin and crispy sage in a creamy sauce — autumn comfort in a bowl.',
-    ingredients:[{n:'pumpkin',pp:150,u:'g'},{n:'rigatoni',pp:90,u:'g'},{n:'cream',pp:40,u:'ml'},{n:'fresh sage',pp:3,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'parmesan',pp:20,u:'g'},{n:'butter',pp:15,u:'g'}],
-    method:['Roast the cubed pumpkin until soft and caramelised, then mash or blend with a little pasta water into a smooth puree.','Crisp the sage in the butter.','Toss the cooked rigatoni with the pumpkin puree, cream and parmesan, loosening with pasta water.','Finish with the crispy sage.'],
-    tip:'Roasting the pumpkin rather than boiling it gives a deeper, sweeter flavour.',
-    nutrition:{kcal:520,protein_g:16,carbs_g:70,fat_g:20}, storage:'Keeps 2 days.'},
+  {
+    "id": "sp-feta-tomato-pasta",
+    "cat": "pastapizza",
+    "diet": "veg",
+    "protein": "veg",
+    "name": "Baked Feta & Tomato Pasta",
+    "emoji": "🧀",
+    "cuisine": "Mediterranean",
+    "time": 35,
+    "costPP": 40,
+    "feel": "A whole block of feta baked in the middle of sweet cherry tomatoes until soft and creamy, then smashed into a sauce and tossed with pasta. The famous viral one — and worth the hype.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Crusty bread",
+      "Black olives",
+      "Fresh basil"
+    ],
+    "didYouKnow": "This dish went so viral in 2021 that shops in Finland sold out of feta entirely — the original \"uunifetapasta\" had been a Finnish food-blogger favourite for years before the internet found it. Baking cheese until it melts into a sauce is the whole trick.",
+    "nutrition": {
+      "kcal": 540,
+      "protein_g": 18,
+      "carbs_g": 66,
+      "fat_g": 22
+    },
+    "storage": "Keeps 2 days and is nice cold the next day, but best made fresh — the baked feta sauce is at its creamiest straight from the oven. Not suited to freezing.",
+    "freezes": false,
+    "fridgeDays": 2,
+    "versions": [
+      {
+        "name": "Classic Baked Feta",
+        "icon": "🏆",
+        "default": true,
+        "time": 35,
+        "costPP": 40,
+        "nutrition": {
+          "kcal": 540,
+          "protein_g": 18,
+          "carbs_g": 66,
+          "fat_g": 22
+        },
+        "feel": "A whole block of feta baked in the middle of sweet cherry tomatoes until soft and creamy, then smashed into a sauce and tossed with pasta. The famous viral one — and worth the hype.",
+        "ingredients": [
+          {
+            "n": "feta",
+            "pp": 70,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 15,
+            "u": "ml"
+          },
+          {
+            "n": "fresh basil",
+            "pp": 4,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Sit the block of feta in the middle of an oven dish, pile the cherry tomatoes and whole garlic cloves around it, and drizzle everything generously with olive oil.",
+          "Bake at 200°C until the tomatoes burst and collapse and the feta is soft and golden at the edges, about 25 min.",
+          "Meanwhile boil the pasta until just tender, saving a little pasta water.",
+          "Squash the soft garlic out of its skins, then mash the feta and burst tomatoes together into a creamy sauce. Toss the pasta through with a splash of pasta water and the torn basil."
+        ],
+        "didYouKnow": "This dish went so viral in 2021 that shops in Finland sold out of feta entirely — the original \"uunifetapasta\" had been a Finnish food-blogger favourite for years before the internet found it. Baking cheese until it melts into a sauce is the whole trick."
+      },
+      {
+        "name": "Spicy",
+        "icon": "🌶️",
+        "time": 35,
+        "costPP": 42,
+        "nutrition": {
+          "kcal": 545,
+          "protein_g": 18,
+          "carbs_g": 66,
+          "fat_g": 22
+        },
+        "feel": "The same creamy baked feta, lifted with chilli flakes and a little garlic heat — a gentle warmth that cuts through the richness.",
+        "ingredients": [
+          {
+            "n": "feta",
+            "pp": 70,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "chilli flakes",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 15,
+            "u": "ml"
+          },
+          {
+            "n": "fresh basil",
+            "pp": 4,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Sit the feta in a dish, surround with cherry tomatoes and garlic, scatter over the chilli flakes and drizzle with oil.",
+          "Bake at 200°C until the tomatoes burst and the feta softens, about 25 min.",
+          "Boil the pasta until just tender, saving a little water.",
+          "Mash the feta, tomatoes and squeezed-out garlic into a sauce, then toss the pasta through with a splash of pasta water and the basil."
+        ],
+        "didYouKnow": "Chilli heat comes from a compound called capsaicin, which doesn't dissolve in water but loves fat — which is exactly why a little chilli works so well in this rich, oily, cheesy sauce: the fat carries the warmth evenly through every bite."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 35,
+        "costPP": 30,
+        "nutrition": {
+          "kcal": 510,
+          "protein_g": 16,
+          "carbs_g": 68,
+          "fat_g": 17
+        },
+        "feel": "Tinned tomatoes doing some of the work alongside a smaller piece of feta — the same creamy, tangy bowl for less.",
+        "ingredients": [
+          {
+            "n": "feta",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 95,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 12,
+            "u": "ml"
+          },
+          {
+            "n": "fresh basil",
+            "pp": 4,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Sit the feta in a dish with the cherry tomatoes, garlic and a little of the tinned tomatoes around it, and drizzle with oil.",
+          "Bake at 200°C until soft and bubbling, about 25 min.",
+          "Boil the pasta until just tender, saving a little water.",
+          "Stir the rest of the tinned tomatoes into the baked feta and tomatoes, mash into a sauce, and toss the pasta through with basil."
+        ],
+        "didYouKnow": "A little feta goes a long way because it's brined — stored in salty water — which concentrates its flavour far beyond its size. Even a small block seasons a whole dish, so you can stretch it with tinned tomatoes without losing the tang."
+      }
+    ]
+  },
+  {
+    "id": "sp-pumpkin-sage-pasta",
+    "cat": "pastapizza",
+    "diet": "veg",
+    "protein": "veg",
+    "name": "Creamy Pumpkin & Sage Rigatoni",
+    "emoji": "🎃",
+    "cuisine": "Italian-inspired",
+    "time": 35,
+    "costPP": 36,
+    "feel": "Velvety roasted pumpkin and crispy sage in a creamy sauce clinging to rigatoni — autumn comfort in a bowl, sweet and savoury at once.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Toasted pumpkin seeds",
+      "Grated parmesan",
+      "Crispy sage"
+    ],
+    "didYouKnow": "Sage was once valued more as medicine than food — its name comes from the Latin \"salvere\", to heal or be well (the same root as \"salvation\"). Frying it in butter for a few seconds turns the leaves crisp and nutty, mellowing their strong, almost medicinal punch.",
+    "nutrition": {
+      "kcal": 520,
+      "protein_g": 16,
+      "carbs_g": 70,
+      "fat_g": 20
+    },
+    "storage": "Keeps 2 days; reheat gently with a splash of milk or pasta water to loosen the sauce. The pumpkin purée freezes well on its own for up to 2 months.",
+    "freezes": false,
+    "fridgeDays": 2,
+    "versions": [
+      {
+        "name": "Roasted Pumpkin & Sage",
+        "icon": "🏆",
+        "default": true,
+        "time": 35,
+        "costPP": 36,
+        "nutrition": {
+          "kcal": 520,
+          "protein_g": 16,
+          "carbs_g": 70,
+          "fat_g": 20
+        },
+        "feel": "Velvety roasted pumpkin and crispy sage in a creamy sauce clinging to rigatoni — autumn comfort in a bowl, sweet and savoury at once.",
+        "ingredients": [
+          {
+            "n": "pumpkin",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "rigatoni",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 40,
+            "u": "ml"
+          },
+          {
+            "n": "fresh sage",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Roast the cubed pumpkin with a little oil at 200°C until soft and caramelised at the edges, 25–30 min — roasting, not boiling, is what gives it deep, sweet flavour.",
+          "Mash or blend the roasted pumpkin with a little pasta water and the garlic into a smooth purée.",
+          "Crisp the sage leaves in the butter for a minute until they smell nutty, then lift them out.",
+          "Boil the rigatoni until just tender. Toss it with the pumpkin purée, cream and parmesan, loosening with pasta water, and scatter the crispy sage on top."
+        ],
+        "didYouKnow": "Sage was once valued more as medicine than food — its name comes from the Latin \"salvere\", to heal or be well (the same root as \"salvation\"). Frying it in butter for a few seconds turns the leaves crisp and nutty, mellowing their strong, almost medicinal punch."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 30,
+        "costPP": 26,
+        "nutrition": {
+          "kcal": 490,
+          "protein_g": 15,
+          "carbs_g": 72,
+          "fat_g": 15
+        },
+        "feel": "Butternut instead of pumpkin, milk in place of cream, and the same silky, comforting orange sauce — gentle on the budget, big on flavour.",
+        "ingredients": [
+          {
+            "n": "butternut",
+            "pp": 160,
+            "u": "g"
+          },
+          {
+            "n": "pasta",
+            "pp": 95,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 80,
+            "u": "ml"
+          },
+          {
+            "n": "fresh sage",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Roast the cubed butternut until soft and caramelised, then mash with a little of its cooking water into a purée.",
+          "Crisp the sage in the butter, lift out, then stir the flour into the buttery pan and cook 1 min.",
+          "Whisk in the milk to make a light sauce, then stir in the butternut purée and parmesan.",
+          "Toss the cooked pasta through, loosening with pasta water, and top with the crispy sage."
+        ],
+        "didYouKnow": "Butternut and pumpkin are so close they're often used interchangeably — both are winter squash. Butternut is usually sweeter and less watery, which actually makes it easier to roast into a smooth, concentrated purée."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 20,
+        "costPP": 34,
+        "nutrition": {
+          "kcal": 530,
+          "protein_g": 16,
+          "carbs_g": 68,
+          "fat_g": 22
+        },
+        "feel": "Skip the oven — pumpkin softened fast in the pan and blended creamy, on the table in twenty minutes.",
+        "ingredients": [
+          {
+            "n": "pumpkin",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "rigatoni",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 40,
+            "u": "ml"
+          },
+          {
+            "n": "fresh sage",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "stock",
+            "pp": 100,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the rigatoni until just tender. Meanwhile cut the pumpkin small so it cooks fast.",
+          "Sauté the pumpkin and garlic in the butter, add the stock, cover and simmer until very soft, about 10 min.",
+          "Mash or blend smooth, then stir in the cream and parmesan.",
+          "Crisp the sage in a little extra butter, toss the sauce through the pasta, and scatter the sage on top."
+        ],
+        "didYouKnow": "Cutting pumpkin into smaller pieces doesn't just speed cooking — more cut surface means more water escapes as steam, so it softens and concentrates faster. A big chunk would still be firm in the middle when small pieces are already meltingly soft."
+      }
+    ]
+  },
   {id:'sp-creamy-gnocchi', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Grated parmesan'], diet:'veg', protein:'veg', name:'Gnocchi alla Boscaiola', photoName:'Creamy Spinach & Mushroom Gnocchi', emoji:'🥔', cuisine:'Italian', time:25, costPP:61,
     feel:'Pillowy gnocchi tumbled through a silky garlic-cream sauce with earthy mushrooms and wilted spinach — comfort food that comes together in one pan.',
     ingredients:[{n:'gnocchi',pp:200,u:'g'},{n:'mushrooms',pp:80,u:'g'},{n:'baby spinach',pp:50,u:'g'},{n:'cream',pp:50,u:'ml'},{n:'onion',pp:30,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'parmesan',pp:15,u:'g'},{n:'butter',pp:10,u:'g'}],
@@ -11595,6 +12910,380 @@ var SIDES_BASICS_RECIPES = [
       {name:'Rich cooked (sugo)',icon:'🔥',time:30,costPP:9,nutrition:{kcal:70,protein_g:2,carbs_g:8,fat_g:4},feel:'For those who like a sweeter, thicker, cooked sauce — gently simmered with onion and garlic until jammy.',ingredients:[{n:'tomato passata',pp:90,u:'g'},{n:'onion',pp:25,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'olive oil',pp:8,u:'ml'},{n:'tomato paste',pp:8,u:'g'},{n:'sugar'},{n:'salt'}],method:['Soften the finely chopped onion and garlic in olive oil without colouring.','Stir in the tomato paste, then the passata, a pinch of sugar and salt.','Simmer gently 20 minutes until thick and glossy; cool before spreading on the base.']},
       {name:'Arrabbiata (spicy)',icon:'🌶️',time:10,costPP:5,nutrition:{kcal:48,protein_g:1,carbs_g:6,fat_g:3},feel:'The same bright raw sauce with a kick of chilli — for a fiery base.',ingredients:[{n:'tomato passata',pp:70,u:'g'},{n:'olive oil',pp:5,u:'ml'},{n:'garlic',pp:4,u:'g'},{n:'chilli flakes',pp:1,u:'g'},{n:'salt'}],method:['Mix the passata with olive oil, grated garlic, chilli flakes and salt.','Spread thinly, uncooked, on the base.']}
     ]},
+  {
+    "id": "sb-bechamel",
+    "cat": "sauces",
+    "diet": "veg",
+    "protein": "veg",
+    "name": "Béchamel (White Sauce)",
+    "emoji": "🥛",
+    "cuisine": "French",
+    "time": 15,
+    "costPP": 7,
+    "feel": "The mother of all white sauces — butter, flour and milk cooked into something silky and pourable. Master this one and mac & cheese, lasagne and a dozen others are yours.",
+    "goesWith": [
+      "Lasagne",
+      "Macaroni cheese",
+      "Cauliflower cheese",
+      "Fish pie",
+      "Moussaka",
+      "Croque monsieur"
+    ],
+    "didYouKnow": "Béchamel is one of the five French \"mother sauces\" codified by the chef Auguste Escoffier — the foundations hundreds of other sauces are built from. Add cheese and it becomes a Mornay. The ratio to remember is equal weights of butter and flour; the rest is milk.",
+    "nutrition": {
+      "kcal": 180,
+      "protein_g": 6,
+      "carbs_g": 14,
+      "fat_g": 11
+    },
+    "storage": "Best made fresh, but keeps 3 days — press cling film onto the surface so a skin doesn’t form, and reheat gently, whisking. Freezing can turn it grainy; whisk hard when reheating to bring it back.",
+    "freezes": false,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Classic",
+        "icon": "🏆",
+        "default": true,
+        "time": 15,
+        "costPP": 7,
+        "nutrition": {
+          "kcal": 180,
+          "protein_g": 6,
+          "carbs_g": 14,
+          "fat_g": 11
+        },
+        "feel": "The mother of all white sauces — butter, flour and milk cooked into something silky and pourable. Master this one and mac & cheese, lasagne and a dozen others are yours.",
+        "ingredients": [
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "nutmeg",
+            "pp": 0.3,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Melt the butter gently in a pot — don’t let it brown.",
+          "Stir in the flour and cook, stirring, for 1–2 minutes until it smells biscuity. This paste is a roux, and cooking it now removes any raw-flour taste later.",
+          "Take the pot OFF the heat and add the milk a good splash at a time, whisking hard after each addition so no lumps form — cold milk into a hot roux off the heat is the lump-free trick.",
+          "Back on medium heat, keep whisking until it thickens to a smooth, pourable custard, 3–4 min. Season with salt and a little grated nutmeg."
+        ],
+        "didYouKnow": "Béchamel is one of the five French \"mother sauces\" codified by the chef Auguste Escoffier — the foundations hundreds of other sauces are built from. Add cheese and it becomes a Mornay. The ratio to remember is equal weights of butter and flour; the rest is milk."
+      },
+      {
+        "name": "Thrifty",
+        "icon": "💰",
+        "time": 15,
+        "costPP": 5,
+        "nutrition": {
+          "kcal": 165,
+          "protein_g": 6,
+          "carbs_g": 14,
+          "fat_g": 9
+        },
+        "feel": "The same silky sauce made with margarine instead of butter — an old thrift-kitchen standby that costs less and works just as well in a bake.",
+        "ingredients": [
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "margarine",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Melt the margarine — use a hard cooking/baking margarine at about 80% fat (such as Rama); low-fat tub spreads are mostly water and won’t thicken into a proper roux. Stir in the flour and cook 1–2 min to a roux.",
+          "Off the heat, whisk in the milk a splash at a time until smooth, then return to the heat and whisk until thickened. Season with salt and nutmeg.",
+          "For a savoury \"mock béchamel\" in meaty bakes like lasagne or cottage pie, swap the milk for well-diluted beef stock — a clever old trick that costs even less."
+        ],
+        "didYouKnow": "In leaner times cooks made a perfectly good white sauce with margarine, and even stock instead of milk — the science is identical: flour granules swell and thicken whatever liquid you whisk into the roux. The fat just carries flavour, so margarine does the job a fraction cheaper."
+      },
+      {
+        "name": "Cheese (Mornay)",
+        "icon": "🧀",
+        "time": 18,
+        "costPP": 10,
+        "nutrition": {
+          "kcal": 260,
+          "protein_g": 13,
+          "carbs_g": 14,
+          "fat_g": 17
+        },
+        "feel": "Béchamel’s most famous child — stir grated cheese into the finished sauce and you have a Mornay, the glossy sauce behind mac & cheese, cauliflower cheese and croque monsieur.",
+        "ingredients": [
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Make a classic béchamel: a roux of butter and flour, then whisk in the milk off the heat and thicken.",
+          "Take the pot OFF the heat before adding the cheese — a boiling cheese sauce turns grainy and stringy.",
+          "Stir in the grated cheddar and a pinch of mustard powder until glossy and smooth."
+        ],
+        "didYouKnow": "Adding cheese to a béchamel makes a Mornay, named after a French nobleman. The mustard isn’t for heat — a tiny pinch sharpens and amplifies the cheese, an old chef’s trick to make cheese taste cheesier."
+      }
+    ]
+  },
+  {
+    "id": "sb-mince-sauce",
+    "cat": "sauces",
+    "diet": "meat",
+    "protein": "beef",
+    "name": "Classic French Mince Sauce",
+    "emoji": "🥩",
+    "cuisine": "French",
+    "time": 90,
+    "costPP": 24,
+    "feel": "A proper mince sauce the old French way — built slowly on a mirepoix of onion, carrot and celery, deepened with a splash of red wine and a bouquet garni, then simmered gently until rich and glossy. Nothing like a packet mince.",
+    "goesWith": [
+      "Tagliatelle",
+      "Spaghetti",
+      "Lasagne",
+      "Mashed potato",
+      "Baked potato",
+      "Soft polenta"
+    ],
+    "didYouKnow": "This is the mince sauce done the proper French way — slow-cooked on a mirepoix and a bouquet garni rather than a packet. It’s the classic method championed by old-school cookery writers like Robert Carrier, who taught a generation that a real ragù is simmered gently for an hour or more, never rushed. That long, low cook is what turns plain mince into something glossy and deep.",
+    "nutrition": {
+      "kcal": 280,
+      "protein_g": 18,
+      "carbs_g": 10,
+      "fat_g": 16
+    },
+    "storage": "Keeps 4 days and only improves overnight. Freezes brilliantly for up to 3 months — make a double batch and freeze in portions; it’s the base for spaghetti bolognese, lasagne, cottage pie and more.",
+    "freezes": true,
+    "fridgeDays": 4,
+    "versions": [
+      {
+        "name": "Classic French",
+        "icon": "🏆",
+        "default": true,
+        "time": 90,
+        "costPP": 24,
+        "nutrition": {
+          "kcal": 280,
+          "protein_g": 18,
+          "carbs_g": 10,
+          "fat_g": 16
+        },
+        "feel": "A proper mince sauce the old French way — built slowly on a mirepoix of onion, carrot and celery, deepened with a splash of red wine and a bouquet garni, then simmered gently until rich and glossy. Nothing like a packet mince.",
+        "ingredients": [
+          {
+            "n": "beef mince",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "carrot",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "celery",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "red wine",
+            "pp": 30,
+            "u": "ml"
+          },
+          {
+            "n": "beef stock",
+            "pp": 80,
+            "u": "ml"
+          },
+          {
+            "n": "bay leaves",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "fresh thyme",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "fresh parsley",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Finely dice the onion, carrot and celery — this trio is the French flavour base called a mirepoix, and cooking it slowly is the whole secret. Sweat it gently in the oil and butter with the chopped bacon for 10–12 minutes until soft and sweet, not browned.",
+          "Add the garlic for a minute, then turn the heat up and brown the mince hard, breaking it up well — the browned crust is where the deep, savoury flavour comes from.",
+          "Stir in the tomato paste and cook 2 minutes, then pour in the red wine and let it bubble away to almost nothing, scraping up the sticky bits from the base.",
+          "Add the tinned tomatoes, beef stock and a bouquet garni — a little bundle of bay, thyme and parsley tied with string so you can fish it out later.",
+          "Turn the heat right down and simmer gently, half-covered, for at least an hour (longer is better), stirring now and then. It’s ready when it’s thick, glossy and deeply savoury. Lift out the bouquet garni before serving."
+        ],
+        "didYouKnow": "This is the mince sauce done the proper French way — slow-cooked on a mirepoix and a bouquet garni rather than a packet. It’s the classic method championed by old-school cookery writers like Robert Carrier, who taught a generation that a real ragù is simmered gently for an hour or more, never rushed. That long, low cook is what turns plain mince into something glossy and deep."
+      },
+      {
+        "name": "Weeknight",
+        "icon": "⚡",
+        "time": 30,
+        "costPP": 18,
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 19,
+          "carbs_g": 12,
+          "fat_g": 18
+        },
+        "feel": "The same French bones — mirepoix, tomato, a gentle simmer — sped up for a school night, with dried herbs standing in for the bouquet garni.",
+        "ingredients": [
+          {
+            "n": "beef mince",
+            "pp": 110,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "carrot",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "celery",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 130,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "beef stock",
+            "pp": 60,
+            "u": "ml"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Soften the diced onion, carrot, celery and garlic in the oil for about 5 minutes.",
+          "Brown the mince well, then stir in the tomato paste for a minute.",
+          "Add the tinned tomatoes, beef stock and dried herbs, and simmer 20–25 minutes until thick, stirring now and then."
+        ],
+        "didYouKnow": "A bundle of fresh herbs (a bouquet garni) gives the roundest flavour, but a spoon of dried mixed herbs is the everyday shortcut — dried herbs are simply fresh ones with the water removed, so the flavour is concentrated and holds up well to a quick simmer."
+      }
+    ]
+  },
 ];
 
 function mealSectionHTML(sectionKey){

@@ -195,6 +195,7 @@ const PRICE_DB = {
   // ── DAIRY ──
   "milk": 20,                 // per litre
   "butter": 160,              // R80/500g → R160/kg
+  "margarine": 70,            // R35/500g → R70/kg (the thrifty béchamel fat)
   "cream": 148,               // R37/250ml → R148/L (approx per kg)
   "cheddar cheese": 187,      // R149.99/800g → R187/kg
   "gouda cheese": 225,        // R180/800g → R225/kg
