@@ -14016,7 +14016,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
             :Math.round(raw*10)/10+u;
           return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #1a1810;">
             <span style="color:${color};flex-shrink:0;">•</span>
-            <span style="font-size:14px;color:#e0d4b8;flex:1;">${i.n} — <span style="color:#908066;font-size:13px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
+            <span style="font-size:14px;color:#e0d4b8;flex:1;">${(typeof crossLinkFor==='function'&&typeof INGREDIENT_LINKS!=='undefined'&&crossLinkFor(INGREDIENT_LINKS,i.n))?`<span onclick="${crossLinkFor(INGREDIENT_LINKS,i.n)}" style="color:${color};font-weight:bold;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">${i.n} ↗</span>`:i.n} — <span style="color:#908066;font-size:13px;">${ppStr}</span> · <strong style="color:#f5c842;">${totalStr} total</strong></span>
           </div>`;
         }).join('')}
         ${(r.ingredients||[]).some(i=>/rice|pap|mealie|samp|meat|mince|chicken|beef|lamb|pork|steak|wors|sausage|fish|snoek|bacon|biltong|chop|\brib/i.test(i.n))?`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>`:''}
@@ -14024,14 +14024,17 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
 
       <!-- Method -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Method</div>
-        ${(r.method||[]).map((step,si)=>`<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><p style="margin:2px 0 0;font-size:14px;color:#e0d4b8;line-height:1.7;">${step}</p></div>`).join('')}
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Method</div>
+          ${(r.method&&r.method.length)?`<button onclick="set({cookRecipe:{section:'meals',id:'${r.id}'},cookStep:0});window.scrollTo(0,0);" style="background:${color};border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:bold;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>`:''}
+        </div>
+        ${(r.method||[]).map((step,si)=>{const _sec=(typeof parseStepTime==='function')?parseStepTime(step):0;const _tmr=_sec?`<div style="margin-top:7px;"><button onclick="startTimer(${_sec},'Step ${si+1}')" style="display:inline-block;background:#0a0808;border:1px solid ${color};border-radius:6px;color:#f5c842;font-size:13px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${(typeof fmtTimerLabel==='function')?fmtTimerLabel(_sec):Math.round(_sec/60)+' min'}</button></div>`:'';return `<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:#0a0808;border:1px solid ${color};color:${color};font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><div style="flex:1;"><p style="margin:2px 0 0;font-size:14px;color:#e0d4b8;line-height:1.7;">${step}</p>${_tmr}</div></div>`;}).join('')}
       </div>
 
       <!-- Goes Well With -->
       ${(r.goesWith&&r.goesWith.length)?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.goesWith.map(g=>`<span style="padding:6px 13px;border-radius:16px;border:1px solid ${border};color:#e0d4b8;font-size:13px;">${g}</span>`).join('')}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.goesWith.map(g=>{const _lk=(typeof crossLinkFor==='function'&&typeof GOESWITH_LINKS!=='undefined')?crossLinkFor(GOESWITH_LINKS,g):null;return _lk?`<span onclick="${_lk}" style="padding:6px 13px;border-radius:16px;border:1px solid ${color};color:${color};font-size:13px;font-weight:bold;cursor:pointer;">${g} ›</span>`:`<span style="padding:6px 13px;border-radius:16px;border:1px solid ${border};color:#e0d4b8;font-size:13px;">${g}</span>`;}).join('')}</div>
       </div>`:''}
 
       <!-- Tip -->
@@ -14254,6 +14257,25 @@ function openMealRecipe(id){
   const arr = sectionRecipes[sec]||[];
   const r = arr.find(x=>x.id===id);
   if(r){ var _y=window.scrollY||0; setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec}), _mealListScroll:_y}); window.scrollTo(0,0); requestAnimationFrame(function(){ window.scrollTo(0,0); }); }
+}
+
+// Register FMF/meals into the universal recipe resolver so the shared cook mode
+// (genericCookView) can find these recipes by id and apply the active version.
+// (Enables 👨‍🍳 Start Cooking on FMF; also the first half of the sides cross-link unlock.)
+if(typeof RECIPE_SOURCES!=='undefined'){
+  RECIPE_SOURCES.meals = function(id){
+    var arrs = [
+      typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],
+      typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],
+      typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],
+      typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
+      typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[]
+    ];
+    var r=null;
+    for(var a=0;a<arrs.length;a++){ var f=(arrs[a]||[]).find(function(x){return x&&x.id===id;}); if(f){ r=f; break; } }
+    if(!r) return null;
+    return (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;
+  };
 }
 function toggleMealPlan(id){
   const sec = S.screen||'';
