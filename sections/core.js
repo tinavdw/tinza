@@ -2331,9 +2331,14 @@ var GOESWITH_LINKS = {
   'ranch dip':                  "openSpiceRecipe('creamy-jalapeno-ranch')",
   'tzatziki':                   "openSpiceRecipe('tzatziki')",
   'cucumber raita':             null,  // TODO build Cucumber Raita (Spice > Sambals & Relishes), then wire
-  'yellow rice':                null   // TODO build Yellow Rice / geelrys (Sides & Basics), then wire
-  // Sides/staples (Mash · Pizza Dough · Napoletana · Roti · Rice · Coleslaw …) can only wire once the
-  // meals section is registered into the universal opener (RECIPE_SOURCES.meals) — see handoff.
+  'yellow rice':                null,  // TODO build Yellow Rice / geelrys (Sides & Basics), then wire
+  // → Sides & Basics recipes — NOW WIRED (29 Jun): RECIPE_SOURCES.meals + RECIPE_BUILDERS.meals are both live.
+  'napoletana sauce':           "openRecipe('meals','sb-napoletana-sauce')",
+  'napoletana pizza sauce':     "openRecipe('meals','sb-napoletana-sauce')",
+  'pizza sauce':                "openRecipe('meals','sb-napoletana-sauce')",
+  'mash':                       "openRecipe('meals','sb-mash')",
+  'creamy mash':                "openRecipe('meals','sb-mash')",
+  'pizza dough':                "openRecipe('meals','sb-pizza-dough')"
 };
 var INGREDIENT_LINKS = {
   'garlic-ginger paste': "openSpiceRecipe('ginger-garlic-paste')",
