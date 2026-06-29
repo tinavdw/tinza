@@ -5846,7 +5846,7 @@ var SUPPER_RECIPES = [
   {id:'sp-spag-bol', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Grated parmesan','A glass of red'], diet:'meat', protein:'beef', name:'Spaghetti Bolognese', emoji:'🍝', cuisine:'Italian', time:30, costPP:59,
   feel:'The weeknight rescue everyone already knows how to twirl.',
   ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'garlic'},{n:'cheddar',pp:20,u:'g'}],
-  method:['Soften the chopped onion, carrot and garlic in a little oil.','Add the mince and brown well, breaking up any lumps.','Stir in the tomatoes and simmer gently for 25 minutes until thick and glossy.','Cook the spaghetti, drain, and serve topped with the sauce and grated cheddar.'],
+  method:['Soften the chopped onion, carrot and garlic in a little oil.','Add the mince and brown well, breaking up any lumps.','Stir in the tomatoes and simmer gently for 25 minutes until thick and glossy, then season well with salt and pepper.','Cook the spaghetti, drain, and serve topped with the sauce and grated cheddar.'],
   tip:'A long, slow simmer is the whole secret — give the sauce time and it rewards you.',
   didYouKnow:'In Bologna, "spaghetti bolognese" doesn\'t exist — the real ragù is served on fresh tagliatelle, never spaghetti, and uses only a whisper of tomato. What the world calls "spag bol" is its travelled, tomato-rich cousin.',
   nutrition:{kcal:540,protein_g:28,carbs_g:64,fat_g:18}, storage:'Sauce keeps 3 days and freezes 2 months.',
@@ -5923,7 +5923,7 @@ var SUPPER_RECIPES = [
         tip:'The trio of Worcestershire, tomato paste and thyme is what turns plain mince into a rich, restaurant-worthy gravy — do not skip them, and taste for salt before it goes in the oven.',
         didYouKnow:'A splash of Worcestershire sauce and a spoon of tomato paste add deep "umami" — savoury richness — that makes the gravy taste long-simmered even in 20 minutes; bay and thyme give it the classic aroma.',
         ingredients:[{n:'beef mince',pp:140,u:'g'},{n:'potatoes',pp:320,u:'g'},{n:'onion',pp:60,u:'g'},{n:'carrots',pp:70,u:'g'},{n:'celery',pp:40,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'frozen peas',pp:50,u:'g'},{n:'tomato paste',pp:10,u:'g'},{n:'worcestershire sauce',pp:6,u:'ml'},{n:'beef stock',pp:130,u:'ml'},{n:'fresh thyme',pp:3,u:'g'},{n:'bay leaves',pp:1,u:'g'},{n:'butter',pp:25,u:'g'},{n:'milk',pp:35,u:'ml'},{n:'cheddar',pp:35,u:'g'}],
-        method:['Brown the mince hard; lift out.','Soften onion, carrot, celery and garlic; stir in tomato paste and cook 1 minute.','Return the mince with thyme, bay and Worcestershire; add stock and peas.','Simmer 20 minutes until rich; season well with salt and pepper with salt and pepper; discard the bay.','Mash the boiled potatoes with butter, warm milk and half the cheese; season with salt, pepper and nutmeg.','Top the mince, fork the surface, scatter cheese and bake 190°C for 30 minutes until golden. Rest 10 minutes.']},
+        method:['Brown the mince hard; lift out.','Soften onion, carrot, celery and garlic; stir in tomato paste and cook 1 minute.','Return the mince with thyme, bay and Worcestershire; add stock and peas.','Simmer 20 minutes until rich; season well with salt and pepper; discard the bay.','Mash the boiled potatoes with butter, warm milk and half the cheese; season with salt, pepper and nutmeg.','Top the mince, fork the surface, scatter cheese and bake 190°C for 30 minutes until golden. Rest 10 minutes.']},
       {name:'Budget',icon:'💰',time:65,costPP:28,nutrition:{kcal:520,protein_g:20,carbs_g:60,fat_g:20},
         feel:'Lentils stretch the mince and extra mash fills the dish — the same well-seasoned, savoury bake for less.',
         tip:'Replace a third of the mince with cooked brown lentils — with the Worcestershire and thyme in there, no one will notice.',
@@ -5951,7 +5951,7 @@ var SUPPER_RECIPES = [
         tip:'Build the sauce properly — soften the veg, make a roux, then add liquid gradually and whisk — and season it until it actually tastes good before the lid goes on. Glaze with egg for a deep golden shine.',
         didYouKnow:'A splash of cream or a spoon of mustard stirred into the filling lifts it from plain to special, and tasting-and-seasoning the sauce before it is covered is the single biggest thing that separates a great pie from a bland one.',
         ingredients:[{n:'chicken fillets',pp:150,u:'g'},{n:'puff pastry',pp:90,u:'g'},{n:'mushrooms',pp:70,u:'g'},{n:'onion',pp:45,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'frozen peas',pp:50,u:'g'},{n:'milk',pp:60,u:'ml'},{n:'cream',pp:30,u:'ml'},{n:'chicken stock',pp:90,u:'ml'},{n:'fresh thyme',pp:3,u:'g'},{n:'cake flour',pp:14,u:'g'},{n:'butter',pp:16,u:'g'},{n:'eggs',pp:1,u:'each'}],
-        method:['Soften onion, garlic and carrot in butter; add mushrooms and brown.','Add the diced chicken and colour, then stir in the flour for 1 minute.','Gradually add stock, milk and cream, whisking to a thick creamy sauce; stir in peas and thyme and season well with salt and pepper with salt and pepper. Cool slightly.','Spoon into a dish, top with puff pastry, seal and cut a slit.','Glaze with beaten egg and bake 200°C for 28 minutes until high and golden.']},
+        method:['Soften onion, garlic and carrot in butter; add mushrooms and brown.','Add the diced chicken and colour, then stir in the flour for 1 minute.','Gradually add stock, milk and cream, whisking to a thick creamy sauce; stir in peas and thyme and season well with salt and pepper. Cool slightly.','Spoon into a dish, top with puff pastry, seal and cut a slit.','Glaze with beaten egg and bake 200°C for 28 minutes until high and golden.']},
       {name:'Budget',icon:'💰',time:60,costPP:24,nutrition:{kcal:500,protein_g:24,carbs_g:40,fat_g:26},
         feel:'More mushrooms, carrot and onion, a little less chicken — the creamy, well-seasoned pie made to stretch.',
         tip:'Mushrooms are cheaper than chicken and add savoury, meaty depth — load them up, and season the sauce well to make up for less meat.',
@@ -7104,53 +7104,8 @@ var SUPPER_RECIPES = [
                   "fat_g": 32
               },
               "feel": "The one everyone orders — seared rump tossed in garlicky, parsley-flecked butter over silky mash.",
-              "ingredients": [
-                  {
-                      "n": "rump steak",
-                      "pp": 150,
-                      "u": "g"
-                  },
-                  {
-                      "n": "potatoes",
-                      "pp": 250,
-                      "u": "g"
-                  },
-                  {
-                      "n": "butter",
-                      "pp": 35,
-                      "u": "g"
-                  },
-                  {
-                      "n": "garlic",
-                      "pp": 6,
-                      "u": "g"
-                  },
-                  {
-                      "n": "fresh parsley",
-                      "pp": 3,
-                      "u": "g"
-                  },
-                  {
-                      "n": "full cream milk",
-                      "pp": 40,
-                      "u": "ml"
-                  },
-                  {
-                      "n": "oil",
-                      "pp": 8,
-                      "u": "ml"
-                  },
-                  {
-                      "n": "salt & pepper"
-                  }
-              ],
-              "method": [
-                  "Boil, drain and mash the potatoes with butter and warm milk; season and keep warm.",
-                  "Cut the steak into 2 cm cubes, pat very dry and season.",
-                  "Sear in a smoking-hot oiled pan in a single layer, undisturbed 1–2 minutes, then toss and sear 1 minute more (in batches if needed).",
-                  "Off the heat, toss with the butter, grated garlic and parsley for 30 seconds until fragrant.",
-                  "Spoon the steak and garlic butter over the mash."
-              ]
+              "ingredients": [{"n":"rump steak","pp":150,"u":"g"},{"n":"potatoes","pp":250,"u":"g"},{"n":"butter","pp":40,"u":"g"},{"n":"fresh cream","pp":30,"u":"ml"},{"n":"white cheddar","pp":30,"u":"g"},{"n":"garlic","pp":8,"u":"g"},{"n":"Dijon mustard","pp":6,"u":"g"},{"n":"smoked paprika","pp":2,"u":"g"},{"n":"lemon","pp":8,"u":"g"},{"n":"fresh parsley","pp":3,"u":"g"},{"n":"chilli flakes","pp":1,"u":"g"},{"n":"oil","pp":8,"u":"ml"},{"n":"salt & pepper"}],
+              "method": ["Make the mash first: boil the cubed potatoes in well-salted water 15-18 minutes until a knife slides through, then drain and steam-dry a minute. Mash with the butter, warm cream and grated white cheddar until silky, season well with salt and pepper, and keep warm. (For the full showpiece, fold in a whole head of roasted garlic - see the Roasted Garlic & Cheddar mash in Sides & Basics.)","Cut the steak into 2 cm cubes, pat them really dry with paper towel - a dry surface is the whole secret to a brown crust - and season generously with salt and pepper.","Heat the oil in a heavy pan until almost smoking. Sear the steak in a single layer, undisturbed, 1-2 minutes until a deep crust forms, then toss and sear 1 minute more for medium-rare; work in batches so it sears rather than steams. Lift out to rest.","Lower the heat and stir the soft butter together with the Dijon, smoked paprika, grated garlic, lemon juice, parsley and a pinch of chilli flakes - this is the 'cowboy butter'. Add it to the pan and let it melt and foam.","Return the steak and its juices and toss 1 minute until glossy and coated. Spoon over the cheddar mash and pour the pan butter over the top."]
           },
           {
               "name": "Peppercorn Sauce",
@@ -7653,63 +7608,8 @@ var SUPPER_RECIPES = [
                   "fat_g": 26
               },
               "feel": "Seared beef strips and mushrooms in a silky sour-cream and paprika sauce.",
-              "ingredients": [
-                  {
-                      "n": "beef strips",
-                      "pp": 150,
-                      "u": "g"
-                  },
-                  {
-                      "n": "mushrooms",
-                      "pp": 80,
-                      "u": "g"
-                  },
-                  {
-                      "n": "onion",
-                      "pp": 60,
-                      "u": "g"
-                  },
-                  {
-                      "n": "sour cream",
-                      "pp": 50,
-                      "u": "g"
-                  },
-                  {
-                      "n": "beef stock",
-                      "pp": 100,
-                      "u": "ml"
-                  },
-                  {
-                      "n": "paprika",
-                      "pp": 2,
-                      "u": "g"
-                  },
-                  {
-                      "n": "cake flour",
-                      "pp": 8,
-                      "u": "g"
-                  },
-                  {
-                      "n": "tagliatelle",
-                      "pp": 90,
-                      "u": "g"
-                  },
-                  {
-                      "n": "oil",
-                      "pp": 10,
-                      "u": "ml"
-                  },
-                  {
-                      "n": "salt & pepper"
-                  }
-              ],
-              "method": [
-                  "Sear the dried, seasoned beef strips in batches in hot oil; lift out.",
-                  "Soften the onion and mushrooms until golden.",
-                  "Stir in flour and paprika, then the stock, into a smooth sauce.",
-                  "Off the boil, stir in the sour cream and return the beef to warm through.",
-                  "Serve over tagliatelle or rice."
-              ]
+              "ingredients": [{"n":"beef strips","pp":150,"u":"g"},{"n":"mushrooms","pp":90,"u":"g"},{"n":"onion","pp":70,"u":"g"},{"n":"butter","pp":25,"u":"g"},{"n":"sour cream","pp":40,"u":"ml"},{"n":"cake flour","pp":8,"u":"g"},{"n":"smoked paprika","pp":2,"u":"g"},{"n":"nutmeg","pp":0.3,"u":"g"},{"n":"brandy","pp":12,"u":"ml"},{"n":"beef stock","pp":80,"u":"ml"},{"n":"Dijon mustard","pp":5,"u":"g"},{"n":"worcestershire sauce","pp":5,"u":"ml"},{"n":"fresh dill","pp":3,"u":"g"},{"n":"fresh parsley","pp":3,"u":"g"},{"n":"oil","pp":6,"u":"ml"},{"n":"salt & pepper"}],
+              "method": ["Melt half the butter in a wide pan over medium-low heat and cook the sliced onions slowly, 20-25 minutes, stirring now and then, until deeply golden and sweet - this slow caramelising is the backbone of the flavour. Season with a pinch of salt and lift out.","Turn the heat to high, add a little oil, and sear the dried, seasoned beef strips fast in batches (about 1 minute, still pink inside) so they brown rather than stew. Lift out with the onions.","Add the rest of the butter and fry the mushrooms until golden, then stir in the nutmeg and a good pinch of salt and pepper.","Sprinkle over the flour and smoked paprika, stir 1 minute, then pour in the brandy and let it bubble away, scraping up the brown bits - that deglaze is pure flavour.","Add the beef stock, Dijon and Worcestershire and simmer 5 minutes into a glossy gravy. Drop to low heat, stir in the sour cream (don't let it boil), and fold the beef and onions back in to warm through. Finish with chopped dill and parsley and serve over tagliatelle."]
           },
           {
               "name": "Budget",
@@ -9839,50 +9739,8 @@ var SUPPER_RECIPES = [
           "fat_g": 34
         },
         "feel": "Pan-fried chicken in a glossy parmesan cream that clings to every strand of fettuccine. Rich, fast, and exactly what people mean when they order Alfredo.",
-        "ingredients": [
-          {
-            "n": "fettuccine",
-            "pp": 90,
-            "u": "g"
-          },
-          {
-            "n": "chicken breasts",
-            "pp": 120,
-            "u": "g"
-          },
-          {
-            "n": "fresh cream",
-            "pp": 80,
-            "u": "ml"
-          },
-          {
-            "n": "parmesan",
-            "pp": 25,
-            "u": "g"
-          },
-          {
-            "n": "butter",
-            "pp": 20,
-            "u": "g"
-          },
-          {
-            "n": "garlic",
-            "pp": 5,
-            "u": "g"
-          },
-          {
-            "n": "olive oil",
-            "pp": 6,
-            "u": "ml"
-          }
-        ],
-        "method": [
-          "Season the chicken and fry in the olive oil over medium-high heat until golden and cooked through, 5–6 min a side. Rest, then slice.",
-          "Turn the heat down, melt the butter in the same pan and soften the garlic a minute without browning it.",
-          "Pour in the cream and let it bubble gently 2 min to thicken slightly.",
-          "Off the heat, stir in the parmesan until it melts into a smooth sauce — adding it off the boil stops it going stringy.",
-          "Toss the cooked fettuccine through with a splash of pasta water to loosen, and top with the sliced chicken."
-        ],
+        "ingredients": [{"n":"fettuccine","pp":90,"u":"g"},{"n":"chicken breasts","pp":120,"u":"g"},{"n":"fresh cream","pp":80,"u":"ml"},{"n":"parmesan","pp":25,"u":"g"},{"n":"butter","pp":20,"u":"g"},{"n":"garlic","pp":6,"u":"g"},{"n":"smoked paprika","pp":1,"u":"g"},{"n":"mixed herbs","pp":1,"u":"g"},{"n":"nutmeg","pp":0.3,"u":"g"},{"n":"fresh parsley","pp":3,"u":"g"},{"n":"olive oil","pp":6,"u":"ml"},{"n":"salt & pepper"}],
+        "method": ["Season the chicken well with salt, pepper, the smoked paprika and the mixed herbs, then fry in the olive oil over medium-high heat until golden and cooked through, 5-6 minutes a side. Rest, then slice.","Turn the heat down, melt the butter in the same pan and soften the garlic a minute without browning it.","Pour in the cream, add a small grating of nutmeg and a good pinch of black pepper, and let it bubble gently 2 minutes to thicken slightly.","Off the heat, stir in the parmesan until it melts into a smooth sauce - adding it off the boil stops it going stringy - and check the salt.","Toss the cooked fettuccine through with a splash of pasta water to loosen, top with the sliced chicken and finish with chopped parsley."],
         "didYouKnow": "Real Italian \"Alfredo\" has no cream at all — Alfredo di Lelio created it in Rome in 1908 from just butter and parmesan whipped with pasta water. The cream-and-chicken version is entirely American, named after the same man."
       },
       {
@@ -10235,7 +10093,7 @@ var SUPPER_RECIPES = [
   {id:'sp-margherita-pizza', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Rocket','Chilli oil'], diet:'veg', protein:'veg', name:'Margherita Pizza', emoji:'🍕', cuisine:'Italian', time:30, costPP:46,
     feel:'A blistered base, bright tomato, melting mozzarella and fresh basil — the pizza that proves simple is hardest to beat.',
     ingredients:[{n:'pizza base',pp:1,u:'each'},{n:'tomato passata',pp:60,u:'g'},{n:'mozzarella',pp:65,u:'g'},{n:'fresh basil',pp:5,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
-    method:['Get your oven roaring — slide a pizza stone, steel or upturned baking tray in and preheat it as hot as the oven goes (240 to 260°C) for at least 30 minutes.','Stretch the base by hand on a floured peel or sheet of baking paper; never roll it, which crushes out the air.','Spread a thin layer of passata mixed with the crushed garlic — thin is the secret, too much sauce steams the base soggy.','Tear over the mozzarella, leaving a clear border for the crust to puff.','Cook it two ways — WOOD-FIRED (~400°C+): slide it on and bake 60 to 90 seconds, turning once, until the crust is leopard-spotted. HOME OVEN: bake 8 to 12 minutes on the preheated stone until the crust is blistered and the cheese bubbles.','Finish with torn fresh basil and a drizzle of olive oil — basil after baking, so it stays fragrant and green.'],
+    method:['Get your oven roaring — slide a pizza stone, steel or upturned baking tray in and preheat it as hot as the oven goes (240 to 260°C) for at least 30 minutes.','Stretch the base by hand on a floured peel or sheet of baking paper; never roll it, which crushes out the air.','Spread a thin layer of passata mixed with the crushed garlic — thin is the secret, too much sauce steams the base soggy. Season the passata with a good pinch of salt.','Tear over the mozzarella, leaving a clear border for the crust to puff.','Cook it two ways — WOOD-FIRED (~400°C+): slide it on and bake 60 to 90 seconds, turning once, until the crust is leopard-spotted. HOME OVEN: bake 8 to 12 minutes on the preheated stone until the crust is blistered and the cheese bubbles.','Finish with torn fresh basil and a drizzle of olive oil — basil after baking, so it stays fragrant and green.'],
     tip:'Make your own base (see Pizza Dough) and sauce (see Napoletana) in Sides & Basics — both freeze, so a stash means pizza in minutes. And pizza wants the HOTTEST oven you have: 180°C only gives a pale, soft base. Save moderate heat for thick pan pizzas; for a crisp thin crust, max it out and preheat a stone or tray.',
     didYouKnow:'The Margherita was supposedly built in 1889 for Queen Margherita of Savoy, its tomato-red, mozzarella-white and basil-green echoing the new Italian flag. Whether the tale is exact or polished over time, the colour-coded patriotism stuck — and it remains the benchmark every pizzaiolo is judged by.',
     nutrition:{kcal:600,protein_g:24,carbs_g:74,fat_g:24}, storage:'Best eaten fresh and hot. Reheat leftovers in a hot dry pan or air-fryer, never the microwave, to keep the base crisp.',
@@ -11665,7 +11523,7 @@ var SUPPER_RECIPES = [
   {id:'sp-gnocchi-sorrentina', cat:'pastapizza', goesWith:['Green salad','Garlic bread','A glass of red'], diet:'veg', protein:'veg', name:'Gnocchi alla Sorrentina', emoji:'🧀', cuisine:'Italian', time:35, costPP:53,
     feel:'Gnocchi baked in a bright tomato sauce under a blanket of melting mozzarella until the top crisps and the inside stays soft — the Amalfi coast in a dish.',
     ingredients:[{n:'gnocchi',pp:200,u:'g'},{n:'tomato passata',pp:120,u:'g'},{n:'mozzarella',pp:50,u:'g'},{n:'fresh basil',pp:4,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'parmesan',pp:12,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
-    method:['Soften the garlic in olive oil, add the passata and a few torn basil leaves, and simmer 10 minutes into a bright sauce.','Boil the gnocchi until they float, then drain and fold into the sauce.','Tip into an oven dish, tear over the mozzarella and scatter with parmesan.','Bake at 200°C until bubbling and the top is golden and crisp, about 15 minutes.','Finish with fresh basil and serve straight from the dish.'],
+    method:['Soften the garlic in olive oil, add the passata and a few torn basil leaves, and simmer 10 minutes into a bright sauce, seasoned with salt and pepper.','Boil the gnocchi until they float, then drain and fold into the sauce.','Tip into an oven dish, tear over the mozzarella and scatter with parmesan.','Bake at 200°C until bubbling and the top is golden and crisp, about 15 minutes.','Finish with fresh basil and serve straight from the dish.'],
     tip:'Make your own gnocchi (see Potato Gnocchi in Sides & Basics) and your own Napoletana sauce (Basic Sauces) — this dish is the perfect home for both. Use a good melting mozzarella, not the pre-grated pizza kind, for proper molten strands.',
     didYouKnow:'This dish is named after Sorrento, on the cliffs above the Bay of Naples, where it is traditionally baked in individual terracotta dishes with local San Marzano tomatoes and fior di latte mozzarella. The baking is the whole point — it gives you crisp, caramelised edges over a soft, saucy middle.',
     nutrition:{kcal:460,protein_g:16,carbs_g:66,fat_g:15}, storage:'Keeps 3 days; reheats beautifully and even freezes well before baking.',
@@ -11690,7 +11548,7 @@ var SUPPER_RECIPES = [
   {id:'sp-tagliatelle-ragu', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Grated parmesan','A glass of red'], diet:'meat', protein:'beef', name:'Tagliatelle al Ragù alla Bolognese', photoName:'Tagliatelle al Ragu', emoji:'🍝', cuisine:'Italian', time:150, costPP:42,
     feel:'The real Bolognese — a deep, slow-cooked meat ragù clinging to fresh tagliatelle, never spaghetti. The dish the whole world copies and rarely gets right.',
     ingredients:[{n:'tagliatelle',pp:100,u:'g'},{n:'beef mince',pp:100,u:'g'},{n:'pork mince',pp:40,u:'g'},{n:'onion',pp:40,u:'g'},{n:'carrots',pp:30,u:'g'},{n:'celery',pp:25,u:'g'},{n:'tomato passata',pp:60,u:'g'},{n:'red wine',pp:30,u:'ml'},{n:'cream',pp:15,u:'ml'},{n:'garlic',pp:4,u:'g'},{n:'parmesan',pp:15,u:'g'}],
-    method:['Finely chop the onion, carrot and celery (the soffritto) and soften slowly in oil and a little butter without colouring, about 10 minutes.','Add the beef and pork mince and brown well, breaking up every lump until deeply coloured.','Pour in the red wine and let it cook away, then add the passata and a splash of water.','Simmer as gently as you can, partly covered, for 1½ to 2 hours, topping up with water — the longer and slower, the better. Stir in the cream near the end for silkiness.','Cook the fresh tagliatelle for just 2 to 3 minutes, then toss it through the ragù with a little pasta water and the parmesan so the sauce coats every strand.'],
+    method:['Finely chop the onion, carrot and celery (the soffritto) and soften slowly in oil and a little butter without colouring, about 10 minutes.','Add the beef and pork mince and brown well, breaking up every lump until deeply coloured.','Pour in the red wine and let it cook away, then add the passata and a splash of water.','Simmer as gently as you can, partly covered, for 1½ to 2 hours, topping up with water — the longer and slower, the better. Stir in the cream near the end for silkiness, and season the ragù well with salt and pepper.','Cook the fresh tagliatelle for just 2 to 3 minutes, then toss it through the ragù with a little pasta water and the parmesan so the sauce coats every strand.'],
     tip:'Toss the pasta IN the sauce, never sauce on top of plain pasta — that is the difference between a good and a great plate. Make your own tagliatelle from scratch — see Fresh Egg Pasta in Sides & Basics; the ragù deserves it.',
     didYouKnow:'The real ragù alla Bolognese is so precious to Bologna that the official recipe was registered with the city\'s Chamber of Commerce in 1982 — and it is always served on tagliatelle, never spaghetti. The correct width of a cooked tagliatella is even defined by a golden ribbon kept at the Chamber: exactly one twelve-thousand-two-hundred-and-seventieth of the height of the city\'s Asinelli tower.',
     nutrition:{kcal:620,protein_g:32,carbs_g:66,fat_g:24}, storage:'The ragù keeps 3 days and freezes 3 months — it is even better the next day. Cook fresh pasta to order.',
@@ -11787,8 +11645,8 @@ var SUPPER_RECIPES = [
       {name:'Restaurant-Style',icon:'\ud83c\udfc6',default:true,time:55,costPP:42,nutrition:{kcal:620,protein_g:38,carbs_g:16,fat_g:44},
         feel:'Marinated, charred chicken folded into a blended tomato gravy enriched with butter, cream and a handful of cashews — the takeaway version, at home.',
         didYouKnow:'A spoon of ground cashews stirred into the gravy is the classic trick for thickening and enriching it without more cream — it is how many restaurants get that luxurious body.',
-        ingredients:[{n:'chicken thighs',pp:170,u:'g'},{n:'tomatoes',pp:140,u:'g'},{n:'cream',pp:50,u:'ml'},{n:'butter',pp:30,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garam masala',pp:7,u:'g'},{n:'garlic-ginger paste',pp:10,u:'g'},{n:'yoghurt',pp:40,u:'ml'},{n:'cashews',pp:15,u:'g'}],
-        method:['Marinate the chicken chunks in the yoghurt, half the garlic-ginger and half the garam masala for 30 minutes.','Sear or grill the chicken hard until charred at the edges but not cooked through; set aside.','Melt the butter, soften the onion, add the rest of the garlic-ginger and garam masala, fry 1 minute.','Add the tomato and cashews with a splash of water; simmer 10 minutes, then blend completely smooth.','Return to low heat, stir in the cream and the charred chicken, and simmer gently 8 minutes. Finish with a knob of butter.','Taste and season with salt, with a squeeze of lemon to lift it.']},
+        ingredients:[{"n":"chicken thighs","pp":160,"u":"g"},{"n":"plain yoghurt","pp":30,"u":"g"},{"n":"ghee","pp":12,"u":"g"},{"n":"onion","pp":50,"u":"g"},{"n":"ginger-garlic paste","pp":12,"u":"g"},{"n":"garam masala","pp":5,"u":"g"},{"n":"cumin","pp":2,"u":"g"},{"n":"coriander","pp":2,"u":"g"},{"n":"turmeric","pp":1,"u":"g"},{"n":"chilli powder","pp":2,"u":"g"},{"n":"tinned tomatoes","pp":90,"u":"g"},{"n":"cashews","pp":12,"u":"g"},{"n":"fresh cream","pp":40,"u":"ml"},{"n":"butter","pp":15,"u":"g"},{"n":"sugar","pp":4,"u":"g"},{"n":"kasuri methi","pp":1,"u":"g"},{"n":"lemon","pp":8,"u":"g"},{"n":"salt & pepper"}],
+        method:["Marinate the chicken thigh chunks in the yoghurt, lemon, half the ginger-garlic, the turmeric, cumin and half the garam masala with a good pinch of salt - 30 minutes, or overnight for the deepest flavour.","Sear or grill the chicken hard until charred at the edges but not cooked through, then set aside; those charred edges are where the smoky depth comes from.","Melt the ghee, soften the diced onion, then add the rest of the ginger-garlic and fry 1 minute. Stir in the remaining garam masala, the coriander and chilli powder and toast 1 minute until fragrant.","Add the tinned tomatoes, the sugar and the cashews; simmer 12-15 minutes until rich and the fat splits, then blend completely smooth and season with salt.","Return to low heat, stir in the cream and a pinch of crushed kasuri methi (dried fenugreek - the signature butter-chicken aroma), then fold in the charred chicken and simmer gently 8 minutes. Finish with a knob of butter and a squeeze of lemon."]},
       {name:'Budget',icon:'\ud83d\udcb0',time:40,costPP:26,nutrition:{kcal:480,protein_g:30,carbs_g:20,fat_g:28},
         feel:'Less cream, a little milk to stretch it, and the cheaper cut — the same warm, buttery gravy on a budget.',
         didYouKnow:'Whisking a spoon of plain yoghurt into the gravy (off the heat, so it does not split) gives a creamy tang for a fraction of what cream costs.',
@@ -11934,8 +11792,8 @@ var SUPPER_RECIPES = [
         feel:'Floured, browned lamb braised two-plus hours in stout until it falls apart in a glossy, deep-brown gravy.',
         tip:'Give it the full two hours on the lowest heat — you cannot rush connective tissue into tenderness.',
         didYouKnow:'The alcohol in the stout cooks off within the first few minutes of simmering — what stays behind is pure malty, roasted depth — which is why a long-braised stout stew suits the whole family.',
-        ingredients:[{n:'lamb',pp:160,u:'g'},{n:'stout',pp:100,u:'ml'},{n:'carrots',pp:90,u:'g'},{n:'onion',pp:80,u:'g'},{n:'potato',pp:110,u:'g'},{n:'beef stock',pp:160,u:'ml'},{n:'flour',pp:12,u:'g'},{n:'oil',pp:14,u:'ml'}],
-        method:['Toss the lamb in seasoned flour; brown hard in batches.','Soften the onion, scraping the pan.','Return the lamb with stout, stock, carrots and potato.','Cover and braise the lowest heat 2–2.5 hours until spoon-tender.','Season and rest before serving with mash.','Taste and season well with salt and pepper.']},
+        ingredients:[{"n":"lamb","pp":180,"u":"g"},{"n":"bacon","pp":30,"u":"g"},{"n":"cake flour","pp":12,"u":"g"},{"n":"onion","pp":70,"u":"g"},{"n":"garlic","pp":8,"u":"g"},{"n":"tomato paste","pp":12,"u":"g"},{"n":"stout","pp":100,"u":"ml"},{"n":"beef stock","pp":120,"u":"ml"},{"n":"worcestershire sauce","pp":5,"u":"ml"},{"n":"thyme","pp":2,"u":"g"},{"n":"rosemary","pp":2,"u":"g"},{"n":"bay leaves","pp":0.5,"u":"g"},{"n":"carrots","pp":80,"u":"g"},{"n":"potatoes","pp":150,"u":"g"},{"n":"oil","pp":8,"u":"ml"},{"n":"salt & pepper"}],
+        method:["Crisp the diced bacon in a heavy pot, then lift it out, leaving the smoky fat behind - that fat is your searing base.","Toss the lamb in seasoned flour and brown it hard in the bacon fat in batches until deeply coloured; don't crowd the pot or it stews instead of searing. Lift out.","Soften the onion in the same pot, then stir in the garlic and tomato paste and cook 1-2 minutes until the paste darkens - cooking it out deepens the whole stew.","Pour in the stout and scrape up every brown bit, then return the lamb and bacon with the stock, Worcestershire and a bundle of thyme, rosemary and bay. Bring to a simmer, cover, and braise on the lowest heat for 1.5 hours.","Stir in the carrots and potatoes and simmer uncovered another 40-60 minutes until the lamb is spoon-tender and the sauce glossy. Season well with salt and pepper, fish out the herb bundle, and rest before serving with mash."]},
       {name:'Budget',icon:'💰',time:140,costPP:36,nutrition:{kcal:540,protein_g:32,carbs_g:40,fat_g:26},
         feel:'Cheaper neck or shoulder, more veg — the thriftiest cut makes the BEST stew.',
         tip:'Ask for lamb neck or shoulder — the cheapest cuts have the most connective tissue, which melts into the richest gravy.',
@@ -12332,7 +12190,7 @@ var SUPPER_RECIPES = [
   {id:'sp-nacho-bake', cat:'ovenbakes', goesWith:['Sour cream','Avocado','Fresh coriander'], diet:'meat', protein:'beef', name:'Tex-Mex Beef Nacho Bake', emoji:'🌮', cuisine:'Tex-Mex', time:40, costPP:38,
     feel:'Spiced beef and beans layered with tortilla chips and melted cheese, baked into a loaded nacho feast.',
     ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'tortilla chips',pp:50,u:'g'},{n:'tinned beans',pp:60,u:'g'},{n:'tinned tomatoes',pp:90,u:'g'},{n:'cheddar',pp:50,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'chilli powder',pp:4,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'oil',pp:10,u:'ml'}],
-    method:['Heat the oil and soften the onion with a good pinch of salt for 5 minutes, then add the garlic for a minute.','Add the beef mince and brown it hard, breaking it up, until well coloured.','Stir in the chilli powder, cumin and a pinch of cayenne and cook 1 minute, then add the tinned tomatoes, drained beans and a splash of water. Simmer 10 minutes into a thick chilli and season well with salt and pepper with salt and pepper.','Scatter half the tortilla chips in a dish, spoon over the beef, then the rest of the chips and a thick layer of grated cheese.','Bake at 180°C until melted and bubbling, about 12 minutes. Top with avocado, sour cream and chopped coriander and serve at once.'],
+    method:['Heat the oil and soften the onion with a good pinch of salt for 5 minutes, then add the garlic for a minute.','Add the beef mince and brown it hard, breaking it up, until well coloured.','Stir in the chilli powder, cumin and a pinch of cayenne and cook 1 minute, then add the tinned tomatoes, drained beans and a splash of water. Simmer 10 minutes into a thick chilli and season well with salt and pepper.','Scatter half the tortilla chips in a dish, spoon over the beef, then the rest of the chips and a thick layer of grated cheese.','Bake at 180°C until melted and bubbling, about 12 minutes. Top with avocado, sour cream and chopped coriander and serve at once.'],
     tip:'Season the beef chilli properly with salt and taste it before it goes in — under-seasoned mince is the only thing that lets a nacho bake down.',
     didYouKnow:'Nachos were invented in 1940 by Ignacio "Nacho" Anaya in Piedras Negras, just over the Mexican border — he threw together fried tortillas, cheese and jalapeños for a group of hungry guests, and named them after himself.',
     freezes:false, fridgeDays:1,
@@ -12343,24 +12201,24 @@ var SUPPER_RECIPES = [
         tip:'Build the chilli on a base of softened onion and garlic, season it with salt as you go, and use half cheddar, half pepper-jack for that proper melty Tex-Mex stretch.',
         didYouKnow:'Real Tex-Mex seasoning is not one mystery "taco" powder but a balance of chilli powder for warmth, cumin for earthiness and a little cayenne for heat — building them separately lets you taste and adjust.',
         ingredients:[{n:'beef mince',pp:150,u:'g'},{n:'tortilla chips',pp:60,u:'g'},{n:'tinned beans',pp:60,u:'g'},{n:'tinned tomatoes',pp:100,u:'g'},{n:'cheddar',pp:70,u:'g'},{n:'onion',pp:60,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'chilli powder',pp:5,u:'g'},{n:'cumin',pp:4,u:'g'},{n:'sour cream',pp:40,u:'g'},{n:'avocado',pp:40,u:'g'},{n:'fresh coriander',pp:5,u:'g'},{n:'oil',pp:12,u:'ml'}],
-        method:['Soften the onion in the oil with a pinch of salt, then add the garlic.','Brown the mince hard for deep colour.','Add the chilli powder, cumin and a pinch of cayenne; cook 1 minute, then the tomatoes, beans and a splash of water. Simmer 10 minutes; season well with salt and pepper with salt and pepper and taste.','Layer chips, beef and a cheddar-and-pepper-jack blend — twice — for cheese all the way through.','Bake 180°C for 12 minutes until bubbling. Top with sour cream, avocado and coriander.']},
+        method:['Soften the onion in the oil with a pinch of salt, then add the garlic.','Brown the mince hard for deep colour.','Add the chilli powder, cumin and a pinch of cayenne; cook 1 minute, then the tomatoes, beans and a splash of water. Simmer 10 minutes; season well with salt and pepper and taste.','Layer chips, beef and a cheddar-and-pepper-jack blend — twice — for cheese all the way through.','Bake 180°C for 12 minutes until bubbling. Top with sour cream, avocado and coriander.']},
       {name:'Budget',icon:'💰',time:40,costPP:28,nutrition:{kcal:560,protein_g:24,carbs_g:58,fat_g:24},
         feel:'More beans, less mince, the same well-spiced base — a big, cheap, crowd-pleasing tray.',
         tip:'Beans are cheaper than mince and just as filling — push the ratio towards beans, and keep seasoning with salt, chilli and cumin so it never tastes thin.',
         didYouKnow:'Beans bulk the chilli out far more cheaply than mince and bring fibre and protein of their own — the original frugal Tex-Mex stretch.',
         ingredients:[{n:'beef mince',pp:80,u:'g'},{n:'tortilla chips',pp:50,u:'g'},{n:'tinned beans',pp:120,u:'g'},{n:'tinned tomatoes',pp:90,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'chilli powder',pp:4,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'oil',pp:10,u:'ml'}],
-        method:['Soften the onion and garlic with a pinch of salt.','Brown the mince, then add the chilli powder and cumin.','Stir in a double helping of beans, the tomatoes and a splash of water; simmer and season well with salt and pepper with salt and pepper.','Layer with chips and cheese; bake until melted and bubbling.']},
+        method:['Soften the onion and garlic with a pinch of salt.','Brown the mince, then add the chilli powder and cumin.','Stir in a double helping of beans, the tomatoes and a splash of water; simmer and season well with salt and pepper.','Layer with chips and cheese; bake until melted and bubbling.']},
       {name:'Vegetarian',icon:'🌱',time:35,costPP:30,nutrition:{kcal:520,protein_g:18,carbs_g:64,fat_g:22},
         feel:'A spiced three-bean chilli in place of the beef, layered with chips and cheese — no one misses the meat.',
         tip:'Mash some of the beans into the sauce for body, and season boldly with salt, chilli powder and cumin where the mince would have been.',
         didYouKnow:'A spiced bean chilli holds its own as a nacho base — mashing a portion of the beans gives the saucy body that mince would otherwise provide.',
         ingredients:[{n:'tinned beans',pp:80,u:'g'},{n:'black beans',pp:80,u:'g'},{n:'tortilla chips',pp:50,u:'g'},{n:'tinned tomatoes',pp:100,u:'g'},{n:'cheddar',pp:50,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'chilli powder',pp:5,u:'g'},{n:'cumin',pp:4,u:'g'},{n:'oil',pp:10,u:'ml'}],
-        method:['Fry the onion and garlic with a pinch of salt, then the chilli powder and cumin.','Add both beans and the tomatoes, mashing some, and simmer thick; season well with salt and pepper with salt and pepper.','Layer with chips and cheese.','Bake 180°C for 12 minutes. Top with avo and coriander and serve.']}
+        method:['Fry the onion and garlic with a pinch of salt, then the chilli powder and cumin.','Add both beans and the tomatoes, mashing some, and simmer thick; season well with salt and pepper.','Layer with chips and cheese.','Bake 180°C for 12 minutes. Top with avo and coriander and serve.']}
     ]},
   {id:'sp-moussaka', cat:'ovenbakes', goesWith:['Greek salad','Crusty bread','Green salad'], diet:'meat', protein:'lamb', name:'Greek Lamb Moussaka', emoji:'🍆', cuisine:'Greek', time:75, costPP:51,
     feel:'Layers of cinnamon-spiced lamb, soft aubergine and a creamy nutmeg bechamel, baked golden — Greece on a plate.',
     ingredients:[{n:'lamb mince',pp:140,u:'g'},{n:'aubergine',pp:120,u:'g'},{n:'potato',pp:100,u:'g'},{n:'tomato',pp:100,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'milk',pp:150,u:'ml'},{n:'flour',pp:15,u:'g'},{n:'butter',pp:20,u:'g'},{n:'cheddar',pp:25,u:'g'},{n:'oil',pp:15,u:'ml'}],
-    method:['Salt the aubergine slices and leave 15 minutes, then pat dry — this draws out bitterness and stops them soaking up oil. Fry the aubergine and potato slices until golden.','Cook the lamb mince with onion and garlic until browned, then add the tomato, a good pinch of cinnamon and a little oregano. Simmer into a thick ragu and season well with salt and pepper with salt and pepper.','Make a bechamel: melt the butter, stir in the flour, then whisk in the milk over the heat until thick. Off the heat beat in most of the cheese, a pinch of nutmeg and salt and pepper.','Layer potato, aubergine and lamb in a dish, pour over the bechamel, scatter the rest of the cheese and bake at 180°C until golden, about 35 minutes.','Rest 15 minutes before cutting so the layers hold.'],
+    method:['Salt the aubergine slices and leave 15 minutes, then pat dry — this draws out bitterness and stops them soaking up oil. Fry the aubergine and potato slices until golden.','Cook the lamb mince with onion and garlic until browned, then add the tomato, a good pinch of cinnamon and a little oregano. Simmer into a thick ragu and season well with salt and pepper.','Make a bechamel: melt the butter, stir in the flour, then whisk in the milk over the heat until thick. Off the heat beat in most of the cheese, a pinch of nutmeg and salt and pepper.','Layer potato, aubergine and lamb in a dish, pour over the bechamel, scatter the rest of the cheese and bake at 180°C until golden, about 35 minutes.','Rest 15 minutes before cutting so the layers hold.'],
     tip:'Season every layer — the lamb, and especially the bechamel with nutmeg, salt and pepper — and rest it before cutting so the layers hold.',
     didYouKnow:'The creamy béchamel top of moussaka is a relatively modern addition — Greek chef Nikolaos Tselementes added it in the 1920s to give the rustic dish a refined, French-inspired finish.',
     freezes:true, fridgeDays:3,
@@ -12398,7 +12256,7 @@ var SUPPER_RECIPES = [
   {id:'sp-shepherds-pie', cat:'ovenbakes', goesWith:['Frozen peas','Green salad','Gravy'], diet:'meat', protein:'lamb', name:'Shepherd\'s Pie', emoji:'🐑', cuisine:'British', time:60, costPP:48,
     feel:'Savoury lamb mince with rosemary and thyme under a golden, buttery mashed-potato crust — true cottage comfort.',
     ingredients:[{n:'lamb mince',pp:140,u:'g'},{n:'potatoes',pp:250,u:'g'},{n:'carrots',pp:60,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'frozen peas',pp:50,u:'g'},{n:'onion',pp:50,u:'g'},{n:'tomato paste',pp:8,u:'g'},{n:'beef stock',pp:120,u:'ml'},{n:'fresh thyme',pp:2,u:'g'},{n:'flour',pp:8,u:'g'},{n:'butter',pp:20,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'cheddar',pp:20,u:'g'}],
-    method:['Brown the lamb mince with the onion, carrot and garlic, then pour off any excess fat.','Stir in the flour and tomato paste, then the stock, peas, thyme, a little rosemary and a splash of Worcestershire. Simmer into a rich gravy and season well with salt and pepper with salt and pepper.','Boil the potatoes in salted water, drain and mash with the butter, warm milk and half the cheese; season with salt, pepper and a pinch of nutmeg.','Spread the mash over the lamb, rough up the surface with a fork, scatter the rest of the cheese and bake at 190°C for 25–30 minutes until golden and crisp.'],
+    method:['Brown the lamb mince with the onion, carrot and garlic, then pour off any excess fat.','Stir in the flour and tomato paste, then the stock, peas, thyme, a little rosemary and a splash of Worcestershire. Simmer into a rich gravy and season well with salt and pepper.','Boil the potatoes in salted water, drain and mash with the butter, warm milk and half the cheese; season with salt, pepper and a pinch of nutmeg.','Spread the mash over the lamb, rough up the surface with a fork, scatter the rest of the cheese and bake at 190°C for 25–30 minutes until golden and crisp.'],
     tip:'Rosemary and thyme are what make it taste of shepherd\'s pie rather than cottage pie — and season the mash, do not leave it plain.',
     didYouKnow:'A shepherd tends sheep — which is exactly how you remember that shepherd\'s pie is made with lamb, while its beef twin is called cottage pie. The lamb name appeared later, to tell the two apart.',
     freezes:true, fridgeDays:3,
@@ -12508,64 +12366,114 @@ var SUPPER_RECIPES = [
       ingredients:[{n:'chicken breast',pp:160,u:'g'},{n:'mozzarella',pp:40,u:'g'},{n:'sun-dried tomatoes',pp:25,u:'g'},{n:'fresh basil',pp:4,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'butter',pp:15,u:'g'},{n:'olive oil',pp:8,u:'ml'},{n:'baby potatoes',pp:180,u:'g'}],
       method:['Chop the sun-dried tomatoes and mix with the torn mozzarella, basil and garlic; season with pepper (the tomatoes bring the salt).','Pocket each chicken breast and pack in the filling; secure with a toothpick.','Sear in butter and oil to colour, then bake at 190\u00b0C with the potatoes until cooked through and the cheese is molten, about 18 minutes. Season and serve.']}
   ]},
-  {id:'sp-thai-peanut-chicken', cat:'ovenbakes', diet:'meat', protein:'chicken', name:'Thai Peanut Chicken Casserole', emoji:'🥜', cuisine:'Thai-inspired', time:45, costPP:35,
-    feel:'Chicken baked in a creamy coconut-peanut sauce — mild, nutty and a little bit different.',
-    ingredients:[{n:'chicken thighs',pp:150,u:'g'},{n:'coconut milk',pp:100,u:'ml'},{n:'peanut butter',pp:25,u:'g'},{n:'rice',pp:75,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'soy sauce',pp:10,u:'ml'},{n:'garlic-ginger paste',pp:8,u:'g'},{n:'lime',pp:10,u:'g'}],
-    method:['Whisk the coconut milk, peanut butter, soy and garlic-ginger into a sauce.','Place the chicken and peppers in a dish, pour over the sauce.','Bake at 180C until the chicken is tender and the sauce thickened, about 35 minutes.','Finish with lime and coriander and serve over rice.'],
-    tip:'A squeeze of lime at the end cuts through the richness of the peanut sauce.',
-    nutrition:{kcal:620,protein_g:34,carbs_g:56,fat_g:30}, storage:'Keeps 3 days.'},
-  {id:'sp-cowboy-bake', cat:'ovenbakes', goesWith:['Green salad','Crusty bread','Sour cream'], diet:'meat', protein:'beef', name:'Cowboy Bean & Beef Bake', emoji:'🫘', cuisine:'American', time:50, costPP:40,
-    feel:'Smoky beef and beans topped with sliced potato and cheese — hearty, rib-sticking and easy.',
-    ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'baked beans',pp:100,u:'g'},{n:'potato',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tomato',pp:60,u:'g'},{n:'oil',pp:10,u:'ml'}],
-    method:['Brown the mince with the onion, garlic and a pinch of salt until well coloured.','Stir in the smoked paprika and cumin and cook 1 minute, then add the tomato and baked beans and a splash of Worcestershire. Simmer briefly into a thick, saucy base and season well with salt and pepper with salt and pepper.','Tip into a dish and layer thinly sliced potato over the top, overlapping like tiles. Brush with a little oil and season the potato with salt.','Scatter with cheese and bake at 180°C for about 30 minutes until the potato is tender and the top golden.'],
-    tip:'Smoked paprika and cumin give it the real smoky-savoury depth — and season both the beef and the potato layer, not just one.',
-    didYouKnow:'"Cowboy beans" trace back to the chuckwagon cooks of the great American cattle drives, who simmered beans with whatever beef and smoky seasoning they had — filling, cheap and made in one pot over the fire.',
+  {id:'sp-thai-peanut-chicken', cat:'ovenbakes', goesWith:['Jasmine rice','Cucumber ribbons','Fresh coriander','Lime wedges'], diet:'meat', protein:'chicken', name:'Thai Peanut Chicken Casserole', emoji:'🥜', cuisine:'Thai-inspired', time:55, costPP:42,
+    feel:'Chicken thighs baked in a scratch coconut-peanut curry under a golden coconut-coriander scone crust — nutty, fragrant and properly comforting.',
+    didYouKnow:'Thai peanut sauces grow out of the satay tradition, where grilled skewers are served with a peanut-and-curry-paste dip. Building the sauce from red curry paste, peanut butter and coconut milk instead of a bottle is what turns a mild casserole into something that actually tastes of Thailand.',
     freezes:true, fridgeDays:3,
-    nutrition:{kcal:580,protein_g:28,carbs_g:54,fat_g:28}, storage:'Keeps 3 days; freezes well.',
+    ingredients:[{n:'chicken thighs',pp:160,u:'g'},{n:'coconut milk',pp:90,u:'ml'},{n:'peanut butter',pp:25,u:'g'},{n:'red curry paste',pp:15,u:'g'},{n:'fish sauce',pp:6,u:'ml'},{n:'garlic',pp:6,u:'g'},{n:'ginger',pp:6,u:'g'},{n:'brown sugar',pp:5,u:'g'},{n:'lime',pp:10,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'peanuts',pp:10,u:'g'},{n:'fresh coriander',pp:5,u:'g'},{n:'self raising flour',pp:45,u:'g'},{n:'butter',pp:15,u:'g'},{n:'desiccated coconut',pp:8,u:'g'},{n:'buttermilk',pp:35,u:'ml'},{n:'oil',pp:8,u:'ml'},{n:'salt & pepper'}],
+    method:[
+      'Heat the oven to 190°C. Season the chicken thighs all over with salt and pepper, then brown them in the oil in a wide oven dish over medium-high heat until golden on both sides — this colour is flavour. Lift out and set aside.',
+      'In the same dish, fry the red curry paste, garlic and ginger for 1 minute until fragrant, then stir in the peanut butter, coconut milk, fish sauce and brown sugar. Simmer 2 minutes into a glossy sauce and taste — it should be savoury, nutty and a little sweet; season with a pinch of salt if it needs it.',
+      'Return the chicken, tuck in the sliced red pepper, and spoon the sauce over. The sauce should sit just below the chicken so the tops stay proud of it.',
+      'For the crust, rub the cold butter into the flour with a pinch of salt until crumbly, then stir in the coconut and most of the coriander. Pour in the buttermilk and bring together with a light hand — knead only enough to form a soft dough, or the scones turn tough. Pat out 2 cm thick, cut into rounds and sit them over the sauce, spaced apart so they have room to rise.',
+      'Brush the scones with a little buttermilk and bake 30–35 minutes, until the crust is risen and deep golden and the sauce bubbles up between the rounds. Finish with the lime squeezed over, the chopped peanuts and the rest of the coriander.'
+    ],
+    tip:'Build the peanut sauce from red curry paste rather than a bottle, and bake the scone crust from scratch — the two upgrades are the whole difference between everyday and special.',
+    nutrition:{kcal:680,protein_g:38,carbs_g:42,fat_g:38}, storage:'Keeps 3 days; the crust softens but reheats well covered in a low oven. Sauce freezes 1 month.'},
+  {id:'sp-cowboy-bake', cat:'ovenbakes', goesWith:['Green salad','Sour cream','Pickled jalapeños','Coriander'], diet:'meat', protein:'beef', name:'Cowboy Bean & Beef Bake', emoji:'🫘', cuisine:'American', time:65, costPP:44,
+    feel:'Smoky beef and beans under a golden scratch jalapeño-cheddar cornbread crust — proper rib-sticking, chuckwagon comfort.',
+    didYouKnow:'"Cowboy beans" trace back to the chuckwagon cooks of the great American cattle drives, who simmered beans with whatever beef and smoky seasoning they had. The cornbread lid is pure South of the USA — and mealie meal stands in for cornmeal beautifully, so it is right at home in a South African kitchen.',
+    freezes:true, fridgeDays:3,
+    ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'baked beans',pp:110,u:'g'},{n:'onion',pp:60,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'tinned tomatoes',pp:80,u:'g'},{n:'bbq sauce',pp:15,u:'ml'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'chilli powder',pp:2,u:'g'},{n:'cayenne pepper',pp:1,u:'g'},{n:'worcestershire sauce',pp:5,u:'ml'},{n:'oil',pp:8,u:'ml'},{n:'maize meal',pp:35,u:'g'},{n:'cake flour',pp:30,u:'g'},{n:'baking powder',pp:4,u:'g'},{n:'white sugar',pp:5,u:'g'},{n:'buttermilk',pp:50,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'butter',pp:12,u:'g'},{n:'creamed corn',pp:40,u:'g'},{n:'jalapenos',pp:15,u:'g'},{n:'cheddar',pp:45,u:'g'},{n:'salt & pepper'}],
+    method:[
+      'Heat the oven to 190°C. Brown the mince hard in the oil with the chopped onion, garlic and a good pinch of salt, breaking it up, until deeply coloured — a proper brown crust on the meat is where the savoury depth comes from.',
+      'Stir in the smoked paprika, cumin, chilli powder and cayenne and cook 1 minute to wake them up, then add the tinned tomatoes, baked beans, BBQ sauce and Worcestershire. Simmer 5 minutes into a thick, saucy base and season well with salt and pepper. Tip into a baking dish.',
+      'For the cornbread, whisk the maize meal, flour, baking powder, sugar and a pinch of salt in one bowl. In another, whisk the buttermilk, egg and melted butter, then fold in the creamed corn, chopped jalapeños and half the cheddar. Stir wet into dry just until combined — do not overmix, or the crust bakes heavy.',
+      'Pour the batter evenly over the hot beef and beans (pouring it onto the hot filling helps the underside cook through), scatter with the rest of the cheddar, and bake 30–35 minutes until the cornbread is deep golden and a skewer comes out clean. Rest 10 minutes before serving so it slices.'
+    ],
+    tip:'Season the beef hard and do not overmix the cornbread batter — lumpy-but-just-combined bakes light, overworked bakes dense.',
+    nutrition:{kcal:700,protein_g:34,carbs_g:58,fat_g:36}, storage:'Keeps 3 days; reheats well covered. Freezes 1 month.',
     versions:[
-      {name:'Smoky',icon:'🏆',default:true,time:55,costPP:44,nutrition:{kcal:610,protein_g:30,carbs_g:54,fat_g:30},
-        feel:'Beef and beans deep with smoked paprika, cumin and a smoky-sweet edge, under tiled potato and a golden cheese crust — proper rib-sticking comfort.',
-        tip:'A dash of smoked paprika and a spoon of brown sugar or BBQ sauce give the beans that smoky-sweet chuckwagon depth — season the beef hard with salt too.',
-        didYouKnow:'The smoky-sweet flavour comes from smoked paprika and a little sugar or molasses — the same balance that defines American barbecue beans.',
-        ingredients:[{n:'beef mince',pp:140,u:'g'},{n:'baked beans',pp:110,u:'g'},{n:'potato',pp:170,u:'g'},{n:'onion',pp:60,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'cheddar',pp:50,u:'g'},{n:'smoked paprika',pp:6,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tomato',pp:70,u:'g'},{n:'oil',pp:10,u:'ml'}],
-        method:['Brown the mince with onion, garlic and a pinch of salt.','Stir in the smoked paprika and cumin, then the tomato, baked beans and a spoon of BBQ sauce or sugar; simmer thick and season well with salt and pepper with salt and pepper.','Tip into a dish, tile thin potato slices over the top, brush with oil and salt them.','Scatter cheese and bake 180°C for 30 minutes until golden.']},
-      {name:'Budget',icon:'💰',time:50,costPP:30,nutrition:{kcal:540,protein_g:22,carbs_g:62,fat_g:20},
-        feel:'Beans-forward with just enough beef for flavour, under plenty of potato — a huge, cheap, well-seasoned tray.',
-        tip:'Two tins of beans and a little mince feeds a crowd for very little — lean on smoked paprika, cumin and salt to keep it tasting rich.',
+      {name:'Jalapeño Cornbread',icon:'🏆',default:true,time:65,costPP:44,nutrition:{kcal:700,protein_g:34,carbs_g:58,fat_g:36},
+        feel:'Smoky beef and beans under a golden scratch jalapeño-cheddar cornbread crust — proper rib-sticking, chuckwagon comfort.',
+        tip:'Mealie meal stands in for cornmeal perfectly — fold creamed corn and jalapeños through the batter and do not overmix it.',
+        didYouKnow:'The cornbread lid is the classic American way to cap a pot of cowboy beans — and South African mealie meal makes the scratch version effortless.',
+        ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'baked beans',pp:110,u:'g'},{n:'onion',pp:60,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'tinned tomatoes',pp:80,u:'g'},{n:'bbq sauce',pp:15,u:'ml'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'chilli powder',pp:2,u:'g'},{n:'cayenne pepper',pp:1,u:'g'},{n:'worcestershire sauce',pp:5,u:'ml'},{n:'oil',pp:8,u:'ml'},{n:'maize meal',pp:35,u:'g'},{n:'cake flour',pp:30,u:'g'},{n:'baking powder',pp:4,u:'g'},{n:'white sugar',pp:5,u:'g'},{n:'buttermilk',pp:50,u:'ml'},{n:'large eggs',pp:0.5,u:'egg'},{n:'butter',pp:12,u:'g'},{n:'creamed corn',pp:40,u:'g'},{n:'jalapenos',pp:15,u:'g'},{n:'cheddar',pp:45,u:'g'},{n:'salt & pepper'}],
+        method:[
+          'Brown the mince hard with onion, garlic and a pinch of salt until deeply coloured.',
+          'Stir in the smoked paprika, cumin, chilli powder and cayenne for 1 minute, then add the tomatoes, beans, BBQ sauce and Worcestershire; simmer thick and season well with salt and pepper. Tip into a dish.',
+          'Whisk maize meal, flour, baking powder, sugar and salt; separately whisk buttermilk, egg and melted butter, then fold in creamed corn, jalapeños and half the cheddar. Combine just until mixed.',
+          'Pour over the hot filling, scatter the rest of the cheddar, and bake 190°C for 30–35 minutes until golden and clean-skewered. Rest 10 minutes.'
+        ]},
+      {name:'Budget',icon:'💰',time:50,costPP:30,nutrition:{kcal:560,protein_g:22,carbs_g:62,fat_g:22},
+        feel:'Beans-forward with just enough beef, under thrifty tiled potato and a little cheese — a huge, cheap, well-seasoned tray.',
+        tip:'Two tins of beans and a little mince feeds a crowd for very little — lean on smoked paprika, cumin and salt so it still tastes rich.',
         didYouKnow:'Built beans-forward with a little mince and a lot of potato, this is one of the cheapest ways to feed a hungry table.',
-        ingredients:[{n:'beef mince',pp:80,u:'g'},{n:'baked beans',pp:150,u:'g'},{n:'potato',pp:200,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'cheddar',pp:30,u:'g'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tomato',pp:60,u:'g'},{n:'oil',pp:10,u:'ml'}],
-        method:['Brown the little bit of mince with onion, garlic and a pinch of salt.','Add the smoked paprika and cumin, then plenty of beans and the tomato; simmer and season well with salt and pepper with salt and pepper.','Top with lots of thin potato (salted) and a little cheese; bake until tender and golden.']},
+        ingredients:[{n:'beef mince',pp:80,u:'g'},{n:'baked beans',pp:150,u:'g'},{n:'potato',pp:200,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'cheddar',pp:30,u:'g'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tinned tomatoes',pp:60,u:'g'},{n:'oil',pp:10,u:'ml'},{n:'salt & pepper'}],
+        method:[
+          'Brown the little bit of mince with onion, garlic and a pinch of salt.',
+          'Add the smoked paprika and cumin, then plenty of beans and the tomato; simmer and season well with salt and pepper.',
+          'Top with lots of thin potato slices, brush with oil and salt them, scatter a little cheese; bake 180°C until tender and golden.'
+        ]},
       {name:'Quick',icon:'⚡',time:30,costPP:40,nutrition:{kcal:580,protein_g:28,carbs_g:54,fat_g:28},
         feel:'Par-boiled potato slices over a fast, well-spiced beef-and-bean base, grilled golden — comfort in half an hour.',
         tip:'Par-boil the potato slices for 5 minutes first, and season both the beef and the potato so nothing tastes flat.',
-        didYouKnow:'Par-cooking the potato slices first means the whole bake only needs a few minutes under the grill to brown — no 30-minute oven wait.',
-        ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'baked beans',pp:100,u:'g'},{n:'potato',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tomato',pp:60,u:'g'},{n:'oil',pp:10,u:'ml'}],
-        method:['Par-boil thin potato slices 5 minutes; season with salt.','Brown the mince with onion, garlic and salt; stir in smoked paprika, cumin, tomato and beans and season well with salt and pepper.','Top with the potato and cheese; grill 6–8 minutes until golden.']}
+        didYouKnow:'Par-cooking the potato first means the whole bake only needs a few minutes under the grill to brown — no long oven wait.',
+        ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'baked beans',pp:100,u:'g'},{n:'potato',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'cheddar',pp:40,u:'g'},{n:'smoked paprika',pp:5,u:'g'},{n:'cumin',pp:3,u:'g'},{n:'tinned tomatoes',pp:60,u:'g'},{n:'oil',pp:10,u:'ml'},{n:'salt & pepper'}],
+        method:[
+          'Par-boil thin potato slices 5 minutes; season with salt.',
+          'Brown the mince with onion, garlic and salt; stir in smoked paprika, cumin, tomato and beans and season well with salt and pepper.',
+          'Top with the potato and cheese; grill 6–8 minutes until golden.'
+        ]}
     ]},
-  {id:'sp-honey-mustard-traybake', cat:'ovenbakes', diet:'meat', protein:'chicken', name:'Honey-Mustard Chicken Traybake', emoji:'🍯', cuisine:'Global', time:50, costPP:28,
-    feel:'Chicken, potatoes and veg roasted together in a sticky honey-mustard glaze — one tray, no fuss.',
-    ingredients:[{n:'chicken thighs',pp:150,u:'g'},{n:'baby potatoes',pp:200,u:'g'},{n:'carrots',pp:80,u:'g'},{n:'honey',pp:15,u:'g'},{n:'wholegrain mustard',pp:12,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'olive oil',pp:12,u:'ml'}],
-    method:['Whisk the honey, mustard, garlic and oil into a glaze.','Toss the chicken, potatoes and carrots in the glaze and spread on a tray.','Roast at 200C, turning once, until the chicken is golden and sticky and the veg tender, about 40 minutes.'],
-    tip:'Spread everything in a single layer so it roasts and caramelises instead of steaming.',
-    nutrition:{kcal:540,protein_g:32,carbs_g:48,fat_g:24}, storage:'Keeps 3 days; great cold in lunchboxes.'},
-  {id:'sp-med-baked-fish', cat:'ovenbakes', diet:'meat', protein:'fish', name:'Mediterranean Baked Fish', emoji:'🐟', cuisine:'Mediterranean', time:35, costPP:60,
-    feel:'White fish baked over tomatoes, olives and peppers — light, fresh and full of sunshine.',
-    ingredients:[{n:'white fish',pp:150,u:'g'},{n:'tomato',pp:100,u:'g'},{n:'red pepper',pp:60,u:'g'},{n:'olives',pp:20,u:'g'},{n:'onion',pp:50,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'lemon',pp:15,u:'g'},{n:'olive oil',pp:15,u:'ml'}],
-    method:['Soften the onion, pepper and garlic in oil, then add the tomato and olives and cook into a chunky sauce.','Spoon into a dish, lay the fish on top and drizzle with oil and lemon.','Bake at 190C until the fish flakes easily, about 18 minutes.','Serve with crusty bread or couscous.'],
-    tip:'Bake the fish on top of the sauce so it stays moist and soaks up the flavour.',
-    nutrition:{kcal:420,protein_g:34,carbs_g:18,fat_g:22}, storage:'Best fresh; keeps 1 day.'},
-  {id:'sp-halloumi-veg-bake', cat:'ovenbakes', diet:'veg', protein:'veg', name:'Roasted Veg & Halloumi Bake', emoji:'🧀', cuisine:'Mediterranean', time:40, costPP:51,
-    feel:'Sweet roasted vegetables and golden halloumi baked together — a hearty meat-free tray supper.',
-    ingredients:[{n:'halloumi',pp:80,u:'g'},{n:'baby marrow',pp:80,u:'g'},{n:'red pepper',pp:70,u:'g'},{n:'red onion',pp:50,u:'g'},{n:'cherry tomatoes',pp:80,u:'g'},{n:'chickpeas',pp:60,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'oregano',pp:2,u:'g'}],
-    method:['Toss the chopped vegetables and chickpeas with oil and oregano and roast at 200C for 20 minutes.','Add cubes of halloumi and roast another 12 to 15 minutes until the veg is tender and the halloumi golden.','Finish with a squeeze of lemon and serve with couscous or bread.'],
-    tip:'Add the halloumi partway through so it turns golden without going rubbery.',
-    nutrition:{kcal:460,protein_g:20,carbs_g:34,fat_g:28}, storage:'Keeps 2 days; nice cold too.'},
+  {id:'sp-honey-mustard-traybake', cat:'ovenbakes', goesWith:['Green salad','Steamed greens','Crusty bread'], diet:'meat', protein:'chicken', name:'Honey-Mustard Chicken Traybake', emoji:'🍯', cuisine:'Global', time:55, costPP:34,
+    feel:'Crisp-skinned chicken thighs and caramelised baby potatoes in a sticky, tangy honey-mustard glaze — one tray, deeply savoury, no fuss.',
+    didYouKnow:'The trick chefs use on a sticky glaze is to hold half of it back: brushed on near the end, the sugars catch and gloss instead of scorching. Honey browns fast, so glaze applied too early just burns.',
+    freezes:false, fridgeDays:3,
+    ingredients:[{n:'chicken thighs',pp:170,u:'g'},{n:'baby potatoes',pp:200,u:'g'},{n:'carrots',pp:80,u:'g'},{n:'honey',pp:15,u:'g'},{n:'Dijon mustard',pp:10,u:'g'},{n:'wholegrain mustard',pp:10,u:'g'},{n:'apple cider vinegar',pp:8,u:'ml'},{n:'garlic',pp:8,u:'g'},{n:'thyme',pp:2,u:'g'},{n:'rosemary',pp:2,u:'g'},{n:'smoked paprika',pp:2,u:'g'},{n:'butter',pp:8,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'fresh parsley',pp:4,u:'g'},{n:'lemon',pp:10,u:'g'},{n:'salt & pepper'}],
+    method:[
+      'Heat the oven to 200°C. Pat the chicken thighs really dry and season all over with salt and pepper — dry skin is the secret to crispness. Halve the baby potatoes and chunk the carrots, toss them with the olive oil, the rosemary, a little salt and pepper, and spread on a large tray.',
+      'Sit the chicken on top, skin-side up, and roast for 20 minutes to give the potatoes a head start and start crisping the skin.',
+      'Meanwhile whisk the honey, both mustards, the apple cider vinegar, garlic, thyme, smoked paprika and the soft butter into a glaze, with a pinch of salt and pepper. The vinegar is important — it balances the honey so the glaze tastes bright, not just sweet.',
+      'Brush HALF the glaze over the chicken and potatoes and roast another 20–25 minutes, until the chicken reaches 75°C and the skin is bronzed and the veg caramelised. Brush the reserved glaze on for the last 5 minutes so it stays glossy rather than burning.',
+      'Rest 5 minutes, then squeeze over the lemon, scatter with parsley, and spoon the sticky pan juices over everything to serve.'
+    ],
+    tip:'Reserve half the glaze for the final five minutes — brushed on too early, honey scorches; added late, it turns glossy and sticky.',
+    nutrition:{kcal:600,protein_g:34,carbs_g:46,fat_g:30}, storage:'Keeps 3 days; lovely cold in lunchboxes.'},
+  {id:'sp-med-baked-fish', cat:'ovenbakes', goesWith:['Crusty bread','Couscous','Green salad','Lemon wedges'], diet:'meat', protein:'fish', name:'Mediterranean Baked Fish', emoji:'🐟', cuisine:'Mediterranean', time:35, costPP:60,
+    feel:'Hake baked over burst tomatoes, olives and capers with wine and lemon — light, briny and full of sunshine.',
+    didYouKnow:'Baking white fish over burst tomatoes, olives and capers is the home cook\'s cousin of Italian acqua pazza — "crazy water" — where fishermen poached the day\'s catch in seawater, tomatoes and herbs right on the boat.',
+    freezes:false, fridgeDays:1,
+    ingredients:[{n:'hake fillets',pp:160,u:'g'},{n:'cherry tomatoes',pp:100,u:'g'},{n:'red onion',pp:50,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'olives',pp:25,u:'g'},{n:'capers',pp:8,u:'g'},{n:'white wine',pp:20,u:'ml'},{n:'olive oil',pp:15,u:'ml'},{n:'lemon',pp:15,u:'g'},{n:'fresh parsley',pp:5,u:'g'},{n:'fresh basil',pp:4,u:'g'},{n:'oregano',pp:2,u:'g'},{n:'chilli flakes',pp:1,u:'g'},{n:'salt & pepper'}],
+    method:[
+      'Heat the oven to 200°C. Pat the hake really dry with paper towel — wet fish steams grey instead of taking on flavour — then season both sides with salt and pepper and set aside.',
+      'In an oven dish, toss the halved cherry tomatoes, sliced red onion, garlic, olives and capers with the olive oil, oregano, chilli flakes and a good pinch of salt and pepper, then pour in the white wine.',
+      'Roast this base on its own for about 12 minutes, until the tomatoes slump and burst and the wine cooks down into a savoury, jammy sauce — building the flavour first is what stops the dish tasting watery.',
+      'Nestle the seasoned hake on top of the hot sauce so it stays moist, spoon a little over, and bake another 12–15 minutes until the fish is opaque and flakes easily — pull it the moment it flakes, overbaked fish goes dry.',
+      'Squeeze over the lemon and scatter generously with the fresh parsley and basil, added off the heat so they stay bright and fragrant. Serve from the dish with crusty bread or couscous to mop up the sauce.'
+    ],
+    tip:'Season the fish separately from the sauce, and add the fresh herbs only at the end — seasoning just the tomatoes leaves the fish flat, and herbs cooked in lose their lift.',
+    nutrition:{kcal:390,protein_g:36,carbs_g:14,fat_g:22}, storage:'Best fresh; keeps 1 day in the fridge.'},
+  {id:'sp-halloumi-veg-bake', cat:'ovenbakes', goesWith:['Couscous','Crusty bread','Herby yoghurt','Green salad'], diet:'veg', protein:'veg', name:'Roasted Veg & Halloumi Bake', emoji:'🧀', cuisine:'Mediterranean', time:45, costPP:51,
+    feel:'Sweet caramelised vegetables, crispy chickpeas and golden halloumi, baked together and lifted with lemon, basil and toasted pine nuts — a hearty meat-free tray supper.',
+    didYouKnow:'Halloumi has a famously high melting point, so it browns and crisps in the oven instead of collapsing — but it does go squeaky-rubbery if it cooks too long, which is why it goes in last.',
+    freezes:false, fridgeDays:2,
+    ingredients:[{n:'halloumi',pp:90,u:'g'},{n:'baby marrow',pp:80,u:'g'},{n:'red pepper',pp:70,u:'g'},{n:'red onion',pp:60,u:'g'},{n:'cherry tomatoes',pp:80,u:'g'},{n:'chickpeas',pp:70,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'olive oil',pp:18,u:'ml'},{n:'smoked paprika',pp:3,u:'g'},{n:'oregano',pp:2,u:'g'},{n:'honey',pp:5,u:'g'},{n:'cornflour',pp:8,u:'g'},{n:'pine nuts',pp:8,u:'g'},{n:'lemon',pp:15,u:'g'},{n:'fresh basil',pp:5,u:'g'},{n:'chilli flakes',pp:1,u:'g'},{n:'salt & pepper'}],
+    method:[
+      'Heat the oven to 200°C. Toss the chunked red pepper, red onion, baby marrow, garlic and drained chickpeas with most of the olive oil, the smoked paprika, oregano, chilli flakes, a drizzle of honey and a good pinch of salt and pepper. Spread out on a large tray in a single layer — crowd it and the veg steams instead of caramelising.',
+      'Roast for 20 minutes, then add the cherry tomatoes, give everything a toss, and roast another 10 minutes until the veg is soft and catching at the edges and the chickpeas are crisp.',
+      'Meanwhile, pat the halloumi dry, cut into thick fingers and toss in the cornflour with a little salt and pepper — the cornflour gives it a properly golden, crisp crust. Toast the pine nuts in a dry pan until just golden.',
+      'Nestle the halloumi into the hot tray, drizzle with the last of the oil, and roast a final 10–12 minutes until golden — no longer, or it turns squeaky.',
+      'Finish with a good squeeze of lemon, the toasted pine nuts and plenty of torn basil. Serve with couscous or bread.'
+    ],
+    tip:'Dust the halloumi in cornflour and add it last — the coating crisps it golden, and the late timing keeps it soft inside instead of rubbery.',
+    nutrition:{kcal:520,protein_g:22,carbs_g:36,fat_g:32}, storage:'Keeps 2 days; good cold the next day.'},
 
   // ── 🍔 FRIED & GRILLED — added 22 Jun (Supper build, Batch 5 / final) ──
   {id:'sp-smash-burger', cat:'friedgrilled', diet:'meat', protein:'beef', name:'Smash Burger with Burger Sauce', emoji:'🍔', cuisine:'American', time:25, costPP:42,
     feel:'Thin beef patties smashed crisp on the pan, stacked with cheese and a tangy burger sauce.',
     ingredients:[{n:'beef mince',pp:150,u:'g'},{n:'burger bun',pp:1,u:'each'},{n:'cheddar slice',pp:20,u:'g'},{n:'onion',pp:30,u:'g'},{n:'mayo',pp:15,u:'g'},{n:'tomato sauce',pp:10,u:'g'},{n:'lettuce',pp:15,u:'g'},{n:'oil',pp:8,u:'ml'}],
-    method:['Roll the mince into loose balls.','Smash flat onto a screaming-hot pan and sear until crusty, then flip and melt cheese on top.','Mix the mayo and tomato sauce into a burger sauce.','Toast the buns and build with sauce, lettuce, onion and the patty.'],
+    method:['Roll the mince into loose balls, then season the patties generously with salt and pepper just before they hit the pan — salting the surface is what builds that crusty, savoury sear.','Smash flat onto a screaming-hot pan and sear until crusty, then flip and melt cheese on top.','Mix the mayo and tomato sauce into a burger sauce.','Toast the buns and build with sauce, lettuce, onion and the patty.'],
     tip:'Do not move the patty until it is deeply crusted — that crust is the whole point of a smash burger.',
     nutrition:{kcal:640,protein_g:34,carbs_g:38,fat_g:38}, storage:'Best fresh, straight off the pan.'},
   {id:'sp-buttermilk-chicken', cat:'friedgrilled', diet:'meat', protein:'chicken', name:'Crispy Buttermilk Fried Chicken', emoji:'🍗', cuisine:'American', time:75, costPP:28,
@@ -13325,7 +13233,7 @@ var LIGHTLUNCH_RECIPES = [
   {id:'ln-spaghetti-napoli', cat:'quick', name:'Spaghetti Napoli', emoji:'🍝', cuisine:'Italian', time:25, costPP:28, diet:'veg',
     feel:'Simple, garlicky tomato pasta — Italy on a weeknight.',
     ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'onion',pp:40,u:'g'},{n:'olive oil',pp:12,u:'ml'},{n:'basil',pp:4,u:'g'},{n:'parmesan',pp:15,u:'g'}],
-    method:['Soften the onion and garlic in olive oil.','Add the chopped tomatoes and simmer 15 minutes until rich and glossy.','Cook the spaghetti and toss through the sauce with torn basil.','Serve with grated parmesan and a drizzle of oil.'],
+    method:['Soften the onion and garlic in olive oil.','Add the chopped tomatoes and simmer 15 minutes until rich and glossy, then season well with salt and pepper.','Cook the spaghetti and toss through the sauce with torn basil.','Serve with grated parmesan and a drizzle of oil.'],
     tip:'A pinch of sugar and a long, slow simmer is what makes the sauce sing.',
     nutrition:{kcal:420,protein_g:14,carbs_g:68,fat_g:11}, storage:'Sauce keeps 4 days; freezes well.'},
 
@@ -13423,7 +13331,7 @@ var LIGHTLUNCH_RECIPES = [
   {id:'ln-gnocchi-tomato', cat:'quick', name:'Gnocchi & Tomato', emoji:'🥟', cuisine:'Italian', time:20, costPP:38, diet:'veg',
     feel:'Pillowy gnocchi in a rich tomato sauce — fast, cosy comfort.',
     ingredients:[{n:'gnocchi',pp:150,u:'g'},{n:'tomatoes',pp:120,u:'g'},{n:'garlic',pp:5,u:'g'},{n:'onion',pp:30,u:'g'},{n:'olive oil',pp:10,u:'ml'},{n:'basil',pp:4,u:'g'},{n:'parmesan',pp:15,u:'g'}],
-    method:['Simmer a quick tomato sauce with onion, garlic and basil.','Boil the gnocchi until they float, then drain.','Toss the gnocchi through the sauce.','Serve with parmesan and a drizzle of oil.'],
+    method:['Simmer a quick tomato sauce with onion, garlic and basil, seasoned with salt and pepper.','Boil the gnocchi until they float, then drain.','Toss the gnocchi through the sauce.','Serve with parmesan and a drizzle of oil.'],
     tip:'Pan-fry the boiled gnocchi in a little butter first for crispy edges.',
     nutrition:{kcal:400,protein_g:11,carbs_g:64,fat_g:11}, storage:'Best fresh; sauce keeps 4 days.'},
 
@@ -13574,7 +13482,7 @@ var SIDES_BASICS_RECIPES = [
       {name:'Rich buttery',icon:'🧈',time:25,costPP:18,nutrition:{kcal:340,protein_g:5,carbs_g:33,fat_g:22},feel:'The restaurant mash — more butter than you think is sensible, and that’s the point.',ingredients:[{n:'potatoes',pp:250,u:'g'},{n:'butter',pp:45,u:'g'},{n:'cream',pp:40,u:'ml'},{n:'salt'}],method:['Boil and steam-dry the potatoes.','Mash with the butter, then beat in warm cream a little at a time.','Season well — a glossy, loose, luxurious mash.']},
       {name:'Sweet potato',icon:'🍠',time:30,costPP:12,nutrition:{kcal:240,protein_g:4,carbs_g:42,fat_g:8},feel:'Sweet, warm-spiced and golden — the mash that doubles as comfort food.',ingredients:[{n:'sweet potato',pp:250,u:'g'},{n:'butter',pp:25,u:'g'},{n:'ground cinnamon',pp:1,u:'g'},{n:'salt'}],method:['Boil or roast the sweet potato until soft.','Mash with butter, a pinch of cinnamon and salt.','Loosen with a little warm milk if needed.']},
       {name:'Mixed veg',icon:'🥦',time:30,costPP:11,nutrition:{kcal:230,protein_g:6,carbs_g:32,fat_g:9},feel:'Potato, carrot and greens mashed together — sneaky veg the whole table eats.',ingredients:[{n:'potatoes',pp:170,u:'g'},{n:'carrots',pp:50,u:'g'},{n:'frozen peas',pp:40,u:'g'},{n:'butter',pp:20,u:'g'},{n:'full cream milk',pp:35,u:'ml'},{n:'salt'}],method:['Boil the potatoes and carrots together until tender; add the peas for the last 3 min.','Drain and steam-dry.','Mash with butter and warm milk; season well.']},
-      {name:'Garlic',icon:'🧄',time:35,costPP:14,nutrition:{kcal:260,protein_g:5,carbs_g:34,fat_g:12},feel:'Mellow roasted garlic folded through silky mash — quietly irresistible.',ingredients:[{n:'potatoes',pp:250,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'butter',pp:25,u:'g'},{n:'full cream milk',pp:45,u:'ml'},{n:'fresh parsley',pp:3,u:'g'},{n:'salt'}],method:['Roast the whole garlic until soft and sweet, then squeeze out the cloves.','Boil and steam-dry the potatoes.','Mash with the roasted garlic, butter and warm milk; fold in chopped parsley and season.']}
+      {name:'Garlic',icon:'🧄',time:35,costPP:14,nutrition:{kcal:260,protein_g:5,carbs_g:34,fat_g:12},feel:'Mellow roasted garlic folded through silky mash — quietly irresistible.',ingredients:[{n:'potatoes',pp:250,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'butter',pp:25,u:'g'},{n:'full cream milk',pp:45,u:'ml'},{n:'fresh parsley',pp:3,u:'g'},{n:'salt'}],method:['Roast the whole garlic until soft and sweet, then squeeze out the cloves.','Boil and steam-dry the potatoes.','Mash with the roasted garlic, butter and warm milk; fold in chopped parsley and season.']},{name:'Roasted Garlic & Cheddar',icon:'\ud83e\uddc0',time:55,costPP:18,nutrition:{kcal:320,protein_g:8,carbs_g:34,fat_g:17},feel:'Whole roasted garlic and sharp white cheddar mashed through cream-rich potato - the showpiece mash.',ingredients:[{n:'potatoes',pp:250,u:'g'},{n:'garlic',pp:12,u:'g'},{n:'butter',pp:30,u:'g'},{n:'fresh cream',pp:30,u:'ml'},{n:'white cheddar',pp:40,u:'g'},{n:'olive oil',pp:3,u:'ml'},{n:'salt'}],method:['Slice the top off a whole head of garlic, drizzle with oil, wrap in foil and roast at 200C for 40 minutes until soft and sweet.','Boil the cubed potatoes in well-salted water until tender, then drain and steam-dry.','Mash with the butter and warm cream, squeeze in the roasted garlic and fold through the grated cheddar until melted and silky; season well with salt and pepper.']}
     ]},
   {id:'sb-potato-gnocchi', cat:'staples', goesWith:['Sage brown butter','Napoletana tomato sauce','Gorgonzola cream','Pesto','Grated parmesan'], diet:'veg', protein:'veg', name:'Potato Gnocchi', emoji:'🥔', cuisine:'Italian', time:50, costPP:6,
     feel:'Soft little potato pillows you rolled with your own hands — the kind of thing that feels impossible until the first batch proves you wrong.',
@@ -14038,7 +13946,7 @@ function mealSectionHTML(sectionKey){
   // Recipe detail view
   const activeRecipe = S.mealActiveRecipe;
   if(activeRecipe && activeRecipe._section===sectionKey){
-    return recipeDetailFromResult(activeRecipe, "setQuiet({mealActiveRecipe:null});window.scrollTo(0,S._mealListScroll||0);requestAnimationFrame(function(){window.scrollTo(0,S._mealListScroll||0);});", S.searchServings||4, cfg.color, cfg.bg, cfg.border);
+    return recipeDetailFromResult(activeRecipe, "closeMealRecipe()", S.searchServings||4, cfg.color, cfg.bg, cfg.border);
   }
 
   // List view
@@ -14899,7 +14807,23 @@ function openMealRecipe(id){
   };
   const arr = sectionRecipes[sec]||[];
   const r = arr.find(x=>x.id===id);
-  if(r){ var _y=window.scrollY||0; setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec}), _mealListScroll:_y}); window.scrollTo(0,0); requestAnimationFrame(function(){ window.scrollTo(0,0); }); }
+  if(r){ var _y=window.scrollY||0;
+    // persist the list scroll onto the history entry we're leaving, so Back returns to the exact spot (mirrors openRecipe)
+    try { var _st=history.state; if(_st && _st.tinza){ _st._scroll=_y; history.replaceState(_st,''); } } catch(_e){}
+    setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec}), _mealListScroll:_y}); window.scrollTo(0,0); requestAnimationFrame(function(){ window.scrollTo(0,0); }); }
+}
+
+// Close a meal recipe by CONSUMING the history entry that openMealRecipe pushed
+// (mirrors closeRecipe) — a setQuiet close would push a fresh forward entry, so a
+// hardware/swipe back would bounce straight back INTO the recipe. This was the
+// "can't get out of the curry" trap, worst on recipes with goesWith cross-links.
+function closeMealRecipe(){
+  if(typeof _appNavDepth!=='undefined' && _appNavDepth>0 && typeof history!=='undefined'){
+    try { history.back(); return; } catch(_e){}
+  }
+  setQuiet({mealActiveRecipe:null});
+  window.scrollTo(0,S._mealListScroll||0);
+  requestAnimationFrame(function(){ window.scrollTo(0,S._mealListScroll||0); });
 }
 
 // Register FMF/meals into the universal recipe resolver so the shared cook mode

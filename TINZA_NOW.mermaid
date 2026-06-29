@@ -1,95 +1,47 @@
-%% TINZA_NOW — session handoff · 29 Jun 2026 (session 11 · FMF FULL BOBOTIE RUN started — Spag-Bol treatment for all of FMF)
-%% Upload at every session start. Verify against LIVE repo files, never trust the summary.
+---
+title: TINZA_NOW — session handoff (29 Jun 2026) — hero re-authors + CURRY EXIT bug fix
+---
 flowchart TD
 
-  START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
+  START["SESSION START NEXT TIME<br/>1. Open tinza.netlify.app — TEST the curry exit fix first (see PUSH)<br/>2. Read LIVE repo files before editing (never trust summaries)<br/>3. node --check before every push - GitHub Desktop only<br/>4. meals.js ~836K — batch pushes to save Netlify credits"]:::start
 
-  STATUS[SESSION 11 = kicked off the BIG one: give the full Spag-Bol Bobotie treatment to ALL of FMF. Spag Bol is the lock-target — versions chips with a WOW default + Budget/Quick/variant, plus didYouKnow + goesWith + storage standard + BEGINNER-PROOF methods (assume they've never made scrambled eggs). SCOPE = 191 dishes need it. Running it as validated per-category batches, one pushable meals.js at a time. Batch DONE: the WHOLE plates category (13 dishes). Sides/Staples already done (chips, mash, gnocchi x2, pasta, pizza dough, napoletana — all versioned). IMPORTANT: the goesWith/storage breakfast push had NOT landed when batch 1 was built, so this meals.js carries COMPLETE breakfast + the 3 plates — one push banks both.]
-  START --> STATUS
-
-  subgraph SHARED[" KEY FACTS for the run "]
-    K1[Spag Bol (sp-spag-bol) = the gold-standard template: versions[] with default WOW + Budget + Quick + variants, didYouKnow, goesWith, per-version nutrition/time/costPP/ingredients/method.]
-    K2[MASH ALREADY EXISTS: sb-mash has 5 versions (Creamy classic*, Rich buttery, Sweet potato, Mixed veg, Garlic). CHIPS too (sb-chips, 5). So 'good mash for staples' = DONE — dishes just goesWith/cross-link to it, don't duplicate.]
-    K3[FMF arrays in meals.js use JS-literal style; treated dishes get rewritten as JSON-style objects (valid JS, node --check passes). Mixed styles in one array is fine.]
-    K4[Methods must be BEGINNER-PROOF: explicit, no assumed skill. didYouKnow = the moat (dish-specific, interesting).]
+  START --> PUSH
+  subgraph PUSH["PUSH STATUS (ONE push, 2 changed files this session)"]
+    direction TB
+    P1["meals.js — node --check PASS - 283 recipes intact<br/>1 NAV FIX (curry exit) 2 five hero default upgrades 3 super-mash version"]:::push
+    P2["prices.js — +1 entry: kasuri methi 800 (+ dried fenugreek alias)"]:::push
+    P3["packs.js — UNCHANGED this session (already holds last session creamed corn / red curry paste). Push if last batch not yet live."]:::push
+    P4["TEST ON DEVICE after push: open a curry, tap a goesWith pill (Roti/Sambal),<br/>back, back — you should land cleanly on the list, no bounce back into the recipe."]:::push
   end
 
-  STATUS --> SHARED
-
-  subgraph DONE11[" PLATES CATEGORY DONE (13/13) — validated, ready to push "]
-    B1[Bangers & Mash — 4 versions: Proper Onion Gravy* · Boerie & Mash 🇿🇦 · Budget · Quick. + DYK + goesWith + freezes/fridge + beginner method.]
-    B2[Fish & Chips — 4 versions: Beer-Battered* · Crispy Oven · Air-Fryer · Budget (Crumbed). + full standard.]
-    B3[Garlic Butter Steak Bites & Mash — 3 versions: Garlic Butter* · Peppercorn Sauce · Budget. + full standard.]
-    B4[+10 more plates: Creamy Tuscan Chicken(4) · Sticky Honey-Garlic(4) · Bunny Chow(4: lamb/chicken/bean/mince) · Sloppy Joes(3) · Stroganoff(3) · Chicken a la King(3) · Crispy Salmon(3) · Tex-Mex Bowl(4) · Beef & Broccoli(3) · Vetkoek & Curried Mince(3: mince/cheese/sweet).]
-    B5[2 price gaps closed (Tina-sourced): 'economy steak' RENAMED to 'tenderised steak' R110 (Checkers ~R99-110/kg) in all 3 budget versions; trout fillet R500 (R450-550/kg). node --check PASS, SUPPER still 87, nothing lost.]
+  PUSH --> DONE
+  subgraph DONE["DONE THIS SESSION"]
+    direction TB
+    D1["CURRY EXIT BUG FIXED (meals.js, no core.js change needed):<br/>meal recipes closed via setQuiet mealActiveRecipe:null which pushed a NEW history<br/>entry, so hardware/swipe back bounced you back INTO the recipe. Worst on curries<br/>(most goesWith cross-links). New closeMealRecipe() CONSUMES the entry via history.back()<br/>(mirrors closeRecipe). openMealRecipe now persists list scroll onto the leaving entry."]:::done
+    D2["5 HERO default versions re-authored to reference grade (kept Budget/alt versions):<br/>Steak Bites — Cowboy butter + cheddar mash; Stroganoff — caramelised onion/brandy/nutmeg/dill;<br/>Butter Chicken — fuller spicing + kasuri methi; Lamb and Guinness — bacon + tomato-paste base + herb bundle;<br/>Chicken Alfredo — was bare: now seasoned chicken + nutmeg + parsley"]:::done
+    D3["SUPER MASH to Sides and Basics: new 6th version on sb-mash —<br/>Roasted Garlic and Cheddar (whole roasted head + cream + white cheddar)"]:::done
+    D4["All new ingredients validated, 0 R0 holes; only kasuri methi needed adding"]:::done
   end
 
-  SHARED --> DONE11
-
-  subgraph PUSH[" PUSH "]
-    PU1[GitHub Desktop: push meals.js (COMPLETE breakfast still unpushed + ALL 13 plates) AND prices.js (2 new gaps) — one deploy.]
-    PU2[To save Netlify credits: option to hold and let the rest of Supper/Plates (10 more) accumulate into the same push — Tina's call. Recommended: push now to finally bank breakfast, then continue.]
-    PU3[Still pending housekeeping: DELETE sections/breakfast_full_batch.js (dead).]
+  DONE --> NEXT
+  subgraph NEXT["NEXT UP"]
+    direction TB
+    N1["FRIED and GRILLED premium lift — 16 dishes, all 4-step/no-version (the one real thin block).<br/>Batch A: Smash Burger, Buttermilk FC, Korean FC, Schnitzel, Gatsby, Pulled Pork, Halloumi-Avo, Tofu Burger.<br/>Batch B: Fish Cakes, Chilli Dogs, Fajitas, Sosaties, Quesadillas, Peri-Peri, Boerewors Roll, Birria."]:::next
+    N2["KILL taco spice in ONE sweep (16 instances): Tex-Mex Beef Bowl + Fajitas/Quesadillas/Birria to real named spices."]:::next
+    N3["Optional: wire steak-bites goesWith to the new Roasted Garlic and Cheddar mash (needs the Sides cross-link unlock, K1)."]:::next
   end
 
-  DONE11 --> PUSH
-
-  subgraph RUNWAY[" THE RUNWAY — 191 dishes, batched by category (178 left: plates ✅) "]
-    R1[SUPPER · plates 13 — ✅ ALL DONE.]
-    R2[SUPPER · pastapizza 23 — ~11 already versioned (Spag Bol, gnocchi x4, pizzas x6); ~12 left: Mac&Cheese, Spag&Meatballs, Alfredo, Tuna Bake, Garlic Prawn Linguine, Cannelloni, Pesto Chicken, Cajun Pasta, Carbonara, Baked Feta Pasta, Pumpkin Rigatoni.]
-    R3[SUPPER · stewscurries 18 — Farmhouse Beef Stew done; 17 left (Cape Malay, Butter Chicken, Tikka, bredie, dhal, tagine, chilli, etc).]
-    R4[SUPPER · ovenbakes 17 — roast chicken done; 16 left (incl Classic Bobotie itself, Cottage Pie, Moussaka, Fish Pie, Shepherd's, traybakes).]
-    R5[SUPPER · friedgrilled 16 — 0 done (Smash Burger, Fried Chicken, Schnitzel, Gatsby, Boerie Roll, Peri-Peri, Sosaties, Birria Tacos...).]
-    R6[LIGHTLUNCH 106 — salads 27 · soups 21 · handhelds 22 · quick 23 · savbakes 13. 0 done.]
-    R7[BAKES 11 — Fluffy Pancakes, flatbreads x6, Baguette, Banana Bread, Sponge, dumplings. 0 done. + NEW recipes wanted here.]
-    R8[ORDER: finish SUPPER -> LIGHTLUNCH -> BAKES. ~a category per batch. NEXT BATCH = pastapizza (~12 need it: Mac&Cheese, Spag&Meatballs, Alfredo, Tuna Bake, Garlic Prawn Linguine, Cannelloni, Pesto Chicken, Cajun Pasta, Carbonara, Baked Feta Pasta, Pumpkin Rigatoni).]
+  NEXT --> PARK
+  subgraph PARK["PARKED / INFRA TO-DOS"]
+    direction TB
+    K1["Sides cross-links: build RECIPE_BUILDERS.meals so openRecipe meals,id RENDERS an FMF side, goesWith pills open properly"]:::park
+    K2["Deeper sameness: migrate FMF recipeDetailFromResult onto shared core.js renderer (prevents the nav-divergence bug class)"]:::park
+    K3["BAKES + LIGHTLUNCH salads quality pass — premium WOW salads need research"]:::park
+    K4["Older: Toum straggler (wk_africa.js ~132 rename), Photo Studio regen, Kiddies sweeps"]:::park
   end
 
-  PUSH --> RUNWAY
-
-  subgraph STAPLES_FR[" STAPLES + FRENCH FOUNDATIONS (this push) "]
-    SF1[LASAGNE refined per Tina: Classic ragù now includes CELERY (full soffritto onion+carrot+celery); BUDGET white layer rebuilt as a MOCK BÉCHAMEL — margarine roux + well-diluted beef stock instead of milk+butter (costPP 28). Budget DYK = the mock-béchamel thrift trick.]
-    SF2[NEW base sauce sb-bechamel — Béchamel (White Sauce) in Sides>Basic Sauces: Classic (milk+butter) / Thrifty (margarine) / Cheese-Mornay. The original béchamel now "stored" + reusable; mock-béchamel beef-stock swap noted for meaty bakes.]
-    SF3[NEW base sauce sb-mince-sauce — Classic French Mince Sauce in Sides>Basic Sauces: mirepoix + streaky bacon + red wine + bouquet garni, slow 1hr+ simmer (Classic French) / Weeknight. Factual Robert Carrier nod in DYK (no fabricated quotes). The proper mother mince for spag bol / lasagne / cottage pie.]
-    SF4[PRICE add: margarine = R70/kg (R35/500g) in prices.js. All other new ings (beef stock, celery, bay leaves, fresh thyme, nutmeg, red wine) already priced. node --check PASS on meals.js + prices.js.]
-    SF5[NEW DOC TINZA_TECHNIQUES.md — old-school reference (bouquet garni fresh+pouch / mock béchamel / mirepoix-soffritto) to reuse when building FRENCH + classical dishes. Tina flagged bouquet garni as Old School Knowledge for the French section.]
-    SF6[PUSH = meals.js + prices.js (one deploy). NOTE: built on top of the un-pushed pasta BATCH 2 — so this single meals.js carries BOTH pasta batch 2 AND these staples. Pushing it ships everything pending.]
-  end
-
-  subgraph COORD[" COORDINATION "]
-    CO1[PARALLEL NOTE 2026-06-29: Tina now also runs Claude Code via the DESKTOP APP (Code tab, Local·tinza·main) after the terminal install broke. If Claude Code edits meals.js too, Tina must push that first, then tell chat-Claude to re-clone fresh before the next batch to avoid clobbering. Chat-Claude owned meals.js for the pasta batches.]
-  end
-
-  subgraph PASTAPIZZA[" FMF SUPPER · Pasta & Pizza Bobotie run "]
-    PP0[Category = 23 dishes. 11 were already done (Spag Bol gold-standard · 6 pizzas · 5 gnocchi/Italian staples). 12 flat dishes needed treatment.]
-    PP1[BATCH 1 DONE — ready to push (meals.js only, all ingredients price, node --check PASS): sp-mac-cheese (4v) · sp-spag-meatballs (3v) · sp-chicken-alfredo (3v) · sp-carbonara (2v) · sp-tuna-pasta-bake (3v) · sp-lasagne (3v). Each: version chips + per-version didYouKnow + beginner-proof methods + goesWith + storage/freezes/fridgeDays, mirroring Spag Bol.]
-    PP2[BATCH 2 DONE — ready to push (meals.js only, all 41 ingredients price, node --check PASS): sp-prawn-linguine (3v) · sp-cannelloni (3v) · sp-pesto-chicken-pasta (3v) · sp-cajun-pasta (3v) · sp-feta-tomato-pasta (3v) · sp-pumpkin-sage-pasta (3v). PASTA & PIZZA CATEGORY NOW 23/23 COMPLETE.]
-    PP0-->PP1-->PP2
-  end
-
-  subgraph RENDERFIX[" RENDER FIXES (session 11b) — ready to push (meals.js + core.js) "]
-    RF1[PER-VERSION didYouKnow now works: added 'didYouKnow' (and 'goesWith') to the applyRecipeVersion merge list in core.js. App-wide — any versioned dish can carry a different fact per chip. Bangers & Mash given 4 distinct facts (WWI bangers / boerewors coil / Russian sausage / instant gravy).]
-    RF2[LANDING-ON-PHOTO fixed: openMealRecipe used setQuiet which overwrites _savedScroll with window.scrollY, so recipes opened at the list scroll position (differed per dish). Now: open lands at TOP (scrollTo 0 + rAF), capturing _mealListScroll; Back restores the list position. Applies to ALL meal sections.]
-    RF3[NOTE: core.js touched (merge-list only, additive, low-risk) — first core.js edit of the FMF run. node --check PASS on both.]
-    RF5[HERO PHOTO on open recipe — MATCHES BRAAI: recipeDetailFromResult now uses the same recipePhoto(name,emoji,200) call recipePage/Braai uses (fixed 200px rounded box, Back overlaid top-left pill, dish name BELOW the photo). NOT the earlier full-bleed banner. photoSwap emoji fallback for un-shot dishes. Lands on the photo via the scroll fix.]
-    RF4[RESOLVED: the open recipe has NO dish photo (recipeDetailFromResult = coloured header + info only); photos live on the browse CARDS (core.js recipeCard, aspect-ratio 1200/640). Need to confirm whether to ADD a hero photo to the top of the open recipe (and what size) vs adjust the card photo box.]
-  end
-
-  subgraph AFTER_FMF[" AFTER FMF (Tina's stated order) "]
-    A1[BOX-GRID category UI — breakfast + all FMF browse from sliding pills to box-grid tiles (Events/Braai pattern), each tile a subtitle of what's inside.]
-    A2[SPICE section — all the sauces, versions etc. (incl the hot-sauce build, cross-linked from Stone Fruit & Hot Honey Bowl).]
-    A3[Breakfast methods could get the same beginner-proof pass (Tina's 'some can't make scrambled eggs' note) — lower priority, breakfast already strong.]
-  end
-
-  RUNWAY --> AFTER_FMF
-
-  subgraph RULES[" LOCKED RULES "]
-    X0[Bobotie = one card + version chips for true same-dish-different-way. Now the FMF-wide standard: WOW default + Budget + Quick + variant.]
-    X1[node --check before every push · GitHub Desktop only · batch files into one push to save Netlify credits.]
-    X12[core.js = high-risk, prefer data. FMF run = pure data edits in meals.js.]
-    X24[didYouKnow = the moat: dish-specific + interesting, never generic.]
-    X25[STORAGE STANDARD: freezes + fridgeDays + honest text on every recipe.]
-    XBEG[BEGINNER-PROOF METHODS: explicit steps, assume no prior skill. New standard across FMF.]
-    X10[End every session with updated TINZA_NOW.mermaid.]
-  end
-end
+  classDef start fill:#fff3e0,stroke:#d98a2b,stroke-width:2px,color:#2c211a;
+  classDef done fill:#eef3d8,stroke:#46530c,stroke-width:1px,color:#2c211a;
+  classDef push fill:#fde0d8,stroke:#b5462b,stroke-width:2px,color:#2c211a;
+  classDef next fill:#fffaf2,stroke:#6b5849,stroke-width:1px,color:#2c211a;
+  classDef park fill:#f7ebdc,stroke:#e9dac6,stroke-width:1px,color:#6b5849;

@@ -742,6 +742,12 @@ const PRICE_DB = {
   "chilli flakes": 180,            // ESTIMATE — dried flakes; was mis-resolving to FRESH chilli R80
   "brandy": 200,                   // ESTIMATE — per litre (used in ml)
   "spice mix": 120,                // ESTIMATE — generic blend; vague name, consider naming the specific spice in-recipe
+  // ── added 29 Jun (oven-bakes WOW batch) ──
+  "red curry paste": 900,          // ESTIMATE — Thai red curry paste (~R50/110g jar), matches green curry paste shape
+  "creamed corn": 59,              // cream-style sweetcorn tin (~R24/410g) = tinned corn proxy
+  "cream style corn": 59,          // alias for creamed corn
+  "kasuri methi": 800,             // ESTIMATE — dried fenugreek leaves (~R35/45g), pinch use
+  "dried fenugreek": 800,          // = kasuri methi
 };
 
 const MEAT_COSTS = {
