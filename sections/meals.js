@@ -53,7 +53,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 4,
       "fat_g": 26
     },
-    "storage": "Best fresh."
+    "storage": "Best straight from the pan — an omelette turns rubbery if it waits. A 5-minute job, made to order.",
+    "goesWith": [
+      "Buttered Toast",
+      "Crispy Bacon",
+      "Fresh Fruit"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-mushroom-and-feta-omelette",
@@ -104,7 +111,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 3,
       "fat_g": 26
     },
-    "storage": "Best fresh."
+    "storage": "Best the moment it's folded; eggs don't keep or reheat well. Quick enough to make fresh each time.",
+    "goesWith": [
+      "Crusty Bread",
+      "Green Salad",
+      "Fresh Fruit"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-hash-brown-omelette",
@@ -160,7 +174,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 24,
       "fat_g": 23
     },
-    "storage": "Best fresh."
+    "storage": "Best fresh and hot while the potato is crisp — it softens and the eggs toughen if it stands.",
+    "goesWith": [
+      "Grilled Tomato",
+      "Crispy Bacon",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-masala-scramble",
@@ -222,7 +243,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 7,
       "fat_g": 18
     },
-    "storage": "Best fresh."
+    "storage": "Best straight off the heat while soft and creamy; scrambled eggs go dry and rubbery on standing.",
+    "goesWith": [
+      "Toasted Roti",
+      "Buttered Toast",
+      "Rooibos Tea"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-cloud-eggs",
@@ -263,7 +291,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 1,
       "fat_g": 13
     },
-    "storage": "Best fresh."
+    "storage": "Best straight from the oven — the whipped whites deflate as they cool, so these don't keep or reheat.",
+    "goesWith": [
+      "Buttered Toast",
+      "Fresh Fruit",
+      "Berry Smoothie"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-frittata",
@@ -963,7 +998,14 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Sauce keeps 3 days; add fresh eggs when reheating.",
     "photoName": "Shakshuka",
-    "didYouKnow": "Shakshuka means 'a mixture' in North African Arabic and most likely began in Tunisia before spreading across the Middle East. Poaching the eggs straight in the sauce, rather than in water, lets them drink up all the smoky paprika and cumin — and leaves you one less pot to wash."
+    "didYouKnow": "Shakshuka means 'a mixture' in North African Arabic and most likely began in Tunisia before spreading across the Middle East. Poaching the eggs straight in the sauce, rather than in water, lets them drink up all the smoky paprika and cumin — and leaves you one less pot to wash.",
+    "goesWith": [
+      "Crusty Bread",
+      "Smashed Avo Toast",
+      "Strong Coffee"
+    ],
+    "freezes": true,
+    "fridgeDays": 3
   },
   {
     "id": "bf-egg-wrap",
@@ -1017,9 +1059,16 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 26,
       "fat_g": 22
     },
-    "storage": "Best fresh; eat within a few hours.",
+    "storage": "Best warm and fresh; the egg makes it soggy if it sits. Wrap in foil to eat on the run.",
     "photoName": "Breakfast Egg Wrap",
-    "didYouKnow": "The flour tortilla was built for exactly this job — sturdy enough to hold a hot filling and eat one-handed on the move. Folding the egg around everything while it's still wet in the pan glues the whole wrap shut, so nothing escapes on the school run."
+    "didYouKnow": "The flour tortilla was built for exactly this job — sturdy enough to hold a hot filling and eat one-handed on the move. Folding the egg around everything while it's still wet in the pan glues the whole wrap shut, so nothing escapes on the school run.",
+    "goesWith": [
+      "Fresh Fruit",
+      "Berry Smoothie",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-bacon-and-eggs",
@@ -1075,7 +1124,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 22,
       "fat_g": 28
     },
-    "storage": "Best fresh; cooked bacon keeps 2 days in the fridge."
+    "storage": "Best fresh; cooked bacon keeps 2 days in the fridge.",
+    "goesWith": [
+      "Buttered Toast",
+      "Grilled Tomato",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-boerewors-and-eggs",
@@ -1126,7 +1182,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 18,
       "fat_g": 32
     },
-    "storage": "Best fresh; cooked wors keeps 2 days."
+    "storage": "Best fresh; cooked wors keeps 2 days.",
+    "goesWith": [
+      "Buttered Toast",
+      "Grilled Tomato",
+      "Chakalaka"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-smashed-avo-toast",
@@ -1178,7 +1241,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 28,
       "fat_g": 19
     },
-    "storage": "Best fresh; avocado browns quickly."
+    "storage": "Best fresh; avocado browns quickly.",
+    "goesWith": [
+      "Poached Egg",
+      "Crispy Bacon",
+      "Green Smoothie"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-peanut-butter-and-banana-toast",
@@ -1226,7 +1296,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 15
     },
-    "storage": "Best fresh."
+    "storage": "Best made fresh; the banana browns and the toast softens if it waits. A 2-minute job.",
+    "goesWith": [
+      "Fresh Fruit",
+      "Berry Smoothie",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-honey-brick-toast",
@@ -1279,7 +1356,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 17
     },
-    "storage": "Best fresh and warm."
+    "storage": "Best warm from the oven while crisp and gooey; it dries out if kept.",
+    "goesWith": [
+      "Fresh Berries",
+      "Whipped Cream",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-chakalaka-beans-on-toast",
@@ -1326,7 +1410,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 50,
       "fat_g": 8
     },
-    "storage": "The bean mix keeps 3 days."
+    "storage": "Toast fresh to order; the bean mix keeps 3 days in the fridge and reheats well.",
+    "goesWith": [
+      "Fried Egg",
+      "Grilled Tomato",
+      "Strong Coffee"
+    ],
+    "freezes": false,
+    "fridgeDays": 3
   },
   {
     "id": "bf-savoury-mince-on-toast",
@@ -1382,7 +1473,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 30,
       "fat_g": 22
     },
-    "storage": "Mince keeps 3 days."
+    "storage": "Toast fresh; the savoury mince keeps 3 days in the fridge and freezes up to 1 month.",
+    "goesWith": [
+      "Fried Egg",
+      "Fresh Fruit",
+      "Strong Coffee"
+    ],
+    "freezes": true,
+    "fridgeDays": 3
   },
   {
     "id": "bf-cinnamon-french-toast",
@@ -1438,7 +1536,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 44,
       "fat_g": 15
     },
-    "storage": "Best fresh; eat the same morning."
+    "storage": "Best fresh and hot the same morning; it goes soggy if it stands.",
+    "goesWith": [
+      "Crispy Bacon",
+      "Fresh Berries",
+      "Maple Syrup"
+    ],
+    "freezes": false,
+    "fridgeDays": 0
   },
   {
     "id": "bf-pannekoek",
@@ -1497,7 +1602,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 34,
       "fat_g": 8
     },
-    "storage": "Best fresh; stack with paper between to reheat."
+    "storage": "Best fresh; stack with paper between layers. Keeps 2 days in the fridge and freezes up to 1 month.",
+    "goesWith": [
+      "Cinnamon Sugar",
+      "Fresh Fruit",
+      "Strong Coffee"
+    ],
+    "freezes": true,
+    "fridgeDays": 2
   },
   {
     "id": "bf-crumpets",
@@ -1553,7 +1665,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 38,
       "fat_g": 6
     },
-    "storage": "Keeps 2 days; toast to refresh."
+    "storage": "Keeps 2 days; toast to refresh. Freezes up to 1 month.",
+    "goesWith": [
+      "Syrup & Butter",
+      "Fresh Berries",
+      "Crispy Bacon"
+    ],
+    "freezes": true,
+    "fridgeDays": 2
   },
   {
     "id": "bf-crepes",
@@ -1604,7 +1723,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 26,
       "fat_g": 8
     },
-    "storage": "Stack with paper; keeps 2 days."
+    "storage": "Stack with paper between layers; keeps 2 days in the fridge and freezes up to 1 month.",
+    "goesWith": [
+      "Fresh Berries",
+      "Lemon & Sugar",
+      "Whipped Cream"
+    ],
+    "freezes": true,
+    "fridgeDays": 2
   },
   {
     "id": "bf-classic-buttermilk-waffles",
@@ -2020,7 +2146,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 52,
       "fat_g": 3
     },
-    "storage": "Keeps 3 days; reheat with a splash of water."
+    "storage": "Keeps 3 days; reheat with a splash of water. Freezes up to 1 month.",
+    "goesWith": [
+      "Stewed Fruit",
+      "Fresh Banana",
+      "Rooibos Tea"
+    ],
+    "freezes": true,
+    "fridgeDays": 3
   },
   {
     "id": "bf-maltabella",
@@ -2071,7 +2204,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 47,
       "fat_g": 3
     },
-    "storage": "Keeps 2 days; loosen with milk."
+    "storage": "Keeps 2 days; loosen with milk when reheating. Freezes up to 1 month.",
+    "goesWith": [
+      "Fresh Banana",
+      "Honey Drizzle",
+      "Rooibos Tea"
+    ],
+    "freezes": true,
+    "fridgeDays": 2
   },
   {
     "id": "bf-maizena",
@@ -2117,7 +2257,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 38,
       "fat_g": 6
     },
-    "storage": "Best fresh; thickens on standing."
+    "storage": "Best fresh; it sets as it stands — loosen with warm milk. Keeps 1 day in the fridge.",
+    "goesWith": [
+      "Cinnamon Sugar",
+      "Fresh Fruit",
+      "Warm Milk"
+    ],
+    "freezes": false,
+    "fridgeDays": 1
   },
   {
     "id": "bf-putu-pap",
@@ -2168,7 +2315,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 52,
       "fat_g": 3
     },
-    "storage": "Keeps 3 days; steam to refresh."
+    "storage": "Keeps 3 days; steam to refresh. Freezes up to 1 month.",
+    "goesWith": [
+      "Amasi",
+      "Stewed Fruit",
+      "Boerewors & Eggs"
+    ],
+    "freezes": true,
+    "fridgeDays": 3
   },
   {
     "id": "bf-cheesy-krummelpap",
@@ -2219,7 +2373,14 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 12
     },
-    "storage": "Best fresh."
+    "storage": "Best fresh and hot while the cheese is melty; the crumbs dry out if kept. Keeps 1 day, steam to refresh.",
+    "goesWith": [
+      "Boerewors & Eggs",
+      "Grilled Tomato",
+      "Chakalaka"
+    ],
+    "freezes": false,
+    "fridgeDays": 1
   },
   {
     "id": "bf-creamy-oats",
@@ -2270,7 +2431,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 7
     },
-    "storage": "Keeps 2 days; loosen with milk when reheating."
+    "storage": "Keeps 2 days; loosen with milk when reheating.",
+    "goesWith": [
+      "Fresh Berries",
+      "Honey Drizzle",
+      "Strong Coffee"
+    ]
   },
   {
     "id": "bf-overnight-oats",
@@ -2325,7 +2491,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 52,
       "fat_g": 7
     },
-    "storage": "Keeps 3 days in the fridge."
+    "storage": "Keeps 3 days in the fridge.",
+    "goesWith": [
+      "Fresh Fruit",
+      "Granola",
+      "Berry Smoothie"
+    ]
   },
   {
     "id": "bf-malva-melktert-oats",
@@ -2390,7 +2561,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 52,
       "fat_g": 8
     },
-    "storage": "Best fresh and warm. Keeps 2 days in the fridge; loosen with a splash of milk when reheating. Cooked oats freeze up to 1 month."
+    "storage": "Best fresh and warm. Keeps 2 days in the fridge; loosen with a splash of milk when reheating. Cooked oats freeze up to 1 month.",
+    "goesWith": [
+      "Fresh Cream",
+      "Stewed Fruit",
+      "Rooibos Tea"
+    ]
   },
   {
     "id": "bf-rooibos-and-honey-oats",
@@ -2446,7 +2622,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 6
     },
-    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month."
+    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month.",
+    "goesWith": [
+      "Fresh Fruit",
+      "Toasted Nuts",
+      "Rooibos Tea"
+    ]
   },
   {
     "id": "bf-peppermint-crisp-oats",
@@ -2500,7 +2681,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 58,
       "fat_g": 13
     },
-    "storage": "Best fresh and warm while the chocolate melts. The plain caramel oats keep 2 days; add the chocolate when serving. Freezes (without chocolate) up to 1 month."
+    "storage": "Best fresh and warm while the chocolate melts. The plain caramel oats keep 2 days; add the chocolate when serving. Freezes (without chocolate) up to 1 month.",
+    "goesWith": [
+      "Fresh Banana",
+      "Whipped Cream",
+      "Strong Coffee"
+    ]
   },
   {
     "id": "bf-curry-and-coconut-oats",
@@ -2565,7 +2751,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 38,
       "fat_g": 18
     },
-    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with a splash of water or coconut milk when reheating. Freezes up to 1 month — add the cashews fresh."
+    "storage": "Best fresh. Keeps 2 days in the fridge; loosen with a splash of water or coconut milk when reheating. Freezes up to 1 month — add the cashews fresh.",
+    "goesWith": [
+      "Toasted Cashews",
+      "Fresh Coriander",
+      "Lime Wedge"
+    ]
   },
   {
     "id": "bf-custard-protein-oats",
@@ -2625,7 +2816,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 50,
       "fat_g": 11
     },
-    "storage": "Best fresh and warm. Keeps 1 day in the fridge (it sets firm — loosen with hot milk). The egg means it is best not frozen."
+    "storage": "Best fresh and warm. Keeps 1 day in the fridge (it sets firm — loosen with hot milk). The egg means it is best not frozen.",
+    "goesWith": [
+      "Fresh Berries",
+      "Banana Slices",
+      "Honey Drizzle"
+    ]
   },
   {
     "id": "bf-bircher-oats",
@@ -2674,7 +2870,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 50,
       "fat_g": 5
     },
-    "storage": "Fridge, up to 2 days."
+    "storage": "Fridge, up to 2 days.",
+    "goesWith": [
+      "Fresh Berries",
+      "Grated Apple",
+      "Toasted Nuts"
+    ]
   },
   {
     "id": "bf-mango-oats",
@@ -2723,7 +2924,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 52,
       "fat_g": 6
     },
-    "storage": "Best fresh."
+    "storage": "Best fresh while the mango is bright; the cooked oats keep 2 days in the fridge (loosen with milk) and freeze up to 1 month — stir the mango in when serving.",
+    "goesWith": [
+      "Fresh Mango",
+      "Coconut Flakes",
+      "Berry Smoothie"
+    ]
   },
   {
     "id": "bf-baked-berry-oats",
@@ -2777,7 +2983,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 50,
       "fat_g": 9
     },
-    "storage": "Fridge, up to 2 days."
+    "storage": "Fridge, up to 2 days.",
+    "goesWith": [
+      "Fresh Cream",
+      "Plain Yoghurt",
+      "Berry Smoothie"
+    ]
   },
   {
     "id": "bf-bacon-atchar-and-cheddar-muffins",
@@ -3738,7 +3949,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 42,
       "fat_g": 8
     },
-    "storage": "Assemble fresh; keep components separate."
+    "storage": "Assemble fresh; keep components separate.",
+    "goesWith": [
+      "Fresh Fruit",
+      "Honey Drizzle",
+      "Buttered Toast"
+    ]
   },
   {
     "id": "bf-amasi-and-fruit-bowl",
@@ -3787,7 +4003,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 34,
       "fat_g": 5
     },
-    "storage": "Assemble fresh."
+    "storage": "Assemble fresh.",
+    "goesWith": [
+      "Buttermilk Rusks",
+      "Honey Drizzle",
+      "Fresh Fruit"
+    ]
   },
   {
     "id": "bf-cottage-cheese-and-peaches",
@@ -3834,7 +4055,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 22,
       "fat_g": 5
     },
-    "storage": "Assemble fresh."
+    "storage": "Assemble fresh.",
+    "goesWith": [
+      "Toasted Nuts",
+      "Honey Drizzle",
+      "Fresh Fruit"
+    ]
   },
   {
     "id": "bf-tropical-fruit-plate",
@@ -3883,7 +4109,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 38,
       "fat_g": 1
     },
-    "storage": "Best fresh; keeps 1 day cut."
+    "storage": "Best fresh; keeps 1 day cut.",
+    "goesWith": [
+      "Plain Yoghurt",
+      "Granola",
+      "Mint Leaves"
+    ]
   },
   {
     "id": "bf-boererusk-and-amasi-bowl",
@@ -3933,7 +4164,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 42,
       "fat_g": 8
     },
-    "storage": "Assemble fresh and eat soon — the rusks go soggy if it stands. Not for freezing."
+    "storage": "Assemble fresh and eat soon — the rusks go soggy if it stands. Not for freezing.",
+    "goesWith": [
+      "Fresh Berries",
+      "Honey Drizzle",
+      "Rooibos Tea"
+    ]
   },
   {
     "id": "bf-stewed-fruit-and-yoghurt-bowl",
@@ -3986,7 +4222,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 48,
       "fat_g": 4
     },
-    "storage": "The stewed fruit keeps 5 days in the fridge and freezes up to 3 months — spoon over fresh yoghurt each time."
+    "storage": "The stewed fruit keeps 5 days in the fridge and freezes up to 3 months — spoon over fresh yoghurt each time.",
+    "goesWith": [
+      "Granola",
+      "Toasted Nuts",
+      "Rooibos Tea"
+    ]
   },
   {
     "id": "bf-granadilla-and-honey-bowl",
@@ -4036,7 +4277,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 32,
       "fat_g": 6
     },
-    "storage": "Assemble fresh and eat right away. Not for freezing."
+    "storage": "Assemble fresh and eat right away. Not for freezing.",
+    "goesWith": [
+      "Granola",
+      "Fresh Banana",
+      "Mint Leaves"
+    ]
   },
   {
     "id": "bf-stone-fruit-and-hot-honey-bowl",
@@ -4098,7 +4344,12 @@ var BREAKFAST_RECIPES = [
       "carbs_g": 40,
       "fat_g": 6
     },
-    "storage": "Assemble fresh and eat right away. The hot honey keeps in a jar for weeks. Not for freezing."
+    "storage": "Assemble fresh and eat right away. The hot honey keeps in a jar for weeks. Not for freezing.",
+    "goesWith": [
+      "Granola",
+      "Toasted Nuts",
+      "Plain Yoghurt"
+    ]
   },
   {
     "id": "bf-berry-banana-smoothie",
@@ -4511,18 +4762,700 @@ var BREAKFAST_RECIPES = [
 // ════════════════════════════════════════════════════════════════
 var SUPPER_RECIPES = [
   // ── 🍳 HOMESTYLE PLATES ──
-  {id:'sp-bangers-mash', cat:'plates', diet:'meat', protein:'pork', name:'Bangers & Mash', emoji:'🌭', cuisine:'British / South African', time:35, costPP:36,
-    feel:'Soft mash, sticky onion gravy — the supper that feels like a hug.',
-    ingredients:[{n:'pork sausages',pp:150,u:'g'},{n:'potatoes',pp:250,u:'g'},{n:'onion',pp:60,u:'g'},{n:'beef stock',pp:120,u:'ml'},{n:'butter',pp:15,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'frozen peas',pp:60,u:'g'}],
-    method:['Boil the peeled, chopped potatoes in salted water until tender, about 15 minutes.','Meanwhile fry the sausages over medium heat until browned all over, then set aside.','Soften the sliced onion in the same pan, add the stock and simmer into a glossy gravy.','Mash the potatoes with butter and milk. Plate the mash, sausages and peas, and pour over the onion gravy.'],
-    tip:'Prick the sausages once or twice so they brown evenly without bursting.',
-    nutrition:{kcal:620,protein_g:26,carbs_g:52,fat_g:34}, storage:'Keeps 2 days; reheat with a splash of milk in the mash.'},
-  {id:'sp-fish-chips', cat:'plates', diet:'meat', protein:'fish', name:'Fish & Chips', emoji:'🐟', cuisine:'British', time:40, costPP:56,
-    feel:'Crispy batter, soft chips, a squeeze of lemon — Friday on a plate.',
-    ingredients:[{n:'hake fillets',pp:160,u:'g'},{n:'potatoes',pp:280,u:'g'},{n:'cake flour',pp:50,u:'g'},{n:'sunflower oil',pp:40,u:'ml'},{n:'frozen peas',pp:70,u:'g'},{n:'lemon',pp:0.25,u:''},{n:'salt & pepper'}],
-    method:['Cut the potatoes into chips, par-boil 4 minutes, then drain and dry well.','Make a batter with the flour, a pinch of salt and enough cold water for a smooth coating.','Fry the chips in hot oil until golden, drain on paper towel and keep warm.','Dip the fish in batter and fry until crisp and golden. Serve with chips, peas and a wedge of lemon.'],
-    tip:'Dry the chips thoroughly before frying — wet potatoes never go crisp.',
-    nutrition:{kcal:680,protein_g:34,carbs_g:62,fat_g:32}, storage:'Best fresh; the batter softens on standing.'},
+  {
+      "id": "sp-bangers-mash",
+      "cat": "plates",
+      "goesWith": [
+          "Creamy Mash",
+          "Buttered Peas",
+          "Caramelised Onions",
+          "English Mustard",
+          "Crusty Bread"
+      ],
+      "diet": "meat",
+      "protein": "pork",
+      "name": "Bangers & Mash",
+      "emoji": "🌭",
+      "cuisine": "British / South African",
+      "time": 45,
+      "costPP": 40,
+      "feel": "Proper browned bangers on a silky mound of mash, drowned in glossy onion gravy — the supper that feels like a hug.",
+      "didYouKnow": "'Bangers' got their name in the First World War, when meat was scarce and sausages were padded with water and rusk — in a hot pan they hissed, spat and sometimes burst with a bang. The trick to stop them bursting is gentle heat and never pricking a good sausage.",
+      "freezes": true,
+      "fridgeDays": 2,
+      "ingredients": [
+          {
+              "n": "pork sausages",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "potatoes",
+              "pp": 250,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 100,
+              "u": "g"
+          },
+          {
+              "n": "butter",
+              "pp": 30,
+              "u": "g"
+          },
+          {
+              "n": "full cream milk",
+              "pp": 40,
+              "u": "ml"
+          },
+          {
+              "n": "beef stock",
+              "pp": 200,
+              "u": "ml"
+          },
+          {
+              "n": "cake flour",
+              "pp": 10,
+              "u": "g"
+          },
+          {
+              "n": "Worcestershire sauce",
+              "pp": 5,
+              "u": "ml"
+          },
+          {
+              "n": "frozen peas",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 8,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Peel and chop the potatoes into even chunks. Put them in a pot, cover with cold water, add a big pinch of salt and boil 15–18 minutes until a knife slides in with no resistance.",
+          "While they boil, heat the oil in a pan over medium heat and cook the sausages slowly, turning often, for 12–15 minutes until deep golden all over — low and slow stops them bursting. Lift out and rest.",
+          "In the same pan add the thinly sliced onion and a pinch of salt. Cook gently 12–15 minutes, stirring, until soft, sweet and properly browned — this slow caramelising is the whole flavour.",
+          "Stir the flour into the onion and cook 1 minute, then pour in the beef stock a little at a time, stirring, until smooth. Add the Worcestershire and simmer 5 minutes into a glossy gravy.",
+          "Drain the potatoes, let them steam-dry a minute, then mash with the butter and warm milk until silky; season well. Plate the mash, sit the bangers on top, scatter the peas and flood with onion gravy."
+      ],
+      "tip": "Cook the sausages low and slow and never prick a good one — gentle heat browns them evenly without splitting the skin.",
+      "nutrition": {
+          "kcal": 650,
+          "protein_g": 27,
+          "carbs_g": 55,
+          "fat_g": 35
+      },
+      "storage": "Keeps 2 days in the fridge; reheat gently with a splash of milk in the mash. The onion gravy freezes well up to 1 month.",
+      "versions": [
+          {
+              "name": "Proper Onion Gravy",
+              "icon": "🏆",
+              "default": true,
+              "time": 45,
+              "costPP": 40,
+              "nutrition": {
+                  "kcal": 650,
+                  "protein_g": 27,
+                  "carbs_g": 55,
+                  "fat_g": 35
+              },
+              "feel": "The full treatment — slow-caramelised onions cooked down to sweet and dark, a glossy beef gravy, and mash with real butter and warm milk.",
+              "ingredients": [
+                  {
+                      "n": "pork sausages",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "full cream milk",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 200,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Worcestershire sauce",
+                      "pp": 5,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "frozen peas",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Peel and chop the potatoes into even chunks, cover with cold salted water and boil 15–18 minutes until a knife slides in easily.",
+                  "Cook the sausages slowly in the oil over medium heat, turning often, 12–15 minutes until deep golden; rest them.",
+                  "In the same pan cook the thinly sliced onion with a pinch of salt, 12–15 minutes, until soft, sweet and well browned.",
+                  "Stir in the flour, cook 1 minute, then add the beef stock bit by bit, stirring smooth. Add Worcestershire and simmer 5 minutes to a glossy gravy.",
+                  "Drain and steam-dry the potatoes, mash with butter and warm milk, season. Plate mash, bangers, peas and a flood of onion gravy."
+              ]
+          },
+          {
+              "name": "Boerie & Mash",
+              "icon": "🇿🇦",
+              "time": 35,
+              "costPP": 36,
+              "nutrition": {
+                  "kcal": 690,
+                  "protein_g": 26,
+                  "carbs_g": 52,
+                  "fat_g": 40
+              },
+              "feel": "The South African cousin — a coil of boerewors and a soft tomato-and-onion smoor over the mash. Sunday-lunch energy on a weeknight.",
+              "ingredients": [
+                  {
+                      "n": "boerewors",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "full cream milk",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "sugar"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil the peeled, chopped potatoes in salted water until tender, 15–18 minutes.",
+                  "Cook the boerewors coil whole over medium heat, turning once, about 12 minutes until cooked through and browned; rest, then cut into lengths.",
+                  "In the same pan soften the chopped onion, add the chopped tomatoes and a pinch of sugar, and simmer 10 minutes into a soft smoor.",
+                  "Mash the drained potatoes with butter and warm milk. Plate with the wors and a generous spoon of tomato smoor."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 30,
+              "costPP": 24,
+              "nutrition": {
+                  "kcal": 600,
+                  "protein_g": 22,
+                  "carbs_g": 56,
+                  "fat_g": 32
+              },
+              "feel": "Value sausages and a quick stock gravy — the same comforting plate for a fraction of the spend.",
+              "ingredients": [
+                  {
+                      "n": "russian sausages",
+                      "pp": 130,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 180,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "milk",
+                      "pp": 35,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 6,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil the chopped potatoes in salted water until soft, about 15 minutes.",
+                  "Fry the sausages in the oil until browned all over; set aside.",
+                  "Soften the sliced onion in the same pan, stir in the flour, then the stock, and simmer into a quick gravy.",
+                  "Mash the potatoes with butter and milk; serve with the sausages and gravy."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 25,
+              "costPP": 30,
+              "nutrition": {
+                  "kcal": 630,
+                  "protein_g": 26,
+                  "carbs_g": 54,
+                  "fat_g": 34
+              },
+              "feel": "On the table in 25 — bangers, peas and a fast gravy when the evening's already running away.",
+              "ingredients": [
+                  {
+                      "n": "pork sausages",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "instant gravy",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "milk",
+                      "pp": 35,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "frozen peas",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 6,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Boil the chopped potatoes until tender, about 15 minutes.",
+                  "Meanwhile fry the sausages until golden and simmer the peas.",
+                  "Soften the sliced onion, then make the gravy with the instant gravy and water as the packet directs, stirring in the onion.",
+                  "Mash the potatoes with butter and milk; plate with sausages, peas and gravy."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-fish-chips",
+      "cat": "plates",
+      "goesWith": [
+          "Slap Chips",
+          "Mushy Peas",
+          "Tartare Sauce",
+          "Lemon Wedge",
+          "Brown Vinegar"
+      ],
+      "diet": "meat",
+      "protein": "fish",
+      "name": "Fish & Chips",
+      "emoji": "🐟",
+      "cuisine": "British",
+      "time": 45,
+      "costPP": 60,
+      "feel": "Shatteringly crisp golden batter, soft chips and a squeeze of lemon — Friday night on a plate.",
+      "didYouKnow": "Fish and chips was so vital to British morale it was one of the few foods never rationed in either World War. It married fried fish, brought by Jewish immigrants, with chips from the industrial north — the takeaway that went on to conquer the world.",
+      "freezes": false,
+      "fridgeDays": 1,
+      "ingredients": [
+          {
+              "n": "hake fillets",
+              "pp": 160,
+              "u": "g"
+          },
+          {
+              "n": "potatoes",
+              "pp": 280,
+              "u": "g"
+          },
+          {
+              "n": "cake flour",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "cornflour",
+              "pp": 15,
+              "u": "g"
+          },
+          {
+              "n": "lager beer",
+              "pp": 80,
+              "u": "ml"
+          },
+          {
+              "n": "sunflower oil",
+              "pp": 60,
+              "u": "ml"
+          },
+          {
+              "n": "frozen peas",
+              "pp": 70,
+              "u": "g"
+          },
+          {
+              "n": "lemon",
+              "pp": 0.25,
+              "u": ""
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Cut the potatoes into thick chips. Rinse off the starch, then dry them really well in a clean cloth — wet chips never crisp.",
+          "Heat the oil to 150°C (a chip dropped in should bubble lazily). Fry the chips 6–7 minutes until soft and pale, not coloured; lift out and rest.",
+          "Make the batter just before frying: whisk the flour, cornflour and a pinch of salt with the cold beer into a smooth, thick cream. The cold and the bubbles make it crisp.",
+          "Turn the oil up to 190°C. Pat the fish dry, dip in batter, let the excess drip, then lower in gently. Fry 4–5 minutes until deep golden; drain on paper.",
+          "Fry the chips a second time at 190°C for 2–3 minutes until golden and crunchy; salt at once. Serve with the fish, peas and a lemon wedge."
+      ],
+      "tip": "Dry the chips thoroughly and fry them twice — the first soft fry cooks them through, the second makes them crisp.",
+      "nutrition": {
+          "kcal": 680,
+          "protein_g": 34,
+          "carbs_g": 62,
+          "fat_g": 32
+      },
+      "storage": "Best fresh — the batter softens on standing. Re-crisp chips in a hot oven; fish is best not reheated. Not for freezing once fried.",
+      "versions": [
+          {
+              "name": "Beer-Battered",
+              "icon": "🍺",
+              "default": true,
+              "time": 45,
+              "costPP": 60,
+              "nutrition": {
+                  "kcal": 680,
+                  "protein_g": 34,
+                  "carbs_g": 62,
+                  "fat_g": 32
+              },
+              "feel": "The chip-shop classic — an ice-cold beer batter that fries up into a crisp, blistered, golden shell.",
+              "ingredients": [
+                  {
+                      "n": "hake fillets",
+                      "pp": 160,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 280,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cornflour",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lager beer",
+                      "pp": 80,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "sunflower oil",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "frozen peas",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.25,
+                      "u": ""
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Cut the potatoes into thick chips, rinse off the starch and dry very well.",
+                  "Fry the chips at 150°C for 6–7 minutes until soft and pale; rest them.",
+                  "Whisk the flour, cornflour, salt and cold beer to a smooth thick cream just before frying.",
+                  "Turn the oil to 190°C, dip the dried fish in batter and fry 4–5 minutes until deep golden; drain.",
+                  "Fry the chips again at 190°C for 2–3 minutes until crisp; salt. Serve with fish, peas and lemon."
+              ]
+          },
+          {
+              "name": "Crispy Oven",
+              "icon": "🌿",
+              "time": 40,
+              "costPP": 52,
+              "nutrition": {
+                  "kcal": 480,
+                  "protein_g": 34,
+                  "carbs_g": 56,
+                  "fat_g": 14
+              },
+              "feel": "Crumbed and baked instead of battered and fried — all the crunch, far less oil.",
+              "ingredients": [
+                  {
+                      "n": "hake fillets",
+                      "pp": 160,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 280,
+                      "u": "g"
+                  },
+                  {
+                      "n": "breadcrumbs",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "large eggs",
+                      "pp": 0.5,
+                      "u": "egg"
+                  },
+                  {
+                      "n": "olive oil",
+                      "pp": 15,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "frozen peas",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.25,
+                      "u": ""
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Cut the potatoes into chips, toss in a little olive oil and salt, spread on a tray and bake at 220°C for 30–35 minutes, turning once.",
+                  "Set up three bowls: flour, beaten egg, breadcrumbs. Coat each fish fillet in flour, then egg, then crumbs.",
+                  "Sit the fish on a lined tray, drizzle with oil and bake for the last 15–18 minutes until golden and flaking.",
+                  "Serve with peas and a lemon wedge."
+              ]
+          },
+          {
+              "name": "Air-Fryer",
+              "icon": "💨",
+              "time": 30,
+              "costPP": 50,
+              "nutrition": {
+                  "kcal": 450,
+                  "protein_g": 34,
+                  "carbs_g": 54,
+                  "fat_g": 11
+              },
+              "feel": "Barely any oil, properly crisp — the modern weeknight fish and chips.",
+              "ingredients": [
+                  {
+                      "n": "hake fillets",
+                      "pp": 160,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 280,
+                      "u": "g"
+                  },
+                  {
+                      "n": "breadcrumbs",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "large eggs",
+                      "pp": 0.5,
+                      "u": "egg"
+                  },
+                  {
+                      "n": "sunflower oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "frozen peas",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.25,
+                      "u": ""
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Cut the potatoes into chips, toss with a teaspoon of oil and salt, and air-fry at 200°C for 18–22 minutes, shaking halfway.",
+                  "Crumb the fish: flour, then beaten egg, then breadcrumbs.",
+                  "Air-fry the crumbed fish at 190°C for 10–12 minutes until golden and cooked through.",
+                  "Warm the peas and serve with a lemon wedge."
+              ]
+          },
+          {
+              "name": "Budget (Crumbed)",
+              "icon": "💰",
+              "time": 35,
+              "costPP": 38,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 30,
+                  "carbs_g": 58,
+                  "fat_g": 22
+              },
+              "feel": "Cheaper whiting, pan-crumbed, with proper slap chips and a splash of brown vinegar.",
+              "ingredients": [
+                  {
+                      "n": "whiting fillets",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 280,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "large eggs",
+                      "pp": 0.5,
+                      "u": "egg"
+                  },
+                  {
+                      "n": "breadcrumbs",
+                      "pp": 35,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sunflower oil",
+                      "pp": 45,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "brown vinegar",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Cut the potatoes into chips, dry well, and fry in one go at 170°C until soft and golden; drain, salt and splash with brown vinegar.",
+                  "Crumb the fish: flour, beaten egg, breadcrumbs.",
+                  "Shallow-fry the fish in a little oil, 3 minutes a side, until golden and crisp.",
+                  "Serve with the slap chips."
+              ]
+          }
+      ]
+  },
 
   // ── 🍝 PASTA & PIZZA ──
   {id:'sp-lasagne', cat:'pastapizza', diet:'meat', protein:'beef', name:'Beef Lasagne', emoji:'🍝', cuisine:'Italian', time:75, costPP:37,
@@ -4604,72 +5537,3261 @@ var SUPPER_RECIPES = [
     nutrition:{kcal:560,protein_g:40,carbs_g:32,fat_g:28}, storage:'Keeps 3 days; slice cold for the best roast-beef sandwiches.'},
 
   // ── 🍳 HOMESTYLE PLATES — added 22 Jun (Supper build, Batch 1) ──
-  {id:'sp-tuscan-chicken', cat:'plates', diet:'meat', protein:'chicken', name:'Creamy Tuscan Chicken', emoji:'🐔', cuisine:'Italian-inspired', time:30, costPP:45,
-    feel:'Golden chicken in a creamy sun-dried tomato and spinach sauce — special enough for a celebration, easy enough for a Tuesday.',
-    ingredients:[{n:'chicken breast',pp:150,u:'g'},{n:'cream',pp:50,u:'ml'},{n:'sun-dried tomatoes',pp:25,u:'g'},{n:'baby spinach',pp:40,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'parmesan',pp:15,u:'g'},{n:'chicken stock',pp:60,u:'ml'},{n:'oil',pp:10,u:'ml'}],
-    method:['Season the chicken and sear in oil until golden on both sides, then set aside.','Soften the garlic, add the sun-dried tomatoes and stock and let it bubble.','Stir in the cream and parmesan to make a glossy sauce.','Return the chicken, add the spinach and simmer until wilted and the chicken is cooked through.','Serve over rice, pasta or with crusty bread.'],
-    tip:'A splash of the sun-dried tomato oil in place of plain oil deepens the flavour.',
-    nutrition:{kcal:520,protein_g:42,carbs_g:10,fat_g:34}, storage:'Keeps 2 days; the sauce thickens, so loosen with a little milk when reheating.'},
-  {id:'sp-honey-garlic-chicken', cat:'plates', diet:'meat', protein:'chicken', name:'Sticky Honey-Garlic Chicken & Rice', emoji:'🍗', cuisine:'Asian-inspired', time:30, costPP:32,
-    feel:'Sticky, sweet and garlicky chicken over fluffy rice — the kind of supper kids ask for by name.',
-    ingredients:[{n:'chicken thighs',pp:150,u:'g'},{n:'honey',pp:20,u:'g'},{n:'soy sauce',pp:20,u:'ml'},{n:'garlic',pp:10,u:'g'},{n:'ginger',pp:5,u:'g'},{n:'rice',pp:75,u:'g'},{n:'spring onion',pp:10,u:'g'},{n:'oil',pp:10,u:'ml'}],
-    method:['Brown the bite-sized chicken in a hot pan until golden.','Add the garlic and ginger and fry until fragrant.','Pour in the honey and soy and let it bubble into a sticky glaze that coats the chicken.','Cook the rice separately.','Serve the chicken over rice, scattered with spring onion.'],
-    tip:'Let the glaze reduce until it clings — that is what makes it sticky rather than saucy.',
-    nutrition:{kcal:540,protein_g:34,carbs_g:62,fat_g:16}, storage:'Keeps 3 days; reheats well, add a splash of water to loosen the glaze.'},
-  {id:'sp-bunny-chow', cat:'plates', diet:'meat', protein:'lamb', name:'Durban Bunny Chow', emoji:'🍛', cuisine:'South African', time:60, costPP:42,
-    feel:'Durban street food at its finest — a hollowed half-loaf filled with rich, fragrant lamb curry.',
-    ingredients:[{n:'lamb',pp:150,u:'g'},{n:'onion',pp:70,u:'g'},{n:'tomato',pp:100,u:'g'},{n:'curry powder',pp:8,u:'g'},{n:'potato',pp:80,u:'g'},{n:'white loaf',pp:350,u:'g'},{n:'garlic-ginger paste',pp:8,u:'g'},{n:'oil',pp:12,u:'ml'}],
-    method:['Brown the lamb, then soften the onion with the garlic, ginger and curry powder.','Add the tomato and a little water and simmer until it forms a thick masala.','Add the potato and cook gently until the lamb is tender and the gravy is rich, about 45 minutes.','Hollow out a half-loaf of bread to make a bowl.','Spoon the curry into the bread and top with the soft centre you pulled out.'],
-    tip:'Keep the curry thick so it does not soak through the bread too fast.',
-    nutrition:{kcal:680,protein_g:32,carbs_g:70,fat_g:30}, storage:'Make the curry ahead (keeps 3 days, freezes well) and fill the bread fresh.'},
-  {id:'sp-steak-bites-mash', cat:'plates', diet:'meat', protein:'beef', name:'Garlic Butter Steak Bites & Mash', emoji:'🥩', cuisine:'Steakhouse', time:30, costPP:48,
-    feel:'Seared steak bites tossed in garlic butter, piled on buttery mash — a steakhouse supper at home.',
-    ingredients:[{n:'rump steak',pp:150,u:'g'},{n:'potatoes',pp:250,u:'g'},{n:'butter',pp:25,u:'g'},{n:'garlic',pp:10,u:'g'},{n:'milk',pp:30,u:'ml'},{n:'fresh parsley',pp:3,u:'g'},{n:'oil',pp:10,u:'ml'}],
-    method:['Boil the peeled potatoes until tender, then mash with butter and milk until smooth.','Cut the steak into cubes and sear in a screaming-hot pan in batches so they brown rather than stew.','Lower the heat, add the butter, garlic and parsley and toss the bites to coat.','Pile the steak bites on the mash and spoon over the garlic butter from the pan.'],
-    tip:'Pat the steak very dry and do not crowd the pan — that is the secret to a deep crust.',
-    nutrition:{kcal:620,protein_g:38,carbs_g:40,fat_g:34}, storage:'Best fresh; mash keeps 2 days.'},
-  {id:'sp-sloppy-joes', cat:'plates', diet:'meat', protein:'beef', name:'Sloppy Joes', emoji:'🍔', cuisine:'American', time:25, costPP:30,
-    feel:'Saucy, sweet-and-savoury mince piled into a soft bun — gloriously messy and ready in 25 minutes.',
-    ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'onion',pp:50,u:'g'},{n:'green pepper',pp:40,u:'g'},{n:'tomato sauce',pp:40,u:'g'},{n:'Worcestershire sauce',pp:8,u:'ml'},{n:'brown sugar',pp:5,u:'g'},{n:'burger buns',pp:1,u:'each'},{n:'oil',pp:10,u:'ml'}],
-    method:['Brown the mince with the onion and green pepper, breaking it up well.','Stir in the tomato sauce, Worcestershire and a little sugar and simmer until thick and glossy.','Season to taste.','Spoon the saucy mince into toasted buns and eat with plenty of napkins.'],
-    tip:'A spoon of mustard or a dash of chilli lifts the sauce out of the ordinary.',
-    nutrition:{kcal:480,protein_g:26,carbs_g:42,fat_g:22}, storage:'Mince keeps 3 days; fill buns fresh.'},
-  {id:'sp-beef-stroganoff', cat:'plates', diet:'meat', protein:'beef', name:'Mushroom Beef Stroganoff', emoji:'🍄', cuisine:'Russian-inspired', time:35, costPP:42,
-    feel:'Tender strips of beef and mushrooms in a creamy, tangy sauce over ribbons of pasta or rice.',
-    ingredients:[{n:'beef strips',pp:140,u:'g'},{n:'mushrooms',pp:80,u:'g'},{n:'onion',pp:50,u:'g'},{n:'sour cream',pp:40,u:'ml'},{n:'beef stock',pp:100,u:'ml'},{n:'paprika',pp:3,u:'g'},{n:'flour',pp:8,u:'g'},{n:'tagliatelle or spaghetti',pp:75,u:'g'},{n:'oil',pp:12,u:'ml'}],
-    method:['Sear the beef strips quickly over high heat and set aside.','Soften the onion and mushrooms, dust with flour and paprika, then pour in the stock to make a sauce.','Stir in the sour cream and return the beef, warming through gently without boiling.','Serve over tagliatelle or rice.'],
-    tip:'Add the beef back at the very end so it stays tender — long cooking toughens the strips.',
-    nutrition:{kcal:560,protein_g:34,carbs_g:44,fat_g:28}, storage:'Keeps 2 days; reheat gently so the cream does not split.'},
-  {id:'sp-chicken-a-la-king', cat:'plates', diet:'meat', protein:'chicken', name:'Chicken a la King', emoji:'🥘', cuisine:'Retro classic', time:30, costPP:32,
-    feel:'Creamy chicken, mushrooms and peppers in a velvety sauce — a retro favourite that never goes out of style.',
-    ingredients:[{n:'chicken breast',pp:130,u:'g'},{n:'mushrooms',pp:60,u:'g'},{n:'green pepper',pp:40,u:'g'},{n:'onion',pp:40,u:'g'},{n:'cream',pp:40,u:'ml'},{n:'chicken stock',pp:120,u:'ml'},{n:'flour',pp:12,u:'g'},{n:'butter',pp:18,u:'g'},{n:'rice',pp:75,u:'g'}],
-    method:['Soften the onion, mushrooms and pepper in the butter.','Stir in the flour, then slowly add the stock to make a smooth sauce.','Add the cooked diced chicken and the cream and simmer until thick and velvety.','Serve over rice or on hot buttered toast.'],
-    tip:'A spoon of sherry or a squeeze of lemon brightens the whole dish.',
-    nutrition:{kcal:500,protein_g:32,carbs_g:38,fat_g:24}, storage:'Keeps 2 days; loosen with milk when reheating.'},
-  {id:'sp-crispy-salmon', cat:'plates', diet:'meat', protein:'fish', name:'Crispy Salmon, Lemon Butter', emoji:'🐟', cuisine:'Global', time:25, costPP:117,
-    feel:'Crisp-skinned salmon under a glossy lemon-butter sauce — restaurant-special, weeknight-easy.',
-    ingredients:[{n:'salmon fillet',pp:150,u:'g'},{n:'butter',pp:20,u:'g'},{n:'lemon',pp:20,u:'g'},{n:'garlic',pp:6,u:'g'},{n:'baby potatoes',pp:200,u:'g'},{n:'green beans',pp:80,u:'g'},{n:'oil',pp:8,u:'ml'}],
-    method:['Boil the baby potatoes and steam the beans until just tender.','Pat the salmon dry and fry skin-side down in a hot pan, pressing gently, until the skin is crisp, then flip briefly.','Lift out the salmon and add the butter, garlic and a squeeze of lemon to the pan to make a quick sauce.','Plate the salmon with the potatoes and beans and spoon over the lemon butter.'],
-    tip:'Do not move the salmon while the skin crisps — let it release on its own.',
-    nutrition:{kcal:580,protein_g:40,carbs_g:30,fat_g:34}, storage:'Best fresh.'},
-  {id:'sp-texmex-beef-bowl', cat:'plates', diet:'meat', protein:'beef', name:'Loaded Tex-Mex Beef Bowl', emoji:'🌮', cuisine:'Tex-Mex', time:30, costPP:40,
-    feel:'A loaded bowl of spiced beef, rice, beans, corn and all the toppings — build-your-own supper the whole family loves.',
-    ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'rice',pp:75,u:'g'},{n:'tinned beans',pp:60,u:'g'},{n:'sweetcorn',pp:40,u:'g'},{n:'tomato',pp:60,u:'g'},{n:'cheddar',pp:30,u:'g'},{n:'taco spice',pp:6,u:'g'},{n:'oil',pp:10,u:'ml'}],
-    method:['Brown the mince with the taco spices until rich and fragrant.','Warm the beans and cook the rice.','Build bowls with rice at the base, then the spiced beef, beans, corn and chopped tomato.','Top with grated cheddar and anything else you love — salsa, avo or a dollop of sour cream.'],
-    tip:'Set the toppings out in bowls and let everyone build their own.',
-    nutrition:{kcal:600,protein_g:30,carbs_g:68,fat_g:22}, storage:'Components keep 3 days; build fresh.'},
-  {id:'sp-beef-broccoli', cat:'plates', diet:'meat', protein:'beef', name:'Beef & Broccoli Stir-fry Bowl', emoji:'🥦', cuisine:'Chinese-inspired', time:25, costPP:40,
-    feel:'Glossy strips of beef and crisp-tender broccoli in a savoury stir-fry sauce — faster than the takeaway.',
-    ingredients:[{n:'beef strips',pp:140,u:'g'},{n:'broccoli',pp:100,u:'g'},{n:'soy sauce',pp:20,u:'ml'},{n:'garlic',pp:8,u:'g'},{n:'ginger',pp:5,u:'g'},{n:'cornflour',pp:6,u:'g'},{n:'rice',pp:75,u:'g'},{n:'oil',pp:12,u:'ml'}],
-    method:['Toss the beef strips in a little cornflour and sear quickly in a hot wok, then set aside.','Stir-fry the broccoli with the garlic and ginger until bright green.','Add the soy and a splash of water, return the beef and toss until everything is coated in a glossy sauce.','Serve over steamed rice.'],
-    tip:'High heat and a hot pan are everything — stir-fry fast so the beef stays tender and the broccoli stays crunchy.',
-    nutrition:{kcal:520,protein_g:32,carbs_g:58,fat_g:18}, storage:'Keeps 2 days; reheat in a hot pan to keep the texture.'},
-  {id:'sp-vetkoek-mince', cat:'plates', diet:'meat', protein:'beef', name:'Vetkoek & Curried Mince', emoji:'🫓', cuisine:'South African', time:50, costPP:25,
-    feel:'Golden fried vetkoek split and stuffed with rich curried mince — an SA classic that feeds a family for next to nothing.',
-    ingredients:[{n:'cake flour',pp:80,u:'g'},{n:'instant yeast',pp:2,u:'g'},{n:'sugar',pp:5,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'onion',pp:60,u:'g'},{n:'curry powder',pp:6,u:'g'},{n:'tomato',pp:60,u:'g'},{n:'oil for frying',pp:30,u:'ml'}],
-    method:['Mix the flour, yeast, sugar, a pinch of salt and warm water into a soft dough and let it rise until doubled, about 40 minutes.','Brown the mince with the onion and curry powder, add the tomato and simmer into a thick curry.','Shape the dough into balls and deep-fry in medium-hot oil until golden and cooked through.','Split the warm vetkoek and spoon in the curried mince.'],
-    tip:'Keep the oil at a steady medium heat so the vetkoek cooks through without burning outside.',
-    nutrition:{kcal:560,protein_g:22,carbs_g:64,fat_g:24}, storage:'Mince keeps 3 days; vetkoek best fresh and warm.'},
+  {
+      "id": "sp-tuscan-chicken",
+      "cat": "plates",
+      "goesWith": [
+          "Tagliatelle",
+          "Crusty Bread",
+          "Steamed Rice",
+          "Green Salad",
+          "Garlic Butter"
+      ],
+      "diet": "meat",
+      "protein": "chicken",
+      "name": "Creamy Tuscan Chicken",
+      "emoji": "🍗",
+      "cuisine": "Italian-inspired",
+      "time": 30,
+      "costPP": 42,
+      "feel": "Golden chicken in a glossy sun-dried-tomato cream with wilted spinach and parmesan — one pan, restaurant-rich.",
+      "didYouKnow": "'Tuscan' here is more marketing than tradition — real Tuscan cooking is rustic beans, bread and olive oil, not cream sauces. But this sun-dried-tomato, spinach and parmesan number became a runaway online hit, and it earns its place: quick, rich, and all in one pan.",
+      "freezes": false,
+      "fridgeDays": 3,
+      "ingredients": [
+          {
+              "n": "chicken breast",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "cream",
+              "pp": 60,
+              "u": "ml"
+          },
+          {
+              "n": "sun-dried tomatoes",
+              "pp": 25,
+              "u": "g"
+          },
+          {
+              "n": "baby spinach",
+              "pp": 40,
+              "u": "g"
+          },
+          {
+              "n": "garlic",
+              "pp": 6,
+              "u": "g"
+          },
+          {
+              "n": "parmesan",
+              "pp": 15,
+              "u": "g"
+          },
+          {
+              "n": "chicken stock",
+              "pp": 60,
+              "u": "ml"
+          },
+          {
+              "n": "oil",
+              "pp": 10,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Pat the chicken dry, season both sides with salt and pepper. Heat the oil in a pan over medium-high and sear the chicken 4–5 minutes a side until golden and just cooked; lift out.",
+          "Turn the heat down, add the grated garlic and chopped sun-dried tomatoes and stir 1 minute until fragrant.",
+          "Pour in the stock and let it bubble for a minute, scraping up the tasty bits, then stir in the cream and grated parmesan into a glossy sauce.",
+          "Add the spinach and stir until just wilted, then slide the chicken back in to warm through and coat.",
+          "Serve over pasta, rice or with crusty bread to mop the sauce."
+      ],
+      "tip": "Take the chicken off the heat the moment it's cooked — it carries on cooking in the warm sauce and stays juicy.",
+      "nutrition": {
+          "kcal": 520,
+          "protein_g": 40,
+          "carbs_g": 10,
+          "fat_g": 34
+      },
+      "storage": "The chicken and sauce keep 3 days; reheat gently with a splash of milk or stock as the cream thickens. Cream sauces can split when frozen, so this one's best fresh.",
+      "versions": [
+          {
+              "name": "Creamy Tuscan",
+              "icon": "🏆",
+              "default": true,
+              "time": 30,
+              "costPP": 42,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 40,
+                  "carbs_g": 10,
+                  "fat_g": 34
+              },
+              "feel": "The full version — seared chicken breast, sun-dried tomato, spinach and a real parmesan cream.",
+              "ingredients": [
+                  {
+                      "n": "chicken breast",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "sun-dried tomatoes",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby spinach",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "parmesan",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Season and sear the chicken in oil until golden and just cooked; lift out.",
+                  "Fry the garlic and chopped sun-dried tomatoes 1 minute.",
+                  "Add the stock, then the cream and parmesan, into a glossy sauce.",
+                  "Wilt in the spinach, return the chicken to coat.",
+                  "Serve over pasta, rice or with crusty bread."
+              ]
+          },
+          {
+              "name": "Tuscan Salmon",
+              "icon": "🐟",
+              "time": 25,
+              "costPP": 62,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 34,
+                  "carbs_g": 9,
+                  "fat_g": 40
+              },
+              "feel": "Swap the chicken for crisp-skinned salmon — the same creamy sauce, a touch more luxurious.",
+              "ingredients": [
+                  {
+                      "n": "salmon fillet",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "sun-dried tomatoes",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby spinach",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "parmesan",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 50,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Pat the salmon dry and fry skin-side down in the oil until crisp, then flip briefly to cook through; lift out.",
+                  "Fry the garlic and sun-dried tomatoes 1 minute.",
+                  "Add stock, cream and parmesan into a sauce; wilt in the spinach.",
+                  "Spoon the sauce over the salmon to serve."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 30,
+              "costPP": 28,
+              "nutrition": {
+                  "kcal": 480,
+                  "protein_g": 34,
+                  "carbs_g": 12,
+                  "fat_g": 30
+              },
+              "feel": "Cheaper thighs and a spoon of tomato paste stand in for the pricey sun-dried tomatoes — same comforting plate.",
+              "ingredients": [
+                  {
+                      "n": "chicken thighs",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 50,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "tomato paste",
+                      "pp": 12,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby spinach",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 70,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Season and brown the thighs in oil; lift out.",
+                  "Fry the garlic and tomato paste 1 minute to deepen it.",
+                  "Add the stock and cream into a sauce.",
+                  "Wilt in the spinach, return the chicken to coat, and serve over rice or pasta."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 22,
+              "costPP": 40,
+              "nutrition": {
+                  "kcal": 510,
+                  "protein_g": 38,
+                  "carbs_g": 10,
+                  "fat_g": 33
+              },
+              "feel": "On the table in twenty — pre-sliced chicken strips for a fast weeknight one-pan.",
+              "ingredients": [
+                  {
+                      "n": "chicken breast",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "sun-dried tomatoes",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby spinach",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Slice the chicken into strips, season, and stir-fry in the oil until golden.",
+                  "Add the garlic and sun-dried tomatoes for a minute.",
+                  "Pour in the cream, wilt the spinach, and simmer 2 minutes into a sauce.",
+                  "Serve straight away over rice or pasta."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-honey-garlic-chicken",
+      "cat": "plates",
+      "goesWith": [
+          "Steamed Rice",
+          "Stir-fried Greens",
+          "Sesame Seeds",
+          "Spring Onion",
+          "Egg Fried Rice"
+      ],
+      "diet": "meat",
+      "protein": "chicken",
+      "name": "Sticky Honey-Garlic Chicken & Rice",
+      "emoji": "🍯",
+      "cuisine": "Asian-inspired",
+      "time": 30,
+      "costPP": 34,
+      "feel": "Bite-sized chicken in a glossy honey-soy-garlic glaze over fluffy rice — sweet, sticky and gone in minutes.",
+      "didYouKnow": "Honey and soy is the simplest 'sticky' glaze there is: the honey's sugars caramelise while the soy's salt and umami balance the sweetness, so it tastes far richer than two ingredients should. Thighs beat breasts here — the extra fat keeps them juicy as the glaze reduces.",
+      "freezes": true,
+      "fridgeDays": 3,
+      "ingredients": [
+          {
+              "n": "chicken thighs",
+              "pp": 170,
+              "u": "g"
+          },
+          {
+              "n": "honey",
+              "pp": 20,
+              "u": "g"
+          },
+          {
+              "n": "soy sauce",
+              "pp": 20,
+              "u": "ml"
+          },
+          {
+              "n": "garlic",
+              "pp": 8,
+              "u": "g"
+          },
+          {
+              "n": "ginger",
+              "pp": 5,
+              "u": "g"
+          },
+          {
+              "n": "rice",
+              "pp": 75,
+              "u": "g"
+          },
+          {
+              "n": "spring onion",
+              "pp": 10,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 10,
+              "u": "ml"
+          }
+      ],
+      "method": [
+          "Rinse the rice until the water runs clear, then cook it (1 cup rice to 1.5 cups water, lid on, low heat, 12 minutes, then rest 5 minutes off the heat).",
+          "Cut the chicken into bite-sized pieces. Heat the oil in a wide pan over medium-high and brown the chicken well on all sides, 6–8 minutes.",
+          "Push the chicken aside, add the grated garlic and ginger and fry 30 seconds until fragrant.",
+          "Pour in the honey and soy and let it bubble and reduce 2–3 minutes until it thickens into a sticky glaze that coats every piece.",
+          "Serve over the rice, scattered with sliced spring onion."
+      ],
+      "tip": "Let the glaze bubble until it visibly thickens and coats the back of a spoon — that's when it turns properly sticky.",
+      "nutrition": {
+          "kcal": 560,
+          "protein_g": 34,
+          "carbs_g": 62,
+          "fat_g": 18
+      },
+      "storage": "Keeps 3 days; the glaze reheats beautifully with a splash of water. Freezes up to 1 month — freeze the chicken and rice separately.",
+      "versions": [
+          {
+              "name": "Sticky Honey-Garlic",
+              "icon": "🏆",
+              "default": true,
+              "time": 30,
+              "costPP": 34,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 34,
+                  "carbs_g": 62,
+                  "fat_g": 18
+              },
+              "feel": "Juicy thighs in a deep, glossy honey-soy-garlic glaze — the one worth licking off the spoon.",
+              "ingredients": [
+                  {
+                      "n": "chicken thighs",
+                      "pp": 170,
+                      "u": "g"
+                  },
+                  {
+                      "n": "honey",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 20,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "ginger",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "spring onion",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Cook the rinsed rice (1 : 1.5 with water, lid on, 12 min, rest 5).",
+                  "Brown the bite-sized chicken in the oil, 6–8 minutes.",
+                  "Fry the grated garlic and ginger 30 seconds.",
+                  "Add honey and soy and bubble 2–3 minutes into a sticky glaze.",
+                  "Serve over rice with spring onion."
+              ]
+          },
+          {
+              "name": "Spicy (Korean-style)",
+              "icon": "🌶️",
+              "time": 32,
+              "costPP": 36,
+              "nutrition": {
+                  "kcal": 580,
+                  "protein_g": 34,
+                  "carbs_g": 64,
+                  "fat_g": 19
+              },
+              "feel": "A spoon of gochujang turns the glaze fiery-sweet and lacquered — sticky Korean-style heat.",
+              "ingredients": [
+                  {
+                      "n": "chicken thighs",
+                      "pp": 170,
+                      "u": "g"
+                  },
+                  {
+                      "n": "honey",
+                      "pp": 18,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 18,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "gochujang",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "ginger",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "spring onion",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sesame seeds",
+                      "pp": 3,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Brown the bite-sized chicken in the oil.",
+                  "Fry the garlic and ginger, then stir in the gochujang for 30 seconds.",
+                  "Add honey and soy and bubble into a glossy, spicy glaze.",
+                  "Serve over rice with spring onion and sesame seeds."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 30,
+              "costPP": 24,
+              "nutrition": {
+                  "kcal": 540,
+                  "protein_g": 30,
+                  "carbs_g": 66,
+                  "fat_g": 15
+              },
+              "feel": "Sugar and a little extra soy stretch the glaze; chicken pieces on the bone keep it cheap and tasty.",
+              "ingredients": [
+                  {
+                      "n": "chicken pieces",
+                      "pp": 180,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sugar",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 22,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "spring onion",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Brown the chicken pieces well in the oil.",
+                  "Add the garlic, then the sugar and soy with a splash of water; simmer until sticky and the chicken is cooked through.",
+                  "Serve over rice with spring onion."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 20,
+              "costPP": 33,
+              "nutrition": {
+                  "kcal": 550,
+                  "protein_g": 34,
+                  "carbs_g": 60,
+                  "fat_g": 18
+              },
+              "feel": "Microwave rice and chicken strips — sticky supper in twenty.",
+              "ingredients": [
+                  {
+                      "n": "chicken breast",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "honey",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 20,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "spring onion",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Use quick-cook or microwave rice.",
+                  "Stir-fry chicken strips in the oil until golden.",
+                  "Add garlic, then honey and soy; bubble 2 minutes into a glaze.",
+                  "Serve over rice with spring onion."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-bunny-chow",
+      "cat": "plates",
+      "goesWith": [
+          "Carrot Sambal",
+          "Sliced Onion",
+          "Fresh Chilli",
+          "Amasi",
+          "Atchar"
+      ],
+      "diet": "meat",
+      "protein": "lamb",
+      "name": "Durban Bunny Chow",
+      "emoji": "🍛",
+      "cuisine": "South African",
+      "time": 70,
+      "costPP": 40,
+      "feel": "A hollowed half-loaf flooded with rich, slow-cooked Durban curry — eaten with your hands, no spoon in sight.",
+      "didYouKnow": "Bunny chow has nothing to do with rabbits — it comes from Durban's Indian community, who hollowed out a loaf to make a portable 'bowl' of curry to carry to work. One telling credits the 'bania' merchants; either way, curry-in-bread became the city's signature street food.",
+      "freezes": true,
+      "fridgeDays": 3,
+      "ingredients": [
+          {
+              "n": "lamb",
+              "pp": 170,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 80,
+              "u": "g"
+          },
+          {
+              "n": "tomatoes",
+              "pp": 100,
+              "u": "g"
+          },
+          {
+              "n": "Durban masala",
+              "pp": 10,
+              "u": "g"
+          },
+          {
+              "n": "potatoes",
+              "pp": 100,
+              "u": "g"
+          },
+          {
+              "n": "white loaf",
+              "pp": 0.5,
+              "u": ""
+          },
+          {
+              "n": "garlic-ginger paste",
+              "pp": 10,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 12,
+              "u": "ml"
+          },
+          {
+              "n": "salt"
+          }
+      ],
+      "method": [
+          "Heat the oil in a heavy pot and brown the lamb pieces all over; this colour is flavour.",
+          "Add the chopped onion and the garlic-ginger paste and cook until soft and golden, about 8 minutes.",
+          "Stir in the Durban masala and cook a minute until fragrant, then add the chopped tomatoes and a cup of water and simmer into a thick masala.",
+          "Add the cubed potato, cover and simmer gently 45 minutes until the lamb is fall-apart tender and the gravy is rich; loosen with water if needed and season.",
+          "Cut a loaf in half and hollow out each half to make a bread bowl. Spoon the curry in and top with the soft bread you pulled out (the 'virgin')."
+      ],
+      "tip": "Cook it low and slow — Durban curry is about patience; rushing it leaves the lamb tough and the gravy thin.",
+      "nutrition": {
+          "kcal": 620,
+          "protein_g": 30,
+          "carbs_g": 60,
+          "fat_g": 28
+      },
+      "storage": "The curry keeps 3 days in the fridge and freezes up to 2 months — fill fresh bread each time, as the loaf goes soggy if stored full.",
+      "versions": [
+          {
+              "name": "Lamb (the original)",
+              "icon": "🏆",
+              "default": true,
+              "time": 70,
+              "costPP": 40,
+              "nutrition": {
+                  "kcal": 620,
+                  "protein_g": 30,
+                  "carbs_g": 60,
+                  "fat_g": 28
+              },
+              "feel": "The Durban original — slow-cooked lamb on the bone, deep and rich, in a hollowed loaf.",
+              "ingredients": [
+                  {
+                      "n": "lamb",
+                      "pp": 170,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Durban masala",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "white loaf",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic-ginger paste",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Brown the lamb in the oil in a heavy pot.",
+                  "Soften the onion with the garlic-ginger paste, 8 minutes.",
+                  "Add the masala, then tomatoes and a cup of water; simmer to a thick masala.",
+                  "Add potato, cover and simmer 45 minutes until the lamb is tender.",
+                  "Hollow out half-loaves and fill with the curry; top with the bread."
+              ]
+          },
+          {
+              "name": "Chicken",
+              "icon": "🍗",
+              "time": 45,
+              "costPP": 30,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 32,
+                  "carbs_g": 58,
+                  "fat_g": 20
+              },
+              "feel": "Quicker and cheaper with chicken on the bone — still a proper, fragrant Durban curry.",
+              "ingredients": [
+                  {
+                      "n": "chicken pieces",
+                      "pp": 180,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Durban masala",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "white loaf",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic-ginger paste",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Brown the chicken pieces in the oil.",
+                  "Soften the onion with the garlic-ginger paste.",
+                  "Add masala, tomatoes and water; simmer to a masala.",
+                  "Add potato and simmer 25–30 minutes until the chicken is cooked and tender.",
+                  "Fill the hollowed loaves and top with the bread."
+              ]
+          },
+          {
+              "name": "Bean (vegetarian)",
+              "icon": "🌱",
+              "time": 40,
+              "costPP": 18,
+              "nutrition": {
+                  "kcal": 540,
+                  "protein_g": 18,
+                  "carbs_g": 78,
+                  "fat_g": 14
+              },
+              "feel": "The classic meat-free 'beans bunny' — sugar beans in a rich curry gravy, the cheapest, most beloved version of all.",
+              "ingredients": [
+                  {
+                      "n": "sugar beans",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Durban masala",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "white loaf",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic-ginger paste",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Use tinned sugar beans, or soak and boil dried beans until soft first.",
+                  "Soften the onion with the garlic-ginger paste in the oil.",
+                  "Add the masala, then tomatoes and water; simmer to a thick gravy.",
+                  "Add the potato and beans and simmer 20–25 minutes until thick and rich.",
+                  "Fill the hollowed loaves and top with the bread."
+              ]
+          },
+          {
+              "name": "Quick (mince)",
+              "icon": "⚡",
+              "time": 30,
+              "costPP": 26,
+              "nutrition": {
+                  "kcal": 580,
+                  "protein_g": 26,
+                  "carbs_g": 60,
+                  "fat_g": 26
+              },
+              "feel": "A keema-style mince curry that's ready in half an hour — the weeknight bunny.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 100,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Durban masala",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "white loaf",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic-ginger paste",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Brown the mince in the oil, breaking it up.",
+                  "Add the onion and garlic-ginger paste; cook soft.",
+                  "Stir in the masala, then tomatoes and a little water.",
+                  "Add the diced potato and simmer 18–20 minutes until soft and thick.",
+                  "Fill the hollowed loaves and top with the bread."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-steak-bites-mash",
+      "cat": "plates",
+      "goesWith": [
+          "Creamy Mash",
+          "Garlic Butter",
+          "Sautéed Mushrooms",
+          "Green Beans",
+          "Peppercorn Sauce"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Garlic Butter Steak Bites & Mash",
+      "emoji": "🥩",
+      "cuisine": "Steakhouse",
+      "time": 30,
+      "costPP": 50,
+      "feel": "Seared cubes of steak tumbled in garlic butter, spooned over silky mash — steakhouse comfort in twenty minutes.",
+      "didYouKnow": "Searing meat in a smoking-hot pan triggers the Maillard reaction — the same browning that flavours toast and roast coffee — building hundreds of new savoury compounds on the crust. For bite-sized pieces the rule is: dry the meat, don't crowd the pan, and don't stir too soon, or they steam grey instead of searing brown.",
+      "freezes": false,
+      "fridgeDays": 1,
+      "ingredients": [
+          {
+              "n": "rump steak",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "potatoes",
+              "pp": 250,
+              "u": "g"
+          },
+          {
+              "n": "butter",
+              "pp": 35,
+              "u": "g"
+          },
+          {
+              "n": "garlic",
+              "pp": 6,
+              "u": "g"
+          },
+          {
+              "n": "fresh parsley",
+              "pp": 3,
+              "u": "g"
+          },
+          {
+              "n": "full cream milk",
+              "pp": 40,
+              "u": "ml"
+          },
+          {
+              "n": "oil",
+              "pp": 8,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Boil the peeled, chopped potatoes in salted water until tender, 15–18 minutes; drain, steam-dry, then mash with butter and warm milk and season.",
+          "Cut the steak into 2 cm cubes and pat them really dry with paper towel — dry meat sears instead of steaming. Season with salt and pepper.",
+          "Get a pan smoking hot with the oil. Add the steak in a single layer, leaving space, and don't touch it for 1–2 minutes so a brown crust forms; then toss and sear another minute. Work in two batches if your pan is small.",
+          "Turn off the heat, add the butter and grated garlic, and toss 30 seconds in the residual heat until fragrant (not burnt). Stir in the chopped parsley.",
+          "Spoon the steak and all its garlic butter over the mash."
+      ],
+      "tip": "Dry the cubes well and sear in batches — a crowded pan drops the heat and the steak stews grey instead of browning.",
+      "nutrition": {
+          "kcal": 560,
+          "protein_g": 34,
+          "carbs_g": 34,
+          "fat_g": 32
+      },
+      "storage": "Best fresh while the steak is pink and juicy; reheating cooks it further. The mash keeps 2 days in the fridge.",
+      "versions": [
+          {
+              "name": "Garlic Butter",
+              "icon": "🧄",
+              "default": true,
+              "time": 30,
+              "costPP": 50,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 34,
+                  "carbs_g": 34,
+                  "fat_g": 32
+              },
+              "feel": "The one everyone orders — seared rump tossed in garlicky, parsley-flecked butter over silky mash.",
+              "ingredients": [
+                  {
+                      "n": "rump steak",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 35,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "fresh parsley",
+                      "pp": 3,
+                      "u": "g"
+                  },
+                  {
+                      "n": "full cream milk",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil, drain and mash the potatoes with butter and warm milk; season and keep warm.",
+                  "Cut the steak into 2 cm cubes, pat very dry and season.",
+                  "Sear in a smoking-hot oiled pan in a single layer, undisturbed 1–2 minutes, then toss and sear 1 minute more (in batches if needed).",
+                  "Off the heat, toss with the butter, grated garlic and parsley for 30 seconds until fragrant.",
+                  "Spoon the steak and garlic butter over the mash."
+              ]
+          },
+          {
+              "name": "Peppercorn Sauce",
+              "icon": "✨",
+              "time": 35,
+              "costPP": 56,
+              "nutrition": {
+                  "kcal": 620,
+                  "protein_g": 34,
+                  "carbs_g": 36,
+                  "fat_g": 38
+              },
+              "feel": "The full bistro plate — a creamy, peppery pan sauce built in the same pan the steak seared in.",
+              "ingredients": [
+                  {
+                      "n": "rump steak",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 50,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "black peppercorns",
+                      "pp": 2,
+                      "u": "g"
+                  },
+                  {
+                      "n": "brandy",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "full cream milk",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Make the mash and keep warm.",
+                  "Sear the dried, seasoned steak cubes hard in hot oil; lift out and rest.",
+                  "Crush the peppercorns into the pan, add the brandy off the heat (it may flame), then the stock and cream; simmer 3–4 minutes into a glossy sauce.",
+                  "Return the steak briefly to coat, then spoon everything over the mash."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 30,
+              "costPP": 34,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 30,
+                  "carbs_g": 34,
+                  "fat_g": 28
+              },
+              "feel": "A cheaper cut, sliced thin across the grain and seared fast — tender and tasty for less.",
+              "ingredients": [
+                  {
+                      "n": "economy steak",
+                      "pp": 140,
+                      "u": "g"
+                  },
+                  {
+                      "n": "potatoes",
+                      "pp": 250,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "fresh parsley",
+                      "pp": 2,
+                      "u": "g"
+                  },
+                  {
+                      "n": "milk",
+                      "pp": 35,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil and mash the potatoes with butter and milk.",
+                  "Slice the cheaper steak thinly across the grain (this tenderises it), pat dry and season.",
+                  "Sear hard and fast in a very hot pan, 1–2 minutes, so it stays tender.",
+                  "Toss off the heat with butter, garlic and parsley; spoon over the mash."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-sloppy-joes",
+      "cat": "plates",
+      "goesWith": [
+          "Slap Chips",
+          "Coleslaw",
+          "Pickles",
+          "Cheese Slice",
+          "Corn on the Cob"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Sloppy Joes",
+      "emoji": "🍔",
+      "cuisine": "American",
+      "time": 25,
+      "costPP": 30,
+      "feel": "Sweet-and-tangy saucy mince piled into a soft toasted bun — gloriously messy, eat over a plate.",
+      "didYouKnow": "The Sloppy Joe is said to have been invented by a cook named Joe in 1930s Iowa, who loosened a 'loose-meat' sandwich with tomato sauce. It became an American canteen and family staple precisely because it stretches a little mince to feed a crowd cheaply.",
+      "freezes": true,
+      "fridgeDays": 3,
+      "ingredients": [
+          {
+              "n": "beef mince",
+              "pp": 130,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "green pepper",
+              "pp": 40,
+              "u": "g"
+          },
+          {
+              "n": "tomato sauce",
+              "pp": 40,
+              "u": "g"
+          },
+          {
+              "n": "Worcestershire sauce",
+              "pp": 5,
+              "u": "ml"
+          },
+          {
+              "n": "brown sugar",
+              "pp": 5,
+              "u": "g"
+          },
+          {
+              "n": "burger buns",
+              "pp": 1,
+              "u": ""
+          },
+          {
+              "n": "oil",
+              "pp": 8,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Heat the oil in a pan and cook the chopped onion and green pepper until soft, about 5 minutes.",
+          "Add the mince and brown it well, breaking up every lump with your spoon.",
+          "Stir in the tomato sauce, Worcestershire and brown sugar with a splash of water and simmer 8–10 minutes until thick, glossy and saucy; season.",
+          "Toast the buns cut-side down in a dry pan until golden.",
+          "Pile the saucy mince into the buns and eat with plenty of napkins."
+      ],
+      "tip": "Let it simmer until it's thick and glossy, not watery — a runny filling soaks the bun and falls apart.",
+      "nutrition": {
+          "kcal": 480,
+          "protein_g": 24,
+          "carbs_g": 42,
+          "fat_g": 24
+      },
+      "storage": "The mince keeps 3 days and freezes up to 2 months; toast fresh buns to serve.",
+      "versions": [
+          {
+              "name": "Classic",
+              "icon": "🏆",
+              "default": true,
+              "time": 25,
+              "costPP": 30,
+              "nutrition": {
+                  "kcal": 480,
+                  "protein_g": 24,
+                  "carbs_g": 42,
+                  "fat_g": 24
+              },
+              "feel": "Sweet, tangy, glossy mince in a toasted bun — the all-American original.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 130,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green pepper",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomato sauce",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Worcestershire sauce",
+                      "pp": 5,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "brown sugar",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "burger buns",
+                      "pp": 1,
+                      "u": ""
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Soften the chopped onion and green pepper in the oil.",
+                  "Brown the mince well, breaking up the lumps.",
+                  "Add tomato sauce, Worcestershire, sugar and a splash of water; simmer 8–10 minutes until thick.",
+                  "Toast the buns and pile in the mince."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 25,
+              "costPP": 20,
+              "nutrition": {
+                  "kcal": 450,
+                  "protein_g": 18,
+                  "carbs_g": 50,
+                  "fat_g": 18
+              },
+              "feel": "Grated carrot and a tin of lentils stretch the mince further — same saucy bun, less spend.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "brown lentils",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "carrots",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomato sauce",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "brown sugar",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "burger buns",
+                      "pp": 1,
+                      "u": ""
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Soften the onion and finely grated carrot in the oil.",
+                  "Brown the mince, then add the tinned lentils.",
+                  "Stir in tomato sauce, sugar and water; simmer until thick.",
+                  "Toast the buns and fill."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 18,
+              "costPP": 29,
+              "nutrition": {
+                  "kcal": 470,
+                  "protein_g": 24,
+                  "carbs_g": 42,
+                  "fat_g": 23
+              },
+              "feel": "Skip the pepper, lean on the pantry — saucy mince buns in under twenty.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 130,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomato sauce",
+                      "pp": 45,
+                      "u": "g"
+                  },
+                  {
+                      "n": "Worcestershire sauce",
+                      "pp": 5,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "burger buns",
+                      "pp": 1,
+                      "u": ""
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Brown the mince with the chopped onion in the oil.",
+                  "Add tomato sauce, Worcestershire and a splash of water; simmer 6–8 minutes.",
+                  "Toast the buns and pile in the mince."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-beef-stroganoff",
+      "cat": "plates",
+      "goesWith": [
+          "Tagliatelle",
+          "Steamed Rice",
+          "Buttered Pap",
+          "Green Salad",
+          "Crusty Bread"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Mushroom Beef Stroganoff",
+      "emoji": "🍄",
+      "cuisine": "Russian-inspired",
+      "time": 30,
+      "costPP": 46,
+      "feel": "Tender beef strips and mushrooms in a creamy, paprika-flecked sauce over ribbons of tagliatelle.",
+      "didYouKnow": "Beef Stroganoff is named after the wealthy Stroganov family of 19th-century Russia, whose French-trained chef created it. The sour-cream finish is the signature — and the golden rule is to add it off the boil, because high heat makes it split and curdle.",
+      "freezes": false,
+      "fridgeDays": 2,
+      "ingredients": [
+          {
+              "n": "beef strips",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "mushrooms",
+              "pp": 80,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "sour cream",
+              "pp": 50,
+              "u": "g"
+          },
+          {
+              "n": "beef stock",
+              "pp": 100,
+              "u": "ml"
+          },
+          {
+              "n": "paprika",
+              "pp": 2,
+              "u": "g"
+          },
+          {
+              "n": "cake flour",
+              "pp": 8,
+              "u": "g"
+          },
+          {
+              "n": "tagliatelle",
+              "pp": 90,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 10,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Pat the beef strips dry and season. Sear them in batches in a smoking-hot oiled pan, 1 minute, just to brown; lift out so they stay tender.",
+          "In the same pan soften the sliced onion and mushrooms until golden, about 6 minutes.",
+          "Stir in the flour and paprika and cook 1 minute, then pour in the stock a little at a time, stirring into a smooth sauce.",
+          "Turn the heat right down and stir in the sour cream; return the beef and warm through gently WITHOUT boiling.",
+          "Serve over cooked tagliatelle or rice."
+      ],
+      "tip": "Add the sour cream off the boil and never let it bubble hard — high heat splits it into grainy curds.",
+      "nutrition": {
+          "kcal": 560,
+          "protein_g": 34,
+          "carbs_g": 48,
+          "fat_g": 26
+      },
+      "storage": "Keeps 2 days; reheat very gently — the sour cream can split if boiled. Best not frozen.",
+      "versions": [
+          {
+              "name": "Creamy Classic",
+              "icon": "🏆",
+              "default": true,
+              "time": 30,
+              "costPP": 46,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 34,
+                  "carbs_g": 48,
+                  "fat_g": 26
+              },
+              "feel": "Seared beef strips and mushrooms in a silky sour-cream and paprika sauce.",
+              "ingredients": [
+                  {
+                      "n": "beef strips",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sour cream",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 100,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "paprika",
+                      "pp": 2,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tagliatelle",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Sear the dried, seasoned beef strips in batches in hot oil; lift out.",
+                  "Soften the onion and mushrooms until golden.",
+                  "Stir in flour and paprika, then the stock, into a smooth sauce.",
+                  "Off the boil, stir in the sour cream and return the beef to warm through.",
+                  "Serve over tagliatelle or rice."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 35,
+              "costPP": 30,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 26,
+                  "carbs_g": 52,
+                  "fat_g": 22
+              },
+              "feel": "A cheaper braising cut, sliced thin, plus plain yoghurt for the tang — kinder on the wallet.",
+              "ingredients": [
+                  {
+                      "n": "economy steak",
+                      "pp": 140,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "plain yoghurt",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 110,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "paprika",
+                      "pp": 2,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tagliatelle",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Slice the cheaper steak thin across the grain, pat dry and sear fast; lift out.",
+                  "Soften the onion and mushrooms.",
+                  "Add flour, paprika and stock into a sauce.",
+                  "Off the heat stir in the yoghurt, return the beef gently.",
+                  "Serve over pasta or rice."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 22,
+              "costPP": 44,
+              "nutrition": {
+                  "kcal": 550,
+                  "protein_g": 34,
+                  "carbs_g": 46,
+                  "fat_g": 26
+              },
+              "feel": "One pan, no fuss — creamy stroganoff over quick pasta in twenty minutes.",
+              "ingredients": [
+                  {
+                      "n": "beef strips",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sour cream",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef stock",
+                      "pp": 90,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "paprika",
+                      "pp": 2,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tagliatelle",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Sear the beef strips fast; lift out.",
+                  "Fry the onion and mushrooms, add stock and paprika and bubble to reduce.",
+                  "Off the heat stir in the sour cream and return the beef.",
+                  "Toss with cooked pasta."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-chicken-a-la-king",
+      "cat": "plates",
+      "goesWith": [
+          "Steamed Rice",
+          "Buttered Toast",
+          "Puff Pastry",
+          "Green Peas",
+          "Crusty Bread"
+      ],
+      "diet": "meat",
+      "protein": "chicken",
+      "name": "Chicken a la King",
+      "emoji": "👑",
+      "cuisine": "Retro classic",
+      "time": 30,
+      "costPP": 36,
+      "feel": "Tender chicken, mushrooms and peppers in a velvety cream sauce — the retro Sunday supper, spooned over rice or toast.",
+      "didYouKnow": "Chicken à la King sounds French and grand, but it was almost certainly born in an American hotel kitchen around 1900. The 'king' was a surname — a hotel owner or chef called King — not royalty, though the rich cream sauce certainly eats like it.",
+      "freezes": false,
+      "fridgeDays": 2,
+      "ingredients": [
+          {
+              "n": "chicken breast",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "mushrooms",
+              "pp": 70,
+              "u": "g"
+          },
+          {
+              "n": "green pepper",
+              "pp": 40,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 50,
+              "u": "g"
+          },
+          {
+              "n": "cream",
+              "pp": 50,
+              "u": "ml"
+          },
+          {
+              "n": "chicken stock",
+              "pp": 120,
+              "u": "ml"
+          },
+          {
+              "n": "cake flour",
+              "pp": 12,
+              "u": "g"
+          },
+          {
+              "n": "butter",
+              "pp": 20,
+              "u": "g"
+          },
+          {
+              "n": "rice",
+              "pp": 75,
+              "u": "g"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Cook the rice and set aside. Poach or pan-cook the chicken breast, then dice it.",
+          "Melt the butter in a pan and soften the chopped onion, mushrooms and pepper until tender, about 6 minutes.",
+          "Stir in the flour and cook 1 minute, then add the stock slowly, stirring into a smooth sauce.",
+          "Add the diced chicken and the cream and simmer gently until thick and velvety; season well.",
+          "Spoon over rice or hot buttered toast."
+      ],
+      "tip": "Add the flour to the soft veg and cook it for a minute before the liquid — that cooks out the raw flour taste and stops lumps.",
+      "nutrition": {
+          "kcal": 520,
+          "protein_g": 34,
+          "carbs_g": 44,
+          "fat_g": 24
+      },
+      "storage": "Keeps 2 days; reheat gently without boiling. Cream sauces don't freeze well, so this is best fresh.",
+      "versions": [
+          {
+              "name": "Creamy Classic",
+              "icon": "🏆",
+              "default": true,
+              "time": 30,
+              "costPP": 36,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 34,
+                  "carbs_g": 44,
+                  "fat_g": 24
+              },
+              "feel": "The retro original — chicken, mushrooms and peppers in a velvety cream sauce over rice or toast.",
+              "ingredients": [
+                  {
+                      "n": "chicken breast",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green pepper",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 50,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 120,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 12,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Cook the rice; cook and dice the chicken.",
+                  "Soften the onion, mushrooms and pepper in butter.",
+                  "Stir in flour, then the stock, into a smooth sauce.",
+                  "Add the chicken and cream; simmer velvety and season.",
+                  "Serve over rice or buttered toast."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 30,
+              "costPP": 26,
+              "nutrition": {
+                  "kcal": 500,
+                  "protein_g": 30,
+                  "carbs_g": 46,
+                  "fat_g": 22
+              },
+              "feel": "Thighs and milk-thickened sauce keep it cheap; just as comforting over rice.",
+              "ingredients": [
+                  {
+                      "n": "chicken thighs",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green pepper",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "full cream milk",
+                      "pp": 120,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 14,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 18,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Cook the rice; cook and dice the thighs.",
+                  "Soften the veg in butter, stir in flour.",
+                  "Add the stock and milk slowly into a sauce.",
+                  "Add the chicken and simmer thick; season.",
+                  "Serve over rice."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 20,
+              "costPP": 35,
+              "nutrition": {
+                  "kcal": 510,
+                  "protein_g": 34,
+                  "carbs_g": 42,
+                  "fat_g": 24
+              },
+              "feel": "Pre-cooked or rotisserie chicken makes this a twenty-minute creamy supper.",
+              "ingredients": [
+                  {
+                      "n": "cooked chicken",
+                      "pp": 140,
+                      "u": "g"
+                  },
+                  {
+                      "n": "mushrooms",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cream",
+                      "pp": 60,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "chicken stock",
+                      "pp": 100,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "cake flour",
+                      "pp": 10,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 18,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Use microwave rice and shredded cooked chicken.",
+                  "Soften the onion and mushrooms in butter, stir in flour.",
+                  "Add stock and cream into a sauce.",
+                  "Stir in the chicken to warm through; serve over rice or toast."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-crispy-salmon",
+      "cat": "plates",
+      "goesWith": [
+          "Baby Potatoes",
+          "Green Beans",
+          "Lemon Wedge",
+          "Creamy Mash",
+          "Side Salad"
+      ],
+      "diet": "meat",
+      "protein": "fish",
+      "name": "Crispy Salmon, Lemon Butter",
+      "emoji": "🐟",
+      "cuisine": "Global",
+      "time": 25,
+      "costPP": 68,
+      "feel": "Crackling-crisp salmon skin, a glossy lemon-butter pan sauce, baby potatoes and green beans — quietly impressive.",
+      "didYouKnow": "Crisp salmon skin is all about patience: lay the fillet skin-down in a hot pan and DON'T move it. The skin needs time to render its fat and release itself — lift it too soon and it tears and sticks. Press gently for the first minute so it doesn't curl.",
+      "freezes": false,
+      "fridgeDays": 1,
+      "ingredients": [
+          {
+              "n": "salmon fillet",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "butter",
+              "pp": 25,
+              "u": "g"
+          },
+          {
+              "n": "lemon",
+              "pp": 0.5,
+              "u": ""
+          },
+          {
+              "n": "garlic",
+              "pp": 5,
+              "u": "g"
+          },
+          {
+              "n": "baby potatoes",
+              "pp": 180,
+              "u": "g"
+          },
+          {
+              "n": "green beans",
+              "pp": 80,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 8,
+              "u": "ml"
+          },
+          {
+              "n": "salt & pepper"
+          }
+      ],
+      "method": [
+          "Boil the baby potatoes in salted water until tender, 15 minutes, adding the green beans for the last 3 minutes; drain.",
+          "Pat the salmon really dry and season. Heat the oil in a pan over medium-high.",
+          "Lay the salmon in skin-side down and press gently with a spatula for the first minute so it stays flat. Leave it untouched 4–5 minutes until the skin is crisp and releases easily, then flip and cook 1–2 minutes more.",
+          "Lift out the salmon. Turn off the heat, add the butter, grated garlic and a good squeeze of lemon, swirling into a quick sauce.",
+          "Plate the salmon with the potatoes and beans and spoon over the lemon butter."
+      ],
+      "tip": "Dry the skin thoroughly and don't move the fillet until it releases on its own — that patience is the whole secret to crisp skin.",
+      "nutrition": {
+          "kcal": 560,
+          "protein_g": 36,
+          "carbs_g": 30,
+          "fat_g": 34
+      },
+      "storage": "Best fresh while the skin is crisp; keeps 1 day but the skin softens. Not for freezing once cooked.",
+      "versions": [
+          {
+              "name": "Crispy Skin, Lemon Butter",
+              "icon": "🏆",
+              "default": true,
+              "time": 25,
+              "costPP": 68,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 36,
+                  "carbs_g": 30,
+                  "fat_g": 34
+              },
+              "feel": "Shatter-crisp skin and a glossy lemon-garlic butter — the version worth the salmon.",
+              "ingredients": [
+                  {
+                      "n": "salmon fillet",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby potatoes",
+                      "pp": 180,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green beans",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil the baby potatoes, adding the beans for the last 3 minutes; drain.",
+                  "Dry and season the salmon; heat the oil.",
+                  "Fry skin-side down, pressing for a minute, 4–5 minutes until crisp; flip for 1–2 more.",
+                  "Off the heat add butter, garlic and lemon into a sauce.",
+                  "Plate with the potatoes and beans; spoon over the lemon butter."
+              ]
+          },
+          {
+              "name": "Budget (Trout)",
+              "icon": "💰",
+              "time": 25,
+              "costPP": 44,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 34,
+                  "carbs_g": 30,
+                  "fat_g": 30
+              },
+              "feel": "Local rainbow trout is a fraction of the price and just as good crisped in lemon butter.",
+              "ingredients": [
+                  {
+                      "n": "trout fillet",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 22,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby potatoes",
+                      "pp": 180,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green beans",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Boil the potatoes and beans.",
+                  "Dry and season the trout; fry skin-side down until crisp, then flip briefly.",
+                  "Make the lemon-garlic butter in the pan.",
+                  "Plate with potatoes and beans, spoon over the butter."
+              ]
+          },
+          {
+              "name": "Oven Traybake",
+              "icon": "🔥",
+              "time": 30,
+              "costPP": 66,
+              "nutrition": {
+                  "kcal": 540,
+                  "protein_g": 36,
+                  "carbs_g": 32,
+                  "fat_g": 31
+              },
+              "feel": "Everything on one tray — hands-off, no spitting pan, perfect for more than one fillet.",
+              "ingredients": [
+                  {
+                      "n": "salmon fillet",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 25,
+                      "u": "g"
+                  },
+                  {
+                      "n": "lemon",
+                      "pp": 0.5,
+                      "u": ""
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "baby potatoes",
+                      "pp": 180,
+                      "u": "g"
+                  },
+                  {
+                      "n": "green beans",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "olive oil",
+                      "pp": 10,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt & pepper"
+                  }
+              ],
+              "method": [
+                  "Halve the baby potatoes, toss in olive oil and salt, and roast at 200°C for 20 minutes.",
+                  "Add the salmon and beans to the tray, dot with butter, garlic and lemon, and roast 10–12 minutes more until the salmon flakes.",
+                  "Spoon the buttery pan juices over everything to serve."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-texmex-beef-bowl",
+      "cat": "plates",
+      "goesWith": [
+          "Guacamole",
+          "Sour Cream",
+          "Tortilla Chips",
+          "Fresh Salsa",
+          "Lime Wedge"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Loaded Tex-Mex Beef Bowl",
+      "emoji": "🌮",
+      "cuisine": "Tex-Mex",
+      "time": 30,
+      "costPP": 38,
+      "feel": "Spiced beef, beans, corn and cheese piled over rice — a build-your-own bowl everyone customises their own way.",
+      "didYouKnow": "Tex-Mex isn't 'fake' Mexican — it's a genuine border cuisine that grew among Tejano families, with its own signatures Mexico barely uses: yellow cheddar, cumin-heavy chilli and flour tortillas. The build-your-own bowl is its most modern, customisable form.",
+      "freezes": true,
+      "fridgeDays": 3,
+      "ingredients": [
+          {
+              "n": "beef mince",
+              "pp": 130,
+              "u": "g"
+          },
+          {
+              "n": "rice",
+              "pp": 75,
+              "u": "g"
+          },
+          {
+              "n": "tinned beans",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "sweetcorn",
+              "pp": 50,
+              "u": "g"
+          },
+          {
+              "n": "tomatoes",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "cheddar",
+              "pp": 30,
+              "u": "g"
+          },
+          {
+              "n": "taco spice",
+              "pp": 8,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 8,
+              "u": "ml"
+          },
+          {
+              "n": "salt"
+          }
+      ],
+      "method": [
+          "Cook the rice and set aside.",
+          "Heat the oil and brown the mince well, breaking up the lumps, then stir in the taco spice and a splash of water and simmer 5 minutes until rich and fragrant.",
+          "Warm the drained beans and the sweetcorn (in the same pan or microwave).",
+          "Build each bowl: rice at the base, then the spiced beef, beans, corn and chopped tomato.",
+          "Top with grated cheddar and whatever you love — salsa, guacamole or a dollop of sour cream."
+      ],
+      "tip": "Bloom the taco spice in the hot beef with a splash of water for a minute — it wakes up the cumin and chilli far more than sprinkling it on at the end.",
+      "nutrition": {
+          "kcal": 600,
+          "protein_g": 30,
+          "carbs_g": 66,
+          "fat_g": 24
+      },
+      "storage": "The spiced beef keeps 3 days and freezes up to 2 months; build the bowls fresh with rice and toppings.",
+      "versions": [
+          {
+              "name": "Loaded Beef",
+              "icon": "🏆",
+              "default": true,
+              "time": 30,
+              "costPP": 38,
+              "nutrition": {
+                  "kcal": 600,
+                  "protein_g": 30,
+                  "carbs_g": 66,
+                  "fat_g": 24
+              },
+              "feel": "The full build — spiced beef, beans, corn, tomato and a shower of cheddar over rice.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 130,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tinned beans",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sweetcorn",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cheddar",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "taco spice",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Brown the mince, add taco spice and a splash of water; simmer 5 minutes.",
+                  "Warm the beans and corn.",
+                  "Build: rice, spiced beef, beans, corn, tomato.",
+                  "Top with cheddar and your favourites."
+              ]
+          },
+          {
+              "name": "Veg (Bean & Corn)",
+              "icon": "🌱",
+              "time": 25,
+              "costPP": 22,
+              "nutrition": {
+                  "kcal": 540,
+                  "protein_g": 18,
+                  "carbs_g": 82,
+                  "fat_g": 14
+              },
+              "feel": "Double beans and corn instead of meat — hearty, cheap and just as loaded.",
+              "ingredients": [
+                  {
+                      "n": "tinned beans",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sweetcorn",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 70,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cheddar",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "taco spice",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Warm the beans with the taco spice and a splash of water until saucy.",
+                  "Build: rice, spiced beans, corn, tomato.",
+                  "Top with cheddar, salsa or guacamole."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 28,
+              "costPP": 26,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 22,
+                  "carbs_g": 70,
+                  "fat_g": 20
+              },
+              "feel": "A little mince stretched with extra beans and rice — same loaded bowl for less.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 85,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tinned beans",
+                      "pp": 90,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sweetcorn",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cheddar",
+                      "pp": 20,
+                      "u": "g"
+                  },
+                  {
+                      "n": "taco spice",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Brown the mince, add the beans and taco spice with a splash of water; simmer.",
+                  "Warm the corn.",
+                  "Build the bowls with rice, the beef-and-bean mix, corn and tomato; top with cheddar."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 18,
+              "costPP": 37,
+              "nutrition": {
+                  "kcal": 590,
+                  "protein_g": 30,
+                  "carbs_g": 64,
+                  "fat_g": 24
+              },
+              "feel": "Microwave rice and tinned everything — a loaded bowl in under twenty.",
+              "ingredients": [
+                  {
+                      "n": "beef mince",
+                      "pp": 130,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tinned beans",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sweetcorn",
+                      "pp": 50,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cheddar",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "taco spice",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 8,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Use microwave rice.",
+                  "Brown the mince with the taco spice and a splash of water.",
+                  "Tip in the beans and corn to warm.",
+                  "Pile over the rice and top with cheddar."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-beef-broccoli",
+      "cat": "plates",
+      "goesWith": [
+          "Steamed Rice",
+          "Egg Fried Rice",
+          "Sesame Seeds",
+          "Spring Onion",
+          "Noodles"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Beef & Broccoli Stir-fry Bowl",
+      "emoji": "🥦",
+      "cuisine": "Chinese-inspired",
+      "time": 25,
+      "costPP": 44,
+      "feel": "Glossy strips of beef and bright-green broccoli in a savoury soy sauce over rice — better than takeaway, faster too.",
+      "didYouKnow": "The glossy coat on takeaway beef and broccoli is just cornflour — tossing the raw beef in it ('velveting') both thickens the sauce and gives the meat a silky, tender bite. A screaming-hot wok and quick cooking keep the broccoli bright green.",
+      "freezes": false,
+      "fridgeDays": 2,
+      "ingredients": [
+          {
+              "n": "beef strips",
+              "pp": 150,
+              "u": "g"
+          },
+          {
+              "n": "broccoli",
+              "pp": 120,
+              "u": "g"
+          },
+          {
+              "n": "soy sauce",
+              "pp": 20,
+              "u": "ml"
+          },
+          {
+              "n": "garlic",
+              "pp": 6,
+              "u": "g"
+          },
+          {
+              "n": "ginger",
+              "pp": 5,
+              "u": "g"
+          },
+          {
+              "n": "cornflour",
+              "pp": 8,
+              "u": "g"
+          },
+          {
+              "n": "rice",
+              "pp": 75,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 12,
+              "u": "ml"
+          }
+      ],
+      "method": [
+          "Cook the rice and set aside.",
+          "Toss the beef strips in the cornflour until lightly coated — this 'velveting' makes them silky and thickens the sauce.",
+          "Get a wok or wide pan smoking hot with half the oil. Sear the beef fast, 1–2 minutes, until just browned; lift out so it stays tender.",
+          "Add the rest of the oil and stir-fry the broccoli with the grated garlic and ginger for 2–3 minutes until bright green and just tender.",
+          "Pour in the soy with a splash of water, return the beef, and toss 1 minute until everything is glossy and coated. Serve over rice."
+      ],
+      "tip": "Get the pan properly hot and don't overcrowd it — a cool, crowded wok steams the beef grey instead of searing it.",
+      "nutrition": {
+          "kcal": 520,
+          "protein_g": 32,
+          "carbs_g": 54,
+          "fat_g": 18
+      },
+      "storage": "Best fresh and crisp; keeps 2 days but the broccoli softens on reheating. Not ideal for freezing.",
+      "versions": [
+          {
+              "name": "Classic",
+              "icon": "🏆",
+              "default": true,
+              "time": 25,
+              "costPP": 44,
+              "nutrition": {
+                  "kcal": 520,
+                  "protein_g": 32,
+                  "carbs_g": 54,
+                  "fat_g": 18
+              },
+              "feel": "Velveted beef and crisp broccoli in a glossy soy-garlic-ginger sauce.",
+              "ingredients": [
+                  {
+                      "n": "beef strips",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "broccoli",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 20,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "ginger",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cornflour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Toss the beef in cornflour.",
+                  "Sear the beef fast in a hot wok; lift out.",
+                  "Stir-fry the broccoli with garlic and ginger 2–3 minutes.",
+                  "Add soy and water, return the beef, toss glossy; serve over rice."
+              ]
+          },
+          {
+              "name": "Budget",
+              "icon": "💰",
+              "time": 25,
+              "costPP": 30,
+              "nutrition": {
+                  "kcal": 500,
+                  "protein_g": 24,
+                  "carbs_g": 58,
+                  "fat_g": 16
+              },
+              "feel": "A cheaper cut sliced thin, bulked with extra broccoli — same glossy stir-fry for less.",
+              "ingredients": [
+                  {
+                      "n": "economy steak",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "broccoli",
+                      "pp": 160,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 22,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "ginger",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cornflour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Cook the rice.",
+                  "Slice the cheaper steak thin across the grain and toss in cornflour.",
+                  "Sear fast and lift out.",
+                  "Stir-fry the broccoli with garlic and ginger.",
+                  "Add soy and water, return the beef, toss; serve over rice."
+              ]
+          },
+          {
+              "name": "Quick",
+              "icon": "⚡",
+              "time": 18,
+              "costPP": 42,
+              "nutrition": {
+                  "kcal": 510,
+                  "protein_g": 32,
+                  "carbs_g": 52,
+                  "fat_g": 18
+              },
+              "feel": "Microwave rice and one hot wok — glossy beef and broccoli in under twenty.",
+              "ingredients": [
+                  {
+                      "n": "beef strips",
+                      "pp": 150,
+                      "u": "g"
+                  },
+                  {
+                      "n": "broccoli",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "soy sauce",
+                      "pp": 20,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "garlic",
+                      "pp": 6,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cornflour",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "rice",
+                      "pp": 75,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 12,
+                      "u": "ml"
+                  }
+              ],
+              "method": [
+                  "Use microwave rice.",
+                  "Toss the beef in cornflour and sear fast; lift out.",
+                  "Stir-fry the broccoli with garlic 2 minutes.",
+                  "Add soy and water, return the beef, toss glossy; serve over rice."
+              ]
+          }
+      ]
+  },
+  {
+      "id": "sp-vetkoek-mince",
+      "cat": "plates",
+      "goesWith": [
+          "Grated Cheese",
+          "Atchar",
+          "Sweet Chilli",
+          "Side Salad",
+          "Apricot Jam"
+      ],
+      "diet": "meat",
+      "protein": "beef",
+      "name": "Vetkoek & Curried Mince",
+      "emoji": "🍩",
+      "cuisine": "South African",
+      "time": 70,
+      "costPP": 28,
+      "feel": "Golden, pillowy fried dough split open and stuffed with rich curried mince — proper padkos comfort.",
+      "didYouKnow": "Vetkoek means 'fat cake' in Afrikaans — a deep-fried bread roll of pure Voortrekker resourcefulness, made from the simplest dough and cooked in a pot over a fire. Split and filled with curried mince it's a whole meal; with syrup or jam it's a treat. The dough must be soft and well-risen to fry up light, not heavy.",
+      "freezes": true,
+      "fridgeDays": 2,
+      "ingredients": [
+          {
+              "n": "cake flour",
+              "pp": 120,
+              "u": "g"
+          },
+          {
+              "n": "instant yeast",
+              "pp": 3,
+              "u": "g"
+          },
+          {
+              "n": "sugar",
+              "pp": 5,
+              "u": "g"
+          },
+          {
+              "n": "beef mince",
+              "pp": 120,
+              "u": "g"
+          },
+          {
+              "n": "onion",
+              "pp": 60,
+              "u": "g"
+          },
+          {
+              "n": "curry powder",
+              "pp": 8,
+              "u": "g"
+          },
+          {
+              "n": "tomatoes",
+              "pp": 80,
+              "u": "g"
+          },
+          {
+              "n": "oil",
+              "pp": 40,
+              "u": "ml"
+          },
+          {
+              "n": "salt"
+          }
+      ],
+      "method": [
+          "Mix the flour, yeast, sugar and a pinch of salt. Stir in enough warm water (about 80 ml per portion) to make a soft, slightly sticky dough; knead briefly until smooth.",
+          "Cover and leave somewhere warm until doubled in size, about 40 minutes.",
+          "Meanwhile make the filling: brown the mince with the chopped onion, stir in the curry powder and cook a minute, then add the tomatoes and a splash of water and simmer 15 minutes into a thick, rich curry; season.",
+          "Heat oil about 5 cm deep to medium (a pinch of dough should sizzle gently, not violently). Shape the risen dough into balls and fry, turning, 4–5 minutes until deep golden and cooked through; drain on paper.",
+          "Split the warm vetkoek and spoon in the curried mince."
+      ],
+      "tip": "Keep the oil at a steady medium heat — too hot and the vetkoek browns before the middle cooks, leaving it raw inside.",
+      "nutrition": {
+          "kcal": 620,
+          "protein_g": 24,
+          "carbs_g": 68,
+          "fat_g": 28
+      },
+      "storage": "The curried mince keeps 3 days and freezes 2 months. Vetkoek are best fresh and warm but freeze up to 1 month — refresh in a hot oven.",
+      "versions": [
+          {
+              "name": "Curried Mince",
+              "icon": "🏆",
+              "default": true,
+              "time": 70,
+              "costPP": 28,
+              "nutrition": {
+                  "kcal": 620,
+                  "protein_g": 24,
+                  "carbs_g": 68,
+                  "fat_g": 28
+              },
+              "feel": "The classic filling — rich, savoury curried mince in a golden, pillowy vetkoek.",
+              "ingredients": [
+                  {
+                      "n": "cake flour",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "instant yeast",
+                      "pp": 3,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sugar",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef mince",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "curry powder",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Make a soft dough with the flour, yeast, sugar, salt and warm water; rise 40 minutes until doubled.",
+                  "Brown the mince with the onion and curry powder, add tomatoes and simmer into a thick curry.",
+                  "Fry the dough balls in medium oil, turning, until golden and cooked through.",
+                  "Split the warm vetkoek and fill with the mince."
+              ]
+          },
+          {
+              "name": "Cheese & Mince",
+              "icon": "🧀",
+              "time": 70,
+              "costPP": 33,
+              "nutrition": {
+                  "kcal": 700,
+                  "protein_g": 28,
+                  "carbs_g": 68,
+                  "fat_g": 36
+              },
+              "feel": "A handful of grated cheddar melted into the hot mince — the indulgent garage-shop favourite.",
+              "ingredients": [
+                  {
+                      "n": "cake flour",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "instant yeast",
+                      "pp": 3,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sugar",
+                      "pp": 5,
+                      "u": "g"
+                  },
+                  {
+                      "n": "beef mince",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "onion",
+                      "pp": 60,
+                      "u": "g"
+                  },
+                  {
+                      "n": "curry powder",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "tomatoes",
+                      "pp": 80,
+                      "u": "g"
+                  },
+                  {
+                      "n": "cheddar",
+                      "pp": 40,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Make and rise the dough as for the classic.",
+                  "Make the curried mince, then stir grated cheddar through it off the heat until melted.",
+                  "Fry the dough balls until golden.",
+                  "Split and fill with the cheesy mince."
+              ]
+          },
+          {
+              "name": "Sweet (Jam & Syrup)",
+              "icon": "🍯",
+              "time": 60,
+              "costPP": 16,
+              "nutrition": {
+                  "kcal": 560,
+                  "protein_g": 10,
+                  "carbs_g": 90,
+                  "fat_g": 18
+              },
+              "feel": "The teatime treat — warm vetkoek split and spread with butter, apricot jam and a drizzle of syrup.",
+              "ingredients": [
+                  {
+                      "n": "cake flour",
+                      "pp": 120,
+                      "u": "g"
+                  },
+                  {
+                      "n": "instant yeast",
+                      "pp": 3,
+                      "u": "g"
+                  },
+                  {
+                      "n": "sugar",
+                      "pp": 8,
+                      "u": "g"
+                  },
+                  {
+                      "n": "butter",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "apricot jam",
+                      "pp": 30,
+                      "u": "g"
+                  },
+                  {
+                      "n": "golden syrup",
+                      "pp": 15,
+                      "u": "g"
+                  },
+                  {
+                      "n": "oil",
+                      "pp": 40,
+                      "u": "ml"
+                  },
+                  {
+                      "n": "salt"
+                  }
+              ],
+              "method": [
+                  "Make a soft dough with the flour, yeast, sugar, salt and warm water; rise until doubled.",
+                  "Fry the dough balls in medium oil until deep golden and cooked through; drain.",
+                  "Split the warm vetkoek and spread with butter.",
+                  "Add apricot jam and a drizzle of golden syrup."
+              ]
+          }
+      ]
+  },
 
   // ── 🍝 PASTA & PIZZA — added 22 Jun (Supper build, Batch 2) ──
   {id:'sp-mac-cheese', cat:'pastapizza', diet:'veg', protein:'veg', name:'Creamy Mac & Cheese', emoji:'🧀', cuisine:'American', time:30, costPP:27,

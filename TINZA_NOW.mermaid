@@ -1,80 +1,67 @@
-%% TINZA_NOW — session handoff · 29 Jun 2026 (session 10 · BREAKFAST DID-YOU-KNOW SWEEP + NULL-COST GAPS CLOSED + bugsweep verified)
+%% TINZA_NOW — session handoff · 29 Jun 2026 (session 11 · FMF FULL BOBOTIE RUN started — Spag-Bol treatment for all of FMF)
 %% Upload at every session start. Verify against LIVE repo files, never trust the summary.
 flowchart TD
 
   START([Session start: open tinza.netlify.app · confirm what works · read live repo files])
 
-  STATUS[SESSION 10 did THREE things. 1) Made every breakfast Did-You-Know UNIQUE: the explode-from-chips had left whole groups sharing ONE card's fact (5 omelettes/scrambles on egg-floats, 6 toasts, 5 waffles, 5 pap, 10 oats, 6 muffins, 6 scones, 8 bowls, 7 smoothies, 2 EMPTY). Wrote 65 fresh dish-specific facts; kept shared facts where they truly belong (boerewors-law to Boerewors & Eggs, sorghum to Maltabella, beta-glucan to plain Creamy Oats, amasi to Amasi & Fruit Bowl); left the 5 already-unique cards alone. 2) Closed all 9 breakfast NULL-cost gaps + 1 carryover bug in prices.js. 3) Refreshed the stale 5-pill comment. node --check PASS on meals.js + prices.js. core.js untouched. >>> READY TO PUSH (2 files, not yet pushed).]
+  STATUS[SESSION 11 = kicked off the BIG one: give the full Spag-Bol Bobotie treatment to ALL of FMF. Spag Bol is the lock-target — versions chips with a WOW default + Budget/Quick/variant, plus didYouKnow + goesWith + storage standard + BEGINNER-PROOF methods (assume they've never made scrambled eggs). SCOPE = 191 dishes need it. Running it as validated per-category batches, one pushable meals.js at a time. Batch DONE: the WHOLE plates category (13 dishes). Sides/Staples already done (chips, mash, gnocchi x2, pasta, pizza dough, napoletana — all versioned). IMPORTANT: the goesWith/storage breakfast push had NOT landed when batch 1 was built, so this meals.js carries COMPLETE breakfast + the 3 plates — one push banks both.]
   START --> STATUS
 
-  subgraph DONE_DYK[" DONE — Did-You-Know sweep (meals.js) "]
-    D1[65 of 70 breakfast dishes given a UNIQUE didYouKnow. 0 duplicates, 0 empties across all 70. Each fact dish-specific + interesting = X24 moat.]
-    D2[5 cards untouched (already unique): Frittata · Omelette Waffle · Smoked Snoek · Chakalaka Baked Eggs · Turkish Eggs.]
-    D3[BOBOTIE DECISION (Tina): NO merges. Un-bundle STANDS. Omelettes + scrambles stay separate. 'Bobotie treatment' = upscale-to-standard, NOT fold.]
+  subgraph SHARED[" KEY FACTS for the run "]
+    K1[Spag Bol (sp-spag-bol) = the gold-standard template: versions[] with default WOW + Budget + Quick + variants, didYouKnow, goesWith, per-version nutrition/time/costPP/ingredients/method.]
+    K2[MASH ALREADY EXISTS: sb-mash has 5 versions (Creamy classic*, Rich buttery, Sweet potato, Mixed veg, Garlic). CHIPS too (sb-chips, 5). So 'good mash for staples' = DONE — dishes just goesWith/cross-link to it, don't duplicate.]
+    K3[FMF arrays in meals.js use JS-literal style; treated dishes get rewritten as JSON-style objects (valid JS, node --check passes). Mixed styles in one array is fine.]
+    K4[Methods must be BEGINNER-PROOF: explicit, no assumed skill. didYouKnow = the moat (dish-specific, interesting).]
   end
 
-  subgraph BUGSWEEP[" BUGSWEEP RESULT (Claude Code) — breakfast restructure VERIFIED CLEAN "]
-    B1[node --check 28/28 · health-check ALL CLEAR (30 onclicks resolve, 26 version blocks 0 issues, no dup-id collisions).]
-    B2[(a) 70 dishes under 7 pills, 0 orphans, 0 empty pills. (b) recipes open at TOP (openMealRecipe _savedScroll=0, meals.js:7003). (c) zero stale old-cat refs in LIVE code; bf-berry-smoothie fully gone. (d) breakfast_full_batch.js = DEAD (defines only BREAKFAST_BATCH, referenced nowhere, not in index.html).]
-    B3[Parser bugs from earlier sweep now FIXED in live repo: meals.js anchor parser + events.js fmtScaled both carry (?![a-z]).]
+  STATUS --> SHARED
+
+  subgraph DONE11[" PLATES CATEGORY DONE (13/13) — validated, ready to push "]
+    B1[Bangers & Mash — 4 versions: Proper Onion Gravy* · Boerie & Mash 🇿🇦 · Budget · Quick. + DYK + goesWith + freezes/fridge + beginner method.]
+    B2[Fish & Chips — 4 versions: Beer-Battered* · Crispy Oven · Air-Fryer · Budget (Crumbed). + full standard.]
+    B3[Garlic Butter Steak Bites & Mash — 3 versions: Garlic Butter* · Peppercorn Sauce · Budget. + full standard.]
+    B4[+10 more plates: Creamy Tuscan Chicken(4) · Sticky Honey-Garlic(4) · Bunny Chow(4: lamb/chicken/bean/mince) · Sloppy Joes(3) · Stroganoff(3) · Chicken a la King(3) · Crispy Salmon(3) · Tex-Mex Bowl(4) · Beef & Broccoli(3) · Vetkoek & Curried Mince(3: mince/cheese/sweet).]
+    B5[2 new price gaps closed in prices.js: economy steak 90, trout fillet 180 (both ESTIMATE — confirm). node --check PASS, SUPPER still 87, nothing lost.]
   end
 
-  subgraph PRICEFIX[" DONE — breakfast NULL-cost gaps CLOSED (prices.js) "]
-    PF1[+10 exact PRICE_DB keys. Harness re-run: 9 breakfast NULLs + 1 carryover = 0 NULL now. Exact keys resolve BEFORE substring matcher, no mis-matches. node --check PASS.]
-    PF2[Reuse Tina's real prices: berries=120(mixed berries) · masala=300(garam masala) · nectarine=35(peaches) · jalapenos=80(chilli). RED-PEN: masala to durban-masala-350? jalapenos real jar price if pickled? nectarine ok as peaches proxy?]
-    PF3[NEW — Tina-sourced real shop prices: amasi 19(2kg/R38) · cashews 350(100g/R35) · dried fruit 240(500g/R120) · hot sauce 120 AVG(250ml/R30) · culinary lavender 3500(10g/R35). All confirmed, no estimates left.]
-    PF4[BONUS bug FIXED: garlic cloves=280 exact key kills old garlic-cloves to cloves(R1022) mis-match (carryover, not breakfast).]
-    PF5[meals.js head comment refreshed 5-pill to live 7-category scheme (cosmetic).]
+  SHARED --> DONE11
+
+  subgraph PUSH[" PUSH "]
+    PU1[GitHub Desktop: push meals.js (COMPLETE breakfast still unpushed + ALL 13 plates) AND prices.js (2 new gaps) — one deploy.]
+    PU2[To save Netlify credits: option to hold and let the rest of Supper/Plates (10 more) accumulate into the same push — Tina's call. Recommended: push now to finally bank breakfast, then continue.]
+    PU3[Still pending housekeeping: DELETE sections/breakfast_full_batch.js (dead).]
   end
 
-  STATUS --> DONE_DYK --> BUGSWEEP --> PRICEFIX
+  DONE11 --> PUSH
 
-  subgraph PUSH[" PUSH + VERIFY (this session = 2 files) "]
-    PU1[node --check PASS on meals.js + prices.js. core.js NOT touched (X12 respected).]
-    PU2[GitHub Desktop: push meals.js (DYK + comment) AND prices.js (10 cost gaps) — batch into ONE push to save Netlify credits.]
-    PU3[LIVE eyeball: open breakfast recipes across buckets — each Did-You-Know reads different; cost now shows on dishes that were blank (Masala Scramble, Curry-Coconut Oats, scones, amasi bowls, etc.).]
-    PU4[Tina's own GitHub Desktop step: DELETE sections/breakfast_full_batch.js (dead + safe). Separate from the replace-and-push flow.]
+  subgraph RUNWAY[" THE RUNWAY — 191 dishes, batched by category (178 left: plates ✅) "]
+    R1[SUPPER · plates 13 — ✅ ALL DONE.]
+    R2[SUPPER · pastapizza 23 — ~11 already versioned (Spag Bol, gnocchi x4, pizzas x6); ~12 left: Mac&Cheese, Spag&Meatballs, Alfredo, Tuna Bake, Garlic Prawn Linguine, Cannelloni, Pesto Chicken, Cajun Pasta, Carbonara, Baked Feta Pasta, Pumpkin Rigatoni.]
+    R3[SUPPER · stewscurries 18 — Farmhouse Beef Stew done; 17 left (Cape Malay, Butter Chicken, Tikka, bredie, dhal, tagine, chilli, etc).]
+    R4[SUPPER · ovenbakes 17 — roast chicken done; 16 left (incl Classic Bobotie itself, Cottage Pie, Moussaka, Fish Pie, Shepherd's, traybakes).]
+    R5[SUPPER · friedgrilled 16 — 0 done (Smash Burger, Fried Chicken, Schnitzel, Gatsby, Boerie Roll, Peri-Peri, Sosaties, Birria Tacos...).]
+    R6[LIGHTLUNCH 106 — salads 27 · soups 21 · handhelds 22 · quick 23 · savbakes 13. 0 done.]
+    R7[BAKES 11 — Fluffy Pancakes, flatbreads x6, Baguette, Banana Bread, Sponge, dumplings. 0 done. + NEW recipes wanted here.]
+    R8[ORDER: finish SUPPER -> LIGHTLUNCH -> BAKES. ~a category per batch. NEXT BATCH = pastapizza (~12 need it: Mac&Cheese, Spag&Meatballs, Alfredo, Tuna Bake, Garlic Prawn Linguine, Cannelloni, Pesto Chicken, Cajun Pasta, Carbonara, Baked Feta Pasta, Pumpkin Rigatoni).]
   end
 
-  PRICEFIX --> PUSH
+  PUSH --> RUNWAY
 
-  subgraph UPSCALE_LEFT[" UPSCALE STILL OUTSTANDING (rest of the Frittata standard) "]
-    U1[goesWith MISSING on 41 breakfast dishes — add 2-3 pairing pills each (plain label pills, not links).]
-    U2[STORAGE STANDARD (X25) freezes/fridgeDays keys missing on ~24 dishes. Many already have GOOD storage TEXT (just need keys ADDED); the lazy 'Best fresh.' ones need a real line + keys.]
-    U3[feel polish on a handful of flat ones — optional, low priority.]
+  subgraph AFTER_FMF[" AFTER FMF (Tina's stated order) "]
+    A1[BOX-GRID category UI — breakfast + all FMF browse from sliding pills to box-grid tiles (Events/Braai pattern), each tile a subtitle of what's inside.]
+    A2[SPICE section — all the sauces, versions etc. (incl the hot-sauce build, cross-linked from Stone Fruit & Hot Honey Bowl).]
+    A3[Breakfast methods could get the same beginner-proof pass (Tina's 'some can't make scrambled eggs' note) — lower priority, breakfast already strong.]
   end
 
-  PUSH --> UPSCALE_LEFT
-
-  subgraph NEXT[" NEXT / TOMORROW "]
-    N1[1. Push this session (meals.js + prices.js), live-eyeball, delete dead breakfast_full_batch.js.]
-    N2[2. HOT SAUCE in Spice: build a few hot-sauce versions in Spice > Sauces (Salad-Dressings / Pesto pattern), then cross-link from Stone Fruit & Hot Honey Bowl via shared crossLinkBox 'Make your own'. PRICE_DB hot sauce 120 is a placeholder AVERAGE until then (hundreds of sauces, hard to pin one price).]
-    N3[3. Finish breakfast upscale: goesWith + storage keys (U1/U2) = next non-destructive meals.js sweep.]
-    N4[4. CATEGORY UI = breakfast browse from sliding pills to BOX-GRID (like Events Choose-Your-Courses + Braai What-Are-You-Planning). Each tile a SUBTITLE of what's inside. Add a sub field per cat.]
-    N5[5. MERGE Toast into Fry-Ups = one Meats & Breads bucket (thin Fry-Ups fix). Down to 6 buckets. Tina's call.]
-    N6[6. ROLL THE PATTERN across rest of FMF: Lunch/Supper · Bakes · Sides & Basics.]
-    N7[7. Honey Brick Toast method rewrite (thick brick, scored — still confusing).]
-  end
-
-  UPSCALE_LEFT --> NEXT
-
-  subgraph OLD_OPEN[" OLDER OPEN ITEMS (carry-forward) "]
-    O1[Chorizo + Mielie rename. Toum straggler wk_africa.js ~L132: 'Toum' to 'Toum (Garlic Cream)' (photo already 200).]
-    O2[Duplicate-name gnocchi at meals.js line 262 — still pending.]
-    O3[X25 storage-standard retrofit across EARLIER recipe bundles (app-wide).]
-    O4[Photo Studio: Tina shooting breakfast bucket-by-bucket (70 dishes queued, studio ~1887).]
-  end
-
-  NEXT --> OLD_OPEN
+  RUNWAY --> AFTER_FMF
 
   subgraph RULES[" LOCKED RULES "]
-    X0[NO BUNDLES. One card + chips ONLY for true same-dish-different-way (Bobotie). Omelettes/scrambles stay separate (re-confirmed).]
-    X1[node --check before every push · GitHub Desktop only · one push for batched files · batch to save Netlify credits.]
-    X3[Sameness · every section = braai v33 · shared core.js · var --token.]
-    X8[Green=food cost · Gold=shop-spend · Accent=interactive · never mix.]
-    X12[core.js = app-wide high-risk. PREFER data fixes. This session: price gaps done as exact PRICE_DB keys in prices.js, ZERO core.js.]
-    X24[INTERESTING-DISHES IDENTITY = the moat. Every Did-You-Know dish-specific + interesting, never generic. Now true across all 70 breakfast dishes.]
-    X25[STORAGE STANDARD — fridge-days + freeze on every recipe. Breakfast retrofit still outstanding (U2). App-wide pending.]
+    X0[Bobotie = one card + version chips for true same-dish-different-way. Now the FMF-wide standard: WOW default + Budget + Quick + variant.]
+    X1[node --check before every push · GitHub Desktop only · batch files into one push to save Netlify credits.]
+    X12[core.js = high-risk, prefer data. FMF run = pure data edits in meals.js.]
+    X24[didYouKnow = the moat: dish-specific + interesting, never generic.]
+    X25[STORAGE STANDARD: freezes + fridgeDays + honest text on every recipe.]
+    XBEG[BEGINNER-PROOF METHODS: explicit steps, assume no prior skill. New standard across FMF.]
     X10[End every session with updated TINZA_NOW.mermaid.]
   end
 end

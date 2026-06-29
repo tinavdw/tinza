@@ -721,6 +721,9 @@ const PRICE_DB = {
   "dried fruit": 240,              // mixed, 500g/R120 → R240/kg (Tina)
   "hot sauce": 120,                // 250ml/~R30 → R120/L, AVERAGE (Tina) — many sauces; see Spice cross-link TODO
   "culinary lavender": 3500,       // 10g/R35 → R3500/kg (Tina); used in pinches
+  // ── FMF plates batch gaps (29 Jun) ──
+  "economy steak": 90,             // ESTIMATE — cheap braising cut (blade/chuck); confirm
+  "trout fillet": 180,             // ESTIMATE — rainbow trout, cheaper than salmon; confirm
 };
 
 const MEAT_COSTS = {
