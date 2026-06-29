@@ -748,6 +748,7 @@ const PRICE_DB = {
   "cream style corn": 59,          // alias for creamed corn
   "kasuri methi": 800,             // ESTIMATE — dried fenugreek leaves (~R35/45g), pinch use
   "dried fenugreek": 800,          // = kasuri methi
+  "sweet chilli sauce": 55,        // ESTIMATE — ~R28/500ml bottle → R55/L (was unpriced, used in halloumi burger)
 };
 
 const MEAT_COSTS = {
