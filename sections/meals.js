@@ -4928,7 +4928,8 @@ var SUPPER_RECIPES = [
                   "In the same pan cook the thinly sliced onion with a pinch of salt, 12–15 minutes, until soft, sweet and well browned.",
                   "Stir in the flour, cook 1 minute, then add the beef stock bit by bit, stirring smooth. Add Worcestershire and simmer 5 minutes to a glossy gravy.",
                   "Drain and steam-dry the potatoes, mash with butter and warm milk, season. Plate mash, bangers, peas and a flood of onion gravy."
-              ]
+              ],
+              "didYouKnow": "'Bangers' got their name in the First World War, when meat was scarce and sausages were padded with water and rusk — in a hot pan they hissed, spat and sometimes burst with a bang. The trick to stop them bursting is gentle heat and never pricking a good sausage."
           },
           {
               "name": "Boerie & Mash",
@@ -4990,7 +4991,8 @@ var SUPPER_RECIPES = [
                   "Cook the boerewors coil whole over medium heat, turning once, about 12 minutes until cooked through and browned; rest, then cut into lengths.",
                   "In the same pan soften the chopped onion, add the chopped tomatoes and a pinch of sugar, and simmer 10 minutes into a soft smoor.",
                   "Mash the drained potatoes with butter and warm milk. Plate with the wors and a generous spoon of tomato smoor."
-              ]
+              ],
+              "didYouKnow": "Boerewors is traditionally sold and cooked in one long coil, never in links — the spiral cooks evenly and keeps the juices in. The tomato-and-onion smoor it sits in here is the same humble relish that tops pap on farms across the country."
           },
           {
               "name": "Budget",
@@ -5054,7 +5056,8 @@ var SUPPER_RECIPES = [
                   "Fry the sausages in the oil until browned all over; set aside.",
                   "Soften the sliced onion in the same pan, stir in the flour, then the stock, and simmer into a quick gravy.",
                   "Mash the potatoes with butter and milk; serve with the sausages and gravy."
-              ]
+              ],
+              "didYouKnow": "A 'Russian' sausage isn't Russian at all — it's a smoked, pre-cooked South African staple named for its likeness to a Krakowska-style sausage. Because it's already cooked it just needs browning, which makes it the speediest, cheapest banger of the lot."
           },
           {
               "name": "Quick",
@@ -5115,7 +5118,8 @@ var SUPPER_RECIPES = [
                   "Meanwhile fry the sausages until golden and simmer the peas.",
                   "Soften the sliced onion, then make the gravy with the instant gravy and water as the packet directs, stirring in the onion.",
                   "Mash the potatoes with butter and milk; plate with sausages, peas and gravy."
-              ]
+              ],
+              "didYouKnow": "Instant gravy granules are really just browned flour, salt and a little fat — which is exactly what a slow gravy is, minus the hour. Stirring a spoon of fried onion through the packet version is the cheat that makes it taste homemade."
           }
       ]
   },
@@ -6763,7 +6767,7 @@ var SUPPER_RECIPES = [
               "feel": "A cheaper cut, sliced thin across the grain and seared fast — tender and tasty for less.",
               "ingredients": [
                   {
-                      "n": "economy steak",
+                      "n": "tenderised steak",
                       "pp": 140,
                       "u": "g"
                   },
@@ -7248,7 +7252,7 @@ var SUPPER_RECIPES = [
               "feel": "A cheaper braising cut, sliced thin, plus plain yoghurt for the tang — kinder on the wallet.",
               "ingredients": [
                   {
-                      "n": "economy steak",
+                      "n": "tenderised steak",
                       "pp": 140,
                       "u": "g"
                   },
@@ -7813,7 +7817,7 @@ var SUPPER_RECIPES = [
                   "carbs_g": 30,
                   "fat_g": 30
               },
-              "feel": "Local rainbow trout is a fraction of the price and just as good crisped in lemon butter.",
+              "feel": "Local rainbow trout is noticeably cheaper than salmon and just as good crisped in lemon butter.",
               "ingredients": [
                   {
                       "n": "trout fillet",
@@ -8409,7 +8413,7 @@ var SUPPER_RECIPES = [
               "feel": "A cheaper cut sliced thin, bulked with extra broccoli — same glossy stir-fry for less.",
               "ingredients": [
                   {
-                      "n": "economy steak",
+                      "n": "tenderised steak",
                       "pp": 120,
                       "u": "g"
                   },
@@ -10267,7 +10271,7 @@ function mealSectionHTML(sectionKey){
   // Recipe detail view
   const activeRecipe = S.mealActiveRecipe;
   if(activeRecipe && activeRecipe._section===sectionKey){
-    return recipeDetailFromResult(activeRecipe, "setQuiet({mealActiveRecipe:null})", S.searchServings||4, cfg.color, cfg.bg, cfg.border);
+    return recipeDetailFromResult(activeRecipe, "setQuiet({mealActiveRecipe:null});window.scrollTo(0,S._mealListScroll||0);requestAnimationFrame(function(){window.scrollTo(0,S._mealListScroll||0);});", S.searchServings||4, cfg.color, cfg.bg, cfg.border);
   }
 
   // List view
@@ -10846,12 +10850,13 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   })();
 
   return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
-      <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${r.name}</h1>
-      <div style="font-size:13px;color:${color};font-style:italic;">Full recipe and method</div>
+    <div style="position:relative;">
+      ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
+      <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
     </div>
-    <div style="padding:16px;max-width:600px;margin:0 auto;">
+    <div style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:6px 0 2px;line-height:1.25;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${r.name}</h1>
+      <div style="font-size:13px;color:${color};font-style:italic;margin-bottom:12px;">Full recipe and method</div>
 
       ${r.feel?`<div style="font-style:italic;color:${color};font-size:13px;text-align:center;line-height:1.5;margin-bottom:14px;">“${r.feel}”</div>`:''}
 
@@ -11124,7 +11129,7 @@ function openMealRecipe(id){
   };
   const arr = sectionRecipes[sec]||[];
   const r = arr.find(x=>x.id===id);
-  if(r){ const _root=document.getElementById('root'); if(_root) _root._savedScroll=0; setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec})}); }
+  if(r){ var _y=window.scrollY||0; setQuiet({mealActiveRecipe: Object.assign({},r,{_section:sec}), _mealListScroll:_y}); window.scrollTo(0,0); requestAnimationFrame(function(){ window.scrollTo(0,0); }); }
 }
 function toggleMealPlan(id){
   const sec = S.screen||'';

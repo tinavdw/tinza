@@ -2856,7 +2856,7 @@ function applyRecipeVersion(r){
   var name = activeVersionName(r);
   var v = r.versions.find(function(x){return x.name===name;}) || r.versions[0];
   var out = Object.assign({}, r);
-  ['feel','ingredients','method','costPP','time','nutrition','tip','storage','howThisFeels','cookTime','chefNotes','kcal','trivia','pairsWith'].forEach(function(k){
+  ['feel','ingredients','method','costPP','time','nutrition','tip','storage','didYouKnow','goesWith','howThisFeels','cookTime','chefNotes','kcal','trivia','pairsWith'].forEach(function(k){
     if(v[k]!=null) out[k]=v[k];
   });
   out._activeVersion = v.name;
