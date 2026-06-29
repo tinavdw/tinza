@@ -2287,8 +2287,12 @@ function ingredientsBox(rowsHTML, n){
   return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
 }
 function ingredientRow(name, amount, note){
+  var lk = (typeof INGREDIENT_LINKS!=='undefined') ? crossLinkFor(INGREDIENT_LINKS, name) : null;
+  var nameHTML = lk
+    ? '<span onclick="'+lk+'" style="color:var(--accent);font-weight:bold;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">' + name + ' ↗</span>'
+    : name;
   return '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);">'
-    + '<span style="font-size:16px;color:var(--ink2);line-height:1.4;">' + name + (note ? ' <span style="color:var(--ink-soft);font-size:13px;">(' + note + ')</span>' : '') + '</span>'
+    + '<span style="font-size:16px;color:var(--ink2);line-height:1.4;">' + nameHTML + (note ? ' <span style="color:var(--ink-soft);font-size:13px;">(' + note + ')</span>' : '') + '</span>'
     + '<span class="mono" style="font-size:16px;color:var(--gold);font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
 }
 
@@ -2310,11 +2314,49 @@ function methodStep(i, text, timerLabel){
 }
 
 // §4b.7 — Goes Well With pills
+// ── SHARED CROSS-LINK MAPS — "remember where the links go" ─────────────
+// goesWith pills + named ingredients become clickable when (and only when) they
+// have an entry here. Additive: anything WITHOUT an entry renders exactly as before.
+// Keys are matched case-insensitively (trimmed). Extend as component recipes are built.
+var GOESWITH_LINKS = {
+  // → Spice recipes (safe: universal dispatch via RECIPE_SOURCES.spice / openSpiceRecipe)
+  'pesto':                      "openSpiceRecipe('basil-pesto')",
+  'sambal':                     "openSpiceRecipe('carrot-sambal')",
+  'blatjang (apricot chutney)': "openSpiceRecipe('apricot-chutney')",
+  'apricot chutney':            "openSpiceRecipe('apricot-chutney')",
+  'sliced banana':              "openSpiceRecipe('banana-sambal')",
+  'banana sambal':              "openSpiceRecipe('banana-sambal')",
+  'gravy':                      "openSpiceRecipe('brown-gravy')",
+  'chilli oil':                 "openSpiceRecipe('crispy-chilli-oil')",
+  'ranch dip':                  "openSpiceRecipe('creamy-jalapeno-ranch')",
+  'tzatziki':                   "openSpiceRecipe('tzatziki')",
+  'cucumber raita':             null,  // TODO build Cucumber Raita (Spice > Sambals & Relishes), then wire
+  'yellow rice':                null   // TODO build Yellow Rice / geelrys (Sides & Basics), then wire
+  // Sides/staples (Mash · Pizza Dough · Napoletana · Roti · Rice · Coleslaw …) can only wire once the
+  // meals section is registered into the universal opener (RECIPE_SOURCES.meals) — see handoff.
+};
+var INGREDIENT_LINKS = {
+  'garlic-ginger paste': "openSpiceRecipe('ginger-garlic-paste')",
+  'ginger-garlic paste': "openSpiceRecipe('ginger-garlic-paste')",
+  'basil pesto':         "openSpiceRecipe('basil-pesto')"
+};
+function crossLinkFor(map, label){
+  if(!map || label==null) return null;
+  var k = String(label).trim().toLowerCase();
+  return (Object.prototype.hasOwnProperty.call(map,k) && map[k]) ? map[k] : null;
+}
+
 function goesWellBox(items){
   if(!items || !items.length) return '';
   return recipeBox('❤ Goes Well With',
     '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
-    + items.slice(0,6).map(function(g){ return '<span style="padding:6px 13px;border-radius:16px;border:1px solid var(--line);color:var(--ink-soft);font-size:14px;">' + g + '</span>'; }).join('')
+    + items.slice(0,6).map(function(g){
+        var lk = (typeof GOESWITH_LINKS!=='undefined') ? crossLinkFor(GOESWITH_LINKS, g) : null;
+        if(lk){
+          return '<span onclick="'+lk+'" style="padding:6px 13px;border-radius:16px;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;cursor:pointer;">' + g + ' ›</span>';
+        }
+        return '<span style="padding:6px 13px;border-radius:16px;border:1px solid var(--line);color:var(--ink-soft);font-size:14px;">' + g + '</span>';
+      }).join('')
     + '</div>');
 }
 

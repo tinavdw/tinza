@@ -103,6 +103,58 @@ var SPICE_DB = [
   },
 
   {
+    id: "banana-sambal",
+    name: "Banana Sambal",
+    type: "relish",
+    shelf: "sambals-relishes",
+    region: "South Africa · Cape Malay & Durban",
+    flavourChips: ["Sweet", "Cooling", "Fresh"],
+    heat: 0,
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:2, unit:"", name:"firm bananas" },
+        { qty:15, unit:"ml", name:"lemon juice" },
+        { qty:20, unit:"g", name:"desiccated coconut" },
+        { qty:5, unit:"g", name:"sugar (optional)" }
+      ],
+      method: "Slice the bananas into coins just before serving. Toss them first in the lemon juice until every slice is coated — this is what stops them going brown and adds a fresh tang. Sprinkle over the coconut (and a pinch of sugar if you like it sweeter) and turn gently to coat. Serve cool, within an hour or two, alongside a hot curry — the soft sweetness tames the heat. CREAMY VERSION: skip the coconut and instead fold the lemoned banana through a spoon of mayonnaise with a pinch of sugar, for a cool, creamy sambal."
+    },
+    pairsWith: ["Cape Malay curry", "Durban curry", "bunny chow", "breyani", "bobotie"],
+    aliases: ["banana sambal", "sliced banana", "banana & coconut sambal", "banana coconut sambal"],
+    story: "On a South African curry table, banana sambal is the gentle one — cool, sweet slices in lemon and coconut, there to soothe a fierce Durban or Cape Malay curry. The lemon does double duty: it brightens the flavour and keeps the banana from browning before the meal.",
+    howThisFeels: ""
+  },
+
+  {
+    id: "carrot-sambal",
+    name: "Carrot Sambal",
+    type: "relish",
+    shelf: "sambals-relishes",
+    region: "South Africa · Cape Malay",
+    flavourChips: ["Fresh", "Tangy", "Mild-spiced"],
+    heat: 1,
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:200, unit:"g", name:"carrots" },
+        { qty:20, unit:"ml", name:"lemon juice" },
+        { qty:5, unit:"g", name:"sugar" },
+        { qty:3, unit:"g", name:"green chilli" },
+        { qty:2, unit:"g", name:"salt" },
+        { qty:1, unit:"g", name:"ground cumin" }
+      ],
+      method: "Coarsely grate the carrots into a bowl. Stir through the lemon juice, sugar, finely chopped chilli, salt and a pinch of cumin. Toss well and let it sit 10 minutes for the flavours to come together. Serve cool alongside curry — the fresh, tangy crunch is the bright contrast to a rich, saucy pot."
+    },
+    pairsWith: ["Cape Malay curry", "bobotie", "breyani", "Durban curry"],
+    aliases: ["carrot sambal", "sambal", "carrot salad", "geraspte wortelslaai"],
+    story: "Sambals on the Cape table are the fresh, cooling foils to a hot curry — not the fiery Indonesian kind. A simple grated-carrot sambal with lemon and a whisper of chilli is the classic: bright and crunchy against the warm gravy.",
+    howThisFeels: ""
+  },
+
+  {
     id: "mango-atchar",
     name: "Mango Atchar",
     type: "chutney",
