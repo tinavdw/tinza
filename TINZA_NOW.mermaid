@@ -21,7 +21,7 @@ flowchart TD
     B2[Fish & Chips — 4 versions: Beer-Battered* · Crispy Oven · Air-Fryer · Budget (Crumbed). + full standard.]
     B3[Garlic Butter Steak Bites & Mash — 3 versions: Garlic Butter* · Peppercorn Sauce · Budget. + full standard.]
     B4[+10 more plates: Creamy Tuscan Chicken(4) · Sticky Honey-Garlic(4) · Bunny Chow(4: lamb/chicken/bean/mince) · Sloppy Joes(3) · Stroganoff(3) · Chicken a la King(3) · Crispy Salmon(3) · Tex-Mex Bowl(4) · Beef & Broccoli(3) · Vetkoek & Curried Mince(3: mince/cheese/sweet).]
-    B5[2 new price gaps closed in prices.js: economy steak 90, trout fillet 180 (both ESTIMATE — confirm). node --check PASS, SUPPER still 87, nothing lost.]
+    B5[2 price gaps closed (Tina-sourced): 'economy steak' RENAMED to 'tenderised steak' R110 (Checkers ~R99-110/kg) in all 3 budget versions; trout fillet R500 (R450-550/kg). node --check PASS, SUPPER still 87, nothing lost.]
   end
 
   SHARED --> DONE11
@@ -46,6 +46,21 @@ flowchart TD
   end
 
   PUSH --> RUNWAY
+
+  subgraph PASTAPIZZA[" FMF SUPPER · Pasta & Pizza Bobotie run "]
+    PP0[Category = 23 dishes. 11 were already done (Spag Bol gold-standard · 6 pizzas · 5 gnocchi/Italian staples). 12 flat dishes needed treatment.]
+    PP1[BATCH 1 DONE — ready to push (meals.js only, all ingredients price, node --check PASS): sp-mac-cheese (4v) · sp-spag-meatballs (3v) · sp-chicken-alfredo (3v) · sp-carbonara (2v) · sp-tuna-pasta-bake (3v) · sp-lasagne (3v). Each: version chips + per-version didYouKnow + beginner-proof methods + goesWith + storage/freezes/fridgeDays, mirroring Spag Bol.]
+    PP2[BATCH 2 TODO — next push: sp-prawn-linguine · sp-cannelloni · sp-pesto-chicken-pasta · sp-cajun-pasta · sp-feta-tomato-pasta · sp-pumpkin-sage-pasta. Same treatment, then category complete.]
+    PP0-->PP1-->PP2
+  end
+
+  subgraph RENDERFIX[" RENDER FIXES (session 11b) — ready to push (meals.js + core.js) "]
+    RF1[PER-VERSION didYouKnow now works: added 'didYouKnow' (and 'goesWith') to the applyRecipeVersion merge list in core.js. App-wide — any versioned dish can carry a different fact per chip. Bangers & Mash given 4 distinct facts (WWI bangers / boerewors coil / Russian sausage / instant gravy).]
+    RF2[LANDING-ON-PHOTO fixed: openMealRecipe used setQuiet which overwrites _savedScroll with window.scrollY, so recipes opened at the list scroll position (differed per dish). Now: open lands at TOP (scrollTo 0 + rAF), capturing _mealListScroll; Back restores the list position. Applies to ALL meal sections.]
+    RF3[NOTE: core.js touched (merge-list only, additive, low-risk) — first core.js edit of the FMF run. node --check PASS on both.]
+    RF5[HERO PHOTO on open recipe — MATCHES BRAAI: recipeDetailFromResult now uses the same recipePhoto(name,emoji,200) call recipePage/Braai uses (fixed 200px rounded box, Back overlaid top-left pill, dish name BELOW the photo). NOT the earlier full-bleed banner. photoSwap emoji fallback for un-shot dishes. Lands on the photo via the scroll fix.]
+    RF4[RESOLVED: the open recipe has NO dish photo (recipeDetailFromResult = coloured header + info only); photos live on the browse CARDS (core.js recipeCard, aspect-ratio 1200/640). Need to confirm whether to ADD a hero photo to the top of the open recipe (and what size) vs adjust the card photo box.]
+  end
 
   subgraph AFTER_FMF[" AFTER FMF (Tina's stated order) "]
     A1[BOX-GRID category UI — breakfast + all FMF browse from sliding pills to box-grid tiles (Events/Braai pattern), each tile a subtitle of what's inside.]

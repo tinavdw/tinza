@@ -5462,12 +5462,300 @@ var SUPPER_RECIPES = [
   },
 
   // ── 🍝 PASTA & PIZZA ──
-  {id:'sp-lasagne', cat:'pastapizza', diet:'meat', protein:'beef', name:'Beef Lasagne', emoji:'🍝', cuisine:'Italian', time:75, costPP:37,
-    feel:'Layers of meaty, cheesy comfort that pull the whole table in.',
-    ingredients:[{n:'lasagne sheets',pp:60,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'milk',pp:120,u:'ml'},{n:'cake flour',pp:15,u:'g'},{n:'butter',pp:15,u:'g'},{n:'cheddar',pp:40,u:'g'}],
-    method:['Brown the mince with the chopped onion, add the tomatoes and simmer 20 minutes into a rich ragu.','Make a white sauce: melt the butter, stir in the flour, then whisk in the milk until thick and smooth.','Layer ragu, lasagne sheets and white sauce in a dish, repeating and finishing with sauce and grated cheddar.','Bake at 180C for 35 to 40 minutes until golden. Rest 10 minutes before slicing.'],
-    tip:'Let it rest before cutting so the layers hold instead of sliding apart.',
-    nutrition:{kcal:590,protein_g:30,carbs_g:48,fat_g:30}, storage:'Keeps 3 days; freezes well in portions for up to 2 months.'},
+  {
+    "id": "sp-lasagne",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "beef",
+    "name": "Beef Lasagne",
+    "emoji": "🍝",
+    "cuisine": "Italian",
+    "time": 75,
+    "costPP": 40,
+    "feel": "The full Sunday build — a slow beef ragù layered with pasta and a proper béchamel, baked until the top is bronzed and the edges crisp. Worth every minute.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Grated parmesan",
+      "Steamed greens",
+      "A glass of red"
+    ],
+    "didYouKnow": "The word \"lasagne\" originally meant the pot, not the pasta — it comes from the Greek \"lasanon\", a cooking vessel. Only later did it come to mean the flat sheets cooked in it. Baked lasagne as we know it comes from Naples and Emilia-Romagna.",
+    "nutrition": {
+      "kcal": 620,
+      "protein_g": 32,
+      "carbs_g": 52,
+      "fat_g": 32
+    },
+    "storage": "Keeps 3 days and only gets better — the layers firm up overnight. Freezes brilliantly in portions for up to 2 months; bake from frozen, covered with foil.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Classic",
+        "icon": "🏆",
+        "default": true,
+        "time": 75,
+        "costPP": 40,
+        "nutrition": {
+          "kcal": 620,
+          "protein_g": 32,
+          "carbs_g": 52,
+          "fat_g": 32
+        },
+        "feel": "The full Sunday build — a slow beef ragù layered with pasta and a proper béchamel, baked until the top is bronzed and the edges crisp. Worth every minute.",
+        "ingredients": [
+          {
+            "n": "lasagne sheets",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 110,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "carrots",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Make the ragù: soften the chopped onion, carrot and garlic in the olive oil, then brown the mince well. Stir in the tomato paste, tinned tomatoes and herbs and simmer 25–30 min until thick.",
+          "Make the béchamel (white sauce): melt the butter, stir in the flour and cook 1–2 min, then whisk in the milk slowly until smooth and thick.",
+          "Layer in a dish: a little ragù on the base, then sheets, ragù, a little béchamel — repeat, finishing with béchamel on top.",
+          "Scatter the cheddar and parmesan over and bake at 180°C until golden and bubbling, 35–40 min.",
+          "Rest 10 minutes before cutting — this lets the layers set so they lift out in neat slices instead of sliding apart."
+        ],
+        "didYouKnow": "The word \"lasagne\" originally meant the pot, not the pasta — it comes from the Greek \"lasanon\", a cooking vessel. Only later did it come to mean the flat sheets cooked in it. Baked lasagne as we know it comes from Naples and Emilia-Romagna."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 70,
+        "costPP": 30,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 26,
+          "carbs_g": 56,
+          "fat_g": 24
+        },
+        "feel": "Less mince, more veg bulking the ragù, and cheddar standing in for parmesan — a big, generous lasagne that costs a fraction and feeds a crowd.",
+        "ingredients": [
+          {
+            "n": "lasagne sheets",
+            "pp": 65,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 75,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 170,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 14,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "carrots",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 35,
+            "u": "g"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Soften the onion, grated carrot and garlic in the oil, then brown the mince. Add the tomato paste, tinned tomatoes and herbs and simmer 25 min.",
+          "Make a béchamel: melt the butter, stir in the flour 1–2 min, whisk in the milk until thick.",
+          "Layer ragù, sheets and béchamel, finishing with béchamel and the cheddar.",
+          "Bake at 180°C until golden, 35–40 min, and rest before cutting."
+        ],
+        "didYouKnow": "Adding grated carrot to a meat sauce is an old thrift trick that doubles as seasoning — as carrots cook they release natural sugar, which balances the acidity of the tomatoes so you don't need to add any."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 45,
+        "costPP": 38,
+        "nutrition": {
+          "kcal": 610,
+          "protein_g": 31,
+          "carbs_g": 54,
+          "fat_g": 30
+        },
+        "feel": "A shortcut lasagne using no-precook sheets and a faster sauce — half the time, still that bubbling, golden-topped comfort.",
+        "ingredients": [
+          {
+            "n": "lasagne sheets",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 110,
+            "u": "g"
+          },
+          {
+            "n": "tomato passata",
+            "pp": 180,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 35,
+            "u": "g"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Brown the mince with the onion and garlic, stir in the passata, tomato paste and herbs and simmer just 10 min — a looser sauce is good here because the dry sheets drink it up.",
+          "Quick béchamel: melt the butter, stir in the flour 1 min, whisk in the milk until thick.",
+          "Layer ragù, dry no-precook sheets and béchamel, finishing with béchamel and the cheddar.",
+          "Cover with foil and bake at 190°C for 30 min, then uncover 10 min to brown. Rest before cutting."
+        ],
+        "didYouKnow": "No-precook lasagne sheets are simply rolled thinner and pre-dried, so they soften by soaking up moisture from the sauce as they bake. That is why a quicker lasagne needs a slightly wetter, looser sauce than a traditional one."
+      }
+    ]
+  },
   {id:'sp-spag-bol', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Grated parmesan','A glass of red'], diet:'meat', protein:'beef', name:'Spaghetti Bolognese', emoji:'🍝', cuisine:'Italian', time:30, costPP:59,
   feel:'The weeknight rescue everyone already knows how to twirl.',
   ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'beef mince',pp:120,u:'g'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'carrots',pp:40,u:'g'},{n:'garlic'},{n:'cheddar',pp:20,u:'g'}],
@@ -8798,30 +9086,967 @@ var SUPPER_RECIPES = [
   },
 
   // ── 🍝 PASTA & PIZZA — added 22 Jun (Supper build, Batch 2) ──
-  {id:'sp-mac-cheese', cat:'pastapizza', diet:'veg', protein:'veg', name:'Creamy Mac & Cheese', emoji:'🧀', cuisine:'American', time:30, costPP:27,
-    feel:'Elbow macaroni smothered in a silky three-cheese sauce, baked until golden and bubbling.',
-    ingredients:[{n:'macaroni',pp:90,u:'g'},{n:'cheddar',pp:50,u:'g'},{n:'milk',pp:200,u:'ml'},{n:'butter',pp:25,u:'g'},{n:'flour',pp:20,u:'g'},{n:'mozzarella',pp:20,u:'g'},{n:'mustard powder',pp:1,u:'g'}],
-    method:['Cook the macaroni until just tender and drain.','Melt the butter, stir in the flour, then whisk in the milk to make a smooth white sauce.','Off the heat, stir in the cheddar and mustard until glossy.','Fold through the macaroni, top with mozzarella and grill or bake until golden and bubbling.'],
-    tip:'A pinch of mustard powder makes the cheese taste cheesier without adding heat.',
-    nutrition:{kcal:560,protein_g:22,carbs_g:58,fat_g:26}, storage:'Keeps 3 days; reheat with a splash of milk.'},
-  {id:'sp-spag-meatballs', cat:'pastapizza', diet:'meat', protein:'beef', name:'Spaghetti & Meatballs', emoji:'🍝', cuisine:'Italian-American', time:40, costPP:43,
-    feel:'Tender beef meatballs simmered in a rich tomato sauce, piled on spaghetti and showered with parmesan.',
-    ingredients:[{n:'beef mince',pp:130,u:'g'},{n:'spaghetti',pp:80,u:'g'},{n:'tomato',pp:150,u:'g'},{n:'onion',pp:50,u:'g'},{n:'breadcrumbs',pp:15,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'parmesan',pp:15,u:'g'},{n:'oil',pp:12,u:'ml'}],
-    method:['Mix the mince with breadcrumbs, garlic and seasoning and roll into balls.','Brown the meatballs all over, then set aside.','Soften the onion, add the tomato and simmer into a rich sauce.','Return the meatballs and simmer until cooked through.','Serve over spaghetti with parmesan.'],
-    tip:'Brown the meatballs first for flavour, then let them finish cooking gently in the sauce.',
-    nutrition:{kcal:600,protein_g:32,carbs_g:62,fat_g:24}, storage:'Keeps 3 days; freezes well.'},
-  {id:'sp-chicken-alfredo', cat:'pastapizza', diet:'meat', protein:'chicken', name:'Creamy Chicken Alfredo', emoji:'🍝', cuisine:'Italian-American', time:30, costPP:48,
-    feel:'Silky parmesan cream sauce clinging to fettuccine with golden strips of chicken.',
-    ingredients:[{n:'chicken breast',pp:130,u:'g'},{n:'fettuccine',pp:80,u:'g'},{n:'cream',pp:60,u:'ml'},{n:'parmesan',pp:25,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'butter',pp:20,u:'g'}],
-    method:['Cook the fettuccine until just tender.','Sear the sliced chicken in butter until golden, then add the garlic.','Pour in the cream and parmesan and simmer into a glossy sauce.','Toss the pasta through with a splash of pasta water to loosen.','Serve at once with extra parmesan.'],
-    tip:'A ladle of starchy pasta water makes the sauce silky and helps it cling.',
-    nutrition:{kcal:640,protein_g:38,carbs_g:56,fat_g:30}, storage:'Best fresh; keeps 1 day.'},
-  {id:'sp-tuna-pasta-bake', cat:'pastapizza', diet:'meat', protein:'fish', name:'Cheesy Tuna Pasta Bake', emoji:'🐟', cuisine:'Family classic', time:35, costPP:32,
-    feel:'Creamy tuna and pasta under a golden cheese crust, the ultimate pantry-friendly comfort bake.',
-    ingredients:[{n:'pasta',pp:90,u:'g'},{n:'tinned tuna',pp:80,u:'g'},{n:'milk',pp:200,u:'ml'},{n:'cheddar',pp:40,u:'g'},{n:'sweetcorn',pp:50,u:'g'},{n:'onion',pp:40,u:'g'},{n:'flour',pp:15,u:'g'},{n:'butter',pp:20,u:'g'}],
-    method:['Cook the pasta until just tender.','Make a white sauce with the butter, flour and milk, then stir in half the cheese.','Fold in the drained tuna, corn and pasta.','Tip into a dish, top with the rest of the cheese and bake at 180C until golden and bubbling.'],
-    tip:'A handful of crushed crisps or breadcrumbs on top gives extra crunch.',
-    nutrition:{kcal:540,protein_g:30,carbs_g:60,fat_g:20}, storage:'Keeps 3 days; reheats well.'},
+  {
+    "id": "sp-mac-cheese",
+    "cat": "pastapizza",
+    "diet": "veg",
+    "protein": "veg",
+    "name": "Creamy Mac & Cheese",
+    "emoji": "🧀",
+    "cuisine": "American",
+    "time": 35,
+    "costPP": 30,
+    "feel": "The proper Sunday version — a silky cheddar-and-mozzarella sauce folded through the macaroni, topped and baked until the cheese blisters and the edges go crunchy.",
+    "goesWith": [
+      "Green salad",
+      "Crusty bread",
+      "Roast tomatoes",
+      "Crispy bacon",
+      "Steamed broccoli"
+    ],
+    "didYouKnow": "That cheese sauce has a posh name: a mornay, a white béchamel with cheese melted in. Béchamel is one of the French \"mother sauces\" every chef learns first — so a humble mac & cheese is built on classic restaurant technique.",
+    "nutrition": {
+      "kcal": 580,
+      "protein_g": 24,
+      "carbs_g": 58,
+      "fat_g": 28
+    },
+    "storage": "Keeps 3 days in the fridge. Reheat low and slow with a good splash of milk stirred in, or it tightens and goes oily. The baked version freezes in portions for up to 2 months.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Baked Three-Cheese",
+        "icon": "🏆",
+        "default": true,
+        "time": 35,
+        "costPP": 30,
+        "nutrition": {
+          "kcal": 580,
+          "protein_g": 24,
+          "carbs_g": 58,
+          "fat_g": 28
+        },
+        "feel": "The proper Sunday version — a silky cheddar-and-mozzarella sauce folded through the macaroni, topped and baked until the cheese blisters and the edges go crunchy.",
+        "ingredients": [
+          {
+            "n": "macaroni",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 55,
+            "u": "g"
+          },
+          {
+            "n": "mozzarella",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the macaroni in well-salted water until just tender — about a minute less than the packet says, because it bakes again in the oven. Drain.",
+          "Make a roux: melt the butter, stir in the flour and cook 1–2 min until it smells biscuity — this cooks out the raw-flour taste.",
+          "Pour in the milk a splash at a time, whisking hard after each one so no lumps form, until it thickens to a pouring custard.",
+          "Take the pot OFF the heat before adding the cheese — a boiling cheese sauce turns grainy. Stir in the cheddar and mustard until glossy.",
+          "Fold the macaroni through, tip into a dish, scatter the mozzarella and parmesan on top, and bake at 200°C (or grill) until golden and bubbling, 12–15 min."
+        ],
+        "didYouKnow": "That cheese sauce has a posh name: a mornay, a white béchamel with cheese melted in. Béchamel is one of the French \"mother sauces\" every chef learns first — so a humble mac & cheese is built on classic restaurant technique."
+      },
+      {
+        "name": "Stovetop",
+        "icon": "⚡",
+        "time": 15,
+        "costPP": 28,
+        "nutrition": {
+          "kcal": 540,
+          "protein_g": 22,
+          "carbs_g": 56,
+          "fat_g": 25
+        },
+        "feel": "No oven, no waiting — a loose, creamy mac stirred together straight in the pot and eaten while it is still molten.",
+        "ingredients": [
+          {
+            "n": "macaroni",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 55,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 180,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the macaroni until just tender and drain, keeping a little of the starchy pasta water.",
+          "In the same pot melt the butter, stir in the flour and cook 1 min, then whisk in the milk until smooth and slightly thickened.",
+          "Off the heat, stir in the cheddar and mustard until glossy — loosen with a splash of pasta water if it is too thick.",
+          "Tip the macaroni back in, stir to coat, and serve straight away while creamy."
+        ],
+        "didYouKnow": "Cheese sauce splits because heat makes the proteins clench and squeeze the fat out. Keeping it off the boil and stirring the cheese in at the very end is the whole trick to a smooth, pourable sauce."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 30,
+        "costPP": 20,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 21,
+          "carbs_g": 60,
+          "fat_g": 25
+        },
+        "feel": "One block of cheddar, milk and a roux — no mozzarella, no parmesan, still rich and golden. The version that feeds the whole family for next to nothing.",
+        "ingredients": [
+          {
+            "n": "macaroni",
+            "pp": 95,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 45,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the macaroni until just tender and drain.",
+          "Melt the butter, stir in the flour and cook 1–2 min, then whisk in the milk bit by bit until smooth and thickened.",
+          "Off the heat, stir in most of the cheddar and the mustard until glossy.",
+          "Fold through the macaroni, scatter the last of the cheese on top and grill or bake until golden, about 12 min."
+        ],
+        "didYouKnow": "Mac & cheese is grander than it looks: Thomas Jefferson served a baked \"macaroni pie\" at the United States president's table in 1802 after tasting the dish in Europe, helping turn it into an American favourite."
+      },
+      {
+        "name": "Loaded",
+        "icon": "🥓",
+        "time": 40,
+        "costPP": 38,
+        "nutrition": {
+          "kcal": 690,
+          "protein_g": 29,
+          "carbs_g": 62,
+          "fat_g": 38
+        },
+        "feel": "The baked three-cheese pushed over the top: crispy bacon through the middle and a buttery golden crumb on top for crunch against all that cream.",
+        "ingredients": [
+          {
+            "n": "macaroni",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 55,
+            "u": "g"
+          },
+          {
+            "n": "mozzarella",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "breadcrumbs",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Fry the bacon until crisp, then chop. Boil the macaroni until just tender and drain.",
+          "Make a roux: melt most of the butter, stir in the flour 1–2 min, then whisk in the milk until smooth and thick.",
+          "Off the heat stir in the cheddar and mustard, then fold through the macaroni and bacon.",
+          "Tip into a dish and top with mozzarella. Toss the breadcrumbs in the last of the melted butter and scatter over.",
+          "Bake at 200°C until the crumb is deep golden and the sauce bubbles at the edges, 15–18 min."
+        ],
+        "didYouKnow": "A buttered crumb topping is called a gratin — French for \"scrapings\" — and it was originally prized for the crunchy bits stuck to the dish, not the soft middle. The crumbs toast as the sauce bakes, giving crunch against the cream."
+      }
+    ]
+  },
+  {
+    "id": "sp-spag-meatballs",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "beef",
+    "name": "Spaghetti & Meatballs",
+    "emoji": "🍝",
+    "cuisine": "Italian-American",
+    "time": 40,
+    "costPP": 45,
+    "feel": "Tender beef meatballs simmered right in the tomato sauce so they drink up the flavour, piled on spaghetti. The secret is bread soaked in milk, which keeps them soft instead of bouncy.",
+    "goesWith": [
+      "Garlic bread",
+      "Green salad",
+      "Grated parmesan",
+      "Steamed greens",
+      "A glass of red"
+    ],
+    "didYouKnow": "Spaghetti and meatballs is barely Italian — it was invented by Italian immigrants in America around 1900, who suddenly had cheap meat and made the balls huge. In Italy, meatballs (polpette) are small and eaten on their own, not on pasta.",
+    "nutrition": {
+      "kcal": 680,
+      "protein_g": 36,
+      "carbs_g": 66,
+      "fat_g": 28
+    },
+    "storage": "Keeps 3 days; the sauce and meatballs freeze beautifully for up to 2 months — freeze them without the pasta and boil fresh spaghetti on the day.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Classic Beef",
+        "icon": "🏆",
+        "default": true,
+        "time": 40,
+        "costPP": 45,
+        "nutrition": {
+          "kcal": 680,
+          "protein_g": 36,
+          "carbs_g": 66,
+          "fat_g": 28
+        },
+        "feel": "Tender beef meatballs simmered right in the tomato sauce so they drink up the flavour, piled on spaghetti. The secret is bread soaked in milk, which keeps them soft instead of bouncy.",
+        "ingredients": [
+          {
+            "n": "spaghetti",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "breadcrumbs",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 25,
+            "u": "ml"
+          },
+          {
+            "n": "egg",
+            "pp": 0.25,
+            "u": "egg"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Soak the breadcrumbs in the milk a few minutes until mushy — this \"panade\" is what keeps the meatballs tender.",
+          "Mix the mince, soaked crumbs, egg, half the garlic, salt and pepper with your hands until just combined — over-mixing makes them tough. Roll into balls.",
+          "Brown the meatballs in the olive oil on all sides (they don't need to cook through yet), then lift out.",
+          "In the same pan soften the onion and the rest of the garlic, stir in the tomato paste 1 min, add the tinned tomatoes and herbs, and simmer 10 min.",
+          "Slip the meatballs back into the sauce and simmer gently 12–15 min until cooked through. Serve on spaghetti with parmesan."
+        ],
+        "didYouKnow": "Spaghetti and meatballs is barely Italian — it was invented by Italian immigrants in America around 1900, who suddenly had cheap meat and made the balls huge. In Italy, meatballs (polpette) are small and eaten on their own, not on pasta."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 40,
+        "costPP": 33,
+        "nutrition": {
+          "kcal": 620,
+          "protein_g": 28,
+          "carbs_g": 70,
+          "fat_g": 22
+        },
+        "feel": "More bread, a little less meat, and the meatballs stretch just as far — a pot that feeds a hungry family without anyone noticing the saving.",
+        "ingredients": [
+          {
+            "n": "spaghetti",
+            "pp": 95,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 70,
+            "u": "g"
+          },
+          {
+            "n": "breadcrumbs",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 30,
+            "u": "ml"
+          },
+          {
+            "n": "egg",
+            "pp": 0.25,
+            "u": "egg"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 160,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Soak the breadcrumbs in the milk until mushy. Mix with the mince, egg, half the garlic, salt and pepper and roll into balls.",
+          "Brown the meatballs in the oil, then lift out.",
+          "Soften the onion and remaining garlic, add the tomato paste, tinned tomatoes and herbs and simmer 10 min.",
+          "Return the meatballs and simmer gently 12–15 min. Serve on spaghetti."
+        ],
+        "didYouKnow": "Bulking meatballs with bread is not a cheat — Italian nonnas have always done it. The starch holds moisture, so a meatball with bread in it is actually juicier than one that is pure meat."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 25,
+        "costPP": 42,
+        "nutrition": {
+          "kcal": 650,
+          "protein_g": 35,
+          "carbs_g": 64,
+          "fat_g": 26
+        },
+        "feel": "Shop-bought passata and no browning step — meatballs poached straight in a simmering sauce, ready in the time the spaghetti boils.",
+        "ingredients": [
+          {
+            "n": "spaghetti",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "beef mince",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "breadcrumbs",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "egg",
+            "pp": 0.25,
+            "u": "egg"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "tomato passata",
+            "pp": 180,
+            "u": "g"
+          },
+          {
+            "n": "dried Italian herbs",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "parmesan",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the spaghetti. Meanwhile mix the mince, breadcrumbs, egg, garlic, salt and pepper and roll small balls.",
+          "Heat the passata with the herbs and a splash of oil in a wide pan until simmering.",
+          "Drop the raw meatballs straight into the simmering sauce, cover, and poach 12–15 min, turning once — cooking them in the sauce keeps them soft and saves a pan.",
+          "Serve on the spaghetti with parmesan."
+        ],
+        "didYouKnow": "Passata — Italian for \"passed\", as in passed through a sieve — is just smooth, uncooked tomato purée. Because it is already smooth, it turns into a sauce in minutes, which is why it beats chopping fresh tomatoes on a busy night."
+      }
+    ]
+  },
+  {
+    "id": "sp-chicken-alfredo",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "chicken",
+    "name": "Creamy Chicken Alfredo",
+    "emoji": "🍝",
+    "cuisine": "Italian-American",
+    "time": 30,
+    "costPP": 48,
+    "feel": "Pan-fried chicken in a glossy parmesan cream that clings to every strand of fettuccine. Rich, fast, and exactly what people mean when they order Alfredo.",
+    "goesWith": [
+      "Garlic bread",
+      "Green salad",
+      "Steamed broccoli",
+      "Grated parmesan",
+      "Black pepper"
+    ],
+    "didYouKnow": "Real Italian \"Alfredo\" has no cream at all — Alfredo di Lelio created it in Rome in 1908 from just butter and parmesan whipped with pasta water. The cream-and-chicken version is entirely American, named after the same man.",
+    "nutrition": {
+      "kcal": 720,
+      "protein_g": 42,
+      "carbs_g": 60,
+      "fat_g": 34
+    },
+    "storage": "Best eaten fresh — cream sauces thicken and can split on reheating. If you must keep it, store 2 days and reheat very gently with a splash of milk, stirring constantly. Not suited to freezing.",
+    "freezes": false,
+    "fridgeDays": 2,
+    "versions": [
+      {
+        "name": "Classic Cream",
+        "icon": "🏆",
+        "default": true,
+        "time": 30,
+        "costPP": 48,
+        "nutrition": {
+          "kcal": 720,
+          "protein_g": 42,
+          "carbs_g": 60,
+          "fat_g": 34
+        },
+        "feel": "Pan-fried chicken in a glossy parmesan cream that clings to every strand of fettuccine. Rich, fast, and exactly what people mean when they order Alfredo.",
+        "ingredients": [
+          {
+            "n": "fettuccine",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "chicken breasts",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 80,
+            "u": "ml"
+          },
+          {
+            "n": "parmesan",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Season the chicken and fry in the olive oil over medium-high heat until golden and cooked through, 5–6 min a side. Rest, then slice.",
+          "Turn the heat down, melt the butter in the same pan and soften the garlic a minute without browning it.",
+          "Pour in the cream and let it bubble gently 2 min to thicken slightly.",
+          "Off the heat, stir in the parmesan until it melts into a smooth sauce — adding it off the boil stops it going stringy.",
+          "Toss the cooked fettuccine through with a splash of pasta water to loosen, and top with the sliced chicken."
+        ],
+        "didYouKnow": "Real Italian \"Alfredo\" has no cream at all — Alfredo di Lelio created it in Rome in 1908 from just butter and parmesan whipped with pasta water. The cream-and-chicken version is entirely American, named after the same man."
+      },
+      {
+        "name": "Lighter",
+        "icon": "🍗",
+        "time": 30,
+        "costPP": 40,
+        "nutrition": {
+          "kcal": 620,
+          "protein_g": 44,
+          "carbs_g": 62,
+          "fat_g": 22
+        },
+        "feel": "The same comfort with a milk-based sauce thickened the gentle way — lighter on the cream but still silky, so you can have it on a weeknight.",
+        "ingredients": [
+          {
+            "n": "fettuccine",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "chicken breasts",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 180,
+            "u": "ml"
+          },
+          {
+            "n": "parmesan",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 6,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Fry the seasoned chicken until golden and cooked through, then rest and slice.",
+          "Melt the butter, soften the garlic, then stir in the flour and cook 1 min to make a roux.",
+          "Whisk in the milk slowly until smooth and thickened into a light sauce.",
+          "Off the heat, stir in the parmesan until melted, then toss through the fettuccine and top with the chicken."
+        ],
+        "didYouKnow": "You can fake the richness of cream with a roux and milk — the flour thickens the milk so it coats the pasta like a cream sauce, for a fraction of the fat. It is the same trick behind a cheese sauce."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 20,
+        "costPP": 46,
+        "nutrition": {
+          "kcal": 700,
+          "protein_g": 42,
+          "carbs_g": 60,
+          "fat_g": 32
+        },
+        "feel": "Everything in one pan while the pasta boils — chicken, cream, parmesan, done in twenty minutes flat.",
+        "ingredients": [
+          {
+            "n": "fettuccine",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "chicken breasts",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "fresh cream",
+            "pp": 80,
+            "u": "ml"
+          },
+          {
+            "n": "parmesan",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Boil the fettuccine. Meanwhile cut the chicken into small strips so it cooks fast, and fry in the oil until golden and done.",
+          "Add the garlic a minute, pour in the cream and let it bubble 2 min.",
+          "Off the heat, stir in the parmesan, then drag the drained pasta straight into the pan with a splash of its water and toss to coat."
+        ],
+        "didYouKnow": "Cutting the chicken into strips is not just faster — more surface area means more golden, browned edges, and that browning (the Maillard reaction) is where much of the savoury flavour lives."
+      }
+    ]
+  },
+  {
+    "id": "sp-tuna-pasta-bake",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "fish",
+    "name": "Cheesy Tuna Pasta Bake",
+    "emoji": "🐟",
+    "cuisine": "Family classic",
+    "time": 35,
+    "costPP": 33,
+    "feel": "The lunchbox hero — pasta and tuna folded into a cheesy white sauce with sweet peas and corn, baked under a golden cheese lid. Pure pantry comfort.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Frozen peas",
+      "Sliced tomato",
+      "Crusty bread"
+    ],
+    "didYouKnow": "The tuna bake is a child of the tin: canned tuna only became a pantry staple in the early 1900s, when canning made deep-sea fish cheap and shelf-stable. Suddenly families far from the coast could put fish on the table any night.",
+    "nutrition": {
+      "kcal": 560,
+      "protein_g": 30,
+      "carbs_g": 58,
+      "fat_g": 22
+    },
+    "storage": "Keeps 3 days; reheat with a splash of milk so it doesn't dry out. Freezes in portions for up to 2 months — ideal for lunchboxes.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "versions": [
+      {
+        "name": "Creamy Baked",
+        "icon": "🏆",
+        "default": true,
+        "time": 35,
+        "costPP": 33,
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 30,
+          "carbs_g": 58,
+          "fat_g": 22
+        },
+        "feel": "The lunchbox hero — pasta and tuna folded into a cheesy white sauce with sweet peas and corn, baked under a golden cheese lid. Pure pantry comfort.",
+        "ingredients": [
+          {
+            "n": "pasta",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "tinned tuna",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "frozen peas",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "sweetcorn",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the pasta until just tender and drain. Heat the oven to 200°C.",
+          "Soften the chopped onion in the butter, stir in the flour and cook 1–2 min, then whisk in the milk bit by bit until smooth and thick.",
+          "Off the heat, stir in most of the cheddar and the mustard, then fold through the drained tuna, peas, corn and pasta.",
+          "Tip into a dish, scatter the last of the cheese on top, and bake until golden and bubbling, about 15 min."
+        ],
+        "didYouKnow": "The tuna bake is a child of the tin: canned tuna only became a pantry staple in the early 1900s, when canning made deep-sea fish cheap and shelf-stable. Suddenly families far from the coast could put fish on the table any night."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 35,
+        "costPP": 24,
+        "nutrition": {
+          "kcal": 540,
+          "protein_g": 27,
+          "carbs_g": 62,
+          "fat_g": 18
+        },
+        "feel": "Stretched with extra pasta and pilchards, one block of cheddar and no frills — a whole baking dish that costs almost nothing and still disappears.",
+        "ingredients": [
+          {
+            "n": "pasta",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "tinned pilchards",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 22,
+            "u": "g"
+          },
+          {
+            "n": "frozen peas",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the pasta and drain. Heat the oven to 200°C.",
+          "Soften the onion in the butter, stir in the flour 1–2 min, then whisk in the milk until smooth and thick.",
+          "Off the heat stir in most of the cheddar and the mustard, then fold through the pilchards (broken up), peas and pasta.",
+          "Top with the last of the cheese and bake until golden, about 15 min."
+        ],
+        "didYouKnow": "Tinned pilchards in tomato sauce are one of South Africa's most-eaten proteins — cheaper than tuna and just as rich in omega-3. Swapped into a bake they bring their own savoury tomato sauce with them, so you need less seasoning."
+      },
+      {
+        "name": "Quick",
+        "icon": "⚡",
+        "time": 18,
+        "costPP": 31,
+        "nutrition": {
+          "kcal": 540,
+          "protein_g": 29,
+          "carbs_g": 56,
+          "fat_g": 20
+        },
+        "feel": "No oven — everything stirred together in the pot and on the table in under twenty minutes. The weeknight version of the bake.",
+        "ingredients": [
+          {
+            "n": "pasta",
+            "pp": 90,
+            "u": "g"
+          },
+          {
+            "n": "tinned tuna",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 45,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 180,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "flour",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "frozen peas",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the pasta, adding the frozen peas for the last 2 minutes. Drain.",
+          "In the same pot melt the butter, stir in the flour 1 min, then whisk in the milk until smooth and thickened.",
+          "Off the heat, stir in the cheddar and mustard, then fold through the tuna and pasta. Serve straight away while creamy."
+        ],
+        "didYouKnow": "Cooking the peas in with the pasta for the last two minutes saves a pot — frozen peas are blanched before freezing, so they only need to heat through, not really cook."
+      }
+    ]
+  },
   {id:'sp-margherita-pizza', cat:'pastapizza', goesWith:['Green salad','Garlic bread','Rocket','Chilli oil'], diet:'veg', protein:'veg', name:'Margherita Pizza', emoji:'🍕', cuisine:'Italian', time:30, costPP:46,
     feel:'A blistered base, bright tomato, melting mozzarella and fresh basil — the pizza that proves simple is hardest to beat.',
     ingredients:[{n:'pizza base',pp:1,u:'each'},{n:'tomato passata',pp:60,u:'g'},{n:'mozzarella',pp:65,u:'g'},{n:'fresh basil',pp:5,u:'g'},{n:'garlic',pp:4,u:'g'},{n:'olive oil',pp:8,u:'ml'}],
@@ -8872,12 +10097,133 @@ var SUPPER_RECIPES = [
     method:['Brown the chicken and sliced sausage with the Cajun spice, then set aside.','Soften the onion, add the tomato, stock and pasta and simmer until the pasta is tender and the liquid reduced.','Stir in the cream and return the meat.','Simmer briefly into a glossy one-pan sauce.'],
     tip:'Cooking the pasta in the sauce means one pan and a richer flavour — just stir so it does not stick.',
     nutrition:{kcal:620,protein_g:34,carbs_g:64,fat_g:26}, storage:'Keeps 3 days; loosen with stock when reheating.'},
-  {id:'sp-carbonara', cat:'pastapizza', diet:'meat', protein:'pork', name:'Spaghetti Carbonara', emoji:'🥓', cuisine:'Italian', time:25, costPP:49,
-    feel:'Silky egg-and-parmesan sauce coating spaghetti with crisp bacon — no cream, just the real thing.',
-    ingredients:[{n:'spaghetti',pp:90,u:'g'},{n:'bacon',pp:60,u:'g'},{n:'eggs',pp:1.5,u:'each'},{n:'parmesan',pp:30,u:'g'},{n:'black pepper',pp:2,u:'g'},{n:'garlic',pp:4,u:'g'}],
-    method:['Cook the spaghetti until just tender, saving a mug of pasta water.','Fry the chopped bacon until crisp.','Beat the eggs with the parmesan and plenty of black pepper.','Off the heat, toss the hot drained pasta with the bacon, then the egg mixture, loosening with pasta water into a silky sauce.','Serve at once.'],
-    tip:'Take the pan off the heat before adding the eggs, or you get scrambled egg instead of a silky sauce.',
-    nutrition:{kcal:620,protein_g:30,carbs_g:64,fat_g:28}, storage:'Best fresh, eat straight away.'},
+  {
+    "id": "sp-carbonara",
+    "cat": "pastapizza",
+    "diet": "meat",
+    "protein": "pork",
+    "name": "Spaghetti Carbonara",
+    "emoji": "🥓",
+    "cuisine": "Italian",
+    "time": 25,
+    "costPP": 49,
+    "feel": "The real thing — no cream, ever. Just egg, parmesan and pasta water whipped into a glossy sauce by the heat of the spaghetti itself, with crisp pork and a storm of black pepper.",
+    "goesWith": [
+      "Green salad",
+      "Garlic bread",
+      "Black pepper",
+      "Grated parmesan",
+      "A glass of white"
+    ],
+    "didYouKnow": "Authentic carbonara contains no cream — Romans would be appalled. The creaminess is an illusion made by egg and starchy pasta water whisked together off the heat. The dish only appeared after World War II, possibly when Italian cooks met American soldiers' bacon and eggs.",
+    "nutrition": {
+      "kcal": 680,
+      "protein_g": 30,
+      "carbs_g": 64,
+      "fat_g": 32
+    },
+    "storage": "Carbonara is a fresh-from-the-pan dish — the egg sauce sets if it sits and turns claggy when reheated. Best eaten immediately; not suited to keeping or freezing.",
+    "freezes": false,
+    "fridgeDays": 1,
+    "versions": [
+      {
+        "name": "Roman Classic",
+        "icon": "🏆",
+        "default": true,
+        "time": 25,
+        "costPP": 49,
+        "nutrition": {
+          "kcal": 680,
+          "protein_g": 30,
+          "carbs_g": 64,
+          "fat_g": 32
+        },
+        "feel": "The real thing — no cream, ever. Just egg, parmesan and pasta water whipped into a glossy sauce by the heat of the spaghetti itself, with crisp pork and a storm of black pepper.",
+        "ingredients": [
+          {
+            "n": "spaghetti",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "egg",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "parmesan",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "black pepper",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Get the spaghetti boiling in well-salted water. Fry the chopped bacon slowly until the fat renders and it crisps — no oil needed.",
+          "In a bowl, beat the egg with most of the grated parmesan and a big grind of black pepper into a paste.",
+          "Save a mug of the starchy pasta water, then drain the spaghetti and tip it into the bacon pan, OFF the heat.",
+          "Working fast, pour in the egg mix and toss hard, adding splashes of hot pasta water — the residual heat cooks the egg into a silky sauce. The pan MUST be off the heat or you get scrambled egg.",
+          "Loosen with more pasta water until glossy and serve at once with extra parmesan and pepper."
+        ],
+        "didYouKnow": "Authentic carbonara contains no cream — Romans would be appalled. The creaminess is an illusion made by egg and starchy pasta water whisked together off the heat. The dish only appeared after World War II, possibly when Italian cooks met American soldiers' bacon and eggs."
+      },
+      {
+        "name": "Budget",
+        "icon": "💰",
+        "time": 25,
+        "costPP": 36,
+        "nutrition": {
+          "kcal": 640,
+          "protein_g": 28,
+          "carbs_g": 64,
+          "fat_g": 28
+        },
+        "feel": "The same egg-and-pepper magic with everyday streaky bacon and a little less cheese — proof you don't need fancy ingredients for a restaurant trick.",
+        "ingredients": [
+          {
+            "n": "spaghetti",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "egg",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "parmesan",
+            "pp": 18,
+            "u": "g"
+          },
+          {
+            "n": "black pepper",
+            "pp": 1,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Boil the spaghetti. Fry the chopped bacon slowly until crisp.",
+          "Beat the egg with the parmesan and plenty of black pepper.",
+          "Save a mug of pasta water, drain, and tip the spaghetti into the bacon pan OFF the heat.",
+          "Pour in the egg mix and toss fast with splashes of pasta water until glossy. Serve at once."
+        ],
+        "didYouKnow": "The name comes from \"carbonaro\", Italian for a charcoal burner — one story says it was the hearty food of charcoal workers in the Apennine mountains, and that the heavy black pepper is meant to echo flecks of coal dust."
+      }
+    ]
+  },
   {id:'sp-feta-tomato-pasta', cat:'pastapizza', diet:'veg', protein:'veg', name:'Baked Feta & Tomato Pasta', emoji:'🧀', cuisine:'Mediterranean', time:35, costPP:40,
     feel:'A whole block of feta baked with sweet cherry tomatoes until creamy, then tossed into pasta — the famous viral one.',
     ingredients:[{n:'feta',pp:70,u:'g'},{n:'cherry tomatoes',pp:120,u:'g'},{n:'pasta',pp:90,u:'g'},{n:'garlic',pp:8,u:'g'},{n:'olive oil',pp:15,u:'ml'},{n:'fresh basil',pp:4,u:'g'}],
