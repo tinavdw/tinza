@@ -12908,6 +12908,7 @@ function breakfastHTML(){ return mealSectionHTML('breakfast'); }
 function lightlunchHTML(){ return mealSectionHTML('lightlunch'); }
 function supperHTML(){ return mealSectionHTML('supper'); }
 function bakesHTML(){ return mealSectionHTML('bakes'); }
+function sidesbasicsHTML(){ return mealSectionHTML('sidesbasics'); }
 
 // ── FEEDING MY FAMILY — front door to the 4 everyday-cooking sections (braai v33 template) ──
 function feedingFamilyHTML(){

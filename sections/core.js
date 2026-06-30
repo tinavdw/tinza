@@ -450,6 +450,7 @@ function draw(){
   else if(S.screen==="lightlunch"){ content=lightlunchHTML(); }
   else if(S.screen==="supper"){ content=supperHTML(); }
   else if(S.screen==="bakes"){ content=bakesHTML(); }
+  else if(S.screen==="sidesbasics"){ content=sidesbasicsHTML(); }
   else if(S.screen==="budget"){ content=budgetPlannerHTML(); }
   else if(S.screen==="ingredient"){ content=anchorIngredientHTML(); }
   else if(S.screen==="fourIngredients"){ content=fourIngredientsHTML(); }
