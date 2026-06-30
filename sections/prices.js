@@ -749,6 +749,9 @@ const PRICE_DB = {
   "kasuri methi": 800,             // ESTIMATE — dried fenugreek leaves (~R35/45g), pinch use
   "dried fenugreek": 800,          // = kasuri methi
   "sweet chilli sauce": 55,        // ESTIMATE — ~R28/500ml bottle → R55/L (was unpriced, used in halloumi burger)
+  "oregano": 900,                  // ESTIMATE — dried oregano (~R30/15-20g), pinch use; cf mixed herbs 1111
+  "sour cream": 100,               // ESTIMATE — ~R25/250ml tub → R100/kg
+  "lime": 140,                     // ESTIMATE — ~R10/lime (~70g) → R140/kg (gram use; lime_each handles count)
 };
 
 const MEAT_COSTS = {

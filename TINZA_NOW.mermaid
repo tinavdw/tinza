@@ -1,47 +1,56 @@
 ---
-title: TINZA_NOW — session handoff (29 Jun 2026) — hero re-authors + CURRY EXIT bug fix
+title: TINZA_NOW — handoff (30 Jun 2026) — Fried & Grilled COMPLETE (16/16) + lunch standard locked
 ---
 flowchart TD
 
-  START["SESSION START NEXT TIME<br/>1. Open tinza.netlify.app — TEST the curry exit fix first (see PUSH)<br/>2. Read LIVE repo files before editing (never trust summaries)<br/>3. node --check before every push - GitHub Desktop only<br/>4. meals.js ~836K — batch pushes to save Netlify credits"]:::start
+  START["SESSION START NEXT TIME<br/>1. Open tinza.netlify.app — TEST new Batch B dishes (Sosaties, Peri-Peri, Birria, Boerewors Roll)<br/>2. Read LIVE repo files before editing<br/>3. node --check before every push — GitHub Desktop only<br/>4. meals.js ~847K — batch pushes to save Netlify credits"]:::start
 
   START --> PUSH
-  subgraph PUSH["PUSH STATUS (ONE push, 2 changed files this session)"]
+  subgraph PUSH["PUSH STATUS — 2 changed files this batch"]
     direction TB
-    P1["meals.js — node --check PASS - 283 recipes intact<br/>1 NAV FIX (curry exit) 2 five hero default upgrades 3 super-mash version"]:::push
-    P2["prices.js — +1 entry: kasuri methi 800 (+ dried fenugreek alias)"]:::push
-    P3["packs.js — UNCHANGED this session (already holds last session creamed corn / red curry paste). Push if last batch not yet live."]:::push
-    P4["TEST ON DEVICE after push: open a curry, tap a goesWith pill (Roti/Sambal),<br/>back, back — you should land cleanly on the list, no bounce back into the recipe."]:::push
+    P1["meals.js — node --check PASS · 283 recipes intact · 8 Batch B dishes rebuilt to WOW"]:::push
+    P2["prices.js — node --check PASS · added oregano R900, sour cream R100, lime R140"]:::push
+    P3["core.js / packs.js — UNCHANGED"]:::push
+    P4["TEST: open Cape Malay Lamb Sosaties + Beef Birria Tacos — full method, costs show, no R0."]:::push
   end
 
   PUSH --> DONE
-  subgraph DONE["DONE THIS SESSION"]
+  subgraph DONE["DONE THIS SESSION — FRIED & GRILLED BATCH B (8/8) ✅ section now 16/16"]
     direction TB
-    D1["CURRY EXIT BUG FIXED (meals.js, no core.js change needed):<br/>meal recipes closed via setQuiet mealActiveRecipe:null which pushed a NEW history<br/>entry, so hardware/swipe back bounced you back INTO the recipe. Worst on curries<br/>(most goesWith cross-links). New closeMealRecipe() CONSUMES the entry via history.back()<br/>(mirrors closeRecipe). openMealRecipe now persists list scroll onto the leaving entry."]:::done
-    D2["5 HERO default versions re-authored to reference grade (kept Budget/alt versions):<br/>Steak Bites — Cowboy butter + cheddar mash; Stroganoff — caramelised onion/brandy/nutmeg/dill;<br/>Butter Chicken — fuller spicing + kasuri methi; Lamb and Guinness — bacon + tomato-paste base + herb bundle;<br/>Chicken Alfredo — was bare: now seasoned chicken + nutmeg + parsley"]:::done
-    D3["SUPER MASH to Sides and Basics: new 6th version on sb-mash —<br/>Roasted Garlic and Cheddar (whole roasted head + cream + white cheddar)"]:::done
-    D4["All new ingredients validated, 0 R0 holes; only kasuri methi needed adding"]:::done
+    D1["Researched + authored to WOW: Crispy Fish Cakes (caper tartare) · Sizzling Beef Fajitas · Cheesy Chicken Quesadillas · Loaded Chilli Dogs"]:::done
+    D2["Boerewors Roll & Tomato Smoor · Peri-Peri Flame-Grilled Chicken (spatchcock, reserve-half sauce) · Cape Malay Lamb Sosaties (cooked apricot-curry marinade) · Beef Birria Tacos / Quesabirria (guajillo-ancho adobo, skim chile-fat)"]:::done
+    D3["Vague spice KILLED in friedgrilled: fajita spice / taco spice (quesadilla) / chilli spice → real named blends (cumin, smoked paprika, oregano, cayenne...)"]:::done
+    D4["Earlier: Egg Salad standard LOCKED — Budget = current; WOW = Smoky Deviled Egg Salad. This is the bar for ALL of lunch."]:::done
   end
 
-  DONE --> NEXT
+  DONE --> STD
+  subgraph STD["LOCKED — STANDARDS IN PLAY"]
+    direction TB
+    S1["WOW = default version: researched, why-led, named spices, salt+pepper each stage, Did-You-Know + How-This-Feels + tip. Budget may stay plain/honest."]:::lock
+    S2["LUNCH STANDARD (new): every dish gets options + a premium WOW main, 'best unusual tastiest' bar. Even 3-4 ingredient salads get an elevated version people pay to unlock."]:::lock
+    S3["PIPELINE: author → node --check → coverage vs PRICE_DB (engine strips hyphens→spaces, K-in-N substring) → brace-splice by id → re-validate → present."]:::lock
+  end
+
+  STD --> NEXT
   subgraph NEXT["NEXT UP"]
     direction TB
-    N1["FRIED and GRILLED premium lift — 16 dishes, all 4-step/no-version (the one real thin block).<br/>Batch A: Smash Burger, Buttermilk FC, Korean FC, Schnitzel, Gatsby, Pulled Pork, Halloumi-Avo, Tofu Burger.<br/>Batch B: Fish Cakes, Chilli Dogs, Fajitas, Sosaties, Quesadillas, Peri-Peri, Boerewors Roll, Birria."]:::next
-    N2["KILL taco spice in ONE sweep (16 instances): Tex-Mex Beef Bowl + Fajitas/Quesadillas/Birria to real named spices."]:::next
-    N3["Optional: wire steak-bites goesWith to the new Roasted Garlic and Cheddar mash (needs the Sides cross-link unlock, K1)."]:::next
+    N1["FINISH taco-spice sweep (4 left): sp-texmex-beef-bowl (plates, base+4 versions) · ln-taco-salad · ln-chicken-quesadilla · verify sp-chilli-con-carne (text mention only)."]:::next
+    N2["LUNCH premium pass — go through ALL: salads (egg/chicken-mayo/greek), handhelds, etc. Budget + WOW versions. Build WOW Smoky Deviled Egg Salad first as the template."]:::next
+    N3["BREAKFAST — same treatment: WOW + normal versions across all dishes."]:::next
   end
 
   NEXT --> PARK
-  subgraph PARK["PARKED / INFRA TO-DOS"]
+  subgraph PARK["PARKED / AFTER FMF JAZZ"]
     direction TB
-    K1["Sides cross-links: build RECIPE_BUILDERS.meals so openRecipe meals,id RENDERS an FMF side, goesWith pills open properly"]:::park
-    K2["Deeper sameness: migrate FMF recipeDetailFromResult onto shared core.js renderer (prevents the nav-divergence bug class)"]:::park
-    K3["BAKES + LIGHTLUNCH salads quality pass — premium WOW salads need research"]:::park
-    K4["Older: Toum straggler (wk_africa.js ~132 rename), Photo Studio regen, Kiddies sweeps"]:::park
+    K1["SAMENESS pass — once FMF is jazzed (Tina: kill 2 flies — jazz then sameness). Migrate FMF recipeDetailFromResult onto shared core.js renderer."]:::park
+    K2["CAKES & BAKES in FMF — WOW + normal versions."]:::park
+    K3["Wire Mash into sp-steak-bites-mash goesWith; Cucumber Raita + Geelrys recipes then flip GOESWITH_LINKS."]:::park
+    K4["Older: Toum straggler (wk_africa.js ~132), Photo Studio regen, Kiddies sweeps."]:::park
   end
 
   classDef start fill:#fff3e0,stroke:#d98a2b,stroke-width:2px,color:#2c211a;
   classDef done fill:#eef3d8,stroke:#46530c,stroke-width:1px,color:#2c211a;
   classDef push fill:#fde0d8,stroke:#b5462b,stroke-width:2px,color:#2c211a;
+  classDef lock fill:#f3e9d2,stroke:#876213,stroke-width:1px,color:#2c211a;
   classDef next fill:#fffaf2,stroke:#6b5849,stroke-width:1px,color:#2c211a;
   classDef park fill:#f7ebdc,stroke:#e9dac6,stroke-width:1px,color:#6b5849;
