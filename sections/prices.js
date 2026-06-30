@@ -498,6 +498,9 @@ const PRICE_DB = {
   "pink colouring": 15,       // = food colouring (R15/40ml bottle, tiny amounts)
   "sausage": 130,             // sausage-roll filling / sausage meat (≈ boerewors)
   "cocktail sausage": 180,    // R135/750g → R180/kg (braai-able, NOT viennas)
+  "tartare sauce": 300,       // 1 Jul · R47.99/160g → R300/kg (jarred) — own key, NOT cream of tartar
+  "plant-based sausage": 140, // 1 Jul · Fry's Frozen Braai Sausages 380g R52.99 → ~R140/kg (meat-free/veg dogs)
+  "plant-based sausages": 140,
   "english muffins": 55,      // interim — placeholder pizzas, to be swapped to Finger Foods mini-pizzas
   "cold water": 0,            // free
   "hot water": 0,             // free

@@ -678,6 +678,14 @@ var PRICE_ALIAS = {  // ── loose-ends alias pass (26 Jun): broths→stock, b
   "oil": "sunflower oil",
   "cooking oil": "sunflower oil",
   "oil for deep frying": "sunflower oil",
+
+  // ── 1 Jul · SUPPER versions — truthful display names → priced keys ──
+  "meat free sausages": "plant-based sausage",   // veg wors roll / bean chilli dogs (priceClean drops the hyphen)
+  "meat free sausage": "plant-based sausage",
+  "soya boerewors": "plant-based sausage",
+  "veg dogs": "plant-based sausage",
+  "instant mash": "potatoes",                    // budget convenience; cross-links to sb-mash
+  "oven chips": "slap chips",                     // budget convenience; cross-links to sb-chips
   "oil for browning": "sunflower oil",
   "neutral oil": "sunflower oil",
   "neutral oil sunflower or grapeseed 70": "sunflower oil",
@@ -2339,12 +2347,25 @@ var GOESWITH_LINKS = {
   'pizza sauce':                "openRecipe('meals','sb-napoletana-sauce')",
   'mash':                       "openRecipe('meals','sb-mash')",
   'creamy mash':                "openRecipe('meals','sb-mash')",
+  'chips':                      "openRecipe('meals','sb-chips')",
+  'slap chips':                 "openRecipe('meals','sb-chips')",
+  'oven chips':                 "openRecipe('meals','sb-chips')",
+  'tartare':                    "openSpiceRecipe('tartare-sauce')",
+  'tartare sauce':              "openSpiceRecipe('tartare-sauce')",
   'pizza dough':                "openRecipe('meals','sb-pizza-dough')"
 };
 var INGREDIENT_LINKS = {
   'garlic-ginger paste': "openSpiceRecipe('ginger-garlic-paste')",
   'ginger-garlic paste': "openSpiceRecipe('ginger-garlic-paste')",
-  'basil pesto':         "openSpiceRecipe('basil-pesto')"
+  'basil pesto':         "openSpiceRecipe('basil-pesto')",
+  // ── 1 Jul · SUPPER versions — "make your own" links to component recipes ──
+  'tartare sauce':       "openSpiceRecipe('tartare-sauce')",
+  'tartare':             "openSpiceRecipe('tartare-sauce')",
+  'instant mash':        "openRecipe('meals','sb-mash')",
+  'mash':                "openRecipe('meals','sb-mash')",
+  'oven chips':          "openRecipe('meals','sb-chips')",
+  'slap chips':          "openRecipe('meals','sb-chips')",
+  'chips':               "openRecipe('meals','sb-chips')"
 };
 function crossLinkFor(map, label){
   if(!map || label==null) return null;

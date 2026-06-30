@@ -1,52 +1,62 @@
----
-title: TINZA_NOW — handoff (30 Jun 2026) — Pasta & Pizza fully WOW · Back button fixed
----
+%% TINZA_NOW — session state  |  1 July 2026
+%% Session: SUPPER versions (Budget/Quick/Veg) + truthful names, real prices, cross-links
 flowchart TD
-  START["NEXT SESSION START<br/>1. Open tinza.netlify.app — confirm what works<br/>2. Read LIVE repo files first · Code now also edits meals.js, so re-sync before chat-Claude edits<br/>3. node --check before every push · GitHub Desktop · batch into ONE push"]:::start
 
-  START --> PUSH
-  subgraph PUSH["PUSH STATUS"]
-    direction TB
-    P1["meals.js — node --check PASS · 283 recipes · 5 Pasta & Pizza default versions lifted to WOW"]:::push
-    P2["ALREADY LIVE (pushed earlier today): core.js back-button fix (Option B, mealCat in navSignature) + meals.js name-reverts (photos match again)"]:::push
-    P3["TEST after deploy: hard-refresh (Ctrl+Shift+R), open Cajun Pasta + Pumpkin Sage Rigatoni — full method + tip, costs show."]:::push
+  START([Start: tinza.netlify.app — confirm what works])
+
+  subgraph DONE["✅ DONE THIS SESSION — validated, ONE push"]
+    D1["20 SUPPER dishes get version chips<br/>16 Fried&Grilled + 4 Oven Bakes · 57 new versions"]
+    D2["🏆 default = bare fall-through → LIVE WOW UNTOUCHED<br/>Roast Beef · Pork Belly · Stuffed Chicken kept live (byte-identical)"]
+    D3["Costed with REAL engine · R14–R48 · 0 missing · 0 unpriced<br/>fixed paren-hint parse bug (250g→50g crumbs) · all names lowercased"]
+    D4["TRUTHFUL NAMES + REAL PRICES (No 1 fixed your way):<br/>• meat-free sausages → R140/kg (Fry's Braai 380g R52.99)<br/>• tartare sauce → R300/kg (R47.99/160g)<br/>• instant mash → R270/kg DRY (Smash 104g R27.99) + box pack;<br/>  made-up→dry ÷6 (30g flakes:150ml water), water in method<br/>no more 'boerewors' inside 🥦 versions"]
+    D5["CROSS-LINKS wired (INGREDIENT_LINKS + GOESWITH_LINKS):<br/>• tartare sauce → new Tartare recipe (Spice › Sauces)<br/>• mash / instant mash → sb-mash (Sides & Basics)<br/>• chips / oven chips / slap chips → sb-chips (Sides & Basics)"]
+    D6["NEW RECIPE: Tartare Sauce (Spice › Sauces, makeYourOwn, costs honestly)"]
+    D1-->D2-->D3-->D4-->D5-->D6
   end
 
-  PUSH --> DONE
-  subgraph DONE["DONE THIS SESSION"]
-    direction TB
-    D1["✅ Back button FIXED across all 5 meal sections (Code, Option B)."]:::done
-    D2["✅ Photo-match bug fixed — 5 renamed recipes reverted to original names so son's photos show. (Photos match by NAME, not id — key lesson.)"]:::done
-    D3["✅ Pasta & Pizza spag-bol treatment COMPLETE — 5 thin defaults lifted (Tuna Bake, Pesto Chicken, Cajun, Baked Feta, Pumpkin-Sage). 'Cajun spice' → real named blend. All 23 now WOW."]:::done
-    D4["✅ Laptop sorted — OneDrive was full (277 personal photos); tinza folder is safely in Documents/GitHub/tinza, NOT in OneDrive."]:::done
+  subgraph PUSH["⬆️ TO PUSH — 4 files, ONE commit (your workflow)"]
+    P1["sections/meals.js  (the 20 version chips)"]
+    P2["sections/prices.js (tartare · plant-based sausage · instant mash)"]
+    P2b["sections/packs.js  (instant mash box R27.99)"]
+    P3["sections/core.js   (PRICE_ALIAS + INGREDIENT_LINKS + GOESWITH_LINKS)"]
+    P4["sections/spice.js  (Tartare Sauce recipe)"]
+    P5["node --check each → commit all together → push"]
+    P1-->P2-->P2b-->P3-->P4-->P5
   end
 
-  DONE --> SUPPER
-  subgraph SUPPER["SUPPER SCOREBOARD"]
-    direction TB
-    S1["✅ Plates 13/13 · ✅ Stews & Curries 18/18 · ✅ Pasta & Pizza 23/23 · ✅ Fried & Grilled 16/16 WOW"]:::lock
-    S2["⏳ Fried & Grilled — need Budget/Veg/Quick VERSIONS (WOW done, single version only)"]:::next
-    S3["⏳ Oven Bakes — 4 stragglers need versions + WOW content"]:::next
+  subgraph FU["🔧 FOLLOW-UPS (parked, your call)"]
+    F1["No 3 — 4 OB draft-WOW UPGRADES still parked:<br/>Med Fish · Honey-Mustard · Thai Peanut · Roasted Veg.<br/>Live top-level WOW kept; apply upgrade only if you want."]
+    F2["PER-VERSION NUTRITION: B/Q/V inherit the dish's top-level macros.<br/>Optional nutrition pass = good Claude Code job."]
+    F3["Minor proxy names left as sensible buy-items (per your standard):<br/>cheese slices→cheddar · rotisserie chicken→chicken breast ·<br/>frozen stir-fry mix→mixed veg. Flag if you want them changed."]
+    F4["Confirm: plant-based sausage R140/kg (Fry's Braai 380g) · instant mash dry R270/kg (Smash Garlic Butter 104g R27.99)."]
+    F5["Bangers & Mash (sp-bangers-mash, already LIVE) — natural home for a<br/>plant-based-sausage veg version when wanted (not touched today)."]
   end
 
-  SUPPER --> NEXT
-  subgraph NEXT["ROADMAP ORDER (Tina's plan)"]
-    direction TB
-    N1["1. WOW + spag-bol treatment — finish remaining food (supper stragglers, then LUNCH, then BREAKFAST). Egg-salad standard locked: Budget=simple, WOW=Smoky Deviled Egg Salad (build this as lunch template)."]:::next
-    N2["2. SAMENESS pass (after jazzing). 3. Rest of recipe sections: World Kitchen, Global Braai, Spice, Celebration Cakes. 4. Features: planner, opening page, website."]:::next
-    N3["Taco-spice still to kill: sp-texmex-beef-bowl (plates, base+4 versions) · ln-taco-salad · ln-chicken-quesadilla (lunch) — fold into lunch sweep."]:::next
+  subgraph ROAD["🗺️ ROADMAP after this push"]
+    R1["LUNCH sweep — egg-salad · Hummus&Veg Wrap · taco-spice dupes"]
+    R2["BREAKFAST pass"]
+    R3["FMF — Cakes · Bakes · Breads"]
+    R4["SAMENESS pass (openers: Spice · Cakes · FMF)"]
+    R5["SEASONING SWEEP (Claude Code, report-only first)"]
+    R6["BUG-SWEEP — B1 price resolver silent R0 · B2 unit guard / quote-escape"]
+    R1-->R2-->R3-->R4-->R5-->R6
   end
 
-  NEXT --> BUGS
-  subgraph BUGS["CODE BUG-SWEEP — report only, awaiting decisions"]
-    direction TB
-    B1["🟠 Price resolver: silent R0 on some compound ingredients (longest-substring mis-match). Worth a proper fix — honest costing is core."]:::park
-    B2["🟡 core.js:3019 unit parser missing guard · 🟡 versionStripHTML quote-escaping · 🟢 3 orphaned files (bakes_additions, wk_europe_germany, wk_europe_nireland) · 🟢 SAVOURY_PLATTERS stale dupe in events.js · 🟢 one console.log in worldkitchen.js"]:::park
-  end
+  START-->DONE-->PUSH-->FU-->ROAD
 
-  classDef start fill:#fff3e0,stroke:#d98a2b,stroke-width:2px,color:#2c211a;
-  classDef done fill:#eef3d8,stroke:#46530c,stroke-width:1px,color:#2c211a;
-  classDef push fill:#fde0d8,stroke:#b5462b,stroke-width:2px,color:#2c211a;
-  classDef lock fill:#f3e9d2,stroke:#876213,stroke-width:1px,color:#2c211a;
-  classDef next fill:#fffaf2,stroke:#6b5849,stroke-width:1px,color:#2c211a;
-  classDef park fill:#f7ebdc,stroke:#e9dac6,stroke-width:1px,color:#6b5849;
+  subgraph PARK["🅿️ PARKED / small"]
+    K1["404: Images/Image header / feedfamily.jpg — case check"]
+    K2["index.html line 65 * font-family override — v38 leftover"]
+    K3["Roast Beef card placeholder emoji — needs real photo"]
+    K4["Video→Recipe feature idea (later)"]
+  end
+  FU-.->PARK
+
+  subgraph RULES["🔒 LOCKED"]
+    L1["WOW: 🏆 default researched/beginner-proof/real spices/salt+pepper each stage · B/Q may stay plain"]
+    L2["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase)"]
+    L3["COSTING: 0 unpriced · green #46530c food cost · gold #876213 shop-spend"]
+    L4["STABILITY: node --check before push · ONE push/session · match braai v33"]
+    L5["Cross-links via shared INGREDIENT_LINKS / GOESWITH_LINKS only · child+grandma readable"]
+    L6["VEG/VEGAN PROTEIN STANDARD: prefer HOMEMADE lentil/veg patties & sausages.<br/>Shop-bought plant-based sausages (Fry's etc.) ONLY for format dishes —<br/>hot dogs · boerewors rolls · bangers & mash · similar exceptions."]
+  end

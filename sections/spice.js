@@ -1303,6 +1303,34 @@ var SPICE_DB = [
   },
 
   {
+    id: "tartare-sauce",
+    name: "Tartare Sauce",
+    type: "sauce",
+    shelf: "sauces",
+    region: "Fish-shop classic",
+    flavourChips: ["Tangy", "Creamy", "Fresh"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
+      ingredients: [
+        { qty:120, unit:"g", name:"mayonnaise" },
+        { qty:40, unit:"g", name:"gherkins" },
+        { qty:15, unit:"g", name:"capers" },
+        { qty:20, unit:"g", name:"onion" },
+        { qty:0.5, unit:"each", name:"lemon" },
+        { qty:5, unit:"g", name:"parsley" },
+        { qty:5, unit:"g", name:"mustard" },
+        { qty:1, unit:"g", name:"black pepper" }
+      ],
+      method: "Finely chop the gherkins, capers, onion and parsley. Stir them through the mayonnaise with a teaspoon of mustard, a good squeeze of lemon and a grind of black pepper. Taste, and add more lemon if you want it sharper. Rest it for 10 minutes before serving so the flavours come together — perfect with crumbed fish, fish cakes or hot chips."
+    },
+    pairsWith: ["fish cakes", "crumbed fish", "calamari", "hot chips", "schnitzel"],
+    aliases: ["tartare sauce", "tartar sauce", "tartare"],
+    story: "The fish-shop staple — mayonnaise sharpened with gherkins, capers and lemon. A real homemade tartare costs a fraction of the jarred kind and tastes alive next to it.",
+    howThisFeels: ""
+  },
+
+  {
     id: "mushroom-sauce",
     name: "Creamy Mushroom Sauce",
     type: "sauce",

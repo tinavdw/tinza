@@ -59,6 +59,7 @@ const PACK_DB = {
   "icing sugar":       { size: 500 },
   "castor sugar":      { size: 500 },
   "cornflour":         { size: 250 },
+  "instant mash":      { size: 104, price: 27.99 },  // 1 Jul · Smash Garlic Butter 104g R27.99
   "almond flour":      { size: 300 },
   "semolina":          { size: 500 },
   "baking powder":     { size: 200 },
