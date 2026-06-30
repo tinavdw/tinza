@@ -1,51 +1,47 @@
 ---
-title: TINZA_NOW — handoff (30 Jun 2026) — Fried & Grilled COMPLETE (16/16) + lunch standard locked
+title: TINZA_NOW — handoff (30 Jun 2026) — Pasta & Pizza fully WOW · Back button fixed
 ---
 flowchart TD
-
-  START["SESSION START NEXT TIME<br/>1. Open tinza.netlify.app — TEST new Batch B dishes (Sosaties, Peri-Peri, Birria, Boerewors Roll)<br/>2. Read LIVE repo files before editing<br/>3. node --check before every push — GitHub Desktop only<br/>4. meals.js ~847K — batch pushes to save Netlify credits"]:::start
+  START["NEXT SESSION START<br/>1. Open tinza.netlify.app — confirm what works<br/>2. Read LIVE repo files first · Code now also edits meals.js, so re-sync before chat-Claude edits<br/>3. node --check before every push · GitHub Desktop · batch into ONE push"]:::start
 
   START --> PUSH
-  subgraph PUSH["PUSH STATUS — 2 changed files this batch"]
+  subgraph PUSH["PUSH STATUS"]
     direction TB
-    P1["meals.js — node --check PASS · 283 recipes intact · 8 Batch B dishes rebuilt to WOW"]:::push
-    P2["prices.js — node --check PASS · added oregano R900, sour cream R100, lime R140"]:::push
-    P3["core.js / packs.js — UNCHANGED"]:::push
-    P4["TEST: open Cape Malay Lamb Sosaties + Beef Birria Tacos — full method, costs show, no R0."]:::push
+    P1["meals.js — node --check PASS · 283 recipes · 5 Pasta & Pizza default versions lifted to WOW"]:::push
+    P2["ALREADY LIVE (pushed earlier today): core.js back-button fix (Option B, mealCat in navSignature) + meals.js name-reverts (photos match again)"]:::push
+    P3["TEST after deploy: hard-refresh (Ctrl+Shift+R), open Cajun Pasta + Pumpkin Sage Rigatoni — full method + tip, costs show."]:::push
   end
 
   PUSH --> DONE
-  subgraph DONE["DONE THIS SESSION — FRIED & GRILLED BATCH B (8/8) ✅ section now 16/16"]
+  subgraph DONE["DONE THIS SESSION"]
     direction TB
-    D1["Researched + authored to WOW: Crispy Fish Cakes (caper tartare) · Sizzling Beef Fajitas · Cheesy Chicken Quesadillas · Loaded Chilli Dogs"]:::done
-    D2["Boerewors Roll & Tomato Smoor · Peri-Peri Flame-Grilled Chicken (spatchcock, reserve-half sauce) · Cape Malay Lamb Sosaties (cooked apricot-curry marinade) · Beef Birria Tacos / Quesabirria (guajillo-ancho adobo, skim chile-fat)"]:::done
-    D3["Vague spice KILLED in friedgrilled: fajita spice / taco spice (quesadilla) / chilli spice → real named blends (cumin, smoked paprika, oregano, cayenne...)"]:::done
-    D4["Earlier: Egg Salad standard LOCKED — Budget = current; WOW = Smoky Deviled Egg Salad. This is the bar for ALL of lunch."]:::done
+    D1["✅ Back button FIXED across all 5 meal sections (Code, Option B)."]:::done
+    D2["✅ Photo-match bug fixed — 5 renamed recipes reverted to original names so son's photos show. (Photos match by NAME, not id — key lesson.)"]:::done
+    D3["✅ Pasta & Pizza spag-bol treatment COMPLETE — 5 thin defaults lifted (Tuna Bake, Pesto Chicken, Cajun, Baked Feta, Pumpkin-Sage). 'Cajun spice' → real named blend. All 23 now WOW."]:::done
+    D4["✅ Laptop sorted — OneDrive was full (277 personal photos); tinza folder is safely in Documents/GitHub/tinza, NOT in OneDrive."]:::done
   end
 
-  DONE --> STD
-  subgraph STD["LOCKED — STANDARDS IN PLAY"]
+  DONE --> SUPPER
+  subgraph SUPPER["SUPPER SCOREBOARD"]
     direction TB
-    S1["WOW = default version: researched, why-led, named spices, salt+pepper each stage, Did-You-Know + How-This-Feels + tip. Budget may stay plain/honest."]:::lock
-    S2["LUNCH STANDARD (new): every dish gets options + a premium WOW main, 'best unusual tastiest' bar. Even 3-4 ingredient salads get an elevated version people pay to unlock."]:::lock
-    S3["PIPELINE: author → node --check → coverage vs PRICE_DB (engine strips hyphens→spaces, K-in-N substring) → brace-splice by id → re-validate → present."]:::lock
+    S1["✅ Plates 13/13 · ✅ Stews & Curries 18/18 · ✅ Pasta & Pizza 23/23 · ✅ Fried & Grilled 16/16 WOW"]:::lock
+    S2["⏳ Fried & Grilled — need Budget/Veg/Quick VERSIONS (WOW done, single version only)"]:::next
+    S3["⏳ Oven Bakes — 4 stragglers need versions + WOW content"]:::next
   end
 
-  STD --> NEXT
-  subgraph NEXT["NEXT UP"]
+  SUPPER --> NEXT
+  subgraph NEXT["ROADMAP ORDER (Tina's plan)"]
     direction TB
-    N1["FINISH taco-spice sweep (4 left): sp-texmex-beef-bowl (plates, base+4 versions) · ln-taco-salad · ln-chicken-quesadilla · verify sp-chilli-con-carne (text mention only)."]:::next
-    N2["LUNCH premium pass — go through ALL: salads (egg/chicken-mayo/greek), handhelds, etc. Budget + WOW versions. Build WOW Smoky Deviled Egg Salad first as the template."]:::next
-    N3["BREAKFAST — same treatment: WOW + normal versions across all dishes."]:::next
+    N1["1. WOW + spag-bol treatment — finish remaining food (supper stragglers, then LUNCH, then BREAKFAST). Egg-salad standard locked: Budget=simple, WOW=Smoky Deviled Egg Salad (build this as lunch template)."]:::next
+    N2["2. SAMENESS pass (after jazzing). 3. Rest of recipe sections: World Kitchen, Global Braai, Spice, Celebration Cakes. 4. Features: planner, opening page, website."]:::next
+    N3["Taco-spice still to kill: sp-texmex-beef-bowl (plates, base+4 versions) · ln-taco-salad · ln-chicken-quesadilla (lunch) — fold into lunch sweep."]:::next
   end
 
-  NEXT --> PARK
-  subgraph PARK["PARKED / AFTER FMF JAZZ"]
+  NEXT --> BUGS
+  subgraph BUGS["CODE BUG-SWEEP — report only, awaiting decisions"]
     direction TB
-    K1["SAMENESS pass — once FMF is jazzed (Tina: kill 2 flies — jazz then sameness). Migrate FMF recipeDetailFromResult onto shared core.js renderer."]:::park
-    K2["CAKES & BAKES in FMF — WOW + normal versions."]:::park
-    K3["Wire Mash into sp-steak-bites-mash goesWith; Cucumber Raita + Geelrys recipes then flip GOESWITH_LINKS."]:::park
-    K4["Older: Toum straggler (wk_africa.js ~132), Photo Studio regen, Kiddies sweeps."]:::park
+    B1["🟠 Price resolver: silent R0 on some compound ingredients (longest-substring mis-match). Worth a proper fix — honest costing is core."]:::park
+    B2["🟡 core.js:3019 unit parser missing guard · 🟡 versionStripHTML quote-escaping · 🟢 3 orphaned files (bakes_additions, wk_europe_germany, wk_europe_nireland) · 🟢 SAVOURY_PLATTERS stale dupe in events.js · 🟢 one console.log in worldkitchen.js"]:::park
   end
 
   classDef start fill:#fff3e0,stroke:#d98a2b,stroke-width:2px,color:#2c211a;
