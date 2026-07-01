@@ -10,7 +10,7 @@
 var BUDGET_FLOOR_RECIPES = [
 
   { id:'bf-mince-lentil-curry', tier:'floor', basic:true, cat:'stewscurries', diet:'meat', protein:'beef',
-    name:'Mince & Lentil Curry', emoji:'🍛', cuisine:'End-of-month', time:40, costPP:14,
+    name:'Mince & Lentil Curry', emoji:'🍛', cuisine:'End-of-month', time:40, costPP:14, goesWith:['Rice','Pap','Roti','Sambal'],
     feel:'A little mince stretched a long way with brown lentils and grated carrot — you get the meaty, curried richness with half the meat, and nobody at the table is any the wiser.',
     ingredients:[
       {n:'beef mince',pp:40,u:'g'},
@@ -32,7 +32,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'Swapping about a quarter of your mince for cooked brown lentils is the classic stretch — they are cheap, high in protein and fibre, and blend into a curry so well the meat lovers never notice.' },
 
   { id:'bf-vetkoek-curried-mince', tier:'floor', basic:true, cat:'plates', diet:'meat', protein:'beef',
-    name:'Vetkoek & Curried Mince', emoji:'🍞', cuisine:'End-of-month', time:75, costPP:13,
+    name:'Vetkoek & Curried Mince', emoji:'🍞', cuisine:'End-of-month', time:75, costPP:13, goesWith:['Grated cheddar','Atchar','Simple side salad'],
     feel:'Golden, puffed vetkoek split open and stuffed with curried mince — the smell of it frying is payday-Friday joy on any budget, and it feeds a whole table for next to nothing.',
     ingredients:[
       {n:'cake flour',pp:65,u:'g'},
@@ -55,7 +55,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'Vetkoek — "fat cake" — is one of South Africa\u2019s great budget foods: a little flour and a little mince turned into a meal that feels like a treat.' },
 
   { id:'bf-curried-pilchard-stew', tier:'floor', basic:true, cat:'stewscurries', diet:'meat', protein:'fish',
-    name:'Curried Pilchard Stew', emoji:'🐟', cuisine:'End-of-month', time:40, costPP:14,
+    name:'Curried Pilchard Stew', emoji:'🐟', cuisine:'End-of-month', time:40, costPP:14, goesWith:['Rice','Pap','White bread','Tomato & onion'],
     feel:'Tinned pilchards in their own tomato sauce, curried down with sweet grated carrot over a mountain of stiff pap — the honest end-of-month supper that still fills every plate.',
     ingredients:[
       {n:'tinned pilchards',pp:100,u:'g'},
@@ -75,7 +75,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'SA pilchards come tinned in their own tomato sauce, so half your gravy is already made — cheaper than tuna and just as rich in omega-3.' },
 
   { id:'bf-sugar-bean-samp', tier:'floor', basic:true, cat:'stewscurries', diet:'veg',
-    name:'Sugar Bean Samp', emoji:'🫘', cuisine:'End-of-month', time:90, costPP:10,
+    name:'Sugar Bean Samp', emoji:'🫘', cuisine:'End-of-month', time:90, costPP:10, goesWith:['Chakalaka','Atchar','Grated cheddar','Fried onion'],
     feel:'Samp and beans cooked slow until creamy — the cheapest, most filling pot in the country, and pure comfort on a cold night.',
     ingredients:[
       {n:'samp',pp:125,u:'g'},
@@ -92,7 +92,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'The starch that makes samp go creamy is the same thing that makes it so filling — a little goes a long way.' },
 
   { id:'bf-soya-mince-cabbage', tier:'floor', basic:true, cat:'stewscurries', diet:'veg',
-    name:'Soya Mince & Cabbage', emoji:'🥬', cuisine:'End-of-month', time:35, costPP:14,
+    name:'Soya Mince & Cabbage', emoji:'🥬', cuisine:'End-of-month', time:35, costPP:14, goesWith:['Pap','Rice','White bread'],
     feel:'Soya mince fried down with shredded cabbage until it doubles in the pan — meaty, savoury and meat-free, over pap.',
     ingredients:[
       {n:'soya mince',pp:50,u:'g'},
@@ -110,7 +110,7 @@ var BUDGET_FLOOR_RECIPES = [
     ] },
 
   { id:'bf-lentil-meatball-gravy', tier:'floor', basic:true, cat:'stewscurries', diet:'veg',
-    name:'Lentil "Meatball" Gravy', emoji:'🟤', cuisine:'End-of-month', time:50, costPP:12,
+    name:'Lentil "Meatball" Gravy', emoji:'🟤', cuisine:'End-of-month', time:50, costPP:12, goesWith:['Mashed potato','Rice','Pap','Peas'],
     feel:'Brown lentils mashed with a little flour into soft balls, browned and simmered in an onion gravy — a proper meat-free stew that eats like a meaty one.',
     ingredients:[
       {n:'brown lentils',pp:63,u:'g'},
@@ -129,7 +129,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'Lentils are one of the cheapest proteins you can buy, and mashed with a little flour they hold together just like a meatball.' },
 
   { id:'bf-peanut-spinach-rice', tier:'floor', basic:true, cat:'plates', diet:'veg',
-    name:'Peanut Butter Spinach & Rice', emoji:'🥜', cuisine:'End-of-month', time:30, costPP:13,
+    name:'Peanut Butter Spinach & Rice', emoji:'🥜', cuisine:'End-of-month', time:30, costPP:13, goesWith:['Fried egg','Chilli & onion','Atchar'],
     feel:'Spinach stewed down with a spoon of peanut butter until rich and glossy, over rice — a traditional dish that quietly packs in protein and iron.',
     ingredients:[
       {n:'spinach',pp:80,u:'g'},
@@ -147,7 +147,7 @@ var BUDGET_FLOOR_RECIPES = [
     didYouKnow:'Greens cooked with peanuts or peanut butter is eaten right across the continent — the fat helps your body take up the iron in the spinach.' },
 
   { id:'bf-double-bean-curry', tier:'floor', basic:true, cat:'stewscurries', diet:'veg',
-    name:'Double Bean Curry', emoji:'🫘', cuisine:'End-of-month', time:25, costPP:14,
+    name:'Double Bean Curry', emoji:'🫘', cuisine:'End-of-month', time:25, costPP:14, goesWith:['Rice','Roti','Pap','Sambal'],
     feel:'Two kinds of beans in one quick curry — soft butter beans and saucy baked beans — over rice, on the table in twenty-odd minutes.',
     ingredients:[
       {n:'baked beans',pp:100,u:'g'},
@@ -165,7 +165,7 @@ var BUDGET_FLOOR_RECIPES = [
     ] },
 
   { id:'bf-egg-potato-curry', tier:'floor', basic:true, cat:'stewscurries', diet:'veg',
-    name:'Egg & Potato Curry', emoji:'🥚', cuisine:'End-of-month', time:35, costPP:12,
+    name:'Egg & Potato Curry', emoji:'🥚', cuisine:'End-of-month', time:35, costPP:12, goesWith:['Rice','Roti','White bread','Sambal'],
     feel:'Halved boiled eggs simmered in a soft potato curry over pap — cheap protein made to feel like a proper Sunday.',
     ingredients:[
       {n:'eggs',pp:1,u:'egg'},

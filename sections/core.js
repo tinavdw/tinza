@@ -349,7 +349,13 @@ function bottomBarGo(screen){
 }
 
 function goBack(){
-  if(typeof S!=='undefined' && S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
+  if(typeof S!=='undefined'){
+    // Section detail views not yet on the universal viewingRecipe path close the OPEN
+    // detail (return to that section's own list) rather than popping browser history —
+    // which could otherwise land on an unrelated screen like FMF. (3 Jul back-nav fix)
+    if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
+    if(S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
+  }
   try{ history.back(); }catch(_e){}
 }
 
