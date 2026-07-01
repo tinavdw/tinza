@@ -1,3 +1,8 @@
+// Fix: same out-of-scope `r` bug as mood — read from state by baked-in index.
+function budgetTogglePlan(i){
+  var r=(S._budgetResults||[])[i]; if(!r) return;
+  togglePlanItem('budgetPlan',{id:r.id,name:r.name||'',emoji:r.emoji||'💰',time:r.time||0,costPP:r.costPP||0,ingredients:r.ingredients||[],nutrition:r.nutrition||null,serves:1});
+}
 function budgetPlannerHTML(){
   const budget = parseFloat(S.budgetAmount||0);
   const people = parseInt(S.budgetPeople||4);
@@ -135,7 +140,7 @@ function budgetPlannerHTML(){
         </div>
         ${results.map((r,i)=>`
           <div style="background:${isPlanItem('budgetPlan',r.id)?bg:'#161210'};border:1px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a1a10'};border-radius:10px;padding:12px;margin-bottom:6px;">
-            <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="(function(){const pi={id:r.id,name:r.name,emoji:r.emoji||'💰',time:r.time||0,costPP:r.costPP,ingredients:r.ingredients||[],serves:1};togglePlanItem('budgetPlan',pi);})()">
+            <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="budgetTogglePlan(${i})">
               <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('budgetPlan',r.id)?color:'transparent'};border:2px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a1a10'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('budgetPlan',r.id)?'✓':''}</div>
               <span style="font-size:20px;">${r.emoji||'🍽️'}</span>
               <div style="flex:1;">
@@ -146,17 +151,7 @@ function budgetPlannerHTML(){
                 <button onclick="event.stopPropagation();openBudgetRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
               </div>
             </div>
-            <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:14px;color:#f5e8cc;margin-bottom:2px;">${r.name}</div>
-              <div style="font-size:13px;color:${color};">⏱️ ${r.time||'?'} min${r.cuisine?' · '+r.cuisine:''}</div>
-              <div style="margin-top:4px;">
-                <span style="background:#1a1208;border:1px solid #c06020;border-radius:8px;font-size:13px;color:#c06020;padding:3px 8px;font-weight:bold;">R${r.costPP||'?'} pp</span>
-                ${r._fromAI?`<span style="font-size:13px;color:#e0d4b8;margin-left:6px;">✨ Chef</span>`:''}
-              </div>
-            </div>
-              <span style="color:${color};font-size:14px;flex-shrink:0;">→</span>
-            </div>
+
           </div>`).join('')}
         ${sectionPlanBtn('budgetPlan',"I've Got R"+budget,'💰',color,bg,people,"setQuiet({budgetPlanView:true})")}
         <button onclick="getMoreBudgetRecipes()" style="width:100%;padding:11px;border-radius:10px;background:#1a1208;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
@@ -212,8 +207,10 @@ function _budgetPool(){
   if(typeof BREAKFAST_RECIPES   !== 'undefined') pool = pool.concat(BREAKFAST_RECIPES);
   if(typeof LIGHTLUNCH_RECIPES  !== 'undefined') pool = pool.concat(LIGHTLUNCH_RECIPES);
   if(typeof SUPPER_RECIPES      !== 'undefined') pool = pool.concat(SUPPER_RECIPES);
-  if(typeof SIDES_BASICS_RECIPES!== 'undefined') pool = pool.concat(SIDES_BASICS_RECIPES);
-  // Bakes (cakes/biscuits/breads) deliberately excluded — this is a budget MEAL finder.
+  // Sides & Basics EXCLUDED (2 Jul) — Pizza Dough / mash / doughs / sauces are building
+  // blocks, not standalone budget meals (they were floating to the top of a cheapest-first
+  // list and showing as "meals"). Re-add via an allowlist tag later if some qualify.
+  // Bakes (cakes/biscuits/breads) also excluded — this is a budget MEAL finder.
   return pool;
 }
 function findBudgetRecipes(){

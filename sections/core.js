@@ -1763,6 +1763,14 @@ function getMoreMoodRecipes(moodId) {
 }
 
 
+// Fix: the mood add-to-plan box previously ran an inline fn referencing the
+// map var `r`, which is out of scope at click time (silent ReferenceError ->
+// box did nothing). Read the recipe from state by baked-in index instead.
+function moodTogglePlan(i){
+  var r=(S.moodRecipes||[])[i]; if(!r) return;
+  var pid=r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();
+  togglePlanItem('moodPlan',{id:pid,name:r.name||'',emoji:r.emoji||'😋',time:r.time||0,ingredients:r.ingredients||[],nutrition:r.nutrition||null,costPP:r.costPP||0,serves:1});
+}
 function moodHTML(){
   if(S.moodPlanView){
     window._sectionPlanForShare = S.moodPlan||[];
@@ -1829,7 +1837,7 @@ function moodHTML(){
           </div>
           ${recipes.map((r,i)=>`
             <div style="background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.bg:'var(--card)'};border:1px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#2a2a20'};border-radius:10px;padding:12px;margin-bottom:6px;">
-              <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="(function(){const pid=r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();const pi={id:pid,name:r.name||'',emoji:r.emoji||'😴',time:r.time||0,ingredients:r.ingredients||[],serves:1};togglePlanItem('moodPlan',pi);})()" >
+              <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="moodTogglePlan(${i})" >
                 <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'transparent'};border:2px solid ${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?mood.colour:'#8a6a48'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'✓':''}</div>
                 <span style="font-size:20px;">${r.emoji}</span>
                 <div style="flex:1;">
