@@ -1,20 +1,21 @@
 %% TINZA_NOW — session state  |  3 July 2026
-%% ✅ SHIPPED (Claude Code Run 1, VERIFIED not yet committed): UNIVERSAL INDEX live. sections/index.js = allRecipes(filter) + 10 read-only adapters.
+%% ✅ SHIPPED + PUSHED (Claude Code Run 1, live on main): UNIVERSAL INDEX. sections/index.js = allRecipes(filter) + 10 read-only adapters.
 %%    1,909 recipes indexed · R200/4 finder = 490 mains (346 World Kitchen) · Bobotie proof ✅ · floor gating held (0@R50, 9@R10) · node --check clean.
 %%    Coverage-gate tightened: animal-protein main must be ACTUALLY costed (not just in PRICE_DB) → 95 WK recipes gated to costPP:null, logged window._tinzaWKSkipped (= PRICE_DB audit).
 %% 3 REVIEW FLAGS before/after push (see NEXT0): B3 variety round-robin now NEEDED · soups→side over-exclusion · cross-section dup (two Boboties) in finder view.
-%% TO PUSH (GitHub Desktop, Tina): index.html · sections/budget.js · sections/index.js. Leave .claude/ untracked.
+%% ✅ PUSHED (verified on main): index.html · sections/budget.js · sections/index.js load-order + node --check confirmed. .claude/ left untracked.
 %% DOCS: TINZA_UNIVERSAL_INDEX_BRIEF.md (done) · TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md (chat/core.js session, next).
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
 
-  subgraph NEXT0["▶️ NEXT — recommended order (Run 1 index ✅ shipped + verified, NOT yet committed)"]
-    NXP["STEP 0 — PUSH Run 1 via GitHub Desktop (Tina): index.html · sections/budget.js · sections/index.js. node --check ✅. .claude/ stays untracked. Then eyeball live at tinza.netlify.app."]
-    NXR["STEP 1 — 3 REVIEW TWEAKS (product calls): (a) BUILD B3 VARIETY ROUND-ROBIN — cheapest-first now swamped by cheap-vegan WK corpus (490 mains); balance each batch of 3 across buckets (meat·tinned fish·veg·soup/stew·pasta/rice·beans); first 3 must feel recognisable/doable (SA-first brand). (b) SOUPS→side = over-exclusion → keep soups 'main' (salads→side only); re-check what vanished. (c) CROSS-SECTION DUP — two Boboties (world+meals) in finder; dedup the finder VIEW by name (keep most comprehensive); index keeps both."]
+  subgraph NEXT0["▶️ NEXT — recommended order (Run 1 index ✅ SHIPPED + PUSHED live)"]
+    NXP["✅ DONE — Run 1 pushed to main + LIVE-VERIFIED (console clean, no errors; index log shows 95/994 WK gated = the coverage gate working, window._tinzaWKSkipped is the audit queue)."]
+    NXUX["⬆️ STAGED TO PUSH (node --check ✅, 3 Jul) — 2 files: budget.js + index.js. FINDER UX FIXES: (1) finder root now class='warm' → brand fonts (Mulish/Fraunces) apply — it was OUTSIDE .warm, rendering system-sans (found via DevTools). (2) price chip → selectBudget() runs search + smooth-scrolls to #budgetResults (no manual scroll). (3) Back from a recipe → budgetCloseRecipe() restores exact scroll spot; open snapshots scrollY, recipe opens at top. (4) index.js idle warm-up (requestIdleCallback→allRecipes.raw) so the FIRST finder open is instant, not paying to build the index."]
+    NXR["◀ NEXT — 3 REVIEW TWEAKS (product calls): (a) BUILD B3 VARIETY ROUND-ROBIN — cheapest-first swamped by cheap-vegan WK corpus (490 mains); balance each batch of 3 across buckets (meat·tinned fish·veg·soup/stew·pasta/rice·beans); first 3 must feel recognisable/doable (SA-first brand). (b) SOUPS→side = over-exclusion → keep soups 'main' (salads→side only); re-check what vanished. (c) CROSS-SECTION DUP — two Boboties (world+meals) in finder; dedup the finder VIEW by name (keep most comprehensive); index keeps both."]
     NX2["STEP 2 — TRACK 2 (with chat): RECIPE-PAGE ENRICHMENT per TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md (careful core.js session · confirm in-place-vs-fork call first). THEN FMF WOW CONTENT (breakfast·lunch·bakes)."]
     NX1b["STEP 3 — TRACK 1 (Claude Code) RUN 2: PRICE_DB audit from window._tinzaWKSkipped (95 gated WK → recover animal-protein mains) · FACET DERIVATION (allergen/kosher/halal/diabetic/freezable, WITH honesty caveats L10) · NAMING pass · wire 72 goesWith → real cross-links."]
-    NXP-->NXR-->NX2-->NX1b
+    NXP-->NXUX-->NXR-->NX2-->NX1b
   end
   START-->NEXT0
 
@@ -117,7 +118,7 @@ flowchart TD
   %% ---------- PARKED ----------
   subgraph PARK["🅿️ PARKED / small"]
     K1["404: Images/Image header / feedfamily.jpg — case check"]
-    K2["index.html line 65 font-family override — v38 leftover"]
+    K2["index.html line 65 * font-family flip = INTENTIONAL (kills old v38 inline Georgia app-wide). Brand fonts live on .warm (L59-61: Mulish/Fraunces/DM Mono). RULE: every screen must be wrapped in class='warm' or it renders system-sans (budget finder was the gap — now fixed). Audit other sections for the wrap."]
     K3["Roast Beef card placeholder emoji — needs real photo"]
     K4["Video→Recipe feature idea (later)"]
   end

@@ -428,4 +428,12 @@
 
   window.allRecipes    = allRecipes;
   window.TINZA_ADAPTERS = TINZA_ADAPTERS;
+
+  // Warm the cache shortly after load (off the critical path) so the FIRST
+  // budget-finder open is instant instead of paying to build the index.
+  var _warm = function(){ try { allRecipes.raw(); } catch(_e){} };
+  if(typeof window !== 'undefined'){
+    if(window.requestIdleCallback) window.requestIdleCallback(_warm, { timeout:3000 });
+    else setTimeout(_warm, 1500);
+  }
 })();

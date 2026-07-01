@@ -18,12 +18,12 @@ function budgetPlannerHTML(){
 
   if(active){
     // Shopping list = only what they need to buy (all ingredients - userHas:false)
-    return recipeDetailFromResult(active, "setQuiet({_budgetActiveRecipe:null})", S.budgetPeople||4, color, bg, border);
+    return recipeDetailFromResult(active, "budgetCloseRecipe()", S.budgetPeople||4, color, bg, border);
   }
 
   const budgetHowOpen = S.budgetHowOpen || false;
 
-  return `<div style="min-height:100vh;background:#0f0e0c;">
+  return `<div class="warm" style="min-height:100vh;background:#0f0e0c;">
 
     <!-- ══ V33 PHOTO HEADER ══ -->
     <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a1208 0%,#161210 100%);">
@@ -102,10 +102,10 @@ function budgetPlannerHTML(){
 
         <!-- Quick budget buttons -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="S.budgetAmount=${amt};setQuiet({budgetAmount:${amt}})" style="padding:9px 15px;border-radius:18px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?'#f5c842':'#e0d4b8'};font-size:14px;font-weight:${parseFloat(S.budgetAmount)===amt?'bold':'normal'};cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
+          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="selectBudget(${amt})" style="padding:9px 15px;border-radius:18px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?'#f5c842':'#e0d4b8'};font-size:14px;font-weight:${parseFloat(S.budgetAmount)===amt?'bold':'normal'};cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
         </div>
 
-        <button onclick="findBudgetRecipes()" style="width:100%;padding:14px;border-radius:10px;background:#1a1208;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
+        <button onclick="findBudgetRecipes();scrollToBudgetResults()" style="width:100%;padding:14px;border-radius:10px;background:#1a1208;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
           ${loading?'👨‍🍳 Finding recipes...':'🔍 Find Budget Recipes'}
         </button>
       </div>
@@ -134,6 +134,7 @@ function budgetPlannerHTML(){
       `:''}
 
       ${results&&results.length>0&&!results[0]._waiting&&!results[0]._nomore&&!results[0]._error?`
+        <div id="budgetResults" style="scroll-margin-top:12px;"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
           ${S._budgetAILoading ? `<div style="font-size:13px;color:#e0d4b8;font-style:italic;">✨ Finding more...</div>` : ''}
@@ -148,7 +149,7 @@ function budgetPlannerHTML(){
                 <div style="font-size:13px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-                <button onclick="event.stopPropagation();openBudgetRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
+                <button onclick="event.stopPropagation();budgetOpenRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
               </div>
             </div>
 
@@ -262,4 +263,32 @@ function getMoreBudgetRecipes(){
   var page = pool.slice(0, window._budgetShown);
   window._tinzaBudgetPage = page;
   setQuiet({_budgetResults:page});
+}
+
+/* ── Finder UX helpers (3 Jul) — chip runs the search + jumps to results;
+   opening a recipe snapshots scroll so Back returns to the exact row. ── */
+function selectBudget(amt){
+  S.budgetAmount = amt;
+  setQuiet({ budgetAmount: amt });   // highlight the chip + re-render
+  findBudgetRecipes();               // library-first = instant, no wait
+  scrollToBudgetResults();
+}
+function scrollToBudgetResults(){
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    var el = document.getElementById('budgetResults');
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  }); });
+}
+function budgetOpenRecipe(i){
+  window._budgetScrollY = window.scrollY ||
+    (document.scrollingElement && document.scrollingElement.scrollTop) || 0;
+  openBudgetRecipe(i);                          // meals.js — sets _budgetActiveRecipe
+  requestAnimationFrame(function(){ window.scrollTo(0,0); });  // recipe opens at top
+}
+function budgetCloseRecipe(){
+  var y = window._budgetScrollY || 0;
+  setQuiet({ _budgetActiveRecipe:null });       // back to the results list
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    window.scrollTo(0, y);                       // ...at the exact spot you left
+  }); });
 }
