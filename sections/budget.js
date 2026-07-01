@@ -203,21 +203,31 @@ function portionHelpContent() {
 // Filters every priced meal recipe down to what fits "I've got Rxxx for N people",
 // cheapest first. Pure local filter, no AI dependency — always works.
 function _budgetPool(perPersonBudget){
+  // ── UNIVERSAL INDEX re-point (3 Jul, TINZA_UNIVERSAL_INDEX_BRIEF §4) ──
+  // The pool is now every recipe whose mealRole === 'main', across ALL sections,
+  // so World Kitchen SA mains (Bobotie etc.), FMF lunch/supper mains and the floor
+  // stretchers finally surface here. Braai is excluded (portion-brain, not per-person
+  // costPP). Breakfast / Sides & Basics / Bakes fall out for free — their mealRole
+  // isn't 'main'. Everything DOWNSTREAM is unchanged: findBudgetRecipes() still drops
+  // costPP==null, keeps costPP <= per, de-dupes by id and sorts cheapest-first.
+  if(typeof allRecipes === 'function'){
+    var pool = allRecipes({ mealRole:'main' }).filter(function(r){ return r.section !== 'braai'; });
+    // Floor-blend behaviour kept intact: the end-of-month stretcher meals join ONLY
+    // when money is genuinely tight (≤ ~R15pp ≈ R60 for a family of 4). Above that the
+    // proper library meals take over — otherwise the cheapest floor meals float to the
+    // top of every budget. (2 Jul rule, preserved.)
+    if(!(perPersonBudget != null && perPersonBudget <= 15)){
+      pool = pool.filter(function(r){ return r.section !== 'floor'; });
+    }
+    return pool;
+  }
+  // ── Fallback: index not loaded → original hand-rolled pool (never regress) ──
   var pool = [];
-  // Breakfast EXCLUDED (2 Jul) — this is a supper/lunch MEAL finder; porridge, pap,
-  // pannekoek and Maizena (cornflour porridge) are the cheapest things in the app and
-  // were floating to the top of every budget. (Breakfast-for-supper = a future collection.)
   if(typeof LIGHTLUNCH_RECIPES  !== 'undefined') pool = pool.concat(LIGHTLUNCH_RECIPES);
   if(typeof SUPPER_RECIPES      !== 'undefined') pool = pool.concat(SUPPER_RECIPES);
-  // Floor stretcher-meals join ONLY when money is genuinely tight (≤ ~R15pp ≈ R60
-  // for a family of 4). Above that the proper library meals take over. (2 Jul)
   if(perPersonBudget != null && perPersonBudget <= 15 && typeof BUDGET_FLOOR_RECIPES !== 'undefined'){
     pool = pool.concat(BUDGET_FLOOR_RECIPES);
   }
-  // Sides & Basics EXCLUDED (2 Jul) — Pizza Dough / mash / doughs / sauces are building
-  // blocks, not standalone budget meals (they were floating to the top of a cheapest-first
-  // list and showing as "meals"). Re-add via an allowlist tag later if some qualify.
-  // Bakes (cakes/biscuits/breads) also excluded — this is a budget MEAL finder.
   return pool;
 }
 function findBudgetRecipes(){

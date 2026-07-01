@@ -1,0 +1,431 @@
+// ══════════════════════════════════════════════════════════════════════════
+//  sections/index.js — TINZA UNIVERSAL RECIPE INDEX  (Run 1 · 3 Jul 2026)
+//  Ref: TINZA_UNIVERSAL_INDEX_BRIEF.md
+//
+//  NEW + ADDITIVE. Every adapter is a READ-ONLY view over a section's own
+//  data (never mutates the source). The ONLY existing file changed alongside
+//  this is budget.js (`_budgetPool` re-point). Nothing else is touched.
+//
+//  Exposes:
+//    window.allRecipes(filter)  — one normalised list over EVERY section
+//    window.TINZA_ADAPTERS      — the per-section adapter table
+//
+//  Load order: LAST, after all data + worldkitchen.js + core.js (see index.html).
+//  Every section global is reached by bare name with a `typeof` guard, exactly
+//  like budget.js already does — so a missing/renamed source degrades to []
+//  instead of throwing.
+// ══════════════════════════════════════════════════════════════════════════
+(function(){
+  'use strict';
+
+  // ── tiny helpers ─────────────────────────────────────────────────────────
+  function toArr(x){ return Array.isArray(x) ? x : (x==null ? [] : [x]); }
+  function lc(s){ return String(s==null ? '' : s).toLowerCase(); }
+  function num(x){
+    if(typeof x==='number') return isFinite(x) ? x : null;
+    // first numeric token only — so a range string like "~420–520 kcal" → 420,
+    // not "420520" (stripping every non-digit would fuse the two numbers).
+    var m = String(x==null ? '' : x).match(/\d+(?:\.\d+)?/);
+    return m ? parseFloat(m[0]) : null;
+  }
+  function parseTimeMin(s){
+    if(s==null) return null;
+    if(typeof s==='number') return isFinite(s) ? s : null;
+    var m = String(s).match(/\d+/);
+    return m ? parseInt(m[0],10) : null;
+  }
+  // WK/events method may arrive as a prose STRING; recipeDetailFromResult does
+  // `(r.method||[]).map(...)`, which throws on a string. Always hand it an array.
+  function methodToArr(m){
+    if(Array.isArray(m)) return m.slice();
+    if(typeof m!=='string' || !m.trim()) return [];
+    var parts = m.split(/\n+/).map(function(s){ return s.trim(); }).filter(Boolean);
+    if(parts.length<=1){
+      // no line breaks → split on sentence ends (no lookbehind, older-Safari safe)
+      parts = m.replace(/([.!?])\s+/g,'$1\n').split('\n')
+               .map(function(s){ return s.trim(); }).filter(Boolean);
+    }
+    return parts;
+  }
+  // Normalise an already-{n,pp,u}-ish ingredient array (meals/floor/health/baby/pet).
+  function normIng(arr){
+    return (arr||[]).filter(Boolean).map(function(i){
+      return { n: i.n||i.name||'', pp: (i.pp!=null ? i.pp : null), u: i.u||'' };
+    }).filter(function(i){ return i.n; });
+  }
+  // Events / beverages carry {n, a} (a = human annotation) — keep name-only,
+  // searchable; per-person amounts are wired in a later pass.
+  function nameOnlyIng(arr){
+    return (arr||[]).filter(Boolean).map(function(i){
+      return { n: i.n||i.name||'', pp: null, u: '' };
+    }).filter(function(i){ return i.n; });
+  }
+
+  // ── the normalised record (a superset: §1 index fields + read-only render
+  //    passthrough so the shared budget recipe-detail renders any result) ────
+  function rec(o){
+    var ings = o.ingredients || [];
+    var bits = [ o.name, o.nameAlt, (o.aliases||[]).join(' '), o.cuisine, o.country,
+                 (o.goesWith||[]).join(' ') ]
+                 .concat(ings.map(function(i){ return i.n; }));
+    return {
+      // ── §1 normalised contract ──
+      id:        o.id,
+      section:   o.section,
+      name:      o.name || '',
+      emoji:     o.emoji || '🍽️',
+      mealRole:  o.mealRole,                       // the finder switch
+      diet:      (o.diet||[]).map(lc),             // ALWAYS a lowercase array
+      protein:   o.protein || null,
+      cuisine:   o.cuisine || '',
+      time:      o.time!=null ? o.time : null,
+      kcal:      o.kcal!=null ? o.kcal : null,
+      costPP:    o.costPP!=null ? o.costPP : null, // null = not confidently costed
+      freezes:   o.freezes!=null ? o.freezes : null,
+      fridgeDays:o.fridgeDays!=null ? o.fridgeDays : null,
+      ingredients: ings,                           // ALWAYS [{n,pp,u}]
+      goesWith:  o.goesWith || [],
+      searchText: bits.filter(Boolean).join(' ').toLowerCase(),
+      // ── read-only render passthrough (keeps recipeDetailFromResult full) ──
+      feel:       o.feel || '',
+      method:     Array.isArray(o.method) ? o.method : methodToArr(o.method),
+      nutrition:  o.nutrition || null,             // object only (never a string)
+      tip:        o.tip || '',
+      storage:    o.storage || '',
+      didYouKnow: o.didYouKnow || '',
+      photoName:  o.photoName || o.name || '',
+      versions:   o.versions || null               // meals-shaped only; else null
+    };
+  }
+
+  // ── meals cat → role  (URI U8a) ──────────────────────────────────────────
+  function mealRoleFromCat(cat){
+    var c = lc(cat);
+    if(/salad|soup|staple|\bside/.test(c)) return 'side';
+    if(/stew|curr|bake|plate|handheld|roast/.test(c)) return 'main';
+    return 'main'; // unmapped meal → main
+  }
+
+  // ══ ADAPTERS ══════════════════════════════════════════════════════════════
+
+  // meals — BREAKFAST/LIGHTLUNCH/SUPPER only (NOT Bakes, NOT Sides & Basics,
+  // so those stay out of the finder for free). Breakfast is never 'main'.
+  function adaptMeals(){
+    var out = [];
+    function add(arr, kind){
+      (arr||[]).forEach(function(r){
+        if(!r || !r.id) return;
+        out.push(rec({
+          id:r.id, section:'meals', name:r.name, emoji:r.emoji,
+          mealRole: kind==='breakfast' ? 'component' : mealRoleFromCat(r.cat),
+          diet: r.diet ? [r.diet] : [],
+          protein: r.protein||null, cuisine: r.cuisine||'',
+          time: r.time!=null ? r.time : null,
+          kcal: (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : (r.kcal!=null ? r.kcal : null),
+          costPP: r.costPP!=null ? r.costPP : null,
+          freezes: r.freezes!=null ? r.freezes : null,
+          fridgeDays: r.fridgeDays!=null ? r.fridgeDays : null,
+          ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null,
+          tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
+          photoName:r.photoName, versions:r.versions||null
+        }));
+      });
+    }
+    if(typeof BREAKFAST_RECIPES  !== 'undefined') add(BREAKFAST_RECIPES,'breakfast');
+    if(typeof LIGHTLUNCH_RECIPES !== 'undefined') add(LIGHTLUNCH_RECIPES,'lunch');
+    if(typeof SUPPER_RECIPES     !== 'undefined') add(SUPPER_RECIPES,'supper');
+    return out;
+  }
+
+  // floor — end-of-month stretcher meals; all real mains.
+  function adaptFloor(){
+    if(typeof BUDGET_FLOOR_RECIPES==='undefined') return [];
+    return BUDGET_FLOOR_RECIPES.filter(Boolean).map(function(r){
+      return rec({
+        id:r.id, section:'floor', name:r.name, emoji:r.emoji, mealRole:'main',
+        diet: r.diet ? [r.diet] : [], protein:r.protein||null, cuisine:r.cuisine||'',
+        time:r.time!=null?r.time:null,
+        kcal:(r.nutrition && r.nutrition.kcal!=null)?r.nutrition.kcal:(r.kcal!=null?r.kcal:null),
+        costPP:r.costPP!=null?r.costPP:null,
+        ingredients:normIng(r.ingredients), goesWith:r.goesWith||[],
+        feel:r.feel, method:r.method, nutrition:r.nutrition||null,
+        tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow, versions:r.versions||null
+      });
+    });
+  }
+
+  // health — searchable, but NEVER 'main' (would flood a supper finder with
+  // smoothies). Roles mirror healthFind()'s registry.
+  function adaptHealth(){
+    var out = [];
+    // [array, role] — const globals reached by bare name with a typeof guard,
+    // mirroring healthFind()'s own registry. Roles keep health OUT of the finder.
+    function add(arr, role){
+      if(!Array.isArray(arr)) return;
+      arr.forEach(function(r){
+        if(!r || !r.id) return;
+        out.push(rec({
+          id:r.id, section:'health', name:r.name, emoji:r.emoji, mealRole:role,
+          diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
+          kcal:r.kcal!=null?r.kcal:null, costPP:r.costPP!=null?r.costPP:null,
+          ingredients: normIng(r.shopping || r.base300 || r.base || r.ingredients),
+          goesWith:[], feel:r.howItFeels||r.howThisFeels||'', method:r.method,
+          nutrition:null, tip:r.tip, storage:r.storage, didYouKnow:'', versions:null
+        }));
+      });
+    }
+    if(typeof FRESH_JUICES       !== 'undefined') add(FRESH_JUICES,'drink');
+    if(typeof SMOOTHIES          !== 'undefined') add(SMOOTHIES,'drink');
+    if(typeof FROZEN_YOGHURT     !== 'undefined') add(FROZEN_YOGHURT,'snack');
+    if(typeof OVERNIGHT_OATS     !== 'undefined') add(OVERNIGHT_OATS,'snack');
+    if(typeof HEALTHY_MUFFINS    !== 'undefined') add(HEALTHY_MUFFINS,'snack');
+    if(typeof RAW_AND_REAL       !== 'undefined') add(RAW_AND_REAL,'snack');
+    if(typeof SEED_CRACKERS      !== 'undefined') add(SEED_CRACKERS,'snack');
+    if(typeof KETO_RECIPES       !== 'undefined') add(KETO_RECIPES,'component');
+    if(typeof WEIGHTLOSS_RECIPES !== 'undefined') add(WEIGHTLOSS_RECIPES,'component');
+    if(typeof HIGHPROTEIN_RECIPES!== 'undefined') add(HIGHPROTEIN_RECIPES,'component');
+    if(typeof PLANTBASED_RECIPES !== 'undefined') add(PLANTBASED_RECIPES,'component');
+    if(typeof VEGETARIAN_RECIPES !== 'undefined') add(VEGETARIAN_RECIPES,'component');
+    if(typeof GUTHEALTH_RECIPES  !== 'undefined') add(GUTHEALTH_RECIPES,'component');
+    if(typeof DIABETIC_RECIPES   !== 'undefined') add(DIABETIC_RECIPES,'component');
+    if(typeof ANTIINFLAM_RECIPES !== 'undefined') add(ANTIINFLAM_RECIPES,'component');
+    if(typeof IMMUNITY_RECIPES   !== 'undefined') add(IMMUNITY_RECIPES,'component');
+    if(typeof FERMENTED_RECIPES  !== 'undefined') add(FERMENTED_RECIPES,'component');
+    return out;
+  }
+
+  // world — the proof. Converter already exists; we adapt + gate the costPP.
+  function adaptWorld(){
+    if(typeof wkPool!=='function') return [];
+    var skipped = [];
+    var out = (wkPool()||[]).filter(Boolean).map(function(r){
+      var items = (typeof wkParseIngredients==='function') ? (wkParseIngredients(r.ingredients)||[]) : [];
+      var ings = items.map(function(it){
+        return { n: it.name||'', pp: (it.toTaste || it.qty==null) ? null : it.qty, u: it.unit||'' };
+      }).filter(function(i){ return i.n; });
+
+      // ── §3 costPP coverage gate ──
+      var costPP = null;
+      if(typeof wkCostRecipe==='function'){
+        var c = wkCostRecipe(r, 1) || { total:0, priced:0, missing:[] };
+        var missing = c.missing || [];
+        var missN = missing.length;
+        var denom = (c.priced||0) + missN;                 // priceable (non-spice/water) lines
+        var coverage = denom>0 ? (c.priced/denom) : 0;
+        // When the dish has an animal protein, that protein must have ACTUALLY been
+        // costed — not merely exist in PRICE_DB. A line like "1 small chicken" resolves
+        // to chicken@R90/kg but is priced-by-weight, so wkCostRecipe can't apply it and
+        // drops it into `missing`; the total then looks like R6 (just the sides) — the
+        // exact §3 lie. Requiring the main protein to be absent from `missing` catches it.
+        var proteinOk = true;
+        if(typeof wkClassifyMain==='function'){
+          var mc = wkClassifyMain(items);
+          if(mc && mc.item && /^(meat|fish|bonein)$/.test(mc.cat)){
+            proteinOk = (missing.indexOf(mc.item.name) < 0);
+          }
+        }
+        if(denom>0 && coverage>=0.8 && proteinOk){
+          costPP = c.total;                                 // per-person (n=1)
+        } else {
+          skipped.push({ id:r.id, name:r.name,
+                         coverage:Math.round(coverage*100)/100, missing:c.missing });
+        }
+      }
+
+      var course = lc(r.course);
+      var role = course==='main' ? 'main'
+               : course==='side' ? 'side'
+               : (course==='drink'||course==='beverage') ? 'drink'
+               : 'component';                               // starter/dessert/other → component
+
+      return rec({
+        id:r.id, section:'world', name:r.name, emoji:r.emoji||'🌍', mealRole:role,
+        diet: toArr(r.diet).map(lc), protein:null,
+        cuisine: r.cuisine||r.country||'', country:r.country,
+        nameAlt:r.nameAlt, aliases:r.aliases,
+        time: parseTimeMin(r.cookTime), kcal: num(r.kcal), costPP: costPP,
+        ingredients: ings, goesWith: wkGoesWith(r),
+        feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null,
+        tip: r.chefNotes||'', storage: r.storage||'', didYouKnow: r.trivia||'',
+        photoName: r.name, versions:null
+      });
+    });
+    window._tinzaWKSkipped = skipped;   // pricing-hygiene audit (URI U2.3) — fill PRICE_DB later
+    if(skipped.length && typeof console!=='undefined' && console.info){
+      console.info('[Tinza index] World Kitchen costPP-skipped (coverage<0.8 or main protein unpriced): '
+                   + skipped.length + ' of ' + out.length, skipped);
+    }
+    return out;
+  }
+  function wkGoesWith(r){
+    if(Array.isArray(r.goesWith)) return r.goesWith;
+    if(typeof r.pairsWith==='string' && r.pairsWith.trim()){
+      return r.pairsWith.split(/·|,|&| and /i).map(function(s){ return s.trim(); }).filter(Boolean);
+    }
+    return [];
+  }
+
+  // events — buffet mains are real 'main' recipes (costPP present → finder-eligible);
+  // sides/salads = side, starters/desserts = component, sauces = condiment.
+  function adaptEvents(){
+    var out = [];
+    function add(arr, role){
+      (arr||[]).forEach(function(r){
+        if(!r || !r.id) return;
+        out.push(rec({
+          id:r.id, section:'events', name:r.name, emoji:r.emoji, mealRole:role,
+          diet: toArr(r.diet).map(lc), protein:null, cuisine:'',
+          time:r.time!=null?r.time:null, kcal:num(r.kcal),
+          costPP:r.costPP!=null?r.costPP:null,
+          ingredients: nameOnlyIng(r.base300 || r.ingredients || r.base),
+          goesWith:[], feel:r.feel||'', method:r.method, nutrition:null,
+          tip:r.tip||'', storage:r.storage||'', didYouKnow:r.didYouKnow||'', versions:null
+        }));
+      });
+    }
+    if(typeof EVENTS_BIG_COOKING_MAINS  !== 'undefined') add(EVENTS_BIG_COOKING_MAINS,'main');
+    if(typeof EVENTS_BIG_COOKING_SIDES  !== 'undefined') add(EVENTS_BIG_COOKING_SIDES,'side');
+    if(typeof EVENTS_BIG_COOKING_SALADS !== 'undefined') add(EVENTS_BIG_COOKING_SALADS,'side');
+    if(typeof EVENTS_STARTERS           !== 'undefined') add(EVENTS_STARTERS,'component');
+    if(typeof EVENTS_DESSERTS           !== 'undefined') add(EVENTS_DESSERTS,'component');
+    if(typeof EVENTS_SAUCES             !== 'undefined') add(EVENTS_SAUCES,'condiment');
+    return out;
+  }
+
+  // braai — SEARCH ONLY. costPP null (portion-brain, not per-person costPP) and
+  // budget.js excludes section==='braai' anyway. calcMeat is NOT touched.
+  function adaptBraai(){
+    var out = [];
+    function flat(groups, role){
+      (groups||[]).forEach(function(gp){
+        ((gp && gp.items) || []).forEach(function(it){
+          if(!it || !it.id) return;
+          var ings = (it.recipe && Array.isArray(it.recipe.ingredients))
+            ? it.recipe.ingredients.map(function(s){ return { n:String(s), pp:null, u:'' }; })
+            : [];
+          out.push(rec({
+            id:it.id, section:'braai', name:it.name, emoji:it.emoji, mealRole:role,
+            diet:[], protein:null, cuisine:'braai', nameAlt:it.intl,
+            time:null, kcal:null, costPP:null,
+            ingredients:ings, goesWith:[], feel:it.note||'',
+            method:(it.recipe && it.recipe.method)||[], nutrition:null,
+            tip:(it.recipe && it.recipe.tip)||'', storage:'', didYouKnow:'', versions:null
+          }));
+        });
+      });
+    }
+    if(typeof MEAT_GROUPS  !== 'undefined') flat(MEAT_GROUPS,'main');
+    if(typeof SIDES_GROUPS !== 'undefined') flat(SIDES_GROUPS,'side');
+    return out;
+  }
+
+  // beverages — search only.
+  function adaptBeverages(){
+    if(typeof EVENTS_BEVERAGE_RECIPES==='undefined') return [];
+    return EVENTS_BEVERAGE_RECIPES.filter(Boolean).map(function(r){
+      return rec({
+        id:r.id, section:'beverages', name:r.name, emoji:r.emoji, mealRole:'drink',
+        diet:[], protein:null, cuisine:r.category||'', time:null, kcal:null, costPP:null,
+        ingredients: nameOnlyIng(r.base300 || r.ingredients), goesWith:[],
+        feel:'', method:r.method, nutrition:null, tip:r.tip||'', storage:'',
+        didYouKnow:r.didYouKnow||'', versions:null
+      });
+    });
+  }
+
+  // tiny (baby) — search only; per-age model untouched.
+  function adaptTiny(){
+    if(typeof BABY_RECIPES==='undefined') return [];
+    return BABY_RECIPES.filter(Boolean).map(function(r){
+      return rec({
+        id:r.id, section:'tiny', name:r.name, emoji:r.emoji, mealRole:'baby',
+        diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
+        kcal:null, costPP:null, ingredients: normIng(r.base), goesWith:[],
+        feel:'', method:r.method, nutrition:null, tip:r.tip||'',
+        storage:r.storage||'', didYouKnow:'', versions:null
+      });
+    });
+  }
+
+  // spice — search only (condiment).
+  function adaptSpice(){
+    if(typeof SPICE_DB==='undefined') return [];
+    return SPICE_DB.filter(Boolean).map(function(r){
+      return rec({
+        id:r.id, section:'spice', name:r.name, emoji:r.emoji||'🧂', mealRole:'condiment',
+        diet:[], protein:null, cuisine:r.region||'', aliases:r.aliases,
+        time:null, kcal:null, costPP:r.costPP!=null?r.costPP:null,
+        ingredients:[], goesWith:r.pairsWith||[],
+        feel:r.howThisFeels||'', method:[], nutrition:null,
+        tip:'', storage:'', didYouKnow:r.story||'', versions:null
+      });
+    });
+  }
+
+  // furry (pets) — indexed but human finders exclude 'pet' by default.
+  function adaptFurry(){
+    var out = [];
+    function add(map){
+      if(!map || typeof map!=='object') return;
+      Object.keys(map).forEach(function(k){
+        (map[k]||[]).forEach(function(r){
+          if(!r || !r.id) return;
+          out.push(rec({
+            id:r.id, section:'furry', name:r.name, emoji:r.emoji||'🐾', mealRole:'pet',
+            diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
+            kcal:null, costPP:null, ingredients:normIng(r.base), goesWith:[],
+            feel:'', method:r.method, nutrition:null, tip:r.tip||'',
+            storage:r.storage||'', didYouKnow:'', versions:null
+          }));
+        });
+      });
+    }
+    add(typeof DOG_RECIPES!=='undefined' ? DOG_RECIPES : null);
+    add(typeof CAT_RECIPES!=='undefined' ? CAT_RECIPES : null);
+    return out;
+  }
+
+  // ── adapter table + cached index + allRecipes(filter) ────────────────────
+  var TINZA_ADAPTERS = {
+    meals: adaptMeals, floor: adaptFloor, health: adaptHealth, world: adaptWorld,
+    events: adaptEvents, braai: adaptBraai, beverages: adaptBeverages,
+    tiny: adaptTiny, spice: adaptSpice, furry: adaptFurry
+  };
+
+  var _cache = null;
+  function buildIndex(){
+    var all = [];
+    Object.keys(TINZA_ADAPTERS).forEach(function(k){
+      try { all = all.concat(TINZA_ADAPTERS[k]() || []); }
+      catch(e){ if(typeof console!=='undefined' && console.warn) console.warn('[Tinza index] adapter failed: '+k, e); }
+    });
+    return all;
+  }
+
+  function allRecipes(filter){
+    if(!_cache) _cache = buildIndex();
+    var f = filter || {};
+    var roles = f.mealRole==null ? null : (Array.isArray(f.mealRole) ? f.mealRole : [f.mealRole]);
+    var sects = f.section ==null ? null : (Array.isArray(f.section)  ? f.section  : [f.section]);
+    var diets = f.diet    ==null ? null : (Array.isArray(f.diet) ? f.diet : [f.diet]).map(lc);
+    var text  = f.text    ==null ? null : lc(f.text);
+    return _cache.filter(function(r){
+      if(roles && roles.indexOf(r.mealRole) < 0) return false;
+      if(sects && sects.indexOf(r.section)  < 0) return false;
+      if(f.maxCostPP!=null){ if(r.costPP==null || r.costPP > f.maxCostPP) return false; }
+      if(diets){
+        var ok = false;
+        for(var i=0;i<diets.length;i++){ if(r.diet.indexOf(diets[i])>=0){ ok=true; break; } }
+        if(!ok) return false;
+      }
+      if(text && r.searchText.indexOf(text) < 0) return false;
+      return true;
+    });
+  }
+  allRecipes.rebuild = function(){ _cache = null; return allRecipes(); };
+  allRecipes.raw     = function(){ if(!_cache) _cache = buildIndex(); return _cache; };
+
+  window.allRecipes    = allRecipes;
+  window.TINZA_ADAPTERS = TINZA_ADAPTERS;
+})();
