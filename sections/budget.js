@@ -231,20 +231,73 @@ function _budgetPool(perPersonBudget){
   }
   return pool;
 }
+/* ── B3 VARIETY (3 Jul, L12) ─────────────────────────────────────────────────
+   Cheapest-first alone was swamped by the big cheap-vegan World Kitchen corpus,
+   so the top of every budget looked the same. Fix = diversify the axis the query
+   left open: bucket each result by protein/format and round-robin across buckets
+   (via balancedOrder in index.js), cheapest-first WITHIN a bucket. Bucket ORDER
+   is SA-first so the opening rows feel recognisable (meat → fish → beans → …). */
+var BUDGET_BUCKET_ORDER = ['meat','fish','beans','pastarice','soup','veg'];
+function budgetBucket(r){
+  var t = (r && r.searchText) ? r.searchText
+        : ((r && r.name || '') + ' ' +
+           ((r && r.ingredients || []).map(function(i){ return i.n; }).join(' '))).toLowerCase();
+  // precedence = the dish's DOMINANT identity, not just any word it contains
+  if(/\b(beef|mince|frikkadel|meatballs?|steak|chops?|lamb|mutton|skaap|pork|bacon|gammon|ham|sausages?|boerewors|wors|viennas?|polony|chicken|hoender|drumsticks?|thighs?|ribs?|oxtail|liver|bobotie|bunny chow|vleis)\b/.test(t)) return 'meat';
+  if(/\b(fish|hake|snoek|pilchards?|sardines?|tuna|prawns?|shrimps?|mussels?|calamari|kingklip|maasbanker|vis)\b/.test(t)) return 'fish';
+  if(/\b(beans?|lentils?|dhal|dal|chickpeas?|samp|cowpeas?|split peas?|soya mince|soy mince|tofu|falafel)\b/.test(t)) return 'beans';
+  if(/\b(pasta|spaghetti|macaroni|noodles?|rice|risotto|lasagn[ae]|penne|fusilli|mac and cheese|mac & cheese)\b/.test(t)) return 'pastarice';
+  if(/\b(soups?|broth|bisque)\b/.test(t)) return 'soup';
+  return 'veg';
+}
+// review-c dedup helpers: collapse identical dish NAMES to one finder row, keeping
+// the most detailed record. Index keeps both — this trims the VIEW only.
+function _budgetDupKey(r){
+  var k = String(r && r.name || '').toLowerCase().replace(/[^a-z0-9]+/g,'');
+  return k || ('id:' + (r && r.id));   // never fold blank names together
+}
+function _budgetComp(r){
+  if(!r) return -1;
+  return ((r.ingredients && r.ingredients.length) || 0)
+       + ((r.method && r.method.length) || 0)
+       + (r.versions  ? 3 : 0)
+       + (r.nutrition ? 2 : 0)
+       + (r.feel      ? 1 : 0);
+}
+
 function findBudgetRecipes(){
   var budget = parseFloat(S.budgetAmount||0);
   var people = parseInt(S.budgetPeople||4) || 1;
   if(!budget || budget <= 0){ setQuiet({_budgetError:'Enter a budget first 💰', _budgetResults:null}); return; }
   var per = budget / people;
   var q = (S.budgetSearch||'').trim().toLowerCase();
-  var seen = {};
-  var pool = _budgetPool(per).filter(function(r){
+
+  // 1 · priced mains within the per-person budget, honouring the search box
+  var within = _budgetPool(per).filter(function(r){
     if(!r || !r.costPP) return false;                                  // only priced recipes
     if(r.costPP > per) return false;                                   // within per-person budget
     if(q && (r.name||'').toLowerCase().indexOf(q) < 0) return false;   // honour the search box
-    if(seen[r.id]) return false; seen[r.id] = 1;                       // de-dupe
     return true;
-  }).sort(function(a,b){ return (a.costPP||0) - (b.costPP||0); });     // cheapest first
+  });
+
+  // 2 · de-dupe by id AND by name (review-c) — the two Boboties become one row,
+  //     keeping the most comprehensive version.
+  var byKey = {};
+  within.forEach(function(r){
+    var k = _budgetDupKey(r);
+    if(!byKey[k] || _budgetComp(r) > _budgetComp(byKey[k])) byKey[k] = r;
+  });
+  var uniq = Object.keys(byKey).map(function(k){ return byKey[k]; });
+
+  // 3 · order: B3 variety round-robin (review-a), cheapest-first within each
+  //     bucket. Falls back to plain cheapest-first if the index isn't loaded.
+  var pool = (typeof balancedOrder === 'function')
+    ? balancedOrder(uniq, {
+        bucketOf: budgetBucket,
+        order:    BUDGET_BUCKET_ORDER,
+        within:   function(a,b){ return (a.costPP||0) - (b.costPP||0); }
+      })
+    : uniq.sort(function(a,b){ return (a.costPP||0) - (b.costPP||0); });
   if(!pool.length){
     window._tinzaBudgetPage = [];
     setQuiet({_budgetError:null, _budgetLoading:false, _budgetResults:[{_nomore:true}]});

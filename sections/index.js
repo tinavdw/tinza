@@ -101,8 +101,11 @@
   // ── meals cat → role  (URI U8a) ──────────────────────────────────────────
   function mealRoleFromCat(cat){
     var c = lc(cat);
-    if(/salad|soup|staple|\bside/.test(c)) return 'side';
-    if(/stew|curr|bake|plate|handheld|roast/.test(c)) return 'main';
+    // (3 Jul B3 review-b) SOUP IS A MAIN. A pot of soup is supper in SA; sending
+    // 'soup' → 'side' over-narrowed the finder and dropped real budget mains.
+    // Only salads/staples/sides demote now; soup joins the explicit 'main' set.
+    if(/salad|staple|\bside/.test(c)) return 'side';
+    if(/stew|curr|bake|plate|handheld|roast|soup/.test(c)) return 'main';
     return 'main'; // unmapped meal → main
   }
 
@@ -403,14 +406,56 @@
     return all;
   }
 
-  function allRecipes(filter){
+  // ── balancedOrder — deterministic VARIETY round-robin (L12 · NO ML) ────────
+  //  Rule: diversify the axes the query left open. Partition `list` into buckets
+  //  via opts.bucketOf (a field NAME or an r→key function), sort inside each
+  //  bucket by opts.within, then draw ONE item per bucket in priority order
+  //  (opts.order first, then first-seen) and repeat down the rows. Because the
+  //  draw is breadth-first, EVERY prefix stays balanced — so "show me 3 more"
+  //  keeps serving a spread instead of ten near-identical cheap-vegan dishes.
+  //  ONE engine: budget B3 variety today, balanced search later — both call this.
+  function balancedOrder(list, opts){
+    list = Array.isArray(list) ? list.slice() : [];
+    opts = opts || {};
+    var bo = opts.bucketOf;
+    var keyOf = (typeof bo==='function') ? bo
+              : (typeof bo==='string')   ? function(r){ return (r && r[bo]!=null) ? String(r[bo]) : '~'; }
+              :                            function(){ return '~'; };
+    var within = (typeof opts.within==='function') ? opts.within : null;
+
+    var buckets = {}, seen = [];
+    list.forEach(function(r){
+      var k = keyOf(r); k = (k==null ? '~' : String(k));
+      if(!buckets[k]){ buckets[k] = []; seen.push(k); }
+      buckets[k].push(r);
+    });
+    if(within) seen.forEach(function(k){ buckets[k].sort(within); });
+
+    // priority = requested order (that actually has items) first, then first-seen
+    var order = [];
+    (opts.order||[]).forEach(function(k){ if(buckets[k] && order.indexOf(k)<0) order.push(k); });
+    seen.forEach(function(k){ if(order.indexOf(k)<0) order.push(k); });
+
+    var out = [], i = 0, drew = true;
+    while(drew){
+      drew = false;
+      for(var b=0;b<order.length;b++){
+        var arr = buckets[order[b]];
+        if(arr && i < arr.length){ out.push(arr[i]); drew = true; }
+      }
+      i++;
+    }
+    return out;
+  }
+
+  function allRecipes(filter, opts){
     if(!_cache) _cache = buildIndex();
     var f = filter || {};
     var roles = f.mealRole==null ? null : (Array.isArray(f.mealRole) ? f.mealRole : [f.mealRole]);
     var sects = f.section ==null ? null : (Array.isArray(f.section)  ? f.section  : [f.section]);
     var diets = f.diet    ==null ? null : (Array.isArray(f.diet) ? f.diet : [f.diet]).map(lc);
     var text  = f.text    ==null ? null : lc(f.text);
-    return _cache.filter(function(r){
+    var res = _cache.filter(function(r){
       if(roles && roles.indexOf(r.mealRole) < 0) return false;
       if(sects && sects.indexOf(r.section)  < 0) return false;
       if(f.maxCostPP!=null){ if(r.costPP==null || r.costPP > f.maxCostPP) return false; }
@@ -422,11 +467,18 @@
       if(text && r.searchText.indexOf(text) < 0) return false;
       return true;
     });
+    // opts.balanceBy → run the variety round-robin over the filtered result.
+    // { balanceBy: field|fn, bucketOrder:[...], within:cmp }  (L12 primitive)
+    if(opts && opts.balanceBy){
+      return balancedOrder(res, { bucketOf:opts.balanceBy, order:opts.bucketOrder, within:opts.within });
+    }
+    return res;
   }
   allRecipes.rebuild = function(){ _cache = null; return allRecipes(); };
   allRecipes.raw     = function(){ if(!_cache) _cache = buildIndex(); return _cache; };
 
-  window.allRecipes    = allRecipes;
+  window.allRecipes     = allRecipes;
+  window.balancedOrder  = balancedOrder;   // exposed so budget.js (+ search) share it
   window.TINZA_ADAPTERS = TINZA_ADAPTERS;
 
   // Warm the cache shortly after load (off the critical path) so the FIRST
