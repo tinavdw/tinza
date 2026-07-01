@@ -73,6 +73,9 @@
       id:        o.id,
       section:   o.section,
       name:      o.name || '',
+      nameAlt:   o.nameAlt || '',                  // English gloss → tinzaDisplayName
+      aliases:   o.aliases || [],                  // Latin fallbacks → tinzaRoman
+      nameRoman: o.nameRoman || '',
       emoji:     o.emoji || '🍽️',
       mealRole:  o.mealRole,                       // the finder switch
       diet:      (o.diet||[]).map(lc),             // ALWAYS a lowercase array

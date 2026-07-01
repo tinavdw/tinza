@@ -13381,7 +13381,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
     </div>
     <div style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
-      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:6px 0 2px;line-height:1.25;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${r.name}</h1>
+      <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:6px 0 2px;line-height:1.25;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</h1>
       <div style="font-size:13px;color:${color};font-style:italic;margin-bottom:12px;">Full recipe and method</div>
 
       ${r.feel?`<div style="font-style:italic;color:${color};font-size:13px;text-align:center;line-height:1.5;margin-bottom:14px;">“${r.feel}”</div>`:''}

@@ -151,7 +151,7 @@ function budgetPlannerHTML(){
               <div style="width:22px;height:22px;border-radius:6px;background:${isPlanItem('budgetPlan',r.id)?color:'transparent'};border:2px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a1a10'};display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${isPlanItem('budgetPlan',r.id)?'✓':''}</div>
               <span style="font-size:20px;">${r.emoji||'🍽️'}</span>
               <div style="flex:1;">
-                <div style="font-size:14px;color:${isPlanItem('budgetPlan',r.id)?'#f5e8cc':'#e0d4b8'};font-weight:${isPlanItem('budgetPlan',r.id)?'bold':'normal'};">${r.name}</div>
+                <div style="font-size:14px;color:${isPlanItem('budgetPlan',r.id)?'#f5e8cc':'#e0d4b8'};font-weight:${isPlanItem('budgetPlan',r.id)?'bold':'normal'};">${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</div>
                 <div style="font-size:13px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
