@@ -1,152 +1,142 @@
-%% TINZA_NOW — session state  |  3 July 2026 (B3 session)
-%% ✅ SHIPPED + PUSHED (prior, live on main): UNIVERSAL INDEX (Run 1) + FINDER UX FIXES.
-%%    sections/index.js = allRecipes(filter) + 10 read-only adapters · 1,909 recipes · R200/4 = 490 mains (346 WK).
-%%    Coverage-gate tightened: animal-protein main must be ACTUALLY costed → 95 WK gated to costPP:null (window._tinzaWKSkipped = PRICE_DB audit queue).
-%%    Finder UX LIVE: .warm wrapper (brand fonts) · price-chip runs search + smooth-scroll · back-nav scroll-restore · idle warm-up.
-%% ⬆️ STAGED TO PUSH THIS SESSION (node --check ✅, 3 Jul) — 2 files: index.js + budget.js. THE 3 REVIEW TWEAKS ARE DONE:
-%%    (a) B3 VARIETY ROUND-ROBIN built — window.balancedOrder(list,opts) in index.js (L12 engine, NO ML, deterministic).
-%%        budget.js: budgetBucket(r) SA-tuned classifier + BUDGET_BUCKET_ORDER [meat·fish·beans·pastarice·soup·veg];
-%%        findBudgetRecipes now round-robins across buckets, cheapest-first WITHIN a bucket. First rows feel SA-first.
-%%    (b) SOUP→MAIN — mealRoleFromCat no longer demotes soup to 'side' (salads/staples/sides only). Recovered soup mains.
-%%    (c) BOBOTIE DEDUP — finder VIEW de-dupes by NAME (keep most comprehensive); index still keeps both. Proven in sim.
-%%    Verified by simulation: 40 cheap-veg WK stews pushed to row 6; first 6 = one per bucket; two Boboties → the rich one.
+%% TINZA_NOW — session state  |  3 July 2026 (B3 + live-test fixes)
+%% ✅ LIVE ON MAIN: UNIVERSAL INDEX (Run 1) · FINDER UX FIXES · B3 VARIETY ROUND-ROBIN (balancedOrder + budgetBucket + name-dedup + soup→main).
+%% ⬆️ STAGED TO PUSH THIS SESSION (node --check ✅) — 1 file: budget.js. THREE B3 LIVE-TEST FIXES:
+%%    ROOT CAUSE FOUND (live test w/ Tina): budgetBucket read r.searchText, which folds in goesWith/pairsWith
+%%    ("Jollof goes with grilled chicken") + cuisine + nameAlt. A VEGAN rice dish therefore landed in the MEAT
+%%    bucket, and since its meat is never in the pot it costs ~R10 and BURIED the real R25–R44 SA meat mains.
+%%    Same mechanism made results look "stuck" (same cheap foreign dishes at every budget) and "Not SA".
+%%    FIX-1 budgetBucket now classifies on NAME + paren-stripped INGREDIENT NAMES only (no goesWith pollution).
+%%    FIX-2 _budgetHomeRank + within-bucket sort = SA cuisines(3) → home meals/floor(2) → foreign World(1),
+%%          cheapest as tiebreak. SA-recognisable dishes now lead every bucket. (verified: top 8 = 6×SA + 2×home, 0 foreign)
+%%    FIX-3 budgetCloseRecipe: restore scroll immediately + 1 rAF (was double-rAF → visible top-flash/jump on Back).
+%% STILL FROM TINA'S FEEDBACK (not this file): enticing-English NAMES · higher budgets should differ · recover gated WK meat.
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
 
-  subgraph NEXT0["▶️ NEXT — recommended order"]
-    NXP["✅ DONE + LIVE — Run 1 index + finder UX fixes pushed & verified (console clean; 95/994 WK gated = coverage gate working)."]
-    NXR["✅ DONE — STAGED TO PUSH (3 Jul, node --check ✅): the 3 REVIEW TWEAKS, 2 files (index.js + budget.js). (a) B3 variety round-robin engine balancedOrder() + SA budgetBucket. (b) soup→main. (c) Bobotie name-dedup in finder view. → PUSH via GitHub Desktop (ONE push this session)."]
-    NX2["◀ NEXT — TRACK 2 (with chat): RECIPE-PAGE ENRICHMENT per TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md (careful core.js session · confirm in-place-vs-fork call first). THEN FMF WOW CONTENT (breakfast·lunch·bakes)."]
-    NX1b["THEN — TRACK 1 (Claude Code) RUN 2: PRICE_DB audit from window._tinzaWKSkipped (95 gated WK → recover animal-protein mains) · FACET DERIVATION (allergen/kosher/halal/diabetic/freezable, WITH honesty caveats L10) · NAMING pass · wire 72 goesWith → real cross-links · BALANCED SEARCH reuses balancedOrder()."]
-    NXP-->NXR-->NX2-->NX1b
+  subgraph NEXT0["NEXT — recommended order"]
+    NXP["DONE + LIVE — Run 1 index + finder UX + B3 round-robin, pushed & verified."]
+    NXR2["DONE — STAGED TO PUSH (3 Jul, node --check OK): budget.js ONLY (index.js untouched). (i) B3 LIVE-TEST FIXES: bucket on own name+ingredients · SA-first home advantage · scroll-jump on Back. (ii) MEAT-LINE CHIP UX (Option A): R15pp mode line on readout (🍖 meat / 🥣 stretcher) + chip-row divider that slides to R15pp×people (2ppl→all meat · 4ppl→R60 · 6ppl→R90), stretcher chips muted. PUSH via GitHub Desktop (ONE push, budget.js)."]
+    NXNAME["NEXT (Tina asked): ENTICING-ENGLISH NAMES. Data has nameAlt but it's a label not a WOW gloss ('Ghanaian Style'). NTN naming pass = Claude Code Run 2, library-wide via ONE lever tinzaDisplayName(r) so every card/finder/search updates together (keeps L2 sameness). Do NOT patch names in budget only."]
+    NX2["THEN — TRACK 2 (chat): RECIPE-PAGE ENRICHMENT (TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md · confirm in-place-vs-fork first). THEN FMF WOW CONTENT."]
+    NX1b["TRACK 1 (Claude Code) RUN 2: recover 95 gated WK animal-protein mains (window._tinzaWKSkipped) · NAMING pass · FACET derivation (L10 caveats) · wire 72 goesWith · BALANCED SEARCH reuses balancedOrder()."]
+    NXP-->NXR2-->NXNAME-->NX2-->NX1b
   end
   START-->NEXT0
 
-  %% ---------- B3 VARIETY ENGINE — ✅ BUILT THIS SESSION ----------
-  subgraph B3E["⭐ B3 / BALANCED-RESULTS ENGINE — ✅ BUILT (staged) · L12"]
-    E0["window.balancedOrder(list, opts) in sections/index.js — deterministic variety round-robin, NO ML. Partition→sort-within→draw 1 per bucket in priority order, repeat. Every PREFIX stays balanced (so 'show 3 more' keeps a spread). opts = {bucketOf: field|fn, order:[...], within:cmp}."]
-    E1["allRecipes(filter, opts) now accepts opts.balanceBy / bucketOrder / within → runs balancedOrder over the filtered result. Back-compat: no opts = old behaviour."]
-    E2["budget.js consumer: budgetBucket(r) classifies by protein/format from searchText (meat→fish→beans→pastarice→soup→veg precedence). BUDGET_BUCKET_ORDER is SA-first. findBudgetRecipes: filter→name-dedup→balancedOrder(cheapest-within-bucket)."]
-    E3["REUSE (Run 2): balanced SEARCH = same engine, bucketOf = protein+cuisine (e.g. 'soup' → never 10 Swedish salmon soups). Every lens (veg · cold soups · cabbage-main) = one filter + one balanceBy."]
-    E4["🎚️ TUNABLE (eyeball live): within-bucket is pure cheapest-first (honest budget). If the very first meat row feels un-SA, add a light home-first nudge (prefer meals/floor/SA-WK) as a secondary sort key — hook is ready."]
-    E0-->E1-->E2-->E3-->E4
+  subgraph B3E["B3 / BALANCED-RESULTS ENGINE — BUILT + LIVE-TEST-FIXED · L12/L13/L14"]
+    E0["window.balancedOrder(list,opts) in index.js — deterministic variety round-robin, NO ML. opts={bucketOf, order, within}. Every PREFIX balanced. LIVE."]
+    E1["allRecipes(filter,opts) accepts opts.balanceBy/bucketOrder/within. LIVE. (search will reuse: bucketOf=protein+cuisine.)"]
+    E2["budget.js: budgetBucket(r) → meat/fish/beans/pastarice/soup/veg. BUDGET_BUCKET_ORDER SA-first. findBudgetRecipes: filter→name-dedup→balancedOrder."]
+    EFIX["LIVE-TEST FIXES (staged): (1) budgetBucket classifies on NAME+INGREDIENT NAMES, not searchText — goesWith 'grilled chicken' no longer mis-buckets vegan rice as meat. (2) _budgetHomeRank within-bucket: SA cuisines then home library then foreign; cheapest tiebreak. (3) scroll-restore immediate+1rAF."]
+    E3["REUSE (Run 2): balanced SEARCH = same engine. Every lens = filter + balanceBy."]
+    EOPEN["✅ RESOLVED (Tina 3 Jul): MEAT LINE = R15pp (per-person). Below R15pp = stretcher/no-meat (pap·sauce·soup·beans); R15pp+ = meat features. It's PER-PERSON so converts by group size: R30/2 · R60/4 · R90/6. Finder already computes this correctly for any people count. Floor stays <=R15pp. REMAINING = chip UX (see PPZ3)."]
+    E0-->E1-->E2-->EFIX-->E3-->EOPEN
   end
   NEXT0-->B3E
 
-  %% ---------- UNIVERSAL INDEX — RUN 1 (shipped) ----------
-  subgraph URI["🧭 UNIVERSAL RECIPE INDEX — ✅ Run 1 SHIPPED (sections/index.js · brief: TINZA_UNIVERSAL_INDEX_BRIEF.md)"]
-    U0["✅ index EVERY recipe in EVERY section; budget/meal finder filters to mealRole==='main'. 1,909 recipes · 10 read-only adapters · allRecipes(filter)+TINZA_ADAPTERS on window · loaded last."]
-    U3["✅ WK COST GATE: costPP set ONLY if coverage≥0.8 AND animal-protein main ACTUALLY costed (not merely in PRICE_DB). 95 WK gated → window._tinzaWKSkipped = PRICE_DB audit queue (Run 2)."]
-    U4["✅ BUDGET RE-POINT LIVE: _budgetPool = allRecipes({mealRole:'main'}) minus braai (+legacy fallback). B3 round-robin now sits on top (this session)."]
-    U0-->U3-->U4
+  subgraph URI["UNIVERSAL RECIPE INDEX — Run 1 LIVE (TINZA_UNIVERSAL_INDEX_BRIEF.md)"]
+    U0["index EVERY recipe in EVERY section; finder gates to mealRole==='main'. 1,909 recipes · 10 read-only adapters."]
+    U3["WK COST GATE: costPP only if coverage>=0.8 AND animal-protein main actually costed. 95 WK gated → window._tinzaWKSkipped = PRICE_DB audit queue (Run 2)."]
+    U4["BUDGET pool = allRecipes({mealRole:'main'}) minus braai; floor blends only <=R15pp. B3 round-robin + home-first sit on top."]
+    URCA["LIVE-TEST INSIGHT: MEALS is fully costed (costPP:null=0). 85 meat mains, cheapest non-floor ~R25 (Cape Malay R32, Beef Stew R44, Bredie R47). Pool healthy — bug was ordering, not missing data."]
+    U0-->U3-->U4-->URCA
   end
   START-->URI
 
-  %% ---------- FACET / PAIRING — RUN 2 (deferred) ----------
-  subgraph URI2["🧭 UNIVERSAL INDEX — Run 2 (deferred, Claude Code)"]
-    F1["FACET DERIVATION: diet · diabetic/low-carb/high-protein (372 macros) · freezable/fridge-life (54 flags+191 texts) · main-protein 'I've got chicken' · ALLERGENS (derive from names) · kosher/halal. NEW: dishType · temperature hot/cold · sweet/savoury · hero-ingredient (heaviest by weight)."]
-    FBAL["⭐ BALANCED RESULTS: ✅ ENGINE NOW EXISTS (balancedOrder, this session). Run 2 = wire more lenses to it (search bucketed by protein+cuisine; auto-scales as cuisines grow). Primitive: allRecipes(filter,{balanceBy:[...]})."]
-    F2["⚠️ HONESTY CAVEATS (L10): Allergen/Kosher/Halal = GUIDANCE from names, NOT a guarantee. Diabetic = heuristic, NOT medical advice."]
-    F3["MEAL COMPOSITION (U8): wire 72 goesWith TEXT → real cross-links (only 3 wired now) → component+cheap side = ONE costed meal."]
-    F1-->FBAL-->F2-->F3
+  subgraph URI2["UNIVERSAL INDEX — Run 2 (Claude Code)"]
+    R2A["RECOVER GATED WK MEAT: window._tinzaWKSkipped (95) — fix PRICE_DB / count-vs-weight so count-priced proteins cost right → real World meat mains enter finder (more meat = higher budgets differentiate)."]
+    R2N["NAMING PASS: two-line names (authentic + enticing English gloss). ONE lever tinzaDisplayName(r) → all cards/finder/search. photoName never changes. Gloss → searchText. Also fixes search.js ranking r.nameEn vs stored r.nameAlt (NTS)."]
+    R2F["FACET DERIVATION: diet · diabetic/low-carb/high-protein (372 macros) · freezable/fridge-life · main-protein · ALLERGENS (from names) · kosher/halal. Honesty caveats L10. dishType · temp hot/cold · sweet/savoury · hero-ingredient."]
+    R2B["BALANCED SEARCH via balancedOrder (bucketOf=protein+cuisine). Wire 72 goesWith TEXT → real cross-links."]
+    R2A-->R2N-->R2F-->R2B
   end
   URI-->URI2
 
-  %% ---------- BUDGET ENGINE ----------
-  subgraph BUDGET["💰 BUDGET ENGINE — locked design"]
-    B1["1 · LIBRARY FIRST — exhaust ALL our recipes before AI. Spans EVERY section via the index."]
-    B2["FLOOR — ✅ WIRED LIVE. budget_floor.js = 9 recipes ≤R15pp; blends in only when budget/4 ≤ R60."]
-    B4["AI PRE-WARM (later): rolling buffer per (price,people), de-duped, every AI recipe RE-COSTED with priceOf."]
-    B5["♻️ AI HARVEST LOOP (later): log AI recipes → curate → promote good ones into the permanent library."]
+  subgraph BUDGET["BUDGET ENGINE — locked design"]
+    B1["1 · LIBRARY FIRST — exhaust ALL recipes before AI. Spans every section via index."]
+    B2["FLOOR — LIVE. 9 recipes <=R15pp; blend in only when budget/4 <= R60."]
+    B4["AI PRE-WARM (later): rolling buffer per (price,people); every AI recipe RE-COSTED."]
+    B5["AI HARVEST (later): log AI recipes → curate → promote into permanent library."]
     B1-->B2-->B4-->B5
   end
   URI-->BUDGET
 
-  %% ---------- SHIPPED earlier ----------
-  subgraph FIX2["🔧 SHIPPED (earlier)"]
-    FX1["Breakfast EXCLUDED from meal finder (mealRole ≠ main)."]
-    FX2["JUST-FEED-ME 'give me more' stall = Netlify claude fn model id / ANTHROPIC_KEY env (NOT code). Strategic fix = library-first fallback via index."]
+  subgraph FIX2["SHIPPED (earlier)"]
+    FX1["Breakfast EXCLUDED from finder (mealRole != main)."]
+    FX2["JUST-FEED-ME 'give me more' stall = Netlify claude fn model id / ANTHROPIC_KEY env (NOT code)."]
     FX3["mood/budget 'add to plan' fixes · double-render removed · Sides & Basics excluded from budget pool."]
     FX1-->FX2-->FX3
   end
   START-->FIX2
 
-  %% ---------- NEXT: RECIPE-PAGE ENRICHMENT ----------
-  subgraph NEXT["🧱 NEXT — RECIPE-PAGE ENRICHMENT (own careful core.js session · TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md)"]
-    N0["Version bug root: bakesRecipeOpts builder never calls applyRecipeVersion(r) → renders base, not active version."]
-    N1a["ALREADY EXIST (wire): applyRecipeVersion + versionStripHTML · ingredientRow cross-links ✅ · goesWellBox ✅ · methodStep timer ✅ · costRecipe→{cook green, buy gold}."]
-    N1b["GENUINELY NEW (2 helpers, build once→roll all): nutritionGrid(nutrition) · costEstimateBox(r,n)=TWO-COST card. Extend recipeActions w/ Pro-Save + WhatsApp."]
-    N1c["DECISION (rec): enrich bakesRecipeOpts IN PLACE w/ conditional slots. ← confirm before core.js session."]
-    N2["THEN retire recipeDetailFromResult + openMealRecipe → route all meal opens through openRecipe('meals',id,{servings}). THEN plan rows clickable."]
+  subgraph NEXT["RECIPE-PAGE ENRICHMENT (own careful core.js session · TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md)"]
+    N0["Version bug root: bakesRecipeOpts never calls applyRecipeVersion(r) → renders base, not active version."]
+    N1a["ALREADY EXIST (wire): applyRecipeVersion + versionStripHTML · ingredientRow cross-links · goesWellBox · methodStep timer · costRecipe→{cook green, buy gold}."]
+    N1b["NEW (2 helpers, roll to all): nutritionGrid(nutrition) · costEstimateBox(r,n)=TWO-COST card. Extend recipeActions w/ Pro-Save + WhatsApp."]
+    N1c["DECISION: enrich bakesRecipeOpts IN PLACE w/ conditional slots. confirm before core.js session."]
+    N2["THEN route all meal opens through openRecipe('meals',id,{servings}); retire recipeDetailFromResult + openMealRecipe. Plan rows clickable."]
     N0-->N1a-->N1b-->N1c-->N2
   end
   URI2-->NEXT
 
-  %% ---------- THEN: FMF CONTENT ----------
-  subgraph TODO["📋 THEN — FMF, in order"]
-    T2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes · WOW everywhere"]
-    T3["PRICING HYGIENE — every ingredient resolves · fix R0 · 'Not yet costed' rows (index skip-log feeds this)"]
+  subgraph TODO["THEN — FMF, in order"]
+    T2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes"]
+    T3["PRICING HYGIENE — every ingredient resolves · fix R0 · 'Not yet costed' rows"]
     T4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes · 72 goesWith → real recipes"]
-    T5["COSMETIC SAMENESS SWEEP — LAST (FMF list header → shared sectionHeader)"]
+    T5["COSMETIC SAMENESS SWEEP — LAST"]
     T2-->T3-->T4-->T5
   end
   NEXT-->TODO
 
-  %% ---------- FLAGGED ----------
-  subgraph NEWTODO["🆕 flagged"]
-    NTN["NAMING PASS (Claude Code, Run 2): TWO-LINE names — keep AUTHENTIC name + ENTICING English gloss (nameAlt exists). Route via tinzaDisplayName(r). Feed gloss into searchText."]
-    NTS["SEARCH FIELD BUG: search.js ranks r.nameEn but data stores r.nameAlt → English name under-ranks. Fix the field so 'salmon soup' finds Lohikeitto."]
-    NT0["COOKBOOK LOW-TIER GAP-FILLERS (MAIN library, NOT floor; R20–45pp): Savoury/Curried Mince · Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. Re-cost each with priceOf."]
-    NT1["TINY TUMMIES + FURRY FRIENDS — migrate to shared renderers (slot into sameness sweep). Both IN index (search-only)."]
-    NTCC["CLAUDE CODE vs CHAT: CODE = big library-wide grinds. CHAT = architecture/design + targeted fixes."]
+  subgraph NEWTODO["flagged"]
+    NT0["COOKBOOK LOW-TIER GAP-FILLERS (MAIN library, NOT floor; R20–45pp): Savoury/Curried Mince · Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. Re-cost with priceOf."]
+    NT1["TINY TUMMIES + FURRY FRIENDS — migrate to shared renderers. Both IN index (search-only)."]
+    NTCC["CLAUDE CODE = library-wide grinds (naming · facets · gated-meat recovery · 72 goesWith). CHAT = architecture + targeted fixes (like today's B3 diagnosis)."]
+    PPZ1["⭐ CHEAP-SA ENRICHMENT (highest brand impact): add sub-R10pp SA end-of-month meals — morogo & pap · pap & sheba · walkie-talkies/offal · samp variants · cabbage & potato. Fills the R40/4 (R10pp) screen AND pushes foreign (Jollof/Waakye/Ndambé) out. Fixes thinness + 'Not SA' at the bottom together."]
+    PPZ2["✅ RESOLVED: floor cutoff stays <=R15pp (below the meat line). Handoff at R15pp: floor stretchers + first library meat (Peri-Peri Livers R15) meet cleanly."]
+    PPZ3["✅ RESOLVED + BUILT (Option A · staged in budget.js): total chips kept (natural cash), each marked against R15pp×people. Divider slides with people count; stretcher chips muted; readout shows 🍖/🥣 mode. Answers 'how for 2 people' — line moves to R30 for 2, R60 for 4, R90 for 6."]
   end
   TODO-->NEWTODO
 
-  %% ---------- ROADMAP ----------
-  subgraph ROAD["🗺️ ROADMAP after FMF"]
-    R1["LUNCH sweep — egg-salad WOW · Hummus&Veg Wrap · taco-spice dupes"]
-    R2["BREAKFAST WOW pass"]
-    R3["SEASONING SWEEP (Claude Code, report-only first)"]
-    R4["BUG-SWEEP — price resolver silent R0 · unit guard"]
-    R1-->R2-->R3-->R4
+  subgraph ROAD["ROADMAP after FMF"]
+    RR1["LUNCH sweep · BREAKFAST WOW pass · SEASONING SWEEP (report-only first) · BUG-SWEEP price resolver silent R0"]
   end
   NEWTODO-->ROAD
 
-  %% ---------- CARRY-OVER ----------
-  subgraph CARRY["🔧 CARRY-OVER"]
-    C0["CLEANUP: buildCombinedShoppingList + formatAmount in meals.js now UNUSED — delete later."]
+  subgraph CARRY["CARRY-OVER"]
+    C0["CLEANUP: buildCombinedShoppingList + formatAmount in meals.js UNUSED — delete later."]
     C1["Per-version NUTRITION: supper B/Q/V inherit dish macros — optional (Claude Code)"]
     C2["Proxy names: cheese slices→cheddar · rotisserie→chicken breast · frozen stir-fry→mixed veg"]
     C3["Confirm prices: plant-based sausage R140/kg · instant mash dry R270/kg"]
     C4["Bangers & Mash — add plant-based-sausage veg version when wanted"]
-    C5["B3 within-bucket home-first nudge — decide after eyeballing live finder (E4 hook ready)"]
+    C5["B3 budget-differentiation (EOPEN) — decide cheapest-first vs best-value-at-higher-budget"]
   end
   ROAD-.->CARRY
 
-  %% ---------- PARKED ----------
-  subgraph PARK["🅿️ PARKED / small"]
+  subgraph PARK["PARKED / small"]
     K1["404: Images/Image header / feedfamily.jpg — case check"]
-    K2["Every screen must be wrapped in class='warm' or renders system-sans. Audit remaining sections for the wrap."]
+    K2["Every screen must be class='warm' or renders system-sans. Audit remaining sections."]
     K3["Roast Beef card placeholder emoji — needs real photo"]
     K4["Video→Recipe feature idea (later)"]
   end
   CARRY-.->PARK
 
-  %% ---------- LOCKED ----------
-  subgraph RULES["🔒 LOCKED"]
-    L0["UNIVERSAL INDEX: index EVERY recipe; mealRole gates budget finder to 'main'. Adapters READ-ONLY; index.js additive. WK cost gate: priced/total≥0.8 + main protein resolved else costPP=null."]
-    L1["WOW EVERYWHERE: every 🏆 default = why-led steps · real named spices · salt+pepper each stage · 'how this feels'."]
-    L2["SAMENESS (TOP): render ONLY via shared core.js fns using var(--token). Shared builds roll to ALL sections. Match braai v33."]
+  subgraph RULES["LOCKED"]
+    L0["UNIVERSAL INDEX: index EVERY recipe; mealRole gates finder to 'main'. Adapters READ-ONLY. WK cost gate: coverage>=0.8 + main protein resolved else costPP=null."]
+    L1["WOW EVERYWHERE: every default = why-led steps · real named spices · salt+pepper each stage · 'how this feels'."]
+    L2["SAMENESS (TOP): render ONLY via shared core.js fns using var(--token). Roll to ALL sections. Match braai v33. (naming via ONE tinzaDisplayName lever.)"]
     L3["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase) · prep in method"]
     L4["COSTING: 0 unpriced · green #46530c food · gold #876213 shop-spend · dup price = most expensive · EVERY recipe carries costPP."]
     L5["STABILITY: never edit a working section unless that's the purpose · node --check before push · ONE push/session · GitHub Desktop"]
-    L6["VEG/VEGAN PROTEIN: homemade patties preferred; shop-bought plant-based sausages ONLY for format dishes (hot dogs · boerewors rolls · bangers & mash)."]
+    L6["VEG/VEGAN PROTEIN: homemade patties preferred; shop-bought plant-based sausages ONLY for format dishes."]
     L7["Bobotie rule (one card per distinct dish) · child+grandma readable on mobile"]
     L8["BUDGET/AI SOURCING: library-first ALWAYS; AI only after our recipes exhausted; every AI recipe re-costed."]
-    L9["BUDGET FREE/PRO: Budget finder + per-person cost = FREE (only cost-figure exception). My Plan + shopping + nutrition = PRO. Floor shows only ≤R60/family-of-4."]
+    L9["BUDGET FREE/PRO: Budget finder + per-person cost = FREE. My Plan + shopping + nutrition = PRO. Floor <=R60/family-of-4."]
     L10["SEARCH HONESTY: Allergen/Kosher/Halal = GUIDANCE not guarantee. Diabetic = heuristic not medical advice."]
-    L11["NAMES: AUTHENTIC name kept + ENTICING English gloss line 2. photoName never changes. Gloss is searchText."]
-    L12["✅ BALANCED RESULTS (ENGINE BUILT 3 Jul): diversify axes the query LEFT OPEN (deterministic round-robin, NO ML). window.balancedOrder(list,opts). ONE engine for budget B3 + search. Every lens = filter + balanceBy. Bucket ORDER is SA-first."]
-    L13["DEDUP IN FINDER VIEW: same NAME → one row, keep most comprehensive (index keeps both). Same ingredients + different cultural names → keep both."]
+    L11["NAMES: AUTHENTIC name + ENTICING English gloss line 2 (WOW voice). photoName never changes. Gloss is searchText."]
+    L12["BALANCED RESULTS: diversify axes the query LEFT OPEN (deterministic round-robin, NO ML). window.balancedOrder. ONE engine budget+search. Bucket ORDER SA-first."]
+    L13["FINDER-VIEW DEDUP: same NAME → one row, keep most comprehensive (index keeps both). Different cultural names → keep both."]
+    L14["BUCKET CLASSIFY on the dish's OWN identity (name+ingredient names), NEVER goesWith/pairsWith/cuisine — pairings pollute the protein bucket. + SA-FIRST home advantage within each bucket (home library leads, cheapest tiebreak)."]
+    L15["MEAT LINE = R15pp (PER-PERSON). Below = honest stretcher mode (pap·sauce·soup·beans, no meat); R15pp+ = meat features. Converts by group size (R30/2·R60/4·R90/6). Floor stretchers live <=R15pp. Finder always = total÷people, so it's correct for any people count."]
   end

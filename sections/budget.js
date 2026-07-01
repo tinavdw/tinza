@@ -3,6 +3,9 @@ function budgetTogglePlan(i){
   var r=(S._budgetResults||[])[i]; if(!r) return;
   togglePlanItem('budgetPlan',{id:r.id,name:r.name||'',emoji:r.emoji||'💰',time:r.time||0,costPP:r.costPP||0,ingredients:r.ingredients||[],nutrition:r.nutrition||null,serves:1});
 }
+// R15/person is the MEAT LINE (L15): below = honest stretcher mode (pap·beans·soup),
+// R15pp+ = meat features. Per-person, so it converts by group size (R30/2 · R60/4 · R90/6).
+var BUDGET_MEAT_LINE_PP = 15;
 function budgetPlannerHTML(){
   const budget = parseFloat(S.budgetAmount||0);
   const people = parseInt(S.budgetPeople||4);
@@ -98,11 +101,36 @@ function budgetPlannerHTML(){
           </div>
         </div>
 
-        ${budget && people ? `<div style="font-size:13px;color:${color};margin-bottom:12px;text-align:center;">= R${(budget/people).toFixed(0)} per person${budget>=500?' · 🎉 Party/event mode':' · '+people+' people'}</div>` : ''}
+        ${budget && people ? (function(){
+          var pp = budget/people;
+          var ppStr = (pp % 1 === 0) ? pp.toFixed(0) : pp.toFixed(2);
+          var mode = budget>=500 ? '🎉 Party/event mode'
+                   : (pp>=BUDGET_MEAT_LINE_PP) ? "🍖 meat's on the menu"
+                   : '🥣 stretcher mode — pap, beans & soup';
+          return '<div style="font-size:13px;color:'+color+';margin-bottom:12px;text-align:center;">= R'+ppStr+' per person · '+mode+'</div>';
+        })() : ''}
 
-        <!-- Quick budget buttons -->
+        <!-- Quick budget buttons — meat-line aware for the current people count -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="selectBudget(${amt})" style="padding:9px 15px;border-radius:18px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?'#f5c842':'#e0d4b8'};font-size:14px;font-weight:${parseFloat(S.budgetAmount)===amt?'bold':'normal'};cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
+          ${(function(){
+            var meatTotal = BUDGET_MEAT_LINE_PP * people;   // R total where R15/person is reached
+            var chips = [40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600];
+            var html = '', prevMeat = null;
+            chips.forEach(function(amt){
+              var isMeat = amt >= meatTotal;
+              if(prevMeat===false && isMeat){   // one divider, exactly at the stretcher→meat crossing
+                html += '<div style="flex-basis:100%;text-align:center;font-size:12px;color:'+color+';margin:4px 0;letter-spacing:0.3px;">🍖 R'+BUDGET_MEAT_LINE_PP+'/person — meat starts here (R'+meatTotal+' for '+people+')</div>';
+              }
+              prevMeat = isMeat;
+              var sel = parseFloat(S.budgetAmount)===amt;
+              html += '<button onclick="selectBudget('+amt+')" style="padding:9px 15px;border-radius:18px;'
+                    + 'border:1px solid '+(sel?color:border)+';background:'+(sel?bg:'transparent')+';'
+                    + 'color:'+(sel?'#f5c842':(isMeat?'#e0d4b8':'#7a5a30'))+';'
+                    + 'font-size:14px;font-weight:'+(sel?'bold':'normal')+';cursor:pointer;white-space:nowrap;'
+                    + 'opacity:'+(isMeat?'1':'0.72')+';">R'+amt+'</button>';
+            });
+            return html;
+          })()}
         </div>
 
         <button onclick="findBudgetRecipes();scrollToBudgetResults()" style="width:100%;padding:14px;border-radius:10px;background:#1a1208;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
@@ -239,8 +267,13 @@ function _budgetPool(perPersonBudget){
    is SA-first so the opening rows feel recognisable (meat → fish → beans → …). */
 var BUDGET_BUCKET_ORDER = ['meat','fish','beans','pastarice','soup','veg'];
 function budgetBucket(r){
-  var t = (r && r.searchText) ? r.searchText
-        : ((r && r.name || '') + ' ' +
+  // classify on the dish's OWN identity — name + its (paren-stripped) ingredient
+  // NAMES — NOT searchText. searchText also folds in goesWith/pairsWith ("goes with
+  // grilled chicken"), cuisine + nameAlt. That pollution was dumping vegan rice
+  // dishes into the MEAT bucket, where their ~R10 price (no meat in the pot!) buried
+  // the real R25–R44 SA meat mains. Ingredient names are already paren-stripped, so
+  // "stock (chicken/beef/veg)" reads as just "stock". (3 Jul — review-a follow-up)
+  var t = ((r && r.name || '') + ' ' +
            ((r && r.ingredients || []).map(function(i){ return i.n; }).join(' '))).toLowerCase();
   // precedence = the dish's DOMINANT identity, not just any word it contains
   if(/\b(beef|mince|frikkadel|meatballs?|steak|chops?|lamb|mutton|skaap|pork|bacon|gammon|ham|sausages?|boerewors|wors|viennas?|polony|chicken|hoender|drumsticks?|thighs?|ribs?|oxtail|liver|bobotie|bunny chow|vleis)\b/.test(t)) return 'meat';
@@ -249,6 +282,15 @@ function budgetBucket(r){
   if(/\b(pasta|spaghetti|macaroni|noodles?|rice|risotto|lasagn[ae]|penne|fusilli|mac and cheese|mac & cheese)\b/.test(t)) return 'pastarice';
   if(/\b(soups?|broth|bisque)\b/.test(t)) return 'soup';
   return 'veg';
+}
+// SA-FIRST home advantage (3 Jul): rank a recipe's "home-ness" so recognisable SA
+// dishes lead every bucket and the un-costed-meat World imposters fall below.
+function _budgetHomeRank(r){
+  var cu = (r && r.cuisine || '').toLowerCase();
+  // unmistakably SA — incl. World Kitchen SA sub-cuisines (Cape Malay/Zulu/Sotho/Xhosa/Boerekos)
+  if(/south[\s-]?africa|cape\s?malay|zulu|sotho|xhosa|tswana|venda|boerekos|boere|afrikaan|karoo/.test(cu)) return 3;
+  if(r && (r.section==='meals' || r.section==='floor')) return 2;  // our curated home library
+  return 1;                                                        // foreign World Kitchen etc.
 }
 // review-c dedup helpers: collapse identical dish NAMES to one finder row, keeping
 // the most detailed record. Index keeps both — this trims the VIEW only.
@@ -295,7 +337,12 @@ function findBudgetRecipes(){
     ? balancedOrder(uniq, {
         bucketOf: budgetBucket,
         order:    BUDGET_BUCKET_ORDER,
-        within:   function(a,b){ return (a.costPP||0) - (b.costPP||0); }
+        // SA-first WITHIN each bucket: home library (+ SA cuisines) lead, cheapest as
+        // the tiebreak — so recognisable SA dishes head every row and the World dishes
+        // whose meat was never costed drop below instead of hijacking the top. (3 Jul)
+        within:   function(a,b){
+          return (_budgetHomeRank(b) - _budgetHomeRank(a)) || ((a.costPP||0) - (b.costPP||0));
+        }
       })
     : uniq.sort(function(a,b){ return (a.costPP||0) - (b.costPP||0); });
   if(!pool.length){
@@ -341,7 +388,6 @@ function budgetOpenRecipe(i){
 function budgetCloseRecipe(){
   var y = window._budgetScrollY || 0;
   setQuiet({ _budgetActiveRecipe:null });       // back to the results list
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){
-    window.scrollTo(0, y);                       // ...at the exact spot you left
-  }); });
+  window.scrollTo(0, y);                         // restore immediately — no flash to the top
+  requestAnimationFrame(function(){ window.scrollTo(0, y); });  // correct once the list height is back
 }
