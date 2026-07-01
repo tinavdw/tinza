@@ -101,36 +101,11 @@ function budgetPlannerHTML(){
           </div>
         </div>
 
-        ${budget && people ? (function(){
-          var pp = budget/people;
-          var ppStr = (pp % 1 === 0) ? pp.toFixed(0) : pp.toFixed(2);
-          var mode = budget>=500 ? '🎉 Party/event mode'
-                   : (pp>=BUDGET_MEAT_LINE_PP) ? "🍖 meat's on the menu"
-                   : '🥣 stretcher mode — pap, beans & soup';
-          return '<div style="font-size:13px;color:'+color+';margin-bottom:12px;text-align:center;">= R'+ppStr+' per person · '+mode+'</div>';
-        })() : ''}
+        ${budget && people ? `<div style="font-size:13px;color:${color};margin-bottom:12px;text-align:center;">= R${((budget/people)%1===0)?(budget/people).toFixed(0):(budget/people).toFixed(2)} per person${budget>=500?' · 🎉 Party/event mode':''}</div>` : ''}
 
-        <!-- Quick budget buttons — meat-line aware for the current people count -->
+        <!-- Quick budget buttons -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-          ${(function(){
-            var meatTotal = BUDGET_MEAT_LINE_PP * people;   // R total where R15/person is reached
-            var chips = [40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600];
-            var html = '', prevMeat = null;
-            chips.forEach(function(amt){
-              var isMeat = amt >= meatTotal;
-              if(prevMeat===false && isMeat){   // one divider, exactly at the stretcher→meat crossing
-                html += '<div style="flex-basis:100%;text-align:center;font-size:12px;color:'+color+';margin:4px 0;letter-spacing:0.3px;">🍖 R'+BUDGET_MEAT_LINE_PP+'/person — meat starts here (R'+meatTotal+' for '+people+')</div>';
-              }
-              prevMeat = isMeat;
-              var sel = parseFloat(S.budgetAmount)===amt;
-              html += '<button onclick="selectBudget('+amt+')" style="padding:9px 15px;border-radius:18px;'
-                    + 'border:1px solid '+(sel?color:border)+';background:'+(sel?bg:'transparent')+';'
-                    + 'color:'+(sel?'#f5c842':(isMeat?'#e0d4b8':'#7a5a30'))+';'
-                    + 'font-size:14px;font-weight:'+(sel?'bold':'normal')+';cursor:pointer;white-space:nowrap;'
-                    + 'opacity:'+(isMeat?'1':'0.72')+';">R'+amt+'</button>';
-            });
-            return html;
-          })()}
+          ${[40,50,60,70,80,90,100,110,120,130,140,150,160,180,200,220,240,260,280,300,350,400,450,500,600].map(amt=>`<button onclick="selectBudget(${amt})" style="padding:9px 15px;border-radius:18px;border:1px solid ${parseFloat(S.budgetAmount)===amt?color:border};background:${parseFloat(S.budgetAmount)===amt?bg:'transparent'};color:${parseFloat(S.budgetAmount)===amt?'#f5c842':'#e0d4b8'};font-size:14px;font-weight:${parseFloat(S.budgetAmount)===amt?'bold':'normal'};cursor:pointer;white-space:nowrap;">R${amt}</button>`).join('')}
         </div>
 
         <button onclick="findBudgetRecipes();scrollToBudgetResults()" style="width:100%;padding:14px;border-radius:10px;background:#1a1208;border:2px solid ${color};color:${color};font-size:14px;cursor:pointer;font-family:Georgia,serif;">
@@ -167,6 +142,9 @@ function budgetPlannerHTML(){
           <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Recipes within your budget</div>
           ${S._budgetAILoading ? `<div style="font-size:13px;color:#e0d4b8;font-style:italic;">✨ Finding more...</div>` : ''}
         </div>
+        ${(budget/people) < BUDGET_MEAT_LINE_PP && budget < 500 ? `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:10px;font-size:13px;color:#e0d4b8;line-height:1.55;">
+          💛 <b style="color:${color};">Tight budget, honest food.</b> At around R${((budget/people)%1===0)?(budget/people).toFixed(0):(budget/people).toFixed(2)} a person there isn't room for meat tonight — so these are proper end-of-month meals that stretch the pot: pap, beans, hearty soups and clever veg. Add a little more per person and meat comes back on the menu.
+        </div>` : ''}
         ${results.map((r,i)=>`
           <div style="background:${isPlanItem('budgetPlan',r.id)?bg:'#161210'};border:1px solid ${isPlanItem('budgetPlan',r.id)?color:'#2a1a10'};border-radius:10px;padding:12px;margin-bottom:6px;">
             <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="budgetTogglePlan(${i})">
