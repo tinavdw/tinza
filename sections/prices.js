@@ -157,6 +157,9 @@ const PRICE_DB = {
   "chicken breasts": 90,
   "chicken drumsticks": 85,
   "chicken livers": 56,       // R28/500g → R56/kg
+  "chicken necks": 35,        // cheap offal — floor recipes (2 Jul)
+  "chicken giblets": 42,      // cheap offal — floor recipes (2 Jul)
+  "chicken gizzards": 48,     // cheap offal — floor recipes (2 Jul)
   "chicken": 90,
 
   // ── SEAFOOD ──

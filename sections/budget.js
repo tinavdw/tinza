@@ -202,11 +202,16 @@ function portionHelpContent() {
 // ── BUDGET RECIPE FINDER (rebuilt 27 Jun — lost in the monolith→module split) ──
 // Filters every priced meal recipe down to what fits "I've got Rxxx for N people",
 // cheapest first. Pure local filter, no AI dependency — always works.
-function _budgetPool(){
+function _budgetPool(perPersonBudget){
   var pool = [];
   if(typeof BREAKFAST_RECIPES   !== 'undefined') pool = pool.concat(BREAKFAST_RECIPES);
   if(typeof LIGHTLUNCH_RECIPES  !== 'undefined') pool = pool.concat(LIGHTLUNCH_RECIPES);
   if(typeof SUPPER_RECIPES      !== 'undefined') pool = pool.concat(SUPPER_RECIPES);
+  // Floor stretcher-meals join ONLY when money is genuinely tight (≤ ~R15pp ≈ R60
+  // for a family of 4). Above that the proper library meals take over. (2 Jul)
+  if(perPersonBudget != null && perPersonBudget <= 15 && typeof BUDGET_FLOOR_RECIPES !== 'undefined'){
+    pool = pool.concat(BUDGET_FLOOR_RECIPES);
+  }
   // Sides & Basics EXCLUDED (2 Jul) — Pizza Dough / mash / doughs / sauces are building
   // blocks, not standalone budget meals (they were floating to the top of a cheapest-first
   // list and showing as "meals"). Re-add via an allowlist tag later if some qualify.
@@ -220,7 +225,7 @@ function findBudgetRecipes(){
   var per = budget / people;
   var q = (S.budgetSearch||'').trim().toLowerCase();
   var seen = {};
-  var pool = _budgetPool().filter(function(r){
+  var pool = _budgetPool(per).filter(function(r){
     if(!r || !r.costPP) return false;                                  // only priced recipes
     if(r.costPP > per) return false;                                   // within per-person budget
     if(q && (r.name||'').toLowerCase().indexOf(q) < 0) return false;   // honour the search box
