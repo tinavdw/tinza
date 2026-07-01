@@ -1,107 +1,101 @@
-%% TINZA_NOW — session state  |  2 July 2026 (3 Jul — RECOMMENDED NEXT SEQUENCE pinned · foundation before content)
-%% Focus: box/double-render fixed · pizza-dough pool fixed · BUDGET AI-prewarm engine designed (mirror mood).
+%% TINZA_NOW — session state  |  3 July 2026
+%% LOCKED THIS SESSION: whole-app UNIVERSAL INDEX greenlit (ALL sections, every recipe; budget finder = mains-only).
+%% KEY FINDING: the "World Kitchen converter" ALREADY EXISTS + works (wkParseIngredients/wkPriceLookup/wkCostRecipe).
+%% DELIVERED: TINZA_UNIVERSAL_INDEX_BRIEF.md → hand to Claude Code as Run 1.
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
 
-  subgraph NEXT0["▶️ NEXT SESSION — recommended order (foundation before content; locked rule = sameness before fill)"]
-    NX0["TRADE-OFF: engine-first = higher ceiling (findability vision) · content-first = prettier NOW (flip ONLY if a launch/demo is imminent). Rec = ENGINE-FIRST."]
-    NX1["TRACK 1 — CLAUDE CODE (big grind, run in background):<br/>1) WORLD KITCHEN CONVERTER ← START HERE (keystone's 1st step · biggest visible win: 136 SA dishes into the budget finder · proves the adapter pattern).<br/>2) NAMING + FACET-TAGGING pass (mostly auto-derivable → no double-handling)."]
-    NX2["TRACK 2 — WITH CHAT-CLAUDE (design + quality):<br/>3) RECIPE-PAGE ENRICHMENT (last sameness piece · retires bespoke page · fixes cross-link version-strip bug · UNBLOCKS the muffin+salad pairing).<br/>4) THEN FMF WOW CONTENT (breakfast · lunch · bakes) = the fill step, into a solid frame."]
-    NX3["Kick-off next convo: upload TINZA_NOW.mermaid, then say e.g. 'start the World Kitchen converter' (Claude Code) and/or 'let's do the recipe-page enrichment' (chat)."]
-    NX0-->NX1-->NX2-->NX3
+  subgraph NEXT0["▶️ NEXT SESSION — recommended order"]
+    NX1["TRACK 1 — CLAUDE CODE (big grind): RUN 1 = build the UNIVERSAL INDEX per TINZA_UNIVERSAL_INDEX_BRIEF.md.<br/>New sections/index.js exposes allRecipes(filter); read-only adapter per section; re-point budget _budgetPool at it.<br/>NB: WK converter already exists — Run 1 is the INDEX + wiring, NOT a rewrite."]
+    NX1b["TRACK 1 — RUN 2 (after index lands): FACET DERIVATION pass (allergen/kosher/halal/diabetic/freezable from ingredients+macros, WITH honesty caveats) + NAMING pass + wire 72 goesWith → real cross-links."]
+    NX2["TRACK 2 — WITH CHAT-CLAUDE: RECIPE-PAGE ENRICHMENT (last sameness piece · retires bespoke page · fixes cross-link version-strip bug). THEN FMF WOW CONTENT (breakfast·lunch·bakes) into the solid frame."]
+    NX3["Kick-off next convo: upload TINZA_NOW.mermaid, then e.g. 'kick off the Universal Index run' (Claude Code) and/or 'let's do the recipe-page enrichment' (chat)."]
+    NX1-->NX1b-->NX2-->NX3
   end
   START-->NEXT0
 
-  %% ---------- PUSH NOW ----------
-  subgraph PUSHN["⬆️ PUSH NOW — 3 files, ONE commit"]
-    P1["core.js — mood 'add to plan' box fix (moodTogglePlan; was out-of-scope r)."]
-    P2["budget.js — (a) budget box fix (budgetTogglePlan) · (b) double-render removed · (c) Sides & Basics EXCLUDED from budget meal pool → no more 'Pizza Dough as a meal'."]
-    P3["TINZA_NOW.mermaid — this file. node --check ✅ on core.js + budget.js."]
-    P1-->P2-->P3
+  %% ---------- UNIVERSAL INDEX — RUN 1 (brief written, ready for Claude Code) ----------
+  subgraph URI["🧭 UNIVERSAL RECIPE INDEX — Run 1 SPEC LOCKED (brief: TINZA_UNIVERSAL_INDEX_BRIEF.md)"]
+    U0["DECISION LOCKED (3 Jul): index EVERY recipe in EVERY section; budget/meal finder filters to mealRole==='main'. A drink/condiment/baby/pet is searchable but never a supper. mealRole = the switch."]
+    UE["✅ FOUND: the WK 'converter' is already live in worldkitchen.js — wkParseIngredients (splits on ·, strips parens, per-person g) · wkPriceLookup + WK_ALIAS · wkCostRecipe→{priced,total} · RECIPE_SOURCES.world + openRecipe('world') wired · wkPool(). DO NOT rewrite. Run 1 REUSES these."]
+    U1["NORMALISED RECORD: {id,section,name,emoji,mealRole,diet[],protein,cuisine,time,kcal,costPP,freezes,fridgeDays,ingredients[{n,pp,u}],goesWith[],searchText}. New file sections/index.js exposes allRecipes(filter) + TINZA_ADAPTERS. Read-only over every section."]
+    U2["ADAPTERS (read-only): READY plug-ins = meals(BREAKFAST/LIGHTLUNCH/SUPPER) · floor · health · events — already {n,pp,u}+costPP (just map fields; wrap FMF diet string→array). WORLD = wkParseIngredients→{n,pp,u} + wkCostRecipe→costPP. SPECIAL (search-only, costPP often null) = braai(portion-brain, DON'T touch calcMeat) · beverages(drink) · tiny(baby) · spice(condiment) · furry(pet)."]
+    U3["⚠️ WK COST GATE (critical): set costPP from wkCostRecipe ONLY if priced/total ≥ 0.8 AND main protein resolved — else costPP=null (searchable, excluded from budget finder) so half-priced dishes don't float to top as fake-cheap. Log skips = pricing-hygiene audit."]
+    U4["BUDGET RE-POINT (only existing-file edit; IS the session purpose): _budgetPool = allRecipes({mealRole:'main'}) minus braai; downstream costPP≤per filter + cheapest-sort + floor≤R60/4 unchanged. Breakfast/Sides/Bakes fall out naturally (not 'main'). = the B11 unlock: 136 SA dishes into the finder."]
+    U5["FACETED SEARCH (later): every filter STACKS (e.g. diabetic+veg+≤R60+freezable). Each facet = a field + a small AND-composing fn over allRecipes(). Existing finders (budget·4-ingredient·anchor·mood) become the first filters."]
+    U0-->UE-->U1-->U2-->U3-->U4-->U5
   end
+  START-->URI
 
-  START-->PUSHN
+  %% ---------- FACET / PAIRING — RUN 2 (deferred) ----------
+  subgraph URI2["🧭 UNIVERSAL INDEX — Run 2 (deferred, after Run 1 lands)"]
+    F1["FACET DERIVATION: diet (normalise+fill) · diabetic/low-carb/high-protein (from 372 macros) · freezable/fridge-life (54 flags + 191 storage texts) · main-protein 'I've got chicken' · ALLERGENS (0 tags → derive from ingredient names) · kosher/halal (ingredient exclusions)."]
+    F2["⚠️ HONESTY CAVEATS (L10, non-negotiable): Allergen/Kosher/Halal = GUIDANCE from names, NOT a guarantee → 'always check the label · not certified'. Diabetic-friendly = nutrition heuristic, NOT medical advice. Never imply a safety/religious/medical guarantee the app can't back."]
+    F3["MEAL COMPOSITION / PAIRING (U8): mealRole facet already on records. WIRE 72 goesWith TEXT → real cross-links (only 3 wired now) → component+cheap side = ONE costed meal (two-cost renderer already sums plans). Audience/persona facets (elderly·kids·gym·single·quick) = each just another filter, none privileged."]
+    F4["CREATIVE SURFACING (U9): one well-tagged library → endless contextual lenses (collections · 'tonight' picks · 'use what you have' · persona menus). Surface unusual/cultural dishes when the scenario fits."]
+    F1-->F2-->F3-->F4
+  end
+  URI-->URI2
 
-  %% ---------- BUDGET ENGINE (DESIGN LOCKED — build next) ----------
+  %% ---------- BUDGET ENGINE (design locked; index unblocks it) ----------
   subgraph BUDGET["💰 BUDGET ENGINE — locked design (mirror the mood pipeline)"]
-    B0["TEMPLATE EXISTS: mood/Just-Feed-Me already does library-first + AI-prewarm.<br/>callMoodChef → show DB page instantly + startMoodAIFetch() in background;<br/>getMoreMoodRecipes → DB pages first, then pre-generated AI bank. Mirror it for budget, keyed to (price, people)."]
-    B1["1 · LIBRARY FIRST — exhaust ALL our recipes before AI. Instant local slice.<br/>Pool = priced MEALS (breakfast+lunch+supper) where costPP×people ≤ budget. (Sides/Basics + Bakes excluded.)"]
-    B2["2 · FLOOR RECIPES — ✅ RECEIVED: 90-recipe budget PDF (9 bands R40–R120). Use ONLY as low-tier floor, blended with existing library. Higher tiers = library only.<br/>⚠️ PDF tier labels DON'T survive our prices (e.g. 'R50' Wors-Chakalaka = ~R72/4). Must RE-COST each with priceOf + assign tier by REAL cost.<br/>USE-CASE: the last few days before payday, money really tight — this frames the how-this-feels tone."]
-    B3["3 · VARIETY JUGGLING — round-robin buckets so each batch of 3 is balanced: meat-flavoured · tinned fish · VEGETARIAN · SOUP/STEW · pasta/rice · beans/lentils. Blend the CHEAP LIBRARY we already have (vetkoek, mince dishes, etc.) alongside the floor recipes. Add more veg + soups/stews to the floor pool."]
-    B4["4 · AI PRE-WARM — the moment a price (e.g. R50) is picked, startBudgetAIFetch(budget,people) fires in background. Keep a rolling buffer of ≥9 for that price FORMAT, topped up continuously, de-duped vs shown."]
-    B5["5 · COSTED + PLANNED (critical) — re-cost EVERY AI recipe with OUR priceOf (never trust AI's number) + require structured {n,pp,u} ingredients. Discard if over budget once re-priced. This also fixes the old 'AI dish had no shopping list'."]
-    B6["6 · SEAMLESS HANDOVER — library dry → AI bank already waiting → no pause. Re-key/cancel buffer when price or people changes."]
-    B7["FLOOR — ✅ WIRED LIVE. sections/budget_floor.js = 9 recipes. MEAT-forward lead: Mince & Lentil Curry · Vetkoek & Curried Mince · Curried Pilchard Stew. Veg fallback: Samp · Soya-Cabbage · Lentil balls · Egg Curry · PB-Spinach · Double Bean. All ≤R15pp, re-costed. Blend into _budgetPool only when budget/4 ≤ R60."]
-    B8["TIERING (clear now): FLOOR ≤R15pp = stretched mince / pilchards / beans / eggs / lentils — honest 'can\'t do meat tonight'. LOW TIER R20–45pp (R80–180/4) = proper MEAT meals (cottage pie, mince pasta, boerewors meatballs, samp & beef stew) from LIBRARY + cookbook gap-fillers. Meat naturally lives just above the floor — you can\'t always eat meat when broke."]
-    B9["OFFAL (chicken necks/gizzards) → Tina: EXTREME cases only, not the go-to. Dropped from floor. Prices kept as parked data for a possible future 'extreme' sub-tier."]
-    B10["FINDER COVERAGE (checked 2 Jul): _budgetPool pulls BREAKFAST + LIGHTLUNCH + SUPPER (+ FLOOR when ≤R60/4). ✅ SOUPS already show (they're Light-Lunch). ✅ VETKOEK now added to floor (previously only in Buffet/Events, invisible to finder). ❌ WORLD KITCHEN not pulled → see B11."]
-    B12["♻️ AI RECIPE HARVEST / REVIEW LOOP (Tina, LATER): library-first ALWAYS; while the user browses, AI scouts in the background (budget prewarm + Just-Feed-Me). NEW: every AI-generated recipe is LOGGED BACK TO TINA for review → clean up · re-cost via priceOf · structure {n,pp,u} · name well · WOW → PROMOTE good ones into the permanent library. Virtuous loop: AI suggests → Tina curates → library grows → less AI dependence over time. Mechanics (later): capture in the Netlify claude fn (log/store) or a review queue view; new recipes then join the Universal Index. Applies to mood + budget alike."]
-    B11["🌍 BIG OPPORTUNITY — WORLD KITCHEN into the finder. 136 SA dishes + African (bobotie, bredies, frikkadels, samp/pap dishes, pickled fish…) are NOT in the budget finder. BLOCKER: WK recipes have NO costPP and ingredients are stored as TEXT ('90g beef mince · 50g onion'), not {n,pp,u}. NEEDS a WK→budget converter: parse text ingredients (wkScaleLine/wkPriceLookup already exist) → per-person grams → priceOf → costPP; open via openRecipe('world') not recipeDetailFromResult; include only cheap MAINS (skip desserts/celebration dishes). On-brand (SA-first heritage). = PHASE 1 of the Universal Recipe Index (URI) below. Tina to greenlight."]
-    B0-->B1-->B2-->B3-->B4-->B5-->B6-->B7-->B8-->B9-->B10-->B12-->B11
+    B0["TEMPLATE: mood/Just-Feed-Me already does library-first + AI-prewarm. Mirror for budget, keyed to (price,people). Once the index lands, the LIBRARY-FIRST pool = allRecipes({mealRole:'main', maxCostPP})."]
+    B1["1 · LIBRARY FIRST — exhaust ALL our recipes before AI. Now spans EVERY section via the index (was: hand-concat of a few arrays)."]
+    B2["FLOOR — ✅ WIRED LIVE. budget_floor.js = 9 recipes (meat-forward lead + veg fallback), all ≤R15pp, re-costed. Blends in only when budget/4 ≤ R60."]
+    B3["TIERING: FLOOR ≤R15pp = stretched mince/pilchards/beans/eggs/lentils (honest 'can't do meat tonight'). LOW R20–45pp = proper MEAT meals from library + cookbook gap-fillers. Meat lives just above the floor."]
+    B4["AI PRE-WARM (later): on price-select, startBudgetAIFetch fires; rolling buffer ≥9 per (price,people), de-duped. Every AI recipe RE-COSTED with priceOf + structured {n,pp,u} + planned (never trust AI's number)."]
+    B5["♻️ AI HARVEST LOOP (later): every AI recipe logged back to Tina → curate → promote good ones into the permanent library → less AI dependence over time. Applies to mood + budget."]
+    B0-->B1-->B2-->B3-->B4-->B5
   end
-  subgraph FIX2["🔧 LIVE-TEST FIXES (3 Jul) — next small push: budget.js + this mermaid"]
-    FX1["BUDGET was 'stuck' on pap/Maizena/pannekoek → cause: _budgetPool pulled BREAKFAST (cheapest items R3–R7 topped every list). FIXED: Breakfast EXCLUDED from the meal finder (node --check ✅). Breakfast-for-supper = a future collection."]
-    FX2["JUST-FEED-ME 'give me more' STALLS → 'no more recipes'. NOT a code bug — the AI call /.netlify/functions/claude forces model 'claude-opus-4-5'. CHECK: (a) is that a VALID current API model id? (b) is ANTHROPIC_KEY set in Netlify env? (c) Netlify function logs for the real error. Client silently swallows the error (catch → loading=false). STRATEGIC FIX: library-first fallback (Universal Index) so mood never dead-ends on AI."]
-    FX3["MOOD → BUDGET (Tina): nice Just-Feed-Me recipes should also feed Budget. DB mood recipes join the Universal Index; mood falls back to LIBRARY when AI is down (ties FX2)."]
+  URI-->BUDGET
+
+  %% ---------- LIVE-TEST FIXES already shipped ----------
+  subgraph FIX2["🔧 SHIPPED (earlier this session)"]
+    FX1["Breakfast EXCLUDED from meal finder (was topping every list with R3–R7 items). Post-index this holds automatically (breakfast mealRole ≠ main)."]
+    FX2["JUST-FEED-ME 'give me more' stall → NOT code: Netlify claude fn forced model 'claude-opus-4-5'. CHECK (a) valid current API model id? (b) ANTHROPIC_KEY in Netlify env? (c) function logs. Client swallows the error. Strategic fix = library-first fallback via the index."]
+    FX3["mood 'add to plan' box fix (moodTogglePlan) · budget box fix (budgetTogglePlan) · double-render removed · Sides & Basics excluded from budget pool (no 'Pizza Dough as a meal')."]
     FX1-->FX2-->FX3
   end
-  PUSHN-->FIX2-->BUDGET
+  START-->FIX2
 
-  %% ---------- UNIVERSAL RECIPE INDEX (make ALL recipes findable) ----------
-  subgraph URI["🧭 UNIVERSAL RECIPE INDEX — make EVERY recipe findable (scoped 2 Jul, big roadmap)"]
-    U0["GOAL (Tina): all recipes findable via one mechanism (budget = just the first filter). Reframe: the universal OPENER already exists (RECIPE_SOURCES/openRecipe for meals·world·health·events·cakes·beverages·spice·kiddies). What's MISSING = a universal INDEX: one registry returning EVERY recipe in ONE normalised shape."]
-    U1["SURVEY — 3 buckets:<br/>• READY ({n,pp,u}+costPP): FMF ×5 · Budget Floor · Events · Health (the bulk — plug straight in).<br/>• NEEDS CONVERTER (text ingredients, no cost): World Kitchen SA(136)+Africa+Europe.<br/>• SPECIAL MODELS (decide include/exclude): Braai (portion-brain/calcMeat) · Beverages (drinks) · Tiny Tummies (baby per-age) · Spice (condiments)."]
-    U2["WHAT IT TAKES:<br/>1 · ONE normalised record {id,section,name,emoji,diet,cuisine,time,kcal,costPP,ingredients,searchText}.<br/>2 · READ-ONLY adapter per section → normalised view (never rewrite a working section = low risk).<br/>3 · UNIFIED costing: every record resolves costPP via priceOf (doubles as app-wide pricing-hygiene audit).<br/>4 · allRecipes(filter): one index; every finder = a filter (budget=cost · search=text · dietary=diet · anchor=ingredient · mood=tag). Open already solved."]
-    U3["PHASING:<br/>P1 = World Kitchen converter (hardest adapter → proves pattern + unlocks 136 SA dishes into budget finder). ← recommended start.<br/>P2 = wrap already-ready collections (FMF/floor/events/health) → near-free → universal SEARCH across everything.<br/>P3 = decide braai/beverages/tiny-tummies.<br/>P4 = finder UIs as filters (budget exists; add search/dietary/anchor)."]
-    U4["PAYOFF: every dish findable by budget · ingredient · diet · mood · search, from ONE index; pricing gaps surface everywhere. Backbone of 'one card per dish, everything findable'."]
-    U5["FACETED SEARCH (Tina): budget is ONE dial — ALL filters must STACK, e.g. 'diabetic + vegetarian + ≤R60 + freezable'. Mechanism: each facet = a field on the normalised record + a small filter fn; filters AND-compose over allRecipes(). Existing finders (budget · 4-ingredient · anchor · mood) become the first filters; every scenario is just another filter."]
-    U6["FACET READINESS:<br/>• FREE: time (all have it) · ingredients (have/avoid; finders exist) · cost (ready collections).<br/>• DERIVABLE: diabetic/low-carb/high-protein/heart (from nutrition, 372 have macros) · freezable/fridge-life (54 freezes flags + 191 storage texts) · main-protein 'I've got chicken' (54 tagged + rest from ingredients).<br/>• NEEDS TAGGING PASS: diet (inconsistent: FMF diet:'meat/veg' vs WK diet:[] arrays — normalise + fill) · ALLERGENS (0 tags — derive from ingredient names) · kosher/halal (derive as ingredient exclusions)."]
-    U7["⚠️ HONESTY CAVEATS (non-negotiable): Allergen / Kosher / Halal filters = GUIDANCE from ingredient names, NOT a guarantee (no cross-contamination / hidden-ingredient / certification visibility) → must show 'always check the label · not certified'. 'Diabetic-friendly' = nutrition heuristic, NOT medical advice → same caveat. Never let the app imply a safety/religious/medical guarantee it can't back."]
-    U8["🍽️ MEAL COMPOSITION / PAIRING (Tina): cheap COMPONENTS in ANY section (Health muffin · Meals toast · a soup) become a full meal when PAIRED (muffin + side salad · toast + veg). For ALL users — 'older people on a budget' is just ONE persona among many, not the point. 'Cheap' is a FACET across the whole library, not a Budget-section feature.<br/>NEEDS: (a) mealRole facet main/side/component/snack — WK has course (66 main/27 side/…); FMF derive from cat (salads·soups·staples→side/component; stews·bakes·handhelds→main). (b) WIRE goesWith → real cross-links: 72 recipes carry goesWith TEXT but only 3 GOESWITH_LINKS hooks — wiring them is the unlock. (c) finder surfaces component + suggested cheap side as ONE costed meal — combined cost is FREE (2-item plan; two-cost renderer already sums plans). (d) AUDIENCE/persona facets — MANY (elderly · kids · gym/high-protein · single portions · quick-after-work …), each just another filter, none privileged."]
-    U9["🎲 CREATIVE CONTEXTUAL SURFACING (Tina): the point isn't only findability — it's PLAYING with the whole library. The index+facets+pairings let us put the RIGHT dish in the RIGHT context, incl. unusual / cultural dishes (a 'strange' African dish surfaced when the scenario fits). One well-tagged library → endless contextual lenses (collections, 'tonight' picks, 'use what you have', persona menus). Everything we already have, recombined."]
-    U0-->U1-->U2-->U3-->U4-->U5-->U6-->U7-->U8-->U9
-  end
-
-
-  %% ---------- OPEN QUESTIONS ----------
-  subgraph Q["❓ OPEN — needed to build"]
-    Q1["✅ RESOLVED — floor recipes received (Ultimate 90 Budget PDF)."]
-    Q2["✅ Source model: library-first, AI top-up, AI pre-generates from price-select."]
-    Q3["✅ FLOOR CUTOFF LOCKED: floor meals show only up to R60 for a family of 4 (~R15pp). Above = library only. One number, tunable."]
-    Q4["✅ RESOLVED (Free/Pro): Budget finder + each recipe's PER-PERSON COST = FREE (the lifeline + the funnel). My Plan + combined shopping list + nutrition breakdown = PRO. Now the ONE exception to the 'no cost figures for Free' rule."]
-  end
-  BUDGET-->Q
-
-  %% ---------- OTHER FLAGGED TO-DOS ----------
-  subgraph NEWTODO["🆕 flagged"]
-    NTN["✍️ NAMING PASS (→ CLAUDE CODE): rename ALL recipes to be descriptive + appetising. Ingredient/brand names → dish names (e.g. 'Maizena' → 'Maizena Porridge'; a bare 'Maizena' is cornflour, a thickener, not a meal). Terse names → evocative. KEEP photoName unchanged so photos still match. Library-wide, repetitive = ideal Claude Code job."]
-    NT0["COOKBOOK LOW-TIER GAP-FILLERS (add to MAIN library, NOT floor — they cost R20–45pp): Savoury/Curried Mince · simple Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Brown Rice & Cabbage Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. (We ALREADY have Cottage Pie · Shepherd's · Farmhouse Beef Stew · Lentil Dhal/Soup — blend those in.) Source: Interface 'Meals on a Budget' cookbook. Re-cost each with priceOf; ignore the cookbook's own tier labels."]
-    NT1["TINY TUMMIES + FURRY FRIENDS — still to migrate to shared renderers (slot into sameness sweep)."]
-    NTCC["🤖 CLAUDE CODE vs CHAT (Tina asked): USE CLAUDE CODE for the big repetitive library-wide grinds — naming pass · index enrichment/tagging (mealRole·allergens·diet·protein) · World Kitchen converter · wiring 72 goesWith cross-links. It lives in the repo, runs node --check, iterates over many files (CLAUDE.md + health-check.js already set up). KEEP WITH CHAT-CLAUDE: architecture/design decisions + quick targeted fixes (like today's budget/Maizena). The JFM AI stall = neither — it's a Netlify config check (model id + API key)."]
-    NT3["JUST FEED ME depth — same AI-recipe rule applies: re-cost + structured ingredients so its plan/shopping fills (shares B5)."]
-  end
-  Q-->NEWTODO
-
-  %% ---------- NEXT: RECIPE-PAGE ENRICHMENT (own core.js session) ----------
+  %% ---------- NEXT: RECIPE-PAGE ENRICHMENT (chat, own core.js session) ----------
   subgraph NEXT["🧱 NEXT — RECIPE-PAGE ENRICHMENT (own careful core.js session)"]
     N0["WHY: shared bakesRecipeOpts is LEANER than live recipeDetailFromResult — naive migrate STRIPS features (why Fish & Chips still shows old single-gold cost)."]
     N1["Enrich shared recipePage UP to parity: version strip (B/Q/V) · Goes Well With · nutrition grid · Save (Pro) · WhatsApp · Start Cooking · TWO-COST estimate."]
-    N2["THEN retire recipeDetailFromResult + openMealRecipe → openRecipe('meals'). Fixes cross-link-drops-version-strip bug."]
-    N3["THEN plan rows clickable via openRecipe('meals')."]
-    N0-->N1-->N2-->N3
+    N2["THEN retire recipeDetailFromResult + openMealRecipe → openRecipe('meals'). Fixes cross-link-drops-version-strip bug. THEN plan rows clickable via openRecipe('meals')."]
+    N0-->N1-->N2
   end
-  NEWTODO-->NEXT
+  URI2-->NEXT
 
   %% ---------- THEN: FMF CONTENT + PRICING + LINKS ----------
   subgraph TODO["📋 THEN — FMF, in order"]
     T2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes · WOW everywhere"]
-    T3["PRICING HYGIENE — every ingredient resolves in PRICE_DB · fix R0 · 'Not yet costed' rows show gaps"]
-    T4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes. ALSO wire the 72 goesWith TEXT pairings → real recipes (only 3 wired now) = enables component+side=meal (URI/U8)."]
+    T3["PRICING HYGIENE — every ingredient resolves in PRICE_DB · fix R0 · 'Not yet costed' rows show gaps (the index's skip-log feeds this directly)"]
+    T4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes. ALSO the 72 goesWith TEXT → real recipes (URI Run 2 F3)."]
     T5["COSMETIC SAMENESS SWEEP — LAST (FMF list header → shared sectionHeader)"]
     T2-->T3-->T4-->T5
   end
   NEXT-->TODO
+
+  %% ---------- NEW / FLAGGED ----------
+  subgraph NEWTODO["🆕 flagged"]
+    NTN["NAMING PASS (Claude Code, Run 2): rename recipes descriptive + appetising ('Maizena' → 'Maizena Porridge'). KEEP photoName unchanged so photos still match."]
+    NT0["COOKBOOK LOW-TIER GAP-FILLERS (add to MAIN library, NOT floor; R20–45pp): Savoury/Curried Mince · Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. Re-cost each with priceOf; ignore cookbook tier labels."]
+    NT1["TINY TUMMIES + FURRY FRIENDS — still to migrate to shared renderers (slot into sameness sweep). NOTE: both are now IN the index (search-only, non-main roles)."]
+    NTCC["CLAUDE CODE vs CHAT: CODE = big repetitive library-wide grinds (index build · facet/naming/tagging passes · 72 goesWith wiring). CHAT = architecture/design + targeted fixes. JFM stall = neither (Netlify config)."]
+  end
+  TODO-->NEWTODO
+
+  %% ---------- ROADMAP ----------
+  subgraph ROAD["🗺️ ROADMAP after FMF"]
+    R1["LUNCH sweep — egg-salad WOW · Hummus&Veg Wrap · taco-spice dupes"]
+    R2["BREAKFAST WOW pass"]
+    R3["SEASONING SWEEP (Claude Code, report-only first)"]
+    R4["BUG-SWEEP — price resolver silent R0 · unit guard"]
+    R1-->R2-->R3-->R4
+  end
+  NEWTODO-->ROAD
 
   %% ---------- CARRY-OVER ----------
   subgraph CARRY["🔧 CARRY-OVER"]
@@ -111,16 +105,7 @@ flowchart TD
     C3["Confirm prices: plant-based sausage R140/kg · instant mash dry R270/kg"]
     C4["Bangers & Mash — add plant-based-sausage veg version when wanted"]
   end
-
-  %% ---------- ROADMAP ----------
-  subgraph ROAD["🗺️ ROADMAP after FMF"]
-    R1["LUNCH sweep — egg-salad WOW · Hummus&Veg Wrap · taco-spice dupes"]
-    R2["BREAKFAST WOW pass"]
-    R3["SEASONING SWEEP (Claude Code, report-only first)"]
-    R4["BUG-SWEEP — B1 price resolver silent R0 · B2 unit guard (mood/budget box bug closed this round)"]
-    R1-->R2-->R3-->R4
-  end
-  TODO-->ROAD
+  ROAD-.->CARRY
 
   %% ---------- PARKED ----------
   subgraph PARK["🅿️ PARKED / small"]
@@ -129,10 +114,11 @@ flowchart TD
     K3["Roast Beef card placeholder emoji — needs real photo"]
     K4["Video→Recipe feature idea (later)"]
   end
-  ROAD-.->PARK
+  CARRY-.->PARK
 
   %% ---------- LOCKED ----------
   subgraph RULES["🔒 LOCKED"]
+    L0["UNIVERSAL INDEX (3 Jul): index EVERY recipe in EVERY section; mealRole gates the budget finder to 'main'. Adapters READ-ONLY; index.js is additive; only existing-file edit = budget _budgetPool re-point. WK cost gate: priced/total≥0.8 + main protein resolved, else costPP=null."]
     L1["WOW EVERYWHERE: every 🏆 default = why-led steps · real named spices · salt+pepper each stage · 'how this feels'."]
     L2["SAMENESS (TOP): render ONLY via shared core.js fns using var(--token). Shared builds roll to ALL sections. Match braai v33."]
     L3["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase) · prep in method"]
@@ -140,7 +126,7 @@ flowchart TD
     L5["STABILITY: never edit a working section unless that's the purpose · node --check before push · ONE push/session · GitHub Desktop"]
     L6["VEG/VEGAN PROTEIN: homemade patties/sausages preferred; shop-bought plant-based sausages ONLY for format dishes (hot dogs · boerewors rolls · bangers & mash)."]
     L7["Bobotie rule (one card per distinct dish) · child+grandma readable on mobile"]
-    L8["BUDGET/AI SOURCING: library-first ALWAYS; AI only after our recipes exhausted; AI pre-generates from price-select; every AI recipe re-costed with priceOf + structured ingredients + planned."]
-    L9["BUDGET FREE/PRO: Budget finder + per-person cost = FREE (only exception to 'no cost figures for Free'). My Plan + shopping list + nutrition = PRO. Floor recipes show only ≤ R60 for a family of 4."]
-    L10["SEARCH HONESTY (Tina agreed 2 Jul): Allergen / Kosher / Halal filters = GUIDANCE from ingredients, NOT a guarantee — must show 'always check the label · not certified'. 'Diabetic-friendly' = nutrition heuristic, NOT medical advice. Never imply a safety / religious / medical guarantee the app can't back."]
+    L8["BUDGET/AI SOURCING: library-first ALWAYS; AI only after our recipes exhausted; every AI recipe re-costed with priceOf + structured ingredients + planned."]
+    L9["BUDGET FREE/PRO: Budget finder + per-person cost = FREE (only exception to 'no cost figures for Free'). My Plan + shopping + nutrition = PRO. Floor shows only ≤R60/family-of-4."]
+    L10["SEARCH HONESTY: Allergen/Kosher/Halal filters = GUIDANCE from ingredients, NOT a guarantee — 'always check the label · not certified'. Diabetic-friendly = nutrition heuristic, NOT medical advice."]
   end
