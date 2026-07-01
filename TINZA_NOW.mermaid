@@ -16,8 +16,8 @@ flowchart TD
 
   subgraph NEXT0["NEXT — recommended order"]
     NXP["DONE + LIVE — Run 1 index + finder UX + B3 round-robin, pushed & verified."]
-    NXR2["DONE — STAGED TO PUSH (3 Jul, node --check OK) — 3 FILES: budget.js · core.js · budget_floor.js. budget.js: B3 fixes · simplified meat-line note · R600 removed · NEW BUDGET-BAND (below). core.js: back-nav recipe guard (+6). budget_floor.js: 9 goesWith. PUSH via GitHub Desktop (ONE commit, 3 files)."]
-    NXNAME["NEXT (Tina asked 3×, ELEVATED): ENTICING-ENGLISH NAMES — own focused session. (a) wire tinzaDisplayName(r) so glosses show everywhere at once (L2 sameness); (b) rewrite weak glosses to WOW. See NAMEUP. THEN brinner-in-budget (BRIN) + cheap-SA enrichment (PPZ1)."]
+    NXR2["◀ STAGED TO PUSH (3 Jul, node --check OK) — budget.js: adds BUDGET-MATCHING band retune (dishes hug the per-person figure) + readout 'per person to spend'. (Earlier budget.js work — B3 fixes, note, R600 out, floor goesWith, back-nav core.js — already pushed/committed.) PUSH budget.js via GitHub Desktop (ONE commit)."]
+    NXNAME["NEXT (Tina asked 3×, ELEVATED): ENTICING-ENGLISH NAMES — own focused session. (a) wire tinzaDisplayName(r) so glosses show everywhere at once (L2 sameness); (b) rewrite weak glosses to WOW. See NAMEUP. ALSO quick-win candidates for Claude Code while it's in core.js: SEARCHBUG (broken Search tab). THEN brinner-in-budget (BRIN) + cheap-SA enrichment (PPZ1)."]
     NX2["THEN — TRACK 2 (chat): RECIPE-PAGE ENRICHMENT (TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md · confirm in-place-vs-fork first). THEN FMF WOW CONTENT."]
     NX1b["TRACK 1 (Claude Code) RUN 2: recover 95 gated WK animal-protein mains (window._tinzaWKSkipped) · NAMING pass · FACET derivation (L10 caveats) · wire 72 goesWith · BALANCED SEARCH reuses balancedOrder()."]
     NXP-->NXR2-->NXNAME-->NX2-->NX1b
@@ -31,8 +31,9 @@ flowchart TD
     EFIX["LIVE-TEST FIXES (staged): (1) budgetBucket classifies on NAME+INGREDIENT NAMES, not searchText — goesWith 'grilled chicken' no longer mis-buckets vegan rice as meat. (2) _budgetHomeRank within-bucket: SA cuisines then home library then foreign; cheapest tiebreak. (3) scroll-restore immediate+1rAF."]
     E3["REUSE (Run 2): balanced SEARCH = same engine. Every lens = filter + balanceBy."]
     EOPEN["✅ RESOLVED (Tina 3 Jul): MEAT LINE = R15pp (per-person). Below R15pp = stretcher/no-meat (pap·sauce·soup·beans); R15pp+ = meat features. It's PER-PERSON so converts by group size: R30/2 · R60/4 · R90/6. Surfaced as a warm note above results when pp<R15."]
-    EBAND["✅ BUILT (staged) — BUDGET-DIFFERENTIATION ('stuck' fix, Tina 3 Jul): higher budgets stop leading with too-cheap dishes. Band = [lower, per] where lower = per×0.5 above R15pp, else 0; fallback drops the bound if <6 results. Verified: R30pp hides R11 chicken feet (leads Peri-Peri Livers/Korslose Snoek); R60pp shows R30 flame-grilled chicken/poke — each budget now looks different. _budgetLowerBound(per) · fraction 0.5 TUNABLE."]
-    E0-->E1-->E2-->EFIX-->E3-->EOPEN-->EBAND
+    EBAND["✅ BUILT — BUDGET-MATCHING (Tina chose 'match my budget' 3 Jul): dishes now HUG the per-person figure. GRADED band starts at 70% of budget and relaxes (0.7→0.5→0.3→0) only until ≥6 results; within each bucket ordered SA-first then NEAREST the budget. Verified: R60pp→R48–60 dishes (80–100%), R75pp→R57–68, R35pp→R30–34 (86–97%), R30pp→R30 (100%). BUDGET_BAND_FRACS + Math.abs(costPP−per) sort. Stretch zone (<=R15pp) unchanged. Fractions TUNABLE."]
+    EFIG["✅ RESOLVED (Tina 3 Jul, chose 'match my budget'): NOT a calc bug — '= R60/person' is the BUDGET, 'R30 pp' is the DISH cost. Fixed two ways: (1) band retuned to hug budget (see EBAND); (2) readout now reads 'R60 per person to spend' so it can't be mistaken for the dish cost."]
+    E0-->E1-->E2-->EFIX-->E3-->EOPEN-->EBAND-->EFIG
   end
   NEXT0-->B3E
 
@@ -95,8 +96,10 @@ flowchart TD
     NT1["TINY TUMMIES + FURRY FRIENDS — migrate to shared renderers. Both IN index (search-only)."]
     NTCC["CLAUDE CODE = library-wide grinds (naming · facets · gated-meat recovery · 72 goesWith). CHAT = architecture + targeted fixes (like today's B3 diagnosis)."]
     BRIN["✅ CONFIRMED (Tina 3 Jul) — BRINNER-IN-BUDGET: tag the RIGHT substantial breakfast dishes (shakshuka · savoury mince on toast · egg & chips) as supper-eligible (supperOk/brinner soft-tag), adapter gives ONLY those mealRole 'main' → they surface in the finder. Light breakfast (R3 toast/cereal) stays 'component'/out. Small tagging pass + 1-line adapter tweak. Fits locked 'Breakfast for Supper' collection."]
-    BACKNAV["◀ CLAUDE CODE (brief written: TINZA_BACKNAV_BRIEF.md) — BACK-NAV, results-list case: bottom-Back from a section's LIST (e.g. Budget results after 'more') → history.back() replays the real browser path → lands on FMF. Recipe-detail case already guarded in goBack(). Root cause = draw() pushState per forward nav; fix = logical-parent Back (screen→parent map, default Home) OR clean history pairing. Same latent bug in mood/meal/WK details → cured properly by the NX2 openRecipe migration. Test matrix + core.js-sacred constraints in the brief."]
+    BACKNAV["✅ DONE + PUSHED + LIVE-CONFIRMED (Tina 3 Jul, commit 58fa14e) — BACK-NAV FIXED (core.js). Back from budget screen → HOME (no more FMF ✓, confirmed live). goBack() 4-tier: budget recipe→results · viewingRecipe→closeRecipe · deeper→history.back · section root→home. rootDepth in history state. (WK recipe→WK home still the acceptable long-term item; Search-tab bug SEARCHBUG separate.)"]
     GWW["GOES-WELL-WITH: floor now has pairings (done). Broader = wire the 72 goesWith TEXT → real clickable cross-links (GOESWITH_LINKS; only 3 wired) so 'component + cheap side = one costed meal'. (T4 / R2B.)"]
+    SEARCHBUG["🐞 PRE-EXISTING BUG (found by Claude Code 3 Jul, NOT from our changes) — BOTTOM-NAV SEARCH TAB BROKEN: draw() calls searchHTML() (core.js:473) which doesn't exist → ReferenceError, blank/broken Search. Likely fix = route the Search tab to the working 'search_results' screen (searchPageInput + globalSearchLive already exist) or define searchHTML(). Easiest to fix in the SAME Claude Code core.js session. HIGH — it's a top-level nav tab."]
+    WKBACK["WK RECIPE → BACK lands on WK HOME (not the country list) — unchanged from before; acceptable ('not an earlier section'). Full fix = route WK country/recipe (wkDataCountry/wkDataRecipe, absent from navSignature) through openRecipe→viewingRecipe. Long-term = NX2 enrichment migration."]
     NAMEUP["⚠️ NAMES raised 3× (Lablabi·Likhobe·Ndambé unfamiliar) — ELEVATE to next focused session. Two parts: (a) WIRE tinzaDisplayName(r) so existing English glosses show on every card/finder/search (some already good: Jollof→'Spiced Tomato Rice'); (b) REWRITE weak glosses to WOW across ~760 (190 Africa·570 Europe). photoName never changes; gloss→searchText. Fixes NTS ranking bug too."]
     PPZ1["⭐ CHEAP-SA ENRICHMENT (highest brand impact): add sub-R10pp SA end-of-month meals — morogo & pap · pap & sheba · walkie-talkies/offal · samp variants · cabbage & potato. Fills the R40/4 (R10pp) screen AND pushes foreign (Jollof/Waakye/Ndambé) out. Fixes thinness + 'Not SA' at the bottom together."]
     PPZ2["✅ RESOLVED: floor cutoff stays <=R15pp (below the meat line). Handoff at R15pp: floor stretchers + first library meat (Peri-Peri Livers R15) meet cleanly."]
@@ -115,7 +118,7 @@ flowchart TD
     C2["Proxy names: cheese slices→cheddar · rotisserie→chicken breast · frozen stir-fry→mixed veg"]
     C3["Confirm prices: plant-based sausage R140/kg · instant mash dry R270/kg"]
     C4["Bangers & Mash — add plant-based-sausage veg version when wanted"]
-    C5["✅ B3 budget-differentiation BUILT (EBAND, band per×0.5). Fraction 0.5 is tunable if Tina wants stricter/looser matching."]
+    C5["✅ B3 budget-matching BUILT (EBAND): graded band 0.7→0.5→0.3→0 + nearest-budget order. Fractions tunable if Tina wants dishes to hug the figure tighter/looser."]
   end
   ROAD-.->CARRY
 

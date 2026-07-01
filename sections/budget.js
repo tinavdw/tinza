@@ -101,7 +101,7 @@ function budgetPlannerHTML(){
           </div>
         </div>
 
-        ${budget && people ? `<div style="font-size:13px;color:${color};margin-bottom:12px;text-align:center;">= R${((budget/people)%1===0)?(budget/people).toFixed(0):(budget/people).toFixed(2)} per person${budget>=500?' · 🎉 Party/event mode':''}</div>` : ''}
+        ${budget && people ? `<div style="font-size:13px;color:${color};margin-bottom:12px;text-align:center;">= R${((budget/people)%1===0)?(budget/people).toFixed(0):(budget/people).toFixed(2)} per person to spend${budget>=500?' · 🎉 Party/event mode':''}</div>` : ''}
 
         <!-- Quick budget buttons -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
@@ -284,13 +284,12 @@ function _budgetComp(r){
        + (r.nutrition ? 2 : 0)
        + (r.feel      ? 1 : 0);
 }
-// Budget-matched lower bound (3 Jul): above the stretch zone, a bigger budget should
-// stop leading with dishes far below the spend (R11 chicken feet at R30pp reads as
-// 'stuck'). Hide anything under ~half the per-person budget; no floor in the tight
-// zone (<=R15pp) where every cheap option still matters.
-function _budgetLowerBound(per){
-  return per > BUDGET_MEAT_LINE_PP ? per * 0.5 : 0;
-}
+// "Match my budget" (Tina 3 Jul): above the stretch zone (>R15pp) show dishes that
+// USE the per-person budget, not the cheapest that scrape in. Start tight — 70% of
+// budget — and relax the floor only as far as needed to keep a full list, so R75
+// shows ~R53–75 dishes, never R8, and never comes up empty. In the tight zone
+// (<=R15pp) there's no floor: every cheap option still matters.
+var BUDGET_BAND_FRACS = [0.7, 0.5, 0.3, 0];
 
 function findBudgetRecipes(){
   var budget = parseFloat(S.budgetAmount||0);
@@ -298,7 +297,6 @@ function findBudgetRecipes(){
   if(!budget || budget <= 0){ setQuiet({_budgetError:'Enter a budget first 💰', _budgetResults:null}); return; }
   var per = budget / people;
   var q = (S.budgetSearch||'').trim().toLowerCase();
-  var lower = _budgetLowerBound(per);
 
   // 1 · priced mains within [lower, per]. The lower bound (above the stretch zone)
   //     keeps dishes far below the spend out of a bigger budget — so R30pp stops
@@ -310,11 +308,12 @@ function findBudgetRecipes(){
     if(q && (r.name||'').toLowerCase().indexOf(q) < 0) return false;   // honour the search box
     return true;
   }
-  var within = basePool.filter(function(r){ return _passBudget(r, lower); });
-  // Fallback: if the band is thin (small group / narrow window), drop the lower
-  // bound so we never serve an empty or too-short list.
-  if(within.length < 6 && lower > 0){
-    within = basePool.filter(function(r){ return _passBudget(r, 0); });
+  // Graded band: start at 70% of budget and relax the floor only as far as needed
+  // to keep a full list — so shown dishes hug the per-person figure. (Tina 3 Jul)
+  var within = [], fracs = (per > BUDGET_MEAT_LINE_PP) ? BUDGET_BAND_FRACS : [0];
+  for(var _fi = 0; _fi < fracs.length; _fi++){
+    within = basePool.filter(function(r){ return _passBudget(r, per * fracs[_fi]); });
+    if(within.length >= 6) break;   // enough near-budget dishes → stop relaxing
   }
 
   // 2 · de-dupe by id AND by name (review-c) — the two Boboties become one row,
@@ -336,7 +335,10 @@ function findBudgetRecipes(){
         // the tiebreak — so recognisable SA dishes head every row and the World dishes
         // whose meat was never costed drop below instead of hijacking the top. (3 Jul)
         within:   function(a,b){
-          return (_budgetHomeRank(b) - _budgetHomeRank(a)) || ((a.costPP||0) - (b.costPP||0));
+          // SA-first, then NEAREST the budget so dishes that USE the figure lead
+          // (Tina: "show dishes near the figure"). (3 Jul)
+          return (_budgetHomeRank(b) - _budgetHomeRank(a))
+              || (Math.abs((a.costPP||0) - per) - Math.abs((b.costPP||0) - per));
         }
       })
     : uniq.sort(function(a,b){ return (a.costPP||0) - (b.costPP||0); });
