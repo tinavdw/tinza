@@ -1,4 +1,20 @@
 const PRICE_DB = {
+  // ── WK pricing pass (1 Jul, Tina-sourced) — duck/trout priced (buyable in SA), count-items ──
+  "duck": 200,                    // whole duck R160–250/kg → honest mid
+  "trout": 400,                   // whole gutted R360–425/kg → honest mid
+  "garlic clove_each": 0.3, "garlic cloves_each": 0.3,   // ~5g clove of R60/kg garlic
+  "bread roll_each": 3.5, "bread rolls_each": 3.5,       // 6-pack ~R20
+  "pita bread_each": 4, "pita_each": 4, "pita breads_each": 4,
+  "bay leaf_each": 0.15, "bay leaves_each": 0.15,        // negligible aromatic
+  "bread slice_each": 1, "bread slices_each": 1,         // loaf ~R18 / 18 slices
+  "chilli_each": 1, "chillies_each": 1, "chillis_each": 1,
+  "green chilli_each": 1, "green chillies_each": 1, "small chilli_each": 1,
+  // ── WK tail (1 Jul, Tina-sourced) — specialty spices/items, real prices not guesses ──
+  "mitmita": 240,                 // Ethiopian chili R150–240/kg
+  "berbere": 200, "berbere sauce base": 200,
+  "fenugreek": 300, "fenugreek seeds": 300,   // R15–50/100g
+  "pine resin": 1250,             // R75–125 per 50–100g
+  "wafer shell_each": 4, "wafer shells_each": 4,   // ~R44 / 12-pack
   // ── World Kitchen exotic prices (16 Jun, Tina-sourced) ──
   "dried kapenta soaked": 350,
   "dried mopane worms": 450,
