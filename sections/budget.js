@@ -284,6 +284,13 @@ function _budgetComp(r){
        + (r.nutrition ? 2 : 0)
        + (r.feel      ? 1 : 0);
 }
+// Budget-matched lower bound (3 Jul): above the stretch zone, a bigger budget should
+// stop leading with dishes far below the spend (R11 chicken feet at R30pp reads as
+// 'stuck'). Hide anything under ~half the per-person budget; no floor in the tight
+// zone (<=R15pp) where every cheap option still matters.
+function _budgetLowerBound(per){
+  return per > BUDGET_MEAT_LINE_PP ? per * 0.5 : 0;
+}
 
 function findBudgetRecipes(){
   var budget = parseFloat(S.budgetAmount||0);
@@ -291,14 +298,24 @@ function findBudgetRecipes(){
   if(!budget || budget <= 0){ setQuiet({_budgetError:'Enter a budget first 💰', _budgetResults:null}); return; }
   var per = budget / people;
   var q = (S.budgetSearch||'').trim().toLowerCase();
+  var lower = _budgetLowerBound(per);
 
-  // 1 · priced mains within the per-person budget, honouring the search box
-  var within = _budgetPool(per).filter(function(r){
+  // 1 · priced mains within [lower, per]. The lower bound (above the stretch zone)
+  //     keeps dishes far below the spend out of a bigger budget — so R30pp stops
+  //     leading with R11 chicken feet and starts feeling matched to the money.
+  var basePool = _budgetPool(per);
+  function _passBudget(r, lo){
     if(!r || !r.costPP) return false;                                  // only priced recipes
-    if(r.costPP > per) return false;                                   // within per-person budget
+    if(r.costPP > per || r.costPP < lo) return false;                  // inside the [lo, per] band
     if(q && (r.name||'').toLowerCase().indexOf(q) < 0) return false;   // honour the search box
     return true;
-  });
+  }
+  var within = basePool.filter(function(r){ return _passBudget(r, lower); });
+  // Fallback: if the band is thin (small group / narrow window), drop the lower
+  // bound so we never serve an empty or too-short list.
+  if(within.length < 6 && lower > 0){
+    within = basePool.filter(function(r){ return _passBudget(r, 0); });
+  }
 
   // 2 · de-dupe by id AND by name (review-c) — the two Boboties become one row,
   //     keeping the most comprehensive version.
