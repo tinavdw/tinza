@@ -204,7 +204,9 @@ function portionHelpContent() {
 // cheapest first. Pure local filter, no AI dependency — always works.
 function _budgetPool(perPersonBudget){
   var pool = [];
-  if(typeof BREAKFAST_RECIPES   !== 'undefined') pool = pool.concat(BREAKFAST_RECIPES);
+  // Breakfast EXCLUDED (2 Jul) — this is a supper/lunch MEAL finder; porridge, pap,
+  // pannekoek and Maizena (cornflour porridge) are the cheapest things in the app and
+  // were floating to the top of every budget. (Breakfast-for-supper = a future collection.)
   if(typeof LIGHTLUNCH_RECIPES  !== 'undefined') pool = pool.concat(LIGHTLUNCH_RECIPES);
   if(typeof SUPPER_RECIPES      !== 'undefined') pool = pool.concat(SUPPER_RECIPES);
   // Floor stretcher-meals join ONLY when money is genuinely tight (≤ ~R15pp ≈ R60

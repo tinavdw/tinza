@@ -1,8 +1,17 @@
-%% TINZA_NOW — session state  |  2 July 2026 (session wrap — pairing = for ALL · creative contextual surfacing of whole library)
+%% TINZA_NOW — session state  |  2 July 2026 (3 Jul — RECOMMENDED NEXT SEQUENCE pinned · foundation before content)
 %% Focus: box/double-render fixed · pizza-dough pool fixed · BUDGET AI-prewarm engine designed (mirror mood).
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
+
+  subgraph NEXT0["▶️ NEXT SESSION — recommended order (foundation before content; locked rule = sameness before fill)"]
+    NX0["TRADE-OFF: engine-first = higher ceiling (findability vision) · content-first = prettier NOW (flip ONLY if a launch/demo is imminent). Rec = ENGINE-FIRST."]
+    NX1["TRACK 1 — CLAUDE CODE (big grind, run in background):<br/>1) WORLD KITCHEN CONVERTER ← START HERE (keystone's 1st step · biggest visible win: 136 SA dishes into the budget finder · proves the adapter pattern).<br/>2) NAMING + FACET-TAGGING pass (mostly auto-derivable → no double-handling)."]
+    NX2["TRACK 2 — WITH CHAT-CLAUDE (design + quality):<br/>3) RECIPE-PAGE ENRICHMENT (last sameness piece · retires bespoke page · fixes cross-link version-strip bug · UNBLOCKS the muffin+salad pairing).<br/>4) THEN FMF WOW CONTENT (breakfast · lunch · bakes) = the fill step, into a solid frame."]
+    NX3["Kick-off next convo: upload TINZA_NOW.mermaid, then say e.g. 'start the World Kitchen converter' (Claude Code) and/or 'let's do the recipe-page enrichment' (chat)."]
+    NX0-->NX1-->NX2-->NX3
+  end
+  START-->NEXT0
 
   %% ---------- PUSH NOW ----------
   subgraph PUSHN["⬆️ PUSH NOW — 3 files, ONE commit"]
@@ -27,10 +36,17 @@ flowchart TD
     B8["TIERING (clear now): FLOOR ≤R15pp = stretched mince / pilchards / beans / eggs / lentils — honest 'can\'t do meat tonight'. LOW TIER R20–45pp (R80–180/4) = proper MEAT meals (cottage pie, mince pasta, boerewors meatballs, samp & beef stew) from LIBRARY + cookbook gap-fillers. Meat naturally lives just above the floor — you can\'t always eat meat when broke."]
     B9["OFFAL (chicken necks/gizzards) → Tina: EXTREME cases only, not the go-to. Dropped from floor. Prices kept as parked data for a possible future 'extreme' sub-tier."]
     B10["FINDER COVERAGE (checked 2 Jul): _budgetPool pulls BREAKFAST + LIGHTLUNCH + SUPPER (+ FLOOR when ≤R60/4). ✅ SOUPS already show (they're Light-Lunch). ✅ VETKOEK now added to floor (previously only in Buffet/Events, invisible to finder). ❌ WORLD KITCHEN not pulled → see B11."]
+    B12["♻️ AI RECIPE HARVEST / REVIEW LOOP (Tina, LATER): library-first ALWAYS; while the user browses, AI scouts in the background (budget prewarm + Just-Feed-Me). NEW: every AI-generated recipe is LOGGED BACK TO TINA for review → clean up · re-cost via priceOf · structure {n,pp,u} · name well · WOW → PROMOTE good ones into the permanent library. Virtuous loop: AI suggests → Tina curates → library grows → less AI dependence over time. Mechanics (later): capture in the Netlify claude fn (log/store) or a review queue view; new recipes then join the Universal Index. Applies to mood + budget alike."]
     B11["🌍 BIG OPPORTUNITY — WORLD KITCHEN into the finder. 136 SA dishes + African (bobotie, bredies, frikkadels, samp/pap dishes, pickled fish…) are NOT in the budget finder. BLOCKER: WK recipes have NO costPP and ingredients are stored as TEXT ('90g beef mince · 50g onion'), not {n,pp,u}. NEEDS a WK→budget converter: parse text ingredients (wkScaleLine/wkPriceLookup already exist) → per-person grams → priceOf → costPP; open via openRecipe('world') not recipeDetailFromResult; include only cheap MAINS (skip desserts/celebration dishes). On-brand (SA-first heritage). = PHASE 1 of the Universal Recipe Index (URI) below. Tina to greenlight."]
-    B0-->B1-->B2-->B3-->B4-->B5-->B6-->B7-->B8-->B9-->B10-->B11
+    B0-->B1-->B2-->B3-->B4-->B5-->B6-->B7-->B8-->B9-->B10-->B12-->B11
   end
-  PUSHN-->BUDGET
+  subgraph FIX2["🔧 LIVE-TEST FIXES (3 Jul) — next small push: budget.js + this mermaid"]
+    FX1["BUDGET was 'stuck' on pap/Maizena/pannekoek → cause: _budgetPool pulled BREAKFAST (cheapest items R3–R7 topped every list). FIXED: Breakfast EXCLUDED from the meal finder (node --check ✅). Breakfast-for-supper = a future collection."]
+    FX2["JUST-FEED-ME 'give me more' STALLS → 'no more recipes'. NOT a code bug — the AI call /.netlify/functions/claude forces model 'claude-opus-4-5'. CHECK: (a) is that a VALID current API model id? (b) is ANTHROPIC_KEY set in Netlify env? (c) Netlify function logs for the real error. Client silently swallows the error (catch → loading=false). STRATEGIC FIX: library-first fallback (Universal Index) so mood never dead-ends on AI."]
+    FX3["MOOD → BUDGET (Tina): nice Just-Feed-Me recipes should also feed Budget. DB mood recipes join the Universal Index; mood falls back to LIBRARY when AI is down (ties FX2)."]
+    FX1-->FX2-->FX3
+  end
+  PUSHN-->FIX2-->BUDGET
 
   %% ---------- UNIVERSAL RECIPE INDEX (make ALL recipes findable) ----------
   subgraph URI["🧭 UNIVERSAL RECIPE INDEX — make EVERY recipe findable (scoped 2 Jul, big roadmap)"]
@@ -59,8 +75,10 @@ flowchart TD
 
   %% ---------- OTHER FLAGGED TO-DOS ----------
   subgraph NEWTODO["🆕 flagged"]
+    NTN["✍️ NAMING PASS (→ CLAUDE CODE): rename ALL recipes to be descriptive + appetising. Ingredient/brand names → dish names (e.g. 'Maizena' → 'Maizena Porridge'; a bare 'Maizena' is cornflour, a thickener, not a meal). Terse names → evocative. KEEP photoName unchanged so photos still match. Library-wide, repetitive = ideal Claude Code job."]
     NT0["COOKBOOK LOW-TIER GAP-FILLERS (add to MAIN library, NOT floor — they cost R20–45pp): Savoury/Curried Mince · simple Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Brown Rice & Cabbage Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. (We ALREADY have Cottage Pie · Shepherd's · Farmhouse Beef Stew · Lentil Dhal/Soup — blend those in.) Source: Interface 'Meals on a Budget' cookbook. Re-cost each with priceOf; ignore the cookbook's own tier labels."]
     NT1["TINY TUMMIES + FURRY FRIENDS — still to migrate to shared renderers (slot into sameness sweep)."]
+    NTCC["🤖 CLAUDE CODE vs CHAT (Tina asked): USE CLAUDE CODE for the big repetitive library-wide grinds — naming pass · index enrichment/tagging (mealRole·allergens·diet·protein) · World Kitchen converter · wiring 72 goesWith cross-links. It lives in the repo, runs node --check, iterates over many files (CLAUDE.md + health-check.js already set up). KEEP WITH CHAT-CLAUDE: architecture/design decisions + quick targeted fixes (like today's budget/Maizena). The JFM AI stall = neither — it's a Netlify config check (model id + API key)."]
     NT3["JUST FEED ME depth — same AI-recipe rule applies: re-cost + structured ingredients so its plan/shopping fills (shares B5)."]
   end
   Q-->NEWTODO
