@@ -20,6 +20,13 @@ let _navRestoring = false;
 // deterministic instead of probing the browser's flaky history.state.tinza (which flips
 // after popstate-to-non-tinza / replaceState / mixed hardware+in-app backs).
 let _appNavDepth = 0;
+// Back-nav (3 Jul): the _appNavDepth at which the CURRENT top-level screen was entered.
+// Stored inside each history entry (state.rootDepth) so it survives popstate without going
+// stale. goBack() uses it to tell "deeper inside this section" (step back one) apart from
+// "at this section's root screen" (its logical parent is Home) — so Back from a section's
+// root never walks history into an unrelated earlier screen (the FMF leak).
+let _screenRootDepth = 0;
+let _lastNavScreen = null;
 function navSnapshot(){
   try { return JSON.parse(JSON.stringify(S)); }
   catch(_e){ return Object.assign({}, S); }
@@ -31,7 +38,9 @@ function navInit(){
   if(window._tinzaNavInit) return;
   window._tinzaNavInit = true;
   window._navSig = navSignature();
-  try { history.replaceState({tinza:true, sig:window._navSig, snap:navSnapshot()}, ''); } catch(_e){}
+  _lastNavScreen = S.screen;
+  _screenRootDepth = 0;
+  try { history.replaceState({tinza:true, sig:window._navSig, snap:navSnapshot(), rootDepth:0}, ''); } catch(_e){}
   window.addEventListener('popstate', function(e){
     const st = e.state;
     if(st && st.tinza && st.snap){
@@ -42,6 +51,9 @@ function navInit(){
       S = restored;
       window._navSig = st.sig;
       _appNavDepth = Math.max(0, _appNavDepth - 1);   // a back consumed one of our forward entries
+      // restore this entry's section-root depth + screen so goBack stays accurate after popstate
+      _screenRootDepth = (typeof st.rootDepth === 'number') ? st.rootDepth : Math.min(_screenRootDepth, _appNavDepth);
+      _lastNavScreen = restored.screen;
       if(st._scroll != null){ var _r = document.getElementById('root'); if(_r) _r._savedScroll = st._scroll; }
       draw();
       _navRestoring = false;
@@ -350,11 +362,20 @@ function bottomBarGo(screen){
 
 function goBack(){
   if(typeof S!=='undefined'){
-    // Section detail views not yet on the universal viewingRecipe path close the OPEN
-    // detail (return to that section's own list) rather than popping browser history —
-    // which could otherwise land on an unrelated screen like FMF. (3 Jul back-nav fix)
+    // (1) Details that pushed NO history entry (budget recipe isn't in navSignature) →
+    //     close via their own closer, returning to that section's own list.
     if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
+    // (2) Universal recipe view → closeRecipe (cross-link aware; consumes its pushed entry).
     if(S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
+    // (3) Deeper inside the current section (a sub-view/recipe that DID push an entry) →
+    //     step back ONE level within the section via the history it created. popstate's
+    //     snapshot restore brings back the exact prior sub-state.
+    if(_appNavDepth > _screenRootDepth && typeof history !== 'undefined'){
+      try{ history.back(); return; }catch(_e){}
+    }
+    // (4) At the section's ROOT screen → its logical parent is Home. Deterministic, so Back
+    //     never walks history into an unrelated earlier screen (the FMF leak). (3 Jul fix)
+    if(S.screen && S.screen !== 'home'){ bottomBarGo('home'); return; }
   }
   try{ history.back(); }catch(_e){}
 }
@@ -521,9 +542,13 @@ function draw(){
   if(!_navRestoring){
     const _sig = navSignature();
     if(window._navSig !== undefined && _sig !== window._navSig){
-      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot()}, ''); _appNavDepth++; } catch(_e){}
+      // Entering a different top-level screen starts a new section → this new entry IS the
+      // section root. Staying on the same screen (sub-nav) keeps the existing root depth.
+      if(S.screen !== _lastNavScreen) _screenRootDepth = _appNavDepth + 1;
+      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot(), rootDepth:_screenRootDepth}, ''); _appNavDepth++; } catch(_e){}
     }
     window._navSig = _sig;
+    _lastNavScreen = S.screen;
   }
 
   if(openedRecipe){
