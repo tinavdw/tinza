@@ -1,62 +1,89 @@
-%% TINZA_NOW — session state  |  1 July 2026
-%% Session: SUPPER versions (Budget/Quick/Veg) + truthful names, real prices, cross-links
+%% TINZA_NOW — session state  |  2 July 2026 (afternoon)
+%% Focus: FMF sameness → shared PLAN/SHOPPING engine DONE. Next: recipe-page enrichment, content, pricing.
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
 
-  subgraph DONE["✅ DONE THIS SESSION — validated, ONE push"]
-    D1["20 SUPPER dishes get version chips<br/>16 Fried&Grilled + 4 Oven Bakes · 57 new versions"]
-    D2["🏆 default = bare fall-through → LIVE WOW UNTOUCHED<br/>Roast Beef · Pork Belly · Stuffed Chicken kept live (byte-identical)"]
-    D3["Costed with REAL engine · R14–R48 · 0 missing · 0 unpriced<br/>fixed paren-hint parse bug (250g→50g crumbs) · all names lowercased"]
-    D4["TRUTHFUL NAMES + REAL PRICES (No 1 fixed your way):<br/>• meat-free sausages → R140/kg (Fry's Braai 380g R52.99)<br/>• tartare sauce → R300/kg (R47.99/160g)<br/>• instant mash → R270/kg DRY (Smash 104g R27.99) + box pack;<br/>  made-up→dry ÷6 (30g flakes:150ml water), water in method<br/>no more 'boerewors' inside 🥦 versions"]
-    D5["CROSS-LINKS wired (INGREDIENT_LINKS + GOESWITH_LINKS):<br/>• tartare sauce → new Tartare recipe (Spice › Sauces)<br/>• mash / instant mash → sb-mash (Sides & Basics)<br/>• chips / oven chips / slap chips → sb-chips (Sides & Basics)"]
-    D6["NEW RECIPE: Tartare Sauce (Spice › Sauces, makeYourOwn, costs honestly)"]
-    D1-->D2-->D3-->D4-->D5-->D6
+  %% ---------- PUSH THIS SESSION ----------
+  subgraph PUSH1["⬆️ PUSH THIS SESSION — ONE file, ONE commit"]
+    P1["meals.js ONLY (node --check ✅, 13744→13740 lines)"]
+    P2["sectionPlanView rewritten → DELEGATES to shared core.js planView/shoppingView.<br/>Signature unchanged → budget.js + core.js callers UNTOUCHED (zero sacred-file edits)."]
+    P3["Rolls to ALL 3 plan surfaces at once: FMF mealPlan · Budget budgetPlan · Just-Feed-Me moodPlan.<br/>All now show two-cost (green food / gold shop-spend), aisle-sorted, pack-rounded list."]
+    P1-->P2-->P3
   end
 
-  subgraph PUSH["⬆️ TO PUSH — 4 files, ONE commit (your workflow)"]
-    P1["sections/meals.js  (the 20 version chips)"]
-    P2["sections/prices.js (tartare · plant-based sausage · instant mash)"]
-    P2b["sections/packs.js  (instant mash box R27.99)"]
-    P3["sections/core.js   (PRICE_ALIAS + INGREDIENT_LINKS + GOESWITH_LINKS)"]
-    P4["sections/spice.js  (Tartare Sauce recipe)"]
-    P5["node --check each → commit all together → push"]
-    P1-->P2-->P2b-->P3-->P4-->P5
+  %% ---------- DONE THIS SESSION ----------
+  subgraph DONE["✅ DONE THIS SESSION"]
+    D1["OB WOW 'upgrades' → KEEP LIVE (drafts were downgrades). Thai scone crust / Honey-Mustard carrots+ACV+paprika / Fish basil+chilli all kept. Item closed."]
+    D2["Mash on screen → KEEP DRY (honest on both food-cost + shop-spend)."]
+    D3["FMF PLAN/SHOPPING sameness migration → shared planView. New helpers: planDishesFromItems · planShopToggle · planShareShoppingList. Plan rows kept non-clickable (no cross-section opener bug)."]
   end
 
-  subgraph FU["🔧 FOLLOW-UPS (parked, your call)"]
-    F1["No 3 — 4 OB draft-WOW UPGRADES still parked:<br/>Med Fish · Honey-Mustard · Thai Peanut · Roasted Veg.<br/>Live top-level WOW kept; apply upgrade only if you want."]
-    F2["PER-VERSION NUTRITION: B/Q/V inherit the dish's top-level macros.<br/>Optional nutrition pass = good Claude Code job."]
-    F3["Minor proxy names left as sensible buy-items (per your standard):<br/>cheese slices→cheddar · rotisserie chicken→chicken breast ·<br/>frozen stir-fry mix→mixed veg. Flag if you want them changed."]
-    F4["Confirm: plant-based sausage R140/kg (Fry's Braai 380g) · instant mash dry R270/kg (Smash Garlic Butter 104g R27.99)."]
-    F5["Bangers & Mash (sp-bangers-mash, already LIVE) — natural home for a<br/>plant-based-sausage veg version when wanted (not touched today)."]
+  START-->PUSH1-->DONE
+
+  %% ---------- VERIFY AFTER PUSH ----------
+  subgraph VERIFY["🔎 VERIFY LIVE (after push)"]
+    V1["Open all 3 plan pages — FMF Supper Plan · Budget Plan · Just-Feed-Me Plan — confirm two-cost shopping list renders + scales with +/-."]
+    V2["Watch for 'Not yet costed:' rows / console PRICE_DB gap warns on FMF ingredients → feeds Pricing Hygiene."]
+    V3["Confirm WhatsApp share (Pro) still works on each plan; Free tier still sees the 🔒 Pro shopping card."]
+  end
+  DONE-->VERIFY
+
+  %% ---------- NEXT: RECIPE-PAGE ENRICHMENT (own session, touches core.js) ----------
+  subgraph NEXT["🧱 NEXT — RECIPE-PAGE ENRICHMENT (its own careful core.js session)"]
+    N0["WHY: shared bakesRecipeOpts page is LEANER than live recipeDetailFromResult.<br/>Naive 'migrate' would STRIP features — do NOT point browse-taps at shared page yet."]
+    N1["Enrich shared recipePage/bakesRecipeOpts UP to parity: version strip (B/Q/V) · Goes Well With cross-links · nutrition grid · Save (Pro) · WhatsApp · Start Cooking."]
+    N2["THEN retire recipeDetailFromResult + point openMealRecipe → openRecipe('meals'). Fixes latent bug: cross-link INTO an FMF dish currently drops the version strip."]
+    N3["THEN plan rows can become clickable via openRecipe('meals') (cross-section safe + rich)."]
+    N0-->N1-->N2-->N3
+  end
+  VERIFY-->NEXT
+
+  %% ---------- THEN: FMF CONTENT + PRICING + LINKS ----------
+  subgraph TODO["📋 THEN — FMF, in order"]
+    T2["CONTENT to WOW — Bakes & Cakes recipes + versions · Sides recipes · WOW everywhere (even cheese-&-tomato sandwich, egg salad)"]
+    T3["PRICING HYGIENE — every ingredient resolves in PRICE_DB · fix R0 · add prices/packs. (Shopping list now self-validates → gaps show as 'Not yet costed'.)"]
+    T4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes (INGREDIENT_LINKS / GOESWITH_LINKS)"]
+    T5["COSMETIC SAMENESS SWEEP — LAST (incl. FMF list-view header → shared sectionHeader)"]
+    T2-->T3-->T4-->T5
+  end
+  NEXT-->TODO
+
+  %% ---------- CARRY-OVER ----------
+  subgraph CARRY["🔧 CARRY-OVER (still open)"]
+    C0["CLEANUP: buildCombinedShoppingList + formatAmount in meals.js now UNUSED (left in place). Delete in a later sweep."]
+    C1["Per-version NUTRITION: supper B/Q/V inherit dish macros — optional pass (Claude Code)"]
+    C2["Minor proxy names: cheese slices→cheddar · rotisserie→chicken breast · frozen stir-fry→mixed veg"]
+    C3["Confirm prices: plant-based sausage R140/kg · instant mash dry R270/kg"]
+    C4["Bangers & Mash (sp-bangers-mash, LIVE) — add plant-based-sausage veg version when wanted"]
   end
 
-  subgraph ROAD["🗺️ ROADMAP after this push"]
-    R1["LUNCH sweep — egg-salad · Hummus&Veg Wrap · taco-spice dupes"]
-    R2["BREAKFAST pass"]
-    R3["FMF — Cakes · Bakes · Breads"]
-    R4["SAMENESS pass (openers: Spice · Cakes · FMF)"]
-    R5["SEASONING SWEEP (Claude Code, report-only first)"]
-    R6["BUG-SWEEP — B1 price resolver silent R0 · B2 unit guard / quote-escape"]
-    R1-->R2-->R3-->R4-->R5-->R6
+  %% ---------- ROADMAP after FMF ----------
+  subgraph ROAD["🗺️ ROADMAP after FMF"]
+    R1["LUNCH sweep — egg-salad WOW · Hummus&Veg Wrap · taco-spice dupes"]
+    R2["BREAKFAST WOW pass"]
+    R3["SEASONING SWEEP (Claude Code, report-only first): salt+pepper unless salty cheese"]
+    R4["BUG-SWEEP — B1 price resolver silent R0 · B2 unit guard / quote-escape"]
+    R1-->R2-->R3-->R4
   end
+  TODO-->ROAD
 
-  START-->DONE-->PUSH-->FU-->ROAD
-
+  %% ---------- PARKED / small ----------
   subgraph PARK["🅿️ PARKED / small"]
     K1["404: Images/Image header / feedfamily.jpg — case check"]
-    K2["index.html line 65 * font-family override — v38 leftover"]
+    K2["index.html line 65 * font-family override — v38 leftover, kill later"]
     K3["Roast Beef card placeholder emoji — needs real photo"]
     K4["Video→Recipe feature idea (later)"]
   end
-  FU-.->PARK
+  ROAD-.->PARK
 
+  %% ---------- LOCKED ----------
   subgraph RULES["🔒 LOCKED"]
-    L1["WOW: 🏆 default researched/beginner-proof/real spices/salt+pepper each stage · B/Q may stay plain"]
-    L2["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase)"]
-    L3["COSTING: 0 unpriced · green #46530c food cost · gold #876213 shop-spend"]
-    L4["STABILITY: node --check before push · ONE push/session · match braai v33"]
-    L5["Cross-links via shared INGREDIENT_LINKS / GOESWITH_LINKS only · child+grandma readable"]
-    L6["VEG/VEGAN PROTEIN STANDARD: prefer HOMEMADE lentil/veg patties & sausages.<br/>Shop-bought plant-based sausages (Fry's etc.) ONLY for format dishes —<br/>hot dogs · boerewors rolls · bangers & mash · similar exceptions."]
+    L1["WOW EVERYWHERE: every 🏆 default (even a sandwich/egg salad) = why-led steps, real named spices, salt+pepper each stage, 'how this feels' line. Care, not complexity."]
+    L2["SAMENESS (TOP): every page renders ONLY via shared core.js fns using var(--token). Shared builds roll to ALL sections at once. Match braai v33."]
+    L3["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase) · prep in method"]
+    L4["COSTING: 0 unpriced · green #46530c food cost · gold #876213 shop-spend · dup price = most expensive"]
+    L5["STABILITY: never edit a working section unless that's the purpose · node --check before push · ONE push/session · GitHub Desktop"]
+    L6["VEG/VEGAN PROTEIN: prefer HOMEMADE lentil/veg patties & sausages. Shop-bought plant-based sausages ONLY for format dishes — hot dogs · boerewors rolls · bangers & mash · similar."]
+    L7["Bobotie rule (one card per distinct dish) · child+grandma readable on mobile"]
   end

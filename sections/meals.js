@@ -13533,81 +13533,77 @@ function formatAmount(total, u){
   return (Math.round(total*10)/10) + u;
 }
 
+// ── SHARED PLAN ENGINE (migrated 2 Jul 2026) ──────────────────────────
+// sectionPlanView now DELEGATES to the shared core.js planView/shoppingView so
+// FMF (mealPlan), Budget (budgetPlan) and Just-Feed-Me (moodPlan) all render the
+// IDENTICAL two-cost (green food / gold shop-spend), aisle-sorted, pack-rounded
+// shopping list. Signature is unchanged, so budget.js and core.js callers are
+// untouched — sameness rolls to all three at once (LOCKED §L2).
+// (Old buildCombinedShoppingList/formatAmount above are now unused; left in place
+//  to keep this edit minimal — flagged for a later cleanup sweep.)
+function planDishesFromItems(plan, people, emoji, planKey){
+  return (plan||[]).map(function(r){
+    var ings = (r.ingredients||[]).filter(function(i){ return i && i.pp && i.n; }).map(function(i){
+      var u=i.u||'', amt=(i.pp||0)*people, unit, a;
+      if(u==='kg'){ unit='g';  a=amt*1000; }
+      else if(u==='l'){ unit='ml'; a=amt*1000; }
+      else if(u==='g'||u==='ml'){ unit=u; a=amt; }
+      else { unit='pcs'; a=amt; }                 // egg / count / unitless -> pieces
+      return { name:i.n, amt:a, unit:unit, priceName:i.priceName||null };
+    });
+    var kcalPP = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;
+    var idJs = String(r.id||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return {
+      id:r.id, name:r.name, emoji:(r.emoji||emoji||'\U0001F37D\uFE0F'), kcalPP:kcalPP, guests:people,
+      removeJs: planKey ? ("setQuiet({"+planKey+":(S."+planKey+"||[]).filter(function(x){return x.id!=='"+idJs+"';})})") : '',
+      lines:[ r.time?('\u23F1\uFE0F '+r.time+' min'):'' ].filter(Boolean),
+      ingredients:ings
+    };
+  });
+}
+function planShopToggle(name){
+  var ch = Object.assign({}, S._planCheckedShop||{});
+  ch[name] = !ch[name];
+  setQuiet({_planCheckedShop:ch});
+}
+function planShareShoppingList(){
+  if(typeof buildPlanData!=='function' || typeof tierAllows==='function' && !tierAllows('pro')) return;
+  var plan   = window._sectionPlanForShare||[];
+  var people = window._sectionPlanPeople||1;
+  var title  = window._sectionPlanTitle||'My Plan';
+  var emoji  = window._sectionPlanEmoji||'\U0001F6D2';
+  var data = buildPlanData(planDishesFromItems(plan, people, emoji, ''));
+  var fmt = function(it){
+    var u = it.buyUnit||it.unit;
+    if(u==='pcs') return Math.ceil(it.buyAmt)+(((it.name||'').toLowerCase().indexOf('egg')>-1)?' eggs':' pcs');
+    if(it.buyPacks>0){ var sz=it.packSize||(it.buyAmt/it.buyPacks); var szStr=(sz>=1000?(sz/1000)+(u==='ml'?'L':'kg'):sz+(u==='ml'?'ml':'g')); return (it.buyPacks===1?szStr:it.buyPacks+'\u00D7'+szStr); }
+    if(u==='ml'||u==='l') return it.buyAmt>=1000?(Math.round(it.buyAmt/100)/10)+'L':Math.round(it.buyAmt)+'ml';
+    return it.buyAmt>=1000?(Math.round(it.buyAmt/100)/10)+'kg':Math.round(it.buyAmt)+'g';
+  };
+  var lines = (data.items||[]).filter(function(it){ return !it.pantry; }).map(function(it){ return '\u2022 '+it.name+': '+fmt(it); }).join('\n');
+  var txt = encodeURIComponent(emoji+' '+title+'\n'+people+' '+(people===1?'person':'people')+'\n\n\U0001F6D2 Shopping List:\n'+lines+'\n\nFrom Tinza tinza.netlify.app');
+  window.open('https://wa.me/?text='+txt,'_blank');
+}
 function sectionPlanView(planKey, title, emoji, color, bg, border, people, backAction){
-  const plan = S[planKey]||[];
-  const shopItems = buildCombinedShoppingList(plan, people);
-  const isPro = tierAllows('pro');
-  const planCost   = plan.reduce((s,r)=> s + (r.costPP||0)*people, 0);
-  const planCostPP = plan.reduce((s,r)=> s + (r.costPP||0), 0);
-  const planCals   = plan.reduce((s,r)=> s + ((r.nutrition&&r.nutrition.kcal)||0), 0);
-
-  return `<div style="min-height:100vh;background:#0f0e0c;">
-    <div style="background:${bg};border-bottom:1px solid ${border};padding:14px 20px;">
-      <button onclick="${backAction}" style="background:none;border:none;color:${color};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Back</button>
-      <h1 style="font-size:20px;font-weight:normal;color:#f5e8cc;">${emoji} ${title}</h1>
-      <div style="font-size:13px;color:${color};">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
-    </div>
-    <div class="content">
-
-      <!-- Selected recipes -->
-      <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Selected Recipes</div>
-      ${plan.map(r=>{
-        const _pid = r.id;
-        return `<div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
-          <span style="font-size:24px;">${r.emoji||'🍽️'}</span>
-          <div style="flex:1;">
-            <div style="font-size:14px;color:#f5e8cc;">${r.name}</div>
-            <div style="font-size:13px;color:${color};">${r.time?'⏱️ '+r.time+' min':''}${r.costPP?' · R'+r.costPP+' pp':''}</div>
-          </div>
-          <button onclick="setQuiet({${planKey}:(S.${planKey}||[]).filter(x=>x.id!=='${_pid}')})" style="background:none;border:1px solid #601040;border-radius:6px;padding:3px 8px;color:#c25c99;font-size:13px;cursor:pointer;">✕</button>
-        </div>`;
-      }).join('')}
-
-      <!-- Combined shopping list -->
-      <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin:16px 0 10px;">🛒 Combined Shopping List — ${people} people</div>
-      <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
-        ${shopItems.map(ing=>{
-          const key = 'plan_'+ing.n.replace(/\s+/g,'_');
-          const ticked = (S._planChecked||{})[key];
-          return `<div onclick="(function(){const ch=Object.assign({},S._planChecked||{});ch['${key}']=!ch['${key}'];setQuiet({_planChecked:ch});})()" style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid ${border};cursor:pointer;">
-            <div style="width:20px;height:20px;border-radius:4px;border:2px solid ${ticked?color:'#3a3030'};background:${ticked?color:'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;">${ticked?'✓':''}</div>
-            <span style="font-size:13px;color:${ticked?'#4a4040':'#c8c0b0'};flex:1;text-decoration:${ticked?'line-through':'none'};">${ing.n}</span>
-            <span style="font-size:13px;color:${ticked?'#3a3030':'#f5c842'};font-weight:bold;">${formatAmount(ing.total,ing.u)}</span>
-          </div>`;
-        }).join('')}
-        <div style="margin-top:10px;font-size:13px;color:#8e7c7c;font-style:italic;">📏 Raw/dry weights. Rice+pap grow 3x when cooked. Meat shrinks ~25%.</div>
-      </div>
-
-      <!-- Cost + calorie totals (Braai-style) -->
-      ${planCost>0 ? `<div style="background:#1a1a08;border:1px solid #5a5010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;color:#a09040;">💰 Estimated total</div>
-          <div style="font-size:26px;color:#f5c842;font-weight:bold;">R${Math.round(planCost).toLocaleString()}</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #3a3010;">
-          <div style="font-size:13px;color:#908241;">Per person</div>
-          <div style="font-size:16px;color:#c0a030;font-weight:bold;">R${Math.round(planCostPP)}</div>
-        </div>
-        <div style="font-size:13px;color:#908033;margin-top:8px;">SA&#39;s biggest retailers · ${new Date().getFullYear()} · Always buy 10% extra.</div>
-      </div>` : ''}
-      ${planCals>0 ? `<div style="background:#081818;border:1px solid #205040;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-size:13px;color:#409070;">🔥 Calories per person</div>
-            <div style="font-size:13px;color:#468d75;margin-top:2px;">All selected dishes combined</div>
-          </div>
-          <div style="font-size:26px;color:#40d0a0;font-weight:bold;">${planCals}<span style="font-size:13px;"> kcal</span></div>
-        </div>
-      </div>` : ''}
-      ${plan.length ? packSizeNote('#c0a040') : ''}
-
-      <!-- Share buttons -->
-      ${isPro ? `<button onclick="(function(){const sh=window._sectionPlanForShare||[];const sv=${people};const shLines=buildCombinedShoppingList(sh,sv).map(i=>'• '+i.n+': '+formatAmount(i.total,i.u)).join('\n');window.open('https://wa.me/?text='+encodeURIComponent('${emoji} ${title}\n${people} people\n\n🛒 Shopping List:\n'+shLines+'\n\nFrom Tinza tinza.netlify.app'),'_blank');})()" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:10px;">📱 Share Shopping List via WhatsApp</button>` 
-      : `<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:13px;margin-bottom:10px;">👑 Share Shopping List — Pro feature</div>`}
-
-      <button onclick="setQuiet({_planChecked:{}})" style="width:100%;padding:10px;border-radius:10px;background:transparent;border:1px solid #3a3030;color:#8a7c7c;font-size:13px;cursor:pointer;margin-bottom:20px;">↺ Reset tick boxes</button>
-    </div>
-  </div>`;
+  // stash context for the shared WhatsApp share button (planShareShoppingList)
+  window._sectionPlanForShare = S[planKey]||[];
+  window._sectionPlanPeople   = people;
+  window._sectionPlanTitle    = title;
+  window._sectionPlanEmoji    = emoji;
+  var svKey = (planKey==='budgetPlan') ? 'budgetPeople' : (planKey==='moodPlan') ? 'moodServings' : 'searchServings';
+  return planView({
+    header:{ title:emoji+' '+title, emoji:emoji,
+      tagline:'Menu \u00B7 shopping list \u00B7 cost for '+people+' '+(people===1?'person':'people'),
+      backJs:backAction, backLabel:'\u2190 Back' },
+    guests:{ value:people, label:'People', note:'the whole plan scales to this',
+      decJs:"set({"+svKey+":Math.max(1,(S."+svKey+"||"+people+")-1)})",
+      incJs:"set({"+svKey+":(S."+svKey+"||"+people+")+1})" },
+    dishes:  planDishesFromItems(S[planKey]||[], people, emoji, planKey),
+    checked: S._planCheckedShop||{},
+    toggleFn:'planShopToggle',
+    shareJs: 'planShareShoppingList()',
+    empty:'Your plan is empty \u2014 open any dish and tap \uFF0B Add to My Plan.'
+  });
 }
 
 function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
