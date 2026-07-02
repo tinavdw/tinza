@@ -1,9 +1,9 @@
-%% TINZA_NOW — session state  |  2 July 2026 (new day: FMF push toward launch)
+%% TINZA_NOW — session state  |  2 July 2026  (MERGED: + Fable plan · Recipe Anatomy · Feeling-line/one-liner · Version standard · rules L19-L21)
 %% ✅ ALL LIVE ON MAIN (verified 2 Jul AM): Universal Index · Finder UX · B3 variety · BUDGET-MATCHING ·
 %%    ROMANISED NAMES + gloss wiring + JOLLOF SPLIT + 5 gloss rewrites · back-nav fix ·
 %%    WHOLE-WK PRICING PASS (70 dishes unlocked, 969/994 priced; duck/trout/mitmita/substitutes all live).
 %% 🎯 LAUNCH: 8–12 wk target (set ~22 Jun) → ~mid-Aug (sprint) / mid-Sep (comfortable). See LAUNCH block.
-%% 🌅 TODAY (2 Jul): FMF — Cakes & Bakes recipes (WOW) + jazz + sameness. See TODAY block.
+%% 🚀 NOW: hand the recipe MARATHON to Fable — 5-day boost, free ends 7 JUL. See FABLEX. New standards: ANATOMY · FEELINGX · VERSIONX (rules L19-L21).
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
@@ -27,16 +27,75 @@ flowchart TD
   subgraph TODAY["🌅 TODAY (2 Jul) — FMF focus (all launch-slice work)"]
     T1["① FMF CAKES & BAKES — jazz = RECIPE WOW (confirmed). Write ONLY new recipes we don't already have + a KICK (worthwhile, not googleable). GOAL: ~20 most-popular cakes (total) + ≥3 cheesecakes. RULE: buyable on SA shelves (no ube-trap) — same buyable-ingredient ethos as WK substitutes. Convert to metric/°C/SA brands + WOW BAKES format (feel/method/tip/nutrition/storage)."]
     CAKEAUDIT["CAKE/BAKE AUDIT (2 Jul) — ALREADY IN APP → IMPORT, don't rewrite: Events CELEBRATION_CAKE_RECIPES (eventsData.js, 9): Vanilla Sponge · Chocolate Mud · Wedding Fruit Cake · Red Velvet · Carrot Spice · Salted Caramel Layer · Lemon Drizzle · Vanilla Butter · Mini Cupcakes. meals BAKES: Banana Bread · Classic Sponge. health: Raw Choc Avocado Mousse Cake · Keto Cheesecake Cups · 4 muffins · 3 chia puddings. → NEW cakes to write = popular ones NOT in this list."]
-    CHEESE["✅ CHEESECAKE TRIO — WRITTEN + WIRED into a ready-to-push meals.js (2 Jul): Amarula · Piña Colada · Gin & Tonic in BAKES_RECIPES + new 🍰 Cheesecakes tab registered (cats array L~12784). node --check OK, 13822 lines. TINA: replace meals.js → commit → push → LIVE + banked. Then next batch = 20 popular cakes."]
+    CHEESE["✅ CHEESECAKE TRIO — WRITTEN, WIRED, PUSHED + LIVE (2 Jul): Amarula · Piña Colada · Gin & Tonic in BAKES_RECIPES + 🍰 Cheesecakes tab registered. meals.js replaced & pushed. NEXT BATCH = 20 popular cakes (9 existing crossed off)."]
     BANKRULE["🔒 WORKFLOW RULE (locked 2 Jul, after 'redo everything' scare): BANK EACH BATCH — push to GitHub the moment a batch is done, BEFORE moving on. Un-pushed work lives only in the chat and is lost on a new chat; pushed = live on Netlify + permanent in the repo. Claude delivers each batch as a ready-to-replace file (node --check done). A few at a time, always banked."]
     CHEESE-->BANKRULE
     T1-->CAKEAUDIT-->CHEESE
     T2["② JAZZ FMF — WOW voice baked into new recipes. ❓CLARIFY with Tina: 'jazz' = recipe elevation (Spagbol treatment) or the browse/card LOOK?"]
     T3["③ SAMENESS — FMF matches braai v33 via shared core.js renderers (skeleton)."]
-    LWOW2["SPAGBOL-TREATMENT scope: launch slice FIRST (FMF·Africa·SA·Spice·Events); Europe/Asia/World elevate + DRIP post-launch (whole-app WOW would blow the 12-wk window)."]
+    LWOW2["SPAGBOL-TREATMENT (whole-app WOW) — RECONSIDERED 2 Jul: usage is NOT the limit (Tina on Max 5x, 2% weekly used → huge headroom) and Fable 5 is more capable → writing recipe DATA to WOW is very feasible & fast, more than first thought. The REAL launch gates are PHOTOS (son's AI photos, ~376 slice / thousands total) + the other machinery (payments/planner/Cook Mode/onboarding/web/beta). So: write WOW data broadly NOW (cheap; powers costing+search everywhere), sequence launch-slice cuisines first (Africa+SA), let Europe/Asia/World photos DRIP post-launch. GUARDRAIL: don't let 'perfect every recipe first' delay opening — launch on the slice, keep improving in parallel + after. LITMUS (Tina 2 Jul): NO boring googleable recipes — EVERY recipe transformed to WOW, even a tomato & cheese sandwich gets jazzed up. Standard = why-led steps, real named spices, salt & pepper at each stage, elevated technique, buyable on SA shelves."]
     T1-->T2-->T3
   end
   NEXT0-->LAUNCH-->TODAY
+
+  subgraph CONTENT["📚 FINISH-ALL-RECIPES — content marathon (Fable 5 job; usage headroom fine)"]
+    C_CAKES["① CAKES & BAKES — finish: 20 popular cakes (9 existing crossed off) + biscuits/tarts/scones/SA classics (~40–60 recipes, a few batches). Cheesecake trio LIVE already."]
+    C_SPICE["② SPICE — nearly done (~122 entries, spice.js); finish gaps + jazz. Small (~1 batch)."]
+    C_WK["③ WK to WOW — 994 dishes, the marathon. Launch-slice cuisines FIRST (Africa 190 + SA 131), then Europe 569 + World 103 as data with photos dripping post-launch. ASSESS current WK recipe quality before deciding full rewrite vs light polish."]
+    C_USAGE["MODEL STRATEGY (verified 2 Jul, Anthropic): Fable 5 back GLOBALLY 1 Jul (SA included, no nationality check) — confirmed live in Tina's account. BUT free window is SHORT: included ≤50% weekly limit ONLY until 7 JUL, then paid usage credits (pricey) + burns usage much faster. DIVISION OF LABOUR → OPUS 4.8 (included, capable) = WORKHORSE for the multi-week recipe marathon; FABLE 5 = 5-day boost NOW on hardest/highest-value batches only; CLAUDE CODE = in-repo code jobs (engine fix, sameness, search-tab, bulk wiring) — note Fable auto-routes coding/debugging to Opus anyway (~5% sessions) under its safeguards. Don't rebuild the plan around Fable; build on Opus, boost with Fable while free. Tina on Max 5x, weekly 2% used — headroom fine."]
+    C_CAKES-->C_SPICE-->C_WK-->C_USAGE
+  end
+  TODAY-->CONTENT
+
+  subgraph NORTHSTAR["⭐ LAUNCH NORTH STAR (locked 2 Jul) — don't serialise; two tracks in parallel"]
+    NS1["TRACK A — Fable + Claude: RECIPE MARATHON. Never 'done' (keeps growing = post-launch weekly-drip retention). Order: Cakes&Bakes → Spice (chutneys/jams) → rest of Global Braai → rest of WK → Events Cakes → +2000 more. As DATA; photos follow."]
+    NS2["TRACK B — Tina + Claude: MACHINERY (organs & clothes) — payments (PayFast FIRST, can't charge R50 without it) · planner · Cook Mode · onboarding · web page · beta. START in parallel once the SLICE recipes are solid — do NOT wait for all recipes."]
+    NS3["🚦 LAUNCH GATE = SLICE ready, NOT every recipe: FMF · Africa · SA/Braai · Spice · Events + enough photos (60% now, rest drips) + working payments. Everything else opens AFTER. GUARDRAIL: never hold the launch hostage to a recipe count with no finish line."]
+    NS1-->NS2-->NS3
+  end
+  CONTENT-->NORTHSTAR
+
+  subgraph ANATOMY["🍲 RECIPE ANATOMY — every element a finished recipe must have (locked 2 Jul)"]
+    AN1["NAME: authentic + enticing English gloss (L11/L17). FEELING one-liner (L19). WOW method: why-led · real named spices · salt+pepper each stage · elevated technique (L1) with 'how this feels' woven in."]
+    AN2["VERSIONS (L20) · per-step TIMERS · Cook Mode/Start Cooking (spec TBD) · SERVES + prep time + cook time (add as shown fields)."]
+    AN3["BOXES: goesWellBox · two-cost card (green food / gold shop) · nutritionGrid · STORAGE (make UNIVERSAL, not bakes-only) · recipeActions: Pro-Save + WhatsApp."]
+    AN4["LINKS: related-recipe + pairing (72 goesWith) · DIETARY facets (R2F) · per-person PRICING (L4) · shopping list (Pro, L9)."]
+    AN5["FRAME: sameness via core.js (L2) · back-nav (L16) · Bobotie one-card rule (L7) · numeric tier gate 0/1/2 · photoName + son's photo."]
+    AN6["❌ TRIVIA / 'Did You Know' — locked in TINZA_DIDYOUKNOW_STANDARD.md but was NEVER in this handoff. Now tracked (L21): fourth-voice trivia on recipes."]
+    AN1-->AN2-->AN3-->AN4-->AN5-->AN6
+  end
+  NORTHSTAR -.-> ANATOMY
+
+  subgraph FEELINGX["💬 FEELING LINE = THE ONE-LINER — two tiers (locked 2 Jul → L19)"]
+    FL1["= the 'How This Feels' line (Tina's own term). Sensory + nostalgic + human: smell/sound/touch/sight/taste · 'reminds me of' / 'you can almost hear'. EVERY one unique. Tone per section (Braai=primal · WK=adventure · Health=light · Breakfast=slow · Tiny Tummies=nurturing · Budget=satisfying)."]
+    FL2["TIER 1 CARD: short punchy hook = separate OPTIONAL field cardHook (<=6 words), e.g. 'The soul of every braai'. Drip-authored (heroes/top-100/SA first); absent → card shows the gloss only. NEVER auto-trim the page line."]
+    FL3["TIER 2 PAGE: full sensory line, e.g. '…the sauce that makes the house smell like Sunday.' EVERY recipe (only opening pages done so far → roll onto all)."]
+    FL1-->FL2-->FL3
+  end
+  ANATOMY -.-> FEELINGX
+
+  subgraph VERSIONX["🍽️ VERSION STANDARD (locked 2 Jul → L20)"]
+    V0["NEED-DRIVEN, not count-driven. WOW = the quality bar on EVERY version (NOT a chip). Count set by dish FAME, litmus-filtered. UI = the versions array → versionStrip chips; Signature chip named per dish + pre-selected."]
+    V1["5 → top ~100 world dishes: Signature + Budget + Quick + Vegetarian + Classic (proof: Spag Bol = Slow Ragù / Budget / Quick / Veg / Classic)."]
+    V2["4 → everyday dishes: Signature + Budget + Quick + Vegetarian (drop Classic)."]
+    V3["2 → unfamiliar/exotic (Nigerian·Ukrainian·Ethiopian): Signature + SIMPLE. Simple = approachable on-ramp (SA substitutes L18 · fewer specialist steps · extra explanation), still full WOW. (label 'Simple' vs 'Easy' = Tina's pick)"]
+    V4["1 → floor/stretcher (already the budget version)."]
+    V5["LITMUS: add a version ONLY if a real user would pick it AND it makes honest culinary sense. Veg that kills the dish → distinct CARD (Bobotie), not a chip. Quick never = a box."]
+    V6["🔧 BLOCKER: fix N0 version bug FIRST (bakesRecipeOpts never calls applyRecipeVersion → chips render the base). THEN Claude Code rolls the pass library-wide; Fable authors the Simple/exotic versions."]
+    V0-->V1-->V2-->V3-->V4-->V5-->V6
+  end
+  FEELINGX -.-> VERSIONX
+
+  subgraph FABLEX["🚀 FABLE — 5-day boost + how to hand over (2 Jul)"]
+    FBX1["Fable free (included <=50% weekly) ONLY until 7 JUL, then paid credits + burns usage fast. Use as a 5-day BOOST, not the new default. Tina on Max 5x, 2% weekly used = headroom fine."]
+    FBX2["DIVISION: OPUS 4.8 = workhorse for the multi-week marathon (included) · CLAUDE CODE = in-repo grinds (Fable auto-routes coding to Opus ~5%) · FABLE = hardest/highest-value batches NOW."]
+    FBX3["REACH FABLE: same chat app, MODEL DROPDOWN → 'Claude Fable 5' (NOT in VS Code). Switch Opus↔Fable mid-thread; memory carries across."]
+    FBX4["HANDOVER: memory lags → GIVE Fable this TINZA_NOW. New chat → pick Fable → attach → starter: 'Read TINZA_NOW, then WK quality assessment (rewrite vs light polish), Africa + SA first, do NOT bulk-write yet, bank each batch.'"]
+    FBX5["FABLE PLAN: Day 1 = WK quality assessment (sets marathon size) · Days 2-5 = hardest launch-slice batches (Africa 190 + SA 131 to WOW · exotic Simple versions), BANK each to GitHub."]
+    FBX1-->FBX2-->FBX3-->FBX4-->FBX5
+  end
+  VERSIONX -.-> FABLEX
+
 
   subgraph B3E["B3 / BALANCED-RESULTS ENGINE — BUILT + LIVE-TEST-FIXED · L12/L13/L14"]
     E0["window.balancedOrder(list,opts) in index.js — deterministic variety round-robin, NO ML. opts={bucketOf, order, within}. Every PREFIX balanced. LIVE."]
@@ -97,11 +156,11 @@ flowchart TD
   URI2-->NEXT
 
   subgraph TODO["THEN — FMF, in order"]
-    T2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes"]
-    T3["PRICING HYGIENE — every ingredient resolves · fix R0 · 'Not yet costed' rows"]
-    T4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes · 72 goesWith → real recipes"]
-    T5["COSMETIC SAMENESS SWEEP — LAST"]
-    T2-->T3-->T4-->T5
+    TD2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes"]
+    TD3["PRICING HYGIENE — every ingredient resolves · fix R0 · 'Not yet costed' rows"]
+    TD4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes · 72 goesWith → real recipes"]
+    TD5["COSMETIC SAMENESS SWEEP — LAST"]
+    TD2-->TD3-->TD4-->TD5
   end
   NEXT-->TODO
 
@@ -172,4 +231,7 @@ flowchart TD
     L16["BACK-NAV: a section's OPEN recipe detail must be closed by goBack()/bottom-Back (return to that section's list), NOT history.back() (which can jump to an unrelated screen like FMF). Long-term: all detail opens route through openRecipe→viewingRecipe so goBack catches them uniformly."]
     L17["NON-LATIN NAMES (LOCKED, Tina 3 Jul): ROMANISED authentic name + English gloss, for EVERY non-Latin cuisine (Ukraine·Georgia·China-future). Never native script as the primary name (unreadable for SA users). Matches Egyptian/Ethiopian already-transliterated (Koshari·Doro Wat). Delivered by tinzaDisplayName + tinzaRoman (slug/alias/nameRoman fallback). photoName unchanged."]
     L18["WK SUBSTITUTE RULE (LOCKED, Tina 1 Jul): an exotic/un-buyable ingredient is replaced IN THE RECIPE with an SA-shelf substitute stated as 'substitute (or original)' — cost via the substitute. Cook buys something real; bill is honest. (bryndza→feta, salted cod→salted snoek, etc.) Generic pantry terms may use a silent WK_ALIAS instead. NEVER guess a rand on a pinch condiment — leave it unpriced (0.8 coverage gate absorbs one)."]
+    L19["FEELING LINE = THE ONE-LINER (LOCKED 2 Jul): sensory/nostalgic/human, every one UNIQUE, tone per section. TWO TIERS — short cardHook (<=6 words) on the card (optional, drip, never auto-trim) + full sensory line on the recipe page (every recipe). = the 'How This Feels' line."]
+    L20["VERSION STANDARD (LOCKED 2 Jul): count by dish FAME, litmus-filtered. 5=top-100 (Signature+Budget+Quick+Veg+Classic) · 4=everyday (drop Classic) · 2=exotic (Signature+Simple) · 1=floor. WOW = quality bar on ALL versions, not a chip. Signature named per dish. Simple(=Easy) = approachable on-ramp. Add a version only if a real user would pick it AND it makes culinary sense; Veg that kills the dish → own card. Fix N0 bug first."]
+    L21["ANATOMY COMPLETENESS (2 Jul): every recipe carries the full element set (see ANATOMY). Newly (re)tracked: TRIVIA/Did-You-Know (its own doc), STORAGE universal, SERVES+prep+cook time, Cook Mode spec."]
   end
