@@ -1,41 +1,40 @@
-%% WK_MARATHON_NOW — recipe marathon session state (Fable · 2 Jul 2026 · v6 — END OF CHAT 1)
+%% WK_MARATHON_NOW — recipe marathon session state (Fable · 2 Jul 2026 · v7 — END OF CHAT 2)
 %% ⚠️ START THE NEXT BATCH IN A NEW CHAT: pick Claude Fable 5 → attach THIS file → say 'Read
-%% WK_MARATHON_NOW, go Batch 5'. This chat is full; everything needed to continue is in here.
-%% ✅ CHAT 1 SUMMARY: WK assessment (321 graded · CSVs delivered) → Tina approved all (heroes ✔
-%%    SA-first ✔ polish→Opus ✔) → B1 LIVE (Durban Indian 8 + Cape Malay 3; Breyani = the new bar) →
-%%    versions locked as separate pass + Breyani 4-version template → B2 LIVE (heritage 12 + 2
-%%    feeling-line bug fixes) → Tina directive: AFRICA MUST WOW THE WORLD (policy locked, census
-%%    done) → B3 LIVE (Boerekos 3 — SA REWRITES 26/26 ✅) → B4 DELIVERED (Libya block, 20 dishes
-%%    rewritten in one voice + 15 feeling lines; Toum straggler found ALREADY FIXED on main) →
-%%    🆕 Tina to-do: post-Africa SA second look (add WOW Durban/Malay dishes).
+%% WK_MARATHON_NOW, go Batch 6'. Everything needed to continue is in here.
+%% ✅ CHAT 2 SUMMARY: 'go Batch 5' → fetched main, found B4 NOT pushed (guardrail catch — building
+%%    on stale main would have wiped Libya) → B5 written & staged while waiting → GitHub Desktop
+%%    troubleshoot → Tina pushed B4, verified live (231,880 bytes, all Libya KICKs present) →
+%%    B5 applied on fresh main + full verify → B5 DELIVERED (West Africa 15 rewrites + 4 staple
+%%    elevations + kontomire feeling-line bug fix + Puff Puff/Bofrot differentiated per the
+%%    doughnut-cluster directive). Exactly 19 lines changed; diff-verified.
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE"]
     S1["ASSESSMENT (banked): SA 131 = 36 light/69 polish/26 rewrite · AFRICA 190 = 20/109/61. CSVs: wk_sa_assessment.csv + wk_africa_assessment.csv (2 Jul)."]
-    S2["✅ LIVE ON MAIN: Batches 1–3 = ALL 26 SA rewrites (Durban Indian 8 · Cape Malay 3 · Xhosa 6 · Sotho 4 · Zulu 2 · Boerekos 3) + Lekhala & Waterblommetjie feeling-line bug fixes. All 131 SA feeling lines unique."]
-    S3["✅ BATCH 4 DELIVERED (⏳ push — NOTE: this one is wk_AFRICA.js): Libya whole block — 20 dishes rewritten in one adventurous voice + 15 refreshed feeling lines. KICKs: mint crushed between palms (Sharba) · 90-seconds-a-side brik yolk · spoon-trail shakshuka test · bazin dome-in-a-lake + the arm-work truth · mbakbaka pasta cooked IN the sauce (named for the bak-bak of the pot) · hraimi never-flip spoon-basting + Tripoli Jewish heritage · usban two-thirds-full rule · double-steamed Friday couscous · drop-by-drop toum · ice-water whipped hummus · caraway = filfel chuma's fingerprint. The 5 good recent Libya entries (Kufta bil Batinjal · M'battan · Chershi Kara'a · Mahalabia · Aqras Batata) untouched per L5. Verified: 190 dishes · feeling lines unique · both Jollofs intact · node --check OK."]
-    S4["✅ RESOLVED: Toum master-name straggler (wk_africa.js ~line 132/133) — already carries 'Toum (Garlic Cream)' on main; fixed by an earlier push. Closed."]
-    S1-->S2-->S3-->S4
+    S2["✅ LIVE ON MAIN: Batches 1–4 = all 26 SA rewrites (Durban Indian 8 · Cape Malay 3 · Xhosa 6 · Sotho 4 · Zulu 2 · Boerekos 3) + Lekhala & Waterblommetjie feeling-line fixes + LIBYA block (20 rewrites + 15 feeling lines; verified live 2 Jul, 231,880 bytes)."]
+    S3["✅ BATCH 5 DELIVERED (⏳ push — wk_africa.js, 238,605 bytes): WEST AFRICA — Nigeria 5 (Pepper Soup · Akara · Fried Rice · Puff Puff · Chin Chin) + Ghana 6 (Kelewele · Ghanaian Jollof · Palm Nut · Light Soup · Kontomire · Bofrot) + Senegal 4 (Thiakry · Dibi · Accara · Lakh) + STAPLE PRIDE 4 (Pounded Yam · Amala · Fufu · Banku). KICKs: akara float-test + acarajé lineage · pepper soup 'never let it gallop' + scent leaves heat-OFF · fried-rice gold = curry bloomed in oil · puff puff fist-squeeze · chin chin cut-smaller-they-swell · kelewele freckle test + lantern-lit night framing · Ghana jollof oil-rises-back-up base · abenkwan floating red oil = finish line · light soup nothing-touches-oil · kontomire mandatory first boil + palava = argument-ender · bofrot = togbɛi, nutmeg signature, long prove, chewy (≠ puff puff) · thiakry stirred-warm-served-ice-cold · dibi butcher paper + dibiterie · accara palm-rubbed skins + Saint-Louis baguette · lakh unstirred cream pour + ngente story · iyan stretch-not-tear king of swallows · amala the-darker-the-prouder + abula trinity · fufu two-person pound-and-turn duet · banku sour-is-deliberate + spoon-nearly-stands. Verified: 19 lines changed exactly · 190 dishes · feeling lines 190/190 unique · both Jollofs intact (Nigerian untouched) · ids/photoNames unchanged · Libya (B4) intact · node --check OK."]
+    S4["🐛 BUG FIXED in B5: Kontomire feeling line claimed 'cooked down with egusi' — no egusi in the recipe (same class as Lekhala/Waterblommetjie). New line matches the pot."]
+    S5["🍩 DOUGHNUT-CLUSTER progress (AFRICAWOW): Puff Puff vs Bofrot ✅ differentiated. Remaining in B6: Mandazi · Mahamri · (Vitumbua · Dabo Kolo if present)."]
+    S1-->S2-->S3-->S4-->S5
   end
 
-  subgraph BANK["🔒 TINA'S NEXT ACTION — bank Batch 4"]
-    K1["GitHub Desktop: replace sections/wk_africa.js → commit 'WK Batch 4: Libya block to WOW (20 rewrites + 15 feeling lines)' → push → verify live: open Bazin or Mbakbaka on tinza.netlify.app."]
-    K2["Then NEW CHAT → Fable 5 → attach this file → 'go Batch 5'."]
+  subgraph BANK["🔒 TINA'S NEXT ACTION — bank Batch 5"]
+    K1["GitHub Desktop: replace sections/wk_africa.js → commit 'WK Batch 5: West Africa to WOW (15 rewrites + 4 staple elevations + kontomire fix)' → push → CONFIRM the Push origin ↑ button actually cleared (B4 lesson!) → verify live: open Akara or Kelewele on tinza.netlify.app."]
+    K2["Then NEW CHAT → Fable 5 → attach this file → 'go Batch 6'."]
     K1-->K2
   end
   STATE-->BANK
 
   subgraph QUEUE["🔥 REMAINING BATCHES (all wk_africa.js · rewrites + AFRICAWOW elevation · no versions arrays)"]
-    Q5["BATCH 5: West Africa — Nigeria 5 (Pepper Soup · Akara · Fried Rice · Puff Puff · Chin Chin) + Ghana 6 (Kelewele · Ghanaian Jollof · Palm Nut Soup · Light Soup · Kontomire · Bofrot) + Senegal 4 (Thiakry · Dibi · Accara · Lakh) = 15 + staple elevation (Fufu · Banku · Pounded Yam · Amala get the pride treatment)."]
-    Q6["BATCH 6: East+Southern — Ethiopia 4 (Doro Wat · Kitfo · Gomen · Siga Wat) + Kenya 6 (Mandazi · Mukimo · Coconut Fish Curry · Viazi Karai · Mchicha · Mahamri) + Tanzania 1 (Zanzibar Biryani) + Zimbabwe 6 + Mozambique 5 = 22 + staple elevation (Ugali · Sadza · Injera · Mopane Worms adventure-framing). Zimbabwe = likeliest swap-proposal country (AFRICAWOW)."]
+    Q6["BATCH 6: East+Southern — Ethiopia 4 (Doro Wat · Kitfo · Gomen · Siga Wat) + Kenya 6 (Mandazi · Mukimo · Coconut Fish Curry · Viazi Karai · Mchicha · Mahamri) + Tanzania 1 (Zanzibar Biryani) + Zimbabwe 6 + Mozambique 5 = 22 + staple elevation (Ugali · Sadza · Injera · Mopane Worms adventure-framing) + Mandazi/Mahamri differentiation. Zimbabwe = likeliest swap-proposal country (AFRICAWOW)."]
     Q7["BATCH 7: North Africa — Egypt 2 (Mahshi · Feteer) + Morocco 4 (Chicken & Lamb Tagines · Kefta Tagine · Mrouzia) + Tunisia 1 (Fricassée) = 7. → ALL 87 REWRITES DONE 🏁"]
-    Q8["🆕 BATCH 8 (Tina, 2 Jul): SA SECOND LOOK — revisit Durban Indian + Cape Malay after Africa: replace any still-dull cards OR (preferred) ADD new WOW dishes (adding burns no photo; new photoNames join son's queue). Candidates to consider: bunny chow if missing · mutton bunny · Cape Malay denningvleis · koesisters (Malay, spiced-syrup) · masala steak Gatsby-style. Verify against existing cards first (Bobotie rule)."]
-    Q5-->Q6-->Q7-->Q8
+    Q8["BATCH 8 (Tina, 2 Jul): SA SECOND LOOK — revisit Durban Indian + Cape Malay after Africa: replace any still-dull cards OR (preferred) ADD new WOW dishes (adding burns no photo; new photoNames join son's queue). Candidates: bunny chow if missing · mutton bunny · Cape Malay denningvleis · koesisters (Malay, spiced-syrup) · masala steak Gatsby-style. Verify against existing cards first (Bobotie rule)."]
+    Q6-->Q7-->Q8
   end
   BANK-->QUEUE
 
   subgraph AFRICAWOW["🌍 LOCKED POLICY — Africa must wow other countries (Tina 2 Jul)"]
-    AW1["Census: ~61/190 in staple categories BUT the stars already exist (Suya · Egusi · Waakye · Moi Moi · Kelewele · Thieboudienne). Diagnosis: the boredom is in the WRITING. ELEVATE FIRST (icons like Injera/Ugali/Sadza = cultural anchors + budget heroes — write with pride & adventure) · DIFFERENTIATE the doughnut cluster (Mandazi/Mahamri/Vitumbua/Bofrot/Puff Puff/Dabo Kolo each get their own identity) · REPLACE SPARINGLY + PROPOSE FIRST (~2–4 swaps max, likeliest Zimbabwe; every swap explicit in the batch — Tina's push = approval; swaps burn a launch-slice photo + touch pricing, so adding-later via the +2000 track is often better)."]
+    AW1["Census: ~61/190 in staple categories BUT the stars already exist (Suya · Egusi · Waakye · Moi Moi · Kelewele · Thieboudienne). Diagnosis: the boredom is in the WRITING. ELEVATE FIRST (icons like Injera/Ugali/Sadza = cultural anchors + budget heroes — pride & adventure; Fufu/Banku/Iyan/Amala done ✅ in B5) · DIFFERENTIATE the doughnut cluster (Puff Puff/Bofrot ✅; Mandazi/Mahamri next) · REPLACE SPARINGLY + PROPOSE FIRST (~2–4 swaps max, likeliest Zimbabwe; every swap explicit in the batch — Tina's push = approval; swaps burn a launch-slice photo + touch pricing, so adding-later via the +2000 track is often better)."]
   end
   QUEUE-.->AFRICAWOW
 
@@ -59,18 +58,20 @@ flowchart TD
   end
   QUEUE-.->CCODE
 
-  subgraph GUARD["🔒 GUARDRAILS (enforced Batches 1–4)"]
-    G1["Same schema/keys · ids & photoNames never change (L11) · ingredients & pricing untouched (969/994 banked) — AFRICAWOW swaps the only exception, each explicitly proposed + priced from existing PRICE_DB/WK_ALIAS + SA shelves (L18) · NO versions arrays until pilot · feeling lines unique (L19) · romanised names untouched (L17) · node --check every delivery (L5) · always rebuild on freshly-fetched main · leave good entries alone."]
+  subgraph GUARD["🔒 GUARDRAILS (enforced Batches 1–5)"]
+    G1["Same schema/keys · ids & photoNames never change (L11) · ingredients & pricing untouched (969/994 banked) — AFRICAWOW swaps the only exception, each explicitly proposed + priced from existing PRICE_DB/WK_ALIAS + SA shelves (L18) · NO versions arrays until pilot · feeling lines unique (L19) · romanised names untouched (L17) · node --check every delivery (L5) · always rebuild on freshly-fetched main (SAVED US in Chat 2: B4 wasn't pushed — always VERIFY main before building) · leave good entries alone."]
   end
   QUEUE-.->GUARD
 
   subgraph FLAG["🚩 OPEN FLAGS for Tina"]
-    F1["'Lekhala' name: Sesotho lekhala usually = aloe; dried meat is more commonly segwapa. Regional/family usage? Confirm when convenient (nothing changed; only its wrong feeling line was fixed)."]
+    F1["'Lekhala' name (carried): Sesotho lekhala usually = aloe; dried meat is more commonly segwapa. Regional/family usage? Confirm when convenient (nothing changed; only its wrong feeling line was fixed)."]
+    F2["Push-verify habit: B4 sat committed-but-unpushed for a while. After every push, glance that 'Push origin ↑' cleared in GitHub Desktop before moving on."]
+    F1-->F2
   end
   GUARD-.->FLAG
 
   subgraph TODO["📋 MASTER TO-DO — old + new, nothing dropped"]
-    T1["MARATHON: Batches 5–7 (Africa rewrites, 44 left) → Batch 8 SA second look (add WOW Durban/Malay) → Opus polish 178 → versions pilot + pass (heroes 4–5 · everyday 4 · exotic Signature+Simple · floor 1) → Europe 569 + World 103 (data now, photos drip) → +2000 growth track. LIGHT tier 56 = leave; re-audit post-launch."]
+    T1["MARATHON: Batches 6–7 (Africa rewrites, 29 left of 87) → Batch 8 SA second look (add WOW Durban/Malay) → Opus polish 178 → versions pilot + pass (heroes 4–5 · everyday 4 · exotic Signature+Simple · floor 1) → Europe 569 + World 103 (data now, photos drip) → +2000 growth track. LIGHT tier 56 = leave; re-audit post-launch."]
     T2["CARRIED from TINZA_NOW: push NXNAME 3 staged files if not pushed (index.js · budget.js · meals.js tinzaDisplayName) · lunch adapter one-liner (48 hidden dishes — Tina confirm supper-worthy) · WK-recipe→WK-home back-nav · recipe-page enrichment NX2 (confirm in-place-vs-fork) · FMF cakes (20 popular, 9 crossed off) + biscuits/tarts/scones ~40–60 · Spice gaps ~1 batch · cheap-SA sub-R10pp (PPZ1: morogo & pap · pap & sheba · walkie-talkies · samp · cabbage & potato) · Jollof photo split (son) · nameRoman robustness pass · per-version nutrition (C1) · proxy names (C2) · price confirms (C3) · TRACK B machinery once slice solid: PayFast FIRST · planner · Cook Mode · onboarding · web page · beta."]
     T1-->T2
   end
