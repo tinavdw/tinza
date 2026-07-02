@@ -11417,6 +11417,88 @@ var SUPPER_RECIPES = [
 ];
 
 var BAKES_RECIPES = [
+  // ── 🍰 CHEESECAKES ──
+  {id:'bk-amarula-cheesecake', cat:'cheesecakes', name:'Amarula Cheesecake', emoji:'🍰', cuisine:'South African', time:130, costPP:16,
+    feel:'The bushveld in a slice — dense, silky and laced with caramel-cream Amarula warmth that makes grown-ups close their eyes.',
+    ingredients:[
+      {n:'Tennis biscuits',pp:17,u:'g'},
+      {n:'butter',pp:9,u:'g'},
+      {n:'plain cream cheese, full-fat',pp:42,u:'g'},
+      {n:'mascarpone',pp:21,u:'g'},
+      {n:'caster sugar',pp:18,u:'g'},
+      {n:'large eggs',pp:0.33,u:'egg'},
+      {n:'Amarula cream liqueur',pp:7,u:'ml'},
+      {n:'caramel treat',pp:12,u:'g'},
+      {n:'vanilla essence'}
+    ],
+    method:[
+      'Heat the oven to 160°C and line the base of a 22cm springform tin with baking paper. Crush the Tennis biscuits to fine crumbs (a bag and a rolling pin is fine) and stir through the melted butter until it looks like wet sand.',
+      'Press the crumb firmly and evenly up into the tin — use the back of a spoon — and bake for 10 minutes. Baking the base first is what stops it going soggy under the wet filling. Cool while you make the filling.',
+      'Beat the cream cheese, mascarpone and sugar together until completely smooth. Everything must be at room temperature — cold cream cheese is the number-one cause of a lumpy batter you can never beat out.',
+      'Add the eggs one at a time, beating on low just until each disappears. Stop the moment they are in: whipping air into the batter now is what makes a cheesecake dome, then crack and sink. Stir in the Amarula and a splash of vanilla by hand.',
+      'Pour the filling onto the cooled base. Dot teaspoons of caramel treat over the top and drag a skewer through in lazy figure-eights to marble it. Do not tap the tin to level it — you will lose the swirl.',
+      'Wrap the outside base of the tin in a double layer of foil, sit it in a deep roasting pan, and pour boiling water halfway up the sides. This water bath is the Amarula Queen’s secret — the gentle steam heat gives you a crack-free, satiny set instead of a dry, split top.',
+      'Bake 1 hour 20 minutes, until the edges are set but the middle still wobbles like a jelly when you nudge the pan. It firms as it cools — a fully-set bake means an overbaked, dry cake.',
+      'Turn the oven off, crack the door open and leave the cheesecake inside an hour. A sudden cold kitchen is what tears the top. Then chill at least 6 hours, ideally overnight — the Amarula flavour deepens as it rests.',
+      'Loosen the edge with a warm knife, unclip, and serve with an extra thread of caramel and a tot of Amarula alongside.'
+    ],
+    tip:'Room-temperature everything, and resist opening the oven while it bakes — the centre wobble is meant to be there and sets overnight in the fridge.',
+    nutrition:{kcal:470,protein_g:8,carbs_g:38,fat_g:32}, storage:'Keeps 4–5 days covered in the fridge (better on day two). Freezes 1 month — thaw overnight in the fridge.'},
+
+  {id:'bk-pina-colada-cheesecake', cat:'cheesecakes', name:'Piña Colada Cheesecake', emoji:'🍍', cuisine:'Tropical', time:40, costPP:15,
+    feel:'A holiday set into a slice — cool coconut, sweet warm-spiced pineapple and a whisper of rum, and not once do you switch on the oven.',
+    ingredients:[
+      {n:'Tennis biscuits',pp:17,u:'g'},
+      {n:'butter',pp:9,u:'g'},
+      {n:'plain cream cheese, full-fat',pp:42,u:'g'},
+      {n:'icing sugar',pp:11,u:'g'},
+      {n:'coconut cream, tinned',pp:17,u:'ml'},
+      {n:'white rum',pp:5,u:'ml'},
+      {n:'fresh cream',pp:21,u:'ml'},
+      {n:'gelatine',pp:1,u:'g'},
+      {n:'fresh pineapple',pp:33,u:'g'},
+      {n:'brown sugar',pp:5,u:'g'},
+      {n:'dark rum'}
+    ],
+    method:[
+      'Line the base of a 22cm springform tin. Crush the Tennis biscuits to crumbs, stir through the melted butter, press firmly into the tin and chill — with a no-bake cake the fridge does the setting the oven usually would.',
+      'Sprinkle the gelatine over 3 tablespoons of cold water and leave 5 minutes to swell, then warm gently (a few seconds in the microwave or over hot water) until clear and runny. This is the backbone that holds a no-bake cheesecake — undissolved grains mean a soft, weepy slice.',
+      'Beat the cream cheese, icing sugar and coconut cream until smooth. Use thick tinned coconut cream (the curry-aisle kind), not coconut milk — milk is too thin to set. Beat in the white rum, then the warm gelatine, working quickly so it does not set in streaks.',
+      'In a separate bowl whip the fresh cream to soft peaks and fold it in gently. Folding rather than beating keeps the filling light and moussey instead of dense and heavy.',
+      'Spoon onto the base, smooth the top, and chill at least 4 hours or overnight until firm to a light touch.',
+      'For the topping, simmer the diced pineapple with the brown sugar and a splash of dark rum for 6–8 minutes until glossy and jammy, then cool completely — spooning it on warm would melt the set filling.',
+      'Unclip, crown with the pineapple compote and serve cold.'
+    ],
+    tip:'Thick tinned coconut cream, not coconut milk — and make sure the gelatine is fully dissolved and still warm when it goes in, or the cake won’t set cleanly.',
+    nutrition:{kcal:400,protein_g:6,carbs_g:34,fat_g:27}, storage:'Best within 3 days, kept cold and covered. Add the pineapple topping on the day of serving so the base stays crisp.'},
+
+  {id:'bk-gin-tonic-cheesecake', cat:'cheesecakes', name:'Gin & Tonic Cheesecake', emoji:'🍸', cuisine:'Modern', time:45, costPP:17,
+    feel:'A G&T you eat with a fork — cool and creamy, zesty with lime, botanical with juniper, and unmistakably grown-up.',
+    ingredients:[
+      {n:'shortbread biscuits',pp:17,u:'g'},
+      {n:'butter',pp:9,u:'g'},
+      {n:'plain cream cheese, full-fat',pp:42,u:'g'},
+      {n:'sour cream',pp:17,u:'g'},
+      {n:'caster sugar',pp:13,u:'g'},
+      {n:'gin',pp:5,u:'ml'},
+      {n:'lime juice',pp:3,u:'ml'},
+      {n:'gelatine',pp:1,u:'g'},
+      {n:'tonic water',pp:3,u:'ml'},
+      {n:'lime zest'},
+      {n:'juniper berries'}
+    ],
+    method:[
+      'Line a 22cm springform tin. Crush the shortbread biscuits, stir through the melted butter, press firmly into the base and chill while you make the filling.',
+      'Sprinkle the gelatine over 3 tablespoons of cold water, leave 5 minutes to swell, then warm gently until clear and runny.',
+      'Beat the cream cheese, sour cream and caster sugar until smooth, then beat in the gin, lime juice and a good grating of lime zest. The gin goes in cold and uncooked — that is what keeps its punch and its botanical edge.',
+      'Beat in the warm gelatine quickly and evenly, spoon onto the base, smooth the top and chill at least 4 hours until firmly set. It must be properly firm before the glaze goes on.',
+      'For the G&T glaze, warm the gin, tonic and a spoon of caster sugar until the sugar dissolves, stir in a little more bloomed gelatine, then cool to a syrupy, just-thickening pour. Pouring it hot would melt the layer beneath.',
+      'Slide the glaze over the set cheesecake, scatter a few lightly-crushed juniper berries and a little more lime zest, and chill until the glaze sets to a clear jelly.',
+      'Serve cold, in thin slices — it is rich and boozy, a little goes a long way.'
+    ],
+    tip:'Everything cold and no cooking of the gin — heat would boil off the very kick you want. Let the glaze cool to syrupy before pouring, or it melts the cheesecake under it.',
+    nutrition:{kcal:390,protein_g:7,carbs_g:30,fat_g:27}, storage:'Keeps 3–4 days covered in the fridge. Best not frozen — the tonic glaze weeps on thawing.'},
+
   // ── 🥞 QUICK BREADS (Fluffy Pancakes moved from Breakfast 16 Jun; id kept stable) ──
   {id:'bf-pancakes', cat:'quickbreads', name:'Fluffy Pancakes', emoji:'🥞', cuisine:'American', time:20, costPP:7,
     feel:'A lazy Sunday stack with syrup running down the sides.',
@@ -12781,7 +12863,7 @@ function mealSectionHTML(sectionKey){
     breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:"eggs",e:"🍳",l:"Eggs"},{id:"fryups",e:"🥓",l:"Fry-Ups"},{id:"toast",e:"🍞",l:"Toast"},{id:"pancakes",e:"🥞",l:"Pancakes & Waffles"},{id:"oats",e:"🥣",l:"Oats & Porridge"},{id:"baked",e:"🧁",l:"Baked"},{id:"smoothies",e:"🥤",l:"Smoothies & Bowls"}]},
     lightlunch: {title:"Light Lunch",       emoji:"🥗", color:"#30a070", bg:"#081810", border:"#1a4025", recipes:typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],sub:"Salads · Wraps · Soups · Quick meals", cats:[{id:'salads',e:'🥗',l:'Salads & Bowls'},{id:'handhelds',e:'🥪',l:'Sandwiches & Wraps'},{id:'soups',e:'🍲',l:'Soups'},{id:'savbakes',e:'🥧',l:'Savoury Bakes'},{id:'quick',e:'⚡',l:'Quick & Light'}]},
     supper:     {title:"Supper",            emoji:"🍽️", color:"#6080d0", bg:"#080f18", border:"#1a2840", recipes:typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],        sub:"Evening meals · Family dinners", cats:[{id:'plates',e:'🍳',l:'Homestyle Plates'},{id:'pastapizza',e:'🍝',l:'Pasta & Pizza'},{id:'stewscurries',e:'🍛',l:'Stews, Curries & One-Pots'},{id:'ovenbakes',e:'🥧',l:'Oven Bakes & Roasts'},{id:'friedgrilled',e:'🍔',l:'Fried & Grilled'}]},
-    bakes:      {title:"Bakes & Cakes",     emoji:"🧁", color:"#d06080", bg:"#180810", border:"#401020", recipes:typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],          sub:"Cakes · Biscuits · Breads · Desserts", cats:[{id:'breads',e:'🍞',l:'Breads & Rolls'},{id:'flatbreads',e:'🫓',l:'Flatbreads'},{id:'quickbreads',e:'🧁',l:'Muffins & Quick Breads'},{id:'biscuits',e:'🍪',l:'Biscuits & Rusks'},{id:'cakes',e:'🎂',l:'Cakes & Cupcakes'},{id:'pastries',e:'🥐',l:'Pastries & Tarts'}]},
+    bakes:      {title:"Bakes & Cakes",     emoji:"🧁", color:"#d06080", bg:"#180810", border:"#401020", recipes:typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],          sub:"Cakes · Biscuits · Breads · Desserts", cats:[{id:'breads',e:'🍞',l:'Breads & Rolls'},{id:'flatbreads',e:'🫓',l:'Flatbreads'},{id:'quickbreads',e:'🧁',l:'Muffins & Quick Breads'},{id:'biscuits',e:'🍪',l:'Biscuits & Rusks'},{id:'cakes',e:'🎂',l:'Cakes & Cupcakes'},{id:'cheesecakes',e:'🍰',l:'Cheesecakes'},{id:'pastries',e:'🥐',l:'Pastries & Tarts'}]},
     sidesbasics:{title:"Sides & Basics",    emoji:"🍟", color:"#c08040", bg:"#180f08", border:"#3a2410", recipes:typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[], sub:"Chips · Mash · the building blocks", cats:[{id:'potato',e:'🥔',l:'Potato Sides'},{id:'rice',e:'🍚',l:'Rice & Grains'},{id:'staples',e:'🍝',l:'Staples & Doughs'},{id:'sauces',e:'🥫',l:'Basic Sauces'}]},
   };
   const cfg = configs[sectionKey];

@@ -1,22 +1,16 @@
-%% TINZA_NOW — session state  |  3 July 2026 (B3 + live-test fixes)
-%% ✅ LIVE ON MAIN: UNIVERSAL INDEX (Run 1) · FINDER UX FIXES · B3 VARIETY ROUND-ROBIN (balancedOrder + budgetBucket + name-dedup + soup→main).
-%% ⬆️ STAGED TO PUSH THIS SESSION (node --check ✅) — 1 file: budget.js. THREE B3 LIVE-TEST FIXES:
-%%    ROOT CAUSE FOUND (live test w/ Tina): budgetBucket read r.searchText, which folds in goesWith/pairsWith
-%%    ("Jollof goes with grilled chicken") + cuisine + nameAlt. A VEGAN rice dish therefore landed in the MEAT
-%%    bucket, and since its meat is never in the pot it costs ~R10 and BURIED the real R25–R44 SA meat mains.
-%%    Same mechanism made results look "stuck" (same cheap foreign dishes at every budget) and "Not SA".
-%%    FIX-1 budgetBucket now classifies on NAME + paren-stripped INGREDIENT NAMES only (no goesWith pollution).
-%%    FIX-2 _budgetHomeRank + within-bucket sort = SA cuisines(3) → home meals/floor(2) → foreign World(1),
-%%          cheapest as tiebreak. SA-recognisable dishes now lead every bucket. (verified: top 8 = 6×SA + 2×home, 0 foreign)
-%%    FIX-3 budgetCloseRecipe: restore scroll immediately + 1 rAF (was double-rAF → visible top-flash/jump on Back).
-%% STILL FROM TINA'S FEEDBACK (not this file): enticing-English NAMES · higher budgets should differ · recover gated WK meat.
+%% TINZA_NOW — session state  |  2 July 2026 (new day: FMF push toward launch)
+%% ✅ ALL LIVE ON MAIN (verified 2 Jul AM): Universal Index · Finder UX · B3 variety · BUDGET-MATCHING ·
+%%    ROMANISED NAMES + gloss wiring + JOLLOF SPLIT + 5 gloss rewrites · back-nav fix ·
+%%    WHOLE-WK PRICING PASS (70 dishes unlocked, 969/994 priced; duck/trout/mitmita/substitutes all live).
+%% 🎯 LAUNCH: 8–12 wk target (set ~22 Jun) → ~mid-Aug (sprint) / mid-Sep (comfortable). See LAUNCH block.
+%% 🌅 TODAY (2 Jul): FMF — Cakes & Bakes recipes (WOW) + jazz + sameness. See TODAY block.
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
 
   subgraph NEXT0["NEXT — recommended order"]
     NXP["DONE + LIVE — Run 1 index + finder UX + B3 round-robin, pushed & verified."]
-    NXR3["◀ STAGED TO PUSH (3 Jul, commit 2, node --check OK) — wk_africa.js + wk_europe.js: 5 gloss rewrites + jollof split with photoName pinned (see NAMEUP). Push AFTER the wiring commit (NXR2)."]
+    NXR3["✅ DONE + LIVE (2 Jul AM) — all name/gloss/jollof + WK pricing files pushed & verified on main. Nothing staged."]
     NXR2 --> NXR3
     NXNAME["✅ NAMES — WIRING DONE (3 Jul, staged): tinzaDisplayName already existed (search.js) + WK used it; the finder rendered raw r.name. Fixed by 3 edits: index.js rec() now carries nameAlt/aliases/nameRoman · budget.js finder row + meals.js recipeDetailFromResult h1 both render tinzaDisplayName(r). Now: 'Lablabi (Tunisian Chickpea Soup)', 'Jollof Rice (Spiced Tomato Rice)'; FMF stays plain English. AUDIT: 981/994 WK glosses already GOOD; only ~5 genuinely weak (see NAMEUP). Push 3 files."]
     NX2["THEN — TRACK 2 (chat): RECIPE-PAGE ENRICHMENT (TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md · confirm in-place-vs-fork first). THEN FMF WOW CONTENT."]
@@ -24,6 +18,25 @@ flowchart TD
     NXP-->NXR2-->NXNAME-->NX2-->NX1b
   end
   START-->NEXT0
+
+  subgraph LAUNCH["🎯 LAUNCH — 8–12 wk (set ~22 Jun) → mid-Aug sprint / mid-Sep comfortable"]
+    LSLICE["Launch slice (functional + photographed): FMF · Africa · Braai/SA · full Spice(112) · Events (~376 photos). Everything else = DATA now (costing+search live) behind 'photo coming soon'; Europe/Asia/World photos DRIP post-launch as weekly retention content."]
+    LSEQ["Build order (body metaphor): skeleton(sameness) → meat(recipes) → organs(payments/planner/Cook Mode) → skin(warm look) → eyes&hair(onboarding+web) → clothes(launch). Payments: PayFast R50/mo recurring, SA-first, sold on web. Marketing: founding-members waitlist ~8wk out, DIY w/ Claude."]
+    LSLICE-->LSEQ
+  end
+  subgraph TODAY["🌅 TODAY (2 Jul) — FMF focus (all launch-slice work)"]
+    T1["① FMF CAKES & BAKES — jazz = RECIPE WOW (confirmed). Write ONLY new recipes we don't already have + a KICK (worthwhile, not googleable). GOAL: ~20 most-popular cakes (total) + ≥3 cheesecakes. RULE: buyable on SA shelves (no ube-trap) — same buyable-ingredient ethos as WK substitutes. Convert to metric/°C/SA brands + WOW BAKES format (feel/method/tip/nutrition/storage)."]
+    CAKEAUDIT["CAKE/BAKE AUDIT (2 Jul) — ALREADY IN APP → IMPORT, don't rewrite: Events CELEBRATION_CAKE_RECIPES (eventsData.js, 9): Vanilla Sponge · Chocolate Mud · Wedding Fruit Cake · Red Velvet · Carrot Spice · Salted Caramel Layer · Lemon Drizzle · Vanilla Butter · Mini Cupcakes. meals BAKES: Banana Bread · Classic Sponge. health: Raw Choc Avocado Mousse Cake · Keto Cheesecake Cups · 4 muffins · 3 chia puddings. → NEW cakes to write = popular ones NOT in this list."]
+    CHEESE["✅ CHEESECAKE TRIO — WRITTEN + WIRED into a ready-to-push meals.js (2 Jul): Amarula · Piña Colada · Gin & Tonic in BAKES_RECIPES + new 🍰 Cheesecakes tab registered (cats array L~12784). node --check OK, 13822 lines. TINA: replace meals.js → commit → push → LIVE + banked. Then next batch = 20 popular cakes."]
+    BANKRULE["🔒 WORKFLOW RULE (locked 2 Jul, after 'redo everything' scare): BANK EACH BATCH — push to GitHub the moment a batch is done, BEFORE moving on. Un-pushed work lives only in the chat and is lost on a new chat; pushed = live on Netlify + permanent in the repo. Claude delivers each batch as a ready-to-replace file (node --check done). A few at a time, always banked."]
+    CHEESE-->BANKRULE
+    T1-->CAKEAUDIT-->CHEESE
+    T2["② JAZZ FMF — WOW voice baked into new recipes. ❓CLARIFY with Tina: 'jazz' = recipe elevation (Spagbol treatment) or the browse/card LOOK?"]
+    T3["③ SAMENESS — FMF matches braai v33 via shared core.js renderers (skeleton)."]
+    LWOW2["SPAGBOL-TREATMENT scope: launch slice FIRST (FMF·Africa·SA·Spice·Events); Europe/Asia/World elevate + DRIP post-launch (whole-app WOW would blow the 12-wk window)."]
+    T1-->T2-->T3
+  end
+  NEXT0-->LAUNCH-->TODAY
 
   subgraph B3E["B3 / BALANCED-RESULTS ENGINE — BUILT + LIVE-TEST-FIXED · L12/L13/L14"]
     E0["window.balancedOrder(list,opts) in index.js — deterministic variety round-robin, NO ML. opts={bucketOf, order, within}. Every PREFIX balanced. LIVE."]
