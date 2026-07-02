@@ -1,0 +1,76 @@
+%% WK_MARATHON_NOW — recipe marathon session state (Fable · 2 Jul 2026 · v4)
+%% Attach this to every new chat (alongside or instead of TINZA_NOW). Supersedes v3.
+%% ✅ SESSION SO FAR: WK assessment (321 graded, CSVs delivered) → Tina approved ALL (heroes ✔
+%%    SA-first ✔ polish→Opus ✔) → BATCH 1 PUSHED + LIVE-VERIFIED by Tina ('MUCH better') →
+%%    WOW litmus reaffirmed (even a tomato & cheese sandwich gets elevated) → version standard
+%%    confirmed all-across → Breyani 4-version template designed → 🔒 rewrites-first decision locked
+%%    (VERSIONWHEN) → ✅ BATCH 2 DELIVERED (12 heritage rewrites + 2 bug fixes) — awaiting push.
+flowchart TD
+
+  subgraph STATE["📍 WHERE WE ARE"]
+    S1["ASSESSMENT (done, banked): SA 131 = light 36 · polish 69 · rewrite 26 | AFRICA 190 = light 20 · polish 109 · rewrite 61 (Libya 17/25 the outlier). Verdicts: wk_sa_assessment.csv + wk_africa_assessment.csv."]
+    S2["✅ BATCH 1 LIVE ON MAIN (Tina pushed + verified): 11 SA rewrites — Durban Indian 8 + Cape Malay 3 (Lamb Breyani approved as the new bar)."]
+    S3["✅ BATCH 2 DELIVERED (⏳ Tina to push): 12 heritage rewrites in wk_southafrica.js — Xhosa 6 (Umngqusho · Isityu seNkukhu · Imifino · Usu · Isityu Senyama · Isityu seKhabhishi) + Sotho 4 (Seswaa · Mala · Lekhala · Mabele a Aledi) + Zulu 2 (Ulusu · Isijabane). KICKs: boiling-water-only top-ups + pot-side mash (Umngqusho) · seswaa's deliberate near-dry catch + pound-while-hot · vinegar pre-boil + spoon-cut test (all three tripe dishes, each with its own voice) · slurry-first sorghum · warm-toss isijabane · taste-BEFORE-salting dried meat. Built on fetched live main (byte-verified). node --check OK."]
+    S4["🐞 2 PRE-EXISTING BUGS FIXED inside Batch 2: ① Lekhala carried Morogo's feeling line (wrong dish) → new own line. ② Waterblommetjie Bredie duplicate feeling line across the Cape Malay + Boerekos cards (L19 violation; two cards is correct per L13) → Boerekos card got its own Afrikaans-flavoured line. All 131 feeling lines now unique."]
+    S1-->S2-->S3-->S4
+  end
+
+  subgraph BANK["🔒 TINA'S NEXT ACTION — bank Batch 2 (BANKRULE)"]
+    K1["GitHub Desktop: replace sections/wk_southafrica.js → commit 'WK Batch 2: 12 heritage rewrites to WOW + 2 feeling-line fixes' → push → verify live: open Seswaa or Umngqusho on tinza.netlify.app."]
+    K2["Then 'go Batch 3' (this chat, or new Fable chat with THIS file attached)."]
+    K1-->K2
+  end
+  STATE-->BANK
+
+  subgraph QUEUE["🔥 BATCH QUEUE — bank each before the next (rewrites only, no versions arrays)"]
+    Q3["BATCH 3 (SA, next): Boerekos 3 (Hoenderpastei · Braaibroodjies · Afval). Braaibroodjies = the sandwich-litmus showcase (chutney inside, cheese both sides of the tomato). → SA REWRITES DONE (26/26)."]
+    Q4["BATCH 4 (Africa): LIBYA whole-block rewrite, all 25 in one voice (17 rewrite + 6 polish + 2 verify) + fix Toum master-name straggler ~line 132 in the same pass."]
+    Q5["BATCH 5 (Africa): West Africa — Nigeria 5 (Pepper Soup · Akara · Fried Rice · Puff Puff · Chin Chin) + Ghana 6 (Kelewele · Ghanaian Jollof · Palm Nut Soup · Light Soup · Kontomire · Bofrot) + Senegal 4 (Thiakry · Dibi · Accara · Lakh) = 15."]
+    Q6["BATCH 6 (Africa): East+Southern — Ethiopia 4 (Doro Wat · Kitfo · Gomen · Siga Wat) + Kenya 6 + Tanzania 1 (Zanzibar Biryani) + Zimbabwe 6 + Mozambique 5 = 22."]
+    Q7["BATCH 7 (Africa): North Africa — Egypt 2 (Mahshi · Feteer) + Morocco 4 (both Tagines · Kefta Tagine · Mrouzia) + Tunisia 1 (Fricassée) = 7. → ALL 87 REWRITES DONE."]
+    Q3-->Q4-->Q5-->Q6-->Q7
+  end
+  BANK-->QUEUE
+
+  subgraph VERSIONWHEN["🍽️ 🔒 LOCKED DECISION — versions are a SEPARATE pass (Tina agreed 2 Jul)"]
+    W1["Why not all-at-once: ① applyRecipeVersion contract unproven (N0 bug; Bobotie = only example) — ~250 versions against an untested contract risks library-wide rework ② invisible until wired → can't verify live → violates BANKRULE ③ versions are deltas off the Signature — written after the WOW rewrite they're cheaper and better ④ Fable window closes 7 JUL: 87 rewrites = comfortable, +250 versions = gamble."]
+    W2["SEQUENCE: rewrites → Claude Code fixes N0 + wires WK versionStrip → PILOT: Lamb Breyani set wired, pushed, Tina verifies on her phone → contract locked → versions roll library-wide (largely Opus/Claude Code)."]
+    W1-->W2
+  end
+  QUEUE-.->VERSIONWHEN
+
+  subgraph BREYTPL["⭐ VERSION TEMPLATE (pilot dish = Lamb Breyani; pattern for all L20 sets)"]
+    BT1["SIGNATURE 'Sunday Dum Breyani' (pre-selected, = Batch-1 rewrite) · CLASSIC 'Ouma's Bo-Kaap' (brown lentils in the layers + boiled eggs — THE Cape Malay tell vs Indian biryani) · BUDGET chicken-thigh + doubled lentils, turmeric for saffron · QUICK 'Pot Akni' (the real one-pot cousin, ±45 min — fast because the culture invented it) · NO Veg chip (kills the dish; Vegetable Biryani is its own card per Bobotie rule)."]
+  end
+  VERSIONWHEN-.->BREYTPL
+
+  subgraph OPUS["🐴 OPUS 4.8 TRACK (post-7-Jul or parallel chat)"]
+    P1["SA POLISH 69 (2 runs ~35) then AFRICA POLISH 109 (3 runs ~36). Recipe: add why-language + staged salt & pepper, deepen 1–2 steps, KEEP good feeling lines/chefNotes. Work order = this flowchart + the two CSVs."]
+  end
+  QUEUE-.->OPUS
+
+  subgraph CCODE["🔧 CLAUDE CODE BRIEFS"]
+    CC1["N0 + WK VERSION WIRING (gates the version pass): fix bakesRecipeOpts→applyRecipeVersion · wire versionStripHTML into WK detail · lock the version-override contract (fields, cost handling) · pilot = Breyani set. Fable drafts this brief on request."]
+    CC2["RUN 2 (carried): recover 95 gated WK meat (window._tinzaWKSkipped/PRICE_DB) · naming pass · facet derivation (L10 caveats) · wire 72 goesWith · balanced search via balancedOrder()."]
+    CC3["SEARCHBUG (HIGH, carried): bottom-nav Search tab broken — draw() calls missing searchHTML() (core.js:473)."]
+    CC1-->CC2-->CC3
+  end
+  QUEUE-.->CCODE
+
+  subgraph GUARD["🔒 GUARDRAILS (enforced Batches 1–2)"]
+    G1["Same schema/keys · ids & photoNames never change (L11) · ingredients & pricing untouched (969/994 banked) · SA-shelf subs only (L18) · NO versions arrays until pilot passes · feeling lines unique, keep good ones (L19) · romanised names untouched (L17) · node --check before every delivery (L5) · always rebuild on freshly-fetched main."]
+  end
+  QUEUE-.->GUARD
+
+  subgraph FLAG["🚩 FOR TINA — small flags, no action needed yet"]
+    F1["'Lekhala' as a dish name for dried-meat stew: in Sesotho 'lekhala' usually means aloe; dried meat is more commonly segwapa. Might be regional/family usage — Tina to confirm the name is intended (name/id/photo NOT changed, only the wrong feeling line fixed)."]
+  end
+  GUARD-.->FLAG
+
+  subgraph TODO["📋 STILL TO DO — old + new, nothing dropped"]
+    T1["VERSIONS PASS (after pilot): heroes = 4–5 versions · everyday 4 · exotic Signature+Simple · floor 1. Breyani = pattern."]
+    T2["LIGHT tier (56): leave alone; re-audit post-launch."]
+    T3["CARRIED from TINZA_NOW: push NXNAME 3 staged files (index.js · budget.js · meals.js tinzaDisplayName wiring) if not pushed · lunch adapter one-liner (48 hidden dishes — Tina to confirm supper-worthy) · WK-recipe→WK-home back-nav · recipe-page enrichment NX2 (confirm in-place-vs-fork) · FMF cakes next batch (20 popular, 9 crossed off) + biscuits/tarts/scones (~40–60) · Spice gaps (~1 batch) · cheap-SA sub-R10pp enrichment (PPZ1: morogo & pap · pap & sheba · walkie-talkies · samp · cabbage & potato) · Jollof photo split (son) · nameRoman robustness pass · per-version nutrition (C1) · proxy names (C2) · price confirms (C3) · Europe 569 + World 103 WOW post-slice (photos drip) · TRACK B machinery in parallel once slice solid: PayFast FIRST · planner · Cook Mode · onboarding · web · beta."]
+    T1-->T2-->T3
+  end
+  GUARD-->TODO
