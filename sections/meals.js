@@ -4054,7 +4054,9 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
         "n": "salt"
@@ -4136,7 +4138,9 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
         "n": "salt"
@@ -4203,7 +4207,9 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
         "n": "salt"
@@ -4275,7 +4281,9 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
         "n": "salt"
@@ -4352,7 +4360,9 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
         "n": "salt"
@@ -6010,7 +6020,7 @@ var BREAKFAST_RECIPES = [
     "cat": "baked",
     "name": "Bacon, Atchar & Cheddar Muffins",
     "emoji": "🧁",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Bacon, Atchar & Cheddar Muffins",
     "time": 35,
     "costPP": 15,
@@ -6018,8 +6028,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Smoky bacon, tangy atchar, melty cheddar — a braai in a breakfast muffin.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "Atchar — spicy pickled green mango — came to South Africa with indentured Indian workers in the 1860s and became a kasi staple, the relish that lifts a plate of pap or a kota. Folded into a savoury muffin, its sour-spicy kick cuts straight through the bacon and cheese.",
     "ingredients": [
@@ -6059,20 +6069,19 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
-      },
-      {
-        "n": "salt"
+        "n": "baking powder",
+        "pp": 2,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 180°C and line a muffin tin.",
-      "Fry the chopped bacon until crisp.",
-      "Whisk the flour, baking powder and salt in one bowl; beat the egg, milk and oil in another.",
-      "Fold the wet into the dry, then stir through the bacon, chopped atchar and grated cheddar — do not overmix.",
-      "Spoon into the tin and bake 18 to 20 minutes until golden and risen."
+      "Heat the oven to 180°C and line a muffin tin. Fry the chopped bacon until properly crisp and drain it on paper — soft bacon turns limp and chewy inside a muffin.",
+      "Chop the atchar and blot it on paper too. Atchar swims in oil, and that oil is glorious on pap but streaks orange grease through a batter.",
+      "Whisk the flour and baking powder in one bowl. No added salt anywhere in this muffin — bacon, atchar and cheddar are three salty ingredients already; trust them to season the whole thing.",
+      "Beat the egg, milk and oil in another bowl, pour the wet into the dry and count your folds: about 12 big strokes, stopping the moment the flour disappears. Lumps are correct — a smooth muffin batter is an overworked one, and overworked bakes tough.",
+      "Fold the bacon, atchar and grated cheddar in on the last two strokes, spoon into the tin and bake 18 to 20 minutes until golden and risen."
     ],
-    "tip": "Do not overmix the batter; a few lumps keep them light, overworking makes them tough.",
+    "tip": "Count your folds — 12 big strokes and stop. A lumpy batter bakes light; a smooth batter bakes like a brick.",
     "nutrition": {
       "kcal": 240,
       "protein_g": 9,
@@ -6094,8 +6103,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "A twice-baked potato you can hold in one hand — rich, savoury and moreish.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Green Smoothie",
+      "Yoghurt & Granola Bowl"
     ],
     "didYouKnow": "Potato is a quiet baker's weapon — its starch clings to moisture, which is why potato breads and these muffins stay soft for days longer than plain ones. The sour cream works from the other side, its acid keeping the crumb tender.",
     "ingredients": [
@@ -6140,20 +6149,24 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 180°C and line a muffin tin.",
-      "Grate the raw potato, rinse it, then squeeze it really dry in a cloth.",
-      "Whisk the flour, baking powder and salt; beat the egg, sour cream, milk and oil.",
-      "Fold together with the potato, grated cheddar and chopped spring onion.",
+      "Grate the raw potato, rinse it under cold water until the water runs clear, then wring it in a clean cloth until nothing more drips — rinse-then-wring. The rinse washes off the gluey surface starch; the wring removes the water that would steam the crumb soggy from the inside.",
+      "Whisk the flour, baking powder and salt in one bowl; beat the egg, sour cream, milk and oil in another.",
+      "Fold the wet into the dry with the potato, grated cheddar and chopped spring onion — a dozen strokes, no more.",
       "Spoon into the tin and bake 20 to 22 minutes until golden."
     ],
-    "tip": "Squeeze the grated potato bone-dry, or the muffins stay wet in the middle.",
+    "tip": "Rinse-then-wring is the whole muffin: if the cloth still drips, keep wringing. Bone-dry potato or nothing.",
     "nutrition": {
       "kcal": 220,
       "protein_g": 7,
@@ -6175,8 +6188,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Flourless and protein-packed — a savoury muffin that actually keeps you full.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "Quinoa was sacred to the Incas, who called it the 'mother grain', and it's one of the few plant foods carrying all nine essential amino acids — a complete protein. Paired with cottage cheese and egg, these are about as protein-dense as a muffin gets.",
     "ingredients": [
@@ -6206,20 +6219,29 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 1,
+        "u": "g"
       },
       {
-        "n": "salt & pepper"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.25,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 180°C and grease a muffin tin really well.",
-      "Beat the eggs, then stir in the cottage cheese, cooked quinoa, chopped spinach and grated cheddar.",
-      "Season with salt and pepper.",
-      "Spoon into the greased tin.",
-      "Bake 20 to 25 minutes until set and golden."
+      "Heat the oven to 180°C and grease a muffin tin twice — a coat of butter or oil, a minute to settle, then a second coat. These are egg-set, not flour-set, and egg welds itself to bare metal.",
+      "Beat the eggs, then stir in the cottage cheese, cooked quinoa, chopped spinach, grated cheddar and the baking powder — even a flourless muffin takes a small, honest lift from it.",
+      "Season with the measured salt and pepper — cottage cheese and cheddar already bring some of their own.",
+      "Spoon into the tin and bake 20 to 25 minutes until set and golden.",
+      "Rest 5 minutes in the tin before easing them out — hot egg tears, rested egg releases."
     ],
-    "tip": "Grease the tin really well — these are egg-set, so they like to stick.",
+    "tip": "Grease twice and rest 5 minutes in the tin — that pause is the difference between muffins and a scramble on the counter.",
     "nutrition": {
       "kcal": 160,
       "protein_g": 13,
@@ -6241,8 +6263,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Carrot cake's wholesome cousin — sweet, spiced and full of good things.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Amasi Berry Smoothie",
+      "Yoghurt & Granola Bowl"
     ],
     "didYouKnow": "Carrot found its way into cakes because it's naturally sweet — a trick that took off in wartime Britain when sugar was rationed. Add pineapple and you've essentially got the 1970s American 'Morning Glory' muffin, moist enough to keep for days.",
     "ingredients": [
@@ -6282,26 +6304,34 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "cinnamon"
+        "n": "cinnamon",
+        "pp": 0.5,
+        "u": "g"
       },
       {
-        "n": "bicarbonate of soda"
+        "n": "bicarbonate of soda",
+        "pp": 0.5,
+        "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 2,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 180°C and line a muffin tin.",
-      "Whisk the flour, baking powder, bicarb, cinnamon, salt and sugar.",
-      "Beat the egg and oil together.",
-      "Fold the wet into the dry with the grated carrot, drained crushed pineapple and raisins.",
-      "Spoon into the tin and bake 20 to 22 minutes until risen and golden."
+      "Press the crushed pineapple in a sieve until it stops dripping — the drain-the-tin law again. Tinned fruit carries a tin's worth of syrup, and syrup in the batter means sunken, gummy middles.",
+      "Grate the carrot fine, not coarse — coarse carrot stays raw and bendy through a 20-minute bake; fine carrot melts into sweetness.",
+      "Whisk the flour, baking powder, bicarb, cinnamon, salt and sugar; beat the egg and oil together.",
+      "Fold the wet into the dry with the carrot, pineapple and raisins in about 12 strokes, spoon into the tin and bake 20 to 22 minutes until risen and golden."
     ],
-    "tip": "Drain the pineapple well so the batter is not too wet.",
+    "tip": "Sieve-press the pineapple until it stops dripping — drained fruit lifts, syrupy fruit sinks.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 4,
@@ -6315,7 +6345,7 @@ var BREAKFAST_RECIPES = [
     "cat": "baked",
     "name": "Biltong & Cheese Muffins",
     "emoji": "🥩",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Biltong & Cheese Muffins",
     "time": 35,
     "costPP": 16,
@@ -6323,8 +6353,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Two of the most South African things there are, baked into breakfast.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Red Berry & Beet Smoothie",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "Biltong isn't jerky — it's air-dried rather than cooked, and cured with vinegar and coriander the way Dutch settlers preserved meat for long treks inland. Chopped into a cheesy muffin, it brings a deep, salty savouriness nothing else quite matches.",
     "ingredients": [
@@ -6359,20 +6389,19 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
-      },
-      {
-        "n": "salt"
+        "n": "baking powder",
+        "pp": 2,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 180°C and line a muffin tin.",
-      "Whisk the flour, baking powder and just a little salt.",
-      "Beat the egg, milk and oil.",
-      "Fold the wet into the dry, then stir through the chopped biltong and grated cheddar.",
+      "Whisk the flour and baking powder. No added salt at all — biltong is cured in salt and vinegar and seasons the whole muffin on its own; add more and you'll be reaching for water all morning.",
+      "Beat the egg, milk and oil and fold the wet into the dry in about 12 strokes — lumps are fine.",
+      "Fold the biltong and grated cheddar in last, so the biltong stays in proud chunks instead of dissolving into the batter.",
       "Spoon into the tin and bake 18 to 20 minutes until golden."
     ],
-    "tip": "Go easy on the added salt — the biltong brings plenty of its own.",
+    "tip": "Chunky biltong, not powder-fine slices — you want proper salty nuggets in the crumb, not a haze.",
     "nutrition": {
       "kcal": 240,
       "protein_g": 13,
@@ -6386,7 +6415,7 @@ var BREAKFAST_RECIPES = [
     "cat": "baked",
     "name": "Malva Pudding Muffin",
     "emoji": "🍮",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Malva Pudding Muffin",
     "time": 35,
     "costPP": 12,
@@ -6394,8 +6423,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "South Africa's favourite pudding, shrunk into a sticky breakfast muffin.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Amasi & Fruit Bowl",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "Malva pudding is a Cape Dutch classic, and its sticky, spongy magic comes from an unlikely pair: apricot jam for flavour and a splash of vinegar, whose acid reacts with bicarb to tenderise the crumb. Baked as a muffin, it's pudding you're allowed to eat for breakfast.",
     "ingredients": [
@@ -6440,20 +6469,24 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "bicarbonate of soda"
+        "n": "bicarbonate of soda",
+        "pp": 1,
+        "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 1,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 180°C and line a muffin tin.",
-      "Beat the egg and most of the sugar, then mix in the apricot jam, half the melted butter, the milk and a splash of vinegar.",
+      "Beat the egg with most of the sugar, then mix in the apricot jam, half the melted butter, the milk and the vinegar. The vinegar is not a typo — its acid fires the bicarb and tenderises the crumb; it's the old Cape Dutch trick that makes malva malva.",
       "Fold in the flour, baking powder and bicarb and spoon into the tin.",
-      "Bake 18 to 20 minutes until risen and deep golden.",
-      "While they bake, warm the cream, the rest of the butter and the last of the sugar into a quick caramel, and spoon it over the hot muffins so it soaks in."
+      "Bake 18 to 20 minutes until risen and deep golden. While they bake, warm the cream, the rest of the butter and the last of the sugar into a quick sauce.",
+      "Poke a few skewer holes in each muffin and spoon the warm sauce over while they are HOT — the hot-sponge law. A hot sponge drinks the sauce in; a cooled one shrugs it off and goes soggy on top instead of sticky all through."
     ],
-    "tip": "Spoon the warm sauce over while the muffins are hot so they drink it right up.",
+    "tip": "Sauce only ever meets a HOT muffin — that's the whole difference between sticky-all-through and wet-on-top.",
     "nutrition": {
       "kcal": 280,
       "protein_g": 4,
@@ -6475,8 +6508,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Sweet strawberries with a sneaky kick of black pepper — a bakery scone that gets people talking.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Green Smoothie",
+      "Cottage Cheese & Peaches"
     ],
     "didYouKnow": "A grind of black pepper with strawberries sounds odd, but it's an old chef's trick — the pepper's warmth lifts the berry's perfume and sweetness, much as a pinch of salt does. Victorian tables were already serving the two together.",
     "ingredients": [
@@ -6516,27 +6549,35 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "black pepper"
+        "n": "black pepper",
+        "pp": 0.5,
+        "u": "g"
       },
       {
-        "n": "vanilla essence"
+        "n": "vanilla essence",
+        "pp": 1,
+        "u": "ml"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, sugar, baking powder, freshly cracked black pepper and salt together.",
+      "Dice the strawberries and freeze them for 10 minutes while the oven heats to 200°C — cold, firm berries fold in whole; room-temperature berries smear the dough pink and wet.",
+      "Whisk the flour, sugar, baking powder, salt and the freshly cracked black pepper — measured, not shy; the pepper is the point of this scone.",
       "Grate in the very cold butter and rub it through until the mix looks like coarse crumbs.",
-      "Gently fold in the diced strawberries, then add the cream and vanilla and mix just until it comes together — do not overwork.",
+      "Fold in the chilled strawberries, then add the cream and vanilla and mix just until it comes together — do not overwork.",
       "Pat to 2cm thick, cut into wedges, brush with a little cream and bake 15 to 18 minutes until golden.",
       "Whisk the icing sugar with the maple syrup and a splash of milk, and drizzle over once cool."
     ],
-    "tip": "The black pepper is the magic — do not skip it; it makes the strawberries taste more like themselves.",
+    "tip": "Ten minutes in the freezer keeps the berries whole and the dough dry — and never skip the pepper; it makes the strawberries taste more like themselves.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 4,
@@ -6558,8 +6599,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "The teatime classic — but split it open for homemade strawberry jam, not the shop stuff.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Amasi & Fruit Bowl",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "Britain has a genuine, century-old feud over scones: in Cornwall the jam goes on first, in Devon the cream — and locals take sides seriously. Buttermilk is the South African baker's shortcut to a tall, tender scone, its acid giving extra rise.",
     "ingredients": [
@@ -6594,28 +6635,273 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, sugar, baking powder and salt.",
-      "Rub the cold butter through until the mix looks like coarse crumbs.",
-      "Add the buttermilk and mix just to a soft dough — do not overwork.",
-      "Pat to 2cm thick, cut into rounds, brush with a little buttermilk and bake 12 to 15 minutes until risen and golden.",
+      "Heat the oven to 200°C and line a tray. Whisk the flour, sugar, baking powder and salt.",
+      "Grate the butter straight from the freezer and rub it through in seconds — butter that melts in the oven, not in the bowl, is what blasts open those flaky layers.",
+      "Add the buttermilk and mix just to a shaggy, soft dough — its acid is already working with the baking powder, which is why buttermilk scones stand taller than milk ones.",
+      "Pat to 2cm thick and cut rounds — and never twist the cutter. Push straight down, lift straight up; a twist seals the cut edge shut and the scone bakes low and lopsided.",
+      "Brush with a little buttermilk and bake 12 to 15 minutes until risen and golden.",
       "Split warm and serve with homemade strawberry jam and whipped cream."
     ],
-    "tip": "Make your own Strawberry Jam in the Spice room — it is the difference between nice and unforgettable.",
+    "tip": "Frozen butter in, straight-down cutter out — and make your own Strawberry Jam in the Spice room; it is the difference between nice and unforgettable.",
     "nutrition": {
       "kcal": 210,
       "protein_g": 5,
       "carbs_g": 30,
       "fat_g": 8
     },
-    "storage": "Best fresh and warm. Plain scones keep 3 days airtight; freeze up to 2 months and warm from frozen. Add jam and cream only when serving."
+    "storage": "Best fresh and warm. Plain scones keep 3 days airtight; freeze up to 2 months and warm from frozen. Add jam and cream only when serving.",
+    "versions": [
+      {
+        "name": "Classic Buttermilk",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Tall, tender, split warm — the scone the others are measured against.",
+        "time": 25,
+        "costPP": 9,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "sugar",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "buttermilk",
+            "pp": 45,
+            "u": "ml"
+          },
+          {
+            "n": "strawberry jam",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "cream",
+            "pp": 30,
+            "u": "ml"
+          },
+          {
+            "n": "baking powder",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Whisk the dry ingredients, grate in frozen butter and rub to coarse crumbs.",
+          "Mix in the buttermilk just to a soft dough, pat to 2cm and cut straight down — no twisting.",
+          "Bake at 200°C for 12 to 15 minutes; split warm with jam and cream."
+        ],
+        "nutrition": {
+          "kcal": 210,
+          "protein_g": 5,
+          "carbs_g": 30,
+          "fat_g": 8
+        }
+      },
+      {
+        "name": "Cheese Scones",
+        "icon": "🧀",
+        "default": false,
+        "feel": "The kerkbasaar and padstal favourite — sharp cheddar, golden crusted top, no jam needed.",
+        "time": 25,
+        "costPP": 10,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "buttermilk",
+            "pp": 45,
+            "u": "ml"
+          },
+          {
+            "n": "cheddar",
+            "pp": 35,
+            "u": "g"
+          },
+          {
+            "n": "mustard powder",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "baking powder",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 0.25,
+            "u": "g"
+          },
+          {
+            "n": "black pepper",
+            "pp": 0.25,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Whisk the flour, baking powder, mustard powder, pepper and just the small measure of salt — cheddar is salty and does the rest.",
+          "Rub in frozen grated butter, stir through most of the cheese, then mix in the buttermilk to a soft dough.",
+          "Pat to 2cm, cut straight down, scatter the reserved cheese on top and bake at 200°C for 13 to 16 minutes — the cheese crown bakes into a crisp golden lid."
+        ],
+        "nutrition": {
+          "kcal": 235,
+          "protein_g": 8,
+          "carbs_g": 22,
+          "fat_g": 13
+        }
+      },
+      {
+        "name": "Raisin Scones",
+        "icon": "🍇",
+        "default": false,
+        "feel": "The teatime keeper — sweet pops of raisin, perfect with nothing but butter.",
+        "time": 28,
+        "costPP": 8,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "sugar",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "buttermilk",
+            "pp": 45,
+            "u": "ml"
+          },
+          {
+            "n": "raisins",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "baking powder",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Soak the raisins in warm water for 10 minutes and drain — dry raisins scorch bitter on the crust; plump ones stay jammy inside.",
+          "Whisk the dry ingredients with the cinnamon, rub in frozen grated butter, fold in the raisins.",
+          "Mix in the buttermilk to a soft dough, pat to 2cm, cut straight down and bake at 200°C for 13 to 15 minutes."
+        ],
+        "nutrition": {
+          "kcal": 225,
+          "protein_g": 4,
+          "carbs_g": 34,
+          "fat_g": 8
+        }
+      },
+      {
+        "name": "Wholewheat & Honey",
+        "icon": "🌾",
+        "default": false,
+        "feel": "Nutty and wholesome but still soft — proof that brown flour doesn't mean brick.",
+        "time": 25,
+        "costPP": 8,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "wholewheat flour",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "buttermilk",
+            "pp": 50,
+            "u": "ml"
+          },
+          {
+            "n": "honey",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "baking powder",
+            "pp": 3.5,
+            "u": "g"
+          },
+          {
+            "n": "salt",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Whisk both flours, the baking powder — a touch more than usual, wholewheat is heavier to lift — and the salt.",
+          "Rub in frozen grated butter, then mix in the buttermilk and honey. Wholewheat drinks more liquid, hence the extra splash; the dough should still be soft, not stiff.",
+          "Pat to 2cm, cut straight down and bake at 200°C for 13 to 16 minutes. Brush warm scones with a little extra honey."
+        ],
+        "nutrition": {
+          "kcal": 200,
+          "protein_g": 5,
+          "carbs_g": 29,
+          "fat_g": 7
+        }
+      }
+    ]
   },
   {
     "id": "bf-jalapeno-and-cheddar-scones",
@@ -6630,8 +6916,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Sharp cheddar and a slow chilli warmth — the savoury scone that does not even need butter.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Avocado & Date Smoothie",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "Most of a jalapeno's heat isn't in the seeds but in the pale membrane they cling to, so scrape that out for a milder scone. Cheddar is the perfect partner because capsaicin, the fiery compound, dissolves in fat — meaning the cheese literally tames the burn.",
     "ingredients": [
@@ -6661,21 +6947,30 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.25,
+        "u": "g"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.25,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, baking powder and salt.",
-      "Rub the cold butter through to coarse crumbs.",
-      "Stir through the grated cheddar and finely chopped, deseeded jalapenos.",
-      "Add the buttermilk and mix just to a soft dough.",
-      "Pat to 2cm, cut into wedges, brush with buttermilk and bake 15 to 18 minutes until golden."
+      "Halve the jalapenos and scrape out the pale membrane along with the seeds — that membrane is where the heat actually lives; the seeds just gossip about it. Chop fine.",
+      "Whisk the flour, baking powder, pepper and only the small measure of salt — 35g of cheddar per person seasons the dough plenty on its own.",
+      "Rub in the very cold butter to coarse crumbs, then stir through the jalapenos and most of the cheddar, keeping a handful back.",
+      "Mix in the buttermilk to a soft dough, pat to 2cm, cut into wedges and scatter the reserved cheddar over the tops.",
+      "Bake 15 to 18 minutes — the cheese on top bakes into a crisp, lacy golden crown."
     ],
-    "tip": "Deseed the jalapenos for warmth without blowing anyone's head off.",
+    "tip": "Save a pinch of cheddar for the tops — that crisp cheese crown is what makes them look bakery-bought.",
     "nutrition": {
       "kcal": 220,
       "protein_g": 8,
@@ -6697,8 +6992,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "Golden, naturally sweet butternut against salty feta — proper SA tea-time.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Green Smoothie",
+      "Granadilla & Honey Bowl"
     ],
     "didYouKnow": "Butternut is a surprisingly modern vegetable — it was bred in Massachusetts in the 1940s to be sweeter and easier to peel than the squashes before it. Roasted into a scone with salty feta, its natural sugars caramelise and balance the cheese.",
     "ingredients": [
@@ -6733,24 +7028,29 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "cayenne pepper"
+        "n": "cayenne pepper",
+        "pp": 0.25,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "black pepper",
+        "pp": 0.25,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, baking powder, salt and a pinch of cayenne.",
+      "Roast the butternut rather than boiling it, then mash and let it steam off until COLD and dry — the dry-puree law. Wet puree makes gum; dry puree makes gold. Roasting also caramelises its sugars, which is half the flavour.",
+      "Heat the oven to 200°C and line a tray. Whisk the flour, baking powder, cayenne and black pepper. No added salt — feta is brined, and it salts the whole dough; the pepper does the seasoning instead.",
       "Rub the cold butter through to coarse crumbs, then stir in the crumbled feta and chopped chives.",
-      "Mix the cold, well-drained butternut puree with the cream, add to the dry mix and bring to a soft dough.",
-      "Pat to 2cm, cut into wedges, brush with a little cream.",
-      "Bake 18 to 20 minutes until firm and lightly golden."
+      "Mix the cold puree with the cream, add to the dry mix and bring gently to a soft dough — a warm puree would melt the butter and the scones would bake flat.",
+      "Pat to 2cm, cut into wedges, brush with a little cream and bake 18 to 20 minutes until firm and lightly golden."
     ],
-    "tip": "Drain the butternut puree well, or the dough turns sticky.",
+    "tip": "Cold, dry puree or nothing — warm or wet and the dough turns to paste before it ever sees the oven.",
     "nutrition": {
       "kcal": 210,
       "protein_g": 7,
@@ -6772,8 +7072,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "A whole pot of fancy tea baked into a scone — earthy bergamot and a whisper of lavender.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Stone Fruit & Hot Honey Bowl",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "Earl Grey gets its perfume from bergamot, a small bitter citrus grown mainly in Calabria, and is named after a 19th-century British prime minister. Lavender belongs to the same aromatic family as mint and rosemary, so use it sparingly — too much and a scone starts tasting of soap.",
     "ingredients": [
@@ -6808,27 +7108,35 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "culinary lavender"
+        "n": "culinary lavender",
+        "pp": 0.2,
+        "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "vanilla essence"
+        "n": "vanilla essence",
+        "pp": 1,
+        "u": "ml"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.5,
+        "u": "g"
       }
     ],
     "method": [
       "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, sugar, baking powder, salt, finely ground Earl Grey leaves and a small pinch of dried lavender.",
-      "Rub the cold butter through to coarse crumbs.",
-      "Whisk the cream, honey and vanilla, add to the dry mix and bring to a soft dough.",
-      "Pat to 2cm, cut into wedges.",
-      "Bake 14 to 16 minutes until the edges turn golden."
+      "Grind the Earl Grey leaves and the lavender together to dust — tea-to-dust. Whole leaves sit in the crumb like bits of twig; dust perfumes every single bite.",
+      "Note the lavender is measured, not pinched by feel — it's the whisper law of the flower world: at 0.2g per person it perfumes, a gram more and the scone tastes of soap.",
+      "Whisk the flour, sugar, baking powder, salt and the tea-lavender dust, then rub the very cold butter through to coarse crumbs.",
+      "Whisk the cream, honey and vanilla, bring the dough gently together, pat to 2cm and cut into wedges.",
+      "Bake 14 to 16 minutes until the edges turn golden, and brush the warm scones with a little extra honey."
     ],
-    "tip": "Grind the tea fine and go gentle on the lavender — a little perfume goes a long way.",
+    "tip": "Grind the tea to dust and hold the lavender to its 0.2g — perfume, never potpourri.",
     "nutrition": {
       "kcal": 220,
       "protein_g": 4,
@@ -6850,8 +7158,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 3,
     "feel": "A cheeseboard you can hold — funky blue cheese, sweet figs and toasty walnuts.",
     "goesWith": [
-      "Smoothies",
-      "Fresh Fruit"
+      "Tropical Fruit Plate",
+      "Green Smoothie"
     ],
     "didYouKnow": "The blue veins in blue cheese are an edible mould, Penicillium roqueforti, once grown in the cool limestone caves of Roquefort in France. Its sharp saltiness is a classic foil for sweet figs and bitter walnuts — sweet, salty and savoury in a single bite.",
     "ingredients": [
@@ -6891,24 +7199,29 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "baking powder"
+        "n": "baking powder",
+        "pp": 3,
+        "u": "g"
       },
       {
-        "n": "black pepper"
+        "n": "black pepper",
+        "pp": 0.25,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "salt",
+        "pp": 0.25,
+        "u": "g"
       }
     ],
     "method": [
-      "Heat the oven to 200°C and line a tray.",
-      "Whisk the flour, sugar, baking powder, salt and a little black pepper.",
-      "Rub the cold butter through to coarse crumbs.",
-      "Fold in the crumbled blue cheese, chopped dried figs and toasted, chopped walnuts.",
-      "Add the buttermilk and mix just to a soft dough.",
+      "Toast the walnuts in a dry pan until they smell nutty, then chop — raw walnuts turn soft and bitter inside a wet dough; toasted ones stay crisp and sweet-bitter.",
+      "Heat the oven to 200°C and line a tray. Whisk the flour, sugar, baking powder, pepper and only the small measure of salt — blue cheese is one of the saltiest things in the kitchen.",
+      "Rub the cold butter through to coarse crumbs, then fold in the walnuts, chopped figs and the blue cheese in big crumbles.",
+      "Add the buttermilk and stop while you can still see blue streaks and white dough — streaks, not paste. Overmix and the whole dough turns an even grey and the cheese vanishes into it.",
       "Pat to 2cm, cut into wedges and bake 15 to 18 minutes until golden."
     ],
-    "tip": "Toast the walnuts first; it wakes up their flavour against the blue cheese.",
+    "tip": "Streaks, not paste — stop folding while you can still see veins of blue; that's where every good bite comes from.",
     "nutrition": {
       "kcal": 250,
       "protein_g": 8,
