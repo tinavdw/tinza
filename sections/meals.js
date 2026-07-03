@@ -6953,22 +6953,23 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Spoon the yoghurt into a bowl.",
-      "Top with granola and berries.",
-      "Drizzle with honey and serve straight away so the granola stays crunchy."
+      "Spoon the yoghurt into the bowl first and smooth it out — a cold, thick base is what everything else sits on. Double-thick or Greek-style yoghurt makes the difference between a bowl and a puddle.",
+      "Scatter the berries over the yoghurt.",
+      "Now the one rule that makes or breaks this bowl: the granola goes on at the very last second, just before the first spoonful. The moment it touches yoghurt it starts drinking moisture, and crunchy granola is the entire point.",
+      "Finish with a thin drizzle of honey — drizzle, don't pour; the granola is already sweet."
     ],
-    "tip": "Layer it in a glass jar the night before, granola on top, for a grab-and-go version.",
+    "tip": "Packing it to go? Jar it in layers with the granola in a separate twist of paper or a small bag on top — tip it in when you eat, not when you pack.",
     "nutrition": {
       "kcal": 280,
       "protein_g": 12,
       "carbs_g": 42,
       "fat_g": 8
     },
-    "storage": "Assemble fresh; keep components separate.",
+    "storage": "Assemble fresh; keep components separate. Not for freezing.",
     "goesWith": [
-      "Fresh Fruit",
-      "Honey Drizzle",
-      "Buttered Toast"
+      "Berry Banana Smoothie",
+      "Carrot & Pineapple Muffins",
+      "Scrambled Eggs"
     ]
   },
   {
@@ -6976,7 +6977,7 @@ var BREAKFAST_RECIPES = [
     "cat": "smoothies",
     "name": "Amasi & Fruit Bowl",
     "emoji": "🥛",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Amasi & Fruit Bowl",
     "time": 5,
     "costPP": 12,
@@ -7007,22 +7008,23 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Pour the amasi into a bowl.",
-      "Top with sliced banana and berries.",
-      "Drizzle with honey and serve cold."
+      "Pour the amasi straight from the fridge into a bowl — it must be properly cold. Cold sharpens the tang; amasi at room temperature just tastes flat and sour.",
+      "Slice the banana over and add the berries. Ripe, sweet fruit is doing the balancing here, so this is the bowl for the spotty bananas.",
+      "Taste a spoonful BEFORE you reach for the honey. The whole point of amasi is that clean, tangy edge against sweet fruit — if the banana is ripe enough, many days you need no honey at all.",
+      "If it wants it, finish with a small drizzle of honey."
     ],
-    "tip": "Lovely with a spoon of crunchy granola over the top.",
+    "tip": "A spoon of crunchy granola or crumbled beskuit over the top turns it into a fuller breakfast.",
     "nutrition": {
       "kcal": 220,
       "protein_g": 9,
       "carbs_g": 34,
       "fat_g": 5
     },
-    "storage": "Assemble fresh.",
+    "storage": "Assemble fresh. Not for freezing.",
     "goesWith": [
-      "Buttermilk Rusks",
-      "Honey Drizzle",
-      "Fresh Fruit"
+      "Boererusk & Amasi Bowl",
+      "Honey Brick Toast",
+      "Mealie Pap & Milk"
     ]
   },
   {
@@ -7059,22 +7061,23 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Spoon the cottage cheese into a bowl.",
-      "Top with sliced peaches.",
-      "Drizzle with honey and a dusting of cinnamon."
+      "Drain the peaches properly — lift them out of the tin and let them sit in a sieve for a minute. This is the make-or-break: tinned syrup pooling in the bowl drowns the cottage cheese and turns everything sweet-wet.",
+      "Spoon the cottage cheese into a bowl and grind over a little black pepper — it sounds odd, but pepper is what stops cottage cheese tasting bland.",
+      "Slice the drained peaches over the top.",
+      "Finish with a thin drizzle of honey and a dusting of cinnamon."
     ],
-    "tip": "Any soft fruit works; try it with grated apple in winter.",
+    "tip": "Peaches in juice rather than syrup taste brighter and cut the sugar; in winter, coarsely grated apple with cinnamon is just as good.",
     "nutrition": {
       "kcal": 200,
       "protein_g": 16,
       "carbs_g": 22,
       "fat_g": 5
     },
-    "storage": "Assemble fresh.",
+    "storage": "Assemble fresh. Not for freezing.",
     "goesWith": [
-      "Toasted Nuts",
-      "Honey Drizzle",
-      "Fresh Fruit"
+      "Cottage Cheese & Quinoa Muffins",
+      "Honey Brick Toast",
+      "Overnight Oats"
     ]
   },
   {
@@ -7113,22 +7116,23 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Cut the pineapple, pawpaw and banana into bite-sized pieces.",
-      "Arrange on a plate.",
-      "Squeeze over a little lemon or lime to lift it."
+      "Cut the pineapple and pawpaw into even, bite-sized pieces — same size matters more than it seems. Even pieces mean every forkful gets the sweet-sharp mix instead of one giant chunk of a single fruit.",
+      "Slice the banana LAST, just before serving — it's the first fruit to brown and go soft.",
+      "Arrange everything on a plate rather than tossing it in a bowl; the fruit stays firm and it looks like someone cared.",
+      "Squeeze the lemon over the whole plate right at the end — the acid lifts the flavours and is what keeps the banana and pawpaw looking fresh."
     ],
-    "tip": "A sprinkle of toasted coconut makes it feel special.",
+    "tip": "A sprinkle of toasted coconut or a few torn mint leaves makes it feel like a hotel breakfast for almost nothing.",
     "nutrition": {
       "kcal": 150,
       "protein_g": 2,
       "carbs_g": 38,
       "fat_g": 1
     },
-    "storage": "Best fresh; keeps 1 day cut.",
+    "storage": "Best fresh; keeps 1 day cut and covered in the fridge, though the banana is best added on the day. Not for freezing.",
     "goesWith": [
-      "Plain Yoghurt",
-      "Granola",
-      "Mint Leaves"
+      "Yoghurt & Granola Bowl",
+      "Crumpets (Plaatkoekies)",
+      "Buttermilk, Jam & Cream Scones"
     ]
   },
   {
@@ -7136,7 +7140,7 @@ var BREAKFAST_RECIPES = [
     "cat": "smoothies",
     "name": "Boererusk & Amasi Bowl",
     "emoji": "🍮",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Boererusk & Amasi Bowl",
     "time": 5,
     "costPP": 12,
@@ -7167,12 +7171,12 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Roughly crumble the rusks into a bowl.",
-      "Pour over the amasi and let it soak for a minute to soften.",
-      "Drizzle with honey.",
-      "Top with the berries."
+      "Roughly crumble the rusks into a bowl — big rough chunks, not crumbs. Fine crumbs turn to porridge the second the amasi lands.",
+      "Pour over the cold amasi.",
+      "Now the one-minute law: let it stand for exactly about a minute, no more. That's the sweet spot where the outside of each chunk has gone soft and creamy but the middle still bites back. Walk away for five and you've got pap.",
+      "Drizzle with honey and top with the berries."
     ],
-    "tip": "Let the rusks soak just a minute — soft on the outside, still a little crunch in the middle.",
+    "tip": "This is the bowl for the broken rusks at the bottom of the tin — the odd shapes and shards soak the best.",
     "nutrition": {
       "kcal": 280,
       "protein_g": 10,
@@ -7181,9 +7185,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Assemble fresh and eat soon — the rusks go soggy if it stands. Not for freezing.",
     "goesWith": [
-      "Fresh Berries",
-      "Honey Drizzle",
-      "Rooibos Tea"
+      "Amasi & Fruit Bowl",
+      "Scrambled Eggs",
+      "Stewed Fruit & Yoghurt Bowl"
     ]
   },
   {
@@ -7225,12 +7229,12 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Simmer the dried fruit in the water with a stick of cinnamon until plump and soft, about 10 minutes.",
-      "Let it cool a little.",
-      "Spoon the warm stewed fruit over the yoghurt.",
-      "Drizzle with honey."
+      "Put the dried fruit in a small pot with the water and a stick (or good pinch) of cinnamon.",
+      "Simmer gently for about 10 minutes until the fruit is plump and soft but still holding its shape — you want pieces you can see, not jam. If the pot runs dry before the fruit is soft, add a splash more water.",
+      "Let it cool for just a couple of minutes — and here's the law of this bowl: the fruit should go on WARM, over COLD yoghurt. That warm-against-cold contrast is the entire pleasure of it; fully cooled stewed fruit on yoghurt is fine, but warm is memorable.",
+      "Spoon the fruit and its syrupy juices over the yoghurt and finish with a small drizzle of honey — taste first, the fruit is already sweet."
     ],
-    "tip": "Make a big batch of the stewed fruit; it keeps for days and freezes well.",
+    "tip": "Stew a big batch — it keeps 5 days in the fridge and freezes beautifully, so the next four breakfasts are one warm-up away.",
     "nutrition": {
       "kcal": 250,
       "protein_g": 8,
@@ -7239,9 +7243,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "The stewed fruit keeps 5 days in the fridge and freezes up to 3 months — spoon over fresh yoghurt each time.",
     "goesWith": [
-      "Granola",
-      "Toasted Nuts",
-      "Rooibos Tea"
+      "Boererusk & Amasi Bowl",
+      "Creamy Oats",
+      "Buttermilk, Jam & Cream Scones"
     ]
   },
   {
@@ -7280,12 +7284,12 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
+      "Start with the crunch, because crunch is what makes this bowl: toast the oats in a dry pan over medium heat for a minute or two, shaking, until they smell nutty and turn a shade darker. Untoasted oats on yoghurt are just dust; toasted oats are a topping.",
       "Spoon the yoghurt into a bowl.",
-      "Scoop the granadilla pulp over the top.",
-      "Drizzle with honey.",
-      "Toast the oats in a dry pan for a minute and scatter over for crunch."
+      "Halve the granadillas and scoop the pulp straight over the yoghurt — don't stir it in. The bright pockets of tart pulp against plain yoghurt are the point; stirred through, it all goes beige.",
+      "Drizzle with honey and scatter the warm toasted oats over the top."
     ],
-    "tip": "Toast the oats or some seeds in a dry pan — the crunch is what makes the bowl.",
+    "tip": "Wrinkled granadillas are riper and sweeter than smooth ones — the ugly ones are the prize.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 9,
@@ -7294,9 +7298,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Assemble fresh and eat right away. Not for freezing.",
     "goesWith": [
-      "Granola",
-      "Fresh Banana",
-      "Mint Leaves"
+      "Tropical Smoothie",
+      "Crumpets (Plaatkoekies)",
+      "Carrot & Pineapple Muffins"
     ]
   },
   {
@@ -7346,13 +7350,12 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Spoon the yoghurt into a bowl.",
-      "Slice the peach and nectarine over the top.",
-      "Stir a dash of hot sauce into the honey to make hot honey.",
-      "Drizzle the hot honey over the fruit.",
-      "Scatter with toasted oats and a few torn mint leaves."
+      "Make the hot honey first, and obey the whisper law: stir hot sauce into the honey ONE drop at a time, tasting between drops. You're after a warmth that arrives a second after the sweetness — a whisper of heat, never a burn. You can always add; you can't take away.",
+      "Toast the oats in a dry pan for a minute or two until nutty and golden.",
+      "Spoon the yoghurt into a bowl and slice the peach and nectarine over the top — ripe fruit needs no cooking; this bowl lives and dies on the fruit being genuinely ripe.",
+      "Drizzle the hot honey over the fruit, then scatter with the toasted oats and a few torn mint leaves."
     ],
-    "tip": "Hot honey is just honey plus a dash of your favourite hot sauce — start small, you want a whisper of heat, not a burn.",
+    "tip": "Make a small jar of hot honey while you're at it — it keeps for weeks and is outrageous over fried halloumi or pizza.",
     "nutrition": {
       "kcal": 260,
       "protein_g": 9,
@@ -7361,9 +7364,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Assemble fresh and eat right away. The hot honey keeps in a jar for weeks. Not for freezing.",
     "goesWith": [
-      "Granola",
-      "Toasted Nuts",
-      "Plain Yoghurt"
+      "Cheesy Savoury Waffles",
+      "Yoghurt & Granola Bowl",
+      "Jalapeno & Cheddar Scones"
     ]
   },
   {
@@ -7378,10 +7381,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Breakfast you can drink with one hand on the car keys.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "Frozen berries often beat fresh in a smoothie — they're picked and frozen at peak ripeness, locking in the goodness, and they chill the drink without watering it down the way ice does. The banana is what turns it thick and creamy instead of thin.",
     "ingredients": [
       {
@@ -7411,18 +7410,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Add the banana, berries, yoghurt, milk and honey to a blender.",
-      "Blend until smooth, about 30 seconds.",
-      "Pour into a glass or travel bottle and go."
+      "First law of every smoothie: liquid goes in FIRST. Milk at the blades gets everything moving; fruit on the bottom just jams the blender and makes it whine.",
+      "Add the yoghurt, then the banana, berries and honey on top.",
+      "Second law: frozen fruit, never ice. Ice blends into watery slush that thins the drink; frozen berries chill it AND thicken it at the same time. If your fruit is fresh, the smoothie will be thinner and less cold — still good, just different.",
+      "Blend for a full 30 seconds until completely smooth — stopping early leaves gritty berry seeds and stringy banana. Pour and go."
     ],
-    "tip": "Freeze the banana and berries first for a thicker, colder smoothie.",
+    "tip": "Peel and freeze spotty bananas in halves — a permanent freezer stash means a thick smoothie is always 30 seconds away and no banana ever gets thrown out.",
     "nutrition": {
       "kcal": 220,
       "protein_g": 9,
       "carbs_g": 38,
       "fat_g": 4
     },
-    "storage": "Drink fresh; keeps a few hours chilled. Not for freezing once blended — freeze the fruit first for a thicker drink."
+    "storage": "Drink fresh; keeps a few hours chilled in a sealed bottle (shake before drinking). Not for freezing once blended — freeze the fruit instead.",
+    "goesWith": [
+      "Smashed Avo Toast",
+      "Scrambled Eggs",
+      "Carrot & Pineapple Muffins"
+    ]
   },
   {
     "id": "bf-green-smoothie",
@@ -7436,10 +7441,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "A whole salad you can drink without noticing.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "You genuinely can't taste mild baby spinach once banana and apple are in the blender — the sweetness hides it entirely, which is how green smoothies sneak a serving of leaves past fussy eaters. Blending also breaks the cell walls, making the iron and folate easier to absorb.",
     "ingredients": [
       {
@@ -7469,18 +7470,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Add the spinach, banana, apple, milk and honey to a blender.",
-      "Blend until completely smooth.",
-      "Pour and drink right away."
+      "Here's the trick that separates a silky green smoothie from a flecky one: blend the leaves FIRST. Put the milk and spinach in alone and blend until the liquid is a smooth, even green with no visible bits.",
+      "Only then add the banana, apple and honey.",
+      "Blend again until completely smooth. Leaves blended together with the fruit hide between the chunks and survive as flecks — leaves blended alone have nowhere to hide.",
+      "Pour and drink right away — green smoothies separate and dull faster than fruit ones."
     ],
-    "tip": "A handful of spinach disappears completely behind the fruit.",
+    "tip": "Baby spinach only — it's the mild one. Big-leaf spinach or kale will announce themselves, and this smoothie works because the greens stay secret.",
     "nutrition": {
       "kcal": 210,
       "protein_g": 7,
       "carbs_g": 40,
       "fat_g": 4
     },
-    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
+    "storage": "Best fresh; keeps 1 day chilled and sealed, but the colour dulls. Not for freezing once blended.",
+    "goesWith": [
+      "Cheese & Tomato Omelette",
+      "Smashed Avo Toast",
+      "Cottage Cheese & Quinoa Muffins"
+    ]
   },
   {
     "id": "bf-tropical-smoothie",
@@ -7494,10 +7501,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "A holiday in a glass — sunshine mango and tangy granadilla.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "Mango is the most-eaten fruit on the planet, ahead of both apples and bananas, and it grows right across South Africa's warm Lowveld. A spoonful of granadilla lifts the whole blend, because its sharp, perfumed aroma is what the brain reads as 'tropical'.",
     "ingredients": [
       {
@@ -7527,19 +7530,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Scoop out the granadilla pulp.",
-      "Blend the mango, banana, yoghurt and milk until smooth.",
-      "Stir through most of the granadilla pulp, keeping a little to spoon on top.",
-      "Pour and drink right away."
+      "Scoop the granadilla pulp into a cup and set it ASIDE — it does not go in the blender, and that's the law of this smoothie. Blitzing granadilla shatters the seeds into bitter grit; stirred in whole, the seeds stay pleasantly crunchy and the pulp stays perfumed.",
+      "Blend the milk, yoghurt, mango and banana until completely smooth — frozen mango chunks make it thick and frosty like a lassi.",
+      "Stir most of the granadilla pulp through with a spoon.",
+      "Pour, spoon the last of the granadilla on top, and drink right away."
     ],
-    "tip": "Frozen mango makes it thick and frosty; keep a spoon of granadilla for the top.",
+    "tip": "Tinned or frozen mango works all year round and is usually cheaper than fresh — this is one smoothie that never has to wait for summer.",
     "nutrition": {
       "kcal": 240,
       "protein_g": 8,
       "carbs_g": 45,
       "fat_g": 4
     },
-    "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
+    "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended.",
+    "goesWith": [
+      "Granadilla & Honey Bowl",
+      "Crumpets (Plaatkoekies)",
+      "Cloud Eggs"
+    ]
   },
   {
     "id": "bf-peanut-butter-banana-smoothie",
@@ -7553,10 +7561,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Thick, nutty and filling — breakfast that actually holds you to lunch.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "Peanuts aren't nuts at all — they're legumes, growing underground like beans, which is part of why they're so high in protein. Blended with banana and oats, this is a near-complete little meal in a glass: protein, slow carbs and potassium together.",
     "ingredients": [
       {
@@ -7586,35 +7590,37 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Add the banana, peanut butter, oats, milk and honey to a blender.",
-      "Blend until completely smooth, about 30 seconds.",
-      "Pour and drink."
+      "Milk in first, then the oats — and give them a 30-second head start: blitz milk and oats alone, then let the jug stand for a minute. Raw oats straight through the blender stay gritty; oats given a minute to drink some milk blend silky and are what makes this smoothie genuinely filling.",
+      "Add the banana, peanut butter and honey.",
+      "Blend for a full 30 seconds until completely smooth and thick.",
+      "Pour and drink — it thickens even more as it stands, so if you like it spoonable, wait two minutes."
     ],
-    "tip": "The spoon of oats thickens it and keeps you full far longer.",
+    "tip": "A frozen banana turns this into something dangerously close to a peanut butter milkshake — same ingredients, milkshake mood.",
     "nutrition": {
       "kcal": 360,
       "protein_g": 14,
       "carbs_g": 42,
       "fat_g": 16
     },
-    "storage": "Best fresh; keeps a few hours chilled. Not for freezing once blended."
+    "storage": "Best fresh; keeps a few hours chilled (it will thicken — loosen with a splash of milk). Not for freezing once blended.",
+    "goesWith": [
+      "Peanut Butter & Banana Toast",
+      "Bacon & Eggs",
+      "Banana & Pecan Waffles"
+    ]
   },
   {
     "id": "bf-amasi-berry-smoothie",
     "cat": "smoothies",
     "name": "Amasi Berry Smoothie",
     "emoji": "🧉",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Amasi Berry Smoothie",
     "time": 5,
     "costPP": 13,
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Tangy maas and berries — creamy, local, and full of good bacteria.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "Amasi is South Africa's home-grown answer to kefir or drinking yoghurt — the natural souring fills it with the same kind of friendly bacteria that keep a gut happy. Its built-in tang also means this smoothie needs far less honey than one made with plain milk.",
     "ingredients": [
       {
@@ -7639,18 +7645,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Add the amasi, berries, banana and honey to a blender.",
-      "Blend until smooth.",
-      "Pour and drink right away."
+      "Pour the amasi into the blender first — and notice what you're NOT adding: no yoghurt, no milk. Amasi is both at once — it brings the creaminess of yoghurt and it pours like milk, which is why this is the shortest ingredient list on the shelf.",
+      "Add the frozen berries and the banana.",
+      "Blend until smooth — the frozen berries chill and thicken it against the amasi's tang.",
+      "Taste before you sweeten: ripe banana plus amasi often needs no honey at all. Add a small drizzle only if it truly wants it, blitz once more, and pour."
     ],
-    "tip": "Amasi brings both the tang and the protein, so no yoghurt is needed.",
+    "tip": "Blend at full speed from the start — amasi's curds smooth out completely at high speed but can stay slightly grainy on low.",
     "nutrition": {
       "kcal": 210,
       "protein_g": 11,
       "carbs_g": 32,
       "fat_g": 4
     },
-    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
+    "storage": "Best fresh; keeps 1 day chilled and sealed. Not for freezing once blended.",
+    "goesWith": [
+      "Boererusk & Amasi Bowl",
+      "Savoury Mince on Toast",
+      "Pannekoek"
+    ]
   },
   {
     "id": "bf-red-berry-and-beet-smoothie",
@@ -7664,10 +7676,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Earthy beetroot and sweet berries — vivid pink and packed with iron.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "That electric red-purple comes from betalains, the same pigments that stain a board after you chop beetroot — and they're powerful antioxidants. Athletes drink beetroot for its natural nitrates, shown to help the body use oxygen more efficiently.",
     "ingredients": [
       {
@@ -7702,18 +7710,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Add the cooked beetroot, berries, banana, yoghurt, milk and honey to a blender.",
-      "Blend until completely smooth.",
-      "Pour and drink right away."
+      "The one rule that decides this smoothie: COOKED beetroot only. A home blender cannot defeat raw beetroot — it leaves woody, fibrous grit that no amount of blending fixes. Ready-cooked vacuum-packed beetroot (not the pickled kind) blends to silk.",
+      "Milk in first, then the yoghurt, beetroot, berries, banana and honey.",
+      "Blend for a good 45 seconds — longer than a fruit-only smoothie — until the colour is even and there are no dark specks.",
+      "Pour and admire the colour before you drink it; nothing else in the kitchen makes this pink."
     ],
-    "tip": "Use pre-cooked beetroot; the berries hide the earthiness completely.",
+    "tip": "Keep the beetroot to roughly a golf-ball amount — at that level the berries hide the earthiness completely; double it and the smoothie starts tasting like the garden.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 8,
       "carbs_g": 42,
       "fat_g": 4
     },
-    "storage": "Best fresh; keeps 1 day chilled. Not for freezing once blended."
+    "storage": "Best fresh; keeps 1 day chilled and sealed. Not for freezing once blended.",
+    "goesWith": [
+      "Mushroom & Feta Omelette",
+      "Buttermilk, Jam & Cream Scones",
+      "Frittata"
+    ]
   },
   {
     "id": "bf-avocado-and-date-smoothie",
@@ -7727,10 +7741,6 @@ var BREAKFAST_RECIPES = [
     "freezes": false,
     "fridgeDays": 1,
     "feel": "Thick as a milkshake, rich and silky — avo does what ice cream pretends to.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
     "didYouKnow": "Avocado is the secret to the creamiest smoothie there is — its gentle fat blends to a milkshake thickness with no cream at all, and you'd never taste it behind the dates. Those dates bring a natural caramel sweetness plus fibre, so there's no need for any added sugar.",
     "ingredients": [
       {
@@ -7755,19 +7765,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Pit the dates (soak in a little warm water for a few minutes if they are firm).",
-      "Scoop out the avocado.",
-      "Blend the avocado, dates, blueberries and milk until completely smooth and thick.",
-      "Pour and drink right away."
+      "Soak-the-dates law: if the dates are at all firm, soak them in a splash of warm water for five minutes first. Unsoaked firm dates survive the blender as sweet, chewy shrapnel; soaked dates vanish into caramel.",
+      "Check the avo is properly ripe — it should yield to a gentle squeeze. A hard avo blends bitter and thin; a ripe one is the entire body of this drink.",
+      "Blend the milk, drained dates, avocado and blueberries until completely smooth and thick — a full 45 seconds.",
+      "Pour and drink right away — this one does not wait."
     ],
-    "tip": "A ripe avo makes it luxuriously thick — no yoghurt or ice cream needed, and the dates do all the sweetening.",
+    "tip": "No added sugar anywhere in this glass — the dates carry all the sweetness. It's the smoothie to reach for when you want a milkshake without the milkshake.",
     "nutrition": {
       "kcal": 320,
       "protein_g": 6,
       "carbs_g": 38,
       "fat_g": 17
     },
-    "storage": "Best fresh — the avo browns if kept, so blend and drink. Not for freezing."
+    "storage": "Best fresh — the avo browns if kept, so blend and drink. Not for freezing.",
+    "goesWith": [
+      "Smashed Avo Toast",
+      "Biltong & Cheese Muffins",
+      "Cinnamon French Toast"
+    ]
   }
 ];
 
