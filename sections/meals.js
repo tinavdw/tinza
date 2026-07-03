@@ -4383,8 +4383,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Mealie Pap & Milk",
     "time": 20,
     "costPP": 4,
-    "feel": "The taste of a thousand farm mornings.",
-    "didYouKnow": "Maize isn't originally African at all — it came from the Americas with Portuguese traders, which is why 'mielie' traces back to the Portuguese 'milho'. In barely four hundred years it became the staple that pap, the country's most-eaten breakfast, is built on.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "The porridge this country wakes up to — and the rain-it-in trick that means never a single lump.",
+    "didYouKnow": "Maize isn't originally African at all — it arrived from the Americas with Portuguese traders, which is why 'mielie' traces back to the Portuguese 'milho'. In barely four hundred years it became the grain South Africa runs on, and pap its most-eaten breakfast. The old hands all share one habit: the meal is never dumped in, it is rained in — because lumps only form when dry meal hits the water faster than the water can wet it.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -4411,26 +4413,167 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Bring the water and a pinch of salt to the boil.",
-      "Rain in the maize meal while stirring to avoid lumps.",
-      "Turn the heat low, cover, and let it steam for 12 to 15 minutes, stirring now and then.",
-      "Serve in bowls with cold milk and a sprinkle of sugar."
+      "Bring the water to a boil with a good pinch of salt — pap made in unsalted water tastes flat no matter how much sugar lands on it later.",
+      "Now rain the maize meal in: a slow stream through your fingers with the other hand whisking the whole time. Lumps are simply dry pockets the water never reached — rain slowly and they cannot form.",
+      "Turn the heat right down, put the lid on, and let it steam gently for 12 to 15 minutes, stirring with a wooden spoon every few minutes. This slow steam is not optional — it cooks out the raw, chalky taste of the meal. Rushed pap always tells on itself.",
+      "Taste. It should be smooth, gentle and taste of sweet corn, not of flour. If there's any chalkiness, give it 5 more minutes.",
+      "Spoon into bowls and pour the cold milk around the edge so it moats the hot pap — the hot-and-cold together is half the pleasure — then a sprinkle of sugar over the top."
     ],
-    "tip": "For stiff pap use less water; for soft breakfast pap keep it loose and pourable.",
+    "tip": "Rain the meal in through your fingers, never pour it. That one habit is the entire difference between silk and lumps.",
     "nutrition": {
       "kcal": 250,
       "protein_g": 6,
       "carbs_g": 52,
       "fat_g": 3
     },
-    "storage": "Keeps 3 days; reheat with a splash of water. Freezes up to 1 month.",
+    "storage": "Keeps 3 days in the fridge; reheat with a splash of water or milk, stirring smooth. Freezes up to 1 month — and leftover stiff pap fries beautifully.",
     "goesWith": [
-      "Stewed Fruit",
-      "Fresh Banana",
-      "Rooibos Tea"
+      "Boerewors & Eggs",
+      "Stewed Fruit & Yoghurt Bowl",
+      "Amasi & Fruit Bowl"
     ],
-    "freezes": true,
-    "fridgeDays": 3
+    "versions": [
+      {
+        "name": "Soft & Milky",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Loose, spoonable breakfast pap under a cold milk moat — the everyday classic done properly.",
+        "time": 20,
+        "costPP": 4,
+        "ingredients": [
+          {
+            "n": "maize meal",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "water",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Boil the salted water, then rain the meal in through your fingers, whisking all the while.",
+          "Lid on, heat low, steam 12 to 15 minutes with the occasional stir — until every trace of chalkiness has cooked out.",
+          "Serve soft and pourable, cold milk around the edge, sugar over the top."
+        ],
+        "tip": "For breakfast pap, err loose — it thickens on the way to the table anyway.",
+        "nutrition": {
+          "kcal": 250,
+          "protein_g": 6,
+          "carbs_g": 52,
+          "fat_g": 3
+        },
+        "storage": "Keeps 3 days; loosen with milk when reheating."
+      },
+      {
+        "name": "Stywe Pap, Butter Well",
+        "icon": "🧈",
+        "default": false,
+        "feel": "Stiff pap turned out in a mound with a well of melting butter and sugar dug into the top.",
+        "time": 30,
+        "costPP": 5,
+        "ingredients": [
+          {
+            "n": "maize meal",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "water",
+            "pp": 220,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "sugar",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 60,
+            "u": "ml"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Rain the meal into the boiling salted water, whisking — it will thicken fast at this ratio, so switch to a wooden spoon early.",
+          "Lid on, heat as low as it goes, and steam a full 20 to 25 minutes, stirring now and then. Stiff pap needs every one of those minutes — undercooked stywe pap tastes raw in the middle of the mouthful.",
+          "Spoon a firm mound into each bowl, press a well into the top with the back of the spoon, and drop in the butter and sugar so they melt into a pool.",
+          "A little milk around the sides for those who want it."
+        ],
+        "tip": "The well is not decoration — it holds the melting butter where every spoonful can drag through it.",
+        "nutrition": {
+          "kcal": 330,
+          "protein_g": 7,
+          "carbs_g": 62,
+          "fat_g": 7
+        },
+        "storage": "Keeps 3 days; chill the leftovers in a block — tomorrow they become fried pap slices."
+      },
+      {
+        "name": "Golden Fried Pap Slices",
+        "icon": "💰",
+        "default": false,
+        "feel": "Yesterday's cold stiff pap, sliced and fried in butter until crusted gold — the best thing leftovers ever became.",
+        "time": 15,
+        "costPP": 3,
+        "ingredients": [
+          {
+            "n": "cooked stiff pap",
+            "pp": 180,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "sugar",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Start with properly cold pap, straight from the fridge — only cold, set pap slices clean. Warm pap smears.",
+          "Cut into thick slices, about two fingers wide.",
+          "Melt the butter in a pan over medium heat and lay the slices in. Now leave them alone — a golden crust only forms on a slice that isn't moved.",
+          "Turn once, crust the second side, and serve hot with a sprinkle of sugar — or go savoury with just salt and a fried egg on top."
+        ],
+        "tip": "Don't fiddle. The crust is built by patience, not by turning.",
+        "nutrition": {
+          "kcal": 290,
+          "protein_g": 5,
+          "carbs_g": 44,
+          "fat_g": 10
+        },
+        "storage": "Best straight from the pan; the crust softens if kept."
+      }
+    ]
   },
   {
     "id": "bf-maltabella",
@@ -4441,8 +4584,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Maltabella",
     "time": 15,
     "costPP": 8,
-    "feel": "Dark, malty and warm — the porridge that raised a country.",
-    "didYouKnow": "Maltabella is made from sorghum, one of Africa's oldest cultivated grains, grown here for thousands of years before maize ever arrived. Its dark colour and malty depth come from the grain being malted — the very same first step used in brewing.",
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Dark, malty and deep — the cold-water trick makes it silk, the long simmer makes it Maltabella.",
+    "didYouKnow": "Maltabella is made from sorghum, one of Africa's oldest cultivated grains — grown here for thousands of years before maize ever set foot on the continent. Its dark colour and malty depth come from the grain being malted, the very same first step used in brewing beer. That flavour only fully wakes up with a proper simmer; rushed maltabella tastes of half its promise.",
     "ingredients": [
       {
         "n": "sorghum meal",
@@ -4460,8 +4605,13 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "sugar",
+        "n": "brown sugar",
         "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "butter",
+        "pp": 8,
         "u": "g"
       },
       {
@@ -4469,26 +4619,25 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Whisk the sorghum meal into the cold water with a pinch of salt.",
-      "Bring to a boil over medium heat, stirring constantly.",
-      "Turn low and simmer 8 to 10 minutes until thick and glossy.",
-      "Stir in the milk and serve with sugar and more milk."
+      "Whisk the sorghum meal into COLD water with a pinch of salt. This is the whole secret: in cold water the starch disperses evenly before it can gel, so lumps never get the chance to form. Hot water seizes it instantly.",
+      "Bring it up to a boil over medium heat, stirring the whole way — it thickens as it heats.",
+      "Turn the heat low and simmer a patient 8 to 10 minutes, stirring often, until it's thick, glossy and smells toasty and malted. The malt flavour deepens with every minute — this simmer is where Maltabella becomes Maltabella.",
+      "Stir in most of the milk to loosen it to spoonable.",
+      "Serve with the butter melting on top, brown sugar dissolving into malty pools, and the last of the cold milk poured around."
     ],
-    "tip": "Always start in cold water to keep it lump-free.",
+    "tip": "Cold water start, always. It's the difference between silk and a bowl of lumps you'll be chasing with the spoon.",
     "nutrition": {
       "kcal": 240,
       "protein_g": 7,
       "carbs_g": 47,
       "fat_g": 3
     },
-    "storage": "Keeps 2 days; loosen with milk when reheating. Freezes up to 1 month.",
+    "storage": "Keeps 2 days in the fridge; it sets firm — loosen with milk when reheating. Freezes up to 1 month.",
     "goesWith": [
-      "Fresh Banana",
-      "Honey Drizzle",
-      "Rooibos Tea"
-    ],
-    "freezes": true,
-    "fridgeDays": 2
+      "Stewed Fruit & Yoghurt Bowl",
+      "Tropical Fruit Plate",
+      "Boererusk & Amasi Bowl"
+    ]
   },
   {
     "id": "bf-maizena",
@@ -4499,8 +4648,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Maizena",
     "time": 12,
     "costPP": 6,
-    "feel": "Smooth, silky and gentle — the porridge of small mornings.",
-    "didYouKnow": "'Maizena' is really a brand of cornflour that became the word for the porridge itself, the way we say Jik or Pritt. Cornflour is almost pure starch, so it thickens milk into something silky and smooth with no grain or grit — gentle enough for small tummies and sore throats.",
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Silky, gentle sick-day porridge — one cold paste and one patient minute stand between you and velvet.",
+    "didYouKnow": "'Maizena' is really a brand of cornflour that became the word for the porridge itself, the way we say Jik or Pritt. Cornflour is almost pure starch — no grain, no grit — which is why it thickens milk into something completely smooth, the porridge grannies reach for on sick days and for small tummies. The one law: starch can never meet hot liquid dry. It must go in as a cold paste, or it lumps on contact.",
     "ingredients": [
       {
         "n": "cornflour",
@@ -4518,30 +4669,35 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
+        "n": "vanilla essence"
+      },
+      {
+        "n": "cinnamon"
+      },
+      {
         "n": "salt"
       }
     ],
     "method": [
-      "Mix the cornflour to a paste with a little of the cold milk.",
-      "Heat the rest of the milk with a pinch of salt.",
-      "Whisk in the paste and stir over low heat until smooth and thick.",
-      "Sweeten to taste and serve."
+      "First, the paste: mix the cornflour with a few spoons of the COLD milk until completely smooth. This slurry is non-negotiable — dry cornflour hitting hot milk lumps instantly, and no amount of whisking rescues it.",
+      "Heat the rest of the milk with a pinch of salt until it steams.",
+      "Whisk in the paste and keep whisking — it thickens in a single dramatic moment right as it reaches the boil. Stay with it.",
+      "Now the patient minute: keep it on low, still stirring, for 1 to 2 minutes more. This cooks out the raw, chalky starch taste — the difference between porridge and wallpaper paste.",
+      "Off the heat, stir in the sugar and a drop of vanilla, and dust the top with cinnamon."
     ],
-    "tip": "Keep whisking as it thickens so it stays velvety.",
+    "tip": "It thickens all at once, right at the boil — the cook who walks away in that moment comes back to lumps.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 9,
       "carbs_g": 38,
       "fat_g": 6
     },
-    "storage": "Best fresh; it sets as it stands — loosen with warm milk. Keeps 1 day in the fridge.",
+    "storage": "Best fresh; it sets like a pudding as it stands — whisk in warm milk to bring it back. Keeps 1 day in the fridge.",
     "goesWith": [
-      "Cinnamon Sugar",
-      "Fresh Fruit",
-      "Warm Milk"
-    ],
-    "freezes": false,
-    "fridgeDays": 1
+      "Tropical Fruit Plate",
+      "Stewed Fruit & Yoghurt Bowl",
+      "Granadilla & Honey Bowl"
+    ]
   },
   {
     "id": "bf-putu-pap",
@@ -4552,8 +4708,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Putu Pap",
     "time": 25,
     "costPP": 3,
-    "feel": "Dry, crumbly pap — comfort by the spoonful.",
-    "didYouKnow": "Putu pap is all about the crumble — cooked dry and steamed rather than stirred smooth, so it falls apart in soft grains. It's the traditional partner to a braai and to sour milk, and coaxing out that dry, fluffy texture without lumps is a real test of a cook's hand.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Dry, crumbly pap steamed the old way — the no-stir law is the whole dish.",
+    "didYouKnow": "Putu pap is defined by what you DON'T do: stir. The meal is heaped into a little boiling water and left to steam untouched, so it cooks into soft, separate crumbs instead of a smooth mass. Stir it early and you've made stywe pap — a fine porridge, but not putu. It's the traditional partner to amasi at breakfast and to a braai at night, and coaxing out those dry, even crumbs is a real test of a cook's hand.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -4580,26 +4738,25 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Bring the salted water to a boil and add the maize meal in a heap, do not stir.",
-      "Cover and steam on low for 10 minutes.",
-      "Now fork it through so it crumbles into soft grains.",
-      "Serve with milk and sugar, or with amasi."
+      "Bring the salted water to a boil in a pot with a well-fitting lid — putu is steamed, and steam needs somewhere to stay.",
+      "Heap the maize meal into the middle in one island. Do NOT stir. Poke a few holes down through the heap with the handle of a wooden spoon so steam can rise through it.",
+      "Lid on, heat as low as it goes, and leave it alone for 15 to 20 minutes. Resist the spoon — every stir now costs you crumbs.",
+      "Now, and only now, fork it through: the heap breaks apart into soft, dry, separate crumbs. If any patch feels damp, lid back on for 5 more minutes.",
+      "Serve warm with cold milk and sugar — or the old way, with amasi poured over."
     ],
-    "tip": "The no-stir start is what gives putu its crumbly texture.",
+    "tip": "The holes poked through the heap aren't folklore — they're chimneys that let the steam cook the middle.",
     "nutrition": {
       "kcal": 250,
       "protein_g": 6,
       "carbs_g": 52,
       "fat_g": 3
     },
-    "storage": "Keeps 3 days; steam to refresh. Freezes up to 1 month.",
+    "storage": "Keeps 3 days in the fridge; steam briefly to bring the crumbs back to life. Freezes up to 1 month.",
     "goesWith": [
-      "Amasi",
-      "Stewed Fruit",
-      "Boerewors & Eggs"
-    ],
-    "freezes": true,
-    "fridgeDays": 3
+      "Amasi & Fruit Bowl",
+      "Boerewors & Eggs",
+      "Chakalaka Baked Eggs"
+    ]
   },
   {
     "id": "bf-cheesy-krummelpap",
@@ -4610,8 +4767,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Cheesy Krummelpap",
     "time": 25,
     "costPP": 9,
-    "feel": "Crumbly pap turned rich and savoury with melting cheese.",
-    "didYouKnow": "'Krummelpap' literally means crumb porridge — the driest pap of all, steamed until it breaks into loose crumbs. Stirring cheese through warm krummelpap is a Sunday-after-the-braai trick that turns last night's side dish into a rich, savoury breakfast.",
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Crumbly pap gone rich and savoury — the cheese goes in OFF the heat, and that changes everything.",
+    "didYouKnow": "'Krummelpap' literally means crumb porridge — the driest pap of all, steamed until it breaks into loose crumbs. Folding cheese through it is a Sunday-after-the-braai move that turns last night's side into a rich, savoury breakfast. The trick is heat: cheese folded through hot crumbs OFF the stove melts into a coat on every grain; cheese over a direct flame clumps, seizes and goes stringy.",
     "ingredients": [
       {
         "n": "maize meal",
@@ -4638,26 +4797,25 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Make crumbly pap: heap the maize meal into salted boiling water, cover and steam 10 minutes, then fork through.",
-      "Stir the butter through while hot.",
-      "Fold in the grated cheddar so it just melts.",
-      "Serve straight away."
+      "Make the crumbs: heap the maize meal into a little boiling salted water, poke steam holes through with a spoon handle, lid on, and steam on the lowest heat for 15 minutes without stirring.",
+      "Fork the heap through into soft, dry, separate crumbs.",
+      "Off the heat, stir the butter through first — it opens and glosses the crumbs so the cheese has something to cling to.",
+      "Now fold in the grated cheddar, still off the heat, until it just melts and coats every crumb. If it's going stringy, the pot is too hot.",
+      "A grind of pepper and eat immediately, while the cheese still pulls."
     ],
-    "tip": "Lovely with crispy bacon bits stirred in.",
+    "tip": "Butter first, cheese second, both OFF the heat — order and temperature are the entire dish.",
     "nutrition": {
       "kcal": 330,
       "protein_g": 12,
       "carbs_g": 48,
       "fat_g": 12
     },
-    "storage": "Best fresh and hot while the cheese is melty; the crumbs dry out if kept. Keeps 1 day, steam to refresh.",
+    "storage": "Best fresh and hot while the cheese is melty; the crumbs dry out if kept. Keeps 1 day — steam to refresh.",
     "goesWith": [
       "Boerewors & Eggs",
-      "Grilled Tomato",
-      "Chakalaka"
-    ],
-    "freezes": false,
-    "fridgeDays": 1
+      "Bacon & Eggs",
+      "Chakalaka Beans on Toast"
+    ]
   },
   {
     "id": "bf-creamy-oats",
@@ -4670,8 +4828,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 10,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "A warm bowl that quietly says the day can wait.",
-    "didYouKnow": "Oats turn creamy in milk thanks to beta-glucan, a soluble fibre that swells and thickens as it heats — the same fibre shown to help lower cholesterol. Stirring often coaxes more of it out, which is why patiently-stirred oats are silkier than rushed ones.",
+    "feel": "A warm bowl that says the day can wait — and the two quiet rules that make oats taste like more than oats.",
+    "didYouKnow": "Oats turn creamy thanks to beta-glucan, a soluble fibre that swells and thickens as it heats — the same fibre shown to help lower cholesterol. Stirring coaxes more of it out of the grain, which is why patiently-stirred oats are silkier than rushed ones. And the pinch of salt isn't tradition for its own sake: unsalted oats taste flat and cardboardy no matter how much honey follows.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -4696,23 +4854,211 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Combine the oats, milk and a pinch of salt in a pot.",
-      "Cook over medium heat, stirring often, for 5 to 6 minutes until thick and creamy.",
-      "Stir through the honey and a pinch of cinnamon.",
-      "Spoon into bowls and top with fruit or a splash more milk."
+      "Oats, milk and a real pinch of salt into a pot. The salt goes in NOW, at the start — salt added at the table sits on top; salt cooked in wakes the whole bowl up.",
+      "Medium-low heat, and stir often — every pass of the spoon releases more beta-glucan from the grain, and beta-glucan is the creaminess. Rushed, unstirred oats are thin oats.",
+      "5 to 6 minutes, until thick, glossy and creamy. If it tightens past where you like it, a splash of milk brings it back.",
+      "Off the heat, stir through the honey — off the heat so its aroma survives — and a pinch of cinnamon.",
+      "Into bowls, with a cold splash of milk over the top or fruit if you have it."
     ],
-    "tip": "Swap half the milk for water if you like it lighter, or use all milk for extra creaminess.",
+    "tip": "Salt at the start, honey at the end. Get those two moments right and the humblest oats taste expensive.",
     "nutrition": {
       "kcal": 290,
       "protein_g": 11,
       "carbs_g": 48,
       "fat_g": 7
     },
-    "storage": "Keeps 2 days; loosen with milk when reheating.",
+    "storage": "Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month.",
     "goesWith": [
-      "Fresh Berries",
-      "Honey Drizzle",
-      "Strong Coffee"
+      "Berry Banana Smoothie",
+      "Stewed Fruit & Yoghurt Bowl",
+      "Tropical Fruit Plate"
+    ],
+    "versions": [
+      {
+        "name": "Classic Creamy",
+        "icon": "⭐",
+        "default": true,
+        "feel": "All-milk, patiently stirred, honey off the heat — the definitive bowl.",
+        "time": 10,
+        "costPP": 10,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "honey",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Oats, milk and a pinch of salt in a pot over medium-low.",
+          "Stir often for 5 to 6 minutes — the stirring is what makes them creamy.",
+          "Off the heat, stir in the honey and a pinch of cinnamon and serve."
+        ],
+        "tip": "If the spoon stands up on its own, add a splash of milk — oats should slump, not sit.",
+        "nutrition": {
+          "kcal": 290,
+          "protein_g": 11,
+          "carbs_g": 48,
+          "fat_g": 7
+        },
+        "storage": "Keeps 2 days; loosen with milk when reheating."
+      },
+      {
+        "name": "Ouma's Butter & Brown Sugar",
+        "icon": "🧈",
+        "default": false,
+        "feel": "The old-school finish — butter melting into brown-sugar pools on top of the hot oats.",
+        "time": 10,
+        "costPP": 10,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "brown sugar",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Cook the oats in the milk with a pinch of salt, stirring often, until thick and creamy.",
+          "Into bowls, then the knob of butter in the middle and the brown sugar scattered over it.",
+          "Do NOT stir — the whole point is dragging each spoonful through the melting butter-and-sugar pool."
+        ],
+        "tip": "Brown sugar, not white — the molasses in it is what tastes like childhood.",
+        "nutrition": {
+          "kcal": 340,
+          "protein_g": 11,
+          "carbs_g": 52,
+          "fat_g": 12
+        },
+        "storage": "Keeps 2 days; add the butter-and-sugar finish fresh each time."
+      },
+      {
+        "name": "Apple & Cinnamon",
+        "icon": "🍎",
+        "default": false,
+        "feel": "Apple grated straight into the pot so it cooks down to applesauce sweetness inside the oats.",
+        "time": 12,
+        "costPP": 11,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "apple",
+            "pp": 0.5,
+            "u": ""
+          },
+          {
+            "n": "honey",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Grate the apple, skin and all, straight into the pot with the oats, milk and a pinch of salt.",
+          "Cook over medium-low, stirring often, for 6 to 7 minutes — the apple melts into the oats and sweetens them from inside, so you need barely any honey.",
+          "A good pinch of cinnamon, a small drizzle of honey off the heat, and serve."
+        ],
+        "tip": "Grated apple vanishes into the oats; chopped apple just sits there. Grate it.",
+        "nutrition": {
+          "kcal": 320,
+          "protein_g": 11,
+          "carbs_g": 56,
+          "fat_g": 7
+        },
+        "storage": "Keeps 2 days; loosen with milk when reheating."
+      },
+      {
+        "name": "Half-Water Weekday",
+        "icon": "💰",
+        "default": false,
+        "feel": "Half milk, half water — and one cold splash at the end that buys the creamy taste back for cents.",
+        "time": 10,
+        "costPP": 7,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 125,
+            "u": "ml"
+          },
+          {
+            "n": "water",
+            "pp": 125,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Cook the oats in the half-milk, half-water with a pinch of salt, stirring often — the stirring matters even more here, since the beta-glucan is doing the creamy work the missing milk isn't.",
+          "5 to 6 minutes until thick and glossy.",
+          "Sweeten, then finish with a small COLD splash of the milk poured over the top — cold milk on hot oats reads as rich, and nobody at the table will know the difference."
+        ],
+        "tip": "Spend the milk where the tongue meets it: on top, cold, at the end.",
+        "nutrition": {
+          "kcal": 260,
+          "protein_g": 9,
+          "carbs_g": 47,
+          "fat_g": 5
+        },
+        "storage": "Keeps 2 days; loosen with water when reheating."
+      }
     ]
   },
   {
@@ -4724,10 +5070,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Overnight Oats",
     "time": 5,
     "costPP": 12,
-    "freezes": true,
-    "fridgeDays": 2,
-    "feel": "Tomorrow-morning sorted before you go to bed.",
-    "didYouKnow": "Overnight oats need no stove at all — cold milk and time do the work, the oats slowly drinking it in until they're soft and pudding-thick by morning. The acid in the yoghurt also begins breaking down the starch, which is why they taste mellower than cooked oats.",
+    "freezes": false,
+    "fridgeDays": 3,
+    "feel": "Tomorrow morning sorted before you go to bed — as long as you respect the ratio.",
+    "didYouKnow": "Overnight oats need no stove at all — cold milk and time do the work, the oats slowly drinking the liquid in until they're soft and pudding-thick by morning. The acid in the yoghurt also begins breaking down the starch overnight, which is why they taste mellower than cooked oats. The only way to ruin them is the ratio: too much liquid and you wake up to breakfast soup.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -4756,23 +5102,173 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Stir the oats, milk, yoghurt and honey together in a jar.",
-      "Add sliced banana or any fruit.",
-      "Seal and chill overnight.",
-      "Eat cold straight from the jar."
+      "The ratio first: roughly equal oats to milk by volume, plus the spoon of yoghurt. Oats swell to about double overnight — give them more liquid than that and they can't drink it all.",
+      "Stir the oats, milk, yoghurt and honey together in a jar until no dry patches remain, especially at the bottom.",
+      "Add the sliced banana and push it under the surface so it doesn't brown.",
+      "Seal and into the fridge overnight — 6 hours minimum, though they only get better up to a day.",
+      "In the morning: stir, taste, and loosen with a splash of milk only if YOU want to — thick and spoonable is the goal."
     ],
-    "tip": "Layer in fruit and a spoon of peanut butter for variety each night.",
+    "tip": "Equal oats to milk by volume. Write it on the jar if you must — the ratio is the whole recipe.",
     "nutrition": {
       "kcal": 320,
       "protein_g": 12,
       "carbs_g": 52,
       "fat_g": 7
     },
-    "storage": "Keeps 3 days in the fridge.",
+    "storage": "Keeps 3 days in the fridge — make Monday's, Tuesday's and Wednesday's in one go.",
     "goesWith": [
-      "Fresh Fruit",
-      "Granola",
-      "Berry Smoothie"
+      "Yoghurt & Granola Bowl",
+      "Green Smoothie",
+      "Tropical Fruit Plate"
+    ],
+    "versions": [
+      {
+        "name": "Classic Banana & Honey",
+        "icon": "⭐",
+        "default": true,
+        "feel": "The straight-down-the-middle jar — banana, honey, and the ratio done right.",
+        "time": 5,
+        "costPP": 12,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "yoghurt",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "banana",
+            "pp": 0.5,
+            "u": ""
+          }
+        ],
+        "method": [
+          "Stir oats, milk, yoghurt and honey in a jar until nothing dry remains.",
+          "Slice in the banana and push it under the surface.",
+          "Seal, chill overnight, stir and eat cold from the jar."
+        ],
+        "tip": "Banana under the surface stays cream-coloured; banana on top goes brown by morning.",
+        "nutrition": {
+          "kcal": 320,
+          "protein_g": 12,
+          "carbs_g": 52,
+          "fat_g": 7
+        },
+        "storage": "Keeps 3 days in the fridge."
+      },
+      {
+        "name": "Choc Peanut Butter",
+        "icon": "🥜",
+        "default": false,
+        "feel": "Cocoa and peanut butter that soften into the oats overnight — pudding you're allowed at 7am.",
+        "time": 5,
+        "costPP": 13,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 160,
+            "u": "ml"
+          },
+          {
+            "n": "peanut butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "cocoa powder",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 12,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Stir the peanut butter and cocoa into the milk FIRST, at night, until smooth — peanut butter needs the overnight hours to soften all the way through; stirred in come morning it stays in stubborn blobs.",
+          "Add the oats and honey, stir until nothing is dry, seal and chill overnight.",
+          "Stir and eat cold — thick, fudgy and somehow still breakfast."
+        ],
+        "tip": "Cocoa drinks a little extra liquid — that's why this jar gets a splash more milk than the classic.",
+        "nutrition": {
+          "kcal": 400,
+          "protein_g": 15,
+          "carbs_g": 52,
+          "fat_g": 15
+        },
+        "storage": "Keeps 3 days in the fridge."
+      },
+      {
+        "name": "Berries & Vanilla",
+        "icon": "🫐",
+        "default": false,
+        "feel": "Frozen berries thaw INTO the jar overnight, staining it purple — the sauce makes itself.",
+        "time": 5,
+        "costPP": 13,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "yoghurt",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "frozen berries",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "vanilla essence"
+          }
+        ],
+        "method": [
+          "Stir oats, milk, yoghurt, honey and a drop of vanilla in a jar.",
+          "Drop the berries in straight from the freezer — no thawing. Overnight they defrost slowly INTO the oats, bleeding a ready-made berry sauce through the jar.",
+          "Seal, chill, and give it one good stir in the morning to marble the purple through."
+        ],
+        "tip": "Frozen berries beat fresh here — the slow thaw is what builds the sauce.",
+        "nutrition": {
+          "kcal": 340,
+          "protein_g": 12,
+          "carbs_g": 58,
+          "fat_g": 7
+        },
+        "storage": "Keeps 3 days in the fridge."
+      }
     ]
   },
   {
@@ -4786,8 +5282,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 9,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Two of our best puddings — melktert and malva — turned into a warm breakfast bowl.",
-    "didYouKnow": "This bowl smuggles two South African pudding legends into breakfast: malva, with its apricot-jam sweetness, and melktert, all milk, sugar and cinnamon. Malva pudding's name is thought to come from 'malvasia', a sweet wine once served alongside it.",
+    "feel": "Two of South Africa's best puddings smuggled into a breakfast bowl — pick your legend.",
+    "didYouKnow": "This bowl borrows from two pudding royals: malva, with its apricot-jam sweetness and warm sponge soul, and melktert, all milk, sugar and cinnamon. Malva pudding's name is thought to come from 'malvasia', a sweet wine once served alongside it — and melktert's real secret has always been that the cinnamon belongs IN the milk, not just dusted on top.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -4825,13 +5321,13 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Cook the oats in the milk with a pinch of salt over medium heat, stirring, until creamy.",
-      "Stir in the sugar and vanilla.",
-      "Swirl the apricot jam through.",
-      "Dust generously with cinnamon-sugar.",
-      "Finish with a splash of cream over the top — like custard on malva."
+      "Cook the oats in the milk with a pinch of salt over medium-low, stirring often, until thick and creamy.",
+      "Stir in the sugar and vanilla off the heat.",
+      "Now choose your pudding. For malva: swirl the apricot jam through in ribbons — swirled, not stirred, so every few spoonfuls hits a jammy pocket.",
+      "Dust generously with cinnamon-sugar, the way a melktert wears its top.",
+      "Finish with the splash of cream poured over — like custard over warm malva. That splash is what tips it from porridge into pudding."
     ],
-    "tip": "The splash of cream at the end is what makes it taste like pudding, not porridge.",
+    "tip": "Swirl the jam, never stir it in — the pockets are the pleasure.",
     "nutrition": {
       "kcal": 320,
       "protein_g": 11,
@@ -4840,9 +5336,113 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh and warm. Keeps 2 days in the fridge; loosen with a splash of milk when reheating. Cooked oats freeze up to 1 month.",
     "goesWith": [
-      "Fresh Cream",
-      "Stewed Fruit",
-      "Rooibos Tea"
+      "Stewed Fruit & Yoghurt Bowl",
+      "Tropical Fruit Plate",
+      "Amasi Berry Smoothie"
+    ],
+    "versions": [
+      {
+        "name": "Malva Swirl",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Apricot-jam ribbons and a splash of cream over the top — malva pudding logic, breakfast rules.",
+        "time": 10,
+        "costPP": 9,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "apricot jam",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "cream",
+            "pp": 15,
+            "u": "ml"
+          },
+          {
+            "n": "vanilla essence"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Cook the oats in the milk with a pinch of salt until thick and creamy; sweeten with the sugar and vanilla off the heat.",
+          "Swirl the apricot jam through in ribbons — pockets, not uniformity.",
+          "Pour the cream over the top at the table, like custard over malva."
+        ],
+        "tip": "The cream goes over, never in — poured on top it stays a sauce; stirred in it disappears.",
+        "nutrition": {
+          "kcal": 320,
+          "protein_g": 11,
+          "carbs_g": 52,
+          "fat_g": 8
+        },
+        "storage": "Keeps 2 days; add jam and cream fresh."
+      },
+      {
+        "name": "Melktert Bowl",
+        "icon": "🥧",
+        "default": false,
+        "feel": "The milk is infused with cinnamon FIRST, tart-filling style — then snowed with cinnamon-sugar.",
+        "time": 12,
+        "costPP": 8,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 250,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "vanilla essence"
+          },
+          {
+            "n": "cinnamon"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Warm the milk with a generous pinch of cinnamon and let it sit 2 minutes — infusing the milk is what melktert does, and it tastes completely different from cinnamon dusted on at the end.",
+          "Add the oats and a pinch of salt and cook, stirring often, until thick and custardy.",
+          "Off the heat, stir in the sugar and vanilla.",
+          "Snow the top with cinnamon-sugar, exactly like the face of a melktert."
+        ],
+        "tip": "Cinnamon in the milk = melktert. Cinnamon on top = just cinnamon. Do both.",
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 11,
+          "carbs_g": 50,
+          "fat_g": 7
+        },
+        "storage": "Keeps 2 days; loosen with milk when reheating."
+      }
     ]
   },
   {
@@ -4856,16 +5456,21 @@ var BREAKFAST_RECIPES = [
     "costPP": 7,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Earthy, naturally sweet rooibos cooked right into the oats — a proper SA cuppa in a bowl.",
-    "didYouKnow": "Rooibos grows wild nowhere on earth except the Cederberg mountains of the Western Cape — every cup in the world traces back to that one small region. It's naturally caffeine-free, so cooking the oats in strong rooibos adds earthy sweetness without a single jitter.",
+    "feel": "A proper SA cuppa cooked right into the bowl — but only if you brew it like you mean it.",
+    "didYouKnow": "Rooibos grows wild nowhere on earth except the Cederberg mountains of the Western Cape — every cup in the world traces back to that one small region. It's naturally caffeine-free, so cooking the oats in strong rooibos adds earthy, honeyed depth without a single jitter. The make-or-break is brew strength: one lazy bag tints the oats; two bags brewed dark actually flavours them.",
     "ingredients": [
+      {
+        "n": "rooibos tea bags",
+        "pp": 2,
+        "u": ""
+      },
       {
         "n": "rolled oats",
         "pp": 50,
         "u": "g"
       },
       {
-        "n": "rooibos tea",
+        "n": "water",
         "pp": 150,
         "u": "ml"
       },
@@ -4887,12 +5492,12 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Brew a strong cup of rooibos.",
-      "Cook the oats in the rooibos and milk with a pinch of salt until creamy.",
-      "Stir in the honey.",
-      "Top with a little extra honey and a dusting of cinnamon."
+      "Brew the rooibos double-strength: both bags in the boiling water, 5 full minutes, squeezed out at the end. The tea has to taste almost too strong on its own — the oats and milk will soften it.",
+      "Cook the oats in the dark rooibos and the milk with a pinch of salt, stirring often, until thick and creamy.",
+      "Off the heat, stir in most of the honey — off the heat so its aroma survives the pot.",
+      "Serve with the last thread of honey over the top and a dusting of cinnamon."
     ],
-    "tip": "Brew the rooibos strong — it should taste of tea, not just tint the oats.",
+    "tip": "If the brewed tea doesn't taste strong enough to make you wince slightly, it will vanish in the oats. Two bags, five minutes.",
     "nutrition": {
       "kcal": 280,
       "protein_g": 10,
@@ -4901,9 +5506,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh. Keeps 2 days in the fridge; loosen with milk when reheating. Freezes up to 1 month.",
     "goesWith": [
-      "Fresh Fruit",
-      "Toasted Nuts",
-      "Rooibos Tea"
+      "Boererusk & Amasi Bowl",
+      "Honey Brick Toast",
+      "Tropical Fruit Plate"
     ]
   },
   {
@@ -4917,8 +5522,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 12,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Peppermint Crisp tart for breakfast — caramel-swirled oats under a shower of minty chocolate.",
-    "didYouKnow": "Peppermint Crisp tart is about as South African as a dessert gets, even though the chocolate bar itself started in Britain — it's the local factory that keeps it alive, and we eat far more of it than anyone else. Caramel, mint chocolate and oats is simply that famous tart turned into breakfast.",
+    "feel": "Peppermint Crisp tart logic in a breakfast bowl — caramel in swirls, chocolate grated at the very last second.",
+    "didYouKnow": "Peppermint Crisp tart is about as South African as a dessert gets, even though the chocolate bar itself started in Britain — it's the local factory that keeps it alive, and South Africans eat far more of it than anyone else. The tart's grammar carries straight over to oats: caramel in pockets, mint chocolate in a melting green shower over the top.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -4945,24 +5550,23 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Cook the oats in the milk with a pinch of salt until creamy.",
-      "Swirl the caramel through.",
-      "Grate over most of the Peppermint Crisp.",
-      "Top with the last of the grated chocolate.",
-      "Eat while the chocolate is melting into the warm oats."
+      "Cook the oats in the milk with a pinch of salt, stirring often, until thick and creamy.",
+      "Off the heat, swirl the caramel through — swirl, don't stir. Stirred in, it's sweet oats; swirled, every third spoonful strikes a caramel pocket, exactly like the tart.",
+      "Let the bowl lose its fiercest heat for a minute — chocolate grated onto boiling oats vanishes into brown streaks.",
+      "Now grate the Peppermint Crisp over in a green shower and eat while it's mid-melt — ribbons, not puddles."
     ],
-    "tip": "A treat-day bowl — grate the chocolate right at the end so it melts, not seizes.",
+    "tip": "Grate at the table, onto warm-not-boiling oats. Timing is the whole trick.",
     "nutrition": {
       "kcal": 380,
       "protein_g": 11,
       "carbs_g": 58,
       "fat_g": 13
     },
-    "storage": "Best fresh and warm while the chocolate melts. The plain caramel oats keep 2 days; add the chocolate when serving. Freezes (without chocolate) up to 1 month.",
+    "storage": "Best fresh while the chocolate melts. The plain caramel oats keep 2 days; grate the chocolate when serving. Freezes (without chocolate) up to 1 month.",
     "goesWith": [
-      "Fresh Banana",
-      "Whipped Cream",
-      "Strong Coffee"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Yoghurt & Granola Bowl"
     ]
   },
   {
@@ -4976,8 +5580,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 12,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Savoury, golden and aromatic — oats reimagined as a cosy spiced bowl, breakfast or light supper.",
-    "didYouKnow": "There's no rule that oats must be sweet — across Asia, savoury grain porridges like congee are everyday breakfasts. Toasting curry powder and turmeric into coconut milk turns humble oats into something closer to a gentle, golden, spiced soup.",
+    "feel": "Savoury, golden and aromatic — and it lives or dies on thirty seconds of blooming the spice.",
+    "didYouKnow": "There's no rule that oats must be sweet — across Asia, savoury grain porridges like congee are everyday breakfasts. The step that separates a golden, fragrant bowl from a dusty one is blooming: curry powder fried briefly in fat wakes up its oils and tastes like a curry; curry powder stirred raw into liquid tastes like the packet it came from.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -5015,13 +5619,13 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Cook the oats in the coconut milk and water with a pinch of salt until creamy.",
-      "Stir in the curry powder and a pinch of turmeric and cook 2 minutes more.",
-      "Taste and season.",
-      "Toast the cashews and coconut in a dry pan, then scatter over.",
-      "A squeeze of lime or some fresh coriander lifts it beautifully."
+      "Start the pot with the thick cream from the top of the coconut milk. Let it sizzle, then bloom the curry powder and turmeric in it for 30 seconds, stirring, until fragrant. This half-minute is the whole dish — raw curry powder tastes dusty; bloomed, it tastes like curry.",
+      "Add the oats, the rest of the coconut milk, the water and a pinch of salt.",
+      "Cook over medium-low, stirring often, until thick, golden and creamy.",
+      "Meanwhile, toast the cashews and coconut in a dry pan until golden — toasting doubles their flavour.",
+      "Taste, season, and scatter the toasted cashews and coconut over. A squeeze of lime or some fresh coriander lifts it beautifully."
     ],
-    "tip": "Toast the cashews and coconut first in a dry pan — it doubles their flavour.",
+    "tip": "Bloom the spices in the coconut cream first — 30 seconds that make it taste like a curry instead of a packet.",
     "nutrition": {
       "kcal": 340,
       "protein_g": 9,
@@ -5030,9 +5634,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh. Keeps 2 days in the fridge; loosen with a splash of water or coconut milk when reheating. Freezes up to 1 month — add the cashews fresh.",
     "goesWith": [
-      "Toasted Cashews",
-      "Fresh Coriander",
-      "Lime Wedge"
+      "Masala Scramble (Akoori)",
+      "Green Smoothie",
+      "Tropical Smoothie"
     ]
   },
   {
@@ -5044,10 +5648,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Custard Protein Oats",
     "time": 10,
     "costPP": 9,
-    "freezes": true,
-    "fridgeDays": 2,
-    "feel": "Thick, custardy and high-protein — oats that taste like warm cake batter.",
-    "didYouKnow": "Stir a beaten egg into hot oats and you've quietly made custard — the egg thickens and enriches them exactly as it would a tart filling. The trick is to add it off the heat and stir fast, 'tempering' it so it turns silky instead of scrambling.",
+    "freezes": false,
+    "fridgeDays": 1,
+    "feel": "Thick, custardy, high-protein — one blitzed oat trick and one fast whisk turn porridge into warm cake batter.",
+    "didYouKnow": "Stir a beaten egg into hot oats and you've quietly made custard — the egg thickens and enriches them exactly as it would a tart filling. Two tricks make it work: blitzing the oats to flour first, which gives the smooth custard body, and 'tempering' the egg — in off the boil, whisked fast — so it turns silky instead of scrambling.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -5080,13 +5684,13 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Pulse the oats in a blender until they look like fine flour.",
-      "Whisk the oat flour into the milk in a pot with a pinch of salt and cook, stirring, until thick.",
-      "Take the pot off the boil, beat the egg in a cup, then whisk it in fast so it cooks into a custard, not scrambles.",
-      "Stir in the vanilla and honey.",
-      "Dust with cinnamon and serve thick and creamy."
+      "Pulse the oats in a blender until they look like fine flour — this is what gives custard body instead of porridge texture.",
+      "Whisk the oat flour into the milk in a pot with a pinch of salt and cook over medium, stirring, until thick.",
+      "Take the pot OFF the boil. Beat the egg in a cup, then whisk it in fast and without stopping. Off the heat plus a fast whisk is tempering — the egg cooks gently into custard instead of scrambling into ribbons.",
+      "Back over low heat for one gentle minute, still stirring, so the egg fully sets to silk.",
+      "Stir in the vanilla and honey, dust with cinnamon, and serve thick and creamy."
     ],
-    "tip": "Off the boil and whisk fast when the egg goes in — that is what makes it custardy instead of scrambled.",
+    "tip": "Off the boil, whisk fast, never stop — hesitate mid-whisk and you'll find scrambled egg in your custard.",
     "nutrition": {
       "kcal": 360,
       "protein_g": 18,
@@ -5095,9 +5699,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh and warm. Keeps 1 day in the fridge (it sets firm — loosen with hot milk). The egg means it is best not frozen.",
     "goesWith": [
-      "Fresh Berries",
-      "Banana Slices",
-      "Honey Drizzle"
+      "Berry Banana Smoothie",
+      "Peanut Butter Banana Smoothie",
+      "Tropical Fruit Plate"
     ]
   },
   {
@@ -5108,11 +5712,11 @@ var BREAKFAST_RECIPES = [
     "cuisine": "Global",
     "photoName": "Bircher Oats",
     "time": 5,
-    "costPP": 19,
-    "freezes": true,
+    "costPP": 14,
+    "freezes": false,
     "fridgeDays": 2,
-    "feel": "Cool and gentle, like an early morning before the house wakes.",
-    "didYouKnow": "Bircher muesli was invented around 1900 by Swiss doctor Maximilian Bircher-Benner, who fed his patients raw soaked oats with grated apple and believed deeply in uncooked food. The original was softened overnight and loosened with a little cream by morning — much as we still make it.",
+    "feel": "Cool, apple-sweet and gentle — the original overnight oats, made the way the doctor ordered.",
+    "didYouKnow": "Bircher muesli was invented around 1900 by Swiss doctor Maximilian Bircher-Benner, who fed his patients raw soaked oats with grated apple and believed deeply in uncooked food. The grated apple isn't a topping — it IS the dish: soaked in overnight, it sweetens and perfumes every spoonful. The lemon squeeze is his trick too, keeping the apple bright instead of brown.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -5125,33 +5729,42 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
-        "n": "frozen berries",
-        "pp": 80,
-        "u": "g"
+        "n": "apple",
+        "pp": 0.5,
+        "u": ""
       },
       {
         "n": "honey",
         "pp": 10,
         "u": "ml"
+      },
+      {
+        "n": "mixed nuts",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "lemon juice"
       }
     ],
     "method": [
-      "Combine the oats, milk, berries and honey.",
-      "Refrigerate overnight.",
-      "Stir before eating and let it soften slightly at room temperature."
+      "Grate the apple, skin and all, straight into the milk the moment it's grated — grated apple browns in minutes in open air, but submerged in milk with a squeeze of lemon it stays cream-bright till morning.",
+      "Stir in the oats and honey until nothing is dry.",
+      "Cover and refrigerate overnight — the apple soaks INTO the oats, which is the whole difference between Bircher and oats-with-apple-on-top.",
+      "In the morning, stir, let it soften a few minutes out of the fridge, and scatter the nuts over."
     ],
-    "tip": "Stir halfway through soaking for an even texture. (Overnight — 5 min active.)",
+    "tip": "Grate the apple last and drown it immediately — apple in the air browns, apple in the milk stays bright.",
     "nutrition": {
-      "kcal": 290,
-      "protein_g": 9,
-      "carbs_g": 50,
-      "fat_g": 5
+      "kcal": 320,
+      "protein_g": 10,
+      "carbs_g": 52,
+      "fat_g": 8
     },
-    "storage": "Fridge, up to 2 days.",
+    "storage": "Fridge, up to 2 days — the apple is soaked in, so it holds better than you'd think.",
     "goesWith": [
-      "Fresh Berries",
-      "Grated Apple",
-      "Toasted Nuts"
+      "Yoghurt & Granola Bowl",
+      "Green Smoothie",
+      "Tropical Fruit Plate"
     ]
   },
   {
@@ -5165,8 +5778,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 13,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Bright and easy, like a warm breeze through an open window.",
-    "didYouKnow": "South Africa's mangoes ripen mostly in the summer heat of Limpopo and Mpumalanga. A mango is ready when it gives gently to a squeeze and smells sweet at the stem — stir it in off the heat so it stays bright and fragrant rather than stewed dull.",
+    "feel": "Bright and easy, like a Lowveld morning — as long as the mango never sees the heat.",
+    "didYouKnow": "South Africa's mangoes ripen in the summer heat of Limpopo and Mpumalanga, and a ripe one announces itself: it gives gently to a squeeze and smells sweet right at the stem. Heat is a ripe mango's enemy — cooked in, it stews dull and loses its perfume, which is why it goes in off the heat, at the very end, still tasting of sunshine.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -5187,14 +5800,18 @@ var BREAKFAST_RECIPES = [
         "n": "honey",
         "pp": 10,
         "u": "ml"
+      },
+      {
+        "n": "salt"
       }
     ],
     "method": [
-      "Cook the oats in the milk until soft.",
-      "Stir in the chopped mango at the end.",
-      "Finish with honey."
+      "Cook the oats in the milk with a pinch of salt over medium-low, stirring often, until soft and creamy.",
+      "Take the pot off the heat completely.",
+      "Now fold in most of the chopped mango — off the heat, so it warms through but never cooks. Cooked mango is stewed mango; folded-in mango still tastes like fruit.",
+      "A thread of honey, the last of the mango piled on top, and serve."
     ],
-    "tip": "Add the mango right at the end to keep it bright.",
+    "tip": "The pot comes OFF the stove before the mango goes in — that one second of discipline keeps it bright.",
     "nutrition": {
       "kcal": 300,
       "protein_g": 9,
@@ -5203,9 +5820,9 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh while the mango is bright; the cooked oats keep 2 days in the fridge (loosen with milk) and freeze up to 1 month — stir the mango in when serving.",
     "goesWith": [
-      "Fresh Mango",
-      "Coconut Flakes",
-      "Berry Smoothie"
+      "Tropical Smoothie",
+      "Granadilla & Honey Bowl",
+      "Tropical Fruit Plate"
     ]
   },
   {
@@ -5215,12 +5832,12 @@ var BREAKFAST_RECIPES = [
     "emoji": "🫐",
     "cuisine": "Global",
     "photoName": "Baked Berry Oats",
-    "time": 25,
+    "time": 30,
     "costPP": 23,
     "freezes": true,
     "fridgeDays": 2,
-    "feel": "Cosy and baked through, like something shared at a quiet table.",
-    "didYouKnow": "Add an egg and bake your oats and they set like a soft, spoonable cake — the same trick behind the old-fashioned baked oatmeal farmhouse kitchens made to feed a crowd from one dish. The berries sink, burst and stain the whole thing purple as it bakes.",
+    "feel": "Oats that come out of the oven like a soft, spoonable cake — berries burst and staining it purple.",
+    "didYouKnow": "Add an egg and bake your oats and they set like a soft, spoonable cake — the same trick behind the old-fashioned baked oatmeal farmhouse kitchens made to feed a crowd from one dish. The berries sink, burst and stain the whole thing purple as it bakes — and the five-minute rest at the end isn't optional: it's when the middle finishes setting.",
     "ingredients": [
       {
         "n": "rolled oats",
@@ -5246,25 +5863,146 @@ var BREAKFAST_RECIPES = [
         "n": "honey",
         "pp": 10,
         "u": "ml"
+      },
+      {
+        "n": "vanilla essence"
+      },
+      {
+        "n": "salt"
       }
     ],
     "method": [
-      "Mix all the ingredients together.",
-      "Pour into a small dish and bake until set and lightly golden.",
-      "Let it cool slightly before eating."
+      "Heat the oven to 180°C and butter a small baking dish.",
+      "Whisk the egg, milk, honey, a drop of vanilla and a pinch of salt together, then stir in the oats.",
+      "Pour into the dish and scatter the berries over — straight from frozen is fine; they'll sink and burst as it bakes.",
+      "Bake 25 to 30 minutes, until golden at the edges and JUST set in the middle — a slight wobble at the centre is right; a firm centre means it's overbaked.",
+      "Now the rest: 5 minutes out of the oven before you spoon in. The wobble finishes setting in that time, and the difference is cake versus scramble."
     ],
-    "tip": "Let it rest a few minutes before serving for the best texture.",
+    "tip": "Pull it with a slight wobble and let it rest 5 minutes — the rest IS the last bit of the baking.",
     "nutrition": {
       "kcal": 340,
       "protein_g": 12,
       "carbs_g": 50,
       "fat_g": 9
     },
-    "storage": "Fridge, up to 2 days.",
+    "storage": "Fridge, up to 2 days — lovely cold, or warmed with a splash of milk. Freezes in portions up to 1 month.",
     "goesWith": [
-      "Fresh Cream",
-      "Plain Yoghurt",
-      "Berry Smoothie"
+      "Amasi Berry Smoothie",
+      "Stewed Fruit & Yoghurt Bowl",
+      "Berry Banana Smoothie"
+    ],
+    "versions": [
+      {
+        "name": "Classic Berry Bake",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Whole oats, bursting berries, golden edges and a soft middle — the farmhouse original.",
+        "time": 30,
+        "costPP": 23,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "frozen berries",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "vanilla essence"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Whisk egg, milk, honey, vanilla and salt; stir in the oats; pour into a buttered dish and scatter the frozen berries over.",
+          "Bake at 180°C for 25 to 30 minutes until golden at the edges and just set with a slight wobble at the centre.",
+          "Rest 5 minutes before serving — the middle finishes setting off the heat."
+        ],
+        "tip": "Berries from frozen sink and burst better than fresh — no need to thaw.",
+        "nutrition": {
+          "kcal": 340,
+          "protein_g": 12,
+          "carbs_g": 50,
+          "fat_g": 9
+        },
+        "storage": "Fridge 2 days; freezes in portions 1 month."
+      },
+      {
+        "name": "Choc-Banana Blended",
+        "icon": "🍌",
+        "default": false,
+        "feel": "Everything blitzed smooth before baking — it rises and cuts like a soft chocolate-banana cake.",
+        "time": 30,
+        "costPP": 18,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "banana",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "cocoa powder",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Blend the oats, egg, milk, banana, cocoa, honey and a pinch of salt until completely smooth — blending is the fork in the road: blitzed batter bakes like cake, whole oats bake like porridge. Both are right; know which one you're making.",
+          "Pour into a buttered small dish.",
+          "Bake at 180°C for 22 to 25 minutes until risen and just set.",
+          "Rest 5 minutes — it settles into its soft, sliceable self."
+        ],
+        "tip": "The riper the banana, the sweeter the bake — a spotty one means you can halve the honey.",
+        "nutrition": {
+          "kcal": 350,
+          "protein_g": 13,
+          "carbs_g": 54,
+          "fat_g": 9
+        },
+        "storage": "Fridge 2 days; freezes in slices 1 month."
+      }
     ]
   },
   {
