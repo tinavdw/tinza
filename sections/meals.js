@@ -5,16 +5,242 @@
 // ════════════════════════════════════════════════════════════════
 var BREAKFAST_RECIPES = [
   {
+    "id": "bf-scrambled-eggs",
+    "cat": "eggs",
+    "name": "Scrambled Eggs",
+    "emoji": "🍳",
+    "cuisine": "Global",
+    "photoName": "Scrambled Eggs",
+    "freezes": false,
+    "fridgeDays": 0,
+    "time": 10,
+    "costPP": 14,
+    "feel": "Proof that the humblest breakfast on earth can be pure silk — if you know the one rule.",
+    "didYouKnow": "Ask a chef to cook one thing to prove themselves and many will choose scrambled eggs — there is nowhere to hide. The whole secret is heat: egg proteins seize from silk into rubber at around 70°C, which is why the great versions are cooked low, folded slowly, and pulled off the stove while they still shine. The pan finishes the job on the way to the plate.",
+    "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 3,
+        "u": "egg"
+      },
+      {
+        "n": "butter",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "cream",
+        "pp": 15,
+        "u": "ml"
+      },
+      {
+        "n": "salt & pepper"
+      }
+    ],
+    "method": [
+      "Crack the eggs into a bowl with a pinch of salt and beat only until no streaks of white remain — don't whip air in; big frothy bubbles cook out tough.",
+      "Melt the butter in a non-stick pan over LOW heat until it just foams. Foaming is the signal; if the butter browns, the pan is too hot — wipe it and start cooler.",
+      "Pour in the eggs and wait. Nothing will happen for a moment — good. When the bottom starts to set, sweep a spatula slowly through, pulling soft folds from the edge to the middle.",
+      "Keep folding, gently and not too often, until you have big glossy pillows that still look slightly underdone.",
+      "Off the heat. Stir through the cold cream — it stops the cooking dead and turns everything to silk — then a grind of pepper and straight onto the plate. They finish cooking on the way.",
+      "Serve on hot buttered toast, made before the eggs so nothing waits."
+    ],
+    "tip": "If you can hear the eggs sizzling, the pan is too hot. Great scrambled eggs are cooked in near-silence.",
+    "nutrition": {
+      "kcal": 330,
+      "protein_g": 20,
+      "carbs_g": 2,
+      "fat_g": 27
+    },
+    "storage": "Made to order, eaten immediately — scrambled eggs do not wait, keep or freeze. The whole job is under 10 minutes.",
+    "goesWith": [
+      "Smashed Avo Toast",
+      "Chakalaka Beans on Toast",
+      "Berry Banana Smoothie"
+    ],
+    "versions": [
+      {
+        "name": "Slow & Creamy",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Low heat, lazy folds, silk on toast — the version chefs are judged on.",
+        "time": 10,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 3,
+            "u": "egg"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "cream",
+            "pp": 15,
+            "u": "ml"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Beat the eggs with a pinch of salt until just streak-free — no frothing.",
+          "Melt the butter over LOW heat until it barely foams; browned butter means too hot.",
+          "Pour in the eggs and wait for the base to set, then sweep slow, big folds from the edge to the middle.",
+          "When the folds are glossy pillows that still look a touch underdone, take the pan off the heat.",
+          "Stir through the cold cream to stop the cooking, add pepper, and serve immediately on hot buttered toast."
+        ],
+        "tip": "If you can hear the eggs sizzling, the pan is too hot. Silk is cooked in near-silence.",
+        "nutrition": {
+          "kcal": 330,
+          "protein_g": 20,
+          "carbs_g": 2,
+          "fat_g": 27
+        },
+        "storage": "Made to order — does not keep or freeze."
+      },
+      {
+        "name": "Fluffy Diner-Style",
+        "icon": "🥞",
+        "feel": "Big soft billowing curds, done in six minutes — the classic the world grew up on.",
+        "time": 6,
+        "costPP": 12,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 3,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 20,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Beat the eggs hard with the milk and a pinch of salt until slightly frothy — for this style the air is the point.",
+          "Melt the butter over medium heat until foaming, then pour in the eggs.",
+          "Let the base set for 20 seconds, then push long ribbons across the pan with a spatula, letting raw egg flood the gaps.",
+          "Fold the piled ribbons over themselves once or twice; the moment the tops are still shiny but no longer wet, they're done.",
+          "Pepper, plate, eat — carryover heat finishes the last shine."
+        ],
+        "tip": "Milk belongs in this fluffy style, not the creamy one — here the steam it makes is what puffs the curds.",
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 20,
+          "carbs_g": 3,
+          "fat_g": 23
+        },
+        "storage": "Made to order — does not keep or freeze."
+      },
+      {
+        "name": "Cheesy Scramble",
+        "icon": "🧀",
+        "feel": "Molten cheddar ribbons folded through soft eggs — comfort with the dial turned up.",
+        "time": 8,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 3,
+            "u": "egg"
+          },
+          {
+            "n": "cheddar",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "spring onion",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Grate the cheddar and slice the spring onion first — this scramble moves fast at the end.",
+          "Beat the eggs with a small pinch of salt (the cheese carries salt of its own).",
+          "Melt the butter over low-medium heat and cook the eggs in slow folds until they are nearly done but still glossy.",
+          "Off the heat, fold in the cheese so it melts into ribbons in the residual warmth — added earlier it splits oily.",
+          "Scatter the spring onion, grind over pepper and serve straight away."
+        ],
+        "tip": "Cheese goes in OFF the heat — the eggs are hot enough to melt it, and it stays creamy instead of greasy.",
+        "nutrition": {
+          "kcal": 400,
+          "protein_g": 26,
+          "carbs_g": 2,
+          "fat_g": 32
+        },
+        "storage": "Made to order — does not keep or freeze."
+      },
+      {
+        "name": "90-Second Weekday",
+        "icon": "⚡",
+        "feel": "Small firm curds at full speed — honest fast cooking for the mornings that run.",
+        "time": 5,
+        "costPP": 12,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Get the toast in first — this version wins no race if the bread isn't ready.",
+          "Beat the eggs with salt while the butter melts over medium-high heat.",
+          "Pour in and keep the spatula moving the whole time — constant small circles, about 60 to 90 seconds.",
+          "Pull the pan off while the curds still catch the light; even at speed, dry is a choice you don't have to make.",
+          "Pepper, pile onto the toast, out the door."
+        ],
+        "tip": "The trade is honest: smaller, firmer curds instead of silk — but off the heat 10 seconds early keeps even the fast version soft.",
+        "nutrition": {
+          "kcal": 230,
+          "protein_g": 14,
+          "carbs_g": 1,
+          "fat_g": 19
+        },
+        "storage": "Made to order — does not keep or freeze."
+      }
+    ]
+  },
+  {
     "id": "bf-cheese-and-tomato-omelette",
     "cat": "eggs",
     "name": "Cheese & Tomato Omelette",
     "emoji": "🧀",
     "cuisine": "Global",
     "photoName": "Cheese & Tomato Omelette",
-    "time": 10,
+    "time": 12,
     "costPP": 17,
-    "feel": "The everyday omelette that never lets you down.",
-    "didYouKnow": "The plain omelette is famously the dish French chefs are judged on — get it tender and barely coloured and you can cook. The cheese-and-tomato version is South Africa's everyday answer to it: the first filling most of us ever learned to fold.",
+    "feel": "The first omelette most of us ever learned — done the way that makes chefs nod.",
+    "didYouKnow": "The plain omelette is famously the dish young chefs are judged on — tender, pale gold, never browned — because there is nowhere to hide. Cheese and tomato is the filling half the world learned first, and the trick nobody mentions is that a raw tomato is mostly water, and water is the sworn enemy of a tender omelette.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -41,23 +267,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Beat the eggs with salt and pepper.",
-      "Melt the butter in a pan over medium heat and pour in the eggs.",
-      "As the edges set, scatter over the grated cheddar and chopped tomato.",
-      "Fold in half, slide onto a plate and serve."
+      "Halve the tomato, flick out the seeds and jelly, dice the flesh and leave it in a sieve with a whisper of salt. The salt pulls the water out now — instead of inside your omelette — and sweetens the tomato while it's at it.",
+      "Grate the cheddar. Beat the eggs with a pinch of salt and a good grind of pepper until just streak-free — don't whip air in.",
+      "Melt the butter over medium heat until it foams. Foaming butter is your signal; browned butter means the pan is too hot.",
+      "Pour in the eggs. As the edges set, pull them gently towards the middle and tilt the pan so the raw egg runs into the gaps.",
+      "While the top is still soft and shiny, scatter the cheese and drained tomato over one half — the egg's own heat melts the cheese. Wait for the top to set fully and it will be overcooked by the time you fold.",
+      "Fold, count to ten so the cheese finishes melting, and slide it onto the plate."
     ],
-    "tip": "Take it off the heat while the centre is still a touch soft; it carries on cooking.",
+    "tip": "Take it off while the centre still looks a touch underdone — an omelette finishes cooking on the plate.",
     "nutrition": {
       "kcal": 340,
       "protein_g": 22,
       "carbs_g": 4,
       "fat_g": 26
     },
-    "storage": "Best straight from the pan — an omelette turns rubbery if it waits. A 5-minute job, made to order.",
+    "storage": "Best straight from the pan — an omelette turns rubbery if it waits. A 12-minute job, made to order.",
     "goesWith": [
-      "Buttered Toast",
-      "Crispy Bacon",
-      "Fresh Fruit"
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
     "freezes": false,
     "fridgeDays": 0
@@ -69,10 +296,10 @@ var BREAKFAST_RECIPES = [
     "emoji": "🍄",
     "cuisine": "Global",
     "photoName": "Mushroom & Feta Omelette",
-    "time": 12,
-    "costPP": 20,
-    "feel": "Earthy mushrooms and salty feta, folded warm.",
-    "didYouKnow": "Feta is so tied to Greece that it has had protected status in Europe since 2002 — only brined sheep-and-goat's-milk cheese made there may legally be called feta. That brine is also why it needs no extra salt in your eggs.",
+    "time": 15,
+    "costPP": 19,
+    "feel": "Deeply browned mushrooms and creamy feta — the omelette with a secret step.",
+    "didYouKnow": "A mushroom is about ninety percent water, which is why the make-or-break step happens before a single egg is beaten. Cooked hot until that water is driven off, mushrooms turn nutty, meaty and golden; tipped in raw or rushed, they weep into the eggs and the whole omelette goes grey and wet. Brown first — always.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -81,41 +308,42 @@ var BREAKFAST_RECIPES = [
       },
       {
         "n": "mushrooms",
-        "pp": 50,
+        "pp": 80,
         "u": "g"
       },
       {
         "n": "feta",
-        "pp": 25,
+        "pp": 30,
         "u": "g"
       },
       {
         "n": "butter",
-        "pp": 8,
+        "pp": 10,
         "u": "g"
       },
       {
-        "n": "salt & pepper"
+        "n": "black pepper"
       }
     ],
     "method": [
-      "Fry the sliced mushrooms in half the butter until golden, then set aside.",
-      "Beat the eggs, melt the rest of the butter and pour them in.",
-      "As they set, add the mushrooms and crumbled feta over one half.",
-      "Fold over and serve."
+      "Slice the mushrooms and cook them first, in half the butter over high heat. Leave them alone until they stop squeaking and start to brown properly — the hiss you hear is their water leaving, and that's the whole point. Tip them out.",
+      "Beat the eggs with pepper only — no salt. Feta carries enough salt for the entire pan, and salting on top of it is the classic way this omelette goes wrong.",
+      "Melt the rest of the butter over medium heat until foaming, then pour in the eggs.",
+      "As the edges set, pull them to the middle and tilt the pan so raw egg fills the gaps.",
+      "While the top is still glossy, scatter the browned mushrooms over one half and crumble the feta on top — it should soften into creamy pockets, not melt away.",
+      "Fold, give it ten seconds, and slide onto a warm plate with one more grind of pepper."
     ],
-    "tip": "Cook the mushrooms first and dry, so the omelette does not go watery.",
+    "tip": "No salt in these eggs — the feta does that job. Pepper, though, is not optional.",
     "nutrition": {
-      "kcal": 330,
-      "protein_g": 21,
-      "carbs_g": 3,
-      "fat_g": 26
+      "kcal": 350,
+      "protein_g": 23,
+      "carbs_g": 4,
+      "fat_g": 27
     },
-    "storage": "Best the moment it's folded; eggs don't keep or reheat well. Quick enough to make fresh each time.",
+    "storage": "Made to order — an omelette waits for no one. Browned mushrooms, though, keep 3 days in the fridge, so cook extra.",
     "goesWith": [
-      "Crusty Bread",
-      "Green Salad",
-      "Fresh Fruit"
+      "Smashed Avo Toast",
+      "Green Smoothie"
     ],
     "freezes": false,
     "fridgeDays": 0
@@ -128,19 +356,19 @@ var BREAKFAST_RECIPES = [
     "cuisine": "Global",
     "photoName": "Hash Brown Omelette",
     "time": 20,
-    "costPP": 17,
-    "feel": "Crispy potato cooked right into a loaded omelette.",
-    "didYouKnow": "Cook grated potato right into beaten eggs and you're one step from the Spanish tortilla, basically the national dish in a thicker form. The trick to crisp potato is wringing the gratings dry in a cloth first — wet potato steams instead of browning.",
+    "costPP": 15,
+    "feel": "A crackling golden potato crust with soft omelette baked on top — worth every squeeze.",
+    "didYouKnow": "This is a first cousin of the Swiss rösti (flat pan-fried potato cake), and both live or die by the same law: grated potato must be wrung out like washing. It's the water, not the pan, that decides whether you get crisp gold or pale steam — a dry squeeze is worth more than any amount of extra oil.",
     "ingredients": [
+      {
+        "n": "large eggs",
+        "pp": 2,
+        "u": "egg"
+      },
       {
         "n": "potatoes",
         "pp": 120,
         "u": "g"
-      },
-      {
-        "n": "large eggs",
-        "pp": 3,
-        "u": "egg"
       },
       {
         "n": "cheddar",
@@ -148,40 +376,46 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
-        "n": "green pepper",
-        "pp": 30,
+        "n": "spring onion",
+        "pp": 10,
         "u": "g"
       },
       {
         "n": "oil",
-        "pp": 8,
+        "pp": 10,
         "u": "ml"
+      },
+      {
+        "n": "butter",
+        "pp": 5,
+        "u": "g"
       },
       {
         "n": "salt & pepper"
       }
     ],
     "method": [
-      "Grate the potato, squeeze out the water and fry in the oil until golden and crisp.",
-      "Pour the beaten eggs over the potato.",
-      "As they set, add the chopped pepper and grated cheddar to one half.",
-      "Fold over and serve."
+      "Coarsely grate the potato, pile it into a clean tea towel and twist hard over the sink until no more water comes out. This is the step that decides everything — wring it like you mean it.",
+      "Season the dry potato with salt and pepper and toss through the sliced spring onion.",
+      "Heat the oil and butter in a non-stick pan over medium heat, press the potato in as an even layer, and then leave it alone. Moving it breaks the crust before it can form — give it 5 to 6 minutes until the edges are deep gold.",
+      "Beat the eggs with a pinch of salt and pour them evenly over the potato so they seep into the top layer.",
+      "Scatter over the cheddar, drop the heat low and cover with a lid for 3 to 4 minutes — the trapped steam sets the egg while the crust below keeps crisping.",
+      "Slide it out whole, crust side down, and cut into wedges. Listen for the crackle."
     ],
-    "tip": "Squeezing the grated potato dry is what gets you crisp, not soggy.",
+    "tip": "If the potato steams instead of fries, it wasn't dry enough — squeeze longer than feels reasonable.",
     "nutrition": {
       "kcal": 380,
-      "protein_g": 19,
+      "protein_g": 18,
       "carbs_g": 24,
-      "fat_g": 23
+      "fat_g": 24
     },
-    "storage": "Best fresh and hot while the potato is crisp — it softens and the eggs toughen if it stands.",
+    "storage": "Best fresh while the crust crackles; keeps 1 day in the fridge and revives well in a dry pan, but never in a microwave — that undoes the crust you worked for.",
     "goesWith": [
-      "Grilled Tomato",
-      "Crispy Bacon",
-      "Strong Coffee"
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
     "freezes": false,
-    "fridgeDays": 0
+    "fridgeDays": 1
   },
   {
     "id": "bf-masala-scramble",
@@ -192,8 +426,8 @@ var BREAKFAST_RECIPES = [
     "photoName": "Masala Scramble",
     "time": 15,
     "costPP": 12,
-    "feel": "Soft scrambled eggs lifted with onion, chilli and masala.",
-    "didYouKnow": "Akoori is the Parsi spiced scramble of India, carried to South Africa by the community who settled in Natal from the 1860s. The eggs are kept deliberately soft and folded off the heat, so the masala stays bright rather than turning rubbery.",
+    "feel": "Soft buttery curds through a bright, blooming masala — scrambled eggs with the volume turned up.",
+    "didYouKnow": "Akoori (Parsi spiced scrambled eggs) is the pride of India's Parsi community, and its genius is discipline: everything punchy — onion, chilli, spice, tomato — is cooked down FIRST, so the eggs themselves can stay soft and barely cooked. The masala carries the fire; the eggs stay silk. Get that order right and you understand the dish.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -201,8 +435,8 @@ var BREAKFAST_RECIPES = [
         "u": "egg"
       },
       {
-        "n": "onion",
-        "pp": 30,
+        "n": "onions",
+        "pp": 40,
         "u": "g"
       },
       {
@@ -212,42 +446,52 @@ var BREAKFAST_RECIPES = [
       },
       {
         "n": "green chilli",
-        "pp": 5,
+        "pp": 3,
         "u": "g"
       },
       {
-        "n": "oil",
-        "pp": 6,
-        "u": "ml"
+        "n": "curry powder",
+        "pp": 2,
+        "u": "g"
       },
       {
-        "n": "masala"
+        "n": "turmeric",
+        "pp": 1,
+        "u": "g"
       },
       {
-        "n": "fresh coriander"
+        "n": "butter",
+        "pp": 10,
+        "u": "g"
       },
       {
-        "n": "salt"
+        "n": "fresh coriander",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "salt & pepper"
       }
     ],
     "method": [
-      "Soften the chopped onion and chilli in the oil over medium heat.",
-      "Stir in the chopped tomato and a spoon of masala and cook for 2 minutes.",
-      "Pour in the beaten eggs and stir gently until just set.",
-      "Finish with chopped coriander and serve with bread or roti."
+      "Finely chop the onion and cook it in the butter over medium heat until soft and just golden — properly soft. Rushed onion stays crunchy, and raw crunch through soft egg is exactly what akoori isn't.",
+      "Add the chopped chilli, curry powder and turmeric and stir for 30 seconds until the kitchen smells like it means business — blooming the spices in the fat wakes them up; raw spice tastes dusty.",
+      "Add the chopped tomato and cook until it slumps into a soft, jammy base, about 3 minutes.",
+      "Turn the heat LOW. Beat the eggs with salt and pepper, pour them in, and fold slowly through the masala — big lazy sweeps, not stirring.",
+      "The moment the eggs are in soft, glossy folds that still shine, take the pan off the heat — they finish cooking in the residual warmth of the masala.",
+      "Shower with fresh coriander and serve on hot buttered toast. (SA note: even better rolled into a leftover roti.)"
     ],
-    "tip": "Pull it off the heat while still glossy; the eggs firm up as you plate.",
+    "tip": "The masala is cooked on medium; the eggs are cooked on low. Two heats, one pan — that's the whole trick.",
     "nutrition": {
-      "kcal": 260,
-      "protein_g": 17,
-      "carbs_g": 7,
-      "fat_g": 18
+      "kcal": 320,
+      "protein_g": 20,
+      "carbs_g": 6,
+      "fat_g": 24
     },
-    "storage": "Best straight off the heat while soft and creamy; scrambled eggs go dry and rubbery on standing.",
+    "storage": "Best straight off the heat while soft. The masala base alone keeps 3 days in the fridge — make double and tomorrow's akoori takes 5 minutes.",
     "goesWith": [
-      "Toasted Roti",
-      "Buttered Toast",
-      "Rooibos Tea"
+      "Tropical Fruit Plate",
+      "Green Smoothie"
     ],
     "freezes": false,
     "fridgeDays": 0
@@ -259,10 +503,10 @@ var BREAKFAST_RECIPES = [
     "emoji": "☁️",
     "cuisine": "Global",
     "photoName": "Cloud Eggs",
-    "time": 12,
-    "costPP": 9,
-    "feel": "Whipped egg-white clouds with a sunny yolk nested in.",
-    "didYouKnow": "Cloud eggs went viral around 2017, but the trick is far older — French cooks were baking whipped whites with a yolk dropped in as 'oeufs a la neige', eggs in snow, back in the 1800s. Whisking the whites is pure meringue science: you beat air into the protein so it sets light and billowy instead of flat.",
+    "time": 15,
+    "costPP": 8,
+    "feel": "A golden cloud of whipped white with a molten yolk sunk in its crater — breakfast theatre from two eggs.",
+    "didYouKnow": "Social media made cloud eggs famous, but French cooks were baking 'eggs in snow' as far back as the 1600s. The science is a meringue's: whipped egg white is a foam of air held by protein, and a single speck of yolk — which is mostly fat — collapses the whole structure. That's why the separating step is done slowly, like it matters. It does.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -270,8 +514,13 @@ var BREAKFAST_RECIPES = [
         "u": "egg"
       },
       {
-        "n": "cheddar",
-        "pp": 15,
+        "n": "parmesan",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "chives",
+        "pp": 2,
         "u": "g"
       },
       {
@@ -279,23 +528,24 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Separate the eggs, keeping the yolks whole.",
-      "Whisk the whites with a pinch of salt to stiff peaks and fold in the grated cheddar.",
-      "Spoon into clouds on a lined tray and bake at 230°C for 3 minutes.",
-      "Make a dip in each, slip in a yolk and bake 3 minutes more."
+      "Heat the oven to 200°C and line a tray with baking paper.",
+      "Separate the eggs one at a time over a small bowl first, keeping each yolk whole in its half-shell — one drop of yolk in the whites and they will never whip. Fat is the enemy of foam.",
+      "Whisk the whites with a pinch of salt to stiff peaks: the foam should stand up straight when you lift the whisk. A spotlessly clean, dry bowl gets you there twice as fast.",
+      "Fold in the grated parmesan gently, then spoon two tall mounds onto the tray and press a deep crater into each with the back of the spoon.",
+      "Bake for 3 minutes until the clouds are just turning gold, then slide a yolk into each crater and bake 3 minutes more — the yolk goes in late so it stays molten.",
+      "Scatter with chives and pepper and serve on toast, immediately, while the drama holds."
     ],
-    "tip": "Watch them closely; the whites colour fast at high heat.",
+    "tip": "Separate each egg over its own small bowl before adding the white to the mixing bowl — one broken yolk then costs you one egg, not the whole batch.",
     "nutrition": {
-      "kcal": 180,
-      "protein_g": 14,
+      "kcal": 200,
+      "protein_g": 16,
       "carbs_g": 1,
-      "fat_g": 13
+      "fat_g": 14
     },
-    "storage": "Best straight from the oven — the whipped whites deflate as they cool, so these don't keep or reheat.",
+    "storage": "A cloud lasts minutes, not hours — this one is pure make-and-eat. No fridge, no freezer, no mercy.",
     "goesWith": [
-      "Buttered Toast",
-      "Fresh Fruit",
-      "Berry Smoothie"
+      "Smashed Avo Toast",
+      "Berry Banana Smoothie"
     ],
     "freezes": false,
     "fridgeDays": 0
@@ -313,9 +563,9 @@ var BREAKFAST_RECIPES = [
     "costPP": 18,
     "feel": "Bacon, potato and melted cheddar in a fat golden wedge — Sunday in a pan.",
     "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit",
-      "Berry Smoothie"
+      "Smashed Avo Toast",
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "Frittata comes from the Italian \"fritto\", to fry — but unlike an omelette it is never folded. The eggs and fillings cook slowly together, then the top is set under a grill, so it slices into wedges like a savoury cake. It began as a thrifty way to use up whatever was in the kitchen, which is exactly why almost anything works in one.",
     "ingredients": [
@@ -675,9 +925,8 @@ var BREAKFAST_RECIPES = [
     "costPP": 16,
     "feel": "All the joy of an omelette with none of the flipping — the iron does the work.",
     "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit",
-      "Berry Smoothie"
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
     "didYouKnow": "A waffle iron is really just two hot, patterned plates — which is why it cooks almost anything pourable, not only batter. Beaten egg sets into those pockets with crisp, lacy edges and a fluffy middle, and because both sides cook at once there is no flip and no fold to go wrong. It is one of the highest-protein ways to start the day on a single appliance.",
     "ingredients": [
@@ -744,8 +993,8 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 1,
     "feel": "Smoky Cape snoek folded through soft, buttery eggs — the sea at breakfast.",
     "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
+      "Smashed Avo Toast",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "Snoek is a long, fierce Cape fish, traditionally hot-smoked over wood until the flesh turns golden and flakes into smoky shards. A jar or vacuum-pack of smoked snoek is a Cape pantry staple, and folding it through scrambled eggs is one of the oldest, simplest ways to stretch a little of it into a whole breakfast.",
     "ingredients": [
@@ -806,16 +1055,12 @@ var BREAKFAST_RECIPES = [
     "emoji": "🫘",
     "cuisine": "South African",
     "photoName": "Chakalaka Baked Eggs",
-    "time": 18,
-    "costPP": 14,
     "freezes": false,
     "fridgeDays": 3,
-    "feel": "A proper South African shakshuka — eggs baked into spicy chakalaka, scooped up with bread.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
-    "didYouKnow": "Chakalaka was born in the townships and mine hostels around Johannesburg, a fiery cook-up of onion, pepper, chilli and curry spice built to make plain food sing. Cracking eggs straight into a bubbling pan of it turns a relish into a whole meal — South Africa's answer to shakshuka.",
+    "time": 18,
+    "costPP": 14,
+    "feel": "Eggs baked into a bubbling pan of spicy chakalaka — South Africa's answer to shakshuka, tin to table in 18 minutes.",
+    "didYouKnow": "Chakalaka was born in the townships and mine hostels around Johannesburg — a fiery cook-up of onion, pepper, chilli and curry spice built to make plain food sing. Cracking eggs straight into a bubbling pan of it turns a relish into a whole meal, and the humble tin means this is the fastest 'slow-cooked' breakfast in the book.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -855,20 +1100,162 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Soften the chopped onion in the oil in an oven-safe pan, then add the chopped tomato and cook to a thick base.",
-      "Stir in the chakalaka with a splash of water and bring to a gentle bubble.",
-      "Make wells in the sauce and crack in the eggs.",
-      "Cover and cook on low (or in a 180°C oven) until the whites set but the yolks stay soft, about 6 to 8 minutes.",
-      "Scatter with grated cheddar and coriander, and serve from the pan with bread to dip."
+      "Soften the chopped onion in the oil in a pan you can cover, then add the chopped tomato and cook it down until thick and jammy — the fresh tomato loosens the tin and makes it taste like it simmered all morning.",
+      "Stir in the chakalaka and bring to a lazy bubble. The base must be thick enough to hold a well; if it's soupy, give it 2 more minutes uncovered.",
+      "Make deep wells with the back of a spoon and crack an egg into each — into a cup first if you don't trust the shell.",
+      "Lid on, heat LOW, 6 to 8 minutes: whites set, yolks soft and shining. Low heat is the difference between silky yolks and boiled ones.",
+      "Scatter the cheddar over so it melts in the trapped steam, shower with coriander, and bring the pan to the table with bread — or a scoop of pap — for the mopping."
     ],
-    "tip": "Keep the heat low once the eggs are in, so the yolks stay soft while the whites set.",
+    "tip": "Mild, hot or extra-hot tin — the recipe doesn't change, only your morning does.",
     "nutrition": {
-      "kcal": 260,
-      "protein_g": 15,
+      "kcal": 280,
+      "protein_g": 16,
       "carbs_g": 18,
-      "fat_g": 14
+      "fat_g": 15
     },
-    "storage": "Best eaten fresh from the pan. The chakalaka base keeps 3 days in the fridge and freezes well on its own — add fresh eggs each time. Cooked eggs do not freeze."
+    "storage": "Best from the pan. The chakalaka base keeps 3 days in the fridge and freezes well on its own — always crack fresh eggs into it. Cooked eggs don't freeze.",
+    "goesWith": [
+      "Putu Pap",
+      "Smashed Avo Toast"
+    ],
+    "versions": [
+      {
+        "name": "Weekday Tin Magic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "A tin, an onion, two eggs — the honest 18-minute hero.",
+        "time": 18,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "chakalaka",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "oil",
+            "pp": 6,
+            "u": "ml"
+          },
+          {
+            "n": "fresh coriander"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Soften the chopped onion in the oil in a pan you can cover, then add the chopped tomato and cook it down until thick and jammy — the fresh tomato loosens the tin and makes it taste like it simmered all morning.",
+          "Stir in the chakalaka and bring to a lazy bubble. The base must be thick enough to hold a well; if it's soupy, give it 2 more minutes uncovered.",
+          "Make deep wells with the back of a spoon and crack an egg into each — into a cup first if you don't trust the shell.",
+          "Lid on, heat LOW, 6 to 8 minutes: whites set, yolks soft and shining. Low heat is the difference between silky yolks and boiled ones.",
+          "Scatter the cheddar over so it melts in the trapped steam, shower with coriander, and bring the pan to the table with bread — or a scoop of pap — for the mopping."
+        ],
+        "tip": "Mild, hot or extra-hot tin — the recipe doesn't change, only your morning does.",
+        "nutrition": {
+          "kcal": 280,
+          "protein_g": 16,
+          "carbs_g": 18,
+          "fat_g": 15
+        },
+        "storage": "Base keeps 3 days in the fridge; eggs always fresh."
+      },
+      {
+        "name": "From-Scratch Chakalaka",
+        "icon": "🇿🇦",
+        "feel": "Build the chakalaka yourself — grated carrot, curry spice and baked beans, the weekend way.",
+        "time": 35,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "carrots",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "green pepper",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 1,
+            "u": "clove"
+          },
+          {
+            "n": "curry powder",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "baked beans",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "fresh coriander"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Soften the chopped onion and green pepper in the oil, then bloom the garlic and curry powder for 30 seconds until the kitchen announces it.",
+          "Add the coarsely grated carrot and cook 5 minutes — grated, not chopped, is what gives chakalaka its signature tangle.",
+          "Add the tinned tomatoes and simmer 10 minutes until thick, then fold in the baked beans, sauce and all, and season.",
+          "Wells, eggs, lid, low heat — 6 to 8 minutes until the whites set over soft yolks.",
+          "Coriander over the top and straight to the table. (Make double base — tomorrow it's a braai relish.)"
+        ],
+        "tip": "The carrot must be grated coarse and cooked till just tender — mushy carrot is where homemade chakalaka goes wrong.",
+        "nutrition": {
+          "kcal": 330,
+          "protein_g": 18,
+          "carbs_g": 26,
+          "fat_g": 16
+        },
+        "storage": "The scratch base keeps 4 days in the fridge and freezes 2 months — it only gets better overnight."
+      }
+    ]
   },
   {
     "id": "bf-turkish-eggs",
@@ -877,16 +1264,12 @@ var BREAKFAST_RECIPES = [
     "emoji": "🥚",
     "cuisine": "Turkish",
     "photoName": "Turkish Eggs",
-    "time": 15,
-    "costPP": 15,
     "freezes": false,
     "fridgeDays": 1,
-    "feel": "Soft poached eggs on cool garlicky yoghurt under a pool of warm chilli butter — try it once and you crave it.",
-    "goesWith": [
-      "Toast Toppers",
-      "Fresh Fruit"
-    ],
-    "didYouKnow": "Known as cilbir, this is one of the oldest recorded egg dishes — it was served in the Ottoman palace kitchens of the 15th century. The magic is the contrast: cool, tangy garlic yoghurt against hot poached eggs and nutty, spiced butter.",
+    "time": 15,
+    "costPP": 15,
+    "feel": "Soft poached eggs on cool garlic yoghurt under a slow pour of nutty paprika butter — çılbır, and one taste explains five centuries.",
+    "didYouKnow": "Çılbır (poached eggs on garlic yoghurt) is one of the oldest recorded egg dishes — it was served to Ottoman sultans in the palace kitchens of the 15th century. Its genius is a three-temperature game: cool tangy yoghurt, hot molten yolk, warm spiced butter — which is why the yoghurt must be at room temperature, never straight from the fridge.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -924,20 +1307,140 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Stir the crushed garlic and a pinch of salt into the yoghurt and spread it over a plate — room-temperature yoghurt is nicest.",
-      "Bring a pot of water to a gentle simmer with a splash of vinegar, and poach the eggs for about 3 minutes for soft yolks.",
-      "Melt the butter until it foams and smells nutty, then stir in the paprika off the heat.",
-      "Sit the drained poached eggs on the garlicky yoghurt.",
-      "Spoon the warm spiced butter over, scatter with dill, and serve with bread."
+      "Take the yoghurt out of the fridge first. Stir in the crushed garlic and a pinch of salt and spread it thickly over a plate — room-temperature yoghurt against hot eggs is the whole point of the dish; fridge-cold kills the contrast.",
+      "Bring a pot of water to a bare simmer — lazy bubbles, never a boil — with the splash of vinegar.",
+      "Crack each egg into a cup, stir the water into a gentle whirlpool, and slide the eggs in one at a time. Poach about 3 minutes for set whites and molten yolks, then lift out onto kitchen paper to drain.",
+      "Melt the butter in a small pan until it foams, goes quiet and smells nutty — then OFF the heat, stir in the paprika. Paprika burns bitter in seconds; the residual heat blooms it perfectly.",
+      "Sit the eggs on the garlic yoghurt, pour the crimson butter over in a slow circle, and shower with dill.",
+      "Serve with bread — the ritual is dragging each bite through yolk, warm butter and cool yoghurt in one sweep."
     ],
-    "tip": "Take the yoghurt out early — room-temperature yoghurt against hot eggs is the whole point.",
+    "tip": "Paprika goes into the butter OFF the heat — in a hot pan it scorches bitter in seconds; in resting butter it blooms sweet and crimson.",
     "nutrition": {
       "kcal": 320,
       "protein_g": 18,
       "carbs_g": 8,
       "fat_g": 24
     },
-    "storage": "Best assembled fresh. The garlicky yoghurt keeps 2 days in the fridge — poach the eggs to order. Not for freezing."
+    "storage": "Assembled fresh, always. The garlic yoghurt keeps 2 days in the fridge (bring it back to room temperature before serving) — eggs poached to order. Not for freezing.",
+    "goesWith": [
+      "Smashed Avo Toast",
+      "Tropical Fruit Plate"
+    ],
+    "versions": [
+      {
+        "name": "Poached Classic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "The Ottoman original — poached eggs, garlic yoghurt, paprika butter.",
+        "time": 15,
+        "costPP": 15,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "plain yoghurt",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 0.5,
+            "u": "clove"
+          },
+          {
+            "n": "butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "paprika"
+          },
+          {
+            "n": "white vinegar",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "fresh dill"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Take the yoghurt out of the fridge first. Stir in the crushed garlic and a pinch of salt and spread it thickly over a plate — room-temperature yoghurt against hot eggs is the whole point of the dish; fridge-cold kills the contrast.",
+          "Bring a pot of water to a bare simmer — lazy bubbles, never a boil — with the splash of vinegar.",
+          "Crack each egg into a cup, stir the water into a gentle whirlpool, and slide the eggs in one at a time. Poach about 3 minutes for set whites and molten yolks, then lift out onto kitchen paper to drain.",
+          "Melt the butter in a small pan until it foams, goes quiet and smells nutty — then OFF the heat, stir in the paprika. Paprika burns bitter in seconds; the residual heat blooms it perfectly.",
+          "Sit the eggs on the garlic yoghurt, pour the crimson butter over in a slow circle, and shower with dill.",
+          "Serve with bread — the ritual is dragging each bite through yolk, warm butter and cool yoghurt in one sweep."
+        ],
+        "tip": "Paprika goes into the butter OFF the heat — hot pans scorch it bitter in seconds.",
+        "nutrition": {
+          "kcal": 320,
+          "protein_g": 18,
+          "carbs_g": 8,
+          "fat_g": 24
+        },
+        "storage": "Assembled fresh; garlic yoghurt keeps 2 days, eggs to order."
+      },
+      {
+        "name": "Simple Fried-Egg",
+        "icon": "🍳",
+        "feel": "All the çılbır magic, zero poaching nerves — a lacy-edged fried egg does the job beautifully.",
+        "time": 10,
+        "costPP": 15,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "plain yoghurt",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 0.5,
+            "u": "clove"
+          },
+          {
+            "n": "butter",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "paprika"
+          },
+          {
+            "n": "fresh dill"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Room-temperature yoghurt, garlic and a pinch of salt onto the plate first — this rule survives every shortcut.",
+          "Fry the eggs in half the butter over medium heat until the whites are set with lacy golden edges and the yolks still tremble.",
+          "Slide the eggs onto the yoghurt.",
+          "Add the rest of the butter to the same pan, let it foam and smell nutty, then off the heat stir in the paprika and pour it over.",
+          "Dill, bread, and nobody at the table will ask where the poaching went."
+        ],
+        "tip": "If poaching has ever put you off this dish, this is your on-ramp — the three-temperature magic works exactly the same.",
+        "nutrition": {
+          "kcal": 340,
+          "protein_g": 18,
+          "carbs_g": 8,
+          "fat_g": 27
+        },
+        "storage": "Assembled fresh; garlic yoghurt keeps 2 days in the fridge."
+      }
+    ]
   },
   {
     "id": "bf-shakshuka",
@@ -945,9 +1448,13 @@ var BREAKFAST_RECIPES = [
     "name": "Shakshuka",
     "emoji": "🍅",
     "cuisine": "North African / Middle Eastern",
-    "time": 25,
-    "costPP": 24,
-    "feel": "Eggs poached in a bubbling, spiced tomato hug.",
+    "photoName": "Shakshuka",
+    "freezes": true,
+    "fridgeDays": 3,
+    "time": 30,
+    "costPP": 26,
+    "feel": "Eggs poached right in a thick, smoky pepper-tomato sauce — one pan, straight to the table.",
+    "didYouKnow": "Shakshuka means 'a mixture' in North African Arabic and most likely began in Tunisia before conquering breakfast tables across the Middle East and far beyond. Poaching the eggs straight in the sauce, rather than in water, lets them drink up the smoky paprika and cumin — and the unwritten law is that the sauce must be thick enough to hold a well before a single egg goes in.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -970,6 +1477,11 @@ var BREAKFAST_RECIPES = [
         "u": "g"
       },
       {
+        "n": "garlic",
+        "pp": 1,
+        "u": "clove"
+      },
+      {
         "n": "tomato paste",
         "pp": 15,
         "u": "g"
@@ -980,32 +1492,345 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
+        "n": "feta",
+        "pp": 20,
+        "u": "g"
+      },
+      {
         "n": "paprika & cumin"
+      },
+      {
+        "n": "salt & pepper"
       }
     ],
     "method": [
-      "Soften the chopped onion and pepper in olive oil over medium heat, about 5 minutes.",
-      "Stir in the tomato paste, paprika and cumin, then add the chopped tomatoes. Simmer 10 minutes until thick.",
-      "Make wells in the sauce and crack in the eggs. Cover and cook until the whites set but the yolks stay soft.",
-      "Serve straight from the pan with bread for dipping."
+      "Soften the sliced onion and red pepper in the olive oil over medium heat until sweet and starting to catch colour at the edges, 6 to 8 minutes — those browned edges are flavour you can't add later.",
+      "Push everything aside and fry the tomato paste, crushed garlic, paprika and cumin in the cleared spot for 30 seconds until dark and fragrant. Blooming the spices in the oil is what separates a shakshuka from tomato soup with eggs in it.",
+      "Add the chopped tomatoes with salt and a grind of pepper and simmer, uncovered, about 10 minutes until THICK — drag a spoon through and the trail should hold. A watery sauce boils the eggs instead of cradling them; this is the make-or-break.",
+      "Crack each egg into a cup first, make deep wells in the sauce with the spoon, and slide the eggs in.",
+      "Lid on, heat LOW, 6 to 8 minutes: whites set, yolks soft. Peek, don't stir.",
+      "Crumble the feta over, one more grind of pepper, and bring the whole pan to the table with bread for dipping — shakshuka is served, never plated."
     ],
-    "tip": "A handful of crumbled feta over the top just before serving is never a mistake.",
+    "tip": "The spoon-trail test: drag a spoon across the pan — if the trail fills with liquid, keep simmering before the eggs go in.",
     "nutrition": {
-      "kcal": 310,
-      "protein_g": 16,
+      "kcal": 340,
+      "protein_g": 18,
       "carbs_g": 18,
-      "fat_g": 20
+      "fat_g": 23
     },
-    "storage": "Sauce keeps 3 days; add fresh eggs when reheating.",
-    "photoName": "Shakshuka",
-    "didYouKnow": "Shakshuka means 'a mixture' in North African Arabic and most likely began in Tunisia before spreading across the Middle East. Poaching the eggs straight in the sauce, rather than in water, lets them drink up all the smoky paprika and cumin — and leaves you one less pot to wash.",
+    "storage": "The sauce keeps 3 days in the fridge and freezes beautifully for 2 months — always add fresh eggs when reheating. Cooked eggs don't freeze.",
     "goesWith": [
-      "Crusty Bread",
       "Smashed Avo Toast",
-      "Strong Coffee"
+      "Green Smoothie"
     ],
-    "freezes": true,
-    "fridgeDays": 3
+    "versions": [
+      {
+        "name": "Charred & Feta",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Caught-edged peppers, bloomed spices and creamy feta — the shakshuka that earns its reputation.",
+        "time": 30,
+        "costPP": 26,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "red pepper",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 1,
+            "u": "clove"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "feta",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "paprika & cumin"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Soften the sliced onion and red pepper in the olive oil over medium heat until sweet and starting to catch colour at the edges, 6 to 8 minutes — those browned edges are flavour you can't add later.",
+          "Push everything aside and fry the tomato paste, crushed garlic, paprika and cumin in the cleared spot for 30 seconds until dark and fragrant. Blooming the spices in the oil is what separates a shakshuka from tomato soup with eggs in it.",
+          "Add the chopped tomatoes with salt and a grind of pepper and simmer, uncovered, about 10 minutes until THICK — drag a spoon through and the trail should hold. A watery sauce boils the eggs instead of cradling them; this is the make-or-break.",
+          "Crack each egg into a cup first, make deep wells in the sauce with the spoon, and slide the eggs in.",
+          "Lid on, heat LOW, 6 to 8 minutes: whites set, yolks soft. Peek, don't stir.",
+          "Crumble the feta over, one more grind of pepper, and bring the whole pan to the table with bread for dipping — shakshuka is served, never plated."
+        ],
+        "tip": "The spoon-trail test: drag a spoon across the pan — if the trail fills with liquid, keep simmering before the eggs go in.",
+        "nutrition": {
+          "kcal": 340,
+          "protein_g": 18,
+          "carbs_g": 18,
+          "fat_g": 23
+        },
+        "storage": "Sauce keeps 3 days in the fridge, freezes 2 months; add fresh eggs when reheating."
+      },
+      {
+        "name": "Classic Tunisian",
+        "icon": "🇹🇳",
+        "feel": "The original, stripped to its essentials — tomato, pepper, paprika, egg.",
+        "time": 25,
+        "costPP": 22,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "red pepper",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "paprika & cumin"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Soften the chopped onion and pepper in the olive oil over medium heat, about 5 minutes.",
+          "Stir in the paprika and cumin for 30 seconds, then add the chopped tomatoes and a pinch of salt.",
+          "Simmer uncovered about 10 minutes until the sauce is thick enough to hold a well.",
+          "Crack the eggs into wells, cover, and cook on low until the whites set and the yolks stay soft, 6 to 8 minutes.",
+          "Serve straight from the pan with bread for dipping."
+        ],
+        "tip": "A handful of crumbled feta over the top just before serving is never a mistake.",
+        "nutrition": {
+          "kcal": 310,
+          "protein_g": 16,
+          "carbs_g": 18,
+          "fat_g": 20
+        },
+        "storage": "Sauce keeps 3 days; add fresh eggs when reheating."
+      },
+      {
+        "name": "Budget Tinned-Tomato",
+        "icon": "💰",
+        "feel": "A tin of tomatoes and an onion doing the work of a market stall — no shame, all flavour.",
+        "time": 22,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 1,
+            "u": "clove"
+          },
+          {
+            "n": "oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "paprika & cumin"
+          },
+          {
+            "n": "sugar",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Soften the chopped onion in the oil until golden — with no pepper in this version, the onion carries the sweetness, so give it time.",
+          "Bloom the garlic, paprika and cumin for 30 seconds in the oil.",
+          "Add the tinned tomatoes, the pinch of sugar (it tames the tin's acidity) and salt; simmer 10 minutes until thick.",
+          "Wells, eggs, lid, low heat — 6 to 8 minutes until the whites set.",
+          "Pepper over the top and serve with whatever bread the house has."
+        ],
+        "tip": "Tinned tomatoes are more acidic than fresh — the pinch of sugar isn't cheating, it's balance.",
+        "nutrition": {
+          "kcal": 290,
+          "protein_g": 15,
+          "carbs_g": 19,
+          "fat_g": 17
+        },
+        "storage": "Sauce keeps 3 days in the fridge and freezes 2 months; eggs always fresh."
+      },
+      {
+        "name": "15-Minute Weeknight",
+        "icon": "⚡",
+        "feel": "Tomato paste and a hot pan sprinting to the same finish line — real shakshuka on a school night.",
+        "time": 15,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tinned tomatoes",
+            "pp": 150,
+            "u": "g"
+          },
+          {
+            "n": "tomato paste",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 1,
+            "u": "clove"
+          },
+          {
+            "n": "oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "paprika & cumin"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Fry the tomato paste, crushed garlic, paprika and cumin in hot oil for a full minute — the paste is pre-concentrated tomato, so this step buys back the simmering time you're skipping.",
+          "Add the tinned tomatoes and a pinch of salt; boil hard, uncovered, 5 minutes until thick. High heat is the shortcut, not shortcuts.",
+          "Wells, eggs, lid on, heat down — 6 minutes.",
+          "Pepper, pan to the table, done in a quarter hour."
+        ],
+        "tip": "Frying the tomato paste dark is the whole trick — pale paste tastes tinny, fried paste tastes like it simmered an hour.",
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 15,
+          "carbs_g": 18,
+          "fat_g": 19
+        },
+        "storage": "Best fresh; sauce keeps 3 days if you somehow have leftovers."
+      },
+      {
+        "name": "Green Shakshuka",
+        "icon": "🌿",
+        "feel": "Spinach, baby marrow and feta standing in for the tomatoes — the fresher, greener sister.",
+        "time": 25,
+        "costPP": 22,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 100,
+            "u": "g"
+          },
+          {
+            "n": "baby marrow",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 1,
+            "u": "clove"
+          },
+          {
+            "n": "olive oil",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "feta",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "cumin"
+          },
+          {
+            "n": "black pepper"
+          }
+        ],
+        "method": [
+          "Soften the chopped onion in the olive oil, then add the grated baby marrow and cook until its water is gone and it starts to catch — wet marrow makes a watery pan, and greens can't hold an egg-well any other way.",
+          "Add the garlic and cumin for 30 seconds, then the spinach in handfuls, wilting each before the next.",
+          "Cook until the greens are thick and almost dry in the pan — the same spoon-trail rule as the red version.",
+          "Wells, eggs, lid, low heat, 6 to 8 minutes.",
+          "Crumble the feta over — it brings the salt, so none was added — and finish with plenty of black pepper."
+        ],
+        "tip": "No added salt in this one: feta is the seasoning. Cook the greens drier than looks right — they relax with the eggs' steam.",
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 18,
+          "carbs_g": 8,
+          "fat_g": 23
+        },
+        "storage": "Best fresh — wilted greens don't reheat gracefully. Not for freezing."
+      }
+    ]
   },
   {
     "id": "bf-egg-wrap",
@@ -1013,9 +1838,13 @@ var BREAKFAST_RECIPES = [
     "name": "Breakfast Egg Wrap",
     "emoji": "🌯",
     "cuisine": "Global",
+    "photoName": "Breakfast Egg Wrap",
+    "freezes": false,
+    "fridgeDays": 0,
     "time": 12,
     "costPP": 18,
-    "feel": "A whole fry-up, rolled up and running out the door.",
+    "feel": "Soft eggs sealed in a cheese-glued, seam-seared wrap — a whole breakfast built for one hand.",
+    "didYouKnow": "The flour tortilla was built for exactly this job — sturdy enough to hold a hot filling and eat on the move. The professionals' trick is using melted cheese as mortar: laid on the tortilla first, it glues the wrap shut and waterproofs the bread against the filling, which is why a good egg wrap survives a commute and a bad one doesn't.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -1047,28 +1876,191 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Scramble the eggs softly in butter, seasoning as you go.",
-      "Warm the tortilla in a dry pan for a few seconds.",
-      "Pile the eggs down the middle, top with grated cheddar and chopped tomato.",
-      "Roll up tightly, slice in half and go."
+      "Halve the tomato, flick out the seeds and dice the flesh — seeded tomato is what keeps this wrap from going soggy by the school gate.",
+      "Scramble the eggs softly in the butter with salt and pepper, pulling them off while still glossy — they finish cooking inside the wrap.",
+      "Lay the tortilla in the empty warm pan, scatter the cheddar straight onto it and let it melt for 30 seconds — melted cheese is the glue AND the waterproofing between bread and filling.",
+      "Pile the eggs and tomato down the middle of the cheesy tortilla.",
+      "Fold the ends in, roll tight, and press the wrap seam-side down in the pan for 30 seconds — the seared seam locks it shut and adds a golden crunch.",
+      "Slice on the angle and go. (Running late? Foil keeps it warm and holds it together one-handed.)"
     ],
-    "tip": "Wrap it in foil to keep it warm and hold it together on the road.",
+    "tip": "Seam-side down in the hot pan for 30 seconds — a seared seam never unrolls in your hand.",
     "nutrition": {
-      "kcal": 390,
+      "kcal": 400,
       "protein_g": 21,
       "carbs_g": 26,
-      "fat_g": 22
+      "fat_g": 23
     },
-    "storage": "Best warm and fresh; the egg makes it soggy if it sits. Wrap in foil to eat on the run.",
-    "photoName": "Breakfast Egg Wrap",
-    "didYouKnow": "The flour tortilla was built for exactly this job — sturdy enough to hold a hot filling and eat one-handed on the move. Folding the egg around everything while it's still wet in the pan glues the whole wrap shut, so nothing escapes on the school run.",
+    "storage": "Built to eat warm within the hour — the egg turns it soggy if it sits. Not one for the fridge or freezer; it's a 12-minute make-and-go.",
     "goesWith": [
-      "Fresh Fruit",
-      "Berry Smoothie",
-      "Strong Coffee"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Cheese & Tomato Classic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "The cheese-glued original — soft eggs, seeded tomato, seared seam.",
+        "time": 12,
+        "costPP": 18,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tortilla wrap",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "cheddar",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Halve the tomato, flick out the seeds and dice the flesh — seeded tomato is what keeps this wrap from going soggy by the school gate.",
+          "Scramble the eggs softly in the butter with salt and pepper, pulling them off while still glossy — they finish cooking inside the wrap.",
+          "Lay the tortilla in the empty warm pan, scatter the cheddar straight onto it and let it melt for 30 seconds — melted cheese is the glue AND the waterproofing between bread and filling.",
+          "Pile the eggs and tomato down the middle of the cheesy tortilla.",
+          "Fold the ends in, roll tight, and press the wrap seam-side down in the pan for 30 seconds — the seared seam locks it shut and adds a golden crunch.",
+          "Slice on the angle and go. (Running late? Foil keeps it warm and holds it together one-handed.)"
+        ],
+        "tip": "Seam-side down for 30 seconds — a seared seam never unrolls.",
+        "nutrition": {
+          "kcal": 400,
+          "protein_g": 21,
+          "carbs_g": 26,
+          "fat_g": 23
+        },
+        "storage": "Eat warm within the hour; not for the fridge."
+      },
+      {
+        "name": "Crispy Bacon",
+        "icon": "🥓",
+        "feel": "Shattering bacon through soft eggs — the wrap worth setting the alarm for.",
+        "time": 15,
+        "costPP": 24,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tortilla wrap",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Fry the bacon in the dry pan until properly crisp — floppy bacon disappears in a wrap; crisp bacon announces itself in every bite. Set it aside on paper.",
+          "Scramble the eggs softly in the butter in the same pan, using the bacon fat left behind — that's free flavour.",
+          "Warm the tortilla in the pan, melt the cheddar onto it, then pile on the eggs and snap the bacon over the top.",
+          "Ends in, roll tight, sear the seam 30 seconds, slice and go."
+        ],
+        "tip": "Crisp the bacon harder than you would for a plate — inside a warm wrap it softens one notch.",
+        "nutrition": {
+          "kcal": 470,
+          "protein_g": 26,
+          "carbs_g": 25,
+          "fat_g": 30
+        },
+        "storage": "Eat warm and fresh — this one doesn't wait either."
+      },
+      {
+        "name": "Green Avo & Beans",
+        "icon": "🌿",
+        "feel": "Creamy avo, smoky beans and soft egg — the meat-free wrap that skips nothing.",
+        "time": 12,
+        "costPP": 19,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tortilla wrap",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "avocado",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "baked beans",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "paprika"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Warm the baked beans with a pinch of paprika until thick — loose beans are the enemy of a rolled wrap, so cook off the extra sauce.",
+          "Scramble the eggs softly in the butter and mash the avocado with salt and pepper.",
+          "Melt the cheddar onto the warmed tortilla, then layer: avo first (it's the second moisture barrier), eggs, thick beans.",
+          "Ends in, roll tight, sear the seam, slice on the angle."
+        ],
+        "tip": "Avo goes directly on the cheese layer — stacked wet-on-dry is how a full wrap stays crisp to the last bite.",
+        "nutrition": {
+          "kcal": 450,
+          "protein_g": 21,
+          "carbs_g": 32,
+          "fat_g": 27
+        },
+        "storage": "Best straight away — avo browns and beans soften the wrap on standing."
+      }
+    ]
   },
   {
     "id": "bf-bacon-and-eggs",
@@ -1079,8 +2071,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Bacon & Eggs",
     "time": 15,
     "costPP": 26,
-    "feel": "The smell that pulls everyone out of bed.",
-    "didYouKnow": "The big bacon-and-eggs breakfast isn't ancient tradition — it was popularised in 1920s America by a public-relations man, Edward Bernays, hired to sell more bacon. He got doctors to endorse a 'hearty' start to the day, and the pairing stuck worldwide.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "The smell that pulls the whole house out of bed — and one cold-pan trick that makes the bacon flat, even and shatter-crisp.",
+    "didYouKnow": "The big bacon-and-eggs breakfast isn't ancient tradition — it was popularised in 1920s America by a public-relations man, Edward Bernays, hired to sell more bacon. He got thousands of doctors to endorse a 'hearty' start to the day, and the pairing stuck worldwide. The cooking secret is older and simpler: fat renders out of bacon slowly, so a cold start beats a hot one every time.",
     "ingredients": [
       {
         "n": "large eggs",
@@ -1112,26 +2106,186 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Fry the bacon in a dry pan over medium heat until crisp, then set aside on paper towel.",
-      "Halve the tomatoes and fry cut-side down in the bacon fat until soft and caramelised.",
-      "Fry the eggs to your liking in the same pan.",
-      "Toast and butter the bread, plate everything together, season and serve hot."
+      "Lay the bacon in a COLD dry pan, then turn the heat to medium. As the pan warms, the fat melts out before the meat seizes — that is why the rashers stay flat and go evenly crisp instead of curling and chewing.",
+      "Turn now and then until deep gold, then lift onto paper towel. Leave every drop of that bacon fat in the pan — it is your cooking fat and half your flavour.",
+      "Fry the halved tomatoes cut-side down in the bacon fat until soft, jammy and caramelised at the edges. Season them in the pan.",
+      "Eggs last, straight into the same fat over medium-low. For diner-style tops, tilt the pan and spoon the hot fat over the whites until they set glossy — no flipping needed.",
+      "Toast and butter the bread while the eggs finish. Plate the lot, season the eggs, and eat while the yolks are still lava."
     ],
-    "tip": "Cook the eggs last so the yolks stay runny and warm on the plate.",
+    "tip": "Bacon into a COLD pan, always. A hot start seizes the meat before the fat can render — that's where curled, chewy bacon comes from.",
     "nutrition": {
       "kcal": 430,
       "protein_g": 24,
       "carbs_g": 22,
       "fat_g": 28
     },
-    "storage": "Best fresh; cooked bacon keeps 2 days in the fridge.",
+    "storage": "Made to order — eggs don't wait. Cooked bacon keeps 2 days in the fridge and crisps back in a dry pan.",
     "goesWith": [
-      "Buttered Toast",
-      "Grilled Tomato",
-      "Strong Coffee"
+      "Smashed Avo Toast",
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Crispy Classic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Cold-pan bacon, tomatoes in the drippings, fat-basted eggs — the full plate done properly in one pan.",
+        "time": 15,
+        "costPP": 26,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Bacon into a COLD dry pan, then medium heat — the fat renders before the meat seizes, so it crisps flat.",
+          "Set the bacon aside; fry the halved tomatoes cut-side down in the bacon fat until jammy.",
+          "Fry the eggs in the same fat over medium-low, spooning hot fat over the whites until glossy and set.",
+          "Toast, butter, plate, season — yolks still runny."
+        ],
+        "tip": "Never pour off the bacon fat mid-cook — it's the cooking medium for everything that follows.",
+        "nutrition": {
+          "kcal": 430,
+          "protein_g": 24,
+          "carbs_g": 22,
+          "fat_g": 28
+        },
+        "storage": "Made to order; cooked bacon keeps 2 days."
+      },
+      {
+        "name": "The Big Weekend Fry-Up",
+        "icon": "🍳",
+        "feel": "Bacon, eggs, mushrooms and a slice of bread fried golden in the drippings — the slow-Saturday plate nobody rushes.",
+        "time": 25,
+        "costPP": 34,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "button mushrooms",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Cold-pan the bacon to crisp as in the classic, and set aside — keep all the fat.",
+          "Fry the halved mushrooms hard in the fat until golden at the edges; crowd them and they steam grey, so give them space. Push aside and jam the tomatoes cut-side down.",
+          "Fry ONE slice of the bread in the pan until golden both sides — fried bread in bacon fat is the fry-up's best-kept secret. Toast the other slice normally for balance.",
+          "Eggs last in a knob of butter, basted with the pan fat. Plate everything together and season well."
+        ],
+        "tip": "Mushrooms want space and high heat. Crowded mushrooms boil in their own water; spaced ones fry golden.",
+        "nutrition": {
+          "kcal": 560,
+          "protein_g": 29,
+          "carbs_g": 30,
+          "fat_g": 37
+        },
+        "storage": "Made to order — a fry-up doesn't keep."
+      },
+      {
+        "name": "One-Rasher Scramble",
+        "icon": "💰",
+        "feel": "One rasher, chopped and crisped, folded through soft scrambled eggs — the whole plate tastes of bacon at a third of the bacon.",
+        "time": 10,
+        "costPP": 15,
+        "ingredients": [
+          {
+            "n": "large eggs",
+            "pp": 3,
+            "u": "egg"
+          },
+          {
+            "n": "streaky bacon",
+            "pp": 25,
+            "u": "g"
+          },
+          {
+            "n": "milk",
+            "pp": 20,
+            "u": "ml"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Chop the rasher small and crisp it from a cold pan over medium heat until the bits are golden. Lift out, keep the fat.",
+          "Beat the eggs with the milk and a pinch of salt. Add the butter to the bacon fat over LOW heat.",
+          "Pour in the eggs and fold slowly into soft, glossy curds — pull the pan off while they still shine.",
+          "Fold the crisp bacon bits back in off the heat and pile onto buttered toast."
+        ],
+        "tip": "Crisping the bacon in small bits spreads its flavour through every forkful — the thrifty cook's oldest stretch.",
+        "nutrition": {
+          "kcal": 390,
+          "protein_g": 24,
+          "carbs_g": 24,
+          "fat_g": 23
+        },
+        "storage": "Made to order — scrambled eggs don't keep."
+      }
+    ]
   },
   {
     "id": "bf-boerewors-and-eggs",
@@ -1142,8 +2296,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Boerewors & Eggs",
     "time": 20,
     "costPP": 18,
-    "feel": "A coil of wors and a soft egg — a proper farm start.",
-    "didYouKnow": "By South African law, anything sold as boerewors must be at least 90% meat, with strict limits on fat and fillers — it's one of very few foods with its own legal recipe. Coiled and fried alongside a soft egg, it's farm-stall breakfast at its most honest.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "A coil of wors, a soft egg and the pan juices soaked into the toast — plaasontbyt at its most honest.",
+    "didYouKnow": "By South African law, anything sold as boerewors must be at least 90% meat, with strict limits on fat and fillers — it's one of very few foods in the world with its own legal recipe. The casing is the cook's contract: keep it whole and unpricked and every drop of juice stays inside until the first cut on the plate.",
     "ingredients": [
       {
         "n": "boerewors",
@@ -1170,26 +2326,119 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Fry the boerewors in a pan over medium heat, turning, until browned and cooked through.",
-      "Halve the tomatoes and fry them cut-side down in the wors fat until soft.",
-      "Fry the eggs to your liking in the same pan.",
-      "Toast the bread, plate everything together and season."
+      "Lay the wors coil in a dry pan over medium-LOW heat — wors carries its own fat, and gentle heat lets it render without the casing splitting. NEVER prick it; a pricked wors weeps its juices into the pan and eats dry.",
+      "Turn with tongs (a fork stabs the casing) every few minutes until deep brown all round and just cooked through, about 12–15 minutes. Patience here is the whole dish.",
+      "Rest the wors 2 minutes on the plate — the juices settle back through the meat instead of flooding out at the first cut.",
+      "Meanwhile fry the halved tomatoes cut-side down in the wors fat until soft, then the eggs in the same pan, basting with the spiced fat — it seasons the whites all by itself.",
+      "Toast the bread, drag it once through the pan juices, and plate everything together with a good grind of pepper."
     ],
-    "tip": "Do not prick the wors; keeping it whole holds the juices in.",
+    "tip": "Tongs, never a fork, and never prick. The unbroken casing is what keeps a wors juicy — everything else is just heat and patience.",
     "nutrition": {
       "kcal": 460,
       "protein_g": 24,
       "carbs_g": 18,
       "fat_g": 32
     },
-    "storage": "Best fresh; cooked wors keeps 2 days.",
+    "storage": "Best fresh; cooked wors keeps 2 days in the fridge and is excellent cold in a sandwich.",
     "goesWith": [
-      "Buttered Toast",
-      "Grilled Tomato",
-      "Chakalaka"
+      "Chakalaka Beans on Toast",
+      "Smashed Avo Toast",
+      "Tropical Fruit Plate"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Fresh from the Pan",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Low and slow so the casing never splits — wors fat frying the eggs is the plaas breakfast in one pan.",
+        "time": 20,
+        "costPP": 18,
+        "ingredients": [
+          {
+            "n": "boerewors",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Wors into a dry pan over medium-LOW, unpricked. Turn with tongs until deep brown and just cooked, 12–15 min.",
+          "Rest the wors 2 minutes while you fry the tomatoes, then the eggs, in the wors fat.",
+          "Toast, drag through the pan juices, plate and season."
+        ],
+        "tip": "If the casing is splitting, the pan is too hot — the fat inside is boiling. Drop the heat.",
+        "nutrition": {
+          "kcal": 460,
+          "protein_g": 24,
+          "carbs_g": 18,
+          "fat_g": 32
+        },
+        "storage": "Best fresh; cooked wors keeps 2 days."
+      },
+      {
+        "name": "Next-Morning Braai Wors",
+        "icon": "🔥",
+        "feel": "Last night's braai wors, sliced thick on the diagonal and crisped cut-side down — the reason to always braai one coil extra.",
+        "time": 10,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "cooked boerewors",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "white bread",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Slice the cold braai wors thick, on the diagonal — more cut surface means more crisp.",
+          "Lay the slices cut-side down in a dry pan over medium heat until the edges frazzle and the smoky fat runs, about 2 minutes a side.",
+          "Fry the eggs in that smoky fat with a little butter — the braai flavour goes straight into the whites.",
+          "Pile onto toast with the wors and eat while the edges are still crackling."
+        ],
+        "tip": "Cold wors slices cleaner than warm — straight from the fridge to the pan is exactly right.",
+        "nutrition": {
+          "kcal": 440,
+          "protein_g": 23,
+          "carbs_g": 16,
+          "fat_g": 31
+        },
+        "storage": "Uses wors up to 2 days after the braai — after that it's a cooked-meat rule, not a flavour rule."
+      }
+    ]
   },
   {
     "id": "bf-smashed-avo-toast",
@@ -1200,8 +2449,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Smashed Avo Toast",
     "time": 8,
     "costPP": 16,
-    "feel": "Creamy, green and a little bit smug — in the best way.",
-    "didYouKnow": "Avo toast became a global symbol of millennial spending, but South Africa has been eating it for generations — we're one of the world's biggest avocado growers, with the Tzaneen and Levubu valleys shipping fruit to Europe. A squeeze of lemon keeps the green from browning.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "Creamy, green and a little smug — and better than the cafe's, once you season the avo instead of the toast.",
+    "didYouKnow": "Avo toast became a global symbol of cafe culture, but South Africa has been eating it for generations — we're among the world's biggest avocado growers, with the Tzaneen and Levubu valleys shipping fruit to Europe all season. The lemon does two jobs at once: it brightens the flavour and its acid stops the enzyme that browns cut avocado.",
     "ingredients": [
       {
         "n": "avocado",
@@ -1229,26 +2480,182 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Toast the bread until golden.",
-      "Mash the avocado with a squeeze of lemon, salt and pepper.",
-      "Spread thickly onto the toast.",
-      "Finish with a drizzle of olive oil and a pinch of chilli flakes."
+      "Toast the bread until properly golden and firm, then stand it against something for a minute — cooling on an angle lets the steam escape so the toast stays crisp under the avo instead of going soggy flat on a plate.",
+      "Smash the avocado with a FORK, not a blender — you want chunky and creamy together, not baby food. Season the mash itself with lemon, salt and pepper and taste it; salt on top slides off, salt inside seasons every bite.",
+      "Spread thick, right to the edges.",
+      "Finish with a thread of olive oil and a pinch of chilli flakes."
     ],
-    "tip": "A poached egg on top turns this into a proper meal.",
+    "tip": "Season and taste the avo IN the bowl. If the mash isn't delicious on its own, no topping will save the toast.",
     "nutrition": {
       "kcal": 300,
       "protein_g": 7,
       "carbs_g": 28,
       "fat_g": 19
     },
-    "storage": "Best fresh; avocado browns quickly.",
+    "storage": "Best fresh — avocado browns quickly. If it must wait, press cling film onto the mash's surface to keep air off.",
     "goesWith": [
-      "Poached Egg",
-      "Crispy Bacon",
-      "Green Smoothie"
+      "Scrambled Eggs",
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Lemon & Chilli",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Fork-chunky avo, seasoned in the bowl, on crisp toast with heat and lemon — the classic done right.",
+        "time": 8,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "avocado",
+            "pp": 0.5,
+            "u": ""
+          },
+          {
+            "n": "sourdough bread",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "olive oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "lemon juice"
+          },
+          {
+            "n": "salt & pepper"
+          },
+          {
+            "n": "chilli flakes"
+          }
+        ],
+        "method": [
+          "Toast until golden and firm; rest it on an angle so steam escapes.",
+          "Fork-smash the avo chunky; season the mash with lemon, salt and pepper and taste it.",
+          "Spread to the edges, finish with olive oil and chilli flakes."
+        ],
+        "tip": "Chunky beats smooth — texture is half of what makes it feel like a meal.",
+        "nutrition": {
+          "kcal": 300,
+          "protein_g": 7,
+          "carbs_g": 28,
+          "fat_g": 19
+        },
+        "storage": "Best fresh; avo browns fast."
+      },
+      {
+        "name": "Cafe-Style Poached Egg",
+        "icon": "🍳",
+        "feel": "The full cafe order — a wobbling poached egg over the smash, yolk running into the avo like a sauce.",
+        "time": 14,
+        "costPP": 20,
+        "ingredients": [
+          {
+            "n": "avocado",
+            "pp": 0.5,
+            "u": ""
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "sourdough bread",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "vinegar",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "olive oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "lemon juice"
+          },
+          {
+            "n": "salt & pepper"
+          },
+          {
+            "n": "chilli flakes"
+          }
+        ],
+        "method": [
+          "Bring a pot of water to a bare shiver — small bubbles on the base, never a rolling boil — with a splash of vinegar to help the white set.",
+          "Crack the egg into a cup, stir the water into a gentle whirlpool and slide the egg into the centre; the spin wraps the white around the yolk.",
+          "Poach 3 minutes for a set white and liquid yolk; lift out with a slotted spoon onto paper towel.",
+          "Build the toast as in the classic and crown with the egg, salt flakes and pepper. Cut, and let the yolk do the rest."
+        ],
+        "tip": "The freshest egg poaches neatest — old whites are watery and feather apart in the pot.",
+        "nutrition": {
+          "kcal": 380,
+          "protein_g": 14,
+          "carbs_g": 28,
+          "fat_g": 24
+        },
+        "storage": "Made to order."
+      },
+      {
+        "name": "Feta Smash",
+        "icon": "🧀",
+        "feel": "Avo and feta crumbled into one creamy-salty smash — the version that needs no salt at all.",
+        "time": 8,
+        "costPP": 19,
+        "ingredients": [
+          {
+            "n": "avocado",
+            "pp": 0.5,
+            "u": ""
+          },
+          {
+            "n": "feta",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "sourdough bread",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "olive oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "lemon juice"
+          },
+          {
+            "n": "black pepper"
+          },
+          {
+            "n": "chilli flakes"
+          }
+        ],
+        "method": [
+          "Toast the bread golden and firm; rest on an angle.",
+          "Fork-smash the avo with lemon and plenty of black pepper, then crumble in the feta and fold once or twice — streaks of white, not a paste.",
+          "Add NO salt — feta is a brined cheese and brings all the salt the smash needs. Taste to believe it.",
+          "Spread thick, finish with oil and chilli flakes."
+        ],
+        "tip": "Salting a feta dish is the classic double-salt trap — the brine has done the seasoning for you.",
+        "nutrition": {
+          "kcal": 370,
+          "protein_g": 11,
+          "carbs_g": 28,
+          "fat_g": 25
+        },
+        "storage": "Best fresh."
+      }
+    ]
   },
   {
     "id": "bf-peanut-butter-and-banana-toast",
@@ -1259,8 +2666,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Peanut Butter & Banana Toast",
     "time": 5,
     "costPP": 9,
-    "feel": "The lunchbox hero, fast and filling.",
-    "didYouKnow": "This is basically Elvis's favourite sandwich, minus the frying — he was famous for his peanut-butter-and-banana toasties. The combination works because the banana's sweetness balances the peanut butter's salt, and both are slow-release fuel that carries a lunchbox eater through to break.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "The lunchbox hero — and the whole trick is spreading the peanut butter while the toast is blazing hot, so it half-melts into the bread.",
+    "didYouKnow": "This is Elvis Presley's famous sandwich, minus the frying — he took his peanut butter and banana griddled in butter. The pairing works on chemistry: the banana's sugars balance the peanut butter's salt, and both are slow-release fuel, which is why it carries a school morning all the way to first break.",
     "ingredients": [
       {
         "n": "white bread",
@@ -1284,26 +2693,117 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Toast the bread.",
-      "Spread thickly with peanut butter.",
-      "Lay over sliced banana.",
-      "Drizzle with honey and serve."
+      "Toast the bread until deep golden.",
+      "Spread the peanut butter on IMMEDIATELY, while the toast is too hot to hold — the heat melts it into the surface so every bite is fused, not pasted. This is the make-or-break of the whole sandwich.",
+      "Slice the banana on the diagonal — long ovals cover the toast in one layer instead of rolling off in coins — and shingle them over.",
+      "A thin zigzag of honey and eat while everything is still warm and soft."
     ],
-    "tip": "Use brown bread for extra staying power before school.",
+    "tip": "Hot toast, instant peanut butter. Wait a minute and it sits on top; do it straight away and it soaks in.",
     "nutrition": {
       "kcal": 360,
       "protein_g": 11,
       "carbs_g": 48,
       "fat_g": 15
     },
-    "storage": "Best made fresh; the banana browns and the toast softens if it waits. A 2-minute job.",
+    "storage": "A 2-minute job made to order — the banana browns and the toast softens if it waits.",
     "goesWith": [
-      "Fresh Fruit",
-      "Berry Smoothie",
-      "Strong Coffee"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Creamy Oats"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Classic Toasted",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Molten peanut butter on blazing-hot toast, banana shingled over, honey last — the lunchbox hero at full power.",
+        "time": 5,
+        "costPP": 9,
+        "ingredients": [
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "peanut butter",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "banana",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "honey",
+            "pp": 5,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Toast deep golden.",
+          "Peanut butter on immediately, while too hot to hold — it melts in, not on.",
+          "Diagonal banana slices in one shingled layer, then a zigzag of honey."
+        ],
+        "tip": "Brown bread version holds a school-morning stomach even longer.",
+        "nutrition": {
+          "kcal": 360,
+          "protein_g": 11,
+          "carbs_g": 48,
+          "fat_g": 15
+        },
+        "storage": "Made to order."
+      },
+      {
+        "name": "The Elvis",
+        "icon": "🎸",
+        "feel": "Built as a sandwich and fried in butter like a toastie — the King's way, with the peanut butter gone completely molten inside.",
+        "time": 10,
+        "costPP": 11,
+        "ingredients": [
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "peanut butter",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "banana",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 5,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Spread the peanut butter on both slices, lay the banana over one and close the sandwich.",
+          "Butter the OUTSIDE of both slices — the butter goes on the bread, never in the pan, for even gold with no scorched patches.",
+          "Fry over medium heat, pressing gently, about 2–3 minutes a side until deep golden and the inside has gone molten.",
+          "Rest one minute (the filling is lava), halve on the diagonal, drizzle with honey."
+        ],
+        "tip": "Medium heat and patience — high heat burns the outside before the peanut butter melts through.",
+        "nutrition": {
+          "kcal": 460,
+          "protein_g": 12,
+          "carbs_g": 50,
+          "fat_g": 24
+        },
+        "storage": "Made to order — a fried sandwich waits for no one."
+      }
+    ]
   },
   {
     "id": "bf-honey-brick-toast",
@@ -1314,8 +2814,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Honey Brick Toast",
     "time": 20,
     "costPP": 10,
-    "feel": "A thick toast block, custard-soaked and baked sweet and golden.",
-    "didYouKnow": "Honey brick toast — a thick block of bread cubed, soaked in honey butter and baked — is a Korean cafe favourite that swept dessert spots around the world. Scoring it into cubes before baking lets every cut surface crisp and catch the honey, so it's crunchy outside and pillowy within.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "A cube-scored brick of loaf with honey butter brushed deep into every cut — crisp on all six sides, cloud in the middle.",
+    "didYouKnow": "Honey brick toast is a Korean and Japanese cafe favourite that swept the world's dessert spots — a thick block of bread scored into cubes, soaked in honey butter and baked. The scoring is the engineering: every cut becomes a new surface that crisps and catches the honey, so one brick eats like a whole tray of tiny toasts.",
     "ingredients": [
       {
         "n": "unsliced white loaf",
@@ -1344,38 +2846,136 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Cut a thick brick of bread and score the top into cubes, not all the way through.",
-      "Brush all over with melted butter and honey.",
-      "Bake at 180°C until toasty and golden, about 12 minutes.",
-      "Pull the cubes apart, drizzle with cream and more honey."
+      "Cut a thick brick from a DAY-OLD unsliced loaf — fresh bread compresses and tears; day-old holds the block shape and drinks the honey butter without collapsing.",
+      "Score the top in a grid, cutting deep — almost to the base but never through. Shallow cuts are the classic mistake: the crisping happens inside the cuts, so the deeper you score, the more of the brick turns golden.",
+      "Melt the butter with the honey and brush it INTO the cuts first, prising them gently open, then over the top and sides. Dust with the sugar.",
+      "Bake at 180°C until the cube tops are deep golden and the cuts have opened like a blooming loaf, about 12 minutes.",
+      "Pull a cube to test — crisp outside, pillowy inside. Drizzle with the cream and more honey and serve the brick whole, to be torn."
     ],
-    "tip": "Day-old bread holds the brick shape best.",
+    "tip": "Deep cuts, day-old loaf. Those two choices are the whole difference between a golden blooming brick and warm bread with a sticky lid.",
     "nutrition": {
       "kcal": 360,
       "protein_g": 6,
       "carbs_g": 48,
       "fat_g": 17
     },
-    "storage": "Best warm from the oven while crisp and gooey; it dries out if kept.",
+    "storage": "Serve warm from the oven while crisp and gooey — it dries out if kept.",
     "goesWith": [
-      "Fresh Berries",
-      "Whipped Cream",
-      "Strong Coffee"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Amasi & Fruit Bowl"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Honey Butter Classic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Deep-scored, honey-buttered into the cuts and baked to a blooming golden block — cafe theatre from a plain loaf.",
+        "time": 20,
+        "costPP": 10,
+        "ingredients": [
+          {
+            "n": "unsliced white loaf",
+            "pp": 0.25,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 20,
+            "u": "ml"
+          },
+          {
+            "n": "cream",
+            "pp": 30,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Cut a brick from a day-old loaf and score a deep grid — almost to the base, never through.",
+          "Brush melted honey butter into the cuts first, then all over; dust with sugar.",
+          "Bake at 180°C about 12 min until deep golden and bloomed. Drizzle with cream and honey; tear and share."
+        ],
+        "tip": "The cuts are where the crisp lives — score deep.",
+        "nutrition": {
+          "kcal": 360,
+          "protein_g": 6,
+          "carbs_g": 48,
+          "fat_g": 17
+        },
+        "storage": "Warm from the oven only."
+      },
+      {
+        "name": "Cafe-Style with Ice Cream",
+        "icon": "🍨",
+        "feel": "The Seoul cafe order — a scoop melting down into the hot golden cubes, hot-and-cold in every bite.",
+        "time": 22,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "unsliced white loaf",
+            "pp": 0.25,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "honey",
+            "pp": 25,
+            "u": "ml"
+          },
+          {
+            "n": "vanilla ice cream",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "sugar",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Make the brick exactly as the classic — deep grid, honey butter into the cuts, 180°C until bloomed and golden.",
+          "Straight from the oven, crown the hot brick with the scoop of ice cream — the heat is the point; it starts melting into the cuts immediately.",
+          "A last thread of honey over the melting scoop and serve at once with two spoons. Speed matters more than neatness."
+        ],
+        "tip": "Hot brick, cold scoop, zero waiting — the melt running into the cuts IS the dessert.",
+        "nutrition": {
+          "kcal": 460,
+          "protein_g": 8,
+          "carbs_g": 60,
+          "fat_g": 21
+        },
+        "storage": "Eaten the second it's made, by definition."
+      }
+    ]
   },
   {
     "id": "bf-chakalaka-beans-on-toast",
     "cat": "toast",
     "name": "Chakalaka Beans on Toast",
     "emoji": "🫘",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Chakalaka Beans on Toast",
     "time": 12,
     "costPP": 11,
-    "feel": "Beans on toast with a proper South African kick.",
-    "didYouKnow": "Chakalaka was born in the mines and townships around Johannesburg, where workers jazzed up tinned beans and whatever veg they had into a fiery relish. Stirred through baked beans on toast, it turns the most basic pantry breakfast into something with real backbone.",
+    "freezes": false,
+    "fridgeDays": 3,
+    "feel": "Beans on toast that found its fire — two tins and five minutes, with a proper chakalaka backbone.",
+    "didYouKnow": "Chakalaka was born in the mines and townships around Johannesburg, where workers jazzed up tinned beans and whatever veg was around into a fiery relish. Stirred through baked beans it does the same job today — turning the plainest pantry breakfast into something with real backbone, for the price of half a tin.",
     "ingredients": [
       {
         "n": "baked beans",
@@ -1399,25 +2999,122 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Warm the baked beans and chakalaka together in a small pot.",
-      "Toast and butter the bread.",
-      "Pile the spiced beans over the toast and serve hot."
+      "Warm the baked beans and chakalaka together in a small pot over GENTLE heat, stirring now and then. Never boil them — boiled beans split their skins and turn mealy; you want them just steaming and glossy.",
+      "Taste. Tins vary — some days it wants a grind of pepper, some days nothing at all.",
+      "Toast the bread and butter it to the very EDGE, right into the corners — the butter waterproofs the toast so the sauce sits on top instead of soaking through to a soggy middle.",
+      "Pile the spiced beans over and serve hot."
     ],
-    "tip": "A handful of grated cheese melted on top is never wrong.",
+    "tip": "Butter to the edges is bean-on-toast engineering — it's the moat that keeps the toast crisp under the sauce.",
     "nutrition": {
       "kcal": 320,
       "protein_g": 13,
       "carbs_g": 50,
       "fat_g": 8
     },
-    "storage": "Toast fresh to order; the bean mix keeps 3 days in the fridge and reheats well.",
+    "storage": "Toast fresh to order; the bean mix keeps 3 days in the fridge and reheats gently in a pot.",
     "goesWith": [
-      "Fried Egg",
-      "Grilled Tomato",
-      "Strong Coffee"
+      "Boerewors & Eggs",
+      "Scrambled Eggs",
+      "Tropical Fruit Plate"
     ],
-    "freezes": false,
-    "fridgeDays": 3
+    "versions": [
+      {
+        "name": "Weekday Tin Magic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Two tins, gentle heat, buttered-to-the-edge toast — the five-minute breakfast with a backbone.",
+        "time": 12,
+        "costPP": 11,
+        "ingredients": [
+          {
+            "n": "baked beans",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "chakalaka",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Warm the beans and chakalaka together gently — steaming, never boiling.",
+          "Toast and butter right to the edges to waterproof against the sauce.",
+          "Pile on and serve hot."
+        ],
+        "tip": "Mild or hot chakalaka sets the whole dish's temperature — choose the tin for the table you're feeding.",
+        "nutrition": {
+          "kcal": 320,
+          "protein_g": 13,
+          "carbs_g": 50,
+          "fat_g": 8
+        },
+        "storage": "Bean mix keeps 3 days; toast fresh."
+      },
+      {
+        "name": "Loaded Cheese & Egg",
+        "icon": "🧀",
+        "feel": "Cheese melted into the hot beans and a fried egg on top — the breakfast that holds you clean through to two o'clock.",
+        "time": 18,
+        "costPP": 16,
+        "ingredients": [
+          {
+            "n": "baked beans",
+            "pp": 120,
+            "u": "g"
+          },
+          {
+            "n": "chakalaka",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Warm the beans and chakalaka gently as in the classic.",
+          "Off the heat, stir half the grated cheddar into the hot beans until it melts through — off-heat keeps it silky instead of stringy.",
+          "Fry the egg in a little butter to a runny yolk.",
+          "Beans over buttered-to-the-edge toast, the rest of the cheese scattered on so it melts from below, egg crowned on top. Break the yolk into the beans and go."
+        ],
+        "tip": "Cheese into the beans OFF the heat — a boiling pot turns melted cheese grainy and ropey.",
+        "nutrition": {
+          "kcal": 470,
+          "protein_g": 22,
+          "carbs_g": 52,
+          "fat_g": 19
+        },
+        "storage": "Assemble fresh; the bean mix alone keeps 3 days."
+      }
+    ]
   },
   {
     "id": "bf-savoury-mince-on-toast",
@@ -1428,8 +3125,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Savoury Mince on Toast",
     "time": 20,
     "costPP": 15,
-    "feel": "Rich, oniony mince piled on buttered toast.",
-    "didYouKnow": "Savoury mince on toast is the thrifty cook's best friend — a little mince stretched with onion and tomato feeds a whole table cheaply. It's a direct descendant of the British 'mince on toast' that came to South African kitchens and simply never left.",
+    "freezes": true,
+    "fridgeDays": 3,
+    "feel": "Deep-brown, oniony mince over thick buttered toast — the flavour lives in the browning, never in the simmer.",
+    "didYouKnow": "Savoury mince on toast is the thrifty cook's oldest friend — a little meat stretched with onion and tomato to feed a whole table. It came to South African kitchens from the British 'mince on toast' and simply never left. The science of why some versions taste rich and others taste grey is one word: browning — meat that colours in the pan builds flavour that no amount of simmering can create.",
     "ingredients": [
       {
         "n": "beef mince",
@@ -1461,26 +3160,191 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Brown the mince with the chopped onion in the oil over medium-high heat.",
-      "Add the chopped tomato and a splash of water and simmer until thick.",
-      "Season well.",
-      "Spoon over hot buttered toast."
+      "Get the oil properly hot in a wide pan, add the mince in ONE layer and then leave it alone. Stirring straight away is how mince stews grey — let it sit until the underside is deep brown and crusty before you break it up.",
+      "Break, brown the other side, then push aside and soften the chopped onion in the same pan.",
+      "Add the chopped tomato and a splash of water and scrape the pan floor hard — that brown crust (the fond) dissolving into the sauce IS the flavour of the dish.",
+      "Simmer a few minutes until thick and glossy, and season boldly — mince drinks salt.",
+      "Spoon over hot, thickly buttered toast."
     ],
-    "tip": "A dash of Worcestershire or chutney rounds it out beautifully.",
+    "tip": "Don't touch the mince for the first two minutes. The crust you're tempted to stir away is the whole flavour of the dish.",
     "nutrition": {
       "kcal": 420,
       "protein_g": 24,
       "carbs_g": 30,
       "fat_g": 22
     },
-    "storage": "Toast fresh; the savoury mince keeps 3 days in the fridge and freezes up to 1 month.",
+    "storage": "Toast fresh; the mince keeps 3 days in the fridge and freezes up to 1 month — a double batch is tomorrow's jaffle filling.",
     "goesWith": [
-      "Fried Egg",
-      "Fresh Fruit",
-      "Strong Coffee"
+      "Scrambled Eggs",
+      "Tropical Fruit Plate",
+      "Green Smoothie"
     ],
-    "freezes": true,
-    "fridgeDays": 3
+    "versions": [
+      {
+        "name": "Classic",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Hard-browned mince, the pan crust scraped into the sauce, piled on thick toast — brown is the flavour.",
+        "time": 20,
+        "costPP": 15,
+        "ingredients": [
+          {
+            "n": "beef mince",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Mince into hot oil in one layer — no stirring until the underside is deep brown.",
+          "Break up, brown through, soften the onion alongside.",
+          "Tomato and a splash of water, scrape the fond into the sauce, simmer thick. Season boldly.",
+          "Over hot buttered toast."
+        ],
+        "tip": "A dash of Worcestershire or chutney at the end rounds it out beautifully.",
+        "nutrition": {
+          "kcal": 420,
+          "protein_g": 24,
+          "carbs_g": 30,
+          "fat_g": 22
+        },
+        "storage": "Mince keeps 3 days, freezes 1 month."
+      },
+      {
+        "name": "Curried Mince",
+        "icon": "🍛",
+        "feel": "The South African institution — mild curry bloomed in the pan, sweet with onion, the smell of a thousand home kitchens.",
+        "time": 22,
+        "costPP": 15,
+        "ingredients": [
+          {
+            "n": "beef mince",
+            "pp": 80,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "mild curry powder",
+            "pp": 4,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Brown the mince hard in one layer as in the classic, then set aside.",
+          "Soften the onion in the same pan, then add the curry powder to the oil and stir 30 seconds — blooming the spice in fat wakes it up; raw curry powder tastes dusty.",
+          "Return the mince, add the tomato and a splash of water, scrape up the fond and simmer until thick and fragrant.",
+          "Season, taste, and pile onto buttered toast."
+        ],
+        "tip": "Thirty seconds of the curry powder frying in the oil is worth more than a tablespoon extra stirred in raw.",
+        "nutrition": {
+          "kcal": 440,
+          "protein_g": 24,
+          "carbs_g": 31,
+          "fat_g": 24
+        },
+        "storage": "Keeps 3 days, freezes 1 month — curried mince is famously better the next day."
+      },
+      {
+        "name": "Budget Stretch",
+        "icon": "💰",
+        "feel": "Grated carrot and extra onion melt invisibly into the mince and stretch it — same rich plate, lighter till slip.",
+        "time": 22,
+        "costPP": 11,
+        "ingredients": [
+          {
+            "n": "beef mince",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "carrots",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Brown the mince hard in one layer — with less meat, the browning matters even more.",
+          "Soften the extra onion, then stir in the finely GRATED carrot — grated, it dissolves into the sauce within minutes, adding body and sweetness no one can point to.",
+          "Tomato, splash of water, scrape the fond, simmer until thick.",
+          "Season boldly and serve over buttered toast — nobody at the table will count the grams."
+        ],
+        "tip": "Grate the carrot fine and it vanishes; chop it and it announces itself. The grater is the budget cook's wand.",
+        "nutrition": {
+          "kcal": 380,
+          "protein_g": 19,
+          "carbs_g": 34,
+          "fat_g": 18
+        },
+        "storage": "Keeps 3 days, freezes 1 month."
+      }
+    ]
   },
   {
     "id": "bf-cinnamon-french-toast",
@@ -1491,8 +3355,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Cinnamon French Toast",
     "time": 15,
     "costPP": 12,
-    "feel": "Day-old bread, reborn as something special.",
-    "didYouKnow": "French toast isn't really French — the Romans were already soaking stale bread in milk and egg, and the French call it 'pain perdu', meaning 'lost bread', because it rescues a loaf that would otherwise be thrown away.",
+    "freezes": false,
+    "fridgeDays": 0,
+    "feel": "Day-old bread reborn — a proper custard soak and a patient, medium pan are the entire game.",
+    "didYouKnow": "French toast isn't really French — the Romans were already soaking stale bread in milk and egg two thousand years ago, and the French themselves call it 'pain perdu', lost bread, because it rescues a loaf headed for the bin. Stale bread is genuinely better here: its dried-out crumb drinks the custard without collapsing, where fresh bread just goes to mush.",
     "ingredients": [
       {
         "n": "thick white bread",
@@ -1524,38 +3390,200 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Whisk the eggs, milk, sugar and a pinch of cinnamon in a shallow dish.",
-      "Soak each slice of bread for a few seconds per side.",
-      "Fry in butter over medium heat until golden on both sides.",
-      "Serve dusted with cinnamon sugar or a drizzle of syrup."
+      "Whisk the egg, milk, sugar and a pinch of cinnamon in a shallow dish until completely smooth — streaks of unmixed white fry into rubbery patches.",
+      "Soak each THICK slice about ten seconds a side: long enough to drink custard to the middle, short enough that it doesn't collapse. Thin bread can't do this — thickness is not optional.",
+      "Butter into a pan over MEDIUM heat — never high. The milk and sugar in the custard burn fast; medium heat gives the middle time to set while the outside goes evenly golden.",
+      "Fry 2–3 minutes a side until deep gold with a slight crust, pressing nowhere.",
+      "Serve at once, dusted with cinnamon sugar or a thread of syrup."
     ],
-    "tip": "Slightly stale bread soaks up the custard best without going soggy.",
+    "tip": "If the outside is browning before the middle sets, the pan is too hot — this custard scorches at temperatures bacon loves.",
     "nutrition": {
       "kcal": 360,
       "protein_g": 13,
       "carbs_g": 44,
       "fat_g": 15
     },
-    "storage": "Best fresh and hot the same morning; it goes soggy if it stands.",
+    "storage": "Best hot from the pan the same morning; it goes soggy standing.",
     "goesWith": [
-      "Crispy Bacon",
-      "Fresh Berries",
-      "Maple Syrup"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Stewed Fruit & Yoghurt Bowl"
     ],
-    "freezes": false,
-    "fridgeDays": 0
+    "versions": [
+      {
+        "name": "Classic Cinnamon",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Thick stale bread, a ten-second soak and a patient medium pan — golden custard toast, no shortcuts.",
+        "time": 15,
+        "costPP": 12,
+        "ingredients": [
+          {
+            "n": "thick white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 60,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon"
+          }
+        ],
+        "method": [
+          "Whisk the custard completely smooth.",
+          "Soak thick, stale slices ten seconds a side.",
+          "Fry in butter over MEDIUM heat, 2–3 minutes a side, to deep gold.",
+          "Cinnamon sugar or syrup, straight away."
+        ],
+        "tip": "Slightly stale bread drinks the custard; fresh bread drowns in it.",
+        "nutrition": {
+          "kcal": 360,
+          "protein_g": 13,
+          "carbs_g": 44,
+          "fat_g": 15
+        },
+        "storage": "Made to order."
+      },
+      {
+        "name": "Savoury Cheese & Tomato",
+        "icon": "🧀",
+        "feel": "No sugar, black pepper in the custard, cheddar melting on top — French toast's savoury twin for the not-sweet-tooth.",
+        "time": 15,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "thick white bread",
+            "pp": 2,
+            "u": ""
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 60,
+            "u": "ml"
+          },
+          {
+            "n": "cheddar",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Whisk the egg and milk with salt and a good grind of pepper — no sugar anywhere in this one.",
+          "Soak the thick slices ten seconds a side and fry in butter over medium heat until golden underneath.",
+          "Flip, scatter the cheddar over the cooked side and lid the pan a minute so it melts.",
+          "Serve with the tomato fried quickly in the same pan, and more pepper."
+        ],
+        "tip": "The lid is the grill you don't have — trapped steam melts the cheese while the second side finishes.",
+        "nutrition": {
+          "kcal": 420,
+          "protein_g": 19,
+          "carbs_g": 40,
+          "fat_g": 21
+        },
+        "storage": "Made to order."
+      },
+      {
+        "name": "Weekend Baked",
+        "icon": "🍞",
+        "feel": "The whole dish soaked overnight and baked golden in one go — French toast for a full table with nobody standing at the stove.",
+        "time": 40,
+        "costPP": 12,
+        "ingredients": [
+          {
+            "n": "thick white bread",
+            "pp": 3,
+            "u": ""
+          },
+          {
+            "n": "large eggs",
+            "pp": 2,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "butter",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon"
+          }
+        ],
+        "method": [
+          "The night before: butter a baking dish, shingle in the thick slices, whisk the custard and pour it over everything. Cover and fridge — overnight, every slice drinks custard to its core.",
+          "In the morning, dot the top with butter and a dusting of cinnamon sugar.",
+          "Bake at 180°C until puffed, set in the middle and deep golden on top, 30–35 minutes.",
+          "Serve from the dish with syrup — one bake, zero flipping, whole family fed at once."
+        ],
+        "tip": "The overnight soak is the version's superpower — it does at midnight what a morning cook can't do in ten seconds.",
+        "nutrition": {
+          "kcal": 390,
+          "protein_g": 14,
+          "carbs_g": 50,
+          "fat_g": 15
+        },
+        "storage": "Best from the oven; leftovers keep a day and revive in a hot pan."
+      }
+    ]
   },
   {
     "id": "bf-pannekoek",
     "cat": "pancakes",
     "name": "Pannekoek",
     "emoji": "🥞",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Pannekoek",
     "time": 20,
     "costPP": 7,
-    "feel": "Thin, lacy pancakes rolled with cinnamon sugar.",
-    "didYouKnow": "Pannekoek came with the Dutch and became a South African church-bazaar institution — thin, rolled with cinnamon sugar and sold by the dozen. The Dutch claim is so strong that the Netherlands has whole restaurants, pannenkoekenhuizen, devoted to nothing else.",
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Thin, lacy and rolled with cinnamon sugar — the smell of every church bazaar and every rainy day in the land.",
+    "didYouKnow": "Pannekoek came with the Dutch and became a South African institution — thin, rolled with cinnamon sugar, sold by the dozen at every kerkbasaar, and cooked at home the moment rain starts falling. The old tannies' secret is a splash of vinegar in the batter: the acid tenderises the flour so the pancakes turn out lacy and soft instead of tough.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1578,6 +3606,11 @@ var BREAKFAST_RECIPES = [
         "u": "ml"
       },
       {
+        "n": "vinegar",
+        "pp": 5,
+        "u": "ml"
+      },
+      {
         "n": "sugar",
         "pp": 10,
         "u": "g"
@@ -1590,38 +3623,166 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Whisk the flour, egg, milk, oil and a pinch of salt to a thin, smooth batter.",
-      "Pour a thin layer into a hot greased pan and swirl to coat.",
-      "Cook until the edges lift, flip and cook the other side.",
-      "Sprinkle with cinnamon sugar, roll up and serve."
+      "Whisk the flour, egg, milk, oil, vinegar and a pinch of salt to a batter thin as pouring cream — pannekoek batter should look almost worryingly thin; thick batter makes flapjacks, not pannekoek.",
+      "REST the batter 15–30 minutes. The flour relaxes and drinks the liquid, which is where tender, lacy edges come from — the tannies never skip this and neither should you.",
+      "Get the pan properly hot, grease lightly, pour in a thin layer and SWIRL immediately so it races to the edges before setting.",
+      "Cook until the edges lift and lace, flip once, seconds on the other side. The first one is always the sacrifice — it calibrates the pan; eat it standing at the stove.",
+      "Sprinkle generously with cinnamon sugar while hot — the heat half-melts the sugar into a syrupy seam — roll up and stack."
     ],
-    "tip": "Rest the batter 10 minutes for thinner, more tender pancakes.",
+    "tip": "Vinegar in, rest the batter, sugar them HOT. Those three old-school moves are the entire difference between pannekoek and a pale pancake.",
     "nutrition": {
       "kcal": 230,
       "protein_g": 7,
       "carbs_g": 34,
       "fat_g": 8
     },
-    "storage": "Best fresh; stack with paper between layers. Keeps 2 days in the fridge and freezes up to 1 month.",
+    "storage": "Stack with paper between layers; keeps 2 days in the fridge and freezes up to 1 month. Refresh in a dry pan.",
     "goesWith": [
-      "Cinnamon Sugar",
-      "Fresh Fruit",
-      "Strong Coffee"
+      "Boerewors & Eggs",
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
     ],
-    "freezes": true,
-    "fridgeDays": 2
+    "versions": [
+      {
+        "name": "Cinnamon Sugar",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Rolled hot so the cinnamon sugar half-melts into a syrupy seam — the kerkbasaar classic, the only argument-ender.",
+        "time": 20,
+        "costPP": 7,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "oil",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "vinegar",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "sugar",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Thin batter with the vinegar splash; rest 15–30 minutes.",
+          "Hot pan, thin pour, fast swirl; flip once when the edges lace.",
+          "Cinnamon sugar on while blazing hot, roll immediately, stack and repeat."
+        ],
+        "tip": "Sugar a cold pannekoek and it just sits there; sugar a hot one and it becomes syrup.",
+        "nutrition": {
+          "kcal": 230,
+          "protein_g": 7,
+          "carbs_g": 34,
+          "fat_g": 8
+        },
+        "storage": "Keeps 2 days; freezes 1 month."
+      },
+      {
+        "name": "Savoury Mince-Filled",
+        "icon": "🥩",
+        "feel": "The padstal double-act — a spoon of rich savoury mince rolled inside instead of sugar; supper masquerading as a pancake.",
+        "time": 35,
+        "costPP": 14,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "oil",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "vinegar",
+            "pp": 5,
+            "u": "ml"
+          },
+          {
+            "n": "beef mince",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "tomatoes",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "salt & pepper"
+          }
+        ],
+        "method": [
+          "Make and rest the same thin vinegar batter — the pancake side of this dish never changes.",
+          "Brown the mince hard in one layer, then soften the onion, add the tomato and a splash of water, scrape the fond and simmer to a THICK, almost dry mince — a wet filling soaks straight through a thin pannekoek.",
+          "Cook the pannekoek as usual, keeping them warm under a cloth.",
+          "Spoon a line of mince along each, roll snugly and serve seam-down — a squeeze of lemon over the top is the padstal touch."
+        ],
+        "tip": "Cook the mince drier than you think — the pannekoek is tissue-thin and forgives no gravy.",
+        "nutrition": {
+          "kcal": 380,
+          "protein_g": 19,
+          "carbs_g": 36,
+          "fat_g": 17
+        },
+        "storage": "Filled ones are best fresh; the plain pannekoek and the mince each keep 2–3 days separately and assemble in minutes."
+      }
+    ]
   },
   {
     "id": "bf-crumpets",
     "cat": "pancakes",
     "name": "Crumpets (Plaatkoekies)",
     "emoji": "🥞",
-    "cuisine": "Global",
+    "cuisine": "South African",
     "photoName": "Crumpets",
     "time": 15,
     "costPP": 7,
-    "feel": "Little thick drop scones, golden and fluffy.",
-    "didYouKnow": "What South Africans call crumpets aren't the holey British kind at all — they're closer to American pancakes or Scottish drop scones, which is why Afrikaans calls them plaatkoekies, little plate-cakes. When the bubbles rise and pop on top, it's time to flip.",
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Little golden plate-cakes — flip on the bubbles, never press, and they stay cloud-fluffy.",
+    "didYouKnow": "What South Africans call crumpets aren't the holey British kind at all — they're drop scones, which is why Afrikaans calls them plaatkoekies, little plate-cakes. The batter's bubbles are a built-in timer: when they rise, pop and STAY open on the surface, the underside is perfectly golden and it's time to flip.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1653,26 +3814,25 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Whisk all the ingredients to a thick, smooth batter.",
-      "Drop spoonfuls onto a hot greased pan.",
-      "When bubbles rise and pop, flip and cook the other side until golden.",
-      "Serve with butter and jam or syrup."
+      "Whisk everything to a THICK batter and stop the moment it comes together — a few small lumps are fine. Overmixing works the gluten and turns fluffy plaatkoekies into rubbery discs; this is the one way to ruin them.",
+      "Drop spoonfuls onto a medium-hot, lightly greased pan, leaving room to grow.",
+      "Watch the surface: bubbles rise, pop, and when the holes STAY open, flip once. Golden underneath, guaranteed, without ever peeking.",
+      "Cook the second side a minute — and never press down with the spatula; pressing squeezes out the very air the baking powder just built.",
+      "Serve warm in a stack with butter and jam, syrup, or cheese."
     ],
-    "tip": "Wait for the bubbles before flipping; that is when they are ready.",
+    "tip": "Two never-rules: never overmix, never press. Everything else about a plaatkoekie forgives you.",
     "nutrition": {
       "kcal": 240,
       "protein_g": 7,
       "carbs_g": 38,
       "fat_g": 6
     },
-    "storage": "Keeps 2 days; toast to refresh. Freezes up to 1 month.",
+    "storage": "Keeps 2 days; refresh in a toaster. Freezes up to 1 month in a single layer, then bagged.",
     "goesWith": [
-      "Syrup & Butter",
-      "Fresh Berries",
-      "Crispy Bacon"
-    ],
-    "freezes": true,
-    "fridgeDays": 2
+      "Bacon & Eggs",
+      "Tropical Fruit Plate",
+      "Berry Banana Smoothie"
+    ]
   },
   {
     "id": "bf-crepes",
@@ -1683,8 +3843,10 @@ var BREAKFAST_RECIPES = [
     "photoName": "Crepes",
     "time": 20,
     "costPP": 7,
-    "feel": "Paper-thin and tender, ready for any filling.",
-    "didYouKnow": "In France, 2 February is Crepe Day, and tradition says if you flip a crepe one-handed while holding a coin you'll have luck all year. Resting the batter before cooking lets the flour relax, which is the real secret to crepes that are tender rather than rubbery.",
+    "freezes": true,
+    "fridgeDays": 2,
+    "feel": "Paper-thin, tender and endlessly fillable — and it's the rest, not the recipe, that makes them tender.",
+    "didYouKnow": "In France, 2 February is Crêpe Day, and tradition says flipping a crêpe one-handed while holding a coin brings luck all year. The kitchen truth is less romantic: whisking builds gluten, and gluten makes crêpes rubbery — resting the batter lets it relax again, which is the whole secret to crêpes that fold like cloth instead of cracking like cardboard.",
     "ingredients": [
       {
         "n": "cake flour",
@@ -1711,26 +3873,141 @@ var BREAKFAST_RECIPES = [
       }
     ],
     "method": [
-      "Whisk everything to a very thin, smooth batter and rest if you can.",
-      "Pour a thin layer into a hot buttered pan and swirl.",
-      "Cook until set and lightly golden, then flip briefly.",
-      "Fill with whatever you love and fold."
+      "Whisk the flour, egg, milk, melted butter and a pinch of salt to a batter thin as single cream, completely smooth.",
+      "REST it 30 minutes (even 15 helps) — this is the non-negotiable step; the gluten you built whisking needs to relax or every crêpe turns out rubbery.",
+      "Heat the pan over medium until a drop of water skitters, grease with the barest film of butter.",
+      "Lift the pan OFF the heat, pour in a small ladleful and swirl fast — off-heat, the batter stays liquid long enough to race into a perfect thin circle before setting.",
+      "Cook until the edges brown and lift, loosen, flip for ten seconds, and out. The first is always a test crêpe — it belongs to the cook.",
+      "Fill with lemon and sugar, jam, or anything savoury, and fold."
     ],
-    "tip": "The first crêpe is always a test one; do not worry about it.",
+    "tip": "Swirl off the heat. On the heat, the batter sets before it spreads and you get a thick-middled, ragged-edged pancake instead of a crêpe.",
     "nutrition": {
       "kcal": 200,
       "protein_g": 7,
       "carbs_g": 26,
       "fat_g": 8
     },
-    "storage": "Stack with paper between layers; keeps 2 days in the fridge and freezes up to 1 month.",
+    "storage": "Stack with paper between layers; keeps 2 days in the fridge and freezes up to 1 month. They revive in a dry pan in seconds.",
     "goesWith": [
-      "Fresh Berries",
-      "Lemon & Sugar",
-      "Whipped Cream"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Green Smoothie"
     ],
-    "freezes": true,
-    "fridgeDays": 2
+    "versions": [
+      {
+        "name": "Lemon & Sugar",
+        "icon": "⭐",
+        "default": true,
+        "feel": "The Paris street-stand classic — hot crêpe, a squeeze of lemon, a scatter of sugar, folded into quarters and gone.",
+        "time": 20,
+        "costPP": 7,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 35,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "lemon juice"
+          },
+          {
+            "n": "sugar",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Make and REST the batter 30 minutes.",
+          "Swirl thin off the heat, cook until the edges lift, flip for seconds.",
+          "While hot: lemon squeezed over, sugar scattered, folded into quarters. Eat standing up — tradition."
+        ],
+        "tip": "Sugar on a hot crêpe half-dissolves into a lemon syrup; on a cold one it's just gritty.",
+        "nutrition": {
+          "kcal": 240,
+          "protein_g": 7,
+          "carbs_g": 34,
+          "fat_g": 8
+        },
+        "storage": "Plain crêpes keep 2 days, freeze 1 month."
+      },
+      {
+        "name": "Savoury Ham & Cheese",
+        "icon": "🧀",
+        "feel": "Folded into a crisp-edged square over melting cheese and ham — the crêperie's savoury order, done in your pan.",
+        "time": 25,
+        "costPP": 13,
+        "ingredients": [
+          {
+            "n": "cake flour",
+            "pp": 35,
+            "u": "g"
+          },
+          {
+            "n": "large eggs",
+            "pp": 1,
+            "u": "egg"
+          },
+          {
+            "n": "milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "butter",
+            "pp": 8,
+            "u": "g"
+          },
+          {
+            "n": "ham",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "cheddar",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "black pepper"
+          },
+          {
+            "n": "salt"
+          }
+        ],
+        "method": [
+          "Make and rest the batter; cook a crêpe and flip it.",
+          "While the second side cooks, scatter the cheese over the whole surface, lay the ham in the middle — the melting cheese is the mortar that holds the fold.",
+          "Fold the four edges in to make a square with the filling framed in the centre, and press gently 30 seconds so the base crisps.",
+          "Slide out, grind pepper over and serve hot — the crisp fold against the molten middle is the whole point."
+        ],
+        "tip": "Cheese first, everywhere — it glues the folds shut as it melts, so the square holds on the plate.",
+        "nutrition": {
+          "kcal": 330,
+          "protein_g": 17,
+          "carbs_g": 27,
+          "fat_g": 17
+        },
+        "storage": "Made to order; plain crêpes for it keep 2 days ready to fill."
+      }
+    ]
   },
   {
     "id": "bf-classic-buttermilk-waffles",
@@ -1745,9 +4022,9 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 2,
     "feel": "Crisp pockets, soft middle — the waffle every other one is measured against.",
     "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
+      "Bacon & Eggs",
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "The 'Belgian' waffle the world knows was launched at the 1964 New York World's Fair — deeper pockets, lighter batter, piled with cream and strawberries. Buttermilk's acid reacts with the raising agent for extra lift, and lends a gentle tang under the syrup.",
     "ingredients": [
@@ -1812,9 +4089,9 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 2,
     "feel": "Banana-sweet and nutty — pudding that gets to be breakfast.",
     "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
+      "Berry Banana Smoothie",
+      "Yoghurt & Granola Bowl",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "Pecans are one of the only major nuts native to North America, and South Africa is now among the world's top growers, with much of the Northern Cape crop heading abroad. The riper the banana, the sweeter the batter — so reach for the speckled ones going soft in the bowl.",
     "ingredients": [
@@ -1894,9 +4171,9 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 2,
     "feel": "No sugar here — a crisp, cheesy waffle built to carry a runny egg.",
     "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
+      "Bacon & Eggs",
+      "Smashed Avo Toast",
+      "Green Smoothie"
     ],
     "didYouKnow": "Waffles began life savoury, not sweet — medieval ones were pressed between hot iron plates over a fire, often with cheese inside. The American soul-food classic of chicken and waffles keeps that tradition alive, and a cheesy waffle makes a fine bed for a fried egg.",
     "ingredients": [
@@ -1961,9 +4238,9 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 2,
     "feel": "Melty chocolate pockets — the treat-morning waffle.",
     "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate",
+      "Amasi & Fruit Bowl"
     ],
     "didYouKnow": "The chocolate chip was a happy accident — Ruth Wakefield chopped a chocolate bar into her 1930s cookie dough expecting it to melt and spread, but it held its shape, and the chip was born. In a hot waffle those chips go molten, then set again as it cools.",
     "ingredients": [
@@ -2033,9 +4310,9 @@ var BREAKFAST_RECIPES = [
     "fridgeDays": 2,
     "feel": "Crisp bacon, deep golden waffle, a flood of syrup — the diner classic.",
     "goesWith": [
-      "Berry Smoothie",
-      "Fresh Berries",
-      "Crispy Bacon"
+      "Scrambled Eggs",
+      "Berry Banana Smoothie",
+      "Tropical Fruit Plate"
     ],
     "didYouKnow": "That irresistible sweet-and-salty pull of bacon under syrup is two of your tongue's reward systems firing at once — salt and sugar together light up the brain more than either does alone. Which is exactly why you can never stop at one.",
     "ingredients": [
