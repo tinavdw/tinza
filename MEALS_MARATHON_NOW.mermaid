@@ -1,82 +1,94 @@
-%% MEALS_MARATHON_NOW — Feed My Family recipe marathon (Fable · 4 Jul 2026 · v16 — M10b SAV BAKES back-6 ✅ SHELF COMPLETE 13/13 🛶)
-%% ⚠️ NEXT: push this file → Tina gives M-F5 BAKES RULING (now DUE — which cakes/biscuits/tarts/scones live in FMF vs Events Cakes, shelf ~40-60, 9/20 popular cakes done) → new chat → Fable 5 → attach THIS + FRESH meals.js → say 'go M11a' (FMF sweet bakes, first half per ruling). If Tina defers ruling: default carry, M-F15 breakfast re-check can run instead.
-%% ⚠️ SESSION DISCIPLINE (locked since M8 total-loss): SPLIT EVERY SHELF, BANK AT HALFWAY. M10b banked whole (6 cards = under-half size, single bank safe). ✅
-%% (VERIFY: 1,144,577 bytes · 318 unique recipe ids, 0 dups (grep ritual returns 319 raw = 318 + 1 template-literal id:'${r.id}' in render code) ·
-%%  node OK · 0 retailers (spar hits = 'sparingly' false positives) · 0 amountless leaveners (khachapuri instant yeast 2g ✓ LEAVENER LIVE honoured · muffins bp 3g ✓) ·
-%%  C4 PROGRAMMATIC PASS: 510 goesWith links checked across ALL bf-+ln- cards vs FULL 5-array name-set, 0 broken (was 492 pre-session; +18 from 6 new arrays; NB ritual now counts vs full library incl supper/bakes/sides — 'Chips' lives in sides) ·
-%%  ALL M10a markers still 1 each — COLLISION CAUGHT+FIXED in-session: goujons draft reused livers' 'elbow room' → reworded 'breathing space', elbow room back to 1 ·
-%%  ⚑DUP = 18 unchanged (back-6 carried none) · 'ln-cheese-crackers-board' + 'Cheese & Crackers Board' = 0 hits. Byte delta +7,516.
-%%  NEW M10b markers ×1 each: 'a custard, not an omelette' + 'a faint tremble' = quiches · 'twelve strokes, then stop' + 'Lumps bake out; toughness doesn't' = muffins ·
-%%  'blood-warm' + 'The yolk is the sun' + 'stirred at the table is the dish' + 'crust handles' = khachapuri · 'one hand wet, one hand dry' + 'Season the flour, not the fillet' + 'breathing space' = goujons ·
-%%  'the membrane, not the seeds' + 'guilty by association' + 'milk, not water' + 'a dare, not a snack' = poppers · 'an actual guest ranch' = wedges.)
-%% ✅ THIS SESSION (chat 16 — M10b): verified M10a file exact (1,137,061 · node ✓ · 318 ids ✓ · all 15 M10a markers ×1 ✓ · ⚑DUP 18 ✓ · C4 0 broken full-library · swapped-out M10a cards 0 hits).
-%%    Tina's brief locked the swap ('replace boring bland recipes with unusual exciting tasty') — Cheese & Crackers Board OUT (pure assembly, no cooking, Shelf-WOW)
-%%    → IN 🛶 Khachapuri Adjaruli (Georgian Cheese Bread Boat) (id ln-khachapuri-adjaruli, veg→veg ✓, YEAST 2g MEASURED = Leavener Law LIVE honoured,
-%%    dough salt 1.5g but NO salt in filling — feta brined, why stated (R4), C3 honest swap IN METHOD: sulguni+imeruli → mozzarella-stretch+feta-tang,
-%%    blood-warm milk yeast law, boat-shaping with crust-handles why, egg in for 2-3 min ONLY / yolk-is-the-sun law, stirred-at-the-table ritual,
-%%    Adjara Black-Sea-boats + Khachapuri-Index inflation moat, costPP 20, kcal 560).
-%%    REWROTE 4 keeps to WOW standard (names byte-identical per M-F4): quiches (salt 1g + pepper 0.5g + butter 3g ADDED per R0 — method's 'seasoning'
-%%    + tin-greasing now in list — chill-the-lined-tin why, squeeze-spinach-dry why, custard-not-omelette law, faint-tremble doneness, Kuchen/Lorraine
-%%    no-cheese-original moat) · muffins (sweetcorn 30g + spring onion 8g + salt 1g ADDED per R0 — method's vague 'extras' now real measured ingredients —
-%%    coat-the-cheese why, twelve-strokes muffin-method law, lumps-bake-out, muffin-vs-cupcake mixing moat, kcal 260→280) · goujons (paprika 2g + salt 1g +
-%%    pepper 1g + lemon 0.25 ADDED per R0 — method's lemon + tip's paprika promoted to list — across-the-grain why, season-the-flour law, wet-hand/dry-hand
-%%    station law, no-crowding why, goujon=gudgeon river-fish moat, double-dip padkos tip) · poppers (smoked paprika 1g ADDED, NO added salt both-cheeses-carry-it
-%%    why stated (R4), membrane-not-seeds heat-dial law, gloves/capsaicin safety why, rest-3-min rule, capsaicin-fat-soluble + Xalapa + armadillo-egg moat).
-%%    WEDGES completed to full standard per verdict (M-F20 CLOSED): goesWith ×3 ADDED + didYouKnow (Hidden-Valley-was-a-real-ranch/Steve-Henson moat) +
-%%    freezes:false + fridgeDays:1 ADDED + R4 fix: method 'season' → 'black pepper only — no salt, bacon+cheddar carry it' + black pepper 1g ADDED to list.
-%%    INBOUND REPAIRS ×1 (grepped BEFORE edits per K4): ln-biltong-soup goesWith 'Cheese & Crackers Board' → 'Mini Quiches'.
-%%    goesWith name-set verified programmatically BEFORE writing (all 18 candidates ✓ incl 'Chips' (sides) · 'Taco Salad' · 'BLT Salad' · 'Beet & Goat Cheese Salad' ·
-%%    'Roasted Red Pepper Soup' · 'Boontjiesop (Farm-Style Bean Soup)'; rejected NO-hits: 'Creamy Tomato Soup' → 'Tomato Soup' · 'Coleslaw' ✗ · 'Roast Butternut Soup' → 'Butternut Soup').
-%%    New kcals (estimates, M-F3): Khachapuri Adjaruli 560 · Savoury Muffins UPDATED 280 (corn added).
+%% MEALS_MARATHON_NOW — Feed My Family recipe marathon (Fable · 4 Jul 2026 · v17 — M-F15a BREAKFAST RE-CHECK eggs+fryups+toast ✅ 9/9 SWAPS 🍳)
+%% ⚠️ NEXT: push this file → new chat → Fable 5 → attach THIS + FRESH meals.js → say 'go M-F15b' (pancakes+porridge, plan locked below).
+%%    Then M-F15c (bowls/drinks + baked audit) → THEN M11 sweet bakes (M-F5 ruling done: breakfast re-run first was Tina's re-order).
+%% ⚠️ SESSION DISCIPLINE (locked since M8 total-loss): SPLIT EVERY SHELF, BANK AT HALFWAY. M-F15a proved it AGAIN — chunk-1 session died
+%%    mid-chunk-2, but Bank 1 (5 egg swaps) was already safe in-chat; this session verified Bank 1 exact and completed chunk 2. ✅
+%% (VERIFY: 1,118,503 bytes · 318 unique recipe ids, 0 dups (raw grep 319 = 318 + template-literal id:'${r.id}') · node OK ·
+%%  0 retailers · 0 amountless leaveners (roosterkoek instant yeast 2g MEASURED = Leavener Law LIVE) · ⚑DUP = 18 unchanged ·
+%%  C4 PROGRAMMATIC PASS: 513 goesWith links checked bf-+ln- vs FULL 5-array name-set, 0 broken (was 510; +3 net from swaps) ·
+%%  DEAD-NAME SWEEP file-wide 0 hits ALL NINE: Scrambled Eggs* / Cheese & Tomato Omelette / Mushroom & Feta Omelette / Frittata* /
+%%  Breakfast Egg Wrap / Bacon & Eggs / Boerewors & Eggs / Smashed Avo Toast / Peanut Butter & Banana Toast
+%%  (*Snoek Scramble + Kuku Sabzi gloss legitimately contain the words — checked in context) ·
+%%  CHUNK-1 markers (M-F15a eggs, verified present): 'faith high' + 'ratio is the recipe' = gyeran-jjim · 'every grill lies' = kejriwal ·
+%%  'soğanlı versus soğansız' = menemen · 'herbs bound with egg' = kuku sabzi · 'one flippable slab' + 'sugar is not optional' = gilgeori ·
+%%  CHUNK-2 markers ×1 each: 'a crust is earned, not stirred' + 'The whisk never stops, the heat never climbs' = boerewors hash ·
+%%  'flake it, never chop it' + 'hollow knock' = smoorsnoek · 'off the heat, or the cheese turns to rope' + 'sauce the soft side' +
+%%  'The freckles are flavour' = rarebit · 'pressed shut like an envelope' + 'all six faces' + 'at the table, not in the pan' = HK french toast.
+%%  Feel-line dupes = 10, ALL pre-existing supper ⚑DUP pairs, 0 new.)
+%% ✅ THIS SESSION (chat 18 — M-F15a chunk 2 + recovery): previous chat died mid-chunk-2; recovered plan from chat history,
+%%    verified Bank 1 file exact (1,129,147 · 318 ids · chunk-1 five cards present · Hong Kong/Scrambled/Frittata residuals all benign).
+%%    CHUNK 1 (banked by dead session): Scrambled Eggs → Gyeran-jjim (Korean Steamed Eggs) 🥚 · C&T Omelette → Eggs Kejriwal
+%%    (Chilli-Cheese Toast) · Mushroom & Feta Omelette → Menemen (Turkish Scramble) · Frittata → Kuku Sabzi (Persian Herb Frittata) ·
+%%    Breakfast Egg Wrap → Gilgeori Toast (Korean Street Toast).
+%%    CHUNK 2 (this session, 4 swaps): Bacon & Eggs → 🍳 Boerewors Hash with Chakalaka Hollandaise (bf-boerewors-hash, SA, NO added
+%%    salt — wors+chakalaka salt the pan twice, why stated (R4, running total ~15) · crust-is-earned law · whisk-never-stops hollandaise ·
+%%    warm-mayonnaise demystifier + township/mine-kitchen chakalaka moat · costPP 24 · kcal 640) ·
+%%    Boerewors & Eggs → 🐟 Smoorsnoek on Roosterkoek (bf-smoorsnoek-roosterkoek, SA Cape, YEAST 2g MEASURED, dough salt 1.5g but
+%%    NO salt in the smoor — snoek is salt-cured, why stated · flake-never-chop law · hollow-knock doneness · boiling-water soak pulls
+%%    excess cure · smoor='smother' Dutch + Monday-dish + West-Coast-snoek-run moat · griddle-pan stands in for braai rooster (C3) ·
+%%    costPP 26 · kcal 560 · freezes TRUE smoor-only) ·
+%%    Smashed Avo Toast → 🧀 Welsh Rarebit (Proper Cheese Sauce on Toast) (bf-welsh-rarebit — ⚠️ SUBSTITUTION, see M-F24: approved IN
+%%    was Croque Madame but ln-croque-monsieur ALREADY EXISTS in lunch handhelds and its tip already teaches the madame ('egg is her
+%%    hat') — writing madame = disguised dupe, M8a Vetkoek/Bunny-Chow precedent applied · off-the-heat-or-rope law · sauce-the-soft-side ·
+%%    freckles-are-flavour · NO added salt — cheddar+Worcestershire salt it twice · Welsh-rabbit-insult + buck-rarebit moat · costPP 16 ·
+%%    kcal 520 · sauce keeps 2 days = make-ahead wow) ·
+%%    PB & Banana Toast → 🍞 Hong Kong French Toast (bf-hong-kong-french-toast — keeps the PB soul · pressed-shut-envelope seal law ·
+%%    all-six-faces soak · condensed-milk-at-the-table ritual · deep-fry→butter-pan honest swap IN METHOD (C3) · sai-do-si 'western
+%%    toast' + 3:15pm HK tea-set + CNN-50-best moat (Singapore-noodles card already owns the cha-chaan-teng-invention story — angle
+%%    kept distinct) · costPP 12 · kcal 620).
+%%    INBOUND REPAIRS ×20 (K4 sweep BEFORE edits): all links to the 4 chunk-2 dead cards repaired across 16 owner cards (4 owners
+%%    carried two dead links each). goesWith name-set verified programmatically BEFORE writing (exact-name gotchas caught:
+%%    'Crumpets (Plaatkoekies)' not 'Crumpets' · 'Stone Fruit & Hot Honey Bowl' not '...Hot Honey' · 'Stewed Fruit & Yoghurt BowL' full name).
+%%    Marker collision protocol: pre-grep AND post-grep run (M10b lesson) — 1 same-card repetition caught post-write ('all six faces'
+%%    twice inside HKFT) → second reworded 'every side gets its minute in the butter'.
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE"]
-    S1["FMF MARATHON: BREAKFAST 71 ✅ + SALADS 27 ✅ + SOUPS 21 ✅ + HANDHELDS 22 ✅ + QUICK 23 ✅ + SAV BAKES 13/13 ✅ SHELF COMPLETE — every card gw:3 + didYouKnow + freezes + fridgeDays verified programmatically. meals.js 1,144,577 · 318 ids · node ✓ · C4 510/0 ✓ · PUSH READY."]
-    S2["RUNWAY: M-F5 bakes ruling NOW DUE from Tina → M11 FMF sweet bakes (cakes 9/20 done + biscuits/tarts ~40-60, split M11a/M11b/...) → M-F15 breakfast re-check → M-F21 diet-coverage pass. LAUNCH OCTOBER."]
+    S1["FMF MARATHON: BREAKFAST 71 ✅ (M-F15a re-check: eggs/fryups/toast now WOW — 9 swapped) + SALADS 27 ✅ + SOUPS 21 ✅ + HANDHELDS 22 ✅ + QUICK 23 ✅ + SAV BAKES 13 ✅. meals.js 1,118,503 · 318 ids · node ✓ · C4 513/0 ✓ · PUSH READY."]
+    S2["RUNWAY: M-F15b (pancakes+porridge) → M-F15c (bowls/drinks + baked Leavener audit) → M11 FMF sweet bakes (M-F5 answered: scope per Tina's re-order ruling, cakes 9/20 done, split M11a/b/c) → M-F21 diet-coverage pass. LAUNCH OCTOBER."]
     S1-->S2
   end
 
   subgraph BANK["🔒 TINA'S NEXT ACTION"]
-    K1["PUSH meals.js NOW: GitHub Desktop ritual → commit 'M10b: sav bakes back-6 — Cheese & Crackers Board→Khachapuri Adjaruli, 4 WOW rewrites (quiches/muffins/goujons/poppers), wedges to full standard (M-F20 closed), 1 link repair' → push. node --check ✓ already done."]
-    K2["EYEBALL on tinza.netlify.app: Khachapuri Adjaruli NEW 🛶 (yolk is the sun · stirred at the table · Khachapuri Index) · Mini Quiches (custard not omelette · faint tremble · Kuchen) · Savoury Muffins (twelve strokes · now with corn+spring onion) · Chicken Goujons (one hand wet one hand dry · gudgeon · lemon wedges) · Jalapeño Poppers (membrane not seeds · armadillo egg) · Wedges (now has goesWith + ranch moat + pepper-only line) · confirm Cheese & Crackers Board GONE · confirm Creamy Biltong Soup goesWith now shows Mini Quiches."]
-    K3["📸 SON'S PHOTO QUEUE +1 NEW: Khachapuri Adjaruli (Georgian Cheese Bread Boat) — the boat + molten cheese + whole yolk is a photographer's gift. +1 ORPHANED: Cheese & Crackers Board — archive, do not delete. Carried: Biltong & Cheddar Scones · Farinata new / Biltong & Salad Plate · Hummus & Veg Sticks orphans (M10a) · Oyakodon · Tin Fish Curry new / Chicken & Rice Bowl · Poke Bowl orphans (M9b) · Chana Masala · Pad Thai · Tortilla Española · Okonomiyaki new / Veg Stir-fry · Egg Fried Rice · Baked Potato · Savoury Pancakes orphans (M9a) · Prego Roll + Sabich new / Chicken Wrap + Veggie Wrap orphans (M8b) · Kota new + C&T Sarmie orphan (M8a) · 3 M7 soups new + 3 orphans · 5 M6 salads + 5 orphans · 'Scrambled Eggs' · vafler · kanelsnegle · korvapuusti · Jollof split."]
-    K4["M-F5 BAKES RULING = TINA'S CALL BEFORE M11: which sweet bakes live in FMF vs Events Cakes? Scope the shelf (~40-60: cakes/biscuits/tarts/sweet scones). Then 'go M11a' in a NEW chat: verify file first (1,144,577 · 318 · M10b markers · C4 510/0 · ⚑DUP 18) → assess whole sweet-bakes shelf → verdicts → execute first half → bank + mermaid v17. SPLIT + BANK — sweet shelf is big, likely 3+ sessions."]
+    K1["PUSH meals.js NOW: GitHub Desktop ritual → commit 'M-F15a: breakfast re-check eggs+fryups+toast — 9 WOW swaps (Gyeran-jjim, Kejriwal, Menemen, Kuku Sabzi, Gilgeori, Boerewors Hash, Smoorsnoek op Roosterkoek, Welsh Rarebit, HK French Toast), 20 link repairs' → push. node --check ✓ done."]
+    K2["EYEBALL on tinza.netlify.app: all 9 new cards render · confirm all 9 old cards GONE · spot-check goesWith taps: Crumpets→Boerewors Hash · Cloud Eggs→Welsh Rarebit · PB smoothie→Hong Kong French Toast · Putu Pap→Boerewors Hash."]
+    K3["📸 SON'S PHOTO QUEUE +9 NEW: Gyeran-jjim (steam dome in the pot) · Eggs Kejriwal · Menemen · Kuku Sabzi (jade-green cut face) · Gilgeori Toast · Boerewors Hash w/ Chakalaka Hollandaise (sauce blush over crisp hash) · Smoorsnoek on Roosterkoek (griddle stripes!) · Welsh Rarebit (dark-gold freckles) · Hong Kong French Toast (condensed milk mid-pour = the shot). +9 ORPHANED (archive, don't delete): Scrambled Eggs · C&T Omelette · Mushroom & Feta Omelette · Frittata · Breakfast Egg Wrap · Bacon & Eggs · Boerewors & Eggs · Smashed Avo Toast · PB & Banana Toast. Carried: Khachapuri (M10b) · Biltong & Cheddar Scones · Farinata (M10a) + earlier M7–M10 queue unchanged."]
+    K4["THEN 'go M-F15b' in a NEW chat (attach THIS + fresh meals.js, verify 1,118,503 · 318 · chunk-1+2 markers · C4 513/0 · ⚑DUP 18). M-F15b PLAN LOCKED (alle nege bevestig 4 Jul): PANCAKES OUT→IN: Crêpes→Kaiserschmarrn · Classic Buttermilk Waffles→Liège Waffles (yeast in GRAMS) · Choc Chip Waffles→Hong Kong Bubble Waffle (Gai Daan Jai) · Banana & Pecan Waffles→Japanese Soufflé Pancakes (waffles 5→2, supersedes M-F6). PORRIDGE 9 OUT: Mealie Pap & Milk · Maltabella · Maizena · Putu Pap · Creamy Oats · Overnight Oats · Bircher (M-F9 dies) · Mango Oats · Cheesy Krummelpap → 4 IN: Champorado · Congee w/ crispy onions & soy egg · Boere-Sago Porridge · Sütlaç-style Baked Rice Pudding. KEEP: Pannekoek · Crumpets (Plaatkoekies) · Cinnamon French Toast · Cheesy Savoury Waffles · Bacon & Syrup Waffles · the 6 already-unusual oats. SPLIT M-F15b INTO TWO BANKS (~13 cards = big). NOTE: putu/mealie-pap/krummelpap goesWith arrays got fresh repairs this session — those arrays die with the cards, no extra work."]
     K1-->K2-->K3-->K4
   end
   STATE-->BANK
 
   subgraph RULES["⭐ FABLE BRIEF RULES (locked — every new dish)"]
-    R0["LEAVENER LAW (permanent, ALL files): baking powder/bicarb/yeast NEVER 'to taste' — measured g/ml. M10b honoured: khachapuri instant yeast 2g · muffins bp 3g ✓. M11 sweet bakes = LEAVENER-HEAVY SHELF, audit every card. WOW rewrites: EVERY hero ingredient measured + method-mentions-it = list-contains-it (M10b fixed: quiches salt+pepper+butter · muffins corn+spring-onion+salt · goujons paprika+salt+pepper+lemon · poppers smoked-paprika · wedges pepper). ~114 pre-existing 'salt & pepper' in supper/sides + versions blobs = travels with each shelf."]
-    R1["SHELF-WOW LAW (Tina, M7+, RESTATED M10b brief): every shelf WOW — no googleable everyone-can-make dishes, replace boring/bland with unusual/exciting/tasty. Remove and replace, never disguise. M10b proof: assembly cheese board OUT, Georgian cheese-bread boat IN. VOICE A why-led make-or-breaks (custard-not-omelette · twelve-strokes · yolk-is-the-sun · membrane-not-seeds)."]
-    R2["C1 global voice, SA own-cuisine where dish IS SA · C2 authentic name + gloss (Khachapuri Adjaruli (Georgian Cheese Bread Boat) ✓) · C3 honest swaps stated IN METHOD (khachapuri: sulguni+imeruli→mozzarella+feta ✓) · C4 goesWith = real named library dishes, VERIFY NAME-SET BEFORE WRITING vs FULL 5-array library (M10b: 510 links, 0 broken; exact-name gotchas: 'Tomato Soup' not 'Creamy...' · 'Butternut Soup' not 'Roast...' · NO 'Coleslaw' in library · 'Chips' is in SIDES). Supper free-text goesWith (~387) = supper-pass scope."]
-    R3["VERSIONS 5/4/2/1 by fame + litmus. M10b=0 new. Chips render after Code N0+versionStrip."]
-    R4["Carried locked: real named spices never 'taco seasoning' (supper taco pass later: sp-texmex ×11) · cured/salty/brined = NO added salt + why, pepper always (M10b: feta khachapuri-filling · cream-cheese+cheddar poppers · bacon+cheddar wedges = 3 more cards, running total ~14) · beginner-proof · didYouKnow = moat · storage + freezes + fridgeDays on every card · one push per session (bank halves!) · names/photoName never changed on kept cards (M-F4 — M10b: 5 kept names byte-identical) · marker phrases NEVER reused across cards (M10b: 15 new markers collision-checked pre-write; 1 collision CAUGHT post-write — 'elbow room' reused from livers → fixed to 'breathing space'. LESSON: grep-verify markers AFTER writing too, not just before)."]
+    R0["LEAVENER LAW (permanent, ALL files): baking powder/bicarb/yeast NEVER 'to taste' — measured g/ml. M-F15a honoured: roosterkoek instant yeast 2g ✓. M-F15b = Liège (yeast) + soufflé pancakes (bp) + bubble waffle (bp) — LEAVENER-HEAVY, audit every card. Method-mentions-it = list-contains-it (M-F15a: dough salt/sugar/water/oil all listed, HKFT condensed milk listed)."]
+    R1["SHELF-WOW LAW (Tina, restated at M-F15 briefing): 'nothing googleable, nothing anyone can already cook — every card a dish people don't know but would love to.' Remove and replace, never disguise. M-F15a proof: 9 bland anchors OUT, 9 unknowns IN."]
+    R2["C1 global voice, SA warmth where dish IS SA (hash ✓ smoorsnoek ✓) · C2 authentic name + gloss (Gyeran-jjim (Korean Steamed Eggs) ✓; SA names stand alone per library convention: Smoorsnoek on Roosterkoek unglossed like Pannekoek/Vetkoek) · C3 honest swaps IN METHOD (smoorsnoek: griddle-for-rooster ✓ · HKFT: butter-pan-for-deep-fry ✓ · rarebit: milk listed, ale in moat only) · C4 goesWith = real named library dishes VERIFIED vs FULL 5-array name-set BEFORE writing (513/0; new gotchas logged: 'Crumpets (Plaatkoekies)' · 'Stone Fruit & Hot Honey Bowl')."]
+    R3["VERSIONS 5/4/2/1 by fame + litmus. M-F15a new cards = 0 versions (matches chunk-1/M10b convention for new WOW cards; old Bacon&Eggs/Avo/PB&B chips died with their cards — incl 'The Elvis' 🎸). Chips render after Code N0+versionStrip."]
+    R4["Carried locked: real named spices · cured/salty/brined = NO added salt + why stated, pepper always (M-F15a: wors+chakalaka hash · salt-cured snoek smoor · cheddar+Worcestershire rarebit = 3 more, running ~15) · beginner-proof · didYouKnow = moat, NEVER reuse an existing card's story angle (croquer/egg-is-her-hat = croque monsieur's · cha-chaan-teng-invention = Singapore noodles' · 90%-meat law = 3 existing wors cards' — all avoided) · storage + freezes + fridgeDays every card · one push per session, bank halves · names/photoName never changed on kept cards (M-F4) · markers NEVER reused: grep BEFORE and AFTER writing (M10b lesson — M-F15a caught 1 same-card repeat post-write, fixed)."]
   end
   BANK-->RULES
 
   subgraph FLAG["🚩 OPEN FLAGS"]
-    MF1["M-F1: 3 omelette cards — kept 3 (default)."]
-    MF2["M-F2: no drink CARDS — smoothies = drink slot. OK, or drinks mini-shelf later?"]
-    MF3["M-F3: per-version nutrition = estimates → C1 nutrition pass. 58 chips. + Prego 520 · Sabich 480 · Chana 420 · Pad Thai 480 · Tortilla 430 · Okonomiyaki 460 · Oyakodon 520 · Tin Fish Curry 430 · Biltong Cheddar Scones 340 · Farinata 220 · Livers 340 · NEW: Khachapuri Adjaruli 560 · Savoury Muffins UPDATED 280."]
-    MF4["M-F4: 'Çılbır (Turkish Eggs)' rename? HELD M2-M10b: zero name changes on kept cards."]
-    MF5["M-F5: bakes ruling — NOW DUE ⏰ (was 'after M10b' — M10b done). Tina decides: FMF sweet-bakes scope (which cakes/biscuits/tarts/scones live in FMF vs Events Cakes; shelf ~40-60, 9 of 20 popular cakes done). Blocks M11 start. Default if deferred: carry, run M-F15 breakfast re-check instead."]
-    MF6["M-F6: 5 waffle cards — kept 5 (default)."]
-    MF7["M-F7: stale-kcal list unchanged: Mealie Pap 250 · Putu 250 · Cheesy Krummel 330 · Maizena 230 · Maltabella 240."]
-    MF8["M-F8: pap cluster — kept 5 (default). ln-pap-sheba (quick) separate + WOW."]
-    MF9["M-F9: Bircher ingredient change — Tina sign-off."]
-    MF10["M-F10: smoothies/bowls — default shelf full."]
-    MF12["M-F12: muffin shelf (breakfast) — default shelf full."]
-    MF14["M-F14: ⚑DUP kept: ln-greek-salad · ln-falafel-wrap · ln-pita-hummus-chicken · ln-boerewors-roll · ln-tomato/lentil/broccoli-cheese-soup · ln-fried-rice/shakshuka/buddha-bowl · savbakes kept dups samosas/spring-rolls/bruschetta/sausage-rolls/livers (18 ⚑DUP total, unchanged M10b — back-6 carried none)."]
-    MF15["M-F15: breakfast shelf-WOW re-check — NEXT IN QUEUE after sweet bakes (or BEFORE, if M-F5 ruling deferred)."]
-    MF16["M-F16: vague cuisine tags — 'Classic' VANISHED with cheese-board swap ✓. Still holding: 'Modern' (savoury muffins) · 'Comfort' (goujons) → later cuisine pass (default: leave)."]
+    MF1["M-F1 ✅ CLOSED at M-F15a: the omelette question is moot — C&T and Mushroom & Feta swapped out per approved plan; Hash Brown Omelette (the shell trick) is the surviving omelette."]
+    MF2["M-F2: no drink CARDS — RESOLVED DIRECTION at M-F15 briefing: craft drinks with a story ALLOWED (default confirmed). Vietnamese Egg Coffee + Misugaru arrive in M-F15c."]
+    MF3["M-F3: per-version nutrition = estimates → C1 nutrition pass. Carried list + NEW M-F15a chunk-2: Boerewors Hash 640 · Smoorsnoek 560 · Welsh Rarebit 520 · HK French Toast 620 (chunk-1: Gyeran-jjim 180 + 4 more in-file)."]
+    MF4["M-F4: 'Çılbır (Turkish Eggs)' rename? HELD — zero name changes on kept cards. (Turkish Eggs card untouched by M-F15a, still linked from smoorsnoek.)"]
+    MF5["M-F5 ✅ ANSWERED: Tina re-ordered — breakfast re-check (M-F15) runs FIRST, then sweet bakes M11a/b/c. Bakes scope ruling itself (~40-60 cards, FMF vs Events Cakes) still needed BEFORE 'go M11a' — ask at M-F15c close."]
+    MF6["M-F6 SUPERSEDED: waffle ruling changed at M-F15 briefing — waffles trim 5→2 in M-F15b (Classic Buttermilk→Liège · Choc Chip→Bubble Waffle · Banana & Pecan→Soufflé Pancakes; keep Cheesy Savoury + Bacon & Syrup). Orphaned waffle photos → M-F15b queue."]
+    MF7["M-F7 stale-kcal list: DIES in M-F15b (all five cards are porridge OUTs). Close there."]
+    MF8["M-F8: pap cluster ruling superseded by M-F15b plan — all 5 pap/porridge cards OUT (Krummelpap confirmed OUT by 'alle nege'). ln-pap-sheba (quick shelf) separate + already WOW — NOT touched."]
+    MF9["M-F9: Bircher — dies in M-F15b (card is an OUT). Close there."]
+    MF10["M-F10 + M-F12: smoothies/bowls + breakfast muffin defaults SUPERSEDED by M-F15c plan: 12 bowls/smoothies OUT · 3 rewrites (Stewed Fruit & Yoghurt Bowl · Stone Fruit & Hot Honey Bowl · Boererusk & Amasi→rusk-making moves to M11 default) · 3 IN (Overnight Labneh w/ dukkah & hot honey · Vietnamese Egg Coffee (Cà Phê Trứng) · Misugaru). Baked 12 = keep all + Leavener audit."]
+    MF14["M-F14: ⚑DUP kept = 18 unchanged (M-F15a carried none). Feel-line dupes ×10 = the same pre-existing supper ⚑DUP pairs, not new."]
+    MF15["M-F15: breakfast shelf-WOW re-check — 15a ✅ DONE (this session) · 15b NEXT (plan locked in K4) · 15c after."]
+    MF16["M-F16: vague cuisine tags 'Modern'/'Comfort' → later cuisine pass (default leave). M-F15a new cards all have real cuisines (Korean/Indian/Turkish/Persian/SA/SA Cape/Welsh/Hong Kong)."]
     MF17["M-F17: ln-sweetpotato-peanut-soup vs WK maafe — check at next wk_africa touch."]
-    MF18["M-F18: 'Classic' tag on 4 kept sarmies — same later cuisine pass."]
-    MF19["M-F19: kota vs Gatsby = deliberate siblings, BOTH stay. No future session 'fixes' this."]
-    MF20["M-F20 ✅ CLOSED at M10b: wedges goesWith ×3 + didYouKnow + freezes + fridgeDays added. Residual: gnocchi free-text sb-potato-gnocchi → supper/sides pass (+ PESTO recipe in Spice still unlocks that link)."]
-    MF21["M-F21: FMF lunch diet-coverage pass later. M10b delta: ZERO (veg board→veg khachapuri). Savbakes final split: 5 meat · 7 veg · 1 vegan."]
-    MF22["M-F22: PRICE_DB confirms due (C3 costing pass): portuguese roll (M8b+livers) + M9a list (tamarind paste · fish sauce · bean sprouts · cumin seeds · garam masala · ground coriander · Worcestershire sauce · streaky bacon · white pepper · mustard powder · cabbage) + M9b (tinned pilchards · chicken thighs · vegetable stock) + M10a (chickpea flour · rosemary · samosa pastry · spring roll wrappers · biltong) + M10b NEW: instant yeast · feta · mozzarella · jalapenos · cream cheese · ranch dressing · smoked paprika · sweetcorn — confirm priced."]
-    MF23["M-F23: supper free-text goesWith 'Egg Fried Rice' ×2 (~L9691 + sp-beef-broccoli ~L11981) names a REMOVED lunch card — repair in supper free-text pass (~387). NO new instances created by M10b (single inbound repair done in-session; 'Cheese & Crackers Board' = 0 remaining hits)."]
-    MF1-->MF2-->MF3-->MF4-->MF5-->MF6-->MF7-->MF8-->MF9-->MF10-->MF12-->MF14-->MF15-->MF16-->MF17-->MF18-->MF19-->MF20-->MF21-->MF22-->MF23
+    MF18["M-F18: 'Classic' tag on 4 kept sarmies — later cuisine pass."]
+    MF19["M-F19: kota vs Gatsby = deliberate siblings, BOTH stay."]
+    MF21["M-F21: FMF diet-coverage pass later. M-F15a delta: eggs shelf lost 2 veg omelettes but gained veg Gyeran-jjim/Menemen/Kuku Sabzi/Kejriwal — net veg POSITIVE; fryups now 1 meat (hash) + 1 fish (smoorsnoek); toast gained 1 veg (rarebit) + 1 sweet (HKFT)."]
+    MF22["M-F22: PRICE_DB confirms due (C3 costing pass): carried list + M-F15a NEW: smoked snoek · chakalaka (tinned) · condensed milk · English mustard · green chilli · egg yolk-as-line-item convention (hash lists 1 yolk separate from whole egg — confirm costing handles u:'yolk')."]
+    MF23["M-F23: supper free-text goesWith 'Egg Fried Rice' ×2 — unchanged, repair in supper free-text pass (~387). M-F15a created ZERO new dead references (file-wide dead-name sweep = 0 hits all nine)."]
+    MF24["M-F24 NEW ⚑ TINA VETO POSSIBLE: approved IN 'Croque Madame' was NOT written — ln-croque-monsieur already exists in lunch handhelds and its tip already teaches the madame variant ('the egg is her hat'). Duplicate rule + M8a precedent (Vetkoek/Bunny Chow rejected for same reason) → substituted Welsh Rarebit (Proper Cheese Sauce on Toast) in the same toast-craft slot, with buck-rarebit egg option in the tip. If Tina wants Madame anyway, say so at M-F15b start and rarebit↔madame swap runs as a 1-card patch."]
+    MF1-->MF2-->MF3-->MF4-->MF5-->MF6-->MF7-->MF8-->MF9-->MF10-->MF14-->MF15-->MF16-->MF17-->MF18-->MF19-->MF21-->MF22-->MF23-->MF24
   end
   RULES-->FLAG
 
@@ -88,15 +100,15 @@ flowchart TD
   FLAG-.->WK
 
   subgraph CCODE["🔧 CLAUDE CODE (parallel, no Fable cost)"]
-    CC1["N0 + version wiring GATES chips: bakesRecipeOpts→applyRecipeVersion · versionStrip into detail pages (WK + meals) · pilot = Breyani. 58 meals chips waiting."]
-    CC2["RUN 2 carried: recover 95 gated WK meat · naming pass · facet derivation · wire goesWith into clickable links (breakfast 71 + salads 27 + soups 21 + handhelds 22 + quick 23 + savbakes ALL 13 link-ready ✅ SHELF DONE) · balancedOrder() search. SEARCHBUG (HIGH): draw() missing searchHTML() core.js:473."]
+    CC1["N0 + version wiring GATES chips: bakesRecipeOpts→applyRecipeVersion · versionStrip into detail pages (WK + meals) · pilot = Breyani. 58 meals chips waiting (M-F15a killed a few old breakfast chips with their cards — recount at wiring time)."]
+    CC2["RUN 2 carried: recover 95 gated WK meat · naming pass · facet derivation · wire goesWith into clickable links (ALL SIX done shelves link-ready + breakfast eggs/fryups/toast now re-verified) · balancedOrder() search. SEARCHBUG (HIGH): draw() missing searchHTML() core.js:473."]
     CC1-->CC2
   end
   WK-.->CCODE
 
   subgraph TODO["📋 MASTER TO-DO — old + new, nothing dropped"]
-    T1["MEALS: M-F5 bakes ruling from Tina (BLOCKS M11) → M11 FMF sweet bakes cakes/biscuits/tarts ~40-60 (9/20 popular cakes done, SPLIT M11a/b/c + BANK) → M-F15 breakfast shelf-WOW re-check → FMF diet-coverage pass (M-F21). Shelf-WOW every assessment (R1). Marker grep AFTER writing, not just before (M10b lesson)."]
-    T2["CARRIED: push NXNAME 3 staged files if not pushed · lunch adapter one-liner (48 hidden dishes) · WK back-nav · recipe-page enrichment NX2 · Spice gaps ~1 batch (+khmeli suneli — NB khachapuri now in library strengthens the case) + PESTO recipe (unlocks gnocchi link) · cheap-SA sub-R10pp (PPZ1) · nameRoman pass · per-version nutrition C1 (F10 WK 21 + M-F3 list) · proxy names C2 · price confirms C3 (M-F22 list) · supper free-text pass ~387 (+M-F23 Egg Fried Rice ×2 + taco-spice sp-texmex ×11) · toum rename wk_africa ~L132 + Photo Studio regen · TRACK B once slice solid: PayFast FIRST · planner · Cook Mode · onboarding · web page · beta."]
+    T1["MEALS: 'go M-F15b' pancakes+porridge, TWO banks (plan in K4) → M-F15c bowls/drinks + baked Leavener audit + ask bakes-scope ruling → M11 sweet bakes M11a/b/c → M-F21 diet pass. Marker grep BEFORE and AFTER writing, every session."]
+    T2["CARRIED: push NXNAME 3 staged files if not pushed · lunch adapter one-liner (48 hidden dishes) · WK back-nav · recipe-page enrichment NX2 · Spice gaps ~1 batch (+khmeli suneli) + PESTO recipe (unlocks gnocchi link) · cheap-SA sub-R10pp (PPZ1) · nameRoman pass · per-version nutrition C1 (F10 WK 21 + M-F3 list) · proxy names C2 · price confirms C3 (M-F22 list) · supper free-text pass ~387 (+M-F23 Egg Fried Rice ×2 + taco-spice sp-texmex ×11) · toum rename wk_africa ~L132 + Photo Studio regen (now also stale re: 9 breakfast swaps) · TRACK B once slice solid: PayFast FIRST · planner · Cook Mode · onboarding · web page · beta."]
     T1-->T2
   end
   CCODE-->TODO
