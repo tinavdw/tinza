@@ -108,127 +108,162 @@ function toggleCookStep(i) {
 // ══════════════════════════════════════════════════════════════
 // GLOBAL SEARCH — searches across all sections
 // ══════════════════════════════════════════════════════════════
-function globalSearch(query) {
-  if(!query || query.trim().length < 2) { set({searchQuery:'', searchResults:[]}); return; }
-  const q = query.toLowerCase().trim();
-  const results = [];
-
-  // Search Braai meats
-  MEAT_GROUPS.forEach(g => {
-    g.items.forEach(item => {
-      if(item.name.toLowerCase().includes(q) || (item.note||'').toLowerCase().includes(q)) {
-        results.push({ emoji: item.emoji||'🔥', name: item.name, section: 'Braai', sub: item.note||'',
-          action: `set({screen:'braai',braiStep:2,braaiView:'browse',viewingRecipe:{type:'meat',id:'${item.id}'}})` });
-      }
-    });
-  });
-
-  // Search Braai sides
-  SIDES_GROUPS.forEach(g => {
-    g.items.forEach(item => {
-      if(item.name.toLowerCase().includes(q) || (item.desc||'').toLowerCase().includes(q)) {
-        results.push({ emoji: item.emoji||'🥗', name: item.name, section: 'Braai — '+g.label, sub: item.desc||'',
-          action: `set({screen:'braai',braiStep:3,braaiView:'browse',braaiSidesFilter:'${g.id}',viewingRecipe:{type:'side',id:'${item.id}'}})` });
-      }
-    });
-  });
-
-  set({ searchQuery: query, searchResults: results.slice(0, 20), screen: 'search_results' });
+// Accent/case-insensitive normaliser (falls back if search.js hasn't loaded yet).
+function _searchNorm(s){
+  return (typeof tinzaNormalize === 'function')
+    ? tinzaNormalize(s)
+    : String(s == null ? '' : s).toLowerCase().trim();
+}
+function _searchEsc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// Live search — updates results div directly, never calls draw() so input keeps focus
+// Human-facing section labels for the universal index's section keys.
+var _SEARCH_SECTION_LABEL = {
+  meals:'Family Meals', bakes:'Bakes', sides:'Sides & Basics', floor:'Budget',
+  health:'Healthy', world:'World Kitchen', events:'Events', braai:'Braai',
+  beverages:'Beverages', tiny:'Tiny Tummies', spice:'Spice', furry:'Furry Friends'
+};
+
+// Search the WHOLE catalogue via the universal index (window.allRecipes), including
+// each card's versions[]. Returns [{r, version, onVersion, section, sub, score}], best
+// first. A version hit carries the version name so the opener can pre-select it.
+function tinzaAllSearch(query){
+  var q = _searchNorm(query);
+  if(!q || q.length < 2) return [];
+  var terms = q.split(' ').filter(Boolean);
+  var pool = (typeof allRecipes === 'function') ? (allRecipes() || []) : [];
+  function everyIn(hay){ for(var k=0;k<terms.length;k++){ if(hay.indexOf(terms[k]) < 0) return false; } return true; }
+  var hits = [];
+  for(var i=0;i<pool.length;i++){
+    var r = pool[i];
+    var nameN  = _searchNorm(r.name);
+    var baseHay = _searchNorm(r.searchText || r.name);
+    var version = null, onVersion = false, matched = false;
+
+    if(everyIn(baseHay)){
+      matched = true;
+      // Top-level already matches — still deep-link when a version NAME matches too.
+      if(r.versions && r.versions.length){
+        for(var v=0; v<r.versions.length; v++){
+          if(everyIn(_searchNorm(r.versions[v].name))){ version = r.versions[v].name; onVersion = true; break; }
+        }
+      }
+    } else if(r.versions && r.versions.length){
+      // No top-level hit — try each version's name + feel + ingredient names.
+      for(var v2=0; v2<r.versions.length; v2++){
+        var ve = r.versions[v2];
+        var vh = baseHay + ' ' + _searchNorm(
+          (ve.name||'') + ' ' + (ve.feel||'') + ' ' +
+          (ve.ingredients||[]).map(function(x){ return x.n || x.name || ''; }).join(' ')
+        );
+        if(everyIn(vh)){ version = ve.name; onVersion = true; matched = true; break; }
+      }
+    }
+    if(!matched) continue;
+
+    var score = 0;
+    for(var j=0;j<terms.length;j++){ score += (nameN.indexOf(terms[j]) >= 0) ? 3 : 1; }
+    if(nameN === q) score += 6;      // exact name wins
+    if(onVersion)  score += 1;
+    hits.push({ r:r, version:version, onVersion:onVersion,
+      section: _SEARCH_SECTION_LABEL[r.section] || (r.section||''),
+      sub: r.feel || r.cuisine || '', score:score });
+  }
+  hits.sort(function(a,b){ return b.score - a.score; });
+  return hits.slice(0, 40);
+}
+
+// Non-live entry (kept for callers that jump straight to the results screen).
+function globalSearch(query){
+  if(!query || query.trim().length < 2){ set({searchQuery:'', searchResults:[]}); return; }
+  set({ searchQuery: query, searchResults: tinzaAllSearch(query),
+        searchPrevScreen: S.searchPrevScreen || S.screen, screen: 'search' });
+}
+
+// Open a search hit — lands on the parent card, pre-switched to the matched version.
+function openSearchResult(i){
+  var hit = (S.searchResults||[])[i];
+  if(!hit || !hit.r) return;
+  var upd = { _searchActiveRecipe: hit.r };
+  if(hit.version){
+    var m = Object.assign({}, S.recipeVersion || {});
+    m[hit.r.id] = hit.version;
+    upd.recipeVersion = m;
+  }
+  setQuiet(upd);
+  window.scrollTo(0,0);
+}
+
+// Live search — updates results div directly, never calls draw() so input keeps focus.
 function globalSearchLive(query) {
   S.searchQuery = query;
-  const resultsDiv = document.getElementById('searchResultsBody');
+  var resultsDiv = document.getElementById('searchResultsBody');
   if(!resultsDiv) return;
-
-  if(!query || query.trim().length < 2) {
-    resultsDiv.innerHTML = '';
-    return;
-  }
-
-  const q = query.toLowerCase().trim();
-  const results = [];
-
-  MEAT_GROUPS.forEach(function(g) { g.items.forEach(function(item) {
-    if(item.name.toLowerCase().includes(q)||(item.note||'').toLowerCase().includes(q))
-      results.push({emoji:item.emoji||'🔥', name:item.name, section:'Braai', sub:item.note||'',
-        action:"set({screen:'braai',braiStep:2,braaiView:'browse',viewingRecipe:{type:'meat',id:'"+item.id+"'}})"});
-  });});
-  SIDES_GROUPS.forEach(function(g) { g.items.forEach(function(item) {
-    if(item.name.toLowerCase().includes(q)||(item.desc||'').toLowerCase().includes(q))
-      results.push({emoji:item.emoji||'🥗', name:item.name, section:'Braai — '+g.label, sub:item.desc||'',
-        action:"set({screen:'braai',braiStep:3,braaiView:'browse',braaiSidesFilter:'"+g.id+"',viewingRecipe:{type:'side',id:'"+item.id+"'}})"});
-  });});
-
-  S.searchResults = results.slice(0,20);
-  var html = '';
-  if(results.length === 0) {
-    html = '<p style="color:#4a3020;font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;'+query+'&rdquo;</p>';
-  } else {
-    html += '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">'+results.length+' recipe'+(results.length!==1?'s':'')+' found in Tinza</div>';
-    results.forEach(function(r) {
-      html += '<div onclick="'+r.action+'" style="display:flex;align-items:center;gap:12px;padding:12px;background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;cursor:pointer;">';
-      html += '<div style="font-size:28px;flex-shrink:0;">'+r.emoji+'</div>';
-      html += '<div style="flex:1;min-width:0;">';
-      html += '<div style="font-size:14px;color:#f5e8cc;font-weight:bold;">'+r.name+'</div>';
-      html += '<div style="font-size:11px;color:#6a4020;">'+r.section+'</div>';
-      if(r.sub) html += '<div style="font-size:11px;color:#4a3020;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+r.sub+'</div>';
-      html += '</div><div style="color:#c06020;font-size:18px;flex-shrink:0;">→</div></div>';
-    });
-    html += '<div style="margin-top:20px;padding-top:16px;border-top:1px solid #1e1a10;text-align:center;">'
-      +'<div style="font-size:11px;color:#4a3020;margin-bottom:10px;">Cant find it? Try a wider search</div>'
-      +'<button onclick="alert(\"More recipes coming soon!\")" style="width:100%;padding:14px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#c06020;font-size:14px;cursor:pointer;font-family:Georgia,serif;">🌍 Find more recipes</button>'
-      +'</div>';
-  }
-  resultsDiv.innerHTML = html;
+  if(!query || query.trim().length < 2) { S.searchResults = []; resultsDiv.innerHTML = ''; return; }
+  S.searchResults = tinzaAllSearch(query);
+  resultsDiv.innerHTML = renderSearchResults(query, S.searchResults);
 }
 
-function searchResultsHTML() {
+// The Search page — bottom-nav Search, the Home tile, and every section's
+// "Search all recipes" button all land here (screen:'search' AND the legacy
+// screen:'search_results' both render this). Shows the matched recipe detail
+// when one is open, else the search box + live universal results.
+function searchPageHTML() {
+  if(S._searchActiveRecipe && typeof recipeDetailFromResult === 'function'){
+    return recipeDetailFromResult(
+      S._searchActiveRecipe, "setQuiet({_searchActiveRecipe:null})",
+      S.searchServings||4, '#c06020', '#1a1208', '#3a2010'
+    );
+  }
   var q = S.searchQuery || '';
-  var results = S.searchResults || [];
-  var resultsHTML = renderSearchResults(q, results);
-
+  var resultsHTML = renderSearchResults(q, S.searchResults || []);
   return '<div>'
     + '<div class="header">'
-    + '<button class="back-btn" onclick="set({screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[]})" style="color:#c06020;">&#8592; Back</button>'
+    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[]})" style="color:#c06020;">&#8592; Back</button>'
     + '<h1 style="font-size:18px;font-weight:normal;color:#f5e8cc;">&#128269; Search</h1>'
     + '</div>'
     + '<div class="content">'
     + '<div style="position:relative;margin-bottom:16px;">'
-    + '<input type="text" id="searchPageInput" value="' + q.replace(/"/g,'&quot;') + '" placeholder="Search recipes, ingredients..." '
+    + '<input type="text" id="searchPageInput" value="' + _searchEsc(q) + '" placeholder="Search recipes, versions, ingredients…" '
     + 'style="width:100%;box-sizing:border-box;padding:12px 16px 12px 40px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#f5e8cc;font-size:15px;font-family:Georgia,serif;outline:none;">'
     + '<span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;">&#128269;</span>'
     + '</div>'
     + '<div id="searchResultsBody">' + resultsHTML + '</div>'
     + '</div></div>';
 }
+// Both screen ids render the same universal search page (see core.js draw()).
+function searchHTML(){ return searchPageHTML(); }
+function searchResultsHTML(){ return searchPageHTML(); }
 
+// Render the hit list. `results` is tinzaAllSearch()'s output. A version match
+// shows a solid gold pill (the specific version); a multi-version card that
+// matched on its base name shows a hollow "N versions" hint.
 function renderSearchResults(q, results) {
-  if(!q || q.length < 2) return '';
+  if(!q || _searchNorm(q).length < 2) return '';
+  results = results || [];
   if(results.length === 0) {
-    return '<p style="color:#4a3020;font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;' + q + '&rdquo;</p>'
-      + findMoreBtn();
+    return '<p style="color:#4a3020;font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;' + _searchEsc(q) + '&rdquo;</p>';
   }
   var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + results.length + ' recipe' + (results.length!==1?'s':'') + ' found in Tinza</div>';
-  results.forEach(function(r) {
-    html += '<div onclick="' + r.action + '" style="display:flex;align-items:center;gap:12px;padding:12px;background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;cursor:pointer;">';
-    html += '<div style="font-size:28px;flex-shrink:0;">' + r.emoji + '</div>';
+  results.forEach(function(hit, idx) {
+    var r = hit.r;
+    var name = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name||'');
+    var vBadge = hit.onVersion
+      ? '<span style="display:inline-block;margin-left:6px;font-size:10px;font-weight:bold;color:#fff;background:#c06020;border-radius:10px;padding:1px 7px;vertical-align:middle;">' + _searchEsc(hit.version) + '</span>'
+      : ((r.versions && r.versions.length>1)
+          ? '<span style="display:inline-block;margin-left:6px;font-size:10px;color:#e0a060;border:1px solid #5a3010;border-radius:10px;padding:1px 7px;vertical-align:middle;">' + r.versions.length + ' versions</span>'
+          : '');
+    html += '<div onclick="openSearchResult(' + idx + ')" style="display:flex;align-items:center;gap:12px;padding:12px;background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;cursor:pointer;">';
+    html += '<div style="font-size:28px;flex-shrink:0;">' + (r.emoji||'🍽️') + '</div>';
     html += '<div style="flex:1;min-width:0;">';
-    html += '<div style="font-size:14px;color:#f5e8cc;font-weight:bold;">' + r.name + '</div>';
-    html += '<div style="font-size:11px;color:#6a4020;">' + r.section + '</div>';
-    if(r.sub) html += '<div style="font-size:11px;color:#4a3020;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + r.sub + '</div>';
+    html += '<div style="font-size:14px;color:#f5e8cc;font-weight:bold;">' + _searchEsc(name) + vBadge + '</div>';
+    html += '<div style="font-size:11px;color:#6a4020;">' + _searchEsc(hit.section) + '</div>';
+    if(hit.sub) html += '<div style="font-size:11px;color:#4a3020;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + _searchEsc(hit.sub) + '</div>';
     html += '</div><div style="color:#c06020;font-size:18px;flex-shrink:0;">&#8594;</div></div>';
   });
-  html += findMoreBtn();
   return html;
-}
-
-function findMoreBtn() {
-  return '<div style="margin-top:20px;padding-top:16px;border-top:1px solid #1e1a10;text-align:center;">'
-    + '<div style="font-size:11px;color:#4a3020;margin-bottom:10px;">Cant find it? Try a wider search</div>'
-    + '<button onclick="alert(\'More recipes coming soon\')" style="width:100%;padding:14px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#c06020;font-size:14px;cursor:pointer;font-family:Georgia,serif;">&#127757; Find more recipes</button>'
-    + '</div>';
 }
 
 

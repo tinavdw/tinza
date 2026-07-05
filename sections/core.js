@@ -420,8 +420,9 @@ function draw(){
       document.addEventListener('click', closePH);
     }, 100);
   }
-  // Wire search input after draw (only on initial navigation to search screen)
-  if(S.screen === "search_results") {
+  // Wire search input after draw (both the bottom-nav 'search' screen and the
+  // legacy section 'search_results' screen render the same universal search page)
+  if(S.screen === "search_results" || S.screen === "search") {
     setTimeout(function(){
       var el = document.getElementById("searchPageInput");
       if(el && !el._wired) {
@@ -2065,8 +2066,13 @@ function warmCard(o){
   // (e.g. finger foods show "≈R13.35/piece") to override the label — same green
   // dot, same styling, so the gold pair is unaffected (they pass no costText).
   const chip = (o.costText || o.costPP) ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>${o.costText || ('R'+o.costPP+' pp')}</span>` : '';
+  // Version-count hint — byte-for-byte the cost chip's anatomy (same .mono, gap, padding,
+  // radius, font-size/weight), differing ONLY in colour: an --accent dot (navigational,
+  // interactive) + --ink-soft text on a neutral --line2 border. Green (food cost) and gold
+  // (shop-spend) meanings are LOCKED per §3, so this touches neither.
+  const vchip = (o.versions && o.versions > 1) ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--line2);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--ink-soft);"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>${o.versions} versions</span>` : '';
   const meta = o.meta ? `<span style="color:var(--ink-soft);font-weight:700;font-size:12.5px;">${o.meta}</span>` : '';
-  const metaRow = (chip||meta) ? `<div style="display:flex;align-items:center;gap:9px;padding:11px 13px 12px;flex-wrap:wrap;">${chip}${meta}</div>` : '<div style="height:6px;"></div>';
+  const metaRow = (chip||vchip||meta) ? `<div style="display:flex;align-items:center;gap:9px;padding:11px 13px 12px;flex-wrap:wrap;">${chip}${vchip}${meta}</div>` : '<div style="height:6px;"></div>';
   return `<div onclick="${o.openJs||''}" style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 24px -18px rgba(120,70,30,0.5);margin-bottom:14px;cursor:pointer;">
     <div style="position:relative;aspect-ratio:1200/640;display:flex;align-items:flex-end;background:${grad};">
       <img src="${url}"${photoAltAttr(o.photoName || o.name, o.photoAlt)} onerror="photoSwap(this)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;" />
@@ -2412,12 +2418,51 @@ function crossLinkFor(map, label){
   return (Object.prototype.hasOwnProperty.call(map,k) && map[k]) ? map[k] : null;
 }
 
+// ── goesWith → openable card, BY NAME (P5) ────────────────────────────────────
+// goesWith values already match real card names, so rather than hand-wiring every
+// pairing we look the name up in the meals recipe source (breakfast/lunch/supper/
+// bakes/sides — the sections openRecipe('meals',id) renders via the shared page).
+// The explicit GOESWITH_LINKS map still wins first for special cases (Spice sauces,
+// aliases); a null/absent map entry falls through to auto-resolution. EXACT
+// normalised-name match only, so "Rice" never grabs "Rice Pudding". Built lazily
+// and cached (source arrays are static after load).
+var _goesWithNameIndex = null;
+function _goesWithNorm(s){ return (typeof tinzaNormalize==='function') ? tinzaNormalize(s) : String(s==null?'':s).toLowerCase().replace(/\s+/g,' ').trim(); }
+function _buildGoesWithNameIndex(){
+  var idx = {};
+  var arrs = [
+    typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],
+    typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],
+    typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],
+    typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
+    typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[]
+  ];
+  for(var a=0;a<arrs.length;a++){
+    (arrs[a]||[]).forEach(function(r){
+      if(!r || !r.id || !r.name) return;
+      var k = _goesWithNorm(r.name);
+      if(k && !idx[k]) idx[k] = r.id;   // first card of a given name wins
+    });
+  }
+  return idx;
+}
+function goesWithLink(label){
+  if(label==null) return null;
+  if(typeof GOESWITH_LINKS!=='undefined'){
+    var k = String(label).trim().toLowerCase();
+    if(Object.prototype.hasOwnProperty.call(GOESWITH_LINKS,k) && GOESWITH_LINKS[k]) return GOESWITH_LINKS[k];
+  }
+  if(!_goesWithNameIndex) _goesWithNameIndex = _buildGoesWithNameIndex();
+  var id = _goesWithNameIndex[_goesWithNorm(label)];
+  return id ? ("openRecipe('meals','" + id + "')") : null;
+}
+
 function goesWellBox(items){
   if(!items || !items.length) return '';
   return recipeBox('❤ Goes Well With',
     '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
     + items.slice(0,6).map(function(g){
-        var lk = (typeof GOESWITH_LINKS!=='undefined') ? crossLinkFor(GOESWITH_LINKS, g) : null;
+        var lk = (typeof goesWithLink==='function') ? goesWithLink(g) : null;
         if(lk){
           return '<span onclick="'+lk+'" style="padding:6px 13px;border-radius:16px;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;cursor:pointer;">' + g + ' ›</span>';
         }
@@ -2869,6 +2914,10 @@ function recipeNotFound(){
 // jumped from (incl. another recipe, via the _viewingRecipe snapshot above).
 function bakesRecipeOpts(r){
   if(!r) return { name:'Recipe not found' };
+  // ⭐ versions: overlay the chosen version BEFORE costing/rendering, and show the
+  // "Choose your version" strip (Rule Zero — same chips as recipeDetailFromResult).
+  // Reached via WK cross-links (openBakesRecipe → openRecipe('bakes')).
+  if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);
   var n = Math.max(1, S.recipeServings || S.people || 4);
   var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
   var fmt = function(v,u){
@@ -2904,6 +2953,7 @@ function bakesRecipeOpts(r){
     name:r.name,
     sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
     meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },
+    versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, 'var(--accent)') : '',
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
     extrasHTML: tipBox + dykBox + storeBox,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }

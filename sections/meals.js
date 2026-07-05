@@ -1062,6 +1062,7 @@ var BREAKFAST_RECIPES = [
   {
     "id": "bf-shakshuka",
     "cat": "eggs",
+    "diet": "veg",
     "name": "Shakshuka",
     "emoji": "🍅",
     "cuisine": "North African / Middle Eastern",
@@ -13380,14 +13381,9 @@ var LIGHTLUNCH_RECIPES = [
     didYouKnow:'Fried rice was born as thrift, not luxury — Chinese kitchens have been reviving leftover rice this way since at least the Sui dynasty (around 600 AD), and Yangzhou fried rice is still the dish every Chinese chef is judged on. The lesson survived 1,400 years: never cook rice specially for fried rice.',
     goesWith:['Spring Rolls','Chicken & Sweetcorn Soup','Asian Chopped Salad'],
     nutrition:{kcal:360,protein_g:11,carbs_g:52,fat_g:12}, storage:'Best straight from the wok; keeps 1 day sealed. Cool fast and reheat piping hot — rice is fussy about food safety.', freezes:false, fridgeDays:1},
-  {id:'ln-shakshuka', cat:'quick', name:'Shakshuka', emoji:'🍅', cuisine:'North African', time:25, costPP:29, diet:'veg', // ⚑DUP
-    feel:'Eggs poached in a bubbling, spiced tomato hug — one pan, bread compulsory.',
-    ingredients:[{n:'large eggs',pp:2,u:'egg'},{n:'tomatoes',pp:150,u:'g'},{n:'onion',pp:40,u:'g'},{n:'red pepper',pp:50,u:'g'},{n:'tomato paste',pp:15,u:'g'},{n:'feta',pp:25,u:'g'},{n:'olive oil',pp:8,u:'ml'},{n:'smoked paprika',pp:3,u:'g'},{n:'cumin',pp:2,u:'g'},{n:'salt',pp:1,u:'g'},{n:'black pepper',pp:1,u:'g'}],
-    method:['Soften the onion and red pepper in the oil until properly sweet and collapsing — rush this and the sauce tastes raw underneath. Stir in the tomato paste, smoked paprika and cumin and fry a full minute so the spices bloom in the fat and the paste loses its tinny edge.','Add the chopped tomatoes, salt and pepper and simmer 10 minutes until thick enough that a spoon dragged through leaves a trail. A watery sauce cannot poach an egg — it just boils it grey.','Now the shakshuka make-or-break: make wells with the spoon, crack an egg into each, then LID ON, heat LOW, and patience. The trapped steam sets the whites from above while the yolks stay liquid — because the yolk is the sauce for the sauce.','Kill the heat while the yolks still tremble (they keep cooking in the pan), crumble over the feta — it is salty, so you seasoned lightly for a reason — and serve from the pan with bread for mopping.'],
-    tip:'Watch the whites, not the clock: they should be just set with the thinnest wobble. Carry the pan to the table — shakshuka is a share-from-the-pan dish.',
-    didYouKnow:'Shakshuka is Maghrebi — Tunisian and Libyan long before it became a brunch icon — and the name comes from a word meaning "all shaken up". It travelled to Israel in the 1950s with Tunisian Jewish immigrants and conquered the country\'s breakfast tables from there.',
-    goesWith:['Falafel Wrap','Greek Salad','Pita, Hummus & Chicken'],
-    nutrition:{kcal:340,protein_g:17,carbs_g:19,fat_g:21}, storage:'The sauce keeps 3 days and only improves; reheat it and poach fresh eggs to order.', freezes:true, fridgeDays:3},
+  // ⚑ RETIRED (P4, 2026-07-05): the thin ln-shakshuka duplicate was removed. Shakshuka is
+  // now ONE canonical card — bf-shakshuka (5 versions, diet:'veg') — surfaced on the Lunch
+  // shelf via LUNCH_ADAPTER_INJECT (see lunchInject / mealSectionHTML). Do not re-add here.
   {id:'ln-buddha-bowl', cat:'quick', name:'Buddha Bowl', emoji:'🥗', cuisine:'Modern', time:25, costPP:21, diet:'vegan', // ⚑DUP
     feel:'A bright, built-in-sections bowl that leaves you full and smug.',
     ingredients:[{n:'rice',pp:70,u:'g'},{n:'chickpeas',pp:80,u:'g'},{n:'sweet potato',pp:100,u:'g'},{n:'avocado',pp:50,u:'g'},{n:'lettuce',pp:40,u:'g'},{n:'tahini',pp:18,u:'g'},{n:'lemon',pp:0.2,u:''},{n:'olive oil',pp:10,u:'ml'},{n:'smoked paprika',pp:2,u:'g'},{n:'cumin',pp:2,u:'g'},{n:'salt',pp:1,u:'g'}],
@@ -14156,6 +14152,38 @@ var SIDES_BASICS_RECIPES = [
   },
 ];
 
+// ── LUNCH ADAPTER (P4) ────────────────────────────────────────────────────────
+// Canonical meal cards that live in another section but should ALSO appear on the
+// Lunch shelf, in place of a thin duplicate. {id, cat} — cat = which Lunch pill it
+// sits under. Render-side ONLY: the source array is never mutated (the injected card
+// is a shallow copy carrying the Lunch cat); it opens its own full recipe and
+// openMealRecipe / toggleMealPlan resolve it across sections (see fallbacks above).
+// NOTE: of the 18 ⚑DUP lunch cards, only Shakshuka has a genuine fuller canonical
+// (bf-shakshuka, 5 versions) — the rest have no fuller same-family card to promote,
+// so they are left as-is until a canonical is built. Add a line here when one is.
+var LUNCH_ADAPTER_INJECT = [
+  { id:'bf-shakshuka', cat:'quick' }
+];
+function _findMealCardRaw(id){
+  var arrs = [
+    typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],
+    typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],
+    typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],
+    typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
+    typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[]
+  ];
+  for(var a=0;a<arrs.length;a++){ var f=(arrs[a]||[]).find(function(x){return x&&x.id===id;}); if(f) return f; }
+  return null;
+}
+function lunchInject(recipes){
+  (LUNCH_ADAPTER_INJECT||[]).forEach(function(inj){
+    if(recipes.some(function(x){return x.id===inj.id;})) return;   // already on the shelf
+    var c = _findMealCardRaw(inj.id);
+    if(c) recipes.push(Object.assign({}, c, {cat: inj.cat}));      // copy, carrying the Lunch cat
+  });
+  return recipes;
+}
+
 function mealSectionHTML(sectionKey){
   const configs = {
     breakfast:  {title:"Breakfast",         emoji:"🍳", color:"#d0a020", bg:"#181008", border:"#3a2010", recipes:typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],  sub:"Morning meals · Start your day right", cats:[{id:"eggs",e:"🍳",l:"Eggs"},{id:"fryups",e:"🥓",l:"Fry-Ups"},{id:"toast",e:"🍞",l:"Toast"},{id:"pancakes",e:"🥞",l:"Pancakes & Waffles"},{id:"oats",e:"🥣",l:"Oats & Porridge"},{id:"baked",e:"🧁",l:"Baked"},{id:"smoothies",e:"🥤",l:"Smoothies & Bowls"}]},
@@ -14182,6 +14210,8 @@ function mealSectionHTML(sectionKey){
   // List view
   const sort = S.mealSort||'popular';
   let recipes = [...(cfg.recipes||[])];
+  // P4: surface canonical cards from other sections on the Lunch shelf (e.g. Shakshuka).
+  if(sectionKey==='lightlunch' && typeof lunchInject==='function') recipes = lunchInject(recipes);
 
   // Category pills (braai-style) — only for sections that define cfg.cats
   const cats = cfg.cats || null;
@@ -14200,6 +14230,19 @@ function mealSectionHTML(sectionKey){
 
   if(sort==='az') recipes.sort((a,b)=>a.name.localeCompare(b.name));
   else if(sort==='time') recipes.sort((a,b)=>(a.time||0)-(b.time||0));
+  else {
+    // 'popular' (default) — honour an optional curated `order` field so section order is
+    // set by DATA, not array position. Lower `order` = earlier; cards without it keep
+    // their existing relative order (stable via index tiebreak). No card carries `order`
+    // yet, so this is a no-op until one is added — zero regression. (P6 — featured/order.)
+    recipes = recipes
+      .map((r,i)=>({r:r,i:i}))
+      .sort((a,b)=>{
+        const ao=(a.r.order!=null)?a.r.order:Infinity, bo=(b.r.order!=null)?b.r.order:Infinity;
+        return (ao-bo) || (a.i-b.i);
+      })
+      .map(x=>x.r);
+  }
 
   const mealHowOpen = S.mealHowOpen || false;
 
@@ -14272,6 +14315,7 @@ function mealSectionHTML(sectionKey){
           sub: r.cuisine || '',
           meta: metaTxt,
           costPP: r.costPP || '',
+          versions: (r.versions && r.versions.length) || 0,
           openJs: "openMealRecipe('"+r.id+"')",
           toggleJs: "toggleMealPlan('"+r.id+"')",
           sel: inPlan
@@ -14816,7 +14860,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- Goes Well With -->
       ${(r.goesWith&&r.goesWith.length)?`<div style="background:#0a0808;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.goesWith.map(g=>{const _lk=(typeof crossLinkFor==='function'&&typeof GOESWITH_LINKS!=='undefined')?crossLinkFor(GOESWITH_LINKS,g):null;return _lk?`<span onclick="${_lk}" style="padding:6px 13px;border-radius:16px;border:1px solid ${color};color:${color};font-size:13px;font-weight:bold;cursor:pointer;">${g} ›</span>`:`<span style="padding:6px 13px;border-radius:16px;border:1px solid ${border};color:#e0d4b8;font-size:13px;">${g}</span>`;}).join('')}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.goesWith.map(g=>{const _lk=(typeof goesWithLink==='function')?goesWithLink(g):null;return _lk?`<span onclick="${_lk}" style="padding:6px 13px;border-radius:16px;border:1px solid ${color};color:${color};font-size:13px;font-weight:bold;cursor:pointer;">${g} ›</span>`:`<span style="padding:6px 13px;border-radius:16px;border:1px solid ${border};color:#e0d4b8;font-size:13px;">${g}</span>`;}).join('')}</div>
       </div>`:''}
 
       <!-- Tip -->
@@ -15033,7 +15077,12 @@ function openMealRecipe(id){
     sidesbasics: typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[],
   };
   const arr = sectionRecipes[sec]||[];
-  const r = arr.find(x=>x.id===id);
+  let r = arr.find(x=>x.id===id);
+  // Cross-section fallback (P4 lunch adapter): a canonical card surfaced on another
+  // shelf (e.g. bf-shakshuka injected onto Lunch) isn't in the current screen's array,
+  // so look across every meal array. _section stays the CURRENT screen so the detail
+  // renders here and Back returns to this shelf.
+  if(!r){ var _ks=Object.keys(sectionRecipes); for(var _k=0;_k<_ks.length && !r;_k++){ r=(sectionRecipes[_ks[_k]]||[]).find(x=>x.id===id); } }
   if(r){ var _y=window.scrollY||0;
     // persist the list scroll onto the history entry we're leaving, so Back returns to the exact spot (mirrors openRecipe)
     try { var _st=history.state; if(_st && _st.tinza){ _st._scroll=_y; history.replaceState(_st,''); } } catch(_e){}
@@ -15086,7 +15135,10 @@ function toggleMealPlan(id){
     bakes: typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
     sidesbasics: typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[],
   };
-  const r = (sectionRecipes[sec]||[]).find(x=>x.id===id);
+  let r = (sectionRecipes[sec]||[]).find(x=>x.id===id);
+  // Cross-section fallback (P4 lunch adapter): resolve a canonical card injected from
+  // another shelf (e.g. bf-shakshuka on Lunch) so it can be added to the plan here.
+  if(!r){ var _ks=Object.keys(sectionRecipes); for(var _k=0;_k<_ks.length && !r;_k++){ r=(sectionRecipes[_ks[_k]]||[]).find(x=>x.id===id); } }
   if(!r) return;
   const rv = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // ⭐ versions: plan the chosen version
   const vname = (rv.versions && rv._activeVersion) ? ' ('+rv._activeVersion+')' : '';

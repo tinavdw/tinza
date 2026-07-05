@@ -161,6 +161,36 @@
     });
   }
 
+  // bakes + sides & basics — SEARCH ONLY. Kept OUT of every finder by using roles
+  // ('bake' / 'basic') that no finder queries, so allRecipes({mealRole:'main'|'side'|…})
+  // never sees them — but the UNFILTERED search pool (globalSearch) does. This is the
+  // ONLY thing that makes the big version cards discoverable: Focaccia ×9, Buttermilk
+  // Rusks ×7, Braai Flatbread ×3 and the biscuit tins all live in Bakes/Sides, which
+  // adaptMeals deliberately skips. Meals-shaped {n,pp,u} ingredients + versions passthrough.
+  function adaptBakes(){
+    var out = [];
+    function add(arr, section, role){
+      (arr||[]).forEach(function(r){
+        if(!r || !r.id) return;
+        out.push(rec({
+          id:r.id, section:section, name:r.name, emoji:r.emoji, mealRole:role,
+          diet: r.diet ? [r.diet] : [], protein:r.protein||null, cuisine:r.cuisine||'',
+          time: r.time!=null ? r.time : null,
+          kcal:(r.nutrition && r.nutrition.kcal!=null)?r.nutrition.kcal:(r.kcal!=null?r.kcal:null),
+          costPP: r.costPP!=null ? r.costPP : null,
+          freezes:r.freezes!=null?r.freezes:null, fridgeDays:r.fridgeDays!=null?r.fridgeDays:null,
+          ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null,
+          tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
+          photoName:r.photoName, versions:r.versions||null
+        }));
+      });
+    }
+    if(typeof BAKES_RECIPES        !== 'undefined') add(BAKES_RECIPES,'bakes','bake');
+    if(typeof SIDES_BASICS_RECIPES !== 'undefined') add(SIDES_BASICS_RECIPES,'sides','basic');
+    return out;
+  }
+
   // health — searchable, but NEVER 'main' (would flood a supper finder with
   // smoothies). Roles mirror healthFind()'s registry.
   function adaptHealth(){
@@ -394,7 +424,7 @@
 
   // ── adapter table + cached index + allRecipes(filter) ────────────────────
   var TINZA_ADAPTERS = {
-    meals: adaptMeals, floor: adaptFloor, health: adaptHealth, world: adaptWorld,
+    meals: adaptMeals, bakes: adaptBakes, floor: adaptFloor, health: adaptHealth, world: adaptWorld,
     events: adaptEvents, braai: adaptBraai, beverages: adaptBeverages,
     tiny: adaptTiny, spice: adaptSpice, furry: adaptFurry
   };

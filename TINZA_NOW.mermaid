@@ -4,6 +4,7 @@
 %%    WHOLE-WK PRICING PASS (70 dishes unlocked, 969/994 priced; duck/trout/mitmita/substitutes all live).
 %% 🎯 LAUNCH: 8–12 wk target (set ~22 Jun) → ~mid-Aug (sprint) / mid-Sep (comfortable). See LAUNCH block.
 %% 🚀 NOW: hand the recipe MARATHON to Fable — 5-day boost, free ends 7 JUL. See FABLEX. New standards: ANATOMY · FEELINGX · VERSIONX (rules L19-L21).
+%% ✅ 5 JUL SESSION (Claude Code, live-verified): SEARCH fixed + made UNIVERSAL & version-aware w/ deep-link · version-count badge on cards · version chips on ALL detail paths (incl WK cross-links = the N0/V6 bug) · goesWith AUTO-links (165/319) · curated `order` field · Shakshuka dedup + lunch adapter. See SHIP05. 4 files (core/utils/index/meals) node --check OK — NOT yet pushed (Tina banks via GitHub Desktop).
 flowchart TD
 
   START([Start: tinza.netlify.app — confirm what works])
@@ -18,6 +19,19 @@ flowchart TD
     NXP-->NXR2-->NXNAME-->NX2-->NX1b
   end
   START-->NEXT0
+
+  subgraph SHIP05["✅ SHIPPED 5 JUL — search · versions · goesWith · order · lunch (Claude Code, live-verified, node --check OK, NOT pushed)"]
+    S05A["SEARCH was BROKEN — searchHTML() undefined → error screen on the bottom-nav Search tab, Home tile AND every FMF 'Search All Recipes' button. Now defined + UNIVERSAL over allRecipes() (1955) + matches versions[]. Fixes SEARCHBUG. utils.js rewrite: tinzaAllSearch / globalSearchLive / searchPageHTML (screen 'search' + legacy 'search_results' share it); core.js wires the input for both."]
+    S05B["DEEP-LINK — a version hit opens the PARENT card pre-switched to that version: openSearchResult → _searchActiveRecipe + recipeVersion[id]. Verified: 'cacio e pepe focaccia' → Focaccia w/ Cacio e Pepe active + pecorino loaded."]
+    S05C["INDEX — new SEARCH-ONLY adaptBakes (index.js): Bakes + Sides & Basics now searchable via roles bake/basic that NO finder queries (budget/mood unaffected). This is what makes Focaccia×9 / Buttermilk Rusks×7 / Braai Flatbread×3 / biscuit tins findable at all — they were excluded before."]
+    S05D["VERSION-COUNT BADGE on browse cards (warmCard, P1a) — copies the cost-chip anatomy byte-for-byte, differs only by colour: ACCENT dot + --ink-soft text. NEVER food-cost green / shop-spend gold (§3). meals passes versions.length."]
+    S05E["VERSION CHIPS on EVERY detail path (P3) — meals + Bakes shelf (recipeDetailFromResult) + WK (wkRecipeOpts, already wired) + search deep-link. FIXED the N0/V6 bug in bakesRecipeOpts (WK cross-link path — Msemen/Pita/etc): now applyRecipeVersion + versionStripHTML (was rendering the base, no chips)."]
+    S05F["goesWith AUTO-LINKS (P5) — goesWithLink(): explicit GOESWITH_LINKS wins, else name→card via the meals source. 165/319 distinct values now clickable (was ~15 hand-wired); generic accompaniments stay plain text. goesWellBox + recipeDetailFromResult both use it. Resolves GWW / R2B goesWith half."]
+    S05G["ORDER FIELD (P6) — mealSectionHTML default ('popular') sort honours optional card.order (stable; unordered keep position). No card carries one yet = zero regression; ready to curate section order by DATA."]
+    S05H["SHAKSHUKA DEDUP + LUNCH ADAPTER (P4) — LUNCH_ADAPTER_INJECT surfaces the canonical bf-shakshuka (5 versions, now diet:'veg') on the Lunch 'quick' shelf; ln-shakshuka RETIRED in data. openMealRecipe / toggleMealPlan gained a cross-section fallback so an injected card opens + plans. FINDING: of the 18 ⚑DUP lunch cards ONLY Shakshuka has a genuine fuller canonical — the other 17 have none (a few have events/braai/world namesakes, wrong to surface), left as-is; mechanism ready — add one LUNCH_ADAPTER_INJECT line per canonical built."]
+    S05A-->S05B-->S05C-->S05D-->S05E-->S05F-->S05G-->S05H
+  end
+  START-->SHIP05
 
   subgraph LAUNCH["🎯 LAUNCH — 8–12 wk (set ~22 Jun) → mid-Aug sprint / mid-Sep comfortable"]
     LSLICE["Launch slice (functional + photographed): FMF · Africa · Braai/SA · full Spice(112) · Events (~376 photos). Everything else = DATA now (costing+search live) behind 'photo coming soon'; Europe/Asia/World photos DRIP post-launch as weekly retention content."]
@@ -81,7 +95,7 @@ flowchart TD
     V3["2 → unfamiliar/exotic (Nigerian·Ukrainian·Ethiopian): Signature + SIMPLE. Simple = approachable on-ramp (SA substitutes L18 · fewer specialist steps · extra explanation), still full WOW. (label 'Simple' vs 'Easy' = Tina's pick)"]
     V4["1 → floor/stretcher (already the budget version)."]
     V5["LITMUS: add a version ONLY if a real user would pick it AND it makes honest culinary sense. Veg that kills the dish → distinct CARD (Bobotie), not a chip. Quick never = a box."]
-    V6["🔧 BLOCKER: fix N0 version bug FIRST (bakesRecipeOpts never calls applyRecipeVersion → chips render the base). THEN Claude Code rolls the pass library-wide; Fable authors the Simple/exotic versions."]
+    V6["✅ N0 VERSION BUG FIXED (5 Jul) — bakesRecipeOpts now calls applyRecipeVersion + renders versionStripHTML, so the WK cross-link path shows/applies versions like every other path. Chips now render on EVERY detail. Remaining: Fable authors the Simple/exotic versions."]
     V0-->V1-->V2-->V3-->V4-->V5-->V6
   end
   FEELINGX -.-> VERSIONX
@@ -146,7 +160,7 @@ flowchart TD
   START-->FIX2
 
   subgraph NEXT["RECIPE-PAGE ENRICHMENT (own careful core.js session · TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md)"]
-    N0["Version bug root: bakesRecipeOpts never calls applyRecipeVersion(r) → renders base, not active version."]
+    N0["✅ FIXED (5 Jul): bakesRecipeOpts now calls applyRecipeVersion(r) + fills the versionHTML slot → renders the active version, not the base."]
     N1a["ALREADY EXIST (wire): applyRecipeVersion + versionStripHTML · ingredientRow cross-links · goesWellBox · methodStep timer · costRecipe→{cook green, buy gold}."]
     N1b["NEW (2 helpers, roll to all): nutritionGrid(nutrition) · costEstimateBox(r,n)=TWO-COST card. Extend recipeActions w/ Pro-Save + WhatsApp."]
     N1c["DECISION: enrich bakesRecipeOpts IN PLACE w/ conditional slots. confirm before core.js session."]
@@ -169,13 +183,13 @@ flowchart TD
     NT1["TINY TUMMIES + FURRY FRIENDS — migrate to shared renderers. Both IN index (search-only)."]
     NTCC["CLAUDE CODE = library-wide grinds (naming · facets · gated-meat recovery · 72 goesWith). CHAT = architecture + targeted fixes (like today's B3 diagnosis)."]
     BRIN["◀ PIVOTED (Tina 1 Jul, on the Albóndigas screen) — BREAKFAST/brinner PARKED in favour of LUNCH. Data: light lunch = 106 dishes ALL priced, meal-shaped, 58 already reach the finder as mains (handhelds 22 · quick 23 · savbakes 13). Breakfast would need tagging + hand-built supper pairings for a weaker fit (their goesWith is breakfast-y — Shakshuka literally suggests coffee). Brinner on ice, not dead."]
-    LUNCHSIDE["◀ NEXT quick win (one-liner) — 48 priced lunch dishes HIDDEN: 27 substantial salad-bowls + 21 hearty soups are authored 'all substantial, no sides' but adaptMeals files cat:salads/soups as 'side' (mealRoleFromCat) → excluded from finder. FIX in adaptMeals (index.js L120): kind==='lunch' ? 'main' : mealRoleFromCat(r.cat). Surfaces Greek Salad(R33) + Mediterranean/Chinese/Thai/Middle-Eastern bowls & soups. Scoped to lunch only (WK/other salads stay sides). Tina to confirm all 48 are supper-worthy before flipping."]
+    LUNCHSIDE["⚠ STILL OPEN (distinct from the 5 Jul lunch work) — 48 priced lunch dishes HIDDEN FROM THE BUDGET FINDER: 27 salad-bowls + 21 soups are filed cat:salads/soups → 'side' by mealRoleFromCat → excluded from the finder. FIX in adaptMeals (index.js): kind==='lunch' ? 'main' : mealRoleFromCat(r.cat). NOTE: the 5 Jul session confirmed all 106 lunch cards ALREADY show on the Lunch SHELF (this was a finder-only gap, not a shelf gap) and shipped the Lunch ADAPTER + Shakshuka dedup (SHIP05·S05H) — but did NOT touch mealRoleFromCat, so this finder fix remains. Tina to confirm all 48 are supper-worthy before flipping."]
     WKPRICE["✅ DONE (1 Jul) — WHOLE-WK PRICING PASS: 969 priced / 25 gated (was 899/95) → 70 WK dishes UNLOCKED into the budget finder (Банош R44, Caldo Verde, Egusi, duck & trout dishes, salted-cod dishes, Ethiopian mitmita/berbere dishes…). Applied across prices.js (duck R200, trout R400, count-item _each, Tina-sourced tail: mitmita R240, berbere R200, fenugreek R300, pine resin R1250, wafer shells R4/each) + worldkitchen.js WK_ALIAS (pantry + fish/meat/cheese stragglers: pepper→black pepper, wine→red wine, fries→slap chips, mixed fish/mackerel/carp/vendace→hake, cured meats→bacon, whey/ayib→cottage cheese, etc.) + recipe substitute edits per Tina's rule (bryndza→feta, salted cod→salted snoek, dogfish→hake, suckling pig→pork, red sorghum→sorghum) + 3 veg-pepper fixes. REMAINING 25 = (a) COUNT-ENGINE tail — dishes writing '1 tomato'/'1 potato'/'1 corn'/'1 almond' as counts; WK pricer only counts eggs → needs _each prices OR the count engine extended OR recipes in grams (small future task); (b) genuine leave-alone (iru, tarhana, sour rye starter, ice cubes). Engine unchanged; all node --check OK. Files: prices.js, worldkitchen.js, wk_europe.js, wk_southafrica.js (+ wk_africa.js jollof)."]
     WOWDETAIL["PARKED (Tina 1 Jul, 'do later') — WK recipe DETAIL needs a WOW + clearer explanation (Albóndigas: the '0.4× pp · 6.8×' egg-count line + portion/cost blocks read confusingly). Explain-better + wow pass on the recipe page. NOT now."]
     BRIN --> LUNCHSIDE --> WKPRICE
     BACKNAV["✅ DONE + PUSHED + LIVE-CONFIRMED (Tina 3 Jul, commit 58fa14e) — BACK-NAV FIXED (core.js). Back from budget screen → HOME (no more FMF ✓, confirmed live). goBack() 4-tier: budget recipe→results · viewingRecipe→closeRecipe · deeper→history.back · section root→home. rootDepth in history state. (WK recipe→WK home still the acceptable long-term item; Search-tab bug SEARCHBUG separate.)"]
-    GWW["GOES-WELL-WITH: floor now has pairings (done). Broader = wire the 72 goesWith TEXT → real clickable cross-links (GOESWITH_LINKS; only 3 wired) so 'component + cheap side = one costed meal'. (T4 / R2B.)"]
-    SEARCHBUG["🐞 PRE-EXISTING BUG (found by Claude Code 3 Jul, NOT from our changes) — BOTTOM-NAV SEARCH TAB BROKEN: draw() calls searchHTML() (core.js:473) which doesn't exist → ReferenceError, blank/broken Search. Likely fix = route the Search tab to the working 'search_results' screen (searchPageInput + globalSearchLive already exist) or define searchHTML(). Easiest to fix in the SAME Claude Code core.js session. HIGH — it's a top-level nav tab."]
+    GWW["✅ DONE (5 Jul, see SHIP05 · S05F): goesWith names AUTO-resolve to cards by name (goesWithLink) — 165/319 distinct values now clickable across all shelves (was ~15). Generic accompaniments correctly stay plain. Explicit GOESWITH_LINKS still wins for Spice/alias cases."]
+    SEARCHBUG["✅ FIXED (5 Jul, see SHIP05) — searchHTML() now defined (utils.js) and the Search screen is UNIVERSAL + version-aware. Bottom-nav Search, Home tile and FMF 'Search All Recipes' all render. Was: draw() called undefined searchHTML() → error screen."]
     WKBACK["WK RECIPE → BACK lands on WK HOME (not the country list) — unchanged from before; acceptable ('not an earlier section'). Full fix = route WK country/recipe (wkDataCountry/wkDataRecipe, absent from navSignature) through openRecipe→viewingRecipe. Long-term = NX2 enrichment migration."]
     NAMEUP["✅ DONE (3 Jul) — 5 weak glosses rewritten + jollof split. wk_africa.js: Ghana→'Ghanaian Jollof Rice (Fragrant Tomato & Pepper Rice)', Nigeria→'Nigerian Jollof Rice (Spiced Tomato Rice)' — BOTH renamed so they stand apart everywhere + no longer dedup in the finder; photoName pinned to 'Jollof Rice' on both (shared photo unchanged). wk_europe.js: Bife→'Steak in Garlic Wine Sauce', Tripas→'Tripe & White Bean Stew', Waterzooi→'Creamy Chicken & Vegetable Stew', Odjakhuri→'Fried Pork & Potatoes'. All node --check OK. PUSH wk_africa.js + wk_europe.js."]
     JPHOTO["PHOTO follow-up (son, later): generate distinct 'Ghanaian Jollof Rice' + 'Nigerian Jollof Rice' photos (they currently SHARE the pinned 'Jollof Rice' photo), then update photoName on each. Not urgent — nothing is broken."]
