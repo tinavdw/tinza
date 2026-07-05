@@ -1,0 +1,93 @@
+%% TINZA — RECIPE ANATOMY (complete spec)  |  2 Jul 2026
+%% The definitive list of EVERY element a finished WOW recipe must have.
+%% Fold into TINZA_NOW.mermaid so Fable/Opus has the whole spec in one place.
+%% TAGS: ✅ locked & in handoff · ⚠️ partial / only half-written · ❌ NOT written yet (would be lost)
+flowchart TD
+
+  START([Is EVERY element captured? Anatomy of a complete recipe])
+
+  subgraph NAMES["① NAMING & HOOK"]
+    A1["✅ NATIVE/AUTHENTIC name + ENTICING English gloss (L11). Non-Latin = ROMANISED + gloss (L17). photoName never changes; gloss = searchText."]
+    A2["⚠️ THE ONE-LINER — enticing one-line description/hook. Partly covered by gloss + KICK (T1) but no locked 'one-line' field. DEFINE: is it the tagline or the KICK?"]
+    A1-->A2
+  end
+  START-->NAMES
+
+  subgraph METHOD["② THE WOW METHOD"]
+    B1["✅ WHY-LED steps · real NAMED spices (never 'taco seasoning') · SALT & PEPPER + proper seasoning at EACH stage · elevated technique (L1). Litmus: no boring googleable recipe, even a cheese sandwich gets jazzed."]
+    B2["✅ 'HOW THIS FEELS' line woven in (L1)."]
+    B3["✅ Buyable on SA shelves — no ube-trap; WK substitute rule (L18): 'substitute (or original)'."]
+    B1-->B2-->B3
+  end
+  NAMES-->METHOD
+
+  subgraph TRIVIA["③ TRIVIA — ❌ MISSING FROM HANDOFF"]
+    C1["❌ 'DID YOU KNOW' fourth-voice trivia. Standard is LOCKED in TINZA_DIDYOUKNOW_STANDARD.md but NOT written into TINZA_NOW — Fable won't know it exists unless added. ADD a pointer + the voice rule to the handoff."]
+  end
+  METHOD-->TRIVIA
+
+  subgraph COOK["④ COOKING EXPERIENCE"]
+    D1["✅ Per-step TIMER (methodStep timer, N1a)."]
+    D2["⚠️ COOK MODE / 'START COOKING' full-screen step mode — only a machinery bullet (LSEQ/NORTHSTAR), never spec'd. Needs its own spec later."]
+    D3["⚠️ SERVES + PREP TIME + COOK TIME as shown fields — servings via portion brain exists, but total time + yield line not a locked element. ADD."]
+    D1-->D2-->D3
+  end
+  TRIVIA-->COOK
+
+  subgraph VERSIONS["⑤ VARIATIONS"]
+    E1["✅ Budget / Quick / Vegetarian versions (applyRecipeVersion + versionStrip, N1a). Version bug open (N0: bakesRecipeOpts never calls applyRecipeVersion)."]
+    E2["❌ NEW RULE (Tina 2 Jul): SOME African-country dishes get just 2 — a WOW + a 'normal'/better-explained — not the full B/Q/V set. Written NOWHERE. ADD as a versioning exception."]
+    E1-->E2
+  end
+  COOK-->VERSIONS
+
+  subgraph BOXES["⑥ THE BOXES"]
+    F1["✅ goesWellBox (pairings) · two-cost card costEstimateBox (green food / gold shop-spend) · nutritionGrid (N1a/N1b)."]
+    F2["⚠️ STORAGE suggestions — only spec'd inside the BAKES format (feel/method/tip/nutrition/storage). MAKE UNIVERSAL across all recipes."]
+    F3["✅ recipeActions: Pro-Save + WhatsApp share (N1b)."]
+    F1-->F2-->F3
+  end
+  VERSIONS-->BOXES
+
+  subgraph LINKS["⑦ LINKS & PAIRING"]
+    G1["✅ RELATED-RECIPE cross-links · PAIRING via goesWith (72 to wire → GOESWITH_LINKS, only 3 done · T4/R2B)."]
+    G2["✅ Component + cheap side = one costed meal (GWW)."]
+    G1-->G2
+  end
+  BOXES-->LINKS
+
+  subgraph DATA["⑧ DIETARY · PRICING · SHOPPING"]
+    H1["✅ DIETARY facets: diet · diabetic/low-carb/high-protein · allergens · kosher/halal (R2F). Honesty caveats (L10)."]
+    H2["✅ PRICING per-person for budget (L4). Every recipe carries costPP; 0 unpriced; dup price = most expensive."]
+    H3["✅ MEAT LINE R15pp stretcher note (L15) · budget-matching band (EBAND)."]
+    H4["✅ SHOPPING LIST (Pro, L9). Free = Budget finder + per-person cost; Pro = My Plan + shopping + nutrition."]
+    H1-->H2-->H3-->H4
+  end
+  LINKS-->DATA
+
+  subgraph FRAME["⑨ FRAME & SAMENESS"]
+    I1["✅ SAMENESS: render ONLY via shared core.js fns + var(--token), match braai v33 (L2)."]
+    I2["✅ BACK BUTTONS: goBack()/bottom-Back returns to section list, never history.back (L16). WK recipe→WK home = acceptable long-term item."]
+    I3["✅ Bobotie rule: one card per distinct dish (L7) · child + grandma readable on mobile (L7)."]
+    I4["✅ TIER GATE numeric 0 Free / 1 Pro / 2 Deluxe (not boolean)."]
+    I1-->I2-->I3-->I4
+  end
+  DATA-->FRAME
+
+  subgraph PHOTO["⑩ PHOTO (the real launch gate)"]
+    J1["✅ photoName pinned per dish · son's AI photography. Launch-slice photographed first (~376); Europe/Asia/World photos DRIP post-launch as weekly retention."]
+    J2["Jollof follow-up: distinct Ghanaian vs Nigerian photos (currently share one)."]
+    J1-->J2
+  end
+  FRAME-->PHOTO
+
+  subgraph ADD["🔧 TO ADD TO THE HANDOFF (so nothing is lost)"]
+    K1["1. TRIVIA / Did You Know — pull the locked standard into TINZA_NOW."]
+    K2["2. African 2-version rule (WOW + normal) — write it down."]
+    K3["3. Storage — promote from bakes-only to universal recipe element."]
+    K4["4. Serves + prep time + cook time — add as shown fields."]
+    K5["5. Cook Mode / Start Cooking — needs a real spec (currently one word)."]
+    K6["6. The one-liner — define it (tagline vs KICK) and lock the field."]
+    K1-->K2-->K3-->K4-->K5-->K6
+  end
+  PHOTO-->ADD

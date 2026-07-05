@@ -1,0 +1,52 @@
+%% TINZA — TWO CONFIRMS RESOLVED + running to-dos  |  2 Jul 2026
+%% Fold into TINZA_NOW.mermaid. Supersedes the CONFIRM block in TINZA_SESSION_MASTER.
+%% TAGS: ✅ locked · ⚠️ open · ❌ not written yet
+flowchart TD
+
+  START([Two tiny confirms — now decided])
+
+  subgraph RESOLVED["✅ DECIDED THIS TURN"]
+    A1["CARD HOOK = a SEPARATE short field (cardHook, ≤6 words), NOT an auto-trim of the page line. Why: the punchy bit sits at the END of the sensory line ('smell like Sunday'), so trimming the front gives weak openers ('Not the 20-minute version')."]
+    A2["cardHook is OPTIONAL + drips: author it for browse-carrying dishes first (heroes · top-100 · SA icons); where absent, the card shows the gloss only. No forced 1,900-hook up-front write. Never auto-generate."]
+    A3["EXOTIC 2-SET = Signature + SIMPLE (not Classic). Why: for an unfamiliar dish the Signature already IS the authentic version — Classic would duplicate it. Simple = approachable on-ramp: SA substitutes (L18) + fewer specialist steps + extra explanation. Still full WOW."]
+    A4["LABEL choice: 'Simple' or the warmer 'Easy' — Tina's pick. Concept locked either way. Simple is NOT the boring version — it's WOW made un-intimidating."]
+    A1-->A2-->A3-->A4
+  end
+  START-->RESOLVED
+
+  subgraph FULLSPEC["VERSION + FEELING — full locked spec now"]
+    B1["FEELING LINE two tiers: full SENSORY line on page (all recipes) + optional short cardHook on card."]
+    B2["VERSION COUNT by fame, litmus-filtered: 5 top-100 (Signature+Budget+Quick+Veg+Classic) · 4 everyday (drop Classic) · 2 exotic (Signature+Simple) · 1 floor. WOW = the bar on ALL, not a chip."]
+    B1-->B2
+  end
+  RESOLVED-->FULLSPEC
+
+  subgraph WRITE["🔧 WRITE INTO TINZA_NOW"]
+    W1["Feeling-line (two-tier) + cardHook field · Version standard (5/4/2/1 + Simple) · Trivia/Did-You-Know · Storage universal · Serves+prep+cook time · Cook Mode spec."]
+  end
+  FULLSPEC-->WRITE
+
+  subgraph BUGS["🐞 FIX FIRST"]
+    U1["N0 version bug: bakesRecipeOpts never calls applyRecipeVersion → chips render base. Blocks the version standard."]
+    U2["Search-tab bug: draw() calls missing searchHTML() (core.js:473) → blank Search."]
+    U1-->U2
+  end
+  WRITE-->BUGS
+
+  subgraph DO["📋 RUNNING TO-DO LIST (new + old)"]
+    C1["FABLE 5-day window (ends 7 Jul): Day 1 WK quality assessment → Days 2-5 hardest launch-slice batches (Africa 190 + SA 131 to WOW · exotic Simple versions), bank each."]
+    C2["Roll FEELING LINE onto every recipe (only opening pages done) · roll VERSION pass library-wide (Claude Code) + author Simple/exotic (Fable)."]
+    C3["Cakes & Bakes: 20 popular cakes + biscuits/tarts/scones · cheap-SA sub-R10pp meals · cookbook gap-fillers R20-45pp."]
+    C4["Claude Code Run 2: 25 gated WK · naming · facets · 72 goesWith · balanced search · lunch adapter fix (index.js ~L120) · nameRoman · Tiny Tummies + Furry Friends migrate."]
+    C5["Machinery (Track B, parallel): PayFast payments FIRST · planner · Cook Mode · onboarding · web · beta."]
+    C1-->C2-->C3-->C4-->C5
+  end
+  BUGS-->DO
+
+  subgraph GATE["🎯 LAUNCH GATE"]
+    G1["Slice ready (FMF · Africa · SA/Braai · Spice · Events) + enough photos (son) + working payments — NOT every recipe. Europe/Asia/World photos drip post-launch."]
+  end
+  DO-->GATE
+
+  NOTE["LOCKED L0-L18 unchanged · BANK each batch · node --check · one push/session · GitHub Desktop."]
+  GATE-.->NOTE

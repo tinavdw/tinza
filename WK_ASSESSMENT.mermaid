@@ -1,0 +1,60 @@
+%% WK_ASSESSMENT — World Kitchen quality assessment (Fable, Day 1 · 2 Jul 2026)
+%% Scope: launch-slice cuisines — Africa (190, wk_africa.js) + South Africa (131, wk_southafrica.js).
+%% Scored from live main against WOW standard (L1) + Anatomy (L21): method depth, why-led cues,
+%% telegraphic detection, salt/pepper, feeling line (L19), storage/chefNotes/trivia, complexity-adjusted
+%% (drinks & simple salads held to a proportionate bar). Dish-level verdicts in wk_africa_assessment.csv
+%% + wk_sa_assessment.csv. NOTHING REWRITTEN YET — plan only, per Tina's instruction.
+flowchart TD
+
+  subgraph VERDICT["📊 VERDICT — 321 launch-slice dishes"]
+    V_SA["SOUTH AFRICA 131: LIGHT 36 · POLISH 69 · REWRITE 26.
+    Boerekos strongest (11 light / 35 polish / only 3 rewrite — the earlier cleanup pass paid off).
+    Weakest: Indian (8 rewrites — Durban curries all shorthand) · Xhosa 6 · Sotho 4.
+    Flagship gap: Lamb Breyani's method is telegraphic ('Layer onion, lamb, rice, spice, ghee and saffron') — hero dish, full WOW rewrite."]
+    V_AF["AFRICA 190: LIGHT 20 · POLISH 109 · REWRITE 61.
+    LIBYA = the outlier: 17/25 rewrites — a visibly weaker authoring batch (terse telegraphic methods, short feeling lines: 'Mix dough and knead. Let rise.'). Rewrite the WHOLE country block in one voice-consistent pass.
+    Zimbabwe (6) + Mozambique (5) share the late-batch thinness. Egypt/Tunisia/Morocco/Senegal cores are solid."]
+    V_TIERS["TIER MEANING: LIGHT = already at/near standard, leave alone (L5). POLISH = good bones — add why-language, salt & pepper at each stage, deepen 1–2 steps, keep everything else. REWRITE = full WOW re-author (method + chefNotes + feeling line), same JSON schema, ingredients/costing untouched unless broken."]
+    V_HERO["⚠️ HERO ESCALATION (Tina to confirm): decent-but-thin FAMOUS mains promoted to REWRITE because L20 will demand 4–5 versions of them anyway — Doro Wat, Chicken Tagine, Ghanaian Jollof, Zanzibar Biryani, Umngqusho, Durban Chicken/Mutton/Fish Curry, Lamb Breyani. If Tina disagrees, they drop to POLISH (~15 dishes lighter)."]
+    V_SA --> V_AF --> V_TIERS --> V_HERO
+  end
+
+  subgraph BATCHES["🔥 BATCH ORDER — bank each to GitHub before the next (BANKRULE)"]
+    B1["BATCH 1 (SA, wk_southafrica.js): Indian 8 + Cape Malay 3 rewrites = 11 dishes. Durban curries are SA-launch brand-critical."]
+    B2["BATCH 2 (SA): Xhosa 6 + Sotho 4 + Zulu 2 = 12 rewrites. Heritage cuisines — respect + elevate."]
+    B3["BATCH 3 (SA): Boerekos 3 rewrites + SA POLISH pass part 1 (~35 of 69)."]
+    B4["BATCH 4 (SA): POLISH pass part 2 (~34). → SA file DONE, 131/131 at WOW."]
+    B5["BATCH 5 (Africa, wk_africa.js): LIBYA whole-block rewrite, all 25 dishes in one consistent voice (17 rewrite + 6 polish + 2 verify)."]
+    B6["BATCH 6 (Africa): West Africa rewrites — Nigeria 5 · Ghana 6 · Senegal 4 = 15 (incl. Ghanaian Jollof, Palm Nut Soup)."]
+    B7["BATCH 7 (Africa): East + Southern rewrites — Ethiopia 4 · Kenya 6 · Tanzania 1 · Zimbabwe 6 · Mozambique 5 = 22."]
+    B8["BATCH 8 (Africa): North Africa rewrites — Egypt 2 · Morocco 4 · Tunisia 1 = 7 + start POLISH."]
+    B9["BATCHES 9–11 (Africa): POLISH tier 109 in 3 runs of ~36. Mechanical enough for Opus post-7-Jul if Fable window closes."]
+    B1-->B2-->B3-->B4-->B5-->B6-->B7-->B8-->B9
+  end
+  VERDICT --> BATCHES
+
+  subgraph DIVISION["🧭 FABLE vs OPUS split (per FABLEX, free ends 7 JUL)"]
+    D1["FABLE (now, 5 days): Batches 1–2 + 5–7 = the 87 REWRITES — hardest, highest-value, judgment-heavy (cultural voice, hero treatment)."]
+    D2["OPUS 4.8 (after / in parallel): POLISH batches 3–4 + 9–11 = 178 dishes — pattern-application work, cheaper model fine."]
+    D3["EACH BATCH DELIVERED AS: full ready-to-replace file · node --check done · GitHub Desktop push · verify on tinza.netlify.app before next batch."]
+    D1-->D2-->D3
+  end
+  BATCHES --> DIVISION
+
+  subgraph GUARD["🔒 GUARDRAILS for the rewrite passes"]
+    G1["Schema untouched: same keys, same JSON shape — wk files are pure data, adapters read-only (L0). photoName/ids never change (L11)."]
+    G2["Ingredients & prices untouched unless broken — the 969/994 pricing pass is banked; don't disturb costing. SA-shelf substitutes only per L18."]
+    G3["NO versions arrays in this marathon — Bobotie is the only versioned WK dish today; version rollout is gated on the N0 bug fix (V6/L20). Separate pass."]
+    G4["Feeling lines: every one unique, WK tone = adventure (L19). Rewrites get fresh lines; polish keeps good existing ones (most are already strong)."]
+    G5["Non-Latin/romanised names untouched (L17). Toum straggler wk_africa.js ~line 132 — fix the master name in Batch 5 while inside the file."]
+    G1-->G2-->G3-->G4-->G5
+  end
+  DIVISION --> GUARD
+
+  subgraph OPEN["❓ FOR TINA before Batch 1"]
+    O1["① Confirm/adjust the HERO ESCALATION list (V_HERO) — full rewrite or polish for the famous-but-decent mains?"]
+    O2["② Confirm SA-first order (brand face) vs Libya-first (worst block). Plan assumes SA first."]
+    O3["③ POLISH batches to Opus after 7 Jul — agreed? Keeps Fable on rewrites only."]
+    O1-->O2-->O3
+  end
+  GUARD --> OPEN

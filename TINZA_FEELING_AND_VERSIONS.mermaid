@@ -1,0 +1,78 @@
+%% TINZA — FEELING LINE + VERSION STANDARD  |  session 2 Jul 2026
+%% Fold into TINZA_NOW.mermaid (pairs with TINZA_RECIPE_ANATOMY).
+%% TAGS: ✅ locked · ⚠️ partial/open · ❌ not written yet · ❓ confirm with Tina
+flowchart TD
+
+  START([This session: feeling line + how to handle recipe versions])
+
+  subgraph FEEL["① FEELING LINE = 'THE ONE-LINER' (same thing)"]
+    F0["✅ RESOLVED: the 'feeling line', the 'How This Feels' line, and 'the one-liner' are ONE concept. Tina named it 'the How this feels one-liner' (26 May). Boerewors card proves it: 'SA Spiced Coil Sausage · The soul of every braai' — gloss = what it is, hook = the feeling line."]
+    F1["✅ LOCKED STANDARD (26 May): sensory + nostalgic + human — smell/sound/touch/sight/taste · 'reminds me of' / 'makes me think of' / 'you can almost hear'. EVERY one UNIQUE. Tone per section: Braai=primal · WK=adventure · Health=light · Breakfast=slow morning · Tiny Tummies=nurturing · Budget=satisfying."]
+    F2["✅ DONE (10 Jun): feeling lines added to all section OPENING PAGES."]
+    F3["⚠️ OPEN (where we were busy): roll the line onto EVERY individual RECIPE, not just opening pages."]
+    F4["❌ NEVER written into TINZA_NOW — invisible to Fable. ADD it (ties to Recipe Anatomy ① + the WOW method)."]
+    F5["❓ CONFIRM: TWO TIERS? short punchy hook on the browse CARD ('The soul of every braai') + fuller sensory line on the recipe PAGE. Or one line everywhere?"]
+    F0-->F1-->F2-->F3-->F4-->F5
+  end
+  START-->FEEL
+
+  subgraph PRIN["② VERSION STANDARD — the principle"]
+    P0["NEED-DRIVEN, not count-driven. Every recipe = 1 WOW default + only the alternative chips that genuinely earn their place. Nigerian/Ukrainian dishes do NOT get 4 versions just because FMF does."]
+    P1["UI = existing versions[] array → versionStrip chips. Default WOW = base (no chip); alternatives = chips. 'How many versions' = 'how many chips'."]
+    P0-->P1
+  end
+  FEEL-->PRIN
+
+  subgraph MENU["③ THE VERSION MENU (palette to pick from)"]
+    M1["WOW — default, ALWAYS. Authentic + elevated (L1)."]
+    M2["BUDGET — real cheaper execution (brown sugar not honey · stock not coconut milk)."]
+    M3["QUICK — honest time-saver, real cooking, NEVER a box."]
+    M4["VEGETARIAN / VEGAN — when it goes meat-free believably."]
+    M5["SIMPLE / CLASSIC — pared-back + EXTRA-EXPLAINED, leans on SA substitutes (L18), fewer specialist steps. The 'African normal', but for ANY unfamiliar/fiddly dish."]
+    M1-->M2-->M3-->M4-->M5
+  end
+  PRIN-->MENU
+
+  subgraph MATRIX["④ HOW MANY, BY SECTION"]
+    X1["FMF SUPPER (weeknight family staples) → FULL SET: WOW + Budget + Quick + Veg."]
+    X2["SA & BRAAI heroes → WOW + whichever of Budget/Quick/Veg genuinely apply."]
+    X3["WK FAMILIAR (European classics people know) → WOW + one (Quick OR Budget)."]
+    X4["WK UNFAMILIAR / EXOTIC (Nigerian · Ukrainian · Ethiopian) → WOW + SIMPLE (2) baseline. Add Budget/Quick/Veg ONLY if they truly fit. ⭐ flagship rule."]
+    X5["FLOOR / STRETCHER → 1 (it already IS the budget version)."]
+    X6["BAKES & CAKES → WOW + flavour variations as chips (Bobotie rule)."]
+    X1-->X2-->X3-->X4-->X5-->X6
+  end
+  MENU-->MATRIX
+
+  subgraph LIT["⑤ THE LITMUS (before adding ANY version)"]
+    L1a["Add a version ONLY if it (a) changes the dish in a way a real user would pick AND (b) makes honest culinary sense. Never pad."]
+    L2a["If Veg would kill the dish identity (a dish ABOUT the beef) → make a DISTINCT CARD, not a chip (Bobotie rule)."]
+    L3a["If 'Quick' would mean opening a box → don't add it."]
+    L1a-->L2a-->L3a
+  end
+  MATRIX-->LIT
+
+  subgraph EG["⑥ WORKED EXAMPLES"]
+    E1["NIGERIAN JOLLOF → WOW (party-style, authentic) + Simple (easy weeknight) + Veg optional. 2-3."]
+    E2["UKRAINIAN BORSHCH → WOW + Simple + Veg (meatless borshch is genuinely traditional). 3."]
+    E3["FARMHOUSE BEEF STEW (SA hero) → WOW + Budget + Quick; Veg = distinct card if wanted. 3."]
+    E1-->E2-->E3
+  end
+  LIT-->EG
+
+  subgraph BUILD["⑦ TO BUILD / CONFIRM"]
+    B1["🔧 FIX version bug N0 FIRST: bakesRecipeOpts never calls applyRecipeVersion → chips render the base, not the chosen version. Blocks the whole standard."]
+    B2["❓ CONFIRM the FMF baseline: is it 5 versions or 4? name the exact set (WOW + Budget + Quick + Veg + ?). This anchors the matrix."]
+    B3["❌ WRITE both standards (feeling line + versioning) into TINZA_NOW so Fable inherits them."]
+    B4["Roll versioning pass = a Claude Code library-wide grind (like naming/facets); authoring the Simple/exotic versions = a Fable high-value batch."]
+    B1-->B2-->B3-->B4
+  end
+  EG-->BUILD
+
+  subgraph CARRY["STILL OPEN (carry-over from this convo)"]
+    C1["Recipe Anatomy TO-ADD list (trivia/Did You Know · storage universal · serves+prep+cook time · Cook Mode spec)."]
+    C2["Fable 5-day window (ends 7 Jul): WK quality assessment → hardest launch-slice batches, bank each."]
+    C3["Lunch adapter fix · 25 gated WK dishes · cheap-SA enrichment · Claude Code Run 2 · search-tab bug."]
+    C1-->C2-->C3
+  end
+  BUILD-.->CARRY
