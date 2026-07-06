@@ -123,7 +123,7 @@
         if(!r || !r.id) return;
         out.push(rec({
           id:r.id, section:'meals', name:r.name, emoji:r.emoji,
-          mealRole: kind==='breakfast' ? 'component' : mealRoleFromCat(r.cat),
+          mealRole: kind==='breakfast' ? 'component' : kind==='lunch' ? 'main' : mealRoleFromCat(r.cat),
           diet: r.diet ? [r.diet] : [],
           protein: r.protein||null, cuisine: r.cuisine||'',
           time: r.time!=null ? r.time : null,

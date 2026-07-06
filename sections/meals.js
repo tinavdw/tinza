@@ -14349,11 +14349,14 @@ function mealSectionHTML(sectionKey){
 
     <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
       ${cats?`
-      <!-- ══ CATEGORY PILLS (braai-style) ══ -->
-      <div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;">
-        ${cats.map(c=>`<button onclick="setQuiet({mealCat:'${c.id}'})" style="white-space:nowrap;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid ${activeCat===c.id?cfg.color:cfg.border};background:${activeCat===c.id?'rgba(255,255,255,0.08)':'transparent'};color:${activeCat===c.id?cfg.color:'#6a6050'};font-size:13px;cursor:pointer;">${c.e} ${c.l}</button>`).join('')}
+      <!-- ══ CATEGORY NAV — wrapped GRID of tappable boxes (Standard §4a.3 / brief A4: NEVER a horizontal gliding scroll). Byte-identical to sectionHeader() catBlock so FMF matches every other section. Token-driven → warm-ready. ══ -->
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        ${cats.map(c=>`<div onclick="setQuiet({mealCat:'${c.id}'})" style="flex:1 1 calc(33.333% - 8px);min-width:96px;box-sizing:border-box;background:${activeCat===c.id?'var(--card2)':'var(--card)'};border:1px solid ${activeCat===c.id?'var(--accent)':'var(--line)'};border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <span style="font-size:24px;">${c.e}</span>
+          <span style="font-size:13px;color:var(--ink);font-weight:bold;line-height:1.2;">${c.l}</span>
+        </div>`).join('')}
       </div>
-      <div style="font-size:13px;letter-spacing:2px;color:${cfg.color};text-transform:uppercase;margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
+      <div style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
       `:`<div style="font-size:13px;color:#828270;margin-bottom:10px;">${recipes.length} recipes</div>`}
       ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
@@ -14362,7 +14365,7 @@ function mealSectionHTML(sectionKey){
         // wkRecipeCard. Top-left checkbox toggles the EXISTING meal plan
         // (toggleMealPlan, NOT wkPlanToggle); the card opens via openMealRecipe.
         // Cost chip shows ONLY when the meal carries a per-person cost (else blank).
-        const metaTxt = [r.feel, (r.time?'⏱️ '+r.time+' min':'')].filter(Boolean).join(' · ');
+        const metaTxt = [r.feel, (r.time?'⏱️ '+((typeof fmtCookTime==='function')?fmtCookTime(r.time):r.time+' min')+((typeof isMakeAhead==='function'&&isMakeAhead(r.time))?' · make-ahead':''):'')].filter(Boolean).join(' · ');
         return warmCard({
           name: dietTag(r.diet)+r.name,
           photoName: r.name,
@@ -14799,15 +14802,43 @@ function recipeResultCard(r, onClickFn, color){
   </div>`;
 }
 
+// ── PART I — BAKES PORTION MODEL (BATCH LAW · approved 6 Jul 2026) ────────────
+// Bakes are YIELD-based: you can't bake a third of a cake. The guest dial stays on
+// PEOPLE everywhere (one shared control = sameness), but bakes ANSWER in whole units
+// — people round UP to whole cakes/batches, cost is per whole unit, per-person = total÷people.
+// Defaults apply only to UNAMBIGUOUS cats; a card overrides via `serves` (sliceable)
+// or `makes` (batch). Countable singles (breads/flatbreads/quickbreads = 1 item pp)
+// and mixed pastries stay per-person unless the card carries its own serves/makes,
+// so nothing is mis-yielded. APPROVED DEFAULTS: cake/cheesecake serves 12 · biscuits makes ~30.
+// (tart 8–10 · loaf 10 land per-card via `serves` — they live in mixed cats.)
+var BAKES_SLICE_DEFAULT = { cakes:12, cheesecakes:12 };
+var BAKES_BATCH_DEFAULT = { biscuits:30 };
+function bakesPortion(r){
+  if(!r) return null;
+  var cat = (r.cat||'').toLowerCase();
+  if(r.serves) return { mode:'slice', perBatch:r.serves, unitWord:(cat==='cheesecakes'?'cheesecake':cat==='pastries'?'tart':'cake'), pieceWord:'slice' };
+  if(r.makes)  return { mode:'batch', perBatch:r.makes,  unitWord:'batch', pieceWord:'piece' };
+  if(BAKES_SLICE_DEFAULT[cat]) return { mode:'slice', perBatch:BAKES_SLICE_DEFAULT[cat], unitWord:(cat==='cheesecakes'?'cheesecake':'cake'), pieceWord:'slice' };
+  if(BAKES_BATCH_DEFAULT[cat]) return { mode:'batch', perBatch:BAKES_BATCH_DEFAULT[cat], unitWord:'batch', pieceWord:'piece' };
+  return null;
+}
+
 function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);   // ⭐ versions: render the chosen version
   const sv = S._budgetActiveRecipe ? (S.budgetPeople||4)
            : S.moodActiveRecipe    ? (S.moodServings||1)
            : (S.searchServings||4);
 
+  // PART I — bakes answer in WHOLE units. _scale = the ingredient/cost multiplier:
+  // whole slices/pieces produced for a modelled bake, else the raw people count.
+  var _bakeP = (typeof bakesPortion==='function') ? bakesPortion(r) : null;
+  var _bakeBatches = _bakeP ? Math.max(1, Math.ceil(sv / _bakeP.perBatch)) : 1;
+  var _bakeUnits = _bakeP ? _bakeBatches * _bakeP.perBatch : 0;
+  var _scale = _bakeP ? _bakeUnits : sv;
+
   function fmtAmt(pp, u){
     if(!pp) return '';
-    const raw = pp * sv;
+    const raw = pp * _scale;
     if(u==='egg') return Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'');
     if((u==='g'||u==='ml')&&raw>=1000) return (Math.round(raw/100)/10)+(u==='g'?'kg':'L');
     return Math.round(raw*10)/10+(u||'');
@@ -14822,12 +14853,12 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
 
   // WhatsApp text built outside template literal
   const _waLines = (r.ingredients||[]).filter(i=>i.pp).map(i=>{
-    const raw=i.pp*sv, u=i.u||'';
+    const raw=i.pp*_scale, u=i.u||'';
     const d=(raw>=1000&&(u==='g'||u==='ml'))?(Math.round(raw/100)/10)+(u==='g'?'kg':'L'):(Math.round(raw*10)/10)+u;
     return '• '+i.n+': '+d;
   }).join('\n');
   const _waText = encodeURIComponent(
-    _remoji+' *'+_rname+'*\nFor '+sv+' people · '+(r.time||'?')+' min\n\nIngredients:\n'+_waLines+'\n\nFrom Tinza tinza.netlify.app'
+    _remoji+' *'+_rname+'*\nFor '+sv+' people · '+(r.time?((typeof fmtCookTime==='function')?fmtCookTime(r.time):r.time+' min'):'?')+'\n\nIngredients:\n'+_waLines+'\n\nFrom Tinza tinza.netlify.app'
   );
 
   // Cost estimate (if ingredients have costPP or we can estimate)
@@ -14837,7 +14868,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R50/month</strong></div>
     </div>`;
     if(r.costPP){
-      const total = r.costPP * sv;
+      const total = r.costPP * _scale;
       return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -14846,7 +14877,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         </div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #2a3010;">
           <div style="font-size:13px;color:#6a892e;">Per person</div>
-          <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${r.costPP}</div>
+          <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${_bakeP?Math.round((r.costPP*_scale)/sv):r.costPP}</div>
         </div>
         <div style="margin-top:8px;font-size:13px;color:#748932;">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div>
       </div>`;
@@ -14875,11 +14906,11 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;">
             <div style="font-size:32px;font-weight:bold;color:#c8e840;">${sv}</div>
-            <div style="font-size:13px;color:#718d28;">people · all quantities scale</div>
+            <div style="font-size:13px;color:#718d28;">${_bakeP?(_bakeP.mode==='slice'?('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · serves '+_bakeUnits+' · 1 '+_bakeP.pieceWord+' each'):('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · ~'+_bakeUnits+' '+_bakeP.pieceWord+'s')):'people · all quantities scale'}</div>
           </div>
           <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">+</button>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:#6c8c23;">💡 Adjust the number and all ingredients update instantly.</div>
+        <div style="margin-top:8px;font-size:13px;color:#6c8c23;">${_bakeP?('💡 Bakes come in whole '+_bakeP.unitWord+'s — the dial rounds up so you never bake a fraction.'):'💡 Adjust the number and all ingredients update instantly.'}</div>
       </div>
 
       <!-- Ingredients — bullet style like braai, no tick boxes -->
@@ -14890,7 +14921,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         </div>
         ${(r.ingredients||[]).map(i=>{
           if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">• ${i.n} — to taste</div>`;
-          const raw=i.pp*sv, u=i.u||'';
+          const raw=i.pp*_scale, u=i.u||'';
           const ppStr=i.pp+(u==='egg'?' egg':u)+' pp';
           const totalStr=u==='egg'?Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'')
             :(raw>=1000&&(u==='g'||u==='ml'))?(Math.round(raw/100)/10)+(u==='g'?'kg':'L')
@@ -15022,8 +15053,13 @@ function formatAmount(total, u){
 //  to keep this edit minimal — flagged for a later cleanup sweep.)
 function planDishesFromItems(plan, people, emoji, planKey){
   return (plan||[]).map(function(r){
+    // PART I — bakes aggregate by WHOLE batches in the plan/shopping too (BATCH LAW),
+    // so the plan cost matches the recipe page (whole cakes, never a fraction). A clean
+    // object is passed so the plan item's legacy serves:1 can't hijack the bake yield.
+    var _bp = (typeof bakesPortion==='function') ? bakesPortion({cat:r.cat, serves:r.bakeServes, makes:r.bakeMakes}) : null;
+    var _mult = _bp ? (Math.max(1, Math.ceil((people||1)/_bp.perBatch)) * _bp.perBatch) : people;
     var ings = (r.ingredients||[]).filter(function(i){ return i && i.pp && i.n; }).map(function(i){
-      var u=i.u||'', amt=(i.pp||0)*people, unit, a;
+      var u=i.u||'', amt=(i.pp||0)*_mult, unit, a;
       if(u==='kg'){ unit='g';  a=amt*1000; }
       else if(u==='l'){ unit='ml'; a=amt*1000; }
       else if(u==='g'||u==='ml'){ unit=u; a=amt; }
@@ -15197,7 +15233,7 @@ function toggleMealPlan(id){
   if(!r) return;
   const rv = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // ⭐ versions: plan the chosen version
   const vname = (rv.versions && rv._activeVersion) ? ' ('+rv._activeVersion+')' : '';
-  togglePlanItem('mealPlan', {id:rv.id, name:rv.name+vname, emoji:rv.emoji||'🍽️', time:rv.time||0, ingredients:rv.ingredients||[], costPP:rv.costPP||0, nutrition:rv.nutrition||null, serves:1});
+  togglePlanItem('mealPlan', {id:rv.id, name:rv.name+vname, emoji:rv.emoji||'🍽️', time:rv.time||0, ingredients:rv.ingredients||[], costPP:rv.costPP||0, nutrition:rv.nutrition||null, serves:1, cat:rv.cat||'', bakeServes:rv.serves||null, bakeMakes:rv.makes||null});
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe

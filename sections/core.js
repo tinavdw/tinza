@@ -1179,6 +1179,20 @@ function totalCost(){ let t=0; S.selectedMeats.forEach(mid=>{ const m=MEAT_GROUP
 function totalCals(){ let c=0; S.selectedMeats.forEach(mid=>{ const m=MEAT_GROUPS.flatMap(g=>g.items).find(x=>x.id===mid); if(m) c+=(calcMeat(m).grams/100)*(MEAT_CALS[mid]||200); }); return Math.round(c/S.people); }
 function scaleAmt(str,mult){ if(!str) return str; const m=str.match(/^([0-9.]+)(.*)/); if(!m) return str; return (Math.round(parseFloat(m[1])*mult*10)/10)+m[2]; }
 
+// ── PART H — HUMANE COOK-TIME DISPLAY (shared, app-wide · Rule Zero) ──────────
+// Long bakes are REAL totals (croissants ~720 min, sourdough/Danish ~600 = overnight
+// proves, chills and laminations) — verified against the data, no summing bug — but
+// "720 min" reads as absurd and scary. Show anything ≥90 min in HOURS, and flag the
+// long, mostly-hands-off bakes as "make-ahead" so the number reassures instead of scares.
+function fmtCookTime(min){
+  min = Number(min)||0;
+  if(min<=0) return '';
+  if(min<90) return min+' min';
+  var h = Math.round(min/6)/10;                 // one-decimal hours
+  return (h%1===0 ? h : h.toFixed(1))+' hr';
+}
+function isMakeAhead(min){ return (Number(min)||0) >= 240; }  // 4 hr+ → dominated by hands-off rest/chill/ferment
+
 // ── MOOD FEATURE ─────────────────────────────────────────────────────
 
 const MOODS = [
@@ -3075,6 +3089,7 @@ function recipeView(){
 
   // ── QUANTITY BLOCK (shared qtyBox — lives directly under the name) ──
   let quantityBlock = "";
+  let meatPP = 0;   // cut-based per-person grams — ONE source for the green box AND the main-protein ingredient line (Part C reconcile)
   if(isMeat){
     const alreadySelected = S.selectedMeats.includes(vr.id);
     const numMeats = S.selectedMeats.length;
@@ -3084,6 +3099,7 @@ function recipeView(){
     const base = (typeof braaiBaseG==="function" ? braaiBaseG(item) : (item.soloG||0)) || 0;
     const spread = isSolo ? 1 : meatSpreadMult(numMeats);
     const pp = Math.round(base * spread * ap.mult);
+    meatPP = pp;
     const totalDisplay = fmtG(pp * p);
     const ppLine = `${pp}g per person`;
     const portionNote = isSolo ? "full portion" : `shared across ${numMeats} meats`;
@@ -3113,10 +3129,15 @@ function recipeView(){
       if(ing === "—" || ing.startsWith("—")){
         return '<div style="padding:7px 0;font-size:13px;color:var(--ink-soft);font-style:italic;border-bottom:1px solid var(--line);">'+ing+'</div>';
       }
-      // First ingredient of a SELECTED meat = main protein = covered by the quantity block above
-      if(i===0 && isSelected){
+      // First ingredient of a MEAT = the main protein. Show the CUT-BASED grams
+      // (braaiBaseG → BRAAI_CUT → PORTION_BRAAI + grazing taper) so the ingredient
+      // line reconciles with the green qty box, plan rows and shopping list —
+      // NEVER the legacy hardcoded "350g per person solo…" string (Part C, the 800g bug).
+      if(i===0 && isMeat){
         const proteinName = ing.split("—")[0].trim();
-        return ingredientRow(proteinName, 'see qty ↑');
+        const tot = meatPP * p;
+        const totS = (tot>=1000)?(Math.round(tot/100)/10)+'kg':tot+'g';
+        return ingredientRow(proteinName, `${meatPP}g pp · <strong style="color:var(--gold);">${totS} total</strong>`);
       }
       // Scale all recognised per-person patterns inline
       let scaled = ing;

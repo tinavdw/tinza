@@ -127,10 +127,10 @@ function braaiStep2(){
     const active = openGroup === g.id;
     const selCount = g.items.filter(m=>S.selectedMeats.includes(m.id)).length;
     return `<button onclick="set({braiCat:'${g.id}'});setTimeout(()=>{const el=document.getElementById('meatGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)"
-      style="flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid ${active?"var(--accent)":"var(--line2)"};
-      background:${active?"#2a1008":"#0f0c08"};color:${active?"var(--gold)":"#6a4020"};
-      font-size:13px;cursor:pointer;white-space:nowrap;">
-      ${g.label}${selCount>0?` <span style="background:var(--accent);color:#fff;border-radius:10px;padding:1px 6px;font-size:13px;margin-left:3px;">${selCount}</span>`:""}
+      style="flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid ${active?"var(--accent)":"var(--line)"};
+      background:${active?"var(--card2)":"var(--card)"};color:var(--ink);
+      font-size:15px;font-weight:bold;cursor:pointer;white-space:nowrap;">
+      ${g.label}${selCount>0?` <span style="background:var(--accent);color:#fff;border-radius:10px;padding:1px 7px;font-size:13px;margin-left:4px;">${selCount}</span>`:""}
     </button>`;
   }).join("");
 
@@ -167,7 +167,7 @@ function braaiStep2(){
       </div>
 
       <!-- Active group label -->
-      <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
+      <div style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;" id="meatGroupTop">${activeGroup.label} — ${activeGroup.items.length} options</div>
 
       ${activeGroup.id==="veg"?`
         <div style="background:#0a1a08;border:1px solid #2a5020;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:#539048;line-height:1.6;">
@@ -208,7 +208,7 @@ function braaiStep3(){
         ${portionHelpContent()}
       </div>
       ${groupsToShow.map(group=>`
-        <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--line);margin-bottom:6px;margin-top:14px;">${group.label}</div>
+        <div style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid var(--line);margin-bottom:6px;margin-top:14px;">${group.label}</div>
         ${group.items.map(side=>{
           const allowed=tierAllows(side.tier||"free");
           const sel=S.selectedSides.includes(side.id);

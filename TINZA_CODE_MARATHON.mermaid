@@ -1,102 +1,53 @@
 %% TINZA_CODE_MARATHON — app-wide sameness + fixes handoff
-%% v3 · 6 Jul 2026 · Tina-authorised marathon Code session. GOAL: fix braai letters · migrate ALL of FMF to the shared warm look (sameness — never done for FMF; only WK+Braai done) · clear outstanding audit issues in the same run. v2 ADDED: G enticing-names · H cooking-time · I portion model. v3 RULINGS (Tina 6 Jul): (1) RECIPE PAGE = most-comprehensive/superset wins → retrofit BRAAI + WK to it too, not just FMF (A5). (2) NAMES = enhance only the broad master name so it won't collide with version chips, e.g. Delicious Carrot Cake (G). (3) PORTIONS = dial stays PEOPLE everywhere (one shared qtyBox), bakes ANSWER in whole cakes/slices/rolls, never a fraction (I). v3.1 ADDS the BATCH LAW: every bake = a fixed sensible batch, never below one (no half cake / 4 amaretti / 2 rusks); each card states 'makes ~N', biscuits by size (I1). NEW SECTION PARKED: Sweets & Confectionery (fudge/nougat) — build later, own room (PARK). v3.2 (Tina 'yes' 6 Jul): PORTIONS LOCKED — defaults approved (cake 12 · tart 8-10 · loaf 10 · cheesecake 12 · biscuits small ~40/med ~30/large ~18 · rusks ~40, per-card override OK) → Part I moves spec → BUILD. Only propose-first item left = G enticing-names (list for Tina to tick). SEARCH fix confirmed already covered (Part F1 searchHTML core.js:473 — this session). Companion file = TINZA_CODE_MARATHON.md (the paste-to-Code brief). Discipline: curl standards first · back up core.js · one change at a time · node --check · SHOW DIFFS, DO NOT PUSH (Tina reviews + pushes). Sameness = shared core.js renderers + var(--token) ONLY; never hand-roll hex; accents never reuse green #46530c (food cost) or gold #876213 (shop-spend).
+%% v5 · 6 Jul 2026 · AFTER CODE SESSION 1 + Tina approved ALL 11 names. Code ran the marathon: 4 files changed (braai.js · core.js · index.js · meals.js), node --check + repo health-check clean, core.js backed up to scratch (no .gitignore in repo), NOTHING PUSHED — Tina reviews diffs on live + pushes via GitHub Desktop.
+%% DONE session 1: PART B braai letters · PART C 800g desync · PART I bakes portions (APPROVED, built) · PART H cook-time hours+make-ahead (active/total split deferred) · PART F1 searchHTML confirmed already wired + F5 lunch-role fix · PART A4 FMF nav scroll-strip→grid.
+%% PART G names ✅ APPROVED by Tina (all 11) — Code applies each: name + photoName together + add to photo regen queue. BIG REMAINING = FMF warm flip (A1/A2/A3/A5) — blocked on refactoring the shared recipeDetailFromResult behind an inWarm() guard → its own session. Other deferred: D data sweep · E price-scan tool + NULL scan · F2/F3/F4 wiring · H active/total split. NEW BUG: spice.js tartare-sauce duplicate id.
+%% Discipline unchanged: standards first · /wow known (WOW_STANDARD.md) · back up core.js · node --check · show diffs · DO NOT push (Tina pushes). Sameness = shared core.js renderers + var(--token) only; accents never reuse green food-cost / gold shop-spend.
 
 flowchart TD
 
-  subgraph STATE["📍 WHERE WE ARE"]
-    S1["Sameness done so far: WORLD KITCHEN ✅ · BRAAI ✅ (v33 gold template). NOT done: FMF ❌ (dark theme, own renderers) · Events ⏳. Tina checked FMF this morning — it does not look like the rest. This session = FMF sameness + braai fixes + audit sweep, all for Code."]
-    S2["Deliverables for Code: (A) FMF sameness (B) braai letters (C) braai 800g desync (D) meals.js data rulings (E) prices.js currency (F) wiring. Order of play at the bottom. LAUNCH OCTOBER."]
+  subgraph STATE["📍 WHERE WE ARE — after Code session 1"]
+    S1["Session 1 banked, NOT pushed. Live app after Tina pushes: braai letters readable in sun · Boerewors 800g reconciled to 600 · bakes portions live (people dial → whole cakes/batches, never a fraction) · long cook-times show in hours + make-ahead · FMF category nav is now a tappable grid. FMF still on the DARK theme until the warm-flip session."]
+    S2["Next moves in order: (1) Tina pushes session-1 diffs (2) ticks the 11-name list (3) FMF warm-flip session — the big one (4) data · prices · wiring sessions. LAUNCH OCTOBER."]
     S1-->S2
   end
 
-  subgraph DISC["🛎️ DISCIPLINE — every step"]
-    DZ["Curl TINZA_STANDARD.md + TINZA_HANDOFF.md + WOW_STANDARD.md + CLAUDE.md first (Standard beats chat). KNOW THE /wow COMMAND = WOW_STANDARD.md authoring spec (unique feel-line · didYouKnow moat · buy-name pp+total · why-led method · tip · storage/freezes/fridgeDays · goesWith C4 · Leavener Law g · no retailers · real spices) — apply whenever Tina types /wow or any card is authored/renamed. Back up core.js (line-count before/after) — it drives every section. One logical change at a time · node --check after each · smoke-test the section. Some wiring may already be live-unpushed → VERIFY before redoing. Show diffs. DO NOT push — Tina reviews on live + pushes via GitHub Desktop."]
+  subgraph DONE1["✅ SESSION 1 — DONE & VERIFIED (not pushed; Tina reviews + pushes)"]
+    DB1["PART B braai letters (braai.js): meat chips + 'BEEF — 14 OPTIONS' header + sides header → shared token grid, high-contrast bold 15px (var --ink/--card/--accent). Readable outdoors; kills hardcoded hex (sameness win)."]
+    DC1["PART C 800g desync (core.js): buildShoppingList already cut-based (verified, left alone). Real bug = recipe-page INGREDIENT LINE hardcoded '350g per person' → now cut-based braaiBaseG. Boerewors 2ppl reconciles: box 600g · line 300g pp/600g total · shopping 600→660 buy (was 350/700/800)."]
+    DI1["PART I bakes portions BUILT (meals.js): BATCH LAW live — dial = people, bakes answer in WHOLE units. Cakes/cheesecakes serves 12 · biscuits makes ~30 · per-card serves/makes override. qtyBox reads 'makes 1 cake · serves 12 · 1 slice each'; 20ppl → '2 cakes · serves 24'; ingredients+cost round to whole cakes; per-person = total÷people; extended to plan/shopping. GATED to bakes — the 6 other recipeDetailFromResult callers byte-identical."]
+    DH1["PART H cook-time (core.js+meals.js): times VERIFIED real not bugs (croissant 720=12hr · sourdough/Danish/Kouign 600 · cheesecake 420-480 chill). New shared fmtCookTime()/isMakeAhead(): ≥90 min shows in hours; long hands-off bakes get '· make-ahead'. Croissant now '12 hr · make-ahead'. (active/total split deferred — needs activeTime field.)"]
+    DF1["PART F wiring (index.js): F1 searchHTML already wired at core.js:474 — confirmed, no change. F5 FIXED — lunch salads/soups were filed role 'side' and dropped from the budget finder → now kind==='lunch' ? 'main'."]
+    DA4["PART A4 (meals.js): FMF category nav horizontal gliding scroll-strip → wrapped GRID of tappable boxes, byte-identical to sectionHeader()'s grid, token-driven (warm-ready), and unifies the per-section purple/maroon accent → the app accent. Flips to warm automatically once the warm session lands."]
+    DB1-->DC1-->DI1-->DH1-->DF1-->DA4
   end
-  STATE-->DISC
+  STATE-->DONE1
 
-  subgraph A["🎨 PART A — FMF SAMENESS ★ the main event"]
-    A0["PROBLEM (screenshots 8-12): Feeding My Family (Breakfast · Light Lunch · Supper · Bakes/Cakes/Breads) renders DARK (near-black bg, purple/maroon accents, horizontal gliding category scroll-strip). Rest of app = WARM (cream bg, brown/gold) via shared core.js. FMF never migrated. GOAL: FMF identical to Braai v33 / WK, differ only by photo+emoji."]
-    A1["A1 THEME: route every FMF view through the shared Warm Spice theme (Mulish + Fraunces + DM Mono; cream bg, brown/gold). Delete FMF-local dark styling. No FMF page sets its own bg/text colours — var(--token) only."]
-    A2["A2 SHARED RENDERERS: replace FMF-local card/list/plan/shopping code with the shared core.js fns — warmCard · sectionHeader · qtyBox · planDishRow · planView · shoppingView · recipePage. This IS the sameness mechanism."]
-    A3["A3 UNIVERSAL OPENER: migrate FMF to openRecipe/closeRecipe (live on WK/Health/Kiddies/Braai; FMF + Events are the last two). Tap any FMF card → shared recipe page, Back→FMF."]
-    A4["A4 NAV = GRID not scroll-strip: FMF Bakes category nav is a horizontal gliding scroll (Breads/Flatbreads/Muffins/Biscuits). LOCKED STANDARD: category nav = grid of tappable boxes (like the FMF landing cards), never a gliding scroll. Convert."]
-    A5["A5 RECIPE PAGE — MOST COMPREHENSIVE WINS (Tina ruling): build the SUPERSET and retrofit BRAAI + WK to it too, not just FMF. recipePage() renders the union: green qtyBox · two-cost (green food-cost + gold shop-spend) · Free/Pro gate · version chips · CLICKABLE deep-link goesWith (braai gains it) · Start Cooking + timers (braai gains it) · full button row (Add to Plan/My Kitchen/Download). No per-section variants; re-verify braai + WK after (A6)."]
-    A6["A6 REGRESSION: these edits touch shared core.js — after the pass load EVERY section (Braai/WK/Health/Kiddies/Events/FMF) and confirm none regressed. FMF should be indistinguishable in chrome from braai."]
-    A0-->A1-->A2-->A3-->A4-->A5-->A6
+  subgraph TINAG["✅ PART G enticing names — APPROVED (all 11), Code to apply"]
+    G0["APPROVED by Tina (all 11). Code applies each: update display name + photoName TOGETHER + add to the photo regen queue. Only the broad master name changes (version chips untouched). These renamed masters then feed the Photo Studio regen (one photo per master)."]
+    GLIST["1 Chocolate Cake → Ultimate Chocolate Cake · 2 Carrot Cake → Golden Carrot Cake · 3 Vanilla Butter Cake → Golden Vanilla Butter Cake · 4 Classic Cheesecake → Dreamy Classic Cheesecake · 5 Red Velvet → Velvety Red Velvet Cake · 6 Shortbread → Buttery Shortbread · 7 Chocolate Chip Cookies → Chewy Chocolate Chip Cookies · 8 Oat Cookies → Golden Oat Cookies · 9 Peanut Butter Cookies → Soft Peanut Butter Cookies · 10 Ginger Biscuits → Crunchy Ginger Biscuits · 11 Beer Bread → Easy Beer Bread"]
+    G0-->GLIST
   end
-  DISC-->A
+  DONE1-->TINAG
 
-  subgraph B["🔤 PART B — BRAAI LETTER READABILITY"]
-    B1["PROBLEM (screenshots 3-4): braai section header (BEEF — 14 OPTIONS) + meat category chips (Beef/Pork/Lamb/Chicken/Seafood/Vegetarian) are small, low-contrast muted-orange on cream → Tina cannot read them OUTDOORS in sunlight (where braais happen)."]
-    B2["FIX: raise contrast + size of the section-header label and chip labels to a legible high-contrast token, via sectionHeader()/the chip renderer so it lands everywhere (sameness win). Token-driven, not a one-off hex. Target: readable in bright outdoor light."]
-    B1-->B2
+  subgraph NEXT["🔜 REMAINING — each its own focused session"]
+    N2["★ SESSION 2 — FMF SAMENESS WARM FLIP (A1 theme · A2 full sectionHeader route · A3 openRecipe · A5 superset recipePage + braai/WK retrofit). BLOCKER: flipping FMF to .warm needs migrating recipeDetailFromResult — a 260-line fn shared by 6 entry points (budget/mood/search/FMF/4-ingredients/anchor, incl. the Mood colour exception). Blind flip risks breaking working sections (RULE 1). PLAN: tokenise recipeDetailFromResult behind an inWarm() guard so non-warm callers stay byte-identical, then add FMF to the _warm list + inWarm(). A5 rides the same refactor. A4 grid already flips automatically once this lands. THE big next step."]
+    ND["DATA SESSION — PART D (meals.js): 278 no-pp seasonings → salt/pepper stay 'to taste', every other flavour-spice gets a real g + pp (e.g. paprika 1g); split genuine two-seasoning lines (keep single products like 'hundreds & thousands'). Large careful pass — own session."]
+    NE["PRICE SESSION — PART E: FIRST build node Tools/price-scan.js that loads the REAL PRICE_DB/PRICE_ALIAS + recipes (an offline reimplementation would give false gaps). Then E1 reconcile the recovered prices · E2 confirm the §1-§8 bakes keys · E3 scan to 0 NULLs. Never guess a rand."]
+    NF["WIRING remainder — F2 goesWith → clickable deep-links everywhere · F3 drop the 18 thin lunch-dup cards (also closes the Shakshuka dup) · F4 version-chip count badges (accent/neutral, never green/gold)."]
+    NH["PART H active/total split — 'Active 45 min · prove 2 hr · bake 18 min' — needs a per-recipe activeTime data field added first."]
+    N2-->ND-->NE-->NF-->NH
   end
-  A-->B
+  TINAG-->NEXT
 
-  subgraph C["⚖️ PART C — BRAAI 800g DESYNC"]
-    C1["PROBLEM (screenshot 5, Boerewors 2 ppl): green box 600g (300g pp, correct cut-based) BUT ingredient line 350g pp · 700g AND shopping list ~800g (700 + 10% buffer). Three numbers for one meat."]
-    C2["ROOT CAUSE: green qtyBox uses locked cut-based portion (braaiBaseG → BRAAI_CUT → PORTION_BRAAI + taper); the ingredient breakdown + buildShoppingList() (core.js ~L713) still use old per-meat soloG/sharedG + meatSpreadMult. Only the green box was migrated before."]
-    C3["FIX: route ingredient breakdown AND buildShoppingList() through the SAME cut-based portion + taper as the green qtyBox. soloG/sharedG must NOT drive portions — braaiBaseG cut-class is the single source of truth. Keep +10% buffer, applied to the cut-based figure. VERIFY: Boerewors 2 ppl → box + ingredient + shopping all agree (≈600g + buffer)."]
-    C1-->C2-->C3
+  subgraph BUGS["🐛 FOUND IN PASSING (not fixed — out of scope)"]
+    BUG1["spice.js: 'tartare-sauce' id defined TWICE in the same file → find() only returns the first. Pre-existing. Quick fix in a spice session."]
   end
-  B-->C
+  NEXT-->BUGS
 
-  subgraph D["🥄 PART D — DATA (meals.js, apply rulings)"]
-    D1["D1 MEASUREMENT (Ruling A): salt + black pepper → stay 'to taste' (no cost). Every OTHER flavour-spice (paprika/cumin/turmeric/coriander/cinnamon/cayenne) → small g amount + pp (e.g. paprika 1g), NEVER 'to taste'. Garlic → cloves in the name (6/12). Bread → per slice. Egg/yolk → each. Cheese-slices → g. Split the 278 no-pp seasonings: salt/pepper leave · flavour-spices gram+price."]
-    D2["D2 SEPARATION: split genuine two-seasonings lines (salt & pepper · paprika & cumin). DO NOT split single products (hundreds & thousands · mixed seeds · walnuts & pecans · guajillo & ancho)."]
-    D3["D3 NUTRITION: all kcal present; one gap = lunch-adapter bf-shakshuka inject → confirm it inherits nutrition from canonical Shakshuka."]
-    D1-->D2-->D3
-  end
-  C-->D
-
-  subgraph E["💰 PART E — PRICES (prices.js, Ruling B)"]
-    E1["E1 RECONCILE recovered prices (Tina's own, unit-normalised): kapenta 350/kg · mopane worms 450/kg · pumpkin seeds 150/kg (egusi sub) · unsliced white loaf 15 ea · tea 300/kg · coffee 1050/kg (pantry) · gelatin 350/kg · stout 27/750ml · green curry paste 48/50g · gochujang 77/240g · burger rolls ~3 ea · sliced bread ~0.90/slice · plus the 13-Jun pack round (salt/onion/oils/egg/sugars/cake flour/butter/milk/black pepper/rice/tomato paste). Alias Maizena=cornstarch=cornflour=starch→cornflour; egusi→pumpkin seeds."]
-    E2["E2 CONFIRM the §1-§8 bakes buy-list keys exist (whole-wheat/rye/self-raising flour, seeds, semolina, teff, masa harina, golden syrup, desiccated coconut, cocoa, dark/white choc, jams, glacé cherries, sweet wine, ground almonds, pistachios, spice set — full list in meals T2)."]
-    E3["E3 RE-RUN the NULL-price gap scan across FMF+WK+Bakes → target 0 NULLs. NEVER guess a rand — missing + not-recovered → blank list for Tina, don't invent."]
-    E1-->E2-->E3
-  end
-  D-->E
-
-  subgraph F["🔧 PART F — WIRING (verify live first)"]
-    F1["searchHTML bug: draw() missing searchHTML() at core.js:473 — confirm search renders."]
-    F2["goesWith → clickable deep-links across all shelves (bakes has › already; confirm FMF-wide)."]
-    F3["Lunch adapter (Option 1): drop the 18 thin DUP lunch cards + surface fuller canonical → also resolves Shakshuka dup (one veg-tagged Shakshuka on lunch quick shelf, opens as lunch detail)."]
-    F4["Version-chip discoverability: count badge on browse cards + search scans versions[].name + deep-link to matched version. Badge = accent/neutral, never green/gold."]
-    F5["Lunchside role fix: mealRoleFromCat files lunch salads/soups as 'side' → excluded from budget finder. Fix kind==='lunch' ? 'main' : … in adaptMeals."]
-    F1-->F2-->F3-->F4-->F5
-  end
-  E-->F
-
-  subgraph G["✨ PART G — ENTICING NAMES (propose, do not silently rename)"]
-    G1["Tina wants names that sell the dish (Carrot Cake → mouth-watering). LOCKED RULE: on a kept card the name = the photo-match key → a silent rename orphans the photo."]
-    G2["RULE (Tina): enhance only the BROAD master name so it won't collide with the version chips beneath — e.g. Carrot Cake → Delicious Carrot Cake (versions Classic/Pineapple still read clean). Vary the word; don't stamp 'Delicious' on all. Code delivers a PROPOSED list (old→new, reason); on Tina's per-card tick → update BOTH name AND photoName + add to photo regen queue. Never rename silently."]
-    G1-->G2
-  end
-  F-->G
-
-  subgraph H["⏱️ PART H — COOKING-TIME SANITY + DISPLAY"]
-    H1["TRIGGER: Croissants show ~700 min. VERIFY real total vs summed/dup-field bug. Croissants genuinely run ~11-16 hr (overnight chill + lamination rests + prove) → 700 min CAN be a legit TOTAL, but reads absurd."]
-    H2["FIX: sanity-scan every bake time > ~120 min (real vs bug). Display long times in HOURS not minutes (~12 hr not 700 min). Split ACTIVE (hands-on) vs long hands-off rests (Active 45 min · chill overnight · prove 2 hr · bake 18 min). Tag make-ahead/mostly-hands-off. Shared core.js display rule + a data check."]
-    H1-->H2
-  end
-  G-->H
-
-  subgraph I["🍰 PART I — BAKES PORTION MODEL ✅ APPROVED (Tina 6 Jul) — BUILD IT"]
-    I0["RESEARCH (6 Jul): cake slice = 1 portion ≈ 100-115g (~350 kcal); round cake ≈ 10-14 slices (8in serves ~12) → slice ≈ 1/12. Biscuits = 2-3 small / 1-2 large ≈ 30-40g. Rolls/muffins/scones = 1 item = 1 portion."]
-    I1["MODEL (yield-based). BATCH LAW (Tina): every bake = a fixed sensible batch, NEVER scale below one — no half cake, no 4 amaretti, no 2 rusks; dial rounds UP to whole batches; below one it stays at one (card notes keeps/freezes); each card states 'makes ~N'. (1) COUNTABLE SINGLES 1 item=1 person (rolls/muffins/scones/cupcakes/vetkoek/koeksisters/doughnuts) — yield 'makes 12'. (2) SLICEABLE 1 slice=1 portion (cakes/cheesecakes/tarts/loaves/dish-puddings) — serves-N: cake 12 · tart 8-10 · loaf 10. (3) BATCH TREATS like a cake (biscuits/cookies/rusks) — makes-~N by SIZE: small/amaretti ~40 · medium ~30 · large ~18 · rusks ~40 (derive from dough wt ÷ per-piece 15-45g); portion 2-3 small / 1-2 large / 1-2 rusks. (4) SPOONABLE ~150-200g (panna cotta/trifle). (5) LOAVES per slice (locked)."]
-    I2["RESOLVED (Tina + Claude): dial stays PEOPLE everywhere (one shared qtyBox, no separate 'cakes' control), but bakes ANSWER in whole units — cake defaults to natural yield ('1 cake · serves 12 · 1 slice each'); step up rounds to whole cakes/batches ('20 → 2 cakes · serves 24'); display = per cake/slice/roll/batch; cost + Plan + shopping still aggregate by headcount. NEVER a fraction. ✅ DEFAULTS APPROVED (Tina 6 Jul): cake 12 · tart 8-10 · loaf 10 · cheesecake 12 · biscuits small ~40/med ~30/large ~18 · rusks ~40 (per-card override allowed). BUILD NOW — wire into bakes qtyBox."]
-    I0-->I1-->I2
-  end
-  H-->I
-
-  subgraph ORDER["▶️ ORDER OF PLAY — bank after each"]
-    O1["1 Back up core.js + curl standards → 2 PART B braai letters (low-risk warm-up) → 3 PART C 800g desync → 4 PART A FMF sameness (big; re-verify ALL sections after core edits) → 5 PART D+E data + prices (run NULL scan) → 6 PART H cooking-time sanity+display → 7 PART F wiring incl. search fix → 8 PART G generate proposed name list (don't apply) → 9 PART I portions ✅ APPROVED — wire model + locked yields into bakes qtyBox → 10 hand Tina per-file diffs + the name proposal list; she reviews live, ticks names, pushes. NO push from Code."]
-  end
-  I-->ORDER
-
-  subgraph PARK["🅿️ NOT THIS SESSION (tracked, not dropped)"]
-    P0["🍬 NEW SECTION — SWEETS & CONFECTIONERY (was scoped once, dropped — now re-logged). Fudge · nougat · coconut ice · tablet · truffles · peppermint creams · toffee · honeycomb etc. Different craft from baking (sugar-boil + set, no oven) → its OWN room, not shoehorned into bakes. BUILD LATER: after the marathon + FMF sameness + M-F21 dietary. Carry this into the MEALS_MARATHON handoff next time it's open."]
-    P1["📸 PHOTO STUDIO regen — TIMING: do it AFTER the naming pass (G) locks, in its OWN session with live data (needs the repo — not doable in parallel now). RULE (Tina 6 Jul): ONE photo per MASTER card only (main Frittata, main Carrot Cake) — versions share the master's photo per the Bobotie rule. Covers all new §1-§8 bakes additions + any renamed masters. One clean regen once names are final, so nothing orphans. THEN: Events sameness (other pending section, after FMF). Sides & Basics = last FMF room still WIP. M-F21 FMF dietary/nutrition pass. Cross-section: Pesto→Spice · Chakalaka→Spice · Rye starter→Health · toum rename wk_africa ~L132. Track B (post-slice): PayFast · planner · Cook Mode · onboarding · beta."]
+  subgraph PARK["🅿️ PARKED (tracked, not dropped)"]
+    P0["🍬 NEW SECTION — SWEETS & CONFECTIONERY (fudge · nougat · coconut ice · tablet · truffles · peppermint creams · toffee · honeycomb). Own room (sugar-work, no oven). Build later, after FMF sameness + M-F21. Carry into the MEALS_MARATHON handoff next time it's open (along with PART D + G, which are content items)."]
+    P1["📸 PHOTO STUDIO regen — AFTER the naming pass locks, own session with live data. RULE: one photo per MASTER card only (main Frittata, main Carrot Cake — versions share it). Covers all new §1-§8 additions + renamed masters. THEN: Events sameness · Sides & Basics (last FMF room, WIP) · M-F21 FMF dietary/nutrition pass · cross-section (Pesto→Spice · Chakalaka→Spice · Rye starter→Health · toum rename wk_africa ~L132) · Track B (PayFast · planner · Cook Mode · onboarding · beta)."]
     P0-->P1
   end
-  ORDER-->PARK
+  BUGS-->PARK
