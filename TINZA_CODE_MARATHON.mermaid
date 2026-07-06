@@ -1,18 +1,18 @@
 %% TINZA_CODE_MARATHON — app-wide sameness + fixes handoff
-%% v5 · 6 Jul 2026 · AFTER CODE SESSION 1 + Tina approved ALL 11 names. Code ran the marathon: 4 files changed (braai.js · core.js · index.js · meals.js), node --check + repo health-check clean, core.js backed up to scratch (no .gitignore in repo), NOTHING PUSHED — Tina reviews diffs on live + pushes via GitHub Desktop.
+%% v6 · 6 Jul 2026 · AFTER CODE SESSION 1 + PART G names applied. BATCH 1 COMMITTED as 7c835fc ("Session 1…") = PART B, C, I, H, F5, A4. PART G (11 names) now APPLIED by Code — UNCOMMITTED, ready for Tina's review + push: meals.js (11 master cards, name+photoName) · core.js (11 old-name→id aliases in GOESWITH_LINKS) · NEW TINZA_PHOTO_REGEN_QUEUE.md (11 photos, fresh-generate). node --check + health-check clean. Tina reviews diffs on live + pushes via GitHub Desktop.
 %% DONE session 1: PART B braai letters · PART C 800g desync · PART I bakes portions (APPROVED, built) · PART H cook-time hours+make-ahead (active/total split deferred) · PART F1 searchHTML confirmed already wired + F5 lunch-role fix · PART A4 FMF nav scroll-strip→grid.
-%% PART G names ✅ APPROVED by Tina (all 11) — Code applies each: name + photoName together + add to photo regen queue. BIG REMAINING = FMF warm flip (A1/A2/A3/A5) — blocked on refactoring the shared recipeDetailFromResult behind an inWarm() guard → its own session. Other deferred: D data sweep · E price-scan tool + NULL scan · F2/F3/F4 wiring · H active/total split. NEW BUG: spice.js tartare-sauce duplicate id.
+%% PART G names ✅ APPLIED by Code (11 cards + aliases + photo queue) — uncommitted, Tina review+push. BIG REMAINING = FMF warm flip (A1/A2/A3/A5) — blocked on refactoring the shared recipeDetailFromResult behind an inWarm() guard → its own session. Other deferred: D data sweep · E price-scan tool + NULL scan · F2/F3/F4 wiring · H active/total split. OPEN BUG: spice.js tartare-sauce duplicate id.
 %% Discipline unchanged: standards first · /wow known (WOW_STANDARD.md) · back up core.js · node --check · show diffs · DO NOT push (Tina pushes). Sameness = shared core.js renderers + var(--token) only; accents never reuse green food-cost / gold shop-spend.
 
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE — after Code session 1"]
-    S1["Session 1 banked, NOT pushed. Live app after Tina pushes: braai letters readable in sun · Boerewors 800g reconciled to 600 · bakes portions live (people dial → whole cakes/batches, never a fraction) · long cook-times show in hours + make-ahead · FMF category nav is now a tappable grid. FMF still on the DARK theme until the warm-flip session."]
-    S2["Next moves in order: (1) Tina pushes session-1 diffs (2) ticks the 11-name list (3) FMF warm-flip session — the big one (4) data · prices · wiring sessions. LAUNCH OCTOBER."]
+    S1["BATCH 1 COMMITTED (7c835fc) — braai letters readable · Boerewors 800g reconciled to 600 · bakes portions live (people dial → whole cakes/batches) · long cook-times in hours + make-ahead · FMF category nav a tappable grid · lunch budget-finder fix. PART G names APPLIED (uncommitted). FMF still on the DARK theme until the warm-flip session."]
+    S2["Next moves in order: (1) Tina reviews + pushes the PART G rename commit (2) FMF warm-flip session — the big one (3) data · prices · wiring sessions (4) Photo Studio regen (11 new + any masters) once names are live. LAUNCH OCTOBER."]
     S1-->S2
   end
 
-  subgraph DONE1["✅ SESSION 1 — DONE & VERIFIED (not pushed; Tina reviews + pushes)"]
+  subgraph DONE1["✅ SESSION 1 — DONE & COMMITTED as 7c835fc"]
     DB1["PART B braai letters (braai.js): meat chips + 'BEEF — 14 OPTIONS' header + sides header → shared token grid, high-contrast bold 15px (var --ink/--card/--accent). Readable outdoors; kills hardcoded hex (sameness win)."]
     DC1["PART C 800g desync (core.js): buildShoppingList already cut-based (verified, left alone). Real bug = recipe-page INGREDIENT LINE hardcoded '350g per person' → now cut-based braaiBaseG. Boerewors 2ppl reconciles: box 600g · line 300g pp/600g total · shopping 600→660 buy (was 350/700/800)."]
     DI1["PART I bakes portions BUILT (meals.js): BATCH LAW live — dial = people, bakes answer in WHOLE units. Cakes/cheesecakes serves 12 · biscuits makes ~30 · per-card serves/makes override. qtyBox reads 'makes 1 cake · serves 12 · 1 slice each'; 20ppl → '2 cakes · serves 24'; ingredients+cost round to whole cakes; per-person = total÷people; extended to plan/shopping. GATED to bakes — the 6 other recipeDetailFromResult callers byte-identical."]
@@ -23,8 +23,8 @@ flowchart TD
   end
   STATE-->DONE1
 
-  subgraph TINAG["✅ PART G enticing names — APPROVED (all 11), Code to apply"]
-    G0["APPROVED by Tina (all 11). Code applies each: update display name + photoName TOGETHER + add to the photo regen queue. Only the broad master name changes (version chips untouched). These renamed masters then feed the Photo Studio regen (one photo per master)."]
+  subgraph TINAG["✅ PART G enticing names — APPLIED by Code (uncommitted, review + push)"]
+    G0["APPLIED (all 11). meals.js: each master card name + photoName set to the new value. core.js: 11 old-name→id aliases added to GOESWITH_LINKS — ESSENTIAL, because goesWithLink() resolves by exact name and the old names are referenced across many goesWith arrays (Chocolate Cake ×9 · Vanilla Butter Cake ×9 · Shortbread ×5 · Classic Cheesecake ×4 · Oat Cookies ×3…) — so every existing cross-link still opens the renamed card. Version chips + goesWith chip text untouched (Red Velvet as a version inside another cake correctly left alone). NEW file TINZA_PHOTO_REGEN_QUEUE.md = the 11 photos to generate (fresh — none had a photo before, so nothing orphaned)."]
     GLIST["1 Chocolate Cake → Ultimate Chocolate Cake · 2 Carrot Cake → Golden Carrot Cake · 3 Vanilla Butter Cake → Golden Vanilla Butter Cake · 4 Classic Cheesecake → Dreamy Classic Cheesecake · 5 Red Velvet → Velvety Red Velvet Cake · 6 Shortbread → Buttery Shortbread · 7 Chocolate Chip Cookies → Chewy Chocolate Chip Cookies · 8 Oat Cookies → Golden Oat Cookies · 9 Peanut Butter Cookies → Soft Peanut Butter Cookies · 10 Ginger Biscuits → Crunchy Ginger Biscuits · 11 Beer Bread → Easy Beer Bread"]
     G0-->GLIST
   end
@@ -47,7 +47,7 @@ flowchart TD
 
   subgraph PARK["🅿️ PARKED (tracked, not dropped)"]
     P0["🍬 NEW SECTION — SWEETS & CONFECTIONERY (fudge · nougat · coconut ice · tablet · truffles · peppermint creams · toffee · honeycomb). Own room (sugar-work, no oven). Build later, after FMF sameness + M-F21. Carry into the MEALS_MARATHON handoff next time it's open (along with PART D + G, which are content items)."]
-    P1["📸 PHOTO STUDIO regen — AFTER the naming pass locks, own session with live data. RULE: one photo per MASTER card only (main Frittata, main Carrot Cake — versions share it). Covers all new §1-§8 additions + renamed masters. THEN: Events sameness · Sides & Basics (last FMF room, WIP) · M-F21 FMF dietary/nutrition pass · cross-section (Pesto→Spice · Chakalaka→Spice · Rye starter→Health · toum rename wk_africa ~L132) · Track B (PayFast · planner · Cook Mode · onboarding · beta)."]
+    P1["📸 PHOTO STUDIO regen — the queue file EXISTS now: TINZA_PHOTO_REGEN_QUEUE.md (11 renamed masters, fresh-generate into Images/Image/). Do the regen in its own session with live data once the renames are pushed. RULE: one photo per MASTER card (versions share it). Also add all new §1-§8 additions. THEN: Events sameness · Sides & Basics (last FMF room, WIP) · M-F21 FMF dietary/nutrition pass · cross-section (Pesto→Spice · Chakalaka→Spice · Rye starter→Health · toum rename wk_africa ~L132) · Track B (PayFast · planner · Cook Mode · onboarding · beta)."]
     P0-->P1
   end
   BUGS-->PARK

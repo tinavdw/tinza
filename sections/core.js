@@ -2411,7 +2411,21 @@ var GOESWITH_LINKS = {
   'oven chips':                 "openRecipe('meals','sb-chips')",
   'tartare':                    "openSpiceRecipe('tartare-sauce')",
   'tartare sauce':              "openSpiceRecipe('tartare-sauce')",
-  'pizza dough':                "openRecipe('meals','sb-pizza-dough')"
+  'pizza dough':                "openRecipe('meals','sb-pizza-dough')",
+  // ── PART G · enticing-name aliases (6 Jul) — master bakes cards were renamed to broader,
+  //    more appetising names; goesWith resolves by EXACT name, so these keep every existing
+  //    goesWith reference (to the OLD name) pointing at the renamed card. ──
+  'chocolate cake':             "openRecipe('meals','bk-chocolate-cake')",
+  'carrot cake':                "openRecipe('meals','bk-carrot-cake')",
+  'vanilla butter cake':        "openRecipe('meals','bk-vanilla-cake')",
+  'classic cheesecake':         "openRecipe('meals','bk-classic-cheesecake')",
+  'red velvet':                 "openRecipe('meals','bk-red-velvet')",
+  'shortbread':                 "openRecipe('meals','bk-shortbread')",
+  'chocolate chip cookies':     "openRecipe('meals','bk-choc-chip')",
+  'oat cookies':                "openRecipe('meals','bk-oat-cookies')",
+  'peanut butter cookies':      "openRecipe('meals','bk-peanut-butter')",
+  'ginger biscuits':            "openRecipe('meals','bk-ginger-biscuits')",
+  'beer bread':                 "openRecipe('meals','bk-beer-bread')"
 };
 var INGREDIENT_LINKS = {
   'garlic-ginger paste': "openSpiceRecipe('ginger-garlic-paste')",
