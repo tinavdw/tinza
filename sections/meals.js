@@ -14301,64 +14301,29 @@ function mealSectionHTML(sectionKey){
 
   const mealHowOpen = S.mealHowOpen || false;
 
-  return `<div style="min-height:100vh;background:#0f0e0c;">
-
-    <!-- ══ V33 PHOTO HEADER ══ -->
-    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${cfg.bg} 0%,#0f0e0c 100%);">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.75) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'feedfamily'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${cfg.border};border-radius:20px;color:${cfg.color};font-size:13px;padding:5px 12px;cursor:pointer;">← Family Meals</button>
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
-        <h1 style="margin:0 0 2px;font-size:24px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">${cfg.emoji} ${cfg.title}</h1>
-        <p style="margin:0 0 10px;font-size:13px;color:${cfg.color};font-style:italic;opacity:0.9;">${cfg.sub}</p>
-        <div style="display:flex;align-items:center;background:rgba(12,10,8,0.85);border:1px solid ${cfg.border};border-radius:20px;padding:7px 14px;margin-bottom:14px;">
-          <span style="color:${cfg.color};margin-right:8px;font-size:14px;">🔍</span>
-          <input type="text" placeholder="Search ${cfg.title.toLowerCase()} recipes…"
-            oninput="set({mealSearch:this.value})"
-            value="${S.mealSearch||''}"
-            style="flex:1;background:none;border:none;outline:none;color:#e0d0c0;font-size:13px;font-family:Georgia,serif;"
-          />
-          ${S.mealSearch?`<button onclick="set({mealSearch:''})" style="background:none;border:none;color:${cfg.border};font-size:16px;cursor:pointer;">×</button>`:''}
-        </div>
+  return `<div>
+    ${sectionHeader({
+      title: cfg.title, emoji: cfg.emoji, tagline: cfg.sub,
+      img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent(cfg.title)+'.jpg',
+      backJs: "set({screen:'feedfamily'})", backLabel: '← Family Meals',
+      myPlan: { count:(S.mealPlan||[]).length, onclick:"setQuiet({mealPlanView:true})" },
+      search: { value:S.mealSearch||'', oninput:"set({mealSearch:this.value})", clearJs:"set({mealSearch:''})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
+      cats: cats ? cats.map(c=>({ emoji:c.e, label:c.l, active:(activeCat===c.id), onclick:"setQuiet({mealCat:'"+c.id+"'});setTimeout(()=>{var el=document.getElementById('mealGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)" })) : []
+    })}
+    <div class="content" style="padding:12px 16px;max-width:600px;margin:0 auto;">
+      ${howItWorks({ steps:[
+        '1 · Browse each shelf and tap a card to read the full recipe first',
+        '2 · Tick the <strong style="color:var(--gold);">☑ checkbox</strong> on any dish to add it to your plan',
+        '3 · Add more dishes — portions <strong style="color:var(--gold);">scale automatically</strong>',
+        '4 · Tap <strong style="color:var(--gold);">My Plan</strong> for quantities, cost &amp; shopping list',
+        '5 · Share your list straight to WhatsApp or your store'
+      ] })}
+      <!-- Sort pills (token-driven) -->
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-bottom:10px;">
+        ${[{id:'popular',l:'⭐ Popular'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️ Quick'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:6px 12px;border-radius:20px;border:1px solid ${sort===s.id?'var(--accent)':'var(--line)'};background:${sort===s.id?'var(--card2)':'var(--card)'};color:var(--ink);font-weight:${sort===s.id?'bold':'normal'};font-size:13px;cursor:pointer;">${s.l}</button>`).join('')}
       </div>
-    </div>
-
-    <!-- ══ HOW IT WORKS + SORT ══ -->
-    <div style="background:${cfg.bg};border-bottom:1px solid ${cfg.border};padding:12px 16px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;">
-        <div style="flex:1;">
-          <button onclick="set({mealHowOpen:!S.mealHowOpen})"
-            style="background:none;border:none;color:${cfg.color};font-size:13px;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;">
-            ${mealHowOpen?'▲':'▼'} How it works
-          </button>
-          ${mealHowOpen?`
-            <div onclick="set({mealHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
-            <div style="position:relative;z-index:10;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#b0a080;line-height:1.6;">
-              <strong style="color:${cfg.color};">1. Browse recipes</strong> — sort by popular, A–Z or quickest.<br>
-              <strong style="color:${cfg.color};">2. Tap Recipe →</strong> — full ingredients, method and scaling.<br>
-              <strong style="color:${cfg.color};">3. Add to My Plan</strong> — build your weekly meal plan.<br>
-              <span style="color:#828270;font-size:13px;">All quantities scale automatically per person.</span>
-            </div>
-          `:''}
-        </div>
-        <!-- Sort pills -->
-        <div style="display:flex;gap:5px;flex-shrink:0;">
-          ${[{id:'popular',l:'⭐'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:5px 10px;border-radius:20px;border:1px solid ${sort===s.id?cfg.color:cfg.border};background:${sort===s.id?'rgba(255,255,255,0.1)':'transparent'};color:${sort===s.id?cfg.color:'#4a4a40'};font-size:13px;cursor:pointer;">${s.l}</button>`).join('')}
-        </div>
-      </div>
-    </div>
-
-    <div style="padding:12px 16px;max-width:600px;margin:0 auto;">
-      ${cats?`
-      <!-- ══ CATEGORY NAV — wrapped GRID of tappable boxes (Standard §4a.3 / brief A4: NEVER a horizontal gliding scroll). Byte-identical to sectionHeader() catBlock so FMF matches every other section. Token-driven → warm-ready. ══ -->
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-        ${cats.map(c=>`<div onclick="setQuiet({mealCat:'${c.id}'})" style="flex:1 1 calc(33.333% - 8px);min-width:96px;box-sizing:border-box;background:${activeCat===c.id?'var(--card2)':'var(--card)'};border:1px solid ${activeCat===c.id?'var(--accent)':'var(--line)'};border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
-          <span style="font-size:24px;">${c.e}</span>
-          <span style="font-size:13px;color:var(--ink);font-weight:bold;line-height:1.2;">${c.l}</span>
-        </div>`).join('')}
-      </div>
-      <div style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>
-      `:`<div style="font-size:13px;color:#828270;margin-bottom:10px;">${recipes.length} recipes</div>`}
-      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:#908066;font-size:13px;background:#161210;border:1px solid #2a2a20;border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
+      ${cats?`<div id="mealGroupTop" style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} — ${recipes.length} ${recipes.length===1?'option':'options'}</div>`:`<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">${recipes.length} recipes</div>`}
+      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:var(--ink-soft);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
         // Shared Warm Spice photo card (Rule Zero) — identical to World Kitchen's
@@ -14380,10 +14345,6 @@ function mealSectionHTML(sectionKey){
         });
       }).join('')}
       ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
-      <div style="margin-top:8px;padding:14px;background:${cfg.bg};border:1px solid ${cfg.border};border-radius:10px;text-align:center;">
-        <div style="font-size:13px;color:#828270;margin-bottom:8px;">Can't find what you're looking for?</div>
-        <button onclick="set({screen:'search'})" style="padding:10px 20px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#e0a060;font-size:13px;cursor:pointer;">🔍 Search All Recipes</button>
-      </div>
     </div>
   </div>`;
 }
@@ -14441,31 +14402,22 @@ function feedingFamilyHTML(){
     {s:'bakes',      e:'🍰', t:'Bakes, Cakes & Breads', sub:'Cakes · Biscuits · Breads · Rusks',     b:'#d06080', bg:'#1a0810'},
     {s:'sidesbasics',e:'🍟', t:'Sides & Basics',        sub:'Chips · Mash · the building blocks',    b:'#c08040', bg:'#180f08'},
   ];
-  const HEAD = '#c08040', HBG = '#1a1208', HBORDER = '#4a3520';
-  return `<div style="min-height:100vh;background:#0f0e0c;">
-
-    <!-- ══ V33 PHOTO HEADER ══ -->
-    <div style="position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,${HBG} 0%,#0f0e0c 100%);">
-      <img src="Images/Image%20header/feedfamily.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none';">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,0.3) 0%,rgba(8,6,4,0.78) 100%);z-index:1;"></div>
-      <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid ${HBORDER};border-radius:20px;color:${HEAD};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 16px;">
-        <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">🍽️ Feeding My Family</h1>
-        <p style="margin:0;font-size:13px;color:${HEAD};font-style:italic;opacity:0.9;">Everyday cooking — morning to night, and something sweet</p>
-      </div>
-    </div>
-
-    <!-- ══ MEAL-TYPE BOXES (2×2 grid · warm Spice palette) ══ -->
-    <div style="padding:16px;max-width:600px;margin:0 auto;">
-      <div style="font-size:13px;letter-spacing:2px;color:#a87849;text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
+  return `<div>
+    ${sectionHeader({
+      title:'Feeding My Family', emoji:'🍽️',
+      tagline:'Everyday cooking — morning to night, and something sweet',
+      img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent('Feeding My Family')+'.jpg',
+      backJs:"set({screen:'home'})", backLabel:'← Home'
+    })}
+    <div class="content" style="padding:16px;max-width:600px;margin:0 auto;">
+      <div style="font-size:13px;letter-spacing:2px;color:var(--ink-soft);text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
         ${MEALS.map(o=>`
           <div onclick="set({screen:'${o.s}'})"
-            style="background:#161210;border:1px solid #2a1a10;border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;"
-            onmouseover="this.style.borderColor='#c06020'" onmouseout="this.style.borderColor='#2a1a10'">
+            style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div style="font-size:24px;margin-bottom:4px;">${o.e}</div>
-            <div style="font-size:16px;color:#f5e8cc;font-family:Georgia,serif;font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>
-            <div style="font-size:14px;color:#e0d4b8;line-height:1.4;">${o.sub}</div>
+            <div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>
+            <div style="font-size:14px;color:var(--ink-soft);line-height:1.4;">${o.sub}</div>
           </div>`).join('')}
       </div>
     </div>
@@ -14885,6 +14837,121 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     return '';
   })();
 
+  // ── WARM BRANCH (Session 2 · inWarm() guard) ─────────────────────────────────
+  // FMF (once added to _warm/inWarm) renders the parchment recipe page here, matching
+  // braai / World Kitchen — token-driven, one accent (no per-section purple/maroon),
+  // cream qty card like the shared qtyBox(). Every NON-warm caller (budget · mood ·
+  // search · 4-ingredients · anchor) skips this whole block and falls through to the
+  // ORIGINAL return below, byte-for-byte unchanged — this is a PURE INSERTION, so the
+  // 5 non-FMF callers cannot regress and Mood keeps its colour exception on that path.
+  if((typeof inWarm==='function') && inWarm()){
+    const ingRowsW = (r.ingredients||[]).map(i=>{
+      if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-soft);font-style:italic;">• ${i.n} — to taste</div>`;
+      const raw=i.pp*_scale, u=i.u||'';
+      const ppStr=i.pp+(u==='egg'?' egg':u)+' pp';
+      const totalStr=u==='egg'?Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'')
+        :(raw>=1000&&(u==='g'||u==='ml'))?(Math.round(raw/100)/10)+(u==='g'?'kg':'L')
+        :Math.round(raw*10)/10+u;
+      const _lk=(typeof crossLinkFor==='function'&&typeof INGREDIENT_LINKS!=='undefined')?crossLinkFor(INGREDIENT_LINKS,i.n):null;
+      return `<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);">
+        <span style="color:var(--accent);flex-shrink:0;">•</span>
+        <span style="font-size:14px;color:var(--ink2);flex:1;">${_lk?`<span onclick="${_lk}" style="color:var(--accent);font-weight:bold;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">${i.n} ↗</span>`:i.n} — <span style="color:var(--ink-soft);font-size:13px;">${ppStr}</span> · <strong style="color:var(--gold);">${totalStr} total</strong></span>
+      </div>`;
+    }).join('');
+    const rawShrinkW = (r.ingredients||[]).some(i=>/rice|pap|mealie|samp|meat|mince|chicken|beef|lamb|pork|steak|wors|sausage|fish|snoek|bacon|biltong|chop|\brib/i.test(i.n));
+    const methodRowsW = (r.method||[]).map((step,si)=>{
+      const _sec=(typeof parseStepTime==='function')?parseStepTime(step):0;
+      const _tmr=_sec?`<div style="margin-top:7px;"><button onclick="startTimer(${_sec},'Step ${si+1}')" style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:13px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${(typeof fmtTimerLabel==='function')?fmtTimerLabel(_sec):Math.round(_sec/60)+' min'}</button></div>`:'';
+      return `<div style="display:flex;gap:12px;margin-bottom:14px;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);border:1px solid var(--accent);color:var(--on-media);font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${si+1}</div><div style="flex:1;"><p style="margin:2px 0 0;font-size:14px;color:var(--ink2);line-height:1.7;">${step}</p>${_tmr}</div></div>`;
+    }).join('');
+    const scaleNoteW = _bakeP?(_bakeP.mode==='slice'?('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · serves '+_bakeUnits+' · 1 '+_bakeP.pieceWord+' each'):('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · ~'+_bakeUnits+' '+_bakeP.pieceWord+'s')):'people · all quantities scale';
+    const noteW = _bakeP?('💡 Bakes come in whole '+_bakeP.unitWord+'s — the dial rounds up so you never bake a fraction.'):'💡 Adjust the number and all ingredients update instantly.';
+    const costW = (()=>{
+      if(!_isPro) return `<div style="background:var(--card2);border:1px dashed var(--accent);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
+        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
+      if(r.costPP){ const total=r.costPP*_scale; return `<div style="background:var(--green-tint);border:1px solid var(--green-soft);border-radius:10px;padding:14px;margin-bottom:12px;">
+        <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink-soft);">Total for ${sv} people</div><div style="font-size:24px;font-weight:bold;color:var(--green);">R${total}</div></div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--line);"><div style="font-size:13px;color:var(--ink-soft);">Per person</div><div style="font-size:16px;font-weight:bold;color:var(--green);">R${_bakeP?Math.round((r.costPP*_scale)/sv):r.costPP}</div></div>
+        <div style="margin-top:8px;font-size:13px;color:var(--ink-soft);">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div></div>`; }
+      return '';
+    })();
+    return `<div style="min-height:100vh;background:var(--bg);">
+      <div style="position:relative;">
+        ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
+        <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.55);border:1px solid rgba(255,255,255,0.55);border-radius:20px;color:#fff;font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
+      </div>
+      <div class="content" style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
+        <h1 class="ttl" style="font-size:26px;font-weight:600;color:var(--ink);margin:10px 0 2px;line-height:1.15;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</h1>
+        ${r.feel?`<div style="font-style:italic;color:var(--ink-soft);font-size:14px;line-height:1.5;margin:4px 0 14px;">“${r.feel}”</div>`:'<div style="height:8px;"></div>'}
+        ${typeof versionStripHTML==='function'?versionStripHTML(r,'var(--accent)'):''}
+        <!-- How much to make — warm cream card, matches shared qtyBox() -->
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:0 10px 24px -18px rgba(120,70,30,0.45);">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">How Much To Make</div>
+            <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" aria-label="fewer servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">−</button>
+              <span class="mono" style="font-size:20px;color:var(--ink);font-weight:600;min-width:26px;text-align:center;">${sv}</span>
+              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" aria-label="more servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">+</button>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;">${sv} ${sv===1?'person':'people'} · ${scaleNoteW}</div>
+          <div style="margin-top:8px;font-size:12.5px;color:var(--ink-soft);">${noteW}</div>
+        </div>
+        <!-- Ingredients -->
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">Ingredients</div>
+            <div style="font-size:13px;color:var(--ink-soft);font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
+          </div>
+          ${ingRowsW}
+          ${rawShrinkW?`<div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-soft);font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>`:''}
+        </div>
+        <!-- Method -->
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">Method</div>
+            ${(r.method&&r.method.length)?`<button onclick="set({cookRecipe:{section:'meals',id:'${r.id}'},cookStep:0});window.scrollTo(0,0);" style="background:var(--accent);border:none;border-radius:8px;color:var(--on-media);font-size:13px;font-weight:bold;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>`:''}
+          </div>
+          ${methodRowsW}
+        </div>
+        <!-- Goes Well With -->
+        ${(r.goesWith&&r.goesWith.length)?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.goesWith.map(g=>{const _lk2=(typeof goesWithLink==='function')?goesWithLink(g):null;return _lk2?`<span onclick="${_lk2}" style="padding:6px 13px;border-radius:16px;border:1px solid var(--accent);color:var(--accent);font-size:14px;font-weight:bold;cursor:pointer;">${g} ›</span>`:`<span style="padding:6px 13px;border-radius:16px;border:1px solid var(--line);color:var(--ink-soft);font-size:14px;">${g}</span>`;}).join('')}</div>
+        </div>`:''}
+        <!-- Tip -->
+        ${r.tip?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;margin-bottom:6px;">💡 Tip</div>
+          <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin:0;">${r.tip}</p></div>`:''}
+        <!-- Did You Know -->
+        ${r.didYouKnow?`<div style="background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;margin-bottom:6px;">💡 Did You Know</div>
+          <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin:0;">${r.didYouKnow}</p></div>`:''}
+        <!-- Nutrition -->
+        ${r.nutrition?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--green);text-transform:uppercase;margin-bottom:8px;">📊 Nutrition — per serving</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
+            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.kcal}</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">kcal</div></div>
+            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.protein_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">protein</div></div>
+            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.carbs_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">carbs</div></div>
+            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.fat_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">fat</div></div>
+          </div></div>`:''}
+        <!-- Storage -->
+        ${r.storage?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:var(--ink-soft);">📦 ${r.storage}</div>`:''}
+        ${costW}
+        <!-- Save (Pro) -->
+        ${_isPro?`<button onclick="toggleSavedRecipe('${_rid}','${_rname}','${_remoji}')" style="width:100%;padding:12px;border-radius:10px;background:${_saved?'var(--card2)':'var(--card)'};border:1px solid var(--accent);color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:10px;">${_saved?'✓ Saved to My Recipes — tap to remove':'🔖 Save to My Recipes'}</button>`
+        :`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;color:var(--ink-soft);font-size:13px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
+        <!-- WhatsApp -->
+        <button onclick="window.open('https://wa.me/?text=${_waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>
+        <!-- Back -->
+        <button onclick="${backAction}" style="width:100%;padding:14px;border-radius:10px;cursor:pointer;background:var(--accent);border:none;color:var(--on-media);font-size:14px;font-weight:bold;margin-bottom:20px;">← Back</button>
+      </div>
+    </div>`;
+  }
+
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="position:relative;">
       ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
@@ -15125,6 +15192,15 @@ function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
   const plan = S[planKey]||[];
   if(!plan.length) return '';
   const isPro = tierAllows('pro');
+  // Warm branch (FMF): token-driven so the button reads on the parchment page. Non-warm
+  // callers (budget · mood) keep their exact colour/bg params + #f5e8cc — byte-identical.
+  if((typeof inWarm==='function') && inWarm()){
+    if(!isPro) return `<div style="background:var(--card2);border:1px dashed var(--accent);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.85;"><div style="font-size:13px;color:var(--accent);">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
+    return `<button onclick="${viewAction}" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:1px solid var(--accent);background:var(--card2);color:var(--ink);font-size:14px;font-weight:bold;cursor:pointer;">
+    📋 See my ${title} Plan & Shopping List →
+    <div style="font-size:13px;color:var(--accent);font-weight:normal;margin-top:3px;">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
+  </button>`;
+  }
   if(!isPro) return `<div style="background:${bg};border:1px dashed ${color};border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.6;"><div style="font-size:13px;color:${color};">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
   return `<button onclick="${viewAction}" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid ${color};background:${bg};color:#f5e8cc;font-size:14px;cursor:pointer;">
     📋 See my ${title} Plan & Shopping List →

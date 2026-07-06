@@ -1,5 +1,5 @@
 %% TINZA_CODE_MARATHON — app-wide sameness + fixes handoff
-%% v8 · 6 Jul 2026 · LIVE-CONFIRMED from Tina's screenshots: braai letters readable · Boerewors 600g/300g pp · bakes portions · renames — all landed. Batch 1 (7c835fc) + PART G renames PUSHED/live. NEW BUG (Tina, live): FMF Bakes category-tap doesn't scroll the "…— N OPTIONS" list into view (you must scroll manually) — braai does it via meatGroupTop + scrollIntoView. Added to the Session 2 brief as A4.1 (quick win). SESSION 2 BRIEF READY = TINZA_SESSION2_FMF_WARM.md (FMF warm-flip refactor + A4.1). node --check + health-check clean throughout.
+%% v9 · 6 Jul 2026 · SESSION 2 DONE (FMF warm flip, steps 1b-4) — banked, NOT pushed (2 files: core.js +4, meals.js 158/82). FMF now renders WARM + matches braai (A1/A2/A4.1 + the guarded warm branch). A3+A5 deferred TOGETHER as a coupled Session 3 follow-up — reason: the recipePage builder isn't the superset yet (lacks bakes portion model, nutrition grid, WhatsApp/Save, goesWith, and scales via recipeServings not searchServings), so switching FMF's opener onto it now would regress FMF. Batch 1 (7c835fc) + PART G renames already PUSHED/live. node --check + health-check clean; only flag = pre-existing spice.js tartare-sauce dup.
 %% DONE session 1: PART B braai letters · PART C 800g desync · PART I bakes portions (APPROVED, built) · PART H cook-time hours+make-ahead (active/total split deferred) · PART F1 searchHTML confirmed already wired + F5 lunch-role fix · PART A4 FMF nav scroll-strip→grid.
 %% PART G names ✅ APPLIED by Code (11 cards + aliases + photo queue) — uncommitted, Tina review+push. BIG REMAINING = FMF warm flip (A1/A2/A3/A5) — blocked on refactoring the shared recipeDetailFromResult behind an inWarm() guard → its own session. Other deferred: D data sweep · E price-scan tool + NULL scan · F2/F3/F4 wiring · H active/total split. OPEN BUG: spice.js tartare-sauce duplicate id.
 %% Discipline unchanged: standards first · /wow known (WOW_STANDARD.md) · back up core.js · node --check · show diffs · DO NOT push (Tina pushes). Sameness = shared core.js renderers + var(--token) only; accents never reuse green food-cost / gold shop-spend.
@@ -7,8 +7,8 @@
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE — after Code session 1"]
-    S1["PUSHED & LIVE (confirmed on Tina's screens): braai letters readable · Boerewors 600g/300g pp · bakes portions · cook-times hours+make-ahead · FMF nav a tappable grid · lunch budget fix · 11 renames with goesWith aliases intact. FMF still DARK until the warm flip. ⚠️ LIVE BUG spotted: tapping an FMF Bakes category renders its list below the grid but doesn't scroll to it (manual scroll needed) → fixed as A4.1 in the Session 2 brief."]
-    S2["Next: (1) quick live pre-flight eyeball (Rule 2) (2) ★ FMF WARM-FLIP session — brief ready: TINZA_SESSION2_FMF_WARM.md, run it as a FRESH Code session (3) data · prices · wiring sessions (4) Photo Studio regen from TINZA_PHOTO_REGEN_QUEUE.md. LAUNCH OCTOBER."]
+    S1["PUSHED & LIVE: braai letters · Boerewors 600g/300g pp · bakes portions · cook-times · FMF nav grid · lunch fix · 11 renames+aliases. SESSION 2 BANKED (not pushed): FMF now WARM + matches braai — A4.1 scroll fix · the guarded warm branch · 6 FMF screens flipped · A2 chrome. Next up = the A3+A5 superset (Session 3)."]
+    S2["Next: (1) review + push Session 2 (2 files) after a live eyeball of FMF warm (2) ★ SESSION 3 = A3+A5 coupled superset recipePage + braai/WK retrofit + switch FMF's opener (3) data · prices · wiring · cook-time split · spice bug (4) Photo Studio regen. After A3/A5 only Events remains for the universal opener. LAUNCH OCTOBER."]
     S1-->S2
   end
 
@@ -23,15 +23,25 @@ flowchart TD
   end
   STATE-->DONE1
 
+  subgraph DONE2["✅ SESSION 2 — FMF WARM FLIP (banked, NOT pushed · 2 files)"]
+    E2A["S2-1b A4.1 (meals.js): FMF Bakes category tap now anchors mealGroupTop + scrollIntoView (60ms), like braai — the list scrolls into view. Banked on its own."]
+    E2B["S2-2 LINCHPIN (meals.js): recipeDetailFromResult got an if(inWarm()){ warm token version } as a PURE INSERTION above the original return — warm branch = parchment page, one accent, cream qtyBox, var(--token), clickable goesWith, timers, cost/nutrition/save/WhatsApp. Byte-identical PROVEN: original non-warm return has 0 deletions/mods; Mood colour exception on the non-warm path → untouched."]
+    E2C["S2-3 FLIP (core.js +4): added the 6 FMF screens (feedfamily/breakfast/lightlunch/supper/bakes/sidesbasics) to _warm + inWarm(), kept in sync. The 5 non-FMF callers (budget/mood/search/search_results/fourIngredients/ingredient) NOT in inWarm() → code paths unchanged."]
+    E2D["S2-4 A2 CHROME (meals.js): FMF list + landing route through shared sectionHeader() (200px photo · ← Family Meals · My Plan white pill · search · grid nav) + howItWorks(); sort pills/group header/empty state tokenised; sectionPlanBtn given an inWarm() warm branch (budget/mood unchanged); removed redundant hardcoded search box; FMF plan already warm via shared planView()."]
+    E2E["REGRESSION GATE: 30/30 files parse · 34 onclick handlers resolve · 80 version blocks clean · braai/WK/health/events unaffected (additive _warm/inWarm only). Only flag = pre-existing spice.js tartare-sauce dup."]
+    E2A-->E2B-->E2C-->E2D-->E2E
+  end
+  DONE1-->DONE2
+
   subgraph TINAG["✅ PART G enticing names — APPLIED + PUSHED (live)"]
     G0["APPLIED (all 11). meals.js: each master card name + photoName set to the new value. core.js: 11 old-name→id aliases added to GOESWITH_LINKS — ESSENTIAL, because goesWithLink() resolves by exact name and the old names are referenced across many goesWith arrays (Chocolate Cake ×9 · Vanilla Butter Cake ×9 · Shortbread ×5 · Classic Cheesecake ×4 · Oat Cookies ×3…) — so every existing cross-link still opens the renamed card. Version chips + goesWith chip text untouched (Red Velvet as a version inside another cake correctly left alone). NEW file TINZA_PHOTO_REGEN_QUEUE.md = the 11 photos to generate (fresh — none had a photo before, so nothing orphaned)."]
     GLIST["1 Chocolate Cake → Ultimate Chocolate Cake · 2 Carrot Cake → Golden Carrot Cake · 3 Vanilla Butter Cake → Golden Vanilla Butter Cake · 4 Classic Cheesecake → Dreamy Classic Cheesecake · 5 Red Velvet → Velvety Red Velvet Cake · 6 Shortbread → Buttery Shortbread · 7 Chocolate Chip Cookies → Chewy Chocolate Chip Cookies · 8 Oat Cookies → Golden Oat Cookies · 9 Peanut Butter Cookies → Soft Peanut Butter Cookies · 10 Ginger Biscuits → Crunchy Ginger Biscuits · 11 Beer Bread → Easy Beer Bread"]
     G0-->GLIST
   end
-  DONE1-->TINAG
+  DONE2-->TINAG
 
   subgraph NEXT["🔜 REMAINING — each its own focused session"]
-    N2["★ SESSION 2 — FMF SAMENESS WARM FLIP (A1 theme · A2 sectionHeader route · A3 openRecipe · A5 superset recipePage + braai/WK retrofit) + A4.1 category-tap scroll-into-view (quick win). ✅ BRIEF READY = TINZA_SESSION2_FMF_WARM.md (run as a FRESH Code session, drop brief + this flowchart). PLAN: back up + inventory → A4.1 quick win (anchor id + scrollIntoView like braai's meatGroupTop) → tokenise the shared recipeDetailFromResult (~260 lines, 6 callers incl. Mood colour exception) behind an inWarm() guard, prove non-warm callers BYTE-IDENTICAL, bank → add FMF to _warm (grid flips auto) → A2 → A3 → A5 (retrofit braai/WK, can be a follow-up if long) → regression-check all 6 callers + every section. THE big next step."]
+    N2["★ SESSION 3 (next big one) — A3 + A5 COUPLED = the superset recipe page. Build recipePage() into the SUPERSET + retrofit braai + WK to it, THEN switch FMF's opener (A3: openRecipe→recipePage). WHY COUPLED (Code found): the current bakesRecipeOpts→recipePage builder lacks what FMF needs — bakes portion model (batch law/serves 12) · nutrition macro grid · WhatsApp/Save · goesWith · and it scales via recipeServings not FMF's searchServings. Switching FMF's opener before recipePage is the superset would REGRESS FMF. FMF already matches braai via the guarded warm branch, so do this as ONE focused follow-up with LIVE regression on braai+WK. After it lands → only Events remains for the universal opener."]
     ND["DATA SESSION — PART D (meals.js): 278 no-pp seasonings → salt/pepper stay 'to taste', every other flavour-spice gets a real g + pp (e.g. paprika 1g); split genuine two-seasoning lines (keep single products like 'hundreds & thousands'). Large careful pass — own session."]
     NE["PRICE SESSION — PART E: FIRST build node Tools/price-scan.js that loads the REAL PRICE_DB/PRICE_ALIAS + recipes (an offline reimplementation would give false gaps). Then E1 reconcile the recovered prices · E2 confirm the §1-§8 bakes keys · E3 scan to 0 NULLs. Never guess a rand."]
     NF["WIRING remainder — F2 goesWith → clickable deep-links everywhere · F3 drop the 18 thin lunch-dup cards (also closes the Shakshuka dup) · F4 version-chip count badges (accent/neutral, never green/gold)."]

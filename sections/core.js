@@ -514,7 +514,8 @@ function draw(){
   // Phase 1 Warm Spice: only the gold pair (Braai + World Kitchen) is wrapped in .warm,
   // which flips the tokenised palette to parchment + Fraunces/Mulish/DM Mono. Every other
   // screen renders on the dark shell exactly as before. tierBar + bottom nav stay outside.
-  const _warm = (S.screen==='braai' || S.screen==='worldkitchen' || S.screen==='health' || S.screen==='events');
+  const _warm = (S.screen==='braai' || S.screen==='worldkitchen' || S.screen==='health' || S.screen==='events'
+    || S.screen==='feedfamily' || S.screen==='breakfast' || S.screen==='lightlunch' || S.screen==='supper' || S.screen==='bakes' || S.screen==='sidesbasics');
   // Theme: 'night' class forces dark-warm; body.theme-auto lets the @media rule follow the phone.
   const _night = themeIsNight();
   try{ document.body.classList.toggle('theme-auto', THEME==='auto'); }catch(_e){}
@@ -2060,7 +2061,8 @@ function recipePhoto(name, emoji, height, nameAlt){
 // Phase 1 Warm Spice: true only on the gold-pair screens (which draw() wraps in .warm).
 // Shared renderers branch on this to emit Warm Spice structure for Braai + World Kitchen
 // while EVERY other section keeps its exact current markup (same code path as before).
-function inWarm(){ return S.screen==='braai' || S.screen==='worldkitchen' || S.screen==='health' || S.screen==='events'; }
+function inWarm(){ return S.screen==='braai' || S.screen==='worldkitchen' || S.screen==='health' || S.screen==='events'
+  || S.screen==='feedfamily' || S.screen==='breakfast' || S.screen==='lightlunch' || S.screen==='supper' || S.screen==='bakes' || S.screen==='sidesbasics'; }
 
 // ── THE SHARED WARM-SPICE CARD (Phase 1, gold pair) ────────────────
 // One name-on-image card → Braai itemCard() and World Kitchen wkRecipeCard()
