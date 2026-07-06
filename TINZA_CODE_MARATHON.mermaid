@@ -1,5 +1,5 @@
 %% TINZA_CODE_MARATHON — app-wide sameness + fixes handoff
-%% v6 · 6 Jul 2026 · AFTER CODE SESSION 1 + PART G names applied. BATCH 1 COMMITTED as 7c835fc ("Session 1…") = PART B, C, I, H, F5, A4. PART G (11 names) now APPLIED by Code — UNCOMMITTED, ready for Tina's review + push: meals.js (11 master cards, name+photoName) · core.js (11 old-name→id aliases in GOESWITH_LINKS) · NEW TINZA_PHOTO_REGEN_QUEUE.md (11 photos, fresh-generate). node --check + health-check clean. Tina reviews diffs on live + pushes via GitHub Desktop.
+%% v8 · 6 Jul 2026 · LIVE-CONFIRMED from Tina's screenshots: braai letters readable · Boerewors 600g/300g pp · bakes portions · renames — all landed. Batch 1 (7c835fc) + PART G renames PUSHED/live. NEW BUG (Tina, live): FMF Bakes category-tap doesn't scroll the "…— N OPTIONS" list into view (you must scroll manually) — braai does it via meatGroupTop + scrollIntoView. Added to the Session 2 brief as A4.1 (quick win). SESSION 2 BRIEF READY = TINZA_SESSION2_FMF_WARM.md (FMF warm-flip refactor + A4.1). node --check + health-check clean throughout.
 %% DONE session 1: PART B braai letters · PART C 800g desync · PART I bakes portions (APPROVED, built) · PART H cook-time hours+make-ahead (active/total split deferred) · PART F1 searchHTML confirmed already wired + F5 lunch-role fix · PART A4 FMF nav scroll-strip→grid.
 %% PART G names ✅ APPLIED by Code (11 cards + aliases + photo queue) — uncommitted, Tina review+push. BIG REMAINING = FMF warm flip (A1/A2/A3/A5) — blocked on refactoring the shared recipeDetailFromResult behind an inWarm() guard → its own session. Other deferred: D data sweep · E price-scan tool + NULL scan · F2/F3/F4 wiring · H active/total split. OPEN BUG: spice.js tartare-sauce duplicate id.
 %% Discipline unchanged: standards first · /wow known (WOW_STANDARD.md) · back up core.js · node --check · show diffs · DO NOT push (Tina pushes). Sameness = shared core.js renderers + var(--token) only; accents never reuse green food-cost / gold shop-spend.
@@ -7,8 +7,8 @@
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE — after Code session 1"]
-    S1["BATCH 1 COMMITTED (7c835fc) — braai letters readable · Boerewors 800g reconciled to 600 · bakes portions live (people dial → whole cakes/batches) · long cook-times in hours + make-ahead · FMF category nav a tappable grid · lunch budget-finder fix. PART G names APPLIED (uncommitted). FMF still on the DARK theme until the warm-flip session."]
-    S2["Next moves in order: (1) Tina reviews + pushes the PART G rename commit (2) FMF warm-flip session — the big one (3) data · prices · wiring sessions (4) Photo Studio regen (11 new + any masters) once names are live. LAUNCH OCTOBER."]
+    S1["PUSHED & LIVE (confirmed on Tina's screens): braai letters readable · Boerewors 600g/300g pp · bakes portions · cook-times hours+make-ahead · FMF nav a tappable grid · lunch budget fix · 11 renames with goesWith aliases intact. FMF still DARK until the warm flip. ⚠️ LIVE BUG spotted: tapping an FMF Bakes category renders its list below the grid but doesn't scroll to it (manual scroll needed) → fixed as A4.1 in the Session 2 brief."]
+    S2["Next: (1) quick live pre-flight eyeball (Rule 2) (2) ★ FMF WARM-FLIP session — brief ready: TINZA_SESSION2_FMF_WARM.md, run it as a FRESH Code session (3) data · prices · wiring sessions (4) Photo Studio regen from TINZA_PHOTO_REGEN_QUEUE.md. LAUNCH OCTOBER."]
     S1-->S2
   end
 
@@ -23,7 +23,7 @@ flowchart TD
   end
   STATE-->DONE1
 
-  subgraph TINAG["✅ PART G enticing names — APPLIED by Code (uncommitted, review + push)"]
+  subgraph TINAG["✅ PART G enticing names — APPLIED + PUSHED (live)"]
     G0["APPLIED (all 11). meals.js: each master card name + photoName set to the new value. core.js: 11 old-name→id aliases added to GOESWITH_LINKS — ESSENTIAL, because goesWithLink() resolves by exact name and the old names are referenced across many goesWith arrays (Chocolate Cake ×9 · Vanilla Butter Cake ×9 · Shortbread ×5 · Classic Cheesecake ×4 · Oat Cookies ×3…) — so every existing cross-link still opens the renamed card. Version chips + goesWith chip text untouched (Red Velvet as a version inside another cake correctly left alone). NEW file TINZA_PHOTO_REGEN_QUEUE.md = the 11 photos to generate (fresh — none had a photo before, so nothing orphaned)."]
     GLIST["1 Chocolate Cake → Ultimate Chocolate Cake · 2 Carrot Cake → Golden Carrot Cake · 3 Vanilla Butter Cake → Golden Vanilla Butter Cake · 4 Classic Cheesecake → Dreamy Classic Cheesecake · 5 Red Velvet → Velvety Red Velvet Cake · 6 Shortbread → Buttery Shortbread · 7 Chocolate Chip Cookies → Chewy Chocolate Chip Cookies · 8 Oat Cookies → Golden Oat Cookies · 9 Peanut Butter Cookies → Soft Peanut Butter Cookies · 10 Ginger Biscuits → Crunchy Ginger Biscuits · 11 Beer Bread → Easy Beer Bread"]
     G0-->GLIST
@@ -31,7 +31,7 @@ flowchart TD
   DONE1-->TINAG
 
   subgraph NEXT["🔜 REMAINING — each its own focused session"]
-    N2["★ SESSION 2 — FMF SAMENESS WARM FLIP (A1 theme · A2 full sectionHeader route · A3 openRecipe · A5 superset recipePage + braai/WK retrofit). BLOCKER: flipping FMF to .warm needs migrating recipeDetailFromResult — a 260-line fn shared by 6 entry points (budget/mood/search/FMF/4-ingredients/anchor, incl. the Mood colour exception). Blind flip risks breaking working sections (RULE 1). PLAN: tokenise recipeDetailFromResult behind an inWarm() guard so non-warm callers stay byte-identical, then add FMF to the _warm list + inWarm(). A5 rides the same refactor. A4 grid already flips automatically once this lands. THE big next step."]
+    N2["★ SESSION 2 — FMF SAMENESS WARM FLIP (A1 theme · A2 sectionHeader route · A3 openRecipe · A5 superset recipePage + braai/WK retrofit) + A4.1 category-tap scroll-into-view (quick win). ✅ BRIEF READY = TINZA_SESSION2_FMF_WARM.md (run as a FRESH Code session, drop brief + this flowchart). PLAN: back up + inventory → A4.1 quick win (anchor id + scrollIntoView like braai's meatGroupTop) → tokenise the shared recipeDetailFromResult (~260 lines, 6 callers incl. Mood colour exception) behind an inWarm() guard, prove non-warm callers BYTE-IDENTICAL, bank → add FMF to _warm (grid flips auto) → A2 → A3 → A5 (retrofit braai/WK, can be a follow-up if long) → regression-check all 6 callers + every section. THE big next step."]
     ND["DATA SESSION — PART D (meals.js): 278 no-pp seasonings → salt/pepper stay 'to taste', every other flavour-spice gets a real g + pp (e.g. paprika 1g); split genuine two-seasoning lines (keep single products like 'hundreds & thousands'). Large careful pass — own session."]
     NE["PRICE SESSION — PART E: FIRST build node Tools/price-scan.js that loads the REAL PRICE_DB/PRICE_ALIAS + recipes (an offline reimplementation would give false gaps). Then E1 reconcile the recovered prices · E2 confirm the §1-§8 bakes keys · E3 scan to 0 NULLs. Never guess a rand."]
     NF["WIRING remainder — F2 goesWith → clickable deep-links everywhere · F3 drop the 18 thin lunch-dup cards (also closes the Shakshuka dup) · F4 version-chip count badges (accent/neutral, never green/gold)."]
