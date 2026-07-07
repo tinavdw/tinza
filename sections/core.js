@@ -3249,26 +3249,104 @@ function nutritionBoxHTML(nut, isMeat){
   var caveat = isMeat ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">Calories are for a regular trim \u2014 a fattier cut runs higher.</div>' : '';
   return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving (estimate)', grid+caveat) : '';
 }
-// ── LEFTOVER IDEAS (Pro feature content · keyed by braai meat group) ──
+// ── LEFTOVER IDEAS (Pro content · keyed by BASE LEFTOVER, not meat group) ──
+// Reframed 7 Jul (TINZA_LEFTOVERS_RESEARCH.md): the star leftover is as often rice/
+// bread/pap/veg as it is meat. Ideas lean unusual-first — never the sad sandwich.
 var LEFTOVER_IDEAS = {
-  beef:    ['Slice cold for steak sandwiches with mustard & rocket','Dice into a breakfast hash with potato & egg','Shred into a quick beef & veg stir-fry','Chop into a phutu & chakalaka bowl'],
-  pork:    ['Pull into soft rolls with apple sauce & slaw','Dice into egg fried rice or a breakfast hash','Shred for pork tacos with pickled onion','Toss through noodles with soy & ginger'],
-  lamb:    ['Warm into pita with tzatziki & tomato','Fold into a quick lamb curry','Layer into a shepherd\'s pie','Toss cold through a grain & herb salad'],
-  chicken: ['Shred into wraps with mayo & lettuce','Stir into a creamy pasta or risotto','Drop into a quick soup or noodle bowl','Toss through a green or Caesar salad'],
-  seafood: ['Flake into a seafood pasta or risotto','Fold into fishcakes with mash & herbs','Pile onto toast with lemon, chilli & olive oil','Stir through a cold noodle salad'],
-  veg:     ['Blitz into a smoky roasted-veg soup','Layer into wraps or a grain bowl','Fold through pasta with olive oil & parmesan','Pile onto toast with feta & herbs']
+  rice:    ['Crisp it into egg-and-mayo rice cakes, pan-fried till golden','Fry into nasi- or kimchi-style rice with whatever veg is around','Roll into cheese-stuffed arancini balls, crumbed and fried','Stir a handful into soup for instant body','Simmer with milk, sugar & cinnamon into rice pudding'],
+  bread:   ['Soak into pain perdu \u2014 "lost bread" rescued with egg & milk','Tear into panzanella; tomatoes, oil & herbs bring it back to life','Blitz into pangrattato: garlicky toasted crumbs over pasta','Layer into a savoury cheese-and-herb strata bake','Cube and bake into croutons for soup'],
+  pasta:   ['Bake into a frittata di pasta \u2014 egg, cheese, golden edges','Toss cold with a sharp vinaigrette & leftover veg into a salad','Layer into a bubbling cream-and-cheese gratin','Crisp the edges in a hot pan for pasta "chips"'],
+  potato:  ['Fry into bubble & squeak patties with any leftover veg','Crisp into loaded potato-skin "nachos"','Fold into a Spanish-style frittata','Blitz into a quick, creamy potato soup'],
+  pap:     ['Next-morning breakfast: warm with milk, sugar & a little cinnamon','Slice cold stiff pap and fry into crispy "pap chips"','Crumble into a pap-and-sheba bake with grated cheese','Bind into pap fritters and pan-fry golden'],
+  'roast-veg': ['Blitz into a smoky roasted-veg soup','Fold into a frittata or through fritter batter','Layer into wraps or a grain bowl with a punchy dressing','Cut braai mielies off the cob into a charred corn salsa','Pile onto toast with feta & herbs'],
+  chicken: ['Shred into wraps with a zingy slaw','Fold into a creamy tetrazzini-style pasta bake','Drop into a fast noodle or tortilla soup','Pile into tacos or nachos with pickled onion'],
+  beef:    ['Jan Braai\'s trick: freeze the offcuts in a tub till you have enough for a braai-meat lasagne or potjie','Quick stroganoff \u2014 onions, mushrooms & chutney folded through pap or pasta','Dice into a breakfast hash with potato & a fried egg','Pile onto meaty nachos with melted cheese'],
+  lamb:    ['Fold into a quick lamb curry','Warm into pita with tzatziki & tomato','Layer into a shepherd\'s pie','Toss cold through a grain & herb salad'],
+  pork:    ['Pull into soft rolls with apple & slaw','Dice into egg fried rice or a breakfast hash','Shred for tacos with pickled onion','Toss through noodles with soy & ginger'],
+  seafood: ['Flake into a seafood pasta or risotto','Bind into fishcakes with mash & herbs','Pile onto toast with lemon, chilli & olive oil','Stir through a cold noodle salad'],
+  beans:   ['Simmer into a smoky soup or chilli','Mash into fritters or a quick dip','Toss cold through a grain salad','Blitz into a creamy hummus-style spread'],
+  cheese:  ['Melt the odds and ends into a bubbling toastie or bake','Grate into fritter or scone batter','Blitz hard-cheese ends into a rough pesto-style sauce','Crumble over roasted veg to finish'],
+  fruit:   ['Blend into a smoothie or freeze into popsicles','Simmer into a compote for yoghurt or pancakes','Fold into a quick loaf or muffins','Grill or caramelise as a warm dessert'],
+  egg:     ['The universal binder \u2014 turns almost any leftover into a frittata, patty or fried rice','Whisk into a quick shakshuka base','Hard-boil for a fast salad or sandwich topper']
 };
-function leftoverBoxHTML(groupId){
-  var ideas = (typeof LEFTOVER_IDEAS!=='undefined' && groupId) ? LEFTOVER_IDEAS[groupId] : null;
-  if(!ideas || !ideas.length) return '';
-  var isPro = (typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+// Heritage hook — the world's best dishes were born from leftovers (rotates).
+var LEFTOVER_HERITAGE = [
+  'Nasi goreng, Indonesia\'s national dish, is really a clever way to use up yesterday\'s rice.',
+  'French toast\'s real name \u2014 pain perdu \u2014 means "lost bread": stale bread rescued with egg and milk.',
+  'Bubble & squeak turned leftover roast veg into something the British actively crave.',
+  'Chilaquiles is a beloved Mexican breakfast built from yesterday\'s tortillas, crisped in salsa.',
+  'Ribollita \u2014 Tuscan for "reboiled" \u2014 is yesterday\'s soup, better the second day.',
+  'Feijoada, Brazil\'s national stew, began as beans cooked with the day\'s meat scraps.',
+  'Tetrazzini exists to reinvent leftover roast chicken into a creamy pasta bake.'
+];
+// ── FOOD-SAFETY / STORAGE ENGINE (ONE source, TWO views: leftovers + storage) ──
+// Safety CLASSES; both the leftover "keep it safe" note and the Storage box read here.
+var SAFETY_CLASS = {
+  starch:     { strict:true,  fridge:'1 day (cool fast)',        freeze:'freezes 1\u20132 months',  reheat:'reheat once, steaming hot',
+                note:'Rice, pasta, pap & potato need extra care: cool fast (spread thin \u2014 never leave it in the pot), refrigerate within 1 hour (sooner on a hot day) and eat within a day or so. Reheat once until steaming hot, and only what you\'ll eat. The toxin these starches can form isn\'t destroyed by reheating \u2014 safe storage, not reheating, is what protects you.' },
+  cookedMeat: { strict:false, fridge:'3\u20134 days',             freeze:'freezes ~3 months',       reheat:'reheat once, steaming hot',
+                note:'Cool and refrigerate within 2 hours, keep below 5\u00b0C, and reheat once until piping hot.' },
+  seafood:    { strict:false, fridge:'1\u20132 days',            freeze:'freezes 1\u20132 months',  reheat:'reheat once, steaming hot',
+                note:'Cooked seafood is best within a day or two \u2014 chill within 2 hours and reheat once, piping hot.' },
+  cookedVeg:  { strict:false, fridge:'3\u20134 days',             freeze:'freezes 2\u20133 months',  reheat:'reheat once, steaming hot',
+                note:'Cool and refrigerate within 2 hours, keep below 5\u00b0C, and reheat once until piping hot.' },
+  dairy:      { strict:false, fridge:'3\u20134 days',             freeze:'freezing changes texture', reheat:'',
+                note:'Keep chilled below 5\u00b0C and covered; use within a few days.' },
+  fruit:      { strict:false, fridge:'2\u20133 days',             freeze:'freezes well for smoothies',reheat:'',
+                note:'Keep chilled; overripe fruit freezes well for smoothies and baking.' },
+  bake:       { strict:false, fridge:'airtight, 2\u20133 days',   freeze:'freezes well',            reheat:'',
+                note:'Keep airtight at room temperature for 2\u20133 days, or freeze for longer.' },
+  default:    { strict:false, fridge:'3\u20134 days',             freeze:'freezes well',            reheat:'reheat once, steaming hot',
+                note:'Cool and refrigerate within 2 hours, keep below 5\u00b0C, and reheat once until piping hot.' }
+};
+// base-leftover key → safety class
+var LEFTOVER_CLASS = {
+  rice:'starch', pasta:'starch', potato:'starch', pap:'starch',
+  beef:'cookedMeat', lamb:'cookedMeat', pork:'cookedMeat', chicken:'cookedMeat',
+  seafood:'seafood', 'roast-veg':'cookedVeg', beans:'cookedVeg',
+  cheese:'dairy', fruit:'fruit', bread:'bake', egg:'default'
+};
+function _safetyClassFor(keys){
+  var cls='default', locked=false;
+  (keys||[]).forEach(function(k){
+    var c=LEFTOVER_CLASS[k]; if(!c || !SAFETY_CLASS[c]) return;
+    if(SAFETY_CLASS[c].strict){ cls=c; locked=true; }      // strict (starch) always wins
+    else if(!locked){ cls=c; }
+  });
+  return SAFETY_CLASS[cls] || SAFETY_CLASS.default;
+}
+function leftoverBoxHTML(keys){
+  if(typeof keys==='string') keys=[keys];
+  keys=(keys||[]).filter(function(k){ return LEFTOVER_IDEAS[k]; });
+  if(!keys.length) return '';
+  var sc=_safetyClassFor(keys);
+  var safetyLine='<div style="font-size:12px;color:var(--ink-soft);margin-top:10px;line-height:1.45;border-top:1px solid var(--card2);padding-top:8px;"><strong>Keep it safe:</strong> '+sc.note+'</div>';
+  var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
   if(!isPro){
-    return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas',
-      '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>') : '';
+    // ideas are Pro; the SAFETY line still shows when it's a strict starch (never gate safety)
+    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+    return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', teaser + (sc.strict?safetyLine:'')) : '';
   }
-  var lis = ideas.map(function(x){ return '<li style="margin-bottom:6px;line-height:1.5;">'+x+'</li>'; }).join('');
-  return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas',
-    '<ul style="margin:0;padding-left:20px;font-size:15px;color:var(--ink2);">'+lis+'</ul>') : '';
+  var heritage = LEFTOVER_HERITAGE.length ? '<div style="font-size:12.5px;color:var(--ink-soft);font-style:italic;margin-bottom:10px;line-height:1.45;">\ud83d\udca1 '+LEFTOVER_HERITAGE[Math.floor(Math.random()*LEFTOVER_HERITAGE.length)]+'</div>' : '';
+  var body = keys.map(function(k){
+    var label = keys.length>1 ? '<div style="font-size:12px;font-weight:bold;color:var(--accent);text-transform:capitalize;margin:6px 0 3px;">'+k.replace('-',' ')+'</div>' : '';
+    var lis = LEFTOVER_IDEAS[k].map(function(x){ return '<li style="margin-bottom:6px;line-height:1.5;">'+x+'</li>'; }).join('');
+    return label + '<ul style="margin:0 0 4px;padding-left:20px;font-size:15px;color:var(--ink2);">'+lis+'</ul>';
+  }).join('');
+  return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', heritage + body + safetyLine) : '';
+}
+// ── STORAGE box (same SAFETY_CLASS engine · Pro-gated, but the safety line always shows) ──
+function storageBoxHTML(cls){
+  var sc = SAFETY_CLASS[cls]; if(!sc) return '';
+  var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  var safetyLine='<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45;">'+sc.note+'</div>';
+  if(!isPro){
+    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udce6 \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Storage guide \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+    return (typeof recipeBox==='function') ? recipeBox('\ud83d\udce6 Storage & safety', teaser + safetyLine) : '';
+  }
+  var rows=[['Fridge',sc.fridge],['Freezer',sc.freeze]]; if(sc.reheat) rows.push(['Reheat',sc.reheat]);
+  var grid=rows.map(function(r){ return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--card2);font-size:14px;"><span style="color:var(--ink-soft);">'+r[0]+'</span><span style="color:var(--ink2);font-weight:600;">'+r[1]+'</span></div>'; }).join('');
+  return (typeof recipeBox==='function') ? recipeBox('\ud83d\udce6 Storage & safety', grid + safetyLine) : '';
 }
 
 
@@ -3493,8 +3571,15 @@ function recipeView(){
   // ── computed nutrition + leftover ideas (superset parity · engine above) ──
   const _braaiNut = (typeof computeBraaiNutrition==='function') ? computeBraaiNutrition(item) : null;
   const nutritionBlock = (typeof nutritionBoxHTML==='function') ? nutritionBoxHTML(_braaiNut, isMeat) : '';
+  // ── derive the BASE LEFTOVER key for this braai dish (meat group id, or side id) ──
   const _meatGroupId = (isMeat && typeof MEAT_GROUPS!=='undefined') ? ((MEAT_GROUPS.find(function(g){return g.items.some(function(x){return x.id===vr.id;});})||{}).id) : null;
-  const leftoverBlock = (isMeat && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_meatGroupId) : '';
+  const BRAAI_MEAT_LEFTOVER = { beef:'beef', pork:'pork', lamb:'lamb', chicken:'chicken', seafood:'seafood', veg:'roast-veg' };
+  const BRAAI_SIDE_LEFTOVER = { stywepap:'pap', pap:'pap', potbake:'potato', sweetpotato:'potato', mielies:'roast-veg', braaibroodjies:'bread', garlicbread:'bread', stokbrood:'bread', roosterkoek:'bread', 'roosterkoek-garlic-cheese':'bread', 'roosterkoek-boerewors':'bread', 'cheese-corn-potbrood':'bread', 'braai-flatbread':'bread', grilledpineapple:'fruit', marshmallowbanana:'fruit' };
+  const _leftoverKey = isMeat ? BRAAI_MEAT_LEFTOVER[_meatGroupId] : BRAAI_SIDE_LEFTOVER[vr.id];
+  const leftoverBlock = (_leftoverKey && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_leftoverKey) : '';
+  // ── storage & safety (same SAFETY_CLASS engine — the "two views" of one source) ──
+  const _storeCls = _leftoverKey && typeof LEFTOVER_CLASS!=='undefined' ? LEFTOVER_CLASS[_leftoverKey] : (isMeat ? 'cookedMeat' : null);
+  const storageBlock = (_storeCls && typeof storageBoxHTML==='function') ? storageBoxHTML(_storeCls) : '';
   // ── ASSEMBLE through the shared whole-page layout (identical to World Kitchen) ──
   return recipePage({
     backJs:"closeRecipe()",
@@ -3506,7 +3591,7 @@ function recipeView(){
     ingredientsHTML:ingredientsHTML,
     notesHTML: braaiCross + fireGuideHTML,
     methodHTML:methodHTML,
-    extrasHTML: goesWellBlock + costBlock + tipBlock + nutritionBlock + leftoverBlock,
+    extrasHTML: goesWellBlock + costBlock + tipBlock + nutritionBlock + storageBlock + leftoverBlock,
     shareHTML: braaiShareHTML,
     actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
     nav:{ backJs:"closeRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
