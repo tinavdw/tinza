@@ -3135,6 +3135,143 @@ var BRAAI_CROSS_LINKS = {
   'pestopastasalad':           { open:"openSpiceRecipe('basil-pesto')",          name:'Basil Pesto',                       emoji:'🌿' }
 };
 
+// ╔═ NUTRITION + LEFTOVERS ENGINE (computed · Session-3 data-fields · braai pilot) ═
+// ══ NUTRITION ENGINE — computed, not authored ═════════════════════════════════
+// Per-100g/ml macros [kcal, protein_g, carbs_g, fat_g]. Standard reference values.
+var NUTRITION_DB = {
+  // fats / oils
+  "olive oil":[884,0,0,100],"sunflower oil":[884,0,0,100],"vegetable oil":[884,0,0,100],"canola oil":[884,0,0,100],"sesame oil":[884,0,0,100],"butter":[717,0.9,0.1,81],
+  // aromatics / veg
+  "garlic":[149,6.4,33,0.5],"onion":[40,1.1,9.3,0.1],"red onion":[40,1.1,9.3,0.1],"spring onion":[32,1.8,7.3,0.2],"baby onions":[40,1.1,9.3,0.1],"baby pickling onions":[40,1.1,9.3,0.1],
+  "carrot":[41,0.9,10,0.2],"red chilli":[40,1.9,9,0.4],"green chilli":[40,1.9,9,0.4],"bird's eye chillies":[40,1.9,9,0.4],"fresh ginger":[80,1.8,18,0.8],
+  "tomato":[18,0.9,3.9,0.2],"cherry tomatoes":[18,0.9,3.9,0.2],"rosa tomatoes":[18,0.9,3.9,0.2],"baby tomatoes":[18,0.9,3.9,0.2],"ripe tomato":[18,0.9,3.9,0.2],"ripe tomatoes":[18,0.9,3.9,0.2],
+  "cabbage":[25,1.3,6,0.1],"white cabbage":[25,1.3,6,0.1],"purple cabbage":[31,1.4,7,0.2],"potato":[77,2,17,0.1],"potatoes":[77,2,17,0.1],"waxy potatoes":[77,2,17,0.1],"sweet potato":[86,1.6,20,0.1],
+  "baby spinach":[23,2.9,3.6,0.4],"fresh spinach":[23,2.9,3.6,0.4],"cucumber":[15,0.7,3.6,0.1],"red pepper":[31,1,6,0.3],"green pepper":[20,0.9,4.6,0.2],"bell pepper":[31,1,6,0.3],"bell peppers":[31,1,6,0.3],"mixed bell peppers":[28,1,6,0.3],
+  "button mushrooms":[22,3.1,3.3,0.3],"mushrooms":[22,3.1,3.3,0.3],"baby marrow":[17,1.2,3.1,0.3],"baby marrows":[17,1.2,3.1,0.3],"brinjal":[25,1,6,0.2],"corn on the cob":[86,3.3,19,1.4],"sweetcorn":[86,3.3,19,1.4],"frozen peas":[81,5,14,0.4],
+  "radishes":[16,0.7,3.4,0.1],"lettuce":[15,1.4,2.9,0.2],"rocket and spinach mix":[25,2.6,3.7,0.7],"raw beetroot":[43,1.6,10,0.2],"mango":[60,0.8,15,0.4],"fresh pineapple":[50,0.5,13,0.1],
+  "fresh strawberries":[32,0.7,7.7,0.3],"strawberries":[32,0.7,7.7,0.3],"fresh blueberries":[57,0.7,14,0.3],"ripe bananas":[89,1.1,23,0.3],
+  // herbs / spices
+  "black pepper":[251,10,64,3.3],"smoked paprika":[282,14,54,13],"paprika":[282,14,54,13],"sweet or smoked paprika":[282,14,54,13],"fresh rosemary":[131,3.3,21,5.9],
+  "fresh parsley":[36,3,6,0.8],"flat-leaf parsley":[36,3,6,0.8],"fresh thyme":[101,5.6,24,1.7],"dried thyme":[276,9,64,7],"dried oregano":[265,9,69,4.3],"dried oreganum":[265,9,69,4.3],"dried origanum or rosemary":[265,9,69,4.3],
+  "turmeric":[312,10,67,3.3],"turmeric powder":[312,10,67,3.3],"curry powder":[325,14,56,14],"cumin":[375,18,44,22],"ground cumin":[375,18,44,22],"garam masala":[330,13,50,15],"cayenne pepper":[318,12,57,17],
+  "chilli flakes":[282,13,50,14],"crushed chilli spice":[282,13,50,14],"bay leaves":[313,8,75,8],"fresh bay leaves":[49,1.2,11,0.4],"fennel seeds":[345,16,52,15],"cinnamon":[247,4,81,1.2],"ground cinnamon":[247,4,81,1.2],
+  "garlic powder":[331,16,73,0.7],"fresh coriander":[23,2.1,3.7,0.5],"coriander":[23,2.1,3.7,0.5],"fresh mint":[70,3.8,15,0.9],"fresh mint leaves":[70,3.8,15,0.9],"fresh basil":[23,3.2,2.7,0.6],"fresh dill":[43,3.5,7,1.1],"fresh cilantro":[23,2.1,3.7,0.5],
+  "mixed dried herbs":[265,9,69,4.3],"mixed herbs":[265,9,69,4.3],"braai spice blend":[150,10,30,3],"braai spice":[150,10,30,3],"sesame seeds":[573,18,23,50],"saffron":[310,11,65,6],"vanilla essence":[288,0.1,13,0.1],
+  // salts / water (zero-macro)
+  "coarse salt":[0,0,0,0],"salt":[0,0,0,0],"sea salt":[0,0,0,0],"coarse sea salt":[0,0,0,0],"table salt":[0,0,0,0],"salted water":[0,0,0,0],"water":[0,0,0,0],"ice water":[0,0,0,0],"warm water":[0,0,0,0],"lukewarm water":[0,0,0,0],
+  "salt and pepper":[0,0,0,0],"salt and black pepper":[0,0,0,0],"coarse salt and black pepper":[0,0,0,0],"salt and white pepper":[0,0,0,0],"cracked black pepper":[251,10,64,3.3],"cracked black peppercorns":[251,10,64,3.3],
+  // sweet / acid / sauce
+  "honey":[304,0.3,82,0],"brown sugar":[380,0,98,0],"sugar":[387,0,100,0],"castor sugar":[387,0,100,0],"lemon juice":[22,0.4,6.9,0.2],"fresh lemon juice":[22,0.4,6.9,0.2],"lemon zest":[47,1.5,16,0.3],"lemon":[29,1.1,9,0.3],"lime juice":[25,0.4,8.4,0.1],
+  "white vinegar":[18,0,0.9,0],"apple cider vinegar":[18,0,0.9,0],"red wine vinegar":[19,0,0.3,0],"balsamic vinegar":[88,0.5,17,0],"balsamic glaze":[150,0.5,34,0],"vinegar":[18,0,0.9,0],
+  "soy sauce":[53,8,5,0.1],"worcestershire sauce":[78,0,19,0],"dijon mustard":[66,4,6,4],"wholegrain mustard":[66,4,6,4],"dijon or english mustard":[66,4,6,4],"tomato sauce":[100,1.4,24,0.2],"tomato paste":[82,4.3,19,0.5],
+  "mayonnaise":[680,1,0.6,75],"apricot jam":[250,0.5,62,0],"jam":[250,0.5,62,0],"chutney":[190,0.5,47,0.2],"peri-peri sauce":[70,1,8,4],"peri-peri or bbq sauce":[110,1,22,1],"basting sauce":[110,1,22,1],"basil pesto":[450,4,6,45],"sweet relish or finely diced gherkin":[130,0.5,32,0.2],
+  "tinned crushed pineapple":[60,0.4,15,0.1],"cooked chopped tomatoes":[32,1.6,7,0.3],"tinned chopped tomatoes":[32,1.6,7,0.3],"orange juice":[45,0.7,10,0.2],
+  // dairy / cheese
+  "fresh cream":[340,2,3,36],"cream":[340,2,3,36],"sour cream":[193,2.4,4,19],"milk":[64,3.3,4.8,3.6],"full cream milk":[64,3.3,4.8,3.6],"full-fat plain yoghurt":[61,3.5,4.7,3.3],"plain yoghurt":[61,3.5,4.7,3.3],"greek yoghurt":[97,9,4,5],
+  "cheddar":[403,25,1.3,33],"sharp cheddar":[403,25,1.3,33],"feta":[264,14,4,21],"mozzarella":[280,28,3,17],"blue cheese":[353,21,2.3,29],"parmesan":[431,38,4,29],"hard cheese":[400,26,2,32],
+  // nuts / dried fruit
+  "dried apricots":[241,3.4,63,0.5],"raisins":[299,3.1,79,0.5],"currants":[283,4,74,0.3],"toasted walnuts":[654,15,14,65],"raw almonds":[579,21,22,50],"peanuts":[567,26,16,49],
+  // grains / starch / bread / bake
+  "cake flour":[364,10,76,1],"plain flour":[364,10,76,1],"bread flour":[361,12,73,1.5],"cornflour":[381,0.3,91,0.1],"couscous":[112,3.8,23,0.2],"pasta":[131,5,25,1.1],
+  "white bread":[265,9,49,3.2],"french loaf":[265,9,49,3.2],"roosterkoek":[280,8,52,4],"roosterkoek dough":[280,8,52,4],"digestive biscuits":[471,7,66,20],"puff pastry":[558,7,45,38],"instant yeast":[325,40,41,7.5],"baking powder":[53,0,28,0],
+  // legumes / tinned
+  "mixed bean salad":[120,6,20,1],"tinned baked beans":[94,5,15,0.5],
+  // side proteins / cured / olives
+  "eggs":[143,13,0.7,10],"hard-boiled eggs":[143,13,0.7,10],"streaky bacon":[541,37,1.4,42],"streaky bacon or caul fat":[541,37,1.4,42],"sliced biltong":[250,55,3,3],"anchovy fillets":[210,29,0,10],
+  "capers in wine vinegar":[23,2.4,5,0.9],"kalamata olives":[115,0.8,6,11],"smoked chorizo":[455,24,2,38],"calamari tubes":[92,15.6,3,1.4],"large prawns":[99,24,0.2,0.3],"fresh mussels":[86,12,3.7,2.2],"firm white fish":[105,23,0,1],
+  // sweets / chocolate
+  "milk chocolate":[535,7.6,59,30],"dark chocolate":[598,7.8,46,43],"marshmallows":[318,1.8,81,0.2],"mini marshmallows":[318,1.8,81,0.2],"large marshmallows":[318,1.8,81,0.2],
+  // alcohol / stock
+  "white wine":[82,0.1,2.6,0],"brandy":[231,0,0.1,0],"beef stock":[4,0.5,0.4,0.1],"stock":[4,0.5,0.4,0.1],
+  // veg extras
+  "halloumi":[321,22,2.2,26],"halloumi & veggie":[321,22,2.2,26],
+  "maize meal":[362,8,76,1.5],"coarse maize meal":[362,8,76,1.5],"fish or chicken stock cube":[240,12,20,10],"stock cube":[240,12,20,10],"salad dressing":[400,1,6,40],"boerewors":[297,14,2,26]
+};
+var NUTRI_ALIAS = {
+  "extra-virgin olive oil":"olive oil","extra virgin olive oil":"olive oil","canola or sunflower oil":"sunflower oil","butter or oil":"butter","garlic butter to finish":"butter",
+  "fresh garlic":"garlic","crushed garlic":"garlic","onions":"onion","carrots":"carrot","red or yellow pepper":"red pepper","green peppers":"green pepper","mixed bell peppers":"bell peppers",
+  "flat-leaf parsley":"fresh parsley","dried origanum or rosemary":"dried oregano","turmeric powder":"turmeric","ground cinnamon":"cinnamon","maldon salt":"sea salt","flaky salt":"sea salt","ground black pepper":"black pepper",
+  "castor sugar":"sugar","white sugar":"sugar","fresh lemon juice":"lemon juice","lemon wedges to serve":"lemon","lime wedges to serve":"lime juice","full-fat plain yoghurt":"plain yoghurt","greek yoghurt":"greek yoghurt",
+  "sharp cheddar":"cheddar","hard cheese":"parmesan","large prawns":"prawns","firm white fish":"snoek","calamari tubes":"calamari tubes","sweet or smoked paprika":"smoked paprika","bird's eye chillies":"red chilli",
+  "coarse maize meal":"maize meal","roosterkoek dough":"roosterkoek","tomato & onion relish":"tomato sauce","tinned baked beans":"tinned baked beans"
+};
+// per-100g raw, keyed by braai MEAT ITEM id (so the protein line never misses on wording)
+var MEAT_NUTRI = {
+  boerewors:[297,14,2,26],cocktailwors:[300,12,3,27],rump:[175,22,0,9],fillet:[160,22,0,8],tbone:[200,20,0,13],chuck:[210,19,0,15],shortrib:[250,18,0,20],brisket:[240,18,0,18],
+  beefkebabs:[175,22,0,9],beefsouvlaki:[175,22,0,9],turkishkebabs:[240,17,1,18],kudu:[110,22,0,2],beefkofta:[240,17,1,18],marinatedfillet:[165,22,2,8],
+  porkchops:[231,21,0,16],porkribchops:[240,20,0,18],spareribs:[290,17,0,24],porkcurrysosaties:[230,20,2,15],dirtyporkneck:[250,18,0,20],porkneckhoneymustard:[255,18,3,19],porkshishkabobs:[180,21,1,10],apricotcurrychops:[235,21,3,15],
+  lambchops:[282,17,0,23],lambribchops:[290,16,0,25],lambribs:[300,15,0,27],sosaties:[200,17,3,13],butterfliedleg:[230,18,0,17],lambleganchoviolive:[235,18,1,17],
+  honeysoychiicken:[200,18,3,13],greekchicken:[190,18,1,12],lemonherbflatty:[190,19,0,12],yoghurtchickenkebabs:[150,20,2,7],bbqchicken:[205,18,4,13],chickenkebaabs:[150,22,1,6],wings:[203,18,0,14],hardbody:[190,19,0,12],
+  snoek:[130,24,0,4],prawns:[99,24,0.2,0.3],mixedseafoodkebabs:[100,20,1,2],espetada:[110,20,2,2],honeymustardSalmon:[210,20,3,13],seafoodpaella:[130,12,10,4],
+  mushroomskewers:[22,3.1,3.3,0.3],caulisteaks:[30,2,5,0.5],stuffedbutternut:[45,1,11,0.2],brinjalskewers:[25,1,6,0.2],mixedvegbraai:[40,2,8,0.4],halloumiskewers:[321,22,2.2,26]
+};
+// non-food / equipment / "to serve" garnish — excluded from the count entirely
+var NUTRI_SKIP_RE = /\b(to serve|butcher'?s string|clean green sticks|metal skewers|long metal skewers|foil container|tinfoil|900ml|skewers to|pitasto|dough \(makes)\b/i;
+
+function nutriNorm(name){ return String(name).split('—')[0].trim().toLowerCase().replace(/\s*\(.*?\)\s*/g,'').trim(); }
+function nutriLookup(name){ var n=nutriNorm(name); if(NUTRITION_DB[n])return NUTRITION_DB[n]; if(NUTRI_ALIAS[n]&&NUTRITION_DB[NUTRI_ALIAS[n]])return NUTRITION_DB[NUTRI_ALIAS[n]]; return null; }
+function nutriGrams(str){
+  var m;
+  if(m=str.match(/([\d.]+)\s*(g|kg)\s+per\s+p/i)) return parseFloat(m[1])*(m[2].toLowerCase()==='kg'?1000:1);
+  if(m=str.match(/([\d.]+)\s*(ml|l)\s+per\s+p/i)) return parseFloat(m[1])*(m[2].toLowerCase()==='l'?1000:1);
+  if(m=str.match(/([\d.]+)\s*tbsp\s+per\s+p/i)) return parseFloat(m[1])*15;
+  if(m=str.match(/([\d.]+)\s*tsp\s+per\s+p/i)) return parseFloat(m[1])*5;
+  if(m=str.match(/([\d.]+)\s*(g|ml)\s*pp\b/i)) return parseFloat(m[1]);
+  return null;
+}
+function computeBraaiNutrition(item){
+  if(!item||!item.recipe) return null;
+  var ings=item.recipe.ingredients||[], kcal=0,p=0,c=0,f=0,hit=0,tot=0;
+  var isMeat = (typeof MEAT_NUTRI!=='undefined') && MEAT_NUTRI[item.id]!=null;
+  ings.forEach(function(ing,i){
+    if(typeof ing!=='string'||!ing.trim()||ing.trim().charAt(0)==='—') return;
+    if(NUTRI_SKIP_RE.test(ing)) return;             // equipment / garnish — not counted
+    tot++;
+    var mac, grams;
+    if(i===0 && isMeat){ mac=MEAT_NUTRI[item.id]; grams=item.soloG || nutriGrams(ing) || 150; }
+    else { mac=nutriLookup(ing); grams=nutriGrams(ing); if(grams==null) grams=5; }
+    if(!mac) return;                                 // miss (counted in tot, not hit)
+    hit++; kcal+=mac[0]*grams/100; p+=mac[1]*grams/100; c+=mac[2]*grams/100; f+=mac[3]*grams/100;
+  });
+  if(!tot) return null;
+  return { kcal:Math.round(kcal), protein_g:Math.round(p), carbs_g:Math.round(c), fat_g:Math.round(f), cover:hit/tot, hit:hit, tot:tot, isMeat:isMeat };
+}
+
+// ── shared nutrition grid (same markup as the superset's nutriBox) ──
+function nutritionBoxHTML(nut, isMeat){
+  if(!nut || nut.kcal==null) return '';
+  var _nutPro = (typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  if(!_nutPro){ return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving', '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udcca \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Full nutrition \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>') : ''; }
+  var cells=[['kcal',nut.kcal],['protein',nut.protein_g+'g'],['carbs',nut.carbs_g+'g'],['fat',nut.fat_g+'g']];
+  var grid='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
+    + cells.map(function(x){ return '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+x[1]+'</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">'+x[0]+'</div></div>'; }).join('')
+    + '</div>';
+  var caveat = isMeat ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">Calories are for a regular trim \u2014 a fattier cut runs higher.</div>' : '';
+  return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving (estimate)', grid+caveat) : '';
+}
+// ── LEFTOVER IDEAS (Pro feature content · keyed by braai meat group) ──
+var LEFTOVER_IDEAS = {
+  beef:    ['Slice cold for steak sandwiches with mustard & rocket','Dice into a breakfast hash with potato & egg','Shred into a quick beef & veg stir-fry','Chop into a phutu & chakalaka bowl'],
+  pork:    ['Pull into soft rolls with apple sauce & slaw','Dice into egg fried rice or a breakfast hash','Shred for pork tacos with pickled onion','Toss through noodles with soy & ginger'],
+  lamb:    ['Warm into pita with tzatziki & tomato','Fold into a quick lamb curry','Layer into a shepherd\'s pie','Toss cold through a grain & herb salad'],
+  chicken: ['Shred into wraps with mayo & lettuce','Stir into a creamy pasta or risotto','Drop into a quick soup or noodle bowl','Toss through a green or Caesar salad'],
+  seafood: ['Flake into a seafood pasta or risotto','Fold into fishcakes with mash & herbs','Pile onto toast with lemon, chilli & olive oil','Stir through a cold noodle salad'],
+  veg:     ['Blitz into a smoky roasted-veg soup','Layer into wraps or a grain bowl','Fold through pasta with olive oil & parmesan','Pile onto toast with feta & herbs']
+};
+function leftoverBoxHTML(groupId){
+  var ideas = (typeof LEFTOVER_IDEAS!=='undefined' && groupId) ? LEFTOVER_IDEAS[groupId] : null;
+  if(!ideas || !ideas.length) return '';
+  var isPro = (typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  if(!isPro){
+    return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas',
+      '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>') : '';
+  }
+  var lis = ideas.map(function(x){ return '<li style="margin-bottom:6px;line-height:1.5;">'+x+'</li>'; }).join('');
+  return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas',
+    '<ul style="margin:0;padding-left:20px;font-size:15px;color:var(--ink2);">'+lis+'</ul>') : '';
+}
+
+
 function recipeView(){
   const vr=S.viewingRecipe;
   // Universal dispatch: any migrated section renders through its builder.
@@ -3353,6 +3490,11 @@ function recipeView(){
   }).filter(Boolean).join('\n');
   const _shText = encodeURIComponent(_shEmoji+' *'+_shName+'*\nFor '+p+' people'+(_shTime?(' · '+_shTime):'')+'\n\nIngredients:\n'+_shLines+'\n\nFrom Tinza tinza.netlify.app');
   const braaiShareHTML = '<button onclick="window.open(\'https://wa.me/?text='+_shText+'\',\'_blank\')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>';
+  // ── computed nutrition + leftover ideas (superset parity · engine above) ──
+  const _braaiNut = (typeof computeBraaiNutrition==='function') ? computeBraaiNutrition(item) : null;
+  const nutritionBlock = (typeof nutritionBoxHTML==='function') ? nutritionBoxHTML(_braaiNut, isMeat) : '';
+  const _meatGroupId = (isMeat && typeof MEAT_GROUPS!=='undefined') ? ((MEAT_GROUPS.find(function(g){return g.items.some(function(x){return x.id===vr.id;});})||{}).id) : null;
+  const leftoverBlock = (isMeat && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_meatGroupId) : '';
   // ── ASSEMBLE through the shared whole-page layout (identical to World Kitchen) ──
   return recipePage({
     backJs:"closeRecipe()",
@@ -3364,7 +3506,7 @@ function recipeView(){
     ingredientsHTML:ingredientsHTML,
     notesHTML: braaiCross + fireGuideHTML,
     methodHTML:methodHTML,
-    extrasHTML: goesWellBlock + costBlock + tipBlock,
+    extrasHTML: goesWellBlock + costBlock + tipBlock + nutritionBlock + leftoverBlock,
     shareHTML: braaiShareHTML,
     actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
     nav:{ backJs:"closeRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
