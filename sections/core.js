@@ -2942,22 +2942,36 @@ function recipeNotFound(){
 // components, so a cross-linked Pita/Sponge looks identical to every other recipe.
 // openBakesRecipe(id) = the universal opener, so Back returns to wherever you
 // jumped from (incl. another recipe, via the _viewingRecipe snapshot above).
-function bakesRecipeOpts(r){
+function bakesRecipeOpts(r, servingsKey){
   if(!r) return { name:'Recipe not found' };
   // ⭐ versions: overlay the chosen version BEFORE costing/rendering, and show the
   // "Choose your version" strip (Rule Zero — same chips as recipeDetailFromResult).
   // Reached via WK cross-links (openBakesRecipe → openRecipe('bakes')).
   if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);
-  var n = Math.max(1, S.recipeServings || S.people || 4);
+  // ── serving scaler (Session 3 · Option A "caller passes its count"): the section
+  // that opens the page names its own count-state key; default keeps the historic
+  // S.recipeServings so the bakes browse + every cross-link caller is unchanged.
+  var sk = servingsKey || 'recipeServings';
+  var n = Math.max(1, S[sk] || S.people || 4);
   var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  // ── bakes portion model (Batch Law · §PART I): bakes answer in WHOLE units — you
+  // can't bake ⅓ of a cake. `scale` is the ingredient/cost multiplier: whole units
+  // produced for a modelled bake, else the raw people count. bakesPortion() lives in
+  // meals.js (guarded); non-bakes recipes get scale===n → byte-identical old output.
+  var bakeP = (typeof bakesPortion==='function') ? bakesPortion(r) : null;
+  var bakeBatches = bakeP ? Math.max(1, Math.ceil(n / bakeP.perBatch)) : 1;
+  var bakeUnits   = bakeP ? bakeBatches * bakeP.perBatch : 0;
+  var scale = bakeP ? bakeUnits : n;
   var fmt = function(v,u){
     if(u==='g'||u==='ml'){ return v>=1000 ? (Math.round(v/100)/10)+(u==='g'?'kg':'L') : (Math.round(v*10)/10)+u; }
     return (Math.round(v*10)/10)+(u?(' '+u):'');
   };
   var rows = (r.ingredients||[]).map(function(it){
     if(it.pp==null) return ingredientRow(it.n, '<span style="color:var(--ink-soft);font-style:italic;">to taste</span>');
-    var tot = it.pp*n, u = it.u||'';
-    var amt = (n===1) ? fmt(tot,u) : '<span style="color:var(--ink-soft);font-weight:normal;font-size:13px;">'+fmt(it.pp,u)+' pp · </span>'+fmt(tot,u);
+    var tot = it.pp*scale, u = it.u||'';
+    var totStr = (u==='egg') ? (Math.ceil(tot)+' egg'+(Math.ceil(tot)>1?'s':'')) : fmt(tot,u);
+    var ppStr  = (u==='egg') ? (it.pp+' egg') : fmt(it.pp,u);
+    var amt = (n===1 && !bakeP) ? totStr : '<span style="color:var(--ink-soft);font-weight:normal;font-size:13px;">'+ppStr+' pp · </span>'+totStr;
     return ingredientRow(it.n, amt);
   }).join('');
   var ingredientsHTML = ingredientsBox(rows, n);
@@ -2965,18 +2979,52 @@ function bakesRecipeOpts(r){
   var methodHTML = methodBox(stepsHTML, '');
   var kcal = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;
   var info = '';
-  if(r.costPP!=null){ info = isPro
-    ? '💰 Food cost: <b style="color:var(--green);">R'+r.costPP+'</b> pp · <b style="color:var(--green);">R'+(r.costPP*n)+'</b> total'
+  if(r.costPP!=null){
+    var costTot = r.costPP*scale;
+    var costEach = bakeP ? Math.round(costTot/n) : r.costPP;
+    info = isPro
+    ? '💰 Food cost: <b style="color:var(--green);">R'+costEach+'</b> pp · <b style="color:var(--green);">R'+costTot+'</b> total'
     : '💰 Food cost · <span style="color:var(--accent);font-weight:bold;">🔒 Pro</span>'; }
   if(kcal!=null){ info += (info?'<br>':'') + '🔥 ~'+kcal+' kcal pp'; }
+  // Batch-Law note ("makes 1 cake · serves 12 · 1 slice each") in the qtyBox sub slot.
+  var scaleNote = bakeP
+    ? (bakeP.mode==='slice'
+        ? 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · serves '+bakeUnits+' · 1 '+bakeP.pieceWord+' each'
+        : 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · ~'+bakeUnits+' '+bakeP.pieceWord+'s')
+    : '';
   var qtyHTML = qtyBox({
-    label:'How Much To Make', total:n+' '+(n===1?'serving':'servings'), n:n, info:info,
-    decJs:"set({recipeServings:Math.max(1,(S.recipeServings||S.people||4)-1)})",
-    incJs:"set({recipeServings:(S.recipeServings||S.people||4)+1})"
+    label:'How Much To Make',
+    sub: scaleNote,
+    total: bakeP ? '' : (n+' '+(n===1?'serving':'servings')),
+    n:n, info:info,
+    decJs:"set({"+sk+":Math.max(1,(S."+sk+"||S.people||4)-1)})",
+    incJs:"set({"+sk+":(S."+sk+"||S.people||4)+1})"
   });
   var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   var dykBox   = r.didYouKnow ? recipeBox('💡 Did You Know', '<div style="font-size:15px;color:var(--ink2);line-height:1.6;">'+r.didYouKnow+'</div>') : '';
+  // ── nutrition macro grid (kcal · protein · carbs · fat) — matches the FMF warm
+  // branch so bakes/FMF pages read identically once FMF routes through here.
+  var _nut = (r.nutrition && typeof r.nutrition==='object' && r.nutrition.kcal!=null) ? r.nutrition : null;
+  var nutriBox = _nut ? recipeBox('📊 Nutrition — per serving',
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
+      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+_nut.kcal+'</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">kcal</div></div>'
+      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.protein_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">protein</div></div>'
+      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.carbs_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">carbs</div></div>'
+      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.fat_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">fat</div></div>'
+      + '</div>') : '';
   var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:var(--ink2);line-height:1.5;">'+r.storage+'</div>') : '';
+  // ── WhatsApp share button (superset action; matches the FMF warm branch). Passed
+  // via recipePage's optional shareHTML slot, so callers that omit it are unchanged.
+  var _rid = r.id || (r.name||'').replace(/\s+/g,'-').toLowerCase();
+  var _rname = (r.name||'').replace(/'/g,'').replace(/"/g,'');
+  var _remoji = r.emoji||'🍰';
+  var _waLines = (r.ingredients||[]).filter(function(i){return i.pp;}).map(function(i){
+    var raw=i.pp*scale, u=i.u||'';
+    var d=(u==='egg')?(Math.ceil(raw)+' egg'+(Math.ceil(raw)>1?'s':'')):((raw>=1000&&(u==='g'||u==='ml'))?(Math.round(raw/100)/10)+(u==='g'?'kg':'L'):(Math.round(raw*10)/10)+u);
+    return '• '+i.n+': '+d;
+  }).join('\n');
+  var _waText = encodeURIComponent(_remoji+' *'+_rname+'*\nFor '+n+' people · '+(r.time?(r.time+' min'):'?')+'\n\nIngredients:\n'+_waLines+'\n\nFrom Tinza tinza.netlify.app');
+  var shareHTML = '<button onclick="window.open(\'https://wa.me/?text='+_waText+'\',\'_blank\')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>';
   return {
     photoName:r.photoName||r.name, photoEmoji:r.emoji||'🍰',
     backJs:'closeRecipe()', backLabel:'← Back',
@@ -2985,7 +3033,10 @@ function bakesRecipeOpts(r){
     meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },
     versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, 'var(--accent)') : '',
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
-    extrasHTML: tipBox + dykBox + storeBox,
+    goesWith: (r.goesWith && r.goesWith.length) ? r.goesWith : [],
+    extrasHTML: tipBox + dykBox + nutriBox + storeBox,
+    actions: { saveJs:"toggleSavedRecipe('"+_rid+"','"+_rname+"','"+_remoji+"')" },
+    shareHTML: shareHTML,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }
   };
 }
@@ -3023,6 +3074,7 @@ function recipePage(o){
     +   goes
     +   (o.extrasHTML || '')       // fixed slot 2 — section extras (cost, tip, trivia, coal guide)
     +   actions
+    +   (o.shareHTML || '')        // optional share slot (e.g. WhatsApp) — empty for callers that omit it, so existing pages are byte-identical
     +   nav
     + '</div></div>';
 }
