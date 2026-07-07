@@ -75,3 +75,31 @@ Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri 
 ### Not committed
 - Staged as a diff, **not committed** (session pattern + Tina reviews on live). Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-1 — 6 Greek tail cards lifted to WOW + researched twists (fava, melitzanosalata, briam, gemista, stifado, soutzoukakia)`
+
+---
+
+## Phase 2 · Greek tail — Batch 2 (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): still holding `wk_europe.js` for the Greek tail.** Note: commit `64c1c84` (Austria spine + Frappé lift + duplicate-stub fixes + garides/speckknödel fold) landed in this file after batch 1 — I re-read all 6 targets fresh (still thin) and confirmed my batch-1 cards + the 13 heroes are intact and untouched. Since Opus is also committing to this file now, I'm editing **only** Greek non-hero cards; coordinate the push order.
+
+**Batch-1 audit flags — RESOLVED by `64c1c84`:** duplicate `loukoumades`/`youvetsi` stubs fixed ✅ · `garides-saganaki` folded ✅ · `frappe` lifted ✅. Thanks — those are off the list.
+
+### Cards lifted this batch (6) — full-WOW rewrite + 1 researched twist each; all 6 verified merging via `applyRecipeVersion`; `node --check` clean; byte-discipline held (6 lines changed)
+- ✅ **`greece-pastitsio`** (Greek baked pasta) — under-boil pasta, dry cinnamon-clove-wine meat sauce, egg-set béchamel, **rest before cutting**. Moat: béchamel crown added only in the 1920s by Tselementes — not originally Greek. **Twist:** 🇨🇾 *Cypriot (Halloumi & Cinnamon)*.
+- ✅ **`greece-kleftiko`** (bandit lamb in parchment) — seal tight, don't peek, steam does the work. Moat: named for the *klephts* — rebels who cooked stolen lamb in buried sealed pits so no smoke betrayed them. **Twist:** 🧀 *With Feta & Peppers* (Cypriot).
+- ✅ **`greece-kakavia`** (fisherman's fish soup) — broth from the veg + fish body, never boil, finish off-heat with raw oil + lemon. Moat: likely Europe's oldest fish soup — ancestor of bouillabaisse via Greek colonists at Marseille. **Twist:** 🍋 *Avgolemono* (egg-lemon liaison).
+- ✅ **`greece-taramasalata`** (whipped roe dip) — whip roe with acid before oil, drizzle oil like mayo, no salt till tasted. Moat: shocking-pink tarama is dyed commercial roe; real tarama is a modest beige. **Twist:** 🥔 *Potato-Based* (the other traditional base).
+- ✅ **`greece-kourabiedes`** (almond snow cookies) — cream butter 8–10 min for the melting crumb, bake barely-coloured, double-dust hot then cold. Moat: always paired with melomakarona — the snow-white and the syrup-dark of a Greek Christmas. **Twist:** 🌸 *Orange-Blossom & Clove*.
+- ✅ **`greece-melomakarona`** (honey-soaked spice cookies) — olive-oil dough (no butter/egg), bake fully, **cold cookie into HOT honey syrup** (the baklava rule). Moat: name from *meli* + *makaria*, an ancient blessed bread for the dead. **Twist:** 🍫 *Chocolate-Dipped* (the modern bakery favourite).
+
+**Twists logged for taste-check:** pastitsio→Cypriot halloumi · kleftiko→feta & peppers · kakavia→avgolemono · taramasalata→potato base · kourabiedes→orange-blossom & clove · melomakarona→chocolate-dipped. All established authentic variants (web-grounded for pastitsio/kleftiko/taramasalata); all pass the taste-gate; no "no-twist-found" cases. The kourabiedes↔melomakarona cards now cross-reference each other (the Christmas pair) in their moats and `pairsWith`.
+
+### Prices (§2/§9)
+- **No new gaps** — all resolve in `PRICE_DB`: pasta (36) · beef mince (130) · tinned tomatoes (66) · red wine (45) · nutmeg/cloves · milk/flour/butter · parmesan (750, for "parmesan (or kefalotyri)") · halloumi (258) · leg of lamb (190) · feta (230) · red pepper (100) · hake (257) · carrots (25) · celery (27) · fish roe/tarama (400) · white bread (30) · icing sugar (100) · almonds (330) · brandy (200) · orange-blossom water (360) · fine semolina (43) · honey (160) · walnuts (370) · dark chocolate (313) · orange juice (25).
+
+### Greek tail progress
+- **12 of ~38 thin cards now lifted** (batch 1: fava·melitzanosalata·briam·gemista·stifado·soutzoukakia; batch 2: pastitsio·kleftiko·kakavia·taramasalata·kourabiedes·melomakarona). **~26 remain** in the LIFT queue (bougatsa·kataifi·revani·halva·milopita·koulouri·paximadia·horiatiko-psomi·ladopsomo · skordalia·horta·lahanosalata·strapatsada·kolokithokeftedes·tiropita · kreatopita·paidakia·kontosouvli·arni-sto-fourno·bifteki·keftedes·kotopoulo-lemonato·pastitsada·kokkinisto·htapodi-sti-schara). No new CUT&REPLACE flags this batch.
+
+### Not committed
+- Staged as a diff, **not committed**. Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-2 — 6 Greek tail cards lifted to WOW + researched twists (pastitsio, kleftiko, kakavia, taramasalata, kourabiedes, melomakarona)`
