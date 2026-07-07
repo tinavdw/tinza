@@ -551,7 +551,7 @@ var WK_CROSS_LINKS = {
   'morocco-rfissa':               { open:"openBakesRecipe('bk-msemen')",         name:'Msemen',                emoji:'🫓' },
   'turkey-beyti-kebap':           { open:"openBakesRecipe('bk-lavash')",         name:'Lavash',                emoji:'🫓' },
   'poland-zapiekanka':            { open:"openBakesRecipe('bk-baguette')",       name:'French Baguette',       emoji:'🥖' },
-  'austria-bauernschmaus':        { open:"openBakesRecipe('bk-drop-dumplings')", name:'Fluffy Drop Dumplings', emoji:'🥟' },
+  'austria-bauernschmaus':        { open:"openRecipe('meals','bk-drop-dumplings')", name:'Fluffy Drop Dumplings', emoji:'🥟' },
   'hungary-hortobagyi-palacsinta':{ open:"openBakesRecipe('bf-pancakes')",       name:'Fluffy Pancakes',       emoji:'🥞' },
   'denmark-risalamande':          { open:"openSpiceRecipe('cherry-sauce')",      name:'Cherry Sauce',          emoji:'🍒' },
   'sweden-prinsesstarta':         { open:"openBakesRecipe('bk-sponge-cake')",    name:'Classic Sponge Cake',   emoji:'🍰' },
