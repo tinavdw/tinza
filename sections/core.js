@@ -3099,7 +3099,40 @@ function applyRecipeVersion(r){
   ['feel','ingredients','method','costPP','time','nutrition','tip','storage','didYouKnow','goesWith','howThisFeels','cookTime','chefNotes','kcal','trivia','pairsWith'].forEach(function(k){
     if(v[k]!=null) out[k]=v[k];
   });
+  if(v.delta) out = applyVersionDelta(out, v.delta);   // BD11: delta-merge (tweak the base, don't re-author the whole recipe)
   out._activeVersion = v.name;
+  return out;
+}
+// ── VERSION DELTA MERGE (BD11) ── a version may carry `delta` to TWEAK the base
+// instead of re-listing the whole recipe: swapIng / addIng / removeIng (addIng
+// takes an optional {after:"name"} anchor) and swapStep / addStep. Works whether
+// ingredients/method are Meals-style arrays ({n,pp,u} / [steps]) OR WK-style
+// strings (" · "-joined ingredients / one-paragraph method). No `delta` ⇒ nothing
+// runs, so every existing version renders byte-identical (fully back-compatible).
+function applyVersionDelta(out, d){
+  if(out.ingredients!=null && (d.swapIng||d.addIng||d.removeIng)){
+    var isArr = Array.isArray(out.ingredients);
+    var ings = isArr ? out.ingredients.slice() : String(out.ingredients).split(' · ');
+    var hit = function(x,key){ var nm = isArr ? (x&&x.n||'') : String(x); return isArr ? nm===key : nm.indexOf(key)>-1; };
+    (d.swapIng||[]).forEach(function(s){ for(var i=0;i<ings.length;i++){ if(hit(ings[i],s.from)){ ings[i]=s.to; break; } } });
+    (d.removeIng||[]).forEach(function(rm){ ings = ings.filter(function(x){ return !hit(x,rm); }); });
+    (d.addIng||[]).forEach(function(a){
+      var item=(a&&a.item!=null)?a.item:a, after=a&&a.after, idx=-1;
+      if(after){ for(var i=0;i<ings.length;i++){ if(hit(ings[i],after)){ idx=i; break; } } }
+      if(idx>-1) ings.splice(idx+1,0,item); else ings.push(item);
+    });
+    out.ingredients = isArr ? ings : ings.join(' · ');
+  }
+  if(out.method!=null && (d.swapStep||d.addStep)){
+    var mArr = Array.isArray(out.method);
+    var steps = mArr ? out.method.slice() : [String(out.method)];
+    (d.swapStep||[]).forEach(function(s){ steps = steps.map(function(st){ return String(st).split(s.from).join(s.to); }); });
+    (d.addStep||[]).forEach(function(a){
+      if(mArr){ var at=(a.after==null?steps.length-1:a.after); steps.splice(at+1,0,a.text); }
+      else steps[0] = steps[0]+' '+a.text;
+    });
+    out.method = mArr ? steps : steps.join(' ');
+  }
   return out;
 }
 function setRecipeVersion(id, name){
