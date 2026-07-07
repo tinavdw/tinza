@@ -3319,13 +3319,12 @@ function leftoverBoxHTML(keys){
   if(typeof keys==='string') keys=[keys];
   keys=(keys||[]).filter(function(k){ return LEFTOVER_IDEAS[k]; });
   if(!keys.length) return '';
-  var sc=_safetyClassFor(keys);
-  var safetyLine='<div style="font-size:12px;color:var(--ink-soft);margin-top:10px;line-height:1.45;border-top:1px solid var(--card2);padding-top:8px;"><strong>Keep it safe:</strong> '+sc.note+'</div>';
   var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  // Food-safety note lives ONCE, in the always-free Storage box (its natural home, and
+  // it always renders alongside leftovers) — not repeated here, to avoid duplication.
   if(!isPro){
-    // ideas are Pro; the SAFETY line still shows when it's a strict starch (never gate safety)
     var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
-    return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', teaser + (sc.strict?safetyLine:'')) : '';
+    return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', teaser) : '';
   }
   var heritage = LEFTOVER_HERITAGE.length ? '<div style="font-size:12.5px;color:var(--ink-soft);font-style:italic;margin-bottom:10px;line-height:1.45;">\ud83d\udca1 '+LEFTOVER_HERITAGE[Math.floor(Math.random()*LEFTOVER_HERITAGE.length)]+'</div>' : '';
   var body = keys.map(function(k){
@@ -3333,7 +3332,7 @@ function leftoverBoxHTML(keys){
     var lis = LEFTOVER_IDEAS[k].map(function(x){ return '<li style="margin-bottom:6px;line-height:1.5;">'+x+'</li>'; }).join('');
     return label + '<ul style="margin:0 0 4px;padding-left:20px;font-size:15px;color:var(--ink2);">'+lis+'</ul>';
   }).join('');
-  return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', heritage + body + safetyLine) : '';
+  return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', heritage + body) : '';
 }
 // ── STORAGE box (same SAFETY_CLASS engine · Pro-gated, but the safety line always shows) ──
 function storageBoxHTML(cls){
