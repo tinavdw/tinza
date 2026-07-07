@@ -2460,20 +2460,23 @@ var _goesWithNameIndex = null;
 function _goesWithNorm(s){ return (typeof tinzaNormalize==='function') ? tinzaNormalize(s) : String(s==null?'':s).toLowerCase().replace(/\s+/g,' ').trim(); }
 function _buildGoesWithNameIndex(){
   var idx = {};
-  var arrs = [
+  function add(r, src){
+    if(!r || !r.id) return;
+    var keys = [r.name, r.nameAlt].concat(r.aliases||[]);   // P5b: index nameAlt + aliases too, so English/roman names resolve to native-script cards
+    for(var i=0;i<keys.length;i++){
+      var k = _goesWithNorm(keys[i]);
+      if(k && !idx[k]) idx[k] = {id:r.id, src:src};          // first card of a given name wins
+    }
+  }
+  var mealsArrs = [
     typeof BREAKFAST_RECIPES!=='undefined'?BREAKFAST_RECIPES:[],
     typeof LIGHTLUNCH_RECIPES!=='undefined'?LIGHTLUNCH_RECIPES:[],
     typeof SUPPER_RECIPES!=='undefined'?SUPPER_RECIPES:[],
     typeof BAKES_RECIPES!=='undefined'?BAKES_RECIPES:[],
     typeof SIDES_BASICS_RECIPES!=='undefined'?SIDES_BASICS_RECIPES:[]
   ];
-  for(var a=0;a<arrs.length;a++){
-    (arrs[a]||[]).forEach(function(r){
-      if(!r || !r.id || !r.name) return;
-      var k = _goesWithNorm(r.name);
-      if(k && !idx[k]) idx[k] = r.id;   // first card of a given name wins
-    });
-  }
+  for(var a=0;a<mealsArrs.length;a++){ (mealsArrs[a]||[]).forEach(function(r){ add(r,'meals'); }); }
+  if(typeof wkPool==='function'){ (wkPool()||[]).forEach(function(r){ add(r,'world'); }); }   // P5b: World Kitchen cards clickable too
   return idx;
 }
 function goesWithLink(label){
@@ -2483,8 +2486,8 @@ function goesWithLink(label){
     if(Object.prototype.hasOwnProperty.call(GOESWITH_LINKS,k) && GOESWITH_LINKS[k]) return GOESWITH_LINKS[k];
   }
   if(!_goesWithNameIndex) _goesWithNameIndex = _buildGoesWithNameIndex();
-  var id = _goesWithNameIndex[_goesWithNorm(label)];
-  return id ? ("openRecipe('meals','" + id + "')") : null;
+  var e = _goesWithNameIndex[_goesWithNorm(label)];
+  return e ? ("openRecipe('" + e.src + "','" + e.id + "')") : null;
 }
 
 function goesWellBox(items){

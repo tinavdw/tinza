@@ -644,7 +644,8 @@ function wkRecipeOpts(r, country, universal){
   var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }
   var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
-  var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '');
+  var wkShareBtn = '<button onclick="wkShareRecipe(\''+r.id+'\')" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;margin-top:4px;">📲 Share this recipe on WhatsApp</button>';
+  var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '') + wkShareBtn;
 
   // ── goes well with (array → shared box) ──
   var gwwList = [];
@@ -827,6 +828,12 @@ function wkPlanShareText(includeList){
   }
   L.push('', '\u2014 made with Tinza');
   return L.join('\n');
+}
+function wkShareRecipe(id){
+  var r = (typeof wkPool==='function') ? wkPool().find(function(x){return x && x.id===id;}) : null;
+  if(!r) return;
+  var txt = '🍽️ *'+(r.nameAlt||r.name)+'*'+(r.howThisFeels?' — '+r.howThisFeels:'')+'\n\nFrom Tinza · tinza.netlify.app';
+  window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 }
 function wkShareDishes(){ window.open('https://wa.me/?text=' + encodeURIComponent(wkPlanShareText(false)), '_blank'); }
 function wkShareWithList(){ window.open('https://wa.me/?text=' + encodeURIComponent(wkPlanShareText(true)), '_blank'); }
