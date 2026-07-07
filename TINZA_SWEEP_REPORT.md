@@ -37,3 +37,41 @@ Legend: ✅ full-WOW · 🟡 compliant-but-flat · ⚠️ needs-human
 - Per the session's standing "show diffs, don't push" and Tina's review-on-live workflow, the two files are staged as diffs, **not committed**. Suggested commit messages (§2 format), one file each:
   - `wk-sweep: meals.js batch-1 — sp-bobotie reconciled to 6-version canonical set (+1600s, +In a Pumpkin deltas)`
   - `wk-sweep: wk_southafrica.js batch-1 — cape-malay-bobotie +Quick delta, reordered to canonical`
+
+---
+
+## Phase 2 · Greek tail — Batch 1 (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): I am holding `wk_europe.js` for the Greek tail.** Opus: please stay clear of it while this phase runs (you have `worldkitchen.js` render polish). Heroes verified present & untouched.
+
+**Pre-flight verification (per CLAUDE.md "verify in live code"):**
+- `git pull` was a **no-op** — local HEAD == origin/main, clean tree; the pushed heroes are already in the file at this commit.
+- All **13 heroes confirmed at full-WOW depth** in `wk_europe.js` (Moussaka·Tzatziki·Souvlaki·Gyros·Baklava·Spanakopita·Greek Salad·Saganaki·Galaktoboureko·Dolmades·Avgolemono·Loukoumades·Youvetsi) — left byte-identical.
+- 3 earlier swaps already WOW (Fasolada·Gigantes·Spetsofai) — left as-is.
+
+### Cards lifted this batch (6) — each: full-WOW rewrite + 1 researched twist as a WK string delta; all 6 verified merging via `applyRecipeVersion` (twist merges + base renders clean); `node --check` clean; byte-discipline held (6 lines changed, nothing else touched)
+- ✅ **`greece-fava`** (Santorini split-pea purée) — why-led method (rinse starch off, never salt the water, blend HOT so it sets like mousse). Moat: PDO yellow split peas grown on Santorini's volcanic soil ~3,500 yrs. **Twist:** 💍 *Pantremeni (Married)* — caramelised onions + capers (the EU-PDO "married" service). *(price gap logged: yellow split peas.)*
+- ✅ **`greece-melitzanosalata`** (smoky aubergine dip) — char over live flame, drain bitter juices, **chop not blend**. Moat: "poor man's caviar" — chopped so it looks like grey caviar. **Twist:** 🌰 *Politiki (Walnut & Roasted Red Pepper)* — the Constantinople refugee style. *(price gap: red wine vinegar.)*
+- ✅ **`greece-briam`** (slow-roasted veg) — a slow oil-braise, not a fast roast; grated tomato melts to sauce. Moat: the *ladera* (oil-cooked, meatless) fasting tradition. **Twist:** 🧀 *With Feta* baked on top. **🟡 diet note:** the feta version is vegetarian, not vegan; the card diet stays `vegan` (base) since the engine can't set diet per-version — flagged.
+- ✅ **`greece-gemista`** (rice-stuffed tomatoes & peppers) — RAW rice, fill two-thirds (it swells), potato wedges in the gaps, eat warm not hot. Moat: the crusty potato wedges are fought over more than the peppers. **Twist:** 🌸 *Lenten (Currants & Pine Nuts)* — the vegan "Politiko" fasting style. *(Existing thin card — LIFTED, not duplicated, per the no-dup rule.)*
+- ✅ **`greece-stifado`** (sweet-spiced beef & onion stew) — brown dry & in batches, add the little onions whole and **never stir**, reduce glossy. Moat: name from Venetian *stufato*, spice legacy of Venetian rule. **Twist:** 🐰 *Rabbit (Kouneli)* — the original & most-prized version (web-researched). *(price gap: pickling onions.)*
+- ✅ **`greece-soutzoukakia`** (Smyrna cumin meatballs) — wine-soaked bread + 30-min rest for tenderness, shape oval, finish IN the sauce. Moat: came with 1922 Smyrna refugees; name from Turkish *sucuk*. **Twist:** 🍲 *Baked (sto Fourno)*.
+
+**Twists logged for taste-check (Opus/Tina):** Fava→Pantremeni (caramelised onion+caper, PDO-recognised) · Melitzanosalata→Politiki walnut+red-pepper · Briam→feta · Gemista→Lenten currants+pine-nuts · Stifado→rabbit/kouneli · Soutzoukakia→oven-baked. All pass the taste-gate (established authentic variants, web-grounded for fava/stifado/melitzanosalata). No "no-twist-found" cases this batch.
+
+### ⚠️ AUDIT — flags for Tina's sign-off (never auto-deleted)
+- **DUPLICATE IDs (§2 violation — HIGH):** `greece-loukoumades` and `greece-youvetsi` each appear **twice** — a full hero card AND a leftover thin stub (m≈244/229). The resolver returns the *first* match, so a stub may be shadowing the hero on the live page. These sit in hero territory → **I did not touch them.** Recommend Opus/Tina delete the two stale thin stubs (the `ouzo`/`retsina` ids are already gone, confirming the heroes replaced them without removing the stubs).
+- **DUP-BY-DISH:** `greece-garides-saganaki` (Shrimp Saganaki, thin, m=158) overlaps the Saganaki hero's 🦐 *Shrimp/Garides* version. **Propose:** fold it into the hero as that version and cut the standalone, OR lift it as its own dish — Tina's call.
+- **DRINK — borderline:** `greece-frappe` (Iced Coffee, m=227). By strict §2 a plain drink = CUT & REPLACE, but frappé has a genuine technique (frothing instant coffee) + a strong moat (invented 1957 at the Thessaloniki International Fair by a Nescafé rep with no hot water). **Recommend LIFT** (real technique + moat), but flagging for your ruling.
+- **Overlaps to watch (not cuts):** `ladopsomo` vs `horiatiko-psomi` (two village breads); `pastitsada` vs `stifado` (two spiced beef stews — pastitsada is the Corfiot, distinct); `kontosouvli` vs souvlaki/gyros (larger spit chunks, distinct). Keep all, differentiate in the write-ups.
+
+### Greek tail remaining = LIFT queue (~32 real dishes written thin — for later batches, one file, small batches)
+Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri · paximadia · horiatiko-psomi · ladopsomo · kourabiedes · melomakarona. Meze/veg: skordalia · taramasalata · horta · lahanosalata · strapatsada · kolokithokeftedes · tiropita. Mains: pastitsio · kleftiko · kreatopita · kakavia · paidakia · kontosouvli · arni-sto-fourno · bifteki · keftedes · kotopoulo-lemonato · pastitsada · kokkinisto · htapodi-sti-schara · garides-saganaki (pending the dup ruling). *(All look like genuine dishes written thin → LIFT, not CUT — except the flags above.)*
+
+### Prices (§2/§9)
+- Priced OK: aubergine (43) · capers (330) · feta (230) · beef chuck (130) · potato (18) · courgette (50) · green pepper (50) · onion (27) · red onion (45) · olive oil (250) · garlic (280) · walnuts (370) · parsley/dill (650) · lemon juice (56) · tomato paste (180) · red wine (via wine) · currants/pine nuts (check).
+- **Gaps appended to `TINZA_WK_PRICE_GAPS.md`** (never guessed): `yellow split peas`, `red wine vinegar`, `pickling onions`. Rabbit is also likely unpriced — verify.
+
+### Not committed
+- Staged as a diff, **not committed** (session pattern + Tina reviews on live). Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-1 — 6 Greek tail cards lifted to WOW + researched twists (fava, melitzanosalata, briam, gemista, stifado, soutzoukakia)`
