@@ -3103,6 +3103,15 @@ function applyRecipeVersion(r){
     if(v[k]!=null) out[k]=v[k];
   });
   if(v.delta) out = applyVersionDelta(out, v.delta);   // BD11: delta-merge (tweak the base, don't re-author the whole recipe)
+  // BD12: a Meals delta version inherits the base costPP but may have swapped
+  // ingredients (beef→lamb, etc.) — nudge the headline cost by the COMPUTED
+  // difference so it stays honest, no hand-set costPP needed. Meals arrays only
+  // (WK already recomputes its own); needs a base costPP; an explicit version costPP wins.
+  if(v.delta && v.costPP==null && r.costPP!=null && typeof mealsCostPP==='function'
+     && Array.isArray(out.ingredients) && Array.isArray(r.ingredients)){
+    var _bC = mealsCostPP(r.ingredients), _mC = mealsCostPP(out.ingredients);
+    if(_bC!=null && _mC!=null) out.costPP = Math.max(0, Math.round(r.costPP + (_mC - _bC)));
+  }
   out._activeVersion = v.name;
   return out;
 }
@@ -3137,6 +3146,22 @@ function applyVersionDelta(out, d){
     out.method = mArr ? steps : steps.join(' ');
   }
   return out;
+}
+// BD12: per-person food cost from Meals {n,pp,u} ingredients — mirrors buildPlanData's
+// lineCook (priceOf + per/unit rules) and skips pantry items (§6.3). null if unpriceable.
+function mealsCostPP(ings){
+  if(!ings || !ings.length || typeof priceOf!=='function') return null;
+  var total=0, priced=false;
+  for(var i=0;i<ings.length;i++){
+    var ing=ings[i]; if(!ing) continue;
+    var nm=ing.n||ing.name, amt=(ing.pp!=null?ing.pp:ing.amt), u=ing.u||ing.unit;
+    if(!nm || amt==null || amt<=0) continue;
+    if(typeof isPantryItem==='function' && isPantryItem(nm)) continue;
+    var pr=priceOf(ing.priceName||nm); if(!pr) continue;
+    var c=(pr.per==='count')?Math.ceil(amt)*pr.price:(u==='g'||u==='ml')?(amt/1000)*pr.price:(u==='kg'||u==='l')?amt*pr.price:null;
+    if(c!=null){ total+=c; priced=true; }
+  }
+  return priced?Math.round(total):null;
 }
 function setRecipeVersion(id, name){
   var m = Object.assign({}, S.recipeVersion||{}); m[id]=name;
