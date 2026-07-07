@@ -643,7 +643,7 @@ function wkRecipeOpts(r, country, universal){
       + costNote + '</div>';
   var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }
-  var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('🍷 Pairs with', r.pairsWith)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
+  var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
   var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '');
 
   // ── goes well with (array → shared box) ──
@@ -699,7 +699,7 @@ if(typeof RECIPE_BUILDERS !== 'undefined'){
 
 /* parse a cook time out of a method step → pill label ("⏲ 20 min", "⏲ overnight") */
 function wkStepTimer(txt){
-  var m = (txt||'').match(/(\d+(?:\s*[–-]\s*\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)\b/i);
+  var m = (txt||'').match(/(\d+(?:\.\d+)?(?:\s*[–-]\s*\d+(?:\.\d+)?)?)\s*(min(?:ute)?s?|hours?|hrs?)\b/i);
   if(m){ return '⏲ ' + m[1].replace(/\s+/g,'') + ' ' + (/h/i.test(m[2]) ? 'hr' : 'min'); }
   if(/overnight/i.test(txt)) return '⏲ overnight';
   return '';
