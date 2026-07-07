@@ -103,3 +103,30 @@ Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri 
 ### Not committed
 - Staged as a diff, **not committed**. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-2 — 6 Greek tail cards lifted to WOW + researched twists (pastitsio, kleftiko, kakavia, taramasalata, kourabiedes, melomakarona)`
+
+---
+
+## Phase 2 · Greek tail — Batch 3 (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): still holding `wk_europe.js` for the Greek tail.** Synced first: commit `203c335 "core"` landed after batch 2 — I confirmed the delta engine (`applyVersionDelta`) is intact, my batch-1/2 cards and the 13 heroes are untouched, and re-read all 6 targets fresh (still thin). Edited only these 6 non-hero Greek cards. **Note:** `git fetch` to origin failed this session (network/DNS to github unreachable) — local HEAD is clean at `203c335`; **verify you're pushing from the intended base.** WebSearch worked fine, so twists are freshly web-researched.
+
+### Cards lifted this batch (6) — full-WOW rewrite + 1 researched twist each; 6/6 verified merging via `applyRecipeVersion`; `node --check` clean; byte-discipline held (6 lines changed)
+- ✅ **`greece-skordalia`** (garlic purée) — mash by hand not machine (starch→glue), pound garlic to paste, beat oil in like mayo. Moat: the fierce Independence-Day partner to salt cod. **Twist:** 🌰 *Walnut* (Ionian/northern base).
+- ✅ **`greece-kolokithokeftedes`** (courgette & feta fritters) — **squeeze the courgette bone-dry** (the make-or-break), fry in properly hot oil. Moat: a garden-glut dish, one of a whole tribe of *keftedes*. **Twist:** 🌿 *Minted (Island-Style)*.
+- ✅ **`greece-tiropita`** (feta & phyllo pie) — oil every sheet for shattering layers, **score before baking**. Moat: Greece's breakfast-on-the-run from the corner *fournos*. **Twist:** 🥛 *Creamy (with Yoghurt)*.
+- ✅ **`greece-paidakia`** (charred lamb chops) — salt at the last second, screaming-hot & fast, finish lemon-oregano-salt off heat. Moat: ordered by weight at the *psistaria*, bones gnawed clean. **Twist:** 🌿 *Yoghurt-Marinated* (tenderiser).
+- ✅ **`greece-kotopoulo-lemonato`** (lemon chicken & potatoes) — broth in the tin base (not over the chicken) so tops crisp, potatoes soak. Moat: the yellow twin of red *kokkinisto*. **Twist:** 🫒 *With Feta & Olives*.
+- ✅ **`greece-htapodi-sti-schara`** (grilled octopus) — tenderness is won at the **simmer** ("knife slides in easily"), the grill is only for smoke. Moat: fishermen beat it on the rocks; freezing does the same. **Twist:** 🍷 *Xidato (Vinegar-Marinated)*.
+
+**Twists logged for taste-check:** skordalia→walnut · kolokithokeftedes→mint · tiropita→creamy yoghurt · paidakia→yoghurt marinade · kotopoulo→feta & olives · htapodi→xidato. All web-grounded (skordalia, octopus, tiropita searched directly) and established authentic variants; all pass the taste-gate; no "no-twist-found" cases. Cross-refs added: skordalia↔Kakavia (fried-fish pairing), htapodi↔Fava (classic meze pairing). I deliberately **did not** use the "wine cork tenderises octopus" folklore — it's an unverified myth.
+
+### Prices (§2/§9)
+- **1 new gap** appended to `TINZA_WK_PRICE_GAPS.md`: `octopus` (#288 — `calamari` R130 is keyed but octopus isn't; SA sub or alias needed). `red wine vinegar` (#286, already logged) now also used by Skordalia + Htapodi — count updated to 4.
+- Everything else resolves: potato · garlic · olive oil · walnuts (370) · courgette (50) · feta (230) · spring onion (343) · breadcrumbs (150) · phyllo pastry (118) · Greek yoghurt (80) · lamb rib chops (260) · chicken pieces (90) · chicken broth (100) · olives (165).
+
+### Greek tail progress
+- **18 of ~38 thin cards now lifted** (batches 1–3). **~20 remain** in the LIFT queue: bougatsa · kataifi · revani · halva · milopita · koulouri · paximadia · horiatiko-psomi · ladopsomo · horta · lahanosalata · strapatsada · kreatopita · kontosouvli · arni-sto-fourno · bifteki · keftedes · pastitsada · kokkinisto (+ any dup-ruling leftovers). No new CUT&REPLACE flags this batch.
+
+### Not committed
+- Staged as a diff, **not committed**. Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-3 — 6 Greek tail cards lifted to WOW + researched twists (skordalia, kolokithokeftedes, tiropita, paidakia, kotopoulo-lemonato, htapodi-sti-schara)`

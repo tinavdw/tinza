@@ -291,5 +291,6 @@ Add a `PRICE_DB` entry (or a `WK_ALIAS` mapping to an existing key) for the ones
 | 283 | 1 | `guinea fowl` | guinea fowl | Boerekos: Rooiwyn-Tarentaalpotjie |
 | 284 | 1 | `arlic clove` | arlic clove | Boerekos: Koolkop oor die Kole |
 | 285 | 1 | `yellow split peas` | yellow split peas | Greece: Fava (greece-fava) |
-| 286 | 2 | `red wine vinegar` | red wine vinegar | Greece: Stifado (greece-stifado) + Melitzanosalata (greece-melitzanosalata) |
+| 286 | 4 | `red wine vinegar` | red wine vinegar | Greece: Stifado + Melitzanosalata + Skordalia + Htapodi sti Schara |
 | 287 | 1 | `pickling onions` | pickling onions (peeled, whole) | Greece: Stifado (greece-stifado) — SA sub: pearl/pickling onions, else a large onion in wedges |
+| 288 | 1 | `octopus` | octopus | Greece: Htapodi sti Schara (greece-htapodi-sti-schara) — `calamari` (R130) is keyed but octopus is not |
