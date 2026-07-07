@@ -3336,6 +3336,23 @@ function recipeView(){
     ? crossLinkBox({ emoji:_bcl.emoji, label:'Make your own', targetName:_bcl.name, onclick:_bcl.open })
     : '';
 
+  // ── WhatsApp share (superset parity · SAME green button as bakes/FMF). Braai
+  // ingredients are STRINGS ("Beef rump — 350g per person"), not {n,pp,u} objects,
+  // so the share text is built from the string list here. The meat protein line uses
+  // the reconciled cut-based meatPP (matches the page — never the legacy authored
+  // string, Part C). Purely additive → passed via recipePage's optional shareHTML
+  // slot; every other slot on the page is byte-identical.
+  const _shName  = (item.name||'').replace(/'/g,'').replace(/"/g,'');
+  const _shEmoji = item.emoji || '\u{1F356}';
+  const _shTime  = recipe.cookTime || recipe.time || '';
+  const _shLines = (recipe.ingredients||[]).map((ing,i)=>{
+    if(typeof ing!=='string' || !ing.trim() || ing.trim().startsWith('—')) return null;
+    if(i===0 && isMeat){ return '• '+ing.split('—')[0].trim()+': '+meatPP+'g per person'; }
+    const di = ing.indexOf('—');
+    return '• '+(di>-1 ? (ing.slice(0,di).trim()+': '+ing.slice(di+1).trim()) : ing.trim());
+  }).filter(Boolean).join('\n');
+  const _shText = encodeURIComponent(_shEmoji+' *'+_shName+'*\nFor '+p+' people'+(_shTime?(' · '+_shTime):'')+'\n\nIngredients:\n'+_shLines+'\n\nFrom Tinza tinza.netlify.app');
+  const braaiShareHTML = '<button onclick="window.open(\'https://wa.me/?text='+_shText+'\',\'_blank\')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>';
   // ── ASSEMBLE through the shared whole-page layout (identical to World Kitchen) ──
   return recipePage({
     backJs:"closeRecipe()",
@@ -3348,6 +3365,7 @@ function recipeView(){
     notesHTML: braaiCross + fireGuideHTML,
     methodHTML:methodHTML,
     extrasHTML: goesWellBlock + costBlock + tipBlock,
+    shareHTML: braaiShareHTML,
     actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
     nav:{ backJs:"closeRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
   });
