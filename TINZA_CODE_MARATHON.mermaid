@@ -1,6 +1,6 @@
 %% TINZA_CODE_MARATHON — app-wide sameness + fixes handoff
-%% v19 · 6 Jul 2026 · Tina decided: ✅ add Acha Puri nameRoman ('Adjaruli Khachapuri', one line, Code applies with the push) · ✅ leave the 2 berbere note-bracket lines. Native-script subtitle = Claude rec SKIP on browse cards (no functional value for a SA cook · competes with country label · breaks sameness); if wanted, recipe-DETAIL only + post-launch — Tina to decide, not a blocker. WK data STEP 1+2 still to push (wk_africa.js + wk_europe.js, 44 glosses + L20 fix + Acha Puri line). ⬇ v18
-%% v18 · 6 Jul 2026 · WK data pass STEP 1+2 DONE (44 glosses, not pushed); STEP 3 resolved by investigation (app already romanises). ⬇ v17
+%% v22 · 6 Jul 2026 (END OF DAY — Tina calling it a night; resume tomorrow). 🌙 RESUME TOMORROW → (1) tiny: Acha Puri nameRoman one-liner (confirmed NOT in today's push, Tina missed it — Code adds 'Adjaruli Khachapuri', push) → (2) ★ SESSION 3 = the superset recipePage (brief TINZA_SESSION3_SUPERSET.md + kick-off prompt ready). Everything else queued below. ⬇ v21
+%% v21 · 6 Jul 2026 · WK pass LIVE + confirmed good on Tina's screen; egg '1.25×' polish logged (BUG2). ⬇ v20
 %% v15 · 6 Jul 2026 · Session 2 (FMF warm) PUSHED/live. Session 3 brief + WK Standards brief ready. ⬇ v14
 %% v13 · 6 Jul 2026 · SESSION 3 BRIEF READY = TINZA_SESSION3_SUPERSET.md (A5+A3 superset recipe page). ⬇ v12
 %% v12 · 6 Jul 2026 · F4 versions RESOLVED (Tina): version NAMES on the browse card as WRAPPING CHIPS/BOXES (braai/recipe pill style), SHOW ALL (wrapping → long names fine), reuses shared chip renderer. ⬇ v11
@@ -13,8 +13,8 @@
 flowchart TD
 
   subgraph STATE["📍 WHERE WE ARE — after Code session 1"]
-    S1["PUSHED & LIVE: Session 1 + 11 renames + Session 2 (FMF warm). BANKED, NOT pushed: WK data pass STEP 1+2 (44 L18 glosses in wk_africa.js + wk_europe.js, incl. the L20 fix). WK dish-name scripts = already handled by the app's romaniser (no edit needed)."]
-    S2["Now: push wk_africa.js + wk_europe.js (44 glosses + L20 fix + the Acha Puri nameRoman line). Ready: ★ Session 3 superset recipePage. Queued: data D (incl. WK '+' splits + ½-lemon) · prices E (incl. 8 WK missing) · wiring F2/F3/F4 (version chips) · cook-time split H · spice bug · Photo Studio regen · Sweets room · Sides & Basics · M-F21 · Events. Optional/post-launch: native-script subtitle on recipe-detail (if Tina wants it). LAUNCH OCTOBER."]
+    S1["PUSHED & LIVE: Session 1 + 11 renames + Session 2 (FMF warm) + WK data pass (44 L18 glosses + L20 fix, confirmed good on live). WK dish-name scripts already handled by the app's romaniser. Tiny pending (NOT in today's push — Tina missed it): Acha Puri nameRoman one-liner → first small task tomorrow."]
+    S2["🌙 RESUME TOMORROW → (1) Acha Puri one-liner (tiny) → (2) ★ SESSION 3 = the superset recipePage (brief TINZA_SESSION3_SUPERSET.md) — build recipePage into the superset, retrofit braai + WK one-at-a-time with live regression, switch FMF's opener onto it; safe stop after superset + braai if long. THEN queued: data D (WK '+' splits + ½-lemon) · prices E (8 WK missing) · wiring F2/F3/F4 (version chips) · cook-time split H · spice bug · egg 1.25× polish · Photo Studio regen · Sweets room · Sides & Basics · M-F21 · Events. Optional post-launch: native-script subtitle on recipe-detail. After A3/A5 only Events remains for the universal opener. LAUNCH OCTOBER."]
     S1-->S2
   end
 
@@ -60,6 +60,8 @@ flowchart TD
 
   subgraph BUGS["🐛 FOUND IN PASSING (not fixed — out of scope)"]
     BUG1["spice.js: 'tartare-sauce' id defined TWICE in the same file → find() only returns the first. Pre-existing. Quick fix in a spice session."]
+    BUG2["WK/savoury display quirk (spotted live 6 Jul): count-based items like 'hard-boiled egg' render as a multiplier '1.25×' while everything else shows a real amount (25g/125ml) — a whole/rounded egg count reads cleaner. Minor, optional polish; low priority."]
+    BUG1-->BUG2
   end
   NEXT-->BUGS
 
