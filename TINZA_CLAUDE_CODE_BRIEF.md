@@ -17,6 +17,9 @@ If anything in this brief conflicts with those files, **those files win** — fl
 
 ---
 
+## 0.5 FILE OWNERSHIP (clobber-safety — read this before you open any file)
+Tina replaces whole files by drag-drop, so **the last push wins** — you and Opus must never edit the same file in the same window. Rule: **`wk_europe.js` belongs to Opus** (hero authoring) until Tina confirms the Greek heroes are pushed. Do **not** open `wk_europe.js` until then. Meanwhile you have plenty: **Phase 1 (Bobotie → `meals.js` + `wk_southafrica.js`)** and **Phase 4 (`meals.js` version-storage cleanup)** touch neither the heroes nor `wk_europe.js`. When you do reach a Greece phase, `git pull` first, edit only your target thin cards, and never rewrite a whole file. **Announce in the batch report which file you're holding** so Opus stays clear of it.
+
 ## 1. MISSION & SCOPE
 **Do:**
 1. **Version storage → deltas.** Convert bloated versions (that re-list a whole recipe to change one thing) into `delta` versions the new engine merges. *(Engine is live — see §5.)*
@@ -96,7 +99,7 @@ A card may carry `versions:[…]`. Each version is one of three kinds:
 - Prefer a **delta** whenever the version keeps most of the base. Only re-supply a full `method` when the method genuinely differs (e.g. baking bobotie inside a pumpkin shell).
 - A delta version still overrides small scalar fields it needs (`howThisFeels`, `kcal`, `nutrition`, `chefNotes`, `trivia`) — those sit alongside `delta`.
 - **Version count by fame:** 5/4/2/1. A national/hero dish can carry more when each version is genuinely distinct; a plain dish gets 1–2. Never force versions onto a dish that doesn't want them.
-- **Cost recomputes from the merged ingredients** — so a delta keeps the price honest automatically. Don't hardcode `costPP` unless it's a Meals structural version.
+- **Cost:** WK recomputes the price from the merged ingredients, so WK deltas are honest automatically. But the **Meals headline chip reads `costPP`** (not recomputed) — so where a delta materially changes cost (e.g. a meat swap like beef→lamb), set a `costPP` on that version too, or the headline understates it. The Meals *shopping list* still reprices correctly from the merged ingredients; it's only the headline chip. *(Systemic fix — making the Meals headline recompute like WK — is parked with Opus.)*
 
 ---
 
@@ -111,12 +114,18 @@ This is the one step that separates "compliant" from "WOW." Spend real effort he
 
 ---
 
+## 6.5 TOO-SIMPLE AUDIT (Shelf-WOW Law — a dish must earn its place)
+WK is padded with trivially-simple entries that aren't really recipes — "Toasted Bread", "Boiled Potatoes", "Coffee with Milk", "Beer with Lemon Soda", "White Rice", plain "Hot Chocolate" (a scan found ~220 candidates, worst in Spain/Portugal). These fail §2. Rough signal: **≤5 ingredients AND a method under ~300 characters**, or any pure assembly/pour/boil with no real technique. When you hit one, sort it into a bucket in the report — **never auto-delete**:
+- **CUT & REPLACE** — not a recipe (toasted bread, boiled potatoes, a drink-with-soda, a plain sausage). Propose a genuinely interesting dish from the *same cuisine/region* to replace it (one-line WOW pitch + moat), for human sign-off.
+- **LIFT** — a real dish written thin (escalivada, pisto, rojões). Bring it to full WOW; keep it.
+Test: *would a serious home cook screenshot this?* If not, it's CUT & REPLACE. **Scope:** `wk_europe.js` (most candidates) is Opus-owned — audit + replace there is the Opus/heroes track; you run the audit only on WK files you're cleared to edit (`wk_world.js`, `wk_southafrica.js`).
+
 ## 7. RECONCILE RULE (same dish, two rooms)
 When a dish exists in two rooms (e.g. Bobotie in `meals.js` **and** `wk_southafrica.js`), align them to **one canonical version set**, adapted to each file's shape. First instance:
 
 **Bobotie canonical set:** `Classic · Budget · Quick · Lentil · 1600s Original · In a Pumpkin`
 *(6 is justified for SA's national dish; if holding the strict 5-standard, drop Quick.)*
-→ Port `1600s Original` + `In a Pumpkin` into the Meals card as array-deltas; port `Quick` into the WK card as a string version; convert `Budget`/`Lentil` to deltas. Same names, same icons, same order in both rooms. Log the pair in the report.
+→ Port `1600s Original` + `In a Pumpkin` into the Meals card as array-deltas; port `Quick` into the WK card as a string version; convert other versions to deltas **only where they keep most of the base — keep them structural where the method genuinely differs** (§5 wins over §7). Same names, same icons, same order in both rooms. Log the pair in the report.
 
 ---
 
@@ -151,7 +160,8 @@ Flag generously. It's better to mark a card 🟡 and let a human deepen it than 
 
 ## 11. ORDER OF WORK (phases)
 1. **Reconcile Bobotie** (§7) — smallest, proves the cross-room pattern end-to-end.
-2. **Greece tail** — the ~52 non-hero Greek dishes to WOW-compliant + one twist each (heroes stay with Opus).
+2. **Greece tail** — the ~52 non-hero Greek dishes to WOW-compliant + one twist each. **BLOCKED until Opus's Greek heroes are pushed** (file-ownership §0.5) — `wk_europe.js` is Opus's until then, so **do Phase 4 first**.
+2.5 **Too-Simple Audit (§6.5)** on `wk_world.js` + `wk_southafrica.js` — flag & bucket CUT&REPLACE vs LIFT for sign-off (the `wk_europe.js` audit is the Opus/heroes track).
 3. **Thin WK South/Central block** (from the coverage map): Portugal · Switzerland · Austria · Belgium · Netherlands — lift to compliant + twist + delta versions.
 4. **Version-storage cleanup** across `meals.js` bloated versions → deltas (no content change, just leaner storage; verify byte-identical render in the report).
 5. **Stop and hand back** the create-from-scratch countries (Germany/UK/Italy) as proposed lineups — do not author.
