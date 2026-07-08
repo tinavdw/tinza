@@ -157,3 +157,31 @@ Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri 
 ### Not committed
 - Staged as a diff, **not committed**. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-4 — 6 Greek tail cards lifted to WOW + researched twists (bougatsa, kataifi, revani, halva, koulouri, paximadia)`
+
+---
+
+## Phase 2 · Greek tail — Batch 5 (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): still holding `wk_europe.js` for the Greek tail.** Pre-flight: `git pull` = "already up to date" (network back), tree clean at `71ae225`; verified the 13 heroes + all batch 1–4 cards are WOW-intact and untouched; re-read all 6 targets fresh (still thin). Edited only these 6 non-hero mains.
+
+### Cards lifted this batch (6) — full-WOW rewrite + 1 researched twist each; 6/6 verified via `applyRecipeVersion` (1 structural + 5 delta twists all apply; bases clean); `node --check` clean; byte-discipline held (6 lines changed)
+- ✅ **`greece-kreatopita`** (meat pie) — cook filling bone-dry, bind with egg & cheese, score before baking. Moat: a whole family of regional pies, queen = Cephalonia's. **Twist:** 🍚 *Kefalonian (Three-Meat & Rice)* — **structural** (beef+pork+lamb+rice, genuinely differs, §5).
+- ✅ **`greece-kontosouvli`** (spit-roast pork) — keep the fat on, marinate long, MEDIUM heat & patience (not fierce). Moat: "short spit", the *panigyri* festival smell. **Twist:** 🐔 *Chicken* (delta — swap + faster cook).
+- ✅ **`greece-arni-sto-fourno`** (Easter roast lamb) — stud with garlic, roast over lemon potatoes, rest before carving. Moat: oven vs outdoor-spit is the unsettled Greek Easter debate. **Twist:** 🕰️ *Slow-Roasted Shoulder* (delta — 6–7 hr fall-apart).
+- ✅ **`greece-bifteki`** (herb patties) — soaked bread + grated onion = bouncy not dry, dimple & don't press. Moat: the name is Greek-ified "beefsteak" (British troops). **Twist:** 🧀 *Gemisto (Feta-Stuffed)* (delta).
+- ✅ **`greece-keftedes`** (fried meatballs) — soaked bread, mint signature, flour-dust for a crisp shell, hot oil. Moat: from Ottoman *köfte* ← Persian *kufteh* ("pounded"). **Twist:** 🍶 *Ouzo-Spiked* (delta).
+- ✅ **`greece-pastitsada`** (Corfu beef & bucatini) — build the *spetseriko*, braise low 2 hr, thick hollow bucatini. Moat: Corfu's Venetian legacy — spetseriko named for the *spezieria* apothecary that sold it. **Twist:** 🐔 *Kokoras (Rooster)* — the original meat (delta).
+
+**Twists logged for taste-check:** kreatopita→Kefalonian three-meat & rice · kontosouvli→chicken · arni→slow-roasted shoulder · bifteki→feta-stuffed · keftedes→ouzo · pastitsada→rooster. All web-grounded (Kefalonian kreatopita, Corfu spetseriko/kokoras, arni variations searched); established authentic variants; no "no-twist-found" cases. Note: `pastitsada` and `stifado` (batch 1) are both spiced beef stews but stay distinct — pastitsada is the Corfiot spetseriko-and-bucatini dish, stifado the sweet-onion Venetian *stufato*.
+
+### Prices (§2/§9)
+- **No new gaps** — all resolve: beef mince/chuck/shin · pork mince/neck · lamb neck (180)/leg of lamb (190) · chicken (90) · phyllo pastry (118) · feta (230) · rice (27) · pasta/bucatini (36) · parmesan (750, for "parmesan (or kefalotyri)") · red wine (45) · tomato paste (180) · cinnamon/cloves/nutmeg/cumin/paprika (364)/bay · ouzo (320) · mint (650) · mustard (84). Allspice (unpriced) is mentioned only in-method for the spetseriko, not as a priced line.
+
+### Greek tail progress — nearly done
+- **30 of ~38 thin cards now lifted** across batches 1–5. **Only 7 remain** to finish Greece (mostly breads/salads/light dishes, per your note):
+  1. `greece-lahanosalata` (cabbage salad) · 2. `greece-strapatsada` (eggs with tomato/feta) · 3. `greece-horiatiko-psomi` (village bread) · 4. `greece-horta` (boiled wild greens) · 5. `greece-ladopsomo` (olive-oil bread) · 6. `greece-milopita` (apple cake) · 7. `greece-kokkinisto` (red-braised meat — the one remaining main).
+- No new CUT&REPLACE flags this batch. (`frappe` lifted and `garides-saganaki` folded by Opus in `64c1c84`, per earlier flags — off the list.)
+
+### Not committed
+- Staged as a diff, **not committed**. Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-5 — 6 Greek tail mains lifted to WOW + researched twists (kreatopita, kontosouvli, arni-sto-fourno, bifteki, keftedes, pastitsada)`
