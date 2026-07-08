@@ -185,3 +185,36 @@ Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri 
 ### Not committed
 - Staged as a diff, **not committed**. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-5 — 6 Greek tail mains lifted to WOW + researched twists (kreatopita, kontosouvli, arni-sto-fourno, bifteki, keftedes, pastitsada)`
+
+---
+
+## Phase 2 · Greek tail — Batch 6 (FINAL) (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): holding `wk_europe.js`.** Pre-flight: `git pull` = "already up to date", tree clean at `2d755d6`; heroes + batches 1–5 verified WOW-intact; all 7 targets re-read fresh (still thin). Edited only these 7 non-hero cards.
+
+### Cards lifted this batch (7) — full-WOW rewrite + 1 researched twist each; 7/7 verified via `applyRecipeVersion` (2 structural + 5 delta twists all apply; bases clean); `node --check` clean; byte-discipline held (7 lines changed)
+- ✅ **`greece-lahanosalata`** (winter cabbage salad) — slice fine, massage, REST before serving. Moat: Greece's winter salad when tomatoes are gone. **Twist:** 🌸 *Politiki (Constantinople)* — red pepper + mustard-vinegar (delta).
+- ✅ **`greece-strapatsada`** (eggs in tomato) — reduce the tomato to jam FIRST, pull eggs off underdone. Moat: from Italian *strapazzare* ("beat up"), a glut dish; = kagianas. **Twist:** 🫑 *With Peppers* (menemen-leaning, delta).
+- ✅ **`greece-horiatiko-psomi`** (village loaf) — long first rise, deep score, steam. Moat: baked weekly in the communal oven, marked with a cross, never wasted. **Twist:** 🫒 *Eliopsomo (Olive Bread)* (delta).
+- ✅ **`greece-horta`** (boiled wild greens) — cook uncovered to stay green, save the *zoumi*, dress hard with oil & lemon. Moat: foraged greens, Ikarian Blue-Zone staple. **Twist:** 🌶️ *Tsigarelli (Corfiot spicy)* — **structural** (sautéed, not boiled).
+- ✅ **`greece-ladopsomo`** (olive-oil bread) — oil makes it soft & long-keeping. Moat: oil marks feast-vs-fast in the Orthodox calendar. **Twist:** 🍅 *Ladenia (Tomato & Onion)* — **structural** (the Cycladic proto-pizza).
+- ✅ **`greece-milopita`** (apple cake) — thin apple, don't over-mix, fan extra on top. Moat: the apple's 3,000-year Greek-myth symbolism (Hesperides, Discord, apple-throwing proposals). **Twist:** 🌰 *Walnut & Cinnamon* (delta).
+- ✅ **`greece-kokkinisto`** (red-braised beef) — fry tomato paste to brick-red before liquid; braise low. Moat: the "reddened" twin of lemonato — the axis Greek home cooking swings on. **Twist:** 🐑 *Lamb (Arni Kokkinisto)* (delta).
+
+**Twists logged for taste-check:** lahanosalata→Politiki · strapatsada→peppers · horiatiko-psomi→eliopsomo · horta→tsigarelli · ladopsomo→ladenia · milopita→walnut · kokkinisto→lamb. Web-grounded (Politiki lahanosalata + Corfu tsigarelli searched); all established authentic variants; no "no-twist-found" cases.
+
+### Prices (§2/§9)
+- **No new gaps.** `red wine vinegar` (#286, already logged) now used by a 5th dish (lahanosalata Politiki) — count bumped and flagged as **recurring, worth keying**. Everything else resolves: cabbage (25) · carrot (25) · red pepper (100) · mustard (84) · spinach (93, the priced stand-in for wild greens) · olives (165) · paprika (364) · chilli (80) · fennel seed (590) · tomato paste (180) · apples (27) · walnuts (370) · lamb neck (180) · flour/yeast/olive oil.
+
+## 🎉 GREECE COMPLETE
+**Live inventory check: 54 Greek cards · 54 WOW · 0 thin.** Every Greek dish (13 heroes + 3 earlier swaps + **36 tail cards across batches 1–6**) is now WOW-compliant, each carrying a researched twist. This is the first fully-finished World-Kitchen country under the sweep.
+- Batches 1–6 lifted: **36 tail cards**, every one verified merging via `applyVersionDelta`, byte-discipline held throughout, `node --check` clean on every batch.
+- Price gaps surfaced for Greece (never guessed): `yellow split peas`, `red wine vinegar` (×5, recurring), `pickling onions`, `octopus`, `aniseed` — all in `TINZA_WK_PRICE_GAPS.md` for Tina.
+- No cards auto-deleted; all CUT&REPLACE/dup flags handed to Tina/Opus (loukoumades/youvetsi stubs, garides-saganaki, frappe — all since resolved by Opus).
+
+### Next country (Tina's pick)
+Per the coverage map (flowchart v42): the thin **South/Central block** is next — Portugal (52) · Switzerland (32) · Austria (Opus started) · Belgium (22) · Netherlands (22) — plus the §6.5 too-simple audit on `wk_world.js` / `wk_southafrica.js` (my cleared files). Germany/UK/Italy remain create-from-scratch (propose lineups, don't author) per §1.
+
+### Not committed
+- Staged as a diff, **not committed**. Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-6 — final 7 Greek tail cards lifted to WOW + researched twists (lahanosalata, strapatsada, horiatiko-psomi, horta, ladopsomo, milopita, kokkinisto); GREECE COMPLETE`
