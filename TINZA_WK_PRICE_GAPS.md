@@ -294,3 +294,4 @@ Add a `PRICE_DB` entry (or a `WK_ALIAS` mapping to an existing key) for the ones
 | 286 | 4 | `red wine vinegar` | red wine vinegar | Greece: Stifado + Melitzanosalata + Skordalia + Htapodi sti Schara |
 | 287 | 1 | `pickling onions` | pickling onions (peeled, whole) | Greece: Stifado (greece-stifado) — SA sub: pearl/pickling onions, else a large onion in wedges |
 | 288 | 1 | `octopus` | octopus | Greece: Htapodi sti Schara (greece-htapodi-sti-schara) — `calamari` (R130) is keyed but octopus is not |
+| 289 | 1 | `aniseed` | aniseed | Greece: Paximadia sweet version (greece-paximadia) — `fennel seed` (R590) is keyed; aniseed/glykaniso is the traditional one, add key or alias |

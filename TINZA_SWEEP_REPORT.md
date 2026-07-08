@@ -130,3 +130,30 @@ Desserts/breads: bougatsa · kataifi · revani · halva · milopita · koulouri 
 ### Not committed
 - Staged as a diff, **not committed**. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-3 — 6 Greek tail cards lifted to WOW + researched twists (skordalia, kolokithokeftedes, tiropita, paidakia, kotopoulo-lemonato, htapodi-sti-schara)`
+
+---
+
+## Phase 2 · Greek tail — Batch 4 (`wk_europe.js`) — 7 Jul 2026
+
+**FILE HELD (§0.5): still holding `wk_europe.js` for the Greek tail.** Synced: batch 3 is committed (`2f434e8`), tree clean; heroes + earlier batches intact; all 6 targets re-read fresh (still thin). Edited only these 6 non-hero cards. Desserts/breads cluster — reuses the phyllo + syrup make-or-breaks from the baklava/galaktoboureko heroes.
+
+### Cards lifted this batch (6) — full-WOW rewrite + 1 researched twist each; 6/6 verified via `applyRecipeVersion` (2 structural twists + 4 delta twists all apply; bases clean); `node --check` clean; byte-discipline held (6 lines changed)
+- ✅ **`greece-bougatsa`** (Thessaloniki custard pastry) — rain semolina into hot milk (no lumps), butter every sheet, **chop-hot-and-dust-with-icing-sugar-and-cinnamon** ritual. Moat: Thessaloniki's is crisp & barely sweet vs cream-heavy Veria. **Twist:** 🧀 *Cheese (Tyri)* — **structural** (savoury feta filling, no sugar; genuinely differs, §5).
+- ✅ **`greece-kataifi`** (shredded phyllo & nut rolls) — butter the strands right through, **hot pastry / cold syrup** (baklava rule). Moat: kataifi dough is drizzled onto a hot spinning plate into angel-hair — baklava's tousled cousin (= Levantine kunafa). **Twist:** 🍫 *Chocolate* (delta).
+- ✅ **`greece-revani`** (syrup semolina cake) — don't over-beat the semolina; **hot syrup on hot cake** (the reverse of baklava). Moat: named for the 16th-c Ottoman poet Revani; kin to basbousa. **Twist:** 🥥 *Coconut* (delta).
+- ✅ **`greece-halva`** (1:2:3:4 semolina halva) — toast the semolina nut-brown, add hot syrup a ladle at a time (it spits). Moat: the "1:2:3:4" ratio is a doorway-recitable memory trick; the great Orthodox-fasting sweet (no dairy/egg). **Twist:** 🍊 *Orange & Almond* (delta).
+- ✅ **`greece-koulouri`** (sesame street-bread ring) — knead for gluten, roll thin, **honey/molasses dip before sesame** so it crusts & browns. Moat: Greece's oldest fast food, sold by *koulouratzides* since Byzantine Constantinople. **Twist:** 🌾 *Wholewheat* (delta).
+- ✅ **`greece-paximadia`** (Cretan twice-baked rusks) — score before baking, long low second bake to dry to the core; the base for **dakos**. Moat: named for Paxamos, the ancient baker whose name became the word for "rusk" (→ Italian *biscotto*). **Twist:** 🍯 *Sweet Aniseed & Orange* — **structural** (sweet coffee-dunking rusk; genuinely differs).
+
+**Twists logged for taste-check:** bougatsa→cheese · kataifi→chocolate · revani→coconut · halva→orange & almond · koulouri→wholewheat · paximadia→sweet aniseed. Web-grounded (bougatsa sweet-vs-cheese + Thessaloniki ritual; halva 1:2:3:4 ratio & fasting role); all established authentic variants; no "no-twist-found" cases.
+
+### Prices (§2/§9)
+- **1 new gap** appended: `aniseed` (#289 — `fennel seed` R590 is keyed; aniseed/glykaniso is the traditional one for sweet paximadia). Add a key or alias.
+- Everything else resolves: phyllo pastry (118) · kataifi pastry (166) · fine/coarse semolina (37–43) · milk (20) · butter (160) · feta (230) · walnuts (370) · pistachios (800) · dark chocolate (313) · desiccated coconut (160) · raisins (168) · baking powder (76) · Greek yoghurt (80) · sesame seeds (244) · instant yeast (90) · bread/wholewheat/cake/barley flour · honey (160) · orange juice (25).
+
+### Greek tail progress
+- **24 of ~38 thin cards now lifted** (batches 1–4). **~14 remain** in the LIFT queue: milopita · horiatiko-psomi · ladopsomo · horta · lahanosalata · strapatsada · kreatopita · kontosouvli · arni-sto-fourno · bifteki · keftedes · pastitsada · kokkinisto (+ any dup-ruling leftovers). No new CUT&REPLACE flags.
+
+### Not committed
+- Staged as a diff, **not committed**. Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js batch-4 — 6 Greek tail cards lifted to WOW + researched twists (bougatsa, kataifi, revani, halva, koulouri, paximadia)`
