@@ -384,3 +384,35 @@ All 12 flagged-simple cards are **real dishes written thin**, not non-recipes �
 
 ### Suggested commit (atomic)
 - `wk-sweep: wk_europe.js — lift pataniscas-de-bacalhau to WOW + beer-batter twist; canonical salt-cod desalt line for the reserved trinity`
+- *Committed `105b837`.*
+
+---
+
+## Phase 3 · Portugal — Batch 3: Desserts (`wk_europe.js`) — 9 Jul 2026
+
+**Cluster confirmed:** Portugal has **12 dessert cards**; reserved as Opus heroes = `pasteis-de-nata` + `bolo-rei` (left thin, untouched). **Batch 3 = the other 10.** All *doçaria conventual* / café classics.
+
+### 10 desserts lifted thin → full WOW + 1 researched twist each. **10/10 verified via `applyVersionDelta`; re-parsed from live file (full field set, HF, 2 versions w/ delta, moats 313–416 chars); `node --check` clean; 10 lines changed; reserved 2 + cod trinity + heroes confirmed untouched.** Bakes carry a yield note ("makes ~6/~10") per the /wk Batch Law; leavener in grams; each moat a *distinct* angle (no reused convent-yolk line).
+- ✅ **`portugal-ovos-moles`** — thread-stage syrup + temper the yolks (boil = scrambled egg); piped into hóstia wafer shells. Moat: 16th-c Mosteiro de Jesus, Aveiro; IGP; named-checked by Eça de Queirós in *Os Maias*. **Twist:** 🍫 *Chocolate (63% cocoa)* — the 2015 producer-sanctioned version.
+- ✅ **`portugal-leite-creme`** — stovetop custard, cornflour insurance, low heat; burnt-sugar lid via the *ferro* iron. Moat: the crème-brûlée priority quarrel + the family branding-iron. **Twist:** 🔥 *Leite Frito* — set firm, crumbed & fried (molten-centre squares).
+- ✅ **`portugal-bolo-de-arroz`** — rice-flour crumb, the 6cm **parchment collar** = its identity, weigh the leavener. Moat: café constant; rice flour = wheat-thrift; the collar standardised early-20th-c. **Twist:** 🍊 *Laranja* — orange zest *(light/simple twist — flagged 🟡)*.
+- ✅ **`portugal-bolo-de-bolacha`** — no-bake; 5-min buttercream, one-second coffee dunk, overnight set. Moat: the Maria biscuit was minted in London 1874 for Grand Duchess Maria Alexandrovna's wedding. **Twist:** 🍫 *com Chocolate* (cocoa buttercream).
+- ✅ **`portugal-toucinho-do-ceu`** — dense almond cake, flour a whisper, eggs in off-heat, pull moist. Moat: "bacon from heaven" — originally made with **lard** (toucinho), hence the name. **Twist:** 🎃 *de Guimarães* (doce de chila threaded through).
+- ✅ **`portugal-pao-de-lo`** — **no leavener** (10-min whisk to a ribbon is the lift), fold flour gently. Moat: King Carlos I praised an underbaked one at Alfeizerão into a tradition. **Twist:** 🍮 *de Alfeizerão* — deliberately molten custard centre.
+- ✅ **`portugal-salame-de-chocolate`** — no-bake log, hand-broken biscuit "fat flecks", chocolate folded warm-not-hot. Moat: Portugal↔Italy both claim it (each says the other's). **Twist:** 🍷 *com Vinho do Porto e Nozes* — Port + walnuts (the Portuguese signature).
+- ✅ **`portugal-cavacas`** — corrected from a flat cake to the true **hollow popover** (don't open the oven 20 min — trapped steam puffs them) + hard sugar-syrup glaze. Moat: Caldas da Rainha spa souvenir; the glaze is a preservative. **Twist:** 🫒 *do Interior* — olive oil instead of butter (researched regional split).
+- ✅ **`portugal-encharcada`** — yolks cooked in thread-syrup then **grill-scorched** cinnamon top. Moat: Convento de Santa Clara, Évora; "drenched"; Brazilian sugar via the ports, sold at the convent grille. **Twist:** 🌰 *com Amêndoa* (Alentejo almonds).
+- ✅ **`portugal-queijadas`** — paper-thin shatter shell, sieved requeijão curd, cinnamon. Moat: 13th-c Sintra, once used as **currency** to pay rents/tithes to crown & convents. **Twist:** 🍊 *de Évora* — sheep's-milk requeijão + orange.
+
+**Twists logged (all web-researched, all pass the taste-gate):** ovos moles→chocolate(IGP 2015) · leite creme→leite frito · bolo de arroz→orange(🟡 light) · bolo de bolacha→chocolate · toucinho→Guimarães chila · pão de ló→Alfeizerão molten · salame→Port & walnuts · cavacas→interior olive-oil · encharcada→almond · queijadas→Évora. Grounded in: Oficina do Doce / DGADR / Wikipedia (ovos moles convent+IGP+chocolate 2015) · TasteAtlas / Taste Porto (pão de ló Alfeizerão King Carlos) · Wikipedia / doce de gila (toucinho lard+Guimarães chila) · Cinco Quartos / Basta Cheio (salame Port+walnuts) · DGADR / GoCaldas (cavacas hollow+oil-vs-butter) · Saveur / Wikipedia (encharcada Évora Santa Clara) · Visit Sintra / Wikipedia (queijadas 13th-c currency) · Just A Pinch (leite frito). **One flagged 🟡:** bolo-de-arroz→orange is a *light* flavour-swap twist, not a reinvention — honest, no stronger distinctive variation exists for it.
+
+### Prices (§2/§9)
+- **No new gaps.** All resolve or pre-existing: `flour` (systemic — approved `flour`→`cake flour` alias covers it) · `wafer shells` (#153) · `Maria biscuits`→`biscuits` (#9) · `orange (zest)`→#146 (tiny flavouring) · `port wine` (#119) · `doce de chila` prices via `jam` (R50) · `ricotta`(200) used for requeijão, `cocoa`(680), `almonds`(330), `dark chocolate`(313), `walnuts`(370), `brandy`(200 for aguardente), `breadcrumbs`(150), `rice flour`→`rice`(27) all keyed.
+
+### Portugal progress
+- **28 of 52 lifted** (batch 1: 8 · batch 2: 9 · pataniscas: 1 · batch 3 desserts: 10) + 1 course fix (açorda).
+- **8 reserved for Opus:** cod trinity ×3 (`bacalhau-a-bras`, `bacalhau-com-natas`, `bacalhau-a-gomes-de-sa`) + `pasteis-de-nata` + `caldo-verde` + `francesinha` + `frango-piri-piri` + `bolo-rei`.
+- **~16 remain** in the LIFT queue — the savoury tail: mains `tripas-a-moda-do-porto·favas-guisadas·bifinhos-com-cogumelos·arroz-de-pato·chanfana·bifana·feijoada·leitao·cozido-a-portuguesa·sopa-de-pedra` · starter `queijo-assado` · drink `ginjinha` · sides `migas-a-alentejana`/`broa-de-milho` (already `side`; verify depth). *(52 = 28 lifted + 8 reserved + 16 remaining.)*
+
+### Suggested commit (atomic)
+- `wk-sweep: wk_europe.js portugal batch-3 — 10 desserts lifted to WOW + researched twists (ovos moles, leite creme, bolo de arroz, bolo de bolacha, toucinho do céu, pão de ló, salame de chocolate, cavacas, encharcada, queijadas); pastéis de nata + bolo rei reserved`
