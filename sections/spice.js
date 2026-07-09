@@ -4438,6 +4438,1411 @@ var SPICE_DB = [
     ]
   },
 
+  {
+    id: "seville-marmalade",
+    name: "Seville Orange Marmalade",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Britain · Seville oranges",
+    flavourChips: ["Tangy", "Sweet", "Bitter"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"Seville oranges (whole)" },
+        { qty:1000, unit:"ml", name:"water" },
+        { qty:900, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Scrub the oranges, then simmer them whole in the water for about 2 hours until the peel is completely soft and a skewer slides in easily — this is the one step you cannot rush, because sugar sets peel hard and it will never soften afterwards. Lift out the oranges, halve them and scoop the pulp, pips and membranes into a square of muslin; tie it up and return it to the pan, as this bag holds most of the pectin. Shred the peel as thick or fine as you like and add it back with the sugar and lemon juice. Boil hard for 15 to 25 minutes, squeezing the muslin bag against the side now and then, until it reaches setting point on a cold saucer. Let it stand 10 minutes before potting so the peel suspends evenly instead of floating, then pot into hot sterilised jars. Sealed jars keep for a year or more."
+    },
+    pairsWith: ["hot buttered toast", "crumpets", "scones", "glazed ham", "bread & butter pudding"],
+    aliases: ["marmalade", "seville marmalade", "orange marmalade", "seville orange marmalade"],
+    story: "True marmalade means bitter Seville oranges, which are too sour to eat but make the definitive dark, bittersweet breakfast preserve. Their season is famously short — a few weeks in deep winter — so marmalade-making is a January ritual for anyone serious about it. The bitterness is the point: it is what stops a sweet preserve from cloying.",
+    howThisFeels: "Dark amber and glassy, bittersweet with strands of chewy peel — the grown-up end of the toast rack.",
+    versions: [
+      {
+        name: "Classic Dark & Bitter",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Whisky Marmalade",
+        icon: "🥃",
+        howThisFeels: "A slug of whisky stirred in off the heat — warming, smoky and unmistakably for grown-ups.",
+        delta: {
+          addIng: [
+            { item:{ qty:40, unit:"ml", name:"whisky" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Let it stand 10 minutes before potting", to:"Stir in the whisky, then let it stand 10 minutes before potting" }
+          ]
+        }
+      },
+      {
+        name: "Ginger Marmalade",
+        icon: "🫚",
+        howThisFeels: "Chopped stem ginger woven through — a warm, spicy heat that plays beautifully against the bitter peel.",
+        delta: {
+          addIng: [
+            { item:{ qty:50, unit:"g", name:"stem ginger, chopped" }, after:"sugar" }
+          ],
+          swapStep: [
+            { from:"add it back with the sugar and lemon juice", to:"add it back with the sugar, chopped stem ginger and lemon juice" }
+          ]
+        }
+      },
+      {
+        name: "Fine-Cut",
+        icon: "✂️",
+        howThisFeels: "Same marmalade, delicate shreds — for those who love the flavour but not a mouthful of chewy peel.",
+        delta: {
+          swapStep: [
+            { from:"Shred the peel as thick or fine as you like", to:"Shred the peel into very fine, short threads" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "lemon-marmalade",
+    name: "Lemon Marmalade",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Britain",
+    flavourChips: ["Tangy", "Sweet", "Zesty"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"lemons (whole)" },
+        { qty:900, unit:"ml", name:"water" },
+        { qty:800, unit:"g", name:"sugar" }
+      ],
+      method: "Scrub the lemons, halve them and squeeze out the juice, keeping every pip. Tie the pips and any loose membrane in a square of muslin — lemons are rich in pectin and most of it lives here. Shred the peel and halves finely, then simmer the peel, juice, water and muslin bag together for about 1 hour until the peel is meltingly soft. Add the sugar, stir until dissolved, then boil hard for 10 to 15 minutes, squeezing the muslin bag now and then, until it reaches setting point on a cold saucer. Lemon marmalade sets readily thanks to all that pectin, so start testing early. Let it stand 10 minutes, then pot into hot sterilised jars."
+    },
+    pairsWith: ["toast", "scones", "yoghurt", "steamed sponge pudding", "roast chicken glaze"],
+    aliases: ["lemon marmalade", "marmalade", "lemon preserve"],
+    story: "Brighter and sharper than orange marmalade, lemon marmalade is all sunshine and zing. It sets beautifully because lemons carry so much natural pectin in their pips and pith — which is exactly why the muslin bag of pips is never thrown away.",
+    howThisFeels: "Pale gold and sharp-sweet, with a clean citrus zing that wakes up a slice of toast.",
+    versions: [
+      {
+        name: "Classic Lemon",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Lemon & Lime",
+        icon: "🍈",
+        howThisFeels: "Swap a third of the lemons for limes — sharper, greener and a little more tropical.",
+        delta: {
+          swapIng: [
+            { from:"lemons (whole)", to:{ qty:350, unit:"g", name:"lemons (whole)" } }
+          ],
+          addIng: [
+            { item:{ qty:150, unit:"g", name:"limes (whole)" }, after:"lemons (whole)" }
+          ],
+          swapStep: [
+            { from:"Scrub the lemons, halve them", to:"Scrub the lemons and limes, halve them" }
+          ]
+        }
+      },
+      {
+        name: "Lemon & Rosemary",
+        icon: "🌿",
+        howThisFeels: "One sprig of rosemary infused in gives a savoury, resinous edge — lovely with cheese or brushed over roast chicken.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"rosemary sprig" }, after:"water" }
+          ],
+          swapStep: [
+            { from:"Let it stand 10 minutes, then pot", to:"Fish out the rosemary sprig, let it stand 10 minutes, then pot" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "three-fruit-marmalade",
+    name: "Three-Fruit Marmalade",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Britain",
+    flavourChips: ["Tangy", "Sweet", "Bitter"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:600, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:1, unit:"", name:"grapefruit" },
+        { qty:2, unit:"", name:"oranges" },
+        { qty:2, unit:"", name:"lemons" },
+        { qty:1500, unit:"ml", name:"water" },
+        { qty:1200, unit:"g", name:"sugar" }
+      ],
+      method: "This is the marmalade for any time of year, since it uses ordinary sweet oranges rather than seasonal Sevilles — the lemon and grapefruit supply the bitterness and pectin instead. Halve all the fruit, squeeze the juice and reserve every pip and membrane tied in muslin. Shred the peel finely, then simmer peel, juice, water and the muslin bag for about 1.5 to 2 hours until the peel is soft. Add the sugar, dissolve, then boil hard until it reaches setting point on a cold saucer, squeezing the muslin bag as you go. Let it stand 10 minutes so the peel suspends evenly, then pot into hot sterilised jars. Sealed jars keep for a year or more."
+    },
+    pairsWith: ["toast", "croissants", "scones", "cheese board", "duck glaze"],
+    aliases: ["three fruit marmalade", "3-fruit marmalade", "three-fruit marmalade", "mixed marmalade"],
+    story: "Three-fruit marmalade — grapefruit, orange and lemon — was the clever answer to the short Seville season: a balanced, year-round marmalade you can make with fruit from any supermarket. The three fruits cover all the bases: sweetness from the orange, sharpness from the lemon, and a gentle bitterness from the grapefruit.",
+    howThisFeels: "Golden and balanced — sweet, sharp and just bitter enough, with a tangle of mixed peel.",
+    versions: [
+      {
+        name: "Classic Three-Fruit",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Pink Grapefruit",
+        icon: "🌸",
+        howThisFeels: "A pink grapefruit swap gives a softer, rosier, less bitter marmalade with a beautiful blush.",
+        delta: {
+          swapIng: [
+            { from:"grapefruit", to:{ qty:1, unit:"", name:"pink grapefruit" } }
+          ]
+        }
+      },
+      {
+        name: "Whisky & Ginger",
+        icon: "🥃",
+        howThisFeels: "Stem ginger and a splash of whisky — the celebration version, all warmth and depth.",
+        delta: {
+          addIng: [
+            { item:{ qty:50, unit:"g", name:"stem ginger, chopped" }, after:"sugar" },
+            { item:{ qty:40, unit:"ml", name:"whisky" }, after:"stem ginger, chopped" }
+          ],
+          swapStep: [
+            { from:"Add the sugar, dissolve,", to:"Add the sugar and chopped stem ginger, dissolve," },
+            { from:"Let it stand 10 minutes so the peel suspends evenly", to:"Stir in the whisky, then let it stand 10 minutes so the peel suspends evenly" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "lemon-curd",
+    name: "Lemon Curd",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Britain",
+    flavourChips: ["Tangy", "Sweet", "Silky"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:3, unit:"", name:"eggs" },
+        { qty:1, unit:"", name:"egg yolk" },
+        { qty:150, unit:"g", name:"sugar" },
+        { qty:2, unit:"", name:"lemons (zest and juice)" },
+        { qty:100, unit:"g", name:"butter, cubed" }
+      ],
+      method: "Whisk the eggs, extra yolk and sugar together in a heatproof bowl until smooth, then whisk in the lemon zest and juice. Set the bowl over a pan of barely simmering water — the water must not touch the bowl — and stir constantly with a spatula. The one rule of curd is never let it boil, or the eggs scramble; keep the heat gentle and the spatula moving. After 8 to 12 minutes it will thicken enough to coat the back of the spoon and hold a line when you draw a finger through. Take it off the heat and beat in the cubed butter a few pieces at a time until glossy. Strain through a sieve for a perfectly silky curd, then pot and refrigerate — curd is a fresh preserve and keeps about 2 to 3 weeks in the fridge."
+    },
+    pairsWith: ["scones", "Victoria sponge", "meringues", "pancakes", "cheesecake"],
+    aliases: ["lemon curd", "lemon cheese", "curd"],
+    story: "Lemon curd is not a boiled jam at all but a cooked custard — eggs, butter, sugar and citrus thickened gently into something between a spread and a dessert. Because it is egg-based it does not keep like jam, but few things beat it warm off the spoon or folded through whipped cream.",
+    howThisFeels: "Sunshine-yellow, silky and rich, sharp with lemon and smooth as velvet.",
+    versions: [
+      {
+        name: "Classic Lemon",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Lime Curd",
+        icon: "🍈",
+        howThisFeels: "Sharper and more fragrant — limes in place of lemons, gorgeous with coconut or in a key-lime tart.",
+        delta: {
+          swapIng: [
+            { from:"lemons (zest and juice)", to:{ qty:4, unit:"", name:"limes (zest and juice)" } }
+          ]
+        }
+      },
+      {
+        name: "Passionfruit Lemon",
+        icon: "🌺",
+        howThisFeels: "Passionfruit pulp stirred in with the lemon — a tropical curd with tiny crunchy seeds.",
+        delta: {
+          swapIng: [
+            { from:"lemons (zest and juice)", to:{ qty:1, unit:"", name:"lemon (zest and juice)" } }
+          ],
+          addIng: [
+            { item:{ qty:80, unit:"g", name:"passionfruit pulp" }, after:"lemon (zest and juice)" }
+          ],
+          swapStep: [
+            { from:"whisk in the lemon zest and juice", to:"whisk in the lemon zest and juice and the passionfruit pulp" }
+          ]
+        }
+      },
+      {
+        name: "Lemon & Elderflower",
+        icon: "🌼",
+        howThisFeels: "A splash of elderflower cordial lifts the curd into something floral and English-summer pretty.",
+        delta: {
+          addIng: [
+            { item:{ qty:20, unit:"ml", name:"elderflower cordial" }, after:"lemons (zest and juice)" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "passionfruit-curd",
+    name: "Passionfruit Curd",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global · granadilla in SA",
+    flavourChips: ["Tangy", "Sweet", "Fragrant"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:120, unit:"g", name:"passionfruit pulp (about 6 granadillas)" },
+        { qty:3, unit:"", name:"eggs" },
+        { qty:1, unit:"", name:"egg yolk" },
+        { qty:150, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" },
+        { qty:100, unit:"g", name:"butter, cubed" }
+      ],
+      method: "Scoop the pulp from the granadillas — leave the seeds in for their pretty crunch, or push half through a sieve if you prefer it smoother. Whisk the eggs, yolk and sugar smooth in a heatproof bowl, then whisk in the passionfruit pulp and a squeeze of lemon to sharpen it. Set over barely simmering water, not touching, and stir constantly; as with any curd, never let it boil or the eggs will scramble. After 8 to 12 minutes it will coat the back of a spoon, at which point beat in the butter off the heat until glossy. Pot and refrigerate — it keeps about 2 to 3 weeks. Passionfruit curd is the most fragrant of all the curds and turns a plain pavlova or sponge into something special."
+    },
+    pairsWith: ["pavlova", "sponge cake", "scones", "yoghurt", "tartlets"],
+    aliases: ["passionfruit curd", "granadilla curd", "passion fruit curd"],
+    story: "In South Africa passionfruit is granadilla, and a granadilla curd is one of the loveliest ways to catch that intense, perfumed tang. Like all curds it is a gentle egg custard rather than a boiled jam, so it stays fresh and bright — and the little black seeds give it a signature crunch.",
+    howThisFeels: "Deep gold and intensely fragrant, tangy-sweet with a scatter of crunchy black seeds.",
+    versions: [
+      {
+        name: "Classic Granadilla",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Passionfruit & Mango",
+        icon: "🥭",
+        howThisFeels: "Mango purée softens the sharp passionfruit into something rounder and sunnier.",
+        delta: {
+          swapIng: [
+            { from:"passionfruit pulp (about 6 granadillas)", to:{ qty:70, unit:"g", name:"passionfruit pulp (about 4 granadillas)" } }
+          ],
+          addIng: [
+            { item:{ qty:80, unit:"g", name:"mango purée" }, after:"passionfruit pulp (about 4 granadillas)" }
+          ],
+          swapStep: [
+            { from:"whisk in the passionfruit pulp", to:"whisk in the passionfruit pulp and mango purée" }
+          ]
+        }
+      },
+      {
+        name: "Granadilla & White Chocolate",
+        icon: "🍫",
+        howThisFeels: "A little melted white chocolate beaten in at the end makes a dense, dessert-like curd — almost a truffle filling.",
+        delta: {
+          addIng: [
+            { item:{ qty:50, unit:"g", name:"white chocolate, melted" }, after:"butter, cubed" }
+          ],
+          swapStep: [
+            { from:"beat in the butter off the heat until glossy", to:"beat in the butter and melted white chocolate off the heat until glossy" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "orange-curd",
+    name: "Orange Curd",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global",
+    flavourChips: ["Sweet", "Tangy", "Silky"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:2, unit:"", name:"oranges (zest and juice)" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:3, unit:"", name:"eggs" },
+        { qty:1, unit:"", name:"egg yolk" },
+        { qty:130, unit:"g", name:"sugar" },
+        { qty:100, unit:"g", name:"butter, cubed" }
+      ],
+      method: "Orange curd has one trick: reduce the orange juice by half in a small pan first, because orange juice is watery and mild, and reducing it concentrates the flavour so the curd actually tastes of orange. Add the lemon juice too — its sharpness stops the curd tasting flat and oversweet. Whisk the eggs, yolk and sugar smooth, then whisk in the orange zest, reduced orange juice and lemon juice. Cook over barely simmering water, stirring constantly and never boiling, for 8 to 12 minutes until it coats the back of a spoon. Beat in the butter off the heat until glossy, strain if you like it silky, then pot and refrigerate for up to 2 to 3 weeks."
+    },
+    pairsWith: ["scones", "sponge cake", "French toast", "crêpes", "chocolate tart"],
+    aliases: ["orange curd", "curd"],
+    story: "Orange curd is less common than lemon for a good reason — orange juice is mild and watery, so a naive version tastes of nothing. The fix is to reduce the juice first and sharpen it with lemon, and then it becomes a gorgeous, mellow, marmalade-coloured curd all of its own.",
+    howThisFeels: "Warm marmalade-orange, silky and mellow with a bright citrus lift.",
+    versions: [
+      {
+        name: "Classic Orange",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Blood Orange",
+        icon: "🩸",
+        howThisFeels: "Blood oranges give a dramatic sunset colour and a deeper, berry-edged flavour.",
+        delta: {
+          swapIng: [
+            { from:"oranges (zest and juice)", to:{ qty:2, unit:"", name:"blood oranges (zest and juice)" } }
+          ]
+        }
+      },
+      {
+        name: "Naartjie Curd",
+        icon: "🍊",
+        howThisFeels: "The South African version — sweet, easy-peel naartjies for a softer, more perfumed, less acidic curd.",
+        delta: {
+          swapIng: [
+            { from:"oranges (zest and juice)", to:{ qty:4, unit:"", name:"naartjies (zest and juice)" } }
+          ]
+        }
+      },
+      {
+        name: "Orange & Cardamom",
+        icon: "🌰",
+        howThisFeels: "A pinch of ground cardamom turns it warm and aromatic — beautiful with anything almond.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"g", name:"ground cardamom" }, after:"sugar" }
+          ],
+          swapStep: [
+            { from:"Whisk the eggs, yolk and sugar smooth", to:"Whisk the eggs, yolk, sugar and cardamom smooth" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    id: "watermelon-konfyt",
+    name: "Watermelon Konfyt",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Karoo",
+    flavourChips: ["Sweet", "Warm", "Translucent"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 batch" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"watermelon rind (white part only)" },
+        { qty:15, unit:"g", name:"slaked lime (pickling lime, for soaking)" },
+        { qty:1000, unit:"g", name:"sugar" },
+        { qty:40, unit:"g", name:"fresh ginger, bruised" },
+        { qty:1, unit:"", name:"lemon (juice and slices)" }
+      ],
+      method: "Peel off every scrap of green skin and scrape away all the pink flesh — waatlemoenkonfyt is made from the firm white rind alone. Cut it into neat cubes or strips. Stir the slaked lime into about 2 litres of water and soak the rind overnight; this is the step that keeps the konfyt firm and glassy instead of collapsing to mush. The next day rinse the rind very, very thoroughly in several changes of fresh water — do not skip this, all the lime must be gone — then simmer in clean water until just tender. Make a syrup with the sugar, the bruised ginger, the lemon and about 500ml water; add the drained rind and boil gently until the cubes turn translucent and the syrup is thick, which can take a couple of hours or two shorter sessions a day apart. Pot the rind and syrup into hot sterilised jars. It keeps for a year and is the classic partner to a wedge of farm cheese."
+    },
+    pairsWith: ["farm cheese", "buttered bread", "koeksisters", "cheese board", "vanilla ice cream"],
+    aliases: ["watermelon konfyt", "waatlemoenkonfyt", "watermelon preserve", "konfyt"],
+    story: "Waatlemoenkonfyt is Karoo thrift turned into a delicacy — the rind that most people throw away, soaked in kalk (slaked lime) to firm it, then slowly candied in ginger syrup until every cube glows translucent. It is a preserve that demands patience, made over days, and it is treasured exactly because of that effort.",
+    howThisFeels: "Glassy, jewel-like cubes in a thick ginger syrup — chewy, sweet and gently warming.",
+    versions: [
+      {
+        name: "Classic (Ginger)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Extra Ginger",
+        icon: "🫚",
+        howThisFeels: "A double hit of ginger — more warmth and bite against the sweet, glassy rind.",
+        delta: {
+          swapIng: [
+            { from:"fresh ginger, bruised", to:{ qty:80, unit:"g", name:"fresh ginger, bruised" } }
+          ]
+        }
+      },
+      {
+        name: "Naartjie & Cinnamon",
+        icon: "🍊",
+        howThisFeels: "Naartjie peel and a cinnamon stick in the syrup give a fragrant, festive edge.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"naartjie (peel and juice)" }, after:"lemon (juice and slices)" },
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"naartjie (peel and juice)" }
+          ],
+          swapStep: [
+            { from:"the lemon and about 500ml water", to:"the lemon, naartjie peel and juice, cinnamon stick and about 500ml water" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "green-fig-konfyt",
+    name: "Green Fig Konfyt",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Cape",
+    flavourChips: ["Sweet", "Warm", "Whole-fruit"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 batch" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"small green (unripe) figs" },
+        { qty:15, unit:"g", name:"slaked lime (pickling lime, for soaking)" },
+        { qty:1000, unit:"g", name:"sugar" },
+        { qty:40, unit:"g", name:"fresh ginger, bruised" },
+        { qty:1, unit:"", name:"lemon (juice and slices)" }
+      ],
+      method: "Choose small, firm, completely unripe figs and cut a little cross in the base of each one so the syrup can work its way in. Soak them overnight in the slaked lime dissolved in about 2 litres of water — this firms the figs so they hold their shape through the long cooking. Rinse extremely well in several changes of fresh water until no trace of lime remains, then parboil the figs briefly and drain. Make a syrup with the sugar, ginger, lemon and about 750ml water, add the figs, and simmer gently; the traditional way is to bring them to the boil, then leave them to stand off the heat, and repeat over two or three days until the figs turn deep amber-green and translucent right through. Pot the whole figs upright in hot sterilised jars and cover with the syrup. Serve one whole fig at a time, with cheese or a spoon of cream."
+    },
+    pairsWith: ["farm cheese", "cream", "cheese board", "koeksisters", "brandy tart"],
+    aliases: ["green fig konfyt", "groenvykonfyt", "green fig preserve", "fig konfyt"],
+    story: "Groenvykonfyt is the queen of the Cape preserves — whole baby green figs candied slowly until dark and glossy, each one a little jewel served proudly on its own. Like watermelon konfyt it relies on a slaked-lime soak to keep the figs firm, and on the patience of boiling-and-standing over several days.",
+    howThisFeels: "Whole glossy figs, deep amber-green and translucent, sweet and syrupy with a warm ginger note.",
+    versions: [
+      {
+        name: "Classic (Ginger)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Spiced (Cinnamon & Clove)",
+        icon: "🎄",
+        howThisFeels: "Cinnamon and clove in the syrup make a warmer, more festive konfyt.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"lemon (juice and slices)" },
+            { item:{ qty:4, unit:"", name:"cloves" }, after:"cinnamon stick" }
+          ],
+          swapStep: [
+            { from:"Make a syrup with the sugar, ginger, lemon and about 750ml water", to:"Make a syrup with the sugar, ginger, lemon, cinnamon, cloves and about 750ml water" }
+          ]
+        }
+      },
+      {
+        name: "Extra Ginger",
+        icon: "🫚",
+        howThisFeels: "More bruised ginger for a spicier, less purely-sweet fig.",
+        delta: {
+          swapIng: [
+            { from:"fresh ginger, bruised", to:{ qty:80, unit:"g", name:"fresh ginger, bruised" } }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "makataan-konfyt",
+    name: "Makataan Konfyt",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Karoo",
+    flavourChips: ["Sweet", "Warm", "Translucent"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 batch" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"makataan flesh (cubed)" },
+        { qty:15, unit:"g", name:"slaked lime (pickling lime, for soaking)" },
+        { qty:1000, unit:"g", name:"sugar" },
+        { qty:50, unit:"g", name:"fresh ginger, bruised" },
+        { qty:1, unit:"", name:"lemon (juice and slices)" }
+      ],
+      method: "Makataan is the hard wild preserving-melon of the Karoo, and unlike watermelon konfyt you use its firm pale flesh, not the rind — cut it into neat cubes, discarding the seeds. Soak the cubes overnight in the slaked lime dissolved in about 2 litres of water to keep them firm and glassy. Rinse extraordinarily well in several changes of fresh water until all the lime is gone, then parboil in clean water until just tender. Make a syrup with the sugar, plenty of bruised ginger, the lemon and about 500ml water; add the drained makataan and boil gently until the cubes are translucent and the syrup thick, over a couple of hours or two sessions. Makataan takes ginger even more generously than watermelon does. Pot into hot sterilised jars."
+    },
+    pairsWith: ["farm cheese", "buttered rusks", "cheese board", "cream", "koeksisters"],
+    aliases: ["makataan konfyt", "makataankonfyt", "maketaan konfyt", "citron melon konfyt"],
+    story: "Makataan (the citron or preserving melon) grows wild and hardy across the Karoo, too tough and bland to eat raw but perfect for konfyt. Where waatlemoenkonfyt uses the rind of an eating watermelon, makataankonfyt uses the firm flesh of this special melon — and it takes a heavier hand of ginger, which is its signature.",
+    howThisFeels: "Firm, glassy cubes heavy with ginger syrup — the Karoo's answer to candied fruit.",
+    versions: [
+      {
+        name: "Classic (Heavy Ginger)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Lemon & Naartjie",
+        icon: "🍊",
+        howThisFeels: "Extra citrus in the syrup brightens the sweetness with naartjie and lemon peel.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"naartjie (peel and juice)" }, after:"lemon (juice and slices)" }
+          ],
+          swapStep: [
+            { from:"the lemon and about 500ml water", to:"the lemon, naartjie peel and juice, and about 500ml water" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "korrelkonfyt",
+    name: "Korrelkonfyt",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Cape winelands",
+    flavourChips: ["Sweet", "Fruity", "Whole-fruit"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 batch" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"hanepoot (muscat) grapes" },
+        { qty:600, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:200, unit:"ml", name:"water" }
+      ],
+      method: "Korrelkonfyt takes its name from the korrel, the single grape — the whole point is that each grape stays whole and plump in the syrup. Nick each grape and squeeze out the pips, or slit and flick them out with a pin, keeping the grape as intact as you can (seedless grapes save you the trouble but the old hanepoot flavour is worth the work). Bring the sugar, water and lemon juice to a simmer until the sugar dissolves, then slide in the grapes and cook gently — never at a hard boil, which would burst them — until the grapes are glossy and the syrup has thickened to a light set, about 30 to 40 minutes. Skim any foam and pot into hot sterilised jars. The muscat perfume is what makes it special."
+    },
+    pairsWith: ["buttered toast", "farm cheese", "scones", "melktert", "yoghurt"],
+    aliases: ["korrelkonfyt", "grape konfyt", "grape jam", "hanepoot konfyt"],
+    story: "Korrelkonfyt is the Cape winelands' whole-grape preserve, traditionally made with fragrant hanepoot (muscat) grapes at the end of the harvest. The skill is in keeping every grape whole and suspended in its perfumed syrup — a jam where texture matters as much as taste.",
+    howThisFeels: "Whole plump grapes in a light muscat syrup — soft, sweet and perfumed.",
+    versions: [
+      {
+        name: "Classic Hanepoot",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Lemon & Cinnamon",
+        icon: "🍋",
+        howThisFeels: "A cinnamon stick and extra lemon give the muscat grapes a warmer, spiced edge.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"lemon (juice)" }
+          ],
+          swapStep: [
+            { from:"Bring the sugar, water and lemon juice to a simmer", to:"Bring the sugar, water, cinnamon stick and lemon juice to a simmer" }
+          ]
+        }
+      },
+      {
+        name: "Red Grape",
+        icon: "🍇",
+        howThisFeels: "Made with red grapes for a deeper colour and a jammier, less floral flavour.",
+        delta: {
+          swapIng: [
+            { from:"hanepoot (muscat) grapes", to:{ qty:1000, unit:"g", name:"red grapes" } }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "blueberry-jam",
+    name: "Blueberry Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"blueberries (fresh or frozen)" },
+        { qty:350, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Combine the blueberries with the sugar and a good squeeze of lemon juice in a wide pot — frozen berries work perfectly and need no defrosting. Let them stand 15 minutes until the juices run, then bring to a rolling boil, stirring often and crushing some of the berries against the side of the pot to release their pectin while leaving others whole. Boil for 10 to 15 minutes until thick, testing for set on a cold saucer. Blueberries are only moderately high in pectin and quite low in acid, so the lemon juice does real work here, both for the set and to stop the jam tasting flat. Skim any foam and pot into hot sterilised jars. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["toast", "pancakes", "scones", "yoghurt", "cheesecake"],
+    aliases: ["blueberry jam", "blueberry preserve", "blueberry conserve"],
+    story: "Blueberry jam is deep, sweet and only just tart, with a colour close to purple-black. The trick is balance: crushing some berries for a good set while keeping others whole for texture, and leaning on lemon to lift a fruit that can otherwise taste a little flat and one-note.",
+    howThisFeels: "Deep purple-black and glossy, sweet with a gentle tang and whole berries throughout.",
+    versions: [
+      {
+        name: "Classic Blueberry",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Blueberry & Lemon",
+        icon: "🍋",
+        howThisFeels: "Extra lemon zest sharpens and brightens — the jam tastes fresher and less sweet.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"lemon zest" }, after:"lemon juice" }
+          ]
+        }
+      },
+      {
+        name: "Blueberry & Vanilla",
+        icon: "🌸",
+        howThisFeels: "A split vanilla pod rounds the berries into something softer and dessert-like.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"vanilla pod (split)" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Fish out the vanilla pod, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "Blueberry & Fynbos Honey",
+        icon: "🍯",
+        howThisFeels: "Part of the sugar swapped for fragrant fynbos honey — a floral, distinctly South African note.",
+        delta: {
+          swapIng: [
+            { from:"sugar", to:{ qty:250, unit:"g", name:"sugar" } }
+          ],
+          addIng: [
+            { item:{ qty:100, unit:"g", name:"fynbos honey" }, after:"sugar" }
+          ],
+          swapStep: [
+            { from:"Combine the blueberries with the sugar", to:"Combine the blueberries with the sugar and honey" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "cape-gooseberry-jam",
+    name: "Cape Gooseberry Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Cape",
+    flavourChips: ["Sweet", "Tangy", "Fruity"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"Cape gooseberries (appelliefies), husked" },
+        { qty:350, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:80, unit:"ml", name:"water" }
+      ],
+      method: "Pull off the papery husks and rinse the appelliefies well — they can be a little sticky underneath. Halve them and put them in a wide pot with the sugar, lemon juice and water, and let them stand 15 minutes. Bring to a rolling boil, stirring often, and cook for 15 to 20 minutes until thick and jammy, testing for set on a cold saucer. Cape gooseberries are naturally high in pectin, so they set willingly — start testing early. Skim any foam and pot into hot sterilised jars. The flavour is unmistakable: sweet-tart, faintly tropical, a little like a cross between an apricot and a tomato. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["toast", "scones", "farm cheese", "yoghurt", "malva pudding"],
+    aliases: ["cape gooseberry jam", "appelliefiekonfyt", "appelliefie jam", "gooseberry jam", "physalis jam"],
+    story: "The Cape gooseberry — appelliefie — is the little golden physalis in its papery lantern, and its jam is a South African favourite for good reason: sweet-tart, richly perfumed and naturally pectin-rich so it sets like a dream. It is a different fruit from the green European gooseberry, though both make a fine jam.",
+    howThisFeels: "Golden-amber and glossy, sweet-tart and faintly tropical with a soft, easy set.",
+    versions: [
+      {
+        name: "Classic Appelliefie",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Gooseberry & Ginger",
+        icon: "🫚",
+        howThisFeels: "Grated fresh ginger adds a warm bite that suits the fruit's tang beautifully.",
+        delta: {
+          addIng: [
+            { item:{ qty:15, unit:"g", name:"fresh ginger, grated" }, after:"water" }
+          ]
+        }
+      },
+      {
+        name: "Gooseberry & Vanilla",
+        icon: "🌸",
+        howThisFeels: "A split vanilla pod turns the tartness soft and mellow, almost custardy.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"vanilla pod (split)" }, after:"water" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Fish out the vanilla pod, skim any foam and pot" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "tomato-jam",
+    name: "Tomato Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · global",
+    flavourChips: ["Sweet", "Warm", "Savoury-edge"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:800, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:800, unit:"g", name:"ripe tomatoes (peeled, chopped)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:25, unit:"g", name:"fresh ginger, bruised" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "To peel the tomatoes easily, score a cross in the base, dip in boiling water for 30 seconds, then slip off the skins. Chop them and put them in a wide pot with the sugar, bruised ginger, lemon juice and salt. Bring to a boil, then lower to a steady simmer and cook — stirring more and more often as it thickens — for 45 minutes to over an hour, until it reduces to a thick, sticky, glossy jam. Tomato jam takes real time because tomatoes are so watery, so do not rush the reduction. Fish out the ginger, skim, and pot into hot sterilised jars. Tamatiekonfyt sits right on the sweet-savoury line: gorgeous on the cheese board, with cold meats, on a burger, or beside a curry."
+    },
+    pairsWith: ["cheese board", "cold meats", "burgers", "boerewors", "curry"],
+    aliases: ["tomato jam", "tamatiekonfyt", "tomato konfyt", "tomato preserve"],
+    story: "Tomato jam — tamatiekonfyt — is one of the oldest South African preserves, a sweet-savoury spoonful of tomato, sugar and ginger that walks the line between jam and relish. Botanically the tomato is a fruit, and here it is treated like one, cooked long and slow until it is sticky, dark and deeply savoury-sweet.",
+    howThisFeels: "Thick, sticky and dark red, sweet up front with a savoury, gingery depth underneath.",
+    versions: [
+      {
+        name: "Classic Sweet (Ginger)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Chilli Tomato (Braai Relish)",
+        icon: "🌶️",
+        howThisFeels: "Chilli and a splash of vinegar tip it savoury — a sticky relish made for boerewors and burgers.",
+        delta: {
+          swapIng: [
+            { from:"sugar", to:{ qty:300, unit:"g", name:"sugar" } }
+          ],
+          addIng: [
+            { item:{ qty:6, unit:"g", name:"chilli flakes" }, after:"fresh ginger, bruised" },
+            { item:{ qty:30, unit:"ml", name:"red wine vinegar" }, after:"chilli flakes" }
+          ],
+          swapStep: [
+            { from:"the sugar, bruised ginger, lemon juice and salt", to:"the sugar, bruised ginger, chilli flakes, vinegar, lemon juice and salt" }
+          ]
+        }
+      },
+      {
+        name: "Smoky (Paprika)",
+        icon: "🔥",
+        howThisFeels: "Smoked paprika gives a mellow, barbecue-style smokiness — halfway to a homemade ketchup.",
+        delta: {
+          addIng: [
+            { item:{ qty:5, unit:"g", name:"smoked paprika" }, after:"salt" }
+          ],
+          swapStep: [
+            { from:"the sugar, bruised ginger, lemon juice and salt", to:"the sugar, bruised ginger, lemon juice, salt and smoked paprika" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "naartjie-konfyt",
+    name: "Naartjie Konfyt",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "South Africa · Cape",
+    flavourChips: ["Sweet", "Zesty", "Warm"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:10, unit:"", name:"naartjies (peel of)" },
+        { qty:500, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:400, unit:"ml", name:"water" }
+      ],
+      method: "Peel the naartjies in big pieces and scrape away most of the soft white pith from the inside of the peel, since too much pith turns the konfyt bitter. Cut the peel into strips, or roll each piece up and thread the rolls onto cotton the old-fashioned way. Boil the peel in plenty of fresh water for a few minutes, drain, and repeat two or three times in fresh water each time — this is what draws out the bitterness. Now make a syrup with the sugar, water and lemon juice, add the blanched peel, and simmer gently for about an hour until the peel is soft and translucent and the syrup has thickened. Pot the peel and syrup into hot sterilised jars. Eat the candied strips with cheese, chop them into cakes and tarts, or serve as a sweet konfyt on buttered bread."
+    },
+    pairsWith: ["farm cheese", "buttered bread", "fruit cake", "koeksisters", "vanilla ice cream"],
+    aliases: ["naartjie konfyt", "naartjiekonfyt", "candied naartjie peel", "citrus peel konfyt"],
+    story: "Naartjie konfyt turns the peel most people throw away into a sweet, glossy treat — candied strips of fragrant naartjie skin in syrup, a thrifty Cape tradition. The secret is boiling the peel in several changes of water first to chase out the bitterness, leaving only the perfumed citrus oils behind.",
+    howThisFeels: "Glossy, translucent strips of sweet citrus peel, chewy and perfumed with a warm zest.",
+    versions: [
+      {
+        name: "Classic Naartjie",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Spiced (Cinnamon & Star Anise)",
+        icon: "🎄",
+        howThisFeels: "Cinnamon and star anise in the syrup make a mulled, festive peel — lovely at Christmas.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"lemon (juice)" },
+            { item:{ qty:2, unit:"", name:"star anise" }, after:"cinnamon stick" }
+          ],
+          swapStep: [
+            { from:"make a syrup with the sugar, water and lemon juice", to:"make a syrup with the sugar, water, cinnamon, star anise and lemon juice" }
+          ]
+        }
+      },
+      {
+        name: "Orange Peel",
+        icon: "🍊",
+        howThisFeels: "Made with orange peel instead — larger strips, a little more bitter, classic for dipping in dark chocolate.",
+        delta: {
+          swapIng: [
+            { from:"naartjies (peel of)", to:{ qty:4, unit:"", name:"oranges (peel of)" } }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "membrillo",
+    name: "Membrillo (Quince Paste)",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Spain",
+    flavourChips: ["Sweet", "Fruity", "Sliceable"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 block" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"quinces" },
+        { qty:800, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" }
+      ],
+      method: "Rub the grey fluff off the quinces, then chop them roughly — skin, core and all, since the peel and pips are full of the pectin that sets the paste. Simmer in just enough water to cover until completely soft, about 40 minutes, then drain and push through a sieve or blend to a smooth purée. Weigh the purée and return it to the pan with roughly three-quarters its weight in sugar and the lemon juice. Now cook it low and slow, stirring almost constantly for 45 minutes to over an hour — it will darken from pale gold to a deep brick-red and thicken until a spoon dragged across the bottom leaves a clear trail. Take care: thick membrillo spits like lava, so use a long spoon and keep the heat gentle. Scrape into a lined tin, smooth the top, and leave uncovered overnight to set to a firm, sliceable block. It is the classic partner to Manchego and keeps for months."
+    },
+    pairsWith: ["Manchego", "cheese board", "cured ham", "roast lamb", "buttered toast"],
+    aliases: ["membrillo", "quince paste", "dulce de membrillo", "quince cheese"],
+    story: "Dulce de membrillo is Spain's firm, sliceable quince paste — the sweet red block that turns a wedge of salty Manchego into a perfect mouthful. Raw quince is hard, sour and inedible, but long cooking with sugar performs alchemy: the pale flesh turns deep ruby and the sourness becomes a deep, honeyed perfume.",
+    howThisFeels: "A firm, sliceable block of deep ruby-red, sweet and floral with a grainy, quince perfume.",
+    versions: [
+      {
+        name: "Classic Sliceable",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Spiced (Cinnamon & Clove)",
+        icon: "🎄",
+        howThisFeels: "Warm spice woven in — a Christmassy membrillo that is wonderful with a mature cheese.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"lemon (juice)" },
+            { item:{ qty:3, unit:"", name:"cloves" }, after:"cinnamon stick" }
+          ],
+          swapStep: [
+            { from:"return it to the pan with roughly three-quarters its weight in sugar and the lemon juice", to:"return it to the pan with roughly three-quarters its weight in sugar, the lemon juice, the cinnamon stick and cloves" },
+            { from:"Scrape into a lined tin", to:"Fish out the cinnamon and cloves, then scrape into a lined tin" }
+          ]
+        }
+      },
+      {
+        name: "Membrillo Picante (for Cheese)",
+        icon: "🌶️",
+        howThisFeels: "A pinch of smoked chilli tips it savoury — a grown-up cheese-board paste with a slow warmth.",
+        delta: {
+          addIng: [
+            { item:{ qty:3, unit:"g", name:"smoked chilli flakes" }, after:"lemon (juice)" }
+          ],
+          swapStep: [
+            { from:"roughly three-quarters its weight in sugar and the lemon juice", to:"roughly three-quarters its weight in sugar, the lemon juice and the smoked chilli" }
+          ]
+        }
+      },
+      {
+        name: "Soft & Spoonable",
+        icon: "🥄",
+        howThisFeels: "Cooked a shorter time to a thick spoonable jam rather than a firm block — for those who want to spread it.",
+        delta: {
+          swapStep: [
+            { from:"Scrape into a lined tin, smooth the top, and leave uncovered overnight to set to a firm, sliceable block.", to:"Stop while it is still thick but spoonable and pot into hot sterilised jars — it will stay soft enough to spread." }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "quince-jam",
+    name: "Quince Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Middle East · Mediterranean",
+    flavourChips: ["Sweet", "Fruity", "Fragrant"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 jar" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"quinces (peeled, grated or diced)" },
+        { qty:800, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:600, unit:"ml", name:"water" }
+      ],
+      method: "Where membrillo is a firm block, quince jam stays soft and spreadable and shows off quince's party trick — the way it blushes from pale cream to deep rose-red the longer it cooks. Peel and core the quinces, tying the peels and cores in muslin for their pectin, and grate or finely dice the flesh. Simmer the flesh and muslin bag in the water for 40 minutes to an hour until the fruit is tender and has turned a rich pink. Add the sugar and lemon juice, squeeze and remove the muslin bag, then boil hard until it reaches setting point on a cold saucer. Pot into hot sterilised jars. The colour deepens further in the jar, so do not worry if it still looks pale when you pot it."
+    },
+    pairsWith: ["toast", "cheese board", "yoghurt", "roast pork", "scones"],
+    aliases: ["quince jam", "quince preserve", "moraba-ye beh", "quince conserve"],
+    story: "Quince jam is loved across the Middle East and Mediterranean for its extraordinary colour and honeyed, floral scent. The magic is chemical — the same long, slow cooking that softens the stony fruit also turns its pale flesh a deep ruby-rose, so patience is rewarded twice over, in texture and in colour.",
+    howThisFeels: "Rose-red and glossy, honey-sweet and softly fragrant with tender shreds of fruit.",
+    versions: [
+      {
+        name: "Classic Quince",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Persian Rose (Moraba)",
+        icon: "🌹",
+        howThisFeels: "A little rosewater and cardamom make the classic Persian moraba-ye beh — deeply perfumed and exotic.",
+        delta: {
+          addIng: [
+            { item:{ qty:3, unit:"ml", name:"rosewater" }, after:"lemon (juice)" },
+            { item:{ qty:2, unit:"g", name:"ground cardamom" }, after:"rosewater" }
+          ],
+          swapStep: [
+            { from:"Add the sugar and lemon juice", to:"Add the sugar, lemon juice and cardamom" },
+            { from:"Pot into hot sterilised jars.", to:"Stir in the rosewater off the heat, then pot into hot sterilised jars." }
+          ]
+        }
+      },
+      {
+        name: "Spiced (Cinnamon & Star Anise)",
+        icon: "🎄",
+        howThisFeels: "Warm whole spices simmered in give a mulled, wintery depth.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"water" },
+            { item:{ qty:2, unit:"", name:"star anise" }, after:"cinnamon stick" }
+          ],
+          swapStep: [
+            { from:"Simmer the flesh and muslin bag in the water", to:"Simmer the flesh, muslin bag and whole spices in the water" },
+            { from:"squeeze and remove the muslin bag", to:"squeeze and remove the muslin bag and fish out the whole spices" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "rose-petal-jam",
+    name: "Rose-Petal Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Turkey · Middle East",
+    flavourChips: ["Sweet", "Floral", "Fragrant"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 small jar" },
+      ingredients: [
+        { qty:100, unit:"g", name:"fragrant rose petals (unsprayed, pesticide-free)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:300, unit:"ml", name:"water" }
+      ],
+      method: "Use only fragrant, unsprayed roses — pesticide-free damask or the deepest pink garden roses — because you are eating the petals and supermarket roses are usually sprayed. Snip off the bitter white heel at the base of each petal. Put the petals in a bowl with about a third of the sugar and the lemon juice and rub them between your fingers for a few minutes; they will bruise, soften and release their colour and scent. Boil the rest of the sugar with the water to a light syrup, add the sugared petals and lemon, and simmer very gently for 20 to 30 minutes until the petals are soft and translucent and the syrup thickens — the lemon keeps the colour a vivid pink rather than dull brown. Pot into small hot sterilised jars. A little goes a long way, spooned over yoghurt, ice cream or into Turkish delight."
+    },
+    pairsWith: ["yoghurt", "vanilla ice cream", "rice pudding", "clotted cream scones", "baklava"],
+    aliases: ["rose petal jam", "gul receli", "rose jam", "rose preserve", "gulkand"],
+    story: "Rose-petal jam — gül reçeli in Turkey — is one of the world's most romantic preserves, catching the scent of a whole rose garden in a spoonful. It stretches from the Balkans through Turkey and Persia to India's sun-cooked gulkand, and everywhere it is treasured as much for its perfume as its taste. The one rule is unsprayed roses only.",
+    howThisFeels: "A vivid pink, intensely perfumed syrup studded with soft translucent petals — a rose garden on a spoon.",
+    versions: [
+      {
+        name: "Classic Rose",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Rose & Cardamom",
+        icon: "🌰",
+        howThisFeels: "Crushed cardamom adds a warm, resinous spice that deepens the floral scent.",
+        delta: {
+          addIng: [
+            { item:{ qty:2, unit:"g", name:"ground cardamom" }, after:"lemon (juice)" }
+          ],
+          swapStep: [
+            { from:"add the sugared petals and lemon", to:"add the sugared petals, cardamom and lemon" }
+          ]
+        }
+      },
+      {
+        name: "Persian Rose & Saffron",
+        icon: "🌸",
+        howThisFeels: "A pinch of saffron turns it golden-pink and gives a honeyed, luxurious Persian character.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"g", name:"saffron threads" }, after:"water" }
+          ],
+          swapStep: [
+            { from:"Boil the rest of the sugar with the water", to:"Boil the rest of the sugar with the water and saffron" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "date-jam",
+    name: "Date Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Middle East",
+    flavourChips: ["Sweet", "Warm", "Rich"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:400, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:300, unit:"g", name:"soft pitted dates, chopped" },
+        { qty:350, unit:"ml", name:"water" },
+        { qty:1, unit:"", name:"orange (zest and juice)" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:2, unit:"g", name:"ground cinnamon" },
+        { qty:1, unit:"g", name:"salt" }
+      ],
+      method: "Unlike a plain date paste for sweetening, this is a spiced spread for the breakfast table — dates cooked down with citrus and warm spice into something jammy and toffee-rich, with no added sugar needed since the dates are sweet enough. Simmer the chopped dates in the water with the orange juice for 10 to 15 minutes until very soft and collapsing. Mash well with a fork, or blend for a smoother spread, loosening with a splash more water if it gets too stiff. Stir in the orange zest, lemon juice, cinnamon and salt — the lemon is important, cutting the sweetness so it tastes of dates rather than just sugar. Cook another few minutes to a thick, spreadable jam, then pot into a sterilised jar. It keeps a couple of weeks in the fridge and is lovely on toast, with cheese, or swirled into porridge."
+    },
+    pairsWith: ["toast", "porridge", "cheese board", "pancakes", "yoghurt"],
+    aliases: ["date jam", "date spread", "spiced date jam", "date butter"],
+    story: "Date jam is the Middle Eastern answer to a sweet spread that needs no sugar at all — dates are already nature's caramel, and cooking them down with orange, lemon and cinnamon turns them into a glossy, toffee-rich preserve. It is close cousin to the date syrups and pastes of the region, but brightened and spiced for the toast rack.",
+    howThisFeels: "Dark, glossy and toffee-rich, deeply sweet with a warm cinnamon-and-citrus lift.",
+    versions: [
+      {
+        name: "Classic Spiced Date",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Date & Tahini",
+        icon: "🥜",
+        howThisFeels: "Tahini swirled in gives a nutty, savoury richness — the classic Levantine pairing of dates and sesame.",
+        delta: {
+          addIng: [
+            { item:{ qty:40, unit:"g", name:"tahini" }, after:"salt" }
+          ],
+          swapStep: [
+            { from:"Cook another few minutes to a thick, spreadable jam", to:"Swirl the tahini through, then cook another few minutes to a thick, spreadable jam" }
+          ]
+        }
+      },
+      {
+        name: "Date, Walnut & Cardamom",
+        icon: "🌰",
+        howThisFeels: "Toasted walnuts and cardamom make a chunkier, more festive spread — almost a filling for pastries.",
+        delta: {
+          swapIng: [
+            { from:"ground cinnamon", to:{ qty:2, unit:"g", name:"ground cardamom" } }
+          ],
+          addIng: [
+            { item:{ qty:50, unit:"g", name:"walnuts, toasted and chopped" }, after:"salt" }
+          ],
+          swapStep: [
+            { from:"cinnamon and salt", to:"cardamom and salt" },
+            { from:"Cook another few minutes to a thick, spreadable jam", to:"Stir in the toasted walnuts, then cook another few minutes to a thick, spreadable jam" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "cherry-confiture",
+    name: "Cherry Confiture",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "France",
+    flavourChips: ["Sweet", "Fruity", "Whole-fruit"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"cherries (pitted, kept whole)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:1, unit:"", name:"lemon (juice)" },
+        { qty:60, unit:"ml", name:"redcurrant juice (or a spoon of redcurrant jelly)" },
+        { qty:20, unit:"ml", name:"kirsch" }
+      ],
+      method: "A French confiture is a different thing from a set jam — the whole cherries stay proudly intact, suspended in a loose, glossy syrup rather than crushed to a firm spread. Pit the cherries, keeping them whole, and layer them with the sugar and lemon juice in a bowl; leave overnight so the sugar draws the juices out without breaking the fruit. The next day, lift the cherries out with a slotted spoon and boil the syrup with the redcurrant juice hard until it reaches a light set — the redcurrant lends both pectin and a welcome tartness against the sweet cherries. Slip the whole cherries back in for just 3 to 4 minutes so they warm through but stay whole, then stir in the kirsch off the heat. Pot into hot sterilised jars. This is a spoon-fruit as much as a jam: glorious over ice cream, in a clafoutis, or with duck."
+    },
+    pairsWith: ["vanilla ice cream", "clafoutis", "brioche", "roast duck", "dark chocolate cake"],
+    aliases: ["cherry confiture", "confiture de cerises", "whole cherry preserve", "cherry preserve"],
+    story: "Confiture de cerises is the French art of the whole-fruit preserve, where success is judged on how many cherries survive intact and glossy in the jar. It is a looser, more elegant thing than a British-style set jam — closer to a fruit dessert you would spoon over cream — and the traditional touch of redcurrant and kirsch is what lifts it from sweet to sophisticated.",
+    howThisFeels: "Whole glossy cherries in a loose, ruby, kirsch-scented syrup — a spoon-fruit fit for dessert.",
+    versions: [
+      {
+        name: "Classic (with Kirsch)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Griotte (Sour Cherry)",
+        icon: "🍒",
+        howThisFeels: "Made with sour griotte cherries — sharper and more intense, the true French confiture cherry.",
+        delta: {
+          swapIng: [
+            { from:"cherries (pitted, kept whole)", to:{ qty:500, unit:"g", name:"griotte (sour) cherries, pitted and kept whole" } }
+          ]
+        }
+      },
+      {
+        name: "Confiture Quatre-Fruits",
+        icon: "🍓",
+        howThisFeels: "The classic four-red-fruits confiture — cherries joined by strawberries, redcurrants and raspberries for a jewelled mixed preserve.",
+        delta: {
+          swapIng: [
+            { from:"cherries (pitted, kept whole)", to:{ qty:200, unit:"g", name:"cherries (pitted, kept whole)" } }
+          ],
+          addIng: [
+            { item:{ qty:150, unit:"g", name:"strawberries, hulled" }, after:"cherries (pitted, kept whole)" },
+            { item:{ qty:100, unit:"g", name:"redcurrants" }, after:"strawberries, hulled" },
+            { item:{ qty:50, unit:"g", name:"raspberries" }, after:"redcurrants" }
+          ],
+          swapStep: [
+            { from:"Pit the cherries, keeping them whole, and layer them with the sugar and lemon juice", to:"Pit the cherries and layer them and all the other fruit with the sugar and lemon juice" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "onion-confit",
+    name: "Onion Confit",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "France",
+    flavourChips: ["Sweet", "Savoury-edge", "Sticky"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:600, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:600, unit:"g", name:"red onions, thinly sliced" },
+        { qty:30, unit:"g", name:"butter" },
+        { qty:60, unit:"g", name:"sugar" },
+        { qty:60, unit:"ml", name:"red wine" },
+        { qty:40, unit:"ml", name:"red wine vinegar" },
+        { qty:3, unit:"g", name:"salt" }
+      ],
+      method: "Where a British onion chutney is led by vinegar, the French confiture d'oignons leans on butter and red wine for something glossier and winier — a jammy confit for the cheese board and pâté. Melt the butter in a wide pan and add the red onions with the salt; cook them very gently for 30 to 40 minutes, stirring now and then, until deeply soft and collapsed — low and slow is the whole secret, as high heat browns them bitter instead of sweet. Stir in the sugar and let it cook a few minutes to caramelise, then pour in the red wine and vinegar and let it bubble. Reduce, stirring more often as it thickens, for another 15 to 20 minutes until sticky, glossy and jammy with almost no liquid left. Pot into a hot sterilised jar. It keeps a few weeks in the fridge and is glorious with pâté, cold meats, a burger or a wedge of sharp cheese."
+    },
+    pairsWith: ["pâté", "cheese board", "burgers", "cold meats", "grilled steak"],
+    aliases: ["onion confit", "onion marmalade", "confiture d'oignons", "red onion jam"],
+    story: "Confiture d'oignons is the French bistro's secret weapon — sweet red onions cooked down slowly with red wine into a sticky, glossy jam that turns up beside every pâté and terrine. Unlike the sharper British onion chutney, this one is buttery and wine-rich, sweet with just enough acidity to keep it lively.",
+    howThisFeels: "Dark, glossy and sticky, sweet with a savoury, wine-rich depth — the cheese board's best friend.",
+    versions: [
+      {
+        name: "Classic Red Wine",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Balsamic",
+        icon: "🫒",
+        howThisFeels: "Balsamic in place of the red wine vinegar makes it darker, sweeter and more syrupy.",
+        delta: {
+          swapIng: [
+            { from:"red wine vinegar", to:{ qty:40, unit:"ml", name:"balsamic vinegar" } }
+          ]
+        }
+      },
+      {
+        name: "Cassis (very French)",
+        icon: "🍇",
+        howThisFeels: "A splash of crème de cassis deepens the colour to near-black and adds a blackcurrant richness.",
+        delta: {
+          addIng: [
+            { item:{ qty:30, unit:"ml", name:"crème de cassis" }, after:"red wine vinegar" }
+          ],
+          swapStep: [
+            { from:"pour in the red wine and vinegar", to:"pour in the red wine, cassis and vinegar" }
+          ]
+        }
+      },
+      {
+        name: "Port & Thyme",
+        icon: "🌿",
+        howThisFeels: "Port and fresh thyme give a warm, herby, fortified depth — especially good with blue cheese.",
+        delta: {
+          swapIng: [
+            { from:"red wine", to:{ qty:60, unit:"ml", name:"port" } }
+          ],
+          addIng: [
+            { item:{ qty:2, unit:"g", name:"fresh thyme leaves" }, after:"salt" }
+          ],
+          swapStep: [
+            { from:"add the red onions with the salt", to:"add the red onions with the salt and thyme" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "apple-butter",
+    name: "Apple Butter",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "United States",
+    flavourChips: ["Sweet", "Warm", "Spiced"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 jar" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"apples (peeled, cored, chopped)" },
+        { qty:250, unit:"ml", name:"apple juice or cider" },
+        { qty:150, unit:"g", name:"brown sugar" },
+        { qty:3, unit:"g", name:"ground cinnamon" },
+        { qty:1, unit:"g", name:"ground cloves" },
+        { qty:1, unit:"", name:"lemon (juice)" }
+      ],
+      method: "Despite the name there is no dairy in apple butter — 'butter' describes the silky, spreadable texture it cooks down to. Simmer the apples in the apple juice until completely collapsed to a soft sauce, about 20 minutes, then blend or mash smooth. Stir in the brown sugar, cinnamon, cloves and lemon juice and now cook it long and low, stirring more and more often, for 1 to 2 hours — this is the step that makes apple butter, slowly driving off the water until it darkens to a deep glossy mahogany and mounds thickly on a spoon. If it spits, drop the heat and half-cover the pan. It is ready when a spoonful holds its shape and the surface looks glossy and dark. Pot into hot sterilised jars. Spread it thick on toast, swirl into porridge, or serve with pork or sharp cheddar."
+    },
+    pairsWith: ["toast", "porridge", "pancakes", "roast pork", "sharp cheddar"],
+    aliases: ["apple butter", "spiced apple butter", "apple preserve"],
+    story: "Apple butter is an American autumn tradition, born from communal 'butter boils' where windfall apples were cooked down all day in huge copper kettles over a fire. The long, slow cook is everything: it caramelises the natural sugars and concentrates the apples into a dark, spiced, spreadable butter far richer than any apple sauce.",
+    howThisFeels: "Deep mahogany-brown, silky-smooth and thickly spreadable, warm with cinnamon and clove.",
+    versions: [
+      {
+        name: "Classic Spiced",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Bourbon Apple Butter",
+        icon: "🥃",
+        howThisFeels: "A slug of bourbon stirred in at the end adds a smoky, caramel warmth — very Southern.",
+        delta: {
+          addIng: [
+            { item:{ qty:30, unit:"ml", name:"bourbon" }, after:"lemon (juice)" }
+          ],
+          swapStep: [
+            { from:"It is ready when a spoonful holds its shape", to:"Stir in the bourbon near the end. It is ready when a spoonful holds its shape" }
+          ]
+        }
+      },
+      {
+        name: "Pear Butter",
+        icon: "🍐",
+        howThisFeels: "Made with pears instead — mellower, floral and honeyed, with a little less spice.",
+        delta: {
+          swapIng: [
+            { from:"apples (peeled, cored, chopped)", to:{ qty:1000, unit:"g", name:"pears (peeled, cored, chopped)" } },
+            { from:"apple juice or cider", to:{ qty:250, unit:"ml", name:"pear or apple juice" } }
+          ]
+        }
+      },
+      {
+        name: "Naturally Sweet (No Added Sugar)",
+        icon: "🍏",
+        howThisFeels: "Sweet apples cooked down with no added sugar at all — the fruit alone, for a purer, tarter butter.",
+        delta: {
+          removeIng: [
+            { item:"brown sugar" }
+          ],
+          swapStep: [
+            { from:"Stir in the brown sugar, cinnamon, cloves and lemon juice", to:"Stir in the cinnamon, cloves and lemon juice (no sugar — use naturally sweet apples like Golden Delicious or Fuji)" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "preserved-lemons",
+    name: "Preserved Lemons",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Morocco",
+    flavourChips: ["Salty", "Tangy", "Fermented"],
+    whenToUse: "mid",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"", base:6, step:2, label:"1 jar" },
+      ingredients: [
+        { qty:6, unit:"", name:"unwaxed lemons" },
+        { qty:120, unit:"g", name:"coarse salt" },
+        { qty:150, unit:"ml", name:"extra lemon juice (to cover)" }
+      ],
+      method: "Scrub the lemons well (if they are waxed, soak in warm water and rub the wax off). Cut each lemon into quarters from the top, but stop short of the base so it stays joined at the bottom. Pack coarse salt generously into every cut and all over the outside, then push the lemons hard into a clean sterilised jar, packing salt between them; press down firmly so they start to release their juice. Top up with extra lemon juice until every lemon is completely submerged — keeping them under the brine is what stops mould and lets them ferment safely. Seal, leave at room temperature for 3 to 4 weeks, and turn the jar daily for the first week to move the salt around. They are ready when the rinds are soft and the juice has gone syrupy. To use, lift one out with a clean fork, rinse, scrape away and discard the soft flesh, and finely slice or chop only the intense salty rind — that is the treasure — for tagines, roast chicken, dressings and grain salads. Once opened, keep in the fridge, always submerged, and they last a year."
+    },
+    pairsWith: ["chicken tagine", "roast chicken", "couscous", "grain salads", "grilled fish"],
+    aliases: ["preserved lemons", "salt preserved lemons", "l'hamd markad", "moroccan lemons"],
+    story: "Preserved lemons are the backbone of Moroccan cooking — whole lemons packed in salt and their own juice and left to ferment until the rind turns soft, mellow and deeply savoury. The salt draws out the water and the slow ferment transforms the harsh peel into something you could never get from a fresh lemon: intense, almost floral, and unmistakably itself.",
+    howThisFeels: "Soft, silky, translucent rind — intensely salty, sour and savoury, with a mellow, almost floral depth.",
+    versions: [
+      {
+        name: "Classic",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Spiced",
+        icon: "🌿",
+        howThisFeels: "Bay, cinnamon, coriander seed and a dried chilli tucked into the jar perfume the lemons as they cure.",
+        delta: {
+          addIng: [
+            { item:{ qty:2, unit:"", name:"bay leaves" }, after:"coarse salt" },
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"bay leaves" },
+            { item:{ qty:5, unit:"g", name:"coriander seeds" }, after:"cinnamon stick" },
+            { item:{ qty:1, unit:"", name:"dried chilli" }, after:"coriander seeds" }
+          ],
+          swapStep: [
+            { from:"push the lemons hard into a clean sterilised jar", to:"tuck the bay, cinnamon, coriander seeds and chilli among the lemons and push them hard into a clean sterilised jar" }
+          ]
+        }
+      },
+      {
+        name: "Preserved Limes",
+        icon: "🍈",
+        howThisFeels: "Made with limes — smaller, sharper and more aromatic, wonderful in South-East Asian and Indian cooking.",
+        delta: {
+          swapIng: [
+            { from:"unwaxed lemons", to:{ qty:10, unit:"", name:"unwaxed limes" } },
+            { from:"extra lemon juice (to cover)", to:{ qty:150, unit:"ml", name:"extra lime juice (to cover)" } }
+          ]
+        }
+      },
+      {
+        name: "Quick (One Week)",
+        icon: "⏱️",
+        howThisFeels: "Thinly sliced rather than quartered, so they cure in about a week instead of a month — less deep, but fast.",
+        delta: {
+          swapStep: [
+            { from:"Cut each lemon into quarters from the top, but stop short of the base so it stays joined at the bottom.", to:"Slice the lemons thinly into rounds." },
+            { from:"leave at room temperature for 3 to 4 weeks, and turn the jar daily for the first week", to:"leave at room temperature for about 1 week, turning the jar daily" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "marrow-ginger-jam",
+    name: "Marrow & Ginger Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Britain · old-fashioned",
+    flavourChips: ["Sweet", "Warm", "Translucent"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:1000, step:200, label:"1 jar" },
+      ingredients: [
+        { qty:1000, unit:"g", name:"marrow (peeled, deseeded, cubed)" },
+        { qty:800, unit:"g", name:"sugar" },
+        { qty:60, unit:"g", name:"fresh ginger, bruised" },
+        { qty:2, unit:"", name:"lemons (zest and juice)" }
+      ],
+      method: "This is the wonderful oddity of the preserving world — a jam made from marrow, a vegetable with almost no flavour of its own, which is exactly the point: it becomes a translucent, glassy canvas for ginger and lemon. Peel the marrow, scoop out the seeds, and cut the firm flesh into neat small cubes. Layer the cubes with the sugar in a bowl and leave overnight, so the sugar draws out the marrow's considerable water. The next day tip everything into a pot with the bruised ginger and the lemon zest and juice, tying the ginger peelings and lemon pips in muslin and adding it too, since marrow has no pectin of its own and needs the help. Simmer gently until the marrow cubes turn clear and candied and the syrup thickens to a light set, about 45 minutes to an hour — the cubes should stay whole, like little jewels of candied ginger. Squeeze and remove the muslin, then pot into hot sterilised jars."
+    },
+    pairsWith: ["buttered toast", "scones", "farm cheese", "rice pudding", "steamed sponge"],
+    aliases: ["marrow jam", "marrow and ginger jam", "marrow ginger jam", "marrow konfyt"],
+    story: "Marrow and ginger jam is a thrifty piece of old-fashioned garden magic — the answer to the giant marrow that got away and grew to the size of a rugby ball. Because marrow tastes of almost nothing, the jam is all about the ginger and lemon it carries, and the strange delight of biting into a translucent, glassy cube that looks like candied fruit but started life as a humble vegetable.",
+    howThisFeels: "Amber and glassy, with translucent cubes that glow like candied fruit — sweet, gingery and surprising.",
+    versions: [
+      {
+        name: "Classic",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Extra Ginger (Crystallised)",
+        icon: "🫚",
+        howThisFeels: "Chopped crystallised ginger stirred in near the end for a real, chewy ginger punch.",
+        delta: {
+          addIng: [
+            { item:{ qty:60, unit:"g", name:"crystallised ginger, chopped" }, after:"fresh ginger, bruised" }
+          ],
+          swapStep: [
+            { from:"Squeeze and remove the muslin", to:"Stir in the crystallised ginger, then squeeze and remove the muslin" }
+          ]
+        }
+      },
+      {
+        name: "Marrow, Ginger & Chilli",
+        icon: "🌶️",
+        howThisFeels: "A dried chilli in the pot adds a slow warmth behind the ginger — surprisingly good with cheese.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"dried chilli" }, after:"fresh ginger, bruised" }
+          ],
+          swapStep: [
+            { from:"tip everything into a pot with the bruised ginger", to:"tip everything into a pot with the bruised ginger, the dried chilli" }
+          ]
+        }
+      }
+    ]
+  },
+
 {
   "id": "mango-chutney",
   "name": "Mango Chutney",
@@ -4531,13 +5936,13 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "3g chilli flakes",
-            "to": "8g Kashmiri chilli powder"
+            "from": "chilli flakes",
+            "to": { "qty": 8, "unit": "g", "name": "Kashmiri chilli powder" }
           }
         ],
         "addIng": [
           {
-            "item": "2g mustard seeds"
+            "item": { "qty": 2, "unit": "g", "name": "mustard seeds" }
           }
         ],
         "swapStep": [
@@ -4555,15 +5960,15 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "3g panch phoron (five-spice mix)"
+            "item": { "qty": 3, "unit": "g", "name": "panch phoron (five-spice mix)" }
           },
           {
-            "item": "15ml mustard oil"
+            "item": { "qty": 15, "unit": "ml", "name": "mustard oil" }
           }
         ],
         "removeIng": [
           {
-            "item": "1g nigella (kalonji) seeds"
+            "item": "nigella (kalonji) seeds"
           }
         ],
         "swapStep": [
@@ -4581,18 +5986,18 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "250g firm mango (slightly under-ripe), diced",
-            "to": "250g green (unripe) mango, diced"
+            "from": "firm mango (slightly under-ripe), diced",
+            "to": { "qty": 250, "unit": "g", "name": "green (unripe) mango, diced" }
           },
           {
-            "from": "90g sugar",
-            "to": "40g sugar"
+            "from": "sugar",
+            "to": { "qty": 40, "unit": "g", "name": "sugar" }
           }
         ],
         "addIng": [
           {
-            "item": "20ml lime juice",
-            "after": "60ml white wine or cider vinegar"
+            "item": { "qty": 20, "unit": "ml", "name": "lime juice" },
+            "after": "white wine or cider vinegar"
           }
         ]
       }
@@ -4693,7 +6098,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "40g fresh (or desiccated, soaked) coconut"
+            "item": { "qty": 40, "unit": "g", "name": "fresh (or desiccated, soaked) coconut" }
           }
         ],
         "swapStep": [
@@ -4711,12 +6116,12 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "80g plain yoghurt"
+            "item": { "qty": 80, "unit": "g", "name": "plain yoghurt" }
           }
         ],
         "removeIng": [
           {
-            "item": "20ml cold water"
+            "item": "cold water"
           }
         ],
         "swapStep": [
@@ -4734,13 +6139,13 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "20g green chilli",
-            "to": "40g green chilli"
+            "from": "green chilli",
+            "to": { "qty": 40, "unit": "g", "name": "green chilli" }
           }
         ],
         "addIng": [
           {
-            "item": "4g garlic"
+            "item": { "qty": 4, "unit": "g", "name": "garlic" }
           }
         ]
       }
@@ -4846,13 +6251,13 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "40g jaggery or brown sugar",
-            "to": "60g dark jaggery"
+            "from": "jaggery or brown sugar",
+            "to": { "qty": 60, "unit": "g", "name": "dark jaggery" }
           }
         ],
         "addIng": [
           {
-            "item": "10g fresh ginger, grated"
+            "item": { "qty": 10, "unit": "g", "name": "fresh ginger, grated" }
           }
         ]
       }
@@ -4864,13 +6269,13 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "2g chilli powder",
-            "to": "6g chilli powder"
+            "from": "chilli powder",
+            "to": { "qty": 6, "unit": "g", "name": "chilli powder" }
           }
         ],
         "addIng": [
           {
-            "item": "1g black pepper"
+            "item": { "qty": 1, "unit": "g", "name": "black pepper" }
           }
         ]
       }
@@ -4985,12 +6390,12 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "3 dried Kashmiri chillies (soaked)"
+            "item": { "qty": 3, "unit": "", "name": "dried Kashmiri chillies (soaked)" }
           }
         ],
         "removeIng": [
           {
-            "item": "15g green chilli"
+            "item": "green chilli"
           }
         ],
         "swapStep": [
@@ -5008,7 +6413,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "20g fresh coriander"
+            "item": { "qty": 20, "unit": "g", "name": "fresh coriander" }
           }
         ]
       }
@@ -5020,8 +6425,8 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "20g roasted chana dal (or peanuts)",
-            "to": "40g roasted chana dal"
+            "from": "roasted chana dal (or peanuts)",
+            "to": { "qty": 40, "unit": "g", "name": "roasted chana dal" }
           }
         ]
       }
@@ -5121,7 +6526,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "60g jaggery or sugar"
+            "item": { "qty": 60, "unit": "g", "name": "jaggery or sugar" }
           }
         ],
         "swapStep": [
@@ -5244,13 +6649,13 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "100g cooking apple, diced"
+            "item": { "qty": 100, "unit": "g", "name": "cooking apple, diced" }
           }
         ],
         "swapIng": [
           {
-            "from": "40g sultanas",
-            "to": "60g raisins"
+            "from": "sultanas",
+            "to": { "qty": 60, "unit": "g", "name": "raisins" }
           }
         ]
       }
@@ -5262,13 +6667,13 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "10g fresh chilli, chopped"
+            "item": { "qty": 10, "unit": "g", "name": "fresh chilli, chopped" }
           }
         ],
         "swapIng": [
           {
-            "from": "8g fresh ginger, grated",
-            "to": "16g fresh ginger, grated"
+            "from": "fresh ginger, grated",
+            "to": { "qty": 16, "unit": "g", "name": "fresh ginger, grated" }
           }
         ]
       }
@@ -5364,8 +6769,8 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "30ml red wine (optional)",
-            "to": "90ml red wine"
+            "from": "red wine (optional)",
+            "to": { "qty": 90, "unit": "ml", "name": "red wine" }
           }
         ],
         "swapStep": [
@@ -5383,7 +6788,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "6g chilli flakes"
+            "item": { "qty": 6, "unit": "g", "name": "chilli flakes" }
           }
         ]
       }
@@ -5481,13 +6886,13 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "60g pitted dates, chopped"
+            "item": { "qty": 60, "unit": "g", "name": "pitted dates, chopped" }
           }
         ],
         "swapIng": [
           {
-            "from": "80g brown sugar",
-            "to": "50g brown sugar"
+            "from": "brown sugar",
+            "to": { "qty": 50, "unit": "g", "name": "brown sugar" }
           }
         ]
       }
@@ -5499,7 +6904,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "1 star anise (whole, removed after cooking)"
+            "item": { "qty": 1, "unit": "", "name": "star anise (whole, removed after cooking)" }
           }
         ]
       }
@@ -5594,7 +6999,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "80g cucumber, diced"
+            "item": { "qty": 80, "unit": "g", "name": "cucumber, diced" }
           }
         ]
       }
@@ -5606,12 +7011,12 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "15g green chilli, chopped",
-            "to": "30g green chilli, chopped"
+            "from": "green chilli, chopped",
+            "to": { "qty": 30, "unit": "g", "name": "green chilli, chopped" }
           },
           {
-            "from": "10g fresh coriander (dhania), chopped",
-            "to": "20g fresh coriander (dhania), chopped"
+            "from": "fresh coriander (dhania), chopped",
+            "to": { "qty": 20, "unit": "g", "name": "fresh coriander (dhania), chopped" }
           }
         ]
       }
@@ -5691,13 +7096,13 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "40g shallot, chopped"
+            "item": { "qty": 40, "unit": "g", "name": "shallot, chopped" }
           },
           {
-            "item": "20ml oil"
+            "item": { "qty": 20, "unit": "ml", "name": "oil" }
           },
           {
-            "item": "10g palm sugar"
+            "item": { "qty": 10, "unit": "g", "name": "palm sugar" }
           }
         ],
         "swapStep": [
@@ -5715,7 +7120,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "20g garlic"
+            "item": { "qty": 20, "unit": "g", "name": "garlic" }
           }
         ]
       }
@@ -5814,12 +7219,12 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "20g lemongrass (tender inner core), finely sliced",
-            "to": "35g lemongrass (tender inner core), finely sliced"
+            "from": "lemongrass (tender inner core), finely sliced",
+            "to": { "qty": 35, "unit": "g", "name": "lemongrass (tender inner core), finely sliced" }
           },
           {
-            "from": "6g kaffir lime leaf, shredded",
-            "to": "10g kaffir lime leaf, shredded"
+            "from": "kaffir lime leaf, shredded",
+            "to": { "qty": 10, "unit": "g", "name": "kaffir lime leaf, shredded" }
           }
         ]
       }
@@ -5831,7 +7236,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "5g toasted shrimp paste (terasi)"
+            "item": { "qty": 5, "unit": "g", "name": "toasted shrimp paste (terasi)" }
           }
         ]
       }
@@ -5965,13 +7370,13 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "8g Kashmiri chilli powder",
-            "to": "14g Kashmiri chilli powder"
+            "from": "Kashmiri chilli powder",
+            "to": { "qty": 14, "unit": "g", "name": "Kashmiri chilli powder" }
           }
         ],
         "addIng": [
           {
-            "item": "10g green chilli"
+            "item": { "qty": 10, "unit": "g", "name": "green chilli" }
           }
         ]
       }
@@ -6061,13 +7466,13 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "100g firm mango, diced"
+            "item": { "qty": 100, "unit": "g", "name": "firm mango, diced" }
           }
         ],
         "swapIng": [
           {
-            "from": "200g firm tomatoes, deseeded and diced",
-            "to": "120g firm tomatoes, deseeded and diced"
+            "from": "firm tomatoes, deseeded and diced",
+            "to": { "qty": 120, "unit": "g", "name": "firm tomatoes, deseeded and diced" }
           }
         ]
       }
@@ -6188,7 +7593,7 @@ var SPICE_DB = [
       "delta": {
         "addIng": [
           {
-            "item": "1 ripe avocado"
+            "item": { "qty": 1, "unit": "", "name": "ripe avocado" }
           }
         ],
         "swapStep": [
@@ -6300,18 +7705,18 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "30g green chilli",
-            "to": "40g red chilli"
+            "from": "green chilli",
+            "to": { "qty": 40, "unit": "g", "name": "red chilli" }
           }
         ],
         "addIng": [
           {
-            "item": "30g tomato"
+            "item": { "qty": 30, "unit": "g", "name": "tomato" }
           }
         ],
         "removeIng": [
           {
-            "item": "15g fresh parsley"
+            "item": "fresh parsley"
           }
         ]
       }
@@ -6323,8 +7728,8 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "10g garlic",
-            "to": "22g garlic"
+            "from": "garlic",
+            "to": { "qty": 22, "unit": "g", "name": "garlic" }
           }
         ]
       }
@@ -6419,8 +7824,8 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "2g chilli flakes (optional)",
-            "to": "40g hot red chillies (roasted with the peppers)"
+            "from": "chilli flakes (optional)",
+            "to": { "qty": 40, "unit": "g", "name": "hot red chillies (roasted with the peppers)" }
           }
         ]
       }
@@ -6432,12 +7837,12 @@ var SPICE_DB = [
       "delta": {
         "swapIng": [
           {
-            "from": "100g aubergine (optional, for a softer ajvar)",
-            "to": "250g aubergine (roasted)"
+            "from": "aubergine (optional, for a softer ajvar)",
+            "to": { "qty": 250, "unit": "g", "name": "aubergine (roasted)" }
           },
           {
-            "from": "400g red peppers (romano/bell)",
-            "to": "300g red peppers (romano/bell)"
+            "from": "red peppers (romano/bell)",
+            "to": { "qty": 300, "unit": "g", "name": "red peppers (romano/bell)" }
           }
         ]
       }
