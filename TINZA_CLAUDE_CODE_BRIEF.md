@@ -7,7 +7,8 @@
 
 ## 0. READ THESE FIRST (they are the law — do not re-derive from memory)
 Before writing a single card, read, in the repo root:
-- `WOW_STANDARD.md` — the one bar every card clears (the §7 done-checklist is binding).
+- `WOW_STANDARD.md` — **`/wow`**, the one quality bar every card clears (voice, moat, method; §7 done-checklist is binding).
+- `TINZA_WK_STANDARD.md` — **`/wk`**, the World Kitchen BUILD protocol: complete field set, course placement (starter/main/side/dessert), versions-display, boxes/colours, leftovers + calories, and the `photoName` rule. Its §7 checklist is also binding. **Follow BOTH `/wow` and `/wk` on every WK card.**
 - `TINZA_STANDARD.md`, `TINZA_RECIPE_DEPTH_STANDARD.md` — depth + structure.
 - `TINZA_DIDYOUKNOW_STANDARD.md` — how the "moat" fact is written (never reuse an angle).
 - `TINZA_DISH_NAMING.md`, `TINZA_DISH_FAMILIES.md` — naming/romanisation + what counts as the same dish.
@@ -171,7 +172,7 @@ Between phases: `node --check`, commit, report, pause for the human to pull the 
 ---
 
 ## 12. DEFINITION OF DONE
-**Per card:** passes the `WOW_STANDARD.md` §7 checklist · correct shape for its file · versions use deltas where sensible · one researched twist (or a logged "none found") · `node --check` clean · costed · logged in the report.
+**Per card:** passes **both** the `WOW_STANDARD.md` §7 (`/wow`) **and** `TINZA_WK_STANDARD.md` §7 (`/wk`) checklists — including correct `course`/shelf (side vs main), `kcal` + nutrition present, leftovers present, versions named + selector shows, `photoName` exact-or-omitted (audit green) · correct shape for its file · versions use deltas where sensible · one researched twist (or a logged "none found") · `node --check` clean · costed · logged in the report.
 **Per batch:** one file, committed, report appended, nothing outside scope touched.
 
 *Reliable-good is the floor. The twist is the job. When in doubt, flag it — don't fake it.*
