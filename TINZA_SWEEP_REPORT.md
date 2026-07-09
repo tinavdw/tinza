@@ -218,3 +218,87 @@ Per the coverage map (flowchart v42): the thin **South/Central block** is next �
 ### Not committed
 - Staged as a diff, **not committed**. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js batch-6 — final 7 Greek tail cards lifted to WOW + researched twists (lahanosalata, strapatsada, horiatiko-psomi, horta, ladopsomo, milopita, kokkinisto); GREECE COMPLETE`
+
+---
+
+## Phase 3 · Portugal — Batch 1 (`wk_europe.js`) — 9 Jul 2026
+
+**FILE HELD (§0.5 / one-driver rule): I am now holding `wk_europe.js` for PORTUGAL.** Opus / anyone else: please stay clear of this file until Portugal pauses. Pre-flight: `git fetch` = clean, local HEAD == origin/main, tree clean before edits. Greece (54 cards) and every non-Portugal country left **byte-identical** — only 8 Portugal lines changed (`git diff --numstat` = 8/8).
+
+**Scope confirmed:** Portugal has **52 cards, all thin** (empty `howThisFeels`, zero `versions`). This batch lifts the **8 thinnest** (all mains, methods were ~100–174 chars). ~39 Portugal cards remain for later batches (minus the 5 hero-candidates below).
+
+### 🏛️ HERO-CANDIDATES — flagged, left UNTOUCHED for Opus (not rewritten as heroes)
+Per the brief, these are the most-searched Portuguese dishes; I did **not** touch them so Opus can author them as heroes:
+- `portugal-bacalhau-a-bras` 🏛️ (the canonical "bacalhau" hero — currently thin, m134)
+- `portugal-pasteis-de-nata` 🏛️ · `portugal-caldo-verde` 🏛️ · `portugal-francesinha` 🏛️ · `portugal-frango-piri-piri` 🏛️
+- **Bacalhau ambiguity flag:** there are two *other* distinct salt-cod dishes — `portugal-bacalhau-com-natas` (Cod with Cream) and `portugal-bacalhau-a-gomes-de-sa` — which I've queued for **LIFT** (they're separate dishes, not the à Brás hero). If Opus wants the whole bacalhau cluster as heroes, say so and I'll drop them from the lift queue.
+
+### Cards lifted this batch (8) — each: full-WOW rewrite (why-led method + moat + SA buy-names + storage/leftovers-in-storage + kcal/nutrition) + 1 web-researched twist as a WK string delta. **All 8 verified merging via a faithful copy of `applyVersionDelta` (every `swapStep.to` applied, every `addIng.item` merged, ingredient counts correct); `node --check` clean; byte-discipline held (8 lines changed, nothing else).**
+- ✅ **`portugal-espetada-madeirense`** (Madeira bay-laurel beef skewers) — big well-marbled cubes (small ones grey before they char), hot wood embers not flame, springy-not-firm doneness, rest. Moat: 1800s shepherds skewered beef on live bay-laurel branches whose sap seasons from the inside; stands hang the skewers vertically so juices drip onto bread. **Twist:** 🧄 *Manteiga de Alho* — garlic-parsley butter brushed on off the embers (the churrascaria finish).
+- ✅ **`portugal-alheira-de-mirandela`** (smoked bread-and-poultry sausage) — low/slow so the bready paste stays creamy inside a crisp skin, served the authentic way with grelos + *batata a murro* + a runny egg (upgraded from "fries"). Moat: **invented by Portugal's secret Jews after 1497** — a pork-free sausage (poultry/game + bread) smoked in the chimney to pass as chouriço; a disguise that became a PGI delicacy. **Twist:** 🥟 *Folhado de Alheira* — the filling squeezed out and baked in crisp puff-pastry rolls (the modern Lisbon petisco).
+- ✅ **`portugal-bitoque`** (café steak + egg on a pan molho) — dry-sear the thin steak fast, deglaze the fond with wine, mustard + cold-butter finish for gloss, egg *a cavalo*. Moat: name = *bife* + *toque* ("a touch of steak"), the cheap cut that fed Lisbon's clerks; no egg = just a bife. **Twist:** 🍺 *Molho de Cerveja* — deglaze with lager instead of wine (malt-caramel molho, à la Porto's francesinha).
+- ✅ **`portugal-iscas-com-elas`** (wine-marinated liver with potatoes) — thin slices, *vinha d'alhos* marinade tames the iron, flash-sear 30–60 s a side (past pink = rubber), reduce the marinade into the sauce. Moat: *isca* = "bait"; the ancestral nose-to-tail Lisbon *casa de pasto* plate. **Twist:** 🧅 *Iscas de Cebolada* — smothered in slow-sweated onions + a little bacon.
+- ✅ **`portugal-cabrito-assado`** (roast kid, garlic & wine) — overnight marinade to the bone, lard tucked under the skin to self-baste, 160 °C low-and-slow then a 200 °C blast to crisp. Moat: **Cabrito de Barroso is PDO**; villages roast it on a rack above a rice tray. **Twist:** 🍚 *Com Arroz de Forno* — kid roasted over a tray of rice so the drippings cook the grain (the Monção/Minho showpiece).
+- ✅ **`portugal-rojoes-a-minhota`** (Minho fried marinated pork) — *vinho verde* marinade, slow render in lard for deep colour, glaze in the reduced marinade, finish with **cumin + lemon** (the northern signature). Moat: the heart of the Minho *sarrabulho* whole-pig feast; the cumin is a fingerprint of the Arab spice trade. **Twist:** 🌰 *Com Castanhas* — chestnuts browned in the pork fat (the pre-potato starch).
+- ✅ **`portugal-bife-a-portuguesa`** (steak, smoked ham, garlic-wine sauce) — hard sear, deglaze + mustard + cold-butter molho, presunto warmed to release its smoke, served sizzling in a hot clay dish over thin fried potatoes. Moat: made famous by Lisbon's Café de São Bento; a Portuguese echo of the French bistro steak. **Twist:** 🍳 *Com Ovo a Cavalo* — a fried egg on horseback, yolk melting into the sauce (Algarve).
+- ✅ **`portugal-ensopado-de-borrego`** (Alentejo lamb stew over bread) — brown the bone-in lamb, bloom the paprika without scorching, keep it **brothy not thick** (the bread has to drink it), coriander finish, ladled over day-old country bread. Moat: descends from **tharîd**, the medieval Arab bread-and-broth dish — bread as plate, bowl and filler. **Twist:** 🌿 *Com Hortelã* — a bundle of mint steeped in (the older, pre-coriander Alentejo accent).
+
+**Twists logged for taste-check (all web-researched, all pass the taste-gate; no "no-twist-found" cases this batch):** espetada→garlic-butter baste · alheira→folhado pastry rolls · bitoque→beer sauce · iscas→cebolada onions · cabrito→arroz de forno · rojões→chestnuts · bife→ovo a cavalo · ensopado→mint. Grounded in: Visit Madeira / TasteAtlas (espetada laurel & protein variants), Ruralea / Catavino (alheira crypto-Jewish origin + modern folhados), based.cooking / HonestCooking (bitoque beer & mustard molho), thepurpledoorsupperclub (iscas de cebolada), ACPP / Produtos Tradicionais (cabrito arroz de forno à Monção), pt.wikipedia / VortexMag (rojões chestnuts + cumin + sarrabulho), Culinary Backstreets (bife à portuguesa / Café de São Bento), Clara de Sousa / thepurpledoorsupperclub (ensopado tharîd origin + mint).
+
+### Verification (WRITTEN, per §12 — harness ran on the actual file after splicing)
+- Re-parsed all 8 cards **from the live `wk_europe.js`** (not the draft): full §1 field set present on every card, `howThisFeels` non-empty, `versions` = [Classic `default:true` + 1 twist], trivia moats 282–460 chars, kcal present.
+- Delta engine: exact copy of `applyVersionDelta` run on each — **8/8 twists merge clean** (swapStep text applied, addIng items merged in sequence, no missing anchors).
+- `node --check sections/wk_europe.js` → **clean**. `git diff --numstat` → **8 added / 8 removed** = only the 8 target lines; Greece + all other countries byte-identical.
+- **course** correct (all `main`). **nutrition** uses the WOW comma+Sodium format matching the finished Greek cards. **photoName** omitted on all 8 (none shot) → clean emoji fallback, photo-audit stays green.
+
+### 🟡 / ⚠️ honest flags (deepen, don't over-claim)
+- 🟡 **`pairsWith` C4:** I cross-linked to real Portugal cards (`Broa de Milho`, `Migas à Alentejana`) plus generic accompaniments. **Tina/Opus: confirm these resolve as clickable goesWith pills** — I verified the ids exist in-file but did not run the live link resolver.
+- 🟡 **Leftovers:** folded into `storage` (creative-reuse lines), matching the Greek-tail precedent, rather than a separate `leftovers` field. If the render wants a dedicated key, flag it.
+- ⚠️ **Costing honesty:** WK recomputes cost from ingredients, so 2 unpriced fat/nut lines slightly understate: `lard` (cabrito, rojões) and `chestnuts` (rojões twist) — logged to `TINZA_WK_PRICE_GAPS.md` (#290–291). `kid goat` maps to existing gap #39 `goat meat`. Everything else prices (alheira via `sausage` 130, presunto via `ham`, red-wine-vinegar via `vinegar` 25, turnip greens via `spinach`, puff pastry 80).
+
+### Prices (§2/§9) — appended to `TINZA_WK_PRICE_GAPS.md`
+- **New:** `lard` (#290, ×2), `chestnuts` (#291). **Existing, noted:** `kid goat` → #39 `goat meat`.
+
+---
+
+## §6.5 TOO-SIMPLE AUDIT — Portugal + Spain (report-only, NEVER auto-deleted) — 9 Jul 2026
+
+Per Tina's mid-session steer, ran the Shelf-WOW audit on both countries. **Nothing deleted or replaced in code — every CUT&REPLACE below is a PROPOSAL awaiting human sign-off.** Test used: *≤5 ingredients AND method <~320 chars, or pure assembly/pour/boil* → then "would a serious home cook screenshot this?"
+
+### 🇵🇹 Portugal — verdict: **all LIFT, zero cuts.**
+All 12 flagged-simple cards are **real dishes written thin**, not non-recipes — they get lifted in later Portugal batches, none cut:
+- Desserts written thin (LIFT): `ovos-moles` (Aveiro's PDO egg-yolk sweet in wafer shells), `pao-de-lo` (cloud sponge), `cavacas` (glazed choux), `encharcada` (Alentejo convent egg sweet), `salame-de-chocolate`, `bolo-de-bolacha` (no-bake coffee-biscuit cake).
+- Savoury/sides written thin (LIFT): `broa-de-milho` (yeasted maize bread — real technique), `queijo-assado` (grilled cheese starter), `peixinhos-da-horta` (**the battered green beans that seeded Japanese tempura** — huge moat, LIFT don't cut), `sardinhas-assadas` (Lisbon's festival grilled sardines — near-hero), `leitao` (Bairrada suckling pig — near-hero).
+- Drink (LIFT, not cut): `ginjinha` — a sour-cherry liqueur, but genuine maceration technique + strong moat (Lisbon's tiny *Ginjinha* bars; Óbidos serves it in an edible chocolate cup). Like Greece's frappé ruling → **LIFT with technique+moat**, flagged borderline.
+- **Note:** no "Marinated Olives" card exists in Portugal.
+
+### 🇪🇸 Spain — audit-only (Spain is NOT in my lift scope; flagged for the Spain sweep). 59 cards, 29 simple/drink candidates. Proposed buckets for sign-off:
+
+**CUT & REPLACE — assembly-only non-recipes (match the brief's exact examples):**
+| Card | Why it fails §2 | Proposed same-cuisine WOW replacement + moat |
+|---|---|---|
+| `spain-pan-con-tomate` | *(Tina-flagged)* bread + rubbed tomato, no cook | **Coca de Recapte** — Catalan escalivada-&-anchovy flatbread ("pizza without cheese"), a harvest-fair staple. *(Or LIFT as proper `pa amb tomàquet` with technique+moat — Tina's call.)* |
+| `spain-pan-tostado` | toast + oil | **Salmorejo** — Córdoba's thick chilled tomato-bread cream, topped with jamón & egg; the richer ancestor of gazpacho, also used as a dip. |
+| `spain-pan-frito` | fried bread + salt | **Torrijas** — Holy-Week milk-soaked fried bread in honey/wine syrup; a 15th-c convent sweet. |
+| `spain-pan-con-ajo` | bread + garlic + oil | **Sopa de Ajo** — Castilian garlic soup: paprika, stale bread, a poached egg; peasant survival food. |
+| `spain-patatas-hervidas` | boiled potatoes + salt (brief's exact example) | **Patatas a la Riojana** — potatoes *snapped* (not cut, to release starch) & stewed with chorizo + pimentón; the Rioja harvest stew. |
+| `spain-arroz-blanco` | white rice + water (brief's exact example) | **Arroz al Horno** — Valencian oven rice with chickpeas, blood sausage & a whole roasted garlic head, cooked in the paella's leftover broth. |
+| `spain-ensalada-de-tomate` | tomato + oil + vinegar | **Pipirrana** — Jaén chopped salad (tomato, pepper, egg, tuna) in a cumin-garlic dressing; the olive-harvester's lunch. |
+| `spain-pimientos-asados` | roasted pepper + oil | **Piquillos Rellenos** — Lodosa-PDO piquillos, fire-roasted & hand-peeled (never washed), stuffed with cod brandade. |
+
+**CUT & REPLACE — plain drinks (§2: pour-only, brief's exact examples):**
+| Card | Why | Proposal |
+|---|---|---|
+| `spain-clara` | beer + lemon soda (brief's exact example) | **CUT.** Optional replace: **Queimada** — Galician flamed-aguardiente ritual with a spoken *conxuro* to ward off spirits (spectacle + moat). |
+| `spain-cafe-con-leche` | coffee + milk (brief's exact example) | **CUT.** Optional replace: **Carajillo** — coffee spiked & flamed with brandy/rum, citrus & beans; the "courage" coffee. |
+| `spain-tinto-de-verano` | wine + soda, pour | **CUT / fold** into Sangria (redundant). |
+| `spain-rebujito` | sherry + soda + mint | Borderline — has a Feria-de-Abril moat. **LIFT-lite or fold**, Tina's call. |
+
+**KEEP as LIFT — real Spanish dishes/drinks written thin (for the Spain sweep, not cut):**
+`spain-flan` · `spain-arroz-con-leche` · `spain-pimientos-de-padron` (the "some are hot, some are not" roulette) · `spain-chorizo-al-vino` · `spain-calamares-a-la-romana` · `spain-huevos-rotos` · `spain-cochinillo-asado` (Segovia suckling pig — 🏛️ hero-candidate) · `spain-cordero-asado` · `spain-solomillo-al-whisky` (Seville tapa) · `spain-patatas-panaderas` · `spain-escalivada` (the brief's own LIFT example) · `spain-patatas-con-alioli` · `spain-judias-verdes` · `spain-setas-al-ajillo` · `spain-zanahorias-alinadas` (Andalusian aliñás) · `spain-sangria` (🏛️ ) · `spain-horchata` (Valencia PDO chufa — real soak/blend/strain technique).
+- **Note:** no "Marinated Olives" card in Spain either — likely lives in another section or isn't present in `wk_europe.js`.
+
+### Not committed
+- Working tree only, **not committed** (Tina reviews on live + pushes via GitHub Desktop). Suggested commit (§2 format):
+  - `wk-sweep: wk_europe.js portugal batch-1 — 8 thin mains lifted to WOW + researched twists (espetada, alheira, bitoque, iscas, cabrito, rojões, bife à portuguesa, ensopado)`
+- **Pausing here** per the small-batch rule for Tina to pull/review before Portugal batch 2. Remaining Portugal LIFT queue ≈ 39 cards (5 hero-candidates excluded).

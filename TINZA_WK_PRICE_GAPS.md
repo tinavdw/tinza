@@ -295,3 +295,6 @@ Add a `PRICE_DB` entry (or a `WK_ALIAS` mapping to an existing key) for the ones
 | 287 | 1 | `pickling onions` | pickling onions (peeled, whole) | Greece: Stifado (greece-stifado) — SA sub: pearl/pickling onions, else a large onion in wedges |
 | 288 | 1 | `octopus` | octopus | Greece: Htapodi sti Schara (greece-htapodi-sti-schara) — `calamari` (R130) is keyed but octopus is not |
 | 289 | 1 | `aniseed` | aniseed | Greece: Paximadia sweet version (greece-paximadia) — `fennel seed` (R590) is keyed; aniseed/glykaniso is the traditional one, add key or alias |
+| 290 | 2 | `lard` | 20g lard | Portugal: Cabrito Assado + Rojões à Minhota (batch 1) — traditional banha (pork lard); no key. SA sub: "lard" is sold; else olive oil. Add a key or alias to `olive oil`/`butter` — currently the fat line goes unpriced (small qty, minor cost). |
+| 291 | 1 | `chestnuts` | 80g chestnuts (peeled) | Portugal: Rojões à Minhota — Com Castanhas twist (batch 1). No key; sold seasonally vacuum-packed. Delta ingredient, so the twist cost understates slightly until keyed. |
+| — | — | `kid goat` | 300g kid goat (bone-in) | Portugal: Cabrito Assado (batch 1) — maps to existing gap **#39 `goat meat`** (Chanfana); `goat` cheese/milk are keyed but not goat MEAT. One shared key ("goat meat") would price both. |
