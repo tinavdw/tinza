@@ -2995,13 +2995,18 @@ function bakesRecipeOpts(r, servingsKey){
         ? 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · serves '+bakeUnits+' · 1 '+bakeP.pieceWord+' each'
         : 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · ~'+bakeUnits+' '+bakeP.pieceWord+'s')
     : '';
+  // Batch Law: for a modelled bake the stepper counts WHOLE UNITS (1 cheesecake, 2…),
+  // not people — so it never reads "4 people" beside "serves 12". Non-bakes unchanged.
+  var _incTarget = bakeP ? bakeP.perBatch*(bakeBatches+1) : 0;
+  var _decTarget = bakeP ? Math.max(1, bakeP.perBatch*(bakeBatches-1)) : 0;
   var qtyHTML = qtyBox({
     label:'How Much To Make',
     sub: scaleNote,
     total: bakeP ? '' : (n+' '+(n===1?'serving':'servings')),
-    n:n, info:info,
-    decJs:"set({"+sk+":Math.max(1,(S."+sk+"||S.people||4)-1)})",
-    incJs:"set({"+sk+":(S."+sk+"||S.people||4)+1})"
+    n: bakeP ? bakeBatches : n,
+    info:info,
+    decJs: bakeP ? ("set({"+sk+":"+_decTarget+"})") : "set({"+sk+":Math.max(1,(S."+sk+"||S.people||4)-1)})",
+    incJs: bakeP ? ("set({"+sk+":"+_incTarget+"})") : "set({"+sk+":(S."+sk+"||S.people||4)+1})"
   });
   var tipBox   = r.tip     ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   var dykBox   = r.didYouKnow ? recipeBox('💡 Did You Know', '<div style="font-size:15px;color:var(--ink2);line-height:1.6;">'+r.didYouKnow+'</div>') : '';
