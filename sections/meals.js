@@ -14802,6 +14802,8 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   var _bakeBatches = _bakeP ? Math.max(1, Math.ceil(sv / _bakeP.perBatch)) : 1;
   var _bakeUnits = _bakeP ? _bakeBatches * _bakeP.perBatch : 0;
   var _scale = _bakeP ? _bakeUnits : sv;
+  var _incW=_bakeP?_bakeP.perBatch*(_bakeBatches+1):0, _decW=_bakeP?Math.max(1,_bakeP.perBatch*(_bakeBatches-1)):0;
+  var _bakeUnitLbl=_bakeP?(_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')):'';
 
   function fmtAmt(pp, u){
     if(!pp) return '';
@@ -14887,8 +14889,8 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
       if(r.costPP){ const total=r.costPP*_scale; return `<div style="background:var(--green-tint);border:1px solid var(--green-soft);border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink-soft);">Total for ${sv} people</div><div style="font-size:24px;font-weight:bold;color:var(--green);">R${total}</div></div>
-        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--line);"><div style="font-size:13px;color:var(--ink-soft);">Per person</div><div style="font-size:16px;font-weight:bold;color:var(--green);">R${_bakeP?Math.round((r.costPP*_scale)/sv):r.costPP}</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink-soft);">${_bakeP?("Total · "+_bakeUnitLbl):("Total for "+sv+" people")}</div><div style="font-size:24px;font-weight:bold;color:var(--green);">R${total}</div></div>
+        <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--line);"><div style="font-size:13px;color:var(--ink-soft);">${_bakeP?("Per "+_bakeP.pieceWord):"Per person"}</div><div style="font-size:16px;font-weight:bold;color:var(--green);">R${_bakeP?Math.round((r.costPP*_scale)/_bakeUnits):r.costPP}</div></div>
         <div style="margin-top:8px;font-size:13px;color:var(--ink-soft);">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div></div>`; }
       return '';
     })();
@@ -14906,19 +14908,19 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
             <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">How Much To Make</div>
             <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" aria-label="fewer servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">−</button>
-              <span class="mono" style="font-size:20px;color:var(--ink);font-weight:600;min-width:26px;text-align:center;">${sv}</span>
-              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" aria-label="more servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">+</button>
+              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:${_bakeP?_decW:'Math.max(1,(S[_k]||4)-1)'}})" aria-label="fewer servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">−</button>
+              <span class="mono" style="font-size:20px;color:var(--ink);font-weight:600;min-width:26px;text-align:center;">${_bakeP?_bakeBatches:sv}</span>
+              <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:${_bakeP?_incW:'Math.min(500,(S[_k]||4)+1)'}})" aria-label="more servings" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:20px;line-height:1;cursor:pointer;">+</button>
             </div>
           </div>
-          <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;">${sv} ${sv===1?'person':'people'} · ${scaleNoteW}</div>
+          <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;">${_bakeP?scaleNoteW:(sv+" "+(sv===1?"person":"people")+" · "+scaleNoteW)}</div>
           <div style="margin-top:8px;font-size:12.5px;color:var(--ink-soft);">${noteW}</div>
         </div>
         <!-- Ingredients -->
         <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
             <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--paprika);text-transform:uppercase;">Ingredients</div>
-            <div style="font-size:13px;color:var(--ink-soft);font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
+            <div style="font-size:13px;color:var(--ink-soft);font-style:italic;">${_bakeP?("for "+_bakeUnitLbl):("scaled for "+sv+" "+(sv===1?"person":"people"))}</div>
           </div>
           ${ingRowsW}
           ${rawShrinkW?`<div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-soft);font-style:italic;">📏 Raw/dry weights · Rice+pap grow 3x when cooked · Meat shrinks ~25%</div>`:''}
