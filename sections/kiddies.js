@@ -613,7 +613,7 @@ function kidsPlanDishes(th, k, budget){
   const packets = Math.ceil(k/4);
   dishes.push({
     name:'Crisps', emoji:'🥔', guests:k, group:'',
-    ingredients:[{ name:'crisps', amt:packets*120, unit:'g', priceName:'crisps' }]
+    ingredients:[{ name:'crisps',photoName:"Crisps", amt:packets*120, unit:'g', priceName:'crisps' }]
   });
   return dishes;
 }
