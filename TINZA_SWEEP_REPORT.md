@@ -302,3 +302,32 @@ All 12 flagged-simple cards are **real dishes written thin**, not non-recipes �
 - Working tree only, **not committed** (Tina reviews on live + pushes via GitHub Desktop). Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js portugal batch-1 — 8 thin mains lifted to WOW + researched twists (espetada, alheira, bitoque, iscas, cabrito, rojões, bife à portuguesa, ensopado)`
 - **Pausing here** per the small-batch rule for Tina to pull/review before Portugal batch 2. Remaining Portugal LIFT queue ≈ 39 cards (5 hero-candidates excluded).
+- *Committed by Tina as `26f8479 "code"` (GitHub Desktop) — batch 1 is live.*
+
+---
+
+## COURSE-FIELD SANITY AUDIT — whole `wk_europe.js` (Portugal first, then all countries) — 9 Jul 2026
+
+**Whitelist edit — only the `course` scalar touched, nothing else rewritten or deleted.** Audited **all 570 cards across 19 countries**; ran two heuristic scans (soup/side/drink/dessert flags + type↔course cross-checks), then applied per-dish judgment against Tina's guidance (light soups→starter · hearty bean/meat/substantial-fish soups & stews→keep main · breads/mashes/grain sides→side · sweets→dessert).
+
+### ✅ Change applied (1)
+| id | old → new | why |
+|---|---|---|
+| `portugal-acorda` | `main` → **`starter`** | Light bread-and-egg soup (bread · garlic · coriander · 1 egg · water) — a starter, per Tina's lead example. |
+
+- `node --check` clean · `git diff --numstat` = **1/1** (one line, only the `course` token changed; word-diff confirms nothing else moved).
+
+### Reviewed & deliberately KEPT (per-dish judgment — documented so the call is auditable)
+- **Portugal (all 52 reviewed):** only açorda was off. `caldo-verde` already correctly `starter` (light kale soup). Kept `main`: `sopa-de-pedra` (hearty bean/meat "stone soup"), `sopa-de-cacao` (substantial bread-thickened dogfish soup — a main-course soup in the Alentejo), `favas-guisadas` (bean stew), `arroz-de-marisco` / `arroz-de-pato` (rice *mains*, not sides). Desserts/sides/drink all correct.
+- **Hearty soups kept `main` (guidance: bean/meat/substantial-fish → main):** Greece `fasolada`·`kakavia`; Hungary `gulyas`·`halaszle`; Finland `hernekeitto`·`lohikeitto`·`siskonmakkarakeitto`; Netherlands `erwtensoep`; Norway `fiskesuppe`·`sodd`; Russia `borscht`·`shchi`·`ukha`·`solyanka`; Sweden `artsoppa`; Ukraine `borshch`·`kapusniak`; Switzerland `fondue-chinoise`.
+- **Cold/light soups already correct:** Russia `okroshka` (`starter`) — a light cold kvass soup; Sweden `blabarssoppa` (`drink`) — traditionally drunk warm. Left as-is.
+- **"Bready/starchy" names that are actually mains, NOT sides (not accompaniments):** Georgia `khachapuri`·`acha-puri` (cheese-bread *meals*), Turkey `pide`·`borek`, Poland `pierogi-ruskie`, Russia/Ukraine `vareniki`/`varenyky`, Greece `gemista` (veg main). Kept `main`.
+- **Savoury item with a sweet-sounding name:** Sweden `smorgastarta` ("sandwich cake") is a savoury seafood/egg centrepiece — kept `main`, NOT dessert.
+- **Savoury pancakes/pastries kept as authored** (`side`/`main` both defensible as snack/accompaniment): NL `pannenkoeken` (dinner main), `ontbijtkoek`; Poland `placki-ziemniaczane`; Ukraine `deruny`; Finland `karjalanpiirakka`; N. Ireland `boxty`; Belgium `speculoos-spread`; Georgia `satsivi` (type says "sauce" but it's a chicken *main*).
+- **Germany stub** (`lentil-soup`·`potato-soup` as `starter`): hearty Eintöpfe, arguably main, but currently defensible and Germany is a create-from-scratch stub (§1) — left untouched, flagged here for whoever authors the German lineup.
+
+**Net:** the file's `course` data was already well-classified; açorda was the one clear miss. No dessert/salad/drink mislabels found; no blank/non-standard `course` values (distribution: main 281 · dessert 116 · side 87 · starter 66→67 · drink 18 · soup 1 · salad 1).
+
+### Not committed (course audit)
+- Working tree only. Suggested commit (§2 format, isolated so its diff is just the course field):
+  - `wk-sweep: wk_europe.js course-audit — portugal-acorda main→starter (light bread soup); full 570-card course pass, no other changes needed`
