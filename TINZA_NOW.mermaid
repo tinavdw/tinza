@@ -1,47 +1,51 @@
 ---
-title: TINZA — Session Handoff (Spice + Code/Portugal) · 09 Jul
+title: TINZA — Handoff for next chat (Jams build) · 09 Jul
 ---
 flowchart TD
 
-START["🟢 START HERE<br/>Two live streams: SPICE (Opus, this chat) + CODE/PORTUGAL (agent).<br/>Immediate next build: JAMS & PRESERVES batch 1 on the clean 163 base.<br/>Base spice.js = 163 (NOT 147 — earlier miscount, corrected)."]
+START["🟢 START HERE — new chat<br/>Opening line to paste:<br/>'Jams & Preserves build — Batch 1 DONE (spice.js now 169 base,<br/>Jams = 7). Continue with Batch 2 (Marmalades & Curds). Twists<br/>must use BD13 OBJECT-form deltas, validate substrings + node --check,<br/>present after each batch.'<br/>→ I re-clone tinavdw/tinza fresh each session; no need to upload spice.js."]
 
-subgraph FACTS["📌 Facts locked / corrected 09 Jul"]
-  F1["✅ Uploaded spice.js = 163, correct file.<br/>Chutneys 10 · Sambals 11 · Jams 1 — all SAFE.<br/>('147' was a grep bug: unquoted-key pattern skipped<br/>JSON-style cards. Loaded-as-objects = 163.)"]
-  F2["✅ BD13 engine patch DONE + tested:<br/>applyMakeYourOwnDelta in core.js (+27 lines, 3854→3881).<br/>Spice twist chips now actually MERGE (were dead on live).<br/>core.js NOT yet pushed."]
-  F3["⚠️ 2 pre-existing DUPLICATE IDs in spice.js:<br/>tartare-sauce · sambal-oelek → fix in jams pass."]
+subgraph DONE["✅ DONE THIS SESSION (spice.js — DOWNLOADED, push via GitHub Desktop)"]
+  D1["🍓 JAMS BATCH 1 built + engine-tested: Apricot · Fig · Raspberry ·<br/>Plum · Peach · Cherry. Each = full locked schema + 3 twists.<br/>18 twists total, all in correct BD13 OBJECT-form."]
+  D2["🔬 Validated: every swapIng.from / removeIng.item / addIng.after is a<br/>real substring; every swapStep.from verbatim in method; ran through the<br/>REAL BD13 engine → all render clean {qty,unit,name}. node --check PASS."]
+  D3["Strange twist seeded: Plum → 'Chinese Suan Mei' (savoury-sour,<br/>five-spice + soy). Honest-riff labelling throughout."]
 end
 
-subgraph SPICE["🧂 STREAM A — Spice Room (base: spice.js @163)"]
-  SA0["DONE this session:<br/>• core.js BD13 makeYourOwn-delta engine (tested)<br/>• Clean 163 base restored (dup splice reverted)"]
-  SA1["NEXT: JAMS & PRESERVES 1 → ~30<br/>worldwide classics + twists + a 'strange' one.<br/>Banked batches, PRESENT each (reset-proof)."]
-  JAM["Jams lineup: Strawberry(exists)·Apricot·Fig·Raspberry·<br/>Plum·Peach·Cherry·Blueberry · Seville/Lemon/3-Fruit<br/>marmalade · Lemon/Passionfruit/Orange curd ·<br/>Watermelon Konfyt·Green-Fig·Naartjie·Korrelkonfyt(SA) ·<br/>Membrillo·Quince·Tomato Jam · Rose-Petal·Date(ME) ·<br/>Cherry Confiture·Onion Confit(FR)·Apple Butter·<br/>Preserved Lemons(Morocco)"]
-  SA2["THEN — fix 2 dup IDs: tartare-sauce · sambal-oelek"]
-  SA3["THEN — room-wide JAZZ: fill empty howThisFeels<br/>(126 of 163 blank) + moat check + more dip variants"]
-  SA4["THEN — bug [5]: Spice Dips 'Back' lands on Main, not Dips"]
-  SA0 --> SA1 --> JAM --> SA2 --> SA3 --> SA4
+subgraph STATE["📌 Current state (all safe)"]
+  S1["spice.js = 169 base.<br/>Jams 7 · Chutneys 10 · Sambals 11 · Sauces 63 ·<br/>Spice-blends 39 · Dressings 39 · (+ atchars/relishes)"]
+  S2["core.js = BD13 makeYourOwn twist engine DONE + tested.<br/>Push via GitHub Desktop → twist chips go live.<br/>(only push if no other unpushed core.js edits)"]
+  S3["⚠️ 2 pre-existing dup IDs still to fix: tartare-sauce · sambal-oelek"]
 end
 
-subgraph CODE["🌍 STREAM B — Code / Portugal (agent holds wk_europe.js)"]
-  CB1["✅ Portugal batch 1 DONE (8 thin mains → WOW + twists):<br/>Espetada·Alheira·Bitoque·Iscas·Cabrito·Rojões·<br/>Bife à Portuguesa·Ensopado. 8/8 diff, node ok.<br/>Files: wk_europe.js · SWEEP_REPORT · WK_PRICE_GAPS<br/>(working tree — Tina to push)"]
-  DEC1["DECIDED: Bacalhau trinity → OPUS heroes.<br/>à Brás + com Natas + Gomes de Sá as a hero set.<br/>Code does NOT lift them; continues non-cod tail."]
-  DEC2["TINA TAP-TEST: pairsWith C4 — open Broa de Milho &<br/>Migas à Alentejana on live, tap pills. If dead →<br/>Opus extends goesWith name-index."]
-  CB2["Portugal batch 2 — GREENLIT once Tina pushes b1<br/>& answers above. Remaining LIFT approx 39 (5 heroes excl.)"]
-  CB3["Spain §6.5 (report-only, awaiting sign-off): CUT & REPLACE<br/>8 assembly cards + 3 drinks → Salmorejo·Sopa de Ajo·<br/>Arroz al Horno·Torrijas·Queimada…"]
-  CB4["Price gaps logged (never guessed): lard · chestnuts<br/>(#290-291) · kid goat → existing #39"]
-  CB1 --> DEC1 --> CB2
-  CB1 --> DEC2 --> CB2
-  CB1 --> CB3
-  CB1 --> CB4
+subgraph BUG["🔴 NEW FINDING — fix WITH the core.js push"]
+  B1["~53 existing twist deltas across 16 chutney/sambal cards use the<br/>BROKEN STRING-form (swapIng.to & addIng.item as strings, removeIng.item<br/>carrying a qty prefix). PROVEN in-engine: swapIng makes a corrupted<br/>indexed-char object, removeIng never matches, addIng injects a bare string."]
+  B2["Effect: those twist chips render the BASE recipe (swap silently no-ops)<br/>the moment core.js goes live. Convert all to OBJECT-form:<br/>swapIng.to:{qty,unit,name} · addIng.item:{qty,unit,name} · removeIng.item:'bare name'.<br/>Offered as a dedicated batch — say the word."]
 end
 
-subgraph RULES["⚙️ Discipline"]
-  R1["wk_europe.js = ONE driver at a time. Code holds it for<br/>Portugal tail; Opus takes it at hero handoff (bacalhau).<br/>Re-clone before touching."]
-  R2["core.js + worldkitchen.js parallel-safe with Code.<br/>Never edit core.js without backup + node --check + line count."]
-  R3["Bank & PRESENT after every batch — reset-proof<br/>(this session's cutoff lesson)."]
+subgraph JAMS["🍯 JAMS — remaining batches (target ~30, present after each)"]
+  J2["Batch 2 · Marmalades & Curds (6):<br/>Seville · Lemon · 3-Fruit marmalade · Lemon curd · Passionfruit curd · Orange curd"]
+  J3["Batch 3 · SA Konfyt + Blueberry (5):<br/>Watermelon Konfyt · Green-Fig · Naartjie · Korrelkonfyt · Blueberry"]
+  J4["Batch 4 · World Preserves (6):<br/>Membrillo · Quince · Tomato Jam · Rose-Petal · Date · Cherry Confiture"]
+  J5["Batch 5 · Savoury + the strange standalone (4):<br/>Onion Confit · Apple Butter · Preserved Lemons · + 1 strange card<br/>(Carrot / Chilli / Marrow-Ginger)"]
+  J2-->J3-->J4-->J5
 end
 
-START --> FACTS
-FACTS --> SPICE
-FACTS --> CODE
-SPICE --> RULES
-CODE --> RULES
+subgraph RULES["📐 Jam authoring rules (locked)"]
+  R1["type:'paste', shelf:'jams-preserves'. Full schema like Strawberry.<br/>Classic authentic = default 🏆; riffs labelled honestly.<br/>Deltas: swapIng {from:name, to:{qty,unit,name}} · removeIng {item:'bare name'} ·<br/>addIng {item:{qty,unit,name}, after:name} · swapStep {from:verbatim, to}.<br/>Validate substrings → node --check → smoke-test in engine → present."]
+end
+
+subgraph LATER["🧂 Spice — after jams"]
+  L1["Fix 2 dup IDs · room-wide howThisFeels jazz (126 blank) ·<br/>bug [5] Dips 'Back' → Main not Dips"]
+end
+
+subgraph CODE["🌍 Code / Portugal — 2 notes ready to send"]
+  C1["1. Batch-2 GREENLIT: bacalhau trinity (à Brás + com Natas +<br/>Gomes de Sá) reserved for OPUS heroes; Code does non-cod tail.<br/>Spain §6.5 = HOLD (do not action)."]
+  C2["2. Course audit: portugal-acorda main→starter; per-dish course<br/>check (light soups→starter, hearty→main, breads→side),<br/>report-only + diff."]
+  C3["After you push Code batch-1: tap-test Broa de Milho &<br/>Migas à Alentejana pills on live (do they open the card?).<br/>If dead → Opus extends goesWith name-index."]
+end
+
+START-->DONE-->STATE
+STATE-->BUG
+STATE-->JAMS-->RULES
+JAMS-->LATER
+STATE-->CODE

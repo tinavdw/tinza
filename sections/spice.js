@@ -4009,6 +4009,435 @@ var SPICE_DB = [
     story: "Summer strawberries caught in a jar — nothing like the shop stuff. Jam sets thanks to pectin, a natural gum in fruit that firms up when boiled with sugar and acid. Strawberries are low in pectin, which is why a squeeze of lemon juice is the old trick: the acid helps the set and brightens the flavour at the same time.",
     howThisFeels: "Bright, sweet and a little jammy-sticky — the taste of summer on a warm scone."
   },
+  {
+    id: "apricot-jam",
+    name: "Apricot Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Mediterranean · Cape orchards",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"fresh apricots (halved, stoned)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Halve and stone the apricots, then chop the larger ones and combine with the sugar and a good squeeze of lemon juice in a wide pot. Let them stand 20 minutes until the juices run and the sugar starts to dissolve. Bring to a rolling boil over medium-high heat, stirring often, and boil hard for 12 to 18 minutes — apricots break down fast, so watch them. Test for set by dropping a little onto a cold saucer: if it wrinkles when you push it, it is ready. Skim any foam, then pot into clean, hot, sterilised jars and seal while hot. Apricots carry a fair amount of natural pectin and acid, so they set more easily than strawberries. Sealed jars keep for months in the cupboard; once opened, refrigerate up to 3 weeks."
+    },
+    pairsWith: ["buttered toast", "scones", "roast lamb glaze", "cheese board", "yoghurt"],
+    aliases: ["jam", "apricot jam", "apricot preserve", "appelkoos konfyt"],
+    story: "Apricot jam is the quiet workhorse of the South African pantry — the glaze on a Sunday gammon, the layer inside a hertzoggie, the spoonful that sweetens a bobotie. The Klein Karoo grows some of the best apricots in the world, and jam is how the short summer glut is caught for the rest of the year.",
+    howThisFeels: "Golden, honeyed and gently tart — sunshine in a jar with a soft, spoonable set.",
+    versions: [
+      {
+        name: "Classic Apricot",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Apricot & Almond (Noyau)",
+        icon: "🌰",
+        howThisFeels: "The old French trick — a few cracked kernels steeped in, lending a marzipan-almond whisper under the fruit.",
+        delta: {
+          addIng: [
+            { item:{ qty:4, unit:"", name:"apricot kernels (cracked from the stones)" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam, then pot", to:"Drop the cracked kernels in for the last 5 minutes of boiling, then fish them out. Skim any foam, then pot" }
+          ]
+        }
+      },
+      {
+        name: "Dried Apricot (Year-Round)",
+        icon: "📦",
+        howThisFeels: "No fresh fruit needed — plump dried apricots soaked soft, for a deeper, toffee-edged jam you can make in any month.",
+        delta: {
+          swapIng: [
+            { from:"fresh apricots (halved, stoned)", to:{ qty:300, unit:"g", name:"dried apricots, snipped small" } }
+          ],
+          addIng: [
+            { item:{ qty:400, unit:"ml", name:"water (to soak)" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Let them stand 20 minutes until the juices run and the sugar starts to dissolve.", to:"Soak the snipped dried apricots in the water for 1 hour until plump, then tip fruit and soaking water into the pot with the sugar and lemon." }
+          ]
+        }
+      },
+      {
+        name: "Apricot & Rosemary",
+        icon: "🌿",
+        howThisFeels: "A grown-up, savoury-leaning jam — one sprig of rosemary infused in turns it into a glaze for lamb or a partner for hard cheese.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"rosemary sprig" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam, then pot", to:"Fish out the rosemary sprig, skim any foam, then pot" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "fig-jam",
+    name: "Fig Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Mediterranean",
+    flavourChips: ["Sweet", "Fruity", "Earthy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"ripe figs (stemmed, chopped)" },
+        { qty:350, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Trim the stems and chop the ripe figs, skins and all, then combine with the sugar and a good squeeze of lemon juice in a wide pot. Let them stand 30 minutes until the juices run. Bring to a rolling boil over medium-high heat, stirring often, and boil for 20 to 25 minutes until thick and glossy, mashing against the side of the pot to break the fruit down. Test for set on a cold saucer. Figs are low in acid and pectin, so the lemon juice is not optional — it sharpens the flavour and helps the set. Pot into clean, hot, sterilised jars and seal while hot. Keeps for months sealed; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["blue cheese", "brie", "cured ham", "sourdough toast", "roast pork"],
+    aliases: ["jam", "fig jam", "fig preserve", "fig conserve"],
+    story: "Ripe fig jam is the cheese board's best friend — deep, seedy and honeyed, the sweet foil to a sharp blue or a salty ham. This is the purple-fig version; South Africa's famous green-fig konfyt is a different preserve entirely, made from hard unripe figs syruped whole.",
+    howThisFeels: "Dark, jammy and full of tiny crunchy seeds — rich enough to feel almost like dessert.",
+    versions: [
+      {
+        name: "Classic Fig",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Fig & Vanilla",
+        icon: "🌸",
+        howThisFeels: "Softer and rounder — a split vanilla pod steeped in turns the earthy fig almost floral.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"vanilla pod (split)" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Pot into clean, hot, sterilised jars", to:"Fish out the vanilla pod, then pot into clean, hot, sterilised jars" }
+          ]
+        }
+      },
+      {
+        name: "Fig, Red Wine & Star Anise",
+        icon: "🍷",
+        howThisFeels: "A brooding, grown-up preserve — red wine and star anise reduced in, made for a winter cheese board.",
+        delta: {
+          addIng: [
+            { item:{ qty:80, unit:"ml", name:"red wine" }, after:"lemon juice" },
+            { item:{ qty:2, unit:"", name:"star anise" }, after:"red wine" }
+          ],
+          swapStep: [
+            { from:"Bring to a rolling boil over medium-high heat, stirring often,", to:"Add the red wine and star anise, bring to a rolling boil over medium-high heat, stirring often," },
+            { from:"Test for set on a cold saucer.", to:"Fish out the star anise, then test for set on a cold saucer." }
+          ]
+        }
+      },
+      {
+        name: "Fig & Balsamic",
+        icon: "🫒",
+        howThisFeels: "Tipped savoury — a splash of balsamic cuts the sweetness into something you would spoon over roast pork or a burger.",
+        delta: {
+          addIng: [
+            { item:{ qty:30, unit:"ml", name:"balsamic vinegar" }, after:"lemon juice" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "raspberry-jam",
+    name: "Raspberry Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"raspberries (fresh or frozen)" },
+        { qty:450, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Combine the raspberries with the sugar and a squeeze of lemon juice in a wide pot — frozen berries work beautifully and need no defrosting. Let them stand 15 minutes until the juices run, then bring to a rolling boil over medium-high heat, stirring often. Boil hard for just 8 to 12 minutes: raspberries are quick and you want to keep their bright colour and fresh flavour. Test for set on a cold saucer. Skim any foam and pot into clean, hot, sterilised jars while hot. Raspberries hold a moderate amount of natural pectin, so they usually set without any help. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["scones", "Victoria sponge", "buttered toast", "rice pudding", "vanilla ice cream"],
+    aliases: ["jam", "raspberry jam", "raspberry preserve", "raspberry conserve"],
+    story: "Raspberry is one of the easiest jams there is — high enough in pectin to set on its own, and quick to cook so it keeps that vivid, almost tart-sweet flavour. The only real debate is seeds or no seeds, and that comes down to whether you are spreading it on toast or hiding it inside a cake.",
+    howThisFeels: "Jewel-bright and tangy-sweet, with tiny seeds that give a gentle crunch.",
+    versions: [
+      {
+        name: "Classic (with seeds)",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Seedless Raspberry",
+        icon: "🥄",
+        howThisFeels: "Silky and smooth — half the pulp pushed through a sieve, for the glossy jam that goes inside cakes and thumbprint biscuits.",
+        delta: {
+          swapStep: [
+            { from:"Skim any foam and pot into clean, hot, sterilised jars while hot.", to:"Push about half the hot jam through a fine sieve to catch the seeds, stir it back in, skim any foam and pot into clean, hot, sterilised jars while hot." }
+          ]
+        }
+      },
+      {
+        name: "Raspberry & Rose",
+        icon: "🌹",
+        howThisFeels: "A drop of rosewater at the end lifts raspberry into something perfumed and Turkish-delight pretty — go gently, it is powerful.",
+        delta: {
+          addIng: [
+            { item:{ qty:2, unit:"ml", name:"rosewater" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Stir in the rosewater off the heat, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "No-Cook Chia Fridge Jam",
+        icon: "🌱",
+        howThisFeels: "A modern, uncooked riff — mashed raspberries thickened with chia instead of a sugar boil. Not a true keeping jam, but fresh and quick.",
+        delta: {
+          swapIng: [
+            { from:"sugar", to:{ qty:60, unit:"g", name:"honey or maple syrup" } }
+          ],
+          addIng: [
+            { item:{ qty:20, unit:"g", name:"chia seeds" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Combine the raspberries with the sugar and a squeeze of lemon juice in a wide pot — frozen berries work beautifully and need no defrosting.", to:"Mash the raspberries in a bowl with the honey and lemon (warm frozen berries gently first)." },
+            { from:"Let them stand 15 minutes until the juices run, then bring to a rolling boil over medium-high heat, stirring often.", to:"Stir in the chia seeds and let stand 20 minutes, stirring once or twice, until thickened to a spoonable jam." },
+            { from:"Boil hard for just 8 to 12 minutes: raspberries are quick and you want to keep their bright colour and fresh flavour.", to:"No cooking needed." },
+            { from:"Test for set on a cold saucer.", to:"" },
+            { from:"Skim any foam and pot into clean, hot, sterilised jars while hot.", to:"Spoon into a clean jar and keep in the fridge." },
+            { from:"Raspberries hold a moderate amount of natural pectin, so they usually set without any help. Sealed jars keep for months; refrigerate up to 3 weeks once opened.", to:"Keeps in the fridge for about 1 week — this is a fresh jam, not a preserved one." }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "plum-jam",
+    name: "Plum Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"plums (stoned, chopped)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:50, unit:"ml", name:"water" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Stone and chop the plums, keeping the skins on — they hold most of the pectin and give the jam its ruby colour. Put them in a wide pot with the water and simmer gently for 10 minutes until the skins soften, then add the sugar and lemon juice and stir until dissolved. Bring to a rolling boil and cook hard for 15 to 20 minutes, stirring often, until thick. Test for set on a cold saucer. Skim any foam and pot into clean, hot, sterilised jars while hot. Plums range from sweet to sharp, so taste as you go and add a little more lemon if it needs lifting. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["toast", "croissants", "roast duck", "cheese board", "steamed pudding"],
+    aliases: ["jam", "plum jam", "plum preserve", "plum conserve"],
+    story: "Plum jam is a late-summer classic that almost sets itself — the skins are rich in pectin, so it firms up with barely any help. It swings easily from a simple breakfast jam to a spiced Christmas preserve, which is why it turns up in so many guises around the world.",
+    howThisFeels: "Deep ruby-red, sweet with a tart edge and a slightly sticky, generous set.",
+    versions: [
+      {
+        name: "Classic Plum",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Spiced Christmas Plum",
+        icon: "🎄",
+        howThisFeels: "Cinnamon, star anise and clove simmered in — the warming, festive plum jam that smells of the whole holiday.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"cinnamon stick" }, after:"water" },
+            { item:{ qty:2, unit:"", name:"star anise" }, after:"cinnamon stick" },
+            { item:{ qty:3, unit:"", name:"cloves" }, after:"star anise" }
+          ],
+          swapStep: [
+            { from:"Put them in a wide pot with the water and simmer gently for 10 minutes until the skins soften,", to:"Put them in a wide pot with the water and whole spices and simmer gently for 10 minutes until the skins soften," },
+            { from:"Skim any foam and pot", to:"Fish out the whole spices, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "Plum & Ginger",
+        icon: "🫚",
+        howThisFeels: "Fresh ginger grated in gives a warm, peppery lift that cuts the sweetness — lovely with cold roast meats.",
+        delta: {
+          addIng: [
+            { item:{ qty:15, unit:"g", name:"fresh ginger, grated" }, after:"water" }
+          ]
+        }
+      },
+      {
+        name: "Chinese Suan Mei (savoury-sour)",
+        icon: "🥢",
+        howThisFeels: "The strange, wonderful one — five-spice, soy and extra vinegar pull plum jam towards a savoury dipping sauce for spring rolls and crispy duck. Not for your toast.",
+        delta: {
+          swapIng: [
+            { from:"sugar", to:{ qty:250, unit:"g", name:"sugar" } }
+          ],
+          addIng: [
+            { item:{ qty:40, unit:"ml", name:"rice vinegar" }, after:"water" },
+            { item:{ qty:20, unit:"ml", name:"soy sauce" }, after:"rice vinegar" },
+            { item:{ qty:3, unit:"g", name:"Chinese five-spice" }, after:"soy sauce" }
+          ],
+          swapStep: [
+            { from:"until thick. Test for set on a cold saucer.", to:"until thick and glossy but still pourable — this is a sauce, not a firm jam. Blend smooth if you like." }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "peach-jam",
+    name: "Peach Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global · Karoo peaches",
+    flavourChips: ["Sweet", "Fruity", "Aromatic"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"peaches (peeled, stoned, chopped)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:1, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "To peel the peaches easily, score a cross in the base, dip in boiling water for 30 seconds, then slip the skins off under cold water. Stone and chop the flesh and combine with the sugar and a generous squeeze of lemon juice in a wide pot. Let stand 20 minutes, then bring to a rolling boil, stirring often, and cook for 20 to 25 minutes until thick. Test for set on a cold saucer. Peaches are low in pectin and acid, so the lemon juice matters — for a firmer set, add a little jam sugar or a peeled, grated apple. Skim any foam and pot into clean, hot, sterilised jars while hot. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["toast", "scones", "waffles", "yoghurt", "vanilla ice cream"],
+    aliases: ["jam", "peach jam", "peach preserve", "peach conserve"],
+    story: "Peach jam is high summer in a jar, all fragrance and gold. Because peaches are soft on both pectin and acid, it stays looser than a berry jam — which many people love, spooned over ice cream or swirled through yoghurt as much as spread on toast.",
+    howThisFeels: "Soft, golden and fragrant with a loose, syrupy set — more like a fruit spoon than a firm jelly.",
+    versions: [
+      {
+        name: "Classic Peach",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Peach & Amaretto",
+        icon: "🥃",
+        howThisFeels: "A splash of amaretto at the end brings out the almond note hiding in the peach stone — grown-up and dessert-like.",
+        delta: {
+          addIng: [
+            { item:{ qty:20, unit:"ml", name:"amaretto" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Stir in the amaretto off the heat, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "Peach, Vanilla & Bourbon",
+        icon: "🌸",
+        howThisFeels: "Vanilla and a nip of bourbon make a smoky, Southern-US style peach preserve — extraordinary on a warm biscuit.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"", name:"vanilla pod (split)" }, after:"lemon juice" },
+            { item:{ qty:20, unit:"ml", name:"bourbon" }, after:"vanilla pod (split)" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Fish out the vanilla pod, stir in the bourbon off the heat, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "White Peach & Elderflower",
+        icon: "🌼",
+        howThisFeels: "Delicate and floral — pale white peaches with a splash of elderflower cordial, barely there and lovely on scones.",
+        delta: {
+          swapIng: [
+            { from:"peaches (peeled, stoned, chopped)", to:{ qty:500, unit:"g", name:"white peaches (peeled, stoned, chopped)" } }
+          ],
+          addIng: [
+            { item:{ qty:30, unit:"ml", name:"elderflower cordial" }, after:"lemon juice" }
+          ]
+        }
+      }
+    ]
+  },
+
+  {
+    id: "cherry-jam",
+    name: "Cherry Jam",
+    type: "paste",
+    shelf: "jams-preserves",
+    region: "Global · Ficksburg",
+    flavourChips: ["Sweet", "Fruity", "Tangy"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode:"batch", unit:"g", base:500, step:100, label:"1 jar" },
+      ingredients: [
+        { qty:500, unit:"g", name:"cherries (pitted)" },
+        { qty:400, unit:"g", name:"sugar" },
+        { qty:2, unit:"squeeze", name:"lemon juice" }
+      ],
+      method: "Pit the cherries — a clean paperclip or the wrong end of a piping nozzle works if you have no cherry pitter — and halve the larger ones. Combine with the sugar and a good double squeeze of lemon juice in a wide pot and let stand 30 minutes. Bring to a rolling boil, stirring often, and cook for 15 to 20 minutes. Test for set on a cold saucer. Cherries are very low in pectin, so cherry jam always stays on the soft side: lean on the lemon juice, add a little jam sugar or grated apple if you want it firmer, and do not expect a stiff set. Skim any foam and pot into clean, hot, sterilised jars while hot. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
+    },
+    pairsWith: ["croissants", "brioche", "cheesecake", "dark chocolate cake", "brie"],
+    aliases: ["jam", "cherry jam", "cherry preserve", "cherry conserve"],
+    story: "Cherry jam is a labour of love — the pitting takes patience and the set is always loose, because cherries carry almost no pectin. But the flavour is worth it: deep, wine-dark and only just sweet. South Africa's cherry country is Ficksburg in the Free State, whose short season is celebrated with a festival every November.",
+    howThisFeels: "Wine-dark, glossy and loose-set, with whole soft cherries suspended in a rich syrup.",
+    versions: [
+      {
+        name: "Classic Cherry",
+        icon: "🏆",
+        default: true
+      },
+      {
+        name: "Black Cherry & Kirsch",
+        icon: "🍒",
+        howThisFeels: "Dark cherries with a shot of kirsch — the Black Forest in a jar, made for chocolate cake and cheesecake.",
+        delta: {
+          swapIng: [
+            { from:"cherries (pitted)", to:{ qty:500, unit:"g", name:"black cherries (pitted)" } }
+          ],
+          addIng: [
+            { item:{ qty:20, unit:"ml", name:"kirsch" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Stir in the kirsch off the heat, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "Cherry & Almond",
+        icon: "🌰",
+        howThisFeels: "A drop of almond extract leans into cherry's natural marzipan side — classic Bakewell-tart flavours.",
+        delta: {
+          addIng: [
+            { item:{ qty:1, unit:"ml", name:"almond extract" }, after:"lemon juice" }
+          ],
+          swapStep: [
+            { from:"Skim any foam and pot", to:"Stir in the almond extract off the heat, skim any foam and pot" }
+          ]
+        }
+      },
+      {
+        name: "Sour Morello Cherry",
+        icon: "😖",
+        howThisFeels: "Made with sharp Morello cherries and a touch more sugar — bracingly tart-sweet, the classic partner to game and duck.",
+        delta: {
+          swapIng: [
+            { from:"cherries (pitted)", to:{ qty:500, unit:"g", name:"Morello (sour) cherries, pitted" } },
+            { from:"sugar", to:{ qty:450, unit:"g", name:"sugar" } }
+          ]
+        }
+      }
+    ]
+  },
+
 {
   "id": "mango-chutney",
   "name": "Mango Chutney",
