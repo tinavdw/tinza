@@ -4008,7 +4008,2013 @@ var SPICE_DB = [
     aliases: ["jam", "strawberry jam", "strawberry preserve", "strawberry conserve"],
     story: "Summer strawberries caught in a jar — nothing like the shop stuff. Jam sets thanks to pectin, a natural gum in fruit that firms up when boiled with sugar and acid. Strawberries are low in pectin, which is why a squeeze of lemon juice is the old trick: the acid helps the set and brightens the flavour at the same time.",
     howThisFeels: "Bright, sweet and a little jammy-sticky — the taste of summer on a warm scone."
-  }
+  },
+{
+  "id": "mango-chutney",
+  "name": "Mango Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "India · Bengal & Anglo-Indian",
+  "flavourChips": [
+    "Sweet",
+    "Tangy",
+    "Gently spiced"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 300,
+      "step": 300,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 250,
+        "unit": "g",
+        "name": "firm mango (slightly under-ripe), diced"
+      },
+      {
+        "qty": 90,
+        "unit": "g",
+        "name": "sugar"
+      },
+      {
+        "qty": 60,
+        "unit": "ml",
+        "name": "white wine or cider vinegar"
+      },
+      {
+        "qty": 10,
+        "unit": "g",
+        "name": "fresh ginger, grated"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "garlic, grated"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "chilli flakes"
+      },
+      {
+        "qty": 1,
+        "unit": "g",
+        "name": "nigella (kalonji) seeds"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Use mango that still has some bite — fully ripe fruit collapses to a stringy purée instead of holding in glossy chunks. Warm the vinegar and sugar together until the sugar dissolves, then add the ginger, garlic, chilli, nigella and salt. Tip in the mango and simmer gently, stirring now and then, for 30–40 minutes until the syrup is thick and jammy and coats the back of a spoon — it thickens more as it cools, so stop while it still looks a touch loose. Pot into a sterilised jar while hot and seal. Leave it a week if you can: chutney is raw and sharp on day one, and rounds out into something mellow and deep only after it matures."
+  },
+  "pairsWith": [
+    "curry",
+    "poppadoms",
+    "cheese & crackers",
+    "cold ham",
+    "samosas"
+  ],
+  "aliases": [
+    "mango chutney",
+    "aam chutney",
+    "major grey",
+    "anglo-indian chutney"
+  ],
+  "story": "The sweet, jarred 'Major Grey' mango chutney of every curry house is a colonial invention — British officers in India acquired a taste for the local aam ki launji and had it bottled sweeter and milder for export, naming it after a probably-fictional 19th-century army officer. In Bengal the original is sharper, tempered with panch phoron.",
+  "howThisFeels": "Glossy amber chunks of mango in a sweet-sharp, ginger-warm syrup — the spoonful that turns a plain curry into a feast.",
+  "versions": [
+    {
+      "name": "Major Grey (Classic Sweet)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Hot Mango",
+      "icon": "🌶️",
+      "howThisFeels": "The same sweet mango with a real backbone of heat — Kashmiri chilli for colour and a slow burn.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "3g chilli flakes",
+            "to": "8g Kashmiri chilli powder"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "2g mustard seeds"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "add the ginger, garlic, chilli, nigella and salt",
+            "to": "crackle the mustard seeds in a little hot oil first, then add the ginger, garlic, Kashmiri chilli, nigella and salt"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bengali Aam (Panch Phoron)",
+      "icon": "🌿",
+      "howThisFeels": "The sharper Bengali original — the five-spice panch phoron tempered in mustard oil gives it a savoury, almost bitter edge under the sweetness.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "3g panch phoron (five-spice mix)"
+          },
+          {
+            "item": "15ml mustard oil"
+          }
+        ],
+        "removeIng": [
+          {
+            "item": "1g nigella (kalonji) seeds"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "Warm the vinegar and sugar together until the sugar dissolves, then add the ginger, garlic, chilli, nigella and salt.",
+            "to": "Heat the mustard oil to smoking, let it cool a touch, then crackle the panch phoron in it. Add the vinegar and sugar, dissolve, then the ginger, garlic and chilli."
+          }
+        ]
+      }
+    },
+    {
+      "name": "Green Mango & Lime",
+      "icon": "🍈",
+      "howThisFeels": "Sharper and fresher — hard green mango and lime, barely sweet, closer to an atchar than a jam.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "250g firm mango (slightly under-ripe), diced",
+            "to": "250g green (unripe) mango, diced"
+          },
+          {
+            "from": "90g sugar",
+            "to": "40g sugar"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "20ml lime juice",
+            "after": "60ml white wine or cider vinegar"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "coriander-mint-chutney",
+  "name": "Coriander & Mint Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "India · North",
+  "flavourChips": [
+    "Fresh",
+    "Herby",
+    "Zingy"
+  ],
+  "whenToUse": "finish",
+  "heat": 2,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 150,
+      "step": 150,
+      "label": "1 small bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "fresh coriander (leaves & tender stalks)"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "fresh mint leaves"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "green chilli"
+      },
+      {
+        "qty": 10,
+        "unit": "g",
+        "name": "fresh ginger"
+      },
+      {
+        "qty": 20,
+        "unit": "ml",
+        "name": "lemon juice"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "sugar"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      },
+      {
+        "qty": 20,
+        "unit": "ml",
+        "name": "cold water"
+      }
+    ],
+    "method": "This is a raw, fresh chutney — its whole appeal is a vivid, grassy green, and the enemy is heat and time, both of which dull it to khaki. Blitz everything together with just enough cold water to get the blades moving, no more, so it stays a thick paste rather than a watery sauce. A splash of lemon juice does double duty — it sharpens the flavour and its acid keeps the green bright. Taste and balance: it should be punchy, a little hot, sour and barely sweet all at once. Use it the same day for the best colour; a cube or two frozen in an ice tray keeps that fresh green far better than a day in the fridge."
+  },
+  "pairsWith": [
+    "samosas",
+    "tandoori",
+    "bhajis",
+    "grilled meats",
+    "sandwiches"
+  ],
+  "aliases": [
+    "hari chutney",
+    "green chutney",
+    "coriander chutney",
+    "mint chutney",
+    "dhania chutney"
+  ],
+  "story": "Green chutney is India's ketchup — on every chaat cart and in every tiffin — but the mint-heavy version has a special job at tandoori restaurants: its cooling herbs and yoghurt-free sharpness are the deliberate foil to the smoky, chilli-red heat of the grill.",
+  "howThisFeels": "A vivid, grassy-green paste that hits fresh, hot and lemon-sharp all at once — the cooling jolt beside anything off the grill.",
+  "versions": [
+    {
+      "name": "Classic (Restaurant-Style)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Coconut-Mint (South Indian)",
+      "icon": "🥥",
+      "howThisFeels": "Rounder and milder — fresh coconut softens the herbs into a creamy, cooling South-Indian chutney.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "40g fresh (or desiccated, soaked) coconut"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "Blitz everything together with just enough cold water",
+            "to": "Blitz the coconut in first to a rough paste, then add the herbs and blitz with just enough cold water"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Yoghurt Mint (Raita-Style)",
+      "icon": "🥛",
+      "howThisFeels": "Creamy and cooling — the herb paste loosened with yoghurt into a dip that quenches a fiery curry.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "80g plain yoghurt"
+          }
+        ],
+        "removeIng": [
+          {
+            "item": "20ml cold water"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "Use it the same day for the best colour",
+            "to": "Stir the fresh paste through the yoghurt just before serving so it stays bright. Use it the same day"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Fiery Green",
+      "icon": "🔥",
+      "howThisFeels": "For the heat-seekers — double the green chilli and a little garlic, pure and punchy.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "20g green chilli",
+            "to": "40g green chilli"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "4g garlic"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "tamarind-date-chutney",
+  "name": "Tamarind & Date Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "India · North",
+  "flavourChips": [
+    "Sweet-sour",
+    "Sticky",
+    "Spiced"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 250,
+      "step": 250,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "seedless tamarind pulp"
+      },
+      {
+        "qty": 80,
+        "unit": "g",
+        "name": "pitted dates"
+      },
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "jaggery or brown sugar"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "roasted cumin, ground"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "dried ginger (saunth)"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "chilli powder"
+      },
+      {
+        "qty": 1,
+        "unit": "g",
+        "name": "black salt (kala namak)"
+      },
+      {
+        "qty": 250,
+        "unit": "ml",
+        "name": "water"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Simmer the tamarind and chopped dates in the water for 10–15 minutes until both are soft and collapsing. Push the lot through a sieve — this step is worth the effort, straining out the tamarind fibres and date skins for the silky, glossy texture that makes a good imli chutney. Return the smooth pulp to the pan with the jaggery, roasted cumin, dried ginger, chilli, black salt and salt, and simmer another 10 minutes until it thickens to a pourable, syrupy sauce that just coats a spoon. Remember it thickens further as it cools, so keep it slightly loose. The black salt is not optional — its sulphurous tang is exactly the chaat-cart flavour this chutney is chasing."
+  },
+  "pairsWith": [
+    "samosas",
+    "bhel puri",
+    "pakoras",
+    "dahi vada",
+    "chaat"
+  ],
+  "aliases": [
+    "imli chutney",
+    "tamarind chutney",
+    "sweet chutney",
+    "saunth",
+    "meethi chutney"
+  ],
+  "story": "The sweet, dark counterpart to green chutney, imli ki chutney is the sticky glue of Indian street food — every plate of bhel puri and dahi vada is finished with a drizzle. Its sweet-sour-salty balance is built to make the mouth water, which is precisely why chaat, dressed with it, is so hard to stop eating.",
+  "howThisFeels": "A glossy, molasses-dark drizzle that hits sweet, then sour, then a salty tang — the sticky finish that makes street-food chaat irresistible.",
+  "versions": [
+    {
+      "name": "Classic Sweet-Sour",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Ginger & Jaggery",
+      "icon": "🫚",
+      "howThisFeels": "Warmer and deeper — extra fresh ginger and dark jaggery for a treaclier, spicier finish.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "40g jaggery or brown sugar",
+            "to": "60g dark jaggery"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "10g fresh ginger, grated"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Extra-Hot",
+      "icon": "🌶️",
+      "howThisFeels": "The sweet-sour base with a genuine kick — more chilli and a pinch of black pepper for a slow heat.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "2g chilli powder",
+            "to": "6g chilli powder"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "1g black pepper"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "coconut-chutney",
+  "name": "Coconut Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "India · South",
+  "flavourChips": [
+    "Creamy",
+    "Fresh",
+    "Nutty"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 200,
+      "step": 200,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 100,
+        "unit": "g",
+        "name": "fresh grated coconut (or desiccated, soaked in warm water)"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "roasted chana dal (or peanuts)"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "green chilli"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "fresh ginger"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      },
+      {
+        "qty": 60,
+        "unit": "ml",
+        "name": "water"
+      },
+      {
+        "qty": 10,
+        "unit": "ml",
+        "name": "coconut or sunflower oil"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "mustard seeds"
+      },
+      {
+        "qty": 1,
+        "unit": "g",
+        "name": "urad dal"
+      },
+      {
+        "qty": 1,
+        "unit": "g",
+        "name": "dried red chilli"
+      },
+      {
+        "qty": 6,
+        "unit": "g",
+        "name": "curry leaves"
+      }
+    ],
+    "method": "Blitz the coconut, roasted chana dal, green chilli, ginger and salt with just enough water to a thick, spoonable paste — the dal is the secret to body, thickening the chutney so it clings to an idli instead of running off. Now the tempering (tadka), which is the whole soul of a South Indian chutney: heat the oil until shimmering, drop in the mustard seeds and wait for them to pop, then add the urad dal, dried red chilli and curry leaves and fry just until the dal turns golden and the leaves crackle — seconds, not minutes, or it burns bitter. Pour this sizzling spiced oil straight over the coconut paste and stir it through. Serve within a few hours; fresh coconut sours quickly."
+  },
+  "pairsWith": [
+    "idli",
+    "dosa",
+    "vada",
+    "upma",
+    "uttapam"
+  ],
+  "aliases": [
+    "thengai chutney",
+    "coconut chutney",
+    "nariyal chutney",
+    "white chutney"
+  ],
+  "story": "The mandatory partner to idli and dosa across South India — no breakfast plate is complete without a mound of it. The finishing tadka of popping mustard seeds and curry leaves is not garnish but the point: that hot, spiced oil is what lifts a bland coconut paste into something fragrant.",
+  "howThisFeels": "A cool, creamy mound of coconut crowned with a sizzle of mustard seeds and curry leaves — the soft white cloud beside a crisp golden dosa.",
+  "versions": [
+    {
+      "name": "Classic White",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Red Coconut (Kashmiri)",
+      "icon": "🌶️",
+      "howThisFeels": "Blush-pink and warmer — dried Kashmiri chillies blended in for gentle heat and colour.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "3 dried Kashmiri chillies (soaked)"
+          }
+        ],
+        "removeIng": [
+          {
+            "item": "15g green chilli"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "Blitz the coconut, roasted chana dal, green chilli, ginger and salt",
+            "to": "Blitz the coconut, roasted chana dal, soaked Kashmiri chillies, ginger and salt"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Coriander-Coconut",
+      "icon": "🌿",
+      "howThisFeels": "Green and herby — a handful of fresh coriander blended through the coconut for a fresher, brighter chutney.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "20g fresh coriander"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Roasted Gram (Hotel-Style)",
+      "icon": "🥜",
+      "howThisFeels": "Thicker and nuttier — the extra-roasted-gram version tiffin rooms make so it holds its shape on the plate.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "20g roasted chana dal (or peanuts)",
+            "to": "40g roasted chana dal"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "lime-pickle",
+  "name": "Lime Pickle",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "India",
+  "flavourChips": [
+    "Fierce",
+    "Salty-sour",
+    "Oily"
+  ],
+  "whenToUse": "finish",
+  "heat": 3,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 300,
+      "step": 300,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 250,
+        "unit": "g",
+        "name": "limes (about 6), quartered"
+      },
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "salt"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "chilli powder"
+      },
+      {
+        "qty": 10,
+        "unit": "g",
+        "name": "mustard seeds, ground"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "fenugreek (methi) seeds, ground"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "turmeric"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "asafoetida (hing)"
+      },
+      {
+        "qty": 120,
+        "unit": "ml",
+        "name": "mustard or sunflower oil"
+      }
+    ],
+    "method": "The salt does the real work here, not vinegar: pack the quartered limes with the salt and turmeric into a sterilised jar and leave them in a sunny spot for a week to ten days, shaking daily, until the skins soften and turn translucent and the limes sit in their own drawn-out juice. This slow salt-cure is what makes a lime pickle keep for a year. Then heat the oil until it just smokes and cool it a little — smoking-then-cooled mustard oil loses its raw bite — and stir in the ground mustard, fenugreek, chilli and asafoetida. Pour this hot spiced oil over the cured limes, mix well, and cap with a film of oil so nothing sits exposed to air. Mature another two weeks before eating: a young lime pickle is harsh and bitter, a matured one deep and mellow-fierce."
+  },
+  "pairsWith": [
+    "dal & rice",
+    "curd rice",
+    "parathas",
+    "biryani",
+    "curry"
+  ],
+  "aliases": [
+    "lime pickle",
+    "nimbu ka achar",
+    "nimbu achar",
+    "lemon pickle"
+  ],
+  "story": "Indian pickle (achar) is preserved not by vinegar like a Western one, but by salt, chilli, oil and sun — a technique older than refrigeration, built for a hot climate. A properly cured jar of lime pickle keeps for a year on the shelf, mellowing all the while, and a fierce half-teaspoon is meant to wake up an entire plate of plain dal and rice.",
+  "howThisFeels": "Soft, translucent limes soaked in fierce red spiced oil — a tiny, salty-sour, mouth-puckering jolt that makes plain rice sing.",
+  "versions": [
+    {
+      "name": "Classic Hot",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Sweet Lime",
+      "icon": "🍯",
+      "howThisFeels": "Sweet-and-fierce — jaggery folded in to round off the salt-sour bite, gentler on the tongue.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "60g jaggery or sugar"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "Pour this hot spiced oil over the cured limes, mix well",
+            "to": "Melt the jaggery into the hot spiced oil until syrupy, then pour over the cured limes and mix well"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Instant Lime (No Cure)",
+      "icon": "⏱️",
+      "howThisFeels": "The cheat's version — soft-cooked limes and spiced oil ready in an afternoon instead of three weeks.",
+      "delta": {
+        "swapStep": [
+          {
+            "from": "The salt does the real work here, not vinegar: pack the quartered limes with the salt and turmeric into a sterilised jar and leave them in a sunny spot for a week to ten days, shaking daily, until the skins soften and turn translucent and the limes sit in their own drawn-out juice. This slow salt-cure is what makes a lime pickle keep for a year.",
+            "to": "Steam the quartered limes for 10 minutes until the skins are soft, then toss with the salt and turmeric — steaming shortcuts the long salt-cure, though the pickle then keeps weeks rather than a year."
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "green-tomato-chutney",
+  "name": "Green Tomato Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "Britain",
+  "flavourChips": [
+    "Tangy",
+    "Savoury",
+    "Autumnal"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 400,
+      "step": 400,
+      "label": "1 large jar"
+    },
+    "ingredients": [
+      {
+        "qty": 350,
+        "unit": "g",
+        "name": "green (unripe) tomatoes, chopped"
+      },
+      {
+        "qty": 80,
+        "unit": "g",
+        "name": "onion, chopped"
+      },
+      {
+        "qty": 60,
+        "unit": "g",
+        "name": "sugar"
+      },
+      {
+        "qty": 100,
+        "unit": "ml",
+        "name": "malt or cider vinegar"
+      },
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "sultanas"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "fresh ginger, grated"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "mustard powder"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "mixed spice"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "This is the classic British answer to the glut of end-of-season tomatoes that never ripened before the frost. Put everything in a wide, heavy pan and bring to a gentle simmer. Now the one rule of a good chutney: cook it low and slow, uncovered, for a full hour or more, stirring more often as it thickens, until it turns dark, glossy and reduced. It is ready when you draw a wooden spoon across the base and it leaves a clear channel that doesn't immediately flood back with vinegar — that 'trail' is how you know the liquid has cooked off and it will set rather than weep in the jar. Pot hot into sterilised jars. Then the hard part: hide it for at least a month, ideally three, because a fresh chutney tastes harshly of raw vinegar and needs time to mellow into something mature and rounded."
+  },
+  "pairsWith": [
+    "cheddar",
+    "cold meats",
+    "pork pie",
+    "ploughman's",
+    "sausages"
+  ],
+  "aliases": [
+    "green tomato chutney",
+    "ploughman's chutney",
+    "british chutney"
+  ],
+  "story": "The word 'chutney' entered English from Hindi 'chatni' during the Raj, but the British reinvented it into something quite different — a long-cooked, vinegar-preserved relish for the cheeseboard rather than a fresh Indian side. Green tomato chutney is thrift itself: a way to use the hard, unripe tomatoes left clinging to the vine when the growing season runs out.",
+  "howThisFeels": "Dark, glossy and mellow-tangy, sweet with sultanas and sharp with malt vinegar — the jar that makes a wedge of cheddar a proper ploughman's.",
+  "versions": [
+    {
+      "name": "Classic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Apple & Raisin",
+      "icon": "🍎",
+      "howThisFeels": "Sweeter and softer — cooking apple and plump raisins for a mellower, fruitier autumn chutney.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "100g cooking apple, diced"
+          }
+        ],
+        "swapIng": [
+          {
+            "from": "40g sultanas",
+            "to": "60g raisins"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Spiced (with Chilli)",
+      "icon": "🌶️",
+      "howThisFeels": "A warmer, gutsier version — fresh chilli and extra ginger to lift it beyond the mild cheeseboard classic.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "10g fresh chilli, chopped"
+          }
+        ],
+        "swapIng": [
+          {
+            "from": "8g fresh ginger, grated",
+            "to": "16g fresh ginger, grated"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "caramelised-onion-chutney",
+  "name": "Caramelised Onion Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "Britain & France",
+  "flavourChips": [
+    "Sweet",
+    "Deep",
+    "Savoury"
+  ],
+  "whenToUse": "finish",
+  "heat": 0,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 300,
+      "step": 300,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 400,
+        "unit": "g",
+        "name": "red onions, thinly sliced"
+      },
+      {
+        "qty": 20,
+        "unit": "ml",
+        "name": "olive oil"
+      },
+      {
+        "qty": 60,
+        "unit": "g",
+        "name": "brown sugar"
+      },
+      {
+        "qty": 60,
+        "unit": "ml",
+        "name": "balsamic vinegar"
+      },
+      {
+        "qty": 30,
+        "unit": "ml",
+        "name": "red wine (optional)"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "fresh thyme"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "The whole flavour of this chutney is built on genuinely caramelised onions, which cannot be rushed — the biggest mistake is cranking the heat and browning them fast, which tastes burnt and bitter, not sweet. Cook the sliced onions in the oil over low heat, with a pinch of salt to draw out their water, stirring now and then for a full 25–30 minutes until they collapse to a soft, deep-golden jam. Only now add the sugar, balsamic, wine and thyme and turn the heat up a little; simmer another 15–20 minutes until the liquid reduces to a thick, sticky, glossy syrup that clings to the onions and leaves a trail when you draw a spoon across the pan. Pot hot. It's good within a day but better after a week, and keeps for months."
+  },
+  "pairsWith": [
+    "brie & camembert",
+    "burgers",
+    "cheese board",
+    "steak",
+    "sausage rolls"
+  ],
+  "aliases": [
+    "onion chutney",
+    "caramelised onion chutney",
+    "onion marmalade",
+    "red onion chutney",
+    "onion confit"
+  ],
+  "story": "Halfway between an English cheeseboard chutney and a French 'confit d'oignon', this is really just onions coaxed to their sweetest possible self. The trick — low and slow — is the same one behind French onion soup: onions are full of sugar, and patience alone turns their sharpness into deep, jammy caramel with nothing added but time.",
+  "howThisFeels": "Sticky, wine-dark strands of onion cooked down to a sweet, savoury jam — the melting spoonful that makes a wedge of brie unforgettable.",
+  "versions": [
+    {
+      "name": "Classic Balsamic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Thyme & Red Wine",
+      "icon": "🍷",
+      "howThisFeels": "Deeper and more French — a proper glug of red wine and plenty of thyme for a confit-style richness.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "30ml red wine (optional)",
+            "to": "90ml red wine"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "simmer another 15–20 minutes until the liquid reduces",
+            "to": "simmer another 20–25 minutes, letting the wine cook right down, until the liquid reduces"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Chilli Onion",
+      "icon": "🌶️",
+      "howThisFeels": "Sweet-hot — a hit of chilli against the jammy onion, brilliant on a burger.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "6g chilli flakes"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "rhubarb-ginger-chutney",
+  "name": "Rhubarb & Ginger Chutney",
+  "type": "chutney",
+  "shelf": "chutneys-atchars",
+  "region": "Britain (unusual)",
+  "flavourChips": [
+    "Sharp-sweet",
+    "Warming",
+    "Unexpected"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 350,
+      "step": 350,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 300,
+        "unit": "g",
+        "name": "rhubarb, chopped"
+      },
+      {
+        "qty": 70,
+        "unit": "g",
+        "name": "onion, finely chopped"
+      },
+      {
+        "qty": 80,
+        "unit": "g",
+        "name": "brown sugar"
+      },
+      {
+        "qty": 80,
+        "unit": "ml",
+        "name": "cider vinegar"
+      },
+      {
+        "qty": 30,
+        "unit": "g",
+        "name": "stem ginger (or fresh ginger), chopped"
+      },
+      {
+        "qty": 30,
+        "unit": "g",
+        "name": "sultanas"
+      },
+      {
+        "qty": 1,
+        "unit": "g",
+        "name": "chilli flakes"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Rhubarb is a surprising but brilliant chutney base — it's technically a vegetable, mouth-puckeringly sour, and cooks down fast, so it needs a shorter, gentler simmer than a tomato or mango chutney or it turns to slush. Put everything in a pan and bring to a gentle simmer, then cook 25–35 minutes, stirring, just until the rhubarb has broken down and the mixture is thick, glossy and jammy — stop while a few soft strands still hold their shape. It should taste sharp-sweet with a real warmth of ginger. Pot hot into sterilised jars, and give it two weeks to settle before eating. Unexpected but excellent with sharp cheese, cold pork, or oily fish like mackerel."
+  },
+  "pairsWith": [
+    "mackerel",
+    "pork",
+    "sharp cheddar",
+    "goat's cheese",
+    "cold cuts"
+  ],
+  "aliases": [
+    "rhubarb chutney",
+    "rhubarb ginger chutney"
+  ],
+  "story": "A country-kitchen oddity that deserves to be better known: rhubarb's fierce sourness, which usually gets buried under sugar in a crumble, is exactly what makes a great savoury chutney — its acidity does the job vinegar does elsewhere, and ginger is its oldest and most natural partner. It cuts through oily mackerel the way a squeeze of lemon would, only sweeter.",
+  "howThisFeels": "Blush-pink and sharp-sweet with a real hum of ginger — the unexpected chutney that cuts clean through oily fish or a slab of sharp cheese.",
+  "versions": [
+    {
+      "name": "Classic Rhubarb & Ginger",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Rhubarb & Date",
+      "icon": "🌴",
+      "howThisFeels": "Softer and darker — chopped dates melt in for a mellower, treacly sweetness against the sour rhubarb.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "60g pitted dates, chopped"
+          }
+        ],
+        "swapIng": [
+          {
+            "from": "80g brown sugar",
+            "to": "50g brown sugar"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Rhubarb & Star Anise",
+      "icon": "🌟",
+      "howThisFeels": "Fragrant and grown-up — a whole star anise infuses a gentle liquorice warmth through the pink.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "1 star anise (whole, removed after cooking)"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "tomato-onion-sambal",
+  "name": "Tomato & Onion Sambal",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "South Africa · Cape Malay",
+  "flavourChips": [
+    "Fresh",
+    "Sharp",
+    "Cooling"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 200,
+      "step": 200,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 150,
+        "unit": "g",
+        "name": "firm tomatoes, diced"
+      },
+      {
+        "qty": 60,
+        "unit": "g",
+        "name": "onion, finely diced"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "green chilli, chopped"
+      },
+      {
+        "qty": 10,
+        "unit": "g",
+        "name": "fresh coriander (dhania), chopped"
+      },
+      {
+        "qty": 15,
+        "unit": "ml",
+        "name": "white or brown vinegar"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "sugar"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "The one trick that makes a good tomato sambal is taking the raw fierceness out of the onion, and there are two ways: either rinse the diced onion under cold water and squeeze it dry, or toss it with the salt and vinegar first and let it sit ten minutes to mellow. Use firm tomatoes and dice them small so the sambal stays chunky and fresh rather than turning to a watery pulp — and if the tomatoes are very juicy, tip off some of the seeds and liquid. Mix everything together, taste, and balance the vinegar and sugar so it's sharp but not sour. Serve it cold and fresh the same day; its whole job is to cut through a rich, saucy curry or a plate of braai meat with a clean, bright bite."
+  },
+  "pairsWith": [
+    "curry",
+    "biryani",
+    "braai meat",
+    "bunny chow",
+    "roti"
+  ],
+  "aliases": [
+    "tomato sambal",
+    "tomato and onion sambal",
+    "onion sambal",
+    "smoor"
+  ],
+  "story": "Sambals — small fresh relishes served alongside a main dish — came to the Cape with enslaved cooks from the Indonesian archipelago, where 'sambal' means a chilli-based condiment. At the Cape they softened into these cooling tomato, onion and cucumber sides that are now the fixed companions of every curry and every braai.",
+  "howThisFeels": "A cold, sharp tumble of tomato and onion flecked with green chilli and dhania — the clean, fresh bite that cuts a rich curry in half.",
+  "versions": [
+    {
+      "name": "Classic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Cucumber & Tomato",
+      "icon": "🥒",
+      "howThisFeels": "Cooler still — crisp cucumber folded in for extra crunch and freshness against a fiery curry.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "80g cucumber, diced"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Extra Chilli & Dhania",
+      "icon": "🌶️",
+      "howThisFeels": "Punchier and greener — double the chilli and a big handful of fresh coriander.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "15g green chilli, chopped",
+            "to": "30g green chilli, chopped"
+          },
+          {
+            "from": "10g fresh coriander (dhania), chopped",
+            "to": "20g fresh coriander (dhania), chopped"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "sambal-oelek",
+  "name": "Sambal Oelek",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Indonesia",
+  "flavourChips": [
+    "Fiery",
+    "Pure chilli",
+    "Salty-sour"
+  ],
+  "whenToUse": "mid",
+  "heat": 4,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 150,
+      "step": 150,
+      "label": "1 small jar"
+    },
+    "ingredients": [
+      {
+        "qty": 150,
+        "unit": "g",
+        "name": "fresh red chillies, stems removed"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "salt"
+      },
+      {
+        "qty": 15,
+        "unit": "ml",
+        "name": "vinegar or lime juice"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "sugar"
+      }
+    ],
+    "method": "Sambal oelek is the purest sambal — nothing but chilli, salt and a little acid — and its name comes from the 'ulekan', the stone mortar it's traditionally ground in. That rough grinding matters: pounding (or a quick, coarse blitz) gives it a chunky, seed-flecked texture, not a smooth sauce. For the truest flavour, steam or blanch the chillies for a few minutes first to soften them and take off the raw green edge, then pound with the salt to a rough paste. Work in the vinegar and sugar. You can use it raw and bright, or fry it in a little oil for a few minutes to deepen and mellow it into a keeping sambal. This is a building block as much as a condiment — a spoonful stirred into stir-fries, noodles and marinades, or dolloped on the side for the brave."
+  },
+  "pairsWith": [
+    "nasi goreng",
+    "satay",
+    "noodles",
+    "fried rice",
+    "grilled fish"
+  ],
+  "aliases": [
+    "sambal oelek",
+    "sambal ulek",
+    "chilli paste",
+    "indonesian chilli"
+  ],
+  "story": "Indonesia has hundreds of sambals, but oelek is the mother of them all — the plain chilli base from which the others are built. Because it's just pounded chilli and salt, it carries the pure, undiluted heat and fruitiness of the chilli itself, which is why cooks reach for it as an ingredient, not only a table sauce.",
+  "howThisFeels": "A fierce, seed-flecked scarlet paste of pure pounded chilli — a fingertip's worth wakes up a whole bowl of noodles.",
+  "versions": [
+    {
+      "name": "Classic (Raw)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Cooked (Bajak-Style)",
+      "icon": "🍳",
+      "howThisFeels": "Darker, sweeter and mellower — fried down with shallot and a little palm sugar into a keeping sambal.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "40g shallot, chopped"
+          },
+          {
+            "item": "20ml oil"
+          },
+          {
+            "item": "10g palm sugar"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "You can use it raw and bright, or fry it in a little oil for a few minutes to deepen and mellow it into a keeping sambal.",
+            "to": "Fry the shallot in the oil until soft, add the chilli paste and palm sugar, and cook down 10–15 minutes until dark, jammy and glossy — this is the deeper, sweeter sambal bajak that keeps for weeks."
+          }
+        ]
+      }
+    },
+    {
+      "name": "Garlic (Sambal Bawang)",
+      "icon": "🧄",
+      "howThisFeels": "Sharper and more savoury — plenty of raw garlic pounded through for a pungent kick.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "20g garlic"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "sambal-matah",
+  "name": "Sambal Matah",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Indonesia · Bali",
+  "flavourChips": [
+    "Raw",
+    "Zingy",
+    "Aromatic"
+  ],
+  "whenToUse": "finish",
+  "heat": 3,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 150,
+      "step": 150,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 50,
+        "unit": "g",
+        "name": "shallots, very thinly sliced"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "lemongrass (tender inner core), finely sliced"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "red chilli, thinly sliced"
+      },
+      {
+        "qty": 6,
+        "unit": "g",
+        "name": "garlic, thinly sliced"
+      },
+      {
+        "qty": 6,
+        "unit": "g",
+        "name": "kaffir lime leaf, shredded"
+      },
+      {
+        "qty": 30,
+        "unit": "ml",
+        "name": "coconut oil"
+      },
+      {
+        "qty": 10,
+        "unit": "ml",
+        "name": "lime juice"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "'Matah' means raw, and that's the whole character — where most sambals are pounded and cooked, this Balinese one is a fresh, crunchy tangle of thinly-sliced aromatics. The knife work is the dish: slice the shallots, lemongrass, chilli, garlic and lime leaf as finely as you possibly can, because coarse pieces make it harsh and fibrous. The classic method is to warm the coconut oil until just hot, then pour it over the raw sliced aromatics and scrunch it all together with your hands — the warm oil lightly wilts and releases their fragrance without cooking them, so it stays fresh and crunchy. Finish with lime and salt. Serve at once, piled generously over grilled fish or chicken; it doesn't keep, it's meant to be made and eaten fresh."
+  },
+  "pairsWith": [
+    "grilled fish",
+    "satay lilit",
+    "chicken",
+    "rice",
+    "seafood"
+  ],
+  "aliases": [
+    "sambal matah",
+    "balinese raw sambal",
+    "matah"
+  ],
+  "story": "Sambal matah is Bali's signature raw sambal, built for the island's grilled seafood. Unusually among sambals it's barely spicy by Indonesian standards — its point isn't heat but the intense fresh perfume of lemongrass and kaffir lime, released by nothing more than a splash of warm coconut oil.",
+  "howThisFeels": "A crunchy, fragrant tangle of raw shallot and lemongrass just kissed with warm coconut oil — Bali's fresh, citrus-scented answer to a chilli paste.",
+  "versions": [
+    {
+      "name": "Classic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Extra Lemongrass & Lime",
+      "icon": "🌿",
+      "howThisFeels": "Even more perfumed — double the lemongrass and lime leaf for a heady, citrus-grass hit.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "20g lemongrass (tender inner core), finely sliced",
+            "to": "35g lemongrass (tender inner core), finely sliced"
+          },
+          {
+            "from": "6g kaffir lime leaf, shredded",
+            "to": "10g kaffir lime leaf, shredded"
+          }
+        ]
+      }
+    },
+    {
+      "name": "With Toasted Shrimp Paste",
+      "icon": "🦐",
+      "howThisFeels": "Deeper and savoury — a little toasted terasi folded in for the funky, umami depth of a traditional Balinese kitchen.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "5g toasted shrimp paste (terasi)"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "pol-sambol",
+  "name": "Pol Sambol",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Sri Lanka",
+  "flavourChips": [
+    "Coconut",
+    "Fiery",
+    "Tangy"
+  ],
+  "whenToUse": "finish",
+  "heat": 3,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 200,
+      "step": 200,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 100,
+        "unit": "g",
+        "name": "fresh grated coconut (or desiccated, soaked in warm water)"
+      },
+      {
+        "qty": 30,
+        "unit": "g",
+        "name": "onion or shallot, finely chopped"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "Kashmiri chilli powder"
+      },
+      {
+        "qty": 10,
+        "unit": "ml",
+        "name": "lime juice"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "Maldive fish flakes (optional)"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Pol sambol is Sri Lanka's daily bread-and-butter relish, and the secret to a good one is moisture and pounding, not a dry mix. If using desiccated coconut, soak it first so it plumps back up soft and juicy — a dry pol sambol is a sad one. Pound (or pulse) the coconut with the onion, chilli, salt and Maldive fish flakes so the ingredients bruise and release their oils and the whole thing takes on a warm red-orange stain from the chilli. Squeeze in the lime and work it through until it clumps together, moist and vivid. Taste for the classic Sri Lankan balance — hot, salty and sour all at full volume. Eat it fresh, heaped beside rice and curry or, most famously, stuffed into a fresh coconut roti or spread on bread for breakfast."
+  },
+  "pairsWith": [
+    "rice & curry",
+    "roti",
+    "string hoppers",
+    "bread",
+    "hoppers"
+  ],
+  "aliases": [
+    "pol sambol",
+    "coconut sambol",
+    "coconut sambal",
+    "sri lankan coconut relish"
+  ],
+  "story": "Pol sambol (pol means coconut) is on the Sri Lankan table at practically every meal, breakfast included. The traditional funk comes from Maldive fish — dried, smoked tuna shaved into flakes — which gives it a deep savoury backbone; leave it out and it's a perfectly good vegan sambol, add it and it's the real, umami-rich thing.",
+  "howThisFeels": "A vivid red-orange mound of coconut pounded with chilli and lime — fierce, tangy and moreish, the relish Sri Lankans eat with everything, even breakfast.",
+  "versions": [
+    {
+      "name": "Classic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Seeni Sambol (Caramelised Onion)",
+      "icon": "🧅",
+      "howThisFeels": "The sweet cousin — onions cooked low and slow with sugar and tamarind into a dark, sticky, sweet-hot relish.",
+      "kcal": null,
+      "ingredients": [
+        {
+          "qty": 200,
+          "unit": "g",
+          "name": "onions, thinly sliced"
+        },
+        {
+          "qty": 20,
+          "unit": "ml",
+          "name": "oil"
+        },
+        {
+          "qty": 8,
+          "unit": "g",
+          "name": "Kashmiri chilli powder"
+        },
+        {
+          "qty": 15,
+          "unit": "g",
+          "name": "sugar"
+        },
+        {
+          "qty": 10,
+          "unit": "g",
+          "name": "tamarind pulp"
+        },
+        {
+          "qty": 5,
+          "unit": "g",
+          "name": "curry leaves"
+        },
+        {
+          "qty": 4,
+          "unit": "g",
+          "name": "salt"
+        }
+      ],
+      "method": "Seeni sambol ('sugar sambol') is the sweet, jammy relative of pol sambol. Fry the sliced onions slowly in the oil with the curry leaves for 20–25 minutes until deep golden and collapsing — patience here is everything, as with any caramelised onion. Stir in the chilli, sugar, salt and tamarind and cook another 10 minutes until dark, sticky and glossy. It should taste sweet, sour and hot all at once. Keeps well for a week and is brilliant in a bread roll or with hoppers."
+    },
+    {
+      "name": "Extra Hot",
+      "icon": "🔥",
+      "howThisFeels": "Turned up — extra chilli and a fresh green chilli pounded in for a real Sri Lankan burn.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "8g Kashmiri chilli powder",
+            "to": "14g Kashmiri chilli powder"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "10g green chilli"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "pico-de-gallo",
+  "name": "Pico de Gallo",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Mexico",
+  "flavourChips": [
+    "Fresh",
+    "Crunchy",
+    "Zesty"
+  ],
+  "whenToUse": "finish",
+  "heat": 2,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 250,
+      "step": 250,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 200,
+        "unit": "g",
+        "name": "firm tomatoes, deseeded and diced"
+      },
+      {
+        "qty": 60,
+        "unit": "g",
+        "name": "onion, finely diced"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "jalapeño or serrano chilli, finely chopped"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "fresh coriander (cilantro), chopped"
+      },
+      {
+        "qty": 20,
+        "unit": "ml",
+        "name": "lime juice"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Pico de gallo is a chopped salsa, not a blended one — everything stays in small, distinct, crunchy dice, which is exactly what separates it from a jarred sauce. The single most important step is deseeding the tomatoes and, if they're watery, salting the dice and draining them for ten minutes: a wet pico turns to soup and dilutes everything. Rinse the diced onion under cold water if you want to tame its bite. Toss the tomato, onion, chilli and coriander with the lime and salt, and — the part most people skip — let it sit 15–20 minutes before serving so the flavours marry and the raw onion softens. Best within a few hours; it weeps and dulls overnight. Pile it on tacos, grilled meat, eggs, or just scoop it with a chip."
+  },
+  "pairsWith": [
+    "tacos",
+    "grilled meat",
+    "nachos",
+    "eggs",
+    "quesadillas"
+  ],
+  "aliases": [
+    "pico de gallo",
+    "salsa fresca",
+    "salsa cruda",
+    "mexican salsa"
+  ],
+  "story": "'Pico de gallo' means 'rooster's beak' — nobody's quite sure why, though the best guess is that it was once eaten pinched between finger and thumb, a pecking motion like a rooster's peck. Its red, white and green also happen to be the colours of the Mexican flag, which is why it's sometimes called salsa bandera, 'flag salsa'.",
+  "howThisFeels": "A bright, crunchy confetti of tomato, onion and lime-soaked chilli — the fresh, chip-scooping salsa that lands on every Mexican table.",
+  "versions": [
+    {
+      "name": "Classic",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Mango Pico",
+      "icon": "🥭",
+      "howThisFeels": "Sweet-hot and tropical — diced mango against the chilli and lime, brilliant on fish tacos.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "100g firm mango, diced"
+          }
+        ],
+        "swapIng": [
+          {
+            "from": "200g firm tomatoes, deseeded and diced",
+            "to": "120g firm tomatoes, deseeded and diced"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Charred (Salsa Asada)",
+      "icon": "🔥",
+      "howThisFeels": "Smoky and deeper — the tomatoes, onion and chilli blistered on a hot pan before chopping.",
+      "delta": {
+        "swapStep": [
+          {
+            "from": "Toss the tomato, onion, chilli and coriander with the lime and salt",
+            "to": "Char the whole tomatoes, onion and chilli on a dry hot pan until blistered and blackened in spots, then chop and toss with the coriander, lime and salt"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "salsa-verde-tomatillo",
+  "name": "Salsa Verde (Tomatillo)",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Mexico",
+  "flavourChips": [
+    "Tangy",
+    "Bright",
+    "Green-chilli"
+  ],
+  "whenToUse": "finish",
+  "heat": 2,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 250,
+      "step": 250,
+      "label": "1 bowl"
+    },
+    "ingredients": [
+      {
+        "qty": 300,
+        "unit": "g",
+        "name": "tomatillos (or green tomatoes + extra lime), husked"
+      },
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "onion"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "green chilli (serrano/jalapeño)"
+      },
+      {
+        "qty": 6,
+        "unit": "g",
+        "name": "garlic"
+      },
+      {
+        "qty": 20,
+        "unit": "g",
+        "name": "fresh coriander (cilantro)"
+      },
+      {
+        "qty": 10,
+        "unit": "ml",
+        "name": "lime juice"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "This is the tangy green salsa of Mexico, and its sourness comes from tomatillos — small husked fruit that taste sharp and citrusy, not like a tomato at all (green tomatoes plus extra lime are the nearest substitute). The making decision is raw versus cooked: for a bright, sharp salsa cruda, simply blitz everything raw. For the deeper, mellower salsa verde most cocinas serve, first char the tomatillos, onion, chilli and garlic on a dry hot pan (comal) until blackened and soft — that roasting turns their sourness sweet and smoky. Either way, blitz to a slightly chunky sauce, not a smooth purée, and stir the coriander and lime through at the end so they stay fresh. Season well; tomatillos need salt to sing. Spoon over tacos, enchiladas, eggs or grilled pork."
+  },
+  "pairsWith": [
+    "tacos",
+    "enchiladas",
+    "carnitas",
+    "eggs",
+    "grilled pork"
+  ],
+  "aliases": [
+    "salsa verde",
+    "tomatillo salsa",
+    "green salsa",
+    "salsa verde cruda"
+  ],
+  "story": "Green salsa is one of the oldest foods of the Americas — tomatillos were cultivated by the Aztecs long before the red tomato rose to fame, and the word comes from the Nahuatl 'tomatl'. Its bright acidity is the natural partner to rich, fatty meats like carnitas, which is why it's the default salsa in a taquería's pork corner.",
+  "howThisFeels": "A tangy, jade-green sauce, sharp and a little smoky — the citrus-bright salsa that cuts straight through rich, fatty pork.",
+  "versions": [
+    {
+      "name": "Raw (Cruda)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Roasted (Asada)",
+      "icon": "🔥",
+      "howThisFeels": "Deeper and sweeter — everything charred on a hot pan first for a smoky, mellow green salsa.",
+      "delta": {
+        "swapStep": [
+          {
+            "from": "for a bright, sharp salsa cruda, simply blitz everything raw",
+            "to": "char the tomatillos, onion, chilli and garlic on a dry hot pan until blackened and soft, then blitz — the roasting is the whole point of this version"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Avocado (Salsa Verde Cremosa)",
+      "icon": "🥑",
+      "howThisFeels": "Silky and mellow — a whole avocado blended in turns the sharp green salsa into a creamy, pourable dressing.",
+      "delta": {
+        "addIng": [
+          {
+            "item": "1 ripe avocado"
+          }
+        ],
+        "swapStep": [
+          {
+            "from": "blitz to a slightly chunky sauce, not a smooth purée",
+            "to": "blitz with the avocado to a smooth, creamy, pourable sauce"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "zhoug",
+  "name": "Zhoug",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Yemen · Middle East",
+  "flavourChips": [
+    "Fiery",
+    "Herby",
+    "Aromatic"
+  ],
+  "whenToUse": "finish",
+  "heat": 4,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 150,
+      "step": 150,
+      "label": "1 small jar"
+    },
+    "ingredients": [
+      {
+        "qty": 40,
+        "unit": "g",
+        "name": "fresh coriander (leaves & stalks)"
+      },
+      {
+        "qty": 15,
+        "unit": "g",
+        "name": "fresh parsley"
+      },
+      {
+        "qty": 30,
+        "unit": "g",
+        "name": "green chilli"
+      },
+      {
+        "qty": 10,
+        "unit": "g",
+        "name": "garlic"
+      },
+      {
+        "qty": 3,
+        "unit": "g",
+        "name": "ground cumin"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "ground cardamom"
+      },
+      {
+        "qty": 60,
+        "unit": "ml",
+        "name": "olive oil"
+      },
+      {
+        "qty": 10,
+        "unit": "ml",
+        "name": "lemon juice"
+      },
+      {
+        "qty": 4,
+        "unit": "g",
+        "name": "salt"
+      }
+    ],
+    "method": "Zhoug is the fiery green hot sauce of Yemen that travelled to Israel and now turns up in every hummus and shawarma. It's really a chilli-charged herb paste, and the two things that make it are a mountain of fresh coriander and the warm spices — cumin and, crucially, cardamom, which gives zhoug its distinctive perfumed edge you won't find in other green chilli sauces. Pound or pulse the herbs, chilli and garlic to a coarse paste — keep it a little rough, not a smooth sauce — then stir in the spices, salt, lemon and enough olive oil to make it spoonable and glossy. Taste: it should be searingly hot, garlicky, and green. A spoonful stirred into soup, spooned over grilled meat, or swirled through hummus lifts the whole plate. Keeps a week under a film of oil."
+  },
+  "pairsWith": [
+    "hummus",
+    "shawarma",
+    "falafel",
+    "grilled meat",
+    "soup"
+  ],
+  "aliases": [
+    "zhoug",
+    "skhug",
+    "s'chug",
+    "zhug",
+    "yemeni hot sauce"
+  ],
+  "story": "Zhoug (skhug in Hebrew) is Yemen's national condiment, carried to Israel by Yemenite Jews in the mid-20th century, where it became a staple of the whole region's street food. The tell-tale note is cardamom — a spice Yemen has traded in for over a thousand years — which perfumes the fierce green heat in a way no other chilli sauce does.",
+  "howThisFeels": "A fierce, cardamom-scented green paste, all coriander and chilli and garlic — the Yemeni hot sauce that sets a bowl of hummus alight.",
+  "versions": [
+    {
+      "name": "Green (Classic)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Red Zhoug",
+      "icon": "🔴",
+      "howThisFeels": "Earthier and deeper — made with red chillies and a little tomato instead of the green herbs' brightness.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "30g green chilli",
+            "to": "40g red chilli"
+          }
+        ],
+        "addIng": [
+          {
+            "item": "30g tomato"
+          }
+        ],
+        "removeIng": [
+          {
+            "item": "15g fresh parsley"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Extra Garlic",
+      "icon": "🧄",
+      "howThisFeels": "Sharper and more pungent — a double hit of raw garlic for the true Yemeni intensity.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "10g garlic",
+            "to": "22g garlic"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "ajvar",
+  "name": "Ajvar",
+  "type": "relish",
+  "shelf": "sambals-relishes",
+  "region": "Balkans (unusual)",
+  "flavourChips": [
+    "Smoky",
+    "Sweet-savoury",
+    "Silky"
+  ],
+  "whenToUse": "finish",
+  "heat": 1,
+  "makeYourOwn": {
+    "yield": {
+      "mode": "batch",
+      "unit": "g",
+      "base": 300,
+      "step": 300,
+      "label": "1 jar"
+    },
+    "ingredients": [
+      {
+        "qty": 400,
+        "unit": "g",
+        "name": "red peppers (romano/bell)"
+      },
+      {
+        "qty": 100,
+        "unit": "g",
+        "name": "aubergine (optional, for a softer ajvar)"
+      },
+      {
+        "qty": 8,
+        "unit": "g",
+        "name": "garlic"
+      },
+      {
+        "qty": 40,
+        "unit": "ml",
+        "name": "olive or sunflower oil"
+      },
+      {
+        "qty": 15,
+        "unit": "ml",
+        "name": "red wine vinegar"
+      },
+      {
+        "qty": 5,
+        "unit": "g",
+        "name": "salt"
+      },
+      {
+        "qty": 2,
+        "unit": "g",
+        "name": "chilli flakes (optional)"
+      }
+    ],
+    "method": "Ajvar is a Balkan relish that lives or dies on one step: the peppers must be roasted until the skins are properly blackened and blistered, then steamed under a lid or in a bag and peeled — that char is the whole smoky soul of it, and un-roasted peppers make a raw, tinny ajvar. Peel and deseed the roasted peppers (and aubergine, if using, for a softer texture). Chop or pulse them coarse, then — the traditional part — cook the pulp down slowly in the oil for 30–40 minutes, stirring often, until it darkens, thickens and turns glossy and jammy, and the water has cooked off. Stir in the garlic, vinegar and salt near the end. Patience here is everything; a good ajvar is cooked down a long way. Pot hot; it keeps for weeks and, in the Balkans, is made by the vat-load every autumn to see families through winter."
+  },
+  "pairsWith": [
+    "bread",
+    "grilled meat",
+    "cheese",
+    "ćevapi",
+    "eggs"
+  ],
+  "aliases": [
+    "ajvar",
+    "aivar",
+    "roasted pepper relish",
+    "balkan pepper relish"
+  ],
+  "story": "Ajvar is such a fixture across Serbia, Macedonia and the whole Balkans that it's nicknamed 'Serbian caviar' — every family has its own recipe, and 'ajvar days' each autumn, when the red pepper harvest comes in and whole neighbourhoods roast and cook down peppers together, are a genuine social event. The name traces to the same Turkish root as 'caviar'.",
+  "howThisFeels": "A silky, brick-red spread of slow-cooked roasted peppers, sweet and deeply smoky — the Balkan 'caviar' you slather on bread by the spoonful.",
+  "versions": [
+    {
+      "name": "Mild (Blagi)",
+      "icon": "🏆",
+      "default": true
+    },
+    {
+      "name": "Hot (Ljuti)",
+      "icon": "🌶️",
+      "howThisFeels": "The fiery version — a good handful of hot chillies roasted and cooked down with the peppers.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "2g chilli flakes (optional)",
+            "to": "40g hot red chillies (roasted with the peppers)"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Aubergine (Malidžano-Style)",
+      "icon": "🍆",
+      "howThisFeels": "Softer and creamier — a bigger share of roasted aubergine for a lush, velvety relish.",
+      "delta": {
+        "swapIng": [
+          {
+            "from": "100g aubergine (optional, for a softer ajvar)",
+            "to": "250g aubergine (roasted)"
+          },
+          {
+            "from": "400g red peppers (romano/bell)",
+            "to": "300g red peppers (romano/bell)"
+          }
+        ]
+      }
+    }
+  ]
+}
 ];
 
 if (typeof window !== "undefined") window.SPICE_DB = SPICE_DB;
@@ -4531,6 +6537,7 @@ if (typeof window !== "undefined") {
 // (Spice's internal browsing is untouched — this only adds the universal path.)
 function spiceRecipeOpts(r){
   if(!r || !r.makeYourOwn) return { name:(r?r.name:'Recipe not found'), backJs:'closeRecipe()', backLabel:'← Back', nav:{ backJs:'closeRecipe()' } };
+  r = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // overlay chosen twist (version) before rendering
   var my = r.makeYourOwn, y = my.yield || { base:1, step:1, unit:'serving', label:'' };
   var base = y.base || 1, step = y.step || 1;
   var scale = (typeof spiceCurScale==='function') ? spiceCurScale(r) : base;
@@ -4569,6 +6576,7 @@ function spiceRecipeOpts(r){
     name:r.name,
     sub: r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '',
     meta:{ origin:r.region },
+    versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, 'var(--accent)') : '',
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
     goesWith: (r.pairsWith||[]).slice(0,6),
     extrasHTML: storyBox,
