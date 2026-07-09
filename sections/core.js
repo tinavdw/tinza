@@ -3108,6 +3108,9 @@ function applyRecipeVersion(r){
     if(v[k]!=null) out[k]=v[k];
   });
   if(v.delta) out = applyVersionDelta(out, v.delta);   // BD11: delta-merge (tweak the base, don't re-author the whole recipe)
+  // BD13: spice cards hold their data in makeYourOwn (object ingredients {qty,unit,name}
+  // + string method), not top-level ingredients/method — so run the delta there too.
+  if(v.delta && out.makeYourOwn){ out.makeYourOwn = applyMakeYourOwnDelta(out.makeYourOwn, v.delta); }
   // BD12: a Meals delta version inherits the base costPP but may have swapped
   // ingredients (beef→lamb, etc.) — nudge the headline cost by the COMPUTED
   // difference so it stays honest, no hand-set costPP needed. Meals arrays only
@@ -3118,6 +3121,30 @@ function applyRecipeVersion(r){
     if(_bC!=null && _mC!=null) out.costPP = Math.max(0, Math.round(r.costPP + (_mC - _bC)));
   }
   out._activeVersion = v.name;
+  return out;
+}
+// ── MAKE-YOUR-OWN DELTA (BD13) ── the spice-shelf twin of applyVersionDelta.
+// Spice cards store makeYourOwn.ingredients as OBJECTS {qty,unit,name} and
+// makeYourOwn.method as one string. A version `delta` tweaks them by NAME match:
+//   swapIng:[{from:"<name substring>", to:{qty,unit,name}}]   (to may also be {name:"…"} to keep qty/unit)
+//   removeIng:[{item:"<name substring>"}]   (bare string also accepted)
+//   addIng:[{item:{qty,unit,name}, after?:"<name substring>"}]
+//   swapStep:[{from:"<verbatim method substring>", to:"…"}]  ·  addStep:[{text:"…"}]
+// Returns a fresh makeYourOwn — the base card is never mutated.
+function applyMakeYourOwnDelta(my, d){
+  var out = Object.assign({}, my);
+  var ings = (out.ingredients||[]).slice();
+  var findIdx = function(key){ for(var i=0;i<ings.length;i++){ var nm=ings[i]&&ings[i].name; if(nm && String(nm).indexOf(key)>-1) return i; } return -1; };
+  (d.swapIng||[]).forEach(function(s){ var i=findIdx(s.from); if(i>-1){ ings[i]=(s.to&&s.to.qty!=null)?s.to:Object.assign({},ings[i],s.to); } });
+  (d.removeIng||[]).forEach(function(rm){ var key=(rm&&rm.item!=null)?rm.item:rm; ings=ings.filter(function(x){ return !(x&&x.name&&String(x.name).indexOf(key)>-1); }); });
+  (d.addIng||[]).forEach(function(a){ var item=(a&&a.item!=null)?a.item:a, after=a&&a.after, idx=after?findIdx(after):-1; if(idx>-1) ings.splice(idx+1,0,item); else ings.push(item); });
+  out.ingredients = ings;
+  if(out.method!=null && (d.swapStep||d.addStep)){
+    var m = String(out.method);
+    (d.swapStep||[]).forEach(function(s){ m = m.split(s.from).join(s.to); });
+    (d.addStep||[]).forEach(function(a){ m = m + ' ' + (a.text!=null?a.text:a); });
+    out.method = m;
+  }
   return out;
 }
 // ── VERSION DELTA MERGE (BD11) ── a version may carry `delta` to TWEAK the base

@@ -1,251 +1,47 @@
-%% TINZA_NOW — session state  |  2 July 2026  (MERGED: + Fable plan · Recipe Anatomy · Feeling-line/one-liner · Version standard · rules L19-L21)
-%% ✅ ALL LIVE ON MAIN (verified 2 Jul AM): Universal Index · Finder UX · B3 variety · BUDGET-MATCHING ·
-%%    ROMANISED NAMES + gloss wiring + JOLLOF SPLIT + 5 gloss rewrites · back-nav fix ·
-%%    WHOLE-WK PRICING PASS (70 dishes unlocked, 969/994 priced; duck/trout/mitmita/substitutes all live).
-%% 🎯 LAUNCH: 8–12 wk target (set ~22 Jun) → ~mid-Aug (sprint) / mid-Sep (comfortable). See LAUNCH block.
-%% 🚀 NOW: hand the recipe MARATHON to Fable — 5-day boost, free ends 7 JUL. See FABLEX. New standards: ANATOMY · FEELINGX · VERSIONX (rules L19-L21).
-%% ✅ 5 JUL SESSION (Claude Code, live-verified): SEARCH fixed + made UNIVERSAL & version-aware w/ deep-link · version-count badge on cards · version chips on ALL detail paths (incl WK cross-links = the N0/V6 bug) · goesWith AUTO-links (165/319) · curated `order` field · Shakshuka dedup + lunch adapter. See SHIP05. 4 files (core/utils/index/meals) node --check OK — NOT yet pushed (Tina banks via GitHub Desktop).
+---
+title: TINZA — Session Handoff (Spice + Code/Portugal) · 09 Jul
+---
 flowchart TD
 
-  START([Start: tinza.netlify.app — confirm what works])
+START["🟢 START HERE<br/>Two live streams: SPICE (Opus, this chat) + CODE/PORTUGAL (agent).<br/>Immediate next build: JAMS & PRESERVES batch 1 on the clean 163 base.<br/>Base spice.js = 163 (NOT 147 — earlier miscount, corrected)."]
 
-  subgraph NEXT0["NEXT — recommended order"]
-    NXP["DONE + LIVE — Run 1 index + finder UX + B3 round-robin, pushed & verified."]
-    NXR3["✅ DONE + LIVE (2 Jul AM) — all name/gloss/jollof + WK pricing files pushed & verified on main. Nothing staged."]
-    NXR2 --> NXR3
-    NXNAME["✅ NAMES — WIRING DONE (3 Jul, staged): tinzaDisplayName already existed (search.js) + WK used it; the finder rendered raw r.name. Fixed by 3 edits: index.js rec() now carries nameAlt/aliases/nameRoman · budget.js finder row + meals.js recipeDetailFromResult h1 both render tinzaDisplayName(r). Now: 'Lablabi (Tunisian Chickpea Soup)', 'Jollof Rice (Spiced Tomato Rice)'; FMF stays plain English. AUDIT: 981/994 WK glosses already GOOD; only ~5 genuinely weak (see NAMEUP). Push 3 files."]
-    NX2["THEN — TRACK 2 (chat): RECIPE-PAGE ENRICHMENT (TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md · confirm in-place-vs-fork first). THEN FMF WOW CONTENT."]
-    NX1b["TRACK 1 (Claude Code) RUN 2: recover 95 gated WK animal-protein mains (window._tinzaWKSkipped) · NAMING pass · FACET derivation (L10 caveats) · wire 72 goesWith · BALANCED SEARCH reuses balancedOrder()."]
-    NXP-->NXR2-->NXNAME-->NX2-->NX1b
-  end
-  START-->NEXT0
+subgraph FACTS["📌 Facts locked / corrected 09 Jul"]
+  F1["✅ Uploaded spice.js = 163, correct file.<br/>Chutneys 10 · Sambals 11 · Jams 1 — all SAFE.<br/>('147' was a grep bug: unquoted-key pattern skipped<br/>JSON-style cards. Loaded-as-objects = 163.)"]
+  F2["✅ BD13 engine patch DONE + tested:<br/>applyMakeYourOwnDelta in core.js (+27 lines, 3854→3881).<br/>Spice twist chips now actually MERGE (were dead on live).<br/>core.js NOT yet pushed."]
+  F3["⚠️ 2 pre-existing DUPLICATE IDs in spice.js:<br/>tartare-sauce · sambal-oelek → fix in jams pass."]
+end
 
-  subgraph SHIP05["✅ SHIPPED 5 JUL — search · versions · goesWith · order · lunch (Claude Code, live-verified, node --check OK, NOT pushed)"]
-    S05A["SEARCH was BROKEN — searchHTML() undefined → error screen on the bottom-nav Search tab, Home tile AND every FMF 'Search All Recipes' button. Now defined + UNIVERSAL over allRecipes() (1955) + matches versions[]. Fixes SEARCHBUG. utils.js rewrite: tinzaAllSearch / globalSearchLive / searchPageHTML (screen 'search' + legacy 'search_results' share it); core.js wires the input for both."]
-    S05B["DEEP-LINK — a version hit opens the PARENT card pre-switched to that version: openSearchResult → _searchActiveRecipe + recipeVersion[id]. Verified: 'cacio e pepe focaccia' → Focaccia w/ Cacio e Pepe active + pecorino loaded."]
-    S05C["INDEX — new SEARCH-ONLY adaptBakes (index.js): Bakes + Sides & Basics now searchable via roles bake/basic that NO finder queries (budget/mood unaffected). This is what makes Focaccia×9 / Buttermilk Rusks×7 / Braai Flatbread×3 / biscuit tins findable at all — they were excluded before."]
-    S05D["VERSION-COUNT BADGE on browse cards (warmCard, P1a) — copies the cost-chip anatomy byte-for-byte, differs only by colour: ACCENT dot + --ink-soft text. NEVER food-cost green / shop-spend gold (§3). meals passes versions.length."]
-    S05E["VERSION CHIPS on EVERY detail path (P3) — meals + Bakes shelf (recipeDetailFromResult) + WK (wkRecipeOpts, already wired) + search deep-link. FIXED the N0/V6 bug in bakesRecipeOpts (WK cross-link path — Msemen/Pita/etc): now applyRecipeVersion + versionStripHTML (was rendering the base, no chips)."]
-    S05F["goesWith AUTO-LINKS (P5) — goesWithLink(): explicit GOESWITH_LINKS wins, else name→card via the meals source. 165/319 distinct values now clickable (was ~15 hand-wired); generic accompaniments stay plain text. goesWellBox + recipeDetailFromResult both use it. Resolves GWW / R2B goesWith half."]
-    S05G["ORDER FIELD (P6) — mealSectionHTML default ('popular') sort honours optional card.order (stable; unordered keep position). No card carries one yet = zero regression; ready to curate section order by DATA."]
-    S05H["SHAKSHUKA DEDUP + LUNCH ADAPTER (P4) — LUNCH_ADAPTER_INJECT surfaces the canonical bf-shakshuka (5 versions, now diet:'veg') on the Lunch 'quick' shelf; ln-shakshuka RETIRED in data. openMealRecipe / toggleMealPlan gained a cross-section fallback so an injected card opens + plans. FINDING: of the 18 ⚑DUP lunch cards ONLY Shakshuka has a genuine fuller canonical — the other 17 have none (a few have events/braai/world namesakes, wrong to surface), left as-is; mechanism ready — add one LUNCH_ADAPTER_INJECT line per canonical built."]
-    S05A-->S05B-->S05C-->S05D-->S05E-->S05F-->S05G-->S05H
-  end
-  START-->SHIP05
+subgraph SPICE["🧂 STREAM A — Spice Room (base: spice.js @163)"]
+  SA0["DONE this session:<br/>• core.js BD13 makeYourOwn-delta engine (tested)<br/>• Clean 163 base restored (dup splice reverted)"]
+  SA1["NEXT: JAMS & PRESERVES 1 → ~30<br/>worldwide classics + twists + a 'strange' one.<br/>Banked batches, PRESENT each (reset-proof)."]
+  JAM["Jams lineup: Strawberry(exists)·Apricot·Fig·Raspberry·<br/>Plum·Peach·Cherry·Blueberry · Seville/Lemon/3-Fruit<br/>marmalade · Lemon/Passionfruit/Orange curd ·<br/>Watermelon Konfyt·Green-Fig·Naartjie·Korrelkonfyt(SA) ·<br/>Membrillo·Quince·Tomato Jam · Rose-Petal·Date(ME) ·<br/>Cherry Confiture·Onion Confit(FR)·Apple Butter·<br/>Preserved Lemons(Morocco)"]
+  SA2["THEN — fix 2 dup IDs: tartare-sauce · sambal-oelek"]
+  SA3["THEN — room-wide JAZZ: fill empty howThisFeels<br/>(126 of 163 blank) + moat check + more dip variants"]
+  SA4["THEN — bug [5]: Spice Dips 'Back' lands on Main, not Dips"]
+  SA0 --> SA1 --> JAM --> SA2 --> SA3 --> SA4
+end
 
-  subgraph LAUNCH["🎯 LAUNCH — 8–12 wk (set ~22 Jun) → mid-Aug sprint / mid-Sep comfortable"]
-    LSLICE["Launch slice (functional + photographed): FMF · Africa · Braai/SA · full Spice(112) · Events (~376 photos). Everything else = DATA now (costing+search live) behind 'photo coming soon'; Europe/Asia/World photos DRIP post-launch as weekly retention content."]
-    LSEQ["Build order (body metaphor): skeleton(sameness) → meat(recipes) → organs(payments/planner/Cook Mode) → skin(warm look) → eyes&hair(onboarding+web) → clothes(launch). Payments: PayFast R50/mo recurring, SA-first, sold on web. Marketing: founding-members waitlist ~8wk out, DIY w/ Claude."]
-    LSLICE-->LSEQ
-  end
-  subgraph TODAY["🌅 TODAY (2 Jul) — FMF focus (all launch-slice work)"]
-    T1["① FMF CAKES & BAKES — jazz = RECIPE WOW (confirmed). Write ONLY new recipes we don't already have + a KICK (worthwhile, not googleable). GOAL: ~20 most-popular cakes (total) + ≥3 cheesecakes. RULE: buyable on SA shelves (no ube-trap) — same buyable-ingredient ethos as WK substitutes. Convert to metric/°C/SA brands + WOW BAKES format (feel/method/tip/nutrition/storage)."]
-    CAKEAUDIT["CAKE/BAKE AUDIT (2 Jul) — ALREADY IN APP → IMPORT, don't rewrite: Events CELEBRATION_CAKE_RECIPES (eventsData.js, 9): Vanilla Sponge · Chocolate Mud · Wedding Fruit Cake · Red Velvet · Carrot Spice · Salted Caramel Layer · Lemon Drizzle · Vanilla Butter · Mini Cupcakes. meals BAKES: Banana Bread · Classic Sponge. health: Raw Choc Avocado Mousse Cake · Keto Cheesecake Cups · 4 muffins · 3 chia puddings. → NEW cakes to write = popular ones NOT in this list."]
-    CHEESE["✅ CHEESECAKE TRIO — WRITTEN, WIRED, PUSHED + LIVE (2 Jul): Amarula · Piña Colada · Gin & Tonic in BAKES_RECIPES + 🍰 Cheesecakes tab registered. meals.js replaced & pushed. NEXT BATCH = 20 popular cakes (9 existing crossed off)."]
-    BANKRULE["🔒 WORKFLOW RULE (locked 2 Jul, after 'redo everything' scare): BANK EACH BATCH — push to GitHub the moment a batch is done, BEFORE moving on. Un-pushed work lives only in the chat and is lost on a new chat; pushed = live on Netlify + permanent in the repo. Claude delivers each batch as a ready-to-replace file (node --check done). A few at a time, always banked."]
-    CHEESE-->BANKRULE
-    T1-->CAKEAUDIT-->CHEESE
-    T2["② JAZZ FMF — WOW voice baked into new recipes. ❓CLARIFY with Tina: 'jazz' = recipe elevation (Spagbol treatment) or the browse/card LOOK?"]
-    T3["③ SAMENESS — FMF matches braai v33 via shared core.js renderers (skeleton)."]
-    LWOW2["SPAGBOL-TREATMENT (whole-app WOW) — RECONSIDERED 2 Jul: usage is NOT the limit (Tina on Max 5x, 2% weekly used → huge headroom) and Fable 5 is more capable → writing recipe DATA to WOW is very feasible & fast, more than first thought. The REAL launch gates are PHOTOS (son's AI photos, ~376 slice / thousands total) + the other machinery (payments/planner/Cook Mode/onboarding/web/beta). So: write WOW data broadly NOW (cheap; powers costing+search everywhere), sequence launch-slice cuisines first (Africa+SA), let Europe/Asia/World photos DRIP post-launch. GUARDRAIL: don't let 'perfect every recipe first' delay opening — launch on the slice, keep improving in parallel + after. LITMUS (Tina 2 Jul): NO boring googleable recipes — EVERY recipe transformed to WOW, even a tomato & cheese sandwich gets jazzed up. Standard = why-led steps, real named spices, salt & pepper at each stage, elevated technique, buyable on SA shelves."]
-    T1-->T2-->T3
-  end
-  NEXT0-->LAUNCH-->TODAY
+subgraph CODE["🌍 STREAM B — Code / Portugal (agent holds wk_europe.js)"]
+  CB1["✅ Portugal batch 1 DONE (8 thin mains → WOW + twists):<br/>Espetada·Alheira·Bitoque·Iscas·Cabrito·Rojões·<br/>Bife à Portuguesa·Ensopado. 8/8 diff, node ok.<br/>Files: wk_europe.js · SWEEP_REPORT · WK_PRICE_GAPS<br/>(working tree — Tina to push)"]
+  DEC1["DECIDED: Bacalhau trinity → OPUS heroes.<br/>à Brás + com Natas + Gomes de Sá as a hero set.<br/>Code does NOT lift them; continues non-cod tail."]
+  DEC2["TINA TAP-TEST: pairsWith C4 — open Broa de Milho &<br/>Migas à Alentejana on live, tap pills. If dead →<br/>Opus extends goesWith name-index."]
+  CB2["Portugal batch 2 — GREENLIT once Tina pushes b1<br/>& answers above. Remaining LIFT approx 39 (5 heroes excl.)"]
+  CB3["Spain §6.5 (report-only, awaiting sign-off): CUT & REPLACE<br/>8 assembly cards + 3 drinks → Salmorejo·Sopa de Ajo·<br/>Arroz al Horno·Torrijas·Queimada…"]
+  CB4["Price gaps logged (never guessed): lard · chestnuts<br/>(#290-291) · kid goat → existing #39"]
+  CB1 --> DEC1 --> CB2
+  CB1 --> DEC2 --> CB2
+  CB1 --> CB3
+  CB1 --> CB4
+end
 
-  subgraph CONTENT["📚 FINISH-ALL-RECIPES — content marathon (Fable 5 job; usage headroom fine)"]
-    C_CAKES["① CAKES & BAKES — finish: 20 popular cakes (9 existing crossed off) + biscuits/tarts/scones/SA classics (~40–60 recipes, a few batches). Cheesecake trio LIVE already."]
-    C_SPICE["② SPICE — nearly done (~122 entries, spice.js); finish gaps + jazz. Small (~1 batch)."]
-    C_WK["③ WK to WOW — 994 dishes, the marathon. Launch-slice cuisines FIRST (Africa 190 + SA 131), then Europe 569 + World 103 as data with photos dripping post-launch. ASSESS current WK recipe quality before deciding full rewrite vs light polish."]
-    C_USAGE["MODEL STRATEGY (verified 2 Jul, Anthropic): Fable 5 back GLOBALLY 1 Jul (SA included, no nationality check) — confirmed live in Tina's account. BUT free window is SHORT: included ≤50% weekly limit ONLY until 7 JUL, then paid usage credits (pricey) + burns usage much faster. DIVISION OF LABOUR → OPUS 4.8 (included, capable) = WORKHORSE for the multi-week recipe marathon; FABLE 5 = 5-day boost NOW on hardest/highest-value batches only; CLAUDE CODE = in-repo code jobs (engine fix, sameness, search-tab, bulk wiring) — note Fable auto-routes coding/debugging to Opus anyway (~5% sessions) under its safeguards. Don't rebuild the plan around Fable; build on Opus, boost with Fable while free. Tina on Max 5x, weekly 2% used — headroom fine."]
-    C_CAKES-->C_SPICE-->C_WK-->C_USAGE
-  end
-  TODAY-->CONTENT
+subgraph RULES["⚙️ Discipline"]
+  R1["wk_europe.js = ONE driver at a time. Code holds it for<br/>Portugal tail; Opus takes it at hero handoff (bacalhau).<br/>Re-clone before touching."]
+  R2["core.js + worldkitchen.js parallel-safe with Code.<br/>Never edit core.js without backup + node --check + line count."]
+  R3["Bank & PRESENT after every batch — reset-proof<br/>(this session's cutoff lesson)."]
+end
 
-  subgraph NORTHSTAR["⭐ LAUNCH NORTH STAR (locked 2 Jul) — don't serialise; two tracks in parallel"]
-    NS1["TRACK A — Fable + Claude: RECIPE MARATHON. Never 'done' (keeps growing = post-launch weekly-drip retention). Order: Cakes&Bakes → Spice (chutneys/jams) → rest of Global Braai → rest of WK → Events Cakes → +2000 more. As DATA; photos follow."]
-    NS2["TRACK B — Tina + Claude: MACHINERY (organs & clothes) — payments (PayFast FIRST, can't charge R50 without it) · planner · Cook Mode · onboarding · web page · beta. START in parallel once the SLICE recipes are solid — do NOT wait for all recipes."]
-    NS3["🚦 LAUNCH GATE = SLICE ready, NOT every recipe: FMF · Africa · SA/Braai · Spice · Events + enough photos (60% now, rest drips) + working payments. Everything else opens AFTER. GUARDRAIL: never hold the launch hostage to a recipe count with no finish line."]
-    NS1-->NS2-->NS3
-  end
-  CONTENT-->NORTHSTAR
-
-  subgraph ANATOMY["🍲 RECIPE ANATOMY — every element a finished recipe must have (locked 2 Jul)"]
-    AN1["NAME: authentic + enticing English gloss (L11/L17). FEELING one-liner (L19). WOW method: why-led · real named spices · salt+pepper each stage · elevated technique (L1) with 'how this feels' woven in."]
-    AN2["VERSIONS (L20) · per-step TIMERS · Cook Mode/Start Cooking (spec TBD) · SERVES + prep time + cook time (add as shown fields)."]
-    AN3["BOXES: goesWellBox · two-cost card (green food / gold shop) · nutritionGrid · STORAGE (make UNIVERSAL, not bakes-only) · recipeActions: Pro-Save + WhatsApp."]
-    AN4["LINKS: related-recipe + pairing (72 goesWith) · DIETARY facets (R2F) · per-person PRICING (L4) · shopping list (Pro, L9)."]
-    AN5["FRAME: sameness via core.js (L2) · back-nav (L16) · Bobotie one-card rule (L7) · numeric tier gate 0/1/2 · photoName + son's photo."]
-    AN6["❌ TRIVIA / 'Did You Know' — locked in TINZA_DIDYOUKNOW_STANDARD.md but was NEVER in this handoff. Now tracked (L21): fourth-voice trivia on recipes."]
-    AN1-->AN2-->AN3-->AN4-->AN5-->AN6
-  end
-  NORTHSTAR -.-> ANATOMY
-
-  subgraph FEELINGX["💬 FEELING LINE = THE ONE-LINER — two tiers (locked 2 Jul → L19)"]
-    FL1["= the 'How This Feels' line (Tina's own term). Sensory + nostalgic + human: smell/sound/touch/sight/taste · 'reminds me of' / 'you can almost hear'. EVERY one unique. Tone per section (Braai=primal · WK=adventure · Health=light · Breakfast=slow · Tiny Tummies=nurturing · Budget=satisfying)."]
-    FL2["TIER 1 CARD: short punchy hook = separate OPTIONAL field cardHook (<=6 words), e.g. 'The soul of every braai'. Drip-authored (heroes/top-100/SA first); absent → card shows the gloss only. NEVER auto-trim the page line."]
-    FL3["TIER 2 PAGE: full sensory line, e.g. '…the sauce that makes the house smell like Sunday.' EVERY recipe (only opening pages done so far → roll onto all)."]
-    FL1-->FL2-->FL3
-  end
-  ANATOMY -.-> FEELINGX
-
-  subgraph VERSIONX["🍽️ VERSION STANDARD (locked 2 Jul → L20)"]
-    V0["NEED-DRIVEN, not count-driven. WOW = the quality bar on EVERY version (NOT a chip). Count set by dish FAME, litmus-filtered. UI = the versions array → versionStrip chips; Signature chip named per dish + pre-selected."]
-    V1["5 → top ~100 world dishes: Signature + Budget + Quick + Vegetarian + Classic (proof: Spag Bol = Slow Ragù / Budget / Quick / Veg / Classic)."]
-    V2["4 → everyday dishes: Signature + Budget + Quick + Vegetarian (drop Classic)."]
-    V3["2 → unfamiliar/exotic (Nigerian·Ukrainian·Ethiopian): Signature + SIMPLE. Simple = approachable on-ramp (SA substitutes L18 · fewer specialist steps · extra explanation), still full WOW. (label 'Simple' vs 'Easy' = Tina's pick)"]
-    V4["1 → floor/stretcher (already the budget version)."]
-    V5["LITMUS: add a version ONLY if a real user would pick it AND it makes honest culinary sense. Veg that kills the dish → distinct CARD (Bobotie), not a chip. Quick never = a box."]
-    V6["✅ N0 VERSION BUG FIXED (5 Jul) — bakesRecipeOpts now calls applyRecipeVersion + renders versionStripHTML, so the WK cross-link path shows/applies versions like every other path. Chips now render on EVERY detail. Remaining: Fable authors the Simple/exotic versions."]
-    V0-->V1-->V2-->V3-->V4-->V5-->V6
-  end
-  FEELINGX -.-> VERSIONX
-
-  subgraph FABLEX["🚀 FABLE — 5-day boost + how to hand over (2 Jul)"]
-    FBX1["Fable free (included <=50% weekly) ONLY until 7 JUL, then paid credits + burns usage fast. Use as a 5-day BOOST, not the new default. Tina on Max 5x, 2% weekly used = headroom fine."]
-    FBX2["DIVISION: OPUS 4.8 = workhorse for the multi-week marathon (included) · CLAUDE CODE = in-repo grinds (Fable auto-routes coding to Opus ~5%) · FABLE = hardest/highest-value batches NOW."]
-    FBX3["REACH FABLE: same chat app, MODEL DROPDOWN → 'Claude Fable 5' (NOT in VS Code). Switch Opus↔Fable mid-thread; memory carries across."]
-    FBX4["HANDOVER: memory lags → GIVE Fable this TINZA_NOW. New chat → pick Fable → attach → starter: 'Read TINZA_NOW, then WK quality assessment (rewrite vs light polish), Africa + SA first, do NOT bulk-write yet, bank each batch.'"]
-    FBX5["FABLE PLAN: Day 1 = WK quality assessment (sets marathon size) · Days 2-5 = hardest launch-slice batches (Africa 190 + SA 131 to WOW · exotic Simple versions), BANK each to GitHub."]
-    FBX1-->FBX2-->FBX3-->FBX4-->FBX5
-  end
-  VERSIONX -.-> FABLEX
-
-
-  subgraph B3E["B3 / BALANCED-RESULTS ENGINE — BUILT + LIVE-TEST-FIXED · L12/L13/L14"]
-    E0["window.balancedOrder(list,opts) in index.js — deterministic variety round-robin, NO ML. opts={bucketOf, order, within}. Every PREFIX balanced. LIVE."]
-    E1["allRecipes(filter,opts) accepts opts.balanceBy/bucketOrder/within. LIVE. (search will reuse: bucketOf=protein+cuisine.)"]
-    E2["budget.js: budgetBucket(r) → meat/fish/beans/pastarice/soup/veg. BUDGET_BUCKET_ORDER SA-first. findBudgetRecipes: filter→name-dedup→balancedOrder."]
-    EFIX["LIVE-TEST FIXES (staged): (1) budgetBucket classifies on NAME+INGREDIENT NAMES, not searchText — goesWith 'grilled chicken' no longer mis-buckets vegan rice as meat. (2) _budgetHomeRank within-bucket: SA cuisines then home library then foreign; cheapest tiebreak. (3) scroll-restore immediate+1rAF."]
-    E3["REUSE (Run 2): balanced SEARCH = same engine. Every lens = filter + balanceBy."]
-    EOPEN["✅ RESOLVED (Tina 3 Jul): MEAT LINE = R15pp (per-person). Below R15pp = stretcher/no-meat (pap·sauce·soup·beans); R15pp+ = meat features. It's PER-PERSON so converts by group size: R30/2 · R60/4 · R90/6. Surfaced as a warm note above results when pp<R15."]
-    EBAND["✅ BUILT — BUDGET-MATCHING (Tina chose 'match my budget' 3 Jul): dishes now HUG the per-person figure. GRADED band starts at 70% of budget and relaxes (0.7→0.5→0.3→0) only until ≥6 results; within each bucket ordered SA-first then NEAREST the budget. Verified: R60pp→R48–60 dishes (80–100%), R75pp→R57–68, R35pp→R30–34 (86–97%), R30pp→R30 (100%). BUDGET_BAND_FRACS + Math.abs(costPP−per) sort. Stretch zone (<=R15pp) unchanged. Fractions TUNABLE."]
-    EFIG["✅ RESOLVED (Tina 3 Jul, chose 'match my budget'): NOT a calc bug — '= R60/person' is the BUDGET, 'R30 pp' is the DISH cost. Fixed two ways: (1) band retuned to hug budget (see EBAND); (2) readout now reads 'R60 per person to spend' so it can't be mistaken for the dish cost."]
-    E0-->E1-->E2-->EFIX-->E3-->EOPEN-->EBAND-->EFIG
-  end
-  NEXT0-->B3E
-
-  subgraph URI["UNIVERSAL RECIPE INDEX — Run 1 LIVE (TINZA_UNIVERSAL_INDEX_BRIEF.md)"]
-    U0["index EVERY recipe in EVERY section; finder gates to mealRole==='main'. 1,909 recipes · 10 read-only adapters."]
-    U3["WK COST GATE: costPP only if coverage>=0.8 AND animal-protein main actually costed. 95 WK gated → window._tinzaWKSkipped = PRICE_DB audit queue (Run 2)."]
-    U4["BUDGET pool = allRecipes({mealRole:'main'}) minus braai; floor blends only <=R15pp. B3 round-robin + home-first sit on top."]
-    URCA["LIVE-TEST INSIGHT: MEALS is fully costed (costPP:null=0). 85 meat mains, cheapest non-floor ~R25 (Cape Malay R32, Beef Stew R44, Bredie R47). Pool healthy — bug was ordering, not missing data."]
-    U0-->U3-->U4-->URCA
-  end
-  START-->URI
-
-  subgraph URI2["UNIVERSAL INDEX — Run 2 (Claude Code)"]
-    R2A["RECOVER GATED WK MEAT: window._tinzaWKSkipped (95) — fix PRICE_DB / count-vs-weight so count-priced proteins cost right → real World meat mains enter finder (more meat = higher budgets differentiate)."]
-    R2N["NAMING PASS: two-line names (authentic + enticing English gloss). ONE lever tinzaDisplayName(r) → all cards/finder/search. photoName never changes. Gloss → searchText. Also fixes search.js ranking r.nameEn vs stored r.nameAlt (NTS)."]
-    R2F["FACET DERIVATION: diet · diabetic/low-carb/high-protein (372 macros) · freezable/fridge-life · main-protein · ALLERGENS (from names) · kosher/halal. Honesty caveats L10. dishType · temp hot/cold · sweet/savoury · hero-ingredient."]
-    R2B["BALANCED SEARCH via balancedOrder (bucketOf=protein+cuisine). Wire 72 goesWith TEXT → real cross-links."]
-    R2A-->R2N-->R2F-->R2B
-  end
-  URI-->URI2
-
-  subgraph BUDGET["BUDGET ENGINE — locked design"]
-    B1["1 · LIBRARY FIRST — exhaust ALL recipes before AI. Spans every section via index."]
-    B2["FLOOR — LIVE. 9 recipes <=R15pp; blend in only when budget/4 <= R60."]
-    B4["AI PRE-WARM (later): rolling buffer per (price,people); every AI recipe RE-COSTED."]
-    B5["AI HARVEST (later): log AI recipes → curate → promote into permanent library."]
-    B1-->B2-->B4-->B5
-  end
-  URI-->BUDGET
-
-  subgraph FIX2["SHIPPED (earlier)"]
-    FX1["Breakfast EXCLUDED from finder (mealRole != main)."]
-    FX2["JUST-FEED-ME 'give me more' stall = Netlify claude fn model id / ANTHROPIC_KEY env (NOT code)."]
-    FX3["mood/budget 'add to plan' fixes · double-render removed · Sides & Basics excluded from budget pool."]
-    FX1-->FX2-->FX3
-  end
-  START-->FIX2
-
-  subgraph NEXT["RECIPE-PAGE ENRICHMENT (own careful core.js session · TINZA_RECIPE_PAGE_ENRICHMENT_PLAN.md)"]
-    N0["✅ FIXED (5 Jul): bakesRecipeOpts now calls applyRecipeVersion(r) + fills the versionHTML slot → renders the active version, not the base."]
-    N1a["ALREADY EXIST (wire): applyRecipeVersion + versionStripHTML · ingredientRow cross-links · goesWellBox · methodStep timer · costRecipe→{cook green, buy gold}."]
-    N1b["NEW (2 helpers, roll to all): nutritionGrid(nutrition) · costEstimateBox(r,n)=TWO-COST card. Extend recipeActions w/ Pro-Save + WhatsApp."]
-    N1c["DECISION: enrich bakesRecipeOpts IN PLACE w/ conditional slots. confirm before core.js session."]
-    N2["THEN route all meal opens through openRecipe('meals',id,{servings}); retire recipeDetailFromResult + openMealRecipe. Plan rows clickable."]
-    N0-->N1a-->N1b-->N1c-->N2
-  end
-  URI2-->NEXT
-
-  subgraph TODO["THEN — FMF, in order"]
-    TD2["CONTENT to WOW — Bakes & Cakes + versions · Sides recipes"]
-    TD3["PRICING HYGIENE — every ingredient resolves · fix R0 · 'Not yet costed' rows"]
-    TD4["CROSS-LINKS — mash→sb-mash · chips→sb-chips · sauces→Spice · sides↔dishes · 72 goesWith → real recipes"]
-    TD5["COSMETIC SAMENESS SWEEP — LAST"]
-    TD2-->TD3-->TD4-->TD5
-  end
-  NEXT-->TODO
-
-  subgraph NEWTODO["flagged"]
-    NT0["COOKBOOK LOW-TIER GAP-FILLERS (MAIN library, NOT floor; R20–45pp): Savoury/Curried Mince · Baked Hake · Boerewors Meatballs · Samp & Beef Stew · Bean & Potato Fry · Mac & Cheese · Easy Chicken Pie. Re-cost with priceOf."]
-    NT1["TINY TUMMIES + FURRY FRIENDS — migrate to shared renderers. Both IN index (search-only)."]
-    NTCC["CLAUDE CODE = library-wide grinds (naming · facets · gated-meat recovery · 72 goesWith). CHAT = architecture + targeted fixes (like today's B3 diagnosis)."]
-    BRIN["◀ PIVOTED (Tina 1 Jul, on the Albóndigas screen) — BREAKFAST/brinner PARKED in favour of LUNCH. Data: light lunch = 106 dishes ALL priced, meal-shaped, 58 already reach the finder as mains (handhelds 22 · quick 23 · savbakes 13). Breakfast would need tagging + hand-built supper pairings for a weaker fit (their goesWith is breakfast-y — Shakshuka literally suggests coffee). Brinner on ice, not dead."]
-    LUNCHSIDE["⚠ STILL OPEN (distinct from the 5 Jul lunch work) — 48 priced lunch dishes HIDDEN FROM THE BUDGET FINDER: 27 salad-bowls + 21 soups are filed cat:salads/soups → 'side' by mealRoleFromCat → excluded from the finder. FIX in adaptMeals (index.js): kind==='lunch' ? 'main' : mealRoleFromCat(r.cat). NOTE: the 5 Jul session confirmed all 106 lunch cards ALREADY show on the Lunch SHELF (this was a finder-only gap, not a shelf gap) and shipped the Lunch ADAPTER + Shakshuka dedup (SHIP05·S05H) — but did NOT touch mealRoleFromCat, so this finder fix remains. Tina to confirm all 48 are supper-worthy before flipping."]
-    WKPRICE["✅ DONE (1 Jul) — WHOLE-WK PRICING PASS: 969 priced / 25 gated (was 899/95) → 70 WK dishes UNLOCKED into the budget finder (Банош R44, Caldo Verde, Egusi, duck & trout dishes, salted-cod dishes, Ethiopian mitmita/berbere dishes…). Applied across prices.js (duck R200, trout R400, count-item _each, Tina-sourced tail: mitmita R240, berbere R200, fenugreek R300, pine resin R1250, wafer shells R4/each) + worldkitchen.js WK_ALIAS (pantry + fish/meat/cheese stragglers: pepper→black pepper, wine→red wine, fries→slap chips, mixed fish/mackerel/carp/vendace→hake, cured meats→bacon, whey/ayib→cottage cheese, etc.) + recipe substitute edits per Tina's rule (bryndza→feta, salted cod→salted snoek, dogfish→hake, suckling pig→pork, red sorghum→sorghum) + 3 veg-pepper fixes. REMAINING 25 = (a) COUNT-ENGINE tail — dishes writing '1 tomato'/'1 potato'/'1 corn'/'1 almond' as counts; WK pricer only counts eggs → needs _each prices OR the count engine extended OR recipes in grams (small future task); (b) genuine leave-alone (iru, tarhana, sour rye starter, ice cubes). Engine unchanged; all node --check OK. Files: prices.js, worldkitchen.js, wk_europe.js, wk_southafrica.js (+ wk_africa.js jollof)."]
-    WOWDETAIL["PARKED (Tina 1 Jul, 'do later') — WK recipe DETAIL needs a WOW + clearer explanation (Albóndigas: the '0.4× pp · 6.8×' egg-count line + portion/cost blocks read confusingly). Explain-better + wow pass on the recipe page. NOT now."]
-    BRIN --> LUNCHSIDE --> WKPRICE
-    BACKNAV["✅ DONE + PUSHED + LIVE-CONFIRMED (Tina 3 Jul, commit 58fa14e) — BACK-NAV FIXED (core.js). Back from budget screen → HOME (no more FMF ✓, confirmed live). goBack() 4-tier: budget recipe→results · viewingRecipe→closeRecipe · deeper→history.back · section root→home. rootDepth in history state. (WK recipe→WK home still the acceptable long-term item; Search-tab bug SEARCHBUG separate.)"]
-    GWW["✅ DONE (5 Jul, see SHIP05 · S05F): goesWith names AUTO-resolve to cards by name (goesWithLink) — 165/319 distinct values now clickable across all shelves (was ~15). Generic accompaniments correctly stay plain. Explicit GOESWITH_LINKS still wins for Spice/alias cases."]
-    SEARCHBUG["✅ FIXED (5 Jul, see SHIP05) — searchHTML() now defined (utils.js) and the Search screen is UNIVERSAL + version-aware. Bottom-nav Search, Home tile and FMF 'Search All Recipes' all render. Was: draw() called undefined searchHTML() → error screen."]
-    WKBACK["WK RECIPE → BACK lands on WK HOME (not the country list) — unchanged from before; acceptable ('not an earlier section'). Full fix = route WK country/recipe (wkDataCountry/wkDataRecipe, absent from navSignature) through openRecipe→viewingRecipe. Long-term = NX2 enrichment migration."]
-    NAMEUP["✅ DONE (3 Jul) — 5 weak glosses rewritten + jollof split. wk_africa.js: Ghana→'Ghanaian Jollof Rice (Fragrant Tomato & Pepper Rice)', Nigeria→'Nigerian Jollof Rice (Spiced Tomato Rice)' — BOTH renamed so they stand apart everywhere + no longer dedup in the finder; photoName pinned to 'Jollof Rice' on both (shared photo unchanged). wk_europe.js: Bife→'Steak in Garlic Wine Sauce', Tripas→'Tripe & White Bean Stew', Waterzooi→'Creamy Chicken & Vegetable Stew', Odjakhuri→'Fried Pork & Potatoes'. All node --check OK. PUSH wk_africa.js + wk_europe.js."]
-    JPHOTO["PHOTO follow-up (son, later): generate distinct 'Ghanaian Jollof Rice' + 'Nigerian Jollof Rice' photos (they currently SHARE the pinned 'Jollof Rice' photo), then update photoName on each. Not urgent — nothing is broken."]
-    NAMEROMAN["NAMEROMAN robustness pass (Claude Code data, LATER) — non-Latin dishes (Ukraine ~12 Cyrillic · Georgia few) currently romanise via the SLUG guess (works today: 'Borshch (Beetroot Soup)'). Add an explicit nameRoman to each so (1) roman never depends on a clean slug, (2) SEARCH finds 'Borshch' (stored name is Cyrillic → not in searchText now; also feed nameRoman into searchText). Same when adding China/CJK: enter nameRoman (Pinyin) + nameAlt gloss."]
-    PPZ1["⭐ CHEAP-SA ENRICHMENT (highest brand impact): add sub-R10pp SA end-of-month meals — morogo & pap · pap & sheba · walkie-talkies/offal · samp variants · cabbage & potato. Fills the R40/4 (R10pp) screen AND pushes foreign (Jollof/Waakye/Ndambé) out. Fixes thinness + 'Not SA' at the bottom together."]
-    PPZ2["✅ RESOLVED: floor cutoff stays <=R15pp (below the meat line). Handoff at R15pp: floor stretchers + first library meat (Peri-Peri Livers R15) meet cleanly."]
-    PPZ3["✅ RESOLVED + BUILT (simplified · staged in budget.js): chips stay PLAIN (meat line kept OUT of the chip UI — tested confusing). Meat messaging = a warm note ABOVE results, shown ONLY when the searched amount is < R15pp. Reads as encouragement not a rule. R15pp const drives the note threshold; converts by group size automatically."]
-  end
-  TODO-->NEWTODO
-
-  subgraph ROAD["ROADMAP after FMF"]
-    RR1["LUNCH sweep · BREAKFAST WOW pass · SEASONING SWEEP (report-only first) · BUG-SWEEP price resolver silent R0"]
-  end
-  NEWTODO-->ROAD
-
-  subgraph CARRY["CARRY-OVER"]
-    C0["CLEANUP: buildCombinedShoppingList + formatAmount in meals.js UNUSED — delete later."]
-    C1["Per-version NUTRITION: supper B/Q/V inherit dish macros — optional (Claude Code)"]
-    C2["Proxy names: cheese slices→cheddar · rotisserie→chicken breast · frozen stir-fry→mixed veg"]
-    C3["Confirm prices: plant-based sausage R140/kg · instant mash dry R270/kg"]
-    C4["Bangers & Mash — add plant-based-sausage veg version when wanted"]
-    C5["✅ B3 budget-matching BUILT (EBAND): graded band 0.7→0.5→0.3→0 + nearest-budget order. Fractions tunable if Tina wants dishes to hug the figure tighter/looser."]
-    C6["🌍 ADAPTIVE HOME-CUISINE (Tina's insight 3 Jul): _budgetHomeRank hard-codes SA='home' (rank 3) — CORRECT for the SA-first launch (all subscribers in SA). FUTURE (international): make 'home' follow the SUBSCRIBER's region (profile/location) so a UK user gets UK-first etc. SA stays the default. Same lens applies anywhere home-first is used (search, collections)."]
-  end
-  ROAD-.->CARRY
-
-  subgraph PARK["PARKED / small"]
-    K1["404: Images/Image header / feedfamily.jpg — case check"]
-    K2["Every screen must be class='warm' or renders system-sans. Audit remaining sections."]
-    K3["Roast Beef card placeholder emoji — needs real photo"]
-    K5["Budget chip range = R40–R500 (R600 removed 3 Jul to match the header). R500 = party/event threshold."]
-    K4["Video→Recipe feature idea (later)"]
-  end
-  CARRY-.->PARK
-
-  subgraph RULES["LOCKED"]
-    L0["UNIVERSAL INDEX: index EVERY recipe; mealRole gates finder to 'main'. Adapters READ-ONLY. WK cost gate: coverage>=0.8 + main protein resolved else costPP=null."]
-    L1["WOW EVERYWHERE: every default = why-led steps · real named spices · salt+pepper each stage · 'how this feels'."]
-    L2["SAMENESS (TOP): render ONLY via shared core.js fns using var(--token). Roll to ALL sections. Match braai v33. (naming via ONE tinzaDisplayName lever.)"]
-    L3["INGREDIENT STANDARD: name = what you BUY matching PRICE_DB (lowercase) · prep in method"]
-    L4["COSTING: 0 unpriced · green #46530c food · gold #876213 shop-spend · dup price = most expensive · EVERY recipe carries costPP."]
-    L5["STABILITY: never edit a working section unless that's the purpose · node --check before push · ONE push/session · GitHub Desktop"]
-    L6["VEG/VEGAN PROTEIN: homemade patties preferred; shop-bought plant-based sausages ONLY for format dishes."]
-    L7["Bobotie rule (one card per distinct dish) · child+grandma readable on mobile"]
-    L8["BUDGET/AI SOURCING: library-first ALWAYS; AI only after our recipes exhausted; every AI recipe re-costed."]
-    L9["BUDGET FREE/PRO: Budget finder + per-person cost = FREE. My Plan + shopping + nutrition = PRO. Floor <=R60/family-of-4."]
-    L10["SEARCH HONESTY: Allergen/Kosher/Halal = GUIDANCE not guarantee. Diabetic = heuristic not medical advice."]
-    L11["NAMES: AUTHENTIC name + ENTICING English gloss line 2 (WOW voice). photoName never changes. Gloss is searchText."]
-    L12["BALANCED RESULTS: diversify axes the query LEFT OPEN (deterministic round-robin, NO ML). window.balancedOrder. ONE engine budget+search. Bucket ORDER SA-first."]
-    L13["FINDER-VIEW DEDUP: same NAME → one row, keep most comprehensive (index keeps both). Different cultural names → keep both."]
-    L14["BUCKET CLASSIFY on the dish's OWN identity (name+ingredient names), NEVER goesWith/pairsWith/cuisine — pairings pollute the protein bucket. + SA-FIRST home advantage within each bucket (home library leads, cheapest tiebreak)."]
-    L15["MEAT LINE = R15pp (PER-PERSON). Below = honest stretcher mode (pap·sauce·soup·beans, no meat); R15pp+ = meat features. Converts by group size (R30/2·R60/4·R90/6). Floor stretchers live <=R15pp. Finder always = total÷people. SURFACED as a warm note above results when pp<R15 — NOT in the chip UI (kept simple)."]
-    L16["BACK-NAV: a section's OPEN recipe detail must be closed by goBack()/bottom-Back (return to that section's list), NOT history.back() (which can jump to an unrelated screen like FMF). Long-term: all detail opens route through openRecipe→viewingRecipe so goBack catches them uniformly."]
-    L17["NON-LATIN NAMES (LOCKED, Tina 3 Jul): ROMANISED authentic name + English gloss, for EVERY non-Latin cuisine (Ukraine·Georgia·China-future). Never native script as the primary name (unreadable for SA users). Matches Egyptian/Ethiopian already-transliterated (Koshari·Doro Wat). Delivered by tinzaDisplayName + tinzaRoman (slug/alias/nameRoman fallback). photoName unchanged."]
-    L18["WK SUBSTITUTE RULE (LOCKED, Tina 1 Jul): an exotic/un-buyable ingredient is replaced IN THE RECIPE with an SA-shelf substitute stated as 'substitute (or original)' — cost via the substitute. Cook buys something real; bill is honest. (bryndza→feta, salted cod→salted snoek, etc.) Generic pantry terms may use a silent WK_ALIAS instead. NEVER guess a rand on a pinch condiment — leave it unpriced (0.8 coverage gate absorbs one)."]
-    L19["FEELING LINE = THE ONE-LINER (LOCKED 2 Jul): sensory/nostalgic/human, every one UNIQUE, tone per section. TWO TIERS — short cardHook (<=6 words) on the card (optional, drip, never auto-trim) + full sensory line on the recipe page (every recipe). = the 'How This Feels' line."]
-    L20["VERSION STANDARD (LOCKED 2 Jul): count by dish FAME, litmus-filtered. 5=top-100 (Signature+Budget+Quick+Veg+Classic) · 4=everyday (drop Classic) · 2=exotic (Signature+Simple) · 1=floor. WOW = quality bar on ALL versions, not a chip. Signature named per dish. Simple(=Easy) = approachable on-ramp. Add a version only if a real user would pick it AND it makes culinary sense; Veg that kills the dish → own card. Fix N0 bug first."]
-    L21["ANATOMY COMPLETENESS (2 Jul): every recipe carries the full element set (see ANATOMY). Newly (re)tracked: TRIVIA/Did-You-Know (its own doc), STORAGE universal, SERVES+prep+cook time, Cook Mode spec."]
-  end
+START --> FACTS
+FACTS --> SPICE
+FACTS --> CODE
+SPICE --> RULES
+CODE --> RULES
