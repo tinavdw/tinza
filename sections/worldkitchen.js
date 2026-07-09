@@ -645,7 +645,9 @@ function wkRecipeOpts(r, country, universal){
   function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }
   var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);
   var wkShareBtn = '<button onclick="wkShareRecipe(\''+r.id+'\')" style="width:100%;padding:12px;border-radius:10px;cursor:pointer;background:#142e1a;border:1px solid #25d366;color:#25d366;font-size:13px;font-weight:bold;margin-top:4px;">📲 Share this recipe on WhatsApp</button>';
-  var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '') + wkShareBtn;
+  var _wkLoKeys = (typeof wkLeftoverKeys==='function') ? wkLeftoverKeys(r) : null;
+  var wkLeftoverBlock = (_wkLoKeys && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_wkLoKeys) : '';
+  var extrasHTML = costBox + tipBox + (extraInner ? recipeBox('', extraInner) : '') + wkLeftoverBlock + wkShareBtn;
 
   // ── goes well with (array → shared box) ──
   var gwwList = [];

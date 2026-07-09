@@ -3401,6 +3401,29 @@ function leftoverBoxHTML(keys){
   return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', heritage + body) : '';
 }
 // ── STORAGE box (same SAFETY_CLASS engine · Pro-gated, but the safety line always shows) ──
+// WK leftover-key deriver: map a World Kitchen card to a LEFTOVER_IDEAS key by its main
+// component (protein → starch → beans → cheese → veg). Desserts & drinks get none.
+function wkLeftoverKeys(r){
+  if(!r) return null;
+  if(/dessert|drink/.test((r.course||'').toLowerCase())) return null;
+  var hay=((typeof r.ingredients==='string'?r.ingredients:'')+' '+(r.name||'')+' '+(r.nameAlt||'')).toLowerCase();
+  var map=[
+    [/\b(beef|mince|steak|brisket|oxtail)\b/,'beef'],
+    [/\b(lamb|mutton)\b/,'lamb'],
+    [/\b(pork|bacon|ham|speck|chorizo|sausage)\b/,'pork'],
+    [/\b(chicken|poultry)\b/,'chicken'],
+    [/\b(prawn|shrimp|fish|octopus|squid|calamari|mussel|seafood|cod|salmon|tuna|anchov)\b/,'seafood'],
+    [/\b(orzo|pasta|spaghetti|noodle|macaroni|bucatini|kritharaki)\b/,'pasta'],
+    [/\b(rice|risotto|pilaf)\b/,'rice'],
+    [/\b(potato)\b/,'potato'],
+    [/\b(beans|lentil|chickpea|split pea|fava)\b/,'beans'],
+    [/\b(feta|halloumi|graviera|kefalotyri|parmesan|cheese)\b/,'cheese'],
+    [/\b(bread|phyllo|filo|loaf|pita)\b/,'bread']
+  ];
+  for(var i=0;i<map.length;i++){ if(map[i][0].test(hay)) return [map[i][1]]; }
+  if(/\b(aubergine|eggplant|courgette|zucchini|tomato|pepper|vegetable|spinach|greens|okra|mushroom)\b/.test(hay)) return ['roast-veg'];
+  return null;
+}
 function storageBoxHTML(cls){
   var sc = SAFETY_CLASS[cls]; if(!sc) return '';
   var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
