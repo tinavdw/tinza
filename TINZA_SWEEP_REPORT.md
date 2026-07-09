@@ -364,3 +364,23 @@ All 12 flagged-simple cards are **real dishes written thin**, not non-recipes �
 ### Not committed (batch 2)
 - Working tree only. Suggested commit (§2 format):
   - `wk-sweep: wk_europe.js portugal batch-2 — 9 coast/shellfish cards lifted to WOW + researched twists (bulhão pato, polvo à lagareiro, lulas recheadas, cataplana, sopa de cação, sardinhas, arroz de marisco, caldeirada, carne à alentejana)`
+- *Committed `f4f4bb7` (+ Tina's `142e8de`).*
+
+---
+
+## Phase 3 · Portugal — Pataniscas lift (`wk_europe.js`) — 9 Jul 2026
+
+**Ruling applied:** Tina un-reserved `pataniscas-de-bacalhau` (workhorse fritter, not a hero). The **cod trinity reserved for Opus stays** = `bacalhau-a-bras` · `bacalhau-com-natas` · `bacalhau-a-gomes-de-sa` (all still thin, untouched). Committed atomically on its own so the cod family stays coherent.
+
+- ✅ **`portugal-pataniscas-de-bacalhau`** (starter) — full WOW: desalt-first method, **no added salt** (cod is cured — said why), 170–180°C for crisp-not-greasy, the arroz-de-feijão partner. Moat: pataniscas are the frugal cousin of bolinhos de bacalhau, made from the ragged flakes too small to shape into balls. **Twist:** 🍺 *Massa com Cerveja* — cold-beer batter + whipped whites for featherlight fritters (web-researched, Petitchef/NCultura).
+
+### 🧩 CANONICAL SALT-COD DESALT LINE (for Opus's trinity — reuse verbatim so the cod dishes read as one family)
+> *"Soak the salted snoek (or bacalhau) in plenty of cold water in the fridge for 24–36 hours, changing the water 4–5 times, until the flesh is plump, pale and only gently salty — taste a flake to check. Poach it a few minutes just to cook through, then drain and flake, discarding any skin and bones."*
+- Buy-name used: **`salted snoek (or salted cod)`** (prices via `salted snoek` R180 — the keyed SA buy-name; keeps the trinity honest on cost).
+
+### Verification
+- `applyVersionDelta`: twist merges clean (beer added, batter step rewritten). Re-parsed from live file: full field set, HF, 2 versions, moat. `node --check` clean. `git diff --numstat` = **1/1** (only pataniscas). Trinity + all heroes confirmed thin/untouched.
+- Prices: only systemic `flour` (approved `flour`→`cake flour` alias covers it); no new gaps.
+
+### Suggested commit (atomic)
+- `wk-sweep: wk_europe.js — lift pataniscas-de-bacalhau to WOW + beer-batter twist; canonical salt-cod desalt line for the reserved trinity`
