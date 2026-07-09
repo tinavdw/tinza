@@ -374,17 +374,20 @@ All 12 flagged-simple cards are **real dishes written thin**, not non-recipes �
 
 - ✅ **`portugal-pataniscas-de-bacalhau`** (starter) — full WOW: desalt-first method, **no added salt** (cod is cured — said why), 170–180°C for crisp-not-greasy, the arroz-de-feijão partner. Moat: pataniscas are the frugal cousin of bolinhos de bacalhau, made from the ragged flakes too small to shape into balls. **Twist:** 🍺 *Massa com Cerveja* — cold-beer batter + whipped whites for featherlight fritters (web-researched, Petitchef/NCultura).
 
-### 🧩 CANONICAL SALT-COD DESALT LINE (for Opus's trinity — reuse verbatim so the cod dishes read as one family)
-> *"Soak the salted snoek (or bacalhau) in plenty of cold water in the fridge for 24–36 hours, changing the water 4–5 times, until the flesh is plump, pale and only gently salty — taste a flake to check. Poach it a few minutes just to cook through, then drain and flake, discarding any skin and bones."*
-- Buy-name used: **`salted snoek (or salted cod)`** (prices via `salted snoek` R180 — the keyed SA buy-name; keeps the trinity honest on cost).
+### 🧩 CANONICAL SALT-COD LINES (for Opus's trinity — reuse verbatim so the cod dishes read as one family)
+*(Corrected 9 Jul per Tina: **bacalhau-first**, snoek is a caveated fallback only.)*
+- **Buy-name (primary, price-keys to salted cod / bacalhau — NOT snoek):** `salted cod (bacalhau)`
+- **Desalt line (method, verbatim):** *"Soak the salted cod (bacalhau) in plenty of cold water in the fridge for 24–36 hours, changing the water 4–5 times, until the flesh is plump, pale and only gently salty — taste a flake to check. Poach it a few minutes just to cook through, then drain and flake, discarding any skin and bones."*
+- **Snoek-fallback caveat (chefNotes, verbatim):** *"Use bacalhau (salted cod) — the real thing; salted snoek can stand in at a push, but it's oilier and stronger, so not identical."*
+- **Price:** `salted cod (bacalhau)` is currently **unpriced → existing gap #8 `salted cod`** (count already includes the trinity cards). **Keying `salted cod` prices the whole cod family**; `snoek` (R180) is now only the substitute note, no longer the primary. *(Do NOT key to snoek.)*
 
 ### Verification
 - `applyVersionDelta`: twist merges clean (beer added, batter step rewritten). Re-parsed from live file: full field set, HF, 2 versions, moat. `node --check` clean. `git diff --numstat` = **1/1** (only pataniscas). Trinity + all heroes confirmed thin/untouched.
-- Prices: only systemic `flour` (approved `flour`→`cake flour` alias covers it); no new gaps.
+- Prices: `salted cod (bacalhau)` → gap **#8** (bacalhau needs a price key); systemic `flour` (approved `flour`→`cake flour` alias covers it). No *new* gaps beyond the already-logged #8.
 
-### Suggested commit (atomic)
-- `wk-sweep: wk_europe.js — lift pataniscas-de-bacalhau to WOW + beer-batter twist; canonical salt-cod desalt line for the reserved trinity`
-- *Committed `105b837`.*
+### Suggested commits (atomic)
+- `wk-sweep: wk_europe.js — lift pataniscas-de-bacalhau to WOW + beer-batter twist; canonical salt-cod desalt line for the reserved trinity` *(committed `105b837`, snoek-first)*
+- `wk-sweep: wk_europe.js — pataniscas cod buy-name flip to bacalhau-first (snoek = caveated fallback); price-keys to salted cod #8` *(this correction)*
 
 ---
 
