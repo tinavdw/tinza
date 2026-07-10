@@ -1,0 +1,762 @@
+# TINZA — True Photo Shoot-List · 10 Jul 2026
+
+**733 dishes still need a photo** (of 1816 real cookable recipes; 1083 already done). Data sections (prices, events, beverages, budgets, engine) excluded. Every entry is a dish name — the Studio builds the AI prompt from it, so no recognition needed.
+
+## World Kitchen — Europe  (303)
+- Aceitunas Aliñadas
+- Alheira de Mirandela
+- Alplermagronen
+- Amêijoas na Cataplana
+- Amêijoas à Bulhão Pato
+- Appeltaart
+- Apple and blackberry tart
+- Arroz Blanco
+- Arroz Negro
+- Arroz de Marisco
+- Açorda
+- Bacalhau com Natas
+- Bacalhau à Brás
+- Bacalhau à Gomes de Sá
+- Backhendl
+- Bacon and cabbage
+- Balkenbrij
+- Balık Ekmek
+- Basler Lackerli
+- Battered pork patty
+- Bauernschmaus
+- Bavarian cheese spread
+- Beef rouladen
+- Belgian Fries
+- Belgian Waffles
+- Berner Platte
+- Beyti Kebap
+- Bife à Portuguesa
+- Bitki wołowe
+- Bitoque
+- Bitterballen
+- Black Forest cake
+- Bolo Rei
+- Bolo de Arroz
+- Bolo de Bolacha
+- Bossche Bol
+- Boulets à la Liégeoise
+- Braised red cabbage
+- Brassói Aprópecsenye
+- Broodje Haring
+- Brussels Waffles
+- Bundnerfleisch
+- Cabrito Assado
+- Caldeirada
+- Capuns
+- Carne de Porco à Alentejana
+- Cavacas
+- Cervelat
+- Chicken and ham pie
+- Chicons au Gratin
+- Cigánypecsenye
+- Clara
+- Cochinillo Asado
+- Cordero Asado
+- Cordon Bleu
+- Cozido à Portuguesa
+- Croquettes aux Crevettes
+- Csülök Pékné Módra
+- Currywurst
+- Disznótoros
+- Döner Kebap
+- Encharcada
+- Endive au Gratin
+- Engadiner Nusstorte
+- Ensalada Mixta
+- Ensalada de Tomate
+- Ensopado de Borrego
+- Erwtensoep
+- Escalivada
+- Espetada Madeirense
+- Espinacas con Garbanzos
+- Faschierter Braten
+- Fideuà
+- Filet Américain
+- Filets de Perche
+- Flaeskesteg
+- Fondue
+- Fondue Chinoise
+- Forelle
+- Gentse Waterzooi
+- Germknödel
+- Gevulde Koek
+- Golonka
+- Gouda Kaas
+- Green herb sauce
+- Gulasz
+- Gulyás
+- Halászlé
+- Haring
+- Heisse Schokolade
+- Horchata
+- Hutspot
+- Hörnli mit Ghackets
+- Hünkar Beğendi
+- Irish stew
+- Iscas com Elas
+- Jambon d
+- Judías Verdes
+- Kaczka pieczona
+- Kanelsnegle
+- Kapros túrós lepény
+- Karnıyarık
+- Kaszanka
+- Kibbeling
+- Korvapuusti
+- Kotlet mielony
+- Krentenbol
+- Kriek Beer
+- Kroket
+- Krumplis tészta
+- Kuzu Pirzola
+- Kuzu Tandır
+- Landjäger
+- Leek and oat soup
+- Leite Creme
+- Liege Waffles
+- Lulas Recheadas
+- Lángos
+- Maluns
+- Marshmallow tray bake
+- Mashed potato with spring onion
+- Meatballs in caper sauce
+- Meggyleves
+- Migas à Alentejana
+- Moules-Frites
+- Nokedli
+- Oliebollen
+- Ontbijtkoek
+- Ovos Moles
+- Pan Frito
+- Pan Tostado
+- Pan con Ajo
+- Pan con Tomate
+- Pannenkoeken
+- Papet Vaudois
+- Paprikás Csirke
+- Pataniscas de Bacalhau
+- Patatas Hervidas
+- Patatas Panaderas
+- Patatas con Alioli
+- Pierogi z mięsem
+- Pimientos Asados
+- Pisto
+- Poffertjes
+- Polenta Ticinese
+- Pollo al Chilindrón
+- Polvo à Lagareiro
+- Potato bread farls
+- Potato pancake
+- Potato soup
+- Pão de Ló
+- Pörkölt
+- Queijadas
+- Rabbit in Beer
+- Raclette
+- Rebujito
+- Rijsttafel
+- Risotto allo Zafferano Ticinese
+- Roast pork knuckle
+- Rojões à Minhota
+- Rosti
+- Rántott Hús
+- Salame de Chocolate
+- Saltimbocca alla Ticinese
+- Sardinhas Assadas
+- Saucisson Vaudois
+- Sauerbraten
+- Schab pieczony
+- Selchfleisch
+- Setas al Ajillo
+- Soda bread farls
+- Solomillo al Whisky
+- Sopa de Cação
+- Sopa de Pedra
+- Speculoos
+- Speculoos Spread
+- Speklap
+- Spätzle
+- St. Galler Bratwurst with Onion Sauce
+- Stamppot
+- Steak and Guinness pie
+- Stelze
+- Stoemp
+- Stoofvlees
+- Testi Kebabı
+- Tinto de Verano
+- Tojásleves
+- Toucinho do Céu
+- Tripas à Moda do Porto
+- Töltött Paprika
+- Töltött káposzta
+- Túrós rétes
+- Uitsmijter
+- Ulster fry
+- Urfa Kebabı
+- Vadas Marha
+- Vafler
+- Vol-au-Vent
+- Waterzooi
+- Wheaten bread with smoked salmon
+- Wątróbka
+- Zanahorias Aliñadas
+- Zrazy
+- Zurcher Geschnetzeltes
+- Zuurkoolstamppot
+- Zwiebelrostbraten
+- Zöldborsófőzelék
+- Şiş Kebap
+- Αρνί στο φούρνο
+- Αυγολέμονο
+- Γίγαντες Πλακί
+- Γεμιστά
+- Γιουβέτσι
+- Κακαβιά
+- Καταΐφι
+- Κεφτέδες
+- Κλέφτικο
+- Κοκκινιστό
+- Κολοκυθοκεφτέδες
+- Κοντοσούβλι
+- Κοτόπουλο λεμονάτο
+- Κουλούρι
+- Κουραμπιέδες
+- Κρεατόπιτα
+- Λαδόψωμο
+- Λαχανοσαλάτα
+- Λουκουμάδες
+- Μελιτζανοσαλάτα
+- Μελομακάρονα
+- Μηλόπιτα
+- Μουσακάς
+- Μπακλαβάς
+- Μπιφτέκι
+- Μπουγάτσα
+- Μπριάμ
+- Παξιμάδια
+- Παστίτσιο
+- Παστιτσάδα
+- Παϊδάκια
+- Ρεβανί
+- Σουτζουκάκια
+- Σπανακόπιτα
+- Σπετσοφάι
+- Στιφάδο
+- Στραπατσάδα
+- Τυρόπιτα
+- Φάβα
+- Φασολάδα
+- Φραπές
+- Χαλβάς
+- Χταπόδι στη σχάρα
+- Χωριάτικο ψωμί
+- Χόρτα
+- Бефстроганов
+- Блины
+- Борщ
+- Борщ
+- Винегрет
+- Голубцы
+- Гречневая каша
+- Квас
+- Медовик
+- Морс
+- Окрошка
+- Олів
+- Пельмени
+- Пирожки
+- Пряники
+- Птичье молоко
+- Расстегай
+- Салат Оливье
+- Сметанник
+- Солянка
+- Сырники
+- Уха
+- Холодец
+- Щи
+- აჭარული ხაჭაპური
+- აჯაფსანდალი
+- ბადრიჯანი ნიგვზით
+- ბაჟე
+- ელარჯი
+- კალმახი
+- კუბდარი
+- კუჭმაჩი
+- ლობიო
+- მწვადი
+- მჭადი
+- ნადუღი
+- ოჯახური
+- საცივი
+- სულგუნი
+- ტაბაკა
+- ტყემალი
+- ფხალი
+- ღომი
+- შქმერული
+- ჩანახი
+- ჩაქაფული
+- ჩახოხბილი
+- ჩურჩხელა
+- ჭვიშტარი
+- ხარჩო
+
+## Meals (Breakfast · Lunch · Supper · Bakes)  (158)
+- Amagwinya (Fat Cakes)
+- Amaretti
+- Amarula Cheesecake
+- Apple Tart
+- Bacon, Atchar & Cheddar Muffins
+- Bakewell Tart
+- Banoffee Cream Pudding
+- Biltong & Cheddar Scones
+- Biltong & Cheese Muffins
+- Biscotti
+- Blue Cheese, Fig & Walnut Scones
+- Boere-Sago Porridge
+- Boererusk & Amasi Bowl
+- Boerewors Hash with Chakalaka Hollandaise
+- Boontjiesop (Farm-Style Bean Soup)
+- Borma (Rolled Knafeh)
+- Bostock
+- Buddha Bowl
+- Burger Buns
+- Buttermilk Rusks
+- Buttermilk, Jam & Cream Scones
+- Butternut Gnocchi
+- Butternut, Feta & Chive Scones
+- Buttery Shortbread
+- Cape Brandy Pudding
+- Cape Malay Koesisters
+- Caramelised Onion & Butternut Tart
+- Caramelised White Chocolate, Raspberry & Custard Pudding
+- Cardamom & Pistachio Fridge Biscuits
+- Cardamom & Rosewater Pistachio Cake
+- Carrot & Pineapple Muffins
+- Champorado (Filipino Chocolate Rice Porridge)
+- Chana Masala
+- Chewy Chocolate Chip Cookies
+- Chips
+- Chocolate Self-Saucing Pudding
+- Chocolate, Brandy & Black Pepper Cookies
+- Ciabatta Rolls
+- Classic French Mince Sauce
+- Cobb Salad
+- Condensed Milk Biscuits
+- Congee with Crispy Onions & Soy Egg
+- Corn & Bacon Chowder
+- Cottage Cheese & Quinoa Muffins
+- Creamy Biltong Soup
+- Croissant
+- Crumpets (Plaatkoekies)
+- Crunchies
+- Crunchy Ginger Biscuits
+- Cupcakes
+- Curried Pasta Salad
+- Curry & Coconut Oats
+- Custard Protein Oats
+- Danish Pastries
+- Doughnuts
+- Dreamy Classic Cheesecake
+- Earl Grey, Honey & Lavender Scones
+- Easy Beer Bread
+- Eggs Kejriwal (Chilli-Cheese Toast)
+- Farinata (Italian Chickpea Pancake)
+- Fig & Mascarpone Tart
+- Focaccia
+- Fresh Egg Pasta
+- Gilgeori Toast (Korean Street Toast)
+- Gin & Tonic Cheesecake
+- Golden Carrot Cake
+- Golden Oat Cookies
+- Golden Vanilla Butter Cake
+- Grapefruit Margarita Tart
+- Gulab Jamun
+- Gyeran-jjim (Korean Steamed Eggs)
+- Hong Kong Bubble Waffle (Gai Daan Jai)
+- Hong Kong French Toast
+- Hot Dog & Long Rolls
+- Jalapeno & Cheddar Scones
+- Jalebi
+- Jan Smuts Biscuits
+- Japanese Soufflé Pancakes
+- Kaiserschmarrn (Austrian Shredded Pancake)
+- Khachapuri Adjaruli (Georgian Cheese Bread Boat)
+- Klappertert
+- Kota (Sphatlho)
+- Kouign-Amann
+- Kuku Sabzi (Persian Herb Frittata)
+- Lamingtons
+- Lemon Meringue
+- Limoncello Meringue Cheesecake
+- Liège Waffles (Belgian Sugar Waffles)
+- Malasadas
+- Malva / Melktert Oats
+- Malva Pudding Muffin
+- Masala Scramble (Akoori)
+- Mash
+- Menemen (Turkish Scramble)
+- Merveilleux
+- Mielie Bread
+- Milk Tart
+- Misugaru (Korean Roasted-Grain Latte)
+- Mosbolletjies
+- Muffins
+- Naan
+- Napoletana Pizza Sauce
+- Okonomiyaki (Japanese Cabbage Pancake)
+- Olive Oil Cake
+- Overnight Labneh with Dukkah & Hot Honey
+- Oyakodon (Japanese Chicken & Egg Bowl)
+- Pad Thai
+- Palmiers
+- Pampoenkoekies
+- Panna Cotta
+- Pastéis de Nata
+- Peppermint Crisp Oats
+- Peppermint Crisp Tart
+- Pineapple Upside-Down Cake
+- Pizza Dough
+- Piña Colada Cheesecake
+- Potato & Sour Cream Muffins
+- Potato Gnocchi
+- Potbrood
+- Prego Roll
+- Recipe Name
+- Recipe Name
+- Rice Pudding
+- Roast Butternut, Feta & Caramelised Onion Salad
+- Romany Creams
+- Rooibos & Honey Oats
+- Roosterkoek
+- Sabich (Aubergine & Egg Pita)
+- Savoury Swirl Rolls
+- Scones
+- Sfogliatelle
+- Shepherd\
+- Smoked Snoek & Baby Potato Salad
+- Smoorsnoek on Roosterkoek
+- Soetkoekies
+- Soft Dinner Rolls
+- Soft Peanut Butter Cookies
+- Sourdough Rolls
+- Stewed Fruit & Yoghurt Bowl
+- Sticky Toffee Pudding
+- Stone Fruit & Hot Honey Bowl
+- Strawberry & Black Pepper Scones
+- Sweet Chilli Chicken Salad
+- Sweet Shortcrust Pastry
+- Sweet Swirl Rolls
+- Sütlaç-style Baked Rice Pudding
+- Tin Fish Curry (Pilchard Curry)
+- Tortilla
+- Tres Leches
+- Trifle
+- Turkish Pide
+- Ultimate Chocolate Cake
+- Velvety Red Velvet Cake
+- Vetkoek
+- Vietnamese Egg Coffee (Cà Phê Trứng)
+- Welsh Rarebit (Proper Cheese Sauce on Toast)
+- Whole-Wheat & Seed Rolls
+- Éclairs
+
+## World Kitchen — Asia / Global  (101)
+- Aamras
+- Ala Hodi
+- Amritsari Fish
+- Appa (Hoppers)
+- Appam
+- Baingan Bharta
+- Biththara Appa
+- Biththara Curry
+- Butter Garlic Prawns
+- Chicken 65
+- Chicken Chettinad
+- Chicken Jalfrezi
+- Chicken Korma
+- Chole Bhature
+- Dal Makhani
+- Devilled Chicken
+- Dhokla
+- Egg Curry
+- Fish Ambul Thiyal
+- Fish Tikka
+- Goan Pork Vindaloo
+- Goan Prawn Curry
+- Haalmasso Baduma
+- Hyderabadi Chicken Biryani
+- Idiyappam
+- Idli
+- Imbul Kiribath
+- Jalebi
+- Kachori
+- Kadhi
+- Kakuluwo Curry
+- Keema Matar
+- Kerala Fish Curry
+- Kesel Muwa
+- Kheer
+- Kiri Pani
+- Kiribath
+- Kottu Roti
+- Kozhukattai
+- Laal Maas
+- Lamprais
+- Lassi
+- Lunu Miris
+- Malai Kofta
+- Malu Mirisata
+- Milk Toffee
+- Misal Pav
+- Mutton Biryani
+- Paneer Butter Masala
+- Pani Pol Pancakes
+- Pani Puri
+- Paratha
+- Parippu Curry
+- Pav Bhaji
+- Pesarattu
+- Poha
+- Pol Roti
+- Pol Sambol
+- Polos Curry
+- Pongal
+- Rajma
+- Rasgulla
+- Rice and Curry
+- Rogan Josh
+- Saag Gosht
+- Sambar
+- Seeni Sambol
+- Shrikhand
+- Sri Lankan Beef Curry
+- Sri Lankan Fried Rice
+- Tandoori Chicken
+- Thepla
+- Upma
+- Vada Pav
+- Vegetable Roti
+- Watalappan
+- Wood Apple Juice
+- آلو پراٹھا
+- بریانی
+- بن کباب
+- حلیم
+- دال چاول
+- روٹی
+- زردہ
+- ساگ
+- سموسہ
+- سیخ کباب
+- شامی کباب
+- شیر خرما
+- قیمہ
+- لسّی
+- مٹن قورمہ
+- نہاری
+- پلاؤ
+- پکوڑا
+- چنا مسالہ
+- چپلی کباب
+- چکن کڑاہی
+- کڑھی
+- کھیر
+- گاجر کا حلوہ
+
+## Spice Room  (58)
+- Ajvar
+- Almond Butter
+- Apple Butter
+- Apricot Chutney
+- Apricot Jam
+- Banana Sambal
+- Blueberry Jam
+- Cape Gooseberry Jam
+- Caramelised Onion Chutney
+- Carrot Sambal
+- Cashew Butter
+- Chasseur (Hunter
+- Cherry Confiture
+- Cherry Jam
+- Coconut Chutney
+- Coriander & Mint Chutney
+- Date Jam
+- Fig Jam
+- Green Fig Konfyt
+- Green Tomato Chutney
+- Hazelnut Butter
+- Korrelkonfyt
+- Lemon Curd
+- Lemon Marmalade
+- Lime Pickle
+- Macadamia Butter
+- Makataan Konfyt
+- Mango Chutney
+- Marrow & Ginger Jam
+- Membrillo (Quince Paste)
+- Mixed Nut Butter
+- Naartjie Konfyt
+- Onion Confit
+- Orange Curd
+- Passionfruit Curd
+- Peach Jam
+- Peanut Butter
+- Pico de Gallo
+- Plum Jam
+- Pol Sambol
+- Preserved Lemons
+- Quince Jam
+- Raspberry Jam
+- Rhubarb & Ginger Chutney
+- Rose-Petal Jam
+- Salsa Verde (Tomatillo)
+- Sambal Matah
+- Seville Orange Marmalade
+- Strawberry Jam
+- Taco / Mexican Seasoning
+- Tahini
+- Tamarind & Date Chutney
+- Three-Fruit Marmalade
+- Tomato & Onion Sambal
+- Tomato Jam
+- Watermelon Konfyt
+- Za
+- Zhoug
+
+## World Kitchen — France  (30)
+- Aïoli
+- Blanquette de Veau
+- Bouillabaisse
+- Bœuf Bourguignon
+- Cassoulet
+- Chateaubriand
+- Confit de Canard
+- Coq au Vin
+- Crème Brûlée
+- Escargots à la Bourguignonne
+- Gougères
+- Gratin Dauphinois
+- Haricots Verts Amandine
+- Magret de Canard
+- Moules Marinières
+- Mousse au Chocolat
+- Poulet Rôti
+- Quiche Lorraine
+- Ratatouille
+- Salade Niçoise
+- Sauce Bolognaise Classique
+- Sauce Béarnaise
+- Sauce Hollandaise
+- Sauce Mornay
+- Sauce Provençale
+- Soupe à l
+- Steak Frites
+- Steak Tartare
+- Tarte Tatin
+- Tartiflette
+
+## Events  (23)
+- Balsamic Mushrooms & Brie
+- Biltong Spread
+- Bruschetta Platter
+- Chicken Mayo
+- Cream Cheese & Cucumber
+- Egg Mayo
+- Ham & Mustard
+- Hawaiian
+- Italian Salami
+- Margherita
+- Mexican
+- Mini Cocktail Sandwiches
+- Mini Cocktail Sandwiches
+- Mini Cocktail Sandwiches
+- Mini Pizza Platter
+- Parma Ham & Fig
+- Prawn & Marie Rose
+- Roasted Chicken & Pesto
+- Salami & Mayo
+- Seafood
+- Smoked Salmon & Cream Cheese
+- Tomato & Basil
+- Vegetarian
+
+## World Kitchen — N. Ireland  (14)
+- Apple and blackberry tart
+- Bacon and cabbage
+- Battered pork patty
+- Chicken and ham pie
+- Irish stew
+- Leek and oat soup
+- Marshmallow tray bake
+- Mashed potato with spring onion
+- Potato bread farls
+- Potato pancake
+- Soda bread farls
+- Steak and Guinness pie
+- Ulster fry
+- Wheaten bread with smoked salmon
+
+## Buffet  (13)
+- Big 5 Bushveld Safari
+- Braai Party
+- Construction Zone Party
+- Dinosaur Dig Party
+- Farmyard Fun Party
+- Mermaid Lagoon Party
+- Pirate Treasure Party
+- Princess Tea Party
+- Rainbow Picnic Party
+- Safari Adventure Party
+- Space Explorer Party
+- Stock cubes
+- Unicorn Garden Party
+
+## World Kitchen — Germany  (12)
+- Bavarian cheese spread
+- Beef rouladen
+- Black Forest cake
+- Braised red cabbage
+- Currywurst
+- Green herb sauce
+- Meatballs in caper sauce
+- Potato soup
+- Roast pork knuckle
+- Sauerbraten
+- Spätzle
+- Wiener Schnitzel
+
+## Health Hub  (9)
+- Broccoli, Almond & Cranberry
+- Cauliflower Tabbouleh
+- Chickpea, Cucumber & Mint
+- Edamame & Brown Rice
+- Kale, Apple & Seed Crunch
+- Lentil, Tomato & Herb
+- Roasted Beetroot, Orange & Walnut
+- Roasted Butternut, Feta & Seed
+- Rocket, Pear & Walnut
+
+## World Kitchen — South Africa  (7)
+- Cauliflower & Chickpea Curry
+- Herderspastei (Shepherd
+- Koesisters
+- Lamb Breyani
+- Ouma se Soetpampoen (Granny
+- Rooiwyn-Tarentaalpotjie (Red-Wine Guinea Fowl Potjie)
+- Skaapboud (Roast Leg of Lamb)
+
+## World Kitchen — Africa  (4)
+- Brik à l
+- Chershi Kara
+- M
+- Xima
+
+## Bakes (additions)  (1)
+- 2-Ingredient Bagels

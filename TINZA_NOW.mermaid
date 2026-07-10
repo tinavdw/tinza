@@ -10,8 +10,8 @@ subgraph DONE["✅ DONE"]
 end
 
 subgraph STATE["📌 Current state (all safe)"]
-  S1["spice.js = 192 base (Jams COMPLETE). core.js = BD13 twist engine DONE + tested.<br/>🔑 Opus reads the public repo directly. origin/main = 57d5f84 'portugal' — batch-4 (4a+4b) LIVE.<br/>✅ Field shapes confirmed: leftovers = ['(tier) text', …] · crossLinks = [{name,target,emoji}].<br/>🔧 BROA RECONCILE: Code staged target 'portugal-broa-de-milho' → change to 'bk-broa' (polvo+tripas).<br/>Broa = Bakes card bk-broa (consistent w/ pita/baguette). Tina pastes+pushes bk-broa."]
-  S3["✅ Garden Green Salad RESOLVED: exists as id `greensalad` in data.js (braai salads add-on) —<br/>5 heroes relinked. ✅ Broa de Milho AUTHORED as bk-broa (bakes_additions.js, breads) — Tina<br/>pastes+pushes; heroes now crossLink openBakesRecipe('bk-broa'). 💰 price-key gaps: pig's ear<br/>(#294) · carrots-vs-carrot. ⚠️ dup IDs still: tartare-sauce · sambal-oelek."]
+  S1["spice.js = 192 base (Jams COMPLETE). core.js = BD13 twist engine DONE + tested.<br/>🔑 Opus reads the public repo directly. origin/main HEAD after Broa upgrade (9d719d6).<br/>✅ Shapes: leftovers = ['(tier) text',…] · crossLinks = [{name,target,emoji}].<br/>✅ BROA DONE: upgraded to WOW in-place (same id portugal-broa-de-milho; de Avintes twist;<br/>polvo/tripas/heroes all resolve). bk-broa cancelled. Photo studio work PARKED (spice pass)."]
+  S3["✅ Garden Green Salad = id `greensalad` (data.js); 5 heroes relinked. ✅ Broa = WK card<br/>`portugal-broa-de-milho`, upgraded to WOW (9d719d6); heroes/polvo/tripas resolve. 💰 price-key<br/>gaps: pig's ear (#294) · bread flour (#295 → alias to cake flour in prices.js) · carrots-vs-carrot ·<br/>salted-cod ladder. ⚠️ dup IDs still: tartare-sauce · sambal-oelek."]
 end
 
 subgraph LOCKS["🔒 LOCKED (Tina confirmed 10 Jul)"]
@@ -49,6 +49,8 @@ end
 
 subgraph NEXT["🧂 LATER — Spice-room polish"]
   N1["2 dup IDs · howThisFeels jazz (126 blank) · Dips 'Back'→Main bug · Spice region-vocab cleanup."]
+  N3["🌍 WK COUNTRY WIRING BUG (found via screenshots): France 25 + Germany 26 + N.Ireland 28 (+6 FR sauces)<br/>BUILT but UNREACHABLE — not loaded in index.html, no window attach, not in worldkitchen.js concat,<br/>not in region map. FIX DELIVERED + verified (TINZA_WK_COUNTRY_FIX.md): 4 edits (index.html 3 script tags ·<br/>window assigns ×3 · concat line 58 · region map after Austria). N.Ireland region = Tina's call (put in Western).<br/>Opus/engine lane — safe to hand Code (no wk_europe.js collision). node --check clean."]
+  N2["📸 PHOTOS — SOLVED. Root cause: audit tool was blind to JSON sections + counted versions/<br/>ingredients as fake recipes. FIXED tool (photo-audit.FIXED.js) + 4 artifacts delivered.<br/>TRUE STATE: 1816 real recipes · 1083 done (60%) · 733 need a photo. Shoot-list by room<br/>(PHOTO_SHOOTLIST.md): WK-Europe 303 · Meals 158 · WK-Asia 101 · Spice 58 · WK-France 30 · rest small.<br/>PLAN: run reconnect-photos.sh (49 recovered + junk gone) → swap in fixed tool → work shoot-list by<br/>room → IGNORE orphans (leftovers from renamed dishes). Matching is by NAME; Studio prompts = no recognition needed."]
 end
 
 START-->DONE-->STATE

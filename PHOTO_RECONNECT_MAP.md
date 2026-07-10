@@ -1,0 +1,268 @@
+# TINZA — Photo Reconnect (smart pass) · 10 Jul 2026
+
+- **49** auto-renames (name-matched, no guessing)
+- **17** safe deletes (dish already has that photo, or junk)
+- **191** truly ambiguous — no dish by that name exists (removed dishes); safe to ignore or archive
+
+## ✅ AUTO-RENAME
+- `Amêijoas na Cataplana (Clams in Cataplana Pot).jpg` → `Ameijoas na Cataplana.jpg`  ·  Amêijoas na Cataplana
+- `Amêijoas à Bulhão Pato (Clams with Garlic and Cilantro).jpg` → `Ameijoas a Bulhao Pato.jpg`  ·  Amêijoas à Bulhão Pato
+- `Arroz de Marisco (seafood rice).jpg` → `Arroz de Marisco.jpg`  ·  Arroz de Marisco
+- `Bolo de Bolacha (Biscuit Cake).jpg` → `Bolo de Bolacha.jpg`  ·  Bolo de Bolacha
+- `Caldeirada (fish stew).jpg` → `Caldeirada.jpg`  ·  Caldeirada
+- `Cavacas (Portuguese Iced Cakes).jpg` → `Cavacas.jpg`  ·  Cavacas
+- `Crumpets (Plaatkoekies).jpg` → `Crumpets.jpg`  ·  Crumpets (Plaatkoekies)
+- `Encharcada (Egg Yolk Syrup Dessert).jpg` → `Encharcada.jpg`  ·  Encharcada
+- `Lulas Recheadas (Stuffed Squid).jpg` → `Lulas Recheadas.jpg`  ·  Lulas Recheadas
+- `Masala Scramble (Akoori).jpg` → `Masala Scramble.jpg`  ·  Masala Scramble (Akoori)
+- `Pastéis de Nata (custard tarts).jpg` → `Pasteis de Nata.jpg`  ·  Pastéis de Nata
+- `Polvo à Lagareiro (Roasted Octopus with Potatoes).jpg` → `Polvo a Lagareiro.jpg`  ·  Polvo à Lagareiro
+- `Pão de Ló (Portuguese Sponge Cake).jpg` → `Pao de Lo.jpg`  ·  Pão de Ló
+- `Queijadas (sweet cheese tarts).jpg` → `Queijadas.jpg`  ·  Queijadas
+- `Salame de Chocolate (Chocolate Biscuit Salami).jpg` → `Salame de Chocolate.jpg`  ·  Salame de Chocolate
+- `Sopa de Cação (Dogfish Soup).jpg` → `Sopa de Cacao.jpg`  ·  Sopa de Cação
+- `Toucinho do Céu (Almond Egg Cake).jpg` → `Toucinho do Ceu.jpg`  ·  Toucinho do Céu
+- `Umngqusho (Hearty Samp & Bean Stew).jpg` → `Umngqusho.jpg`  ·  Umngqusho
+- `Γεμιστά (Stuffed Vegetables).jpg` → `Γεμιστα.jpg`  ·  Γεμιστά
+- `Κακαβιά (Fisherman’s Fish Soup).jpg` → `Κακαβια.jpg`  ·  Κακαβιά
+- `Καταΐφι (Shredded Pastry Dessert).jpg` → `Καταιφι.jpg`  ·  Καταΐφι
+- `Κλέφτικο (Slow Roasted Lamb).jpg` → `Κλεφτικο.jpg`  ·  Κλέφτικο
+- `Κοκκινιστό (Meat in Tomato Sauce).jpg` → `Κοκκινιστο.jpg`  ·  Κοκκινιστό
+- `Κολοκυθοκεφτέδες (Zucchini Fritters).jpg` → `Κολοκυθοκεφτεδες.jpg`  ·  Κολοκυθοκεφτέδες
+- `Κουλούρι (Sesame Bread Ring).jpg` → `Κουλουρι.jpg`  ·  Κουλούρι
+- `Κουραμπιέδες (Almond Butter Cookies).jpg` → `Κουραμπιεδες.jpg`  ·  Κουραμπιέδες
+- `Κρεατόπιτα (Meat Pie).jpg` → `Κρεατοπιτα.jpg`  ·  Κρεατόπιτα
+- `Λαδόψωμο (Olive Oil Bread).jpg` → `Λαδοψωμο.jpg`  ·  Λαδόψωμο
+- `Λαχανοσαλάτα (Cabbage Salad).jpg` → `Λαχανοσαλατα.jpg`  ·  Λαχανοσαλάτα
+- `Λουκουμάδες (Honey Doughnuts).jpg` → `Λουκουμαδες.jpg`  ·  Λουκουμάδες
+- `Μελιτζανοσαλάτα (Eggplant Dip).jpg` → `Μελιτζανοσαλατα.jpg`  ·  Μελιτζανοσαλάτα
+- `Μελομακάρονα (Honey Spice Cookies).jpg` → `Μελομακαρονα.jpg`  ·  Μελομακάρονα
+- `Μηλόπιτα (Apple Cake).jpg` → `Μηλοπιτα.jpg`  ·  Μηλόπιτα
+- `Μουσακάς (Layered Eggplant and Meat Casserole).jpg` → `Μουσακας.jpg`  ·  Μουσακάς
+- `Μπουγάτσα (Custard Filled Pastry).jpg` → `Μπουγατσα.jpg`  ·  Μπουγάτσα
+- `Μπριάμ (Roasted Vegetable Medley).jpg` → `Μπριαμ.jpg`  ·  Μπριάμ
+- `Παξιμάδια (Twice-Baked Bread).jpg` → `Παξιμαδια.jpg`  ·  Παξιμάδια
+- `Παστίτσιο (Greek Baked Pasta).jpg` → `Παστιτσιο.jpg`  ·  Παστίτσιο
+- `Ρεβανί (Semolina Syrup Cake).jpg` → `Ρεβανι.jpg`  ·  Ρεβανί
+- `Σουτζουκάκια (Spiced Meatballs in Sauce).jpg` → `Σουτζουκακια.jpg`  ·  Σουτζουκάκια
+- `Στιφάδο (Beef and Onion Stew).jpg` → `Στιφαδο.jpg`  ·  Στιφάδο
+- `Στραπατσάδα (Eggs with Tomato).jpg` → `Στραπατσαδα.jpg`  ·  Στραπατσάδα
+- `Τυρόπιτα (Cheese Pie).jpg` → `Τυροπιτα.jpg`  ·  Τυρόπιτα
+- `Φάβα (Yellow Split Pea Purée).jpg` → `Φαβα.jpg`  ·  Φάβα
+- `Φραπές (Iced Coffee Drink).jpg` → `Φραπες.jpg`  ·  Φραπές
+- `Χαλβάς (Semolina Dessert).jpg` → `Χαλβας.jpg`  ·  Χαλβάς
+- `Χωριάτικο ψωμί (Country Bread).jpg` → `Χωριατικο ψωμι.jpg`  ·  Χωριάτικο ψωμί
+- `Χόρτα (Boiled Greens).jpg` → `Χορτα.jpg`  ·  Χόρτα
+- `Борщ (Beetroot Soup).jpg` → `Борщ.jpg`  ·  Борщ
+
+## 🗑️ SAFE DELETE (duplicate/junk)
+- `Beef Stew.jpg`
+- `Boerewors (Homemade) (Traditional Farmer’s Sausage from Scratch).jpg`
+- `Derere (Okra StewRelish).jpg`
+- `Gnocchi alla Boscaiola.jpg`
+- `Gnocchi di Zucca al Burro e Salvia.jpg`
+- `Greek Salad dressing.jpg`
+- `Kombucha (with SCOBY).jpg`
+- `Mango Atchar (Spicy Green Mango Pickle).jpg`
+- `Slaphakskeentjies (Sweet & Sour Baby Onions).jpg`
+- `Tagliatelle al Ragù alla Bolognese.jpg`
+- `Tonnarelli Cacio e Pepe.jpg`
+- `Σκορδαλιά (Garlic Potato Dip).jpg`
+- `Ταραμοσαλάτα (Fish Roe Dip).jpg`
+- `Τζατζίκι (Yogurt Cucumber Dip).jpg`
+- `OJboa.jpg`
+- `Gemini_Generated_Image_3opwmw3opwmw3opw.jpg`
+- `Gemini_Generated_Image_pxu6z0pxu6z0pxu6.jpg`
+
+## ❓ AMBIGUOUS — no matching dish (likely removed dishes; ignore unless you recognise one)
+- `Alien Burgers.jpg`
+- `Alien, Meteor & Cosmic Dips.jpg`
+- `Animal Print Cookies.jpg`
+- `Apple Cinnamon Oats.jpg`
+- `Apple Oat Muffins.jpg`
+- `Bacon & Eggs.jpg`
+- `Baked Potato & Toppings.jpg`
+- `Banana & Pecan Waffles.jpg`
+- `Banana Honey Oats.jpg`
+- `Banana Jungle Muffins.jpg`
+- `Baobab Fruit Punch.jpg`
+- `Barnyard Cake.jpg`
+- `Basic Sauerkraut.jpg`
+- `Berry Banana Smoothie.jpg`
+- `Berry Bircher Oats.jpg`
+- `Berry Probiotic Blast.jpg`
+- `Big 5 Chicken Skewers.jpg`
+- `Biltong & Salad Plate.jpg`
+- `Biltong and Blue cheese salad.jpg`
+- `Blue Coconut Ice Pops.jpg`
+- `Blueberry Space Punch.jpg`
+- `Boerewors & Eggs.jpg`
+- `Braai Chicken Wings.jpg`
+- `Braai Fire Cake.jpg`
+- `Braai S'mores.jpg`
+- `Braai Veggie Skewers.jpg`
+- `Breakfast Egg Wrap.jpg`
+- `Brik a l'Oeuf.jpg`
+- `Buddha Bowls.jpg`
+- `Build-a-Burger Sliders.jpg`
+- `Bushveld Fruit Salad Cups.jpg`
+- `Bushveld Vetkoek Bites.jpg`
+- `Caesar Salad.jpg`
+- `Cannonball Meatballs.jpg`
+- `Caprese Salad.jpg`
+- `Chasseur (Hunter's) Sauce.jpg`
+- `Cheese & Crackers Board.jpg`
+- `Cheese & Tomato Omelette.jpg`
+- `Cheese & Tomato Sarmie.jpg`
+- `Cheese Puff Pastries.jpg`
+- `Cheesy Puff Pastry Stars.jpg`
+- `Chershi Kara'a.jpg`
+- `Chicken & Rice Bowl.jpg`
+- `Chicken Soup.jpg`
+- `Chicken Wrap.jpg`
+- `Choc Chip Waffles.jpg`
+- `Choco Braai Pops.jpg`
+- `Chocolate Construction Site Cake.jpg`
+- `Chocolate Gravel Cones.jpg`
+- `Chocolate Volcano Cake.jpg`
+- `Classic Buttermilk Waffles.jpg`
+- `Classic French Vinaigrette salad dressing.jpg`
+- `Colourful Pasta Salad Cups.jpg`
+- `Corn Dog Muffins.jpg`
+- `Creamy Oats.jpg`
+- `Crisps.jpg`
+- `Crêpes.jpg`
+- `Dig Site Snack Board.jpg`
+- `Dino Claw Chicken Strips.jpg`
+- `Dino Crunch Popcorn.jpg`
+- `Dinosaur Eggs.jpg`
+- `Dirt Cup Taco Bowls.jpg`
+- `Egg Fried Rice.jpg`
+- `Egg Salad.jpg`
+- `Excavator Cupcakes.jpg`
+- `Fairy Fruit Skewers.jpg`
+- `Farm Animal Fruit Skewers.jpg`
+- `Farmhouse Sliders.jpg`
+- `Fresh Apple Juice.jpg`
+- `Frittata.jpg`
+- `Fruit Smoothie Cups.jpg`
+- `Galaxy Chocolate Cake.jpg`
+- `Galaxy Popcorn.jpg`
+- `Gold Coin Cookies.jpg`
+- `Golden Chocolate Biscuit Bark.jpg`
+- `Green Energy Bolt.jpg`
+- `Green Press Tonic.jpg`
+- `Herderspastei (Shepherd's Pie).jpg`
+- `Homemade Tahini.jpg`
+- `Honey Mustard Salmon.jpg`
+- `Honey Soy Chicken Pieces.jpg`
+- `Honey Vanilla Polenta.jpg`
+- `Hummus & Veg Sticks.jpg`
+- `Jolly Roger Fruit Skewers.jpg`
+- `Jungle Fruit Skewers.jpg`
+- `Jungle, Watering Hole & Roar Dips.jpg`
+- `Koeksister Bites.jpg`
+- `Lagoon Lemonade.jpg`
+- `Lemon and Garlic Lamb Ribs.jpg`
+- `Lion Paw Biltong Rolls.jpg`
+- `Lion Paw Mini Pizzas.jpg`
+- `M'battan.jpg`
+- `Maizena.jpg`
+- `Maltabella.jpg`
+- `Malva Pudding Bites.jpg`
+- `Mango Oats.jpg`
+- `Marshmallow Chocolate Fudge.jpg`
+- `Mealie Pap & Milk.jpg`
+- `Mermaid Jelly Cups.jpg`
+- `Mermaid Marshmallow Biscuit Bark.jpg`
+- `Meteor Brownies.jpg`
+- `Mielie Fritters.jpg`
+- `Mini Boerewors Rolls.jpg`
+- `Mini Cucumber Sandwiches.jpg`
+- `Mini Ham & Cheese Pizza.jpg`
+- `Mini Jam Tarts.jpg`
+- `Moon Cheese Balls.jpg`
+- `Moon Rock Popcorn.jpg`
+- `Mushroom & Feta Omelette.jpg`
+- `Ocean Foam Popcorn.jpg`
+- `Ocean Ombre Cake.jpg`
+- `Ocean Punch.jpg`
+- `Ocean Sandwich Shapes.jpg`
+- `Ouma se Soetpampoen (Granny's Sweet Pumpkin).jpg`
+- `PB Banana Boost.jpg`
+- `Pasta Salad.jpg`
+- `Pastel Marshmallow Pops.jpg`
+- `Peanut Butter & Banana Toast.jpg`
+- `Pearl Cookies.jpg`
+- `Pelmeni (Meat Dumplings).jpg`
+- `Pimm's Jug.jpg`
+- `Pink Lemonade.jpg`
+- `Pink Strawberry Milk.jpg`
+- `Pirate Pizza Coins.jpg`
+- `Pirate Ship Cake.jpg`
+- `Planet Fruit Skewers.jpg`
+- `Poke Bowl.jpg`
+- `Potato Bake.jpg`
+- `Princess Pink Popcorn.jpg`
+- `Pumpkin Soup.jpg`
+- `Putu Pap.jpg`
+- `Rainbow Naked Cake.jpg`
+- `Rainbow Popcorn.jpg`
+- `Rainbow Rice Krispie Treats.jpg`
+- `Rainbow Veg Cups.jpg`
+- `Rainbow Wrap Pinwheels.jpg`
+- `Rainbow Yogurt Cups.jpg`
+- `Rainbow, Cloud & Garden Dips.jpg`
+- `Red, Yellow & Green Dips.jpg`
+- `Roast Chicken & Veg.jpg`
+- `Roasted Pumpkin & Walnut Muffins.jpg`
+- `Rocket Hot Dogs.jpg`
+- `Rooibos Iced Tea Punch.jpg`
+- `Rooiwyn-Tarentaalpotjie (Red-Wine Guinea Fowl Pot.jpg`
+- `Roquefort Salad Dressing.jpg`
+- `Royal Fruit Wands.jpg`
+- `Royal, Tea Party & Rose Dips.jpg`
+- `Ruby Root Stamina.jpg`
+- `Safari Chicken Skewers.jpg`
+- `Safari Drip Cake.jpg`
+- `Safari Trail Popcorn.jpg`
+- `Savory Congee.jpg`
+- `Savoury Pancakes.jpg`
+- `Seashell Pasta Cups.jpg`
+- `Shepherd's Pie.jpg`
+- `Skaapboud (Roast Leg of Lamb.jpg`
+- `Smashed Avo Toast.jpg`
+- `Spanokopita.jpg`
+- `Speckknödel (Bacon Bread Dumplings).jpg`
+- `Spiced Apple & Oat Muffins.jpg`
+- `Spinach Mushroom Egg Muffin.jpg`
+- `Strawberry Fairy Cakes.jpg`
+- `Strawberry Vanilla Tea Cake.jpg`
+- `Sugar Beans & Potato Curry (Hearty Bean & Potato Curry).jpg`
+- `Swamp Juice.jpg`
+- `Swamp, Lava & Fossil Dips.jpg`
+- `Taco Mexican Seasoning.jpg`
+- `Thousand Island Salad dressing.jpg`
+- `Tiny Quiches.jpg`
+- `Traffic Cone Cheese Puffs.jpg`
+- `Treasure Chest Sandwiches.jpg`
+- `Treasure Gold Popcorn.jpg`
+- `Tropical Ginger Zing.jpg`
+- `Tuna Salad.jpg`
+- `Unicorn Cloud Popcorn.jpg`
+- `Unicorn Popcorn.jpg`
+- `Vanilla Rainbow Layer Cake.jpg`
+- `Veg Stir-fry.jpg`
+- `Vegetable Soup.jpg`
+- `Veggie Patch Cups.jpg`
+- `Veggie Wrap.jpg`
+- `Walnut Taco Wraps Raw.jpg`
+- `Yoghurt & Granola Bowl.jpg`
+- `Za'atar.jpg`
+- `Zebra Sandwich Rolls.jpg`
+- `Zucchini & Lemon Muffins.jpg`
+- `Ούζο (Anise-Flavored Spirit).jpg`
+- `Ρετσίνα (Resin Flavored Wine).jpg`
+- `Τυροπιτάκια (Mini Cheese Pies).jpg`
+- `Φέτα σαγανάκι (Baked Feta Cheese).jpg`
+- `Олів'є (Potato Salad with Mayonnaise).jpg`
