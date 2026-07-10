@@ -480,3 +480,47 @@ The prompt says *"cross-links … are edits in wk_europe.js — safe"* and *"wir
 
 ### ⏭️ Held pending your ruling
 - The rest of the tail (bifana · favas guisadas · bifinhos · sopa de pedra · migas · re-touch of sopa de cação / ensopado / carne à alentejana / polvo for leftovers+links) — content lifts I can continue in `wk_europe.js` now; **axes 4 & 8 for all of them wait on the engine-ownership ruling.** Spain §6.5 stays HOLD.
+
+---
+
+## Phase 4 · Batch 4b — axes 4 & 8 DATA staged in `wk_europe.js` (10 Jul 2026)
+
+**Ruling applied (Tina):** Option 3 — `core.js` + `worldkitchen.js` stay Opus's (shared engine; a bug there breaks every section, and the shopping-split touches costing). I author the per-card **data** in my file; Opus does the render pass. Salt-Your-Own-Cod = Opus's, in `spice.js` preserves cluster; I wire the bacalhau cross-links only once Opus hands me the id (bacalhau cards keep their in-method desalt line until then — nothing blocked).
+
+### ✅ Staged on 8 already-lifted tail cards (only fields ADDED; all existing content byte-preserved — verified)
+- **`leftovers: string[]`** — per-dish, tagged, **easy-first, 2–4 quality-gated, anti-contamination gated.** Batch-2 four use **Opus's gold sets** (polvo salada-de-polvo/arroz-de-polvo · sopa de cação reheat/refresh · ensopado · carne à alentejana); batch-4a four use my researched sets (tripas · feijoada *Portuguese-not-Brazilian* · chanfana · arroz de pato croquettes).
+- **`crossLinks: {name,target,emoji}[]`** — added where a real house recipe exists: `polvo` + `tripas` → `{name:"Broa de Milho", target:"portugal-broa-de-milho", emoji:"🌽"}`. (Others pair only with basics/drinks → no component card to link, per B4.)
+- `node --check` clean · `git diff --numstat` = 8/8 · leftovers[0] starts `(easy)` on all 8 · content-intact check passed.
+
+### 🛠️ ENGINE HANDOFF — exact touchpoints for your 11-green pass (core.js + worldkitchen.js)
+**New card-data fields to read (shapes I've staged):**
+- `r.leftovers` = `string[]` (tagged bullets, pre-ordered easy-first) → render as `<li>`s.
+- `r.crossLinks` = `[{name, target, emoji}]` (`target` = WK recipe id) → clickable "make your own"; **shopping-split: cost stays the shop-bought item, never explode the sub-recipe.**
+
+**1. Per-card leftovers render hook — `worldkitchen.js:648-650`** (function `wkRecipeOpts`, var `_wkLoKeys`/`wkLeftoverBlock`):
+```js
+// current:
+var _wkLoKeys = (typeof wkLeftoverKeys==='function') ? wkLeftoverKeys(r) : null;
+var wkLeftoverBlock = (_wkLoKeys && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_wkLoKeys) : '';
+// change to prefer authored data:
+var wkLeftoverBlock = (r.leftovers && r.leftovers.length && typeof leftoverListHTML==='function')
+  ? leftoverListHTML(r.leftovers)                                   // new: authored array
+  : ((_wkLoKeys && typeof leftoverBoxHTML==='function') ? leftoverBoxHTML(_wkLoKeys) : '');
+```
+(needs a small `leftoverListHTML(arr)` in core.js mirroring `leftoverBoxHTML`'s `<ul>` styling, ~core.js:3411-3429.)
+
+**2. Tier-1 mis-mapper fix — `core.js:3431-3453` `wkLeftoverKeys(r)`.** The `pork` test (matches `chorizo|sausage`) is at **line 3440**, BEFORE `beans` (3446) and the veg fallback (3451) → `favas-guisadas`/`feijoada` → meat pool. Fix: match on the **primary/first ingredient**, or move `beans`/`bread`/`rice`/`roast-veg` ahead of the meat groups when they lead the ingredient list. (Also fixes the doc's roast-veg→fish and rice→bread mis-maps.)
+
+**3. Kill/dish-match the factoid — `core.js:3366` `LEFTOVER_HERITAGE` (rendered `core.js:~3422` inside `leftoverBoxHTML`).** It rotates independently of the dish → reads as describing *this* dish. Remove the random pick, or key it to the dish's category.
+
+**4. LEFTOVER_IDEAS pools — `core.js:3348`.** These are the fallback pools (rice/pasta/potato/beans/pork/…). Keep as the honest Tier-1 category-correct floor once `r.leftovers` is preferred; no per-dish content needed here anymore.
+
+**5. Cross-link renderer — `worldkitchen.js:615-619`** (`_cl = WK_CROSS_LINKS[r.id]` → `crossLinkBox`). Extend to also read `r.crossLinks` (array), rendering each through the same shared `crossLinkBox`; keep the `WK_CROSS_LINKS` map (worldkitchen.js:549) for legacy. The opener for a WK-card target is the universal WK opener (as `openRecipe('europe', target)` / your WK opener), so Back returns to the dish.
+
+**6. goesWith pills — `worldkitchen.js:652-657`.** Currently `r.pairsWith` → plain text pills (not linked). If you want goesWith pills themselves clickable, resolve names against `crossLinks`/known recipe ids here; otherwise the dedicated `crossLinks` box (5) carries the links and pills stay as pairing text (drinks already read as pairings, e.g. "a light red wine").
+
+### Suggested commit (atomic)
+- `wk-sweep: wk_europe.js portugal batch-4b — stage leftovers[] + crossLinks[] data on 8 tail cards (Opus gold sets + researched); engine handoff (core.js/worldkitchen.js touchpoints) for the 11-green render pass`
+
+### ⏭️ Still to do (content lifts, my file — axes 1,2,3,5,6,7,9 + leftovers/crossLinks data)
+- Thin tail not yet lifted: `bifana` · `favas-guisadas` · `bifinhos-com-cogumelos` · `sopa-de-pedra` · `migas-a-alentejana` (+ `queijo-assado` ruling: elevate w/ named cheese or CUT · `ginjinha` ruling: author steeping recipe or RESERVE). I'll continue these in the next sub-batch, each with its `leftovers[]` staged. Spain §6.5 HOLD.
