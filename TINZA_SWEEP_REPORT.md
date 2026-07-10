@@ -418,4 +418,65 @@ All 12 flagged-simple cards are **real dishes written thin**, not non-recipes �
 - **~16 remain** in the LIFT queue — the savoury tail: mains `tripas-a-moda-do-porto·favas-guisadas·bifinhos-com-cogumelos·arroz-de-pato·chanfana·bifana·feijoada·leitao·cozido-a-portuguesa·sopa-de-pedra` · starter `queijo-assado` · drink `ginjinha` · sides `migas-a-alentejana`/`broa-de-milho` (already `side`; verify depth). *(52 = 28 lifted + 8 reserved + 16 remaining.)*
 
 ### Suggested commit (atomic)
-- `wk-sweep: wk_europe.js portugal batch-3 — 10 desserts lifted to WOW + researched twists (ovos moles, leite creme, bolo de arroz, bolo de bolacha, toucinho do céu, pão de ló, salame de chocolate, cavacas, encharcada, queijadas); pastéis de nata + bolo rei reserved`
+- `wk-sweep: wk_europe.js portugal batch-3 — 10 desserts lifted to WOW + researched twists (ovos moles, leite creme, bolo de arroz, bolo de bolacha, toucinho do céu, pão de ló, salame de chocolate, cavacas, encharcada, queijadas); pastéis de nata + bolo rei reserved` *(committed `4f911f9`)*
+
+---
+
+## Phase 4 · Portugal savoury tail — Batch 4a + 11-AXIS ENGINEERING BRIEF (`wk_europe.js`) — 10 Jul 2026
+
+**Read first:** TINZA_PORTUGAL_PROTOTYPE_10JUL, TINZA_LEFTOVERS_FIX_10JUL, TINZA_HERO_BACALHAU_A_BRAS, TINZA_WK_ADDENDUM_10JUL. Reserved heroes now **10** (cod trinity + pastéis de nata + bolo rei + caldo verde + francesinha + frango piri-piri + **leitão da Bairrada** + **cozido à portuguesa**) — all confirmed thin/untouched by canary.
+
+### ✅ Cards lifted this batch (4) — in-schema axes (1,2,3,5,6,7,9) to the à Brás bar; twists merge via `applyVersionDelta`; `node --check` clean; 4 lines changed
+- ✅ **`tripas-a-moda-do-porto`** — **B1:** `beef honeycomb tripe` · `chouriço (smoked pork sausage)` · `white beans (or butter beans)` · `pig's ear (optional)`. **B2:** two-boil desalt-the-smell → tenderise → build → sticky-broth method. Moat: *tripeiros* / the 1415 Ceuta-fleet sacrifice + the tripe brotherhood. **Twist:** 🍗 *Completa* (chicken, veal & presunto).
+- ✅ **`feijoada`** — rebuilt as **Feijoada à Transmontana** with the **anti-contamination fix: RED kidney beans, not Brazilian black**; named enchidos `chouriço` + `morcela (blood sausage)`, `pork ribs`, cabbage/couve; morcela-added-late technique. Moat: the Transmontano original that *became* Brazil's. **Twist:** ⚪ *de Feijão Branco* (white-bean; twist trivia nods to feijoada de marisco).
+- ✅ **`chanfana`** — **B1:** `goat (leg or shoulder, on the bone, in pieces)`; Bairrada/Dão wine; lard; clay pot. **B2:** overnight vinha d'alhos → braise IN wine (not water) 3 hr. Moat: old-goat thrift, the Confraria da Chanfana + Miguel Torga. **Twist:** 🐑 *de Borrego* (lamb, faster).
+- ✅ **`arroz-de-pato`** — **B1:** `duck (whole/legs — NOT breast)`, shredded; whole `chouriço`; `carolino rice`; port. **B2:** poach→cook-rice-in-broth→oven-crisp three-act method. Moat: mid-20thC restaurant-boom fame (Virgílio N. Gomes). **Twist:** 🍊 *com Laranja*.
+
+### 🔎 SPECIFIC RULINGS — status
+- **Dedupe Polvo à Lagareiro:** **No duplicate exists** in `wk_europe.js` — `portugal-polvo-a-lagareiro` appears **once** (line 120, already WOW from batch 2). The "twice" in TINZA_LEFTOVERS_FIX was items **#3 and #8 of Opus's example list** being the same dish, not two cards. **Nothing to dedupe** — flagging so it's confirmed closed.
+- **queijo-assado:** ruling = DROP from batch unless elevated with a named cheese + real method. **Not yet actioned** — held for next sub-batch (I'll either elevate it to a named-cheese *queijo de Azeitão assado* with a real bake/melt method, or flag for CUT). Currently still thin.
+- **ginjinha:** ruling = keep only as a real make-your-own steeping recipe, else RESERVE. **Not yet actioned** — it's a weeks-long macerated liqueur (ginja/sour cherries + aguardente + sugar + cinnamon). I can author it method-complete → will do next sub-batch; if the steeping framing doesn't fit the WK card shape, I'll RESERVE for Opus (not exclude).
+- **Region field:** all Portugal cards already use `country:"Portugal"`; town/region detail is in `trivia`/story only. ✅ B5 green file-wide for Portugal.
+
+### ⚠️⚠️ FILE-OWNERSHIP CONFLICT — axes 4 & 8 are NOT in `wk_europe.js` (ruling needed)
+The prompt says *"cross-links … are edits in wk_europe.js — safe"* and *"wire the cross-link from bacalhau cards (edit is in wk_europe.js)"*. **In the actual code they are not** — they live in engine/render files I'm told are Opus's (*"Opus works only on separate engine files"*). Confirmed by reading the source:
+
+| Axis / feature | Where it actually lives | My file? |
+|---|---|---|
+| **Leftovers render** (WK cards) | `worldkitchen.js:648-650` — derives a category key via `wkLeftoverKeys(r)` → `leftoverBoxHTML()`. **No per-card `leftovers` field is read.** | ❌ worldkitchen.js |
+| **Leftovers engine** (pools, deriver, factoid) | `core.js` — `LEFTOVER_IDEAS` (~3348), `LEFTOVER_HERITAGE` (~3366, the rotating factoid), `wkLeftoverKeys` (~3431, the mis-mapper) | ❌ core.js |
+| **Component cross-links** (the clickable "make your own") | `worldkitchen.js:549` — `WK_CROSS_LINKS` map, keyed by recipe id → `{open, name, emoji}` | ❌ worldkitchen.js |
+| **Salt Your Own Cod** component card | wherever make-your-own components live (Bakes `bk-*` / Spice) — **does not exist yet**; `openBakesRecipe`/`openSpiceRecipe` targets. spice.js is **off-limits** to me. | ❌ not wk_europe.js |
+| **goesWith pills** | `worldkitchen.js:652-657` — `r.pairsWith` split into **plain text pills**; they are NOT auto-linked. Linking = a `WK_CROSS_LINKS` entry. | pairsWith text ✅ / the link ❌ |
+
+**Consequence:** with only `wk_europe.js`, a card can reach **7 of 11 axes** (1 recipe · 2 versions · 3 story · 5 ingredient-specificity · 6 method · 7 goesWith-text · 9 region). **Axis 4 (leftovers), 8 (component links), 10 (locale) and 11 (hero) require engine/component files.** No tail card can be "green on all 11" from my file alone. **This is the blocker to flag.**
+
+**RULING NEEDED (one-driver-per-file):** Am I cleared to edit `worldkitchen.js` + `core.js` for the leftovers render-hook, the `wkLeftoverKeys` fix, the factoid, and `WK_CROSS_LINKS` — or does Opus own those? And **where should the Salt-Your-Own-Cod component be authored** (Bakes? a new components file? not spice.js)? I've held off editing both engine files pending your call.
+
+### 🧩 READY-TO-APPLY ENGINE SPECS (so whoever owns them can drop them in)
+1. **Tier-1 deriver fix** (`core.js wkLeftoverKeys`, launch-critical): the `pork` test (`chorizo|sausage`) runs **before** `beans`, so `favas-guisadas`/`feijoada` → meat pool. Fix = test **`beans`/`bread`/`rice`/`veg` before the meat groups** when they're the dish's primary (or match on the FIRST ingredient, not any-mention). Also `roast-veg`/`fish` mis-maps per the doc.
+2. **Kill/dish-match the factoid** (`core.js LEFTOVER_HERITAGE`): it rotates independently of the dish → reads as describing *this* dish when it doesn't. Remove it, or key it to the dish's category.
+3. **Per-card leftovers hook** (`worldkitchen.js:648-650`): change to prefer an authored array —
+   `var wkLeftoverBlock = (r.leftovers && r.leftovers.length) ? leftoverListHTML(r.leftovers) : (_wkLoKeys ? leftoverBoxHTML(_wkLoKeys) : '');`
+   then WK cards can carry a `leftovers:[…]` array (the new /wk field). I have the researched sets ready (below) but did **not** add the field yet (hero doc: "don't invent field names" — needs this hook first).
+4. **Cross-links** (`worldkitchen.js WK_CROSS_LINKS`): add Portugal entries, e.g. bacalhau cards → Salt Your Own Cod; dishes that pair with cornbread → `portugal-broa-de-milho` (it's a WK card, opens via the WK opener).
+
+### 📝 PER-DISH LEFTOVERS — researched, anti-contamination-gated, ready to wire (batch 4a)
+*(easy-first · 2–4 quality-gated · SA-realistic; drop straight into `leftovers:[…]` once the hook lands.)*
+- **Tripas à Porto** *(already a hearty stew → reheat/refresh)*: *(easy)* reheat gently, loosen the thickened broth with water/stock — better than day one · *(easy)* spoon over fresh white rice, the Porto partner · *(creative)* stretch into a bean soup — add stock, blitz part of the beans, keep tripe & chouriço whole.
+- **Feijoada** *(reheat/refresh; PORTUGUESE — no Brazilian farofa/orange)*: *(easy)* reheat low and slow, it deepens for days · *(easy)* over fresh rice with quickly sautéed cabbage/couve · *(creative)* blitz part into a thick bean soup, drop the sausage back whole.
+- **Chanfana** *(reheat; shred for a second life)*: *(easy)* reheat gently — the wine gravy mellows overnight · *(easy)* shred the goat off the bone into its sauce over potatoes/rice · *(creative · authentic)* reduce the sauce and toss the shredded goat through pappardelle or into migas — a chanfana ragù.
+- **Arroz de Pato** *(already a rice dish → re-crisp; croquette capstone)*: *(easy)* reheat in a hot oven, not the microwave, to bring the crisp top back · *(easy)* crisp cold in a pan like fried rice, a fried egg on top · *(creative · authentic)* roll into cakes, crumb and fry into duck-rice croquettes.
+
+### 🔗 goesWith / component flags (B3/B4)
+- **`Garden Green Salad (Braai)` does not exist** as a house recipe (only "Green salad" as goesWith *text* in meals.js). The hero card links to it — **needs creating or the pill dropped**. My tail cards use plain pairings + real WK cards (`Broa de Milho`) + drink phrases ("a light red wine") to stay honest until linking is wired.
+- `Broa de Milho` **is** a real WK card (`portugal-broa-de-milho`, side) → linkable via `WK_CROSS_LINKS` when cleared.
+
+### Prices (§2/§9)
+- New gap: `pig's ear` (#294). B1-specific names that price via keyword (tripe, red kidney beans, morcela→sausage, pork ribs→pork, carolino→rice, white→butter beans, veal, couve→cabbage) logged as OK. **⚠️ `carrots` is the key — `carrot` singular doesn't price (fixed here; likely a file-wide issue).** Pre-existing re-used: goat #39, lard #290, port wine #119, orange #146.
+
+### Suggested commit (atomic)
+- `wk-sweep: wk_europe.js portugal batch-4a — 4 savoury-tail cards to WOW+fix-queue (tripas, feijoada à transmontana, chanfana, arroz de pato); flag axes 4/8 engine-owned + ready-to-apply specs`
+
+### ⏭️ Held pending your ruling
+- The rest of the tail (bifana · favas guisadas · bifinhos · sopa de pedra · migas · re-touch of sopa de cação / ensopado / carne à alentejana / polvo for leftovers+links) — content lifts I can continue in `wk_europe.js` now; **axes 4 & 8 for all of them wait on the engine-ownership ruling.** Spain §6.5 stays HOLD.
