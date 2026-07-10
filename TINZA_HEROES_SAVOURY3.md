@@ -37,7 +37,7 @@
 - *(easy)* Serve the thicker leftover as a green potato purée alongside grilled meat or fish.
 - *(creative)* Stir into a bean or lentil pot to enrich and thicken it.
 
-**goesWith:** Broa de Milho → *verify in Bakes, link-or-drop* · a simple bread. Pairing: a young Vinho Verde (red or white).
+**goesWith:** Broa de Milho — *no Bakes recipe yet; keep as a text pairing, candidate to author*· a simple bread. Pairing: a young Vinho Verde (red or white).
 **Component links + shopping split:** chouriço → house make-your-own *if it exists* (link); shopping costs shop-bought chouriço key. Broa → Bakes (shop-bought loaf cost).
 **11-axis:** all green ✅ · **Hero** 1 of 10 ✅.
 
@@ -108,8 +108,8 @@
 - *(creative)* Piri-piri fried rice, or a quick pasta with the pan juices.
 - *(creative · authentic)* Strip the carcass and simmer into a piri-spiced broth for soup.
 
-**goesWith:** Garden Green Salad (Braai) · chips → *link-or-drop* · pairing: a cold lager or a crisp rosé.
-**Component links + shopping split:** **Piri-Piri Sauce → make-your-own (Spice)** — link; shopping costs shop-bought peri-peri key. Salad → Garden Green Salad (Braai). **🔥 Braai cross-link:** fully braai-able — link to Braai technique.
+**goesWith:** Garden Green Salad (link id `greensalad` · braai salads add-on) · chips → *link-or-drop* · pairing: a cold lager or a crisp rosé.
+**Component links + shopping split:** **Piri-Piri Sauce → make-your-own (Spice)** — link; shopping costs shop-bought peri-peri key. Salad → Garden Green Salad (link id `greensalad` · braai salads add-on). **🔥 Braai cross-link:** fully braai-able — link to Braai technique.
 **11-axis:** all green ✅ *(exemplar of the component-link rule on a hero — the sauce)* · **Hero** 1 of 10 ✅.
 
 ---

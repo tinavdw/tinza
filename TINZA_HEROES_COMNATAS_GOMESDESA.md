@@ -52,8 +52,8 @@
 - *(creative · authentic)* It's already cod + potato — mash, fold in an egg, fry into **bolinhos** (mini pastéis de bacalhau).
 
 **goesWith** *(link-or-drop; drinks = phrases)*
-- Crisp green salad → **Garden Green Salad (Braai)**
-- Broa de Milho → **verify in Bakes; link if yes, drop if no**
+- Crisp green salad → **Garden Green Salad** (link id `greensalad` · braai salads add-on)
+- Broa de Milho — *no Bakes recipe yet; keep as a text pairing, candidate to author*
 - Pairing: a medium dry white or a light red wine
 
 **Component links + shopping split:** salt cod → **Salt Your Own Cod** (link only; shopping costs shop-bought `salted-cod`). Cream, cheese, flour, milk = normal PRICE_DB ingredients.
@@ -103,8 +103,8 @@
 - *(creative · authentic)* Fold into beaten eggs and set as a Portuguese **tortilha**, olives running through it.
 
 **goesWith** *(link-or-drop; drinks = phrases)*
-- Crisp green salad → **Garden Green Salad (Braai)**
-- Broa de Milho → **verify in Bakes; link if yes, drop if no**
+- Crisp green salad → **Garden Green Salad** (link id `greensalad` · braai salads add-on)
+- Broa de Milho — *no Bakes recipe yet; keep as a text pairing, candidate to author*
 - Pairing: a crisp dry white (a Douro white nods to Porto) or a light red
 
 **Component links + shopping split:** salt cod → **Salt Your Own Cod** (link only; shopping costs shop-bought `salted-cod`). Eggs, olives, potatoes = normal PRICE_DB ingredients.

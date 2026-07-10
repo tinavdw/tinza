@@ -6,12 +6,12 @@ flowchart TD
 START["🟢 START HERE — new chat<br/>Opening line to paste:<br/>'Jams DONE. Scope/price/greenlight LOCKED. PORTUGAL = prototype (11 axes). Leftovers standard<br/>final (per-dish research · anti-contamination · easy-first · staples-for-easy · 2–4 quality-gated).<br/>Reference hero BUILT: Bacalhau à Brás green on all 11 = the bar. Code prompt READY (paste it).<br/>Coordination: CODE = sole driver of wk_europe.js; OPUS on engine files + hands hero blocks to place.<br/>Opus owes: 9 more heroes + locale/dried-fresh engine. I re-clone tinavdw/tinza fresh; work off HEAD.'"]
 
 subgraph DONE["✅ DONE"]
-  DJ["🏆 Jams &amp; Preserves ROOM COMPLETE (spice.js 192, 9 chips, twists repaired) — push latest.<br/>🏆 REFERENCE HERO Bacalhau à Brás authored, green on all 11 axes (TINZA_HERO_BACALHAU_A_BRAS.md).<br/>🏆 Standards final: Portugal-prototype (11 axes) + leftovers standard + salt-fish card + 9 Alentejo sets.<br/>🏆 CODE PROMPT ready to paste (TINZA_CODE_PROMPT_10JUL.md)."]
+  DJ["🏆 Jams &amp; Preserves ROOM COMPLETE (spice.js 192, 9 chips, twists repaired) — push latest.<br/>🏁 ALL 10 PORTUGAL HEROES authored + green on 11 axes (5 hero files ready for Code to place).<br/>🏆 Standards final: Portugal-prototype (11 axes) + leftovers standard + salt-fish card + 9 Alentejo sets.<br/>🏆 CODE PROMPT given (running batch-4 tail)."]
 end
 
 subgraph STATE["📌 Current state (all safe)"]
-  S1["spice.js = 192 base (Jams COMPLETE). core.js = BD13 twist engine DONE + tested."]
-  S3["⚠️ dup IDs: tartare-sauce · sambal-oelek. ⚠️ Polvo à Lagareiro twice (#3=#8) — Code dedupes."]
+  S1["spice.js = 192 base (Jams COMPLETE). core.js = BD13 twist engine DONE + tested.<br/>🔑 Opus can READ the public repo (github.com/tinavdw/tinza) directly — no pasting.<br/>GitHub HEAD = 884f0e8 'up'; Code's batch-4 (b49db69, 0eecb49) is LOCAL, 2 ahead, NOT pushed."]
+  S3["✅ Garden Green Salad RESOLVED: exists as id `greensalad` in data.js (braai salads add-on) —<br/>5 heroes relinked to the real id. ✅ Broa de Milho RESOLVED: no Bakes recipe → text pairing<br/>(good candidate to author later). 💰 price-key gaps: pig's ear (#294) · carrots-vs-carrot.<br/>⚠️ dup IDs still: tartare-sauce · sambal-oelek."]
 end
 
 subgraph LOCKS["🔒 LOCKED (Tina confirmed 10 Jul)"]
@@ -32,13 +32,19 @@ subgraph LEFT["🥡 LEFTOVERS STANDARD — FINAL"]
 end
 
 subgraph OPUSQ["🎯 OPUS QUEUE (mine — engine files, NOT wk_europe.js)"]
-  O1["✅ 6/10 HEROES DONE: cod trinity (à Brás · com Natas · Gomes de Sá) + caldo verde ·<br/>francesinha · frango piri-piri (exemplar of component-link rule + braai cross-link).<br/>4 LEFT: leitão da Bairrada · cozido à portuguesa (reserved showstoppers, next) ·<br/>pastéis de nata · bolo rei (bakes, last). Author as BLOCKS → Code places."]
-  O2["LOCALE / DRIED⇄FRESH ENGINE (field + override map, cod=#1 + substitute triples).<br/>Lives in engine files (core/locale/index), NOT wk_europe.js → runs parallel to Code."]
+  O1["🏁 ALL 10 HEROES DONE: cod trinity · caldo verde · francesinha · frango piri-piri ·<br/>leitão · cozido · pastéis de nata · bolo rei. Full set ready — hand Code ONE placing<br/>pass (5 files) after tail is done + reviewed."]
+  O3["⚙️ WK ENGINE PASS (axes 4&amp;8) — worldkitchen.js + core.js. ✅ Opus READ the live engine:<br/>crosslink render uses WK_CROSS_LINKS[r.id] (extend to r.crossLinks) · leftover hook wk.js:648-650<br/>(wkLeftoverKeys→leftoverBoxHTML; add r.leftovers-wins via leftoverListHTML) · LEFTOVER_IDEAS pools<br/>(category floor, keep) · LEFTOVER_HERITAGE factoid rotates blind (kill/dish-match) · mis-mapper<br/>match-primary. READY to write edits. NEEDS: Tina pushes Code's batch-4 → Opus re-pulls to see<br/>r.leftovers/r.crossLinks exact shapes + test live."]
+  O2["⏭️ LOCALE / DRIED⇄FRESH ENGINE (field + override map, cod=#1 + substitute triples).<br/>Engine files, NOT wk_europe.js. Do when Tina can test live — touches costing."]
+  O4["🧂 PLACE 'Salt Your Own Cod' in spice.js (Spice PRESERVES cluster, NOT Bakes — it's a<br/>salt-cure; content already authored). Awaiting Tina: shelf = jams-preserves or a 'Cures'<br/>sub-cluster + card type. Then hand Code the id → Code wires cross-link from bacalhau cards."]
 end
 
-subgraph CODE["🌍 CODE QUEUE — sole driver of wk_europe.js — PROMPT READY, give now"]
-  C1["Batch-4 tail (~14) to WOW + fix-queue per card + per-dish leftovers to new standard.<br/>Dedupe Polvo · ginjinha KEEP-or-reserve · queijo assado DROP · region vocab.<br/>DO NOT: touch spice.js · author locale layer · author the 10 heroes (place Opus blocks only)."]
-  C2["WK-WIDE leftovers-mapping scan + Tier-1 honest fallback everywhere.<br/>node --check · Braai v33 match · atomic commits. → hand back to Opus for hero pass."]
+subgraph OWN["📛 OWNERSHIP RULE (locked 10 Jul — resolves Code's Q1)"]
+  W1["DATA = Code · ENGINE = Opus. Per-card leftovers arrays + cross-link/goesWith refs<br/>live in wk_europe.js → CODE authors (incl. axes 4 &amp; 8 data). The render hook, deriver,<br/>LEFTOVER_IDEAS pools, factoid, mis-mapper, cross-link render + shopping-split live in<br/>worldkitchen.js + core.js → OPUS. **core.js is NEVER Code** (shared engine; a bug breaks<br/>every section). Tail ships 7-green + 4&amp;8 data staged → 11-green after Opus engine pass."]
+end
+
+subgraph CODE["🌍 CODE QUEUE — sole driver of wk_europe.js"]
+  C1["✅ BATCH 4a (b49db69): 4 savoury-tail cards to bar on 7 axes — tripas à Porto (beef honeycomb<br/>tripe · chouriço · pig's ear) · feijoada à Transmontana (RED beans, not Brazilian ✅) · chanfana<br/>(goat leg/shoulder on bone) · arroz de pato (whole duck/legs). ✅ BATCH 4b (0eecb49): axes 4&amp;8<br/>DATA staged on 8 cards (leftovers[] + crossLinks[]), content byte-preserved, node-check clean."]
+  C2["▶️ NEXT SUB-BATCH (parallel w/ Opus engine pass — different files): lift 5 thin cards<br/>(bifana · favas-guisadas · bifinhos · sopa-de-pedra · migas) + leftovers[]. Rulings:<br/>queijo-assado ELEVATE w/ Azeitão assado (method-complete) or CUT · ginjinha author<br/>method-complete or RESERVE for Opus (→ Spice preserves infusion). Spain §6.5 HOLD."]
 end
 
 subgraph NEXT["🧂 LATER — Spice-room polish"]
@@ -51,5 +57,8 @@ PROTO-->LEFT
 PROTO-->OPUSQ
 PROTO-->CODE
 LEFT-->CODE
+LEFT-->OWN
+OWN-->OPUSQ
+OWN-->CODE
 LOCKS-->OPUSQ
 STATE-->NEXT

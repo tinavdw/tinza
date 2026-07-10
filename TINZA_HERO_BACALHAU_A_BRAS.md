@@ -45,8 +45,8 @@
 *(Already egg-and-potato bound → refresh/transform, not "turn into something else." Easy ideas use only eggs/bread/oil you'll have; the tortilha route may want a couple more eggs from the shop.)*
 
 **goesWith**  *(link-or-drop; drinks = phrases, not links)*
-- Crisp green salad → link to **Garden Green Salad (Braai)** *(closest existing house salad)*
-- Broa de Milho (Portuguese cornbread) → **VERIFY it exists in Bakes; link if yes, drop the pill if no**
+- Crisp green salad → link to **Garden Green Salad** (link id `greensalad` · braai salads add-on) *(closest existing house salad)*
+- Broa de Milho — *no Bakes recipe yet; keep as a text pairing, candidate to author*
 - Pairing: a chilled **Vinho Verde** or other crisp dry white wine
 
 **Component links + shopping split** *(governing rule)*
