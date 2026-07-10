@@ -944,3 +944,4 @@ const WK_EUROPE_NIRELAND = [
 ];
 
 if (typeof module !== 'undefined' && module.exports) { module.exports = { WK_EUROPE_NIRELAND: WK_EUROPE_NIRELAND }; }
+if (typeof window !== "undefined") { window.WK_EUROPE_NIRELAND = WK_EUROPE_NIRELAND; }
