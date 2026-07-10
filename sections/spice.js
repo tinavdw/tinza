@@ -4014,7 +4014,7 @@ var SPICE_DB = [
     name: "Apricot Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Mediterranean · Cape orchards",
+    region: "Mediterranean",
     flavourChips: ["Sweet", "Fruity", "Tangy"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4303,7 +4303,7 @@ var SPICE_DB = [
     name: "Peach Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Global · Karoo peaches",
+    region: "Global",
     flavourChips: ["Sweet", "Fruity", "Aromatic"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4373,7 +4373,7 @@ var SPICE_DB = [
     name: "Cherry Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Global · Ficksburg",
+    region: "Global",
     flavourChips: ["Sweet", "Fruity", "Tangy"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4443,7 +4443,7 @@ var SPICE_DB = [
     name: "Seville Orange Marmalade",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Britain · Seville oranges",
+    region: "Britain",
     flavourChips: ["Tangy", "Sweet", "Bitter"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4694,7 +4694,7 @@ var SPICE_DB = [
     name: "Passionfruit Curd",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Global · granadilla in SA",
+    region: "Global",
     flavourChips: ["Tangy", "Sweet", "Fragrant"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4821,7 +4821,7 @@ var SPICE_DB = [
     name: "Watermelon Konfyt",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Karoo",
+    region: "South Africa",
     flavourChips: ["Sweet", "Warm", "Translucent"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4877,7 +4877,7 @@ var SPICE_DB = [
     name: "Green Fig Konfyt",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Cape",
+    region: "South Africa",
     flavourChips: ["Sweet", "Warm", "Whole-fruit"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4933,7 +4933,7 @@ var SPICE_DB = [
     name: "Makataan Konfyt",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Karoo",
+    region: "South Africa",
     flavourChips: ["Sweet", "Warm", "Translucent"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -4978,7 +4978,7 @@ var SPICE_DB = [
     name: "Korrelkonfyt",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Cape winelands",
+    region: "South Africa",
     flavourChips: ["Sweet", "Fruity", "Whole-fruit"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -5101,7 +5101,7 @@ var SPICE_DB = [
     name: "Cape Gooseberry Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Cape",
+    region: "South Africa",
     flavourChips: ["Sweet", "Tangy", "Fruity"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -5155,7 +5155,7 @@ var SPICE_DB = [
     name: "Tomato Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · global",
+    region: "South Africa",
     flavourChips: ["Sweet", "Warm", "Savoury-edge"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -5217,7 +5217,7 @@ var SPICE_DB = [
     name: "Naartjie Konfyt",
     type: "paste",
     shelf: "jams-preserves",
-    region: "South Africa · Cape",
+    region: "South Africa",
     flavourChips: ["Sweet", "Zesty", "Warm"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -5340,7 +5340,7 @@ var SPICE_DB = [
     name: "Quince Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Middle East · Mediterranean",
+    region: "Middle East",
     flavourChips: ["Sweet", "Fruity", "Fragrant"],
     whenToUse: "finish",
     makeYourOwn: {
@@ -5401,7 +5401,7 @@ var SPICE_DB = [
     name: "Rose-Petal Jam",
     type: "paste",
     shelf: "jams-preserves",
-    region: "Turkey · Middle East",
+    region: "Middle East",
     flavourChips: ["Sweet", "Floral", "Fragrant"],
     whenToUse: "finish",
     makeYourOwn: {
