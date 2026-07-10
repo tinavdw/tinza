@@ -55,7 +55,7 @@ function worldKitchenHTML(){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
@@ -67,8 +67,7 @@ var WK_COUNTRY_GEO = {
   "Ghana":["Africa","Western Africa"], "Nigeria":["Africa","Western Africa"], "Senegal":["Africa","Western Africa"],
   "Ethiopia":["Africa","Eastern Africa"], "Kenya":["Africa","Eastern Africa"], "Tanzania":["Africa","Eastern Africa"],
   "Mozambique":["Africa","Southern Africa"], "Zimbabwe":["Africa","Southern Africa"],
-  "Belgium":["Europe","Western Europe"], "France":["Europe","Western Europe"],
-  "Germany":["Europe","Western Europe"], "Northern Ireland":["Europe","Western Europe"],
+  "Belgium":["Europe","Western Europe"],
   "Greece":["Europe","Southern Europe"], "Portugal":["Europe","Southern Europe"], "Spain":["Europe","Southern Europe"],
   "Denmark":["Europe","Northern Europe"], "Finland":["Europe","Northern Europe"],
   "Norway":["Europe","Northern Europe"], "Sweden":["Europe","Northern Europe"],
