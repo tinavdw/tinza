@@ -635,6 +635,33 @@ var SPICE_DB = [
   },
 
   {
+    id: "fajita-seasoning",
+    name: "Fajita Seasoning",
+    type: "blend",
+    shelf: "spice-blends",
+    region: "Tex-Mex \u00b7 Rio Grande",
+    flavourChips: ["Warm", "Earthy", "Aromatic"],
+    whenToUse: "start",
+    makeYourOwn: {
+      yield: { mode: "batch", unit: "g", base: 20, step: 10, label: "small jar" },
+      ingredients: [
+        { qty: 6, unit: "g", name: "smoked paprika" },
+        { qty: 4, unit: "g", name: "ground cumin" },
+        { qty: 3, unit: "g", name: "ground coriander" },
+        { qty: 2, unit: "g", name: "garlic powder" },
+        { qty: 2, unit: "g", name: "onion powder" },
+        { qty: 1, unit: "g", name: "dried oregano" },
+        { qty: 1, unit: "g", name: "chilli powder" },
+        { qty: 1, unit: "g", name: "black pepper" }
+      ],
+      method: "Stir everything together dry \u2014 no roasting. Now use it as a RUB, not a sauce base: toss strips of steak, chicken or peppers in a little oil, coat them heavily, and leave 20 minutes. Sear in a screaming-hot dry pan in one layer, no crowding, until the edges char. Finish OFF the heat with a hard squeeze of lime \u2014 the acid is the other half of this blend and it has to go on last."
+    },
+    pairsWith: ["steak fajitas", "chicken fajitas", "charred peppers and onions", "prawns", "halloumi"],
+    aliases: ["fajita spice", "fajita seasoning", "fajita rub"],
+    story: "A fajita is named for the faja \u2014 the belt, the strip \u2014 the skirt steak that ranch hands along the Rio Grande were handed as part-payment because nobody else wanted it. They grilled it hard over open wood and cut it across the grain. That origin is the whole recipe: this is a dry rub for fast, fierce, charred cooking, not a powder you simmer into mince. Which is exactly why it is not taco seasoning, however often the two get swapped. Taco leads with chilli and lives in a wet pan. Fajita leads with smoked paprika and ground coriander, carries far less heat, and lives on dry metal at maximum heat \u2014 finished with lime.",
+    howThisFeels: "Smoke first, then a warm earthy hum, then a citrus lift that arrives late. Barely hot \u2014 the fire here is the pan, not the chilli."
+  },
+  {
     id: "taco-seasoning",
     name: "Taco / Mexican Seasoning",
     type: "blend",
@@ -657,7 +684,7 @@ var SPICE_DB = [
       method: "Stir all the ground spices and oregano together — no roasting needed. Brown your mince or chicken, then add the seasoning with a splash of water and simmer until it clings. Build tacos, fajitas or nachos on top."
     },
     pairsWith: ["beef tacos", "fajitas", "nachos", "refried beans", "Mexican rice"],
-    aliases: ["taco seasoning", "mexican seasoning", "fajita spice", "taco spice"],
+    aliases: ["taco seasoning", "mexican seasoning",  "taco spice"],
     story: "The Tex-Mex pantry shortcut — chilli, cumin and oregano doing the heavy lifting. It is what turns a pan of mince into taco night.",
     howThisFeels: ""
   },
@@ -1795,30 +1822,7 @@ var SPICE_DB = [
     howThisFeels: ""
   },
 
-  {
-    id: "sambal-oelek",
-    name: "Sambal Oelek",
-    type: "paste",
-    shelf: "sauces",
-    region: "Indonesia",
-    flavourChips: ["Hot", "Tangy", "Earthy"],
-    whenToUse: "mid",
-    makeYourOwn: {
-      yield: { mode:"batch", unit:"g", base:250, step:250, label:"1 jar" },
-      ingredients: [
-        { qty:200, unit:"g", name:"fresh red chillies" },
-        { qty:20, unit:"ml", name:"white vinegar" },
-        { qty:8, unit:"g", name:"salt" },
-        { qty:5, unit:"g", name:"sugar" }
-      ],
-      method: "Grind the fresh chillies coarsely with the salt — traditionally in a stone mortar (the 'oelek') — leaving plenty of texture and seeds. Cook briefly in a dry or lightly oiled pan to soften, then stir in the vinegar and sugar. This is raw chilli heat, nothing to hide behind — use it as a building block in cooking or a fierce condiment."
-    },
-    pairsWith: ["nasi goreng", "satay", "stir-fries", "rice", "fried eggs"],
-    aliases: ["sambal oelek", "sambal ulek"],
-    story: "The purest of the Indonesian sambals — just pounded fresh chilli and salt, named for the mortar it is made in. It is the chilli hit that underpins a whole archipelago of cooking.",
-    howThisFeels: ""
-  },
-
+  
   {
     id: "harissa-paste",
     name: "Harissa Paste",
@@ -1924,7 +1928,7 @@ var SPICE_DB = [
       method: "Chop the chillies and mix with the salt, then pack into a clean jar so they sit under their own juices (top up with a light brine if needed). Cover loosely and ferment at room temperature for 1–2 weeks until pleasantly sour and tangy, burping the jar daily. Blend the fermented mash with the vinegar, strain, and bottle. This is the classic tangy Tabasco-style sauce — and right up your Fermentastic alley."
     },
     pairsWith: ["fried chicken", "eggs", "gumbo", "collard greens", "oysters"],
-    aliases: ["louisiana hot sauce", "cayenne pepper sauce", "tabasco-style", "hot sauce"],
+    aliases: ["louisiana hot sauce", "cayenne pepper sauce", "tabasco-style"],
     story: "The thin, tangy, cayenne-and-vinegar hot sauce of the American South, traditionally aged through a slow ferment. The fermentation is what turns raw heat into that bright, rounded sourness.",
     howThisFeels: ""
   },
@@ -2031,7 +2035,7 @@ var SPICE_DB = [
       method: "Simmer the chopped carrot, onion, garlic and scotch bonnets in the vinegar until soft, then blend smooth with the mustard, lime, sugar and salt. The carrot softens the colour and the ferocity just a little. Bottle and refrigerate — and treat it with respect, because this is at the very top of the heat scale."
     },
     pairsWith: ["jerk chicken", "grilled fish", "rice & peas", "Caribbean stews"],
-    aliases: ["scotch bonnet sauce", "caribbean hot sauce", "west indian pepper sauce"],
+    aliases: ["scotch bonnet sauce", "caribbean hot sauce", "west indian pepper sauce", "hot sauce"],
     story: "The mustard-yellow pepper sauce of the West Indies, built on the fruity, blistering scotch bonnet. Carrot and mustard round it out, but make no mistake — this is the fiercest bottle on the shelf.",
     howThisFeels: ""
   },
@@ -2117,33 +2121,7 @@ var SPICE_DB = [
     howThisFeels: ""
   },
 
-  {
-    id: "tartare-sauce",
-    name: "Tartare Sauce",
-    type: "sauce",
-    shelf: "sauces",
-    region: "Staple condiment",
-    flavourChips: ["Tangy", "Herby", "Aromatic"],
-    whenToUse: "finish",
-    makeYourOwn: {
-      yield: { mode:"batch", unit:"g", base:150, step:50, label:"small tub" },
-      ingredients: [
-        { qty:120, unit:"g", name:"mayonnaise" },
-        { qty:20, unit:"g", name:"gherkins" },
-        { qty:10, unit:"g", name:"capers" },
-        { qty:10, unit:"g", name:"shallots" },
-        { qty:8, unit:"ml", name:"lemon juice" },
-        { qty:4, unit:"g", name:"parsley" },
-        { qty:3, unit:"g", name:"Dijon mustard" }
-      ],
-      method: "Finely chop the gherkins, capers, shallot and parsley. Fold them through the mayonnaise with the lemon and mustard, then chill for an hour so the flavours marry. Sharp, herby and crunchy — the only thing fried fish really wants."
-    },
-    pairsWith: ["fried fish", "calamari", "fish cakes", "prawns", "chips"],
-    aliases: ["tartare sauce", "tartar sauce"],
-    story: "Mayonnaise sharpened with gherkin, caper and lemon — the classic partner to anything that swam and was then crumbed. It cuts through the richest fry like nothing else.",
-    howThisFeels: ""
-  },
-
+  
   {
     id: "marie-rose-sauce",
     name: "Marie Rose Sauce",
@@ -7048,7 +7026,7 @@ var SPICE_DB = [
       {
         "qty": 150,
         "unit": "g",
-        "name": "fresh red chillies, stems removed"
+        "name": "red chilli"
       },
       {
         "qty": 8,
@@ -7058,7 +7036,7 @@ var SPICE_DB = [
       {
         "qty": 15,
         "unit": "ml",
-        "name": "vinegar or lime juice"
+        "name": "vinegar"
       },
       {
         "qty": 5,
@@ -7066,7 +7044,7 @@ var SPICE_DB = [
         "name": "sugar"
       }
     ],
-    "method": "Sambal oelek is the purest sambal — nothing but chilli, salt and a little acid — and its name comes from the 'ulekan', the stone mortar it's traditionally ground in. That rough grinding matters: pounding (or a quick, coarse blitz) gives it a chunky, seed-flecked texture, not a smooth sauce. For the truest flavour, steam or blanch the chillies for a few minutes first to soften them and take off the raw green edge, then pound with the salt to a rough paste. Work in the vinegar and sugar. You can use it raw and bright, or fry it in a little oil for a few minutes to deepen and mellow it into a keeping sambal. This is a building block as much as a condiment — a spoonful stirred into stir-fries, noodles and marinades, or dolloped on the side for the brave."
+    "method": "Sambal oelek is the purest sambal — nothing but chilli, salt and a little acid — and its name comes from the 'ulekan', the stone mortar it's traditionally ground in. That rough grinding matters: pounding (or a quick, coarse blitz) gives it a chunky, seed-flecked texture, not a smooth sauce. For the truest flavour, steam or blanch the chillies for a few minutes first to soften them and take off the raw green edge, then pound with the salt to a rough paste. Work in the vinegar and sugar — lime juice in place of the vinegar gives a brighter, more Southeast Asian edge if you have it. You can use it raw and bright, or fry it in a little oil for a few minutes to deepen and mellow it into a keeping sambal. This is a building block as much as a condiment — a spoonful stirred into stir-fries, noodles and marinades, or dolloped on the side for the brave."
   },
   "pairsWith": [
     "nasi goreng",

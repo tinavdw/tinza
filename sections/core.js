@@ -2357,7 +2357,7 @@ function ingredientsBox(rowsHTML, n){
   return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
 }
 function ingredientRow(name, amount, note){
-  var lk = (typeof INGREDIENT_LINKS!=='undefined') ? crossLinkFor(INGREDIENT_LINKS, name) : null;
+  var lk = crossLinkFor(ingredientLinks(), name);
   var nameHTML = lk
     ? '<span onclick="'+lk+'" style="color:var(--accent);font-weight:bold;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">' + name + ' ↗</span>'
     : name;
@@ -2429,7 +2429,12 @@ var GOESWITH_LINKS = {
   'ginger biscuits':            "openRecipe('meals','bk-ginger-biscuits')",
   'beer bread':                 "openRecipe('meals','bk-beer-bread')"
 };
-var INGREDIENT_LINKS = {
+// ── MF26 · MAKEABLE — every ingredient we can make links to its recipe ──────────
+// RULE: the link NEVER changes a price. Cost always comes from PRICE_DB (shop-spend),
+// because the shopping list has to put a ROLL in the trolley, not flour and yeast.
+// The hand-written entries below are overrides and win. Everything else is merged in
+// from the GENERATED makeable.js, so the map can no longer drift behind the recipes.
+var INGREDIENT_LINKS_MANUAL = {
   'garlic-ginger paste': "openSpiceRecipe('ginger-garlic-paste')",
   'ginger-garlic paste': "openSpiceRecipe('ginger-garlic-paste')",
   'basil pesto':         "openSpiceRecipe('basil-pesto')",
@@ -2442,6 +2447,30 @@ var INGREDIENT_LINKS = {
   'slap chips':          "openRecipe('meals','sb-chips')",
   'chips':               "openRecipe('meals','sb-chips')"
 };
+// Built lazily on first render (never at load) so it cannot depend on script order.
+var _ingLinksCache = null;
+function ingredientLinks(){
+  if(_ingLinksCache) return _ingLinksCache;
+  var m = {};
+  for(var mk in INGREDIENT_LINKS_MANUAL) m[mk] = INGREDIENT_LINKS_MANUAL[mk];
+  if(typeof MAKEABLE !== 'undefined'){
+    for(var k in MAKEABLE){
+      var v = MAKEABLE[k];
+      var js = (v.type === 'dish')
+        ? (v.section === 'spice' ? "openSpiceRecipe('" + v.id + "')" : "openBakesRecipe('" + v.id + "')")
+        : (v.section === 'spice'
+            ? "set({screen:'spice',spiceShelf:'" + v.id + "',spiceEntry:null,spiceListOpen:false})"
+            : "set({screen:'bakes',mealCat:'" + v.id + "'})");
+      var key = String(k).replace(/_each$/,'').toLowerCase();
+      if(!m[key]) m[key] = js;
+      var alt = /s$/.test(key) ? key.replace(/s$/,'') : key + 's';   // exact-match map, so seed both
+      if(!m[alt]) m[alt] = js;
+    }
+  }
+  _ingLinksCache = m;
+  return m;
+}
+var INGREDIENT_LINKS = INGREDIENT_LINKS_MANUAL;   // legacy name kept alive for any other caller
 function crossLinkFor(map, label){
   if(!map || label==null) return null;
   var k = String(label).trim().toLowerCase();
