@@ -25,7 +25,7 @@ const PRICE_DB = {
   "waterblommetjies": 95,
   "cleaned waterblommetjies": 95,
   "kithul treacle": 98,
-  "double cream yoghurt": 50,
+  "double cream yoghurt": 47, "double cream plain yoghurt": 47,   // R47/1kg (Tina 11 Jul)
   "teff flour": 96,
   "dried hibiscus flowers": 1400,
   "basa": 160,
@@ -292,7 +292,7 @@ const PRICE_DB = {
   "basmati rice": 80,
   "jasmine rice": 63,
   "arborio rice": 128,        // R64/500g → R128/kg
-  "brown rice": 43,           // R85/2kg → R43/kg
+  "brown rice": 35,           // R35/1kg (Tina 11 Jul)
   "couscous": 100,            // per kg
   "pasta": 36,                // R18/500g → R36/kg
   "spaghetti": 36,
@@ -315,7 +315,7 @@ const PRICE_DB = {
   "tomato puree": 68,         // R28/410g → R68/kg
   "coconut milk": 63,         // R25/400ml → R63/kg approx
   "coconut cream": 83,        // R33/400ml → R83/kg
-  "condensed milk": 104,      // R40/385g → R104/kg
+  "condensed milk": 119,      // R46/385g → R119/kg (Tina 11 Jul)
   "baked beans": 41,          // R17/410g → R41/kg
   "sugar beans": 78,          // R32/410g → R78/kg
   "butter beans": 68,         // R27/400g → R68/kg
@@ -384,7 +384,7 @@ const PRICE_DB = {
   "dried ginger": 440,
   "origanum": 688,            // R22/32g → R688/kg
   "cayenne pepper": 556,      // R25/45g → R556/kg
-  "cinnamon": 470,            // R47/100ml → ~R470/kg
+  "cinnamon": 550, "ground cinnamon": 550,   // R22/40g → R550/kg (Tina 11 Jul)
   "ground cloves": 470,
   "cumin": 470,
   "curry powder": 300,        // R30/100g → R300/kg
@@ -742,7 +742,7 @@ const PRICE_DB = {
   "amasi": 19,                     // 2kg/R38 → R19/kg (Tina)
   "cashews": 350,                  // 100g/R35 → R350/kg (Tina)
   "dried fruit": 240,              // mixed, 500g/R120 → R240/kg (Tina)
-  "hot sauce": 120,                // 250ml/~R30 → R120/L, AVERAGE (Tina) — many sauces; see Spice cross-link TODO
+  "hot sauce": 160,                // R40/250ml → R160/L, AVERAGE (Tina 11 Jul) — MAKEABLE: Spice > Sauces
   "culinary lavender": 3500,       // 10g/R35 → R3500/kg (Tina); used in pinches
   // ── FMF plates batch gaps (29 Jun) ──
   "economy steak": 90,             // ESTIMATE — cheap braising cut (blade/chuck); confirm (NOTE: recipes renamed to "tenderised steak" — key below)
@@ -774,6 +774,16 @@ const PRICE_DB = {
   "oregano": 900,                  // ESTIMATE — dried oregano (~R30/15-20g), pinch use; cf mixed herbs 1111
   "sour cream": 100,               // ESTIMATE — ~R25/250ml tub → R100/kg
   "lime": 140,                     // ESTIMATE — ~R10/lime (~70g) → R140/kg (gram use; lime_each handles count)
+  // ── FMF close-out pass (11 Jul, Tina-sourced) ──
+  "hot smoked snoek": 450,         // R89.99/200g → R450/kg (plain "snoek" R165 stays separate)
+  "dukkah": 600,                   // R36/60g → R600/kg. MAKEABLE: Spice > Blends
+  "pearl barley": 70,              // R35/500g → R70/kg
+  "ground coffee": 496,            // R124/250g → R496/kg (instant "coffee" R1050 stays separate)
+  "english mustard": 327,          // R55/168g → R327/kg (prepared "mustard" R84/L stays separate)
+  "green chilli": 80,              // R80/kg fresh — per-weight; "green chilli_each" R1 stays for count lines
+  "portuguese roll_each": 4, "portuguese rolls_each": 4,   // R4 each. MAKEABLE: Bakes > Rolls
+  "flatbread_each": 12.5, "flatbreads_each": 12.5,         // 3 for R37 → R12.33. MAKEABLE: Bakes > Flatbreads
+
 };
 
 const MEAT_COSTS = {
