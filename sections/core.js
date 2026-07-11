@@ -453,9 +453,10 @@ function draw(){
 
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
     <div style="font-size:13px;color:#a87849;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
-    <div class="grid2" style="gap:6px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
       <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
       <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
+      <button onclick="USER_TIER='deluxe';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='deluxe'?'#40c0a0':'#0a1810'};background:${USER_TIER==='deluxe'?'#0a1810':'var(--card)'};color:${USER_TIER==='deluxe'?'#40c0a0':'#204030'};font-size:13px;">💎 Deluxe</button>
     </div>
   </div>`;
 
@@ -2479,7 +2480,7 @@ function metaStrip(o){
   var chips = [];
   if(o.origin) chips.push('📍 ' + o.origin);
   if(o.time)   chips.push('⏱ ' + o.time);
-  if(o.kcal)   chips.push('🔥 ' + o.kcal);
+  if(o.kcal)   chips.push('🔥 ' + kcalChip({kcal:o.kcal}));
   if(!chips.length) return '';
   return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'
     + chips.map(function(c){ return '<span style="background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:14px;color:var(--ink-soft);">' + c + '</span>'; }).join('')
@@ -2717,7 +2718,9 @@ function crossLinkBox(o){
 // §4b.8 — bottom action trio: Add to Plan · My Kitchen · Download
 function recipeActions(o){
   o = o || {};
-  var add = '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
+  var add = !tierAllows('pro')   // §7 — Add to Plan is a My-Plan (Pro) entry point; Free sees a Pro chip, not a working button
+    ? '<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;cursor:default;font-size:13px;font-weight:bold;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);">📋 Add to Plan — 🔒 Pro</button>'
+    : '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
     + (o.inPlan ? 'background:var(--card2);border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
     + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
   var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">💾 My Kitchen</button>';
@@ -2730,7 +2733,7 @@ function recipeNav(o){
   o = o || {};
   return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 36px;border-top:1px solid var(--line);font-size:13px;">'
     + '<button onclick="' + (o.backJs || '') + '" style="background:none;border:none;color:var(--accent);cursor:pointer;">← Back</button>'
-    + (o.planJs ? '<button onclick="' + o.planJs + '" style="background:none;border:none;color:var(--accent);cursor:pointer;">🧺 My Plan' + (o.planCount != null ? ' (' + o.planCount + ')' : '') + '</button>' : '')
+    + (o.planJs ? '<button onclick="' + o.planJs + '" style="background:none;border:none;color:var(--accent);cursor:pointer;">🧺 My Plan' + (tierAllows('pro') && o.planCount != null ? ' (' + o.planCount + ')' : '') + '</button>' : '')
     + '<button onclick="' + (o.homeJs || "set({screen:'home'})") + '" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button></div>';
 }
 
