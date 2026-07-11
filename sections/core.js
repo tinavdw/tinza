@@ -647,7 +647,7 @@ function costLine(o){
 // KCAL. o.html = the site's exact Pro figure, OR o.kcal for a bare number. o.label → labelled lock.
 function kcalChip(o){
   o = o || {};
-  if(o.html == null && o.kcal == null) return '';
+  if(o.html == null && !o.kcal) return '';   // no kcal data (incl. 0) → NO chip, any tier (Spice has no calories)
   if(!tierAllows('pro')) return o.surface ? lockPanel(o.title || 'Calories', o.blurb || '') : (o.label != null ? (o.label + ' · ' + TINZA_LOCK) : TINZA_LOCK);
   return (o.html != null) ? o.html : ('' + o.kcal);
 }
@@ -2535,7 +2535,9 @@ function methodBox(stepsHTML, startJs){
   return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">'
     + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">'
     +   '<div style="font-size:13px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;">Method</div>'
-    +   (startJs ? '<button onclick="' + startJs + '" style="background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>' : '')
+    +   (startJs ? (tierAllows('pro')   // §7 — FREE READS THE RECIPE, PRO COOKS IT: cook mode is Pro
+          ? '<button onclick="' + startJs + '" style="background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;padding:8px 14px;cursor:pointer;">👨‍🍳 Start Cooking →</button>'
+          : '<span style="background:var(--card2);border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:13px;padding:8px 14px;white-space:nowrap;">🔒 Start Cooking — Pro</span>') : '')
     + '</div>' + stepsHTML + '</div>';
 }
 function methodStep(i, text, timerLabel){
@@ -2724,7 +2726,9 @@ function recipeActions(o){
     + (o.inPlan ? 'background:var(--card2);border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
     + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
   var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">💾 My Kitchen</button>';
-  var dl = '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">⬇️ Download</button>';
+  var dl = tierAllows('pro')   // §7 — Download is Pro (cook/keep). Free reads on screen.
+    ? '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">⬇️ Download</button>'
+    : '<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);font-size:14px;cursor:default;">🔒 Download</button>';
   return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + save + dl + '</div>';
 }
 
@@ -3773,9 +3777,9 @@ function recipeView(){
   // ── METHOD (shared methodBox/methodStep markup + clickable per-step timers) ──
   const methodStepsHTML = (recipe.method||[]).map((step,i)=>{
     const secs = parseStepTime(step);
-    const timer = secs
+    const timer = !secs ? '' : (tierAllows('pro')   // §7 — step timers are Pro; Free still reads the duration
       ? `<div style="margin-top:7px;"><button onclick="startTimer(${secs},'Step ${i+1}: ${Math.round(secs/60)} min')" style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:14px;font-weight:bold;padding:4px 11px;cursor:pointer;">⏱️ ${fmtTimerLabel(secs)}</button></div>`
-      : '';
+      : `<div style="margin-top:7px;"><span style="display:inline-block;background:var(--card2);border:1px dashed var(--line);border-radius:6px;color:var(--ink-soft);font-size:14px;padding:4px 11px;">⏱️ ${fmtTimerLabel(secs)} · 🔒 Pro</span></div>`);
     return '<div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">'
       + '<div style="min-width:26px;height:26px;border-radius:50%;background:var(--accent);border:1px solid var(--accent);color:var(--on-media);font-size:15px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(i+1)+'</div>'
       + '<div style="flex:1;"><p style="margin:0;font-size:16px;color:var(--ink2);line-height:1.6;">'+step+'</p>'+timer+'</div></div>';

@@ -8373,11 +8373,9 @@ function spiceRecipeOpts(r){
   var _cost  = (typeof costRecipe==='function') ? costRecipe(my.ingredients||[], factor) : null;
   var _info  = '';
   if(_cost && _cost.cook > 0){
-    _info = _isPro
-      ? ('💰 Food cost: <b style="color:var(--green);">R' + _cost.cook + '</b>'
+    _info = costLine({ label:'💰 Food cost', html:'💰 Food cost: <b style="color:var(--green);">R' + _cost.cook + '</b>'
          + (isBatch ? (' for ' + scale + ' ' + _ul)
-                    : (' · <b style="color:var(--green);">R' + Math.round(_cost.cook/(scale||1)) + '</b> pp')))
-      : '💰 Food cost · <span style="color:var(--accent);font-weight:bold;">🔒 Pro</span>';
+                    : (' · <b style="color:var(--green);">R' + Math.round(_cost.cook/(scale||1)) + '</b> pp')) });
   }
   var qtyHTML = qtyBox({
     label:'Make Your Own', total: scale + ' ' + _ul, n:scale, info:_info,

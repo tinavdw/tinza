@@ -804,7 +804,7 @@ function healthRecipeDetail(recipe, backState){
       <div style="margin-top:16px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
           <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;">👨‍🍳 Method</div>
-          <button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>
+          ${tierAllows('pro')?`<button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>`:`<span style="background:var(--card2);border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:13px;padding:6px 12px;white-space:nowrap;">🔒 Start Cooking — Pro</span>`}
         </div>
         <div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;">
           ${stepsHTML}
@@ -1310,7 +1310,7 @@ function healthExtDetail(recipe){
       ${stepsHTML?`<div style="margin-top:16px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
           <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;">👨‍🍳 Method</div>
-          <button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>
+          ${tierAllows('pro')?`<button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>`:`<span style="background:var(--card2);border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:13px;padding:6px 12px;white-space:nowrap;">🔒 Start Cooking — Pro</span>`}
         </div>
         <div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;">${stepsHTML}</div>
       </div>`:''}
