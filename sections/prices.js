@@ -784,6 +784,52 @@ const PRICE_DB = {
   "portuguese roll_each": 4, "portuguese rolls_each": 4,   // R4 each. MAKEABLE: Bakes > Rolls
   "flatbread_each": 12.5, "flatbreads_each": 12.5,         // 3 for R37 → R12.33. MAKEABLE: Bakes > Flatbreads
 
+  // ── Spice costing close-out (11 Jul, Tina-sourced) ────────────────────────
+  "shallots": 60,                  // R30/500g. NOTE: often unavailable in SA — sub yellow onion (cooked) / red onion + garlic (raw)
+  "star anise": 1000,              // R25/25g
+  "sumac": 600,                    // R30/50g. Sub: lemon zest
+  "apricots": 36,                  // R36/kg FRESH ("dried apricots" is a separate key)
+  "quinces": 35,                   // R35/kg. Sub: green apples
+  "rhubarb": 150,                  // R60/400g. Very scarce — sub Granny Smith
+  "raspberries": 320,              // R40/125g
+  "cape gooseberries": 400, "gooseberries": 400,   // R50/125g (appelliefies)
+  "marrow": 66,                    // R53/800g. Card wants the MATURE marrow (seeds scooped), not baby marrow
+  "passionfruit pulp": 110,        // R110/kg (granadilla)
+  "tomatillos": 119,               // R19/4 ≈ 160g → ESTIMATE. Sub: green tomatoes + extra lime
+  "galangal": 880,                 // R22/25g POWDER (fresh is near-impossible in SA). Sub: ginger
+  "shrimp paste": 437,             // R58–110 per 185–200g jar → honest mid. Sub: fish sauce
+  "miso paste": 135,               // R27/200g. Sub: soy sauce
+  "sriracha": 74,                  // R32/435ml → R74/L
+  "mirin": 200,                    // R30/150g
+  "nori flakes": 4150,             // R415/100g
+  "gochugaru": 800,                // R80/100g — Korean dried chilli, NOT fresh chilli
+  "amchur": 260,                   // R26/100g — dried mango powder, NOT fresh mango
+  "asafoetida": 400,               // R20/50g (hing)
+  "sichuan peppercorns": 1300,     // R65/50g
+  "nigella seeds": 600,            // R30/50g. Sub: black sesame seeds
+  "allspice": 760,                 // R19/25g
+  "caraway seeds": 760,            // R19/25g
+  "rosewater": 320,                // R80/250ml
+  "tarragon": 1000,                // R20/20g fresh
+  "caramel treat": 125,            // R45/360g tin — was falling back to condensed milk R119
+  "shortbread biscuits": 150,      // R30/200g
+  "gin": 253,                      // R190/750ml
+  "smoked cod roe": 514,           // R90/175g
+  "brioche": 135,                  // R35/4 day-old → ESTIMATE at ~65g each
+  // The four specialty chillies. Not one of them is a generic "chilli": hotter, dearer,
+  // and much smaller. Tina: you can't get all four everywhere — R80–120/kg → honest average.
+  "birds eye chillies": 100,
+  "habanero chillies": 100,
+  "scotch bonnet chillies": 100,
+  "red cayenne chillies": 100,
+
+  // ── final four (11 Jul, Tina-sourced) ─────────────────────────────────
+  "makataan": 30,                  // ESTIMATE: R70/whole melon; ~4kg melon × ~60% usable flesh ≈ 2.4kg → R30/kg
+  "artichoke hearts": 150,         // R60/400g tin
+  "dried savory": 1900,            // ESTIMATE: R45–90 per 20–50g bottle → honest mid
+  "dried marigold petals": 1740,   // R79–95 per 50g → mid R87/50g
+  "peanut butter powder": 769,     // R199.99/260g — the defatted supplement powder, NOT kuli-kuli
+
 };
 
 const MEAT_COSTS = {

@@ -691,7 +691,42 @@ function calcSideCost(side){
 // costRecipe() turns amounts into the COOK number now and the pack-rounded
 // BUY number the moment PACK_DB is live. Never fake a price — an unresolved
 // name returns null and the caller HIDES the figure (same as World).
-var PRICE_ALIAS = {  // ── loose-ends alias pass (26 Jun): broths→stock, brewed espresso→coffee, greens→lettuce, gruyère ──
+var PRICE_ALIAS = {
+  // Suya Spice's "roasted peanut powder" is kuli-kuli — roasted peanuts, ground. NOT the
+  // R769/kg defatted supplement powder (that key exists separately as "peanut butter powder").
+  "roasted peanut powder": "peanuts",
+  "makataan flesh": "makataan",
+
+  // ── 11 Jul · names that pointed at NOTHING while the price sat there under another label ──
+  "thick caramel": "caramel treat",          // Peppermint Crisp Tart said "thick caramel (tinned)";
+                                             // Amarula Cheesecake said "caramel treat". Same tin.
+  "jelly": "jelly powder",                   // Trifle said "jelly (packet)". jelly powder was priced all along.
+  "day old brioche": "brioche",
+  "african bird s eye chillies": "birds eye chillies",
+  "sichuan sansho peppercorns": "sichuan peppercorns",
+
+  // ── 11 Jul · costing-integrity alias pass. Synonyms of things ALREADY priced —
+  // no new prices needed, and the recipe keeps its real name ("African bird's-eye
+  // chillies" stays on the card; only the LOOKUP is redirected).
+  "red chillies": "chilli",
+  "fresh green chillies": "green chilli",
+  "mixed red chillies": "chilli",
+  "dried red chillies": "dried chillies",
+  // NOT aliased on purpose (Tina, 11 Jul): African bird's-eye, habanero, scotch bonnet and
+  // fresh cayenne are DISTINCT chillies — hotter, dearer per kg, and much smaller, so a generic
+  // "chilli" alias gets both the price AND the weight wrong. They stay null until priced properly.
+  "cayenne scotch bonnet powder": "cayenne pepper",
+  "peppercorns": "black pepper",
+  "white peppercorns": "black pepper",
+  "mealie meal": "maize meal",
+  "orange zest": "oranges",
+  "fresh herbs": "mixed herbs",
+  "gruy re": "emmental cheese",
+  "almond extract": "vanilla essence",
+  "almond essence": "vanilla essence",
+  "vanilla or almond extract": "vanilla essence",
+  "tinned cannellini beans": "butter beans",
+  // ── loose-ends alias pass (26 Jun): broths→stock, brewed espresso→coffee, greens→lettuce, gruyère ──
   "dried italian herbs": "mixed herbs",   // 27 Jun · spag bol Slow Ragù + Veg versions
   "mixed greens": "lettuce",
   "vegetable broth": "low-sodium vegetable stock",
@@ -946,19 +981,50 @@ var AVG_WEIGHT_G = {
 };
 // recipe unit → grams (null if not a weight/volume unit, e.g. 'each'/'egg')
 function unitToGrams(qty, unit){
-  if(unit==='g'||unit==='ml') return qty;
-  if(unit==='kg'||unit==='l') return qty*1000;
+  if(qty==null) return null;
+  var u = String(unit==null?'':unit).trim().toLowerCase();   // was CASE-SENSITIVE: "L" (every stock's water) returned null
+  if(u==='g'||u==='ml') return qty;
+  if(u==='kg'||u==='l') return qty*1000;
+  // 11 Jul · kitchen units that were silently costing R0. Approximate BY DESIGN — an
+  // approximate cost beats a confident zero. New cards should still use g/ml per the
+  // Ingredient Standard; this is a safety net, not a licence.
+  // NOT listed on purpose: 'egg', 'each', 'yolk', 'slice', 'clove', '' — those must fall
+  // through to null so the COUNT path handles them (and a yolk keeps costing a whole egg).
+  var KITCHEN = { tsp:5, tbsp:15, pinch:0.5, squeeze:5, cup:240, stick:3 };
+  if(KITCHEN[u]!=null) return qty*KITCHEN[u];
   return null;
 }
 
 function priceClean(name){
-  return String(name||'').toLowerCase().split('/')[0]
+  // 11 Jul · costing-integrity fix. The old version FLATTENED parentheses into the key
+  // ("lemons (zest and juice)" → "lemons zest and juice" → no match) and hard-split on "/",
+  // throwing away the half that might have matched. It now only DROPS the parenthetical.
+  // Nothing else is destroyed here — priceOf() retries narrower variants instead, so a name
+  // like "chicken carcasses, necks and wings" still gets its full-string shot at the DB first.
+  return String(name||'').toLowerCase()
+    .replace(/\([^)]*\)/g,' ')
     .replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+// The narrower fallbacks, tried in order and ONLY if the full name found nothing.
+function priceVariants(name){
+  var raw = String(name||'').toLowerCase().replace(/\([^)]*\)/g,' ');
+  var v = [];
+  if(raw.indexOf(',')>-1) v.push(raw.split(',')[0]);   // "rhubarb, chopped"  → "rhubarb"
+  if(raw.indexOf('/')>-1){                              // "cassia / cinnamon" → both halves
+    raw.split('/').forEach(function(p){ v.push(p); });
+  }
+  return v.map(priceClean).filter(function(x){ return x; });
 }
 // → { key, price, per:'weight'|'count', pack } or null
 function priceOf(name){
+  var hit = _priceLookup(priceClean(name));
+  if(hit) return hit;
+  var vs = priceVariants(name);          // full name failed → try narrower readings of it
+  for(var i=0;i<vs.length;i++){ hit = _priceLookup(vs[i]); if(hit) return hit; }
+  return null;
+}
+function _priceLookup(n){
   if(typeof PRICE_DB==='undefined') return null;
-  var n = priceClean(name);
   if(!n) return null;
   var pk = (typeof PACK_DB!=='undefined' && PACK_DB[n]) ? PACK_DB[n] : null;
   function out(key,price,per){ return { key:key, price:price, per:per, pack: pk || ((typeof PACK_DB!=='undefined' && PACK_DB[key]) ? PACK_DB[key] : null) }; }
@@ -975,11 +1041,21 @@ function priceOf(name){
     if(n2.slice(-1)==='s' && PRICE_DB[n2.slice(0,-1)]!=null) return out(n2.slice(0,-1),PRICE_DB[n2.slice(0,-1)],'weight');
     if(PRICE_ALIAS[n2] && PRICE_DB[PRICE_ALIAS[n2]]!=null) return out(PRICE_ALIAS[n2],PRICE_DB[PRICE_ALIAS[n2]],'weight');
   }
+  // 11 Jul · the resolver only ever de-pluralised ONE way (plural→singular), so
+  // "unwaxed lemons" missed the priced key "lemon" and "orange zest" missed "oranges".
+  // Try singular→plural too, and de-pluralise the string before the word-match sweep.
+  if(PRICE_DB[n+'s']!=null) return out(n+'s',PRICE_DB[n+'s'],'weight');
+  if(n2 && PRICE_DB[n2+'s']!=null) return out(n2+'s',PRICE_DB[n2+'s'],'weight');
+  function depl(x){ return x.replace(/\b(\w{3,}?)ies\b/g,'$1y').replace(/\b(\w{3,}?)s\b/g,'$1'); }
+  var n3 = depl(n), n4 = n2 ? depl(n2) : '';
+  if(n3!==n && PRICE_DB[n3]!=null) return out(n3,PRICE_DB[n3],'weight');
+  if(n3!==n && PRICE_DB[n3+'_each']!=null) return out(n3,PRICE_DB[n3+'_each'],'count');
+  if(n4 && PRICE_DB[n4]!=null) return out(n4,PRICE_DB[n4],'weight');
   var best=null;
   for(var k in PRICE_DB){
     if(typeof PRICE_DB[k]!=='number') continue;
     var re = new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
-    if((re.test(n) || (n2 && re.test(n2))) && (!best || k.length>best.length)) best=k;
+    if((re.test(n) || (n2 && re.test(n2)) || re.test(n3) || (n4 && re.test(n4))) && (!best || k.length>best.length)) best=k;
   }
   if(best) return out(best,PRICE_DB[best],'weight');
   return null;
@@ -1003,14 +1079,17 @@ function costRecipe(items,n){
         c = Math.ceil(q) * pr.price; b = c;
       }
     }
-    else if(it.unit==='g')    { c = (q/1000)*pr.price; b = c; }
-    else if(it.unit==='kg')   { c = q*pr.price; b = c; }
-    else if(it.unit==='ml')   { c = (q/1000)*pr.price; b = c; }
-    else if(it.unit==='l')    { c = q*pr.price; b = c; }
-    else { missing.push(it.name); return; }
+    // 11 Jul — this used to be a SECOND, hardcoded copy of the unit table (g/kg/ml/l only),
+    // so "squeeze", "tsp", "tbsp", "pinch" and capital "L" all fell into missing[] even
+    // though their price resolved perfectly. One unit table now, in unitToGrams().
+    else {
+      var gW = unitToGrams(q, it.unit);
+      if(gW==null){ missing.push(it.name); return; }
+      c = (gW/1000)*pr.price; b = c;
+    }
     cook += c; priced++;
     if(pr.pack && pr.pack.size && pr.per!=='count'){
-      var need = (it.unit==='kg'||it.unit==='l') ? q*1000 : q;
+      var need = unitToGrams(q, it.unit); if(need==null) need = q;
       var packs = Math.ceil(need/pr.pack.size);
       buy += packs*(pr.pack.price!=null ? pr.pack.price : (pr.pack.size/1000)*pr.price);
     } else { buy += b; }
