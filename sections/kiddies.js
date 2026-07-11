@@ -313,7 +313,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       const nameEsc=r.name.replace(/'/g,"\\'");
       return warmCard({
         name:r.name, photoName:r.name, emoji:r.emoji||'🍽️', badge:'added',
-        meta:`🍽️ Finger food · ~R${r.costPP}/child`,
+        meta:`🍽️ Finger food · ${costLine({html:'~R'+r.costPP+'/child'})}`,
         openJs:`openKidsRecipe('${nameEsc}')`
       });
     }).join('');
@@ -323,7 +323,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       const on=added.includes(id);
       return `<div onclick="kidsToggleSnack('${themeId}','${id}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;">
           <span style="font-size:16px;">${f.emoji||'🍽️'}</span>
-          <div style="flex:1;font-size:13px;color:${on?'var(--green-soft)':'var(--ink-soft)'};">${f.name} <span style="color:var(--accent);">~R${f.costPP}/pp</span></div>
+          <div style="flex:1;font-size:13px;color:${on?'var(--green-soft)':'var(--ink-soft)'};">${f.name} <span style="color:var(--accent);">${costLine({html:'~R'+f.costPP+'/pp'})}</span></div>
           <span style="font-size:11px;color:${on?'var(--green-soft)':'var(--accent)'};border:1px solid ${on?'var(--green-soft)':'var(--accent)'};border-radius:6px;padding:3px 9px;white-space:nowrap;">${on?'✓ Added':'+ Add'}</span>
         </div>`;
     }).join('');
@@ -349,8 +349,8 @@ function kidsCategoryHTML(themeId,catId,k,budget){
     body = `
       ${d?recCard('🥤',d.name,'🥤 Drink · '+(k*250)+'ml total · store-bought or make it',d.name):''}
       ${recCard('🥔','Crisps','🥔 '+crispPackets+' × 120g packet'+(crispPackets>1?'s':'')+' · or healthy swap','Crisps')}
-      ${recCard('🍿',popRec.name,(popRec.type==='savoury'?'🥩 Savoury':'🍬 Sweet')+' popcorn · homemade · ~'+popRec.kcal+' kcal',popRec.name)}
-      ${recCard('🥣',dipRec.name,'🥣 3 homemade dips · ~'+dipRec.kcal+' kcal · '+dipRec.time+' min',dipRec.name)}`;
+      ${recCard('🍿',popRec.name,(popRec.type==='savoury'?'🥩 Savoury':'🍬 Sweet')+' popcorn · homemade · '+kcalChip({html:'~'+popRec.kcal+' kcal'}),popRec.name)}
+      ${recCard('🥣',dipRec.name,'🥣 3 homemade dips · '+kcalChip({html:'~'+dipRec.kcal+' kcal'})+' · '+dipRec.time+' min',dipRec.name)}`;
   }
   else { // planner
     const dec=th.decor||{}, zones=th.zones||[], tl=th.timeline||{};
@@ -458,13 +458,12 @@ function kiddiesRecipeOpts(rec, themeId, catId, k){
   var costInfo='';
   if(rec.costPP){
     var ct=Math.round(rec.costPP*k);
-    costInfo='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+rec.costPP+'</b> pp \u00b7 <b style="color:var(--green);">R'+ct.toLocaleString()+'</b> total'
-      +'<div style="font-size:12px;color:var(--green-soft);margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>';
+    costInfo=costLine({ pp:rec.costPP, total:ct.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' });
   }
   var qtyHTML=qtyBox({
     label:'How Much To Make',
     total: k+' '+(k===1?'kid':'kids'),
-    ppLine: rec.kcal ? ('~'+rec.kcal+' kcal per child') : '',
+    ppLine: rec.kcal ? kcalChip({html:'~'+rec.kcal+' kcal per child', label:'🔥 Calories'}) : '',
     n: k, info: costInfo,
     decJs:"set({kidsCount:Math.max(4,(S.kidsCount||12)-1)})",
     incJs:"set({kidsCount:Math.min(50,(S.kidsCount||12)+1)})"

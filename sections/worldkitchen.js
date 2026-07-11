@@ -586,8 +586,7 @@ function wkRecipeOpts(r, country, universal){
   var qtyPP    = mainItem ? (wkScaleLine(mainItem, baseMult).amt + ' per person' + (rawCarb ? ' · raw' : '')) : '';
   var _cpp = (cost.priced>0 && cost.total>0) ? wkCostRecipe(r, baseMult).total : null;
   var costInfo = (_cpp!=null)
-    ? '\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+_cpp+'</b> pp \u00b7 <b style="color:var(--green);">R'+cost.total.toLocaleString()+'</b> total'
-      + '<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>'
+    ? costLine({ pp:_cpp, total:cost.total.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' })
     : '';
   var qtyHTML = qtyBox({
     label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n, info:costInfo,
@@ -631,7 +630,7 @@ function wkRecipeOpts(r, country, universal){
   var costNote = cost.missing.length
     ? '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
     : '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div>';
-  var isWkPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
+  var isWkPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   var costBox = !isWkPro
     ? '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
       + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'

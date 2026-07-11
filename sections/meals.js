@@ -16051,12 +16051,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         <!-- Nutrition -->
         ${r.nutrition?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;">
           <div style="font-size:11px;font-weight:800;letter-spacing:0.12em;color:var(--green);text-transform:uppercase;margin-bottom:8px;">📊 Nutrition — per serving</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
-            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.kcal}</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">kcal</div></div>
-            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.protein_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">protein</div></div>
-            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.carbs_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">carbs</div></div>
-            <div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">${r.nutrition.fat_g}g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">fat</div></div>
-          </div></div>`:''}
+          ${nutritionGrid(r.nutrition)}</div>`:''}
         <!-- Storage -->
         ${r.storage?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:var(--ink-soft);">📦 ${r.storage}</div>`:''}
         ${costW}
@@ -16150,12 +16145,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- Nutrition -->
       ${r.nutrition?`<div style="background:#0a1008;border:1px solid #1a3020;border-radius:10px;padding:12px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:#40a060;text-transform:uppercase;margin-bottom:8px;">📊 Nutrition — per serving</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#f5c842;">${r.nutrition.kcal}</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">kcal</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#60c090;">${r.nutrition.protein_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">protein</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#80a0e0;">${r.nutrition.carbs_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">carbs</div></div>
-          <div style="background:#061008;border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:#c08060;">${r.nutrition.fat_g}g</div><div style="font-size:13px;color:#40a060;text-transform:uppercase;">fat</div></div>
-        </div>
+        ${nutritionGrid(r.nutrition)}
       </div>`:''}
 
       <!-- Storage -->

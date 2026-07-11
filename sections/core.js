@@ -615,6 +615,53 @@ function maxMeats(){ return USER_TIER==="free"?2:99; }
 
 function tierBadgeSmall(t){ return ""; } // No tier badges shown
 
+// ── §7 GATE LAYER (11 Jul) — NUMBERS ARE PRO · FOOD IS FREE ────────────────────
+// The ONLY three renderers allowed to emit a Rand / kcal / macro to the DOM. Every
+// site routes through these; nothing renders money, calories or macros anywhere else.
+// Gate = tier LEVEL via tierAllows('pro') → Deluxe(2) >= Pro(1), so Deluxe renders
+// IDENTICALLY to Pro (never empty). NEVER USER_TIER==='pro'. Two lock shapes:
+// INLINE (cards/rows/meta) → a small 🔒 that keeps the row; SURFACE (plan/shopping/
+// nutrition/leftovers) → the full teaser panel, cloned from shoppingView (below).
+var TINZA_LOCK = '<span title="Tinza Pro — R50/month" style="color:var(--accent);font-weight:700;white-space:nowrap;">🔒</span>';
+function lockPanel(title, blurb){
+  return '<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
+    + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
+    + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">' + (title || 'Tinza Pro') + '</div>'
+    + (blurb ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">' + blurb + '</div>' : '')
+    + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R50/month</div></div>';
+}
+// RANDS. o.html = the site's exact Pro figure (pills / meta / cart / totals), OR pass
+// o.pp + o.total (+ optional o.label, o.note) for the standard "Food cost" line.
+// o.surface:true → full teaser panel on Free (My Plan, cost+shopping surfaces).
+function costLine(o){
+  o = o || {};
+  var pro = tierAllows('pro');
+  if(o.surface) return pro ? (o.html || '') : lockPanel(o.title || 'Cost', o.blurb || '');
+  if(o.html != null) return pro ? o.html : (o.label != null ? (o.label + ' · ' + TINZA_LOCK) : TINZA_LOCK);
+  var head = '💰 ' + (o.label != null ? o.label : 'Food cost');   // built "Food cost" line
+  if(!pro) return head + ' · ' + TINZA_LOCK;
+  return head + ': <b style="color:var(--green);">R' + o.pp + '</b> pp · <b style="color:var(--green);">R' + o.total + '</b> total'
+    + (o.note ? '<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">' + o.note + '</div>' : '');
+}
+// KCAL. o.html = the site's exact Pro figure, OR o.kcal for a bare number. o.label → labelled lock.
+function kcalChip(o){
+  o = o || {};
+  if(o.html == null && o.kcal == null) return '';
+  if(!tierAllows('pro')) return o.surface ? lockPanel(o.title || 'Calories', o.blurb || '') : (o.label != null ? (o.label + ' · ' + TINZA_LOCK) : TINZA_LOCK);
+  return (o.html != null) ? o.html : ('' + o.kcal);
+}
+// MACROS. Builds the 4-cell grid (the ONE grid, replacing all three copies). Returns a BODY
+// meant to sit inside a caller's box (recipeBox / section card). Free → the "📊 • • •" teaser
+// body (byte-matched to the old nutritionBoxHTML teaser — sameness).
+function nutritionGrid(nut){
+  if(!nut || nut.kcal == null) return '';
+  if(!tierAllows('pro')) return '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">📊 • • •</div><div style="font-size:13px;color:var(--ink-soft);">Full nutrition — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+  var cells = [['kcal', nut.kcal], ['protein', (nut.protein_g || 0) + 'g'], ['carbs', (nut.carbs_g || 0) + 'g'], ['fat', (nut.fat_g || 0) + 'g']];
+  return '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
+    + cells.map(function(x){ return '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">' + x[1] + '</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">' + x[0] + '</div></div>'; }).join('')
+    + '</div>';
+}
+
 function recipeBtn(type,id,returnStep){
   return `<div style="margin-top:6px;"><button style="background:var(--accent);border:none;border-radius:6px;padding:5px 12px;font-size:13px;color:#fff;cursor:pointer;font-family:Georgia,serif;" onclick="event.stopPropagation();set({viewingRecipe:{type:'${type}',id:'${id}',returnStep:${returnStep}}})">📖 See Recipe & Method</button></div>`;
 }
@@ -2187,7 +2234,7 @@ function warmCard(o){
   // Cost chip: default "R{costPP} pp". Callers may pass a pre-formatted costText
   // (e.g. finger foods show "≈R13.35/piece") to override the label — same green
   // dot, same styling, so the gold pair is unaffected (they pass no costText).
-  const chip = (o.costText || o.costPP) ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>${o.costText || ('R'+o.costPP+' pp')}</span>` : '';
+  const chip = (o.costText || o.costPP) ? `<span class="mono" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-tint);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--green);"><span style="width:8px;height:8px;border-radius:50%;background:var(--cost-green);flex-shrink:0;"></span>${costLine({html: o.costText || ('R'+o.costPP+' pp')})}</span>` : '';
   // Version-count hint — byte-for-byte the cost chip's anatomy (same .mono, gap, padding,
   // radius, font-size/weight), differing ONLY in colour: an --accent dot (navigational,
   // interactive) + --ink-soft text on a neutral --line2 border. Green (food cost) and gold
@@ -2956,6 +3003,12 @@ function shoppingView(o){
 function planView(o){
   o = o || {};
   var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  if(!isPro){   // §7 — My Plan is a whole Pro feature; Free gets the SURFACE teaser, not a working plan
+    var _hdrLock = (typeof sectionHeader==='function') ? sectionHeader(o.header || {}) : '';
+    return '<div>' + _hdrLock + '<div class="content">' + (o.quickNavHTML||'')
+      + lockPanel('My Plan', 'Build a meal plan for your guest count, then get one combined, aisle-sorted shopping list costed two ways.')
+      + '</div></div>';
+  }
   var data = buildPlanData(o.dishes || []);
   var hdr = (typeof sectionHeader==='function') ? sectionHeader(o.header || {}) : '';
   var money = function(n){ return 'R' + Math.round(n||0).toLocaleString(); };
@@ -3130,10 +3183,8 @@ function bakesRecipeOpts(r, servingsKey){
   if(r.costPP!=null){
     var costTot = r.costPP*scale;
     var costEach = bakeP ? Math.round(costTot/n) : r.costPP;
-    info = isPro
-    ? '💰 Food cost: <b style="color:var(--green);">R'+costEach+'</b> pp · <b style="color:var(--green);">R'+costTot+'</b> total'
-    : '💰 Food cost · <span style="color:var(--accent);font-weight:bold;">🔒 Pro</span>'; }
-  if(kcal!=null){ info += (info?'<br>':'') + '🔥 ~'+kcal+' kcal pp'; }
+    info = costLine({ pp:costEach, total:costTot }); }
+  if(kcal!=null){ info += (info?'<br>':'') + kcalChip({ html:'🔥 ~'+kcal+' kcal pp', label:'🔥 Calories' }); }
   // Batch-Law note ("makes 1 cake · serves 12 · 1 slice each") in the qtyBox sub slot.
   var scaleNote = bakeP
     ? (bakeP.mode==='slice'
@@ -3158,13 +3209,7 @@ function bakesRecipeOpts(r, servingsKey){
   // ── nutrition macro grid (kcal · protein · carbs · fat) — matches the FMF warm
   // branch so bakes/FMF pages read identically once FMF routes through here.
   var _nut = (r.nutrition && typeof r.nutrition==='object' && r.nutrition.kcal!=null) ? r.nutrition : null;
-  var nutriBox = _nut ? recipeBox('📊 Nutrition — per serving',
-      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
-      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+_nut.kcal+'</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">kcal</div></div>'
-      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.protein_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">protein</div></div>'
-      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.carbs_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">carbs</div></div>'
-      + '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+(_nut.fat_g||0)+'g</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">fat</div></div>'
-      + '</div>') : '';
+  var nutriBox = _nut ? recipeBox('📊 Nutrition — per serving', nutritionGrid(_nut)) : '';
   var storeBox = r.storage ? recipeBox('🧊 Storage', '<div style="font-size:15px;color:var(--ink2);line-height:1.5;">'+r.storage+'</div>') : '';
   // ── WhatsApp share button (superset action; matches the FMF warm branch). Passed
   // via recipePage's optional shareHTML slot, so callers that omit it are unchanged.
@@ -3478,14 +3523,10 @@ function computeBraaiNutrition(item){
 // ── shared nutrition grid (same markup as the superset's nutriBox) ──
 function nutritionBoxHTML(nut, isMeat){
   if(!nut || nut.kcal==null) return '';
-  var _nutPro = (typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
-  if(!_nutPro){ return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving', '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udcca \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Full nutrition \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>') : ''; }
-  var cells=[['kcal',nut.kcal],['protein',nut.protein_g+'g'],['carbs',nut.carbs_g+'g'],['fat',nut.fat_g+'g']];
-  var grid='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
-    + cells.map(function(x){ return '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">'+x[1]+'</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">'+x[0]+'</div></div>'; }).join('')
-    + '</div>';
-  var caveat = isMeat ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">Calories are for a regular trim \u2014 a fattier cut runs higher.</div>' : '';
-  return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving (estimate)', grid+caveat) : '';
+  // routes through the ONE grid renderer (nutritionGrid): grid on Pro/Deluxe, "\ud83d\udcca \u2022 \u2022 \u2022" teaser on Free.
+  var _pro = tierAllows('pro');
+  var caveat = (isMeat && _pro) ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">Calories are for a regular trim \u2014 a fattier cut runs higher.</div>' : '';
+  return (typeof recipeBox==='function') ? recipeBox('\ud83d\udcca Nutrition \u2014 per serving' + (_pro?' (estimate)':''), nutritionGrid(nut) + caveat) : '';
 }
 // ── LEFTOVER IDEAS (Pro content · keyed by BASE LEFTOVER, not meat group) ──
 // Reframed 7 Jul (TINZA_LEFTOVERS_RESEARCH.md): the star leftover is as often rice/
@@ -3557,7 +3598,7 @@ function leftoverBoxHTML(keys){
   if(typeof keys==='string') keys=[keys];
   keys=(keys||[]).filter(function(k){ return LEFTOVER_IDEAS[k]; });
   if(!keys.length) return '';
-  var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  var isPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   // Food-safety note lives ONCE, in the always-free Storage box (its natural home, and
   // it always renders alongside leftovers) — not repeated here, to avoid duplication.
   if(!isPro){
@@ -3598,7 +3639,7 @@ function wkLeftoverKeys(r){
 }
 function storageBoxHTML(cls){
   var sc = SAFETY_CLASS[cls]; if(!sc) return '';
-  var isPro=(typeof USER_TIER!=='undefined') ? (USER_TIER==='pro') : true;
+  var isPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   var safetyLine='<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45;">'+sc.note+'</div>';
   if(!isPro){
     var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udce6 \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Storage guide \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
@@ -3653,8 +3694,7 @@ function recipeView(){
       if(cpSolo != null){
         const cpp  = isSolo ? cpSolo : Math.round(cpSolo * meatSpreadMult(numMeats));
         const ctot = cpp * p;
-        costInfo = `\u{1F4B0} Food cost: <b style="color:var(--green);">R${cpp}</b> pp \u00b7 <b style="color:var(--green);">R${ctot.toLocaleString()}</b> total`
-          + `<div style="font-size:12px;color:#7a8d4a;margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>`;
+        costInfo = costLine({ pp:cpp, total:ctot.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' });
       }
     }
     quantityBlock = qtyBox({ label:'How Much To Make', sub:`${p} people \u00b7 ${ap.label} \u00b7 ${portionNote}`, total:totalDisplay, ppLine:ppLine, info:costInfo });
@@ -3764,7 +3804,7 @@ function recipeView(){
   // ── COST ESTIMATE (Braai-specific → extras slot) ──
   const costBlock = (()=>{
     const costData = calcRecipeCost(recipe.ingredients, p);
-    if(USER_TIER === "pro" && costData){
+    if(tierAllows('pro') && costData){
       const meatCostRand = isMeat ? Math.round((calcMeat(item).grams/1000)*(MEAT_COSTS[vr.id]||120)) : 0;
       const ingsCostRand = costData.total;
       const totalEst = meatCostRand + ingsCostRand;
@@ -3783,7 +3823,7 @@ function recipeView(){
         </div>
         <div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">${coverLine}</div>
       </div>`;
-    } else if(USER_TIER === "free"){
+    } else if(!tierAllows('pro')){
       return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
         <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
         <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div>
@@ -4017,7 +4057,7 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(USER_TIER!=='pro') return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:var(--ink-soft);">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
+  if(!tierAllows('pro')) return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:var(--ink-soft);">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
   return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid var(--accent);background:#1a1008;color:var(--gold);font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>

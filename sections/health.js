@@ -536,16 +536,16 @@ function renderHealthList(items, type, openFn, isPro){
     var sel = (S.healthPlan||[]).some(function(x){return x.id===item.id;});
     var disabled = !canView;
     var srv = S.servings||1;
-    var info = type==='juice' ? (item.kcal*srv)+' kcal · '+(srv*300)+'ml'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
+    var info = costLine({html: (type==='juice' ? (item.kcal*srv)+' kcal · '+(srv*300)+'ml'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
       : type==='smoothie' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
       : type==='oats' ? (item.kcal*srv)+' kcal'+(item.costPP?' · ~R'+(item.costPP*srv)+'/pp':'')
       : type==='muffin' ? item.kcal+' kcal each · '+(srv*(item.makes||12))+' muffins'
-      : (item.kcal*srv)+' kcal';
+      : (item.kcal*srv)+' kcal')});
     // Route through the shared Warm Spice card (Standard §3) — card opens, checkbox toggles plan.
     return warmCard({
       name: item.name,
       emoji: item.emoji, grad: HEALTH_GRAD,
-      meta: item.howItFeels || (item.kcal ? (item.kcal*srv)+' kcal' : ''),
+      meta: item.howItFeels || (item.kcal ? kcalChip({html:(item.kcal*srv)+' kcal'}) : ''),
       costPP: (canView && item.costPP) ? item.costPP : '',
       openJs: disabled ? "alert('👑 Upgrade to Pro to unlock')" : (openFn+'(\''+item.id+'\')'),
       toggleJs: disabled ? '' : ('healthToggleById(\''+item.id+'\',\''+type+'\',S.servings)'),
@@ -781,8 +781,8 @@ function healthRecipeDetail(recipe, backState){
         <div>
           <div style="font-size:13px;color:var(--ink-soft);letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
           <div style="font-size:26px;color:var(--gold);font-weight:bold;line-height:1;">${srv} person${srv!==1?'s':''}</div>
-          ${recipe.kcal?`<div style="font-size:13px;color:var(--accent);margin-top:2px;">${recipe.kcal*srv} kcal total</div>`:''}
-          ${recipe.costPP?`<div style="font-size:13px;color:var(--ink-soft);">~R${recipe.costPP*srv} total</div>`:''}
+          ${recipe.kcal?`<div style="font-size:13px;color:var(--accent);margin-top:2px;">${kcalChip({html:(recipe.kcal*srv)+' kcal total', label:'🔥 Calories'})}</div>`:''}
+          ${recipe.costPP?`<div style="font-size:13px;color:var(--ink-soft);">${costLine({html:'~R'+(recipe.costPP*srv)+' total', label:'💰 Cost'})}</div>`:''}
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--gold);font-size:20px;cursor:pointer;">−</button>
@@ -1164,8 +1164,8 @@ function healthGroupScreen(isPro, srv){
         const canView = tierAllows(item.tier||'free');
         const sel = (S.healthPlan||[]).some(x=>x.id===item.id);
         const disabled = !canView;
-        const info = (item.kcal?(item.makes?item.kcal+' kcal each · '+(srv*item.makes)+' total':item.kcal*srv+' kcal'):'')+
-                     (item.costPP?' · ~R'+Math.round(item.costPP*srv)+'/pp':'');
+        const info = costLine({html: (item.kcal?(item.makes?item.kcal+' kcal each · '+(srv*item.makes)+' total':item.kcal*srv+' kcal'):'')+
+                     (item.costPP?' · ~R'+Math.round(item.costPP*srv)+'/pp':'')});
         const feel = item.feel || item.howItFeels || item.howThisFeels || '';
         // appearsIn cards live in another section (e.g. Spice) — tapping anywhere opens
         // the canonical recipe there; Back returns to this Health tab (snapshotNav).
@@ -1280,8 +1280,8 @@ function healthExtDetail(recipe){
         <div>
           <div style="font-size:13px;color:var(--ink-soft);letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
           <div style="font-size:26px;color:var(--gold);font-weight:bold;line-height:1;">${srv} <span style="font-size:14px;">person${srv!==1?'s':''}</span></div>
-          ${recipe.kcal?`<div style="font-size:13px;color:var(--accent);margin-top:2px;">🔥 ${recipe.kcal*srv} kcal total</div>`:''}
-          ${totalCost?`<div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">💰 ${totalCost}</div>`:''}
+          ${recipe.kcal?`<div style="font-size:13px;color:var(--accent);margin-top:2px;">${kcalChip({html:'🔥 '+(recipe.kcal*srv)+' kcal total', label:'🔥 Calories'})}</div>`:''}
+          ${totalCost?`<div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">${costLine({html:'💰 '+totalCost, label:'💰 Cost'})}</div>`:''}
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--gold);font-size:20px;cursor:pointer;">−</button>

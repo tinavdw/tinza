@@ -175,7 +175,7 @@ function babyMyPlanView(){
               <span style="flex:1;font-size:13px;color:${inCart?'#4a2030':'#c0a0b0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${shared}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#4a2030':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2030':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2030':'#8ab030'};">${costLine({html:'R'+Math.round(i.cost)})}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
@@ -338,7 +338,7 @@ function dogMyPlanView(){
               <span style="flex:1;font-size:13px;color:${inCart?'#3a2010':'#c8b898'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#c06020;">· '+i.dishes.length+' recipes</span>':''}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#3a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2010':'#8ab030'};">${costLine({html:'R'+Math.round(i.cost)})}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
@@ -572,7 +572,7 @@ function catMyPlanView(){
               <span style="flex:1;font-size:13px;color:${inCart?'#4a2010':'#d0a080'};text-decoration:${inCart?'line-through':'none'};">${i.name}${i.dishes.length>1?' <span style="font-size:10px;color:#c96532;">· '+i.dishes.length+' recipes</span>':''}</span>
               <div style="text-align:right;flex-shrink:0;">
                 <div style="font-size:13px;color:${inCart?'#4a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>
-                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
+                ${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#4a2010':'#8ab030'};">${costLine({html:'R'+Math.round(i.cost)})}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}
               </div>
             </div>`;
           }).join('')}
@@ -791,7 +791,7 @@ function furryCombinedPlanView(){
             const key=i.name.toLowerCase().replace(/[^a-z]/g,'').slice(0,18);
             const inCart=(S.fingerShopCart||{})[key];
             const petTag=' <span style="font-size:10px;color:#b0936a;">'+i.pets.join('')+'</span>';
-            return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f20;cursor:pointer;opacity:${inCart?0.35:1};"><div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#c06020':'#6a5440'};background:${inCart?'#c06020':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div><span style="flex:1;font-size:13px;color:${inCart?'#3a2010':'#c8b0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${petTag}</span><div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:${inCart?'#3a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2010':'#8ab030'};">R${Math.round(i.cost)}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}</div></div>`;
+            return `<div onclick="fingerShopToggle('${key}')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a0f20;cursor:pointer;opacity:${inCart?0.35:1};"><div style="width:20px;height:20px;border-radius:4px;border:2px solid ${inCart?'#c06020':'#6a5440'};background:${inCart?'#c06020':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;">${inCart?'✓':''}</div><span style="flex:1;font-size:13px;color:${inCart?'#3a2010':'#c8b0e0'};text-decoration:${inCart?'line-through':'none'};">${i.name}${petTag}</span><div style="text-align:right;flex-shrink:0;"><div style="font-size:13px;color:${inCart?'#3a2010':'#f5c842'};font-weight:bold;">${fmt(i.raw,i.unit)}</div>${i.cost!=null?`<div style="font-size:11px;color:${inCart?'#3a2010':'#8ab030'};">${costLine({html:'R'+Math.round(i.cost)})}</div>`:`<div style="font-size:9px;color:#a27b31;">price needed</div>`}</div></div>`;
           }).join('')}
       </div>
       <button onclick="window.print()" style="width:100%;padding:12px;margin-bottom:8px;border-radius:10px;border:2px solid #6060c0;background:#1a1a2e;color:#a0a0f0;font-size:13px;cursor:pointer;">🖨️ Print / Save as PDF</button>

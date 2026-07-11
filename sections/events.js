@@ -110,7 +110,7 @@ function eventsHTML(){
       </div>
       ${r.costPP?`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-top:1px solid var(--card2);margin-top:4px;">
         <span style="color:var(--ink-soft);">Estimated total cost</span>
-        <span style="color:var(--gold);font-weight:bold;">~R${Math.round(r.costPP*guests).toLocaleString()} (R${r.costPP}/pp)</span>
+        <span style="color:var(--gold);font-weight:bold;">${costLine({html:'~R'+Math.round(r.costPP*guests).toLocaleString()+' (R'+r.costPP+'/pp)'})}</span>
       </div>`:''}
     </div>`;
   }
@@ -773,7 +773,7 @@ function eventsHTML(){
           <span style="font-size:20px;flex-shrink:0;line-height:1.35;">${r.emoji||'🍽️'}</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:16px;color:var(--ink);font-weight:bold;line-height:1.35;">${r.name}</div>
-            <div style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${(function(){var c=isFingerPieceItem(r)?fingerCostPP(r,piecesPerType):r.costPP;return c?' · ~R'+c+'/pp':'';})()}</div>
+            <div style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${piecesPerType} pieces pp · ${totalPcs} total${(function(){var c=isFingerPieceItem(r)?fingerCostPP(r,piecesPerType):r.costPP;return c?(' · '+costLine({html:'~R'+c+'/pp'})):'';})()}</div>
           </div>
           <span onclick="openRecipe('events','${r.id}')" style="font-size:22px;color:var(--accent);flex-shrink:0;align-self:center;line-height:1;cursor:pointer;">›</span>
         </div>`;
@@ -1377,16 +1377,15 @@ function eventsRecipeOpts(r, guests){
     qTotal = _ft.min+'\u2013'+_ft.max+' pieces pp';
     qPP = 'across your whole spread \u00b7 '+_ft.label;
     var _ppTxt = (_perPiece>0)
-      ? '\uD83D\uDCB0 <b style="color:var(--green);">\u2248R'+(Math.round(_perPiece*100)/100)+'</b> per piece. '
+      ? costLine({ html:'\uD83D\uDCB0 <b style="color:var(--green);">\u2248R'+(Math.round(_perPiece*100)/100)+'</b> per piece. ', label:'\uD83D\uDCB0 Per-piece cost' })
       : '';
     var _fNote = _ppTxt+'How many of <b>this</b> to make depends on the snacks you pick \u2014 add it to <b>My Plan</b> for your amount + spread cost.'
       +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">Costing only \u2014 not the grocery-store price.</div>';
     qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+_fNote+'</div>') : _fNote;
   } else if(r.costPP){
     var ctot=Math.round(r.costPP*guests);
-    var costLine='\uD83D\uDCB0 Food cost: <b style="color:var(--green);">R'+r.costPP+'</b> pp \u00B7 <b style="color:var(--green);">R'+ctot.toLocaleString()+'</b> total'
-      +'<div style="font-size:12px;color:var(--green);margin-top:5px;line-height:1.45;">This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.</div>';
-    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+costLine+'</div>') : costLine;
+    var _clStr = costLine({ pp:r.costPP, total:ctot.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' });
+    qInfo = qInfo ? (qInfo+'<div style="margin-top:6px;">'+_clStr+'</div>') : _clStr;
   }
   var qtyHTML = qtyBox({
     label:'How Much To Make', sub: guests+' guests', total:qTotal, ppLine:qPP, n:guests, info:qInfo,
@@ -1424,7 +1423,7 @@ function eventsRecipeOpts(r, guests){
 
   // ── EXTRAS: compact cost box + tip + ml/person line + chef-notes (mirror World Kitchen) ──
   var evGreen = 'var(--accent)';
-  var isEvPro = (typeof USER_TIER !== 'undefined') && USER_TIER === 'pro';
+  var isEvPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   var extras='';
   // compact cost box (Pro-gated) — finger foods use tier-scaled per-piece cost
   var boxCostPP = isFingerPieceItem(r) ? 0 : r.costPP;
@@ -1548,7 +1547,7 @@ function cakesRecipeOpts(cake, guests){
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   guests = guests || 50;
   var emoji = cake.emoji || '\uD83C\uDF82';
-  var isPro = (typeof USER_TIER!=='undefined') && USER_TIER==='pro';
+  var isPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
 
   // serves number (first integer in the serves string) → batches + extra slices
   var servesParts = String(cake.serves||'50').match(/\d+/g);
