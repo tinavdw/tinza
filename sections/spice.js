@@ -635,6 +635,35 @@ var SPICE_DB = [
   },
 
   {
+    id: "avocado-salsa-verde",
+    name: "Creamy Avocado Salsa Verde",
+    type: "relish",
+    shelf: "sambals-relishes",
+    region: "Mexico",
+    emoji: "🥑",
+    flavourChips: ["Tangy", "Herby", "Hot"],
+    whenToUse: "finish",
+    makeYourOwn: {
+      yield: { mode: "batch", unit: "g", base: 350, step: 350, label: "1 bowl" },
+      ingredients: [
+        { qty: 200, unit: "g",  name: "avocado" },
+        { qty: 25,  unit: "g",  name: "fresh coriander" },
+        { qty: 20,  unit: "g",  name: "green chilli" },
+        { qty: 8,   unit: "g",  name: "garlic cloves" },
+        { qty: 50,  unit: "g",  name: "onion" },
+        { qty: 30,  unit: "ml", name: "lime juice" },
+        { qty: 3,   unit: "g",  name: "salt" },
+        { qty: 60,  unit: "ml", name: "water" }
+      ],
+      method: "Halve the avocado, twist out the stone and scoop the flesh straight into the blender — don't chop it first, you'll only bruise it and lose the silk. Throw the coriander in stalks and all: the stalks carry more flavour than the leaves and they blitz away to nothing. Drop the chillies in whole, seeds and membranes included — take the seeds out and you take out most of the fire, so that's your dial. Add the garlic, onion, lime juice and salt. Pulse in short bursts until everything is broken down, then run it flat out until it turns completely smooth, pale green and glossy. Stream in water 15ml at a time, and only if it's too thick to pour — you want it to fall off a spoon slowly, not run off it. Taste. It will nearly always want more lime and a little more salt; keep going until it makes you sit up. Eat it the day you make it — the acid holds the colour for about a day and then it browns like guacamole, and there's nothing to be done about that.",
+      storage: "Same day, ideally within hours. Press cling film flat onto the surface so no air touches it and it will hold overnight in the fridge — but it will darken. It does not freeze."
+    },
+    pairsWith: ["tacos", "grilled chicken", "corn chips", "eggs", "grilled fish"],
+    aliases: ["avocado salsa", "salsa de aguacate", "creamy green salsa", "avocado salsa verde"],
+    story: "This is not a tomatillo salsa verde with avocado stirred in — it's its own thing, salsa de aguacate, the pale creamy green one sitting in a squeeze bottle on every taqueria counter in Mexico. Where a tomatillo salsa is tart and thin and slaps you, this one is rich and cool and coats. And it's the one that actually works in South Africa: tomatillos are all but unbuyable here, while avocados are everywhere and cheap. So instead of a sad substitution, you get the better sauce — five minutes, one blender, no cooking, no stove.",
+    howThisFeels: "Cool, creamy and grassy, with the heat arriving late and low. It coats a taco rather than splashing off it."
+  },
+  {
     id: "fajita-seasoning", emoji: "🧂",
     name: "Fajita Seasoning",
     type: "blend",
@@ -1852,35 +1881,7 @@ var SPICE_DB = [
     howThisFeels: ""
   },
 
-  {
-    id: "zhug", emoji: "🌶️",
-    name: "Zhug (Green Chilli Sauce)",
-    type: "paste",
-    shelf: "sauces",
-    region: "Yemen",
-    flavourChips: ["Hot", "Herby", "Aromatic"],
-    whenToUse: "finish",
-    makeYourOwn: {
-      yield: { mode:"batch", unit:"g", base:150, step:50, label:"small tub" },
-      ingredients: [
-        { qty:60, unit:"g", name:"fresh green chillies" },
-        { qty:40, unit:"g", name:"fresh coriander" },
-        { qty:20, unit:"g", name:"fresh parsley" },
-        { qty:25, unit:"ml", name:"olive oil" },
-        { qty:15, unit:"g", name:"garlic cloves" },
-        { qty:10, unit:"ml", name:"lemon juice" },
-        { qty:3, unit:"g", name:"cumin seeds" },
-        { qty:2, unit:"g", name:"green cardamom pods" },
-        { qty:4, unit:"g", name:"salt" }
-      ],
-      method: "Toast and grind the cumin and cardamom. Blend the green chillies, coriander, parsley and garlic to a coarse green paste with the spices, then loosen with olive oil and lemon. Fresh and fierce — best made the day you use it. Spoon over falafel, grilled meat, eggs or into soup to FINISH."
-    },
-    pairsWith: ["falafel", "grilled meat", "eggs", "lentil soup", "flatbread"],
-    aliases: ["zhug", "schug", "skhug", "green chilli sauce"],
-    story: "Zhug is the fiery green herb-and-chilli relish of Yemen, carried into Israeli and wider Middle Eastern kitchens. Bright with coriander and lethal with green chilli, it wakes up everything it touches.",
-    howThisFeels: ""
-  },
-
+  
   {
     id: "crispy-chilli-oil", emoji: "🌶️",
     name: "Crispy Chilli Oil",
@@ -2532,33 +2533,7 @@ var SPICE_DB = [
     howThisFeels: ""
   },
 
-  {
-    id: "salsa", emoji: "🍅",
-    name: "Salsa (Pico de Gallo)",
-    type: "dip",
-    shelf: "dressings-dips",
-    region: "Mexico",
-    flavourChips: ["Tangy", "Hot", "Herby"],
-    whenToUse: "finish",
-    makeYourOwn: {
-      yield: { mode:"serves", unit:"", base:4, step:1, label:"" },
-      ingredients: [
-        { qty:250, unit:"g", name:"tomatoes" },
-        { qty:60, unit:"g", name:"onion" },
-        { qty:20, unit:"ml", name:"lime juice" },
-        { qty:10, unit:"g", name:"fresh coriander" },
-        { qty:10, unit:"g", name:"green chilli" },
-        { qty:5, unit:"g", name:"garlic cloves" },
-        { qty:3, unit:"g", name:"salt" }
-      ],
-      method: "Finely dice the tomatoes, onion and chilli and chop the coriander. Mix everything with the lime, garlic and salt, then leave it to sit for 15 minutes so the flavours come together and the onion softens. Drain off excess liquid if you like it chunky rather than soupy."
-    },
-    pairsWith: ["tortilla chips", "tacos", "grilled meat", "eggs", "nachos"],
-    aliases: ["salsa", "pico de gallo", "tomato salsa"],
-    story: "Fresh chopped tomato, onion, chilli and lime — the bright, raw 'rooster's beak' salsa of Mexico. No cooking, just good knife work and a little patience while it mingles.",
-    howThisFeels: ""
-  },
-
+  
   {
     id: "muhammara", emoji: "🫑",
     name: "Muhammara",
@@ -8088,12 +8063,25 @@ function spiceShelfView(){
         // top-left checkbox toggles the EXISTING spice cart (not wkPlanToggle);
         // the card opens through the universal opener like WK, first resetting the
         // batch scale (the old row did spiceScale:null) so each entry opens fresh.
+        // 11 Jul — the old note here said "NO cost chip (Spice has no per-person food cost)".
+        // True for a batch, but a batch HAS a price: Apricot Jam is R33 per 500g jar. Braai has
+        // shown a cost chip since v33 — Spice now matches (sameness). Pro-gated: Free sees no figure.
+        const _pro  = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+        const _cst  = (typeof costRecipe==='function') ? costRecipe(e.makeYourOwn.ingredients||[], 1) : null;
+        const _yd   = e.makeYourOwn.yield || {};
+        let   _ctxt = '';
+        if(_pro && _cst && _cst.cook > 0){
+          _ctxt = (_yd.mode === 'batch')
+            ? 'R' + _cst.cook + ' / ' + _yd.base + (_yd.unit ? ' ' + _yd.unit : '')
+            : 'R' + Math.round(_cst.cook / (_yd.base || 1)) + ' pp';
+        }
         return warmCard({
           name: e.name,
           photoName: e.name,
           emoji: e.emoji || shelf.e || '🧂',
           sub: spiceGroup(e) || shelf.t,
           meta: e.howThisFeels || (w.label ? (w.e+' '+w.label) : ''),
+          costText: _ctxt,
           openJs: "S.spiceScale=null;openSpiceRecipe('"+e.id+"')",
           toggleJs: "(function(){var c=Object.assign({},S.spiceCart||{});if(c['"+e.id+"']!==undefined)delete c['"+e.id+"'];else c['"+e.id+"']="+baseAmt+";set({spiceCart:c});})()",
           sel: inCart
@@ -8378,14 +8366,27 @@ function spiceRecipeOpts(r){
   var methodHTML = methodBox(stepsHTML, steps.length ? "set({cookRecipe:{section:'spice',id:'"+r.id+"'},cookStep:0});window.scrollTo(0,0);" : '');
   var _u = (y.unit||'').trim();
   var _ul = _u ? ((_u==='serving'||_u==='portion') ? (_u + (scale===1?'':'s')) : _u) : 'servings';
+  // 11 Jul — qtyBox has always had an `info` slot ("cost · kcal"). Spice never passed one,
+  // so the Spice Room has NEVER shown a price, while Braai has since v33. Same shared function.
+  // Free tier gets the Pro lock, never a figure.
+  var _isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
+  var _cost  = (typeof costRecipe==='function') ? costRecipe(my.ingredients||[], factor) : null;
+  var _info  = '';
+  if(_cost && _cost.cook > 0){
+    _info = _isPro
+      ? ('💰 Food cost: <b style="color:var(--green);">R' + _cost.cook + '</b>'
+         + (isBatch ? (' for ' + scale + ' ' + _ul)
+                    : (' · <b style="color:var(--green);">R' + Math.round(_cost.cook/(scale||1)) + '</b> pp')))
+      : '💰 Food cost · <span style="color:var(--accent);font-weight:bold;">🔒 Pro</span>';
+  }
   var qtyHTML = qtyBox({
-    label:'Make Your Own', total: scale + ' ' + _ul, n:scale,
+    label:'Make Your Own', total: scale + ' ' + _ul, n:scale, info:_info,
     decJs:"set({spiceScale:Math.max(" + step + "," + (scale - step) + ")})",
     incJs:"set({spiceScale:" + (scale + step) + "})"
   });
   var storyBox = r.story ? recipeBox('📖 Good to know', '<div style="font-size:15px;color:#f0ebe1;line-height:1.6;">'+r.story+'</div>') : '';
   return {
-    photoName:r.name, photoEmoji:'🥫',
+    photoName:r.name, photoEmoji:(r.emoji || '🥫'),   // 11 Jul: was hardcoded for all 191 cards
     backJs:'closeRecipe()', backLabel:'← Back',
     name:r.name,
     sub: r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '',

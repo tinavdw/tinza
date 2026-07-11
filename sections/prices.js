@@ -832,6 +832,8 @@ const PRICE_DB = {
 
   "preserved lemons": 150,         // R75/500g jar (R95/1kg is better value). MAKEABLE: Spice > Jams & Preserves
 
+  "lime juice": 290,               // a lime is R8.75 and yields ~30ml → ~R290/L. Was falling back to LEMON juice R56/L (5× too cheap).
+
 };
 
 const MEAT_COSTS = {

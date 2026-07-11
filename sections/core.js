@@ -593,7 +593,24 @@ function shopSortKey(name){
     .toLowerCase()
     .trim();
 }
-function tierAllows(t){ return true; } // All features unlocked
+// ── TIER GATE (11 Jul) ────────────────────────────────────────────────────────
+// This was `function tierAllows(t){ return true; }` — "All features unlocked" — which
+// meant the Pro gate on FOOD COST, MY PLAN and the SHOPPING LIST was open to everyone.
+// Rand-denominated costing IS the R50/month, and it was being given away.
+// Built as a LEVEL (locked decision: 0=Free, 1=Pro, 2=Deluxe), not a boolean, so Deluxe
+// has somewhere to go later without another rewrite.
+var TIER_LEVEL = { free:0, pro:1, deluxe:2 };
+function tierLevel(){
+  if(typeof USER_TIER === 'undefined') return 1;   // not loaded yet → behave as Pro.
+                                                   // Never blank out a paying user over a race.
+  var lv = TIER_LEVEL[String(USER_TIER).toLowerCase()];
+  return (lv == null) ? 0 : lv;
+}
+function tierAllows(t){
+  var need = TIER_LEVEL[String(t == null ? 'free' : t).toLowerCase()];
+  if(need == null) need = 0;
+  return tierLevel() >= need;
+}
 function maxMeats(){ return USER_TIER==="free"?2:99; }
 
 function tierBadgeSmall(t){ return ""; } // No tier badges shown
@@ -973,6 +990,16 @@ var PRICE_ALIAS = {
 // exact food cost) and the trolley rounds up to whole units (gold = shop spend).
 // Without this, "80 g avocado" was read as "80 avocados". Keyed by priceOf() key.
 var AVG_WEIGHT_G = {
+  // ── 11 Jul · costing-integrity ────────────────────────────────────────────────
+  // These are priced per-COUNT in PRICE_DB but had no average weight, so a recipe
+  // written in GRAMS had its gram number read as a COUNT OF WHOLE ITEMS.
+  // Thai Green Curry Paste's 25g of chillies was billing for 25 whole chillies (R25).
+  // 85 ingredient lines app-wide, all OVER-charging. No card edits needed — just weights.
+  "garlic cloves":5, "garlic clove":5,      // one clove
+  "green chilli":15, "green chillies":15, chilli:15, chillies:15,
+  // bay leaves deliberately NOT listed: a card saying "1g bay leaves" means ONE LEAF,
+  // not five. Adding a weight there would over-count them. Pennies either way.
+
   avocado:200, lemon:100, lime:70, apple:150, banana:120,
   tomato:120, onion:150, "green pepper":150, "red pepper":150, carrot:80,
   "corn on the cob":200, corn:200, mielie:200, garlic:50, egg:58,
