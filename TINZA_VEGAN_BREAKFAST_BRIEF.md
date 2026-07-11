@@ -45,10 +45,24 @@ Chakalaka already exists in the library (and is queued for cross-section → Spi
 
 ### 3. PRICE_DB — verify before authoring, do not assume
 Costing just went 87% → 96% and load-bearing wrong prices are at **zero**. Do not put that back.
-- **`kala namak` (black salt)** — almost certainly a NEW line. Required by #1.
+
+- **`kala namak` (black salt)** — NEW line. Required by #1.
+  - Tina's market check: **R17 / 500g (bulk spice shop) → R69 / 100g (small jar)**. That's R34/kg to R690/kg — a 20× spread.
+  - **RULING: price it at R200/kg, pack hint "100g pack".** Rationale: the realistic shopper buys a small pack, not bulk. Conservative-high is the safe direction — understating food cost is the one error that damages "pays for itself in saved rands."
+  - Textbook **green/gold** case: **green (food cost)** = the ~2g pinch (cents). **Gold (shop spend)** = the real R25–R69 jar. Never mix them.
 - **dried fava / broad beans** — likely NEW. Required by #3.
 - **corn tortillas** — verify. Required by #4.
 - Everything else should price off existing lines. **Code must confirm each ingredient resolves in PRICE_DB before the card is written**, not after.
+
+### 3b. Kala namak substitute — HONEST SWAP, do not overclaim
+Kala namak's egg quality comes from **sulphur compounds**. Nutritional yeast / garlic powder deliver **umami and savouriness — NOT the egg note.**
+
+Card #1 must say so plainly, e.g.:
+> *No kala namak? Use fine sea salt with a pinch of nutritional yeast. You'll get a properly savoury scramble — but the eggy note is the kala namak's job, and nothing else does it.*
+
+Authentic version stays the headline. No pretending the swap is equivalent. (Fable Brief: honest swaps.)
+
+**→ This is MF27's first real case.** Do NOT build the `substitute:` field now (MF27 is still parked, undesigned). Put the text in method/chefNotes for now, and **log this card as MF27's reference example.**
 
 ### 4. Ingredient Standard
 Name = what you BUY, matching PRICE_DB. Amount = weight g/kg + pack hint. One ingredient per line, **no "+" lines**. Prep goes in the method, never the name.
