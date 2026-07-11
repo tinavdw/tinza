@@ -73,7 +73,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chakalaka", emoji: "🫑",
+    id: "chakalaka", emoji: "🥕",
     name: "Chakalaka",
     type: "relish",
     shelf: "sambals-relishes",
@@ -2367,7 +2367,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-sauce", emoji: "🫐",
+    id: "plum-sauce", emoji: "🥢",
     name: "Plum Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2395,7 +2395,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hummus", emoji: "🫘",
+    id: "hummus", emoji: "🥣",
     name: "Hummus",
     type: "dip",
     shelf: "dressings-dips",
@@ -2535,7 +2535,7 @@ var SPICE_DB = [
 
   
   {
-    id: "muhammara", emoji: "🫑",
+    id: "muhammara", emoji: "🌰",
     name: "Muhammara",
     type: "dip",
     shelf: "dressings-dips",
@@ -2650,7 +2650,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tapenade", emoji: "🫒",
+    id: "tapenade", emoji: "🥫",
     name: "Tapenade",
     type: "dip",
     shelf: "dressings-dips",
@@ -2706,7 +2706,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "white-bean-dip", emoji: "🫘",
+    id: "white-bean-dip", emoji: "🥄",
     name: "White Bean Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2786,7 +2786,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "romesco", emoji: "🫑",
+    id: "romesco", emoji: "🍅",
     name: "Romesco",
     type: "dip",
     shelf: "dressings-dips",
@@ -2900,7 +2900,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cowboy-caviar", emoji: "🫘",
+    id: "cowboy-caviar", emoji: "🌽",
     name: "Cowboy Caviar",
     type: "dip",
     shelf: "dressings-dips",
@@ -2955,7 +2955,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "beetroot-hummus", emoji: "🫘",
+    id: "beetroot-hummus", emoji: "🥗",
     name: "Beetroot Hummus",
     type: "dip",
     shelf: "dressings-dips",
@@ -4035,7 +4035,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fig-jam", emoji: "🫙",
+    id: "fig-jam", emoji: "🍯",
     name: "Fig Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4103,7 +4103,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "raspberry-jam", emoji: "🫐",
+    id: "raspberry-jam", emoji: "🍓",
     name: "Raspberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4177,7 +4177,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-jam", emoji: "🫐",
+    id: "plum-jam", emoji: "🍇",
     name: "Plum Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4826,7 +4826,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "green-fig-konfyt", emoji: "🫙",
+    id: "green-fig-konfyt", emoji: "🍯",
     name: "Green Fig Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4981,7 +4981,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "blueberry-jam", emoji: "🫐",
+    id: "blueberry-jam", emoji: "🍇",
     name: "Blueberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5740,7 +5740,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "marrow-ginger-jam", emoji: "🫚",
+    id: "marrow-ginger-jam", emoji: "🥒",
     name: "Marrow & Ginger Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -6749,7 +6749,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "rhubarb-ginger-chutney", emoji: "🫚",
+  "id": "rhubarb-ginger-chutney", emoji: "🌱",
   "name": "Rhubarb & Ginger Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -7690,7 +7690,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "ajvar", emoji: "🫑",
+  "id": "ajvar", emoji: "🍆",
   "name": "Ajvar",
   "type": "relish",
   "shelf": "sambals-relishes",

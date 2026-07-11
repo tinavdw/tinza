@@ -1,66 +1,63 @@
----
-title: TINZA — Handoff · Reference hero built + Code prompt ready · Portugal build lane open · 10 Jul
----
+%% TINZA — CANONICAL HANDOFF · 11 Jul 2026
+%% Session verdict: SWEETS & CONFECTIONERY = own room, PARKED post-launch. Does NOT block FMF.
+%% Ruled 6 Jul (marathon flowchart), reaffirmed 7 Jul (one-bank-at-a-time / Cutoff Law).
+
 flowchart TD
 
-START["🟢 START HERE — new chat<br/>Opening line to paste:<br/>'Jams DONE. Scope/price/greenlight LOCKED. PORTUGAL = prototype (11 axes). Leftovers standard<br/>final (per-dish research · anti-contamination · easy-first · staples-for-easy · 2–4 quality-gated).<br/>Reference hero BUILT: Bacalhau à Brás green on all 11 = the bar. Code prompt READY (paste it).<br/>Coordination: CODE = sole driver of wk_europe.js; OPUS on engine files + hands hero blocks to place.<br/>Opus owes: 9 more heroes + locale/dried-fresh engine. I re-clone tinavdw/tinza fresh; work off HEAD.'"]
+  subgraph DONE["✅ CLOSED — 11 Jul"]
+    D1["🍰 BAKES · 33 dark recipes recovered<br/>Milk Tart · Malva · Koeksisters · Scones = 4 cat values had no tab<br/>101 cards, all reachable"]
+    D2["🔗 MF26 MAKEABLE (new)<br/>Ingredient → its recipe · costs at shop price · links to kitchen<br/>Generated (makeable.js) · 47 links · NEVER hand-edited<br/>⚠️ STILL NEEDS its script tag in index.html"]
+    D3["💰 COSTING 87% → 96%<br/>Load-bearing wrong prices 32 → 0<br/>5 engine bugs killed: priceClean flattened parens (water billed as syrup R50/kg) ·<br/>one-way de-pluralisation · costRecipe kept a 2nd drifted unit table (Sambar Masala = R0) ·<br/>grams-read-as-counts (Thai Green Curry Paste = 25 whole chillies) · lime priced as lemon"]
+    D4["🔒 PRO GATE CLOSED<br/>tierAllows was 'return true' — food cost, My Plan, shopping all FREE to everyone<br/>Now a LEVEL (0 Free / 1 Pro / 2 Deluxe) · every room flipped together"]
+    D5["🌶️ SPICE ROOM CLOSED<br/>190 cards · cost chips + cost lines (matching Braai) · 190/190 emoji<br/>4 dupes killed (tartare · sambal oelek · pico de gallo · zhug)<br/>+ Fajita Seasoning · Portuguese Roll · 🥑 Creamy Avocado Salsa Verde"]
+  end
 
-subgraph DONE["✅ DONE"]
-  DJ["🏆 Jams &amp; Preserves ROOM COMPLETE (spice.js 192, 9 chips, twists repaired) — push latest.<br/>🏁 ALL 10 PORTUGAL HEROES authored + green on 11 axes (5 hero files ready for Code to place).<br/>🏆 Standards final: Portugal-prototype (11 axes) + leftovers standard + salt-fish card + 9 Alentejo sets.<br/>🏆 CODE PROMPT given (running batch-4 tail)."]
-end
+  subgraph LAW["⚖️ HARD RULE — re-learned the hard way"]
+    L1["node --check PROVES NOTHING.<br/>It passed on a ZERO-BYTE spice.js after I truncated the file.<br/>ALWAYS: render-prove (run the real engine over the merged pool)<br/>+ check FILE SIZE + check RECORD COUNTS."]
+  end
 
-subgraph STATE["📌 Current state (all safe)"]
-  S1["spice.js = 192 base (Jams COMPLETE). core.js = BD13 twist engine DONE + tested.<br/>🔑 Opus reads the public repo directly. origin/main HEAD after Broa upgrade (9d719d6).<br/>✅ Shapes: leftovers = ['(tier) text',…] · crossLinks = [{name,target,emoji}].<br/>✅ BROA DONE: upgraded to WOW in-place (same id portugal-broa-de-milho; de Avintes twist;<br/>polvo/tripas/heroes all resolve). bk-broa cancelled. Photo studio work PARKED (spice pass)."]
-  S3["✅ Garden Green Salad = id `greensalad` (data.js); 5 heroes relinked. ✅ Broa = WK card<br/>`portugal-broa-de-milho`, upgraded to WOW (9d719d6); heroes/polvo/tripas resolve. 💰 price-key<br/>gaps: pig's ear (#294) · bread flour (#295 → alias to cake flour in prices.js) · carrots-vs-carrot ·<br/>salted-cod ladder. ⚠️ dup IDs still: tartare-sauce · sambal-oelek."]
-end
+  subgraph NEXT["🎯 NEXT — in order"]
+    N1["1️⃣ VEGAN BREAKFAST BATCH<br/>needs Tina's taste · closes FMF mains"]
+    N2["2️⃣ MF16 CUISINE-TAG SWEEP<br/>→ FMF done"]
+    NQ{"❓ SIDES & BASICS<br/>Router fixed 30 Jun · wired + reachable<br/>BUT logged 7 Jul as 'last FMF room, WIP — needs real authoring'<br/>TINA: is it authored, or is this still open?<br/>If open, FMF does NOT close on 1+2 alone."}
+    N3["3️⃣ SPICE NUT BUTTERS (6)<br/>blocked on → variations-block mockups"]
+    N4["4️⃣ WK WOW PASS<br/>thin cards · 976 stubs · Germany + N.Ireland missing<br/>cookTime · storage · chefNotes · trivia"]
+    N5["5️⃣ NEW WK COUNTRIES — LAST"]
+    N1 --> N2 --> NQ --> N3 --> N4 --> N5
+  end
 
-subgraph LOCKS["🔒 LOCKED (Tina confirmed 10 Jul)"]
-  K1["1️⃣ SCOPE = SA-FIRST (Oct SA-only live; locale field+overrides built now; UK/US/EU fast-follow)."]
-  K2["2️⃣ COD = R450/kg (+ ladder: snoek ~R180 · salted-hake ≈ fresh-hake+ · fresh-hake key)."]
-  K3["3️⃣ WK FIX-QUEUE = GREENLIT for Code (incl. Tier-1 leftovers fix)."]
-  K1-->K2-->K3
-end
+  subgraph SWEETS["🍬 THE FUDGE VERDICT (asked & answered)"]
+    S1["SWEETS & CONFECTIONERY = ITS OWN ROOM. PARKED. POST-LAUNCH.<br/>Ruled 6 Jul · reaffirmed 7 Jul · NOT an FMF blocker."]
+    S2["When built, it's partly GATHER-AND-CROSS-LINK, not all fresh authoring:<br/>🍫 Haystack Fudge — already live in KIDDIES<br/>🍫 Nut & Cherry Chocolate Fudge — already live in FINGER FOODS › Sweet Bites<br/>🍩 Koeksisters — already live in BAKES<br/>DUPLICATE RULE: same dish + same name → keep most comprehensive."]
+    S3["Candidate shelf when it opens:<br/>Fudge · Nougat · Tameletjie · Fruit rolls · Truffles · Turkish delight · Toffee/brittle · Marshmallow"]
+    S1 --> S2 --> S3
+  end
 
-subgraph PROTO["🇵🇹 PORTUGAL = PROTOTYPE — 11 axes (/wk + /wow)"]
-  P1["recipe quality · versions · story(origin here, NOT region) · leftovers · ingredient specificity ·<br/>method completeness · goesWith link-or-drop · component cross-links · region vocab · locale-ready ·<br/>10 heroes. Green on all 11 = gold copy; every other country/section played off against it.<br/>Roll outward AFTER Portugal; do NOT gate Oct on all sections."]
-  P2["🔗 COMPONENT LINK + SHOPPING SPLIT (governing): link EVERY required component with a house<br/>recipe (rolls→Bakes; curry mixes/chutneys/dressings/stocks→Spice; salt-cod→make-your-own).<br/>BUT shopping list defaults to SHOP-BOUGHT + own PRICE_DB key, never the exploded sub-recipe.<br/>Link = 'make your own if you like'. Known: green salad → Garden Green Salad (Braai);<br/>Broa de Milho → VERIFY in Bakes, link-or-drop. Code confirms price keys exist as it goes."]
-  P1-->P2
-end
+  subgraph PARKED["🅿️ PARKED — not lost, just not now"]
+    P1["SAMENESS — Braai is LIGHT-themed, Spice is DARK.<br/>Needs a proper conversation, not a quick patch. TOP PRIORITY when it lands."]
+    P2["App-wide FLOATING MY PLAN<br/>any dish · any room · one shared plan"]
+    P3["VARIATIONS-BLOCK MOCKUPS<br/>(blocks Spice nut butters)"]
+    P4["MF27 SUBSTITUTES FIELD<br/>'No galangal? Use ginger.'<br/>Tina already supplied a pile of real SA substitutes.<br/>Design BEFORE the WK pass — SA availability is the recurring problem."]
+    P5["TOUM RENAME (wk_africa ~L132)"]
+    P6["KIDDIES SWEEP<br/>12 themes' cakes: 'icing butter'/'icing milk' → plain butter/milk<br/>Unify cooldrink per kid (400ml) · audit all methods + ingredients"]
+    P7["PICO DE GALLO ingredient names<br/>break the INGREDIENT STANDARD (name = what you BUY, matching PRICE_DB)"]
+    P8["PHOTO STUDIO regen — 2,123 dishes<br/>Outstanding filter = the live shot list"]
+  end
 
-subgraph LEFT["🥡 LEFTOVERS STANDARD — FINAL"]
-  LF["per-dish research → authentic continuity (migas→açorda; theme pairings) →<br/>⚠️ ANTI-CONTAMINATION (PT migas ≠ Mexican migas; drop foreign namesakes) →<br/>already-frugal = reheat/crisp not 'turn into something else' →<br/>⚖️ EFFORT MIX easy-first (1–2 easy → 1 creative capstone: à Brás/com natas → bolinhos) →<br/>🛒 easy = staples already home (no rare); creative may call a modest shop/online extra →<br/>📏 QUANTITY 2–4 quality-gated (2 strong &gt; 4 padded, never pad) → SA-appropriate.<br/>Tier-1 fallback for un-researched tail = category-correct + honest only (WK-WIDE scan)."]
-end
+  DONE --> LAW --> NEXT
+  NEXT -.->|"answered, stays parked"| SWEETS
+  NEXT -.-> PARKED
 
-subgraph OPUSQ["🎯 OPUS QUEUE (mine — engine files, NOT wk_europe.js)"]
-  O1["🏁 ALL 10 HEROES DONE: cod trinity · caldo verde · francesinha · frango piri-piri ·<br/>leitão · cozido · pastéis de nata · bolo rei. Full set ready — hand Code ONE placing<br/>pass (5 files) after tail is done + reviewed."]
-  O3["⚙️ WK ENGINE PASS (axes 4&amp;8) — worldkitchen.js + core.js. ✅ Opus READ the live engine:<br/>crosslink render uses WK_CROSS_LINKS[r.id] (extend to r.crossLinks) · leftover hook wk.js:648-650<br/>(wkLeftoverKeys→leftoverBoxHTML; add r.leftovers-wins via leftoverListHTML) · LEFTOVER_IDEAS pools<br/>(category floor, keep) · LEFTOVER_HERITAGE factoid rotates blind (kill/dish-match) · mis-mapper<br/>match-primary. READY to write edits. NEEDS: Tina pushes Code's batch-4 → Opus re-pulls to see<br/>r.leftovers/r.crossLinks exact shapes + test live."]
-  O2["⏭️ LOCALE / DRIED⇄FRESH ENGINE (field + override map, cod=#1 + substitute triples).<br/>Engine files, NOT wk_europe.js. Do when Tina can test live — touches costing."]
-  O4["🧂 PLACE 'Salt Your Own Cod' in spice.js (Spice PRESERVES cluster, NOT Bakes — it's a<br/>salt-cure; content already authored). Awaiting Tina: shelf = jams-preserves or a 'Cures'<br/>sub-cluster + card type. Then hand Code the id → Code wires cross-link from bacalhau cards."]
-end
+  classDef done fill:#e8f0d8,stroke:#46530c,color:#2c3307
+  classDef law fill:#fce9e9,stroke:#a33,color:#611
+  classDef next fill:#fdf3dc,stroke:#876213,color:#4a350a
+  classDef ask fill:#fff3cd,stroke:#c47f00,color:#5c3d00,stroke-width:3px
+  classDef sweet fill:#f5e6f2,stroke:#8a4d7a,color:#4a2942
+  classDef park fill:#eeeae4,stroke:#8a7f70,color:#3d372f
 
-subgraph OWN["📛 OWNERSHIP RULE (locked 10 Jul — resolves Code's Q1)"]
-  W1["DATA = Code · ENGINE = Opus. Per-card leftovers arrays + cross-link/goesWith refs<br/>live in wk_europe.js → CODE authors (incl. axes 4 &amp; 8 data). The render hook, deriver,<br/>LEFTOVER_IDEAS pools, factoid, mis-mapper, cross-link render + shopping-split live in<br/>worldkitchen.js + core.js → OPUS. **core.js is NEVER Code** (shared engine; a bug breaks<br/>every section). Tail ships 7-green + 4&amp;8 data staged → 11-green after Opus engine pass."]
-end
-
-subgraph CODE["🌍 CODE QUEUE — sole driver of wk_europe.js"]
-  C1["✅ BATCH 4a (b49db69): 4 savoury-tail cards to bar on 7 axes — tripas à Porto (beef honeycomb<br/>tripe · chouriço · pig's ear) · feijoada à Transmontana (RED beans, not Brazilian ✅) · chanfana<br/>(goat leg/shoulder on bone) · arroz de pato (whole duck/legs). ✅ BATCH 4b (0eecb49): axes 4&amp;8<br/>DATA staged on 8 cards (leftovers[] + crossLinks[]), content byte-preserved, node-check clean."]
-  C2["▶️ NEXT SUB-BATCH (parallel w/ Opus engine pass — different files): lift 5 thin cards<br/>(bifana · favas-guisadas · bifinhos · sopa-de-pedra · migas) + leftovers[]. Rulings:<br/>queijo-assado ELEVATE w/ Azeitão assado (method-complete) or CUT · ginjinha author<br/>method-complete or RESERVE for Opus (→ Spice preserves infusion). Spain §6.5 HOLD."]
-end
-
-subgraph NEXT["🧂 LATER — Spice-room polish"]
-  N1["2 dup IDs · howThisFeels jazz (126 blank) · Dips 'Back'→Main bug · Spice region-vocab cleanup."]
-  N3["🌍 WK COUNTRY WIRING BUG (found via screenshots): France 25 + Germany 26 + N.Ireland 28 (+6 FR sauces)<br/>BUILT but UNREACHABLE — not loaded in index.html, no window attach, not in worldkitchen.js concat,<br/>not in region map. FIX DELIVERED + verified (TINZA_WK_COUNTRY_FIX.md): 4 edits (index.html 3 script tags ·<br/>window assigns ×3 · concat line 58 · region map after Austria). N.Ireland region = Tina's call (put in Western).<br/>Opus/engine lane — safe to hand Code (no wk_europe.js collision). node --check clean."]
-  N2["📸 PHOTOS — SOLVED. Root cause: audit tool was blind to JSON sections + counted versions/<br/>ingredients as fake recipes. FIXED tool (photo-audit.FIXED.js) + 4 artifacts delivered.<br/>TRUE STATE: 1816 real recipes · 1083 done (60%) · 733 need a photo. Shoot-list by room<br/>(PHOTO_SHOOTLIST.md): WK-Europe 303 · Meals 158 · WK-Asia 101 · Spice 58 · WK-France 30 · rest small.<br/>PLAN: run reconnect-photos.sh (49 recovered + junk gone) → swap in fixed tool → work shoot-list by<br/>room → IGNORE orphans (leftovers from renamed dishes). Matching is by NAME; Studio prompts = no recognition needed."]
-end
-
-START-->DONE-->STATE
-STATE-->LOCKS-->PROTO
-PROTO-->LEFT
-PROTO-->OPUSQ
-PROTO-->CODE
-LEFT-->CODE
-LEFT-->OWN
-OWN-->OPUSQ
-OWN-->CODE
-LOCKS-->OPUSQ
-STATE-->NEXT
+  class D1,D2,D3,D4,D5 done
+  class L1 law
+  class N1,N2,N3,N4,N5 next
+  class NQ ask
+  class S1,S2,S3 sweet
+  class P1,P2,P3,P4,P5,P6,P7,P8 park
