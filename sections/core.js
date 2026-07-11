@@ -601,8 +601,8 @@ function shopSortKey(name){
 // has somewhere to go later without another rewrite.
 var TIER_LEVEL = { free:0, pro:1, deluxe:2 };
 function tierLevel(){
-  if(typeof USER_TIER === 'undefined') return 1;   // not loaded yet → behave as Pro.
-                                                   // Never blank out a paying user over a race.
+  if(typeof USER_TIER === 'undefined') return 0;   // unknown tier → FREE (fail closed, never Pro).
+                                                   // A fresh/incognito session must land on Free.
   var lv = TIER_LEVEL[String(USER_TIER).toLowerCase()];
   return (lv == null) ? 0 : lv;
 }

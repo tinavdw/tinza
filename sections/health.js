@@ -823,6 +823,7 @@ function healthRecipeDetail(recipe, backState){
       <div style="margin-top:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:14px;">
         <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
         ${(function(){
+          if(!tierAllows('pro')) return `<div style="font-size:14px;color:var(--accent);font-weight:bold;">🔒 Pro</div>`;
           if(recipe.costPP) return `<div style="font-size:18px;color:var(--gold);font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:13px;color:var(--green);margin-top:4px;">SA&#39;s biggest retailers · ${PRICE_ASOF} · Buy 10% extra</div>`;
           let t=0, m=0, n=0;
           (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
@@ -1325,6 +1326,7 @@ function healthExtDetail(recipe){
       <div style="margin-top:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:14px;">
         <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
         ${(function(){
+          if(!tierAllows('pro')) return `<div style="font-size:14px;color:var(--accent);font-weight:bold;">🔒 Pro</div>`;
           if(totalCost) return `<div style="font-size:18px;color:var(--gold);font-weight:bold;">${totalCost}</div><div style="font-size:13px;color:var(--green);margin-top:4px;">SA&#39;s biggest retailers · ${PRICE_ASOF} · Buy 10% extra</div>`;
           let t=0, m=0, n=0;
           (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
