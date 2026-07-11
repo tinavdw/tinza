@@ -5976,8 +5976,7 @@ var BREAKFAST_RECIPES = [
       "Add the tofu and turmeric and fry, stirring now and then, for 5–6 minutes. Turmeric is doing two jobs: colour, and a faint earthy warmth. Let some curds catch and gild on the pan base — those browned edges are flavour.",
       "Now the sulphur note: kill the heat to low, scatter over the kala namak and the nutritional yeast, and fold through. Off-the-boil is deliberate — high heat drives off the volatile sulphur that makes it read as egg, so it goes in late and gentle.",
       "Fold in the halved cherry tomatoes and spinach and let the residual heat wilt the leaves and warm the tomatoes without collapsing them — about a minute. Grind over the pepper and serve at once, while the curds still steam.",
-      "No kala namak? Use fine sea salt with a pinch of nutritional yeast. You'll get a properly savoury scramble — but the eggy note is the kala namak's job, and nothing else does it. Nutritional yeast brings umami and garlic powder brings savour; neither brings the sulphur. Be honest with yourself about which dish you're making.",
-      "A note on cost: good firm tofu isn't cheap in South Africa — around R50 for a 200g block — so this is a treat-priced breakfast, not an everyday-cheap one. If you want the same eggy, sulphur-savoury plate for a fraction of the price, tap the Chickpea Flour Scramble version below. It's built from nothing but gram flour, water and the same turmeric and kala namak, and it is a genuinely good dish in its own right — a real alternative, not a sad compromise."
+      "No kala namak? Use fine sea salt with a pinch of nutritional yeast. You'll get a properly savoury scramble — but the eggy note is the kala namak's job, and nothing else does it. Nutritional yeast brings umami and garlic powder brings savour; neither brings the sulphur. Be honest with yourself about which dish you're making."
     ],
     "tip": "Pressing is non-negotiable and turmeric is a whisper, not a spoonful — a gram is plenty. Too much and you get a bitter, fluorescent scramble that tastes of the spice rack instead of breakfast.",
     "nutrition": {
@@ -5988,9 +5987,8 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best straight from the pan. Keeps 2 days in the fridge and reheats in a dry pan over low heat; does not freeze — thawed tofu turns spongy and weeps water.",
     "goesWith": [
-      "Chakalaka Beans on Toast",
-      "Masala Scramble (Akoori)",
-      "Menemen (Turkish Scramble)"
+      "Ful Medames",
+      "Savoury Chickpea-Flour French Toast"
     ],
     "versions": [
       {
@@ -6059,7 +6057,7 @@ var BREAKFAST_RECIPES = [
           "Off the heat, fold in kala namak and nutritional yeast — the sulphur note goes in late so it isn't cooked away.",
           "Wilt in tomatoes and spinach with the residual heat, grind over pepper, serve steaming."
         ],
-        "tip": "Kala namak in late and off the boil — that timing is the difference between 'savoury' and 'egg'.",
+        "tip": "Kala namak in late and off the boil — that timing is the difference between 'savoury' and 'egg'. And a note on cost: tofu runs about R250/kg in South Africa, which makes this one of the pricier breakfasts here — for the same eggy, sulphur-savoury plate at a fraction of the price, tap the Chickpea Flour Scramble chip. Gram flour, turmeric and kala namak: a proper dish in its own right, not a sad compromise.",
         "nutrition": {
           "kcal": 260,
           "protein_g": 20,
@@ -6069,7 +6067,7 @@ var BREAKFAST_RECIPES = [
         "storage": "2 days fridge; does not freeze."
       },
       {
-        "name": "Masala Scramble",
+        "name": "Masala Tofu",
         "icon": "🌶️",
         "feel": "The Indian route — turmeric and cumin bloomed in hot oil, green chilli, a fistful of coriander. Akoori's vegan cousin.",
         "time": 25,
@@ -6133,7 +6131,7 @@ var BREAKFAST_RECIPES = [
           "Add tofu and chopped tomato, fry 6 minutes until the tomato collapses into the curds.",
           "Off the heat, fold through kala namak and a fistful of coriander; grind over pepper and serve."
         ],
-        "tip": "Bloom the turmeric and cumin in the hot oil before the tofu goes in — raw ground spice tastes chalky.",
+        "tip": "Bloom the turmeric and cumin in the hot oil before the tofu goes in — raw ground spice tastes chalky. And a note on cost: tofu runs about R250/kg in South Africa, which makes this one of the pricier breakfasts here — for the same eggy, sulphur-savoury plate at a fraction of the price, tap the Chickpea Flour Scramble chip. Gram flour, turmeric and kala namak: a proper dish in its own right, not a sad compromise.",
         "nutrition": {
           "kcal": 270,
           "protein_g": 19,
@@ -6144,7 +6142,7 @@ var BREAKFAST_RECIPES = [
       },
       {
         "name": "Mediterranean",
-        "icon": "🫒",
+        "icon": "🌿",
         "feel": "Good olive oil, sweet cherry tomatoes and a raw peppery drizzle to finish — the scramble that thinks it's on a Greek terrace.",
         "time": 25,
         "costPP": 54,
@@ -6207,7 +6205,7 @@ var BREAKFAST_RECIPES = [
           "Off the heat fold in kala namak and nutritional yeast, then wilt in tomatoes and spinach.",
           "Finish with an extra thread of raw olive oil over the top — the cold fruity oil is the Mediterranean signature."
         ],
-        "tip": "Save a little of the good olive oil to drizzle raw at the end — cooked oil fries, raw oil perfumes.",
+        "tip": "Save a little of the good olive oil to drizzle raw at the end — cooked oil fries, raw oil perfumes. And a note on cost: tofu runs about R250/kg in South Africa, which makes this one of the pricier breakfasts here — for the same eggy, sulphur-savoury plate at a fraction of the price, tap the Chickpea Flour Scramble chip. Gram flour, turmeric and kala namak: a proper dish in its own right, not a sad compromise.",
         "nutrition": {
           "kcal": 280,
           "protein_g": 20,
@@ -6358,16 +6356,15 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Best fresh off the pan. Keeps 1 day in the fridge and re-crisps in a dry pan; loses its custardy middle on standing, so eat it the day you make it. Does not freeze.",
     "goesWith": [
-      "Masala Scramble (Akoori)",
-      "Curry & Coconut Oats",
-      "Chakalaka Beans on Toast"
+      "Tofu Scramble",
+      "Ful Medames"
     ]
   },
   {
     "id": "bf-ful-medames",
     "cat": "fryups",
     "name": "Ful Medames",
-    "emoji": "🫘",
+    "emoji": "🍲",
     "cuisine": "Egyptian",
     "photoName": "Ful Medames",
     "freezes": true,
@@ -6450,9 +6447,8 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "The dressed beans keep 3 days in the fridge and improve overnight as the flavours settle; add a fresh squeeze of lemon when you reheat. The plain cooked beans freeze well for 3 months — dress them fresh after thawing.",
     "goesWith": [
-      "Turkish Eggs",
-      "Shakshuka",
-      "Chakalaka Beans on Toast"
+      "Tofu Scramble",
+      "Savoury Chickpea-Flour French Toast"
     ]
   },
   {
@@ -6562,9 +6558,8 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "The bean-and-corn filling keeps 2 days in the fridge and reheats well — build the tacos fresh with just-warmed tortillas and avocado at the last minute. Assembled tacos go soggy, so don't store them made up. Filling freezes 2 months.",
     "goesWith": [
-      "Shakshuka",
-      "Masala Scramble (Akoori)",
-      "Chakalaka Beans on Toast"
+      "Tofu Scramble",
+      "Ful Medames"
     ]
   },
   {
@@ -6649,9 +6644,8 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Keeps 3 days in the fridge, where it sets solid — loosen with a good splash of water or stock when reheating and it comes back to silk. Freezes 2 months; thaw and slacken the same way. Add fresh toppings each time.",
     "goesWith": [
-      "Congee with Crispy Onions & Soy Egg",
-      "Gilgeori Toast (Korean Street Toast)",
-      "Champorado (Filipino Chocolate Rice Porridge)"
+      "Tofu Scramble",
+      "Savoury Chickpea-Flour French Toast"
     ]
   },
   {
@@ -6731,9 +6725,7 @@ var BREAKFAST_RECIPES = [
     },
     "storage": "Overnight oats keep 4 days in the fridge and only get better — this is the whole meal-prep point. Baked oats keep 4 days and freeze 2 months in slices; reheat a slice 30 seconds in the microwave or warm in a low oven.",
     "goesWith": [
-      "Baked Berry Oats",
-      "Rooibos & Honey Oats",
-      "Custard Protein Oats"
+      "Curry & Coconut Oats"
     ],
     "versions": [
       {
@@ -6933,7 +6925,7 @@ var BREAKFAST_RECIPES = [
       },
       {
         "name": "Berry & Chia",
-        "icon": "🫐",
+        "icon": "🍇",
         "feel": "Bright, tart and jammy where the berries bleed into the set oats overnight.",
         "time": 10,
         "costPP": 23,
@@ -15949,7 +15941,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     if(r.costPP){
       const total = r.costPP * _scale;
       return `<div style="background:#0f1a08;border:1px solid #5a8010;border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+        <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:10px;">💰 Food Cost</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
           <div style="font-size:13px;color:#718933;">Total for ${sv} people</div>
           <div style="font-size:24px;font-weight:bold;color:#c8e840;">R${total}</div>
@@ -15958,7 +15950,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <div style="font-size:13px;color:#6a892e;">Per person</div>
           <div style="font-size:16px;font-weight:bold;color:#a0c030;">R${_bakeP?Math.round((r.costPP*_scale)/sv):r.costPP}</div>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:#748932;">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div>
+        <div style="margin-top:8px;font-size:13px;color:#748932;">SA&#39;s biggest retailers · ${PRICE_ASOF} · Always buy 10% extra.</div>
       </div>`;
     }
     return '';
@@ -15998,10 +15990,10 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
         <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
       if(r.costPP){ const total=r.costPP*_scale; return `<div style="background:var(--green-tint);border:1px solid var(--green-soft);border-radius:10px;padding:14px;margin-bottom:12px;">
-        <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:10px;">💰 Cost Estimate</div>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:10px;">💰 Food Cost</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink-soft);">${_bakeP?("Total · "+_bakeUnitLbl):("Total for "+sv+" people")}</div><div style="font-size:24px;font-weight:bold;color:var(--green);">R${total}</div></div>
         <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--line);"><div style="font-size:13px;color:var(--ink-soft);">${_bakeP?("Per "+_bakeP.pieceWord):"Per person"}</div><div style="font-size:16px;font-weight:bold;color:var(--green);">R${_bakeP?Math.round((r.costPP*_scale)/_bakeUnits):r.costPP}</div></div>
-        <div style="margin-top:8px;font-size:13px;color:var(--ink-soft);">SA&#39;s biggest retailers · May 2026 · Always buy 10% extra.</div></div>`; }
+        <div style="margin-top:8px;font-size:13px;color:var(--ink-soft);">SA&#39;s biggest retailers · ${PRICE_ASOF} · Always buy 10% extra.</div></div>`; }
       return '';
     })();
     return `<div style="min-height:100vh;background:var(--bg);">

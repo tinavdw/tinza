@@ -1,3 +1,4 @@
+const PRICE_ASOF = 'July 2026';   // pricing as-of date — single source; referenced by meals.js + health.js cost footers
 const PRICE_DB = {
   // ── WK pricing pass (1 Jul, Tina-sourced) — duck/trout priced (buyable in SA), count-items ──
   "duck": 200,                    // whole duck R160–250/kg → honest mid
