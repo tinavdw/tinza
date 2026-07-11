@@ -17,7 +17,7 @@
 var SPICE_DB = [
 
   {
-    id: "garam-masala",
+    id: "garam-masala", emoji: "🍛",
     name: "Garam Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -45,7 +45,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "peri-peri-sauce",
+    id: "peri-peri-sauce", emoji: "🔥",
     name: "Peri-Peri Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -73,7 +73,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chakalaka",
+    id: "chakalaka", emoji: "🫑",
     name: "Chakalaka",
     type: "relish",
     shelf: "sambals-relishes",
@@ -103,7 +103,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "banana-sambal",
+    id: "banana-sambal", emoji: "🍌",
     name: "Banana Sambal",
     type: "relish",
     shelf: "sambals-relishes",
@@ -128,7 +128,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "carrot-sambal",
+    id: "carrot-sambal", emoji: "🥕",
     name: "Carrot Sambal",
     type: "relish",
     shelf: "sambals-relishes",
@@ -155,7 +155,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mango-atchar",
+    id: "mango-atchar", emoji: "🥭",
     name: "Mango Atchar",
     type: "chutney",
     shelf: "chutneys-atchars",
@@ -183,7 +183,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "apricot-chutney",
+    id: "apricot-chutney", emoji: "🍑",
     name: "Apricot Chutney",
     type: "chutney",
     shelf: "chutneys-atchars",
@@ -214,7 +214,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chimichurri",
+    id: "chimichurri", emoji: "🌿",
     name: "Chimichurri",
     type: "sauce",
     shelf: "sauces",
@@ -241,7 +241,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "monkey-gland-sauce",
+    id: "monkey-gland-sauce", emoji: "🥩",
     name: "Monkey Gland Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -270,7 +270,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "berbere",
+    id: "berbere", emoji: "🧂",
     name: "Berbere",
     type: "blend",
     shelf: "spice-blends",
@@ -300,7 +300,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "ras-el-hanout",
+    id: "ras-el-hanout", emoji: "🧂",
     name: "Ras el Hanout",
     type: "blend",
     shelf: "spice-blends",
@@ -331,7 +331,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "baharat",
+    id: "baharat", emoji: "🧂",
     name: "Baharat",
     type: "blend",
     shelf: "spice-blends",
@@ -360,7 +360,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "zaatar",
+    id: "zaatar", emoji: "🌿",
     name: "Za'atar",
     type: "blend",
     shelf: "spice-blends",
@@ -384,7 +384,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "dukkah",
+    id: "dukkah", emoji: "🌰",
     name: "Dukkah",
     type: "blend",
     shelf: "spice-blends",
@@ -410,7 +410,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chinese-five-spice",
+    id: "chinese-five-spice", emoji: "🧂",
     name: "Chinese Five Spice",
     type: "blend",
     shelf: "spice-blends",
@@ -435,7 +435,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "shichimi-togarashi",
+    id: "shichimi-togarashi", emoji: "🧂",
     name: "Shichimi Togarashi",
     type: "blend",
     shelf: "spice-blends",
@@ -462,7 +462,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cajun-seasoning",
+    id: "cajun-seasoning", emoji: "🍖",
     name: "Cajun Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -489,7 +489,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "jerk-seasoning",
+    id: "jerk-seasoning", emoji: "🍖",
     name: "Jerk Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -518,7 +518,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cape-malay-curry-powder",
+    id: "cape-malay-curry-powder", emoji: "🍛",
     name: "Cape Malay Curry Powder",
     type: "blend",
     shelf: "spice-blends",
@@ -549,7 +549,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "durban-masala",
+    id: "durban-masala", emoji: "🍛",
     name: "Durban Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -578,7 +578,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tandoori-masala",
+    id: "tandoori-masala", emoji: "🍛",
     name: "Tandoori Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -608,7 +608,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "harissa-spice",
+    id: "harissa-spice", emoji: "🌶️",
     name: "Harissa (Dry Spice)",
     type: "blend",
     shelf: "spice-blends",
@@ -635,7 +635,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fajita-seasoning",
+    id: "fajita-seasoning", emoji: "🧂",
     name: "Fajita Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -662,7 +662,7 @@ var SPICE_DB = [
     howThisFeels: "Smoke first, then a warm earthy hum, then a citrus lift that arrives late. Barely hot \u2014 the fire here is the pan, not the chilli."
   },
   {
-    id: "taco-seasoning",
+    id: "taco-seasoning", emoji: "🧂",
     name: "Taco / Mexican Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -690,7 +690,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chesapeake-bay-seasoning",
+    id: "chesapeake-bay-seasoning", emoji: "🧂",
     name: "Chesapeake Bay Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -720,7 +720,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lebanese-seven-spice",
+    id: "lebanese-seven-spice", emoji: "🧂",
     name: "Lebanese Seven Spice",
     type: "blend",
     shelf: "spice-blends",
@@ -748,7 +748,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "panch-phoron",
+    id: "panch-phoron", emoji: "🧂",
     name: "Panch Phoron",
     type: "blend",
     shelf: "spice-blends",
@@ -773,7 +773,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "quatre-epices",
+    id: "quatre-epices", emoji: "🧂",
     name: "Quatre Épices",
     type: "blend",
     shelf: "spice-blends",
@@ -798,7 +798,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chaat-masala",
+    id: "chaat-masala", emoji: "🍛",
     name: "Chaat Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -826,7 +826,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sri-lankan-roasted-curry-powder",
+    id: "sri-lankan-roasted-curry-powder", emoji: "🍛",
     name: "Sri Lankan Roasted Curry Powder",
     type: "blend",
     shelf: "spice-blends",
@@ -855,7 +855,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "madras-curry-powder",
+    id: "madras-curry-powder", emoji: "🍛",
     name: "Madras Curry Powder",
     type: "blend",
     shelf: "spice-blends",
@@ -885,7 +885,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "breyani-masala",
+    id: "breyani-masala", emoji: "🍛",
     name: "Breyani Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -916,7 +916,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mixed-spice",
+    id: "mixed-spice", emoji: "🧂",
     name: "Mixed Spice (Baking)",
     type: "blend",
     shelf: "spice-blends",
@@ -942,7 +942,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "khmeli-suneli",
+    id: "khmeli-suneli", emoji: "🌿",
     name: "Khmeli Suneli",
     type: "blend",
     shelf: "spice-blends",
@@ -971,7 +971,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "advieh",
+    id: "advieh", emoji: "🧂",
     name: "Advieh",
     type: "blend",
     shelf: "spice-blends",
@@ -998,7 +998,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hawaij-soup",
+    id: "hawaij-soup", emoji: "🍲",
     name: "Hawaij (for Soup)",
     type: "blend",
     shelf: "spice-blends",
@@ -1024,7 +1024,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "suya-spice",
+    id: "suya-spice", emoji: "🥜",
     name: "Suya Spice (Yaji)",
     type: "blend",
     shelf: "spice-blends",
@@ -1050,7 +1050,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "adobo-seasoning",
+    id: "adobo-seasoning", emoji: "🧂",
     name: "Adobo Seasoning",
     type: "blend",
     shelf: "spice-blends",
@@ -1077,7 +1077,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chicken-rub",
+    id: "chicken-rub", emoji: "🍖",
     name: "All-Purpose Chicken Rub",
     type: "rub",
     shelf: "spice-blends",
@@ -1105,7 +1105,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fish-rub",
+    id: "fish-rub", emoji: "🐟",
     name: "Fish & Seafood Rub",
     type: "rub",
     shelf: "spice-blends",
@@ -1133,7 +1133,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "pork-rub",
+    id: "pork-rub", emoji: "🍖",
     name: "Pork Rub (Sweet & Smoky)",
     type: "rub",
     shelf: "spice-blends",
@@ -1161,7 +1161,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "steak-rub",
+    id: "steak-rub", emoji: "🍖",
     name: "Steak & Beef Rub",
     type: "rub",
     shelf: "spice-blends",
@@ -1189,7 +1189,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lamb-rub",
+    id: "lamb-rub", emoji: "🧄",
     name: "Lamb Rub (Rosemary & Garlic)",
     type: "rub",
     shelf: "spice-blends",
@@ -1218,7 +1218,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "ginger-garlic-paste",
+    id: "ginger-garlic-paste", emoji: "🧄",
     name: "Ginger-Garlic Paste",
     type: "paste",
     shelf: "spice-blends",
@@ -1242,7 +1242,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chermoula",
+    id: "chermoula", emoji: "🌿",
     name: "Chermoula",
     type: "paste",
     shelf: "spice-blends",
@@ -1270,7 +1270,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "thai-green-curry-paste",
+    id: "thai-green-curry-paste", emoji: "🍛",
     name: "Thai Green Curry Paste",
     type: "paste",
     shelf: "spice-blends",
@@ -1300,7 +1300,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "thai-red-curry-paste",
+    id: "thai-red-curry-paste", emoji: "🍛",
     name: "Thai Red Curry Paste",
     type: "paste",
     shelf: "spice-blends",
@@ -1330,7 +1330,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tartare-sauce",
+    id: "tartare-sauce", emoji: "🥚",
     name: "Tartare Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1358,7 +1358,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mushroom-sauce",
+    id: "mushroom-sauce", emoji: "🍄",
     name: "Creamy Mushroom Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1387,7 +1387,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "pepper-sauce",
+    id: "pepper-sauce", emoji: "🧂",
     name: "Pepper Sauce (Peppercorn)",
     type: "sauce",
     shelf: "sauces",
@@ -1414,7 +1414,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cheese-sauce",
+    id: "cheese-sauce", emoji: "🥛",
     name: "Cheese Sauce (Mornay)",
     type: "sauce",
     shelf: "sauces",
@@ -1441,7 +1441,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "creamy-garlic-sauce",
+    id: "creamy-garlic-sauce", emoji: "🧄",
     name: "Creamy Garlic Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1469,7 +1469,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "brown-gravy",
+    id: "brown-gravy", emoji: "🥣",
     name: "Brown Gravy",
     type: "sauce",
     shelf: "sauces",
@@ -1496,7 +1496,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "onion-gravy",
+    id: "onion-gravy", emoji: "🧅",
     name: "Onion Gravy",
     type: "sauce",
     shelf: "sauces",
@@ -1524,7 +1524,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "bearnaise-sauce",
+    id: "bearnaise-sauce", emoji: "🥚",
     name: "Béarnaise Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1551,7 +1551,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hollandaise-sauce",
+    id: "hollandaise-sauce", emoji: "🥚",
     name: "Hollandaise Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1577,7 +1577,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "bechamel-sauce",
+    id: "bechamel-sauce", emoji: "🥛",
     name: "Béchamel (White Sauce)",
     type: "sauce",
     shelf: "sauces",
@@ -1603,7 +1603,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "diane-sauce",
+    id: "diane-sauce", emoji: "🥩",
     name: "Diane Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1634,7 +1634,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "blue-cheese-sauce",
+    id: "blue-cheese-sauce", emoji: "🥛",
     name: "Blue Cheese Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1659,7 +1659,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "brandy-cream-sauce",
+    id: "brandy-cream-sauce", emoji: "🥛",
     name: "Brandy Cream Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1687,7 +1687,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chasseur-sauce",
+    id: "chasseur-sauce", emoji: "🍄",
     name: "Chasseur (Hunter's) Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1717,7 +1717,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "red-wine-jus",
+    id: "red-wine-jus", emoji: "🍷",
     name: "Red Wine Jus",
     type: "sauce",
     shelf: "sauces",
@@ -1745,7 +1745,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sweet-chilli-sauce",
+    id: "sweet-chilli-sauce", emoji: "🌶️",
     name: "Sweet Chilli Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1772,7 +1772,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sriracha",
+    id: "sriracha", emoji: "🌶️",
     name: "Sriracha",
     type: "sauce",
     shelf: "sauces",
@@ -1797,7 +1797,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chilli-garlic-sauce",
+    id: "chilli-garlic-sauce", emoji: "🌶️",
     name: "Chilli Garlic Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1824,7 +1824,7 @@ var SPICE_DB = [
 
   
   {
-    id: "harissa-paste",
+    id: "harissa-paste", emoji: "🌶️",
     name: "Harissa Paste",
     type: "paste",
     shelf: "sauces",
@@ -1853,7 +1853,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "zhug",
+    id: "zhug", emoji: "🌶️",
     name: "Zhug (Green Chilli Sauce)",
     type: "paste",
     shelf: "sauces",
@@ -1882,7 +1882,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "crispy-chilli-oil",
+    id: "crispy-chilli-oil", emoji: "🌶️",
     name: "Crispy Chilli Oil",
     type: "sauce",
     shelf: "sauces",
@@ -1911,7 +1911,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "louisiana-hot-sauce",
+    id: "louisiana-hot-sauce", emoji: "🌶️",
     name: "Louisiana Hot Sauce (Fermented)",
     type: "sauce",
     shelf: "sauces",
@@ -1934,7 +1934,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "habanero-mango-hot-sauce",
+    id: "habanero-mango-hot-sauce", emoji: "🌶️",
     name: "Habanero Mango Hot Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1962,7 +1962,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "gochujang",
+    id: "gochujang", emoji: "🌶️",
     name: "Gochujang (Korean Chilli Paste)",
     type: "paste",
     shelf: "sauces",
@@ -1988,7 +1988,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fermented-chilli-mash",
+    id: "fermented-chilli-mash", emoji: "🌶️",
     name: "Fermented Chilli Mash Hot Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2012,7 +2012,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "scotch-bonnet-sauce",
+    id: "scotch-bonnet-sauce", emoji: "🌶️",
     name: "Scotch Bonnet Pepper Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2041,7 +2041,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tomato-ketchup",
+    id: "tomato-ketchup", emoji: "🍅",
     name: "Tomato Ketchup",
     type: "sauce",
     shelf: "sauces",
@@ -2070,7 +2070,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mayonnaise",
+    id: "mayonnaise", emoji: "🥚",
     name: "Mayonnaise",
     type: "sauce",
     shelf: "sauces",
@@ -2096,7 +2096,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "aioli",
+    id: "aioli", emoji: "🥚",
     name: "Aioli (Garlic Mayo)",
     type: "sauce",
     shelf: "sauces",
@@ -2123,7 +2123,7 @@ var SPICE_DB = [
 
   
   {
-    id: "marie-rose-sauce",
+    id: "marie-rose-sauce", emoji: "🦐",
     name: "Marie Rose Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2149,7 +2149,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "english-mustard",
+    id: "english-mustard", emoji: "🟡",
     name: "English Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2175,7 +2175,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "dijon-mustard",
+    id: "dijon-mustard", emoji: "🟡",
     name: "Dijon Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2201,7 +2201,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "wholegrain-mustard",
+    id: "wholegrain-mustard", emoji: "🟡",
     name: "Wholegrain Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2227,7 +2227,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "honey-mustard",
+    id: "honey-mustard", emoji: "🍯",
     name: "Honey Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2252,7 +2252,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "bbq-sauce",
+    id: "bbq-sauce", emoji: "🍖",
     name: "BBQ Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2282,7 +2282,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sweet-and-sour-sauce",
+    id: "sweet-and-sour-sauce", emoji: "🍍",
     name: "Sweet & Sour Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2311,7 +2311,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "teriyaki-sauce",
+    id: "teriyaki-sauce", emoji: "🍶",
     name: "Teriyaki Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2338,7 +2338,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hoisin-sauce",
+    id: "hoisin-sauce", emoji: "🥢",
     name: "Hoisin Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2366,7 +2366,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-sauce",
+    id: "plum-sauce", emoji: "🫐",
     name: "Plum Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2394,7 +2394,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hummus",
+    id: "hummus", emoji: "🫘",
     name: "Hummus",
     type: "dip",
     shelf: "dressings-dips",
@@ -2422,7 +2422,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "guacamole",
+    id: "guacamole", emoji: "🥑",
     name: "Guacamole",
     type: "dip",
     shelf: "dressings-dips",
@@ -2449,7 +2449,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tzatziki",
+    id: "tzatziki", emoji: "🥣",
     name: "Tzatziki",
     type: "dip",
     shelf: "dressings-dips",
@@ -2477,7 +2477,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "baba-ganoush",
+    id: "baba-ganoush", emoji: "🍆",
     name: "Baba Ganoush",
     type: "dip",
     shelf: "dressings-dips",
@@ -2504,7 +2504,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "spinach-artichoke-dip",
+    id: "spinach-artichoke-dip", emoji: "🥬",
     name: "Spinach Artichoke Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2533,7 +2533,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "salsa",
+    id: "salsa", emoji: "🍅",
     name: "Salsa (Pico de Gallo)",
     type: "dip",
     shelf: "dressings-dips",
@@ -2560,7 +2560,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "muhammara",
+    id: "muhammara", emoji: "🫑",
     name: "Muhammara",
     type: "dip",
     shelf: "dressings-dips",
@@ -2590,7 +2590,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "whipped-feta-dip",
+    id: "whipped-feta-dip", emoji: "🧀",
     name: "Whipped Feta Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2617,7 +2617,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "french-onion-dip",
+    id: "french-onion-dip", emoji: "🧅",
     name: "French Onion Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2645,7 +2645,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "queso-dip",
+    id: "queso-dip", emoji: "🧀",
     name: "Queso Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2675,7 +2675,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tapenade",
+    id: "tapenade", emoji: "🫒",
     name: "Tapenade",
     type: "dip",
     shelf: "dressings-dips",
@@ -2703,7 +2703,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "buffalo-chicken-dip",
+    id: "buffalo-chicken-dip", emoji: "🍗",
     name: "Buffalo Chicken Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2731,7 +2731,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "white-bean-dip",
+    id: "white-bean-dip", emoji: "🫘",
     name: "White Bean Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -2759,7 +2759,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "labneh",
+    id: "labneh", emoji: "🥛",
     name: "Labneh",
     type: "dip",
     shelf: "dressings-dips",
@@ -2785,7 +2785,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "skordalia",
+    id: "skordalia", emoji: "🥔",
     name: "Skordalia",
     type: "dip",
     shelf: "dressings-dips",
@@ -2811,7 +2811,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "romesco",
+    id: "romesco", emoji: "🫑",
     name: "Romesco",
     type: "dip",
     shelf: "dressings-dips",
@@ -2840,7 +2840,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "caponata",
+    id: "caponata", emoji: "🍆",
     name: "Caponata",
     type: "dip",
     shelf: "dressings-dips",
@@ -2871,7 +2871,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "queso-fundido",
+    id: "queso-fundido", emoji: "🧀",
     name: "Queso Fundido",
     type: "dip",
     shelf: "dressings-dips",
@@ -2897,7 +2897,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "whipped-ricotta",
+    id: "whipped-ricotta", emoji: "🥛",
     name: "Whipped Ricotta",
     type: "dip",
     shelf: "dressings-dips",
@@ -2925,7 +2925,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cowboy-caviar",
+    id: "cowboy-caviar", emoji: "🫘",
     name: "Cowboy Caviar",
     type: "dip",
     shelf: "dressings-dips",
@@ -2955,7 +2955,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "bagna-cauda",
+    id: "bagna-cauda", emoji: "🐟",
     name: "Bagna Cauda",
     type: "dip",
     shelf: "dressings-dips",
@@ -2980,7 +2980,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "beetroot-hummus",
+    id: "beetroot-hummus", emoji: "🫘",
     name: "Beetroot Hummus",
     type: "dip",
     shelf: "dressings-dips",
@@ -3008,7 +3008,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mint-fava-bean-dip",
+    id: "mint-fava-bean-dip", emoji: "🍃",
     name: "Mint Fava Bean Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3035,7 +3035,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "smoked-salmon-dip",
+    id: "smoked-salmon-dip", emoji: "🍣",
     name: "Smoked Salmon Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3063,7 +3063,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "taramasalata",
+    id: "taramasalata", emoji: "🐟",
     name: "Taramasalata",
     type: "dip",
     shelf: "dressings-dips",
@@ -3089,7 +3089,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "smoky-paprika-yogurt",
+    id: "smoky-paprika-yogurt", emoji: "🥣",
     name: "Smoky Paprika Yogurt",
     type: "dip",
     shelf: "dressings-dips",
@@ -3117,7 +3117,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "herby-cucumber-yogurt",
+    id: "herby-cucumber-yogurt", emoji: "🌿",
     name: "Herby Cucumber Yogurt",
     type: "dip",
     shelf: "dressings-dips",
@@ -3146,7 +3146,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "spiced-sumac-dip",
+    id: "spiced-sumac-dip", emoji: "🧂",
     name: "Spiced Sumac Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3173,7 +3173,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fry-sauce",
+    id: "fry-sauce", emoji: "🍟",
     name: "Fry Sauce",
     type: "dip",
     shelf: "dressings-dips",
@@ -3199,7 +3199,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "spicy-umami-mayo",
+    id: "spicy-umami-mayo", emoji: "🥚",
     name: "Spicy Umami Mayo",
     type: "dip",
     shelf: "dressings-dips",
@@ -3226,7 +3226,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "garlic-chive-mayo",
+    id: "garlic-chive-mayo", emoji: "🧄",
     name: "Garlic & Chive Mayo",
     type: "dip",
     shelf: "dressings-dips",
@@ -3252,7 +3252,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "creamy-jalapeno-ranch",
+    id: "creamy-jalapeno-ranch", emoji: "🥗",
     name: "Creamy Jalapeño Ranch",
     type: "dip",
     shelf: "dressings-dips",
@@ -3282,7 +3282,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "roasted-red-pepper-feta-dip",
+    id: "roasted-red-pepper-feta-dip", emoji: "🧀",
     name: "Roasted Red Pepper & Feta Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3310,7 +3310,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "caramelized-onion-bacon-jam-dip",
+    id: "caramelized-onion-bacon-jam-dip", emoji: "🧅",
     name: "Caramelized Onion & Bacon Jam Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3339,7 +3339,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "coronation-mayo-dip",
+    id: "coronation-mayo-dip", emoji: "🍛",
     name: "Coronation Mayo Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3367,7 +3367,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hot-corn-green-chile-dip",
+    id: "hot-corn-green-chile-dip", emoji: "🌽",
     name: "Hot Corn & Green Chile Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3396,7 +3396,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "blue-cheese-walnut-dip",
+    id: "blue-cheese-walnut-dip", emoji: "🧀",
     name: "Blue Cheese & Walnut Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3423,7 +3423,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "green-goddess-dip",
+    id: "green-goddess-dip", emoji: "🌿",
     name: "Green Goddess Dip",
     type: "dip",
     shelf: "dressings-dips",
@@ -3453,7 +3453,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "pimento-cheese-dip",
+    id: "pimento-cheese-dip", emoji: "🧀",
     name: "Pimento Cheese",
     type: "dip",
     shelf: "dressings-dips",
@@ -3481,7 +3481,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cherry-sauce",
+    id: "cherry-sauce", emoji: "🍒",
     name: "Cherry Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -3508,7 +3508,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "basil-pesto",
+    id: "basil-pesto", emoji: "🌿",
     name: "Basil Pesto",
     type: "paste",
     shelf: "sauces",
@@ -3535,7 +3535,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "date-paste",
+    id: "date-paste", emoji: "🌴",
     name: "Date Paste",
     type: "paste",
     shelf: "sauces",
@@ -3558,7 +3558,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sambar-masala",
+    id: "sambar-masala", emoji: "🍛",
     name: "Sambar Masala",
     type: "blend",
     shelf: "spice-blends",
@@ -3585,7 +3585,7 @@ var SPICE_DB = [
 
   // ─────────────── STOCKS (type:"stock") ───────────────
   {
-    id: "beef-stock", name: "Beef Stock", type: "stock", shelf: "sauces",
+    id: "beef-stock", emoji: "🍲", name: "Beef Stock", type: "stock", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Rich", "Roasted", "Deep"],
     whenToUse: "start",
@@ -3612,7 +3612,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chicken-stock", name: "Chicken Stock", type: "stock", shelf: "sauces",
+    id: "chicken-stock", emoji: "🍲", name: "Chicken Stock", type: "stock", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Golden", "Clean", "Comforting"],
     whenToUse: "start",
@@ -3638,7 +3638,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "vegetable-stock", name: "Vegetable Stock", type: "stock", shelf: "sauces",
+    id: "vegetable-stock", emoji: "🍲", name: "Vegetable Stock", type: "stock", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Light", "Savoury", "Thrifty"],
     whenToUse: "start",
@@ -3667,7 +3667,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fish-stock", name: "Fish Stock", type: "stock", shelf: "sauces",
+    id: "fish-stock", emoji: "🍲", name: "Fish Stock", type: "stock", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Delicate", "Briny", "Quick"],
     whenToUse: "start",
@@ -3695,7 +3695,7 @@ var SPICE_DB = [
 
   // ─────────────── BROTHS (type:"broth") ───────────────
   {
-    id: "chicken-bone-broth", name: "Chicken Bone Broth", type: "broth", shelf: "sauces",
+    id: "chicken-bone-broth", emoji: "🍲", name: "Chicken Bone Broth", type: "broth", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Gelatinous", "Golden", "Healing"],
     whenToUse: "start",
@@ -3722,7 +3722,7 @@ var SPICE_DB = [
     howThisFeels: "The jar that sets to a wobble in the fridge — proof the goodness came out."
   },
   {
-    id: "beef-bone-broth", name: "Beef Bone Broth", type: "broth", shelf: "sauces",
+    id: "beef-bone-broth", emoji: "🍲", name: "Beef Bone Broth", type: "broth", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Deep", "Roasted", "Gelatinous"],
     whenToUse: "start",
@@ -3748,7 +3748,7 @@ var SPICE_DB = [
     howThisFeels: "Low and slow for a whole day — the kitchen smells like patience."
   },
   {
-    id: "fish-bone-broth", name: "Fish Bone Broth", type: "broth", shelf: "sauces",
+    id: "fish-bone-broth", emoji: "🍲", name: "Fish Bone Broth", type: "broth", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Delicate", "Briny", "Quick"],
     whenToUse: "start",
@@ -3774,7 +3774,7 @@ var SPICE_DB = [
     howThisFeels: "Done in an hour, faintly of the sea — the gentle one of the family."
   },
   {
-    id: "lamb-bone-broth", name: "Lamb Bone Broth", type: "broth", shelf: "sauces",
+    id: "lamb-bone-broth", emoji: "🍲", name: "Lamb Bone Broth", type: "broth", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Robust", "Intense", "Gelatinous"],
     whenToUse: "start",
@@ -3800,7 +3800,7 @@ var SPICE_DB = [
     howThisFeels: "Deep and unapologetic — a broth with its mind made up."
   },
   {
-    id: "pork-bone-broth", name: "Pork Bone Broth", type: "broth", shelf: "sauces",
+    id: "pork-bone-broth", emoji: "🍲", name: "Pork Bone Broth", type: "broth", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Creamy", "Rich", "Gelatinous"],
     whenToUse: "start",
@@ -3827,7 +3827,7 @@ var SPICE_DB = [
 
   // ─────────────── PASTES (type:"paste") ───────────────
   {
-    id: "tahini", name: "Tahini", type: "paste", shelf: "sauces",
+    id: "tahini", emoji: "🌰", name: "Tahini", type: "paste", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Nutty", "Creamy", "Earthy"],
     whenToUse: "start",
@@ -3966,7 +3966,7 @@ var SPICE_DB = [
 
 
   {
-    id: "strawberry-jam",
+    id: "strawberry-jam", emoji: "🍓",
     name: "Strawberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -3988,7 +3988,7 @@ var SPICE_DB = [
     howThisFeels: "Bright, sweet and a little jammy-sticky — the taste of summer on a warm scone."
   },
   {
-    id: "apricot-jam",
+    id: "apricot-jam", emoji: "🍑",
     name: "Apricot Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4060,7 +4060,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fig-jam",
+    id: "fig-jam", emoji: "🫙",
     name: "Fig Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4128,7 +4128,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "raspberry-jam",
+    id: "raspberry-jam", emoji: "🫐",
     name: "Raspberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4202,7 +4202,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-jam",
+    id: "plum-jam", emoji: "🫐",
     name: "Plum Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4277,7 +4277,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "peach-jam",
+    id: "peach-jam", emoji: "🍑",
     name: "Peach Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4347,7 +4347,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cherry-jam",
+    id: "cherry-jam", emoji: "🍒",
     name: "Cherry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4417,7 +4417,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "seville-marmalade",
+    id: "seville-marmalade", emoji: "🍊",
     name: "Seville Orange Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4484,7 +4484,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lemon-marmalade",
+    id: "lemon-marmalade", emoji: "🍊",
     name: "Lemon Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4543,7 +4543,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "three-fruit-marmalade",
+    id: "three-fruit-marmalade", emoji: "🍊",
     name: "Three-Fruit Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4600,7 +4600,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lemon-curd",
+    id: "lemon-curd", emoji: "🍋",
     name: "Lemon Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4668,7 +4668,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "passionfruit-curd",
+    id: "passionfruit-curd", emoji: "🥝",
     name: "Passionfruit Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4730,7 +4730,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "orange-curd",
+    id: "orange-curd", emoji: "🍊",
     name: "Orange Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4795,7 +4795,7 @@ var SPICE_DB = [
     ]
   },
   {
-    id: "watermelon-konfyt",
+    id: "watermelon-konfyt", emoji: "🍉",
     name: "Watermelon Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4851,7 +4851,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "green-fig-konfyt",
+    id: "green-fig-konfyt", emoji: "🫙",
     name: "Green Fig Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4907,7 +4907,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "makataan-konfyt",
+    id: "makataan-konfyt", emoji: "🍉",
     name: "Makataan Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4952,7 +4952,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "korrelkonfyt",
+    id: "korrelkonfyt", emoji: "🍇",
     name: "Korrelkonfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -5006,7 +5006,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "blueberry-jam",
+    id: "blueberry-jam", emoji: "🫐",
     name: "Blueberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5075,7 +5075,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cape-gooseberry-jam",
+    id: "cape-gooseberry-jam", emoji: "🟡",
     name: "Cape Gooseberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5129,7 +5129,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tomato-jam",
+    id: "tomato-jam", emoji: "🍅",
     name: "Tomato Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5191,7 +5191,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "naartjie-konfyt",
+    id: "naartjie-konfyt", emoji: "🍊",
     name: "Naartjie Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -5246,7 +5246,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "membrillo",
+    id: "membrillo", emoji: "🍐",
     name: "Membrillo (Quince Paste)",
     type: "paste",
     shelf: "jams-preserves",
@@ -5314,7 +5314,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "quince-jam",
+    id: "quince-jam", emoji: "🍐",
     name: "Quince Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5375,7 +5375,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "rose-petal-jam",
+    id: "rose-petal-jam", emoji: "🌹",
     name: "Rose-Petal Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5432,7 +5432,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "date-jam",
+    id: "date-jam", emoji: "🌴",
     name: "Date Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5495,7 +5495,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cherry-confiture",
+    id: "cherry-confiture", emoji: "🍒",
     name: "Cherry Confiture",
     type: "paste",
     shelf: "jams-preserves",
@@ -5555,7 +5555,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "onion-confit",
+    id: "onion-confit", emoji: "🧅",
     name: "Onion Confit",
     type: "paste",
     shelf: "jams-preserves",
@@ -5627,7 +5627,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "apple-butter",
+    id: "apple-butter", emoji: "🍎",
     name: "Apple Butter",
     type: "paste",
     shelf: "jams-preserves",
@@ -5697,7 +5697,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "preserved-lemons",
+    id: "preserved-lemons", emoji: "🍋",
     name: "Preserved Lemons",
     type: "paste",
     shelf: "jams-preserves",
@@ -5765,7 +5765,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "marrow-ginger-jam",
+    id: "marrow-ginger-jam", emoji: "🫚",
     name: "Marrow & Ginger Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5822,7 +5822,7 @@ var SPICE_DB = [
   },
 
 {
-  "id": "mango-chutney",
+  "id": "mango-chutney", emoji: "🥭",
   "name": "Mango Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -5983,7 +5983,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "coriander-mint-chutney",
+  "id": "coriander-mint-chutney", emoji: "🍃",
   "name": "Coriander & Mint Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6131,7 +6131,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "tamarind-date-chutney",
+  "id": "tamarind-date-chutney", emoji: "🌴",
   "name": "Tamarind & Date Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6261,7 +6261,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "coconut-chutney",
+  "id": "coconut-chutney", emoji: "🥥",
   "name": "Coconut Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6412,7 +6412,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "lime-pickle",
+  "id": "lime-pickle", emoji: "🥒",
   "name": "Lime Pickle",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6531,7 +6531,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "green-tomato-chutney",
+  "id": "green-tomato-chutney", emoji: "🍅",
   "name": "Green Tomato Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6659,7 +6659,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "caramelised-onion-chutney",
+  "id": "caramelised-onion-chutney", emoji: "🧅",
   "name": "Caramelised Onion Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6774,7 +6774,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "rhubarb-ginger-chutney",
+  "id": "rhubarb-ginger-chutney", emoji: "🫚",
   "name": "Rhubarb & Ginger Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6890,7 +6890,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "tomato-onion-sambal",
+  "id": "tomato-onion-sambal", emoji: "🍅",
   "name": "Tomato & Onion Sambal",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7002,7 +7002,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "sambal-oelek",
+  "id": "sambal-oelek", emoji: "🌶️",
   "name": "Sambal Oelek",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7106,7 +7106,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "sambal-matah",
+  "id": "sambal-matah", emoji: "🌶️",
   "name": "Sambal Matah",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7222,7 +7222,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "pol-sambol",
+  "id": "pol-sambol", emoji: "🥥",
   "name": "Pol Sambol",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7362,7 +7362,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "pico-de-gallo",
+  "id": "pico-de-gallo", emoji: "🍅",
   "name": "Pico de Gallo",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7471,7 +7471,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "salsa-verde-tomatillo",
+  "id": "salsa-verde-tomatillo", emoji: "🌿",
   "name": "Salsa Verde (Tomatillo)",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7585,7 +7585,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "zhoug",
+  "id": "zhoug", emoji: "🌶️",
   "name": "Zhoug",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7715,7 +7715,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "ajvar",
+  "id": "ajvar", emoji: "🫑",
   "name": "Ajvar",
   "type": "relish",
   "shelf": "sambals-relishes",

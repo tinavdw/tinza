@@ -275,5 +275,17 @@ var MAKEABLE = {
     "section": "bakes",
     "id": "flatbreads",
     "label": "Flatbreads (10 to choose from)"
+  },
+  "sriracha": {
+    "type": "dish",
+    "section": "spice",
+    "id": "sriracha",
+    "label": "Sriracha"
+  },
+  "preserved lemons": {
+    "type": "dish",
+    "section": "spice",
+    "id": "preserved-lemons",
+    "label": "Preserved Lemons"
   }
 };

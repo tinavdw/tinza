@@ -830,6 +830,8 @@ const PRICE_DB = {
   "dried marigold petals": 1740,   // R79–95 per 50g → mid R87/50g
   "peanut butter powder": 769,     // R199.99/260g — the defatted supplement powder, NOT kuli-kuli
 
+  "preserved lemons": 150,         // R75/500g jar (R95/1kg is better value). MAKEABLE: Spice > Jams & Preserves
+
 };
 
 const MEAT_COSTS = {
