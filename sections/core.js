@@ -2432,8 +2432,18 @@ function recipeBox(title, innerHTML){
 }
 
 // §4b.5 — ingredients box + a single ingredient row (name left, gold amount right)
-function ingredientsBox(rowsHTML, n){
-  return recipeBox('Ingredients · for ' + n + ' ' + (n===1?'person':'people'), rowsHTML);
+function ingredientsBox(rowsHTML, n, unitLabel){
+  // 11 Jul — this only ever knew how to say "for N people". Spice is 131 BATCH cards
+  // (yield in g/ml), so Apricot Jam was rendering "INGREDIENTS · FOR 500 PEOPLE".
+  // Pass a unit and it says "makes 500 g" instead. No unit → unchanged for every other room.
+  // unitLabel omitted  → a serving-based recipe: "for 4 people"
+  // unitLabel given     → a batch: "makes 500 g". An EMPTY string still means batch,
+  //                       just with no noun ("makes 6") — e.g. Preserved Lemons, which
+  //                       you count rather than weigh. Don't collapse '' back to people.
+  var head = (unitLabel != null)
+    ? 'Ingredients · makes ' + n + (unitLabel ? ' ' + unitLabel : '')
+    : 'Ingredients · for ' + n + ' ' + (n===1?'person':'people');
+  return recipeBox(head, rowsHTML);
 }
 function ingredientRow(name, amount, note){
   var lk = crossLinkFor(ingredientLinks(), name);

@@ -3524,7 +3524,7 @@ var SPICE_DB = [
         { qty:1, unit:"clove", name:"garlic" },
         { qty:80, unit:"ml", name:"olive oil" },
         { qty:1, unit:"pinch", name:"salt" },
-        { qty:1, unit:"squeeze", name:"lemon juice (keeps it green)" }
+        { qty: 15, unit: "ml", name:"lemon juice (keeps it green)" }
       ],
       method: "Blitz the basil, parmesan, pine nuts, garlic, olive oil and a pinch of salt to a coarse paste — pulse rather than purée so it keeps a little texture. Squeeze in a little lemon juice to hold the vivid green, and loosen with a touch more oil if you want it pourable. Toss through hot pasta the moment it is drained, or spoon over grilled chicken, fish or roasted vegetables."
     },
@@ -3978,7 +3978,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"fresh strawberries" },
         { qty:400, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Hull and roughly chop the strawberries, then combine with the sugar and a good squeeze of lemon juice in a wide pot and let them sit 15 minutes until the juices run. Bring to a rolling boil over medium-high heat, stirring often, and boil hard for 15 to 20 minutes. Test for set by dropping a little onto a cold saucer — if it wrinkles when you push it, it is ready. Skim off any foam and pour into clean, hot, sterilised jars and seal while hot. Use a wide pot, not a deep one: more surface area sets it far faster. Sealed jars keep for months in the cupboard; once opened, refrigerate up to 3 weeks, or freeze as freezer-jam up to 6 months."
     },
@@ -4000,7 +4000,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"fresh apricots (halved, stoned)" },
         { qty:400, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Halve and stone the apricots, then chop the larger ones and combine with the sugar and a good squeeze of lemon juice in a wide pot. Let them stand 20 minutes until the juices run and the sugar starts to dissolve. Bring to a rolling boil over medium-high heat, stirring often, and boil hard for 12 to 18 minutes — apricots break down fast, so watch them. Test for set by dropping a little onto a cold saucer: if it wrinkles when you push it, it is ready. Skim any foam, then pot into clean, hot, sterilised jars and seal while hot. Apricots carry a fair amount of natural pectin and acid, so they set more easily than strawberries. Sealed jars keep for months in the cupboard; once opened, refrigerate up to 3 weeks."
     },
@@ -4072,7 +4072,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"ripe figs (stemmed, chopped)" },
         { qty:350, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Trim the stems and chop the ripe figs, skins and all, then combine with the sugar and a good squeeze of lemon juice in a wide pot. Let them stand 30 minutes until the juices run. Bring to a rolling boil over medium-high heat, stirring often, and boil for 20 to 25 minutes until thick and glossy, mashing against the side of the pot to break the fruit down. Test for set on a cold saucer. Figs are low in acid and pectin, so the lemon juice is not optional — it sharpens the flavour and helps the set. Pot into clean, hot, sterilised jars and seal while hot. Keeps for months sealed; refrigerate up to 3 weeks once opened."
     },
@@ -4140,7 +4140,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"raspberries (fresh or frozen)" },
         { qty:450, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Combine the raspberries with the sugar and a squeeze of lemon juice in a wide pot — frozen berries work beautifully and need no defrosting. Let them stand 15 minutes until the juices run, then bring to a rolling boil over medium-high heat, stirring often. Boil hard for just 8 to 12 minutes: raspberries are quick and you want to keep their bright colour and fresh flavour. Test for set on a cold saucer. Skim any foam and pot into clean, hot, sterilised jars while hot. Raspberries hold a moderate amount of natural pectin, so they usually set without any help. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
     },
@@ -4215,7 +4215,7 @@ var SPICE_DB = [
         { qty:500, unit:"g", name:"plums (stoned, chopped)" },
         { qty:400, unit:"g", name:"sugar" },
         { qty:50, unit:"ml", name:"water" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Stone and chop the plums, keeping the skins on — they hold most of the pectin and give the jam its ruby colour. Put them in a wide pot with the water and simmer gently for 10 minutes until the skins soften, then add the sugar and lemon juice and stir until dissolved. Bring to a rolling boil and cook hard for 15 to 20 minutes, stirring often, until thick. Test for set on a cold saucer. Skim any foam and pot into clean, hot, sterilised jars while hot. Plums range from sweet to sharp, so taste as you go and add a little more lemon if it needs lifting. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
     },
@@ -4289,7 +4289,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"peaches (peeled, stoned, chopped)" },
         { qty:400, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "To peel the peaches easily, score a cross in the base, dip in boiling water for 30 seconds, then slip the skins off under cold water. Stone and chop the flesh and combine with the sugar and a generous squeeze of lemon juice in a wide pot. Let stand 20 minutes, then bring to a rolling boil, stirring often, and cook for 20 to 25 minutes until thick. Test for set on a cold saucer. Peaches are low in pectin and acid, so the lemon juice matters — for a firmer set, add a little jam sugar or a peeled, grated apple. Skim any foam and pot into clean, hot, sterilised jars while hot. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
     },
@@ -4359,7 +4359,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"cherries (pitted)" },
         { qty:400, unit:"g", name:"sugar" },
-        { qty:2, unit:"squeeze", name:"lemon juice" }
+        { qty: 30, unit: "ml", name:"lemon juice" }
       ],
       method: "Pit the cherries — a clean paperclip or the wrong end of a piping nozzle works if you have no cherry pitter — and halve the larger ones. Combine with the sugar and a good double squeeze of lemon juice in a wide pot and let stand 30 minutes. Bring to a rolling boil, stirring often, and cook for 15 to 20 minutes. Test for set on a cold saucer. Cherries are very low in pectin, so cherry jam always stays on the soft side: lean on the lemon juice, add a little jam sugar or grated apple if you want it firmer, and do not expect a stiff set. Skim any foam and pot into clean, hot, sterilised jars while hot. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
     },
@@ -4430,7 +4430,7 @@ var SPICE_DB = [
         { qty:500, unit:"g", name:"Seville oranges (whole)" },
         { qty:1000, unit:"ml", name:"water" },
         { qty:900, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Scrub the oranges, then simmer them whole in the water for about 2 hours until the peel is completely soft and a skewer slides in easily — this is the one step you cannot rush, because sugar sets peel hard and it will never soften afterwards. Lift out the oranges, halve them and scoop the pulp, pips and membranes into a square of muslin; tie it up and return it to the pan, as this bag holds most of the pectin. Shred the peel as thick or fine as you like and add it back with the sugar and lemon juice. Boil hard for 15 to 25 minutes, squeezing the muslin bag against the side now and then, until it reaches setting point on a cold saucer. Let it stand 10 minutes before potting so the peel suspends evenly instead of floating, then pot into hot sterilised jars. Sealed jars keep for a year or more."
     },
@@ -4682,7 +4682,7 @@ var SPICE_DB = [
         { qty:3, unit:"", name:"eggs" },
         { qty:1, unit:"", name:"egg yolk" },
         { qty:150, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" },
+        { qty: 15, unit: "ml", name:"lemon juice" },
         { qty:100, unit:"g", name:"butter, cubed" }
       ],
       method: "Scoop the pulp from the granadillas — leave the seeds in for their pretty crunch, or push half through a sieve if you prefer it smoother. Whisk the eggs, yolk and sugar smooth in a heatproof bowl, then whisk in the passionfruit pulp and a squeeze of lemon to sharpen it. Set over barely simmering water, not touching, and stir constantly; as with any curd, never let it boil or the eggs will scramble. After 8 to 12 minutes it will coat the back of a spoon, at which point beat in the butter off the heat until glossy. Pot and refrigerate — it keeps about 2 to 3 weeks. Passionfruit curd is the most fragrant of all the curds and turns a plain pavlova or sponge into something special."
@@ -5018,7 +5018,7 @@ var SPICE_DB = [
       ingredients: [
         { qty:500, unit:"g", name:"blueberries (fresh or frozen)" },
         { qty:350, unit:"g", name:"sugar" },
-        { qty:1, unit:"squeeze", name:"lemon juice" }
+        { qty: 15, unit: "ml", name:"lemon juice" }
       ],
       method: "Combine the blueberries with the sugar and a good squeeze of lemon juice in a wide pot — frozen berries work perfectly and need no defrosting. Let them stand 15 minutes until the juices run, then bring to a rolling boil, stirring often and crushing some of the berries against the side of the pot to release their pectin while leaving others whole. Boil for 10 to 15 minutes until thick, testing for set on a cold saucer. Blueberries are only moderately high in pectin and quite low in acid, so the lemon juice does real work here, both for the set and to stop the jam tasting flat. Skim any foam and pot into hot sterilised jars. Sealed jars keep for months; refrigerate up to 3 weeks once opened."
     },
@@ -8353,18 +8353,20 @@ function spiceRecipeOpts(r){
   var my = r.makeYourOwn, y = my.yield || { base:1, step:1, unit:'serving', label:'' };
   var base = y.base || 1, step = y.step || 1;
   var scale = (typeof spiceCurScale==='function') ? spiceCurScale(r) : base;
+  var isBatch = (y.mode === 'batch');   // 131 of 191 spice cards. They make grams, not people.
   var factor = base ? (scale/base) : 1;
   var fmt = (typeof spiceFmt==='function') ? spiceFmt : function(n,u){ return (Math.round(n*10)/10)+(u||''); };
   var rows = (my.ingredients||[]).map(function(it){
     if(it.qty==null) return ingredientRow(it.name, '<span style="color:#e0d4b8;font-style:italic;">to taste</span>');
     // shared "pp · total" display (§5): per-serving = qty/base, total = qty*factor
     var ppAmt = it.qty/base, totAmt = it.qty*factor;
-    var amt = (scale===1)
+    // A BATCH has no "per person" — "1g pp" of apricot is meaningless. Only 'serves' gets the pp prefix.
+    var amt = (isBatch || scale===1)
       ? fmt(totAmt, it.unit)
       : '<span style="color:#e0d4b8;font-weight:normal;font-size:13px;">'+fmt(ppAmt,it.unit)+' pp · </span>'+fmt(totAmt,it.unit);
     return ingredientRow(it.name, amt);
   }).join('');
-  var ingredientsHTML = ingredientsBox(rows, scale);
+  var ingredientsHTML = isBatch ? ingredientsBox(rows, scale, (y.unit||'')) : ingredientsBox(rows, scale);
   var steps = String(my.method||'').split(/\.\s+/).map(function(x){ return x.trim(); }).filter(Boolean);
   var stepsHTML = steps.map(function(s,i){
     var txt = s + (s.slice(-1).match(/[.!?]/)?'':'.');
