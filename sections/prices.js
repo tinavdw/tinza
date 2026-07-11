@@ -253,8 +253,8 @@ const PRICE_DB = {
   "ginger": 280,              // per kg
   "mushroom": 165,            // R37/225g → R165/kg
   "button mushrooms": 148,    // R37/250g → R148/kg
-  "avocado": 13,              // each
-  "avocado_each": 13,
+  "avocado": 65,              // per kg (R13/each ÷ ~200g). avocado_each handles COUNT; this weight key is for gram lines ("ripe avocado"). Was 13 → implied R13/kg (a latent under-price on any weight use).
+  "avocado_each": 13,         // each
   "cucumber": 21,             // each
   "lettuce": 22,              // each
   "rocket": 500,              // R20/40g → R500/kg
@@ -665,7 +665,7 @@ const PRICE_DB = {
   "atchar": 123,
   "coleslaw": 83,
   "ranch dressing": 67,
-  "tofu": 225,
+  "tofu": 250,                // per kg — SA market: 200g/R50, 400g/R100–120, 350g/R60 → R250–300/kg (11 Jul close-out; was 225)
   "tempeh": 318,
   "edamame": 140,
   "granola": 163,
@@ -833,6 +833,15 @@ const PRICE_DB = {
   "preserved lemons": 150,         // R75/500g jar (R95/1kg is better value). MAKEABLE: Spice > Jams & Preserves
 
   "lime juice": 290,               // a lime is R8.75 and yields ~30ml → ~R290/L. Was falling back to LEMON juice R56/L (5× too cheap).
+
+  // ── FMF vegan breakfast batch · Bank A (11 Jul 2026, Tina-sourced + integrity fixes) ──
+  "kala namak": 200,               // black salt — R200/kg, 100g pack (small jar). Green = ~2g pinch (cents); gold = the R25–R69 jar. RULING per brief: conservative-high.
+  "corn tortillas_each": 5,        // count — distinct product from flour "tortillas" (R50/8). ~R60/12-pack specialty → R5 each.
+  "nutritional yeast": 450,        // ~R45/100g. Was resolving to baker's "yeast" R90 — wrong product AND understated. Fixed.
+  "chia seeds": 300,               // ~R60/200g → R300/kg. Was MISSING entirely.
+  "maple syrup": 400,              // ~R100/250ml → R400/L. Was resolving to golden "syrup" R50 — wrong product AND understated. Fixed.
+  "soy milk": 30,                  // R30/L. Was resolving to dairy "milk" R20 — non-vegan buy-name. Fixed for the vegan batch.
+  "black beans": 50,               // tinned ~R20/400g → R50/kg. Was resolving to "sugar beans" R78 — different variety. Fixed.
 
 };
 

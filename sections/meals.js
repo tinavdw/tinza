@@ -5903,6 +5903,1088 @@ var BREAKFAST_RECIPES = [
       "Congee with Crispy Onions & Soy Egg",
       "Japanese Soufflé Pancakes"
     ]
+  },
+  {
+    "id": "bf-tofu-scramble",
+    "cat": "eggs",
+    "name": "Tofu Scramble",
+    "emoji": "🍳",
+    "cuisine": "Global",
+    "photoName": "Tofu Scramble",
+    "freezes": false,
+    "fridgeDays": 2,
+    "time": 25,
+    "costPP": 50,
+    "feel": "Soft golden curds that steam when you break them open — the plate of scrambled eggs your body swears it's eating, until you remember there isn't one.",
+    "didYouKnow": "The whole illusion hangs on one mineral. Kala namak — Himalayan black salt — is shot through with sulphur compounds, the exact same ones that give a boiled egg its eggy smell. A pinch stirred into blitzed tofu doesn't taste of anything a chef could name, but your nose reads 'egg' before your brain catches up. It's a Kala-namak trick Indian cooks have used for a century in chaat and kala-chana, and it's the single reason a good tofu scramble fools people who swore they'd know the difference.",
+    "ingredients": [
+      {
+        "n": "firm tofu",
+        "pp": 125,
+        "u": "g"
+      },
+      {
+        "n": "kala namak",
+        "pp": 2,
+        "u": "g"
+      },
+      {
+        "n": "turmeric",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "nutritional yeast",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "garlic",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "cherry tomatoes",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "baby spinach",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "olive oil",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.5,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Press the water OUT first — this is the whole dish. Wrap the block in a clean cloth, sit a plate and a full tin on top, and walk away for 20 minutes. Wet tofu steams grey in the pan; pressed tofu browns. Skip this and nothing else you do will save it.",
+      "Crumble the pressed tofu with your hands into rough, uneven curds — some big, some small. Uniform crumbs read as 'processed'; a lucky-dip of sizes reads as scrambled egg.",
+      "Soften the finely chopped onion in the olive oil over medium heat for 3–4 minutes until translucent, then add the garlic for 30 seconds — just to the point it smells sweet, not brown, or it turns bitter.",
+      "Add the tofu and turmeric and fry, stirring now and then, for 5–6 minutes. Turmeric is doing two jobs: colour, and a faint earthy warmth. Let some curds catch and gild on the pan base — those browned edges are flavour.",
+      "Now the sulphur note: kill the heat to low, scatter over the kala namak and the nutritional yeast, and fold through. Off-the-boil is deliberate — high heat drives off the volatile sulphur that makes it read as egg, so it goes in late and gentle.",
+      "Fold in the halved cherry tomatoes and spinach and let the residual heat wilt the leaves and warm the tomatoes without collapsing them — about a minute. Grind over the pepper and serve at once, while the curds still steam.",
+      "No kala namak? Use fine sea salt with a pinch of nutritional yeast. You'll get a properly savoury scramble — but the eggy note is the kala namak's job, and nothing else does it. Nutritional yeast brings umami and garlic powder brings savour; neither brings the sulphur. Be honest with yourself about which dish you're making.",
+      "A note on cost: good firm tofu isn't cheap in South Africa — around R50 for a 200g block — so this is a treat-priced breakfast, not an everyday-cheap one. If you want the same eggy, sulphur-savoury plate for a fraction of the price, tap the Chickpea Flour Scramble version below. It's built from nothing but gram flour, water and the same turmeric and kala namak, and it is a genuinely good dish in its own right — a real alternative, not a sad compromise."
+    ],
+    "tip": "Pressing is non-negotiable and turmeric is a whisper, not a spoonful — a gram is plenty. Too much and you get a bitter, fluorescent scramble that tastes of the spice rack instead of breakfast.",
+    "nutrition": {
+      "kcal": 260,
+      "protein_g": 20,
+      "carbs_g": 10,
+      "fat_g": 16
+    },
+    "storage": "Best straight from the pan. Keeps 2 days in the fridge and reheats in a dry pan over low heat; does not freeze — thawed tofu turns spongy and weeps water.",
+    "goesWith": [
+      "Chakalaka Beans on Toast",
+      "Masala Scramble (Akoori)",
+      "Menemen (Turkish Scramble)"
+    ],
+    "versions": [
+      {
+        "name": "The Sulphur Scramble",
+        "icon": "⭐",
+        "default": true,
+        "feel": "The honest classic — pressed tofu, kala namak, a whisper of turmeric. The one that fools people.",
+        "time": 25,
+        "costPP": 50,
+        "ingredients": [
+          {
+            "n": "firm tofu",
+            "pp": 125,
+            "u": "g"
+          },
+          {
+            "n": "kala namak",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "turmeric",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "nutritional yeast",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "black pepper",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Press the tofu 20 minutes under a weighted plate — wet tofu steams, pressed tofu browns.",
+          "Crumble into uneven curds, soften onion in the oil, add garlic for 30 seconds.",
+          "Fry tofu with turmeric 5–6 minutes, letting some curds gild on the base.",
+          "Off the heat, fold in kala namak and nutritional yeast — the sulphur note goes in late so it isn't cooked away.",
+          "Wilt in tomatoes and spinach with the residual heat, grind over pepper, serve steaming."
+        ],
+        "tip": "Kala namak in late and off the boil — that timing is the difference between 'savoury' and 'egg'.",
+        "nutrition": {
+          "kcal": 260,
+          "protein_g": 20,
+          "carbs_g": 10,
+          "fat_g": 16
+        },
+        "storage": "2 days fridge; does not freeze."
+      },
+      {
+        "name": "Masala Scramble",
+        "icon": "🌶️",
+        "feel": "The Indian route — turmeric and cumin bloomed in hot oil, green chilli, a fistful of coriander. Akoori's vegan cousin.",
+        "time": 25,
+        "costPP": 41,
+        "ingredients": [
+          {
+            "n": "firm tofu",
+            "pp": 125,
+            "u": "g"
+          },
+          {
+            "n": "kala namak",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "turmeric",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "ground cumin",
+            "pp": 1.5,
+            "u": "g"
+          },
+          {
+            "n": "onion",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "green chilli",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "tomato",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "fresh coriander",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "sunflower oil",
+            "pp": 8,
+            "u": "ml"
+          },
+          {
+            "n": "black pepper",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Press the tofu 20 minutes, then crumble into uneven curds.",
+          "Heat the oil till it shimmers and soften the onion and finely chopped green chilli, 4 minutes.",
+          "Add turmeric and cumin and let them bloom in the oil for 20 seconds — dry spice needs fat and heat to wake up, or it tastes of dust.",
+          "Add tofu and chopped tomato, fry 6 minutes until the tomato collapses into the curds.",
+          "Off the heat, fold through kala namak and a fistful of coriander; grind over pepper and serve."
+        ],
+        "tip": "Bloom the turmeric and cumin in the hot oil before the tofu goes in — raw ground spice tastes chalky.",
+        "nutrition": {
+          "kcal": 270,
+          "protein_g": 19,
+          "carbs_g": 11,
+          "fat_g": 17
+        },
+        "storage": "2 days fridge; does not freeze."
+      },
+      {
+        "name": "Mediterranean",
+        "icon": "🫒",
+        "feel": "Good olive oil, sweet cherry tomatoes and a raw peppery drizzle to finish — the scramble that thinks it's on a Greek terrace.",
+        "time": 25,
+        "costPP": 54,
+        "ingredients": [
+          {
+            "n": "firm tofu",
+            "pp": 125,
+            "u": "g"
+          },
+          {
+            "n": "kala namak",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "turmeric",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "nutritional yeast",
+            "pp": 5,
+            "u": "g"
+          },
+          {
+            "n": "red onion",
+            "pp": 30,
+            "u": "g"
+          },
+          {
+            "n": "garlic",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "cherry tomatoes",
+            "pp": 70,
+            "u": "g"
+          },
+          {
+            "n": "baby spinach",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "olive oil",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "black pepper",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Press and crumble the tofu as always — the 20-minute press is the one step no version skips.",
+          "Soften red onion in the olive oil, add garlic for 30 seconds.",
+          "Fry the tofu with the turmeric 5 minutes, gilding the edges.",
+          "Off the heat fold in kala namak and nutritional yeast, then wilt in tomatoes and spinach.",
+          "Finish with an extra thread of raw olive oil over the top — the cold fruity oil is the Mediterranean signature."
+        ],
+        "tip": "Save a little of the good olive oil to drizzle raw at the end — cooked oil fries, raw oil perfumes.",
+        "nutrition": {
+          "kcal": 280,
+          "protein_g": 20,
+          "carbs_g": 10,
+          "fat_g": 19
+        },
+        "storage": "2 days fridge; does not freeze."
+      },
+      {
+        "name": "Chickpea Flour Scramble",
+        "icon": "💰",
+        "feel": "No tofu, no shopping trip — just gram flour and water whisked into soft golden curds. The honest cheap cousin, and every bit as eggy.",
+        "time": 20,
+        "costPP": 7,
+        "ingredients": [
+          {
+            "n": "chickpea flour",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "water",
+            "pp": 130,
+            "u": "ml"
+          },
+          {
+            "n": "onion",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "sunflower oil",
+            "pp": 6,
+            "u": "ml"
+          },
+          {
+            "n": "turmeric",
+            "pp": 1,
+            "u": "g"
+          },
+          {
+            "n": "kala namak",
+            "pp": 2,
+            "u": "g"
+          },
+          {
+            "n": "black pepper",
+            "pp": 0.5,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Whisk the chickpea flour with the water into a smooth, lump-free batter a little thinner than pancake batter, and let it rest 10 minutes — resting hydrates the flour so it cooks soft instead of chalky and raw.",
+          "Soften the finely chopped onion in the oil over medium heat, then pour in the batter and leave it undisturbed for a minute until the base begins to set.",
+          "Now push and fold it slowly with a spatula, the way you would scramble eggs — it seizes into soft, custardy curds in 3–4 minutes. Keep the heat gentle; too hot and it turns rubbery.",
+          "Off the heat, fold through the turmeric and kala namak — turmeric for colour, kala namak for the sulphur note that makes this read as scrambled egg with no egg or tofu in it at all. Grind over the pepper and serve."
+        ],
+        "tip": "This is a real dish, not a stand-in — besan (gram-flour) scramble is eaten all over India. The batter must rest and the heat must stay low: those two rules are the whole thing.",
+        "nutrition": {
+          "kcal": 210,
+          "protein_g": 11,
+          "carbs_g": 26,
+          "fat_g": 7
+        },
+        "storage": "Best fresh — it firms up on standing. Keeps 1 day in the fridge; does not freeze."
+      },
+    ]
+  },
+  {
+    "id": "bf-chickpea-french-toast",
+    "cat": "toast",
+    "name": "Savoury Chickpea-Flour French Toast",
+    "emoji": "🍞",
+    "cuisine": "Indian",
+    "photoName": "Chickpea French Toast",
+    "freezes": false,
+    "fridgeDays": 1,
+    "time": 20,
+    "costPP": 14,
+    "feel": "A savoury slab of gold with a soft, custardy middle and a crisp, spice-flecked edge — French toast that took a wrong turn through a Mumbai kitchen and came out better.",
+    "didYouKnow": "Chickpea flour — besan — behaves like nothing else in the pantry: it's roughly a fifth protein and heavy in starch, so when it hydrates and hits a hot pan it SETS, the same way an egg does. India already knew this. Besan batter is the backbone of pakora, chilla and the Gujarati steamed cake dhokla, all of which hold their shape with no egg in sight. Calling this 'egg-free French toast' undersells it — it's not a substitute for the egg, it's a better-seasoned batter that happens to do the same job.",
+    "ingredients": [
+      {
+        "n": "chickpea flour",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "soy milk",
+        "pp": 60,
+        "u": "ml"
+      },
+      {
+        "n": "white bread",
+        "pp": 2,
+        "u": ""
+      },
+      {
+        "n": "turmeric",
+        "pp": 0.5,
+        "u": "g"
+      },
+      {
+        "n": "green chilli",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "fresh coriander",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "onion",
+        "pp": 20,
+        "u": "g"
+      },
+      {
+        "n": "sunflower oil",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "kala namak",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.5,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Whisk the chickpea flour with the soy milk and an equal splash of water into a smooth, pourable batter — a little thinner than pancake batter. Whisk out every lump now; you can't fix a lumpy batter once it's on the bread.",
+      "Rest the batter 10 minutes. This is the make-or-break step everyone skips: raw chickpea flour tastes chalky and beany, and only time lets the flour fully hydrate so it cooks through soft instead of powdery. Use the 10 minutes to finely chop the onion, chilli and coriander.",
+      "Stir the chopped onion, green chilli, coriander, turmeric, kala namak and pepper through the rested batter. The kala namak is optional but it nudges the whole thing toward 'eggy French toast' rather than 'savoury pancake'.",
+      "Heat the oil in a non-stick pan over medium. Dip each slice of bread into the batter, letting it soak for 5 seconds a side — long enough to coat and cling, not so long the bread goes soggy and falls apart.",
+      "Fry 2–3 minutes a side until deep gold and set, pressing gently with a spatula so the middle cooks through. You want a crisp shell and a just-set, custardy centre — the batter should be firm, never wet.",
+      "Serve hot, cut on the diagonal, with a spoon of chutney or a fresh tomato salsa. It sags as it cools, so this one waits for nobody."
+    ],
+    "tip": "Rest the batter the full 10 minutes — hydrated besan is the entire difference between silky and chalky. And keep the pan at a steady medium: too hot and the outside burns before the middle sets.",
+    "nutrition": {
+      "kcal": 340,
+      "protein_g": 14,
+      "carbs_g": 44,
+      "fat_g": 12
+    },
+    "storage": "Best fresh off the pan. Keeps 1 day in the fridge and re-crisps in a dry pan; loses its custardy middle on standing, so eat it the day you make it. Does not freeze.",
+    "goesWith": [
+      "Masala Scramble (Akoori)",
+      "Curry & Coconut Oats",
+      "Chakalaka Beans on Toast"
+    ]
+  },
+  {
+    "id": "bf-ful-medames",
+    "cat": "fryups",
+    "name": "Ful Medames",
+    "emoji": "🫘",
+    "cuisine": "Egyptian",
+    "photoName": "Ful Medames",
+    "freezes": true,
+    "fridgeDays": 3,
+    "time": 20,
+    "costPP": 17,
+    "feel": "Warm, earthy beans crushed just enough to hold a pool of grassy olive oil and sharp lemon — the breakfast that has fed the Nile since the Pharaohs and still costs almost nothing.",
+    "didYouKnow": "Ful medames may be the oldest breakfast still eaten daily on earth — dried fava beans have been found in Egyptian tombs from the Twelfth Dynasty, and the dish is named for the way it was cooked: 'medames' traces to a Coptic word for 'buried', because the bean pot was set in hot ash or a cooling oven overnight. It was never a vegan 'version' of anything — it was born vegan, four thousand years before the word existed. Cairo still runs on it: cheap, filling, and sold from copper pots on every corner.",
+    "ingredients": [
+      {
+        "n": "dried fava beans",
+        "pp": 70,
+        "u": "g"
+      },
+      {
+        "n": "olive oil",
+        "pp": 12,
+        "u": "ml"
+      },
+      {
+        "n": "garlic",
+        "pp": 4,
+        "u": "g"
+      },
+      {
+        "n": "lemon juice",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "ground cumin",
+        "pp": 1.5,
+        "u": "g"
+      },
+      {
+        "n": "tomato",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "red onion",
+        "pp": 25,
+        "u": "g"
+      },
+      {
+        "n": "fresh parsley",
+        "pp": 6,
+        "u": "g"
+      },
+      {
+        "n": "green chilli",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "salt",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.5,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "The night before: cover the dried fava beans in plenty of cold water and leave them to soak overnight. They double in size, so give them room. Skip the soak and you're looking at hours of boiling instead of one.",
+      "Drain, cover with fresh water, and simmer gently — not a rolling boil — until completely tender, roughly 45–60 minutes depending on the beans' age. Add salt only near the end: salt early and the skins toughen and refuse to soften. Top up with hot water if they surface.",
+      "Here is the whole texture of the dish: mash only HALF the beans, roughly, with the back of a spoon, and leave the rest whole. All-mashed is baby food; all-whole is a bean salad. The contrast between creamy and intact is what ful is.",
+      "Crush the garlic to a paste with a little salt and stir it through the warm beans with the cumin — the residual heat takes the raw bite off the garlic without cooking it to nothing.",
+      "Now the golden rule: finish OFF the heat. Pour over the olive oil, squeeze in the lemon, and fold gently. Cooking the oil and lemon would flatten them; added raw and warm, they stay bright and grassy — this is where a good ful is won or lost.",
+      "Pile into bowls and top with chopped tomato, red onion, parsley and green chilli. Serve with warm flatbread for scooping — in Egypt the bread is the spoon."
+    ],
+    "tip": "Mash half, dress off the heat. Those two rules are the entire dish — everything else is a topping you can move around to taste.",
+    "nutrition": {
+      "kcal": 300,
+      "protein_g": 16,
+      "carbs_g": 40,
+      "fat_g": 9
+    },
+    "storage": "The dressed beans keep 3 days in the fridge and improve overnight as the flavours settle; add a fresh squeeze of lemon when you reheat. The plain cooked beans freeze well for 3 months — dress them fresh after thawing.",
+    "goesWith": [
+      "Turkish Eggs",
+      "Shakshuka",
+      "Chakalaka Beans on Toast"
+    ]
+  },
+  {
+    "id": "bf-black-bean-corn-tacos",
+    "cat": "fryups",
+    "name": "Black Bean & Charred Corn Breakfast Tacos",
+    "emoji": "🌮",
+    "cuisine": "Mexican",
+    "photoName": "Breakfast Tacos",
+    "freezes": false,
+    "fridgeDays": 2,
+    "time": 25,
+    "costPP": 40,
+    "feel": "Smoky charred corn popping against soft cumin-dark beans, cool avocado and a hit of lime — a fistful of Mexico City street corner before the day's even started.",
+    "didYouKnow": "The blacken-in-a-dry-pan move has a name and a pedigree: it's how Mexican cooks make esquites and elote, charring corn kernels hard on a comal until they blister and pop. The scorch isn't a mistake, it's the flavour — the Maillard browning and a touch of smoke are exactly what separate street-cart corn from the tinned stuff. And the spice rule is iron: real Mexican cooking never reaches for a jar labelled 'taco seasoning'. It builds heat and depth from named, individual spices — cumin, smoked paprika, oregano, coriander — toasted and balanced by hand.",
+    "ingredients": [
+      {
+        "n": "corn tortillas",
+        "pp": 3,
+        "u": ""
+      },
+      {
+        "n": "black beans",
+        "pp": 120,
+        "u": "g"
+      },
+      {
+        "n": "frozen corn",
+        "pp": 80,
+        "u": "g"
+      },
+      {
+        "n": "red onion",
+        "pp": 30,
+        "u": "g"
+      },
+      {
+        "n": "garlic",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "ground cumin",
+        "pp": 1.5,
+        "u": "g"
+      },
+      {
+        "n": "smoked paprika",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "oregano",
+        "pp": 0.5,
+        "u": "g"
+      },
+      {
+        "n": "ground coriander",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "ripe avocado",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "lime juice",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "fresh coriander",
+        "pp": 5,
+        "u": "g"
+      },
+      {
+        "n": "olive oil",
+        "pp": 8,
+        "u": "ml"
+      },
+      {
+        "n": "salt",
+        "pp": 1,
+        "u": "g"
+      },
+      {
+        "n": "black pepper",
+        "pp": 0.5,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Char the corn FIRST, and char it dry. Get a heavy pan screaming hot, tip in the drained corn in a single layer, and leave it alone — no oil, no stirring, no crowding. Let it blister and pop, tossing only once or twice, until it's freckled dark, 4–5 minutes. Oil or a crowded pan makes it steam pale; a dry, hot, roomy pan makes it char. Tip it out and reserve.",
+      "Same pan, lower heat, add the olive oil and soften the finely chopped red onion 3 minutes, then the garlic for 30 seconds.",
+      "Add the cumin, smoked paprika, oregano and ground coriander and toast them in the oil for 20 seconds until fragrant — blooming named spices in fat is the whole flavour engine, and it's why no jar of 'taco seasoning' ever comes near this pan.",
+      "Add the drained black beans and a splash of water, and cook 4–5 minutes, mashing about a third of them against the pan so they turn saucy and cling. Season with the salt and pepper. Stir the charred corn back through at the end so it keeps its bite.",
+      "Warm the corn tortillas directly over a flame or in the dry pan, 20 seconds a side, until soft and singed at the edges — a cold tortilla cracks, a warm one folds. Keep them wrapped in a cloth so they steam soft.",
+      "Build: warm tortilla, a spoon of the smoky beans and corn, sliced avocado, a shower of fresh coriander, and a hard squeeze of lime over everything. The lime at the end wakes the whole thing up — don't skip it, and don't add it early."
+    ],
+    "tip": "Never reach for a generic 'taco seasoning' packet — it's the one locked rule here. Cumin, smoked paprika, oregano and coriander, bloomed in oil, do it properly and you'll taste each one.",
+    "nutrition": {
+      "kcal": 420,
+      "protein_g": 15,
+      "carbs_g": 58,
+      "fat_g": 15
+    },
+    "storage": "The bean-and-corn filling keeps 2 days in the fridge and reheats well — build the tacos fresh with just-warmed tortillas and avocado at the last minute. Assembled tacos go soggy, so don't store them made up. Filling freezes 2 months.",
+    "goesWith": [
+      "Shakshuka",
+      "Masala Scramble (Akoori)",
+      "Chakalaka Beans on Toast"
+    ]
+  },
+  {
+    "id": "bf-savoury-congee",
+    "cat": "oats",
+    "name": "Savoury Congee",
+    "emoji": "🍚",
+    "cuisine": "Chinese",
+    "photoName": "Savoury Congee",
+    "freezes": true,
+    "fridgeDays": 3,
+    "time": 60,
+    "costPP": 23,
+    "feel": "A bowl of silk — rice cooked so long it forgets it was ever rice, warm and soothing as a hand on your back, topped with sharp ginger and a slick of sesame.",
+    "didYouKnow": "Congee is the cheapest thing on this whole shelf, and that's the point: across China it's what you eat when there's little else, when you're unwell, or when you're a baby taking a first solid meal — a single handful of rice stretched with water into a bowl that fills you. The Cantonese test for a proper congee is that the grains have 'blossomed' — burst open and dissolved into a creamy slurry with no separate rice and water left. It takes nothing but time, and the whole law of the dish is that it must collapse, not boil.",
+    "ingredients": [
+      {
+        "n": "jasmine rice",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "vegetable stock",
+        "pp": 550,
+        "u": "ml"
+      },
+      {
+        "n": "ginger",
+        "pp": 6,
+        "u": "g"
+      },
+      {
+        "n": "garlic",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "mushrooms",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "soy sauce",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "sesame oil",
+        "pp": 3,
+        "u": "ml"
+      },
+      {
+        "n": "spring onion",
+        "pp": 12,
+        "u": "g"
+      },
+      {
+        "n": "nutritional yeast",
+        "pp": 3,
+        "u": "g"
+      },
+      {
+        "n": "white pepper",
+        "pp": 0.5,
+        "u": "g"
+      }
+    ],
+    "method": [
+      "Rinse the jasmine rice under cold water until it runs clear, then let it drain. Rinsing strips the loose surface starch that would make the congee gluey rather than silky.",
+      "Put the rice, vegetable stock, sliced ginger and smashed garlic in a big pot — big, because it needs room to barely move. The rice-to-liquid ratio is the whole law: about one part rice to eleven parts liquid for a loose, spoonable congee. Bring to a boil once, then drop it right down.",
+      "Now the discipline: a bare, lazy simmer for 45–60 minutes, lid ajar. It must COLLAPSE, not boil — a hard boil throws the starch about and never breaks the grains down. You're waiting for the rice to burst and dissolve into a creamy, pourable slurry.",
+      "Stir LATE, not early. Leave it mostly alone for the first half hour; only in the last 15 minutes do you stir now and then to stop it catching and to coax the grains apart. Early stirring just makes it claggy.",
+      "When it's silky, stir in the sliced mushrooms and nutritional yeast and cook 5 more minutes until the mushrooms are soft and the congee tastes deeply savoury. Season with the soy sauce and white pepper — congee needs more salt than you'd think, so taste and adjust.",
+      "Ladle into bowls and finish with a slick of sesame oil and a heap of sliced spring onion. The cold, sharp, raw toppings against the warm bland silk are the entire pleasure of the bowl — pile them high."
+    ],
+    "tip": "If you're short on time, blitz the rinsed rice for a few seconds first — cracked grains collapse far faster. And keep the heat truly low: the surface should barely shiver, never roll.",
+    "nutrition": {
+      "kcal": 240,
+      "protein_g": 7,
+      "carbs_g": 44,
+      "fat_g": 5
+    },
+    "storage": "Keeps 3 days in the fridge, where it sets solid — loosen with a good splash of water or stock when reheating and it comes back to silk. Freezes 2 months; thaw and slacken the same way. Add fresh toppings each time.",
+    "goesWith": [
+      "Congee with Crispy Onions & Soy Egg",
+      "Gilgeori Toast (Korean Street Toast)",
+      "Champorado (Filipino Chocolate Rice Porridge)"
+    ]
+  },
+  {
+    "id": "bf-overnight-baked-oats",
+    "cat": "oats",
+    "name": "Overnight & Baked Oats",
+    "emoji": "🥣",
+    "cuisine": "Global",
+    "photoName": "Overnight Oats",
+    "freezes": true,
+    "fridgeDays": 4,
+    "time": 10,
+    "costPP": 30,
+    "feel": "Cool, thick and spoonable straight from the jar, or warm and cakey from the oven — the same handful of oats living two completely different mornings.",
+    "didYouKnow": "The magic that thickens overnight oats without a stove is the same one that makes chia 'pudding' set: both oats and chia are loaded with soluble fibre — beta-glucan in oats, a mucilage gel in chia — that drinks up many times its weight in liquid and turns it to soft gel overnight in the cold. No cooking, no heat, just time and fridge. It's meal-prep's quiet anchor: mix one big batch on a Sunday night and you've bought yourself four grab-and-go breakfasts, each one thicker and more set than the last.",
+    "ingredients": [
+      {
+        "n": "rolled oats",
+        "pp": 50,
+        "u": "g"
+      },
+      {
+        "n": "soy milk",
+        "pp": 150,
+        "u": "ml"
+      },
+      {
+        "n": "chia seeds",
+        "pp": 10,
+        "u": "g"
+      },
+      {
+        "n": "maple syrup",
+        "pp": 10,
+        "u": "ml"
+      },
+      {
+        "n": "ripe banana",
+        "pp": 60,
+        "u": "g"
+      },
+      {
+        "n": "blueberries",
+        "pp": 40,
+        "u": "g"
+      },
+      {
+        "n": "peanut butter",
+        "pp": 15,
+        "u": "g"
+      },
+      {
+        "n": "cinnamon",
+        "pp": 0.5,
+        "u": "g"
+      },
+      {
+        "n": "vanilla essence",
+        "pp": 2,
+        "u": "ml"
+      }
+    ],
+    "method": [
+      "This is a batch recipe — the amounts scale straight up, and one Sunday-night mix makes about 4 jars. Grab jars or tubs with lids; the fridge does the cooking.",
+      "For OVERNIGHT oats: stir the rolled oats, chia seeds, cinnamon, vanilla and maple syrup together, then pour over the soy milk and stir well. The chia is the secret thickener — without it you get soggy oats, with it you get a set, puddingy spoonful.",
+      "Divide between jars, lid them, and refrigerate at least 6 hours or overnight. They keep thickening for up to 4 days, so the last jar of the batch is the thickest — loosen it with a splash more milk if you like it looser.",
+      "In the morning, top each jar with sliced banana, blueberries and a spoon of peanut butter. Adding the fruit fresh each day, not at mixing, keeps the banana from going brown and the berries from bleeding grey into the oats.",
+      "For BAKED oats: blitz the same mix (use a whole banana per person for binding and add 3 g baking powder to the batch) until batter-smooth, pour into a greased dish, and bake at 180°C for 22–25 minutes until risen and set with a springy top — a skewer should come out clean, not wet.",
+      "Baked oats want a 5-minute rest out of the oven before you cut them, the same as any cake — straight from the heat they're molten and won't hold a slice."
+    ],
+    "tip": "Chia is doing the setting — don't leave it out. And keep the ratio near one part oats to three parts liquid; too little milk and overnight oats set to concrete, too much and they never hold a spoon.",
+    "nutrition": {
+      "kcal": 420,
+      "protein_g": 14,
+      "carbs_g": 58,
+      "fat_g": 15
+    },
+    "storage": "Overnight oats keep 4 days in the fridge and only get better — this is the whole meal-prep point. Baked oats keep 4 days and freeze 2 months in slices; reheat a slice 30 seconds in the microwave or warm in a low oven.",
+    "goesWith": [
+      "Baked Berry Oats",
+      "Rooibos & Honey Oats",
+      "Custard Protein Oats"
+    ],
+    "versions": [
+      {
+        "name": "Classic Overnight",
+        "icon": "⭐",
+        "default": true,
+        "feel": "Cool, thick, spoonable — the no-cook Sunday-night batch that feeds four mornings.",
+        "time": 10,
+        "costPP": 30,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "soy milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "chia seeds",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "maple syrup",
+            "pp": 10,
+            "u": "ml"
+          },
+          {
+            "n": "ripe banana",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "blueberries",
+            "pp": 40,
+            "u": "g"
+          },
+          {
+            "n": "peanut butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "vanilla essence",
+            "pp": 2,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Stir oats, chia, cinnamon, vanilla and maple syrup, then pour over the soy milk — chia is the thickener.",
+          "Divide into jars, lid, and refrigerate at least 6 hours or overnight.",
+          "Top with banana, blueberries and peanut butter fresh each morning so the fruit stays bright.",
+          "Batch it: the amounts scale straight up and make about 4 jars from one mix."
+        ],
+        "tip": "Fruit goes on in the morning, never at mixing — banana browns and berries bleed grey overnight.",
+        "nutrition": {
+          "kcal": 420,
+          "protein_g": 14,
+          "carbs_g": 58,
+          "fat_g": 15
+        },
+        "storage": "4 days fridge, thickening as it sits."
+      },
+      {
+        "name": "Baked Oats",
+        "icon": "🧁",
+        "feel": "Warm, risen and cakey with a springy top — overnight oats' cosy oven twin.",
+        "time": 30,
+        "costPP": 28,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "soy milk",
+            "pp": 120,
+            "u": "ml"
+          },
+          {
+            "n": "banana",
+            "pp": 1,
+            "u": ""
+          },
+          {
+            "n": "maple syrup",
+            "pp": 12,
+            "u": "ml"
+          },
+          {
+            "n": "peanut butter",
+            "pp": 15,
+            "u": "g"
+          },
+          {
+            "n": "baking powder",
+            "pp": 3,
+            "u": "g"
+          },
+          {
+            "n": "cinnamon",
+            "pp": 0.5,
+            "u": "g"
+          },
+          {
+            "n": "vanilla essence",
+            "pp": 2,
+            "u": "ml"
+          },
+          {
+            "n": "blueberries",
+            "pp": 40,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Blitz oats, soy milk, banana, maple, peanut butter, baking powder, cinnamon and vanilla to a smooth batter.",
+          "Fold most of the blueberries through and scatter the rest on top.",
+          "Pour into a greased dish and bake at 180°C for 22–25 minutes until risen and a skewer comes out clean.",
+          "Rest 5 minutes before cutting — like any cake, it needs to set out of the oven to hold a slice."
+        ],
+        "tip": "The 3 g baking powder is what makes it rise into cake rather than sit as a dense pud — measure it, don't guess.",
+        "nutrition": {
+          "kcal": 440,
+          "protein_g": 14,
+          "carbs_g": 62,
+          "fat_g": 14
+        },
+        "storage": "4 days fridge; freezes 2 months in slices."
+      },
+      {
+        "name": "Peanut Butter & Cocoa",
+        "icon": "🍫",
+        "feel": "Tastes like cold brownie batter you're allowed to eat for breakfast.",
+        "time": 10,
+        "costPP": 23,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "soy milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "chia seeds",
+            "pp": 10,
+            "u": "g"
+          },
+          {
+            "n": "cocoa",
+            "pp": 6,
+            "u": "g"
+          },
+          {
+            "n": "peanut butter",
+            "pp": 20,
+            "u": "g"
+          },
+          {
+            "n": "maple syrup",
+            "pp": 12,
+            "u": "ml"
+          },
+          {
+            "n": "ripe banana",
+            "pp": 60,
+            "u": "g"
+          }
+        ],
+        "method": [
+          "Whisk the cocoa into a little of the soy milk first to a smooth paste — dumped in dry it clumps and floats.",
+          "Stir in the rest of the milk, oats, chia, peanut butter and maple, then divide into jars.",
+          "Refrigerate at least 6 hours; top with sliced banana in the morning.",
+          "A little extra maple balances the cocoa's bitterness — taste and adjust to how dark you like it."
+        ],
+        "tip": "Slake the cocoa in a splash of milk before it meets the oats — no dry cocoa clumps that way.",
+        "nutrition": {
+          "kcal": 450,
+          "protein_g": 15,
+          "carbs_g": 56,
+          "fat_g": 18
+        },
+        "storage": "4 days fridge, thickening as it sits."
+      },
+      {
+        "name": "Berry & Chia",
+        "icon": "🫐",
+        "feel": "Bright, tart and jammy where the berries bleed into the set oats overnight.",
+        "time": 10,
+        "costPP": 23,
+        "ingredients": [
+          {
+            "n": "rolled oats",
+            "pp": 50,
+            "u": "g"
+          },
+          {
+            "n": "soy milk",
+            "pp": 150,
+            "u": "ml"
+          },
+          {
+            "n": "chia seeds",
+            "pp": 12,
+            "u": "g"
+          },
+          {
+            "n": "mixed berries",
+            "pp": 60,
+            "u": "g"
+          },
+          {
+            "n": "maple syrup",
+            "pp": 12,
+            "u": "ml"
+          },
+          {
+            "n": "vanilla essence",
+            "pp": 2,
+            "u": "ml"
+          }
+        ],
+        "method": [
+          "Crush half the berries into the soy milk so they stain and sweeten it, and keep half whole for the top.",
+          "Stir in oats, chia, maple and vanilla, then divide into jars.",
+          "Refrigerate at least 6 hours or overnight — the extra chia here sets it firmest of all the versions.",
+          "Top with the whole berries in the morning."
+        ],
+        "tip": "Crushing half the berries into the milk is what turns plain oats jammy and pink — don't just pile them on top.",
+        "nutrition": {
+          "kcal": 380,
+          "protein_g": 12,
+          "carbs_g": 60,
+          "fat_g": 11
+        },
+        "storage": "4 days fridge, thickening as it sits."
+      }
+    ]
   }
 ];
 
