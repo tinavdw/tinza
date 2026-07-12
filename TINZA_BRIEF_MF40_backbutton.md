@@ -30,14 +30,55 @@ Feeding My Family  →  Breakfast  →  Eggs   (lands on the "EGGS · 14 KINDS" 
 
 **Breakfast is never returned to. It is skipped entirely.**
 
-### 🚨 CONFIRMED BY TINA: THIS IS THE **DIRECT** PATH. NO CROSS-LINK INVOLVED.
-She goes **straight in** — Breakfast → Eggs. No `goesWith` chip, no Makeable jump, no recipe opened.
+### 🚨 CONFIRMED 2 — IT IS **NOT** THE BREAKFAST PILL. IT IS **EVERY SHELF IN FMF.**
+Tina reproduced the identical behaviour on **SALADS**. Same double-push. Same dead first click.
 
-👉 **THIS IS NOT AN EDGE CASE. IT IS THE MAIN ROAD.**
-Breakfast → Eggs is the most-walked path in the biggest room in the app. **Every FMF user hits this on their first session — and the first Back appears to FREEZE THE APP.**
+👉 **THAT KILLS THE "BUG B" THEORY AS A SEPARATE BUG.** It is not about `mealCat` at all.
+👉 **IT IS ONE FUNCTION: THE SHELF-OPEN PATH IN `meals.js`. IT PUSHES TWICE. THAT IS THE WHOLE BUG.**
+👉 **AND IT IS EVERY SHELF, EVERY CATEGORY, EVERY FMF USER, EVERY SESSION.**
 
-👉 **AND IT MEANS THE BUG IS SIMPLE.** No exotic state, no cross-link interaction, nothing clever. **The plain, direct shelf-open in `meals.js` fires `pushState` TWICE.**
-⚖️ **TWO DOORS WHERE THERE SHOULD BE ONE. THE SAME DISEASE AS THE THREE PRICE RESOLVERS. (Law 6.)**
+### 🚨 CONFIRMED 4 — THE SUPPER WALK. **THIS ONE UNIFIES ALL THREE.**
+```
+Supper → Pasta  →  Back (1st) → lands on HOMESTYLE PLATES  →  Back (2nd) → HOME
+Homestyle Plates → Back (1st) → NOTHING                    →  Back (2nd) → HOME
+```
+
+### 🎯 THE CONSTANT ACROSS ALL THREE WALKS
+
+| Walk | Back #1 | Back #2 | Where is the parent? |
+|---|---|---|---|
+| Breakfast → Eggs | *nothing* | **HOME** | **Breakfast never appears** |
+| Salads | *nothing* | **HOME** | — |
+| Supper → Pasta | **Homestyle Plates** | **HOME** | **Supper never appears** |
+
+> ## 👉 **THE MEAL CATEGORY IS NEVER ON THE HISTORY STACK.**
+> **Not Breakfast. Not Supper. Not ever.**
+> **Back can only move between SHELVES, then fall off the end to HOME.**
+> **There is no category state to return to — because clicking the pill NEVER PUSHED ONE.**
+
+**THAT IS THE CONSTANT. THAT IS BUG A. IT EXPLAINS EVERY SINGLE WALK.**
+
+### 🚨 AND `Pasta → Back → HOMESTYLE PLATES` IS **WORSE** THAN GOING HOME
+**She was never on Homestyle Plates.** Back put her on a shelf she had never visited.
+- Going **Home** is a confusing exit. **The user knows something went wrong.**
+- Landing on the **WRONG SHELF** *looks like a correct Back.* **The user does not know.**
+⚖️ **LAW 3. SILENT WRONG IS WORSE THAN LOUD MISSING.**
+
+### 🎯 BUG B — THE DEAD CLICK IS PATH-DEPENDENT
+Some shelf-opens push **twice**, and **which ones depends on how you arrived**.
+`Supper → Pasta` pushed once (Back #1 moved). `Homestyle Plates` direct pushed twice (Back #1 dead).
+
+👉 **THAT IS THE "SOMETIMES" TINA HAS BEEN DESCRIBING FOR FOUR SESSIONS.**
+**It is not intermittent. It is PATH-DEPENDENT. And that is why nobody could pin it down.**
+
+⛔ **DO NOT THEORISE FURTHER. THREE REPROS IS MORE THAN THE LOG NEEDS. INSTRUMENT IT (§4A) AND READ THE ANSWER.**
+
+### 🚨 CONFIRMED 3 — THE BISECT (Tina, live)
+- Back **FROM INSIDE A RECIPE** → **WORKS.** ✅ The recipe path pushes ONCE and is **HEALTHY**.
+- Back **FROM THE SHELF** → **FAILS.** ❌
+
+⛔ **THEREFORE: DO NOT TOUCH `openRecipe` / `closeRecipe`. THEY ARE NOT THE BUG.**
+*(That is where the last fix went. It is where you will instinctively look again. Don't.)*
 
 ---
 

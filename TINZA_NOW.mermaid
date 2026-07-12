@@ -1,191 +1,137 @@
-%% TINZA — CANONICAL HANDOFF · 12 Jul 2026 (EVENING — after Code's dry-run)
-%% TODAY: WE WENT HUNTING A RESOLVER BUG AND FOUND THE DATA WAS LYING.
-%% TONIGHT: CODE PROPOSED A GUARD, DRY-RAN IT, AND KILLED ITS OWN DESIGN ON THE EVIDENCE.
-%% THAT IS THE PROCESS WORKING. L3 IS DEAD. THE DATA FIX IS THE FIX.
+%% TINZA — CANONICAL HANDOFF · 12 JULY 2026 (END OF DAY)
+%% PASTE THIS INTO THE NEW CHAT. EVERYTHING OPEN IS HERE.
+%%
+%% TODAY WE WENT HUNTING A RESOLVER BUG AND FOUND THE DATA WAS LYING.
+%% THEN WE FOUND THE MEAT CUT GUIDE WAS LYING.
+%% THEN WE FOUND OUR OWN NOTES WERE LYING.
+%% THEN WE OPENED THE BROWSER AND FOUND THE CARDS WERE LYING.
+%% THE CODE WAS NEVER THE PROBLEM. IT WAS FAITHFULLY READING EVERY LIE WE WROTE.
 
 flowchart TD
 
-  subgraph LIVE["✅ LIVE — CONFIRMED PUBLISHED"]
-    L1["🟢 main@403846b · Published on Netlify · verified 12 Jul<br/>THE GATE LAYER IS LIVE. Free no longer gives away the product.<br/>3 shared renderers: costLine() · kcalChip() · nutritionGrid()<br/>30+ sites routed · 12 rooms proven · core.js 4026 → 4073<br/>💥 O4 (sameness: one cost box) delivered free. Y1+Y2 dead — Pro == Deluxe."]
-    L2["🟠 SITTING IN A WORKING TREE. COMMITTED. **NOT PUSHED.** NOBODY CAN USE IT.<br/>· BACK-BUTTON 4a + 4b — core.js 4074 → 4091 · node --check clean · backed up<br/>· L1 (killed the bidirectional substring) — data.js · backed up<br/>👉 JOB 0 NEXT SESSION: PUSH THESE FIRST, ALONE, BEFORE ANY NEW CODE.<br/>If L2 goes wrong, a rollback must NOT take the back-button with it.<br/>⚖️ LAW 5: COMMITTED IS NOT PUSHED. PUSHED IS NOT DEPLOYED."]
+  subgraph WIN["🏆 MF28 IS CLOSED — 12 JUL"]
+    W0["🎯 **DANGER-DIET: 11 → 0.**<br/>THE COLUMN THAT PUT MILK AND HONEY ON A PAYING VEGAN'S SHOPPING LIST IS EMPTY.<br/>Per room: Health 7→0 · Spice 3→0 · World Kitchen 1→0.<br/><br/>✅ L2 — THE ANIMAL-COLLISION GUARD. ONE DOOR (Law 6).<br/>l2Blocks(name,key) lives ONCE in core.js. priceOf · lookupPrice · wkPriceLookup<br/>ALL call it. A plant/identity-qualified name resolving to a BARE ANIMAL NOUN returns<br/>null → routed into the 'N/M ingredients priced' line. NOT an error. THE HONESTY FEATURE.<br/>SET: milk butter cheese cream yoghurt yogurt buttermilk ghee honey<br/>     + mince bacon sausage (insurance — 0 hits today, always-a-refund-if-hit)<br/>FIRES ON: Mixed Nut Butter · nut butter · almond cream · oat cream · vegan cheese ·<br/>coconut butter.  ZERO FALSE POSITIVES: soya mince R95 · vegetable stock · coconut<br/>milk · peanut butter · date syrup · bean sprouts ALL STILL PRICE."]
+
+    W1["🔬 **THE CENSUS IS NOW A REPO TOOL.** Tools/fallback-census.js<br/>`node Tools/fallback-census.js` — per room, every run:<br/>exact · benign · DANGER-DIET · DANGER-CUT · DANGER-STATE · null · **CARDS-SKIPPED**<br/><br/>👉 THE INSTRUMENT IS THE REAL WIN. The number only means something because the tool<br/>can finally SEE all 12 rooms, and tell a BENIGN fallback (fresh ginger→ginger —<br/>correct, must not move) from a DANGEROUS one (almond milk→MILK — a refund).<br/><br/>⚠️ THE THREE DANGER COLUMNS ARE THREE DIFFERENT JOBS — NOT ONE FOG:<br/>  DIET  = plant name → animal key            → MF28 → **0** ✅ DONE<br/>  CUT   = chicken breast→chicken · lamb→a cut → THE LAMB TICK-LIST (money)<br/>  STATE = cooked→raw · dried→tinned          → MF34 (money, ~2.5x weight errors)<br/>WK CUT = 512 · Spice CUT = 234 · Health CUT = 144. **THAT IS THE NEXT MONEY MOUNTAIN.**"]
+    W0 --> W1
+  end
+
+  subgraph LIVE["✅ LIVE — CONFIRMED PUBLISHED ON NETLIFY"]
+    L1["🟢 **main@ad2d4dc · PUBLISHED · verified 12 Jul 16:23**<br/>· back-button 4a + 4b (a REAL fix of the WRONG BUG — see MF40)<br/>· L1 — killed the bidirectional substring (key.includes(q) deleted)<br/>· 15 LYING ALIASES DELETED · 14 VERIFIED PRICES ADDED, WITH PROVENANCE STAMPS<br/>· the signed lamb table · sprouts→brussels sprouts · hake reconciled 257→180<br/>· all 3 generic white-fish sites → hake fillets<br/><br/>VERIFIED REFUNDS NOW RESOLVE CORRECTLY:<br/>date syrup R323 (was HONEY R160) · almond milk R37 (was MILK R20) ·<br/>almond butter R320 (was BUTTER) · bean sprouts R270 (was BRUSSELS SPROUTS R193) ·<br/>caster sugar R84 (was SUGAR R35 — the 2.4x bake bug) · lamb potjiekos R150 (was R130)"]
+
+    L2["🟠 **IN THE WORKING TREE. NOT PUSHED** (as of handoff).<br/>· L2 (core.js · data.js · worldkitchen.js)<br/>· Tools/fallback-census.js<br/>👉 THIS IS THE COMMIT THAT CLOSES MF28. **PUSH IT ALONE, FIRST.**<br/>⚖️ LAW 5. If MF43 goes wrong, the rollback must not take MF28's close with it."]
     L1 --> L2
   end
 
-  subgraph RULED["⚖️ RULED TONIGHT — 12 JUL EVENING. Code was blocked on these."]
-    G1["1️⃣ 💀 **L3 IS DEAD.** SHIP L1 + L2 + TARGETED DATA FIXES. (Code's rec, adopted.)<br/>Code DRY-RAN its own blanket-identity rule and it NULLED CORRECT ANSWERS:<br/>  ✗ Coconut oil for frying → coconut oil (CORRECT key — 'for frying' fooled head-detection)<br/>  ✗ Sunflower or pumpkin seeds → pumpkin seeds (CORRECT)<br/>🆕 LAW 13: A GUARD THAT NULLS A CORRECT ANSWER IS A BUG, NOT A SAFETY FEATURE.<br/>🆕 LAW 14: DRY-RUN BEFORE SHIP. Every guard gets its false-positive list FIRST.<br/><br/>👉 BUT L3's real job was DETECTION, not guarding. That job SURVIVES →<br/>THE FALLBACK CENSUS (a standing dev report). See CENSUS."]
-
-    G2["2️⃣ ✅ **L2 CONFIRMED — AND EXTENDED.** Dry-run the extension BEFORE building.<br/>Code's rule stands: fire ONLY when the NAME is purely plant AND the resolved key<br/>is a BARE ANIMAL NOUN. It does NOT misfire on coconut milk / peanut butter / soy sauce.<br/>PROVEN CATCHES: Almond milk → MILK · Almond butter → BUTTER.<br/><br/>CONFIRMED SET: milk butter cheese cream yoghurt yogurt buttermilk ghee honey<br/>🆕 ADD (dry-run first): mince egg eggs bacon chicken beef stock broth sausage fish<br/>WHY — SAME REFUND, DIFFERENT NOUN:<br/>  soya mince → MINCE → BEEF MINCE  (soya mince is a REAL SA product)<br/>  flax egg → EGG · vegetable stock → CHICKEN STOCK · coconut bacon → BACON"]
-
-    G3["3️⃣ 🆕 **MF37 — THE 'A or B' LINES.** A DATA BUG. Tina splits them. No guard can fix it.<br/>'Milk or oat milk' · 'Cream cheese or cashew cheese' · 'hake or kingklip'<br/>👉 BREAKS THE INGREDIENT STANDARD: ONE PRODUCT PER LINE. You cannot buy 'A or B'.<br/>Code produces the LIST, grouped by room, showing today's resolution. EDITS NOTHING.<br/>⛔ DO NOT NULL THEM ALL — most resolve correctly (Law 12).<br/>⚠️ EXCEPT THE REFUND CLASS: any line with ANIMAL on one side, PLANT on the other<br/>→ NULL NOW, FAIL LOUD, listed separately at the top."]
-
-    G4["4️⃣ ✅ **THE FOUR 'STILL OPEN' ITEMS — ALL WERE ALREADY RULED. Code just never got them.**<br/>· CARAMEL → ruled (see LIES/X2)<br/>· THE 16 ALIAS CONFLICTS → ruled: PRICE_ALIAS WINS (see LIES/X5)<br/>· THE 7 NEW-KEY PRICES → Tina delivered them (see PRICEDATA)<br/>· caramel treat R125 ALREADY HAS A KEY (prices.js:815) — keep it, stamp it<br/>👉 LESSON: A RULING THAT LIVES ONLY IN THE CHAT IS NOT A RULING. IT GOES IN THE BRIEF."]
-
-    G1 --> G2 --> G3 --> G4
+  subgraph NEXT["🔴 THE QUEUE — IN THIS ORDER"]
+    N1["1️⃣ 🚀 PUSH L2 + THE CENSUS TOOL. Own commit. Confirm Netlify says **Published**."]
+    N2["2️⃣ 🩸 **MF43 — THE SIDES-ONLY LIE.** JUMPS THE QUEUE. IT IS LIVE ON 88 CARDS."]
+    N3["3️⃣ 🧭 **MF40 — THE BACK BUTTON.** Brief written. Diagnosed. NOT FIXED."]
+    N4["4️⃣ ✍️ **THE TICK-LISTS** — Tina signs. 36 WK lamb lines + MF37 A-or-B."]
+    N5["5️⃣ 💣 MF29 + MF33 — the maths."]
+    N6["6️⃣ 🥬 **MF30 — THE DIETARY WIRING. NOW UNBLOCKED.** MF28 was the gate. IT IS OPEN."]
+    N7["7️⃣ 🎨 MF31 + MF32 — the colour law. Trivial now: colour lives in costLine()."]
+    N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> N7
   end
 
-  subgraph NOW["🔴 NEXT SESSION — IN THIS ORDER"]
-    N0["0️⃣ 🚀 **PUSH THE BACK-BUTTON + L1.** They are done. They are not live. Ship them alone."]
-    N1["1️⃣ 🗑️ **THE DATA FIXES** — delete the lying aliases, add the real keys with Tina's prices.<br/>THIS IS WHERE THE BUG ACTUALLY LIVES. (Law 10.)"]
-    N2["2️⃣ 🛡️ **L2** — after its dry-run. Nulls route into 'N/M ingredients priced'."]
-    N3["3️⃣ 📊 **THE FALLBACK CENSUS** — the standing detector that replaces L3."]
-    N4["4️⃣ 💣 MF29 + MF33 — the maths. Cheap now: one door, costLine()."]
-    N5["5️⃣ 🥬 MF30 — the dietary wiring. BLOCKED BY MF28."]
-    N6["6️⃣ 🎨 MF31 + MF32 — the colour law. Trivial now."]
-    N0 --> N1 --> N2 --> N3 --> N4 --> N5 --> N6
+  subgraph MF43["🩸 MF43 — THE SIDES-ONLY LIE. THE WORST BUG IN THE APP RIGHT NOW."]
+    S1["🚨 **A LAMB DISH SHOWS A PRICE THAT DOES NOT INCLUDE THE LAMB.**<br/><br/>worldkitchen.js:151-159 — the BROWSE CARD computes its OWN cost with **NO GATE**:<br/>    if (priced &gt; 0 AND total &gt; 0) → SHOW TOTAL<br/><br/>👉 A user browses WK. Sees 'Lamb Tagine · R38'. Thinks: INCREDIBLE VALUE.<br/>👉 **THAT R38 IS ONIONS, SPICES AND A LEMON.**<br/>👉 She opens the card — and the DETAIL page honestly says 'not yet priced: lamb'.<br/>**THE CARD LIES. THE DETAIL TELLS THE TRUTH. THE USER SEES THE CARD FIRST.**<br/><br/>⚖️ LAW 3 — SILENT WRONG IS WORSE THAN LOUD MISSING. This is the worst instance in<br/>the whole app, and it is LIVE, RIGHT NOW, ON 88 CARDS.<br/>⚖️ 🆕 LAW 20 — A CARD THAT PRICES SOME OF THE FOOD IS WORSE THAN A CARD THAT PRICES<br/>NONE. A blank invites a question. **A PARTIAL TOTAL ANSWERS ONE THAT WAS NEVER ASKED,<br/>WRONGLY, WITH A NUMBER THE USER WILL ACT ON.**"]
+
+    S2["📊 THE NUMBER NOBODY HAD BEFORE THIS MORNING:<br/>WK CARDS-SKIPPED (no real price shown):   BEFORE 53/1021  →  AFTER 88/1021<br/>  ...of which the protein is LAMB:              2         →      35<br/><br/>👉 WE ADDED 35 TODAY — Bamya · Harira · Lamb Tagine · Potjiekos · Lamb Breyani ·<br/>every Bredie · Skaapboud · Irish Stew · Chanfana · Makrell i Tomat.<br/>**THOSE 35 ARE NOW *CORRECTLY* UNPRICED — we deleted the lie that priced lamb as<br/>mutton. THE BUG IS NOT THE SKIP. THE BUG IS THE SILENCE.**<br/><br/>😳 **AND 53 WERE ALREADY BROKEN THIS MORNING AND NOBODY HAD EVER COUNTED THEM.**<br/>Not from carelessness — **THE METRIC DID NOT EXIST.** We spent an entire day proving<br/>ingredient LINES and never once counted CARDS WITH NO PRICE ON THEM — which is<br/>**THE ONLY THING A USER ACTUALLY SEES.**<br/>👉 CARDS-SKIPPED IS NOW A STANDING CENSUS COLUMN. FOREVER."]
+
+    S3["🔧 THE FIX — AND THE TRUTH-TELLING CODE IS ALREADY SITTING RIGHT THERE:<br/>· WK DETAIL page (worldkitchen.js:630-631) ALREADY renders the loud line:<br/>  '≈ estimate — not yet priced: lamb, …'   ✅ IT EXISTS. IT WORKS.<br/>· WK BROWSE CARD (151-159) and FINDER/search (index.js:264, 494) **DON'T CALL IT.**<br/>👉 ROUTE THE CARD + THE FINDER THROUGH THE SAME LOUD LINE. ⚖️ LAW 6: ONE DOOR.<br/>⛔ **NO PARTIAL TOTALS. EVER.** If the main protein is unpriced, the card SAYS SO.<br/>It does not quietly print the sides.<br/>· The coverage gate (index.js:244-269 — coverage&gt;=0.8 AND protein-priced) is<br/>  **WK-ONLY**. Only adaptWorld has it. Confirmed: no other room does this.<br/>✅ **PROOF = A SCREENSHOT of a WK lamb card showing the loud line instead of 'R38'.**<br/>**A CODE-TRACE IS NOT PROOF. IT ALREADY GAVE US ONE TODAY AND IT WAS WRONG.**"]
+    S1 --> S2 --> S3
   end
 
-  subgraph BACK["🧭 BACK-BUTTON — DIAGNOSED + FIXED + AWAITING PUSH"]
-    B1["🎉 NAVIGATION WAS REAL HISTORY ALL ALONG. draw() pushes history.pushState;<br/>popstate restores the snapshot. EVERY CROSS-LINK IS SAFE. Months of goesWith<br/>chips, crossLinkBox, WK→Spice, Braai→dressing: THEY ALL WORK."]
-    B2["✅ 4a — THE ROOT CAUSE WAS ONE WORD. mealCat was in navSignature but MISSING<br/>from NAV_KEYS → closeRecipe's set-path lost it → activeCat fell to cats[0].<br/>👉 IF BREAKFAST WASN'T FIRST, YOU WERE LOOKING AT THE FIRST CATEGORY.<br/>THAT IS 'it took me out of Breakfast.' mealCat ADDED TO NAV_KEYS. DONE."]
-    B3["✅ 4b — MAKEABLE. Shelf links hard-jumped with no returnTo snapshot.<br/>Now carry _shelfJump; goBack step-0 consumes via history.back() → popstate<br/>restores the origin recipe. Same consume path as a normal Back = NO depth drift. DONE."]
-    B4["🧪 PROOF STILL OWED — AND ONLY A HUMAN CAN GIVE IT.<br/>A code-trace cannot prove this. **TINA WALKS IT ONCE IT IS LIVE:**<br/>Breakfast → cross-link recipe → Back → STILL BREAKFAST. All 12 rooms.<br/>4c (the _appNavDepth / bottomBarGo('home') drift) — if 4a+4b kill the<br/>intermittency, SAY SO AND LEAVE IT ALONE."]
-    B1 --> B2 --> B3 --> B4
+  subgraph MF40["🧭 MF40 — THE BACK BUTTON. FOUR SESSIONS. IT WAS NEVER ONE BUG."]
+    B1["📋 BRIEF WRITTEN: **TINZA_BRIEF_MF40_backbutton.md** (repo root). READ IT FIRST.<br/><br/>🚨 THE FIX THAT SHIPPED TODAY WAS **REAL, CORRECT, LIVE — AND THE WRONG BUG.**<br/>4a fixed closeRecipe's set-path. **THE USER NEVER OPENED A RECIPE.**<br/>⚖️ **LAW 2 CAUGHT ITS OWN AUTHOR.** A proof-by-trace passed. The app still does it."]
+
+    B2["🎯 THE THREE LIVE REPROS (Tina, on ad2d4dc):<br/>  Breakfast → Eggs → Back = NOTHING · Back again = HOME<br/>  Salads           → Back = NOTHING · Back again = HOME<br/>  Supper → Pasta   → Back = **HOMESTYLE PLATES** (never visited!) · Back = HOME<br/><br/>👉 **THE CONSTANT: THE MEAL CATEGORY IS NEVER ON THE HISTORY STACK.**<br/>Not Breakfast. Not Supper. NOT EVER. Back can only move between SHELVES and then<br/>fall off the end to HOME. **There is no category state to return to — because<br/>clicking the pill NEVER PUSHED ONE.** THAT EXPLAINS EVERY SINGLE WALK.<br/><br/>🚨 Pasta → Back → HOMESTYLE PLATES is **WORSE** than going Home. Going Home is a<br/>confusing exit — the user KNOWS something broke. Landing on a shelf she never chose<br/>**LOOKS LIKE A CORRECT BACK. SHE DOES NOT KNOW.** (Law 3, again.)"]
+
+    B3["🎯 BUG A — the meal-category pill pushes **ZERO** times.<br/>🎯 BUG B — some shelf-opens push **TWICE** → the dead first click.<br/>**AND WHICH ONES DEPENDS ON HOW YOU ARRIVED.**<br/>👉 THAT IS THE 'SOMETIMES' TINA DESCRIBED FOR FOUR SESSIONS.<br/>**IT WAS NEVER INTERMITTENT. IT IS PATH-DEPENDENT.** That is why it never converged.<br/><br/>✅ THE BISECT: Back FROM INSIDE A RECIPE **WORKS**. Back FROM THE SHELF **FAILS**.<br/>⛔ **DO NOT TOUCH openRecipe / closeRecipe. THEY ARE NOT THE BUG.**<br/>That is where the last fix went. It is where Code will instinctively look again.<br/><br/>✅ The BROWSER back does it too → NOT goBack(), NOT bottomBarGo. **THE HISTORY STACK.**<br/>✅ Braai · Spice · Health · WK are ALL CLEAN → NOT core's popstate. **IT IS meals.js.**<br/><br/>👉 **INSTRUMENT history.pushState. LOG THE STACK TRACE. DRIVE THE REPRO. PASTE THE<br/>RAW LOG.** Not 'read the code and reason about it' — that produced a confident,<br/>correct-looking, WRONG answer. **THE LOG IS THE DELIVERABLE.**"]
+    B1 --> B2 --> B3
   end
 
-  subgraph MF28["💥 MF28 — THE RESOLVER. L1 DONE + MEASURED."]
-    M0["🚨 WHY THIS BLOCKS MF30:<br/>The dietary filter is PRO. THE ONLY HUMAN WHO WILL EVER USE IT PAID R50.<br/>She filters to vegan → builds a plan → opens the shopping list →<br/>and the resolver has quietly put MILK AND HONEY ON IT.<br/>A free user getting a wrong price is embarrassing.<br/>A PAYING VEGAN HANDED DAIRY IS A REFUND AND A SCREENSHOT."]
+  subgraph TICK["✍️ OWED BY TINA — THE TICK-LISTS. Code has them ready."]
+    K1["🐑 **36 WK LAMB LINES NOW FAIL LOUD** (17 distinct): lamb · lamb ribs ·<br/>lamb shoulder · lamb leg · lamb leg or shoulder · lamb chops · lamb pieces ·<br/>bone-in lamb pieces · lamb on the bone · lamb shin · lamb stock …<br/>+ the bare `lamb chops` lines + 1 `lamb shoulder` line + the `lamb roast` lines.<br/><br/>👉 **THE BLANKS ARE NOT A REGRESSION. THEY ARE THE HONESTY FEATURE WORKING.**<br/>Code proposes a BUY-NAME from each dish's COOKING METHOD (per the addendum).<br/>**TINA TICKS. The Guide proposes; the human decides.**"]
 
-    M1["✅ L1 — SHIPPED TO WORKING TREE + MEASURED (data.js).<br/>Deleted key.includes(q). Kept q.includes(key) + longest-match-wins.<br/>Confirmed: the ONLY bidirectional-substring resolver in the app.<br/><br/>🔍 CORRECTION THAT MATTERED: Health's real resolver is lookupPrice, NOT priceOf.<br/>The first baseline measured the wrong door.<br/><br/>L1-ONLY NUMBERS (exact / fallback / null):<br/>  Health (lookupPrice)      82/356/37 → 82/350/43   · 11 names moved<br/>  Tiny Tummies + pets       25/132/16 → 25/131/17   · 2 names moved<br/>  priceOf rooms             unchanged BY CONSTRUCTION · 0<br/><br/>KILLED THE 'SHORT-QUERY-GRABS-LONG-KEY' CLASS:<br/>  Apple → apple cider vinegar ✗ · Pear → pearl barley ✗ · Ice → unsliced white loaf ✗<br/>👉 A HANDFUL, BUT REAL. L1 IS A SAFETY WIN, NOT THE MAIN EVENT. THE MAIN EVENT IS DATA."]
+    K2["🔤 **MF37 — THE 'A or B' LINES.** 'Milk or oat milk' · 'Chicken or vegetable stock' ·<br/>'Egg noodles or rice' · 'Sprouts or microgreens' · 'lamb or chicken cubes'<br/>👉 BREAKS THE INGREDIENT STANDARD: **ONE PRODUCT PER LINE. YOU CANNOT BUY 'A or B'.**<br/>Refund class (animal one side, plant the other) → ALREADY NULLED. Rest → Tina splits.<br/><br/>🔓 **MF37 IS A KEY, NOT A CHORE — COMPLETING IT RE-OPENS 7 TRIMMED L2 RULES.**<br/>chicken · beef · egg · eggs · stock · broth · fish were trimmed from L2 **ONLY<br/>because they false-positive on A-or-B lines.** THE RULES ARE SOUND. THE LINES ARE<br/>BROKEN. Split the lines → the guard gets 7 rules wider, THE SAME DAY."]
 
-    M2["🏗️ ONE RESOLVER, THREE WRAPPERS, ZERO CALL-SITE CHURN. (STILL TO BUILD.)<br/>Today there are THREE doors: priceOf (rich obj) · wkPriceLookup (no pack) ·<br/>lookupPrice (bare number, LOOSEST). THEY DISAGREE:<br/>date syrup = R160 via priceOf, R50 via lookupPrice. SAME INGREDIENT. TWO PRICES.<br/>👉 resolvePrice(name, opts) in core.js. The three become THIN WRAPPERS.<br/>⚠️ wkPriceLookup MUST pass opts.alias = WK_ALIAS (~115 of its own aliases) —<br/>if the shared resolver doesn't receive them, EVERY WK PRICE SHIFTS."]
-
-    M0 --> M1 --> M2
+    K3["❓ NEVER ANSWERED (asked twice — §2A of the original brief):<br/>**DOES THE SHOPPING LIST PRINT THE INGREDIENT NAME AS AUTHORED, OR THE RESOLVED KEY?**<br/>file:line + the actual emitting line. Low severity now that DANGER-DIET is 0 —<br/>but **IT SETS THE SEVERITY OF EVERY FUTURE RESOLVER BUG.** It is one line. Get it."]
+    K1 --> K2 --> K3
   end
 
-  subgraph CENSUS["📊 THE FALLBACK CENSUS — WHAT REPLACES L3"]
-    E1["L3 was the WRONG MECHANISM for the RIGHT FEAR:<br/>👉 A NEW FALLBACK LIE CAN BE AUTHORED TOMORROW AND WE WOULD NEVER SEE IT.<br/><br/>BUILD A STANDING DEV-ONLY NODE REPORT (not shipped UI, not a runtime guard):<br/>For ALL 12 ROOMS, PER SECTION — every ingredient that resolves via FALLBACK<br/>instead of an EXACT KEY, what it resolves to, and what it costs.<br/><br/>Run before + after every session. THE FALLBACK COLUMN MUST GO DOWN.<br/>If it doesn't move, THE GUARD ISN'T FIRING AND YOU BUILT NOTHING.<br/>⚠️ priceOf rooms (Meals · Braai-shop · Buffet · Kiddies · Events · Spice · WK-plan)<br/>HAVE NEVER BEEN MEASURED. MEASURE THEM.<br/><br/>🌱 THIS IS THE SEED OF PRICE STUDIO. It is how we ever find the next date syrup → honey."]
+  subgraph MFS["🆕 THE OPEN BUG LEDGER — NOTHING HERE IS LOST"]
+    F1["**MF29** — Math.ceil count-item OVER-billing in the FOOD-COST path.<br/>ceil is CORRECT for shopping (can't buy half an egg) = GOLD.<br/>ceil is CATASTROPHIC for food cost (a slice holds 0.4 egg) = GREEN.<br/>319 of 440 lines are in BAKES → ~2.5x overstated → **A HOME CAKE MAY 'COST' MORE THAN<br/>A BOUGHT ONE. THE PRODUCT'S CORE CLAIM, INVERTED.**<br/>✅ REFERENCE IMPL EXISTS: costRecipe does it right. PROPAGATE IT. Copying, not inventing."]
+    F2["**MF33** — hcLineCost (health:597) + ttLineCost (tinyTummies:6) RETURN NULL FOR<br/>COUNT ITEMS → **Health &amp; Tiny Tummies DON'T COST EGGS AT ALL.**<br/>The app OVER-bills eggs in FMF/Braai/WK and UNDER-bills them in Health/Kiddies."]
+    F3["**MF34** — STATE/YIELD QUALIFIERS = the census STATE column.<br/>cooked · dried · tinned · frozen · raw are NOT cosmetic adjectives.<br/>'cooked chickpeas → chickpeas' prices ~2.5x the weight it should if the key is DRY.<br/>MF29 wearing a different coat. Health 12 · Spice 9 · WK 10."]
+    F4["**MF36** — THE 26-JUNE ALIAS BATCH. 50 aliases, one afternoon, one flawed reasoning.<br/>The lamb one is PROVEN WRONG. **THE OTHER 49 HAVE NEVER BEEN RE-READ.**<br/>Suspects: black beans→red kidney beans · generic nuts→mixed nuts · mixed greens→lettuce.<br/>(Some are fine — linguine IS pasta.) List all 50 with targets. Tina rules in ONE pass."]
+    F5["**MF39** — PROVENANCE MIGRATION. Today's stamps are TRAILING COMMENTS:<br/>  'lamb potjiekos': 150,  // src:Shoprite/PnP when:2026-07 conf:shelf range:130-170<br/>All 768 PRICE_DB values are BARE NUMBERS — an object would crash the direct reads and<br/>hide the key from the sweep. **THE COMMENT IS INTERIM AND WE ARE SAYING SO.**<br/>When resolvePrice() lands and there is ONE door → migrate to {price,src,when,conf}<br/>with a one-line normaliser. ⛔ A PRICE_META map is REJECTED: two sources of truth is<br/>the disease, not the cure."]
+    F6["**MF41 — THE FISH ALIAS AUDIT.** 14 fish aliases. The wrong-species ones:<br/>cod → hake · carp → hake/basa · sea bass → basa · dogfish → basa ·<br/>perch fillets → basa · vendace → hake/basa.<br/>**COD IS NOT HAKE. CARP IS NOT HAKE.** Same disease as mackerel→hake, which we killed<br/>today. One-pass ruling. Tina's call."]
+    F7["**MF42** — WK Â MOJIBAKE in ingredient strings. Encoding corruption in the DATA.<br/>Own session. ⚠️ Reminder: **Python truncated spice.js to 0 bytes on an emoji error.**<br/>**FILE WRITES: NODE fs.writeFileSync ONLY. Min-file-size guard on every destructive op.**"]
+    F1 --> F2 --> F3 --> F4 --> F5 --> F6 --> F7
   end
 
-  subgraph LIES["🚨 THE DATA IS LYING. NO GUARD SAVES US. DELETE + REPLACE."]
-    X1["💀 DELETE THESE ALIASES — ALL CONFIRMED (machine-audited 12 Jul):<br/>  date syrup → HONEY          R160   💀 plant → animal. A GREEN TICK ON A LIE.<br/>  caramel → CONDENSED MILK    R119   (core.js:930)<br/>  caramel treat → CONDENSED MILK     (core.js:931 — stale, real key exists)<br/>  goat → mutton                      (core.js:923 + WK goat meat / goat ribs)<br/>  black beans → sugar beans   R78    (DEAD — real key R50 already wins. Hygiene.)<br/>  mackerel → tinned sardines         (PRICE_ALIAS)<br/>  mackerel → hake                    (WK_ALIAS)<br/>⚠️ lamb → lamb neck — DO NOT DELETE YET. Gated on Tina's signature. See X3."]
-
-    X2["🍮 CARAMEL — RULED. TWO PRODUCTS, ONE WORD (Tina, caterer):<br/>· caramel ESSENCE = ~5ml in a cake, like vanilla. 40ml @ R14 → NEW KEY R350/L.<br/>· caramel TREAT = a TIN of condensed milk cooked under pressure. 360g @ R45.<br/>  🎉 ALREADY HAS A REAL KEY (prices.js:815, R125/kg). KEEP IT. STAMP IT.<br/>✅ CODE PROVED NO RECIPE RENAMES NEEDED — every real line already says<br/>'Caramel Treat' / 'caramel treat (tinned)'. Bare 'caramel' mentions are flavour<br/>descriptors + method text. GOOD HUNTING.<br/>👉 REWIRE caramel essence (wk_southafrica.js:121) OFF vanilla essence ONTO the new key."]
-
-    X3["🐑 LAMB — AND THE GUIDE ITSELF WAS THE BUG.<br/>⚖️ 🆕 THE MEAT CUT GUIDE IS A COOK'S RULE. PRICING NEEDS A SHOPPER'S RULE.<br/>The Guide says 'stewing lamb = shoulder or neck'. TRUE IN THE KITCHEN. USELESS AT THE TILL.<br/>👉 YOU CANNOT BUY 'SHOULDER OR NECK'. You buy a pack marked LAMB POTJIEKOS.<br/>Per ButcherSA that pack is a FOREQUARTER MIX: neck · flank · breast · shank/knuckle ·<br/>shoulder. Shoprite, PnP and Chalmar all sell it BY THE KILO as a named product.<br/>👉 lamb potjiekos IS A PRODUCT KEY. NOT AN ALIAS TO lamb neck. IT NEVER WAS.<br/>THAT IS THE INGREDIENT STANDARD: THE NAME IS WHAT YOU BUY.<br/><br/>🚨 LAMB WAS WRONG IN BOTH DIRECTIONS AT ONCE:<br/>  · lamb → lamb neck made BRAAI CHOPS 33% TOO CHEAP<br/>  · lamb potjiekos @ R130 (the FLOOR of a R130–R170 band) made EVERY STEW, CURRY,<br/>    BREDIE AND POTJIE ~15% TOO CHEAP<br/>👉 BOTH LIES QUIETLY FLATTERED THE GREEN 'COOKING BEATS BUYING' NUMBER.<br/>THAT IS THE PRODUCT'S CORE CLAIM, FLATTERED BY ITS OWN BUGS.<br/><br/>✅ RULED: lamb potjiekos = R150/kg (MID of the mainstream Shoprite/PnP band).<br/>Card shows the RANGE: 'R130–R170/kg depending on butcher.'<br/>(Full retail spread R110–R220 = 2x → THE PRICING LAW FIRES. Store a range, say so.)<br/>✅ RULED: BRAAI/GRILL DEFAULT = LAMB SHOULDER CHOPS. People prefer them, and the<br/>shelf agrees — PnP braai-chop packs sit well under loin."]
-
-    X3B["🐑 LAMB — THE THREE MERGES THAT MUST NOT HAPPEN + THE COLLISION.<br/>SAME CONTEXT-FLATTENING DISEASE AS THE ALIAS — JUST AT THE **KEY** LEVEL:<br/>  ❌ 'lamb knuckle / potjiekos' as ONE key → a CUT (premium R169–R235) and a MIX<br/>     (budget R130–R170). Merging averages a REAL difference into a FAKE one.<br/>  ❌ 'lamb stew / lamb mince' as ONE key → MINCE IS GROUND. STEW IS CUBED BONE-IN.<br/>     Not the same food, not the same shelf, not the same price.<br/>  ❌ 'stewing lamb → lamb neck' → DEAD. THE PACK IS NOT NECK.<br/><br/>🩸 THE COLLISION CODE WOULD HAVE WALKED INTO:<br/>PRICE_DB ALREADY HAS v20 LAMB KEYS AND THEY DISAGREE WITH THE 12-JUL LIST:<br/>  lamb loin chops R270  vs  lamb chops R255<br/>  lamb braai chops R200 vs  lamb shoulder chops R220<br/>  leg of lamb R190      vs  leg of lamb R205<br/>  lamb neck R180        vs  lamb neck R170<br/>  lamb shank R190       vs  lamb shank R180<br/>  lamb potjiekos R130   vs  (merged away @ R170)<br/>  lamb knuckles R200 · lamb rib R220 · butterflied leg R190 · lamb roast R190 · mutton R180<br/>     → NOT IN THE NEW LIST AT ALL<br/><br/>🚨 CODE MUST **RECONCILE**, NOT ADD. Just adding the new keys gives PRICE_DB<br/>TWO KEYS FOR ONE PRODUCT AT TWO PRICES, and longest-match picks whichever door.<br/>THAT IS THE date syrup = R160-or-R50 DISEASE, REBORN IN THE MEAT AISLE.<br/>👉 PRINT THE FULL CURRENT LAMB KEY LIST FIRST. TINA SIGNS ONE NUMBER PER PRODUCT.<br/>👉 ALSO CHECK BEEF + PORK — pork potjiekos / pork roast keys exist. Same disease?<br/><br/>❓ ONE OPEN NUMBER: lamb mince = R98/kg or R160/kg? Tina's spread note said R98,<br/>her key list said R160. BOTH CANNOT BE TRUE. Until she rules: FAIL LOUD, NO GUESS."]
-
-    X4["🐟 FISH — 3 of the 16 'conflicts' are MISSING KEYS, not conflicts.<br/>Tina (caterer): hake is RARELY tinned, mostly FROZEN, a BIGGER fish, NOT oily,<br/>and EXPENSIVE now. Sardines + mackerel ARE oily. Tilapia + basa are CHEAP.<br/>👉 ADD REAL KEYS: mackerel (tinned + frozen) · hake · basa · tilapia.<br/>🎣 THE 3 GENERIC WHITE-FISH CALL SITES — ✅ RULED BY TINA: **HAKE, ALL THREE.**<br/>  prices.js:1077 (was 'hake or kingklip') · eventsData.js:53 · meals.js:13620<br/>  👉 ALL THREE → hake fillets (frozen, R180/kg, Sea Harvest / I&amp;J). The SA default.<br/>  👉 This also KILLS the 'hake or kingklip' A-or-B line. ONE PRODUCT PER LINE. Done."]
-
-    X5["⚖️ THE 16 PRICE_ALIAS ↔ WK_ALIAS CONFLICTS — RULED:<br/>DEFAULT: **PRICE_ALIAS WINS.** It is the app-wide table. WK is a specialist that<br/>may ADD, never OVERRIDE. (That is the sameness law.)<br/>EXCEPT the 3 above (lamb · mackerel · white fish) → NEITHER. Add real keys.<br/>171 non-conflicting shared keys merge cleanly."]
-
-    X6["🥬 THE 'MONEY SET' — TINY, AND FIXED IN DATA, NOT IN A RULE:<br/>  bean sprouts → 🆕 EXACT KEY R270/kg. Kills the BRUSSELS SPROUTS @ R193 lie<br/>    BY CONSTRUCTION (exact beats fallback). L1 did NOT fix it. L2 cannot (not animal).<br/>    ⚠️ ALSO: grep for a bare 'sprouts' key → RENAME IT 'brussels sprouts'.<br/>    A bare 'sprouts' key is a trap for every sprout we ever author again.<br/>  black beans   → real key R50 already correct. Just delete the dead alias.<br/>  nutritional yeast → ✅ ALREADY FIXED. Real key R450. (Was BAKER'S YEAST.)<br/>  maple syrup   → ✅ ALREADY FIXED. Real key R400.<br/>  corn tortillas → ✅ resolves via a count key. Not an alias. Not wrong.<br/>  caster/castor → ✅ RULED. SAME PRODUCT, ONE SPELLING. R84/kg IS CORRECT — KEEP IT.<br/>    Tina verified: 500g @ R36.99–R48.99 (PnP · Shoprite) → R74–R98/kg, mid R84.<br/>    👉 ADD ALIAS caster sugar → castor sugar. ONE PRODUCT, ONE KEY. No revalue.<br/>    🚨 WHITE SUGAR R35/kg. CASTOR R84/kg (it costs more because it is milled FINER).<br/>    A 'caster sugar' line falling back to 'sugar' is NOT a rounding error.<br/>    IT IS 2.4x UNDER. ONE LETTER. MORE THAN DOUBLE THE PRICE. AND IT IS IN EVERY BAKE.<br/><br/>👉 THAT IS THE WHOLE MONEY SET. SIX LINES. THIS IS WHY L3 WAS OVERKILL."]
-
-    X1 --> X2 --> X3 --> X3B --> X4 --> X5 --> X6
+  subgraph DIETLOCK["🥬 MF30 — THE DIETARY WIRING. **NOW UNBLOCKED.** MF28 WAS THE GATE."]
+    D0["🔓 **THE ARGUMENT THAT BLOCKED IT IS NOW ANSWERED.**<br/>The filter is PRO → THE ONLY HUMAN WHO WILL EVER USE IT PAID R50 → she filters to<br/>vegan, builds a plan, opens the shopping list — and the resolver has quietly put<br/>MILK AND HONEY ON IT.<br/>👉 **DANGER-DIET IS NOW 0. SHE GETS A CLEAN LIST. BUILD IT.**"]
+    D1["💰 **V IS PRO. FREE GETS ZERO FILTERING.** (Kills the old 'Free = 1 dietary restriction'.)<br/>🎁 **BADGE FREE · FILTER PRO.** The V/VE badge renders on EVERY card for EVERYONE —<br/>**IT IS THE PITCH.** WHY: a Free vegan who sees no V anywhere doesn't hit a paywall —<br/>**SHE LEAVES.** A BLANK IS A BUG. A TEASER IS A PITCH. THE LOCK IS THE SALESMAN.<br/>ONBOARDING: **FREE ASKS. PRO APPLIES.**"]
+    D2["📋 **V + VE ONLY FOR v1.** The 12-tag taxonomy has ZERO DATA behind it.<br/>🚩 **FOURTH STATE REQUIRED: diet:'unknown'.** Untagged must NEVER default and NEVER<br/>appear in the VE filter. **FAIL LOUD.** An untagged dish quietly counting as 'vegan'<br/>is the one that ends you.<br/>NOTHING HIDES ITSELF — hard-hide killed by **THE VEGAN MOM WHO COOKS FOR HER NON-VEGAN<br/>FAMILY.** Auto-apply parked → post-launch Settings checkbox."]
+    D3["🏗️ **SHELVES ARE QUERIES, NOT LISTS.** Tag ONCE. A shelf = a QUERY on the diet field.<br/>**ONE FIELD → THREE VIEWS: badge · filter · shelf.**<br/>⚠️ **TAGS DERIVED IN NODE FROM INGREDIENT LISTS. NEVER BY HAND.**<br/>Last audit: **CAESAR SALAD tagged vegetarian WITH ANCHOVIES IN IT.**<br/>🔍 HIDDEN-ANIMAL DICTIONARY: worcestershire (anchovy) · fish sauce · oyster sauce ·<br/>shrimp paste · dashi/bonito · chicken stock · gelatine · lard.<br/>Not vegan: honey · butter · ghee · milk powder.<br/>🧀 PARMESAN → diet:'veg' + dietNote (rennet is genuinely unknowable).<br/>⛔ **dietNote IS NOT AN ESCAPE HATCH.** Worcestershire has anchovies — THAT GETS A TAG.<br/>☪️ HALAAL + KOSHER: separate laws. We can say NO PORK · NO ALCOHOL.<br/>**WE CANNOT SAY CERTIFIED HALAAL. NEVER CLAIM IT.**"]
+    D0 --> D1 --> D2 --> D3
   end
 
-  subgraph MFNEW["🆕 BUGS NAMED — LOGGED, NOT FIXED"]
-    F1["MF34 — STATE / YIELD QUALIFIERS PRICED IN THE WRONG FORM.<br/>cooked · dried · tinned · canned · frozen · raw are NOT cosmetic adjectives.<br/>'cooked chickpeas → chickpeas' prices ~2.5x the weight it should if the key is DRY.<br/>THAT IS MF29 WEARING A DIFFERENT COAT.<br/>⛔ CURRENT BEHAVIOUR UNCHANGED. LIST LOGGED."]
-
-    F2["MF35 — 🚨 PRICE_DB PROVENANCE IS UNKNOWN. THE BIG ONE.<br/>Code proposed 4 prices from pattern-matching. THREE WERE OUT BY 2.5x–4x.<br/>NOTHING IN PRICE_DB DISTINGUISHES A PRICE A HUMAN BOUGHT FROM ONE A MODEL INVENTED.<br/>👉 A PRICE WITH NO PROVENANCE IS A RUMOUR.<br/>SCHEMA: { price, pack, src, when:'2026-07', conf:'shelf'|'online'|'estimated' }<br/>🆕 START TONIGHT: every key added in this session is STAMPED. Backfill lazily.<br/>These will be THE FIRST PRICES IN TINZA WITH PROVENANCE.<br/>⚠️ ADDITIVE FIELDS ONLY. If PRICE_DB's shape can't take them without a parser<br/>change — STOP AND REPORT. Do NOT refactor PRICE_DB in the MF28 session."]
-
-    F3["MF36 — THE 26-JUNE ALIAS BATCH WAS WRITTEN WITH CONTEXT-FLATTENING REASONING.<br/>50 aliases went in that afternoon. The lamb one is PROVEN WRONG.<br/>THE OTHER 49 HAVE NEVER BEEN RE-READ.<br/>Suspects: black beans → red kidney beans · generic nuts → mixed nuts ·<br/>vegetable broth → stock · mixed greens → lettuce. (Some are fine — linguine IS pasta.)<br/>👉 LIST ALL 50 WITH TARGETS. Tina rules them in ONE pass. NOT this session."]
-
-    F4["🆕 MF37 — THE 'A or B' INGREDIENT LINES.<br/>'Milk or oat milk' · 'Cream cheese or cashew cheese' · 'Sunflower or pumpkin seeds' ·<br/>'hake or kingklip'. NO RESOLVER CAN FIX AN AUTHORING BUG.<br/>👉 Code LISTS them, grouped by room, with today's resolution. EDITS NOTHING.<br/>TINA SPLITS THEM (one product per line — the INGREDIENT STANDARD).<br/>⚠️ REFUND CLASS ONLY (animal one side, plant the other) → NULL NOW, FAIL LOUD."]
-
-    F5["🆕 MF38 — LAMB CUT ASSIGNMENT. Fires only if the bare-lamb line count is big.<br/>Every bare 'lamb' line gets a CUT, proposed from its METHOD, SIGNED BY TINA.<br/>Then and only then does lamb → lamb neck die."]
-
-    F1 --> F2 --> F3 --> F4 --> F5
+  subgraph SMOKE["🚬 THE STANDING SMOKE-TEST — WALK IT AFTER EVERY ENGINE CHANGE"]
+    V1["**IT CAUGHT US TWICE TODAY WHEN EVERY GREEN TICK SAID WE WERE FINE.**<br/>Five minutes in a browser beat four hours of passing reports.<br/><br/>1. **Pad Thai** (meals.js:14600 — it is in FMF, not WK) → bean sprouts R270, was<br/>   R193. **THE DISH COST MUST HAVE GONE UP.**<br/>2. **A castor-sugar bake** → **UP** (was falling back to plain sugar — the 2.4x bug).<br/>3. **A hake dish** → **DOWN ~43%** (R257 → R180).<br/>4. **A WK lamb dish** → must show the LOUD 'not yet priced' line.<br/>   ⚠️ TODAY IT SHOWS A SIDES-ONLY TOTAL INSTEAD. **THAT IS MF43. FIX, THEN RE-WALK.**<br/>5. **date syrup · almond milk · cashew cheese** → the refund-class fixes.<br/>6. **THE BACK BUTTON.** Breakfast → Eggs → Back. Supper → Pasta → Back.<br/><br/>⚖️ **NOTHING IS FIXED UNTIL A HUMAN CLICKS IT ON THE LIVE SITE.**"]
   end
 
-  subgraph PRICEDATA["✅ PRICES CONFIRMED BY TINA — 12 Jul 2026 · STAMP src + when + conf ON ALL"]
-    Q1["almond milk     R37/kg   1L @ R37     Almond Breeze · PnP R33 – DisChem R40<br/>oat milk        R35/kg   1L @ R35     (R40 acceptable; organic much dearer)<br/>almond butter   R320/kg  250g @ R80   R68–86/250g<br/>cashew butter   R340/kg  250g @ R85   (1kg tub ~R255/kg — PACK_DB decides)<br/>date syrup      R323/kg  300g @ R97   Nanuki/Wildsprout · range R264–R560/kg<br/>cashew cheese   R396/kg  250g @ R99   Yokos/Checkers · range R396–R625/kg<br/>bean sprouts    R270/kg  100g @ R27   Woolies/PnP punnet<br/>caramel essence R350/L   40ml @ R14<br/>caramel treat   R125/kg  360g @ R45   Nestlé · Checkers/Woolies  (KEY EXISTS — keep)<br/>mackerel tinned R95/kg   400g @ R38   Cape Point middlecut<br/>mackerel frozen R75/kg   2kg @ R150   Shoprite Cape Point<br/>hake fillets    R180/kg  800g @ R145  Sea Harvest / I&amp;J frozen<br/>basa fillets    R181/kg  800g @ R145  PnP Fishmonger frozen<br/>tilapia whole   R60/kg   800g @ R50   PnP / Superb Hyper"]
-    Q2["🐑 LAMB — RECONCILE, DO NOT ADD. See TINZA_MEATCUT_ADDENDUM_buy_names.md<br/>lamb potjiekos   R150/kg  MID of the Shoprite/PnP band. Card shows R130–R170.<br/>                          ⚠️ LIVE VALUE IS R130 — THE FLOOR. RAISE IT.<br/>stewing lamb     → ALIAS to lamb potjiekos. NOT to lamb neck.<br/>lamb shoulder chops  ✅ THE BRAAI/GRILL DEFAULT (Tina, 12 Jul)<br/>lamb knuckles    OWN KEY — premium band R169–R235. NOT merged with potjiekos.<br/>lamb neck        OWN KEY — only when the recipe NAMES neck.<br/>lamb shank · leg of lamb · lamb loin/rib chops · lamb riblets · lamb rump — own keys<br/>lamb mince       R215/kg  ✅ RULED. Band R175–R260. conf:'ONLINE' not 'shelf'.<br/>                 🚨 R98 was 2.2x UNDER — that is BEEF MINCE wearing a lamb label.<br/>                 🚨 R160 was 35% UNDER. BOTH WERE TINA'S OWN NOTES.<br/>                 ⚖️ LAW 11 DOES NOT CARE WHO WROTE THE NUMBER DOWN.<br/>                 ⛔ OWN KEY. NOT lamb stew. Ground vs cubed bone-in.<br/>🔄 KNOCK-ON: MINCE IS NOT THE CHEAP LAMB KEY. At R215 it is DEARER than potjiekos<br/>(R150) and level with shoulder chops. Every frikkadelle / kofta / lamb bobotie was<br/>costed as if mince were the budget option. IT IS THE OPPOSITE. RE-COST THEM.<br/>🔄 KNOCK-ON: the '3.5x spread' line was built on the bad number. REAL spread is<br/>R150 (potjiekos) → R310 (rump) = 2.1x. Still wide. QUOTE THE TRUE NUMBER.<br/>(Mutton separate. GOAT separate — different animal. Lamb and mutton are the same<br/>animal, different age, like veal/beef.)"]
-    Q3["✅ CLEARED 12 JUL (evening):<br/>· castor sugar R84/kg — CORRECT. 500g @ R36.99–R48.99. No revalue.<br/>  🚨 vs white sugar R35/kg. THE SPELLING FALLBACK IS 2.4x UNDER, IN EVERY BAKE.<br/>· the 3 white-fish call sites → HAKE FILLETS, all three. Locked.<br/>· braai/grill lamb → SHOULDER CHOPS. Locked.<br/>· lamb potjiekos → R150/kg, range R130–R170 on the card. Locked.<br/><br/>· lamb mince → R215/kg (band R175–R260). conf:'online'. Locked.<br/><br/>❓ STILL OWED BY TINA — ONE THING. ONE SIGNATURE.<br/>· 🐑 SIGN THE RECONCILED LAMB KEY LIST once Code prints v20-vs-target side by side.<br/>  ONE NUMBER PER PRODUCT. Until then the alias LIVES and braai stays 33% under.<br/><br/>📌 EVERYTHING ELSE IN THE BRIEF IS UNBLOCKED. Code can run it end to end."]
-    Q1 --> Q2 --> Q3
+  subgraph PRICELAW["💰 THE PRICING LAW — SETTLED 12 JUL"]
+    P1["**ONE PRICE FEEDS BOTH COST LINES.** Green (food cost) and gold (shop spend) share<br/>the SAME unit price — different multipliers.<br/>👉 SO 'TAKE THE MOST EXPENSIVE TO BE SAFE' IS FATAL. It inflates the GREEN number —<br/>and **THE GREEN NUMBER IS WHERE TINZA CLAIMS COOKING BEATS BUYING.**<br/>**INFLATE IT AND YOU LOSE YOUR OWN ARGUMENT.**<br/><br/>😳 AND TODAY WE LEARNED THE APP KEEPS **FLATTERING** THAT ARGUMENT BY ACCIDENT —<br/>THREE DIFFERENT MECHANISMS, ALL PUSHING THE SAME WAY:<br/>  · lamb→neck made braai chops **33% too CHEAP**<br/>  · potjiekos R130 (the FLOOR of the band) made every stew **~15% too CHEAP**<br/>  · MF43's sides-only total makes a lamb dish look **IMPOSSIBLY cheap**<br/>👉 **THE PRODUCT'S CORE CLAIM HAS BEEN PROPPED UP BY ITS OWN BUGS.**<br/><br/>✅ MID-MARKET. NOT CHEAPEST. NOT DEAREST.<br/>✅ TINZA PRICES ARE **CHECKERS** PRICES. Standard shelf. **NEVER A SPECIAL.**<br/>   Footer: 'Prices: Checkers, July 2026.' It PORTS: UK = Tesco. US = Kroger.<br/>✅ SPREAD OVER ~2x → **STORE A RANGE AND SAY SO ON THE CARD.**<br/>   'Lamb potjiekos R130–R170/kg depending on butcher.' **THE MOST HONEST LINE IN THE APP.**"]
+    P2["🏗️ **PRICE STUDIO** — build it (a day; copy Photo Studio, which already works).<br/>Ranks every key by IMPACT × STALENESS × CONFIDENCE. Prints a WORKLIST.<br/>👉 **FLOUR IS IN ~400 DISHES. DATE SYRUP IS IN 3. NOT THE SAME JOB.**<br/>🌱 **Tools/fallback-census.js IS ITS FIRST HALF.** It already exists. Half done.<br/><br/>🛒 GROCIFY (grocifyapp.co.za) — FREE, 7 SA retailers, barcode scan, price history.<br/>✅ **USE IT AS A TOOL** — it is the Checkers walk, on the couch. An evening, not a Saturday.<br/>✅ PARTNERSHIP — post-launch. Their Smart Cart WANTS a list. Tinza PRODUCES one.<br/>⛔ **NEVER A LIVE DEPENDENCY.** No API · brand-new startup · and ☠️ **OFFLINE MODE IS A<br/>LOCKED TINZA FEATURE.** A PWA that works without signal CANNOT fetch live prices.<br/>**PRICE_DB STAYS A STATIC, DATED, HUMAN-SIGNED SNAPSHOT. THAT IS NOT A LIMITATION.<br/>THAT IS THE HONESTY.**"]
+    P1 --> P2
   end
 
-  subgraph PRICES["💰 PRICING — THE LAW AND THE METHOD (settled 12 Jul)"]
-    R1["⚖️ THE PRICING LAW — WRITE IT INTO CLAUDE.md:<br/>ONE PRICE FEEDS BOTH COST LINES. Green (food cost) and gold (shop spend) share the<br/>SAME unit price, different multipliers.<br/>👉 SO 'ALWAYS TAKE THE MOST EXPENSIVE TO BE SAFE' IS FATAL. It inflates the GREEN<br/>number — and the green number is where Tinza claims COOKING BEATS BUYING.<br/>INFLATE IT AND YOU LOSE YOUR OWN ARGUMENT.<br/><br/>✅ PRICE WHAT A NORMAL PERSON PAYS AT A NORMAL SHOP. MID-MARKET. NOT CHEAPEST. NOT DEAREST.<br/>✅ TINZA PRICES ARE **CHECKERS** PRICES. Standard shelf. NEVER A SPECIAL.<br/>   Footer: 'Prices: Checkers, July 2026.' It PORTS: UK = Tesco. US = Kroger.<br/>✅ WHERE THE RETAIL SPREAD EXCEEDS ~2x → STORE A RANGE AND SAY SO ON THE CARD.<br/>   'Date syrup R95–R155 depending on brand.' THE MOST HONEST LINE IN THE APP."]
-    R2["❌ THE '+X% UPLIFT' PLAN IS DEAD. The test was run twice and the two runs DISAGREE<br/>on which shop is dearer. The gap is an ARTEFACT OF THE BASKET, not a constant.<br/>👉 PICK ONE SHOP AND SAY WHICH. That is the whole fix."]
-    R3["🛒 GROCIFY — grocifyapp.co.za. FREE, 7 SA retailers, real-time, barcode scan.<br/>✅ USE IT AS A TOOL. It is the Checkers walk, on the couch. AN EVENING, NOT A SATURDAY.<br/>✅ PARTNERSHIP — POST-LAUNCH. Their Smart Cart WANTS a list. Tinza PRODUCES one.<br/>⛔ NEVER A LIVE DEPENDENCY. No API · brand-new startup · and ☠️ OFFLINE MODE IS A<br/>LOCKED TINZA FEATURE. A PWA that works without signal CANNOT fetch live prices.<br/>PRICE_DB STAYS A STATIC, DATED, HUMAN-SIGNED SNAPSHOT. THAT IS THE HONESTY."]
-    R4["🏗️ PRICE STUDIO — BUILD IT (a day; copy Photo Studio, which already works).<br/>Ranks every key by IMPACT × STALENESS × CONFIDENCE. Prints a WORKLIST.<br/>👉 FLOUR IS IN ~400 DISHES. DATE SYRUP IS IN 3. NOT THE SAME JOB.<br/>📊 GATE ON THIS COUNT (read-only, queue it): how many DISTINCT PRICE_DB keys?<br/>Top 100 by usage? What % of ALL costed lines do the top 100 cover?<br/>👉 IF THE TOP 100 COVERS 90%+, the price problem is 100 items and an afternoon at<br/>Checkers, QUARTERLY — not a scraping project. THAT NUMBER DECIDES EVERYTHING.<br/>🌱 THE FALLBACK CENSUS IS ITS FIRST HALF. Build that and Price Studio is half done."]
-    R1 --> R2 --> R3 --> R4
+  subgraph LAW["⚖️ THE LAW — 20 CLAUSES. EVERY ONE WAS PAID FOR."]
+    Z1["1. **node --check PROVES NOTHING.** It passed on a ZERO-BYTE spice.js.<br/><br/>2. **A REPORT IS NOT PROOF. A PASSING TEST IS A REPORT TOO.**<br/>PROVE IT PER-SECTION. **A BAD ROOM HIDES INSIDE A GOOD AGGREGATE.**<br/>🩸 12 Jul: THIS LAW CAUGHT ITS OWN AUTHOR. Code shipped a written proof-by-trace for<br/>the back button. The trace was CORRECT. The fix is LIVE. **THE BUG IS STILL THERE.**<br/><br/>3. **SILENT WRONG IS WORSE THAN LOUD MISSING.**<br/><br/>4. A NARROW QUESTION GETS A NARROW ANSWER — AND IT WILL BE TRUE.<br/>**ASK 'WHAT IS NOT GUARDED?' — NEVER 'is X guarded?'**<br/><br/>5. LOCALHOST IS NOT LIVE. COMMITTED IS NOT PUSHED. PUSHED IS NOT DEPLOYED.<br/>**AND DEPLOYED IS NOT PUBLISHED.** (Netlify built 508cd4c and kept serving the old one.)<br/><br/>6. **DON'T PATCH N SITES. BUILD THE ONE THING THEY SHOULD ALL CALL.**<br/><br/>7. A BLANK IS A BUG. A TEASER IS A PITCH. THE LOCK IS THE SALESMAN.<br/><br/>8. 'SHIP IT' IS NOT 'PUSH IT'. SAY WHICH ONE YOU MEAN.<br/><br/>9. **A CONTEXT-DEPENDENT RULE MUST NEVER BE ENCODED AS A CONTEXT-FREE ALIAS.**<br/>The Meat Cut Guide is a METHOD→CUT rule. An alias does not know the method.<br/>Flatten one into the other and **A GOOD RULE BECOMES A SILENT LIE.** (lamb → lamb neck.)<br/><br/>10. **THE BUG WAS IN THE DATA, NOT THE CODE.** The resolver was never lying.<br/>**IT WAS FAITHFULLY READING LIES WE WROTE OURSELVES.** Guards are the NET. Data is the FIX.<br/><br/>11. **NO MODEL AUTHORS A PRICE** … and 🆕 **LAW 11 DOES NOT CARE WHO WROTE THE NUMBER<br/>DOWN.** It was aimed at Code. Then lamb mince came in at R98 — 2.2x under, and almost<br/>certainly **BEEF MINCE WEARING A LAMB LABEL. TINA'S OWN NOTE.**<br/>**A NUMBER THAT SITS IN THE NOTES LONG ENOUGH STARTS TO LOOK LIKE A FACT.**<br/>src + when + conf, or it doesn't ship. conf:'online' is not conf:'shelf'.<br/><br/>12. FAIL-LOUD IS THE NET. **PRICED-CORRECTLY IS THE GOAL.**<br/>Don't ship 7 loud blanks when the answer was already sitting in the database.<br/><br/>13. **A GUARD THAT NULLS A CORRECT ANSWER IS A BUG, NOT A SAFETY FEATURE.**<br/>L3 nulled 'coconut oil for frying'. A correct key. **L3 DIED ON ITS OWN EVIDENCE.**<br/><br/>14. **DRY-RUN BEFORE SHIP.** Code proposed L3, dry-ran it, and KILLED ITS OWN DESIGN.<br/>**EVERY GUARD GETS ITS FALSE-POSITIVE LIST BEFORE IT IS BUILT.**<br/><br/>15. **A RULING THAT LIVES ONLY IN THE CHAT IS NOT A RULING.** IT GOES IN THE BRIEF.<br/><br/>16. **A COOK'S RULE IS NOT A SHOPPER'S RULE.** 'Stewing lamb = shoulder or neck' is<br/>TRUE IN THE KITCHEN AND USELESS AT THE TILL. **YOU CANNOT BUY 'SHOULDER OR NECK'.**<br/>👉 **IF A KEY IS NOT SOMETHING A HUMAN CAN PUT IN A TROLLEY, IT IS NOT A KEY.**<br/><br/>17. **CONTEXT-FLATTENING HAPPENS AT THE KEY LEVEL TOO**, not just the alias level.<br/>'lamb knuckle / potjiekos' merges a CUT with a MIX. 'lamb stew / lamb mince' merges<br/>GROUND with CUBED BONE-IN. **A MERGED KEY AVERAGES A REAL DIFFERENCE INTO A FAKE ONE.**<br/><br/>18. **RECONCILE, DO NOT ADD.** A new key beside an old key for the SAME PRODUCT gives<br/>you TWO PRICES AND A COIN TOSS. Print the current list. Sign one number. THEN write.<br/><br/>19. 🆕 **A METRIC THAT DOESN'T EXIST IS A BUG YOU CANNOT SEE.** 53 WK cards were<br/>priceless this morning and NOBODY HAD EVER COUNTED THEM. We proved ingredient LINES<br/>all day and never counted CARDS — **the only thing the user actually sees.**<br/><br/>20. 🆕 **A CARD THAT PRICES SOME OF THE FOOD IS WORSE THAN A CARD THAT PRICES NONE.**<br/>A blank invites a question. **A PARTIAL TOTAL ANSWERS ONE THAT WAS NEVER ASKED,<br/>WRONGLY, WITH A NUMBER THE USER WILL ACT ON.**<br/>(Lamb Tagine · R38 · and there is no lamb in it.)"]
   end
 
-  subgraph DIETLOCK["🥬 DIETARY — LOCKED 12 JUL (supersedes 27 Jun AND the old Free/Pro line)"]
-    D1["💰 V IS PRO. FREE GETS ZERO FILTERING.<br/>👉 KILLS the old 'Free = 1 dietary restriction' line. DEAD.<br/>🎁 BADGE FREE · FILTER PRO. The V/VE badge renders on EVERY card for EVERYONE —<br/>IT IS THE PITCH. The filter bar is PRO.<br/>WHY: a Free vegan who sees no V anywhere doesn't hit a paywall — SHE LEAVES.<br/>A BLANK IS A BUG. A TEASER IS A PITCH. THE LOCK IS THE SALESMAN.<br/>ONBOARDING: 👉 FREE ASKS. PRO APPLIES."]
-    D2["📋 V + VE ONLY FOR v1. The 12-tag taxonomy is a design doc with ZERO DATA behind it.<br/>🚩 FOURTH STATE REQUIRED: diet:'unknown'. Untagged must NEVER default and NEVER<br/>appear in the VE filter. FAIL LOUD. An untagged dish quietly counting as 'vegan'<br/>is the one that ends you.<br/>NOTHING HIDES ITSELF. Hard-hide killed by THE VEGAN MOM WHO COOKS FOR HER<br/>NON-VEGAN FAMILY. Auto-apply parked → post-launch Settings checkbox."]
-    D3["🏗️ SHELVES ARE QUERIES, NOT LISTS. Tag ONCE. A shelf = a QUERY on the diet field.<br/>ONE FIELD → THREE VIEWS: badge · filter · shelf.<br/>Hand-built V/VE shelves RULED AGAINST: two sources of truth, and it builds a<br/>ghetto (vegan food ONLY in the vegan room)."]
-    D4["⚠️ TAGS DERIVED IN NODE FROM INGREDIENT LISTS. NEVER BY HAND.<br/>Last audit: CAESAR SALAD tagged vegetarian WITH ANCHOVIES IN IT.<br/>🔍 HIDDEN-ANIMAL DICTIONARY — REQUIRED: worcestershire (anchovy) · fish sauce ·<br/>oyster sauce · shrimp paste · dashi/bonito · chicken stock · gelatine · lard/suet.<br/>Not vegan: honey · butter · ghee · milk powder.<br/>🧀 PARMESAN/PECORINO → diet:'veg' + NEW FIELD dietNote (rennet is unknowable).<br/>⛔ dietNote IS FOR THE GENUINELY UNKNOWABLE ONLY. NOT AN ESCAPE HATCH.<br/>☪️ HALAAL + KOSHER: separate laws, never swap-guided. We can say NO PORK · NO<br/>ALCOHOL. We CANNOT say CERTIFIED HALAAL. Never claim it."]
-    D1 --> D2 --> D3 --> D4
+  subgraph LATENT["⏳ LATENT · LAUNCH · CONTENT"]
+    Y1["⚠️ makeable.js STILL has no script tag in index.html. MUST load BEFORE core.js."]
+    Y2["🔒 OCT: HIDE THE TIER SWITCHER — localhost/?dev only. NOT display:none — **NOT IN THE<br/>DOM.** KEEP IT UNTIL THEN. Its real value was never theft-prevention — it was that<br/>**TINA HAD NEVER SEEN HER OWN FREE APP.**"]
+    Y3["💰 OCT: METERED PAYWALL — needs AUTH (localStorage is beaten by incognito).<br/>Lands WITH PayFast (recurring, on the website — avoids Play billing).<br/>R50/mo SA. Free trial. **NO third-party ads. Ever.**"]
+    Y4["📝 CONTENT (after the engine is honest): BANK B — 5 SA cards + Banana &amp; Pecan<br/>Pancakes · MF16 cuisine-tag sweep · Sides &amp; Basics status unknown.<br/>🍚 TWO CONGEES — parked, **and it decides itself.** Tina couldn't FIND the vegan congee.<br/>**It was never a duplicate problem — IT WAS THE MISSING DIETARY FILTER.**<br/>Fix MF30 and the question evaporates."]
+    Y5["🅿️ POST-LAUNCH: Sweets &amp; Confectionery (own room — ruled 3x) · MF27 substitute:<br/>field ('No galangal? Use ginger.') · wine pairing · Checkers 60/60 integration ·<br/>possible DELUXE tier (NOT locked — decide post-launch)."]
   end
 
-  subgraph TRUTH["💣 THE COSTING TRUTH — THE MATHS. STILL NOT STARTED."]
-    T1["MF29 — COUNT-ITEM OVER-BILLING. Math.ceil in the FOOD-COST path.<br/>mealsCostPP (core:3338) · lineCook (core:2765) · wkCostRecipe (worldkitchen:501)<br/>ceil is CORRECT for shopping (can't buy half an egg) = GOLD<br/>ceil is CATASTROPHIC for food cost (a slice holds 0.4 egg) = GREEN<br/>319 of 440 lines are in BAKES → ~2.5x overstated → A HOME CAKE MAY 'COST' MORE<br/>THAN A BOUGHT ONE. THAT IS THE PRODUCT'S CORE CLAIM, INVERTED.<br/>✅ REFERENCE IMPL EXISTS: costRecipe does it right. PROPAGATE IT. Copying, not inventing."]
-    T2["MF33 — THE SILENT ONE. hcLineCost (health:597) + ttLineCost (tinyTummies:6)<br/>RETURN NULL FOR COUNT ITEMS → Health &amp; Tiny Tummies DON'T COST EGGS AT ALL.<br/>The app OVER-bills eggs in FMF/Braai/WK and UNDER-bills them in Health/Kiddies.<br/>✅ FIX PATTERN ALREADY ON SCREEN: 'Based on 8/9 ingredients priced.'<br/>MAKE IT UNIVERSAL — IT IS THE HONESTY FEATURE, NOT AN ERROR MESSAGE."]
-    T3["🩸 health.js IS STILL THE MOST BROKEN FILE IN TINZA.<br/>It carried the only surviving gate leak, MF28, MF33, MF34 — and it is<br/>WHERE THE DIETARY USERS LIVE. Every road leads back here."]
-    T1 --> T2 --> T3
-  end
+  WIN --> LIVE --> NEXT
+  NEXT --> MF43 --> MF40 --> TICK
+  TICK --> MFS --> DIETLOCK
+  NEXT --> SMOKE
+  SMOKE -.-> LAW
+  MFS -.-> PRICELAW
+  DIETLOCK -.-> LATENT
 
-  subgraph COLOUR["🎨 MF31 + MF32 — COLOUR LAW (now trivial)"]
-    P1["LAW: green = food cost · gold = shop spend · NEVER MIX. Honoured in 1 room of 12.<br/>BRAAI → shop-gold on a FOOD figure ❌ · WK → orange, a THIRD colour ❌<br/>…and a variable literally NAMED 'green' that RESOLVES TO ORANGE (worldkitchen:570)<br/>✅ GOLD STANDARD: shoppingView. Copy it.<br/>🎁 NOW TRIVIAL: colour lives in costLine(). ONE function. Was ten boxes.<br/>MF32 — ingredient 'total' WEIGHTS render in shop-spend gold. A weight is not money."]
-  end
-
-  subgraph LATENT["⏳ LATENT"]
-    Y4["⚠️ makeable.js STILL has no script tag in index.html. MUST load BEFORE core.js."]
-    Y5["⚠️ PRICE_ALIAS ↔ WK_ALIAS reconciliation — RULED (PRICE_ALIAS wins).<br/>Still needs the 171 shared keys merged into ONE table once resolvePrice lands."]
-  end
-
-  subgraph OCT["🅿️ OCTOBER / LAUNCH BLOCKERS"]
-    O1["🔒 HIDE THE TIER SWITCHER — localhost/?dev only. NOT display:none — NOT IN THE DOM.<br/>⚠️ KEEP IT UNTIL THEN. Its real value was never theft-prevention —<br/>it was that TINA HAD NEVER SEEN HER OWN FREE APP."]
-    O2["💰 METERED PAYWALL — OPEN. Needs AUTH (localStorage is beaten by incognito).<br/>Lands WITH PayFast, not before. Lean: gate money hard, keep browsing open."]
-    O3["🅿️ SWEETS &amp; CONFECTIONERY — own room, post-launch. RULED 3×."]
-    O5["🅿️ MF27 — substitute: field ('No galangal? Use ginger.'). Differentiator.<br/>Design BEFORE the WK pass. SA availability is a recurring problem."]
-  end
-
-  subgraph CONTENT["📝 CONTENT — after the engine is honest"]
-    C1["BANK B — 5 SA cards + Banana &amp; Pecan Pancakes<br/>Krummelpap &amp; Chakalaka (CROSS-LINK, don't duplicate) · Samp &amp; Beans (Umngqusho)<br/>Curried Bean Vetkoek · Boerewors-Spiced Lentil Patties · Tamatie-Smoor on Toast"]
-    C2["MF16 CUISINE-TAG SWEEP"]
-    C3["❓ SIDES &amp; BASICS — status unknown. If stubs → FMF does NOT close on Bank A+B alone."]
-    C4["🍚 TWO CONGEES — PARKED, AND IT DECIDES ITSELF. Tina couldn't FIND the vegan congee.<br/>Never a duplicate problem — IT WAS THE MISSING DIETARY FILTER.<br/>Fix MF30 and the question evaporates."]
-    C1 --> C2 --> C3
-  end
-
-  subgraph LAW["⚖️ THE LAW"]
-    W1["1. node --check PROVES NOTHING. It passed on a ZERO-BYTE spice.js.<br/><br/>2. A REPORT IS NOT PROOF. A PASSING TEST IS A REPORT TOO.<br/>PROVE IT PER-SECTION. 5 of 12 is not proof. A bad room hides inside a good aggregate.<br/><br/>3. SILENT WRONG IS WORSE THAN LOUD MISSING.<br/><br/>4. A NARROW QUESTION GETS A NARROW ANSWER — AND IT WILL BE TRUE.<br/>ASK 'WHAT IS NOT GUARDED?' — NEVER 'is X guarded?'<br/><br/>5. LOCALHOST IS NOT LIVE. COMMITTED IS NOT PUSHED. PUSHED IS NOT DEPLOYED.<br/><br/>6. DON'T PATCH N SITES. BUILD THE ONE THING THEY SHOULD ALL CALL.<br/><br/>7. A BLANK IS A BUG. A TEASER IS A PITCH. THE LOCK IS THE SALESMAN.<br/><br/>8. 'SHIP IT' IS NOT 'PUSH IT'. Say which one you mean.<br/><br/>9. A CONTEXT-DEPENDENT RULE MUST NEVER BE ENCODED AS A CONTEXT-FREE ALIAS.<br/>The Meat Cut Guide is a METHOD → CUT rule. An alias does not know the method.<br/>Flatten one into the other and A GOOD RULE BECOMES A SILENT LIE. (lamb → lamb neck.)<br/><br/>10. THE BUG WAS IN THE DATA, NOT THE CODE. THREE TIMES IN ONE DAY.<br/>THE RESOLVER WAS NEVER LYING. IT WAS FAITHFULLY READING LIES WE WROTE OURSELVES.<br/>Guards are the NET. The DATA is the FIX.<br/><br/>11. NO MODEL AUTHORS A PRICE. EVER. 3 of 4 guesses were out by 2.5x–4x.<br/>A PRICE WITH NO PROVENANCE IS A RUMOUR. src + when + conf, or it doesn't ship.<br/><br/>12. FAIL-LOUD IS THE NET. PRICED-CORRECTLY IS THE GOAL.<br/>Don't ship 7 loud blanks when the answer was already sitting in the database.<br/><br/>13. 🆕 A GUARD THAT NULLS A CORRECT ANSWER IS A BUG, NOT A SAFETY FEATURE.<br/>L3 nulled 'coconut oil for frying'. That is a correct key. L3 died on its own evidence.<br/><br/>14. 🆕 DRY-RUN BEFORE SHIP. Code proposed L3, dry-ran it, and killed its own design.<br/>EVERY GUARD GETS ITS FALSE-POSITIVE LIST BEFORE IT IS BUILT. THAT IS THE STANDARD NOW.<br/><br/>15. 🆕 A RULING THAT LIVES ONLY IN THE CHAT IS NOT A RULING.<br/>Code sat blocked on four questions Tina had ALREADY ANSWERED. IT GOES IN THE BRIEF.<br/><br/>16. 🆕 A COOK'S RULE IS NOT A SHOPPER'S RULE.<br/>The Meat Cut Guide says 'stewing lamb = shoulder or neck'. TRUE IN THE KITCHEN.<br/>USELESS AT THE TILL. YOU CANNOT BUY 'SHOULDER OR NECK' — you buy a PACK.<br/>👉 THE INGREDIENT STANDARD IS THE PRICING STANDARD: THE NAME IS WHAT YOU BUY.<br/>If a key is not something a human can put in a trolley, IT IS NOT A KEY.<br/><br/>17. 🆕 CONTEXT-FLATTENING HAPPENS AT THE KEY LEVEL TOO, NOT JUST THE ALIAS LEVEL.<br/>'lamb knuckle / potjiekos' as one key merges a CUT with a MIX.<br/>'lamb stew / lamb mince' merges GROUND meat with CUBED BONE-IN.<br/>A merged key AVERAGES A REAL DIFFERENCE INTO A FAKE ONE. Same disease. New coat.<br/><br/>18. 🆕 RECONCILE, DO NOT ADD. A new key beside an old key for the SAME PRODUCT<br/>gives you TWO PRICES AND A COIN TOSS. Print the current list. Sign one number. Then write.<br/><br/>19. 🆕 LAW 11 DOES NOT CARE WHO WROTE THE NUMBER DOWN.<br/>'No model authors a price' was aimed at Code. Then lamb mince came in at R98 —<br/>2.2x under, and almost certainly BEEF MINCE wearing a lamb label. TINA'S OWN NOTE.<br/>👉 A PRICE WITH NO PROVENANCE IS A RUMOUR. MODEL OR HUMAN. NO EXCEPTIONS.<br/>A number that sits in the notes long enough STARTS TO LOOK LIKE A FACT.<br/>src + when + conf, or it doesn't ship. conf:'online' is not conf:'shelf'."]
-  end
-
-  LIVE --> RULED --> NOW
-  NOW --> BACK --> MF28 --> CENSUS
-  MF28 --> LIES --> MFNEW
-  MFNEW --> PRICEDATA --> PRICES
-  NOW --> DIETLOCK
-  NOW --> TRUTH --> COLOUR
-  NOW -.-> LATENT
-  TRUTH -.-> CONTENT
-  CONTENT -.-> OCT
-  LIES -.-> LAW
-
+  classDef win fill:#e8f0d8,stroke:#46530c,color:#2c3307,stroke-width:4px
   classDef live fill:#e8f0d8,stroke:#46530c,color:#2c3307
-  classDef ruled fill:#e4f0e4,stroke:#3d7a3d,color:#1e3d1e,stroke-width:3px
-  classDef diet fill:#e4f0e4,stroke:#3d7a3d,color:#1e3d1e,stroke-width:3px
   classDef now fill:#fce9e9,stroke:#aa3333,color:#661111,stroke-width:3px
-  classDef back fill:#e6eef5,stroke:#3a5f80,color:#1c3145
-  classDef eng fill:#fce9e9,stroke:#aa3333,color:#661111,stroke-width:2px
-  classDef census fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:3px
-  classDef lies fill:#3a0d0d,stroke:#aa3333,color:#ffe0e0,stroke-width:3px
-  classDef mfnew fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:2px
-  classDef price fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:3px
-  classDef pdata fill:#e8f0d8,stroke:#46530c,color:#2c3307
-  classDef col fill:#fdf3dc,stroke:#876213,color:#4a350a
-  classDef lat fill:#eeeae4,stroke:#8a7f70,color:#3d372f
-  classDef cont fill:#e6eef5,stroke:#3a5f80,color:#1c3145
+  classDef bad fill:#3a0d0d,stroke:#aa3333,color:#ffe0e0,stroke-width:4px
+  classDef back fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:2px
+  classDef tick fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:3px
+  classDef mfs fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:2px
+  classDef diet fill:#e4f0e4,stroke:#3d7a3d,color:#1e3d1e,stroke-width:3px
+  classDef smoke fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:3px
   classDef law fill:#2c2c2c,stroke:#000,color:#fff,stroke-width:2px
+  classDef price fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:3px
+  classDef lat fill:#eeeae4,stroke:#8a7f70,color:#3d372f
 
+  class W0,W1 win
   class L1,L2 live
-  class G1,G2,G3,G4 ruled
-  class D1,D2,D3,D4 diet
-  class N0,N1,N2,N3,N4,N5,N6 now
-  class B1,B2,B3,B4 back
-  class M0,M1,M2 eng
-  class E1 census
-  class X1,X2,X3,X3B,X4,X5,X6 lies
-  class F1,F2,F3,F4,F5 mfnew
-  class R1,R2,R3,R4 price
-  class Q1,Q2,Q3 pdata
-  class P1 col
-  class Y4,Y5 lat
-  class O1,O2,O3,O5 lat
-  class C1,C2,C3,C4 cont
-  class W1 law
+  class N1,N2,N3,N4,N5,N6,N7 now
+  class S1,S2,S3 bad
+  class B1,B2,B3 back
+  class K1,K2,K3 tick
+  class F1,F2,F3,F4,F5,F6,F7 mfs
+  class D0,D1,D2,D3 diet
+  class V1 smoke
+  class Z1 law
+  class P1,P2 price
+  class Y1,Y2,Y3,Y4,Y5 lat
