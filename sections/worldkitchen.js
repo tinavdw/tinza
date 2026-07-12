@@ -474,7 +474,7 @@ function wkPriceLookup(name){
   if(PRICE_DB[n] != null) return { key:n, price:PRICE_DB[n], per:'weight' };
   // deplural
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)] != null) return { key:n.slice(0,-1), price:PRICE_DB[n.slice(0,-1)], per:'weight' };
-  if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null) return { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' };
+  if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null){ return (typeof l2Blocks==='function' && l2Blocks(name, WK_ALIAS[n])) ? null : { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' }; }
   // stock/broth = cheap pantry liquid — never let it fall through to a raw-protein price
   if(/\b(stock|broth)\b/.test(n)) return null;
   // longest key that appears as a whole word inside the name
@@ -484,7 +484,7 @@ function wkPriceLookup(name){
     var re = new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
     if(re.test(n) && (!best || k.length > best.length)) best = k;
   }
-  if(best) return { key:best, price:PRICE_DB[best], per:'weight' };
+  if(best) return (typeof l2Blocks==='function' && l2Blocks(name, best)) ? null : { key:best, price:PRICE_DB[best], per:'weight' };   // MF28-L2 collision guard
   return null;
 }
 

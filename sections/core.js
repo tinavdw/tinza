@@ -1098,11 +1098,27 @@ function priceVariants(name){
   return v.map(priceClean).filter(function(x){ return x; });
 }
 // → { key, price, per:'weight'|'count', pack } or null
+// ── MF28 L2 · ANIMAL-COLLISION GUARD (one door — every resolver calls this) ─────────
+// A plant/identity-qualified name that resolves to a BARE animal noun is a refund
+// (almond→milk, nut→butter, soya→mince). FAIL LOUD: block it → the resolver returns
+// null → the ingredient drops into the "N/M ingredients priced" honesty line. It is
+// NOT an error; it is the feature that makes every OTHER rand on the screen believable.
+// Set = confirmed 9 + insurance 3 (mince/bacon/sausage). Dry-run over all rooms: the
+// candidate words chicken/beef/egg/stock/broth/fish were TRIMMED — they false-positived
+// on "vegetable stock", "chicken or vegetable broth", "egg noodles" (correct answers).
+var L2_ANIMAL = { milk:1, butter:1, cheese:1, cream:1, yoghurt:1, yogurt:1, buttermilk:1, ghee:1, honey:1, mince:1, bacon:1, sausage:1 };
+var L2_PLANT  = /\b(almond|oat|soy|soya|cashew|coconut|rice|hemp|pea|nut|vegan|plant|flax|chia|tofu|tempeh|seitan|jackfruit|aquafaba)\b/;
+function l2Blocks(name, key){
+  if(!key || !L2_ANIMAL[key]) return false;                 // key isn't a bare animal noun → never fires
+  var n = (typeof priceClean==='function') ? priceClean(name) : String(name||'').toLowerCase();
+  if(n === key || n === key + 's') return false;            // the name literally IS the animal → legit purchase
+  return L2_PLANT.test(n);                                   // plant qualifier next to an animal price → block
+}
 function priceOf(name){
   var hit = _priceLookup(priceClean(name));
-  if(hit) return hit;
+  if(hit) return l2Blocks(name, hit.key) ? null : hit;
   var vs = priceVariants(name);          // full name failed → try narrower readings of it
-  for(var i=0;i<vs.length;i++){ hit = _priceLookup(vs[i]); if(hit) return hit; }
+  for(var i=0;i<vs.length;i++){ hit = _priceLookup(vs[i]); if(hit) return l2Blocks(name, hit.key) ? null : hit; }
   return null;
 }
 function _priceLookup(n){

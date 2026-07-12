@@ -609,12 +609,15 @@ function lookupPrice(name){
   // longer but "bean sprouts"→"sprouts"). A key more specific than what was asked
   // for is always the wrong match, so that direction is deleted. Longest-match-wins
   // is kept, so a qualified key ("soy milk") still beats the bare noun ("milk").
-  let best = null, bestLen = 0;
+  let best = null, bestLen = 0, bestKey = null;
   for(const [key, price] of Object.entries(PRICE_DB)){
     if(q.includes(key)){
-      if(key.length > bestLen){ best = price; bestLen = key.length; }
+      if(key.length > bestLen){ best = price; bestLen = key.length; bestKey = key; }
     }
   }
+  // MF28-L2: same animal-collision guard as priceOf — a plant name that fell back to a
+  // bare animal noun (almond→milk, nut→butter) fails loud rather than mispricing.
+  if(bestKey != null && typeof l2Blocks === 'function' && l2Blocks(name, bestKey)) return null;
   return best;
 }
 
