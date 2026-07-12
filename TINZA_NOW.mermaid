@@ -1,63 +1,106 @@
-%% TINZA — CANONICAL HANDOFF · 11 Jul 2026
-%% Session verdict: SWEETS & CONFECTIONERY = own room, PARKED post-launch. Does NOT block FMF.
-%% Ruled 6 Jul (marathon flowchart), reaffirmed 7 Jul (one-bank-at-a-time / Cutoff Law).
+%% TINZA — CANONICAL HANDOFF · 11 Jul 2026 (FINAL · END OF DAY)
+%% Paste this into the new chat. Everything open is here.
+%% TODAY: THE FREE TIER STOPPED GIVING AWAY THE PRODUCT.
+%% Found by Tina opening her own app. Not by an audit.
 
 flowchart TD
 
-  subgraph DONE["✅ CLOSED — 11 Jul"]
-    D1["🍰 BAKES · 33 dark recipes recovered<br/>Milk Tart · Malva · Koeksisters · Scones = 4 cat values had no tab<br/>101 cards, all reachable"]
-    D2["🔗 MF26 MAKEABLE (new)<br/>Ingredient → its recipe · costs at shop price · links to kitchen<br/>Generated (makeable.js) · 47 links · NEVER hand-edited<br/>⚠️ STILL NEEDS its script tag in index.html"]
-    D3["💰 COSTING 87% → 96%<br/>Load-bearing wrong prices 32 → 0<br/>5 engine bugs killed: priceClean flattened parens (water billed as syrup R50/kg) ·<br/>one-way de-pluralisation · costRecipe kept a 2nd drifted unit table (Sambar Masala = R0) ·<br/>grams-read-as-counts (Thai Green Curry Paste = 25 whole chillies) · lime priced as lemon"]
-    D4["🔒 PRO GATE CLOSED<br/>tierAllows was 'return true' — food cost, My Plan, shopping all FREE to everyone<br/>Now a LEVEL (0 Free / 1 Pro / 2 Deluxe) · every room flipped together"]
-    D5["🌶️ SPICE ROOM CLOSED<br/>190 cards · cost chips + cost lines (matching Braai) · 190/190 emoji<br/>4 dupes killed (tartare · sambal oelek · pico de gallo · zhug)<br/>+ Fajita Seasoning · Portuguese Roll · 🥑 Creamy Avocado Salsa Verde"]
+  subgraph LIVE["✅ SHIPPED TODAY"]
+    L1["9e9229d · Jams &amp; Preserves photos (28). G2 CLOSED."]
+    L2["41f5be1 · BANK A — 5 fixes (goesWith · tofu note · glyphs · PRICE_ASOF · 'FOOD COST' label)"]
+    L3["57ca93f · 🔓 THE GATE FIX. core.js:604 unknown tier → return 0 (was return 1).<br/>THE GATE HAD BEEN FAILING OPEN. Unknown tier = Pro. That was the whole leak.<br/>👉 It silently closed the shopping list, the plan cost box AND leftovers —<br/>they already had correct gates, they were just being handed Pro.<br/>We'd written them up as three leaks. They were ONE bug, already dead."]
+    L4["🔐 e937fa9 + 26b4a45 + 403846b — THE GATE LAYER. PUSHED.<br/>⚠️ CONFIRM NETLIFY SAYS Published · main@403846b BEFORE TRUSTING THIS."]
+    L1 --> L2 --> L3 --> L4
   end
 
-  subgraph LAW["⚖️ HARD RULE — re-learned the hard way"]
-    L1["node --check PROVES NOTHING.<br/>It passed on a ZERO-BYTE spice.js after I truncated the file.<br/>ALWAYS: render-prove (run the real engine over the merged pool)<br/>+ check FILE SIZE + check RECORD COUNTS."]
+  subgraph GATE["🔐 THE GATE LAYER — WHAT IT IS (read before touching money)"]
+    G0["⚖️ TWO LAWS, LOCKED:<br/>NUMBERS ARE PRO. FOOD IS FREE.<br/>FREE READS THE RECIPE. PRO COOKS IT."]
+
+    G1["🏗️ THREE SHARED RENDERERS IN core.js — the ONLY code allowed to emit<br/>a Rand, a kcal or a macro. ANYWHERE. Ever again.<br/>costLine() ×19 · kcalChip() ×7 · nutritionGrid() ×4 → 30+ sites routed.<br/>All gate on tierAllows() LEVEL (0 Free · 1 Pro · 2 Deluxe). NEVER USER_TIER==='pro'.<br/>core.js 4026 → 4073 (+47 lines). ~20 leaks closed for 47 lines.<br/>💥 THIS IS O4 (SAMENESS: ONE COST BOX) — DELIVERED. Gating and unifying<br/>turned out to be THE SAME EDIT.<br/>💥 AND IT KILLED Y1 + Y2: Pro == Deluxe, byte-identical, every room.<br/>Deluxe is safe before it exists."]
+
+    G2["🔐 TWO LOCK SHAPES — NEVER MIX (this is what avoids PADLOCK SOUP):<br/>INLINE (cards, rows, meta strips) → figure becomes a small 🔒 glyph.<br/>  Row KEEPS photo, name, time, description. NO teaser panel in a list row.<br/>SURFACE (My Plan · shopping · nutrition grid · leftovers · storage) → full teaser<br/>  panel, cloned from the shoppingView teaser. Never invent a second one.<br/>🚩 AND: A BLANK IS A BUG. A TEASER IS A PITCH.<br/>An over-gate that renders NOTHING is as wrong as a leak. Sides did this. Fixed."]
+
+    G3["📋 WHAT FREE GETS (LOCKED):<br/>✅ browse everything · open every recipe · full method + ingredients + photo<br/>✅ scale +/- · anchor-ingredient chip · 1 dietary restriction<br/>✅ step DURATIONS visible ('20 min')<br/>✅ SHARE ON WHATSAPP — FREE FOREVER. It is marketing, not product.<br/>   Every share is a Free user advertising Tinza.<br/>🔒 all Rands · all kcal · all macros (cards AND detail)<br/>🔒 My Plan (whole-feature teaser) · shopping list · leftovers · storage<br/>🔒 Start Cooking · clickable TIMERS · Download · Add to Plan · Save Recipes"]
+
+    G4["📋 RULINGS WORTH REMEMBERING:<br/>· 'Tofu runs about R250/kg' PROSE STAYS. Editorial ≠ computed. The law is about<br/>  figures THE ENGINE emits, not about Tina talking. NEVER GAG THE VOICE.<br/>· BUDGET CARD → still HELD. Product call, not a leak call. Tina rules it.<br/>· planView = whole-feature teaser (spec enforced).<br/>  ⚠️ FOR THE RECORD: plan-with-locked-money WAS a strong funnel — build a real<br/>  plan, hit the wall exactly where the money would be. Tina chose spec fidelity.<br/>  If conversion disappoints post-launch, THIS IS A 1-LINE FLIP, not architecture.<br/>· Spice has no calories → kcalChip() treats 0/absent as no-data.<br/>  No empty 🔥 chip, no lone padlock."]
+
+    G0 --> G1 --> G2 --> G3 --> G4
   end
 
-  subgraph NEXT["🎯 NEXT — in order"]
-    N1["1️⃣ VEGAN BREAKFAST BATCH<br/>needs Tina's taste · closes FMF mains"]
-    N2["2️⃣ MF16 CUISINE-TAG SWEEP<br/>→ FMF done"]
-    NQ{"❓ SIDES & BASICS<br/>Router fixed 30 Jun · wired + reachable<br/>BUT logged 7 Jul as 'last FMF room, WIP — needs real authoring'<br/>TINA: is it authored, or is this still open?<br/>If open, FMF does NOT close on 1+2 alone."}
-    N3["3️⃣ SPICE NUT BUTTERS (6)<br/>blocked on → variations-block mockups"]
-    N4["4️⃣ WK WOW PASS<br/>thin cards · 976 stubs · Germany + N.Ireland missing<br/>cookTime · storage · chefNotes · trivia"]
-    N5["5️⃣ NEW WK COUNTRIES — LAST"]
-    N1 --> N2 --> NQ --> N3 --> N4 --> N5
+  subgraph NOW["🔴 NEXT SESSION — IN THIS ORDER"]
+    N1["1️⃣ 🧭 BACK-BUTTON AUDIT — READ-ONLY. WRITTEN 3×. SENT 0×. THREE SESSIONS RUNNING.<br/>'Sometimes it takes me out of Breakfast.' History stack, or hardcoded jump?<br/>Cross-links ARE the architecture (goesWith · Makeable · Spice↔Braai · WK).<br/>If a cross-link breaks Back, EVERY cross-link makes the app worse.<br/>👉 IT IS READ-ONLY. IT TOUCHES NOTHING. JUST SEND IT."]
+    N2["2️⃣ 💣 THE COSTING TRUTH. The numbers are now LOCKED — but still WRONG."]
+    N3["3️⃣ 🥬 MF30 DIETARY — engine built, nobody wired a switch. ~1 day."]
+    N1 --> N2 --> N3
   end
 
-  subgraph SWEETS["🍬 THE FUDGE VERDICT (asked & answered)"]
-    S1["SWEETS & CONFECTIONERY = ITS OWN ROOM. PARKED. POST-LAUNCH.<br/>Ruled 6 Jul · reaffirmed 7 Jul · NOT an FMF blocker."]
-    S2["When built, it's partly GATHER-AND-CROSS-LINK, not all fresh authoring:<br/>🍫 Haystack Fudge — already live in KIDDIES<br/>🍫 Nut & Cherry Chocolate Fudge — already live in FINGER FOODS › Sweet Bites<br/>🍩 Koeksisters — already live in BAKES<br/>DUPLICATE RULE: same dish + same name → keep most comprehensive."]
-    S3["Candidate shelf when it opens:<br/>Fudge · Nougat · Tameletjie · Fruit rolls · Truffles · Turkish delight · Toffee/brittle · Marshmallow"]
-    S1 --> S2 --> S3
+  subgraph TRUTH["💣 THE COSTING TRUTH — NOT STARTED. Maths deliberately untouched today."]
+    T0["✅ HALF DONE: 'no shared costing engine' was TRUE — the gate layer built the<br/>RENDER half. Three renderers, one law, one place.<br/>❌ THE MATHS HALF IS UNTOUCHED. The figures are exactly as wrong as they were<br/>this morning. They are simply no longer free.<br/>🎁 BUT THE FIX IS NOW CHEAP: everything flows through costLine(). One door."]
+    T1["MF29 — COUNT-ITEM OVER-BILLING. Math.ceil in the FOOD-COST path.<br/>mealsCostPP (core:3338) · lineCook (core:2765) · wkCostRecipe (worldkitchen:501)<br/>ceil is CORRECT for shopping (can't buy half an egg) = GOLD<br/>ceil is CATASTROPHIC for food cost (a slice holds 0.4 egg) = GREEN<br/>319 of 440 lines are in BAKES → ~2.5× overstated → a home cake may 'cost' MORE<br/>than a bought one. THAT IS THE PRODUCT'S CORE CLAIM, INVERTED.<br/>✅ REFERENCE IMPL EXISTS: costRecipe does it right (exact units × price via<br/>AVG_WEIGHT_G, no ceil). PROPAGATE IT. Copying, not inventing."]
+    T2["MF33 — THE SILENT ONE. hcLineCost (health:597) + ttLineCost (tinyTummies:6)<br/>RETURN NULL FOR COUNT ITEMS → Health &amp; Tiny Tummies DON'T COST EGGS AT ALL.<br/>The app OVER-bills eggs in FMF/Braai/WK and UNDER-bills them in Health/Kiddies.<br/>✅ FIX PATTERN ALREADY ON SCREEN: 'Based on 8/9 ingredients priced.'<br/>'2/2 ingredients priced.' LOUD-MISSING, done right.<br/>MAKE IT UNIVERSAL — it is the HONESTY FEATURE, not an error message."]
+    T3["MF28 — PRICE RESOLVER GUARD. Falls back to the bare noun. Silent. Looks healthy.<br/>almond/oat milk → DAIRY MILK · almond/cashew butter → DAIRY BUTTER<br/>cashew cheese → CREAM CHEESE · date syrup → HONEY — ALL IN health.js<br/>❓ANSWER THIS FIRST: does the SHOPPING LIST print the NAME or the RESOLVED KEY?<br/>If the key → WE PUT MILK AND HONEY ON A VEGAN'S SHOPPING LIST.<br/>TIER 2: bean sprouts → BRUSSELS SPROUTS R193 · 'caster' R35 vs 'castor' R84.<br/>THE APP PRICES FOOD BY SPELLING.<br/>FIX: QUALIFIER GUARD — qualifier + no exact key → FAIL LOUD. Longest-match-wins."]
+    T4["🩸 health.js IS STILL THE MOST BROKEN FILE IN TINZA.<br/>Today it carried the ONLY surviving gate leak (a PRIVATE renderer), the<br/>Add-to-Plan leak, MF28 AND MF33. And it is where DIETARY USERS LIVE.<br/>Every road leads back here."]
+    T0 --> T1 --> T2 --> T3 --> T4
   end
 
-  subgraph PARKED["🅿️ PARKED — not lost, just not now"]
-    P1["SAMENESS — Braai is LIGHT-themed, Spice is DARK.<br/>Needs a proper conversation, not a quick patch. TOP PRIORITY when it lands."]
-    P2["App-wide FLOATING MY PLAN<br/>any dish · any room · one shared plan"]
-    P3["VARIATIONS-BLOCK MOCKUPS<br/>(blocks Spice nut butters)"]
-    P4["MF27 SUBSTITUTES FIELD<br/>'No galangal? Use ginger.'<br/>Tina already supplied a pile of real SA substitutes.<br/>Design BEFORE the WK pass — SA availability is the recurring problem."]
-    P5["TOUM RENAME (wk_africa ~L132)"]
-    P6["KIDDIES SWEEP<br/>12 themes' cakes: 'icing butter'/'icing milk' → plain butter/milk<br/>Unify cooldrink per kid (400ml) · audit all methods + ingredients"]
-    P7["PICO DE GALLO ingredient names<br/>break the INGREDIENT STANDARD (name = what you BUY, matching PRICE_DB)"]
-    P8["PHOTO STUDIO regen — 2,123 dishes<br/>Outstanding filter = the live shot list"]
+  subgraph COLOUR["🎨 MF31 — COLOUR LAW BROKEN ON SCREEN (now cheap)"]
+    P1["LAW: green = food cost · gold = shop spend · NEVER MIX. Honoured in 1 room of 12.<br/>BRAAI → shop-gold on a FOOD figure ❌ · WK → orange, a THIRD colour ❌<br/>…and a variable literally NAMED 'green' that RESOLVES TO ORANGE (worldkitchen:570)<br/>✅ GOLD STANDARD: shoppingView renders 'What the food costs' GREEN and<br/>'What you'll spend' GOLD. Perfect. Copy it.<br/>🎁 NOW TRIVIAL: colour lives in costLine(). ONE function. Was ten boxes.<br/>😅 There is NO 🥇 medal in the codebase. grep = zero. It's 💰 everywhere.<br/>Claude read it off a screenshot and stated it as fact."]
+    P2["MF32 — ingredient 'total' WEIGHTS render in shop-spend gold ('500g total').<br/>A weight is not money. Real, not urgent."]
+    P1 --> P2
   end
 
-  DONE --> LAW --> NEXT
-  NEXT -.->|"answered, stays parked"| SWEETS
-  NEXT -.-> PARKED
+  subgraph DIET["🥬 MF30 — THE ENGINE IS BUILT. NOBODY WIRED A SWITCH."]
+    V1["· diet field IS widespread (meals: 104 meat / 53 veg / 23 vegan)<br/>· allRecipes() ALREADY takes a diet filter param<br/>· dietTag() ALREADY renders a badge<br/>· ❌ NO picker UI · NO state · NOTHING calls the filter<br/>👉 Free's '1 dietary restriction' IS A SHIPPED FEATURE THAT DOES NOTHING.<br/>Estimate: WEEKS → A DAY. Picker + state + caller."]
+    V2["✅ DISPLAY LOCKED: badges on every card (V / VE) → user-driven filter bar,<br/>REVERSIBLE, persists to profile. NOTHING HIDES ITSELF.<br/>🅿️ Hard/soft split PARKED → post-launch Settings checkbox.<br/>WHY: hard-hiding breaks THE DESIGN CASE — THE VEGAN MOM WHO COOKS FOR HER<br/>NON-VEGAN FAMILY. She'd see only vegan food and couldn't feed them. She is the reason."]
+    V3["⚠️ TAGGING: audit EVERY tag against the INGREDIENT LIST, never by hand.<br/>Last audit found CAESAR SALAD tagged vegetarian WITH ANCHOVIES IN IT.<br/>A wrong vegan tag is worse than no vegan tag."]
+    V1 --> V2 --> V3
+  end
 
-  classDef done fill:#e8f0d8,stroke:#46530c,color:#2c3307
-  classDef law fill:#fce9e9,stroke:#a33,color:#611
-  classDef next fill:#fdf3dc,stroke:#876213,color:#4a350a
-  classDef ask fill:#fff3cd,stroke:#c47f00,color:#5c3d00,stroke-width:3px
-  classDef sweet fill:#f5e6f2,stroke:#8a4d7a,color:#4a2942
-  classDef park fill:#eeeae4,stroke:#8a7f70,color:#3d372f
+  subgraph LATENT["⏳ LATENT"]
+    Y4["⚠️ makeable.js STILL has no script tag in index.html. MUST load BEFORE core.js."]
+  end
 
-  class D1,D2,D3,D4,D5 done
-  class L1 law
-  class N1,N2,N3,N4,N5 next
-  class NQ ask
-  class S1,S2,S3 sweet
-  class P1,P2,P3,P4,P5,P6,P7,P8 park
+  subgraph OCT["🅿️ OCTOBER / LAUNCH BLOCKERS"]
+    O1["🔒 HIDE THE TIER SWITCHER — localhost/?dev only. NOT display:none — NOT IN THE DOM.<br/>⚠️ KEEP IT UNTIL THEN. It now has 💎 Deluxe (3 buttons). Tina NEEDS it.<br/>Its real value was never theft-prevention — it was that TINA HAD NEVER SEEN<br/>HER OWN FREE APP."]
+    O2["💰 METERED PAYWALL — OPEN. Nothing set in stone. Needs AUTH (a localStorage<br/>counter is beaten by incognito). Lands WITH PayFast, not before.<br/>👉 TODAY ANSWERED THE UNDERLYING QUESTION: THE NUMBERS ARE THE PRODUCT.<br/>Browsing is the shop window. That is now literally how the code is built.<br/>Lean: gate money hard, keep browsing open, revisit with auth + real numbers."]
+    O3["🅿️ SWEETS &amp; CONFECTIONERY — own room, post-launch. RULED 3×."]
+    O5["🅿️ MF27 — substitute: field ('No galangal? Use ginger.'). Differentiator.<br/>Design BEFORE the WK pass. SA availability is a recurring problem."]
+  end
+
+  subgraph CONTENT["📝 CONTENT — after the engine is honest"]
+    C1["BANK B — 5 SA cards + Banana &amp; Pecan Pancakes<br/>Krummelpap &amp; Chakalaka (CROSS-LINK, don't duplicate) · Samp &amp; Beans (Umngqusho)<br/>Curried Bean Vetkoek · Boerewors-Spiced Lentil Patties · Tamatie-Smoor on Toast<br/>👉 Aim at the Tofu didYouKnow bar: ONE idea followed all the way down."]
+    C2["MF16 CUISINE-TAG SWEEP"]
+    C3["❓ SIDES &amp; BASICS — status unknown. If stubs → FMF does NOT close on Bank A+B alone."]
+    C4["🍚 TWO CONGEES — PARKED, AND IT DECIDES ITSELF. Tina couldn't FIND the vegan congee.<br/>Never a duplicate problem — it was THE MISSING DIETARY FILTER.<br/>Fix MF30 and the question evaporates.<br/>(Card still needs: no 'PACKET' fried onions · Korean goesWith on a Chinese dish)"]
+    C1 --> C2 --> C3
+  end
+
+  subgraph LAW["⚖️ THE LAW"]
+    W1["1. node --check PROVES NOTHING. It passed on a ZERO-BYTE spice.js.<br/><br/>2. A REPORT IS NOT PROOF. LOOK AT THE RENDERED PAGE.<br/>Twist 1: the FILE can be RIGHT and the PAGE still WRONG (tofu note, shadowed).<br/>Twist 2: a RENDER-PROOF CAN PASS AND THE PAGE STILL LEAK — it swept the merged<br/>pool; Health's PRIVATE renderer was never IN the pool.<br/>👉 A PASSING TEST IS A REPORT TOO. Tina found Health in ninety seconds.<br/>👉 PROVE IT PER-SECTION. 'Every room' means EVERY ROOM — 5 of 12 is not proof.<br/>A bad room hides inside a good aggregate.<br/><br/>3. SILENT WRONG IS WORSE THAN LOUD MISSING. A gate that FAILED OPEN. A variable<br/>named 'green' that is ORANGE. Eggs that cost nothing. All reported success.<br/><br/>4. A NARROW QUESTION GETS A NARROW ANSWER — AND IT WILL BE TRUE.<br/>ASK 'WHAT IS NOT GATED?' — NEVER 'is X gated?' Asked the wide way, Code found<br/>kcal ungated in ~8 places, the macro grid in THREE renderers, browse-cost in FIVE<br/>sections. Asked the narrow way, the same model said 'looks fine.'<br/><br/>5. LOCALHOST IS NOT THE LIVE SITE. COMMITTED IS NOT PUSHED. PUSHED IS NOT DEPLOYED.<br/>Check Netlify says PUBLISHED on the hash you think you're testing.<br/><br/>6. DON'T PATCH N SITES. BUILD THE ONE THING THEY SHOULD ALL CALL.<br/>20 isPro wrappers = 20 places to leak again the next time someone adds a room.<br/>3 renderers = one door, one lock. Cost +47 lines. Bought O4 for free.<br/><br/>7. 🆕 AN OVER-GATE IS A BUG TOO. A BLANK IS A BUG. A TEASER IS A PITCH.<br/>The lock is the salesman. If Free sees nothing, you have hidden the price tag<br/>AND the product.<br/><br/>8. 🆕 'SHIP IT' IS NOT 'PUSH IT'. Say which one you mean."]
+  end
+
+  LIVE --> GATE --> NOW --> TRUTH --> COLOUR --> DIET --> CONTENT
+  NOW -.-> LATENT
+  CONTENT -.-> OCT
+  GATE -.-> LAW
+
+  classDef live fill:#e8f0d8,stroke:#46530c,color:#2c3307
+  classDef gate fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:3px
+  classDef now fill:#fce9e9,stroke:#aa3333,color:#661111,stroke-width:3px
+  classDef eng fill:#fce9e9,stroke:#aa3333,color:#661111,stroke-width:2px
+  classDef col fill:#fdf3dc,stroke:#876213,color:#4a350a
+  classDef diet fill:#e4f0e4,stroke:#3d7a3d,color:#1e3d1e
+  classDef lat fill:#eeeae4,stroke:#8a7f70,color:#3d372f
+  classDef cont fill:#e6eef5,stroke:#3a5f80,color:#1c3145
+  classDef law fill:#2c2c2c,stroke:#000,color:#fff,stroke-width:2px
+
+  class L1,L2,L3,L4 live
+  class G0,G1,G2,G3,G4 gate
+  class N1,N2,N3 now
+  class T0,T1,T2,T3,T4 eng
+  class P1,P2 col
+  class V1,V2,V3 diet
+  class Y4 lat
+  class O1,O2,O3,O5 lat
+  class C1,C2,C3,C4 cont
+  class W1 law
