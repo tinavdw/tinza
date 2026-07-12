@@ -995,7 +995,7 @@ function healthHTML(){
         <p style="margin:0 0 10px;font-size:13px;color:var(--ink-soft);font-style:italic;">Eat with intention · Feel the difference</p>
         <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid var(--line2);border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:var(--accent);margin-right:8px;font-size:14px;">🔍</span>
-          <input type="text" placeholder="Search health recipes…" oninput="liveSearch(this,'healthSearchResults',{sections:['health'],stateKey:'healthSearch'})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink-soft);font-size:13px;"/>
+          <input type="text" placeholder="Search health recipes…" oninput="liveSearch(this,'healthSearchResults',{sections:['health'],stateKey:'healthSearch'})" value="${searchVal}" style="flex:1;width:100%;background:none;border:none;outline:none;color:var(--ink-soft);font-size:13px;"/>
           ${searchVal?`<button onclick="set({healthSearch:'',searchResults:[]})" style="background:none;border:none;color:var(--ink-soft);font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>

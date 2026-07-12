@@ -65,13 +65,17 @@
   //    passthrough so the shared budget recipe-detail renders any result) ────
   function rec(o){
     var ings = o.ingredients || [];
+    // MF58 · index the ingredient NOUN only, not the weight/prep annotation after the em-dash
+    // ("Pork spareribs — 450g raw per person" → "pork spareribs"). Kills the raw/cooked/dry/
+    // per-person noise that returned whole rooms. (Display `ingredients` keep the full string.)
     var bits = [ o.name, o.nameAlt, (o.aliases||[]).join(' '), o.cuisine, o.country,
                  (o.goesWith||[]).join(' ') ]
-                 .concat(ings.map(function(i){ return i.n; }));
+                 .concat(ings.map(function(i){ return String(i.n||'').split('—')[0]; }));
     return {
       // ── §1 normalised contract ──
       id:        o.id,
       section:   o.section,
+      mealCat:   o.mealCat != null ? o.mealCat : null,   // MF56 · breakfast/lunch/supper for FMF sub-screen scope (NOT NAV_KEYS' mealCat — Law 23)
       name:      o.name || '',
       nameAlt:   o.nameAlt || '',                  // English gloss → tinzaDisplayName
       aliases:   o.aliases || [],                  // Latin fallbacks → tinzaRoman
@@ -122,7 +126,7 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:'meals', name:r.name, emoji:r.emoji,
+          id:r.id, section:'meals', mealCat:kind, name:r.name, emoji:r.emoji,   // MF56 · store the kind it already knows
           mealRole: kind==='breakfast' ? 'component' : kind==='lunch' ? 'main' : mealRoleFromCat(r.cat),
           diet: r.diet ? [r.diet] : [],
           protein: r.protein||null, cuisine: r.cuisine||'',

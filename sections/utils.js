@@ -149,6 +149,7 @@ function tinzaAllSearch(query, opts){
   for(var i=0;i<pool.length;i++){
     var r = pool[i];
     if(secSet && secSet.indexOf(r.section) < 0) continue;
+    if(opts.mealCat && r.mealCat !== opts.mealCat) continue;   // MF56 · Breakfast searches Breakfast (not all of Family Meals)
     if(opts.maxCostPP != null && (r.costPP == null || r.costPP > opts.maxCostPP)) continue;
     var nameN  = _searchNorm(r.name);
     var baseHay = _searchNorm(r.searchText || r.name);
@@ -218,6 +219,7 @@ function globalSearchLive(query) {
   if(!resultsDiv) return;
   if(!query || query.trim().length < 2) { S.searchResults = []; resultsDiv.innerHTML = ''; return; }
   // MF49 · honour a preset scope (Braai/Spice tap-targets set S.searchScope). null = whole app.
+  S.searchScopeLabel = null;   // MF56 · the global screen uses the section-map label, never a stale meal sub-label
   S.searchResults = tinzaAllSearch(query, { sections: S.searchScope || null });
   resultsDiv.innerHTML = renderSearchResults(query, S.searchResults);
 }
@@ -264,7 +266,8 @@ function renderSearchResults(q, results) {
   }
   // MF49 ride-along · name the ROOM when scoped ("found in World Kitchen"), not "Tinza".
   var _scope = (typeof S!=='undefined') ? S.searchScope : null;
-  var _lbl = (_scope && _scope.length) ? (_SEARCH_SECTION_LABEL[_scope[0]] || _scope[0]) : 'Tinza';
+  var _lbl = (typeof S!=='undefined' && S.searchScopeLabel) ? S.searchScopeLabel   // MF56 · explicit sub-screen label ("Breakfast")
+           : (_scope && _scope.length) ? (_SEARCH_SECTION_LABEL[_scope[0]] || _scope[0]) : 'Tinza';
   var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + results.length + ' recipe' + (results.length!==1?'s':'') + ' found in ' + _lbl + '</div>';
   results.forEach(function(hit, idx) {
     var r = hit.r;

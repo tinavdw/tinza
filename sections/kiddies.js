@@ -106,7 +106,7 @@ function kidsPartyHTML(){
     <div class="content">
       <div style="display:flex;align-items:center;background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:var(--accent);margin-right:8px;font-size:14px;">🔍</span>
-        <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="liveSearch(this,'kidsThemesGrid',{filterFn:kidsThemeGridInner,stateKey:'kidsSearch'})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink);font-size:13px;font-family:Georgia,serif;"/>
+        <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="liveSearch(this,'kidsThemesGrid',{filterFn:kidsThemeGridInner,stateKey:'kidsSearch'})" value="${searchVal}" style="flex:1;width:100%;background:none;border:none;outline:none;color:var(--ink);font-size:13px;font-family:Georgia,serif;"/>
         ${searchVal?`<button onclick="set({kidsSearch:''})" style="background:none;border:none;color:var(--accent);font-size:16px;cursor:pointer;">×</button>`:''}
       </div>
 

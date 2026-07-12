@@ -30,8 +30,8 @@ function liveSearch(inputEl, resultsId, spec){
     var qv = inputEl.value || '';
     if(typeof spec.filterFn === 'function'){ el.innerHTML = spec.filterFn(qv) || ''; return; }
     if(!qv || qv.trim().length < 2){ if(typeof S!=='undefined') S.searchResults = []; el.innerHTML = ''; return; }
-    var hits = (typeof tinzaAllSearch === 'function') ? tinzaAllSearch(qv, { sections:spec.sections, maxCostPP:spec.maxCostPP }) : [];
-    if(typeof S !== 'undefined'){ S.searchResults = hits; S.searchQuery = qv; S.searchScope = spec.sections || null; }  // MF49 · scope drives the "found in <room>" label
+    var hits = (typeof tinzaAllSearch === 'function') ? tinzaAllSearch(qv, { sections:spec.sections, mealCat:spec.mealCat, maxCostPP:spec.maxCostPP }) : [];
+    if(typeof S !== 'undefined'){ S.searchResults = hits; S.searchQuery = qv; S.searchScope = spec.sections || null; S.searchScopeLabel = spec.label || null; }  // MF49/56 · scope + label drive "found in <room>"
     el.innerHTML = (typeof renderSearchResults === 'function') ? renderSearchResults(qv, hits) : '';
   }, spec.debounce != null ? spec.debounce : 150);
 }
@@ -385,7 +385,7 @@ function bottomBarGo(screen){
          braiStep:1, braiCat:null, braaiView:'browse', wkScreen:null, wkSACulture:null, wkRecipeDetail:null,
          activeBaby:null, activeDog:null, activeCat2:null, fingerSection:null, kidsScreen:null, kidsTheme:null});
   } else {
-    set({screen:screen, viewingRecipe:false, searchScope:null});   // MF49 · bottom-nav Search is whole-app (clear any room scope)
+    set({screen:screen, viewingRecipe:false, searchScope:null, searchScopeLabel:null, mealSearch:'', searchQuery:''});   // MF49/59 · bottom-nav = whole-app, fresh query
   }
 }
 
@@ -2412,7 +2412,7 @@ function sectionHeader(o){
     } else {
       searchEl = `<div style="flex:1;display:flex;align-items:center;padding:4px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;">
         <span style="color:var(--accent2);margin-right:6px;font-size:13px;">🔍</span>
-        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;background:none;border:none;outline:none;color:var(--on-media-soft);font-size:13px;min-width:0;" />
+        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;width:100%;background:none;border:none;outline:none;color:var(--on-media-soft);font-size:13px;min-width:0;" />
         ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:var(--on-media-soft);font-size:15px;cursor:pointer;flex-shrink:0;">×</button>`:''}
       </div>`;
     }

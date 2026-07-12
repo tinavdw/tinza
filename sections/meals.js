@@ -15414,14 +15414,18 @@ function mealSectionHTML(sectionKey){
   }
 
   const mealHowOpen = S.mealHowOpen || false;
+  // MF56 · per-sub-screen search scope — Breakfast searches Breakfast (mealCat), NOT all Family Meals.
+  const _scp = ({ breakfast:{s:['meals'],mc:'breakfast',lbl:'Breakfast'}, lightlunch:{s:['meals'],mc:'lunch',lbl:'Light Lunch'}, supper:{s:['meals'],mc:'supper',lbl:'Supper'}, bakes:{s:['bakes'],mc:null,lbl:'Bakes & Cakes'}, sidesbasics:{s:['meals'],mc:null,lbl:'Sides & Basics'} })[sectionKey] || {s:['meals'],mc:null,lbl:cfg.title};
+  // single-quote the array — this string lives inside a double-quoted oninput="…" HTML attribute
+  const _mealSearchOninput = "liveSearch(this,'mealSearchResults',{sections:['"+_scp.s.join("','")+"'],mealCat:"+(_scp.mc?("'"+_scp.mc+"'"):'null')+",label:'"+_scp.lbl+"',stateKey:'mealSearch'})";
 
   return `<div>
     ${sectionHeader({
       title: cfg.title, emoji: cfg.emoji, tagline: cfg.sub,
       img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent(cfg.title)+'.jpg',
-      backJs: "set({screen:'feedfamily'})", backLabel: '← Family Meals',
+      backJs: "set({screen:'feedfamily',mealSearch:''})", backLabel: '← Family Meals',   // MF59 · don't carry the query out of the sub-screen
       myPlan: { count:(S.mealPlan||[]).length, onclick:"setQuiet({mealPlanView:true})" },
-      search: { value:S.mealSearch||'', oninput:"liveSearch(this,'mealSearchResults',{sections:['meals'],stateKey:'mealSearch'})", clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
+      search: { value:S.mealSearch||'', oninput:_mealSearchOninput, clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
       cats: cats ? cats.map(c=>({ emoji:c.e, label:c.l, active:(activeCat===c.id), onclick:"setQuiet({mealCat:'"+c.id+"'});setTimeout(()=>{var el=document.getElementById('mealGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)" })) : []
     })}
     <div class="content" style="padding:12px 16px;max-width:600px;margin:0 auto;">
@@ -15530,7 +15534,7 @@ function feedingFamilyHTML(){
       <div style="font-size:13px;letter-spacing:2px;color:var(--ink-soft);text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
         ${MEALS.map(o=>`
-          <div onclick="set({screen:'${o.s}'})"
+          <div onclick="set({screen:'${o.s}',mealSearch:''})"
             style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div style="font-size:24px;margin-bottom:4px;">${o.e}</div>
             <div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>

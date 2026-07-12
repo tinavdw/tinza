@@ -17,7 +17,7 @@ function furryHTML(){
           <input type="text" placeholder="Search dog & cat recipes…"
             oninput="liveSearch(this,'furrySearchResults',{sections:['furry'],stateKey:'furrySearch'})"
             value="${S.furrySearch||''}"
-            style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;font-family:Georgia,serif;"
+            style="flex:1;width:100%;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;font-family:Georgia,serif;"
           />
           ${S.furrySearch?`<button onclick="set({furrySearch:'',searchResults:[]})" style="background:none;border:none;color:#c06020;font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
