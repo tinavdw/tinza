@@ -148,15 +148,17 @@ function wkRecipeCard(r){
     var mainIt = wkClassifyMain(wkParseIngredients(r.ingredients)).item;
     if(mainIt){ var sc = wkScaleLine(mainIt, wkEffectiveMult(r, dc, apC)); if(!sc.faded) grams = sc.amt; }
   }
-  // ── per-person cost (FREE hook) — show only when ingredients are priced ──
-  var costPP = '';
-  if(typeof wkCostRecipe==='function' && typeof wkEffectiveMult==='function'){
+  // ── per-person cost (FREE hook) — GATED (MF43): NO partial totals. If the main protein
+  //    is unpriced, the card SAYS "not yet priced" — it never quietly prints the sides. ──
+  var costPP = '', costText = '';
+  if(typeof wkCostState==='function' && typeof wkEffectiveMult==='function'){
     var _ap  = (typeof wkAppetite==='function') ? wkAppetite() : null;
-    var _cpp = wkCostRecipe(r, wkEffectiveMult(r, 1, _ap));
-    if(_cpp && _cpp.priced > 0 && _cpp.total > 0) costPP = _cpp.total;
+    var _gc  = wkCostState(r, wkEffectiveMult(r, 1, _ap));
+    if(_gc.ok) costPP = _gc.total;                 // per-person (mult scaled for 1) — the real cost
+    else costText = 'cost: not yet priced';        // loud blank — same gate as the finder + detail
   }
   // Route through the shared Warm Spice card (Rule Zero) — World Kitchen is always inside .warm.
-  return warmCard({ name:disp, photoName:r.name, photoAlt:r.nameAlt, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
+  return warmCard({ name:disp, photoName:r.name, photoAlt:r.nameAlt, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), costText:(costText||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
 }
 
 /* braai-style grid tile: emoji on top, bold title, subtitle. dim = coming-soon, accent = green-featured. */
@@ -509,6 +511,35 @@ function wkCostRecipe(recipe, n){
   return { total:Math.round(total), priced:priced, missing:missing };
 }
 
+/* ── MF43 · ONE gate + ONE loud line for EVERY WK cost surface (card · detail · finder) ──
+   The browse card used to print a total whenever ANY ingredient priced, so a lamb dish
+   showed the SIDES-ONLY total — Law 20: a partial total is worse than none (the user
+   budgets R38 and buys a R150 leg). This is the SAME gate index.js has always applied to
+   the finder: coverage >= 0.8 AND the main protein ACTUALLY priced (not merely in PRICE_DB).
+   Every surface now calls this. If the main protein is unpriced, every surface says so —
+   it NEVER quietly prints the sides. Law 6: one door. */
+function wkCostState(r, n){
+  var c = (typeof wkCostRecipe==='function') ? (wkCostRecipe(r, n||1) || {total:0,priced:0,missing:[]}) : {total:0,priced:0,missing:[]};
+  var missing = c.missing || [];
+  var denom = (c.priced||0) + missing.length;
+  var coverage = denom>0 ? (c.priced/denom) : 0;
+  var proteinOk = true, mainName = null;
+  if(typeof wkClassifyMain==='function' && typeof wkParseIngredients==='function'){
+    var mc = wkClassifyMain(wkParseIngredients(r.ingredients)||[]);
+    if(mc && mc.item && /^(meat|fish|bonein)$/.test(mc.cat)){ mainName = mc.item.name; proteinOk = (missing.indexOf(mc.item.name) < 0); }
+  }
+  var ok = (denom>0 && coverage>=0.8 && proteinOk);
+  return { ok:ok, total:c.total, priced:c.priced, missing:missing, coverage:coverage, mainName:mainName, mainMissing:!proteinOk };
+}
+/* the ONE loud line — the main protein leads (it's what the dish is named after), then the rest */
+function wkNotPricedNote(gc){
+  var who = [];
+  if(gc.mainMissing && gc.mainName) who.push(gc.mainName);
+  (gc.missing||[]).forEach(function(m){ if(who.indexOf(m)<0) who.push(m); });
+  if(!who.length) return '';
+  return 'not yet priced: ' + who.slice(0,6).join(', ') + (who.length>6 ? '…' : '');
+}
+
 /* ── My Plan state (its own list — never touches braai's plan) ── */
 function wkPlanFind(id){ var p=S.wkPlan||[]; for(var i=0;i<p.length;i++) if(p[i].id===id) return i; return -1; }
 function wkInPlan(id){ return wkPlanFind(id) > -1; }
@@ -584,9 +615,9 @@ function wkRecipeOpts(r, country, universal){
   // ── green qty box (shared qtyBox) — drives S.wkServings ──
   var qtyTotal = mainItem ? (wkScaleLine(mainItem, baseMult * n).amt + ' ' + mainItem.name) : (n + ' ' + (n===1?'serving':'servings'));
   var qtyPP    = mainItem ? (wkScaleLine(mainItem, baseMult).amt + ' per person' + (rawCarb ? ' · raw' : '')) : '';
-  var _cpp = (cost.priced>0 && cost.total>0) ? wkCostRecipe(r, baseMult).total : null;
-  var costInfo = (_cpp!=null)
-    ? costLine({ pp:_cpp, total:cost.total.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' })
+  var _dgc = wkCostState(r, baseMult);   // MF43: gated \u2014 no sides-only total in the qty strip either
+  var costInfo = _dgc.ok
+    ? costLine({ pp:_dgc.total, total:cost.total.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' })
     : '';
   var qtyHTML = qtyBox({
     label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n, info:costInfo,
@@ -627,9 +658,10 @@ function wkRecipeOpts(r, country, universal){
   var methodHTML = methodBox(stepsHTML, steps.length ? "set({wkCooking:{id:'"+r.id+"',step:0}});window.scrollTo(0,0);" : '');
 
   // ── extras slot: cost (Pro-gated) + tip + chef notes ──
-  var costNote = cost.missing.length
-    ? '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">≈ estimate — not yet priced: '+cost.missing.slice(0,6).join(', ')+(cost.missing.length>6?'…':'')+'</div>'
-    : '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div>';
+  var _cgc = wkCostState(r, n * baseMult);   // MF43: the ONE gate — no partial totals on the detail either
+  var costNote = _cgc.ok
+    ? '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div>'
+    : '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">≈ '+wkNotPricedNote(_cgc)+'</div>';
   var isWkPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   var costBox = !isWkPro
     ? '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
@@ -638,8 +670,8 @@ function wkRecipeOpts(r, country, universal){
     : '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;">'
       +   '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
-      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(cost.priced?('~R'+cost.total):'\u2014')+'</div></div>'
-      + (cost.priced ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
+      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(_cgc.ok?('~R'+cost.total):'\u2014')+'</div></div>'
+      + (_cgc.ok ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
       + costNote + '</div>';
   var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }

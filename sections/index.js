@@ -241,32 +241,14 @@
         return { n: it.name||'', pp: (it.toTaste || it.qty==null) ? null : it.qty, u: it.unit||'' };
       }).filter(function(i){ return i.n; });
 
-      // ── §3 costPP coverage gate ──
+      // ── §3 costPP coverage gate — now the SHARED wkCostState (MF43 · Law 6, one door). ──
+      // The card + detail + this finder all call the same gate: coverage>=0.8 AND the main
+      // protein ACTUALLY priced. No surface ever prints a sides-only partial total.
       var costPP = null;
-      if(typeof wkCostRecipe==='function'){
-        var c = wkCostRecipe(r, 1) || { total:0, priced:0, missing:[] };
-        var missing = c.missing || [];
-        var missN = missing.length;
-        var denom = (c.priced||0) + missN;                 // priceable (non-spice/water) lines
-        var coverage = denom>0 ? (c.priced/denom) : 0;
-        // When the dish has an animal protein, that protein must have ACTUALLY been
-        // costed — not merely exist in PRICE_DB. A line like "1 small chicken" resolves
-        // to chicken@R90/kg but is priced-by-weight, so wkCostRecipe can't apply it and
-        // drops it into `missing`; the total then looks like R6 (just the sides) — the
-        // exact §3 lie. Requiring the main protein to be absent from `missing` catches it.
-        var proteinOk = true;
-        if(typeof wkClassifyMain==='function'){
-          var mc = wkClassifyMain(items);
-          if(mc && mc.item && /^(meat|fish|bonein)$/.test(mc.cat)){
-            proteinOk = (missing.indexOf(mc.item.name) < 0);
-          }
-        }
-        if(denom>0 && coverage>=0.8 && proteinOk){
-          costPP = c.total;                                 // per-person (n=1)
-        } else {
-          skipped.push({ id:r.id, name:r.name,
-                         coverage:Math.round(coverage*100)/100, missing:c.missing });
-        }
+      if(typeof wkCostState==='function'){
+        var gc = wkCostState(r, 1);
+        if(gc.ok){ costPP = gc.total; }                     // per-person (n=1)
+        else { skipped.push({ id:r.id, name:r.name, coverage:Math.round(gc.coverage*100)/100, missing:gc.missing }); }
       }
 
       var course = lc(r.course);
