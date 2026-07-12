@@ -603,15 +603,10 @@ function lookupPrice(name){
   const q = name.toLowerCase().trim();
   // Exact match first
   if(PRICE_DB[q] !== undefined) return PRICE_DB[q];
-  // Partial match — longest DB key that appears AS A SUBSTRING OF the query, wins.
-  // MF28-L1: the old `|| key.includes(q)` direction let a SHORTER query match a
-  // LONGER key ("sprouts" query hitting "brussels sprouts"; "milk" hitting nothing
-  // longer but "bean sprouts"→"sprouts"). A key more specific than what was asked
-  // for is always the wrong match, so that direction is deleted. Longest-match-wins
-  // is kept, so a qualified key ("soy milk") still beats the bare noun ("milk").
+  // Partial match — find best (longest key that appears in query, or query appears in key)
   let best = null, bestLen = 0;
   for(const [key, price] of Object.entries(PRICE_DB)){
-    if(q.includes(key)){
+    if(q.includes(key) || key.includes(q)){
       if(key.length > bestLen){ best = price; bestLen = key.length; }
     }
   }

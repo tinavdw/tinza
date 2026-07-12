@@ -362,12 +362,6 @@ function bottomBarGo(screen){
 
 function goBack(){
   if(typeof S!=='undefined'){
-    // (0) Returned from a Makeable shelf cross-link (bakes/spice) → the jump pushed a
-    //     history entry over the origin recipe, so CONSUME it; popstate restores the
-    //     recipe/list you came from instead of goBack step-4 dropping you on Home. (MF28-4b)
-    if(S._shelfJump && _appNavDepth > 0 && typeof history !== 'undefined'){
-      try{ history.back(); return; }catch(_e){}
-    }
     // (1) Details that pushed NO history entry (budget recipe isn't in navSignature) →
     //     close via their own closer, returning to that section's own list.
     if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
@@ -2631,8 +2625,8 @@ function ingredientLinks(){
       var js = (v.type === 'dish')
         ? (v.section === 'spice' ? "openSpiceRecipe('" + v.id + "')" : "openBakesRecipe('" + v.id + "')")
         : (v.section === 'spice'
-            ? "openMakeableShelf('spice',{spiceShelf:'" + v.id + "',spiceEntry:null,spiceListOpen:false})"
-            : "openMakeableShelf('bakes',{mealCat:'" + v.id + "'})");
+            ? "set({screen:'spice',spiceShelf:'" + v.id + "',spiceEntry:null,spiceListOpen:false})"
+            : "set({screen:'bakes',mealCat:'" + v.id + "'})");
       var key = String(k).replace(/_each$/,'').toLowerCase();
       if(!m[key]) m[key] = js;
       var alt = /s$/.test(key) ? key.replace(/s$/,'') : key + 's';   // exact-match map, so seed both
@@ -2647,17 +2641,6 @@ function crossLinkFor(map, label){
   if(!map || label==null) return null;
   var k = String(label).trim().toLowerCase();
   return (Object.prototype.hasOwnProperty.call(map,k) && map[k]) ? map[k] : null;
-}
-// Makeable ingredient → shelf cross-link (bakes category / spice shelf). A bare
-// set({screen:…}) here made the shelf a NEW section root, so goBack() step-4 sent
-// the in-app Back button to Home instead of the recipe you came from (the FMF-style
-// leak). The screen change still pushes a history entry whose PRIOR entry is the
-// origin recipe, so the fix is only to mark this jump: goBack() then consumes that
-// entry with history.back() (popstate restores the origin) instead of jumping Home,
-// and no _appNavDepth drift (history.back is the same consume path as a normal
-// Back). The flag rides in the pushed snapshot and clears on the popstate. (MF28-4b)
-function openMakeableShelf(screen, patch){
-  set(Object.assign({}, patch || {}, { screen: screen, _shelfJump: true }));
 }
 
 // ── goesWith → openable card, BY NAME (P5) ────────────────────────────────────
@@ -3107,7 +3090,7 @@ function resolveRecipe(section, id){
 // Nav-location state keys (mirrors historyKey) — snapshotted so Back can
 // restore the exact origin screen. Selection arrays (plans) are excluded
 // on purpose: we restore WHERE you were, never what you'd chosen.
-var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
+var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealActiveRecipe'];
 
 function snapshotNav(){
   var s = {};
