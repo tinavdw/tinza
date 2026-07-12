@@ -1,81 +1,71 @@
-%% TINZA — CANONICAL HANDOFF · 12 JULY 2026 · 18:45
-%% TODAY: WE KILLED THE WORST BUG IN THE APP. THEN WE FOUND A WORSE ONE.
-%% THE SEARCH BAR HAS NEVER WORKED. IT HAS BEEN IN EVERY SCREENSHOT FOR TWO MONTHS.
-%% PASTE THIS INTO THE NEW CHAT.
+%% TINZA — CANONICAL HANDOFF · 12 JULY 2026 · LATE
+%% MF45 RULED (Option C). MF46 SHAPED (scoped-global). BRIEF WRITTEN. NOTHING PUSHED YET.
+%% TODAY: TWO BUGS KILLED IN PROD · A SEVEN-WEEK-OLD LIE DUG UP · AND CLAUDE WAS WRONG ONCE, LOUDLY.
 
 flowchart TD
 
-  subgraph WIN["🏆 TWO CLOSED TODAY — BOTH PUBLISHED, BOTH PROVEN BY TINA'S OWN EYES"]
-    W0["✅ **MF28 — THE ANIMAL-COLLISION GUARD · main@c03da83 · LIVE**<br/>**DANGER-DIET: 11 → 0. IN PRODUCTION.**<br/>A paying vegan can no longer get milk and honey on her shopping list.<br/>l2Blocks(name,key) lives ONCE in core.js (Law 6). ZERO false positives —<br/>soya mince · coconut milk · peanut butter · date syrup ALL still price.<br/>🔬 Tools/fallback-census.js SHIPPED. CARDS-SKIPPED is a standing column. Forever."]
-
-    W1["✅ **MF43 — THE SIDES-ONLY LIE · main@919046e · LIVE · PROVEN**<br/>**A LAMB TAGINE CAN NO LONGER TELL A USER IT COSTS R38.**<br/>wkCostState(r,n) — ONE gate (coverage ≥ 0.8 AND main protein priced), ONE loud line.<br/>Browse card · detail qty-strip · detail cost box · finder — **ALL FOUR CALL IT.**<br/>core.js untouched. **NO SURFACE EVER PRINTS A PARTIAL TOTAL AGAIN.**<br/><br/>📸 TINA'S PROOF ON LIVE — all four, her own screenshots:<br/>  · WK browse card (Pro):  ~R38  →  ✅ `cost: not yet priced`<br/>  · WK detail (Pro):              →  ✅ `≈ not yet priced: lamb shoulder`<br/>  · **Zaalouk — THE CONTROL:  R15 pp → R15 pp. UNTOUCHED. TARGETED, NOT BLANKET.**<br/>  · Free tier: green dot + 🔒, **NO NUMBER AT ALL.** Tier gate holds.<br/>  · Live console: `costPP-skipped: 88 of 1021` — **THE NUMBER DID NOT MOVE.**<br/>    The fix changed what those 88 cards SAY, not how many there are. As specified."]
+  subgraph WIN["🏆 CLOSED TODAY — PUBLISHED, PROVEN BY TINA'S OWN EYES"]
+    W0["✅ **MF28 — THE ANIMAL-COLLISION GUARD · main@c03da83 · LIVE**<br/>**DANGER-DIET: 11 → 0.** A paying vegan can no longer get milk and honey on her list.<br/>l2Blocks(name,key) lives ONCE in core.js. Zero false positives.<br/>🔬 Tools/fallback-census.js SHIPPED. CARDS-SKIPPED is a standing column. Forever."]
+    W1["✅ **MF43 — THE SIDES-ONLY LIE · main@919046e · LIVE · PROVEN**<br/>**A LAMB TAGINE CAN NO LONGER SAY IT COSTS R38.**<br/>wkCostState(r,n) — ONE gate, ONE loud line. Browse · detail · cost box · finder ALL call it.<br/>🎯 Zaalouk (the control) untouched at R15 pp. **TARGETED, NOT BLANKET.**"]
     W0 --> W1
   end
 
-  subgraph AB["🧪 THE A/B THAT SAVED A ROLLBACK — 90 SECONDS, TOTAL CERTAINTY"]
-    A1["🚨 Search broke. **MF43 had just edited index.js (+7 −25) — IN THE FINDER.**<br/>Every instinct said: MF43 did it. Roll back.<br/><br/>🧪 Tina opened the **c03da83 permalink** (the commit BEFORE MF43) and typed.<br/>**SEARCH WAS ALREADY BROKEN THERE.**<br/><br/>⚖️ **MF43 IS INNOCENT. NO ROLLBACK. 919046e STAYS.**<br/>👉 **LAW 5 PAID FOR ITSELF TONIGHT.** MF28 alone, MF43 alone, clean boundaries —<br/>so the permalink could answer the question in ninety seconds instead of a day.<br/>**THIS IS WHY WE PUSH ONE THING AT A TIME.**"]
+  subgraph RULED["⚖️ RULED TODAY — TINA SIGNED · CODE HAS NOT WRITTEN A LINE"]
+    R1["✅ **MF45 — OPTION C. SIGNED.**<br/>**THE GATE NOW ASKS TWO QUESTIONS, NOT ONE:**<br/>1. Is there a price? ← **NEW. ASKED FIRST.**  2. Is she Pro? ← only if #1 is yes.<br/><br/>  PRICED (Zaalouk)      · Free 🔒 · Pro R15 pp        ← **MUST NOT MOVE. THE CONTROL.**<br/>  UNPRICED (the 88)     · Free **NOTHING** — no dot, no lock, no line<br/>                        · Pro  `cost: not yet priced`<br/>  DETAIL, **BOTH TIERS** · `≈ not yet priced: lamb shoulder` — **UNLOCKED FOR FREE.**<br/><br/>👉 It is not a number, so it is not a gate leak. **IT IS AN ABSENCE, HONESTLY STATED.**<br/>⚖️ **LAW 7 FINAL:** the lock is the salesman — **and a salesman with an empty bag stays home.**<br/>🌱 **SELF-DELETING.** Dead the day the 88th price is signed. A truth-teller, not a feature.<br/>📍 Lives in **wkCostState(r,n)** — MF43 already built it, all 4 surfaces already call it. ⚖️ Law 6.<br/>⛔ costLine() NOT TOUCHED. It stays the only Rand-emitter."]
+
+    R2["✅ **MF46 — SCOPED-GLOBAL. RULED.**<br/>🩸 **AND CLAUDE WAS WRONG FIRST — SAY IT OUT LOUD.**<br/>Claude ruled 'don't route Furry to global, she'll get Coq au Vin for her dog.'<br/>**FURRY IS INDEXED.** adaptFurry, index.js:385. Events too. **THE RULING WAS BUILT ON A<br/>CENSUS COLUMN THAT SAID 'no filter' AND AN ASSUMPTION THAT SAID 'not in the index.'**<br/>👉 ⚖️ **LAW 22 CAUGHT ITS OWN AUTHOR, ONE DAY OLD.** Read the code. Not the note.<br/>👉 **TINA'S 'route the 7 to the global door' READ THE ARCHITECTURE BETTER.**<br/><br/>💡 **AND THE CENSUS FOUND THE THING NEITHER OF US SAW:**<br/>**EVERY RECORD ALREADY CARRIES `section` (index.js:74).**<br/>**THE INDEX HAS BEEN ROOM-AWARE THE WHOLE TIME.**<br/>👉 It was never a funnel. **It is a SCOPED INDEX WEARING AN UNSCOPED SCREEN.**<br/><br/>🎁 **AND searchText IS BETTER THAN EVERY LOCAL FILTER:**<br/>name + nameAlt + aliases + **cuisine + country + goesWith + INGREDIENT NAMES.**<br/>**WE ARE NOT DELETING 5 WORKING FEATURES. WE ARE DELETING 7 WORSE ONES.**<br/>A user will type 'lamb' in WK and find a tagine **BY ITS INGREDIENT.** She can't today."]
+    R1 --> R2
   end
 
-  subgraph MF46["🚨 MF46 — THE SEARCH BOX EATS YOUR TYPING. **LAUNCH BLOCKER.**"]
-    S1["😳 **THE SEARCH HAS NEVER WORKED. NOT ONCE. IT WAS BORN THIS WAY.**<br/><br/>🩸 **AND WE DID NOT FAIL TO SEE IT. WE SAW IT, NAMED IT EXACTLY, AND THEN LOST IT.**<br/><br/>**25 MAY — from the chat log, a previous session READING THE ACTUAL CODE:**<br/>*'The root problem was that the input was inside the template literal, so every<br/>keystroke triggered draw() → rebuilt the page → **DESTROYED THE INPUT**.'*<br/>👉 **THAT IS MF46. VERBATIM. SEVEN WEEKS AGO.**<br/>A patch was tried: tap-target search screen + **setTimeout to preserve focus.** IT DID NOT HOLD.<br/><br/>**4 JUNE — a DIFFERENT and WRONG diagnosis replaced it:**<br/>*'It's not broken — it was never wired up… a perfect opening task for the next conversation.'*<br/>👉 **THAT NOTE IS WHAT KILLED IT.** 'Never wired up' sounds like a Tuesday afternoon.<br/>'The render loop destroys the input' is ARCHITECTURE.<br/>**THE CHEAP STORY WON, AND THE BUG GOT DEFERRED.**<br/><br/>😱 **AND THEN THE v33 HEADER TEMPLATE COPIED THAT SEARCH BAR INTO EVERY SECTION.**<br/>**THE TEMPLATE PROPAGATED THE BUG TO TWELVE ROOMS.**"]
+  subgraph SHAPE["🔧 MF46 — THE SHAPE. **BRIEF: TINZA_BRIEF_MF46.md**"]
+    S1["**core.js gains EXACTLY ONE function:**<br/>`liveSearch(inputEl, resultsEl, queryFn)`<br/>· renders the shell ONCE · writes ONLY the results div · **NEVER calls draw()** · debounce ~150ms<br/>👉 This is **globalSearchLive's pattern LIFTED, not invented.** It already works in prod.<br/><br/>**tinzaAllSearch gains EXACTLY ONE optional param:**<br/>`tinzaAllSearch(q, { sections:[…] })` — filters a field **that is already on every record.**"]
 
-    S2["🎯 TINA: *'Letters won't appear. Won't go further than La. And then a struggle to DELETE it.'*<br/><br/>💡 **THE BACKSPACE IS THE PROOF.** No validation bug, no filter bug, no debounce bug<br/>EATS A DELETION. Only ONE thing does:<br/><br/>👉 **THE &lt;input&gt; IS DESTROYED AND REBUILT ON EVERY INPUT EVENT.**<br/>type 'l' → oninput → the CONTAINER's innerHTML is rewritten → **the input you are<br/>typing into is thrown away** → fresh, empty, unfocused one appears → 'a' lands only<br/>because the browser sometimes WINS THE RACE. 'm' never does.<br/><br/>**'La' IS NOT A SEARCH RESULT. IT IS THE APP LOSING A RACE WITH HER FINGERS.**<br/>**THIS IS NOT A SEARCH BUG. IT IS A RENDERING BUG WEARING A SEARCH COSTUME.**<br/>The search LOGIC is probably fine. **IT HAS NEVER BEEN HANDED MORE THAN ONE LETTER.**"]
+    S2["**PER ROOM:**<br/>  Meals · WK · Health · Events · Furry → liveSearch + scope[own] · **DELETE the local filter**<br/>     👉 **Events + Furry gain a filter FOR FREE. 🆕 MF47 DISSOLVED BEFORE IT WAS BORN.**<br/>  Budget → scope ['meals','floor'] + **KEEP the maxCostPP cap.**<br/>     👉 Cost is a FILTER, not a search axis. Text finds it; the cap gates it.<br/>  **Kiddies ← THE ONE HONEST EXCEPTION.** Not indexed. Searches KIDS_THEMES —<br/>     a different OBJECT TYPE. → liveSearch + **its OWN theme filterFn** (kiddies.js:94).<br/>     👉 **THE MECHANISM IS SHARED. THE FILTER IS PLUGGABLE.**<br/>     **That exception is not a crack in the design. IT IS THE PROOF IT IS RIGHT.**<br/>     ⛔ DO NOT build adaptKiddies. **THEMES ARE NOT RECIPES.**<br/><br/>⛔ **DO NOT TOUCH:** Global Search (the reference) · Braai · Spice (tap-targets, fine) · Tiny Tummies<br/>⛔ **DO NOT TOUCH draw(). NOT ONE LINE.** Rewriting the render loop to fix a search bar is a<br/>   nuclear option on a launch runway. **ROUTE AROUND IT.**<br/>⛔ **DO NOT 'preserve focus' with setTimeout.** Tried 25 May. **IT DID NOT HOLD.**<br/>   **Restoring state is a patch. NOT DESTROYING IT IS THE FIX.**<br/>⛔ **DO NOT THROTTLE to make it FEEL fixed.** Slower race ≠ no race. ⚖️ Law 3.<br/>📌 **core.js: 4113 lines on record.** Count before and after."]
 
-    S3["🔧 THE FIX (⚖️ LAW 6 — ONE DOOR):<br/>1. **RENDER THE SHELL ONCE. UPDATE ONLY THE RESULTS LIST.** The input must SURVIVE<br/>   the keystroke. It must not live inside anything the handler rewrites.<br/>2. **DEBOUNCE ~150ms.** Every letter currently re-queries 1021 dishes.<br/>3. Preserve focus + caret IF any path still re-renders it — **but prefer NOT<br/>   DESTROYING IT AT ALL.** Restoring state is a patch. Not losing it is the fix.<br/><br/>⛔ **DO NOT THROTTLE THE HANDLER TO 'FIX' THIS.** That makes the race SLOWER, not gone.<br/>She still drops letters — **just rarely enough that it LOOKS FIXED.** ⚖️ LAW 3.<br/><br/>✅ **PROOF = TINA, ON LIVE, TYPES 'lamb tagine' AT FULL SPEED.** Every letter appears.<br/>Backspace deletes. Results correct. **ON TWO DIFFERENT SCREENS** (Law 2)."]
+    S3["✅ **PROOF — TINA, ON LIVE. THREE ROOMS, THREE DIFFERENT CODE PATHS:**<br/>**World Kitchen** (global-scoped) · **Kiddies** (local filterFn) · **Furry** (free filter)<br/>Type at FULL SPEED. Every letter appears. **BACKSPACE DELETES.** Results scoped to that room.<br/>💡 **THE BACKSPACE IS THE TELL.** No filter bug on earth eats a deletion."]
     S1 --> S2 --> S3
   end
 
-  subgraph HYPO["🔎 THE HYPOTHESIS THAT MATTERS — READ BEFORE STARTING MF46"]
-    H1["**MF46 AND MF40 MAY BE THE SAME DISEASE.**<br/><br/>  MF46 — the search input **does not survive a re-render.**<br/>  MF40 — the meal category **never lands on the history stack.**<br/>          Four sessions. Never fixed. A CORRECT proof-by-trace once shipped a REAL<br/>          fix for the WRONG BUG. (⚖️ Law 2 caught its own author.)<br/><br/>👉 **BOTH ARE 'STATE DOES NOT SURVIVE A RENDER.'** Same spine. Same render loop.<br/>Same missing persistence.<br/><br/>⚖️ **LAW 4 — ASK 'WHAT STATE DOES NOT SURVIVE A RE-RENDER?'**<br/>**NOT 'is the search input re-rendered?'**<br/>The narrow question gets a true answer. **THE RIGHT BROAD ONE MAY GET MF40 FOR FREE.**<br/>⚖️ LAW 6 — if it IS one root cause, fixing it twice gives two half-fixes and a third bug."]
+  subgraph COMMIT["📦 THE NEXT COMMIT — ALL THREE RIDE TOGETHER"]
+    C1["**MF46** (scoped-global search) + **MF45** (free-tier unpriced gate) + **MF44** (dev-gate console)<br/><br/>All additive. **None touches draw(). None touches costLine().**<br/>🐛 **MF44:** console.info at **index.js:291-293** ships to every live user. Gate to localhost / `?dev`.<br/>   ⛔ **DO NOT DELETE — it is the instrument that FOUND the 88.** ⚖️ Law 19.<br/><br/>⚖️ **LAW 5:** committed ≠ pushed ≠ deployed ≠ **PUBLISHED.** Hash → Netlify → Tina's eyes on LIVE."]
   end
 
-  subgraph NEXT["🔴 THE QUEUE"]
-    N1["1️⃣ ✅ ~~MF28~~ **CLOSED · PUBLISHED c03da83**"]
-    N2["2️⃣ ✅ ~~MF43~~ **CLOSED · PUBLISHED 919046e · PROVEN ON LIVE**"]
-    N3["3️⃣ 🚨 **MF46 — THE SEARCH. ← YOU ARE HERE. LAUNCH BLOCKER.**<br/>Brief: **TINZA_BRIEF_MF46_search.md**"]
-    N4["4️⃣ 🧭 **MF40 — THE BACK BUTTON.** ⚠️ **MAY FALL OUT OF MF46.** Check first."]
-    N5["5️⃣ 🐛 **MF44** — the costPP console.log ships to every live user. Dev-gate it (`?dev`).<br/>   Do NOT delete — too useful. Ride it along with MF46."]
-    N6["6️⃣ ⚖️ **MF45 — TINA'S RULING NEEDED.** *(see below)*"]
-    N7["7️⃣ ✍️ THE TICK-LISTS — 36 WK lamb lines + MF37 A-or-B. Tina signs."]
-    N8["8️⃣ 💣 MF29 + MF33 — the maths. · 9️⃣ 🥬 MF30 dietary wiring (UNBLOCKED) ·<br/>🔟 MF31 + MF32 — the colour law."]
-    N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> N7 --> N8
-  end
-
-  subgraph MF45["⚖️ MF45 — THE LOCK THAT SELLS NOTHING. **TINA MUST RULE. DO NOT CODE YET.**"]
-    M1["On FREE tier, the **88 unpriced WK cards** show the SAME 🔒 as a fully-priced dish.<br/><br/>⚖️ **LAW 7 — THE LOCK IS THE SALESMAN.**<br/>👉 **ON THOSE 88 CARDS, THE SALESMAN IS PROMISING A PRICE TINZA DOES NOT HAVE.**<br/><br/>A Free user pays R50. Unlocks. Opens Lamb Tagine. Gets *'not yet priced.'*<br/>**THAT IS A BROKEN PROMISE AT THE EXACT MOMENT SHE HANDS OVER MONEY.**<br/><br/>Not launch-blocking. Shrinks every time a price is signed. **But no card should ever<br/>charge for a number that isn't there.**<br/>💡 PROPOSED (Tina signs): on the 88, Free sees the **loud line, UNLOCKED.**<br/>**HONESTY IS FREE.**"]
+  subgraph QUEUE["🔴 THE QUEUE AFTER THIS PUSH"]
+    Q1["1️⃣ 🧭 **MF40 — THE BACK BUTTON. OWN COMMIT.**<br/>⚖️ **LAW 23** — same disease as MF46 (state doesn't survive a render), **DIFFERENT MEDICINE.**<br/>Fix is known + cheap: **`mealCat` is missing from NAV_KEYS.** ⛔ **DO NOT BUNDLE IT.**"]
+    Q2["2️⃣ ✍️ **THE TICK-LISTS** — 36 WK lamb lines + MF37 A-or-B. **Tina signs. Nobody else.** ⚖️ Law 11."]
+    Q3["3️⃣ 💣 **MF29 + MF33 — THE MATHS.**<br/>MF29: Math.ceil over-billing, ~440 lines, **~2.5× overstatement in Bakes** — baked goods may<br/>currently look DEARER than buying them. **THAT INVERTS THE CORE PITCH.**<br/>MF33: hcLineCost / ttLineCost return null for count items (Health Hub, Tiny Tummies)."]
+    Q4["4️⃣ 🥬 **MF30 — DIETARY WIRING** (unblocked by MF28) · 5️⃣ 🎨 MF31 + MF32 — the colour law."]
+    Q1 --> Q2 --> Q3 --> Q4
   end
 
   subgraph LAW["⚖️ THE LAW — EVERY CLAUSE WAS PAID FOR"]
-    Z1["1. **node --check PROVES NOTHING.** It passed on a ZERO-BYTE spice.js.<br/><br/>2. **A REPORT IS NOT PROOF. A PASSING TEST IS A REPORT TOO.** Prove it PER-SURFACE.<br/>🩸 It caught its own author: a CORRECT trace shipped a REAL fix for the WRONG bug.<br/>🆕 **BUT: A TRACE PREDICTS. AN OBSERVATION READS.** get_page_text on a RUNNING app is<br/>not a code-trace — the app already ran. **IT IS A WEAKER CAMERA, NOT A WEAKER CATEGORY.**<br/>Still not final: a DOM read **cannot see CSS**, and it was **localhost** (Law 5).<br/>**TINA'S EYES ON LIVE CLOSE THE PROOF. THEY DID TONIGHT.**<br/><br/>3. **SILENT WRONG IS WORSE THAN LOUD MISSING.**<br/><br/>4. **ASK 'WHAT IS NOT GUARDED?' — NEVER 'is X guarded?'**<br/><br/>5. LOCALHOST ≠ LIVE · COMMITTED ≠ PUSHED · PUSHED ≠ DEPLOYED · **DEPLOYED ≠ PUBLISHED.**<br/>🏆 **AND: ONE THING PER COMMIT. TONIGHT THAT BOUGHT A 90-SECOND A/B AND SAVED AN<br/>INNOCENT COMMIT FROM A ROLLBACK.** It is not paperwork. **IT IS THE INSTRUMENT.**<br/><br/>6. **DON'T PATCH N SITES. BUILD THE ONE THING THEY SHOULD ALL CALL.**<br/><br/>7. A BLANK IS A BUG. A TEASER IS A PITCH. **THE LOCK IS THE SALESMAN** — so never let<br/>it sell a number you do not have. (MF45.)<br/><br/>9. **A CONTEXT-DEPENDENT RULE MUST NEVER BE A CONTEXT-FREE ALIAS.**<br/>10. **THE BUG WAS IN THE DATA, NOT THE CODE.** Guards are the NET. Data is the FIX.<br/>11. **NO MODEL AUTHORS A PRICE — AND IT DOES NOT CARE WHO WROTE IT DOWN.**<br/>**A NUMBER THAT SITS IN THE NOTES LONG ENOUGH STARTS TO LOOK LIKE A FACT.**<br/>12. FAIL-LOUD IS THE NET. **PRICED-CORRECTLY IS THE GOAL.**<br/>13. A GUARD THAT NULLS A CORRECT ANSWER IS A BUG. 14. DRY-RUN BEFORE SHIP.<br/>15. A RULING THAT LIVES ONLY IN THE CHAT IS NOT A RULING. **IT GOES IN THE BRIEF.**<br/>16. **IF A KEY IS NOT SOMETHING A HUMAN CAN PUT IN A TROLLEY, IT IS NOT A KEY.**<br/>17. A MERGED KEY AVERAGES A REAL DIFFERENCE INTO A FAKE ONE. 18. **RECONCILE, DO NOT ADD.**<br/><br/>19. **A METRIC THAT DOESN'T EXIST IS A BUG YOU CANNOT SEE.**<br/><br/>21. 🆕 **A TRACE PREDICTS. AN OBSERVATION READS.** A DOM read of a RUNNING app is not a<br/>code-trace. **But it cannot see CSS, and localhost is not live.**<br/>**TINA'S EYES ON THE LIVE APP CLOSE THE PROOF.**<br/><br/>22. 🆕 **A DIAGNOSIS THAT SITS IN THE NOTES LONG ENOUGH STOPS BEING RE-EXAMINED.**<br/>Law 11's twin — **and worse.** Law 11: a NUMBER in the notes starts to look like a FACT.<br/>Law 22: **the second look starts from the NOTE, not the CODE — and the note can be WRONG.**<br/>🩸 THE SEARCH BUG WAS DIAGNOSED **CORRECTLY** ON 25 MAY. On 4 June a **cheaper, plausible,<br/>WRONG** note replaced it ('never wired up'). **NOBODY RE-READ THE MAY CHAT. FOR SEVEN WEEKS.**<br/>👉 **RE-OPENING AN OLD BUG? RE-READ THE CODE. THE NOTE IS A HYPOTHESIS, NOT EVIDENCE.**<br/><br/>20. **A CARD THAT PRICES SOME OF THE FOOD IS WORSE THAN A CARD THAT PRICES NONE.**<br/>A blank invites a question. **A PARTIAL TOTAL ANSWERS ONE THAT WAS NEVER ASKED,<br/>WRONGLY, WITH A NUMBER THE USER WILL ACT ON.** ✅ **KILLED TODAY. MF43.**<br/><br/>📌 STANDING: writes via Node fs.writeFileSync, **NEVER Python** · core.js is sacred,<br/>line-count before and after · render-proofs per-section, all 12 rooms, individually."]
+    Z1["1. **node --check PROVES NOTHING.** It passed on a ZERO-BYTE spice.js.<br/>2. **A REPORT IS NOT PROOF. A PASSING TEST IS A REPORT TOO.** Prove it PER-SURFACE.<br/>   **TINA'S EYES ON LIVE CLOSE THE PROOF.** A trace predicts. An observation reads.<br/>3. **SILENT WRONG IS WORSE THAN LOUD MISSING.**<br/>4. **ASK 'WHAT IS NOT GUARDED?' — NEVER 'is X guarded?'**<br/>5. LOCALHOST ≠ LIVE · COMMITTED ≠ PUSHED · PUSHED ≠ DEPLOYED · **DEPLOYED ≠ PUBLISHED.**<br/>   🏆 **ONE THING PER COMMIT.** It bought a 90-second A/B and saved an innocent commit.<br/>   **IT IS NOT PAPERWORK. IT IS THE INSTRUMENT.**<br/>6. **DON'T PATCH N SITES. BUILD THE ONE THING THEY SHOULD ALL CALL.**<br/>7. A blank is a bug. A teaser is a pitch. **THE LOCK IS THE SALESMAN — AND A SALESMAN<br/>   WITH AN EMPTY BAG STAYS HOME.** ✅ **RULED TODAY. MF45 = OPTION C.**<br/>9. **A CONTEXT-DEPENDENT RULE MUST NEVER BE A CONTEXT-FREE ALIAS.**<br/>10. **THE BUG WAS IN THE DATA, NOT THE CODE.** Guards are the NET. Data is the FIX.<br/>11. **NO MODEL AUTHORS A PRICE.** A number that sits in the notes starts to look like a fact.<br/>12. Fail-loud is the NET. **PRICED-CORRECTLY IS THE GOAL.**<br/>13. A guard that nulls a correct answer is a bug. 14. Dry-run before ship.<br/>15. **A RULING THAT LIVES ONLY IN THE CHAT IS NOT A RULING. IT GOES IN THE BRIEF.**<br/>16. If a key is not something a human can put in a trolley, it is not a key.<br/>17. A merged key averages a real difference into a fake one. 18. **RECONCILE, DO NOT ADD.**<br/>19. **A METRIC THAT DOESN'T EXIST IS A BUG YOU CANNOT SEE.** (MF44 is that metric. Keep it.)<br/>20. **A CARD THAT PRICES SOME OF THE FOOD IS WORSE THAN ONE THAT PRICES NONE.** ✅ Killed. MF43.<br/>21. A trace predicts. **AN OBSERVATION READS.** But a DOM read cannot see CSS, and localhost is not live.<br/><br/>22. 🩸 **A DIAGNOSIS THAT SITS IN THE NOTES LONG ENOUGH STOPS BEING RE-EXAMINED.**<br/>**RE-OPENING AN OLD BUG? RE-READ THE CODE. THE NOTE IS A HYPOTHESIS, NOT EVIDENCE.**<br/>👉 The search was diagnosed CORRECTLY on 25 May. On 4 June a cheaper, WRONG note replaced it.<br/>**SEVEN WEEKS.** And the note was **HALF RIGHT — for 2 of 9 rooms.**<br/>😱 **A HALF-TRUTH IS MORE DURABLE THAN A LIE.** Someone checked ONE room, it matched, done.<br/>🩸 **AND IT CAUGHT CLAUDE ONE DAY LATER, ON MF46 ITSELF.** Nobody is exempt.<br/><br/>23. 🆕 **TWO BUGS SHARING A ROOT CAUSE DO NOT NECESSARILY SHARE A FIX.**<br/>**Confirm the mechanism together. SHIP THE MEDICINE APART.** (MF46 + MF40.)<br/><br/>24. 🆕 **A SHARED INDEX WITH A SCOPE IS ONE DOOR. A SHARED SCREEN WITHOUT ONE IS A FUNNEL.**<br/>**CHECK WHETHER THE DATA ALREADY KNOWS WHERE IT CAME FROM BEFORE YOU BUILD ANYTHING.**<br/>👉 **IT DID. FOR SEVEN WEEKS.** `section` on every record, index.js:74.<br/><br/>📌 STANDING: writes via Node fs.writeFileSync, **NEVER Python** · **core.js is sacred**,<br/>line-count before and after · render-proofs per-section, all 12 rooms, individually."]
   end
 
   subgraph LATENT["⏳ LATENT · LAUNCH · CONTENT"]
-    Y1["⚠️ makeable.js STILL has no script tag in index.html. MUST load BEFORE core.js."]
-    Y2["💰 THE NEXT MONEY MOUNTAIN — DANGER-CUT: WK 512 · Spice 234 · Health 144.<br/>Then MF34 (DANGER-STATE: cooked→raw, dried→tinned — ~2.5x weight errors)."]
-    Y3["🏗️ PRICE STUDIO — rank every key by IMPACT × STALENESS × CONFIDENCE.<br/>**FLOUR IS IN ~400 DISHES. DATE SYRUP IS IN 3. NOT THE SAME JOB.**<br/>🌱 fallback-census.js is its first half — and it SHIPPED today.<br/>🛒 GROCIFY = a TOOL (the Checkers walk, on the couch), partnership post-launch.<br/>⛔ **NEVER A LIVE DEPENDENCY. OFFLINE MODE IS LOCKED.** PRICE_DB stays a static, dated,<br/>human-signed snapshot. **THAT IS NOT A LIMITATION. THAT IS THE HONESTY.**"]
-    Y4["🔒 OCT: hide the tier switcher (NOT in the DOM) · metered paywall + PayFast · R50/mo ·<br/>free trial · **NO third-party ads. Ever.**"]
-    Y5["📝 CONTENT: BANK B · MF16 cuisine-tag sweep · TWO CONGEES (parked — never a duplicate<br/>problem, **IT WAS THE MISSING DIETARY FILTER.** Fix MF30 and it evaporates)."]
+    Y1["⚠️ **makeable.js STILL has no script tag in index.html.** Must load BEFORE core.js."]
+    Y2["💰 **THE NEXT MONEY MOUNTAIN — DANGER-CUT:** WK 512 · Spice 234 · Health 144.<br/>Then **MF34** (DANGER-STATE: cooked→raw, dried→tinned — ~2.5× weight errors)."]
+    Y3["🏗️ **PRICE STUDIO** — rank every key by IMPACT × STALENESS × CONFIDENCE.<br/>**FLOUR IS IN ~400 DISHES. DATE SYRUP IS IN 3. NOT THE SAME JOB.**<br/>🛒 GROCIFY = a TOOL (the Checkers walk, on the couch). Partnership post-launch.<br/>⛔ **NEVER A LIVE DEPENDENCY. OFFLINE MODE IS LOCKED.** PRICE_DB stays a static, dated,<br/>human-signed snapshot. **THAT IS NOT A LIMITATION. THAT IS THE HONESTY.**"]
+    Y4["🔒 **OCT:** hide the tier switcher (NOT in the DOM) · metered paywall + PayFast · R50/mo ·<br/>free trial · **NO third-party ads. Ever.**"]
+    Y5["📝 **CONTENT:** BANK B · MF16 cuisine-tag sweep · TWO CONGEES (parked — never a duplicate<br/>problem, **IT WAS THE MISSING DIETARY FILTER.** Fix MF30 and it evaporates)."]
   end
 
-  WIN --> AB --> MF46 --> HYPO --> NEXT
-  NEXT --> MF45
-  NEXT -.-> LAW
-  NEXT -.-> LATENT
+  WIN --> RULED --> SHAPE --> COMMIT --> QUEUE
+  QUEUE -.-> LAW
+  QUEUE -.-> LATENT
 
   classDef win fill:#e8f0d8,stroke:#46530c,color:#2c3307,stroke-width:4px
-  classDef ab fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:3px
-  classDef bad fill:#3a0d0d,stroke:#aa3333,color:#ffe0e0,stroke-width:4px
-  classDef hypo fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:4px
+  classDef ruled fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:4px
+  classDef shape fill:#e6eef5,stroke:#3a5f80,color:#1c3145,stroke-width:3px
+  classDef commit fill:#f5ecd8,stroke:#876213,color:#4a350a,stroke-width:4px
   classDef now fill:#fce9e9,stroke:#aa3333,color:#661111,stroke-width:3px
-  classDef rule fill:#fdf3dc,stroke:#876213,color:#4a350a,stroke-width:3px
   classDef law fill:#2c2c2c,stroke:#000,color:#fff,stroke-width:2px
   classDef lat fill:#eeeae4,stroke:#8a7f70,color:#3d372f
 
   class W0,W1 win
-  class A1 ab
-  class S1,S2,S3 bad
-  class H1 hypo
-  class N1,N2,N3,N4,N5,N6,N7,N8 now
-  class M1 rule
+  class R1,R2 ruled
+  class S1,S2,S3 shape
+  class C1 commit
+  class Q1,Q2,Q3,Q4 now
   class Z1 law
   class Y1,Y2,Y3,Y4,Y5 lat
