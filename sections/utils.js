@@ -139,7 +139,12 @@ function tinzaAllSearch(query, opts){
   // search is just this pool filtered to its own section(s). No new plumbing. Budget also
   // passes maxCostPP — cost is a filter (the cap gates), not a search axis (text finds).
   var secSet = (opts.sections && opts.sections.length) ? opts.sections : null;
-  function everyIn(hay){ for(var k=0;k<terms.length;k++){ if(hay.indexOf(terms[k]) < 0) return false; } return true; }
+  // MF50 · WORD-START PREFIX match. The term must BEGIN a word (\b), not appear anywhere inside
+  // one: "rump" → "rump steak", NEVER "c·rump·ets" / "k·rump·li". It stays a PREFIX, NOT a whole
+  // word — so live-typing survives: "lamb tag" still finds "lamb tagine", "moroc" still finds
+  // "morocco". (tinzaNormalize turns punctuation into spaces, so every word start is a \b.)
+  var termRes = terms.map(function(t){ return new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); });
+  function everyIn(hay){ for(var k=0;k<termRes.length;k++){ if(!termRes[k].test(hay)) return false; } return true; }
   var hits = [];
   for(var i=0;i<pool.length;i++){
     var r = pool[i];
@@ -184,9 +189,9 @@ function tinzaAllSearch(query, opts){
 
 // Non-live entry (kept for callers that jump straight to the results screen).
 function globalSearch(query){
-  if(!query || query.trim().length < 2){ set({searchQuery:'', searchResults:[]}); return; }
+  if(!query || query.trim().length < 2){ set({searchQuery:'', searchResults:[], searchScope:null}); return; }
   set({ searchQuery: query, searchResults: tinzaAllSearch(query),
-        searchPrevScreen: S.searchPrevScreen || S.screen, screen: 'search' });
+        searchPrevScreen: S.searchPrevScreen || S.screen, screen: 'search', searchScope:null });   // MF49 · whole-app
 }
 
 // Open a search hit — lands on the parent card, pre-switched to the matched version.
@@ -212,7 +217,8 @@ function globalSearchLive(query) {
   var resultsDiv = document.getElementById('searchResultsBody');
   if(!resultsDiv) return;
   if(!query || query.trim().length < 2) { S.searchResults = []; resultsDiv.innerHTML = ''; return; }
-  S.searchResults = tinzaAllSearch(query);
+  // MF49 · honour a preset scope (Braai/Spice tap-targets set S.searchScope). null = whole app.
+  S.searchResults = tinzaAllSearch(query, { sections: S.searchScope || null });
   resultsDiv.innerHTML = renderSearchResults(query, S.searchResults);
 }
 
@@ -231,7 +237,7 @@ function searchPageHTML() {
   var resultsHTML = renderSearchResults(q, S.searchResults || []);
   return '<div>'
     + '<div class="header">'
-    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[]})" style="color:#c06020;">&#8592; Back</button>'
+    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[],searchScope:null})" style="color:#c06020;">&#8592; Back</button>'
     + '<h1 style="font-size:18px;font-weight:normal;color:#f5e8cc;">&#128269; Search</h1>'
     + '</div>'
     + '<div class="content">'
@@ -256,7 +262,10 @@ function renderSearchResults(q, results) {
   if(results.length === 0) {
     return '<p style="color:#4a3020;font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;' + _searchEsc(q) + '&rdquo;</p>';
   }
-  var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + results.length + ' recipe' + (results.length!==1?'s':'') + ' found in Tinza</div>';
+  // MF49 ride-along · name the ROOM when scoped ("found in World Kitchen"), not "Tinza".
+  var _scope = (typeof S!=='undefined') ? S.searchScope : null;
+  var _lbl = (_scope && _scope.length) ? (_SEARCH_SECTION_LABEL[_scope[0]] || _scope[0]) : 'Tinza';
+  var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + results.length + ' recipe' + (results.length!==1?'s':'') + ' found in ' + _lbl + '</div>';
   results.forEach(function(hit, idx) {
     var r = hit.r;
     var name = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name||'');

@@ -25,7 +25,7 @@ function braaiStep1(){
       img:BRAAI_HDR_IMG,
       backJs:"set({screen:'home'})", backLabel:'← Home',
       myPlan:{ count:total, label:'My Plan', onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" },
-      search:{ onclick:"S.searchPrevScreen='braai';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);", placeholder:'Search Braai recipes…' }
+      search:{ onclick:"S.searchPrevScreen='braai';S.searchScope=['braai'];S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);", placeholder:'Search Braai recipes…' }
     })}
     <div class="content">
       ${guestBar({state:'people'})}

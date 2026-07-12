@@ -15522,9 +15522,11 @@ function feedingFamilyHTML(){
       title:'Feeding My Family', emoji:'🍽️',
       tagline:'Everyday cooking — morning to night, and something sweet',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent('Feeding My Family')+'.jpg',
-      backJs:"set({screen:'home'})", backLabel:'← Home'
+      backJs:"set({screen:'home'})", backLabel:'← Home',
+      search:{ value:S.mealSearch||'', oninput:"liveSearch(this,'fmfSearchResults',{sections:['meals','bakes','floor'],stateKey:'mealSearch'})", clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search all family meals…' }
     })}
     <div class="content" style="padding:16px;max-width:600px;margin:0 auto;">
+      <div id="fmfSearchResults"></div>
       <div style="font-size:13px;letter-spacing:2px;color:var(--ink-soft);text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
         ${MEALS.map(o=>`

@@ -31,7 +31,7 @@ function liveSearch(inputEl, resultsId, spec){
     if(typeof spec.filterFn === 'function'){ el.innerHTML = spec.filterFn(qv) || ''; return; }
     if(!qv || qv.trim().length < 2){ if(typeof S!=='undefined') S.searchResults = []; el.innerHTML = ''; return; }
     var hits = (typeof tinzaAllSearch === 'function') ? tinzaAllSearch(qv, { sections:spec.sections, maxCostPP:spec.maxCostPP }) : [];
-    if(typeof S !== 'undefined'){ S.searchResults = hits; S.searchQuery = qv; }
+    if(typeof S !== 'undefined'){ S.searchResults = hits; S.searchQuery = qv; S.searchScope = spec.sections || null; }  // MF49 · scope drives the "found in <room>" label
     el.innerHTML = (typeof renderSearchResults === 'function') ? renderSearchResults(qv, hits) : '';
   }, spec.debounce != null ? spec.debounce : 150);
 }
@@ -385,7 +385,7 @@ function bottomBarGo(screen){
          braiStep:1, braiCat:null, braaiView:'browse', wkScreen:null, wkSACulture:null, wkRecipeDetail:null,
          activeBaby:null, activeDog:null, activeCat2:null, fingerSection:null, kidsScreen:null, kidsTheme:null});
   } else {
-    set({screen:screen, viewingRecipe:false});
+    set({screen:screen, viewingRecipe:false, searchScope:null});   // MF49 · bottom-nav Search is whole-app (clear any room scope)
   }
 }
 
@@ -2163,7 +2163,7 @@ function homeHTML(){
   ];
 
   const featureTools = [
-    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"var(--accent)", bg:"var(--card2)"},
+    {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"var(--accent)", bg:"var(--card2)", reset:"searchScope:null"},
     {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"var(--accent)", bg:"var(--card2)"},
     {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"var(--accent)", bg:"var(--card2)"},
     {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"var(--accent)", bg:"var(--card2)"},

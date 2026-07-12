@@ -7979,7 +7979,7 @@ function spiceLandingView(){
       </div>
     </div>
     <div class="content">
-      <div onclick="S.searchPrevScreen='spice';S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);"
+      <div onclick="S.searchPrevScreen='spice';S.searchScope=['spice'];S.searchQuery='';S.searchResults=[];S.screen='search_results';draw();window.scrollTo(0,0);"
         style="padding:9px 14px;background:#161009;border:1px solid #4a2a10;border-radius:10px;color:#b8895a;font-size:13px;cursor:text;margin-bottom:12px;">🔍 Search blends, sauces & condiments…</div>
 
       ${spiceCartCount()>0?`<button onclick="set({spiceListOpen:true})" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#14180a;border:2px solid #6a8020;border-radius:10px;color:#c8e840;font-size:13px;font-weight:bold;cursor:pointer;margin-bottom:12px;">
