@@ -154,8 +154,10 @@ function wkRecipeCard(r){
   if(typeof wkCostState==='function' && typeof wkEffectiveMult==='function'){
     var _ap  = (typeof wkAppetite==='function') ? wkAppetite() : null;
     var _gc  = wkCostState(r, wkEffectiveMult(r, 1, _ap));
-    if(_gc.ok) costPP = _gc.total;                 // per-person (mult scaled for 1) — the real cost
-    else costText = 'cost: not yet priced';        // loud blank — same gate as the finder + detail
+    if(_gc.ok) costPP = _gc.total;                 // priced → chip; costLine gates it (Free 🔒 / Pro R15 pp)
+    else if(typeof tierAllows==='function' && tierAllows('pro')) costText = 'cost: not yet priced';
+    // MF45 · unpriced + FREE → leave BOTH blank → warmCard shows NO chip. The old 🔒 here was a
+    // salesman promising a price Tinza doesn't have. Absence, not a false lock. (Law 7)
   }
   // Route through the shared Warm Spice card (Rule Zero) — World Kitchen is always inside .warm.
   return warmCard({ name:disp, photoName:r.name, photoAlt:r.nameAlt, emoji:emoji, sub:r.country, meta:(r.howThisFeels||''), costPP:(costPP||''), costText:(costText||''), openJs:open, toggleJs:"wkPlanToggle('"+r.id+"',4)", sel:checked });
@@ -177,7 +179,6 @@ function wkGridCard(emoji, title, sub, onclick, dim, accent){
 /* ── HOME / drill-down: continents → regions → countries (braai-style grids) ── */
 function wkWorldHome(){
   var green = 'var(--accent)', cream = 'var(--ink)';
-  var search = (S.wkSearch || '').trim();
 
   // V33 shared 200px photo header (core.js sectionHeader). Header image
   // lives in Images/Headers/ — emoji-falls-back until the file is added.
@@ -188,25 +189,18 @@ function wkWorldHome(){
     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
     backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
     myPlan:{ count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" },
-    search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:'set({wkSearch:this.value})', clearJs:"set({wkSearch:''})" }
+    search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:"liveSearch(this,'wkSearchResults',{sections:['world'],stateKey:'wkSearch'})", clearJs:"set({wkSearch:'',searchResults:[]})" }
   });
 
-  var wrap = function(inner){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;">'+header+inner+'</div>'; };
+  var wrap = function(inner){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;">'+header+'<div id="wkSearchResults" style="max-width:600px;margin:0 auto;padding:0 16px;"></div>'+inner+'</div>'; };
   var pad  = function(inner){ return '<div style="padding:14px 16px 30px;max-width:600px;margin:0 auto;">'+inner+'</div>'; };
   var backRow = function(label, action){ return '<div onclick="'+action+'" style="display:inline-block;color:'+green+';font-size:13px;cursor:pointer;margin-bottom:12px;font-family:Georgia,serif;">'+label+'</div>'; };
   var heading = function(t){ return '<h2 style="font-size:19px;font-weight:normal;color:'+cream+';margin:0 0 10px;font-family:Georgia,serif;">'+t+'</h2>'; };
   var contEmoji = function(key){ for(var i=0;i<WK_CONTINENTS.length;i++){ if(WK_CONTINENTS[i].key===key) return WK_CONTINENTS[i].emoji; } return '🌍'; };
 
-  // ── SEARCH MODE (works from any level) ──
-  if(search){
-    var results = (typeof tinzaSearch === 'function') ? tinzaSearch(search, wkPool()) : [];
-    var rbody = '<div style="padding:14px 16px;max-width:600px;margin:0 auto;">'
-      + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">'+results.length+' result'+(results.length===1?'':'s')+' for “'+search+'”</div>'
-      + (results.length ? results.slice(0,80).map(wkRecipeCard).join('')
-         : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;text-align:center;color:var(--ink-soft);font-size:13px;">No dishes found. Try another word.</div>')
-      + '</div>';
-    return wrap(rbody);
-  }
+  // ── SEARCH · MF46 · liveSearch writes #wkSearchResults directly (never calls draw(), so the
+  //    input survives the keystroke). Scoped to section 'world'; results open on the shared
+  //    search-detail screen (Back returns here). The old set()→draw() search-mode is gone. ──
 
   // ── LEVEL 3: COUNTRIES grid (continent + region chosen) ──
   if(S.wkContinent && S.wkRegion){
@@ -659,20 +653,31 @@ function wkRecipeOpts(r, country, universal){
 
   // ── extras slot: cost (Pro-gated) + tip + chef notes ──
   var _cgc = wkCostState(r, n * baseMult);   // MF43: the ONE gate — no partial totals on the detail either
-  var costNote = _cgc.ok
-    ? '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div>'
-    : '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">≈ '+wkNotPricedNote(_cgc)+'</div>';
-  var isWkPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
-  var costBox = !isWkPro
-    ? '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
-      + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
-      + '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R50/month</strong></div></div>'
-    : '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
+  // MF45 · OPTION C \u2014 TWO questions in order: (1) is there a price? (2) is the user Pro?
+  var isWkPro = tierAllows('pro');   // \u00a77 level gate (Deluxe==Pro), never USER_TIER==='pro'
+  var costBox;
+  if(!_cgc.ok){
+    // UNPRICED (the 88) \u2192 loud line, UNLOCKED for BOTH tiers. An absence honestly stated is not a
+    // number \u2192 not a gate leak; and there is nothing to sell \u2192 no lock upsell. (Law 7)
+    costBox = '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;">'
       +   '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
-      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">'+(_cgc.ok?('~R'+cost.total):'\u2014')+'</div></div>'
-      + (_cgc.ok ? '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>' : '')
-      + costNote + '</div>';
+      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">\u2014</div></div>'
+      + '<div style="font-size:14px;color:#9ab36a;margin-top:6px;">\u2248 '+wkNotPricedNote(_cgc)+'</div></div>';
+  } else if(!isWkPro){
+    // PRICED + FREE \u2192 the legit lock (there IS a real price to unlock).
+    costBox = '<div style="background:#160f08;border:1px dashed var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">'
+      + '<div style="font-size:22px;color:var(--ink-soft);letter-spacing:6px;margin-bottom:6px;">R \u2022 \u2022 \u2022 \u2022</div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Cost estimate \u2014 <strong style="color:'+green+';">Tinza Pro R50/month</strong></div></div>';
+  } else {
+    // PRICED + PRO \u2192 the number.
+    costBox = '<div style="background:#160f08;border:1px solid var(--line2);border-radius:10px;padding:14px;margin-bottom:12px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+      +   '<div style="font-size:13px;color:var(--ink-soft);">\ud83d\udcb0 Estimated cost \u00b7 '+n+' '+(n===1?'serving':'servings')+'</div>'
+      +   '<div style="font-size:24px;color:'+green+';font-weight:bold;">~R'+cost.total+'</div></div>'
+      + '<div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);"><span style="font-size:13px;color:var(--ink-soft);">Per person</span><span style="font-size:14px;color:#c0a030;font-weight:bold;">~R'+Math.round(cost.total/n)+'</span></div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);margin-top:6px;">all ingredients priced</div></div>';
+  }
   var tipBox = r.tip ? recipeBox('💡 Tip', '<div style="font-size:16px;color:var(--ink2);line-height:1.6;">'+r.tip+'</div>') : '';
   function infoRow(label, val){ return val ? '<div style="margin-bottom:8px;"><span style="color:'+green+';font-size:13px;">'+label+': </span><span style="font-size:15px;color:var(--ink2);">'+val+'</span></div>' : ''; }
   var extraInner = infoRow('👩‍🍳 Chef notes', r.chefNotes)+infoRow('📊 Nutrition', r.nutrition)+infoRow('🧊 Storage', r.storage)+infoRow('💡 Did you know', r.trivia);

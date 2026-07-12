@@ -129,15 +129,22 @@ var _SEARCH_SECTION_LABEL = {
 // Search the WHOLE catalogue via the universal index (window.allRecipes), including
 // each card's versions[]. Returns [{r, version, onVersion, section, sub, score}], best
 // first. A version hit carries the version name so the opener can pre-select it.
-function tinzaAllSearch(query){
+function tinzaAllSearch(query, opts){
+  opts = opts || {};
   var q = _searchNorm(query);
   if(!q || q.length < 2) return [];
   var terms = q.split(' ').filter(Boolean);
   var pool = (typeof allRecipes === 'function') ? (allRecipes() || []) : [];
+  // MF46 · SCOPED-GLOBAL: the index already carries `section` on every record, so a room's
+  // search is just this pool filtered to its own section(s). No new plumbing. Budget also
+  // passes maxCostPP — cost is a filter (the cap gates), not a search axis (text finds).
+  var secSet = (opts.sections && opts.sections.length) ? opts.sections : null;
   function everyIn(hay){ for(var k=0;k<terms.length;k++){ if(hay.indexOf(terms[k]) < 0) return false; } return true; }
   var hits = [];
   for(var i=0;i<pool.length;i++){
     var r = pool[i];
+    if(secSet && secSet.indexOf(r.section) < 0) continue;
+    if(opts.maxCostPP != null && (r.costPP == null || r.costPP > opts.maxCostPP)) continue;
     var nameN  = _searchNorm(r.name);
     var baseHay = _searchNorm(r.searchText || r.name);
     var version = null, onVersion = false, matched = false;
@@ -186,7 +193,10 @@ function globalSearch(query){
 function openSearchResult(i){
   var hit = (S.searchResults||[])[i];
   if(!hit || !hit.r) return;
-  var upd = { _searchActiveRecipe: hit.r };
+  // MF46 · a scoped in-room result opens on the shared search-detail screen (the door that
+  // already exists — Braai/Spice behave this way). liveSearch set searchPrevScreen, so Back
+  // returns to the room. On the global search screen this is a no-op (already screen:'search').
+  var upd = { _searchActiveRecipe: hit.r, screen: 'search' };
   if(hit.version){
     var m = Object.assign({}, S.recipeVersion || {});
     m[hit.r.id] = hit.version;

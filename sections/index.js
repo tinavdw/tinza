@@ -270,7 +270,11 @@
       });
     });
     window._tinzaWKSkipped = skipped;   // pricing-hygiene audit (URI U2.3) — fill PRICE_DB later
-    if(skipped.length && typeof console!=='undefined' && console.info){
+    // MF44 · dev-gate — the instrument that found the 88 stays, but doesn't ship an internal
+    // coverage metric to every live user's F12. Only localhost or ?dev. (Do NOT delete — Law 19.)
+    var _tinzaDev = false;
+    try { _tinzaDev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /(?:\?|&)dev\b/.test(location.search); } catch(_e){}
+    if(_tinzaDev && skipped.length && typeof console!=='undefined' && console.info){
       console.info('[Tinza index] World Kitchen costPP-skipped (coverage<0.8 or main protein unpriced): '
                    + skipped.length + ' of ' + out.length, skipped);
     }

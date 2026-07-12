@@ -7,6 +7,35 @@ function setQuiet(upd){
   draw();
 }
 
+// ── MF46 · ONE live-search helper (the globalSearchLive pattern, LIFTED not invented). ──
+// The <input> lives inside the template draw() rebuilds, so oninput="set({xSearch})" fired
+// draw() → #root rebuilt → the element being typed into DESTROYED mid-keystroke ("La"). This
+// NEVER calls draw(): it writes ONLY the results container and persists the query silently, so
+// the input survives the keystroke. Debounced ~150ms (a room otherwise re-queries 1000+
+// records per letter). NOT a focus-restore setTimeout (that was tried 25 May, didn't hold) —
+// this is the debounce §1 asks for, and it never touches the input.
+//   spec: { sections:[...] } scoped-global · { filterFn:fn } pluggable (Kiddies themes) ·
+//         { stateKey:'xSearch' } silent persist · { maxCostPP:n } Budget cap · { debounce:n }
+function liveSearch(inputEl, resultsId, spec){
+  if(!inputEl) return;
+  spec = spec || {};
+  if(typeof S !== 'undefined'){
+    S.searchPrevScreen = S.screen;                       // Back target once a result opens
+    if(spec.stateKey) S[spec.stateKey] = inputEl.value;  // silent persist — NO draw()
+  }
+  clearTimeout(inputEl._tinzaDeb);
+  inputEl._tinzaDeb = setTimeout(function(){
+    var el = document.getElementById(resultsId);
+    if(!el) return;
+    var qv = inputEl.value || '';
+    if(typeof spec.filterFn === 'function'){ el.innerHTML = spec.filterFn(qv) || ''; return; }
+    if(!qv || qv.trim().length < 2){ if(typeof S!=='undefined') S.searchResults = []; el.innerHTML = ''; return; }
+    var hits = (typeof tinzaAllSearch === 'function') ? tinzaAllSearch(qv, { sections:spec.sections, maxCostPP:spec.maxCostPP }) : [];
+    if(typeof S !== 'undefined'){ S.searchResults = hits; S.searchQuery = qv; }
+    el.innerHTML = (typeof renderSearchResults === 'function') ? renderSearchResults(qv, hits) : '';
+  }, spec.debounce != null ? spec.debounce : 150);
+}
+
 // ── DEVICE BACK / IN-APP HISTORY ──────────────────────────────────
 // Makes the phone's back button (and edge swipe-back) step back ONE
 // screen INSIDE the app instead of leaving the site. Only Home → back

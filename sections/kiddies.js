@@ -91,9 +91,9 @@ function kidsPartyHTML(){
 
   const searchVal = S.kidsSearch||'';
   const isOpen = S.kidsHowOpen||false;
-  const filteredThemes = searchVal
-    ? KIDS_THEMES.filter(t=>t.name.toLowerCase().includes(searchVal.toLowerCase())||(t.vibe||'').toLowerCase().includes(searchVal.toLowerCase()))
-    : KIDS_THEMES;
+  // MF46 · theme filter moved to kidsThemeGridInner() so liveSearch can call it as a pluggable
+  // filterFn (themes are NOT recipes → not in the universal index; the mechanism is shared, the
+  // filter is local). liveSearch writes #kidsThemesGrid directly — no draw(), input survives.
 
   const howHTML = `
     1 · Pick a <strong style="color:var(--accent);">theme</strong> from the 12 boxes below<br>
@@ -106,25 +106,33 @@ function kidsPartyHTML(){
     <div class="content">
       <div style="display:flex;align-items:center;background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:var(--accent);margin-right:8px;font-size:14px;">🔍</span>
-        <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="set({kidsSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink);font-size:13px;font-family:Georgia,serif;"/>
+        <input type="text" id="kidsSearchInput" placeholder="Search themes…" oninput="liveSearch(this,'kidsThemesGrid',{filterFn:kidsThemeGridInner,stateKey:'kidsSearch'})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink);font-size:13px;font-family:Georgia,serif;"/>
         ${searchVal?`<button onclick="set({kidsSearch:''})" style="background:none;border:none;color:var(--accent);font-size:16px;cursor:pointer;">×</button>`:''}
       </div>
 
       <div style="font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">Choose a party theme</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
-        ${filteredThemes.length===0?`<div style="grid-column:1/-1;text-align:center;padding:30px 16px;background:var(--card);border:1px solid var(--line2);border-radius:12px;"><div style="font-size:32px;margin-bottom:8px;">🎈</div><div style="font-size:13px;color:var(--ink-mut);">No themes match "${searchVal}"</div></div>`:''}
-        ${filteredThemes.map(th=>`
-          <div onclick="set({kidsTheme:'${th.id}',kidsScreen:'categories',kidsRemoved:[]})" style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 8px;aspect-ratio:1;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
-            <div style="font-size:24px;margin-bottom:5px;">${th.emoji}</div>
-            <div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:3px;line-height:1.2;">${th.name}</div>
-            <div style="display:flex;gap:3px;justify-content:center;">${(th.colours||[]).slice(0,4).map(c=>`<div style="width:8px;height:8px;border-radius:50%;background:${c};"></div>`).join('')}</div>
-          </div>`).join('')}
+      <div id="kidsThemesGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+        ${kidsThemeGridInner(searchVal)}
       </div>
 
       ${kidsControlBar(k,'kidsHowOpen',isOpen,howHTML)}
       ${kidsBudgetPills(budget)}
     </div>
   </div>`;
+}
+
+// MF46 · pluggable theme filter — returns the inner cards for #kidsThemesGrid. Shared by the
+// initial render and liveSearch (which rewrites ONLY this container, never draw()).
+function kidsThemeGridInner(q){
+  var sv = String(q||'').toLowerCase();
+  var themes = sv ? KIDS_THEMES.filter(function(t){ return t.name.toLowerCase().indexOf(sv)>=0 || (t.vibe||'').toLowerCase().indexOf(sv)>=0; }) : KIDS_THEMES;
+  if(!themes.length) return '<div style="grid-column:1/-1;text-align:center;padding:30px 16px;background:var(--card);border:1px solid var(--line2);border-radius:12px;"><div style="font-size:32px;margin-bottom:8px;">🎈</div><div style="font-size:13px;color:var(--ink-mut);">No themes match "'+sv+'"</div></div>';
+  return themes.map(function(th){
+    return '<div onclick="set({kidsTheme:\''+th.id+'\',kidsScreen:\'categories\',kidsRemoved:[]})" style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 8px;aspect-ratio:1;cursor:pointer;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">'
+      + '<div style="font-size:24px;margin-bottom:5px;">'+th.emoji+'</div>'
+      + '<div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:3px;line-height:1.2;">'+th.name+'</div>'
+      + '<div style="display:flex;gap:3px;justify-content:center;">'+((th.colours||[]).slice(0,4).map(function(c){return '<div style="width:8px;height:8px;border-radius:50%;background:'+c+';"></div>';}).join(''))+'</div></div>';
+  }).join('');
 }
 
 // ── LAYER 2: the 5 category boxes for a theme ─────────────────────

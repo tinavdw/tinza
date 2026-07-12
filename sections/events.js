@@ -952,9 +952,10 @@ function eventsHTML(){
       tagline:'Every gathering that brings your people to one table',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Events.jpg',
       backJs:"set({screen:'home'})", backLabel:'← Home',
-      search:{ value:(S.eventsSearch||'').replace(/"/g,'&quot;'), placeholder:'Search Events…', oninput:'set({eventsSearch:this.value})', clearJs:"set({eventsSearch:''})" }
+      search:{ value:(S.eventsSearch||'').replace(/"/g,'&quot;'), placeholder:'Search Events…', oninput:"liveSearch(this,'eventsSearchResults',{sections:['events','beverages'],stateKey:'eventsSearch'})", clearJs:"set({eventsSearch:'',searchResults:[]})" }
     })}
 
+    <div id="eventsSearchResults" style="max-width:600px;margin:0 auto;padding:0 16px;"></div>
     <!-- HOW IT WORKS + GUEST STEPPER (shared) -->
     <div style="padding:12px 16px;">
       ${guestBar({

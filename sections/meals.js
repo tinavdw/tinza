@@ -15394,11 +15394,8 @@ function mealSectionHTML(sectionKey){
     recipes = recipes.filter(r=>r.cat===activeCat);
   }
 
-  // Search filter
-  if(S.mealSearch){
-    const q = S.mealSearch.toLowerCase();
-    recipes = recipes.filter(r=>(r.name+' '+(r.cuisine||'')+' '+(r.feel||'')).toLowerCase().includes(q));
-  }
+  // Search · MF46 — the shelf list no longer filters here; liveSearch writes #mealSearchResults
+  // directly (never draw()), so the input survives the keystroke. Scoped to section 'meals'.
 
   if(sort==='az') recipes.sort((a,b)=>a.name.localeCompare(b.name));
   else if(sort==='time') recipes.sort((a,b)=>(a.time||0)-(b.time||0));
@@ -15424,10 +15421,11 @@ function mealSectionHTML(sectionKey){
       img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent(cfg.title)+'.jpg',
       backJs: "set({screen:'feedfamily'})", backLabel: '← Family Meals',
       myPlan: { count:(S.mealPlan||[]).length, onclick:"setQuiet({mealPlanView:true})" },
-      search: { value:S.mealSearch||'', oninput:"set({mealSearch:this.value})", clearJs:"set({mealSearch:''})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
+      search: { value:S.mealSearch||'', oninput:"liveSearch(this,'mealSearchResults',{sections:['meals'],stateKey:'mealSearch'})", clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
       cats: cats ? cats.map(c=>({ emoji:c.e, label:c.l, active:(activeCat===c.id), onclick:"setQuiet({mealCat:'"+c.id+"'});setTimeout(()=>{var el=document.getElementById('mealGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)" })) : []
     })}
     <div class="content" style="padding:12px 16px;max-width:600px;margin:0 auto;">
+      <div id="mealSearchResults"></div>
       ${howItWorks({ steps:[
         '1 · Browse each shelf and tap a card to read the full recipe first',
         '2 · Tick the <strong style="color:var(--gold);">☑ checkbox</strong> on any dish to add it to your plan',

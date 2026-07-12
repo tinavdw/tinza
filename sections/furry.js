@@ -15,14 +15,15 @@ function furryHTML(){
         <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid #c06020;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:#c06020;margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search dog & cat recipes…"
-            oninput="set({furrySearch:this.value})"
+            oninput="liveSearch(this,'furrySearchResults',{sections:['furry'],stateKey:'furrySearch'})"
             value="${S.furrySearch||''}"
             style="flex:1;background:none;border:none;outline:none;color:#e0d4b8;font-size:13px;font-family:Georgia,serif;"
           />
-          ${S.furrySearch?`<button onclick="set({furrySearch:''})" style="background:none;border:none;color:#c06020;font-size:16px;cursor:pointer;">×</button>`:''}
+          ${S.furrySearch?`<button onclick="set({furrySearch:'',searchResults:[]})" style="background:none;border:none;color:#c06020;font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>
     </div>
+    <div id="furrySearchResults" style="max-width:600px;margin:0 auto;padding:0 16px;"></div>
 
     <!-- ══ HOW IT WORKS + PET TOGGLE ══ -->
     <div style="background:#1a1208;border-bottom:1px solid #2a1a10;padding:12px 16px;">

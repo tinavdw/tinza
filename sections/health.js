@@ -995,12 +995,13 @@ function healthHTML(){
         <p style="margin:0 0 10px;font-size:13px;color:var(--ink-soft);font-style:italic;">Eat with intention · Feel the difference</p>
         <div style="display:flex;align-items:center;background:rgba(15,8,4,0.85);border:1px solid var(--line2);border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:var(--accent);margin-right:8px;font-size:14px;">🔍</span>
-          <input type="text" placeholder="Search health recipes…" oninput="set({healthSearch:this.value})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink-soft);font-size:13px;"/>
-          ${searchVal?`<button onclick="set({healthSearch:''})" style="background:none;border:none;color:var(--ink-soft);font-size:16px;cursor:pointer;">×</button>`:''}
+          <input type="text" placeholder="Search health recipes…" oninput="liveSearch(this,'healthSearchResults',{sections:['health'],stateKey:'healthSearch'})" value="${searchVal}" style="flex:1;background:none;border:none;outline:none;color:var(--ink-soft);font-size:13px;"/>
+          ${searchVal?`<button onclick="set({healthSearch:'',searchResults:[]})" style="background:none;border:none;color:var(--ink-soft);font-size:16px;cursor:pointer;">×</button>`:''}
         </div>
       </div>
     </div>
 
+    <div id="healthSearchResults" style="max-width:600px;margin:0 auto;padding:0 16px;"></div>
     <!-- How it works + people counter -->
     <div style="background:var(--card2);border-bottom:1px solid var(--line2);padding:12px 16px;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
@@ -1153,9 +1154,8 @@ function healthGroupScreen(isPro, srv){
     ? (typeof wkAppearsIn==='function' ? wkAppearsIn(tabDef.appearsIn) : [])
     : (tabDef.arr ? (arrMap[tabDef.arr]||[]) : []);
 
-  // Search filter
-  const sv = (S.healthSearch||'').toLowerCase();
-  if(sv) items = items.filter(i=>i.name.toLowerCase().includes(sv)||(i.feel||'').toLowerCase().includes(sv));
+  // Search · MF46 — the list no longer filters here; liveSearch writes #healthSearchResults (no draw).
+  const sv = '';
 
   const listHTML = items.length===0
     ? `<div style="text-align:center;padding:40px 20px;color:var(--ink-soft);font-size:13px;">${sv?'No matches for "'+sv+'"':'Recipes loading…'}</div>`
