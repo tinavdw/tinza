@@ -1,0 +1,9 @@
+# Edit-session backup snapshots — safety copies, never ship
+*.bak
+*.bak_*
+sections/*.bak*
+*.orig
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

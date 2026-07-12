@@ -122,20 +122,22 @@ const PRICE_DB = {
   "soya mince": 95,           // R19/200g → R95/kg
   "biltong": 450,
 
-  // ── LAMB (adjusted per roadmap) ──
-  "lamb loin chops": 270,     // Roadmap: R270 (butchery R220)
-  "lamb rib chops": 260,      // Roadmap: R260 (matches butchery)
-  "lamb rib": 220,
-  "lamb braai chops": 200,
-  "leg of lamb": 190,
-  "lamb roast": 190,
-  "lamb neck": 180,
-  "lamb mince": 200,        // 27 Jun · Tina-confirmed (SA range R180–260/kg; standard mince ~R200; heritage version only)
-  "lamb shank": 190,
-  "lamb potjiekos": 130,
-  "lamb knuckles": 200,
-  "butterflied leg of lamb": 190,
-  "mutton": 180,
+  // ── LAMB (SIGNED 12 Jul 2026 · TINZA_LAMB_SIGNED.md · RECONCILE, don't add) ──
+  "lamb loin chops": 255,     // src:online when:2026-07 conf:online
+  "lamb rib chops": 255,      // src:online when:2026-07 conf:online  (rack cutlets, premium — keep)
+  "lamb braai chops": 195,    // src:PnP when:2026-07 conf:shelf  (PnP Bulk Lamb Braai Chops R194.99)
+  "lamb shoulder chops": 220, // src:online when:2026-07 conf:online  (braai default when a recipe just says "lamb chops")
+  "lamb riblets": 205,        // src:online when:2026-07 conf:online  (braai belly ribs)
+  "leg of lamb": 205,         // src:online when:2026-07 conf:online
+  "butterflied leg of lamb": 205, // src:online when:2026-07 conf:online  (same meat as leg)
+  "lamb neck": 170,           // src:online when:2026-07 conf:online
+  "lamb mince": 215,          // src:Woolworths/butchery survey when:2026-07 conf:online  (ground — NOT stew; R200 was a beef-mince-under)
+  "lamb shank": 180,          // src:online when:2026-07 conf:online
+  "lamb potjiekos": 150,      // src:Shoprite/PnP when:2026-07 conf:shelf range:130-170  (forequarter MIX, not neck)
+  "lamb knuckles": 200,       // src:online when:2026-07 conf:online  (mid premium band R169-235)
+  "lamb rump": 310,           // src:online when:2026-07 conf:online  (steak)
+  "mutton": 180,              // src:online when:2026-07 conf:online  (separate animal-age)
+  // DELETED & reconciled: "lamb rib" R220 (ambiguous rack/riblets) · "lamb roast" R190 (a method, not a product). Both are now aliases → core.js.
 
   // ── PORK ──
   "pork loin chops": 120,
@@ -181,7 +183,8 @@ const PRICE_DB = {
 
   // ── SEAFOOD ──
   "hake fillet": 257,         // R154/600g → ~R257/kg
-  "hake": 257,
+  "hake": 180,                // MF28 R3: reconciled 257→180 (frozen fillet, what SA cooks buy; R257 was v20, no provenance, +43% over-pricing inflated the green number). VALUE-reconciled not aliased so the ~8 "…→hake" aliases (cod/white fish/carp…) don't cascade to null. src:SeaHarvest/I&J when:2026-07 conf:shelf
+
   "prawn meat": 350,          // R140/400g → R350/kg
   "prawns": 350,
   "mussels": 250,             // R100/400g → R250/kg
@@ -214,6 +217,19 @@ const PRICE_DB = {
 
   // ── DAIRY ──
   "milk": 20,                 // per litre
+  // ── MF28 SIGNED ADDITIONS · 12 Jul 2026 · plant/dairy-free + reconciled fish (TINZA_LAMB_SIGNED.md · brief §1B) ──
+  "almond milk": 37,          // src:AlmondBreeze/PnP-DisChem when:2026-07 conf:shelf  (1L R33-40)
+  "oat milk": 35,             // src:online when:2026-07 conf:shelf  (1L; organic dearer)
+  "almond butter": 320,       // src:online when:2026-07 conf:shelf  (250g @ R68-86)
+  "cashew butter": 340,       // src:online when:2026-07 conf:shelf  (250g @ R85; 1kg tub ~R255/kg)
+  "cashew cheese": 396,       // src:Yokos/Checkers when:2026-07 conf:shelf range:396-625
+  "date syrup": 323,          // src:Nanuki/Wildsprout when:2026-07 conf:shelf range:264-560  (NOT honey)
+  "caramel essence": 350,     // src:online when:2026-07 conf:shelf  (40ml @ R14; per L)
+  "hake fillets": 180,        // src:SeaHarvest/I&J when:2026-07 conf:shelf  (frozen 800g @ R145) — SA default white fish
+  "basa fillets": 181,        // src:PnP-Fishmonger when:2026-07 conf:shelf  (frozen 800g @ R145)
+  "tilapia whole": 60,        // src:PnP/SuperbHyper when:2026-07 conf:shelf  (800g @ R50)
+  "mackerel tinned": 95,      // src:CapePoint when:2026-07 conf:shelf  (400g @ R38, middlecut)
+  "mackerel frozen": 75,      // src:Shoprite-CapePoint when:2026-07 conf:shelf  (2kg @ R150)
   "butter": 160,              // R80/500g → R160/kg
   "margarine": 70,            // R35/500g → R70/kg (the thrifty béchamel fat)
   "cream": 148,               // R37/250ml → R148/L (approx per kg)
@@ -333,7 +349,7 @@ const PRICE_DB = {
   "cornflour": 68,            // R17/250g → R68/kg
   "white sugar": 35,          // per kg
   "brown sugar": 35,
-  "castor sugar": 84,         // R42/500g → R84/kg
+  "castor sugar": 84,         // src:PnP/Shoprite when:2026-07 conf:shelf  (500g R37-49; finer-milled, 2.4x plain sugar R35 — "caster sugar" aliases here)
   "icing sugar": 100,         // R50/500g → R100/kg
   "baking powder": 76,        // R38/200g → R190/kg... use smaller R76
   "bicarbonate of soda": 72,  // R36/500g → R72/kg
@@ -566,8 +582,7 @@ const PRICE_DB = {
   "dried beef": 300,          // biltong-style, lean high
   "oxtail": 160,              // oxtail pieces, lean high
   "mixed meat": 130,          // braai mixed grill
-  "lamb leg": 180,            // estimate — confirm at SA&#39;s biggest retailers
-  "lamb ribs": 170,           // estimate — confirm at SA&#39;s biggest retailers
+  // "lamb leg" & "lamb ribs" keys DELETED 12 Jul (SIGNED) → now aliases in core.js (leg of lamb / lamb riblets). One product, one price.
   "lamb liver": 70,           // your figure (R60–70 high)
   "tripe": 130,               // Afval cleaned tripe high end
   "trotters": 130,            // pig/sheep trotters
@@ -679,7 +694,8 @@ const PRICE_DB = {
   "medjool dates": 140,
   "medjool date": 140,
   "parsnip": 104,
-  "sprouts": 193,
+  "brussels sprouts": 193,    // RENAMED 12 Jul from bare "sprouts" — a bare key mispriced "bean sprouts" at R193. src:online when:2026-07 conf:online
+  "bean sprouts": 270,        // src:Woolies/PnP when:2026-07 conf:shelf  (100g punnet ~R27)
   "microgreens": 193,
   "lemongrass": 500,
   "tamari": 867,
@@ -812,7 +828,7 @@ const PRICE_DB = {
   "caraway seeds": 760,            // R19/25g
   "rosewater": 320,                // R80/250ml
   "tarragon": 1000,                // R20/20g fresh
-  "caramel treat": 125,            // R45/360g tin — was falling back to condensed milk R119
+  "caramel treat": 125,            // src:Nestle/Checkers when:2026-07 conf:shelf  (R45/360g tin)
   "shortbread biscuits": 150,      // R30/200g
   "gin": 253,                      // R190/750ml
   "smoked cod roe": 514,           // R90/175g
@@ -1074,7 +1090,7 @@ const BABY_RECIPES = [
     stage:"stage3", stageLabel:"Stage 3 — Little Foodie (9–12+ months)", time:30,
     badges:["🐟 Omega-3","🧠 Brain Health","💪 Protein"],
     base:[
-      {n:"White fish — hake or kingklip (cooked, flaked, ALL bones removed)",pp:100,u:"g",cat:"meat"},
+      {n:"Hake fillets (cooked, flaked, ALL bones removed)",pp:100,u:"g",cat:"meat"},
       {n:"Sweet potato (steamed and mashed)",pp:100,u:"g",cat:"produce"},
       {n:"Fine breadcrumbs",pp:20,u:"g",cat:"pantry"},
       {n:"Fresh parsley (finely chopped)",pp:5,u:"g",cat:"produce"},

@@ -860,7 +860,7 @@ var PRICE_ALIAS = {
   "pear sliced": "pears",
 
   "chips":"potato",
-  "lamb chops":"lamb braai chops",
+  // MF28 CALL2: "lamb chops"→braai chops alias DELETED — a category, not a buy-name (Law 16). Method tick-list; fails loud until named.
   "fries":"potato",
   "flatbread":"bread",
   "crayfish":"prawns",
@@ -876,7 +876,6 @@ var PRICE_ALIAS = {
   "grated coconut":"coconut flakes",
   "sultanas":"raisins",
   "stewing lamb shoulder or neck":"lamb potjiekos",
-  "lamb shoulder cubed":"lamb neck",
   "zucchini":"baby marrow",
   "courgette":"baby marrow",
   "aubergine":"brinjal",
@@ -900,9 +899,12 @@ var PRICE_ALIAS = {
   "veg stock":"stock",
   "broth":"stock",
   "stewing lamb":"lamb potjiekos",
-  "lamb shoulder":"lamb neck",
+  // MF28 R4: "lamb shoulder"→lamb neck DELETED (double-alias; mutton copy also removed). 1 line "Lamb shoulder (bone-in, chunked)" now fails loud → tick-list.
   "lamb pieces":"lamb neck",
-  "mince":"beef mince","lamb mince":"beef mince","beef or lamb mince":"beef mince",
+  // MF28 12 Jul (SIGNED): reconcile — one product, one price. Aliases (not deletes) so nothing silently falls back.
+  "lamb leg":"leg of lamb","lamb roast":"leg of lamb","lamb ribs":"lamb riblets",
+  "caster sugar":"castor sugar",   // spelling variant → the R84 fine-milled key (plain sugar is R35)
+  "mince":"beef mince","beef or lamb mince":"beef mince",   // MF28: deleted lamb mince→beef mince (the 2.2x-under lie; real key R215)
   "fish":"hake","white fish":"hake","firm white fish":"hake","firm white fish hake":"hake",
   "cheese":"cheddar","cheddar cheese":"cheddar",
   "flour":"cake flour","self raising flour":"cake flour","flour for dusting":"cake flour",
@@ -912,7 +914,7 @@ var PRICE_ALIAS = {
   // "cream" out of "full cream milk" → ~7x overcharge). Fixes Risalamande + Amasi ×2.
   "full cream milk":"milk","full-cream milk":"milk","full fat milk":"milk","whole milk":"milk",
   "baking soda":"bicarbonate of soda","bicarb":"bicarbonate of soda",
-  "coconut":"desiccated coconut","niter kibbeh":"ghee","goat":"mutton","goat ribs":"mutton","sukuma wiki":"kale","amaranth leaves":"spinach","lamb shoulder":"mutton","lamb shoulder cubed":"mutton","phyllo sheets":"phyllo pastry","roasted flour":"cake flour","broad beans":"dried fava beans","fish stock":"stock","flour-based dough":"cake flour","pastry dough":"cake flour","maize kernels":"sweetcorn","merguez":"boerewors","grated cheese":"cheddar","dried mloukhia powder":"spinach","curry spices":"curry powder","ground crayfish":"prawns","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts","peppermint essence":"vanilla essence","rose water":"vanilla essence","dried apricot":"dried apricots","stock powder":"stock","vegetable stock powder":"stock","beef stock powder":"stock","chicken stock powder":"stock","roasted maize kernels":"sweetcorn","sorghum grains":"sorghum meal","wors":"boerewors","caramel essence":"vanilla essence","white sauce":"milk","black peppercorns":"black pepper","short grain rice":"rice","rabbit":"chicken","rabbit meat":"chicken","bacalhau":"salted snoek","lamb cutlets":"leg of lamb","ground almonds":"almonds","roasted red peppers":"red pepper","padron peppers":"green pepper","lemon soda":"soda water","lager":"beer","lager beer":"beer","espresso":"coffee","short pasta":"macaroni","green peppers":"green pepper","chicken heart":"chicken hearts","beef liver":"chicken livers","low-sodium chicken broth":"chicken broth","date syrup":"honey","flat pasta":"macaroni","orzo pasta":"macaroni","warqa pastry":"phyllo pastry","sheet warqa pastry":"phyllo pastry","meaty beef bones":"beef bones","pig s trotters":"pork bones","pork trotters":"pork bones","white fish bones and heads":"fish frames","white fish bones and heads gills removed":"fish frames","chicken carcasses necks and wings":"chicken frames","garlic-ginger paste":"ginger-garlic paste","ginger garlic paste":"ginger-garlic paste","ginger and garlic paste":"ginger-garlic paste",
+  "coconut":"desiccated coconut","niter kibbeh":"ghee","sukuma wiki":"kale","amaranth leaves":"spinach","phyllo sheets":"phyllo pastry","roasted flour":"cake flour","broad beans":"dried fava beans","fish stock":"stock","flour-based dough":"cake flour","pastry dough":"cake flour","maize kernels":"sweetcorn","merguez":"boerewors","grated cheese":"cheddar","dried mloukhia powder":"spinach","curry spices":"curry powder","ground crayfish":"prawns","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts","peppermint essence":"vanilla essence","rose water":"vanilla essence","dried apricot":"dried apricots","stock powder":"stock","vegetable stock powder":"stock","beef stock powder":"stock","chicken stock powder":"stock","roasted maize kernels":"sweetcorn","sorghum grains":"sorghum meal","wors":"boerewors","white sauce":"milk","black peppercorns":"black pepper","short grain rice":"rice","rabbit":"chicken","rabbit meat":"chicken","bacalhau":"salted snoek","lamb cutlets":"leg of lamb","ground almonds":"almonds","roasted red peppers":"red pepper","padron peppers":"green pepper","lemon soda":"soda water","lager":"beer","lager beer":"beer","espresso":"coffee","short pasta":"macaroni","green peppers":"green pepper","chicken heart":"chicken hearts","beef liver":"chicken livers","low-sodium chicken broth":"chicken broth","flat pasta":"macaroni","orzo pasta":"macaroni","warqa pastry":"phyllo pastry","sheet warqa pastry":"phyllo pastry","meaty beef bones":"beef bones","pig s trotters":"pork bones","pork trotters":"pork bones","white fish bones and heads":"fish frames","white fish bones and heads gills removed":"fish frames","chicken carcasses necks and wings":"chicken frames","garlic-ginger paste":"ginger-garlic paste","ginger garlic paste":"ginger-garlic paste","ginger and garlic paste":"ginger-garlic paste",
   // World Kitchen gap aliases (15 Jun) — every target was verified present in
   // PRICE_DB, so these use a REAL substitute price, never an invented rand.
   "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
@@ -924,17 +926,16 @@ var PRICE_ALIAS = {
   // PRICE_DB (real substitute price, never invented). egusi now -> pumpkin seeds
   // (priced today); argan oil -> existing sesame oil (alias-only, no price added).
   "ground egusi seeds":"pumpkin seeds","biscuits":"marie biscuits","biscuit crumbs":"marie biscuits",
-  "swiss chard":"spinach","steak":"beef","beans":"sugar beans","black beans":"sugar beans",
+  "swiss chard":"spinach","steak":"beef","beans":"sugar beans",   // MF28: deleted dead black beans→sugar beans (real key R50 wins)
   "brown beans":"sugar beans","peeled beans":"sugar beans","white beans":"butter beans",
-  "goat meat":"mutton","cod":"hake","chouri o":"chorizo","collard greens or kale":"kale",
+  "cod":"hake","chouri o":"chorizo","collard greens or kale":"kale",   // MF28: deleted goat meat→mutton (wrong animal)
   "chopped collard greens":"kale","buffalo curd":"double cream yoghurt","molokhia":"spinach",
   "molokhia leaves":"spinach","injera":"teff flour","torn injera":"teff flour",
   "shiro powder":"chickpea flour","argan oil":"sesame oil","minced meat":"beef","cooked meat":"pork",
   "cured meat":"smoked pork neck","cured meats":"smoked pork neck","white fish fillets":"basa",
   "white fish fillet":"basa","firm white fish fillets":"basa","dogfish":"basa","perch fillets":"basa",
   "vendace fish":"basa","carp fish":"basa","mixed fish":"basa",
-  "caramel":"condensed milk",
-  "caramel treat":"condensed milk",
+  // MF28: deleted "caramel"→condensed milk (unbuyable flavour word) + "caramel treat"→condensed milk (real key R125 wins)
   "breadcrumb":"breadcrumbs",
   "burger bun":"hamburger rolls",
   "cornstarch":"cornflour",
@@ -972,7 +973,7 @@ var PRICE_ALIAS = {
   "octopus":"calamari rings",
   "cooked octopus":"calamari rings",
   "clams":"mussels",
-  "mackerel":"tinned sardines",
+  // MF28: deleted "mackerel"→tinned sardines (not mackerel; real keys "mackerel tinned"/"mackerel frozen")
   "sea bass":"basa",
   "reindeer meat":"beef",
   "smoked fish or shrimp":"smoked fish",
