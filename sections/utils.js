@@ -241,13 +241,13 @@ function searchPageHTML() {
   var resultsHTML = renderSearchResults(q, S.searchResults || []);
   return '<div>'
     + '<div class="header">'
-    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[],searchScope:null})" style="color:#c06020;">&#8592; Back</button>'
+    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[],searchScope:null})" style="color:var(--accent);">&#8592; Back</button>'
     + '<h1 style="font-size:18px;font-weight:normal;color:#f5e8cc;">&#128269; Search</h1>'
     + '</div>'
     + '<div class="content">'
     + '<div style="position:relative;margin-bottom:16px;">'
     + '<input type="text" id="searchPageInput" value="' + _searchEsc(q) + '" placeholder="Search recipes, versions, ingredients…" '
-    + 'style="width:100%;box-sizing:border-box;padding:12px 16px 12px 40px;background:#1a1208;border:2px solid #c06020;border-radius:10px;color:#f5e8cc;font-size:15px;font-family:Georgia,serif;outline:none;">'
+    + 'style="width:100%;box-sizing:border-box;padding:12px 16px 12px 40px;background:var(--card2);border:2px solid var(--accent);border-radius:10px;color:var(--ink);font-size:15px;font-family:Georgia,serif;outline:none;">'
     + '<span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;">&#128269;</span>'
     + '</div>'
     + '<div id="searchResultsBody">' + resultsHTML + '</div>'
@@ -264,7 +264,7 @@ function renderSearchResults(q, results) {
   if(!q || _searchNorm(q).length < 2) return '';
   results = results || [];
   if(results.length === 0) {
-    return '<p style="color:#4a3020;font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;' + _searchEsc(q) + '&rdquo;</p>';
+    return '<p style="color:var(--ink-mut);font-style:italic;text-align:center;padding:40px 0;">No results for &ldquo;' + _searchEsc(q) + '&rdquo;</p>';
   }
   // MF49 ride-along · name the ROOM when scoped ("found in World Kitchen"), not "Tinza".
   var _scope = (typeof S!=='undefined') ? S.searchScope : null;
@@ -275,22 +275,22 @@ function renderSearchResults(q, results) {
   var _countLine = (_total > 40)
     ? 'Showing the best 40 of ' + _total + ' — keep typing to narrow.'
     : (_total + ' recipe' + (_total!==1?'s':'') + ' found in ' + _lbl);
-  var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + _countLine + '</div>';
+  var html = '<div style="font-size:11px;color:var(--ink-mut);margin-bottom:12px;">' + _countLine + '</div>';
   results.forEach(function(hit, idx) {
     var r = hit.r;
     var name = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name||'');
     var vBadge = hit.onVersion
-      ? '<span style="display:inline-block;margin-left:6px;font-size:10px;font-weight:bold;color:#fff;background:#c06020;border-radius:10px;padding:1px 7px;vertical-align:middle;">' + _searchEsc(hit.version) + '</span>'
+      ? '<span style="display:inline-block;margin-left:6px;font-size:10px;font-weight:bold;color:var(--on-media);background:var(--accent);border-radius:10px;padding:1px 7px;vertical-align:middle;">' + _searchEsc(hit.version) + '</span>'
       : ((r.versions && r.versions.length>1)
-          ? '<span style="display:inline-block;margin-left:6px;font-size:10px;color:#e0a060;border:1px solid #5a3010;border-radius:10px;padding:1px 7px;vertical-align:middle;">' + r.versions.length + ' versions</span>'
+          ? '<span style="display:inline-block;margin-left:6px;font-size:10px;color:var(--ink-soft);border:1px solid var(--line2);border-radius:10px;padding:1px 7px;vertical-align:middle;">' + r.versions.length + ' versions</span>'
           : '');
-    html += '<div onclick="openSearchResult(' + idx + ')" style="display:flex;align-items:center;gap:12px;padding:12px;background:#161210;border:1px solid #2a1a10;border-radius:10px;margin-bottom:8px;cursor:pointer;">';
+    html += '<div onclick="openSearchResult(' + idx + ')" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer;">';
     html += '<div style="font-size:28px;flex-shrink:0;">' + (r.emoji||'🍽️') + '</div>';
     html += '<div style="flex:1;min-width:0;">';
-    html += '<div style="font-size:14px;color:#f5e8cc;font-weight:bold;">' + _searchEsc(name) + vBadge + '</div>';
-    html += '<div style="font-size:11px;color:#6a4020;">' + _searchEsc(hit.section) + '</div>';
-    if(hit.sub) html += '<div style="font-size:11px;color:#4a3020;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + _searchEsc(hit.sub) + '</div>';
-    html += '</div><div style="color:#c06020;font-size:18px;flex-shrink:0;">&#8594;</div></div>';
+    html += '<div style="font-size:14px;color:var(--ink);font-weight:bold;">' + _searchEsc(name) + vBadge + '</div>';
+    html += '<div style="font-size:11px;color:var(--ink-soft);">' + _searchEsc(hit.section) + '</div>';
+    if(hit.sub) html += '<div style="font-size:11px;color:var(--ink-mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + _searchEsc(hit.sub) + '</div>';
+    html += '</div><div style="color:var(--accent);font-size:18px;flex-shrink:0;">&#8594;</div></div>';
   });
   return html;
 }
