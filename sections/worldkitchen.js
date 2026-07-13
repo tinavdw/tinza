@@ -189,7 +189,7 @@ function wkWorldHome(){
     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
     backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
     myPlan:{ count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" },
-    search:{ value:(S.wkSearch||'').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:"liveSearch(this,'wkSearchResults',{sections:['world'],stateKey:'wkSearch'})", clearJs:"set({wkSearch:'',searchResults:[]})" }
+    search:{ value:searchVal('wkSearch').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:"liveSearch(this,'wkSearchResults',{sections:['world'],stateKey:'wkSearch'})", clearJs:"set({wkSearch:'',searchResults:[]})" }
   });
 
   var wrap = function(inner){ return '<div style="min-height:100vh;background:var(--bg);font-family:Georgia,serif;">'+header+'<div id="wkSearchResults" style="max-width:600px;margin:0 auto;padding:0 16px;"></div>'+inner+'</div>'; };

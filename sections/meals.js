@@ -15425,7 +15425,7 @@ function mealSectionHTML(sectionKey){
       img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent(cfg.title)+'.jpg',
       backJs: "set({screen:'feedfamily',mealSearch:''})", backLabel: '← Family Meals',   // MF59 · don't carry the query out of the sub-screen
       myPlan: { count:(S.mealPlan||[]).length, onclick:"setQuiet({mealPlanView:true})" },
-      search: { value:S.mealSearch||'', oninput:_mealSearchOninput, clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
+      search: { value:searchVal('mealSearch'), oninput:_mealSearchOninput, clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search '+cfg.title.toLowerCase()+' recipes…' },
       cats: cats ? cats.map(c=>({ emoji:c.e, label:c.l, active:(activeCat===c.id), onclick:"setQuiet({mealCat:'"+c.id+"'});setTimeout(()=>{var el=document.getElementById('mealGroupTop');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},60)" })) : []
     })}
     <div class="content" style="padding:12px 16px;max-width:600px;margin:0 auto;">
@@ -15442,7 +15442,7 @@ function mealSectionHTML(sectionKey){
         ${[{id:'popular',l:'⭐ Popular'},{id:'az',l:'A–Z'},{id:'time',l:'⏱️ Quick'}].map(s=>`<button onclick="setQuiet({mealSort:'${s.id}'})" style="padding:6px 12px;border-radius:20px;border:1px solid ${sort===s.id?'var(--accent)':'var(--line)'};background:${sort===s.id?'var(--card2)':'var(--card)'};color:var(--ink);font-weight:${sort===s.id?'bold':'normal'};font-size:13px;cursor:pointer;">${s.l}</button>`).join('')}
       </div>
       ${cats?`<div id="mealGroupTop" style="font-size:15px;letter-spacing:1px;color:var(--ink);font-weight:bold;text-transform:uppercase;padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px;">${activeCatObj.e} ${activeCatObj.l} · ${recipes.length} ${recipes.length===1?'kind':'kinds'}</div>`:`<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">${recipes.length} recipes</div>`}
-      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:var(--ink-soft);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${S.mealSearch?' or clear your search':''}.</div>`:''}
+      ${recipes.length===0?`<div style="padding:22px;text-align:center;color:var(--ink-soft);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:6px;">Nothing here yet — try another category${searchVal('mealSearch')?' or clear your search':''}.</div>`:''}
       ${recipes.map((r,i)=>{
         const inPlan = isPlanItem('mealPlan', r.id);
         // Shared Warm Spice photo card (Rule Zero) — identical to World Kitchen's
@@ -15527,7 +15527,7 @@ function feedingFamilyHTML(){
       tagline:'Everyday cooking — morning to night, and something sweet',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/'+encodeURIComponent('Feeding My Family')+'.jpg',
       backJs:"set({screen:'home'})", backLabel:'← Home',
-      search:{ value:S.mealSearch||'', oninput:"liveSearch(this,'fmfSearchResults',{sections:['meals','bakes','floor'],stateKey:'mealSearch'})", clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search all family meals…' }
+      search:{ value:searchVal('mealSearch'), oninput:"liveSearch(this,'fmfSearchResults',{sections:['meals','bakes','floor'],stateKey:'mealSearch'})", clearJs:"set({mealSearch:'',searchResults:[]})", placeholder:'Search all family meals…' }
     })}
     <div class="content" style="padding:16px;max-width:600px;margin:0 auto;">
       <div id="fmfSearchResults"></div>

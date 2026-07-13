@@ -7,6 +7,17 @@ function setQuiet(upd){
   draw();
 }
 
+// ── MF59-B · RENDER-EMPTY-ON-ENTRY (Law 31). ──────────────────────
+// The search query belongs to the ONE screen it was typed on. searchVal()
+// derives the input's value AT RENDER: it returns the persisted query ONLY
+// while we are still on its owner screen; on any screen change the owner is
+// nulled (in draw(), the floor every nav path lands on — Law 33), so the box
+// renders empty on the way IN without ever clearing the query on the way OUT.
+// Same screen re-render (backspace) → owner matches → query survives (MF46).
+function searchVal(key){
+  return (typeof S !== 'undefined' && S._searchOwner === S.screen) ? (S[key] || '') : '';
+}
+
 // ── MF46 · ONE live-search helper (the globalSearchLive pattern, LIFTED not invented). ──
 // The <input> lives inside the template draw() rebuilds, so oninput="set({xSearch})" fired
 // draw() → #root rebuilt → the element being typed into DESTROYED mid-keystroke ("La"). This
@@ -21,7 +32,7 @@ function liveSearch(inputEl, resultsId, spec){
   spec = spec || {};
   if(typeof S !== 'undefined'){
     S.searchPrevScreen = S.screen;                       // Back target once a result opens
-    if(spec.stateKey) S[spec.stateKey] = inputEl.value;  // silent persist — NO draw()
+    if(spec.stateKey){ S[spec.stateKey] = inputEl.value; S._searchOwner = S.screen; }  // silent persist — NO draw(); MF59-B · this query belongs to THIS screen
   }
   clearTimeout(inputEl._tinzaDeb);
   inputEl._tinzaDeb = setTimeout(function(){
@@ -475,6 +486,7 @@ function draw(){
   const currContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
   const sameContext = prevContext === currContext;
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
+  if(screenChanged) S._searchOwner = null;   // MF59-B · a query belongs to the screen it was typed on; on any screen change it is no longer on-screen. Runs BEFORE section content renders this pass, so searchVal() reads the nulled owner in the same draw (Law 31/33).
   // Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit.
   if((root._lastScreen||'') === "worldkitchen" && S.screen !== "worldkitchen"){
     S.wkPlan = []; S.wkBump = {};
@@ -2410,9 +2422,9 @@ function sectionHeader(o){
     if(s.onclick){
       searchEl = `<div onclick="${s.onclick}" style="flex:1;padding:7px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;color:var(--accent2);font-size:13px;cursor:text;">🔍 ${s.placeholder||'Search recipes…'}</div>`;
     } else {
-      searchEl = `<div style="flex:1;display:flex;align-items:center;padding:4px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;">
-        <span style="color:var(--accent2);margin-right:6px;font-size:13px;">🔍</span>
-        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;width:100%;background:none;border:none;outline:none;color:var(--on-media-soft);font-size:13px;min-width:0;" />
+      searchEl = `<div style="flex:1;display:flex;align-items:center;min-height:48px;box-sizing:border-box;padding:4px 12px;background:rgba(15,8,4,0.75);border:1px solid #4a2a10;border-radius:8px;">
+        <span style="color:var(--accent2);margin-right:8px;font-size:16px;">🔍</span>
+        <input type="text" placeholder="${s.placeholder||'Search recipes…'}" oninput="${s.oninput||''}" value="${s.value||''}" style="flex:1;width:100%;background:none;border:none;outline:none;color:var(--on-media-soft);font-size:16px;line-height:24px;min-width:0;" />
         ${s.value?`<button onclick="${s.clearJs||''}" style="background:none;border:none;color:var(--on-media-soft);font-size:15px;cursor:pointer;flex-shrink:0;">×</button>`:''}
       </div>`;
     }
