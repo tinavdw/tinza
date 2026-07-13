@@ -185,7 +185,9 @@ function tinzaAllSearch(query, opts){
       sub: r.feel || r.cuisine || '', score:score });
   }
   hits.sort(function(a,b){ return b.score - a.score; });
-  return hits.slice(0, 40);
+  var out = hits.slice(0, 40);   // MF67 · render cap STAYS at 40 (Law 36 · load-bearing) — do not change what renders
+  out.total = hits.length;       // MF67 · carry the TRUE pre-slice count so the label can tell the truth
+  return out;
 }
 
 // Non-live entry (kept for callers that jump straight to the results screen).
@@ -268,7 +270,12 @@ function renderSearchResults(q, results) {
   var _scope = (typeof S!=='undefined') ? S.searchScope : null;
   var _lbl = (typeof S!=='undefined' && S.searchScopeLabel) ? S.searchScopeLabel   // MF56 · explicit sub-screen label ("Breakfast")
            : (_scope && _scope.length) ? (_SEARCH_SECTION_LABEL[_scope[0]] || _scope[0]) : 'Tinza';
-  var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + results.length + ' recipe' + (results.length!==1?'s':'') + ' found in ' + _lbl + '</div>';
+  // MF67 · the count tells the TRUE total; the render cap (40) stays. results.total is the pre-slice length.
+  var _total = (results && results.total != null) ? results.total : results.length;
+  var _countLine = (_total > 40)
+    ? 'Showing the best 40 of ' + _total + ' — keep typing to narrow.'
+    : (_total + ' recipe' + (_total!==1?'s':'') + ' found in ' + _lbl);
+  var html = '<div style="font-size:11px;color:#4a3020;margin-bottom:12px;">' + _countLine + '</div>';
   results.forEach(function(hit, idx) {
     var r = hit.r;
     var name = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name||'');
