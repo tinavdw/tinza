@@ -15594,59 +15594,84 @@ async function findFourIngredients(){
   });
   dbMatches.sort((a, b) => b._matchCount - a._matchCount);
 
-  // Call Tinza Chef for generated recipes
-  try {
-    const prompt = `You are Tinza Chef, a South African recipe assistant.
-The user has these ingredients: ${ing.join(', ')}
+  // ── MF77-B — the app answers first, the chef catches up ─────────────
+  // Copied from callMoodChef() (core.js:1959). Show the DB now. Draw. Then fire.
+  const cacheKey = ingLower.slice().sort().join('|');
 
-Generate 4 different recipe ideas that use most or all of these ingredients.
-For each recipe, note which of the user's ingredients it uses.
+  setQuiet({
+    _fourResults : dbMatches,          // ALL of them — never a slice ⚖️ Law 36
+    _fourPage    : 5,                  // show 5, "show more" adds 5
+    _fourLoading : false,              // ← THE SPINNER IS OFF. She is already reading.
+    _fourError   : dbMatches.length ? null : null,
+    _fourAI      : null,
+    _fourAILoading : false
+  });
+  draw();
 
-Return ONLY a JSON array (no markdown, no backticks):
-[
-  {
-    "name": "Recipe Name",
-    "emoji": "single emoji",
-    "time": 30,
-    "cuisine": "cuisine type",
-    "uses": ["ingredient1", "ingredient2"],
-    "missing": ["other ingredient needed"],
-    "serves": 4,
-    "ingredients": [
-      {"n": "ingredient name", "pp": 100, "u": "g", "userHas": true},
-      {"n": "another ingredient", "pp": 15, "u": "ml", "userHas": false}
-    ],
-    "method": ["Step 1", "Step 2", "Step 3"],
-    "tip": "One useful tip"
+  // Tinza Chef only wakes up when the app is THIN — and only for Pro. (Tina, 13 Jul.)
+  if (dbMatches.length < 10 && typeof tierLevel === 'function' && tierLevel() >= 1) {
+    startFourAIFetch(ing, dbMatches, cacheKey);   // fire and FORGET. No await.
   }
-]
+}
 
-Rules:
-- All amounts in grams (g) or millilitres (ml) only
-- pp = amount per 1 serving
-- userHas = true if this ingredient was provided by the user
-- Keep it practical and South African-friendly
-- Generate exactly 4 recipes`;
+// ── MF77-B — Tinza Chef, in the background. Never blocks. ───────────────
+const _fourCache = {};   // same fridge → never a second API call (⚖️ Law 20)
 
+async function startFourAIFetch(ing, dbMatches, cacheKey){
+  if (S._fourAILoading || S._fourAI) return;                 // already running / done
+  if (_fourCache[cacheKey]) {                                // free, instant
+    setQuiet({ _fourAI: _fourCache[cacheKey] }); draw(); return;
+  }
+  setQuiet({ _fourAILoading: true }); draw();
+
+  // The names the app already gave her. The chef may NEVER repeat one.
+  const taken = dbMatches.map(r => r.name).join(', ');
+
+  const prompt = `You are Tinza Chef, a South African recipe assistant.
+The cook has: ${ing.join(', ')}.
+
+Suggest 4 REAL, EXISTING dishes that genuinely use these ingredients.
+
+ABSOLUTE RULES — breaking any one of these is a failure:
+1. NEVER alter a traditional dish to fit the ingredients. A bobotie has no potato in it.
+   If a classic dish does not truly use these ingredients, DO NOT suggest it.
+2. NEVER use the name of a traditional or named dish (Bobotie, Cottage Pie, Bunny Chow,
+   Moussaka, Bredie, Potjiekos...). Give an honest descriptive name instead:
+   "Mince & Potato Bake", not "Bobotie".
+3. NEVER suggest any of these — the app has already offered them: ${taken || '(none)'}
+4. If an ingredient the cook has does not belong in the dish, LEAVE IT OUT and say so
+   in "missing" — do not force it in.
+5. South African ingredients and shops. Grams and millilitres only.
+
+Return ONLY a JSON array of exactly 4 (no markdown, no backticks):
+[{"name":"Honest Descriptive Name","emoji":"single emoji","time":30,"cuisine":"style",
+  "uses":["ingredient"],"missing":["what she still needs"],"serves":4,
+  "ingredients":[{"n":"name","pp":100,"u":"g","userHas":true}],
+  "method":["Step 1","Step 2"],"tip":"One useful tip"}]`;
+
+  try {
     const resp = await fetch('/.netlify/functions/claude', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:2000,
-        messages:[{role:'user',content:prompt}]})
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:2000,
+        messages:[{ role:'user', content: prompt }] })
     });
-    const data = await resp.json();
-    const text = (data.content||[]).map(b=>b.text||'').join('');
+    const data  = await resp.json();
+    const text  = (data.content||[]).map(b=>b.text||'').join('');
     const clean = text.replace(/```json|```/g,'').trim();
-    const chefRecipes = JSON.parse(clean);
-    chefRecipes.forEach(r=>{ r._source='chef'; r._matchCount=(r.uses||[]).length; });
+    let chef = JSON.parse(clean);
+    if (!Array.isArray(chef)) chef = [];
 
-    // Combine: db matches first, then chef recipes
-    const combined = [...dbMatches.slice(0,2), ...chefRecipes];
-    setQuiet({_fourResults:combined, _fourLoading:false, _fourError:null});
-  } catch(e){
-    // Even if chef fails, show db results
-    setQuiet({_fourResults:dbMatches.length>0?dbMatches:[], _fourLoading:false,
-      _fourError:dbMatches.length===0?'No recipes found. Try different ingredients.':null});
+    // BELT AND BRACES — the model was told not to repeat. Enforce it anyway. ⚖️ Law 22.
+    const takenLower = dbMatches.map(r => String(r.name).toLowerCase().trim());
+    chef = chef.filter(r => r && r.name && !takenLower.includes(String(r.name).toLowerCase().trim()));
+    chef.forEach(r => { r._source = 'chef'; r._matchCount = (r.uses||[]).length; });
+
+    _fourCache[cacheKey] = chef;
+    setQuiet({ _fourAI: chef, _fourAILoading: false });
+    draw();                                      // she never sees it arrive
+  } catch (e) {
+    setQuiet({ _fourAILoading: false });         // the app results stay. Nothing is lost.
+    draw();
   }
 }
 
@@ -15724,6 +15749,7 @@ Rules: all amounts in g or ml, pp = per serving, userHas true only for ${ingredi
 }
 
 function openFourRecipe(i){ var a=S._fourResults||[]; if(a[i]) setQuiet({_fourActiveRecipe:a[i]}); }
+function openFourChefRecipe(i){ var a=S._fourAI||[]; if(a[i]) setQuiet({_fourActiveRecipe:a[i]}); }
 function openAnchorRecipe(i){ var a=S._anchorResults||[]; if(a[i]) setQuiet({_anchorActiveRecipe:a[i]}); }
 
 // ── 4 INGREDIENTS — opening page (warm v33 template) ──
@@ -15780,18 +15806,47 @@ function fourIngredientsHTML(){
 
       ${error?`<div style="background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#e0d4b8;text-align:center;">${error}</div>`:''}
 
-      ${loading?`<div style="text-align:center;padding:30px;">
-        <div style="font-size:32px;margin-bottom:12px;">👨‍🍳</div>
-        <div style="font-size:14px;color:${color};">Finding recipes from your ingredients…</div>
-      </div>`:''}
-
-      ${results&&results.length>0&&!loading?`
-        <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;margin-bottom:10px;">Recipes you can make</div>
-        ${results.map((r,i)=>recipeResultCard(r,"openFourRecipe("+i+")",color)).join('')}
-        <button onclick="findFourIngredients()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">🔄 Find again</button>
-      `:''}
-
-      ${results&&results.length===0&&!loading&&!error?`<div style="text-align:center;padding:20px;color:#e0d4b8;font-size:13px;">No matches yet — try different ingredients.</div>`:''}
+      ${(function(){
+        var appR = results || [];
+        var total = appR.length;
+        var page = S._fourPage || 5;
+        var shown = appR.slice(0, page);
+        var remaining = total - shown.length;
+        var ai = S._fourAI || [];
+        var aiLoading = S._fourAILoading;
+        var isPro = (typeof tierLevel==='function' && tierLevel() >= 1);
+        var out = '';
+        // MF77-B · Law 36 — the honest count, then EVERY app card (never a slice)
+        if(total > 0){
+          var countLine = ai.length
+            ? (total + ' in Tinza · ' + ai.length + ' from Tinza Chef')
+            : (total + ' recipe' + (total!==1?'s':'') + ' in Tinza');
+          out += '<div style="font-size:13px;letter-spacing:2px;color:'+color+';text-transform:uppercase;margin-bottom:10px;">' + countLine + '</div>';
+          out += shown.map(function(r,i){ return recipeResultCard(r,"openFourRecipe("+i+")",color); }).join('');
+          if(remaining > 0){
+            out += '<button onclick="setQuiet({_fourPage:(S._fourPage||5)+5});draw();" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid '+border+';color:'+color+';font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:8px;">Show 5 more (' + remaining + ' left)</button>';
+          }
+        } else if(!aiLoading && ai.length===0 && !error){
+          out += '<div style="text-align:center;padding:20px;color:#e0d4b8;font-size:13px;">No matches yet — try different ingredients.</div>';
+        }
+        // MF77-B · Tinza Chef gets his OWN room — NEVER mixed with the app's cards.
+        var chefRelevant = aiLoading || ai.length>0 || (!isPro && total < 10);
+        if(chefRelevant){
+          out += '<div style="border-top:1px solid '+border+';margin:22px 0 14px;"></div>';
+          out += '<div style="margin-bottom:12px;"><div style="font-size:15px;color:#f5e8cc;font-weight:bold;">🤖 Tinza Chef\'s ideas</div><div style="font-size:12px;color:#8a7055;font-style:italic;margin-top:2px;">Not Tinza recipes — fresh ideas for what you have.</div></div>';
+          if(!isPro){
+            out += '<div style="background:#161210;border:1px solid '+border+';border-radius:10px;padding:14px;font-size:13px;color:#e0d4b8;line-height:1.5;">Pro also asks <strong style="color:#f5c842;">Tinza Chef</strong> to invent fresh ideas from what is in your fridge.</div>';
+          } else if(aiLoading){
+            out += '<div style="padding:10px 2px;font-size:13px;color:'+color+';font-style:italic;">Tinza Chef is thinking…</div>';
+          } else {
+            out += ai.map(function(r,i){ return recipeResultCard(r,"openFourChefRecipe("+i+")",color); }).join('');
+          }
+        }
+        if(total>0 || ai.length>0){
+          out += '<button onclick="findFourIngredients()" style="width:100%;padding:11px;border-radius:10px;background:#161210;border:1px solid '+color+';color:'+color+';font-size:13px;cursor:pointer;margin-top:8px;margin-bottom:20px;">🔄 Find again</button>';
+        }
+        return out;
+      })()}
     </div>
   </div>`;
 }
