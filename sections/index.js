@@ -68,8 +68,7 @@
     // MF58 · index the ingredient NOUN only, not the weight/prep annotation after the em-dash
     // ("Pork spareribs — 450g raw per person" → "pork spareribs"). Kills the raw/cooked/dry/
     // per-person noise that returned whole rooms. (Display `ingredients` keep the full string.)
-    var bits = [ o.name, o.nameAlt, (o.aliases||[]).join(' '), o.cuisine, o.country,
-                 (o.goesWith||[]).join(' ') ]
+    var bits = [ o.name, o.nameAlt, (o.aliases||[]).join(' '), o.cuisine, o.country ]   // MF62 · goesWith REMOVED from searchText — a cross-link is content about ANOTHER dish (Law 30)
                  .concat(ings.map(function(i){ return String(i.n||'').split('—')[0]; }));
     return {
       // ── §1 normalised contract ──
