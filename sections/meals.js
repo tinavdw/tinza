@@ -15560,24 +15560,39 @@ async function findFourIngredients(){
 
   setQuiet({_fourLoading:true, _fourResults:null, _fourError:null});
 
-  // First search the app database
-  const allRecipes = [
-    ...(BREAKFAST_RECIPES||[]), ...(LIGHTLUNCH_RECIPES||[]),
-    ...(SUPPER_RECIPES||[]), ...(BAKES_RECIPES||[]),
-    ...(POPULAR_RECIPES.sa||[]), ...(POPULAR_RECIPES.international||[]),
-    ...(WK_RECIPES||[]).filter(r=>r.ingredients),
-  ];
+  // MF77 — the finder reads the ONE index. No second corpus. ⚖️ Law 6.
+  // mealRole is the finder switch (index.js:83). It already excludes
+  // pet / baby / condiment / drink / bake / basic — the dog food excludes itself.
+  const pool = (typeof allRecipes === 'function')
+    ? (allRecipes({ mealRole: ['main','side'] }) || [])
+    : [];
 
-  const ingLower = ing.map(i=>i.toLowerCase());
+  // MF85 — 13 recipes keep their food inside versions[] and leave the top-level
+  // ingredients array EMPTY. Read both, or Creamy Mac & Cheese can never be found.
+  const ingredientText = (r) => {
+    const names = (list) => (Array.isArray(list) ? list : [])
+      .map(x => typeof x === 'string' ? x : (x && (x.n || x.name) || ''))
+      .join(' ');
+    return (names(r.ingredients) + ' ' +
+            (r.versions || []).map(v => names(v.ingredients)).join(' ')).toLowerCase();
+  };
+
+  // ⚖️ LAW 41 — A MATCH OF 2-OF-4 IS NOT A MATCH. IT IS A COINCIDENCE.
+  // Measured 13 Jul: at 2-of-4, mince+potato+onion+tomato returns a GREEK SALAD (214 hits).
+  // At 3-of-4 it returns Cottage Pie, Shepherd's Pie, Moussaka. The threshold IS the feature.
+  // 2 in → 2 of 2 · 3 in → 3 of 3 · 4 in → 3 of 4.
+  const need = Math.min(ing.length, 3);
+
+  const ingLower = ing.map(i => i.toLowerCase());
   const dbMatches = [];
-  allRecipes.forEach(r=>{
-    const recipeText = JSON.stringify(r).toLowerCase();
-    const matched = ingLower.filter(i=>recipeText.includes(i));
-    if(matched.length >= 2){
-      dbMatches.push({...r, _matchCount:matched.length, _matched:matched, _source:'db'});
+  pool.forEach(r => {
+    const hay = ingredientText(r);            // ingredients ONLY — never the trivia or chefNotes
+    const matched = ingLower.filter(i => hay.includes(i));
+    if (matched.length >= need) {
+      dbMatches.push({ ...r, _matchCount: matched.length, _matched: matched, _source: 'db' });
     }
   });
-  dbMatches.sort((a,b)=>b._matchCount-a._matchCount);
+  dbMatches.sort((a, b) => b._matchCount - a._matchCount);
 
   // Call Tinza Chef for generated recipes
   try {
