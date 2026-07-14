@@ -1988,6 +1988,7 @@ function getMoreMoodRecipes(moodId) {
   const mood = MOODS.find(m => m.id === moodId);
   const nextPage = (S.moodPage || 0) + 1;
   S.moodPage = nextPage;
+  const _dbPages = Math.ceil(((MOOD_DB[moodId]||[]).length) / 3);   // MF116-A · count the DB pages, don't assume 2
 
   // DB page 1 (recipes 4-6)
   const dbPage = getMoodPageRecipes(moodId, nextPage);
@@ -1998,7 +1999,7 @@ function getMoreMoodRecipes(moodId) {
   }
 
   // DB exhausted — use AI recipes if ready
-  const aiOffset = (nextPage - 2) * 3; // pages 2,3 use AI bank
+  const aiOffset = (nextPage - _dbPages) * 3;   // MF116-A · AI bank starts after the real DB pages
   if (S.moodAIRecipes && S.moodAIRecipes.length > aiOffset) {
     S.moodRecipes = S.moodAIRecipes.slice(aiOffset, aiOffset + 3);
     draw();
@@ -2013,7 +2014,7 @@ function getMoreMoodRecipes(moodId) {
     const poll = setInterval(() => {
       if (!S.moodAILoading) {
         clearInterval(poll);
-        const aiOff = ((S.moodPage||0) - 2) * 3;
+        const aiOff = ((S.moodPage||0) - _dbPages) * 3;
         S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
         if (S.moodRecipes.length === 0) {
           S.moodRecipes = [{_error:true, _msg:'No more recipes found. Try a different mood.'}];
@@ -2029,7 +2030,7 @@ function getMoreMoodRecipes(moodId) {
     S.moodRecipes = [{_waiting:true}];
     draw();
     startMoodAIFetch(mood).then(() => {
-      const aiOff = ((S.moodPage||0) - 2) * 3;
+      const aiOff = ((S.moodPage||0) - _dbPages) * 3;
       S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
       if (S.moodRecipes.length === 0) {
         S.moodRecipes = [{_error:true, _msg:'No more recipes right now. Try again shortly.'}];
