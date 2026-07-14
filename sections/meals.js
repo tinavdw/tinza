@@ -15959,6 +15959,11 @@ var BAKES_SLICE_DEFAULT = { cakes:12, cheesecakes:12 };
 var BAKES_BATCH_DEFAULT = { biscuits:30 };
 function bakesPortion(r){
   if(!r) return null;
+  // MF110 — bakesPortion() only ever speaks for BAKES. A mood card (core.js:1938 bolts on
+  // serves:1), a mood AI card (core.js:1963 _fromAI) and a chef card (meals.js:15667/15742
+  // _source:'chef', prompt writes "serves":4) all carry `serves` but are NOT bakes — so a
+  // rice bowl / chicken dish rendered "makes N cakes · serves N · 1 slice each".
+  if (r._fromDB || r._fromAI || r._source === 'chef') return null;
   var cat = (r.cat||'').toLowerCase();
   if(r.serves) return { mode:'slice', perBatch:r.serves, unitWord:(cat==='cheesecakes'?'cheesecake':cat==='pastries'?'tart':'cake'), pieceWord:'slice' };
   if(r.makes)  return { mode:'batch', perBatch:r.makes,  unitWord:'batch', pieceWord:'piece' };
