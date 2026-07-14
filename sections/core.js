@@ -2126,7 +2126,7 @@ function moodHTML(){
                 </div>
               </div>
             </div>`).join('')}
-          ${sectionPlanBtn('moodPlan','Just Feed Me','😋','#8060c0','#0f0818','#2a1840',S.moodServings||1,"setQuiet({moodPlanView:true})")}
+          ${sectionPlanBtn('moodPlan','Just Feed Me','😋','#8060c0','#0f0818',S.moodServings||1,"setQuiet({moodPlanView:true})")}
 
           <button onclick="getMoreMoodRecipes('${mood.id}')"
             style="width:100%;padding:11px;border-radius:10px;background:#0a0812;border:1px solid ${mood.colour};color:${mood.colour};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
