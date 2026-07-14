@@ -80,8 +80,8 @@
       return '';
     }
     function fromCourse(v){
-      if(/main/.test(v))             return 'SUPPER';
-      if(/\bside/.test(v))           return 'SIDE';
+      if(/main|soup/.test(v))        return 'SUPPER';   // MF119-B · soup is a main (index.js rules soup→main)
+      if(/\bside|salad/.test(v))     return 'SIDE';     // MF119-B · salad is a side
       if(/drink|beverage/.test(v))   return 'DRINK';
       if(/dessert|sweet|treat/.test(v)) return 'TREAT';
       if(/starter|snack|appet/.test(v)) return 'STARTER';
@@ -96,11 +96,23 @@
       if(v==='tiny')                 return 'BABYFOOD';
       return '';
     }
+    // MF119-B · every record already carries mealRole — the last real signal before we give
+    // up. component→SUPPER: a keto/health dinner IS supper (the whole point of 'being healthy').
+    function fromRole(v){
+      if(v==='main')      return 'SUPPER';
+      if(v==='side')      return 'SIDE';
+      if(v==='drink')     return 'DRINK';
+      if(v==='condiment') return 'CONDIMENT';
+      if(v==='snack')     return 'TREAT';
+      if(v==='component') return 'SUPPER';
+      return '';
+    }
     return fromMealCat(lc(o.mealCat))
         || fromCat(lc(o.cat))
         || fromCourse(lc(o.course))
         || fromSection(lc(o.section))
-        || 'unknown';
+        || fromRole(lc(o.mealRole))
+        || 'unknown';   // MF119-B · the ratchet stays — emptied, never deleted (Law 45)
   }
 
   // ── the normalised record (a superset: §1 index fields + read-only render
