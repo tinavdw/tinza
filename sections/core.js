@@ -1993,7 +1993,7 @@ function getMoreMoodRecipes(moodId) {
   // DB page 1 (recipes 4-6)
   const dbPage = getMoodPageRecipes(moodId, nextPage);
   if (dbPage) {
-    S.moodRecipes = dbPage;
+    S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat(dbPage);   // MF116-B · MORE adds, never deletes
     draw();
     return;
   }
@@ -2001,7 +2001,7 @@ function getMoreMoodRecipes(moodId) {
   // DB exhausted — use AI recipes if ready
   const aiOffset = (nextPage - _dbPages) * 3;   // MF116-A · AI bank starts after the real DB pages
   if (S.moodAIRecipes && S.moodAIRecipes.length > aiOffset) {
-    S.moodRecipes = S.moodAIRecipes.slice(aiOffset, aiOffset + 3);
+    S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat(S.moodAIRecipes.slice(aiOffset, aiOffset + 3));   // MF116-B · MORE adds, never deletes
     draw();
     return;
   }
@@ -2015,7 +2015,7 @@ function getMoreMoodRecipes(moodId) {
       if (!S.moodAILoading) {
         clearInterval(poll);
         const aiOff = ((S.moodPage||0) - _dbPages) * 3;
-        S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
+        S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat((S.moodAIRecipes||[]).slice(aiOff, aiOff + 3));   // MF116-B · MORE adds, never deletes
         if (S.moodRecipes.length === 0) {
           S.moodRecipes = [{_error:true, _msg:'No more recipes found. Try a different mood.'}];
         }
@@ -2031,7 +2031,7 @@ function getMoreMoodRecipes(moodId) {
     draw();
     startMoodAIFetch(mood).then(() => {
       const aiOff = ((S.moodPage||0) - _dbPages) * 3;
-      S.moodRecipes = (S.moodAIRecipes||[]).slice(aiOff, aiOff + 3);
+      S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat((S.moodAIRecipes||[]).slice(aiOff, aiOff + 3));   // MF116-B · MORE adds, never deletes
       if (S.moodRecipes.length === 0) {
         S.moodRecipes = [{_error:true, _msg:'No more recipes right now. Try again shortly.'}];
       }
