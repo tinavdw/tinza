@@ -267,4 +267,37 @@ head('10 · DOES EVERY CARD CARRY 🥬 DIET · ⏱️ TIME · 💰 COST?   ⚖�
     '\n      \x1b[2mindex.js:483 — if(r.costPP==null) return false.  A R100 budget searches ' + (n-nocost) + ', not ' + n + '.\x1b[0m');
 }
 
+// ══ 11 · THE MEAL SLOT ═══════════════════════════════════════ MF119 · Law 42 ══
+head('11 · CAN TINZA TELL BREAKFAST FROM SUPPER?   ⚖️ Law 45 — empty is unknown, never "no"');
+{
+  // The canonical slot vocabulary. slot() (index.js) may only ever emit one of these,
+  // or 'unknown'. Anything else means a foreign value leaked in — the tripwire below.
+  const CANON = ['SUPPER','LUNCH','BREAKFAST','SIDE','STARTER','TREAT','DRINK','CONDIMENT','PETFOOD','BABYFOOD'];
+  const counts = {}; let present = 0, unknown = 0, missing = 0; const foreign = {};
+  all.forEach(r => {
+    const s = r.slot;
+    if (s == null || s === '') { missing++; return; }
+    present++;
+    if (s === 'unknown') { unknown++; return; }
+    if (CANON.indexOf(s) < 0) { foreign[s] = (foreign[s]||0) + 1; }   // not canonical, not unknown → leak
+    counts[s] = (counts[s]||0) + 1;
+  });
+  p('     ' + num(present) + '  slot present          \x1b[2m← must be ' + all.length + '\x1b[0m');
+  p('     ' + num(unknown) + '  unknown               \x1b[2m← this number must never grow\x1b[0m');
+  p('           ' + CANON.filter(k=>counts[k]).map(k => counts[k] + ' ' + k).join(' · '));
+
+  if (missing) bad(missing + ' recipes have NO slot field at all',
+    '\n      \x1b[2m⚖️ Law 45 — a blank slot is a silent miss, not an answer.\x1b[0m');
+  if (unknown) bad(unknown + ' recipes are UNKNOWN — the ratchet slipped',
+    '\n      \x1b[2m⚖️ Law 42/45 — unknown may only ever SHRINK. It was 0. Find what stopped resolving.\x1b[0m');
+  else if (!missing) ok('Every recipe knows its slot', '0 unknown · 0 missing');
+
+  // THE COLLISION TRIPWIRE — WK's raw `occasion` is a DIFFERENT axis (117 free-text values).
+  // slot() must never read it. If it did, an occasion string would show up as a slot value.
+  if (Object.keys(foreign).length) bad("WK's raw `occasion` is being read as a slot",
+    '\n      ' + Object.entries(foreign).map(([k,v])=>k+' ('+v+')').join(' · ') +
+    '\n      \x1b[2m⚖️ Law 46 — one axis, one column. `occasion` is not a meal slot.\x1b[0m');
+  else ok("No `occasion` value has leaked into slot", 'the axis is clean');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
