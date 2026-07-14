@@ -487,6 +487,7 @@ function draw(){
   const sameContext = prevContext === currContext;
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
   if(screenChanged) S._searchOwner = null;   // MF59-B · a query belongs to the screen it was typed on; on any screen change it is no longer on-screen. Runs BEFORE section content renders this pass, so searchVal() reads the nulled owner in the same draw (Law 31/33).
+  if(screenChanged) S.viewingRecipe = null;     // MF95 · the RECIPE belongs to the screen it was opened on
   // Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit.
   if((root._lastScreen||'') === "worldkitchen" && S.screen !== "worldkitchen"){
     S.wkPlan = []; S.wkBump = {};
