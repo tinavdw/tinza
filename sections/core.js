@@ -2188,10 +2188,10 @@ function homeHTML(){
 
   const featureTools = [
     {s:"search",    e:"🔍", t:"Search & Discover",    sub:"Find any recipe instantly",                    b:"var(--accent)", bg:"var(--card2)", reset:"searchScope:null"},
-    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"var(--accent)", bg:"var(--card2)"},
     {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"var(--accent)", bg:"var(--card2)"},
     {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"var(--accent)", bg:"var(--card2)"},
     {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"var(--accent)", bg:"var(--card2)", reset:"budget:null,budgetAmount:null,budgetSearch:'',budgetStep:1,_budgetResults:null,_budgetError:null,_budgetLoading:false,_budgetAILoading:false,_budgetActiveRecipe:null,budgetHowOpen:false,budgetPlanView:false"},
+    {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"var(--accent)", bg:"var(--card2)", reset:"anchorInput:'',_anchorResults:null,_anchorError:null,_anchorLoading:false,_anchorActiveRecipe:null,anchorHowOpen:false"},
     {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"var(--accent)", bg:"var(--card2)"},
   ];
 
