@@ -53,6 +53,11 @@ function liveSearch(inputEl, resultsId, spec){
 // exits. Plans, carts and slider values never revert — only the screen
 // you are looking at goes back one step.
 const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople'];
+// MF99 · Every room opened its own private "recipe is open" key, and goBack() only ever knew
+// about ONE of them (budget). These five all close the SAME way — setQuiet({key:null}) — which
+// is exactly what each room's own top-Back button already does. ⚖️ Law 6 · Law 35.
+const SIMPLE_RECIPE_KEYS = ['_anchorActiveRecipe','_fourActiveRecipe','_searchActiveRecipe',
+                            'moodActiveRecipe','mealActiveRecipe'];
 let _navRestoring = false;
 // Forward app-history depth = (history entries WE pushed) − (popstate-backs WE consumed).
 // 0 = sitting on the first app screen (nothing of ours to go back into). This is the
@@ -413,6 +418,12 @@ function goBack(){
     if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
     // (2) Universal recipe view → closeRecipe (cross-link aware; consumes its pushed entry).
     if(S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
+    // (2b) MF99 · A room's PRIVATE recipe view → close it the way that room's own Back does.
+    //      Without this, Back falls through to step (4) and dumps her on HOME. ⚖️ Law 6.
+    for(var _i=0; _i<SIMPLE_RECIPE_KEYS.length; _i++){
+      var _k = SIMPLE_RECIPE_KEYS[_i];
+      if(S[_k]){ var _p = {}; _p[_k] = null; setQuiet(_p); return; }
+    }
     // (3) Deeper inside the current section (a sub-view/recipe that DID push an entry) →
     //     step back ONE level within the section via the history it created. popstate's
     //     snapshot restore brings back the exact prior sub-state.
