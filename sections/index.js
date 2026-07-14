@@ -115,6 +115,22 @@
         || 'unknown';   // MF119-B · the ratchet stays — emptied, never deleted (Law 45)
   }
 
+  // MF94-A · ONE DIET VOCABULARY. Two authors named the same food two ways: World Kitchen
+  // JSON says 'vegetarian'/'omnivore', meals.js + budget_floor say 'veg'/'meat'. The filter
+  // learns one and goes blind to the other. Normalise to ONE word HERE, in rec(), and nowhere
+  // else — two vocabularies go in, one comes out. No data file is touched. ⚖️ Law 6 · Law 46.
+  var DIET_NORM = { veg:'vegetarian', meat:'omnivore' };   // nothing else is renamed
+  function normDiet(arr){
+    var seen = {}, out = [];
+    (arr||[]).forEach(function(d){
+      var k = String(d==null ? '' : d).toLowerCase().trim();   // lowercase + trim
+      if(!k) return;
+      k = DIET_NORM[k] || k;                                    // one word per food
+      if(!seen[k]){ seen[k] = 1; out.push(k); }                 // de-dupe (veg + vegetarian → one)
+    });
+    return out.length ? out : ['unknown'];                      // ⚖️ Law 45 — UNKNOWN IS NOT NO
+  }
+
   // ── the normalised record (a superset: §1 index fields + read-only render
   //    passthrough so the shared budget recipe-detail renders any result) ────
   function rec(o){
@@ -138,7 +154,7 @@
       nameRoman: o.nameRoman || '',
       emoji:     o.emoji || '🍽️',
       mealRole:  o.mealRole,                       // the finder switch
-      diet:      (o.diet||[]).map(lc),             // ALWAYS a lowercase array
+      diet:      normDiet(o.diet),                 // MF94-A · ONE vocabulary, de-duped; empty → ['unknown'] (Law 45)
       protein:   o.protein || null,
       cuisine:   o.cuisine || '',
       time:      o.time!=null ? o.time : null,
