@@ -15549,6 +15549,7 @@ function feedingFamilyHTML(){
 // ── 4 INGREDIENTS & ANCHOR INGREDIENT ────────────────────────────
 
 async function findFourIngredients(){
+  if (S._fourAILoading) return;   // MF108 · the chef is already thinking. Do not bill her twice.
   const ing = [
     S.ing1||'', S.ing2||'', S.ing3||'', S.ing4||''
   ].map(i=>i.trim()).filter(Boolean);
