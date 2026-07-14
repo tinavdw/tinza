@@ -61,6 +61,48 @@
     }).filter(function(i){ return i.n; });
   }
 
+  // MF119 — the MEAL SLOT. One coarse answer to "where in the day does this sit?",
+  // derived MOST-SPECIFIC-FIRST: the recipe's own mealCat, then its cat, then its WK
+  // course, then a per-section default. Empty is NEVER allowed to mean "no" — a blank
+  // at every level resolves to 'unknown', not to a silent miss. ⚖️ Law 45.
+  function slot(o){
+    function fromMealCat(v){
+      if(/break/.test(v))            return 'BREAKFAST';
+      if(/lunch/.test(v))            return 'LUNCH';
+      if(/supper|dinner/.test(v))    return 'SUPPER';
+      return '';
+    }
+    function fromCat(v){
+      if(/break/.test(v))                                                              return 'BREAKFAST';
+      if(/cake|cheesecake|pastr|tart|biscuit|cookie|rusk|muffin|scone|dessert|sweet|treat|bread|bun|loaf/.test(v)) return 'TREAT';
+      if(/salad|staple|\bside/.test(v))                                                return 'SIDE';
+      if(/stew|curr|roast|plate|handheld|soup|\bmain|\bbake/.test(v))                  return 'SUPPER';
+      return '';
+    }
+    function fromCourse(v){
+      if(/main/.test(v))             return 'SUPPER';
+      if(/\bside/.test(v))           return 'SIDE';
+      if(/drink|beverage/.test(v))   return 'DRINK';
+      if(/dessert|sweet|treat/.test(v)) return 'TREAT';
+      if(/starter|snack|appet/.test(v)) return 'STARTER';
+      return '';
+    }
+    function fromSection(v){
+      if(v==='bakes'||v==='sides')   return 'TREAT';
+      if(v==='spice')                return 'CONDIMENT';
+      if(v==='beverages')            return 'DRINK';
+      if(v==='braai')                return 'SUPPER';
+      if(v==='furry')                return 'FURRY';   // furry/tiny → their OWN slot, never a human meal
+      if(v==='tiny')                 return 'TINY';
+      return '';
+    }
+    return fromMealCat(lc(o.mealCat))
+        || fromCat(lc(o.cat))
+        || fromCourse(lc(o.course))
+        || fromSection(lc(o.section))
+        || 'unknown';
+  }
+
   // ── the normalised record (a superset: §1 index fields + read-only render
   //    passthrough so the shared budget recipe-detail renders any result) ────
   function rec(o){
@@ -75,6 +117,9 @@
       id:        o.id,
       section:   o.section,
       mealCat:   o.mealCat != null ? o.mealCat : null,   // MF56 · breakfast/lunch/supper for FMF sub-screen scope (NOT NAV_KEYS' mealCat — Law 23)
+      cat:       o.cat || '',                       // MF119 · raw section category (meals/bakes) — kept for slot() + display
+      course:    lc(o.course) || '',                // MF119 · raw WK course, lowercased (main/side/dessert/…)
+      slot:      slot(o),                           // MF119 · the derived MEAL SLOT — never blank, worst case 'unknown' (Law 45)
       name:      o.name || '',
       nameAlt:   o.nameAlt || '',                  // English gloss → tinzaDisplayName
       aliases:   o.aliases || [],                  // Latin fallbacks → tinzaRoman
@@ -125,7 +170,7 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:'meals', mealCat:kind, name:r.name, emoji:r.emoji,   // MF56 · store the kind it already knows
+          id:r.id, section:'meals', mealCat:kind, cat:r.cat, name:r.name, emoji:r.emoji,   // MF56 · store the kind it already knows · MF119 · carry cat
           mealRole: kind==='breakfast' ? 'component' : kind==='lunch' ? 'main' : mealRoleFromCat(r.cat),
           diet: r.diet ? [r.diet] : [],
           protein: r.protein||null, cuisine: r.cuisine||'',
@@ -176,7 +221,7 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:section, name:r.name, emoji:r.emoji, mealRole:role,
+          id:r.id, section:section, cat:r.cat, name:r.name, emoji:r.emoji, mealRole:role,   // MF119 · carry cat
           diet: r.diet ? [r.diet] : [], protein:r.protein||null, cuisine:r.cuisine||'',
           time: r.time!=null ? r.time : null,
           kcal:(r.nutrition && r.nutrition.kcal!=null)?r.nutrition.kcal:(r.kcal!=null?r.kcal:null),
@@ -261,7 +306,7 @@
                : 'component';                               // starter/dessert/other → component
 
       return rec({
-        id:r.id, section:'world', name:r.name, emoji:r.emoji||'🌍', mealRole:role,
+        id:r.id, section:'world', course:r.course, name:r.name, emoji:r.emoji||'🌍', mealRole:role,   // MF119 · stop discarding course (Law 46 · line 257)
         diet: toArr(r.diet).map(lc), protein:null,
         cuisine: r.cuisine||r.country||'', country:r.country,
         nameAlt:r.nameAlt, aliases:r.aliases,
