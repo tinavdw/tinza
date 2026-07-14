@@ -156,14 +156,27 @@ because a document that is wrong is SILENT.** ⚖️ **Law 3.**
 
 | trigger | file | asks |
 |---|---|---|
-| **`/law`** | `TINZA_LAW.md` | **How do we work?** |
-| **`/rule`** | `TINZA_RULINGS.md` | **What IS Tinza?** |
-| **`/bug`** | `BUG_STANDARD.md` | **How do we hunt?** |
-| **`/wow`** | `WOW_STANDARD.md` | **Is this recipe good enough?** |
-| **`/tinza`** | `TINZA_STANDARD.md` | **Does this sound like Tinza?** |
-| **`/wk`** | `TINZA_WK_STANDARD.md` | **World Kitchen content.** |
+| **`/law`** | **`TINZA_LAW.md`** *(root)* | **How do we work?** |
+| **`/rule`** | **`TINZA_RULINGS.md`** *(root)* | **What IS Tinza?** |
+| **`/bug`** | `standards/BUG_STANDARD.md` | **How do we hunt?** |
+| **`/wow`** | `standards/WOW_STANDARD.md` | **Is this recipe good enough?** |
+| **`/tinza`** | `standards/TINZA_STANDARD.md` | **Does this sound like Tinza?** |
+| **`/wk`** | `standards/TINZA_WK_STANDARD.md` | **World Kitchen content.** |
 
-**The board:** `TINZA_NOW.mermaid` — **what is in flight, right now.** *It carries no laws and no rulings any more. It is a BOARD, not a library.*
+**The board:** `TINZA_NOW.mermaid` *(root)* — **what is in flight, right now.**
+*It carries no laws and no rulings any more. **It is a BOARD, not a library.***
+
+### 📁 THE REPO, AFTER 14 JULY
+```
+sections/     the 29 .js files the app actually loads.  NOTHING ELSE IS LOADED.
+standards/    the files that answer a question, FOREVER.
+reference/    data that is still TRUE and gets looked up (prices, weights, photo maps).
+Archive/      HISTORY. Every closed brief, every old board. Nothing here is current.
+Tools/  Images/  netlify/
+```
+⚖️ **A STANDARD IS FOREVER. A BRIEF IS FOR A DAY.**
+🩸 **WHEN THE COMMIT IS GREEN, THE BRIEF IS HISTORY. MOVE IT.**
+⛔ **NEVER read anything in `Archive/` as if it were current.** *(It is where R50 went to die.)*
 
 ---
 
