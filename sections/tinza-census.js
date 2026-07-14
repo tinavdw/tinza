@@ -1,0 +1,270 @@
+#!/usr/bin/env node
+/* ══════════════════════════════════════════════════════════════════════════
+   TINZA CENSUS  ·  v1  ·  14 July 2026
+   READ-ONLY. It writes NOTHING. It only counts.
+
+   RUN:   node tinza-census.js
+   FROM:  the tinza repo root (where index.html lives)
+
+   The DOCTOR asks "is it broken?"  →  RED or GREEN.
+   The CENSUS asks "how much of it is there?"  →  A NUMBER.
+
+   ⚖️ LAW 36 — THE COUNT IS TRUTH. THE RENDER IS A COURTESY.
+   ⚖️ LAW 42 — THE RATCHET. Every bug you close adds a check here.
+                A bug the census catches cannot come back quietly.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const fs = require('fs'), path = require('path'), vm = require('vm');
+const ROOT = process.cwd();
+if (!fs.existsSync(path.join(ROOT, 'index.html'))) {
+  console.log('\x1b[31mNo index.html here. Run the census from the tinza repo root.\x1b[0m');
+  process.exit(2);
+}
+const p = (...a) => console.log(...a);
+const head = t => p('\n\x1b[1m\x1b[36m' + t + '\x1b[0m');
+const ok   = (t,d) => p('  \x1b[32m✔\x1b[0m ' + t + (d ? '  \x1b[2m'+d+'\x1b[0m' : ''));
+const bad  = (t,d) => p('  \x1b[31m✘ ' + t + '\x1b[0m' + (d ? '  '+d : ''));
+const warn = (t,d) => p('  \x1b[33m▲ ' + t + '\x1b[0m' + (d ? '  '+d : ''));
+const num  = n => String(n).padStart(5);
+
+// ── BOOT (same sandbox as the doctor) ────────────────────────────────────
+const loadOrder = (fs.readFileSync(path.join(ROOT,'index.html'),'utf8').match(/sections\/[A-Za-z0-9_.-]+\.js/g) || []);
+const ctx = { console:{log(){},warn(){},error(){}}, fetch:()=>Promise.reject(new Error('offline')),
+  setTimeout, clearTimeout, setInterval, clearInterval,
+  document:{getElementById:()=>null, addEventListener(){}, querySelector:()=>null},
+  localStorage:{getItem:()=>null,setItem(){},removeItem(){}}, navigator:{onLine:true}, location:{href:''} };
+ctx.window = ctx; vm.createContext(ctx);
+for (const f of loadOrder) { try { vm.runInContext(fs.readFileSync(path.join(ROOT,f),'utf8'), ctx, {filename:f}); } catch(e){} }
+const all = ctx.allRecipes ? ctx.allRecipes() : [];
+
+p('\n\x1b[1m\x1b[36m📊  TINZA CENSUS\x1b[0m  \x1b[2m' + new Date().toISOString().slice(0,16).replace('T',' ') + ' · read-only · writes nothing\x1b[0m');
+p('\x1b[2m    ' + all.length + ' recipes in the index\x1b[0m');
+
+// ══ 1 · SEARCH SPEED ═════════════════════════════════════════════ MF98 ══
+head('1 · IS THE SEARCH INSTANT?   ⚖️ she types, she must not wait');
+{
+  let calls = 0; const realNorm = ctx._searchNorm;
+  ctx._searchNorm = function(s){ calls++; return realNorm(s); };
+  const t0 = Date.now(); const hits = ctx.tinzaAllSearch('butternut'); const ms = Date.now()-t0;
+  ctx._searchNorm = realNorm;
+  p('     one keystroke ("butternut") → ' + num(ms) + ' ms · ' + calls.toLocaleString() + ' re-normalisations · ' + (hits.total||hits.length) + ' hits');
+  if (calls > all.length) {
+    bad('THE SEARCH RE-NORMALISES THE WHOLE APP ON EVERY LETTER',
+        '\n      ⚖️ Law 6 — normalise ONCE in rec() (index.js:66), not ' + calls.toLocaleString() + '× per keystroke.' +
+        '\n      \x1b[2mA tablet is 4-6× slower than this machine. Multiply it.\x1b[0m');
+  } else ok('Search is precomputed', ms + 'ms');
+}
+
+// ══ 2 · TWO SEARCH ENGINES? ══════════════════════════════════════════════
+head('2 · HOW MANY SEARCH ENGINES DOES TINZA HAVE?   ⚖️ SAMENESS — there must be ONE');
+{
+  const probes = ['vegetarian','vegan','chicken','butternut','bobotie'];
+  let disagree = 0;
+  probes.forEach(q => {
+    const a = (ctx.allRecipes({text:q})||[]).length;             // engine 1 · index.js
+    const b = (ctx.tinzaAllSearch(q)||[]).total || 0;            // engine 2 · utils.js  ← the live one
+    if (a !== b) disagree++;
+    p('     "' + q.padEnd(12) + '"  allRecipes{text}: ' + num(a) + '   tinzaAllSearch: ' + num(b) + (a!==b ? '   \x1b[31m← DISAGREE\x1b[0m' : ''));
+  });
+  if (disagree) bad(disagree + ' of ' + probes.length + ' queries give DIFFERENT answers',
+      '\n      \x1b[2mEngine 1 = allRecipes({text}) · index.js:489 — plain indexOf.' +
+      '\n      Engine 2 = tinzaAllSearch()   · utils.js:132  — word-start + VERSION prose.  ← the app uses this one\x1b[0m');
+  else ok('Both engines agree');
+}
+
+// ══ 3 · THE DIET LABELS ══════════════════════════════════════ MF94-A/B ══
+head('3 · CAN TINZA ANSWER "I AM VEGETARIAN"?');
+{
+  const words = {}; let none = 0;
+  all.forEach(r => { const d = r.diet||[]; if(!d.length){none++;return;} d.forEach(w=>words[w]=(words[w]||0)+1); });
+  Object.entries(words).sort((a,b)=>b[1]-a[1]).forEach(([w,n])=>p('     ' + num(n) + '  ' + w));
+  p('     ' + num(none) + '  \x1b[31m(NO LABEL AT ALL)\x1b[0m');
+  const cov = Math.round((all.length-none)/all.length*100);
+  if (cov < 100) bad('Only ' + cov + '% of recipes carry a diet label', '(' + none + ' unlabelled)');
+
+  // ⚖️ LAW 46 — ONE FOOD, ONE WORD
+  const synonyms = [['veg','vegetarian'],['meat','omnivore']];
+  synonyms.forEach(([a,b]) => {
+    if (words[a] && words[b]) bad('TWO WORDS FOR THE SAME FOOD: "' + a + '" (' + words[a] + ') and "' + b + '" (' + words[b] + ')',
+      '\n      \x1b[2m⚖️ Law 46 — the filter finds one room and goes blind to the other.\x1b[0m');
+  });
+
+  // ⚖️ LAW 45 — UNKNOWN IS NOT NO
+  const bySec = {};
+  all.forEach(r => { const s=r.section||'?'; bySec[s]=bySec[s]||{t:0,n:0}; bySec[s].t++; if(!(r.diet||[]).length) bySec[s].n++; });
+  const blind = Object.entries(bySec).filter(([,v]) => v.n === v.t).sort((a,b)=>b[1].t-a[1].t);
+  if (blind.length) bad(blind.length + ' ROOMS ARE COMPLETELY DIETARY-BLIND',
+    '\n      ' + blind.map(([s,v])=>s+' ('+v.t+')').join(' · ') +
+    '\n      \x1b[2m⚖️ Law 45 — an unlabelled recipe is being treated as MEAT. A chutney is not a steak.\x1b[0m');
+
+  // ⚖️ LAW 48 — VEGAN IS A KIND OF VEGETARIAN
+  const vgn = all.filter(r => (r.diet||[]).indexOf('vegan')>=0);
+  const lost = vgn.filter(r => (r.diet||[]).indexOf('vegetarian')<0 && (r.diet||[]).indexOf('veg')<0);
+  if (lost.length) bad(lost.length + ' VEGAN recipes are INVISIBLE to the vegetarian filter',
+    '\n      \x1b[2m⚖️ Law 48 — vegan is a KIND of vegetarian. A ladder, not a row of boxes.\x1b[0m');
+  else ok('Every vegan recipe is also vegetarian');
+}
+
+// ══ 4 · IS A DIET BEING READ OUT OF PROSE? ══════════════════════ MF94-E ══
+head('4 · IS TINZA READING A DIET OUT OF A SENTENCE?   ⚖️ Law 47');
+{
+  const DIETWORDS = ['vegetarian','vegan'];
+  const liars = [];
+  all.forEach(r => {
+    const tagged = (r.diet||[]).join(' ');
+    (r.versions||[]).forEach(v => {
+      const prose = ((v.name||'') + ' ' + (v.feel||'')).toLowerCase();
+      DIETWORDS.forEach(w => {
+        // the word is in the PROSE, but the recipe is NOT tagged with it
+        if (prose.indexOf(w) >= 0 && tagged.indexOf(w) < 0 && liars.length < 40) {
+          liars.push(r.name + '  \x1b[2m→ matches "' + w + '" via the "' + (v.name||'?') + '" version\'s prose\x1b[0m');
+        }
+      });
+    });
+  });
+  if (liars.length) {
+    bad(liars.length + ' MEAT RECIPES WILL ANSWER A VEGETARIAN/VEGAN SEARCH');
+    liars.slice(0,10).forEach(x => p('      \x1b[31m·\x1b[0m ' + x));
+    if (liars.length > 10) p('      \x1b[2m… and ' + (liars.length-10) + ' more\x1b[0m');
+    p('      \x1b[2m⚖️ Law 47 — a diet is a FACT, not a word in a sentence. A vegan was handed a lamb tagine.\x1b[0m');
+  } else ok('No diet is being matched against prose');
+}
+
+// ══ 5 · THE TOOL TILES ═══════════════════════════════════ MF89 · Law 31 ══
+head('5 · DOES EVERY TOOL OPEN WITH AN EMPTY BOX?   ⚖️ Law 31');
+{
+  // ONLY the featureTools grid. The ROOM tiles (braai, health…) are doors, not questions —
+  // they hold nothing and need no reset. Do not widen this regex or the census starts lying.
+  const core = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
+  const block = (core.match(/featureTools[\s\S]{0,2600}?\n\s*\]/) || [''])[0];
+  const tiles = [...block.matchAll(/\{\s*s\s*:\s*"([a-zA-Z]+)"([\s\S]{0,300}?)\}/g)]
+    .map(m => ({ id:m[1], reset: /reset\s*:/.test(m[2]) }));
+  const NOT_A_QUESTION = { weekplanner:'does not exist yet — a comingSoon page. Nothing to reset.' };
+  if (!tiles.length) { warn('Could not read featureTools — its shape changed. UPDATE THIS CHECK.'); }
+  tiles.forEach(t => {
+    if (NOT_A_QUESTION[t.id])  warn(t.id, NOT_A_QUESTION[t.id]);
+    else if (t.reset)          ok(t.id, 'opens empty');
+    else                       bad(t.id, 'NO reset: — it re-opens with her last answer still in it');
+  });
+}
+
+// ══ 6 · DOES EVERY ROOM HAVE A SEARCH BOX? ══════════════════ MF96 · v33 ══
+head('6 · DOES EVERY ROOM HAVE A SEARCH BOX?   ⚖️ SAMENESS');
+{
+  const files = fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js'));
+  const ROOMS = ['braai.js','spice.js','meals.js','health.js','kiddies.js','budget.js','events.js','worldkitchen.js','furry.js','tinyTummies.js'];
+  ROOMS.filter(f=>files.includes(f)).forEach(f => {
+    const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+    const hasHeader = /sectionHeader\s*\(/.test(src);
+    const hasLive   = /liveSearch\s*\(/.test(src) || /oninput\s*:/.test(src);
+    const hasNav    = /screen\s*=\s*'search_results'|screen:'search_results'/.test(src);
+    if (hasLive)        ok(f, 'inline live search');
+    else if (hasNav)    bad(f, 'search PILL only — it navigates away (and MF95: it may not close the open recipe)');
+    else if (!hasHeader)bad(f, 'NO sectionHeader() AT ALL — never migrated to v33  ⚖️ Law 34');
+    else                bad(f, 'sectionHeader() but NO SEARCH');
+  });
+}
+
+// ══ 7 · THE AMBUSH FAMILY ════════════════════════════════════════ MF95 ══
+head('7 · WHO CHANGES THE SCREEN WITHOUT CLOSING THE OPEN RECIPE?   ⚖️ Law 4');
+{
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
+  const PROVEN = { 'braai.js:28':1, 'spice.js:7982':1 };   // Tina's fingers, 14 Jul
+  const guilty = [], clean = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    const re = /(set\(\{[^}]*screen\s*:\s*['"][a-zA-Z_]+['"][^}]*\}\)|S\.screen\s*=\s*['"][a-zA-Z_]+['"][^;]*;)/g;
+    let m;
+    while ((m = re.exec(s))) {
+      const stmt = m[0];
+      const at = f + ':' + s.slice(0,m.index).split('\n').length;
+      const scr = (stmt.match(/screen\s*[:=]\s*['"]([a-zA-Z_]+)['"]/)||[])[1];
+      (/viewingRecipe\s*[:=]\s*(null|false)/.test(stmt) ? clean : guilty).push({at,scr});
+    }
+  });
+  const proven = guilty.filter(g=>PROVEN[g.at]);
+  const risk   = guilty.filter(g=>!PROVEN[g.at]);
+  proven.forEach(g => bad('PROVEN ON LIVE  ' + g.at, '→ ' + g.scr + '   (Tina, 14 Jul: it opened Butter Chicken)'));
+  if (risk.length) warn(risk.length + ' MORE sites of the SAME SHAPE — same-shape, NOT yet proven',
+    '\n      ' + risk.slice(0,12).map(g=>g.at).join(' · ') + (risk.length>12 ? ' …' : '') +
+    '\n      \x1b[2m⚖️ Law 22 — this is a RISK LIST, not a bug list. Do not "fix" 32 sites.' +
+    '\n      ⚖️ Law 6  — build openSectionSearch() / a router that closes the recipe ONCE.\x1b[0m');
+  ok(clean.length + ' screen-changes DO close the recipe first');
+}
+
+// ══ 8 · THE BACK BUTTON ══════════════════════════════════ MF64/65/72 ══
+head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
+{
+  const core = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
+  const gb = (core.match(/function goBack[\s\S]{0,2400}?\n\}/)||[''])[0];
+  const dumpsHome = /if\s*\(\s*S\.screen\s*&&\s*S\.screen\s*!==\s*'home'\s*\)\s*\{\s*bottomBarGo\('home'\)/.test(gb);
+  const readsPrev = /searchPrevScreen/.test(gb);
+  if (dumpsHome && !readsPrev) bad('goBack() DUMPS HER ON HOME from any root screen',
+    "\n      \x1b[2mcore.js — step (4): if(S.screen!=='home'){ bottomBarGo('home'); }" +
+    "\n      S.searchPrevScreen IS ALREADY SET by braai.js, spice.js and liveSearch() — and goBack() NEVER READS IT." +
+    '\n      ⚖️ Law 6 — ONE line in goBack(). Not one fix per room.\x1b[0m');
+  else if (readsPrev) ok('goBack() honours searchPrevScreen');
+  // every sectionHeader back — are they honest about where they go?
+  let liars = 0, homes = 0;
+  fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+    const s = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+    const re = /backJs\s*:\s*(["'])((?:\\.|(?!\1).)*)\1/g; let m;
+    while((m=re.exec(s))){
+      const goesHome = /screen\s*:\s*'home'/.test(m[2]);
+      const label = (s.slice(m.index,m.index+300).match(/backLabel\s*:\s*['"]([^'"]*)/)||[])[1]||'';
+      if (goesHome) { homes++; if (!/home/i.test(label)) liars++; }
+    }
+  });
+  if (liars) bad(liars + ' header Back buttons go HOME but do not SAY Home');
+  else ok('All ' + homes + ' header Backs that go Home are LABELLED "← Home"', 'they are honest — the bug is goBack(), not them');
+}
+
+// ══ 9 · COPIED CODE ══════════════════════════════════════════ ⚖️ Law 6 ══
+head('9 · THE SAME CODE, WRITTEN OVER AND OVER   ⚖️ Law 6 — build the ONE thing they call');
+{
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
+  [['the PRICE, hard-coded',        /R\s?(50|90|99)\s*\/?\s*(month|mo\b)/gi, 'MF91 — make it ONE constant: TINZA_PRICE'],
+   ['a WhatsApp share link',        /wa\.me\/\?text=/g,                      'the shopping-list save already exists here — build the ONE shareList()'],
+   ['the search-pill onclick',      /searchPrevScreen\s*=\s*'[a-z]+'/g,      'MF95 — build openSectionSearch(scope)']
+  ].forEach(([name, re, note]) => {
+    const sites = [];
+    files.forEach(f => { const s=fs.readFileSync(path.join(SD,f),'utf8'); const r=new RegExp(re.source,re.flags); let m;
+      while((m=r.exec(s))) sites.push(f); });
+    if (sites.length > 1) bad(sites.length + ' × ' + name,
+      '\n      ' + [...new Set(sites)].join(' · ') + '\n      \x1b[2m' + note + '\x1b[0m');
+  });
+}
+
+// ══ 10 · THE TRINITY ═══════════════════════════════ ⚖️ Tina, 14 Jul ══
+head('10 · DOES EVERY CARD CARRY 🥬 DIET · ⏱️ TIME · 💰 COST?   ⚖️ "each dish needs a cost"');
+{
+  const n = all.length;
+  const d = all.filter(r=>(r.diet||[]).length).length;
+  const t = all.filter(r=>r.time!=null).length;
+  const c = all.filter(r=>r.costPP!=null).length;
+  const three = all.filter(r=>(r.diet||[]).length && r.time!=null && r.costPP!=null).length;
+  const pc = x => String(Math.round(x/n*100)).padStart(3)+'%';
+  p('     🥬 DIET  ' + num(d) + '  ' + pc(d) + '        ⏱️ TIME  ' + num(t) + '  ' + pc(t) + '        💰 COST  ' + num(c) + '  ' + pc(c));
+  if (three < n) bad('Only ' + three + ' of ' + n + ' recipes (' + pc(three).trim() + ') carry ALL THREE');
+  else ok('Every recipe carries all three');
+
+  // 💰 the moat — where is the cost missing, and is it a BUG or is it TRUE?
+  const bySec = {};
+  all.forEach(r => { const s=r.section||'?'; bySec[s]=bySec[s]||{t:0,c:0}; bySec[s].t++; if(r.costPP!=null) bySec[s].c++; });
+  const blind = Object.entries(bySec).filter(([,v])=>v.c===0).sort((a,b)=>b[1].t-a[1].t);
+  const partial = Object.entries(bySec).filter(([,v])=>v.c>0 && v.c<v.t).sort((a,b)=>(b[1].t-b[1].c)-(a[1].t-a[1].c));
+  if (blind.length) bad(blind.length + ' ROOMS HAVE NO COST AT ALL',
+    '\n      ' + blind.map(([s,v])=>s+' ('+v.t+')').join(' · ') +
+    '\n      \x1b[2m🩸 BRAAI IS NOT A CONTENT GAP — index.js:334 HARD-CODES costPP:null (and diet, time, kcal).' +
+    '\n      The cost EXISTS (calcMeat · PORTION_BRAAI · the green/gold list). THE ADAPTER BINS IT.' +
+    '\n      ⚖️ Law 23 — "Braai has no cost" is a BUG. "A chutney has no cost" may simply be TRUE. Tina rules.\x1b[0m');
+  partial.forEach(([s,v]) => warn(s + ': ' + (v.t-v.c) + ' of ' + v.t + ' uncosted'));
+
+  const nocost = all.filter(r=>r.costPP==null).length;
+  if (nocost) bad(nocost + ' recipes are INVISIBLE to "I\'ve Got R100"',
+    '\n      \x1b[2mindex.js:483 — if(r.costPP==null) return false.  A R100 budget searches ' + (n-nocost) + ', not ' + n + '.\x1b[0m');
+}
+
+p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
