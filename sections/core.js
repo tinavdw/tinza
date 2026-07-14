@@ -2946,6 +2946,15 @@ function buildPlanData(dishes){
   items.forEach(function(it){
     var pr = (typeof priceOf==='function') ? priceOf(it.priceName||it.name) : null;
     var pk = pr ? pr.pack : null, need = it.amt;
+    // MF114 — a GRAM amount for a COUNT-priced item must become UNITS before it is billed.
+    // Lifted verbatim from costRecipe() (core.js:1225) and buildShoppingList() (core.js:1367),
+    // which have always done this. buildPlanData() is a COPY that never got it, so a chef card
+    // saying "108g eggs" for 2 people billed 216 EGGS at R3.70 = R799 instead of R14.
+    // unitToGrams() returns null for 'egg'/'clove'/'pcs'/'' — so a real COUNT is never touched.
+    if (pr && pr.per === 'count' && AVG_WEIGHT_G[pr.key]) {
+      var _g = (typeof unitToGrams === 'function') ? unitToGrams(need, it.unit) : null;
+      if (_g != null) { need = _g / AVG_WEIGHT_G[pr.key]; it.amt = need; it.unit = ''; }
+    }
     if(!pr) it.cookCost = null;
     else if(pr.per==='count') it.cookCost = Math.round(Math.ceil(need)*pr.price);
     else it.cookCost = Math.round((need/1000)*pr.price);
