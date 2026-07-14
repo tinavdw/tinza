@@ -2191,7 +2191,7 @@ function homeHTML(){
     {s:"budget",    e:"💰", t:"I've Got R100",         sub:"Budget planner · Make the most of your money", b:"var(--accent)", bg:"var(--card2)", reset:"budget:null,budgetAmount:null,budgetSearch:'',budgetStep:1,_budgetResults:null,_budgetError:null,_budgetLoading:false,_budgetAILoading:false,_budgetActiveRecipe:null,budgetHowOpen:false,budgetPlanView:false"},
     {s:"ingredient",e:"🐔", t:"I Have Chicken...",     sub:"One ingredient · All matching recipes",        b:"var(--accent)", bg:"var(--card2)", reset:"anchorInput:'',_anchorResults:null,_anchorError:null,_anchorLoading:false,_anchorActiveRecipe:null,anchorHowOpen:false"},
     {s:"fourIngredients",e:"🧅",t:"4 Ingredients",    sub:"What's in your fridge? Get a recipe",          b:"var(--accent)", bg:"var(--card2)", reset:"ing1:'',ing2:'',ing3:'',ing4:'',_fourResults:null,_fourAI:null,_fourAILoading:false,_fourLoading:false,_fourError:null,_fourPage:5,_fourActiveRecipe:null,fourHowOpen:false"},
-    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"var(--accent)", bg:"var(--card2)", reset:"moodSelected:[],moodRecipes:null,moodAIRecipes:null,moodAILoading:false,moodLoading:false,moodPage:1,moodActiveRecipe:null,moodPlanView:false"},
+    {s:"mood",      e:"😴", t:"Just Feed Me",          sub:"Tell us how you feel · We do the rest",        b:"var(--accent)", bg:"var(--card2)", reset:"moodSelected:null,moodRecipes:null,moodAIRecipes:null,moodAILoading:false,moodLoading:false,moodPage:1,moodActiveRecipe:null,moodPlanView:false"},
     {s:"weekplanner",e:"📅",t:"Weekly Meal Planner",  sub:"Plan 7 days · Auto shopping list",             b:"var(--accent)", bg:"var(--card2)"},
   ];
 
