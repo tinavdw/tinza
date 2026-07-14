@@ -131,6 +131,15 @@
     return out.length ? out : ['unknown'];                      // ⚖️ Law 45 — UNKNOWN IS NOT NO
   }
 
+  // MF98 · normalise ONCE, at index-build (cached), so tinzaAllSearch() reads a ready string
+  // instead of re-normalising the whole catalogue on every keystroke. Same normaliser the
+  // search loop uses, so nothing it FINDS can change — only WHEN the work happens. ⚖️ Law 35.
+  function searchNorm(s){
+    return (typeof _searchNorm === 'function') ? _searchNorm(s)
+         : (typeof tinzaNormalize === 'function') ? tinzaNormalize(s)
+         : String(s==null ? '' : s).toLowerCase().trim();
+  }
+
   // ── the normalised record (a superset: §1 index fields + read-only render
   //    passthrough so the shared budget recipe-detail renders any result) ────
   function rec(o){
@@ -140,6 +149,17 @@
     // per-person noise that returned whole rooms. (Display `ingredients` keep the full string.)
     var bits = [ o.name, o.nameAlt, (o.aliases||[]).join(' '), o.cuisine, o.country ]   // MF62 · goesWith REMOVED from searchText — a cross-link is content about ANOTHER dish (Law 30)
                  .concat(ings.map(function(i){ return String(i.n||'').split('—')[0]; }));
+    var searchText = bits.filter(Boolean).join(' ').toLowerCase();
+    // MF98 · pre-normalise each version's name (for the version-name deep-link) and its full hay
+    // (name + feel + ingredient names, for the version-body match) — exactly the two strings
+    // tinzaAllSearch used to build per keystroke, now built once here.
+    var _vHay = (o.versions || null) && o.versions.map(function(ve){
+      return {
+        n:   searchNorm(ve.name || ''),
+        hay: searchNorm((ve.name||'') + ' ' + (ve.feel||'') + ' ' +
+                        (ve.ingredients||[]).map(function(x){ return x.n || x.name || ''; }).join(' '))
+      };
+    });
     return {
       // ── §1 normalised contract ──
       id:        o.id,
@@ -164,7 +184,10 @@
       fridgeDays:o.fridgeDays!=null ? o.fridgeDays : null,
       ingredients: ings,                           // ALWAYS [{n,pp,u}]
       goesWith:  o.goesWith || [],
-      searchText: bits.filter(Boolean).join(' ').toLowerCase(),
+      searchText: searchText,
+      _nameN:     searchNorm(o.name || ''),                    // MF98 · normalised name (search loop line 154)
+      _hay:       searchNorm(searchText || o.name || ''),      // MF98 · normalised searchText (search loop line 155)
+      _vHay:      _vHay,                                       // MF98 · [{n,hay}] per version (search loop lines 163/170)
       // ── read-only render passthrough (keeps recipeDetailFromResult full) ──
       feel:       o.feel || '',
       method:     Array.isArray(o.method) ? o.method : methodToArr(o.method),

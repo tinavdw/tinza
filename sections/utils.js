@@ -151,8 +151,8 @@ function tinzaAllSearch(query, opts){
     if(secSet && secSet.indexOf(r.section) < 0) continue;
     if(opts.mealCat && r.mealCat !== opts.mealCat) continue;   // MF56 · Breakfast searches Breakfast (not all of Family Meals)
     if(opts.maxCostPP != null && (r.costPP == null || r.costPP > opts.maxCostPP)) continue;
-    var nameN  = _searchNorm(r.name);
-    var baseHay = _searchNorm(r.searchText || r.name);
+    var nameN  = r._nameN != null ? r._nameN : _searchNorm(r.name);              // MF98 · pre-normalised at boot; fall back if stale
+    var baseHay = r._hay != null ? r._hay : _searchNorm(r.searchText || r.name); // MF98 · pre-normalised at boot; fall back if stale
     var version = null, onVersion = false, matched = false;
 
     if(everyIn(baseHay)){
@@ -160,17 +160,19 @@ function tinzaAllSearch(query, opts){
       // Top-level already matches — still deep-link when a version NAME matches too.
       if(r.versions && r.versions.length){
         for(var v=0; v<r.versions.length; v++){
-          if(everyIn(_searchNorm(r.versions[v].name))){ version = r.versions[v].name; onVersion = true; break; }
+          var vN = (r._vHay && r._vHay[v]) ? r._vHay[v].n : _searchNorm(r.versions[v].name);   // MF98 · pre-normalised at boot
+          if(everyIn(vN)){ version = r.versions[v].name; onVersion = true; break; }
         }
       }
     } else if(r.versions && r.versions.length){
       // No top-level hit — try each version's name + feel + ingredient names.
       for(var v2=0; v2<r.versions.length; v2++){
         var ve = r.versions[v2];
-        var vh = baseHay + ' ' + _searchNorm(
+        var vBody = (r._vHay && r._vHay[v2]) ? r._vHay[v2].hay : _searchNorm(   // MF98 · pre-normalised at boot
           (ve.name||'') + ' ' + (ve.feel||'') + ' ' +
           (ve.ingredients||[]).map(function(x){ return x.n || x.name || ''; }).join(' ')
         );
+        var vh = baseHay + ' ' + vBody;
         if(everyIn(vh)){ version = ve.name; onVersion = true; matched = true; break; }
       }
     }
