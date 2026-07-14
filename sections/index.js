@@ -92,8 +92,8 @@
       if(v==='spice')                return 'CONDIMENT';
       if(v==='beverages')            return 'DRINK';
       if(v==='braai')                return 'SUPPER';
-      if(v==='furry')                return 'FURRY';   // furry/tiny → their OWN slot, never a human meal
-      if(v==='tiny')                 return 'TINY';
+      if(v==='furry')                return 'PETFOOD';    // MF119 · name the FOOD, not the room (Law 46) — never a human meal
+      if(v==='tiny')                 return 'BABYFOOD';
       return '';
     }
     return fromMealCat(lc(o.mealCat))
