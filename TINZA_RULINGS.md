@@ -285,6 +285,59 @@ Two mechanisms, kept separate:
 
 ---
 
+### 🆕 🗄️ THE STORE — `tinzaStore`, THE ONE DOOR FOR USER STATE — **RULED 15 Jul 2026**
+*The mirror of `normalizeRecipe()`: that door makes every RECIPE complete, this door makes every SAVE safe. Extends §7 — "today Tinza saves NOTHING except `tinzaTheme`." This is how it starts saving.*
+
+**`tinzaStore` is a SEPARATE module. It does NOT touch the recipe door** (`normalizeRecipe` · `rec` · `getIngredients`). One versioned root key `tinza`; the whole blob migrates together.
+
+**The shape (v1):** `{ schemaVersion:1, preferences:{}, favourites:[], plans:{}, pantry:[] }`
+
+- 🔑 **THE KEY IS `source:section:id`. `source` ALONE IS NOT ENOUGH.** *Measured, not guessed* — **every** recipe's `source` is `'db'`, so **19 bare ids collide across rooms** (Potato Salad, coleslaw, hummus, tzatziki, chakalaka, chimichurri, guacamole… — mostly events↔braai and events↔spice). `db:potatosalad` is **both** `events/Potato Salad` and `braai/Potato Salad` — favourite one, the other lights up.
+  ✅ **`source:section:id` = 2,083 distinct keys, ZERO collisions.** `section` is the true separator; `source` is KEPT so a future `user`/`chef` recipe can never collide with a `db` one. ⚖️ **Law 22 — the grep is the end of guessing.**
+  *(🍲 Bobotie turned out SAFE already — `sp-bobotie` vs `cape-malay-bobotie` are distinct ids. The real collisions were plainer dishes. **This is why check 6 points at a genuine collision, not at bobotie.**)*
+- 🚪 **`favKey(record)` STAMPS FROM THE RECORD.** A bare id **cannot** be stamped after the fact — **section is only knowable from the record.** `toggleFavourite` / `isFavourite` accept a record OR an already-stamped string. Callers pass what they already hold. ⚖️ **Law 6, one door.**
+- 🗺️ **`plans` IS A SECTION-KEYED MAP, NOT A FLAT ARRAY.** `plans:{ braai:[…], buffet:[…] }`. Plans are section-scoped state — the **same** recipe sits in a Braai plan at 8 portions AND a Buffet plan at 40. Favourites are global state → flat `[]`. **The shape mirrors the meaning.**
+  - **Blast radius:** a bug in one section's plan touches only its key — mirrors the standalones architecture 1:1.
+  - **Partial-corruption survival:** one bad bucket resets alone; the rest live.
+  - **No schema bump when rooms grow:** a new section is a new key defaulting to `[]`.
+  ⛔ **DO NOT hardcode a section enum. Buckets are LAZY:** `getPlan(section)` returns `plans[section] ?? []`; `setPlan` writes the key on first use. **The store never contains a room name.** ⚖️ **Law 6.**
+- 🛡️ **DEFENSIVE DEFAULT — DEGRADE, NEVER BLANK.** Root missing OR `JSON.parse` fails → fresh default state, **never throw.** ⚖️ **Law 3.**
+- 🔓 **TIER-BLIND.** The store persists favourites/plans for **everyone.** The Favourites = Pro gate lives in the `core.js` gate layer — **NEVER baked into the store.**
+- 🚪 **ONE DOOR.** No direct `localStorage` outside `tinzaStore.js`. The 2 `tinzaTheme` sites route through `getPref`/`setPref`. ⚖️ **Law 6.**
+
+#### 🩸 THE THEME BUG THIS RULING NEARLY SHIPPED — **Law 20, in our own store**
+`migrate()` **silently dropped her saved theme.** `_read()` returned `{root, legacyTheme}` but the wrapper matched on the storage-shaped `{tinza, tinzaTheme}` — so it fell through, treated the whole wrapper as the root, and **threw the legacy value away.** Green on "migration ran"; her setting gone.
+✅ **Census check 13 now asserts the VALUE ARRIVES** (`'dark'` lands in `preferences.theme`), not merely that migration completed. ⚖️ **Law 20 — a metric that passes while the thing it measures is broken is worse than no metric.**
+*(⚠️ **Tinza has NO theme toggle yet** — so no user can have set `tinozaTheme` through the app. The migration is correct INSURANCE for the day the toggle ships. **Open thread: what are the 2 `tinzaTheme` sites reading, if nothing writes it?** Worth a look — not a blocker.)*
+
+**Census checks added (`tinza-census.js`):** 1 no `localStorage` outside `tinzaStore.js` · 2 root `tinza` + `schemaVersion===1` after `load()` · 3 `migrate(migrate(x))===migrate(x)` idempotent · 4 legacy `tinzaTheme` count `===0` post-migration · 5 favourites keyed by `source:section:id`, never a bare title · 6 `isFavourite()` on one of a genuine collision pair does NOT report the other.
+
+---
+
+### 🆕 🏷️ SAME-NAME RECIPES DISAMBIGUATE BY **SECTION**, NOT SOURCE — **RULED 15 Jul 2026**
+*Multiple distinct records share a display name — Potato Salad in Braai + Events; boboties across Boerekos / Cape Malay / FMF; 19 collisions today, and **more will arrive.** This is a recurring CLASS, so it gets ONE function, not a hand-list.*
+
+- ⛔ **`source` IS NOT A DISAMBIGUATOR — it's `'db'` for everyone.** The human-facing separator is the **room / section.**
+- 🚪 **`tinzaListLabel(recipe, context)` — ONE shared function.** Mirrors `tinzaDisplayName()`. Returns the **plain name when unique in-view**; appends the **section gloss** — *"Potato Salad (Braai)"* vs *"Potato Salad (Events)"* — **only on an actual in-list collision.**
+- 🧠 **COLLISION-DRIVEN, NEVER HARDCODED.** The function never contains a dish name. A new same-name pair next month **just works, no code change.** ⚖️ **Reserve the BEHAVIOUR, not the INSTANCE.**
+- 👁️ **It fires ONLY where rooms mix** — the Favourites shelf, Just Feed Me. Inside a room's own view there is one Potato Salad → plain name, no clutter. ⚖️ **Law 6 — one naming door, like `tinzaDisplayName()`.**
+
+*(Corrects an earlier same-day note that said "disambiguate by source." **Source is provenance, not a label.** If they ever disagree, this ruling wins.)*
+
+---
+
+### 🆕 🚪 SECTIONS ARE DISTINCT DESTINATIONS — SAMENESS GOVERNS RENDERING, NOT EXISTENCE — **RULED 15 Jul 2026**
+*Raised because "section-agnostic store" sounded like it threatened the rooms. It does not. Two questions, two layers.*
+
+- 🚪 **"WHERE DO I GO?" — navigation. Rooms are 100% REAL.** World Kitchen · Feed My Family · Spice · Braai · Events · the rest — each stays a distinct place with its **own front door, own shelves, own My Plan.** Nothing on any chopping block.
+- ⚙️ **"HOW IS IT BUILT?" — rendering. Everything is SHARED.** Every room renders through the same `core.js` functions. **Different content, different door — identical furniture.** *That* is sameness.
+- 🗄️ **"SECTION-AGNOSTIC STORE" IS PLUMBING ONLY.** `tinzaStore` never memorises the roster — it holds whatever a section hands it. Navigation still knows every room; the storage layer beneath simply doesn't need to. **Adding Bar Planner needs zero store changes.**
+- 🔀 **Cross-section mixing happens ONLY in deliberately cross-section shelves** — Favourites, Just Feed Me / MOOD_DB. Every actual room stays its own place.
+
+> 🩸 **Sections are distinct navigable destinations rendered by shared machinery. The shared functions SERVE the rooms; they do not dissolve them.**
+
+---
+
 📌 **HOW TO USE THIS FILE**
 1. **Tina rules something → it goes in HERE, in the same breath, with the DATE and the REASON.** ⚖️ Law 52.
 2. **`CLAUDE.md` points here.** Every session, every AI, reads it before touching code.
