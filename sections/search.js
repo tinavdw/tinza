@@ -109,7 +109,39 @@ function tinzaDisplayName(recipe) {
   return roman + ' (' + en + ')';
 }
 
+/* List label: the display name, plus the ROOM word — but ONLY when the row it is
+   standing next to would otherwise read identically. Ruled 15 Jul §14.
+
+   Collision is tested on tinzaDisplayName, NOT on raw .name: the rows SHOW the display
+   name, so that is what she sees collide. ("Classic Bobotie" and "Bobotie" are two
+   names — they never collide, and neither is glossed.)
+
+   Called ONLY by the mixed-room renderers (Favourites, Just Feed Me). Single-room views
+   keep calling tinzaDisplayName. Over-calling is harmless: a list with no collision
+   returns the plain name, so a single-room shelf is unchanged by construction.
+
+   Perf: O(list) per row, bailing at the second hit. Shelves are small — fine for v1.
+   Do NOT pre-optimise. ⚖️ Law 22.
+
+   KNOWN LIMIT (ruled, not a bug): same name + SAME room glosses identically —
+   "Toum (Garlic Cream)" is Events twice, so both read "(Events)". §14 promises
+   CROSS-room disambiguation only. Measured 15 Jul: 11 groups sit in this class. */
+function tinzaListLabel(recipe, context){
+  var base = tinzaDisplayName(recipe);
+  var list = (context && context.length) ? context : ((context && context.recipes) || []);
+  if (list.length < 2) return base;                       // nothing to collide with
+  var meN = tinzaNormalize(base), hits = 0;
+  for (var i = 0; i < list.length && hits < 2; i++){
+    if (tinzaNormalize(tinzaDisplayName(list[i])) === meN) hits++;
+  }
+  if (hits < 2) return base;                              // unique in-view → plain name
+  // tinzaRoomLabel lives in index.js, which loads LAST — but this only ever runs at
+  // render time, long after boot. The guard is for Node/tests, not load order.
+  var room = (typeof tinzaRoomLabel === 'function') ? tinzaRoomLabel(recipe.section) : '';
+  return room ? (base + ' (' + room + ')') : base;        // blank room → plain, never "()"
+}
+
 /* Make the functions available whether loaded in a browser or Node. */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { tinzaNormalize: tinzaNormalize, tinzaSearchableText: tinzaSearchableText, tinzaSearch: tinzaSearch, tinzaRoman: tinzaRoman, tinzaDisplayName: tinzaDisplayName };
+  module.exports = { tinzaNormalize: tinzaNormalize, tinzaSearchableText: tinzaSearchableText, tinzaSearch: tinzaSearch, tinzaRoman: tinzaRoman, tinzaDisplayName: tinzaDisplayName, tinzaListLabel: tinzaListLabel };
 }

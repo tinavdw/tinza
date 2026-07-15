@@ -1,43 +1,54 @@
-%% TINZA — THE BOARD / RESUME POINT — updated end of session 15 Jul 2026
+%% TINZA — THE BOARD / RESUME POINT — updated 16 Jul 2026
 flowchart TD
-    subgraph DONE["✅ DONE & PUSHED this session"]
-        A[MF119 slot column · 2083/2083 unknown=0]
-        B[MF94-A diet vocab unified]
-        C[MF98 search speed 45ms→2ms · tablet-verified]
-        R[Rulings filed §12 §13 §14]
-        L[⚖️ Law 53 written · FINISH THE WHOLE THING]
-        LOC[🌍 LOCALE ruling written · SA = locale #1]
+    subgraph DONE["✅ DONE & PUSHED · tablet-verified"]
+        A[Store closed · save consolidation · bottom row a duo]
+        B["Heart in FMF + 4 views · persists on tablet"]
+        C[tinzaIsDev dev-error net]
     end
 
-    subgraph FLIGHT["🔧 HAND TO CODE FIRST"]
-        D[MF120 · bakes '4 people' fix · 69 of 101 · brief ready to paste]
+    subgraph BUILT["🧱 BUILT, NOT PUSHED · verify + push"]
+        D["tinzaListLabel + TINZA_ROOM_LABEL · index.js + search.js · +122 -1<br/>12 sections mapped (bakes+sides caught) · keyed on r.section<br/>census check 16 ratchet · baselines held"]
+        E["ACTION: swap in §14 + board → push commit → tablet-verify 3 test strings"]
+        D --> E
+    end
+
+    subgraph FLIGHT["🔧 HAND TO CODE — next commit"]
+        F["Favourites shelf + Pro gate · brief written AFTER Label verified<br/>getFavourites → KEYS · resolve via allRecipes + store.favKey<br/>gate in core.js layer · store stays tier-blind · uses tinzaListLabel"]
     end
 
     subgraph NEXT["⭐ THEN — the big one"]
-        E[MF117 · MOOD_DB → live allRecipes query · unlocks ~1,278 recipes<br/>+ tag existing Stroganoff mood array here]
+        G["MF117 · MOOD_DB → live allRecipes query · unlocks ~1,278 recipes"]
     end
 
     subgraph QUEUED["🆕 QUEUED"]
-        F[MF121 · bakes serving scaler · MEASURE FIRST]
-        G[MF122 · adaptive vessel · tinFor + SA tin ladder · needs MF121]
-        F --> G
+        H[MF120 · bakes '4 people' fix · brief ready]
+        I[MF121 · bakes serving scaler · MEASURE FIRST]
+        J[MF122 · adaptive vessel · needs MF121]
+        I --> J
     end
 
     subgraph BACKLOG["📋 STANDING BACKLOG"]
-        H[Two search engines disagree]
-        I[MF113/MF86 · index eating ingredient amounts]
-        J[MF115 · 18 costing fns → 1]
-        K[Law 48 vegan⊂vegetarian · Law 47 prose-match bug]
+        K["🆕 DEDUP CONTENT PASS · best-described record stays, twin removed<br/>plain dupes (Toum x2, Vetkoek+Mince x2) + casing drift (Frango, Apfelstrudel)<br/>NOT a label change · reconcile under the enticing-names standard"]
+        L["🆕 Rename Bechamel (White Sauce) → Bechamel White Sauce<br/>kills the double gloss at the name · brackets out, words stay"]
+        M["True ruled limit only: two DIFFERENT dishes, same name, same room<br/>rare after dedup · finer descriptor later if any survive"]
+        N[MF115 · 18 costing fns to 1 · MF113/MF86 index amounts · two search engines disagree]
+        O[Law 48 vegan in vegetarian · Law 47 prose-match bug]
+    end
+
+    subgraph PARKED["🅿️ PARKED · not blockers"]
+        P["feedfamily resume-crash · waiting on a natural /?dev screenshot"]
+        Q[Braai bottom-Back · same nav family]
     end
 
     subgraph LAUNCH["🚀 BLOCKERS · ~10 wks to Oct"]
-        M[MF57 cache · hide tier switcher · MF78 AI cost cap<br/>PayFast R90/mo · localStorage favs+plan · Home page design]
+        R["MF57 cache · hide tier switcher · MF78 AI cost cap<br/>PayFast R90/mo · localStorage favs+plan · Home page design (still black)"]
     end
 
-    subgraph STAGED["🍲 STAGED (author later)"]
-        BBC[BEERBOX_CAKE.md · locked · → Bakes/cakes · Choc 🏆 + Vanilla + 3 icing chips]
-        MOOD[MOOD_RECIPE_STAGING.md · collect per mood → graduate to FMF]
+    subgraph STAGED["🍲 STAGED · author later"]
+        S[BEERBOX_CAKE.md · locked]
+        T[MOOD_RECIPE_STAGING.md · collect per mood → FMF]
     end
 
-    DONE --> FLIGHT --> NEXT --> QUEUED -.-> BACKLOG -.-> LAUNCH
+    DONE --> BUILT --> FLIGHT --> NEXT --> QUEUED -.-> BACKLOG -.-> LAUNCH
+    PARKED -.-> BACKLOG
     STAGED -.-> NEXT

@@ -524,6 +524,33 @@
     tiny: adaptTiny, spice: adaptSpice, furry: adaptFurry
   };
 
+  // ── THE ROOM-WORD DOOR ─────────────── ruled 15 Jul §14 · Law 6 · Law 46 ──
+  // The ONE section-slug → room-word map. Anything that needs a room WORD imports this.
+  // Keyed on r.section (what a record CARRIES), not on TINZA_ADAPTERS (what BUILT it) —
+  // they are not the same set: adaptBakes alone emits BOTH 'bakes' and 'sides'.
+  // It answers "which ROOM did this come from?" — the word Tina's finger tapped on the
+  // home screen — NOT "which adapter built it?". That is why several slugs share a word:
+  //   events + beverages  → "Events"   (one room, two shelves)
+  //   meals + floor + bakes + sides → "Family"  (Feeding My Family, four shelves)
+  // 🩸 bakes + sides were MISSING from the §14 draft. MEASURED 15 Jul: four real
+  // collisions ride on them — Koeksisters · Malva Pudding · Bread & Butter Pudding
+  // (bakes ↔ events) and Béchamel (White Sauce) (sides ↔ spice). Unmapped, they return
+  // '' and the row renders a PLAIN name next to a labelled one — so the unlabelled dish
+  // reads as the default. ⚖️ Law 45 — a blank is a silent miss, not an answer.
+  // There is no "Bakes" room: the home tile is "Feeding My Family" (core.js:2219) and the
+  // recipes themselves say "see … in Sides & Basics" — both are shelves INSIDE that room.
+  // Census 16 fails the build if any adapter slug is missing a word.
+  var TINZA_ROOM_LABEL = {
+    braai:'Braai', world:'World Kitchen', spice:'Spice',
+    meals:'Family', floor:'Family', bakes:'Family', sides:'Family',
+    health:'Health',
+    events:'Events', beverages:'Events',
+    tiny:'Tiny Tummies', furry:'Furry Friends'
+  };
+  function tinzaRoomLabel(s){ return TINZA_ROOM_LABEL[s] || ''; }
+  window.tinzaRoomLabel   = tinzaRoomLabel;
+  window.TINZA_ROOM_LABEL = TINZA_ROOM_LABEL;
+
   var _cache = null;
   function buildIndex(){
     var all = [];

@@ -738,4 +738,66 @@ head('15 · CAN WE SEE THE REAL ERROR — AND DOES SHE NOT?   ⚖️ Law 19');
   }
 }
 
+// ══ 16 · THE ROOM WORD ═══════════════════════ ruled 15 Jul §14 · Law 45 ══
+head('16 · CAN SHE TELL TWO DISHES WITH THE SAME NAME APART?   ⚖️ §14');
+{
+  const LBL = ctx.tinzaRoomLabel, MAP = ctx.TINZA_ROOM_LABEL || {}, LL = ctx.tinzaListLabel, DN = ctx.tinzaDisplayName;
+  if (typeof LBL !== 'function' || typeof LL !== 'function') {
+    bad('tinzaRoomLabel() / tinzaListLabel() not reachable');
+  } else {
+    // 🩸 EVERY section a record can CARRY must have a room word. A blank returns the
+    // plain name — so an unlabelled dish sits next to a labelled one and reads as the
+    // default. That is worse than no feature. ⚖️ Law 45 — a blank is a silent miss.
+    const secs = {}; all.forEach(r => secs[r.section] = (secs[r.section]||0)+1);
+    const unmapped = Object.keys(secs).filter(s => !LBL(s)).sort((a,b) => secs[b]-secs[a]);
+    if (unmapped.length) bad(unmapped.length + ' SECTION(S) HAVE NO ROOM WORD: ' + unmapped.map(s=>s+' ('+secs[s]+')').join(' · '),
+      '\n      \x1b[2mtinzaRoomLabel() returns "" → tinzaListLabel() renders a PLAIN name beside a' +
+      '\n      labelled one. bakes + sides were missing from the §14 draft — 4 real collisions' +
+      '\n      rode on them. ⚖️ Law 45 — unknown is not no.\x1b[0m');
+    else ok('Every one of the ' + Object.keys(secs).length + ' sections has a room word',
+            [...new Set(Object.values(MAP))].join(' · '));
+
+    // The promise: two same-named dishes from DIFFERENT rooms must read differently.
+    const g = {}; all.forEach(r => { const k = ctx.tinzaNormalize(DN(r)); (g[k]=g[k]||[]).push(r); });
+    const dup = Object.entries(g).filter(([,v]) => v.length > 1);
+    let broken = [], kept = 0, sameRoom = 0;
+    dup.forEach(([, v]) => {
+      const rooms = v.map(r => LBL(r.section));
+      const labels = v.map(r => LL(r, v));
+      if (new Set(rooms).size === v.length) {                 // all different rooms → must all differ
+        if (new Set(labels).size === v.length) kept++;
+        else broken.push(DN(v[0]) + ' → ' + labels.join(' | '));
+      } else sameRoom++;                                      // the ruled known limit
+    });
+    p('     ' + num(dup.length) + '  same-display-name groups · ' + num(kept) + ' fully disambiguated · ' + num(sameRoom) + ' share a room word (ruled limit)');
+    if (broken.length) bad(broken.length + ' CROSS-ROOM COLLISION(S) STILL READ THE SAME',
+      '\n      ' + broken.slice(0,6).join('\n      ') +
+      '\n      \x1b[2m§14 promises CROSS-room disambiguation. This is the promise breaking.\x1b[0m');
+    else ok('Every cross-room same-name pair reads differently', 'the §14 promise holds');
+
+    // A lone dish must NEVER be glossed — the label is for collisions only.
+    const lone = all.find(r => g[ctx.tinzaNormalize(DN(r))].length === 1);
+    if (LL(lone, [lone]) === DN(lone) && LL(lone, all.filter(x => x !== lone).slice(0,50).concat([lone])) === DN(lone))
+      ok('A lone dish reads PLAIN', '"' + DN(lone) + '" — no room word when nothing collides');
+    else bad('A NON-COLLIDING DISH IS BEING GLOSSED', '\n      \x1b[2m"' + LL(lone,[lone]) + '" — the label is for collisions ONLY.\x1b[0m');
+
+    // Never "()" — a blank room word must degrade to the plain name.
+    // Tested on the COLLISION GROUPS only: they are the sole path that appends a room
+    // word at all, and tinzaListLabel is O(list) per row — feeding it the whole 2,083
+    // index would be 4.3M normalisations and hang the census. (The app never does that:
+    // §14 calls it on Favourites / Just Feed Me shelves, which are small. ⚖️ Law 22 —
+    // measure the real shape; do not pre-optimise the function for a list it never sees.)
+    let empties = 0;
+    dup.forEach(([, v]) => v.forEach(r => { if (/\(\s*\)\s*$/.test(LL(r, v))) empties++; }));
+    if (empties) bad(empties + ' row(s) render an EMPTY bracket "()"');
+    else ok('No row renders an empty "()"', 'a blank room word degrades to the plain name');
+
+    // A single-room shelf must be untouched — over-calling is meant to be harmless.
+    const braaiOnly = all.filter(r => r.section === 'braai');
+    const changed = braaiOnly.filter(r => LL(r, braaiOnly) !== DN(r)).length;
+    if (changed) warn(changed + ' braai rows change on a single-room shelf', 'expected: only true in-shelf name clashes');
+    else ok('A single-room shelf is unchanged by tinzaListLabel()', 'over-calling is harmless, as ruled');
+  }
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

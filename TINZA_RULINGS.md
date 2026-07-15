@@ -314,15 +314,27 @@ Two mechanisms, kept separate:
 
 ---
 
-### 🆕 🏷️ SAME-NAME RECIPES DISAMBIGUATE BY **SECTION**, NOT SOURCE — **RULED 15 Jul 2026**
-*Multiple distinct records share a display name — Potato Salad in Braai + Events; boboties across Boerekos / Cape Malay / FMF; 19 collisions today, and **more will arrive.** This is a recurring CLASS, so it gets ONE function, not a hand-list.*
+### 🆕 🏷️ tinzaListLabel — THE ROOM GLOSS FOR MIXED-ROOM SHELVES — **RULED 15 Jul, corrected 16 Jul 2026**
+*Multiple distinct records share a display name — Potato Salad in Braai + Events; Koeksisters in Bakes + Events. A recurring CLASS → ONE function, never a hand-list. `source` is `'db'` for everyone, so it is NOT a disambiguator — the human-facing separator is the ROOM.*
 
-- ⛔ **`source` IS NOT A DISAMBIGUATOR — it's `'db'` for everyone.** The human-facing separator is the **room / section.**
-- 🚪 **`tinzaListLabel(recipe, context)` — ONE shared function.** Mirrors `tinzaDisplayName()`. Returns the **plain name when unique in-view**; appends the **section gloss** — *"Potato Salad (Braai)"* vs *"Potato Salad (Events)"* — **only on an actual in-list collision.**
-- 🧠 **COLLISION-DRIVEN, NEVER HARDCODED.** The function never contains a dish name. A new same-name pair next month **just works, no code change.** ⚖️ **Reserve the BEHAVIOUR, not the INSTANCE.**
-- 👁️ **It fires ONLY where rooms mix** — the Favourites shelf, Just Feed Me. Inside a room's own view there is one Potato Salad → plain name, no clutter. ⚖️ **Law 6 — one naming door, like `tinzaDisplayName()`.**
+- 🚪 **`tinzaListLabel(recipe, context)` — ONE shared function.** Mirrors `tinzaDisplayName()`. Plain name when unique in-view; appends the room gloss — *"Potato Salad (Braai)"* vs *"Potato Salad (Events)"* — **only on an actual in-list collision.** Collision-driven, never hardcodes a dish name. Fires ONLY where rooms mix (Favourites, Just Feed Me). ⚖️ **Law 6 — one naming door.**
+- 🧭 **THE GLOSS NAMES THE ROOM — THE NAVIGABLE DESTINATION — NEVER THE SHELF INSIDE IT.** It answers *where do I go to find this again?* and must name a real door. No Bakes screen, no Sides screen, no Beverages screen — they are shelves. So the map is **room-level**: several sections fold into one room word.
+- 🔑 **KEY THE MAP ON `r.section` — WHAT A RECORD CARRIES — NOT THE ADAPTER ROSTER.** *Measured, not guessed:* 11 adapters emit **12 sections** — `adaptBakes` alone emits both `bakes` AND `sides`. A source-grep misses the two computed ones, and four real collisions ride on them (Koeksisters, Malva Pudding, Bread & Butter Pudding, Béchamel). ⚖️ **Law 22, sharpened — measure the OUTPUT records, not the code that appears to assign them.**
 
-*(Corrects an earlier same-day note that said "disambiguate by source." **Source is provenance, not a label.** If they ever disagree, this ruling wins.)*
+**THE TWELVE-SECTION MAP (`TINZA_ROOM_LABEL`, index.js):** `braai`→Braai · `world`→World Kitchen · `spice`→Spice · `health`→Health · `events`+`beverages`→Events · `meals`+`floor`+`bakes`+`sides`→Family · `tiny`→Tiny Tummies · `furry`→Furry Friends.
+
+- 🛡️ **THE RATCHET (census check 16, Law 42).** Build fails if any section loses its room word, a cross-room pair ever reads the same, a lone dish gets glossed, or `()` renders. The hole cannot come back silently.
+
+#### 🆕 THE "KNOWN LIMIT" IS MOSTLY DUPLICATES — AND WE ALREADY HAVE THE RULE
+*40 groups collide; 29 disambiguate cleanly cross-room. Of the remaining 11, almost all are the SAME dish twice — not a labelling gap.*
+
+- ♻️ **DUPLICATES → the established rule: THE MORE ELABORATE / BEST-DESCRIBED RECORD STAYS, the other is removed.** Covers plain dupes (Toum ×2 in Events; Vetkoek & Curried Mince ×2 in Family) AND casing-drift dupes ("Frango Piri-Piri (Peri-Peri Chicken)" vs "…(peri-peri chicken)"; "Apfelstrudel (Apple Strudel)" vs "…(Apple strudel)"). The casing drift is a **byproduct of the enticing-names standard applied unevenly** — one twin got the nicer wording, the other didn't. Reconcile under that standard; best-described stays. **CONTENT pass, backlog — NOT a `tinzaListLabel` change.**
+- ⚖️ **THE ONLY TRUE RULED LIMIT: two genuinely-DIFFERENT dishes sharing a display name in the SAME room.** A room word cannot separate them (correctly). Rare once the dupes are cleared; any survivor earns a finer descriptor later. **A room gloss disambiguates ACROSS rooms — same-room separation is a separate, later mechanism.**
+
+#### 🆕 NO DOUBLE GLOSS — FIX AT THE NAME
+"Béchamel (White Sauce)" + a room gloss would stack two brackets. **The brackets don't need to be there — the words "White Sauce" do.** Rename the record → **"Béchamel White Sauce"**; the room gloss then appends clean: *"Béchamel White Sauce (Family)"*. A plain-English descriptor folds into the name — it was never a cultural-hero gloss like the WK `Native (English)` heroes, which keep their bracket. *(Content fix on the record. If a true WK bracketed hero ever collides cross-room, the room gloss uses a middot rather than a second bracket — optional, not needed today.)*
+
+*(Corrects the 15 Jul draft: map is 12 sections not 10, keyed on `r.section`; "source disambiguates" was wrong — source is provenance, not a label; the known limit is mostly duplicates resolved by the best-described-stays rule, leaving only genuine same-room different-dish pairs as the true limit.)*
 
 ---
 
