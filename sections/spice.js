@@ -8258,7 +8258,6 @@ function spiceEntryView(){
         ${spiceCartCount()>0?`<button onclick="set({spiceListOpen:true})" style="width:100%;padding:11px;border-radius:10px;cursor:pointer;background:transparent;border:1px solid #4a5a20;color:#9ab050;font-size:13px;margin-bottom:10px;">🛒 View Shopping List (${spiceCartCount()})</button>`:''}`;
       })()}
 
-      <button onclick="alert('💾 Save to My Kitchen — coming with Pro!')" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:#181008;border:2px solid #c06020;color:#f5c842;font-size:13px;font-weight:bold;margin-bottom:10px;">💾 Save to My Kitchen</button>
 
       <div style="display:flex;gap:14px;justify-content:center;font-size:13px;padding:6px 0 24px;">
         <button onclick="set({spiceEntry:null,spiceScale:null})" style="background:none;border:none;color:#c08040;cursor:pointer;">← ${shelf.t}</button>

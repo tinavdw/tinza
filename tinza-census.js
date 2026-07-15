@@ -654,6 +654,26 @@ head('14 · DOES THE HEART TELL THE TRUTH?   ⚖️ the rendered state IS the pr
     // Rule Zero — no hardcoded hex in the heart; tokens only.
     if (/#[0-9a-fA-F]{3,6}/.test(heartFn)) bad('THE HEART CONTAINS A HARDCODED HEX', '\n      \x1b[2mvar(--token) only — it must follow light/dark/night. Rule Zero.\x1b[0m');
     else ok('The heart uses var(--token) only', 'no hardcoded hex — it follows every theme');
+
+    // ⚖️ LAW 6 · THE HEART IS THE ONLY SAVE — consolidated 15 Jul. Three saves used to
+    // compete: 💾 My Kitchen (an alert stub in 6 places), 🔖 Save to My Recipes (meals,
+    // Pro-gated, S.savedRecipes — in memory, BARE-ID keyed, gone on close), and the heart.
+    // If any of them comes back, she has two saves that disagree about what she saved.
+    const SD3 = path.join(ROOT,'sections');
+    const ghosts = {};
+    fs.readdirSync(SD3).filter(f => f.endsWith('.js') && !/\.bak/.test(f)).forEach(f => {
+      const s = fs.readFileSync(path.join(SD3,f),'utf8');
+      s.split('\n').forEach((ln, i) => {
+        if (/^\s*\/\//.test(ln)) return;                       // a comment about the deletion is fine
+        if (/savedRecipes|toggleSavedRecipe|My Kitchen|Save to My Recipes|saveJs/.test(ln))
+          (ghosts[f] = ghosts[f] || []).push(i + 1);
+      });
+    });
+    const gn = Object.values(ghosts).reduce((a,b) => a + b.length, 0);
+    if (gn) bad(gn + ' LEGACY SAVE SITE(S) ARE BACK: ' + Object.entries(ghosts).map(([f,l]) => f+':'+l.join(',')).join(' · '),
+      '\n      \x1b[2mThe heart is the only save (ruled 15 Jul). A second save is a second truth.' +
+      '\n      💾 My Kitchen never saved anything; 🔖 My Recipes saved to memory by BARE ID. ⚖️ Law 3 · Law 6.\x1b[0m');
+    else ok('No legacy save survives', '💾 My Kitchen · 🔖 My Recipes · S.savedRecipes — all gone ⚖️ Law 6');
   }
 }
 

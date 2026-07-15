@@ -848,7 +848,6 @@ function healthRecipeDetail(recipe, backState){
       <div style="margin-top:20px;">
         <div style="display:flex;gap:8px;margin-bottom:12px;">
           ${tierAllows('pro') ? `<button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;${inPlan?'background:var(--card2);border:1px solid var(--gold);color:var(--gold);':'background:var(--accent);border:1px solid var(--accent);color:var(--bg);'}">${inPlan?'✅ In Plan':'📋 Add to Plan'}</button>` : `<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;cursor:default;font-size:13px;font-weight:bold;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);">📋 Add to Plan — 🔒 Pro</button>`}
-          <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;cursor:pointer;">💾 My Kitchen</button>
           <button onclick="alert('Download — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;cursor:pointer;">⬇️ Download</button>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid var(--line2);font-size:13px;">
@@ -1351,7 +1350,6 @@ function healthExtDetail(recipe){
       <div style="margin-top:20px;">
         <div style="display:flex;gap:8px;margin-bottom:12px;">
           ${tierAllows('pro') ? `<button onclick="healthToggleExtById('${recipe.id}')" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;${inPlan?'background:var(--card2);border:1px solid var(--gold);color:var(--gold);':'background:var(--accent);border:1px solid var(--accent);color:var(--bg);'}">${inPlan?'✅ In Plan':'📋 Add to Plan'}</button>` : `<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;cursor:default;font-size:13px;font-weight:bold;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);">📋 Add to Plan — 🔒 Pro</button>`}
-          <button onclick="alert('Save to My Kitchen — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;cursor:pointer;">💾 My Kitchen</button>
           <button onclick="alert('Download — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;cursor:pointer;">⬇️ Download</button>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid var(--line2);font-size:13px;">

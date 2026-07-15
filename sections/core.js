@@ -2904,7 +2904,13 @@ function crossLinkBox(o){
     + '<span style="font-size:26px;color:var(--gold);flex-shrink:0;line-height:1;">›</span></div>';
 }
 
-// §4b.8 — bottom action trio: Add to Plan · My Kitchen · Download
+// §4b.8 — bottom action pair: Add to Plan · Download
+// 🩸 "💾 My Kitchen" was DELETED 15 Jul. It was a save that never saved: an alert()
+// stub in every room, and in Meals a 🔖 button writing S.savedRecipes — in memory,
+// keyed by BARE ID (so favouriting the events Potato Salad also lit the braai one),
+// gone the moment she closed the app. Nothing was migrated because nothing was ever
+// on disk. THE HEART (favouriteHeart, top-right of the photo header) IS THE ONLY SAVE.
+// ⚖️ Law 3 — a button that cannot do what it says is a lie. ⚖️ Law 6 — one door.
 function recipeActions(o){
   o = o || {};
   var add = !tierAllows('pro')   // §7 — Add to Plan is a My-Plan (Pro) entry point; Free sees a Pro chip, not a working button
@@ -2912,11 +2918,10 @@ function recipeActions(o){
     : '<button onclick="' + (o.addJs || '') + '" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;'
     + (o.inPlan ? 'background:var(--card2);border:1px solid var(--accent);color:var(--accent);' : 'background:var(--accent);border:1px solid var(--accent);color:#1a0f06;') + '">'
     + (o.inPlan ? '✓ In Plan' : '📋 Add to Plan') + '</button>';
-  var save = '<button onclick="' + (o.saveJs || "alert('Save to My Kitchen — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">💾 My Kitchen</button>';
   var dl = tierAllows('pro')   // §7 — Download is Pro (cook/keep). Free reads on screen.
     ? '<button onclick="' + (o.downloadJs || "alert('Download — coming soon')") + '" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;cursor:pointer;">⬇️ Download</button>'
     : '<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);font-size:14px;cursor:default;">🔒 Download</button>';
-  return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + save + dl + '</div>';
+  return '<div style="display:flex;gap:8px;margin-bottom:12px;">' + add + dl + '</div>';
 }
 
 // §4b.9 — bottom text nav: Back | My Plan | Home
@@ -3436,7 +3441,7 @@ function bakesRecipeOpts(r, servingsKey){
     qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
     goesWith: (r.goesWith && r.goesWith.length) ? r.goesWith : [],
     extrasHTML: tipBox + dykBox + nutriBox + storeBox,
-    actions: { saveJs:"toggleSavedRecipe('"+_rid+"','"+_rname+"','"+_remoji+"')" },
+    actions: {},   // legacy save deleted 15 Jul — the heart is the only save
     shareHTML: shareHTML,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }
   };
@@ -4161,7 +4166,7 @@ function recipeView(){
     methodHTML:methodHTML,
     extrasHTML: goesWellBlock + costBlock + tipBlock + nutritionBlock + storageBlock + leftoverBlock,
     shareHTML: braaiShareHTML,
-    actions:{ inPlan:isInPlan, addJs:togglePlan, saveJs:"braaiRecipeAction('kitchen')", downloadJs:"braaiRecipeAction('download')" },
+    actions:{ inPlan:isInPlan, addJs:togglePlan, downloadJs:"braaiRecipeAction('download')" },   // legacy save deleted 15 Jul — the heart is the only save
     nav:{ backJs:"closeRecipe()", planJs:"var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({viewingRecipe:null,recipeServings:null,braaiView:'myplan'})", homeJs:"set({screen:'home',viewingRecipe:null,recipeServings:null})" }
   });
 }
@@ -4275,9 +4280,11 @@ function genericCookView(){
     + '</div>';
 }
 
+// ⚠️ budget.js:194 declares braaiRecipeAction TOO, and loads AFTER core.js — so ITS
+// definition wins and this one never runs. Left in place (out of scope), but the
+// 'kitchen' branch is gone from both. ⚖️ Law 6 — one name, one function. Two is a bug.
 function braaiRecipeAction(type){
-  if(type==='kitchen') alert('💾 Save to My Kitchen — coming with Pro!');
-  else if(type==='download') alert('⬇️ Download Recipe — coming with Pro!');
+  if(type==='download') alert('⬇️ Download Recipe — coming with Pro!');
 }
 
 function braaiNavGo(id){

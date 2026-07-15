@@ -15995,9 +15995,8 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     return Math.round(raw*10)/10+(u||'');
   }
 
-  // Pre-compute save state
-  const _rid = r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();
-  const _saved = (S.savedRecipes||[]).some(x=>x.id===_rid);
+  // _rid / _saved / S.savedRecipes deleted 15 Jul — the heart (top-right of the photo
+  // header) is the only save, and it reads tinzaStore, not S. ⚖️ Law 6 — one door.
   const _isPro = tierAllows('pro');
   const _rname = (r.name||'').replace(/'/g,'').replace(/"/g,'');
   const _remoji = r.emoji||'🍽️';
@@ -16135,9 +16134,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         <!-- Storage -->
         ${r.storage?`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:var(--ink-soft);">📦 ${r.storage}</div>`:''}
         ${costW}
-        <!-- Save (Pro) -->
-        ${_isPro?`<button onclick="toggleSavedRecipe('${_rid}','${_rname}','${_remoji}')" style="width:100%;padding:12px;border-radius:10px;background:${_saved?'var(--card2)':'var(--card)'};border:1px solid var(--accent);color:var(--accent);font-size:13px;cursor:pointer;margin-bottom:10px;">${_saved?'✓ Saved to My Recipes — tap to remove':'🔖 Save to My Recipes'}</button>`
-        :`<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;color:var(--ink-soft);font-size:13px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
+        <!-- Save deleted 15 Jul — the heart is the only save -->
         <!-- WhatsApp -->
         <button onclick="window.open('https://wa.me/?text=${_waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>
         <!-- Back -->
@@ -16234,9 +16231,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- Cost estimate -->
       ${_costEstimate}
 
-      <!-- Save button (Pro) -->
-      ${_isPro?`<button onclick="toggleSavedRecipe('${_rid}','${_rname}','${_remoji}')" style="width:100%;padding:12px;border-radius:10px;background:${_saved?'#0a2008':'#080f08'};border:2px solid ${_saved?'#40c060':'#204020'};color:${_saved?'#40c060':'#406040'};font-size:13px;cursor:pointer;margin-bottom:10px;">${_saved?'✓ Saved to My Recipes — tap to remove':'🔖 Save to My Recipes'}</button>`
-      :`<div style="background:#080f08;border:1px solid #1a3020;border-radius:10px;padding:10px;text-align:center;color:#678967;font-size:13px;margin-bottom:10px;">👑 Save Recipes — Pro feature</div>`}
+      <!-- Save deleted 15 Jul — the heart is the only save -->
 
       <!-- WhatsApp -->
       <button onclick="window.open('https://wa.me/?text=${_waText}','_blank')" style="width:100%;padding:13px;border-radius:10px;background:#0a1a0a;border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>
@@ -16397,15 +16392,10 @@ function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
   </button>`;
 }
 
-// Toggle saved recipe
-function toggleSavedRecipe(id, name, emoji){
-  const saved = (S.savedRecipes||[]).some(x=>x.id===id);
-  if(saved){
-    setQuiet({savedRecipes:(S.savedRecipes||[]).filter(x=>x.id!==id)});
-  } else {
-    setQuiet({savedRecipes:[...(S.savedRecipes||[]),{id,name,emoji,section:S.screen||''}]});
-  }
-}
+// toggleSavedRecipe() DELETED 15 Jul. It wrote S.savedRecipes — in memory only, keyed
+// by BARE ID (19 ids collide across rooms, so it lit the wrong dish), gone on close.
+// Nothing to migrate: it never reached disk. THE HEART IS THE ONLY SAVE — favouriteHeart()
+// in core.js, through tinzaStore, keyed source:section:id, tier-blind. ⚖️ Law 6 · Law 46.
 
 // Toggle ingredient checkbox (tap to mark as already have)
 function toggleIng(key){

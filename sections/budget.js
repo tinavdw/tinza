@@ -191,9 +191,11 @@ function budgetPlannerHTML(){
 }
 
 
+// This is the braaiRecipeAction that ACTUALLY RUNS: core.js:4278 declares the same
+// global, but budget.js loads later and overwrites it. ⚖️ Law 6 — two functions, one
+// name. The 'kitchen' branch is deleted 15 Jul: the heart is the only save.
 function braaiRecipeAction(action) {
-  if(action === 'kitchen') { alert("Save to My Kitchen — coming soon!"); }
-  else if(action === 'download') { alert("Download — coming soon!"); }
+  if(action === 'download') { alert("Download — coming soon!"); }
 }
 function portionHelpContent() {
   if(!S.portionHelpOpen) return '';
