@@ -15998,6 +15998,18 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   // _rid / _saved / S.savedRecipes deleted 15 Jul — the heart (top-right of the photo
   // header) is the only save, and it reads tinzaStore, not S. ⚖️ Law 6 — one door.
   const _isPro = tierAllows('pro');
+
+  // THE HEART — the SAME shared control recipePage renders. ⚖️ Law 6: CALL it, never
+  // rebuild it; its onclick fires toggleRecipeFavourite() through the one door.
+  // This view has FIVE callers and none of them had a save: FMF (mealActiveRecipe),
+  // the budget finder, search results, 4-Ingredients and Anchor.
+  //   · FMF stamps _section with the SCREEN name (supper/bakes/sidesbasics …) —
+  //     VR_TYPE_SECTION maps it to the index section.
+  //   · The other four pass an allRecipes() record, whose .section IS the index section.
+  // Either way recipeFavRecord() resolves the canonical record, so a dish favourited
+  // here and the same dish favourited in Braai write the SAME key. Measured 15 Jul.
+  const _favVr = { type: (r._section || r.section || ''), id: r.id };
+  const _heart = (typeof favouriteHeart === 'function') ? favouriteHeart(_favVr) : '';
   const _rname = (r.name||'').replace(/'/g,'').replace(/"/g,'');
   const _remoji = r.emoji||'🍽️';
 
@@ -16079,6 +16091,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <div style="position:relative;">
         ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
         <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.55);border:1px solid rgba(255,255,255,0.55);border-radius:20px;color:#fff;font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
+        ${_heart}
       </div>
       <div class="content" style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
         <h1 class="ttl" style="font-size:26px;font-weight:600;color:var(--ink);margin:10px 0 2px;line-height:1.15;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</h1>
@@ -16147,6 +16160,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     <div style="position:relative;">
       ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
       <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
+      ${_heart}
     </div>
     <div style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
       <h1 style="font-size:22px;font-weight:normal;color:#f5e8cc;margin:6px 0 2px;line-height:1.25;">${r.emoji||'🍽️'} ${dietTag(r.diet)}${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</h1>

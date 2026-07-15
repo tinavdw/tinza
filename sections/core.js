@@ -437,6 +437,16 @@ function goBack(){
   try{ history.back(); }catch(_e){}
 }
 
+// ── DEV MODE ──────────────────────────── ⚖️ Law 6 · Law 19 ──
+// localhost or ?dev. The ONE definition — index.js:383 had this regex inline as a
+// local `var _tinzaDev` inside adaptWorld(), which core.js could never see. Copying
+// it here would have made two flags that drift apart; index.js now calls this instead.
+// (Do NOT delete — MF44 · Law 19. The instrument stays; it just doesn't ship to users.)
+function tinzaIsDev(){
+  try { return /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /(?:\?|&)dev\b/.test(location.search); }
+  catch(e){ return false; }
+}
+
 // ── THEME (light | dark | auto) ───────────────────────────────────
 // Read at load (core.js runs before utils.js's first draw()) so there's no flash.
 // 'light' = parchment · 'dark' = warm-dark · 'auto' = follow the phone. Default auto.
@@ -560,10 +570,33 @@ function draw(){
   else{ content=homeHTML(); }
   }catch(_err){
     console.error('[Tinza] Render error on screen "'+(S.screen||'?')+'" (tab:'+(S.eventTab||'-')+', step:'+(S.buffetStep||'-')+'):', _err);
+    // DIAGNOSTIC, not a fix. The boundary already console.error'd the real cause — but a
+    // tablet has no console to read, so on localhost/?dev we put the message + the first
+    // stack line ON THE SCREEN, where Tina can screenshot it. Non-dev users see the
+    // friendly screen, unchanged. ⚖️ Law 19 — the instrument stays, it just doesn't ship.
+    var _devBlock = '';
+    try {
+      if(typeof tinzaIsDev === 'function' && tinzaIsDev()){
+        var _esc = function(s){ return String(s == null ? '' : s)
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+        var _line1 = String((_err && _err.stack) || '').split('\n')[1] || '(no stack)';
+        _devBlock = '<div style="margin:0 auto 18px;max-width:340px;text-align:left;background:var(--card2);'
+          + 'border:1px solid var(--accent);border-radius:8px;padding:10px 12px;overflow-x:auto;">'
+          + '<div style="font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">dev · the real error</div>'
+          + '<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--ink);line-height:1.5;word-break:break-word;">'
+          + _esc((_err && _err.message) || _err) + '</div>'
+          + '<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink-soft);line-height:1.5;margin-top:6px;word-break:break-word;">'
+          + _esc(_line1.trim()) + '</div>'
+          + '<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink-soft);margin-top:6px;">screen: '
+          + _esc(S.screen||'?') + ' · tab: ' + _esc(S.eventTab||'-') + ' · step: ' + _esc(S.buffetStep||'-') + '</div>'
+          + '</div>';
+      }
+    } catch(_e2){ _devBlock = ''; }   // the boundary must NEVER throw from inside itself
     content=`<div style="padding:56px 24px;text-align:center;color:var(--ink);font-family:Georgia,serif;">
       <div style="font-size:42px;margin-bottom:12px;">🛠️</div>
       <div style="font-size:18px;margin-bottom:8px;">This part hit a snag</div>
       <div style="font-size:13px;color:#c0a0b0;line-height:1.6;max-width:320px;margin:0 auto 20px;">The <strong>${S.screen||'section'}</strong> screen couldn't finish loading, so the rest of the app stayed where it was. Head home and pick another section — nothing is lost.</div>
+      ${_devBlock}
       <button onclick="set({screen:'home',viewingRecipe:false,eventTab:null,buffetStep:1,activeCake:null,cakeCat:null,eventActiveRecipe:null})" style="background:#2a1808;border:1px solid var(--accent);border-radius:20px;color:var(--gold);font-size:14px;padding:10px 24px;cursor:pointer;font-family:Georgia,serif;">← Back to Home</button>
     </div>`;
   }
@@ -3465,7 +3498,16 @@ registerRecipeBuilder('bakes', function(item, recipe, vr){ return bakesRecipeOpt
 // is section 'braai'; openRecipe('cakes') is section 'events'. Keying off vr.type
 // would write 'db:side:potatosalad' today and look for 'db:braai:potatosalad'
 // tomorrow. This map is the ONLY place those two vocabularies meet. ⚖️ Law 46.
-var VR_TYPE_SECTION = { meat:'braai', side:'braai', cakes:'events' };
+// 🩸 MEASURED 15 Jul, do not guess (⚖️ Law 22): FMF stamps mealActiveRecipe._section with
+// the SCREEN name, not the index section — breakfast/lightlunch/supper are all section
+// 'meals', and sidesbasics is 'sides'. Today every FMF id is unique, so a single-hit
+// lookup resolves canonically BY LUCK. The day one FMF dish collides, an unmapped
+// type mints 'db:supper:potatosalad' — a key that matches no record, ever. Mapped here
+// so it is right BY DESIGN. Census 14 fails if any value is not a real index section.
+var VR_TYPE_SECTION = {
+  meat:'braai', side:'braai', cakes:'events',
+  breakfast:'meals', lightlunch:'meals', supper:'meals', sidesbasics:'sides'
+};
 
 // Resolve {type,id} from the opener into the canonical index record.
 // Falls back to a stamped synthetic so a room the index does not carry (kiddies)

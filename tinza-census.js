@@ -674,6 +674,67 @@ head('14 · DOES THE HEART TELL THE TRUTH?   ⚖️ the rendered state IS the pr
       '\n      \x1b[2mThe heart is the only save (ruled 15 Jul). A second save is a second truth.' +
       '\n      💾 My Kitchen never saved anything; 🔖 My Recipes saved to memory by BARE ID. ⚖️ Law 3 · Law 6.\x1b[0m');
     else ok('No legacy save survives', '💾 My Kitchen · 🔖 My Recipes · S.savedRecipes — all gone ⚖️ Law 6');
+
+    // ⚖️ RULE ZERO · EVERY recipe view carries the heart. There are TWO whole-page recipe
+    // renderers — recipePage() (core.js) and recipeDetailFromResult() (meals.js, reached by
+    // FMF · budget · search · 4-Ingredients · Anchor). FMF had NO save for exactly this
+    // reason: it never went through recipePage. Both must CALL favouriteHeart(), never
+    // rebuild it. ⚖️ Law 6 — one heart, or the rooms drift apart again.
+    const mealsSrc = fs.readFileSync(path.join(SD3,'meals.js'),'utf8');
+    const rdfr = (mealsSrc.match(/function recipeDetailFromResult[\s\S]*?\n\}/) || [''])[0];
+    const rp   = (coreSrc.match(/function recipePage[\s\S]*?\n\}/) || [''])[0];
+    const views = [['recipePage (core.js)', rp], ['recipeDetailFromResult (meals.js)', rdfr]];
+    const heartless = views.filter(([, src]) => !/favouriteHeart\s*\(/.test(src));
+    if (heartless.length) bad(heartless.length + ' RECIPE VIEW(S) RENDER NO HEART: ' + heartless.map(v=>v[0]).join(' · '),
+      '\n      \x1b[2mA room whose view skips the shared heart has NO save at all. That is the FMF' +
+      '\n      gap all over again. Rule Zero — sameness is the bug list, not a style choice.\x1b[0m');
+    else ok('Both whole-page recipe views call favouriteHeart()', 'recipePage + recipeDetailFromResult — one heart ⚖️ Law 6');
+    // and neither may hand-roll its own — the glyph lives in ONE function
+    const rebuilt = views.filter(([, src]) => /<svg[^>]*viewBox="0 0 24 24"/.test(src));
+    if (rebuilt.length) bad(rebuilt.length + ' view(s) HAND-ROLL a heart SVG instead of calling favouriteHeart()',
+      '\n      \x1b[2m⚖️ Law 6 — build the ONE thing they call. Two hearts drift.\x1b[0m');
+    else ok('No view hand-rolls a heart', 'the glyph has exactly one definition');
+  }
+}
+
+// ══ 15 · THE DEV INSTRUMENT ═══════════════════ Law 19 · Law 6 · MF44 ══
+head('15 · CAN WE SEE THE REAL ERROR — AND DOES SHE NOT?   ⚖️ Law 19');
+{
+  const coreS = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
+  const idxS  = fs.readFileSync(path.join(ROOT,'sections/index.js'),'utf8');
+
+  // ONE dev flag. It used to be a local `var _tinzaDev` inside index.js's IIFE — invisible
+  // to core.js, so the render boundary could not gate on it. ⚖️ Law 6.
+  if (typeof ctx.tinzaIsDev === 'function') ok('tinzaIsDev() is ONE shared function', 'reachable from every file');
+  else bad('tinzaIsDev() is not a global — the dev flag is trapped in one file again');
+
+  const inlineFlags = [];
+  ['core.js','index.js'].forEach(f => {
+    const s = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+    s.split('\n').forEach((ln, i) => {
+      if (/^\s*\/\//.test(ln)) return;
+      if (/localhost\|127\\\.0\\\.1/.test(ln) && !/function tinzaIsDev/.test(ln)) inlineFlags.push(f + ':' + (i+1));
+    });
+  });
+  if (inlineFlags.length > 1) bad(inlineFlags.length + ' COPIES of the dev-mode regex: ' + inlineFlags.join(' · '),
+    '\n      \x1b[2m⚖️ Law 6 — two flags drift. Call tinzaIsDev().\x1b[0m');
+  else ok('The dev-mode test has exactly one definition', 'no copy to drift ⚖️ Law 6');
+
+  // ⚖️ LAW 19 — the instrument must NOT ship to a live user's screen.
+  const boundary = (coreS.match(/\}catch\(_err\)\{[\s\S]*?\n  \}/) || [''])[0];
+  if (!boundary) warn('Could not read the render boundary — its shape changed. UPDATE THIS CHECK.');
+  else {
+    if (/_err\s*&&\s*_err\.message|_err\.message/.test(boundary)) ok('The boundary surfaces the real error message', 'a tablet has no console to read');
+    else bad('The boundary still hides the real error', '\n      \x1b[2mIt console.error\'s a cause nobody on a tablet can see.\x1b[0m');
+
+    if (/tinzaIsDev\s*\(\s*\)/.test(boundary)) ok('The error text is DEV-GATED', 'she sees the friendly screen; we see the cause ⚖️ Law 19');
+    else bad('THE RAW ERROR SHIPS TO EVERY USER', '\n      \x1b[2m⚖️ Law 19 — the instrument stays, but it does not ship. Gate it on tinzaIsDev().\x1b[0m');
+
+    if (/_esc|replace\(\/&\/g/.test(boundary)) ok('The error text is HTML-escaped', 'a "<" in a message cannot break the snag screen');
+    else bad('The error text is injected RAW into HTML', '\n      \x1b[2mThe screen that reports the crash must not become the next crash.\x1b[0m');
+
+    if (/catch\(_e2\)/.test(boundary)) ok('The boundary cannot throw from inside itself', 'the last line of defence holds');
+    else warn('The dev block is not itself wrapped', 'if it throws, the snag screen dies too');
   }
 }
 
