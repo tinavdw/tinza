@@ -280,7 +280,11 @@ function _budgetComp(r){
   if(!r) return -1;
   return ((r.ingredients && r.ingredients.length) || 0)
        + ((r.method && r.method.length) || 0)
-       + (r.versions  ? 3 : 0)
+       + ((r.versions && r.versions.length) ? 3 : 0)   // .length, NOT the array: the DOOR now
+                                                       // defaults versions to [] (ruled 15 Jul)
+                                                       // and [] is TRUTHY where null was FALSY.
+                                                       // Bare `r.versions` would score EVERY
+                                                       // recipe 3 and kill this signal.
        + (r.nutrition ? 2 : 0)
        + (r.feel      ? 1 : 0);
 }

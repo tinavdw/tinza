@@ -143,7 +143,10 @@
   // ── the normalised record (a superset: §1 index fields + read-only render
   //    passthrough so the shared budget recipe-detail renders any result) ────
   function rec(o){
-    var ings = o.ingredients || [];
+    // getIngredients() (core.js) is the ONE ingredient door: it upgrades the shape and
+    // parses a WK `·`-string if one ever reaches rec() directly. Falls back to the raw
+    // array if core.js has not loaded (it loads 25 files earlier — see index.html).
+    var ings = (typeof getIngredients === 'function') ? getIngredients(o) : (o.ingredients || []);
     // MF58 · index the ingredient NOUN only, not the weight/prep annotation after the em-dash
     // ("Pork spareribs — 450g raw per person" → "pork spareribs"). Kills the raw/cooked/dry/
     // per-person noise that returned whole rooms. (Display `ingredients` keep the full string.)
@@ -160,7 +163,13 @@
                         (ve.ingredients||[]).map(function(x){ return x.n || x.name || ''; }).join(' '))
       };
     });
-    return {
+    // normalizeRecipe() (core.js) is THE DOOR — ruled 15 Jul. It owns EVERY reserved-slot
+    // default (ingredients · steps · tags · source · goesWith · contains · visibility ·
+    // yield · diet · versions). rec() does NOT default them itself — it hands the raw
+    // values over and lets the ONE definition decide. ⚖️ Law 6.
+    // If core.js is somehow absent, fall through un-normalised rather than throw.
+    var _door = (typeof normalizeRecipe === 'function') ? normalizeRecipe : function(x){ return x; };
+    return _door({
       // ── §1 normalised contract ──
       id:        o.id,
       section:   o.section,
@@ -174,7 +183,7 @@
       nameRoman: o.nameRoman || '',
       emoji:     o.emoji || '🍽️',
       mealRole:  o.mealRole,                       // the finder switch
-      diet:      normDiet(o.diet),                 // MF94-A · ONE vocabulary, de-duped; empty → ['unknown'] (Law 45)
+      diet:      o.diet,                           // ← the DOOR normalises (normDiet · MF94-A · Law 45)
       protein:   o.protein || null,
       cuisine:   o.cuisine || '',
       time:      o.time!=null ? o.time : null,
@@ -182,8 +191,8 @@
       costPP:    o.costPP!=null ? o.costPP : null, // null = not confidently costed
       freezes:   o.freezes!=null ? o.freezes : null,
       fridgeDays:o.fridgeDays!=null ? o.fridgeDays : null,
-      ingredients: ings,                           // ALWAYS [{n,pp,u}]
-      goesWith:  o.goesWith || [],
+      ingredients: ings,                           // [{n,pp,u, qty,unit,name}] — both vocabularies
+      goesWith:  o.goesWith,                       // ← the DOOR defaults to []
       searchText: searchText,
       _nameN:     searchNorm(o.name || ''),                    // MF98 · normalised name (search loop line 154)
       _hay:       searchNorm(searchText || o.name || ''),      // MF98 · normalised searchText (search loop line 155)
@@ -196,8 +205,8 @@
       storage:    o.storage || '',
       didYouKnow: o.didYouKnow || '',
       photoName:  o.photoName || o.name || '',
-      versions:   o.versions || null               // meals-shaped only; else null
-    };
+      versions:   o.versions                       // ← the DOOR defaults to [] (was null — ruled 15 Jul)
+    });
   }
 
   // ── meals cat → role  (URI U8a) ──────────────────────────────────────────
@@ -598,6 +607,12 @@
   window.allRecipes     = allRecipes;
   window.balancedOrder  = balancedOrder;   // exposed so budget.js (+ search) share it
   window.TINZA_ADAPTERS = TINZA_ADAPTERS;
+
+  // Exposed so normalizeRecipe()/getIngredients() (core.js — THE DOOR, ruled 15 Jul)
+  // REUSE these instead of growing a second copy. The diet vocabulary (MF94-A) and the
+  // {n,pp,u} rules keep exactly ONE definition each. ⚖️ Law 6.
+  window.normDiet = normDiet;
+  window.normIng  = normIng;
 
   // Warm the cache shortly after load (off the critical path) so the FIRST
   // budget-finder open is instant instead of paying to build the index.

@@ -233,6 +233,58 @@ Two mechanisms, kept separate:
 
 ---
 
+### 🆕 🚪 THE NORMALISER AT THE DOOR — **RULED 15 Jul 2026**
+*Reserve the SHAPE now, so nothing needs retrofitting across 2,083 recipes or everyone's saved data. Pairs with `sections/TINZA_CONTRACT_SLOTS.md`.*
+
+**`normalizeRecipe(raw)` is THE DOOR. One definition of the reserved slots and their defaults.**
+- **It is STANDALONE.** `rec()` calls it as its **final step** and returns the result. `rec()` itself does **NO defaulting**. The future **Chef** and **Add-a-Recipe** paths (`source: chef | user`) call **the same function** — ⚖️ **Law 6, one door.** **Every record door produces complete records.**
+- **PURE.** Never mutates the source recipe; returns a normalised copy.
+- **ADDITIVE ONLY.** New keys. Nothing removed. **Existing values carry through — a default NEVER overwrites a value that is already there.**
+
+**The defaults:**
+
+| slot | default | reason |
+|---|---|---|
+| `ingredients` | structured, via `getIngredients()` | the WK `·`-string is parsed **at the door** — always comes out structured |
+| `steps` | `[]` | |
+| `tags` | `[]` | the future-proofing slot |
+| **`source`** | `'db'` | **🆕 RENAMED from `origin`.** ⚖️ **Law 46** |
+| `goesWith` | `[]` | |
+| **`contains`** | **`null` — NEVER `[]`** | ⚖️ **Law 45 — UNKNOWN IS NOT NO.** **`[]` reads as "this recipe contains NO allergens" — a SAFETY CLAIM we have not earned** on 2,083 recipes where the field was never derived. `null` = *we do not know yet.* **Passthrough only. NO auto-derivation until `deriveContains()` ships with a confirmed list.** |
+| `visibility` | `source === 'user' ? 'private' : 'public'` | reads **`source`**, not `origin` |
+| `yield` | `null` | |
+| `diet` | via `normDiet()` → `['unknown']` when empty | the 12 Jul fourth state, already built |
+| `versions` | `[]` | was `null` for 1,880 records. 🩸 **`[]` is TRUTHY where `null` was FALSY** — see below |
+
+#### 🆕 `origin` → `source`. **THE WORD `origin` WAS ALREADY TAKEN — IT MEANS A PLACE.** ⚖️ **Law 46**
+`core.js:2558` `metaStrip()` prints `origin` as a **📍 pin**, fed `r.cuisine` / `r.country` / `r.region`.
+**Provenance is `source` (`db | chef | user`). Location stays `origin`.** One word, one meaning.
+*(Amended `TINZA_CONTRACT_SLOTS.md` slot 4 — it said `origin`; **updated to `source` on 15 Jul**, same day, so the contract file and this ruling agree. **If they ever disagree again, this ruling wins.**)*
+
+#### 🆕 `yield` STAYS TOP-LEVEL. **NO RENAME.**
+`spice.js` `makeYourOwn.yield` = `{mode,unit,base,step,label}` — read at 7905 / 7926 / 8128 / 8341.
+**These are two DIFFERENT PATHS at two DIFFERENT LEVELS and they do not collide:**
+- **`recipe.yield`** — recipe-level. The reserved contract slot. Defaults `null`.
+- **`recipe.makeYourOwn.yield`** — nested, spice-only, **shaped**, already in use. **Untouched.**
+
+**Never flatten one into the other.**
+
+#### 🆕 THE INGREDIENT VOCABULARY — **BOTH, VIA THE ACCESSOR**
+⛔ **DO NOT mass-convert `{n,pp,u}` → `{qty,unit,name}`.** 1,893 recipes and **every renderer** read `.n/.pp/.u`.
+✅ **`getIngredients()` is a SHAPE-UPGRADE, not a parser** — it **reuses `wkParseIngredients()` and `normIng()`**. It never re-derives the per-room ingredient map (`ingredients` | `base300` | `base` | `shopping` | braai's nested `it.recipe.ingredients`) — **the adapters already own that.** ⚖️ **Law 6 — a second engine is the bug.**
+**Both shapes coexist on every item: `{n,pp,u}` kept, `{qty,unit,name}` added.**
+
+#### 🩸 `versions: []` IS TRUTHY. `null` WAS NOT. — **the bug this ruling nearly shipped**
+**`budget.js:283` (`_budgetComp`) scored `r.versions ? 3 : 0`.** That score decides **which record survives dedup** when two rooms hold the same dish name. Under `null` a versionless recipe scored **0**; under `[]` it scores **3** — **every** recipe wins the bonus, the "has versions" signal **dies**, and the budget finder silently starts keeping a **different record**.
+✅ **Guarded 15 Jul:** `(r.versions && r.versions.length) ? 3 : 0`.
+⛔ **NEVER test `.versions` as a boolean. Test `.length`.** Census check 12 now fails the build if anyone does. ⚖️ **Law 42.**
+*(This is why "all readers use `(r.versions||[])`" was a guess, not a fact. **The grep is the end of guessing.** ⚖️ **Law 22.**)*
+
+#### 💾 THE STORE WAITS
+`tinzaStore` is a **separate module**. **It does not get wired until the per-room slot census confirms the WK assumption with evidence.**
+
+---
+
 📌 **HOW TO USE THIS FILE**
 1. **Tina rules something → it goes in HERE, in the same breath, with the DATE and the REASON.** ⚖️ Law 52.
 2. **`CLAUDE.md` points here.** Every session, every AI, reads it before touching code.

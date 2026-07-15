@@ -2544,6 +2544,102 @@ function guestBar(o){
     stepper: { state:o.state, min:o.min, max:o.max, decJs:o.decJs, incJs:o.incJs }
   });
 }
+// ══ THE NORMALISER AT THE DOOR ═══════ RULED 15 Jul 2026 · Law 6 · Law 45 ══
+// ONE definition of the reserved contract slots and their defaults.
+// (TINZA_RULINGS.md "THE NORMALISER AT THE DOOR" · sections/TINZA_CONTRACT_SLOTS.md)
+//
+// STANDALONE ON PURPOSE. rec() (index.js) calls it as its FINAL step. The future
+// Chef and Add-a-Recipe paths (source:'chef' | 'user') call the SAME function, so
+// EVERY record door produces complete records. ⚖️ Law 6 — one door, not one per room.
+//
+// PURE — never mutates raw; returns a copy.
+// ADDITIVE — new keys only. An existing value ALWAYS carries through; a default
+// NEVER overwrites it.
+//
+// ⛔ IT DOES NOT KNOW THE PER-ROOM INGREDIENT MAP. `ingredients` | `base300` | `base`
+//    | `shopping` | braai's nested it.recipe.ingredients — THE ADAPTERS OWN THAT
+//    (index.js:307/402). Re-deriving it here would be a SECOND ENGINE. ⚖️ Law 6.
+
+// getIngredients(r) — a SHAPE-UPGRADE, NOT A PARSER.
+// Returns [{n,pp,u, qty,unit,name, priceRef?, makeYourOwnId?}].
+// ⚖️ BOTH VOCABULARIES COEXIST (ruled 15 Jul): 1,893 recipes and every renderer read
+// .n/.pp/.u — returning only {qty,unit,name} would blank the ingredient list on every
+// page in the app. The contract's shape is ADDED alongside, never swapped in.
+// The WK `·`-string is parsed HERE, at the door, via the EXISTING wkParseIngredients().
+function getIngredients(r){
+  var src = r && r.ingredients;
+  if(src == null) return [];
+
+  // WK ships a `·`-string (1,021 recipes, 7 globals). Reuse worldkitchen.js's parser —
+  // never write a second one. adaptWorld() already parses at index-build; this is the
+  // safety net for any door that hands us a RAW WK recipe (Chef / Add-a-Recipe).
+  if(typeof src === 'string'){
+    if(typeof wkParseIngredients !== 'function') return [];
+    src = (wkParseIngredients(src) || []).map(function(it){
+      return { n: it.name || '', pp: (it.toTaste || it.qty == null) ? null : it.qty, u: it.unit || '' };
+    });
+  }
+  if(!Array.isArray(src)) return [];
+
+  // Reuse index.js's normIng() when it is exposed, so the {n,pp,u} rules live in ONE
+  // place. Fall back to the same mapping only if index.js has not loaded yet.
+  var items = (typeof normIng === 'function')
+    ? normIng(src)
+    : src.filter(Boolean).map(function(i){
+        return { n: i.n || i.name || '', pp: (i.pp != null ? i.pp : null), u: i.u || '' };
+      }).filter(function(i){ return i.n; });
+
+  return items.map(function(i, ix){
+    var raw = src[ix] || {};
+    var out = {
+      n: i.n, pp: i.pp, u: i.u,          // the shape the whole app reads today
+      qty: i.pp, unit: i.u, name: i.n    // the contract shape — ADDED, not swapped
+    };
+    if(raw.priceRef != null)      out.priceRef = raw.priceRef;
+    if(raw.makeYourOwnId != null) out.makeYourOwnId = raw.makeYourOwnId;
+    return out;
+  });
+}
+
+function normalizeRecipe(raw){
+  var o = raw || {}, out = {}, k;
+  for(k in o) if(Object.prototype.hasOwnProperty.call(o, k)) out[k] = o[k];   // copy — never mutate
+
+  out.ingredients = getIngredients(o);
+  out.steps    = (o.steps    != null) ? o.steps    : [];
+  out.tags     = (o.tags     != null) ? o.tags     : [];
+  out.goesWith = (o.goesWith != null) ? o.goesWith : [];
+
+  // 🆕 PROVENANCE IS `source`, NOT `origin`. ⚖️ Law 46 — the word `origin` was ALREADY
+  // TAKEN: metaStrip() (below) prints it as a 📍 PIN, fed r.cuisine/country/region.
+  // Provenance = source (db|chef|user). Location = origin. One word, one meaning.
+  out.source     = (o.source     != null) ? o.source : 'db';
+  out.visibility = (o.visibility != null) ? o.visibility : (out.source === 'user' ? 'private' : 'public');
+
+  // 🩸 contains → null. NEVER []. ⚖️ LAW 45 — UNKNOWN IS NOT NO.
+  // [] reads as "this recipe contains NO allergens" — a SAFETY CLAIM we have not earned
+  // on 2,083 recipes where the field was never derived. null = we do not know yet.
+  // PASSTHROUGH ONLY. No auto-derivation until deriveContains() ships with a confirmed list.
+  out.contains = (o.contains != null) ? o.contains : null;
+
+  // `yield` is RECIPE-LEVEL and is NOT spice.js's makeYourOwn.yield ({mode,unit,base,
+  // step,label}, read at spice.js:7905/7926/8128/8341). Two different paths at two
+  // different levels. They do not collide. NEVER flatten one into the other.
+  out.yield = (o.yield != null) ? o.yield : null;
+
+  // normDiet() (index.js) is the ONE diet vocabulary — MF94-A. Empty → ['unknown'] (Law 45).
+  out.diet = (typeof normDiet === 'function') ? normDiet(o.diet)
+           : (Array.isArray(o.diet) && o.diet.length) ? o.diet : ['unknown'];
+
+  // versions → [] (ruled 15 Jul). ⚠️ [] is TRUTHY where null was FALSY — every reader that
+  // tests `r.versions` as a bare boolean flips. budget.js:283 (_budgetComp) was the one
+  // such site and is now guarded with `.length`. If you add a `versions: []` reader,
+  // test `.length`, never the array itself. Census check 12 watches this.
+  out.versions = (o.versions != null) ? o.versions : [];
+
+  return out;
+}
+
 // ── SHARED RECIPE-PAGE COMPONENTS (Standard §4b) ──────────────────
 // One definition each → every section's recipe page is identical by
 // construction. Sections pass CONTENT; the chrome — boxes, arrows,

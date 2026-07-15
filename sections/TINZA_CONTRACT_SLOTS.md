@@ -6,7 +6,8 @@
    → costing · scaling · shopping · pantry-match · make-your-own · allergen derivation.  ⚠️ World Kitchen is a `·`-string today.
 2. **`steps[]` — structured** `{text, timerSeconds?}`  → Cook Mode + multi-timer dashboard.
 3. **`tags[]` — flexible situational array**  (cold · hot · rainy · load-shedding · festive · quick …)  → weather / Right Now / load-shedding / any future situational feature, no new field ever.  ★ the future-proofing slot.
-4. **`origin`** — `db | chef | user`  → Add-a-Recipe + AI chef; retires MF118's 4 tokens.
+4. **`source`** — `db | chef | user`  → Add-a-Recipe + AI chef; retires MF118's 4 tokens.
+   🆕 **RENAMED from `origin` — RULED 15 Jul 2026.** ⚖️ **Law 46 — the word `origin` was ALREADY TAKEN: it means A PLACE.** `core.js` `metaStrip()` prints `origin` as a **📍 pin**, fed `r.cuisine` / `r.country` / `r.region`. **Provenance is `source`. Location stays `origin`.** *(Census check 12 fails the build if a recipe-level `origin` ever comes back.)*
 5. **`goesWith[]`** `{label, recipeId?}`  → clickable pairings (BD11) + make-your-own.
 6. **`contains[]` — allergens** (~8 majors)  → the avoid-list filter. Derive from ingredients (slot 1), explicit override. SAFETY: hard-exclude, consistent "Contains" wording, "verify ingredients" note.
 7. **`visibility`** — `private | shared | public`  → community recipe sharing + Add-a-Recipe.
@@ -22,7 +23,7 @@
 
 ## Reserve SHAPE only — do NOT build now
 Night-mode toggle · adaptive font · unit rounding · Explore tab · Home design · geofenced reminders · TWA wrap · greeting logic · weather API · Cook Mode screen · onboarding screen.
-**Backend-dependent, post-launch (reserve shape, not logic):** community sharing (`visibility`+`origin`) · weekly recipes to WhatsApp (`whatsapp`+`subscribeWeekly`+`tier`) · birthday messages (`birthday`).
+**Backend-dependent, post-launch (reserve shape, not logic):** community sharing (`visibility`+`source`) · weekly recipes to WhatsApp (`whatsapp`+`subscribeWeekly`+`tier`) · birthday messages (`birthday`).
 
 ## Retired — reserve nothing
 ❌ Budget toggle (Pantry/Standard/Indulge) — replaced 27 Jun by Budget version type + Budget Planner.

@@ -300,4 +300,179 @@ head('11 · CAN TINZA TELL BREAKFAST FROM SUPPER?   ⚖️ Law 45 — empty is u
   else ok("No `occasion` value has leaked into slot", 'the axis is clean');
 }
 
+// ══ 12 · THE RESERVED SLOTS ═══════════════ TINZA_CONTRACT_SLOTS.md · Law 42 ══
+head('12 · HOW MUCH OF THE RECIPE CONTRACT IS ACTUALLY THERE?   ⚖️ reserve the SHAPE');
+{
+  // The contract's 7 recipe-level slots (+ the 3 "standardised, not new" ones).
+  // Measured in BOTH places, because they are different questions:
+  //   RAW  — what the data files hold.        POST — what rec() lets through.
+  // rec() (index.js:162) returns a WHITELIST. A field the data has but rec() omits
+  // is invisible to every render path. That gap is the whole point of this check.
+  // `source`, NOT `origin` — provenance was renamed 15 Jul (Law 46: `origin` means A PLACE).
+  const F = ['ingredients','steps','tags','source','goesWith','contains','visibility','yield','diet','versions'];
+  const ty = v => v===undefined ? '–' : v===null ? 'null' : Array.isArray(v) ? 'arr' : typeof v==='string' ? 'str' : typeof v;
+
+  // ── RAW · harvest every SCREAMING_CASE global that holds recipe-ish objects.
+  // const/let globals are NOT properties of the vm context (they live in its lexical
+  // env), so Object.keys(ctx) cannot see them — read each by name, inside the context.
+  const names = new Set();
+  for (const f of loadOrder) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    let m, re = /^\s*(?:const|let|var)\s+([A-Z][A-Z0-9_]{2,})\s*=/gm;
+    while ((m = re.exec(src))) names.add(m[1]);
+  }
+  const isRec = o => o && typeof o==='object' && !Array.isArray(o) &&
+                     typeof o.name==='string' && (o.ingredients!==undefined || o.method!==undefined || o.id!==undefined);
+  const raw = {}, seen = new Set();
+  function eat(g, arr, d){
+    if (d > 3) return;
+    for (const o of arr) {
+      if (isRec(o)) { if (!seen.has(o)) { seen.add(o); (raw[g] = raw[g] || []).push(o); } }
+      else if (Array.isArray(o)) eat(g, o, d+1);
+      else if (o && typeof o==='object') for (const k of Object.keys(o)) if (Array.isArray(o[k])) eat(g, o[k], d+1);
+    }
+  }
+  for (const g of [...names].sort()) {
+    let v; try { v = vm.runInContext('typeof '+g+'!=="undefined"?'+g+':undefined', ctx); } catch(e) { continue; }
+    if (Array.isArray(v) && v.length) eat(g, v, 0);
+  }
+
+  // ⚠️ THE INGREDIENT KEY IS NOT `ingredients` IN EVERY ROOM.
+  // health→shopping/base300/base · events→base300 · tiny→base · braai→it.recipe.ingredients
+  // · WK→a `·`-STRING · spice→none (a spice IS an ingredient). The ADAPTERS already know
+  // this map (index.js:307/402). Anything that re-derives it becomes a SECOND ENGINE. ⚖️ Law 6.
+  const ING_KEYS = ['ingredients','base300','base','shopping','base12'];
+  const shapeOf = r => {
+    for (const k of ING_KEYS) {
+      const i = r[k];
+      if (i === undefined) continue;
+      if (typeof i === 'string') return i.indexOf('·') >= 0 ? '·-STRING' : 'string';
+      if (Array.isArray(i)) return (i[0] && typeof i[0]==='object') ? k+'[' + Object.keys(i[0]).sort().join(',') + ']' : k+'[]';
+    }
+    return 'none';
+  };
+
+  const pad = (s,n) => String(s).padEnd(n), lp = (s,n) => String(s).padStart(n);
+  p('\n     \x1b[1mRAW — what the data files hold\x1b[0m');
+  p('     ' + pad('GLOBAL',26) + lp('n',5) + '  ' + pad('INGREDIENT SHAPE',22) + F.slice(1).map(f=>lp(f.slice(0,8),10)).join(''));
+  let tot = 0; const agg = {}; const dotRooms = [];
+  for (const g of Object.keys(raw).sort()) {
+    const rs = raw[g]; tot += rs.length;
+    const shp = [...new Set(rs.map(shapeOf))].join('|');
+    if (/·-STRING/.test(shp)) dotRooms.push(g + ' (' + rs.length + ')');
+    const cells = F.slice(1).map(f => {
+      const t = {}; rs.forEach(r => { const k = ty(r[f]); t[k] = (t[k]||0)+1; });
+      agg[f] = agg[f] || {}; Object.entries(t).forEach(([k,v]) => agg[f][k] = (agg[f][k]||0)+v);
+      const present = rs.length - (t['–']||0);
+      return lp(present === 0 ? '·' : present + ' ' + Object.keys(t).filter(k=>k!=='–').join('/'), 10);
+    });
+    p('     ' + pad(g,26) + lp(rs.length,5) + '  ' + pad(shp,22) + cells.join(''));
+  }
+  p('     ' + pad('TOTAL RAW',26) + lp(tot,5) + '   \x1b[2m(index reports ' + all.length + ' — the rest are nested/derived)\x1b[0m');
+
+  // ── POST · what rec() actually hands the renderers ──
+  p('\n     \x1b[1mPOST-rec() — what every render path actually sees\x1b[0m');
+  const dead = [];
+  F.forEach(f => {
+    const t = {}; all.forEach(r => { const k = ty(r[f]); t[k] = (t[k]||0)+1; });
+    const missing = t['–'] || 0;
+    const line = '     ' + pad(f,13) + pad(Object.entries(t).map(([k,v]) => v+' '+k).join(' · '), 34);
+    if (missing === all.length) { dead.push(f); p(line + '\x1b[31m← rec() DROPS IT\x1b[0m'); }
+    else p(line);
+  });
+  if (dead.length) bad(dead.length + ' CONTRACT SLOTS CANNOT REACH A RENDERER: ' + dead.join(' · '),
+    '\n      \x1b[2mrec() (index.js:162) is a WHITELIST. Adding these to the DATA changes NOTHING' +
+    '\n      until rec() passes them through. The plumbing belongs IN rec(), not beside it. ⚖️ Law 6.\x1b[0m');
+  if (dotRooms.length) warn(dotRooms.length + ' raw globals store ingredients as a `·`-STRING',
+    '\n      ' + dotRooms.join(' · ') +
+    '\n      \x1b[2mNot a bug: adaptWorld (index.js:338) already parses them via wkParseIngredients()' +
+    '\n      at index-build. POST-rec they are structured. Do NOT parse them a second time. ⚖️ Law 6.\x1b[0m');
+
+  // ── THE RULINGS OF 15 JUL, ENFORCED ─────────────────────────── ⚖️ Law 42 ──
+  // Each of these closed a real hole. The ratchet keeps them closed.
+  const SD2 = path.join(ROOT,'sections');
+  const files2 = fs.readdirSync(SD2).filter(f => f.endsWith('.js') && !/\.bak/.test(f));
+
+  // ⚖️ LAW 46 · `origin` MEANS A PLACE. Provenance is `source`. A recipe-level `origin`
+  // means the collision came back — metaStrip() would print "📍 db" on every card.
+  const strays = all.filter(r => r.origin !== undefined).length;
+  if (strays) bad(strays + ' recipes carry a recipe-level `origin` — THE COLLISION IS BACK',
+    "\n      \x1b[2mcore.js metaStrip() prints `origin` as a 📍 PIN (fed r.cuisine|country|region)." +
+    "\n      Provenance is `source` (db|chef|user). Location is `origin`. ⚖️ Law 46 — ruled 15 Jul.\x1b[0m");
+  else ok('No recipe-level `origin`', 'provenance is `source`; 📍 still means a place');
+
+  // ⚖️ LAW 45 · contains === [] is a SAFETY CLAIM ("no allergens") we have not earned.
+  const claim = all.filter(r => Array.isArray(r.contains) && !r.contains.length).length;
+  if (claim) bad(claim + ' recipes claim "CONTAINS NO ALLERGENS" WITHOUT DERIVING IT',
+    "\n      \x1b[2m⚖️ Law 45 — UNKNOWN IS NOT NO. `contains: []` reads as a cleared allergen list." +
+    "\n      Until deriveContains() ships with a confirmed list, the honest default is null. Ruled 15 Jul.\x1b[0m");
+  else ok('No recipe claims an un-derived empty allergen list', 'contains is null = unknown ⚖️ Law 45');
+
+  // 🩸 THE BUG THIS BRIEF NEARLY SHIPPED. versions defaults to [] — and [] is TRUTHY where
+  // null was FALSY. budget.js:283 scored `r.versions ? 3 : 0`: every recipe would have won
+  // the bonus and the dedup would silently keep a different record. Test .length, never
+  // the array itself. ⚖️ Law 42 — a bug the census catches cannot come back quietly.
+  const naked = [];
+  files2.forEach(f => {
+    const s = fs.readFileSync(path.join(SD2,f),'utf8');
+    // `r.versions ?` / `&& r.versions)` etc — a bare truthiness test, no .length beside it
+    const re = /[A-Za-z_$][\w$]*\.versions\s*(\?|\)\s*\?)/g; let m;
+    while ((m = re.exec(s))) {
+      const around = s.slice(Math.max(0,m.index-40), m.index+60);
+      if (!/\.versions\s*&&|\.versions\.length/.test(around))
+        naked.push(f + ':' + s.slice(0,m.index).split('\n').length);
+    }
+  });
+  if (naked.length) bad(naked.length + ' site(s) test `.versions` AS A BOOLEAN — [] is TRUTHY',
+    '\n      ' + naked.join(' · ') +
+    '\n      \x1b[2mThe door defaults versions to [] (ruled 15 Jul). A bare test now fires for EVERY' +
+    '\n      recipe. Use `.versions && .versions.length`. This is how budget.js:283 broke.\x1b[0m');
+  else ok('Every `.versions` test checks .length', 'the [] default cannot silently fire ⚖️ Law 42');
+
+  // ⚖️ LAW 6 · THE DOOR IS ONE FUNCTION. rec() must CALL it, never re-implement its defaults.
+  const idx = fs.readFileSync(path.join(ROOT,'sections/index.js'),'utf8');
+  if (/normalizeRecipe\s*\(/.test(idx) && /function\s+normalizeRecipe/.test(fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8')))
+    ok('rec() calls normalizeRecipe() — THE DOOR', 'one definition of the slots; the Chef + Add-a-Recipe call the same one');
+  else bad('rec() DOES NOT CALL normalizeRecipe() — the door has been bypassed',
+    '\n      \x1b[2m⚖️ Law 6 — every record door produces complete records, or none do. Ruled 15 Jul.\x1b[0m');
+
+  // `yield` — two paths, two levels, NO collision. The tripwire is a FLATTENING.
+  const flat = all.filter(r => r.yield && typeof r.yield === 'object' && r.yield.mode !== undefined).length;
+  if (flat) bad(flat + " recipes have spice's makeYourOwn.yield FLATTENED into recipe.yield",
+    "\n      \x1b[2mrecipe.yield (contract slot) and makeYourOwn.yield ({mode,unit,base,step,label}," +
+    "\n      spice.js:7905/7926/8128/8341) are DIFFERENT PATHS AT DIFFERENT LEVELS. Never flatten. Ruled 15 Jul.\x1b[0m");
+  else ok('recipe.yield and makeYourOwn.yield stay separate', 'two levels, no collision — ruled 15 Jul');
+
+  // ADDITIVE · both ingredient vocabularies coexist. Dropping {n,pp,u} blanks every page.
+  const withIng = all.filter(r => (r.ingredients||[]).length);
+  const both = withIng.filter(r => r.ingredients.every(i => i.n !== undefined && i.name !== undefined));
+  if (both.length !== withIng.length) bad((withIng.length - both.length) + ' recipes LOST a vocabulary',
+    '\n      \x1b[2m{n,pp,u} is what every renderer reads; {qty,unit,name} is the contract shape.' +
+    '\n      BOTH coexist on every item — ruled 15 Jul. Dropping .n blanks the ingredient list app-wide.\x1b[0m');
+  else ok(both.length + ' recipes carry BOTH {n,pp,u} and {qty,unit,name}', 'additive — nothing was mass-converted');
+}
+
+// ══ 13 · THE SAVED STATE ═══════════════════ TINZA_CONTRACT_SLOTS.md · Law 20 ══
+head('13 · WHAT SURVIVES CLOSING THE APP?   ⚖️ Law 20 — emptying her WORK is theft');
+{
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f => f.endsWith('.js'));
+  const keys = {}, sites = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    const re = /localStorage\.(getItem|setItem|removeItem)\s*\(\s*['"]([^'"]+)['"]/g; let m;
+    while ((m = re.exec(s))) { keys[m[2]] = (keys[m[2]]||0)+1; sites.push(f + ':' + s.slice(0,m.index).split('\n').length); }
+  });
+  const CONTRACT = ['preferences','favourites','plans','pantry','theme'];
+  p('     ' + num(Object.keys(keys).length) + '  localStorage keys in the whole app: ' + (Object.keys(keys).join(' · ')||'(none)'));
+  p('     ' + num(sites.length) + '  call sites: ' + [...new Set(sites)].join(' · '));
+  const persists = Object.keys(keys).length;
+  if (persists <= 1) bad(CONTRACT.length - 1 + ' OF THE ' + CONTRACT.length + ' SAVED-STATE SLOTS DO NOT PERSIST AT ALL',
+    '\n      \x1b[2mOnly `tinzaTheme` survives. preferences · favourites · plans · pantry all vanish on close.' +
+    '\n      ⚖️ Law 20 — her Plan and her people-counts must SURVIVE. Today they do not.\x1b[0m');
+  if (!keys.tinzaSchemaVersion) warn('No schemaVersion key — saved state is UNVERSIONED',
+    '\n      \x1b[2mNothing written today can be migrated tomorrow without guessing its age.\x1b[0m');
+  else ok('Saved state is versioned');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
