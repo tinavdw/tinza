@@ -800,4 +800,83 @@ head('16 · CAN SHE TELL TWO DISHES WITH THE SAME NAME APART?   ⚖️ §14');
   }
 }
 
+// ══ 17 · THE MOOD SHELVES ═══════════════════ MF117 · Law 42 · Law 43 ══
+head('17 · DOES "JUST FEED ME" SERVE REAL, OPENABLE RECIPES?   ⚖️ MF117');
+{
+  const BUILD = ctx.buildMoodPool, Q = ctx.MOOD_QUERY, EATS = ctx.MOOD_EAT_SLOTS;
+  if (typeof BUILD !== 'function' || !Q) {
+    bad('buildMoodPool() / MOOD_QUERY not reachable — the mood shelves are still hand-typed');
+  } else {
+    const NOT_FOOD = ['CONDIMENT','DRINK','PETFOOD','BABYFOOD'];
+    const TIMED = ['quick','exhausted','lazy'];
+    const moods = Object.keys(Q);
+    const rows = [], thin = [], noId = [], notFood = [], nullTime = [];
+
+    moods.forEach(m => {
+      const pool = BUILD(m) || [];
+      rows.push([m, pool.length]);
+      // ① every mood must clear 10 — below that the paid AI fires on page one. ⚖️ Law 43.
+      if (pool.length < 10) thin.push(m + ' (' + pool.length + ')');
+      // ② no dead-end cards — the whole point of MF117 is that a tap goes somewhere.
+      pool.forEach(r => { if (!r.id) noId.push(m + ':' + (r.name||'?')); });
+      // ③ nobody moods their way to a chutney or dog food.
+      pool.forEach(r => { if (NOT_FOOD.indexOf(r.slot) >= 0) notFood.push(m + ':' + r.slot + ':' + r.name); });
+      // ④ a null-time recipe under "need it fast" is a LIE. ⚖️ Law 45.
+      if (TIMED.indexOf(m) >= 0) pool.forEach(r => { if (r.time == null) nullTime.push(m + ':' + r.name); });
+    });
+
+    rows.sort((a,b) => b[1]-a[1]).forEach(([m,n]) =>
+      p('     ' + num(n) + '  ' + m + (n < 10 ? '   \x1b[31m← UNDER 10\x1b[0m' : '')));
+
+    if (thin.length) bad(thin.length + ' MOOD(S) YIELD FEWER THAN 10: ' + thin.join(' · '),
+      '\n      \x1b[2m⚖️ Law 43 — under 10 the paid AI fires on page one. The library must carry the shelf.\x1b[0m');
+    else ok('All ' + moods.length + ' moods clear 10 from the live library', 'the AI is a genuine fallback, not the default');
+
+    if (noId.length) bad(noId.length + ' MOOD CARD(S) HAVE NO id — DEAD-END CARDS ARE BACK',
+      '\n      ' + noId.slice(0,5).join(' · ') +
+      '\n      \x1b[2mThe 36 hand-typed MOOD_DB cards had no id, so a tap went nowhere. That is what MF117 killed.\x1b[0m');
+    else ok('Every mood card carries a real id', 'every card is a live recipe, not a stub');
+
+    if (notFood.length) bad(notFood.length + ' NON-FOOD RECORD(S) LEAKED INTO A MOOD SHELF',
+      '\n      ' + notFood.slice(0,5).join(' · ') +
+      '\n      \x1b[2mCONDIMENT · DRINK · PETFOOD · BABYFOOD are not a meal. MOOD_EAT_SLOTS is the gate.\x1b[0m');
+    else ok('No chutney, drink, pet food or baby food on a mood shelf', EATS.join(' · '));
+
+    if (nullTime.length) bad(nullTime.length + ' NULL-TIME RECIPE(S) IN A TIME-GATED MOOD',
+      '\n      ' + nullTime.slice(0,5).join(' · ') +
+      '\n      \x1b[2m⚖️ Law 45 — unknown is not "fast". A recipe with no time shown under "quick" is a lie.\x1b[0m');
+    else ok('quick · exhausted · lazy contain NO null-time recipe', 'unknown never masquerades as fast ⚖️ Law 45');
+
+    // ⑤ THE TAP. Mood cards render through recipeDetailFromResult (core.js — the same
+    // renderer the budget finder and search already use with allRecipes() records), so a
+    // card only truly opens if it carries what that renderer needs.
+    const sample = BUILD('cold').slice(0, 40);
+    const blank = sample.filter(r => !(r.ingredients||[]).length || !(r.method||[]).length);
+    if (blank.length) warn(blank.length + ' of 40 sampled cards have no ingredients or no method',
+      '\n      ' + blank.slice(0,4).map(r=>r.section+':'+r.id).join(' · ') +
+      '\n      \x1b[2mThe tap opens a real page but it would render half-empty.\x1b[0m');
+    else ok('40 sampled cards all carry ingredients + method', 'the tap opens a full page');
+
+    // 💰 THE PAID CHEF MUST NOT FIRE WHEN THE LIBRARY CAN CARRY THE SHELF.
+    // callMoodChef() used to prefetch a Sonnet call on EVERY mood tap — right when a mood
+    // was 6 cards deep, pure waste now the pool is 53–261 pages deep. ⚖️ Law 20 · MF78.
+    const coreSrc4 = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
+    const chef = (coreSrc4.match(/async function callMoodChef[\s\S]*?\n\}/) || [''])[0];
+    const eager = /^\s*startMoodAIFetch\(mood\);/m.test(chef);
+    if (eager) bad('callMoodChef() PREFETCHES THE PAID CHEF ON EVERY MOOD TAP',
+      '\n      \x1b[2m12 moods = 12 paid Sonnet calls for pages the 160–784-deep library means' +
+      '\n      she will never reach. Gate it on the pool being thin. ⚖️ Law 20 · MF78.\x1b[0m');
+    else if (/moodPool[\s\S]*?length\s*<\s*10[\s\S]{0,60}startMoodAIFetch/.test(chef))
+      ok('The paid chef fires ONLY when the library is thin', 'the shelf is free; the AI is the <10 fallback ⚖️ Law 20');
+    else warn('Could not read callMoodChef\'s AI gate — its shape changed. UPDATE THIS CHECK.');
+
+    // ⑥ VARIETY — balancedOrder must spread the sections, or a mood is 10 WK dishes.
+    const first10 = BUILD('healthy').slice(0,10).map(r => r.section);
+    const spread = new Set(first10).size;
+    if (spread < 2) bad('The first 10 of `healthy` are all ONE section (' + first10[0] + ')',
+      '\n      \x1b[2mbalancedOrder({bucketOf:"section"}) is not spreading the shelf.\x1b[0m');
+    else ok('The first 10 of `healthy` span ' + spread + ' sections', [...new Set(first10)].join(' · '));
+  }
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

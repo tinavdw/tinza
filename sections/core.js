@@ -1962,16 +1962,92 @@ const MOOD_DB = {
   ],
 };
 
+// ══ MF117 · THE MOOD LIBRARY ═══════════════ 15 Jul · Law 22 · Law 35 ══
+// The 36 hand-typed MOOD_DB cards above are an ISLAND: no id, so a tap opened a stub
+// with no method, no photo, no cost. This layer READS the real catalogue instead —
+// 1,667 eatable records, every one with an id, so every card is a live recipe.
+//
+// ⛔ It does NOT touch allRecipes() (index.js) — that is the shared hot path.
+//    MF117 only reads its cache and filters. (STABILITY RULE 1.)
+// ⛔ MOOD_DB STAYS for one release as the emergency fallback. Do not delete working
+//    code in the same session that replaces it. Delete it once the tablet confirms.
+
+// The eatable gate. MEASURED 15 Jul: 1,667 of 2,083 pass. The other 416 are correctly
+// excluded — CONDIMENT 217 · DRINK 119 · PETFOOD 62 · BABYFOOD 18. Nobody moods their
+// way to a chutney or to dog food.
+var MOOD_EAT_SLOTS = ['SUPPER','LUNCH','BREAKFAST','SIDE','STARTER','TREAT'];
+
+// One predicate per mood. These are the TESTED definitions — they produced the measured
+// yields, re-verified against this commit (all 12 exact). Every mood clears 10 with room
+// to spare, so the paid AI NEVER fires for the first pages. ⚖️ Law 43.
+//   ⚠ time === null is INELIGIBLE for time-gated moods (quick/exhausted/lazy). A null-time
+//     recipe under "need it fast" is a LIE — unknown must never masquerade as fast. Law 45.
+//   ⚠ searchText indexes name + cuisine + country + ingredient NOUNS — NOT method prose.
+//     Probed: "one pot" / "one pan" = 0 hits. `lazy` therefore uses a STRUCTURAL proxy
+//     (short time + few ingredients), never a keyword.
+//   ⚠ protein is 6% covered — never query it.
+function _moodText(r, words){
+  var hay = r.searchText || '';
+  for (var i = 0; i < words.length; i++) if (hay.indexOf(words[i]) >= 0) return true;
+  return false;
+}
+function _moodDiet(r, ds){
+  var d = r.diet || [];
+  for (var i = 0; i < ds.length; i++) if (d.indexOf(ds[i]) >= 0) return true;
+  return false;
+}
+var _MOOD_MEALSLOT = ['SUPPER','LUNCH','BREAKFAST'];
+var MOOD_QUERY = {
+  healthy:     function(r){ return r.section === 'health' || _moodDiet(r, ['vegan','vegetarian','pescatarian']); },
+  celebrating: function(r){ return r.section === 'events' || r.section === 'braai' || (r.costPP != null && r.costPP >= 45); },
+  fussy:       function(r){ return _moodText(r, ['chicken','pasta','mince','cheese','nugget','sausage','macaroni']); },
+  cold:        function(r){ return _moodText(r, ['soup','stew','potjie','curry','casserole','bake']); },
+  sweet:       function(r){ return r.slot === 'TREAT'; },
+  exhausted:   function(r){ return _MOOD_MEALSLOT.indexOf(r.slot) >= 0 && r.time != null && r.time <= 25; },
+  sick:        function(r){ return _moodText(r, ['soup','broth','congee','porridge','ginger']); },
+  quick:       function(r){ return _MOOD_MEALSLOT.indexOf(r.slot) >= 0 && r.time != null && r.time <= 20; },
+  adventurous: function(r){ return r.section === 'world' && _moodText(r, ['curry','spice','chilli','fermented','tagine','laksa']); },
+  pickmeup:    function(r){ return _MOOD_MEALSLOT.indexOf(r.slot) >= 0 && _moodText(r, ['smoothie','bowl','fresh','bright','zing','citrus']); },
+  lazy:        function(r){ return (r.slot === 'SUPPER' || r.slot === 'LUNCH') && r.time != null && r.time <= 30 && (r.ingredients || []).length <= 7; },
+  impress:     function(r){ return r.slot === 'SUPPER' && _moodText(r, ['roast','lamb','fillet','rib','duck','slow']); }
+};
+
+// Build a mood's pool: the eatable catalogue, filtered by the mood, then balanced by
+// section so a shelf isn't ten World Kitchen dishes in a row. balancedOrder is the ONE
+// variety engine — the budget finder already calls it (index.js:572). ⚖️ Law 6 · Law 35.
+function buildMoodPool(moodId){
+  var q = MOOD_QUERY[moodId];
+  if (!q || typeof allRecipes !== 'function') return [];
+  var pool;
+  try { pool = (allRecipes() || []).filter(function(r){
+    return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && q(r);
+  }); } catch(e){ return []; }
+  if (typeof balancedOrder === 'function') pool = balancedOrder(pool, { bucketOf:'section' });
+  return pool;
+}
+
+// Cached per mood tap, KEYED BY MOOD ID — an unkeyed S.moodPool would serve the previous
+// mood's shelf after a "← Change mood". Rebuilds only when the id actually changes.
+function moodPool(moodId){
+  if (S._moodPoolId === moodId && Array.isArray(S.moodPool)) return S.moodPool;
+  S.moodPool = buildMoodPool(moodId);
+  S._moodPoolId = moodId;
+  return S.moodPool;
+}
+
 // ── MOOD PAGED SYSTEM ────────────────────────────────────────────
-// DB has 6 recipes per mood. Page 0 = first 3, Page 1 = next 3, Page 2+ = AI results.
+// Page 0 = first 3, page 1 = next 3, … The library pool is now hundreds deep per mood,
+// so the AI branch is a genuine <10 fallback that in practice never fires.
 // AI starts fetching in background the moment a mood is selected.
 
 function getMoodPageRecipes(moodId, page) {
-  const db = MOOD_DB[moodId] || [];
+  // MF117 · the live catalogue. MOOD_DB is the fallback ONLY if the pool comes back
+  // empty (a broken index) — degrade to the old cards, never to a blank shelf. Law 3.
+  const db = moodPool(moodId).length ? moodPool(moodId) : (MOOD_DB[moodId] || []);
   const start = page * 3;
   const slice = db.slice(start, start + 3);
   if (slice.length === 0) return null;
-  return slice.map(r => ({...r, serves:1, _fromDB:true}));
+  return slice.map(r => ({...r, serves:1, _fromLibrary:true}));
 }
 
 async function startMoodAIFetch(mood) {
@@ -2010,21 +2086,35 @@ async function callMoodChef(mood) {
   S.moodAIRecipes = null;
   S.moodAILoading = false;
 
-  // Show first 3 from DB instantly
+  // MF117 · build this mood's pool ONCE, up front, off the cached catalogue.
+  moodPool(mood.id);
+
+  // Show first 3 from the library instantly
   const firstPage = getMoodPageRecipes(mood.id, 0);
   S.moodRecipes = firstPage || [];
   S.moodLoading = false;
   draw();
 
-  // Start AI fetch in background immediately
-  startMoodAIFetch(mood);
+  // 💰 MF117 · DO NOT PREFETCH THE PAID CHEF WHEN THE LIBRARY CAN CARRY THE SHELF.
+  // Before MF117 a mood held 6 cards = 2 pages, so page 3 genuinely needed the AI and
+  // prefetching on tap was right. The pool is now 160–784 deep — 53 to 261 pages. An
+  // eager prefetch buys a PAID Sonnet call (4,000 max_tokens, /.netlify/functions/claude)
+  // on EVERY mood tap, for pages she will never reach. 12 moods = 12 paid calls for
+  // nothing. Nothing is lost by waiting: getMoreMoodRecipes() ALREADY fires the chef on
+  // demand at the end of the library ("AI not started yet — fire it now and wait").
+  // ⚖️ Law 20 — the cache is not a shortcut, it IS the business model.
+  // ⚖️ MF78 — the AI cost cap. The chef is live and firing. This is real money.
+  if ((S.moodPool || []).length < 10) startMoodAIFetch(mood);
 }
 
 function getMoreMoodRecipes(moodId) {
   const mood = MOODS.find(m => m.id === moodId);
   const nextPage = (S.moodPage || 0) + 1;
   S.moodPage = nextPage;
-  const _dbPages = Math.ceil(((MOOD_DB[moodId]||[]).length) / 3);   // MF116-A · count the DB pages, don't assume 2
+  // MF116-A · count the real pages, don't assume 2. MF117 · that is now the LIVE pool
+  // (hundreds deep), so the AI offset below is a genuine end-of-library fallback.
+  const _poolLen = moodPool(moodId).length || (MOOD_DB[moodId]||[]).length;
+  const _dbPages = Math.ceil(_poolLen / 3);
 
   // DB page 1 (recipes 4-6)
   const dbPage = getMoodPageRecipes(moodId, nextPage);
@@ -2156,7 +2246,17 @@ function moodHTML(){
                 <span style="font-size:20px;">${r.emoji}</span>
                 <div style="flex:1;">
                   <div style="font-size:14px;color:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'var(--ink)':'var(--ink-soft)'};font-weight:${isPlanItem('moodPlan',r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase())?'bold':'normal'};">${r.name}</div>
-                  <div style="font-size:13px;color:${mood.colour};margin-top:2px;font-style:italic;">${r.why||''} · ⏱️ ${r.time} min</div>
+                  <div style="font-size:13px;color:${mood.colour};margin-top:2px;font-style:italic;">${(function(){
+                    // MF117 · a live record has no `why` (that was MOOD_DB prose) and may have
+                    // NO time at all — 20% of the eatable pool is time-null. The old template
+                    // hard-printed "⏱️ ${r.time} min", which renders "⏱️ null min" on those.
+                    // Build the line from what EXISTS. ⚖️ Law 45 — say nothing, never say null.
+                    var bits = [];
+                    var why = r.why || r.feel || '';
+                    if (why) bits.push(why);
+                    if (r.time != null) bits.push('⏱️ ' + r.time + ' min');
+                    return bits.join(' · ');
+                  })()}
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
                   <button onclick="event.stopPropagation();openMoodRecipe(${i})" style="background:${mood.colour};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
