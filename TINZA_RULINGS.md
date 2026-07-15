@@ -219,6 +219,18 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 - 💳 **PayFast, R90/mo.**
 - 🎨 **The Home page still needs designing — and is still BLACK.**
 
+### 🆕 🌍 LOCALE — ONE RECIPE, MANY KITCHENS — **RULED 15 Jul 2026**
+**SA is locale #1.** Location (set in Settings) picks the kitchen: **SA now, UK/US later.**
+Two mechanisms, kept separate:
+- **TERMINOLOGY** *(word-level)* — brinjal↔aubergine, mielie↔corn. Display-only swap, **same ingredient**. A dictionary applied at render.
+- **PRODUCT** *(item-level)* — things that don't cross the border: Ro-Tel→tinned tomato + green chilli; snoek→smoked mackerel. A **per-locale override on specific ingredient lines**, may nudge the method.
+
+🚫 **Locale is NOT a version chip.** Versions (Classic/Budget/Quick) = the USER picks. Locale = the SYSTEM picks, invisibly, from location. **Two separate axes — never tangle them.**
+
+➡️ **DISCIPLINE (⚖️ Law 53):** author **SA-first**, but **mark every locale-specific line as it is written** — so UK/US is a *fill-in, not a rewrite* of 2,083 recipes. The marking is free today; the rewrite is not.
+
+**v1 ships SA only. UK/US is post-launch.**
+
 ---
 
 📌 **HOW TO USE THIS FILE**

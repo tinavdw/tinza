@@ -240,7 +240,17 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 ⛔ **STILL LOST: 8 · 17 · 18 · 21 · 24 · 25.** **DO NOT REUSE THESE NUMBERS.**
 🚨 **AWAITING TINA: Law 12 has TWO texts. And Law 44 may simply BE Law 7.**
 
-**New laws start at 53.**
+### 53 · 🆕 🩸 **FINISH THE WHOLE THING, OR IT IS NOT DONE.**
+# **A FIX THAT DOES THE EASY CASES AND LEAVES THE REST FOR "A LATER PASS" IS NOT A FIX. IT IS A LEAK IN A GOOD MOOD.**
+**THE LATER PASS NEVER COMES.**
+*The 4-cheesecake story: the portion fix wired 3 of 9 categories and 69 recipes kept saying "4 people" for weeks. The diet 'unknown' ruling sat written-but-unbuilt for 3 weeks. Both slipped because "done" was declared on the easy half.*
+**DONE = 0 of N remain. Prove it with the number — or give the remainder an MF number BEFORE the session closes.**
+*A ruling written is not built. A fix half-wired is not done. Check the library before you add — we already had the Stroganoff.*
+➡️ **When you start it, you finish it — all of it — or you name exactly what remains and put a number on it.**
+
+---
+
+**New laws start at 54.**
 
 🩸 *Eleven laws went missing because they lived on a whiteboard. Six are gone for good.
 **That is what a whiteboard costs. This file is why it will not happen again.***
