@@ -440,13 +440,16 @@ function goBack(){
 // ── THEME (light | dark | auto) ───────────────────────────────────
 // Read at load (core.js runs before utils.js's first draw()) so there's no flash.
 // 'light' = parchment · 'dark' = warm-dark · 'auto' = follow the phone. Default auto.
-var THEME = (function(){ try{ var t=localStorage.getItem('tinzaTheme'); return (t==='light'||t==='dark'||t==='auto')?t:'auto'; }catch(e){ return 'auto'; } })();
+// Reads through tinzaStore — the ONE user-state door (tinzaStore.js, loaded FIRST in
+// index.html). The legacy `tinzaTheme` key was folded into preferences.theme by the
+// v0→v1 migration and deleted. ⚖️ Law 6 — no direct localStorage outside the store.
+var THEME = (function(){ try{ var t=tinzaStore.getPref('theme'); return (t==='light'||t==='dark'||t==='auto')?t:'auto'; }catch(e){ return 'auto'; } })();
 function themeIsNight(){
   if(THEME==='dark') return true;
   if(THEME==='auto'){ try{ return matchMedia('(prefers-color-scheme: dark)').matches; }catch(e){ return false; } }
   return false;
 }
-function setTheme(t){ THEME=(t==='light'||t==='dark'||t==='auto')?t:'auto'; try{ localStorage.setItem('tinzaTheme', THEME); }catch(e){} draw(); }
+function setTheme(t){ THEME=(t==='light'||t==='dark'||t==='auto')?t:'auto'; try{ tinzaStore.setPref('theme', THEME); }catch(e){} draw(); }
 // In auto mode, flip live when the phone changes light/dark.
 try{ if(typeof matchMedia==='function'){ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ if(THEME==='auto') draw(); }); } }catch(e){}
 
@@ -3445,11 +3448,73 @@ registerRecipeSource('bakes', function(id){
 });
 registerRecipeBuilder('bakes', function(item, recipe, vr){ return bakesRecipeOpts(item); });
 
+// ── THE FAVOURITE HEART ─────────────── ruled 15 Jul · Law 6 · Rule Zero ──
+// ONE shared element on the ONE shared recipe page, so it appears in EVERY room
+// identically BY CONSTRUCTION — that is the point, not a side effect.
+//
+// ⚠️ THE KEY IS PERSISTED USER DATA. It must be the SAME key a future Favourites
+// shelf computes from allRecipes(), or her hearts go dark the day the shelf ships.
+// So we resolve the CANONICAL index record — never a synthetic one — whenever we can.
+//
+// 🩸 The opener's namespace is NOT the index's section: openRecipe('side'|'meat')
+// is section 'braai'; openRecipe('cakes') is section 'events'. Keying off vr.type
+// would write 'db:side:potatosalad' today and look for 'db:braai:potatosalad'
+// tomorrow. This map is the ONLY place those two vocabularies meet. ⚖️ Law 46.
+var VR_TYPE_SECTION = { meat:'braai', side:'braai', cakes:'events' };
+
+// Resolve {type,id} from the opener into the canonical index record.
+// Falls back to a stamped synthetic so a room the index does not carry (kiddies)
+// still gets a working heart instead of a crash. ⚖️ Law 45 — unknown is not no.
+function recipeFavRecord(vr){
+  if(!vr || !vr.id) return null;
+  var sec = VR_TYPE_SECTION[vr.type] || vr.type;
+  var idx = (typeof allRecipes === 'function') ? (allRecipes() || []) : [];
+  var hits = idx.filter(function(r){ return r.id === vr.id; });
+  if(hits.length === 1) return hits[0];
+  if(hits.length > 1){                                  // 19 bare ids collide across rooms
+    var exact = hits.filter(function(r){ return r.section === sec; });
+    if(exact.length) return exact[0];
+  }
+  return { source:'db', section: sec, id: vr.id };
+}
+
+// Tap handler. Rebuilds the record through the ONE resolver, so the key written
+// here and the key read by the heart can never drift apart.
+function toggleRecipeFavourite(type, id){
+  try {
+    var rec = recipeFavRecord({ type:type, id:id });
+    if(rec) tinzaStore.toggleFavourite(rec);            // TIER-BLIND: the store saves for everyone
+  } catch(e){}
+  if(typeof draw === 'function') draw();
+}
+
+// The heart itself. Outline = not saved · SOLID warm terracotta = saved.
+// var(--accent) only — never --gold (shop-spend means money, Law: never mix meaning).
+// Mirrors the back button's furniture exactly: same scrim, same border, same radius,
+// same top offset — top-RIGHT because that is the scan-endpoint where actions live.
+function favouriteHeart(vr){
+  if(!vr || !vr.id) return '';
+  var saved = false;
+  try { saved = tinzaStore.isFavourite(recipeFavRecord(vr)); } catch(e){ saved = false; }
+  var fill   = saved ? 'var(--accent)' : 'none';
+  var stroke = saved ? 'var(--accent)' : 'var(--ink-soft)';
+  var label  = saved ? 'Remove from Favourites' : 'Save to Favourites';
+  var js = "toggleRecipeFavourite('" + String(vr.type).replace(/'/g,"\\'") + "','" + String(vr.id).replace(/'/g,"\\'") + "')";
+  return '<button onclick="' + js + '" aria-label="' + label + '" aria-pressed="' + (saved ? 'true' : 'false') + '" title="' + label + '"'
+    + ' style="position:absolute;top:10px;right:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid var(--line2);border-radius:20px;padding:5px 10px;cursor:pointer;line-height:0;">'
+    + '<svg width="22" height="22" viewBox="0 0 24 24" fill="' + fill + '" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M12 20.7C12 20.7 3.6 15.9 3.6 9.9a4.8 4.8 0 0 1 8.4-3.2 4.8 4.8 0 0 1 8.4 3.2c0 6-8.4 10.8-8.4 10.8z"/>'
+    + '</svg></button>';
+}
+
 function recipePage(o){
   o = o || {};
   var back = o.backJs
     ? '<button onclick="' + o.backJs + '" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid var(--line2);border-radius:20px;color:var(--accent);font-size:13px;padding:5px 12px;cursor:pointer;">' + (o.backLabel || '← Back') + '</button>'
     : '';
+  // o.favourite = {type,id} from the opener. Omitted → no heart, so any caller that
+  // does not pass it renders byte-identically to before.
+  var heart = (typeof favouriteHeart === 'function') ? favouriteHeart(o.favourite) : '';
   var photo   = (typeof recipePhoto === 'function') ? recipePhoto(o.photoName || '', o.photoEmoji || '🍽️', 200, o.photoAlt) : '';
   var sub     = o.sub ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">' + o.sub + '</div>' : '';
   var meta    = (typeof metaStrip === 'function')     ? metaStrip(o.meta || {}) : '';
@@ -3458,7 +3523,7 @@ function recipePage(o){
   var actions = (typeof recipeActions === 'function') ? recipeActions(o.actions || {}) : '';
   var nav     = (typeof recipeNav === 'function')     ? recipeNav(o.nav || {}) : '';
   return '<div style="min-height:100vh;background:var(--bg);">'
-    + '<div style="position:relative;">' + photo + back + '</div>'
+    + '<div style="position:relative;">' + photo + back + heart + '</div>'
     + '<div style="padding:0 16px;max-width:600px;margin:0 auto;">'
     +   '<h1 style="font-size:22px;font-weight:bold;color:var(--ink);margin:8px 0 2px;line-height:1.25;">' + (o.name || '') + '</h1>'
     +   sub
@@ -3858,7 +3923,9 @@ function recipeView(){
   if(vr && vr.type && RECIPE_BUILDERS[vr.type]){
     var res = resolveRecipe(vr.type, vr.id);
     if(!res) return recipeNotFound();
-    return recipePage(RECIPE_BUILDERS[vr.type](res.item, res.recipe, vr));
+    var _opts = RECIPE_BUILDERS[vr.type](res.item, res.recipe, vr) || {};
+    _opts.favourite = { type: vr.type, id: vr.id };   // the heart — one shared element, every room
+    return recipePage(_opts);
   }
   let item, recipe;
   const isMeat = vr.type==="meat";
@@ -4084,6 +4151,7 @@ function recipeView(){
   return recipePage({
     backJs:"closeRecipe()",
     backLabel:"← "+rl,
+    favourite:{ type:vr.type, id:vr.id },   // braai has no builder — it falls through here
     photoName:item.photoName||item.name,
     photoEmoji:item.emoji,
     name:item.name,

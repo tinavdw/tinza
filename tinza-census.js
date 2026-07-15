@@ -452,27 +452,209 @@ head('12 · HOW MUCH OF THE RECIPE CONTRACT IS ACTUALLY THERE?   ⚖️ reserve 
   else ok(both.length + ' recipes carry BOTH {n,pp,u} and {qty,unit,name}', 'additive — nothing was mass-converted');
 }
 
-// ══ 13 · THE SAVED STATE ═══════════════════ TINZA_CONTRACT_SLOTS.md · Law 20 ══
+// ══ 13 · THE SAVED STATE ═══════════════ tinzaStore.js · Law 20 · Law 6 ══
 head('13 · WHAT SURVIVES CLOSING THE APP?   ⚖️ Law 20 — emptying her WORK is theft');
 {
   const SD = path.join(ROOT,'sections');
-  const files = fs.readdirSync(SD).filter(f => f.endsWith('.js'));
-  const keys = {}, sites = [];
+  const files = fs.readdirSync(SD).filter(f => f.endsWith('.js') && !/\.bak/.test(f));
+
+  // ── 13.1 · ONE DOOR. No direct localStorage outside tinzaStore.js. ⚖️ Law 6 ──
+  const strayFiles = {};
   files.forEach(f => {
+    if (f === 'tinzaStore.js') return;                 // the door itself is the exception
     const s = fs.readFileSync(path.join(SD,f),'utf8');
-    const re = /localStorage\.(getItem|setItem|removeItem)\s*\(\s*['"]([^'"]+)['"]/g; let m;
-    while ((m = re.exec(s))) { keys[m[2]] = (keys[m[2]]||0)+1; sites.push(f + ':' + s.slice(0,m.index).split('\n').length); }
+    const re = /localStorage\s*\.\s*(getItem|setItem|removeItem)\s*\(/g; let m;
+    while ((m = re.exec(s))) (strayFiles[f] = strayFiles[f] || []).push(s.slice(0,m.index).split('\n').length);
   });
-  const CONTRACT = ['preferences','favourites','plans','pantry','theme'];
-  p('     ' + num(Object.keys(keys).length) + '  localStorage keys in the whole app: ' + (Object.keys(keys).join(' · ')||'(none)'));
-  p('     ' + num(sites.length) + '  call sites: ' + [...new Set(sites)].join(' · '));
-  const persists = Object.keys(keys).length;
-  if (persists <= 1) bad(CONTRACT.length - 1 + ' OF THE ' + CONTRACT.length + ' SAVED-STATE SLOTS DO NOT PERSIST AT ALL',
-    '\n      \x1b[2mOnly `tinzaTheme` survives. preferences · favourites · plans · pantry all vanish on close.' +
-    '\n      ⚖️ Law 20 — her Plan and her people-counts must SURVIVE. Today they do not.\x1b[0m');
-  if (!keys.tinzaSchemaVersion) warn('No schemaVersion key — saved state is UNVERSIONED',
-    '\n      \x1b[2mNothing written today can be migrated tomorrow without guessing its age.\x1b[0m');
-  else ok('Saved state is versioned');
+  const strayN = Object.values(strayFiles).reduce((a,b) => a + b.length, 0);
+  if (strayN) bad(strayN + ' DIRECT localStorage CALL(S) OUTSIDE tinzaStore.js — A SECOND DOOR',
+    '\n      ' + Object.entries(strayFiles).map(([f,l]) => f + ':' + l.join(',')).join(' · ') +
+    '\n      \x1b[2m⚖️ Law 6 — ONE door. Everything goes through tinzaStore. Ruled 15 Jul.\x1b[0m');
+  else ok('No direct localStorage outside tinzaStore.js', 'one door ⚖️ Law 6');
+
+  // ── 13.2–13.4 · THE MIGRATION, PROVEN ON A REAL (FAKE) DISK ──
+  // A fresh vm context with a WORKING localStorage, holding a v0 user: tinzaTheme only.
+  // tinzaStore.js has no dependencies, so it boots alone.
+  function bootStore(seed){
+    const mem = Object.assign({}, seed);
+    const c = {
+      localStorage: {
+        getItem: k => (k in mem ? mem[k] : null),
+        setItem: (k,v) => { mem[k] = String(v); },
+        removeItem: k => { delete mem[k]; }
+      },
+      console: { log(){}, warn(){}, error(){} }
+    };
+    c.window = c; vm.createContext(c);
+    vm.runInContext(fs.readFileSync(path.join(SD,'tinzaStore.js'),'utf8'), c, { filename:'tinzaStore.js' });
+    return { store: c.tinzaStore, disk: mem };
+  }
+
+  const v0 = bootStore({ tinzaTheme: 'dark' });          // a real v0 user, mid-migration
+  const rootTxt = v0.disk['tinza'];
+  let root = null; try { root = JSON.parse(rootTxt); } catch(e){}
+
+  if (root && root.schemaVersion === 1) ok('After load(): root "tinza" exists · schemaVersion === 1');
+  else bad('Root "tinza" MISSING or NOT v1 after load()', '\n      \x1b[2mgot: ' + JSON.stringify(rootTxt) + '\x1b[0m');
+
+  if (v0.disk[ 'tinzaTheme' ] === undefined) ok('Legacy `tinzaTheme` key count === 0 after migration', 'v0 is gone');
+  else bad('Legacy `tinzaTheme` SURVIVED the migration', '\n      \x1b[2mv0 and v1 now disagree in silence. ⚖️ Law 3.\x1b[0m');
+
+  if (root && root.preferences && root.preferences.theme === 'dark') ok('v0 tinzaTheme folded into preferences.theme', "'dark' carried across — her choice survived ⚖️ Law 20");
+  else bad('The v0 theme was LOST in migration', '\n      \x1b[2m⚖️ Law 20 — that is her setting. Migrating must not drop it.\x1b[0m');
+
+  // ── 13.5 · migrate() is PURE + IDEMPOTENT ──
+  const M = v0.store.migrate;
+  const raw  = { tinza: null, tinzaTheme: 'light' };
+  const rawSnapshot = JSON.stringify(raw);
+  const m1 = M(raw);
+  const m2 = M(m1);                                       // migrate(migrate(x))
+  const idem = JSON.stringify(m2.state) === JSON.stringify(m1.state);
+  if (idem) ok('migrate(migrate(x)) deep-equals migrate(x)', 'idempotent · second pass migrated=' + m2.migrated);
+  else bad('migrate() IS NOT IDEMPOTENT',
+    '\n      \x1b[2mmigrate(x)        = ' + JSON.stringify(m1.state) +
+    '\n      migrate(migrate(x)) = ' + JSON.stringify(m2.state) + '\x1b[0m');
+  if (JSON.stringify(raw) === rawSnapshot) ok('migrate() is PURE', 'it did not mutate its input');
+  else bad('migrate() MUTATED ITS INPUT — it is not pure');
+
+  // Corrupt JSON must degrade, never blank, never throw. ⚖️ Law 3.
+  try {
+    const wreck = bootStore({ tinza: '{ this is not json' });
+    const st = wreck.store.load();
+    if (st && st.schemaVersion === 1) ok('Corrupt root JSON → fresh default, no throw', 'degrade, never blank ⚖️ Law 3');
+    else bad('Corrupt root did not degrade cleanly');
+  } catch(e) { bad('CORRUPT ROOT JSON THREW — the app would not boot', '\n      \x1b[2m' + e.message + '\x1b[0m'); }
+
+  // ── 13.6 · FAVOURITES ARE KEYED BY source:section:id — NEVER BY NAME ──
+  // 🩸 19 BARE IDS COLLIDE ACROSS ROOMS ("potatosalad" = events AND braai). Every
+  // recipe's source is 'db', so source:id collides too. Section is what separates them.
+  const st = bootStore({}).store;
+  const titles = {}; all.forEach(r => { titles[String(r.name||'').toLowerCase()] = 1; });
+
+  const collides = {};
+  all.forEach(r => { (collides[r.id] = collides[r.id] || []).push(r); });
+  const pair = Object.values(collides).find(v => v.length > 1);   // a REAL cross-room id clash
+
+  if (!pair) warn('No colliding bare ids left to test with', 'check 13.6 needs one — has the data changed?');
+  else {
+    const [a, b] = pair;
+    st.toggleFavourite(a);
+    const favs = st.getFavourites();
+    const leaks = favs.filter(k => titles[String(k).toLowerCase()]);
+    if (leaks.length) bad(leaks.length + ' FAVOURITE(S) STORED AS A BARE DISH TITLE',
+      '\n      ' + leaks.join(' · ') + '\n      \x1b[2m58 name-groups cover 128 records. A title is not an identity. ⚖️ Law 46.\x1b[0m');
+    else ok('No favourite is a bare dish title', 'keyed ' + JSON.stringify(favs[0]));
+
+    if (st.isFavourite(a) && !st.isFavourite(b))
+      ok('isFavourite() does NOT leak across same-id rooms',
+        '"' + a.id + '": ' + a.section + '/' + a.name + ' favourited · ' + b.section + '/' + b.name + ' NOT');
+    else bad('FAVOURITING ONE RECIPE LIT UP ANOTHER — the key is not unique',
+      '\n      ' + a.section + '/' + a.name + '  vs  ' + b.section + '/' + b.name +
+      '\n      \x1b[2mBoth are id "' + a.id + '". The key must be source:section:id. ⚖️ Law 46.\x1b[0m');
+  }
+  // every key the whole index would produce must be distinct — the real guarantee
+  const stamped = {}; all.forEach(r => { stamped[st.favKey(r)] = (stamped[st.favKey(r)]||0)+1; });
+  const dupKeys = Object.entries(stamped).filter(([,v]) => v > 1);
+  if (dupKeys.length) bad(dupKeys.length + ' favourite keys COLLIDE across the index',
+    '\n      ' + dupKeys.slice(0,6).map(([k,v]) => k+' ×'+v).join(' · '));
+  else ok(Object.keys(stamped).length + ' favourite keys for ' + all.length + ' recipes', 'source:section:id — every dish its own identity');
+
+  // ── 13.7 · plans is a SECTION-KEYED MAP, and the store knows NO room names ──
+  st.setPlan('braai', [{ id:'x' }]);
+  const lazy = JSON.stringify(st.getPlan('a-room-invented-just-now')) === '[]';
+  if (lazy) ok('getPlan(unknown) → [] · buckets are lazy', 'a new room needs zero change here');
+  else bad('getPlan() on an unused section did not return []');
+  const storeSrc = fs.readFileSync(path.join(SD,'tinzaStore.js'),'utf8');
+  const ROOMS = ['braai','buffet','spice','worldkitchen','kiddies','furry','bakes','meals','health','events','beverages'];
+  const named = ROOMS.filter(r => new RegExp("['\"]" + r + "['\"]").test(storeSrc));
+  if (named.length) bad('tinzaStore.js NAMES ' + named.length + ' ROOM(S): ' + named.join(' · '),
+    '\n      \x1b[2mThe store must be SECTION-AGNOSTIC — it holds only what a section hands it.' +
+    '\n      No section enum. Ruled 15 Jul.\x1b[0m');
+  else ok('tinzaStore.js contains NO room name', 'section-agnostic — plans is a lazy map ⚖️ ruled 15 Jul');
+
+  // ── 13.8 · TIER-BLIND. The gate lives in core.js, never in the store. ──
+  if (/\b(tier|isPro|pro\b|deluxe|free)\b/i.test(storeSrc.replace(/\/\/[^\n]*/g,'')))
+    bad('tinzaStore.js MENTIONS A TIER — the gate has leaked into the store',
+      '\n      \x1b[2mThe store persists for EVERYONE. "Favourites = Pro" is a core.js gate. Ruled 15 Jul.\x1b[0m');
+  else ok('tinzaStore.js is TIER-BLIND', 'it persists for everyone; the gate lives in core.js');
+}
+
+// ══ 14 · THE FAVOURITE HEART ═══════════════ ruled 15 Jul · Law 42 · Law 2 ══
+head('14 · DOES THE HEART TELL THE TRUTH?   ⚖️ the rendered state IS the promise');
+{
+  const HEART = ctx.favouriteHeart, STORE = ctx.tinzaStore, FAVREC = ctx.recipeFavRecord;
+  if (typeof HEART !== 'function' || !STORE || typeof FAVREC !== 'function') {
+    bad('favouriteHeart() / recipeFavRecord() / tinzaStore not reachable — the heart is not wired');
+  } else {
+    // A heart is a PROMISE about saved state. If the fill and isFavourite() ever
+    // disagree, she taps and nothing appears to happen — or worse, it lies. ⚖️ Law 3.
+    const solid = h => /fill="var\(--accent\)"/.test(h);
+    const outline = h => /fill="none"/.test(h);
+
+    const r = all.find(x => x.section === 'world') || all[0];
+    const vr = { type: r.section, id: r.id };
+
+    const before = HEART(vr);
+    const wasFav = STORE.isFavourite(FAVREC(vr));
+    if (!wasFav && outline(before) && !solid(before)) ok('Unsaved recipe → OUTLINE heart', 'fill="none"');
+    else bad('An UNSAVED recipe did not render an outline heart', '\n      \x1b[2m' + before.slice(0,120) + '\x1b[0m');
+
+    STORE.toggleFavourite(FAVREC(vr));
+    const after = HEART(vr);
+    if (STORE.isFavourite(FAVREC(vr)) && solid(after)) ok('Saved recipe → SOLID var(--accent) heart', 'the fill matches isFavourite()');
+    else bad('A SAVED recipe did not render a solid heart — THE HEART LIES',
+      '\n      \x1b[2misFavourite()=' + STORE.isFavourite(FAVREC(vr)) + ' but fill is not var(--accent). ⚖️ Law 3.\x1b[0m');
+
+    STORE.toggleFavourite(FAVREC(vr));                       // untoggle — leave no state behind
+    if (outline(HEART(vr))) ok('Un-toggling returns the heart to OUTLINE', 'the control is honest both ways');
+    else bad('Un-toggling did NOT clear the heart');
+
+    // 🩸 THE REAL TEST — the 19 cross-room id collisions. Favouriting the events
+    // Potato Salad must NOT light the braai one. This is why the key is source:section:id.
+    const clash = {};
+    all.forEach(x => { (clash[x.id] = clash[x.id] || []).push(x); });
+    const pair = Object.values(clash).find(v => v.length > 1);
+    if (!pair) warn('No colliding bare ids to test the heart against');
+    else {
+      const [a, b] = pair;
+      STORE.toggleFavourite(FAVREC({ type:a.section, id:a.id }));
+      const ha = HEART({ type:a.section, id:a.id });
+      const hb = HEART({ type:b.section, id:b.id });
+      if (solid(ha) && outline(hb))
+        ok('The heart does NOT leak across same-id rooms',
+           '"' + a.id + '": ' + a.section + ' SOLID · ' + b.section + ' OUTLINE');
+      else bad('FAVOURITING ONE ROOM LIT UP ANOTHER ROOM\'S HEART',
+        '\n      ' + a.section + '/' + a.name + '  vs  ' + b.section + '/' + b.name +
+        '\n      \x1b[2mBoth are id "' + a.id + '". ⚖️ Law 46 — the key must be source:section:id.\x1b[0m');
+      STORE.toggleFavourite(FAVREC({ type:a.section, id:a.id }));
+    }
+
+    // The opener's namespace is NOT the index's section. If this map goes stale, a
+    // heart tapped today is a heart that never lights again once the shelf ships.
+    const VRS = ctx.VR_TYPE_SECTION || {};
+    const sections = {}; all.forEach(x => sections[x.section] = 1);
+    const badMap = Object.entries(VRS).filter(([, sec]) => !sections[sec]);
+    if (badMap.length) bad('VR_TYPE_SECTION maps to a section THE INDEX DOES NOT HAVE: ' + badMap.map(x=>x.join('→')).join(' · '),
+      '\n      \x1b[2mThe favourite key would never match a record. ⚖️ Law 46.\x1b[0m');
+    else ok('VR_TYPE_SECTION resolves to real index sections', Object.entries(VRS).map(x=>x.join('→')).join(' · '));
+
+    // A room the index does not carry (kiddies) must still render a heart, not crash.
+    let orphan = '(none)';
+    try { orphan = HEART({ type:'kiddies', id:'made-up-id' }) ? 'renders' : 'EMPTY'; } catch(e){ orphan = 'THREW: ' + e.message; }
+    if (orphan === 'renders') ok('An un-indexed room still renders a heart', 'stamped synthetic — no crash ⚖️ Law 45');
+    else bad('An un-indexed room broke the heart', '\n      \x1b[2m' + orphan + '\x1b[0m');
+
+    // ⚖️ TIER-BLIND — ruled 15 Jul. The Pro gate is a LATER, separate step (Law 5).
+    const coreSrc = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
+    const heartFn = (coreSrc.match(/function favouriteHeart[\s\S]*?\n\}/) || [''])[0];
+    if (/tierAllows|isPro|USER_TIER/.test(heartFn))
+      bad('THE HEART HAS A TIER GATE IN IT', '\n      \x1b[2mWire it TIER-BLIND. "Favourites = Pro" (13 Jul) is its own commit. ⚖️ Law 5.\x1b[0m');
+    else ok('The heart is TIER-BLIND', 'the Pro gate is a separate, later step ⚖️ Law 5');
+
+    // Rule Zero — no hardcoded hex in the heart; tokens only.
+    if (/#[0-9a-fA-F]{3,6}/.test(heartFn)) bad('THE HEART CONTAINS A HARDCODED HEX', '\n      \x1b[2mvar(--token) only — it must follow light/dark/night. Rule Zero.\x1b[0m');
+    else ok('The heart uses var(--token) only', 'no hardcoded hex — it follows every theme');
+  }
 }
 
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

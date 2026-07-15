@@ -136,7 +136,10 @@ input[type=text], input[type=search] { -webkit-appearance: none; border-radius: 
 </div>
 <div id="root" role="main"></div>
 
-<!-- Load order matters: data → prices → core → utils → search → WK data → spice → sections -->
+<!-- Load order matters: store → data → prices → core → utils → search → WK data → spice → sections -->
+<!-- tinzaStore FIRST: core.js's `var THEME = (…)()` runs at PARSE time and reads
+     getPref('theme'), so the user-state door must already be open. ⚖️ Law 6 -->
+<script src="sections/tinzaStore.js"></script>
 <script src="sections/data.js"></script>
 <script src="sections/prices.js"></script>
 <script src="sections/packs.js"></script>
