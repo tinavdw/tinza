@@ -1,55 +1,47 @@
-# 🚀 TINZA — NEW CHAT HANDOFF (from 15 Jul 2026 session)
-*Open the new chat, paste/point me at this, and we start straight away.*
+# 🚀 TINZA — NEW CHAT HANDOFF (from 16 Jul 2026 session)
+*Open the new chat, point me at this, and we start straight away.*
 
-## 🔑 Start-of-session ritual (Tina's stability rules)
+## 🔑 Start-of-session ritual (stability rules)
 1. Start at **tinza.netlify.app** — confirm what already works (⚖️ Law 2).
 2. Every section built **FROM the Braai v33 pattern** — same header, collapsibles, colours, nav. No patching old code.
-3. **`node --check` before every push.** Push via **GitHub Desktop** (Show in Explorer → drag into `sections/` → Replace → commit → push). LF→CRLF warning is harmless.
+3. **`node --check` before every push.** Push via **GitHub Desktop** (Repository → Open in Command Prompt for checks; Show in Explorer → drag into `sections/` → Replace → commit → push). LF→CRLF warning is harmless.
 4. **Batch** files into one push (15 Netlify credits/deploy).
-5. Doctor stays **RED 10** — it's a ratchet ("did I *add* one?"), not a gate (⚖️ Law 51).
+5. Doctor stays **RED 10** — it's a ratchet ("did I *add* one?"), not a gate.
 
 ---
 
-## 🎯 First action — hand MF120 to Code (paste this)
+## ✅ What the 16 Jul session did
+- **MF117 SHIPPED & tablet-verified.** "Just Feed Me" mood shelves are LIVE — 36 hand-typed cards → **1,667 real, openable recipes**, **0 paid AI calls**, no "null min", census **check 17** in. Committed (`8532d98` / `4cbeb79 "moods"`).
+- **3 mood RULINGS written** (2 restored + 1 new), all in `TINZA_RULINGS.md` §3: MF117 paid-call gate · "mood is a TAG, not a keyword guess" · **"mood versions are REAL FOOD — technique not the shop."** ⚠️ **The first two SLIPPED last night's commit** — the file in hand is complete but MUST be committed this time.
+- **Mood-tag marathon STARTED.** Node auto-draft run (feel-aware) — proves the concept, but LOOSE/over-matching → it's a worksheet to prune, not truth (`mood_candidates_16jul.md`). **13 tuned version-chips staged** across 8 moods in `MOOD_RECIPE_STAGING.md`. ⚖️ **Law 53: staged, NOT built.**
+- **FIX QUEUE created** (`reference/TINZA_FIX_QUEUE.md`) — 3 confirmed bugs: whole-unit bake dial says "4 people"/serves-12 (cousin of MF120) · "biscuits" search returns dog biscuits · **231 WK names mojibake** (Greek/German/Polish heroes garbled).
+- **Backlog items 13 & 14** added: 👶 hidden-veg kids version axis · 🤒 sick split (tummy-bug vs flu).
 
-> **MF120 — 69 of 101 bakes still say "4 people". Close the `bakesPortion` fallback hole.**
-> **CAUSE:** `bakesPortion` (meals.js:15960) only maps 3 cats (cakes/cheesecakes/biscuits); the other 6 fall through to null → raw people count (default 4). **MEASURED: 19 pastries · 16 breads · 10 flatbreads · 10 puddings · 9 deepfried · 5 sconesmuffins = 69.**
-> 1. **Extend the default maps:** `BAKES_SLICE_DEFAULT` += `pastries:8, puddings:8`. `BAKES_BATCH_DEFAULT` += `flatbreads:6, deepfried:12, sconesmuffins:12`.
-> 2. **Per-recipe `serves`/`makes` in Node for the two MIXED cats** (bakesPortion reads these FIRST, so they override the cat default):
->    – **breads:** name matches `roll|bun|roosterkoek|bolletjie|papo|swirl roll` → `makes:12`; else (loaf) → `serves:10`.
->    – **pastries:** name matches `nata|pastel` → `makes:12`; else → the `pastries:8` default. ("Sweet Shortcrust Pastry" is a base component → `makes:1` or skip.)
-> 3. ⛔ **Do NOT touch the MF110 guard** (`_fromDB`/`_fromAI`/`_source==='chef'` → null). ⛔ **Do NOT touch cakes/cheesecakes/biscuits.**
-> **PROOF:** Node probe over `BAKES_RECIPES` → `bakesPortion(r)` returns null for **0 of 101** (was 69). `node --check` clean · doctor RED 10 · one commit.
+## 🎯 First actions next session (pick up here)
+1. **COMMIT THE DOCS.** The rulings never landed last night — bank `TINZA_RULINGS.md` + fix queue + backlog + staging, batched with any code push. *(This is the vanishing act we keep hitting — tick the doc files in the same commit as the code.)*
+2. **RULE THE HIDDEN-VEG QUESTION (⚖️ Law 52).** Used on 3 dishes now (root-veg mash, fussy bunny chow, gentle spag bol). Decide ONCE: is hidden-veg an exception to the Shelf-WOW "remove and replace, never disguise" wording, or does that law need a clarifying line? Then it's inherited, not re-flagged per recipe.
+3. **Then choose the lighter path** (stop hand-feeding one dish at a time):
+   - (a) **Tag-only pass** to fill the 3 still-empty moods — **impress · sweet · celebrating** — from bakes / Events / World Kitchen. No authoring; the recipes exist and are perfect, they just need the label.
+   - (b) **Turn the 13 staged chips into ONE Code brief** so they get BUILT (⚖️ Law 53 — none of it is real until it ships in WOW voice + Code adds the chips).
 
-**Then tablet-verify:** milk tart (serves 8) · potbrood (serves 10) · naan (makes 6) · koeksisters (makes 12) — none may say "4 people" (⚖️ Law 2).
-**Ratchet (Law 42):** add MF120 slot/portion checks to the census so "4 people" can't silently regress.
+## 🗺️ Order of open work
+- **MF120** — bakes "4 people" fix *(carried from 15 Jul, still open; the fix-queue cheesecake-dial bug is the same family — the dial should step by whole units, not show a per-person count)*.
+- **Mood marathon** — tighten the auto-draft per mood (sick was loosest: soups gold, drop bakes/curry-oats) → tag-only the content-rich moods → build the staged chips.
+- **MF121** bakes serving scaler (MEASURE FIRST: do bakes ingredients already scale on N?) · **MF122** adaptive vessel (`tinFor()` + SA tin ladder; needs MF121).
 
-**Locked yield table:** cakes 12 · cheesecakes 12 · biscuits 30 *(done)* · pastries 8 · puddings 8 · flatbreads 6 · deepfried 12 · sconesmuffins 12 · breads (rolls 12 / loaves 10) · pastries (nata 12 / else 8).
-
----
-
-## 🗺️ The order of work
-**MF120 → MF117 → MF121 → MF122**
-- **MF120** *(above)* — bakes "4 people" fix.
-- **MF117** — MOOD_DB → live `allRecipes()` query; unlocks ~1,278 recipes to "Just Feed Me". Lift the `_budgetPool` pattern. **Also tag the existing Mushroom Beef Stroganoff mood array here.**
-- **MF121** — bakes serving scaler (MEASURE FIRST: do bakes ingredients already scale on N?).
-- **MF122** — adaptive vessel (`tinFor()` helper + real SA tin ladder; needs MF121).
-
-## 📋 Standing backlog
-Two search engines disagree · MF113/MF86 index eating ingredient amounts · MF115 (18 costing fns → 1) · Law 48 vegan⊂vegetarian · Law 47 prose-match bug.
-
-## 🚀 Launch blockers (~10 wks to Oct, own sessions)
-MF57 cache · hide tier switcher · MF78 AI cost cap · PayFast R90/mo · localStorage (favs + My Plan) · Home page design.
+## 🚀 Launch blockers (~10–11 wks to Oct, own sessions)
+MF57 service-worker cache · hide/remove tier switcher (out of DOM by 1 Oct) · MF78 AI cost cap · PayFast R90/mo · localStorage (favourites + My Plan) · Home page design.
 
 ---
 
-## 📦 Files to carry into the new chat
+## 📦 Files to carry into the new chat (all in this session's outputs)
 | file | what to do |
 |---|---|
-| `TINZA_LAW.md` | drop over the old (Law 53 added) — **main folder, not sections/** |
-| `TINZA_RULINGS.md` | drop over the old (LOCALE ruling added) — **main folder** |
-| `BEERBOX_CAKE.md` | keep — author into Bakes/cakes later (Choc 🏆 + Vanilla + 3 icing chips) |
-| `MOOD_RECIPE_STAGING.md` | keep — running mood collection; graduates to FMF when a mood fills |
-| `TINZA_NOW.mermaid` | the board / resume point |
+| `TINZA_RULINGS.md` | ⭐ drop over old — **MAIN FOLDER** — all 3 mood rulings; **MUST commit** (slipped last night) |
+| `MOOD_RECIPE_STAGING.md` | drop over old — **MAIN FOLDER** — 13 chips, tracker updated (8/12 moods have something) |
+| `reference/TINZA_FIX_QUEUE.md` | **NEW file** → `reference/` — 3 confirmed bugs |
+| `reference/TINZA_IDEAS_BACKLOG.md` | drop over old → `reference/` — items 13 & 14 added |
+| `mood_candidates_16jul.md` | keep as a worksheet — the LOOSE auto-draft to prune per mood |
+| `NEW_CHAT_HANDOFF.md` | this file — the resume point |
 
-*Push the two doc files (`TINZA_LAW.md`, `TINZA_RULINGS.md`) batched together with the MF120 code deploy.*
+*Push the doc files batched with the next code deploy — and this time confirm `TINZA_RULINGS.md` is ticked in the commit.*
