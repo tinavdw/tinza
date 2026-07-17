@@ -9,7 +9,7 @@
 - **Symptom.** The recipe opens at "**4 people**" on the How-Much-To-Make dial, but the line beneath reads "**makes 1 cheesecake · serves 12 · 1 slice each**". The 4 and the 12 contradict each other on screen.
 - **NOT a math bug — numbers are safe to bake from.** Ingredient totals are `pp × 12` (shortbread 17g pp → 204g total, etc.), correctly scaled to one whole cheesecake. Confirmed against the record 16 Jul.
 - **The real bug.** A bake that only comes in whole units should not offer a per-person dial that starts at an arbitrary headcount (4). It should step by **whole units** — "1 cheesecake (serves 12)" → "2 cheesecakes (serves 24)" — so the headcount and the yield can never contradict. The "rounds up so you never bake a fraction" note is trying to paper over this; fix the dial instead.
-- **Where.** The How-Much-To-Make dial / bake-yield logic in `core.js` (the whole-unit rounding path). Applies to ALL whole-unit bakes (cakes, cheesecakes, tarts), not just this one.
+- **Where.** The How-Much-To-Make dial / bake-yield logic in `core.js` (the whole-unit rounding path). Applies to ALL whole-unit bakes (cakes, cheesecakes, tarts), not just this one. Related to MF120 (the "4 people" bakes family).
 - **Priority.** Cosmetic/UX — numbers are correct, so not a launch blocker, but it's on recipes people bake from, so it reads as broken. Fix before launch.
 
 ## 🔍 Human "biscuits" search returns dog biscuits
