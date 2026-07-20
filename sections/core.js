@@ -2277,6 +2277,13 @@ function moodHTML(){
                     return bits.join(' · ');
                   })()}
                 </div>
+                </div><!-- MF126 · closes <div style="flex:1;"> — WAS MISSING. Every card
+                     was appended INSIDE the previous card's flex:1 box, so each "Show me 3
+                     more ideas" nested one level deeper and the column narrowed every press;
+                     by the fifth batch the name wrapped one word per line. The browser
+                     forgives an unclosed div by auto-closing it at the parent — which is
+                     exactly why it never threw and nothing caught it. Census 19 counts the
+                     tags now. ⚖️ Law 42. -->
                 <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
                   <button onclick="event.stopPropagation();openMoodRecipe(${i})" style="background:${mood.colour};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>
                 </div>
