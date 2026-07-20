@@ -84,7 +84,31 @@ Do not add a rule to an adapter.
 
 ---
 
-## 4 · Queued ruling — slot as the eighth reserved field
+## 4 · Rare slots barely surface — MF127, logged, deliberately NOT fixed
+
+`balancedOrder({proportionalBy:'slot'})` deals each slot its **share of the pool**. A slot
+with a tiny share therefore earns a card very late. Ruled 20 Jul: **log it, leave it.**
+
+Measured on celebrating (127 cards) after MF127:
+
+| slot | cards | share | positions |
+|---|---|---|---|
+| SIDE | 36 | 28% | 2, 5, 10, 13, 17, 20, 23, 26, 31, 34 … |
+| TREAT | 6 | 4.7% | 8, 29, 55, 76, 96, 117 |
+| STARTER | **1** | 0.8% | **47** |
+
+⚠️ **The brief predicted STARTER would "almost never appear." Measured, it lands at
+position 47** — about 15 presses of "3 more ideas". Deep, but not never. Recording the
+measured number rather than the assumption, because the two suggest different fixes.
+
+**Why it is not fixed:** the only fix is a floor ("always show one STARTER in the first
+N"), and *a floor is a hardcoded ratio wearing a hat* — the exact thing MF127's spec
+forbade. It would be meaningless on sweet and backwards on a starter-heavy shelf. If this
+ever matters, the honest fix is more STARTER content, not a thumb on the scale.
+
+---
+
+## 5 · Queued ruling — slot as the eighth reserved field
 
 Raised 20 Jul, **not acted on.** `slot` is now authored data, but it is not one of the
 reserved fields and `normalizeRecipe()` (core.js — THE DOOR, ruled 15 Jul) has no slot

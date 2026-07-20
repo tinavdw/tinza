@@ -2041,7 +2041,11 @@ function buildMoodPool(moodId){
           return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && q(r);
         });
   } catch(e){ return []; }
-  if (typeof balancedOrder === 'function') pool = balancedOrder(pool, { bucketOf:'section' });
+  // MF127 · TWO AXES: slot dealt proportionally to this shelf's own pool, with the
+  // section round-robin kept as the tiebreak INSIDE each slot. Celebrating was 60
+  // mains deep before its first side; the spread now arrives with the mains.
+  // No ratio is written here — the pool states its own. ⚖️ Law 6.
+  if (typeof balancedOrder === 'function') pool = balancedOrder(pool, { bucketOf:'section', proportionalBy:'slot' });
   return pool;
 }
 

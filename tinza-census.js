@@ -1093,4 +1093,42 @@ p('       the parent, so it never throws and nothing catches it.\x1b[0m');
   else ok('Every repeated list template closes its own tags', scanned + ' templates balanced');
 }
 
+// ══ 20 · SHELF ORDER ══════════════════════ MF127 · Law 42 · Law 36 ══
+head('20 · DOES A SHELF SURFACE ITS SPREAD, OR STACK THE MAINS FIRST?   ⚖️ MF127');
+p('  \x1b[2m    celebrating was 84 SUPPER / 36 SIDE and its FIRST side sat at position 61 —');
+p('       twenty presses of "3 more ideas". Everything rendered; nothing was reachable.\x1b[0m');
+{
+  const BUILD = ctx.buildMoodPool, Q = ctx.MOOD_QUERY;
+  if (typeof BUILD !== 'function' || !Q) warn('buildMoodPool() not reachable — cannot check shelf order');
+  else {
+    // A slot holding SHARE of the pool earns a card roughly every 1/SHARE positions.
+    // Allow it two full turns of slack before calling it stacked: first appearance must
+    // land by ceil(2 / share). SIDE at 28% must show by ~position 7; it shows at 2.
+    // Only slots with a real share are judged — a 1-of-127 STARTER is the rare-slot
+    // problem, logged and deliberately NOT fixed (a floor is a hardcoded ratio in a hat).
+    const MIN_SHARE = 0.10;
+    const late = [];
+    Object.keys(Q).forEach(m => {
+      const pool = BUILD(m) || [];
+      if (!pool.length) return;
+      const count = {};
+      pool.forEach(r => count[r.slot] = (count[r.slot] || 0) + 1);
+      Object.keys(count).forEach(sl => {
+        const share = count[sl] / pool.length;
+        if (share < MIN_SHARE) return;
+        let first = -1;
+        for (let i = 0; i < pool.length; i++) if (pool[i].slot === sl) { first = i + 1; break; }
+        const budget = Math.ceil(2 / share);
+        if (first > budget) late.push(m + ':' + sl + ' ' + Math.round(share * 100) + '% of pool, first at ' +
+          first + ' (should be by ' + budget + ')');
+      });
+    });
+    if (late.length) bad(late.length + ' SHELF/SLOT PAIR(S) SURFACE FAR TOO LATE FOR THEIR SHARE',
+      '\n      ' + late.slice(0, 8).join('\n      ') +
+      '\n      \x1b[2mbalancedOrder({proportionalBy:"slot"}) deals each slot its share. If this' +
+      '\n      fires, either the second axis is not being passed or the pool changed shape.\x1b[0m');
+    else ok('Every slot with a real share surfaces in proportion', 'no shelf stacks one course at the front');
+  }
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

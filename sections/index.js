@@ -611,6 +611,53 @@
   //  draw is breadth-first, EVERY prefix stays balanced — so "show me 3 more"
   //  keeps serving a spread instead of ten near-identical cheap-vegan dishes.
   //  ONE engine: budget B3 variety today, balanced search later — both call this.
+  // MF127 · THE SECOND AXIS — deal a key PROPORTIONALLY to its share of this pool.
+  //
+  // ⛔ NEVER hardcode a ratio here ("two mains then a side"). That would write ONE
+  // shelf's mix into a function serving twelve: meaningless on sweet (100% TREAT),
+  // backwards on a side-heavy shelf, and silently stale the moment a pool changes.
+  // The pool states its own ratio; we just honour it. ⚖️ Law 6 · Law 36.
+  //
+  // ⛔ AND NEVER ROUND-ROBIN THE SLOTS. A naive rotation surfaces all 6 of
+  // celebrating's TREATs by the third card and exhausts them — worse than not
+  // interleaving at all. Weight by SHARE OF POOL.
+  //
+  // The deal: at each position give the card to whichever slot is furthest BEHIND
+  // its entitlement — share × (cards dealt so far + 1) − cards it already has.
+  // Celebrating (84 SUPPER / 36 SIDE / 6 TREAT / 1 STARTER) produces two mains and
+  // a side per batch on its own, with no magic number anywhere. Sweet is 100% TREAT,
+  // so every step picks TREAT and the result is byte-identical to today — a no-op.
+  //
+  // ⚠️ KNOWN, LOGGED, NOT FIXED (ruled 20 Jul): a RARE SLOT barely appears. STARTER
+  // is 1 of 127 on celebrating, so proportionally it earns its card around position
+  // 127 and she will realistically never meet it. Fixing that means a floor, and a
+  // floor is a hardcoded ratio wearing a hat. See reference/MOOD_RECIPE_STAGING.md.
+  function proportionalDeal(queues, keys){
+    var total = 0, i;
+    for(i=0;i<keys.length;i++) total += queues[keys[i]].length;
+    var dealt = {}, share = {};
+    for(i=0;i<keys.length;i++){ dealt[keys[i]] = 0; share[keys[i]] = queues[keys[i]].length / total; }
+    var out = [], at = {};
+    for(i=0;i<keys.length;i++) at[keys[i]] = 0;
+    for(var t=0;t<total;t++){
+      var best = null, bestScore = -Infinity;
+      for(var k=0;k<keys.length;k++){
+        var key = keys[k];
+        if(at[key] >= queues[key].length) continue;            // this slot is spent
+        var score = share[key] * (t + 1) - dealt[key];         // how far behind it is
+        // ties → the bigger share first, then first-seen (keeps the order stable)
+        if(score > bestScore + 1e-9 ||
+           (Math.abs(score - bestScore) <= 1e-9 && best !== null && share[key] > share[best] + 1e-9)){
+          best = key; bestScore = score;
+        }
+      }
+      if(best === null) break;
+      out.push(queues[best][at[best]++]);
+      dealt[best]++;
+    }
+    return out;
+  }
+
   function balancedOrder(list, opts){
     list = Array.isArray(list) ? list.slice() : [];
     opts = opts || {};
@@ -619,6 +666,28 @@
               : (typeof bo==='string')   ? function(r){ return (r && r[bo]!=null) ? String(r[bo]) : '~'; }
               :                            function(){ return '~'; };
     var within = (typeof opts.within==='function') ? opts.within : null;
+
+    // MF127 · SECOND AXIS. Split by opts.proportionalBy, order EACH slice with the
+    // existing section round-robin (so meals/world/events/braai survives inside a
+    // slot), then deal the slices proportionally. Absent → nothing below changes,
+    // and every existing caller (budget finder, search) behaves exactly as before.
+    var pb = opts.proportionalBy;
+    if(pb){
+      var pKey = (typeof pb==='function') ? pb
+               : function(r){ return (r && r[pb]!=null) ? String(r[pb]) : '~'; };
+      var slices = {}, sliceKeys = [];
+      list.forEach(function(r){
+        var k = pKey(r); k = (k==null ? '~' : String(k));
+        if(!slices[k]){ slices[k] = []; sliceKeys.push(k); }
+        slices[k].push(r);
+      });
+      if(sliceKeys.length < 2) return balancedOrder(list, { bucketOf:bo, order:opts.order, within:within });
+      var sub = {};
+      sliceKeys.forEach(function(k){
+        sub[k] = balancedOrder(slices[k], { bucketOf:bo, order:opts.order, within:within });
+      });
+      return proportionalDeal(sub, sliceKeys);
+    }
 
     var buckets = {}, seen = [];
     list.forEach(function(r){
