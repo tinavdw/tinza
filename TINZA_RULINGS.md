@@ -414,6 +414,52 @@ Two mechanisms, kept separate:
 
 ---
 
+## 🏷️ 13 · BRAND NAMES — **GENERIC IS STORED, THE BRAND IS RENDERED** — **RULED 20 Jul 2026**
+*Raised over Tennis biscuits and Crunchie in the SA impress list. Tina's call: generic first, brand in brackets — **and it has to work globally.** That last clause is what decides the architecture.*
+
+- 🌍 **THE BRACKET IS NOT PART OF THE INGREDIENT NAME.** Storing `"Coconut Biscuits (Tennis)"` hardcodes South Africa into 2,083 records. A British reader gets a brand that is not on her shelf, and every locale means re-authoring every ingredient line. **Store the generic. Hold the brand in a per-locale map. Render the bracket.**
+- 🔁 **THIS IS THE `name` / `nameAlt` PATTERN, APPLIED TO INGREDIENTS.** Exactly as `tinzaDisplayName()` renders *Lula Grelhada (Grilled Calamari)* from two stored fields, the ingredient line renders *Coconut Biscuits (Tennis)* from a canonical name plus a locale brand. **Canonical is stored; the gloss is rendered.** ⚖️ **Law 6 — one door, and we already built it.**
+- 💰 **COSTING IS UNAFFECTED — MEASURED, NOT ASSUMED.** `priceClean()` (core.js:1169) already strips parentheses before lookup: `.replace(/\([^)]*\)/g,' ')`. So `Coconut Biscuits (Tennis)` resolves to `coconut biscuits` either way. **The engine already wants generic-first.**
+- 🌐 **ONE LINE SERVES EVERY COUNTRY.** SA renders `(Tennis)`, the UK renders `(Rich Tea)`, a locale with no equivalent renders nothing at all. A brand that reformulates or dies is a **one-line map edit**, never a library sweep.
+
+### 🏆 THE FOUR TIERS
+1. 🏆 **THE DISH IS THE BRAND → THE NAME STAYS.** *Peppermint Crisp Tart* is a named national dish; renaming it makes it unfindable. The dish name keeps the brand; the **ingredient line still goes generic** — `mint chocolate flake bar` + locale bracket.
+2. 🔤 **BRAND AS SHORTHAND FOR A GENERIC PRODUCT → CANONICAL IS THE GENERIC.** Tennis · Marie · Romany Creams · Bar One · **Aromat**. **No exceptions — Aromat is not special.** Canonical `savoury seasoning salt`, SA bracket `(Aromat)`, elsewhere `(Vegeta)` or nothing. Ubiquity in one country is exactly the thing that does not travel.
+3. 🍳 **MAKEABLE → AUTHOR IT AND CROSS-LINK.** **Honeycomb is case #1** — zero in the library, and it is *not* a mission: sugar + golden syrup + bicarb, ~10 minutes. The mission is the chocolate coating, and for crushing over a Dom Pedro or an Affogato you never coat it. **Call it `Honeycomb`, never "Crunchie"** — the bakes room already holds `Crunchies`, the SA oat traybake, and that is a same-room name collision no room gloss can solve.
+4. 🥃 **SPIRITS AND LIQUEURS FOLLOW TIER 2, NOT AN EXEMPTION.** `Orange Liqueur (Cointreau)` · `Coffee Liqueur (Kahlúa)` · `Marula Cream Liqueur (Amarula)`. The generic travels; the bracket localises. *Amarula is close to a category of one, and that is fine — the pattern still holds.*
+
+### 🩸 WHY THE BRAND STAYS VISIBLE AT ALL — **Tina's reason, 20 Jul**
+*Naming the actual product you are cooking with is legitimate and normal; no manufacturer objects to being named as the thing in the packet.* **Tennis and Marie biscuits are not home-bakeable to the same texture, and most readers simply want to buy them.** A from-scratch recipe may exist for the person who wants it, but the ingredient line must respect the shopper. ⚖️ **Law 16 — a cook's rule is not a shopper's rule.**
+
+### 📋 THE MEASURED WORK (9 real cases app-wide — small and fixable)
+- **Rename to canonical:** `tennis biscuits` ×5 → *coconut biscuits* · `Romany Creams` ×1 → *chocolate coconut sandwich biscuits* · `Bar One` ×1 → *chocolate caramel nougat bar* · `Aromat` ×1 → *savoury seasoning salt*.
+- ⚠️ **PRICE FLATTENING — A REAL CONSEQUENCE, NOT COSMETIC.** PRICE_DB holds `tennis biscuits: 115`, `coconut biscuits: 90`, `marie biscuits: 90`. Because the bracket is stripped, renaming moves those five recipes from **R115/kg to R90/kg**. *Accepted deliberately: the generic is the substitutable thing — buy the cheaper packet, pay the cheaper price.*
+- 💸 **THREE PRICES ARE MISSING ENTIRELY.** No `amarula`, `kahlua` or `cointreau` key exists, so every liqueur line currently costs **R0**. Needed before Dom Pedro, Amarula Affogato or Strawberries Romanoff can be costed. ⚖️ **Law 11 — Tina sources the prices.**
+- ❌ **FALSE POSITIVES — DO NOT TOUCH.** *Ouma se Soetpampoen* (Afrikaans for grandmother, not the rusk brand) · *Tex-Mex* (not the chocolate bar) · *Crunchies* in bakes (the oat traybake, a generic SA dish name).
+
+---
+
+## 🧂 14 · NO FLAVOUR POWDERS — **BUILD FLAVOUR FROM INGREDIENTS** — **RULED 20 Jul 2026**
+*Raised over Aromat in the brand sweep. Tina: "it's not real cooking." The line is drawn at **pure MSG and flavour-enhancer powders only** — deliberately narrow, so it holds.*
+
+- 🧭 **THE TEST — IS IT AN INGREDIENT, OR A POWDER THAT MAKES ANYTHING TASTE LIKE SOMETHING?** Soy sauce tastes of soy sauce. Fish sauce tastes of fish sauce. **A flavour enhancer tastes of nothing in particular and makes everything taste vaguely of itself.** That is the line, and it is about *cooking*, not chemistry.
+- ❌ **OUT:** pure MSG / monosodium glutamate · **Aromat and seasoning-salt blends built on it** · "flavour enhancer" sachets.
+- ✅ **IN — these are ingredients with their own character and are NOT affected:** soy sauce · fish sauce · miso · anchovies · parmesan · tomato paste · dried mushrooms · Marmite. **⚠️ Do NOT write a rule against glutamate** — it occurs naturally in every item on that list, and banning it would gut the Asian and Italian sections by accident.
+- 🍲 **STOCK CUBES AND POWDER ARE ALLOWED — this is an SA reality call.** MSG-free stock is essentially unavailable in South Africa, and most cooks neither know nor mind. **Refusing stock would make the app unusable, not principled.**
+- 🥣 **BUT — EVERY RECIPE THAT CALLS FOR STOCK MUST OFFER THE HOMEMADE VERSION.** *(Tina, 20 Jul — the clause that makes this a standard rather than a ban.)* Cross-link, never force. **The better path is always available; the shortcut is never shamed.** ⚖️ **Law 16 — a cook's rule is not a shopper's rule.**
+- 📏 **MEASURED, 20 Jul (`92105af`) — the cross-link is buildable TODAY:**
+  - **9 homemade stocks already exist in the Spice Room:** Beef · Chicken · Vegetable · Fish Stock, plus Chicken · Beef · Fish · Lamb · Pork Bone Broth.
+  - **188 recipes call for stock** (world 93 · meals 49 · events 17 · health 15 · furry 7 · tiny 4 · braai 3).
+  - **The ruling connects two things that already exist** — and lifts the Spice stocks out of the `CONDIMENT` slot where nothing surfaces them.
+  - **MSG / Aromat appears in exactly ONE recipe** (`Umbhona`). That is the entire cleanup.
+- 🧹 **BLOCKER ON THE CROSS-LINK — the stock ingredient names must be tidied first.** Measured in use: `stock` ×26 (bare — *which* stock?) · `beef stock` · `Beef stock` (casing drift) · `Vegetable stock` · `vegetable or chicken broth` · `Low-sodium chicken stock` · **plus 18 mojibake variants** (`beef stock Â`, `stock Â`, `broth Â`). **A cross-link cannot match reliably against six spellings of one thing.** Fold into the mojibake/costing pass.
+
+> 🩸 **Tinza builds flavour from ingredients, never from flavour powders. Where a shortcut is unavoidable, the honest version is always one tap away.**
+
+*(Tina's personal preferences — homemade stock always, no Marmite — are noted as preferences, NOT law. The ruling binds only the flavour-powder line above.)*
+
+---
+
 📌 **HOW TO USE THIS FILE**
 1. **Tina rules something → it goes in HERE, in the same breath, with the DATE and the REASON.** ⚖️ Law 52.
 2. **`CLAUDE.md` points here.** Every session, every AI, reads it before touching code.
