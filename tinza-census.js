@@ -947,4 +947,73 @@ head('17 · DOES "JUST FEED ME" SERVE REAL, OPENABLE RECIPES?   ⚖️ MF117');
   }
 }
 
+// ══ 18 · THE SLOT ═════════════════════════ MF125 · Law 42 · Law 45 ══
+head('18 · DOES A RECIPE GET THE SAME SLOT NO MATTER WHICH ROOM YOU REACH IT FROM?   ⚖️ MF125');
+p('  \x1b[2m    Check 17 cannot catch a MISLABEL — it reads the label. A blanket-assigned');
+p('       SUPPER looks exactly like an honest one. This rung reads the SHAPE instead.\x1b[0m');
+{
+  // ① AGREEMENT — one recipe, many doors, one answer.
+  // Monkey Gland Sauce resolved CONDIMENT via events and via spice, but SUPPER via
+  // braai. Same record, three paths, two answers — and the room won. Bare id is the
+  // right key here precisely BECAUSE it collides across sections: those collisions
+  // ARE the multi-door recipes. (favKey includes the section, so it cannot see this.)
+  const byId = {};
+  all.forEach(r => { (byId[r.id] = byId[r.id] || []).push(r); });
+  const multi = Object.keys(byId).filter(k => byId[k].length > 1);
+  const disagree = multi.filter(k => new Set(byId[k].map(r => r.slot)).size > 1);
+  p('     ' + num(multi.length) + '  recipes reachable from more than one section');
+  if (disagree.length) bad(disagree.length + ' RECIPE(S) RESOLVE A DIFFERENT SLOT DEPENDING ON THE ROOM',
+    '\n      ' + disagree.slice(0,6).map(k =>
+      byId[k][0].name + ' → ' + byId[k].map(r => r.section + ':' + r.slot).join(' vs ')).join('\n      ') +
+    '\n      \x1b[2mThe record is not the variable — the adapter is. Slot belongs in the DATA. ⚖️ Law 6.\x1b[0m');
+  else ok('Every multi-door recipe resolves the same slot on every path', multi.length + ' checked');
+
+  // ② DISTRIBUTION — a real section is never unanimous.
+  // The cheap one, and it catches the whole class: a blanket assignment is always
+  // visible as a flat distribution, even where no record has a second door.
+  // 🩸 ONLY A COURSE CLAIM COUNTS. beverages is 66/66 DRINK, spice 190/190 CONDIMENT,
+  // furry 62/62 PETFOOD — unanimous BY DEFINITION, because those rooms are defined by
+  // the kind of food, not by where it sits in the day. Flagging them would be three
+  // false alarms every run, and a check that cries wolf is a check she learns to skip.
+  // A COURSE ("this is supper", "this is a treat") cannot be true of all 92 records —
+  // that is a room that never looked. A FOOD TYPE can. ⚖️ Law 3.
+  const COURSE = ['BREAKFAST','LUNCH','SUPPER','SIDE','STARTER','TREAT'];
+  const FLAT_MIN = 20;
+  const bySec = {};
+  all.forEach(r => { (bySec[r.section] = bySec[r.section] || []).push(r); });
+  const flat = [];
+  Object.keys(bySec).sort().forEach(s => {
+    const rs = bySec[s], vals = {};
+    rs.forEach(r => vals[r.slot] = (vals[r.slot] || 0) + 1);
+    const kinds = Object.keys(vals);
+    if (rs.length >= FLAT_MIN && kinds.length === 1 && COURSE.indexOf(kinds[0]) >= 0)
+      flat.push(s + ' ' + rs.length + '/' + rs.length + ' ' + kinds[0]);
+  });
+  if (flat.length) bad(flat.length + ' SECTION(S) ASSIGN ONE SLOT TO EVERY RECORD: ' + flat.join(' · '),
+    '\n      \x1b[2mA room where every dish is the same course is a room that never looked.' +
+    '\n      braai was 92/92 SUPPER and bakes 101/101 TREAT — sauces served as mains. ⚖️ MF125.\x1b[0m');
+  else ok('No section assigns a single slot to every record', 'checked sections of ' + FLAT_MIN + '+ records');
+
+  // ③ UNRESOLVED — the honest count of slotting work left. ⚖️ §4a, ruled 20 Jul.
+  // NOT a failure of the fix: it is the second number the fix separates out. It must
+  // ratchet to zero, and it must never be papered over with a section default.
+  const unres = all.filter(r => r.slotSource === 'unresolved');
+  const leaked = unres.filter(r => (ctx.MOOD_EAT_SLOTS || []).indexOf(r.slot) >= 0);
+  if (unres.length) warn(unres.length + ' record(s) have NO slot — slotSource:"unresolved"',
+    '\n      ' + unres.slice(0,8).map(r => r.section + ':' + r.id + '  ' + r.name).join('\n      ') +
+    '\n      \x1b[2mA data gap, not corruption. Renders normally in its own room, off every mood' +
+    '\n      shelf until slotted. Ratchet it to zero — see reference/MOOD_RECIPE_STAGING.md.\x1b[0m');
+  else ok('Every record resolves a slot', 'nothing is waiting to be slotted');
+  if (leaked.length) bad(leaked.length + ' UNRESOLVED RECORD(S) REACHED A MOOD SHELF ANYWAY',
+    '\n      ' + leaked.slice(0,5).map(r => r.section + ':' + r.id).join(' · ') +
+    '\n      \x1b[2mUnslotted must mean off-shelf. ⚖️ §4a.\x1b[0m');
+  else ok('No unresolved record can reach a mood shelf', 'the exclusion is structural, not a flag');
+
+  // ④ where every slot came from — the scoreboard for the whole job
+  const src = {};
+  all.forEach(r => src[r.slotSource || '(none)'] = (src[r.slotSource || '(none)'] || 0) + 1);
+  p('     \x1b[2mslot source:  ' + Object.entries(src).sort((a,b)=>b[1]-a[1])
+    .map(([k,n]) => k + ' ' + n).join('  ·  ') + '\x1b[0m');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
