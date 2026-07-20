@@ -36,18 +36,17 @@
 // each. Census check 17 prints the per-mood tally: that is the scoreboard.
 // ⚖️ Law 36 — the count is the backlog number.
 //
-// ⚠️ SEED — 71 records, ONE mood live: celebrating (71). Measured 20 Jul vs 92105af:
-// every key below resolves to exactly ONE record in the live index (0 dead, 0 ambiguous).
-// The other 11 moods are still empty — their content pass has not run. ⚖️ Law 36.
-//
-// 🩸 celebrating IS NOT FLIPPED. buildMoodPool() still serves it from MOOD_QUERY keywords.
-// The tags are seeded so Tina can SEE them land first; the shelf flip is a separate
-// decision, ruled after she has looked. Do not flip it here.
+// ⚠️ SEED — 130 records, ONE mood live: celebrating (130). Seeded in two passes
+// (71 on 20 Jul, +59 top-up: in SA the braai IS the celebration). Every key below
+// resolves to exactly ONE record in the live index — 0 dead, 0 ambiguous, measured,
+// not assumed. The other 11 moods are still empty — their content pass has not run.
+// ⚖️ Law 36 — the count is the backlog number.
 //
 // ⚠️ beefstroganoff carries FOUR moods — it was in the MF123 seed (pickmeup/cold/lazy)
 // AND the celebrating pass. MERGED, not overwritten: a second
-// 'db:events:beefstroganoff': line would have silently eaten the first three. That is the whole reason for this key
-// shape — the trap is real, and it is inside this file. ⚖️ Law 6 · Law 3.
+// 'db:events:beefstroganoff': line would have silently eaten the first three.
+// That is the whole reason for this key shape — the trap is real, and it is
+// inside this file. ⚖️ Law 6 · Law 3.
 
 var MOOD_TAGS = {
   'db:events:beefstroganoff':                  ['pickmeup', 'cold', 'lazy', 'celebrating'],   // Beef Stroganoff
@@ -120,7 +119,66 @@ var MOOD_TAGS = {
   'db:events:cauliflowercheese':               ['celebrating'],   // Cauliflower & Cheese Bake
   'db:events:slaphakskeentjies':               ['celebrating'],   // Slaphakskeentjies
   'db:braai:slaphakskeentjies':                ['celebrating'],   // Slaphakskeentjies
-  'db:world:boerekos-crispy-roast-potatoes':   ['celebrating']   // Bros Gebraaide Aartappels (Crispy Roast Potatoes)
+  'db:world:boerekos-crispy-roast-potatoes':   ['celebrating'],   // Bros Gebraaide Aartappels (Crispy Roast Potatoes)
+  'db:braai:boerewors':                        ['celebrating'],   // Boerewors
+  'db:braai:fillet':                           ['celebrating'],   // Beef Fillet
+  'db:braai:tbone':                            ['celebrating'],   // T-Bone Steak
+  'db:braai:chuck':                            ['celebrating'],   // Beef Chuck (Shisanyama)
+  'db:braai:brisket':                          ['celebrating'],   // Brisket (low and slow)
+  'db:braai:shortrib':                         ['celebrating'],   // Short Rib (thin sliced)
+  'db:braai:marinatedfillet':                  ['celebrating'],   // Marinated Beef Fillet (Honey Soy Baste)
+  'db:braai:kudu':                             ['celebrating'],   // Kudu Fillet
+  'db:braai:sosaties':                         ['celebrating'],   // Lamb Sosaties
+  'db:braai:lambribchops':                     ['celebrating'],   // Lamb Rib Chops
+  'db:braai:lambribs':                         ['celebrating'],   // Lemon & Garlic Lamb Ribs
+  'db:braai:spareribs':                        ['celebrating'],   // Pork Spareribs
+  'db:braai:lemonherbflatty':                  ['celebrating'],   // Lemon & Herb Chicken Flatty
+  'db:braai:chickenkebaabs':                   ['celebrating'],   // Peri-Peri Chicken Kebabs
+  'db:braai:beefkebabs':                       ['celebrating'],   // Marinated Beef Kebabs
+  'db:braai:beefsouvlaki':                     ['celebrating'],   // Beef Souvlaki
+  'db:braai:turkishkebabs':                    ['celebrating'],   // Turkish Beef Kebabs (Adana)
+  'db:braai:snoek':                            ['celebrating'],   // Snoek
+  'db:braai:prawns':                           ['celebrating'],   // Prawns (shell-on)
+  'db:braai:espetada':                         ['celebrating'],   // Seafood Espetada
+  'db:braai:mixedseafoodkebabs':               ['celebrating'],   // Mixed Seafood Kebabs
+  'db:braai:honeymustardSalmon':               ['celebrating'],   // Honey & Mustard Salmon
+  'db:braai:braaibroodjies':                   ['celebrating'],   // Braaibroodjies
+  'db:braai:stokbrood':                        ['celebrating'],   // Stokbrood
+  'db:braai:roosterkoek-garlic-cheese':        ['celebrating'],   // Roosterkoek with Garlic Butter & Cheese
+  'db:braai:roosterkoek-boerewors':            ['celebrating'],   // Roosterkoek with Boerewors & Relish
+  'db:braai:cheese-corn-potbrood':             ['celebrating'],   // Cheese & Corn Potbrood
+  'db:braai:braaipie':                         ['celebrating'],   // Braai Pie (Spinach, Bacon and Feta)
+  'db:braai:stywepap':                         ['celebrating'],   // Stywe Pap (Stiff Pap)
+  'db:braai:pap':                              ['celebrating'],   // Phutu Pap
+  'db:braai:chakalaka':                        ['celebrating'],   // Chakalaka
+  'db:braai:mielies':                          ['celebrating'],   // Mielies (Corn on the Cob)
+  'db:braai:potbake':                          ['celebrating'],   // Creamy Potato Bake
+  'db:events:potatosalad':                     ['celebrating'],   // Potato Salad
+  'db:braai:potatosalad':                      ['celebrating'],   // Potato Salad
+  'db:braai:threebeans':                       ['celebrating'],   // Three Bean Salad
+  'db:braai:sweetpotato':                      ['celebrating'],   // Braai Sweet Potato
+  'db:braai:braaismores':                      ['celebrating'],   // Braai S'mores
+  'db:braai:chocolatefondue':                  ['celebrating'],   // Braai Chocolate Fondue
+  'db:braai:grilledpineapple':                 ['celebrating'],   // Grilled Pineapple
+  'db:braai:breadbutterpudding':               ['celebrating'],   // Braai Bread and Butter Pudding
+  'db:braai:marshmallowbanana':                ['celebrating'],   // Baked Marshmallow Banana
+  'db:events:prawncocktail':                   ['celebrating'],   // Prawn Cocktail
+  'db:events:melonprosciutto':                 ['celebrating'],   // Melon & Prosciutto Platter
+  'db:events:bruschettatray':                  ['celebrating'],   // Bruschetta Platter (3 ways)
+  'db:events:creamymussels':                   ['celebrating'],   // Creamy Garlic Mussels
+  'db:events:periperilivers':                  ['celebrating'],   // Peri-Peri Chicken Livers
+  'db:events:biltongsalad':                    ['celebrating'],   // Biltong & Blue Cheese Salad
+  'db:braai:biltongsalad':                     ['celebrating'],   // Biltong & Blue Cheese Salad
+  'db:events:butternutsoup':                   ['celebrating'],   // Roasted Butternut & Feta Soup
+  'db:events:creamymash':                      ['celebrating'],   // Creamy Potato Mash
+  'db:events:greenbeans':                      ['celebrating'],   // Sautéed Green Beans with Garlic & Almonds
+  'db:events:couscous':                        ['celebrating'],   // Herb & Crunch Couscous
+  'db:events:waldorfsalad':                    ['celebrating'],   // SA Waldorf Salad
+  'db:events:copperpenny':                     ['celebrating'],   // Copper Penny Carrot Salad
+  'db:events:friedcabbage':                    ['celebrating'],   // Curried Cabbage & Carrot Crunch
+  'db:events:carrotsalad':                     ['celebrating'],   // Carrot, Butternut & Pineapple Salad
+  'db:events:tomatobasil':                     ['celebrating'],   // Tomato, Chickpea & Feta Salad
+  'db:events:spagbolognaise':                  ['celebrating']   // Spaghetti Bolognaise
 };
 
 if (typeof window !== 'undefined') window.MOOD_TAGS = MOOD_TAGS;
