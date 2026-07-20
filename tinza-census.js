@@ -1028,4 +1028,69 @@ p('       SUPPER looks exactly like an honest one. This rung reads the SHAPE ins
     .map(([k,n]) => k + ' ' + n).join('  ·  ') + '\x1b[0m');
 }
 
+// ══ 19 · REPEATED TEMPLATES ═══════════════ MF126 · Law 42 · Law 27 ══
+head('19 · DOES A LIST TEMPLATE CLOSE ITS OWN TAGS?   ⚖️ MF126');
+p('  \x1b[2m    A template repeated with .map().join(\'\') builds SIBLINGS. If it leaves a <div>');
+p('       open, every repetition nests INSIDE the previous one — the column narrows with');
+p('       each item and the text wraps to one word per line. The browser auto-closes at');
+p('       the parent, so it never throws and nothing catches it.\x1b[0m');
+{
+  // The mood shelf shipped this: <div style="flex:1;"> opened and never closed, so every
+  // "Show me 3 more ideas" batch nested a level deeper. Unusable after two presses.
+  const offenders = [];
+  let scanned = 0;
+  for (const f of loadOrder) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    // Find `.map( … => \`` then read the template with a BACKTICK-AWARE scanner. A naive
+    // /`([\s\S]*?)`/ is worthless here: these templates interpolate ${…} that contain their
+    // OWN nested templates, so a lazy match stops at the first inner backtick and a greedy
+    // one swallows the rest of the file. Both produce invented counts — and an invented
+    // count in a ratchet is worse than no ratchet. Walk it properly. ⚖️ Law 22.
+    const starts = [];
+    // ⚠️ MUST allow a PARENTHESISED parameter list. The first cut of this check used
+    // [^()] here, which silently skipped every `.map((r,i)=> …` — including the exact
+    // mood-card template it was written for. It scanned 27 templates, found them all
+    // balanced, and printed a green tick over a live bug. Proving a check FAILS before
+    // trusting it is the only reason that was caught. ⚖️ Law 42 · Law 3.
+    const head = /\.map\(\s*(?:\([^)]{0,120}\)|[A-Za-z_$][\w$]{0,40})\s*=>\s*`/g;
+    let h;
+    while ((h = head.exec(src)) !== null) starts.push(head.lastIndex - 1);   // index OF the opening backtick
+    for (const start of starts) {
+      let i = start + 1, depth = 0, end = -1;
+      while (i < src.length) {
+        const ch = src[i];
+        if (ch === '\\') { i += 2; continue; }
+        if (depth === 0 && ch === '`') { end = i; break; }
+        if (ch === '$' && src[i + 1] === '{') { depth++; i += 2; continue; }
+        if (ch === '`' && depth > 0) {            // a nested template inside ${…}
+          let j = i + 1;
+          while (j < src.length && src[j] !== '`') { if (src[j] === '\\') j++; j++; }
+          i = j + 1; continue;
+        }
+        if (ch === '}' && depth > 0) depth--;
+        i++;
+      }
+      if (end < 0) continue;                       // unterminated — not ours to judge
+      const after = src.slice(end + 1, end + 40);
+      if (!/^\s*\)\s*\.join\(''\)/.test(after)) continue;   // only .join('') — a REPEATED template
+      const m = { index: start, 2: src.slice(start + 1, end) };
+      const tpl = m[2].replace(/<!--[\s\S]*?-->/g, '');   // HTML comments are not markup
+      const open = (tpl.match(/<div\b/g) || []).length;
+      const close = (tpl.match(/<\/div>/g) || []).length;
+      scanned++;
+      if (open !== close) {
+        const line = src.slice(0, m.index).split('\n').length;
+        offenders.push(f + ':' + line + '   <div> ' + open + ' vs </div> ' + close +
+          '   (' + (open > close ? '+' + (open - close) + ' UNCLOSED — nests' : (close - open) + ' extra close') + ')');
+      }
+    }
+  }
+  p('     ' + num(scanned) + '  repeated list templates scanned');
+  if (offenders.length) bad(offenders.length + ' REPEATED TEMPLATE(S) DO NOT CLOSE THEIR OWN <div>s',
+    '\n      ' + offenders.slice(0, 8).join('\n      ') +
+    (offenders.length > 8 ? '\n      \x1b[2m… and ' + (offenders.length - 8) + ' more\x1b[0m' : '') +
+    '\n      \x1b[2m+N UNCLOSED is the one that nests. Each repetition sits inside the last.\x1b[0m');
+  else ok('Every repeated list template closes its own tags', scanned + ' templates balanced');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
