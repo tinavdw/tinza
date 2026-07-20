@@ -12,23 +12,23 @@ its slot is `unknown`, and `unknown` is not in `MOOD_EAT_SLOTS`.
 
 ---
 
-## Unresolved slot — `slotSource:'unresolved'` (2)
+## 1 · Unresolved slot — `slotSource:'unresolved'` (2)
 
-Both are the same dish under two names: a fried yeast-dough bun, **sweet or savoury
-depending on what goes inside it.** This is a **versions** question, not a slot question.
-Answer the versions call and the slot follows.
+**The blocker is a VERSIONS call, not a slot call.** Ruled 20 Jul. These are not hard to
+classify — they are genuinely two dishes wearing one name, and the record shape cannot say
+so yet:
 
-| record | id | the question | answered by |
+> **with mince → SUPPER. With jam or syrup → TREAT.**
+
+Both stay unresolved and off every mood shelf until that is ruled.
+
+| record | id | ingredients | status |
 |---|---|---|---|
-| Vetkoek | `bk-vetkoek` | Its `versions[]` already carry the split: *Sweet (Jam & Syrup)* = TREAT, *Curried Mince (Maalvleis)* = SUPPER, *Cheese* = TREAT. Does the record take the default version's slot (TREAT), or does a multi-slot record need a new shape? | Tina |
-| Amagwinya (Fat Cakes) | `bk-amagwinya` | Same dish, same question. Whatever vetkoek gets, this gets — they must not diverge. | Tina |
+| Vetkoek | `bk-vetkoek` | 9 | unresolved — `versions[]` already carry the split: *Sweet (Jam & Syrup)*, *Curried Mince (Maalvleis)*, *Cheese* |
+| Amagwinya (Fat Cakes) | `bk-amagwinya` | — | unresolved — same dish, one ruling |
 
-**⚠️ Note on amagwinya — a decision I extended, flag it if it is wrong.**
-The MF125 ruling named **vetkoek only** as unresolved. I applied the same call to
-amagwinya because it is *literally the same dish* — "amagwinya" and "vetkoek" are two
-languages for one fat cake, and vetkoek's own `goesWith` lists Amagwinya first. Slotting
-one TREAT and the other unresolved would be incoherent. If you want amagwinya forced to
-TREAT, it is a one-line data edit in `sections/meals.js`.
+**Keep both records.** Same dish, different cultural names — that is the standing duplicate
+rule (CLAUDE.md §7), not a duplication to clean up.
 
 **Not unresolved — ruled TREAT (do not re-litigate):**
 koeksisters · Cape Malay koesisters · doughnuts · pampoenkoekies · gulab jamun · jalebi ·
@@ -37,17 +37,61 @@ old `deepfried` category grouped by method and told us nothing about the course.
 
 ---
 
-## Cross-path slot disagreements — census 18 ① (4)
+## 2 · Chakalaka — THREE records, and a gap in census 18 ①
 
-Surfaced by the new check, **outside MF125's scope** (all four are `events`-side or
-food-type-room derivations, not the braai/bakes adapters). Listed so they are not lost.
+Asked 20 Jul: is chakalaka one record resolving two ways, or two records? **Measured — it
+is three, under two different ids:**
+
+| id | section | slot | ingredients | method |
+|---|---|---|---|---|
+| `zulu-chakalaka` | world | SIDE | **17** | 5 |
+| `chakalaka` | braai | SIDE *(authored 20 Jul)* | 10 | 3 |
+| `chakalaka` | spice | CONDIMENT | **0** | **0** |
+
+**Answering the question directly: assertion 1 did NOT have a gap on the pair you
+suspected.** `braai` and `spice` share the bare id `chakalaka`, and until today both
+resolved CONDIMENT — they *agreed*, so there was correctly nothing to flag. Authoring
+braai → SIDE has now made them disagree, and assertion 1 flags it immediately.
+
+**But there IS a real gap, and it is this:** `world`'s record is the same dish under a
+*different id* (`zulu-chakalaka`), so assertion 1 is blind to it by construction — it keys
+on bare id to find multi-door recipes, and a same-dish-different-id duplicate has no shared
+key to match on. A name-keyed check would catch it, but names are unreliable (58 name-groups
+cover 128 records — see `tinzaStore.favKey` notes). **Unsolved. Needs a ruling on what the
+"same dish" key actually is before a check can be written.**
+
+**Also flagged, standing duplicate rule — keep the most comprehensive:** `spice:chakalaka`
+carries **0 ingredients and 0 method**. It is a husk. `world:zulu-chakalaka` (17 ingredients)
+is the most comprehensive. Deleting records was out of MF125's scope, so nothing was removed.
+
+---
+
+## 3 · Cross-path slot disagreements — census 18 ① (5)
+
+Surfaced by the new check, **outside MF125's scope** (all are `events`-side, food-type-room,
+or duplicate-record issues, not the braai/bakes adapters). Listed so they are not lost.
 
 | recipe | disagreement | likely wrong |
 |---|---|---|
-| Advocaat (Dutch Egg Liqueur) | `events:SUPPER` vs `beverages:DRINK` | events — a liqueur is not supper |
+| Advocaat (Dutch Egg Liqueur) | `events:SUPPER` vs `beverages:DRINK` | events — **ruled 20 Jul: Advocaat is DRINK** |
 | Bread & Butter Pudding | `events:SUPPER` vs `braai:TREAT` | events — braai's is now authored TREAT |
 | Biltong & Blue Cheese Salad | `events:SUPPER` vs `braai:SIDE` | events — braai's is authored SIDE |
+| Chakalaka | `braai:SIDE` vs `spice:CONDIMENT` | spice — an empty stub record, see §2 |
 | Braai Sweet Potato | `braai:SIDE` vs `tiny:BABYFOOD` | neither, probably — `tiny` is a food-type room |
 
-The fix for the first three is the same shape as MF125: **author the slot into the events
-record data.** Do not add a rule to the events adapter.
+The fix for these is the same shape as MF125: **author the slot into the record data.**
+Do not add a rule to an adapter.
+
+---
+
+## 4 · Queued ruling — slot as the eighth reserved field
+
+Raised 20 Jul, **not acted on.** `slot` is now authored data, but it is not one of the
+reserved fields and `normalizeRecipe()` (core.js — THE DOOR, ruled 15 Jul) has no slot
+handling. **An authored slot therefore bypasses the single recipe door.** Today `slot()`
+in index.js is the only thing that reads it, so nothing is broken — but the contract is
+now inconsistent, and the next reader of `r.slot` will not get a door-normalised value.
+
+Needs a ruling: make `slot` the eighth reserved field, with `normalizeRecipe()` owning its
+default and its uppercase/validity normalisation, the way it owns `diet`, `versions` and
+`mood`. ⚖️ Law 6.

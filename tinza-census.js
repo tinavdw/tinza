@@ -971,13 +971,22 @@ p('       SUPPER looks exactly like an honest one. This rung reads the SHAPE ins
   // ② DISTRIBUTION — a real section is never unanimous.
   // The cheap one, and it catches the whole class: a blanket assignment is always
   // visible as a flat distribution, even where no record has a second door.
-  // 🩸 ONLY A COURSE CLAIM COUNTS. beverages is 66/66 DRINK, spice 190/190 CONDIMENT,
-  // furry 62/62 PETFOOD — unanimous BY DEFINITION, because those rooms are defined by
-  // the kind of food, not by where it sits in the day. Flagging them would be three
-  // false alarms every run, and a check that cries wolf is a check she learns to skip.
-  // A COURSE ("this is supper", "this is a treat") cannot be true of all 92 records —
-  // that is a room that never looked. A FOOD TYPE can. ⚖️ Law 3.
-  const COURSE = ['BREAKFAST','LUNCH','SUPPER','SIDE','STARTER','TREAT'];
+  // ── THE EXEMPTION LIST ── RULED 20 Jul. THREE SECTIONS. WRITTEN DOWN. ──────────
+  // These rooms are defined by the KIND of food, not by where it sits in the day, so
+  // they are unanimous by definition and always will be:
+  //   beverages  66/66 DRINK   ·   spice  190/190 CONDIMENT   ·   furry  62/62 PETFOOD
+  //
+  // 🩸 ADDING A FOURTH SECTION HERE IS A RULING, NOT A CODE CHANGE. Ask Tina.
+  // Left to grow quietly this list becomes the escape hatch that hides the next blanket
+  // assign — a section gets exempted because it is noisy, and the bug it was hiding
+  // never surfaces again. That is exactly how braai stayed 92/92 SUPPER. ⚖️ Law 3.
+  // The list PRINTS on every run below, so it can never hide.
+  // 🩸 THE EXEMPTION IS THE PAIR, NOT THE ROOM. spice is exempt for CONDIMENT — it is NOT
+  // exempt for SUPPER. Exempting the room outright would mean a genuine blanket assign
+  // inside an exempt room stayed silent forever, which is the escape hatch this list is
+  // most at risk of becoming. Pinning the value costs nothing and closes it. (Proved:
+  // spice forced to 100% SUPPER flags; spice at 100% CONDIMENT does not.)
+  const FLAT_EXEMPT = { beverages: 'DRINK', spice: 'CONDIMENT', furry: 'PETFOOD' };
   const FLAT_MIN = 20;
   const bySec = {};
   all.forEach(r => { (bySec[r.section] = bySec[r.section] || []).push(r); });
@@ -986,9 +995,12 @@ p('       SUPPER looks exactly like an honest one. This rung reads the SHAPE ins
     const rs = bySec[s], vals = {};
     rs.forEach(r => vals[r.slot] = (vals[r.slot] || 0) + 1);
     const kinds = Object.keys(vals);
-    if (rs.length >= FLAT_MIN && kinds.length === 1 && COURSE.indexOf(kinds[0]) >= 0)
-      flat.push(s + ' ' + rs.length + '/' + rs.length + ' ' + kinds[0]);
+    if (rs.length < FLAT_MIN || kinds.length !== 1) return;
+    if (FLAT_EXEMPT[s] === kinds[0]) return;          // unanimous at its RULED value only
+    flat.push(s + ' ' + rs.length + '/' + rs.length + ' ' + kinds[0]);
   });
+  p('     \x1b[2mexempt (unanimous by definition, ruled 20 Jul — a 4th needs a ruling): ' +
+    Object.keys(FLAT_EXEMPT).map(k => k + '=' + FLAT_EXEMPT[k]).join(' · ') + '\x1b[0m');
   if (flat.length) bad(flat.length + ' SECTION(S) ASSIGN ONE SLOT TO EVERY RECORD: ' + flat.join(' · '),
     '\n      \x1b[2mA room where every dish is the same course is a room that never looked.' +
     '\n      braai was 92/92 SUPPER and bakes 101/101 TREAT — sauces served as mains. ⚖️ MF125.\x1b[0m');
