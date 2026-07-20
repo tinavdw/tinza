@@ -1,52 +1,61 @@
 flowchart TD
-    HEAD["HEAD 349aebf + 3 commits<br/>UNPUSHED — awaiting GitHub Desktop"]
+    HEAD["5 COMMITS UNPUSHED<br/>f2fabed · 48e3df5 · 568b481 + 2<br/>needs GitHub Desktop"]
 
     HEAD --> MF125
 
-    subgraph MF125["MF125 — DONE, GREEN, UNPUSHED"]
-        M1["2838351 — slot authored in data<br/>adapters only transport"]
-        M2["0be9229 — celebrating is an<br/>occasion test · 128 tags"]
-        M3["841932b — census 18<br/>cross-path + flat-distribution"]
-        M4["braai 92/92 SUPPER →<br/>SUPPER 48 · SIDE 25 · CONDIMENT 14 · TREAT 5"]
-        M5["bakes 101/101 TREAT →<br/>TREAT 73 · SIDE 26 · unresolved 2"]
-        M6["celebrating 106 SUPPER →<br/>SUPPER 84 · SIDE 36 · TREAT 6 · STARTER 1"]
-        M7["Monkey Gland Sauce CONDIMENT<br/>on all three paths"]
-        M8["doctor RED 9→9 · node --check ×5<br/>2,083 records unchanged"]
+    subgraph MF125["MF125 — SLOT ADAPTERS · DONE"]
+        M1["slot authored in data<br/>adapters only transport"]
+        M2["braai 92/92 SUPPER →<br/>SUPPER 48 · SIDE 25 · CONDIMENT 14 · TREAT 5"]
+        M3["bakes 101/101 TREAT →<br/>TREAT 73 · SIDE 26 · unresolved 2"]
+        M4["celebrating → 128<br/>SUPPER 84 · SIDE 36 · TREAT 6 · STARTER 1"]
+        M5["census 18 — cross-path agreement<br/>+ flat distribution"]
+        M6["Exemption is the PAIR not the room<br/>spice:CONDIMENT exempt<br/>spice:SUPPER still flags"]
     end
 
-    MF125 --> CORRECTION
+    MF125 --> MF126
 
-    subgraph CORRECTION["BRIEF PREMISE WAS WRONG"]
-        C1["§4 claimed adapters read record slot<br/>and slot flows via normalizeRecipe()"]
-        C2["Truth: 0/92 braai and 0/101 bakes<br/>records had a slot at all"]
-        C3["slot() fell through to fromSection()<br/>which sat ABOVE fromRole()<br/>— the room outranked the record"]
-        C4["Fix stands: author into data,<br/>section default now last resort"]
-        C1 --> C2 --> C3 --> C4
+    subgraph MF126["MF126 — MOOD SHELF BUGS · DONE"]
+        N1["BUG 1 was NOT the shelf filter.<br/>buildMoodPool() was correct all along."]
+        N2["Third blanket default found: sides<br/>fromSection('sides') → TREAT<br/>Béchamel · Napoletana · Chips · Mash"]
+        N3["Pre-existing, proven via throwaway<br/>worktree at 349aebf — old bug,<br/>newly noticed, NOT a regression"]
+        N4["9 sides records authored<br/>TREAT5/SIDE4 → SIDE6/CONDIMENT3<br/>sweet shelf 313→308 · non-TREAT: 0"]
+        N5["NOTHING RIDES A SECTION<br/>DEFAULT NOW — this is the real<br/>completion of MF125"]
+        N6["BUG 2 — one missing div<br/>core.js:2266 flex:1 never closed<br/>every card nested one deeper"]
+        N7["census 19 — .map().join('')<br/>templates must be tag-balanced"]
     end
 
-    MF125 --> RULED
+    MF126 --> LAW
 
-    subgraph RULED["RULED THIS SESSION"]
-        R1["Chakalaka → SIDE<br/>item override · shelf 127→128"]
-        R2["Amagwinya follows vetkoek<br/>both unresolved · both records kept"]
-        R3["Assertion 2 exempts food-type rooms<br/>beverages · spice · furry<br/>adding a 4th is a RULING"]
-        R4["Bread + flatbreads → SIDE<br/>Burger Buns off sweet shelf"]
-        R5["Vetkoek + Boerewors cut from celebrating<br/>occasion test, not income test"]
-        R6["Bread & Butter Pudding + Choc Fondue<br/>→ TREAT via Fire Desserts group"]
+    subgraph LAW["NEW LAW — RULED"]
+        L1["LAW 54: a check you have never<br/>watched fail is not a check,<br/>it is decoration"]
+        L2["LAW 54a: a check that cries wolf<br/>trains you to ignore it<br/>3 false alarms worse than no check"]
+        L3["Earned it: bug-2 ratchet printed GREEN<br/>while skipping the exact template it<br/>was written for. Head regex excluded<br/>the arrow form. 27 scanned, 35 real.<br/>Would have shipped."]
     end
 
-    MF125 --> NEXT
+    MF126 --> VERIFY
 
-    subgraph NEXT["OPENED BY MF125"]
-        N1["slot is authored data but NOT one of<br/>the 7 reserved fields · normalizeRecipe()<br/>has no slot handling → authored slot<br/>bypasses the single door. RULE IT."]
-        N2["Vetkoek/amagwinya VERSIONS call<br/>mince=SUPPER · jam/syrup=TREAT<br/>2 unresolved until ruled"]
-        N3["Events cross-path 4<br/>Advocaat events:SUPPER vs beverages:DRINK<br/>staged in MOOD_RECIPE_STAGING.md"]
-        N4["Proposed Law: a check you have<br/>never seen fail is not a check"]
+    subgraph VERIFY["YOUR HANDS — not provable from node"]
+        V1["Hard reload, then:"]
+        V2["1. Sweet shelf — press 'Show me 3<br/>more ideas' x5, cards stay same width"]
+        V3["2. Sweet shelf — no Chips · Mash ·<br/>Béchamel · Napoletana in any batch"]
+        V4["3. Celebrating — 128, chakalaka on it"]
+        V5["4. Sides section still renders<br/>(sides removed from fromSection)"]
+        V1 --> V2 --> V3 --> V4 --> V5
     end
 
-    NEXT --> MF124
+    VERIFY --> OPEN
 
-    subgraph MF124["THEN — MF124 WK COSTING"]
+    subgraph OPEN["OPEN RULINGS OWED"]
+        O1["slot as 8th reserved field<br/>normalizeRecipe() has no slot handling<br/>authored slot bypasses the single door"]
+        O2["Vetkoek/amagwinya VERSIONS call<br/>mince=SUPPER · jam/syrup=TREAT<br/>2 unresolved until ruled"]
+        O3["'Same dish' key when ids differ<br/>zulu-chakalaka vs chakalaka<br/>bare-id checks blind by construction"]
+        O4["spice:chakalaka husk — 0 ing 0 method<br/>delete after inbound-ref check"]
+        O5["Events cross-path 5 disagreements<br/>Advocaat ruled DRINK · staged"]
+    end
+
+    OPEN --> MF124
+
+    subgraph MF124["NEXT JOB — MF124 WK COSTING"]
         X1["21 WK recipes, impossible costPP"]
         X2["Prices resolve → it is the calculation"]
         X3["Start: switzerland-birchermuesli<br/>R510 vs health room R18"]
@@ -62,20 +71,21 @@ flowchart TD
         Q4["Locale brand map"]
         Q5["9-line brand rename sweep"]
         Q6["Portugal photo gap"]
-        Q7["Tidy day — root strays<br/>+ promote rulings §12–16"]
+        Q7["Tidy day — root strays<br/>+ promote rulings 12-16"]
     end
 
     QUEUE --> OLD
 
     subgraph OLD["STANDING BACKLOG"]
-        O1["R50 → R90 price sweep"]
-        O2["Fix queue: bakes '4 people' display<br/>biscuits search → pet food"]
-        O3["Toum → 'Toum (Garlic Cream)'<br/>wk_africa.js ~line 132"]
-        O4["Sameness §10: Spice · Cakes · FMF"]
-        O5["Photo Studio: 906 of 2123 · 43%<br/>truth = photo-audit.js --missing"]
+        B1["R50 → R90 price sweep"]
+        B2["bakes '4 people' display<br/>biscuits search → pet food"]
+        B3["Toum → 'Toum (Garlic Cream)'<br/>wk_africa.js ~L132"]
+        B4["Sameness: Spice · Cakes · FMF"]
+        B5["Photos 906/2123 · 43%<br/>truth = photo-audit.js --missing"]
     end
 
+    style MF126 fill:#46530c,color:#fff
     style MF125 fill:#46530c,color:#fff
-    style CORRECTION fill:#b5462b,color:#fff
-    style NEXT fill:#d98a2b,color:#2c211a
-    style RULED fill:#fbf3e6,color:#2c211a
+    style VERIFY fill:#b5462b,color:#fff
+    style LAW fill:#d98a2b,color:#2c211a
+    style OPEN fill:#fbf3e6,color:#2c211a
