@@ -44,3 +44,65 @@ Key insight: multi-week, breakfast/lunch, conferences, camping, hiking, school l
 
 ## Honest priority
 Pre-launch, at most: the version-selector build (in progress) → meal planner → budget filter → load-shedding mode → freezer/leftover/pairings (all cheap). Everything ⏳ waits for v2. The risk tonight isn't too few ideas — it's too many at once. Build one slice, ship, then pick from here.
+
+---
+
+# 📦 MEASURED CONTENT GAPS — *added 20 Jul 2026*
+*Measured against commit `92105af` with Node probes. ⚖️ Law 22.*
+
+> 🩸 **METHOD NOTE — READ THIS BEFORE TRUSTING ANY NAME COUNT.** Records carry BOTH `name` (authentic) and `nameAlt` (English gloss); the app renders `tinzaDisplayName()` = `name (nameAlt)`. **A probe that greps `r.name` alone UNDER-REPORTS badly** — the first pass of this very section claimed 3 dumplings when there are 25, and 2 festive breads when there are 6. **Always search `name + nameAlt`.** ⚖️ Law 22, sharpened — measure what the app RENDERS, not what the record stores.
+
+## 🥟 15. Dumplings — **the gap is ASIA, not dumplings**
+Re-measured: **25 dumpling dishes exist** — Pierogi ruskie · Kluski śląskie · Pelmeni · Vareniki · Manti · Knödel · Germknödel · Zwetschkenknödel · Nokedli · Kroppkakor · Raspeballer · Capuns · Kenkey · Salzburger Nockerl · Fluffy Drop Dumplings · Samoosas. Europe and Africa are **well covered.**
+- ❌ **Genuinely missing — the East Asian family:** gyoza · jiaozi · momo · wonton · mandu · xiao long bao · siu mai.
+- **Why it matters:** dumplings are the Lunar New Year celebration food, and World Kitchen Asia is thin. This is an *Asia* backlog item, not a dumpling one.
+- **Cheapness:** medium. One wrapper method + one folding technique carries the whole family; fillings become `versions`.
+
+## 🍞 16. Festive / enriched breads — **6 exist, the European festive core is missing**
+Re-measured: Vetkoek ×3 · Koeksisters · **Himbasha** (Sweet Bread) · **Bolo Rei** (King Cake — the king cake box is already ticked).
+- ❌ **Still missing:** challah · panettone · stollen · tsoureki · kulich · babka · hot cross buns · colomba.
+- **Why it matters:** these are breads baked FOR an occasion — Easter, Christmas, New Year. Direct 🎉 *celebrating* fill, and they photograph beautifully.
+- **Cheapness:** medium. One enriched sweet dough parents most of them.
+
+## 🥩 17. Carpaccio — **zero real ones** *(Tina's ruling, 20 Jul)* — CONFIRMED after re-measure
+Only matches are `Zucchini Carpaccio` and `Tomato & Butternut Carpaccio` — both **vegetable dishes borrowing the name for a slicing technique.**
+- **⚖️ THE RULING:** *carpaccio is a MEAT dish by origin* (Harry's Bar, Venice). A vegetable version may use the word, but the library must not lack the real thing while using the name.
+- **The SA answer, and it is a moat:** **venison carpaccio** (springbok · kudu · gemsbok — all already in the library as roasts) and **firm white fish carpaccio.** Neither is copyable by an overseas app. Feeds the ⭐ *impress* shelf.
+- **Cheapness:** HIGHEST in this document — no cooking at all. Slice, dress, plate.
+
+## 🦑 18. Calamari — **3 exist; the gap is the SA-ROOM version**
+Re-measured: **Lula Grelhada** (Grilled Calamari, Mozambique) · **Calamares a la Romana** (Fried Calamari, Spain) · **Lulas Recheadas** (Rice-Stuffed Squid, Portugal). Search for "calamari" returns them correctly — ✅ **not a discoverability bug.**
+- ❌ **Missing:** a **marinated calamari salad**, and SA-room versions a Pretoria cook browses to (Braai · Finger Foods · Family) rather than only under Spain/Portugal/Mozambique. ⚖️ Duplicate rule — *same ingredients, different cultural name → keep BOTH*, so the World Kitchen heroes stay and cross-link.
+- 🔬 **THE TWO-WINDOW RULE — belongs in `TINZA_TECHNIQUES.md`, and every squid recipe inherits it.** Squid is cross-woven collagen that seizes at 55–60 °C. **Under ~2 minutes = tender. Over ~30–45 minutes = tender. Anything between = rubber, with no rescue.** Fry 60–90 sec at 180–190 °C in small batches (crowding drops oil temp → pushes you into the rubber window → the single commonest cause). Dry the rings hard first. Braai screaming hot, 1–2 min. Braise 30–45 min minimum. **Frozen squid is often MORE tender than fresh** (ice crystals rupture the fibres) — relevant since SA squid arrives frozen. Milk/buttermilk soak 30 min–2 hr helps; skip bicarb (goes slimy). Thick tubes → braise; small/baby → flash fry. *Lula Grelhada's existing "two minutes over fierce coals" already honours this — it is correct as written.*
+- 🍺 **Batter is a `versions` case, not three recipes:** seasoned flour (Romana, lightest) · flour + cornflour (SA restaurant crisp) · beer batter (pub).
+
+## 🐟 19. Yellowtail / Galjoen — **zero, confirmed**
+Prized SA gamefish. Whole-roasted yellowtail is a genuine showstopper and a Cape/coastal signature. Nothing in the library.
+
+---
+
+# 🏷️ BRAND NAMES IN SA CLASSICS — *measured 20 Jul 2026*
+*Measured: only **9 real cases** app-wide. Small and fixable.*
+
+- 😲 **`Crunchies` (bakes) is NOT a brand** — it is oats · coconut · cake flour · golden syrup · bicarb, the generic SA oat traybake. Nothing to fix. **⚠️ But it creates a trap: naming a honeycomb recipe "Crunchie" would collide with it in the same room** — the one collision a room gloss cannot solve.
+- 😲 **Honeycomb is at ZERO — and it is NOT a mission to make.** Sugar + golden syrup + bicarb, ~10 minutes. **The mission is the chocolate coating, not the honeycomb** — and for crushing over a Dom Pedro, an Amarula Affogato or ice cream you never coat it. Same chemistry as the existing Crunchies recipe. **Author it as "Honeycomb"** — correct generic name, and it dodges the collision.
+- **The rename list:** Tennis biscuits (5 recipes) → **coconut biscuits** · Romany Creams (1) → **chocolate coconut sandwich biscuits** · Bar One Sauce (1) → **chocolate caramel nougat bar** · Aromat (1) → **savoury seasoning salt**.
+- ❌ **False positives — do NOT touch:** *Ouma se Soetpampoen* (Afrikaans for grandmother, not the rusk brand) · *Tex-Mex* (not the chocolate bar).
+
+## ⚖️ PROPOSED RULING — THE THREE TIERS *(awaiting Tina's confirmation)*
+1. 🏆 **THE DISH IS THE BRAND → THE NAME STAYS.** Peppermint Crisp Tart is a named national dish; renaming it makes it unfindable. The *ingredient line* still goes generic — "mint chocolate flake bar, 49g".
+2. 🔤 **BRAND AS LAZY SHORTHAND → USE THE GENERIC.** Tennis · Romany Creams · Bar One · Aromat. The product exists under many labels; the brand adds nothing.
+3. 🍳 **MAKEABLE → AUTHOR IT AND CROSS-LINK.** Honeycomb is case #1. Turns a shopping dependency into a Tinza recipe — the moat.
+4. 🥃 **SPIRITS AND LIQUEURS SIT OUTSIDE ALL THREE.** Amarula · Kahlúa · Cointreau — the brand *is* the product category and there is no generic. Leave them.
+
+---
+
+# ⭐ THE IMPRESS SHELF — MEASURED, 20 Jul 2026
+- 🇿🇦 **THE SA LIST: 21 of 23 ALREADY IN THE LIBRARY.** Biltong · snoek · roosterkoek · peri-peri livers · mussels · boerewors · potjiekos · chakalaka · bobotie · oxtail · Karoo lamb chops · bunny chow · pork belly · biryani · game · melktert · peppermint crisp · Amarula · koeksisters · malva · hertzoggies · Dom Pedro · Cape brandy pudding. **Gaps: calamari-in-SA-rooms, yellowtail, carpaccio.**
+- 🇫🇷 **THE EUROPEAN FINE-DINING LIST: 18 present, 21 missing** — and two "hits" were false positives (the veg carpaccios; Japanese soufflé *pancakes* matching "soufflé").
+- 🩸 **THE READING:** *impress* is **tag-only for the SA half, content-hungry for the European half.** Tinza's game, potjie and braai depth is the part no overseas app can copy. Build the SA shelf from tags on day one; treat European dishes as optional depth, never the whole shelf.
+- 🚫 **SOURCING CUT — the caterer's filter, ruled 20 Jul.** Do NOT author: oysters · scallops · lobster / Cape rock lobster · veal (osso buco) · branzino. Hard to source in Pretoria, expensive, inconsistent. **A recipe she cannot shop for is not impressive — it is a dead end.** ⚖️ Law 16.
+- ✍️ **AUTHORING ORDER, by impress-per-hour:**
+  - **🔥 Cheap + high impact:** venison carpaccio · honeycomb · Affogato / Amarula Affogato · chocolate-dipped strawberries · deviled eggs · Baked Brie en Croûte · Strawberries Romanoff · Dom Pedro variations.
+  - **👍 Worth the effort:** molten lava cakes · chicken piccata · profiteroles · mushroom risotto · marinated calamari salad · whole roasted yellowtail · Beef Wellington and its SA twin **Venison Wellington**.
+  - **🚫 Skip:** opera cake · macarons · tortellini in brodo · xiao long bao — days of work, tiny audience, and macarons fail on Highveld humidity alone.
