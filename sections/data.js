@@ -123,7 +123,7 @@ const APPETITE = {
 const MEAT_GROUPS = [
 
   // ── BEEF ────────────────────────────────────────────────────────
-  { id:"beef", label:"🐄 Beef", items:[
+  { id:"beef", label:"🐄 Beef", slot:"SUPPER", items:[
     { id:"boerewors", name:"Boerewors", intl:"SA Spiced Coil Sausage", emoji:"🌀", unit:"g", soloG:350, sharedG:150, note:"The soul of every braai",
       recipe:{ coalType:"Medium coals (4–5 sec hand test)", ingredients:["Boerewors — 350g per person solo, 150g if sharing","Coarse salt — 2g per person","Sunflower oil — 5ml per person (light brush)"],
         method:["Bring to room temperature 20 min before braaiing.","Lightly brush with oil to prevent sticking.","Medium coals — not too hot or casing will burst.","Do NOT pierce the casing — ever!","Cook 15–20 min turning every 4–5 min until golden brown.","Slice and serve immediately. Enjoy! 😊"],
@@ -183,7 +183,7 @@ const MEAT_GROUPS = [
   ]},
 
   // ── PORK ────────────────────────────────────────────────────────
-  { id:"pork", label:"🐷 Pork", items:[
+  { id:"pork", label:"🐷 Pork", slot:"SUPPER", items:[
     { id:"porkchops", name:"Pork Loin Chops", emoji:"🍖", unit:"pcs", soloG:260, sharedG:130, gramEach:130, soloPcs:2, sharedPcs:1, note:"Marinate in apple cider — keeps it juicy",
       recipe:{ coalType:"Medium heat", ingredients:["Pork loin chops (bone-in) — 2 per person (±200g each)","Apple cider vinegar — 6ml per person","Garlic — 2g per person (crushed)","Soy sauce — 3ml per person","Brown sugar — 2g per person","Olive oil — 3ml per person","Coarse salt — 1g per person","Black pepper — 0.6g per person"],
         method:["Marinate 2+ hours.","Medium coals. 5 min per side. Juices run clear near bone.","Rest 3 min. Enjoy! 😊"],
@@ -219,7 +219,7 @@ const MEAT_GROUPS = [
   ]},
 
   // ── LAMB ────────────────────────────────────────────────────────
-  { id:"lamb", label:"🐑 Lamb", items:[
+  { id:"lamb", label:"🐑 Lamb", slot:"SUPPER", items:[
     { id:"lambchops", name:"Lamb Loin Chops", emoji:"🍖", unit:"pcs", soloG:360, sharedG:180, gramEach:120, soloPcs:3, sharedPcs:2, note:"King of the braai — no argument",
       recipe:{ coalType:"Medium coals (4–5 sec hand test)", ingredients:["Lamb loin chops — 3 per person as main (about 120g each)","Olive oil — 15ml per person","Garlic — 5g per person (crushed)","Fresh rosemary — 3g per person (chopped)","Lemon juice — 10ml per person","Coarse salt — 5g per person","Black pepper — 2g per person"],
         method:["Marinate in olive oil, garlic, rosemary and lemon 1 hour min.","Medium coals. 4–5 min per side.","Fat should render golden, not black.","Rest 3 min. Enjoy! 😊"],
@@ -247,7 +247,7 @@ const MEAT_GROUPS = [
   ]},
 
   // ── CHICKEN ─────────────────────────────────────────────────────
-  { id:"chicken", label:"🍗 Chicken", items:[
+  { id:"chicken", label:"🍗 Chicken", slot:"SUPPER", items:[
     { id:"honeysoychiicken", name:"Honey & Soy Chicken Pieces", emoji:"🍗", unit:"pcs", soloG:320, sharedG:160, gramEach:140, soloPcs:3, sharedPcs:2, note:"Sweet, sticky, caramelised — crowd favourite",
       recipe:{ coalType:"Medium indirect heat — patience is everything", ingredients:["Bone-in chicken pieces — 2–3 per person (±300g total)","Honey — 30ml per person","Soy sauce — 20ml per person","Garlic — 8g per person (crushed)","Fresh ginger — 5g per person (grated)","Olive oil — 10ml per person","Apple cider vinegar — 10ml per person","Sesame seeds — 3g per person (optional, to finish)"],
         method:["Mix honey, soy, garlic, ginger, oil and vinegar. Marinate chicken 4+ hours (overnight better).","Medium indirect heat only. 30–35 min turning every 10 min.","Move to direct heat last 10 min. Baste with remaining marinade every 2 min.","Watch closely — the honey burns fast!","Juices must run completely clear. Rest 5 min. Enjoy! 😊"],
@@ -283,7 +283,7 @@ const MEAT_GROUPS = [
   ]},
 
   // ── SEAFOOD ─────────────────────────────────────────────────────
-  { id:"seafood", label:"🐟 Seafood", items:[
+  { id:"seafood", label:"🐟 Seafood", slot:"SUPPER", items:[
     { id:"snoek", name:"Snoek", emoji:"🐟", unit:"g", soloG:300, sharedG:150, note:"Apricot baste — West Coast classic",
       recipe:{ coalType:"Medium coals — not too hot", ingredients:["Fresh snoek (butterflied) — 300g per person","Apricot jam — 20ml per person","Butter — 17g per person","Garlic — 3g per person (crushed)","Lemon juice — 10ml per person","Coarse salt — 2g per person"],
         method:["Baste: melt butter, add jam, garlic and lemon.","Skin-side down on oiled grid. Baste generously.","15–20 min skin-side down. Flip last 5 min.","Flakes easily when done. Enjoy! 😊"],
@@ -311,7 +311,7 @@ const MEAT_GROUPS = [
   ]},
 
   // ── VEGETARIAN ──────────────────────────────────────────────────
-  { id:"veg", label:"🥦 Vegetarian", items:[
+  { id:"veg", label:"🥦 Vegetarian", slot:"SUPPER", items:[
     { id:"mushroomskewers", name:"Balsamic Garlic Mushroom Skewers", emoji:"🍄", unit:"g", soloG:300, sharedG:200, note:"Meaty, umami — the best veg skewer",
       recipe:{ coalType:"Medium-high coals", ingredients:["Button or portobello mushrooms — 250g per person (cubed 2cm)","Balsamic vinegar — 8ml per person","Soy sauce — 4ml per person","Garlic — 2g per person (minced)","Fresh thyme — 1g per person (chopped)","Coarse salt — 1g per person","Black pepper — 0.5g per person"],
         method:["Mix balsamic, soy, garlic, thyme, salt and pepper.","Toss mushrooms in marinade. Rest 30 min minimum.","Thread onto soaked skewers (do not overcrowd).","Medium-high coals. 2–3 min per side until just tender and slightly charred.","Serve immediately — mushrooms release liquid as they sit. Enjoy! 😊"],
@@ -339,7 +339,7 @@ const MEAT_GROUPS = [
   ]},
 ];
 const SIDES_GROUPS = [
-  { id:"starchy", label:"🌽 Side Meals", items:[
+  { id:"starchy", label:"🌽 Side Meals", slot:"SIDE", items:[
     { id:"stywepap", name:"Stywe Pap (Stiff Pap)", emoji:"🌽", tier:"free", perPerson:80, unit:"g", note:"Firm and sliceable — cut into wedges", pantryP:8, stdP:10, indulgeP:12,
       shopping:[{name:"Coarse maize meal",per:80,unit:"g"},{name:"Butter",per:5,unit:"g"},{name:"Salt",per:2,unit:"g"}],
       recipe:{ coalType:"Any heat — pot to the side", ingredients:["Coarse maize meal — 80g dry per person","Salted water — 80ml per person (less water = stiffer)","Butter — 5g per person","Salt — 3g per person"],
@@ -372,7 +372,7 @@ const SIDES_GROUPS = [
         tip:"The secret: GENTLE fire, well-sealed edges and patience. The second pastry must be slightly bigger to cover the heaped filling." }},
 
   ]},
-  { id:"salads", label:"🥗 Salads", items:[
+  { id:"salads", label:"🥗 Salads", slot:"SIDE", items:[
     { id:"coleslaw", name:"Coleslaw", emoji:"🥗", tier:"free", perPerson:80, unit:"g", note:"Finished salad", pantryP:8, stdP:11, indulgeP:15,
       shopping:[{name:"White cabbage",per:50,unit:"g"},{name:"Carrot",per:15,unit:"g"},{name:"Mayonnaise",per:20,unit:"g"},{name:"White vinegar",per:5,unit:"ml"}],
       recipe:{ coalType:"No fire needed — make ahead", ingredients:["White cabbage — 50g per person, finely shredded","Carrot — 15g per person, grated","Mayonnaise — 20g per person","White vinegar — 5ml per person","Sugar — 3g per person","Salt — 2g per person","Black pepper — 1g per person"],
@@ -424,22 +424,22 @@ const SIDES_GROUPS = [
         method:["Basil pesto — make your own (recipe linked above) or use a good shop-bought jar.","Cook pasta al dente. Drain — do NOT rinse.","Toss immediately while warm with the pesto.","Add tomatoes, olive oil. Season. Cool.","Top with parmesan before serving. Enjoy! 😊"],
         tip:"Toss with pesto while still hot — cold pasta doesn't absorb flavour." }},
 
-    { id:"thousandislandbraai", name:"Thousand Island Dressing", emoji:"🥗", tier:"free", perPerson:20, unit:"ml", note:"SA braai salad classic", pantryP:3, stdP:4, indulgeP:4,
+    { slot:"CONDIMENT", id:"thousandislandbraai", name:"Thousand Island Dressing", emoji:"🥗", tier:"free", perPerson:20, unit:"ml", note:"SA braai salad classic", pantryP:3, stdP:4, indulgeP:4,
       shopping:[{name:"Mayonnaise",per:12,unit:"ml"},{name:"Tomato sauce",per:5,unit:"ml"},{name:"Sweet relish",per:3,unit:"g"}],
       recipe:{ coalType:"No cooking needed", ingredients:["Mayonnaise — 12ml pp","Tomato sauce (ketchup) — 5ml pp","Sweet relish or finely diced gherkin — 3g pp","Lemon juice — 1ml pp","Salt and pepper"],
         method:["Mix all ingredients together.","Taste and adjust seasoning.","Refrigerate until serving. Enjoy! 😊"],
         tip:"Make the day before for best flavour." }},
-    { id:"roquefortbraai", name:"Roquefort Blue Cheese Dressing", emoji:"🧀", tier:"plus", perPerson:20, unit:"ml", note:"Pairs with biltong salad", pantryP:5, stdP:7, indulgeP:8,
+    { slot:"CONDIMENT", id:"roquefortbraai", name:"Roquefort Blue Cheese Dressing", emoji:"🧀", tier:"plus", perPerson:20, unit:"ml", note:"Pairs with biltong salad", pantryP:5, stdP:7, indulgeP:8,
       shopping:[{name:"Blue cheese",per:8,unit:"g"},{name:"Sour cream",per:8,unit:"ml"},{name:"Mayonnaise",per:5,unit:"ml"},{name:"Lemon juice",per:2,unit:"ml"}],
       recipe:{ coalType:"No cooking needed", ingredients:["Blue cheese — 8g pp (crumbled)","Sour cream — 8ml pp","Mayonnaise — 5ml pp","Lemon juice — 2ml pp","Salt and pepper"],
         method:["Crumble blue cheese. Mix with sour cream and mayo.","Add lemon juice. Season lightly (cheese is salty).","Refrigerate 30 min minimum. Enjoy! 😊"],
         tip:"Use real Roquefort or a local blue cheese like Dalewood." }},
-    { id:"frenchvinaigrettebraai", name:"Classic French Vinaigrette", emoji:"🫙", tier:"free", perPerson:15, unit:"ml", note:"Shake to combine", pantryP:2, stdP:3, indulgeP:3,
+    { slot:"CONDIMENT", id:"frenchvinaigrettebraai", name:"Classic French Vinaigrette", emoji:"🫙", tier:"free", perPerson:15, unit:"ml", note:"Shake to combine", pantryP:2, stdP:3, indulgeP:3,
       shopping:[{name:"Olive oil",per:10,unit:"ml"},{name:"Red wine vinegar",per:5,unit:"ml"},{name:"Dijon mustard",photoName:"Dijon Mustard",per:1,unit:"g"}],
       recipe:{ coalType:"No cooking needed", ingredients:["Olive oil — 10ml pp","Red wine vinegar — 5ml pp","Dijon mustard — 1g pp","Garlic — 0.5g pp (crushed)","Honey — 0.5ml pp","Salt and black pepper"],
         method:["Put all ingredients in a jar. Seal and shake vigorously.","Taste and adjust acid/oil balance.","Dress salad JUST before serving. Enjoy! 😊"],
         tip:"3 parts oil to 1 part acid — the ratio that never fails." }},
-    { id:"greekdressingbraai", name:"Greek Salad Dressing (Ladolemono)", emoji:"🫒", tier:"free", perPerson:15, unit:"ml", note:"Olive oil + lemon — the authentic Greek way", pantryP:2, stdP:3, indulgeP:3,
+    { slot:"CONDIMENT", id:"greekdressingbraai", name:"Greek Salad Dressing (Ladolemono)", emoji:"🫒", tier:"free", perPerson:15, unit:"ml", note:"Olive oil + lemon — the authentic Greek way", pantryP:2, stdP:3, indulgeP:3,
       shopping:[{name:"Olive oil",per:10,unit:"ml"},{name:"Lemon juice",per:5,unit:"ml"},{name:"Dried oregano",per:0.3,unit:"g"}],
       recipe:{ coalType:"No cooking needed", ingredients:["Extra-virgin olive oil — 10ml pp","Fresh lemon juice — 5ml pp","Dried oregano — 0.3g pp","Salt and black pepper"],
         method:["Whisk or shake oil and lemon together.","Add oregano and seasoning.","Pour over salad just before serving. Enjoy! 😊"],
@@ -452,7 +452,7 @@ const SIDES_GROUPS = [
         tip:"For best crunch, toss dressing in right before eating. Store dressing and veg separately if prepping ahead." }},
 
   ]},
-  { id:"relishes", label:"🫑 Relishes and Sauces", items:[
+  { id:"relishes", label:"🫑 Relishes and Sauces", slot:"CONDIMENT", items:[
     { id:"sheba", name:"Sheba Sauce (Tomato and Onion)", emoji:"🍅", tier:"free", perPerson:60, unit:"ml", note:"Essential with phutu pap", pantryP:4, stdP:6, indulgeP:6,
       shopping:[{name:"Onion",per:20,unit:"g"},{name:"Tomato",per:40,unit:"g"},{name:"Tomato paste",per:5,unit:"g"},{name:"Oil",per:3,unit:"ml"}],
       recipe:{ coalType:"Any heat — pot to the side", ingredients:["Onions — 20g per person, finely diced","Ripe tomatoes — 40g per person, chopped","Tomato paste — 5g per person","Sunflower oil — 5ml per person","Sugar — 2g per person","Salt — 2g per person","Black pepper — 1g per person"],
@@ -505,7 +505,7 @@ const SIDES_GROUPS = [
         tip:"Made from scratch it's incomparably better than bottled. The resting time is non-negotiable — raw garlic and chilli need time to mellow." }},
 
   ]},
-  { id:"extras", label:"🍞 Breads", items:[
+  { id:"extras", label:"🍞 Breads", slot:"SIDE", items:[
     { id:"braaibroodjies", name:"Braaibroodjies", emoji:"🥪", tier:"free", perPerson:2, unit:"pcs", note:"Chutney essential!", pantryP:8, stdP:11, indulgeP:15,
       shopping:[{name:"White bread",per:2,unit:"slices"},{name:"Butter",per:15,unit:"g"},{name:"Cheddar cheese",per:20,unit:"g"},{name:"Tomato",per:30,unit:"g"},{name:"Onion",per:15,unit:"g"},{name:"Chutney",per:10,unit:"ml"}],
       recipe:{ coalType:"LOW heat — hold rooster HIGH above coals", ingredients:["White bread — 2 slices per person","Butter — 15g per person (for OUTSIDE of bread)","Sharp cheddar — 20g per person (sliced)","Ripe tomato — 30g per person (sliced)","Onion — 15g per person (thin rings)","Chutney — 10ml per person","Salt — 2g per person","Black pepper — 1g per person"],
@@ -566,7 +566,7 @@ const SIDES_GROUPS = [
         method:["Mix the flour and salt.","Add the oil and water to form a soft dough.","Knead briefly, about 5 min.","Rest 15 min.","Divide into portions and roll thin.","Cook directly on the grid over medium coals.","Flip when bubbles form and char spots appear.","Cook until lightly crisp and cooked through. Enjoy! 😊"],
         tip:"One of the oldest breads — ideal for quick cooking over flames. Pairs with hummus, braaied vegetables and grilled meats. Best fresh; reheat quickly on the grid." }},
   ]},
-  { id:"desserts", label:"🍫 Fire Desserts", items:[
+  { id:"desserts", label:"🍫 Fire Desserts", slot:"TREAT", items:[
     { id:"marshmallowbanana", name:"Baked Marshmallow Banana", emoji:"🍌", tier:"plus", perPerson:1, unit:"pcs", note:"Kids favourite — 10 min on the grid", pantryP:5, stdP:6, indulgeP:6,
       shopping:[{name:"Ripe bananas",per:1,unit:""},{name:"Mini marshmallows",per:15,unit:"g"}],
       recipe:{ coalType:"Medium-low — gentle heat only", ingredients:["Ripe bananas — 1 per person (about 120g each)","Mini marshmallows — 30g per person"],

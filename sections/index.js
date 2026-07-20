@@ -65,6 +65,16 @@
   // derived MOST-SPECIFIC-FIRST: the recipe's own mealCat, then its cat, then its WK
   // course, then a per-section default. Empty is NEVER allowed to mean "no" — a blank
   // at every level resolves to 'unknown', not to a silent miss. ⚖️ Law 45.
+  // MF125 · the record's OWN slot, authored in the data, outranks every derivation.
+  // An adapter TRANSPORTS this; it must never author it. The moment a section's slot
+  // rules live in an adapter we have rebuilt the bug we just closed, and census 18
+  // assertion 2 passes on a lie. ⚖️ Law 6 — one home for the answer: the record.
+  var VALID_SLOTS = ['BREAKFAST','LUNCH','SUPPER','SIDE','STARTER','TREAT','CONDIMENT','DRINK','PETFOOD','BABYFOOD'];
+  function fromRecord(v){
+    var s = String(v == null ? '' : v).toUpperCase().trim();
+    return VALID_SLOTS.indexOf(s) >= 0 ? s : '';   // a typo'd slot is NOT a slot (Law 45)
+  }
+
   function slot(o){
     function fromMealCat(v){
       if(/break/.test(v))            return 'BREAKFAST';
@@ -88,7 +98,11 @@
       return '';
     }
     function fromSection(v){
-      if(v==='bakes'||v==='sides')   return 'TREAT';
+      // MF125 · 'bakes' REMOVED. Every bakes record now carries an authored slot, so this
+      // default no longer answers anything — it only MASKED the two records that genuinely
+      // have no slot (vetkoek · amagwinya), dressing a data gap up as a TREAT.
+      // ⚖️ Law 45 — unknown must be allowed to read as unknown.
+      if(v==='sides')                return 'TREAT';
       if(v==='spice')                return 'CONDIMENT';
       if(v==='beverages')            return 'DRINK';
       if(v==='braai')                return 'SUPPER';
@@ -107,11 +121,18 @@
       if(v==='component') return 'SUPPER';
       return '';
     }
-    return fromMealCat(lc(o.mealCat))
+    // MF125 · MOST-SPECIFIC-FIRST, and the SECTION DEFAULT IS NOW THE LAST RESORT.
+    // 🩸 It used to sit above fromRole, so "everything in this room is X" outranked the
+    // record's own signal — braai 92/92 SUPPER, and Monkey Gland Sauce resolved CONDIMENT
+    // via events but SUPPER via braai. Same record, two answers, and the room won.
+    // A section default may only speak when the record itself has said NOTHING.
+    // ⚖️ Law 45 · census 18 watches both halves of this.
+    return fromRecord(o.slot)
+        || fromMealCat(lc(o.mealCat))
         || fromCat(lc(o.cat))
         || fromCourse(lc(o.course))
-        || fromSection(lc(o.section))
         || fromRole(lc(o.mealRole))
+        || fromSection(lc(o.section))
         || 'unknown';   // MF119-B · the ratchet stays — emptied, never deleted (Law 45)
   }
 
@@ -177,6 +198,16 @@
       cat:       o.cat || '',                       // MF119 · raw section category (meals/bakes) — kept for slot() + display
       course:    lc(o.course) || '',                // MF119 · raw WK course, lowercased (main/side/dessert/…)
       slot:      slot(o),                           // MF119 · the derived MEAL SLOT — never blank, worst case 'unknown' (Law 45)
+      // MF125 · WHERE the slot came from, so the census can tell adapter damage from
+      // genuine slotting work left. 'record' = authored in the data · 'derived' = inferred
+      // from cat/course/role/section · 'unresolved' = NOTHING resolved it.
+      // ⚠️ 'unresolved' means the record HAS NO SLOT. It is a data gap, not a shrug —
+      // never stamp it on something merely hard to call. Ruled 20 Jul, MF125 §4a.
+      // It renders normally in its own section and is excluded from every mood shelf
+      // ('unknown' is not in MOOD_EAT_SLOTS, so the exclusion is structural, not a flag).
+      slotSource: slot(o) === 'unknown' ? 'unresolved'
+                : fromRecord(o.slot)     ? 'record'
+                : 'derived',
       name:      o.name || '',
       nameAlt:   o.nameAlt || '',                  // English gloss → tinzaDisplayName
       aliases:   o.aliases || [],                  // Latin fallbacks → tinzaRoman
@@ -282,7 +313,7 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:section, cat:r.cat, name:r.name, emoji:r.emoji, mealRole:role,   // MF119 · carry cat
+          id:r.id, section:section, cat:r.cat, slot:r.slot, name:r.name, emoji:r.emoji, mealRole:role,   // MF119 · carry cat · MF125 · TRANSPORT the record's slot, never author one
           diet: r.diet ? [r.diet] : [], protein:r.protein||null, cuisine:r.cuisine||'',
           time: r.time!=null ? r.time : null,
           kcal:(r.nutrition && r.nutrition.kcal!=null)?r.nutrition.kcal:(r.kcal!=null?r.kcal:null),
@@ -433,11 +464,16 @@
       (groups||[]).forEach(function(gp){
         ((gp && gp.items) || []).forEach(function(it){
           if(!it || !it.id) return;
+          // MF125 · the item's own slot wins; else the GROUP's slot. Both are authored in
+          // data.js — a braai group IS a classification ("🫑 Relishes and Sauces" is the
+          // record telling us it is a CONDIMENT). The adapter only carries it across.
+          // ⛔ NEVER put a slot rule here. Put it in the data. ⚖️ Law 6.
+          var itemSlot = it.slot || (gp && gp.slot) || null;
           var ings = (it.recipe && Array.isArray(it.recipe.ingredients))
             ? it.recipe.ingredients.map(function(s){ return { n:String(s), pp:null, u:'' }; })
             : [];
           out.push(rec({
-            id:it.id, section:'braai', name:it.name, emoji:it.emoji, mealRole:role,
+            id:it.id, section:'braai', slot:itemSlot, name:it.name, emoji:it.emoji, mealRole:role,
             diet:[], protein:null, cuisine:'braai', nameAlt:it.intl,
             time:null, kcal:null, costPP:null,
             ingredients:ings, goesWith:[], feel:it.note||'',
