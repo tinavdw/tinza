@@ -239,6 +239,12 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
   ✍️ **~20 Afrikaans names need an English GLOSS, not a translation. There is no English word for a koeksister. There is a koeksister.** ⚖️ **Law 11.**
 - 🧘 **THE RETREAT / GROUP-PREFERENCE PLANNER IS PARKED.** *A different product. Multi-person planning needs real shared state — a server, accounts, sync — or the sharing is fake. **But it is literally Tina's trade. One day.***
 
+- 🥕 **HIDDEN-VEG IS A TECHNIQUE, NOT A DISGUISE.** *(Ruled 17 Jul.)* The Shelf-WOW "**never disguise**" law protects the person **READING** the recipe — it forbids deceiving the cook about what a dish is or whether a swap was made honestly. Blending carrot / butternut / cauliflower smoothly into a kid's dish does the **opposite** of deceiving the reader: the recipe **lists every vegetable** and the method says plainly to blend it in. The only one the veg is "hidden" from is the child at the table — and the parent chose it, for the child's good. **So it does not trip the law.**
+  - ✅ **The recipe is always honest to its reader** — every hidden veg is in the ingredients list and the method. Nothing faked or omitted from the page. That is the same spirit as "remove and replace": real vegetables, properly incorporated, never a faked gap.
+  - 🚫 **The one hard line:** hide **flavour and texture from the child** — NEVER an **ingredient from the reader, or the data**. Hidden-veg may not conceal an allergen, misstate a dish's `diet`/allergen data, or claim a dish is something it is not. The veg vanishes on the plate, never off the ingredients list.
+  - 👶 **Ships as a version chip (👶) under the Bobotie rule** — same dish, kid-tuned. Now **inherited** by every dish that uses the move (root-veg mash · fussy bunny chow · gentle spag bol · future ones). No more per-recipe flag. ⚖️ **Law 52.**
+  - 🎯 **Used for TWO groups who genuinely need the help — young children (👶) and frail / elderly care (🧓)**, where stubbornness and a poor appetite make getting wholesome food in genuinely hard. Both deserve real, nourishing food, and both will refuse visible veg. Not a house style beyond those two — never on ordinary adult dishes where honest, visible vegetables are the point.
+
 ---
 
 ## 🚨 11 · LAUNCH BLOCKERS *(top of October)*
@@ -378,6 +384,33 @@ Two mechanisms, kept separate:
 - 🔀 **Cross-section mixing happens ONLY in deliberately cross-section shelves** — Favourites, Just Feed Me / MOOD_DB. Every actual room stays its own place.
 
 > 🩸 **Sections are distinct navigable destinations rendered by shared machinery. The shared functions SERVE the rooms; they do not dissolve them.**
+
+---
+
+## 📁 12 · WHERE FILES LIVE — **RULED 20 Jul 2026**
+*Raised because root drifted from 11 files back to ~18 in five days. New files default to wherever they land. A written map means a file has a home BEFORE it is created, not after root is untidy again.* ⚖️ **Law 52 — said twice, so it is written down.**
+
+- 🧪 **THE TEST — ONE QUESTION: does this file CHANGE, or is it only READ?**
+  - Read every session, by every AI, unchanged → **root.**
+  - Accumulates, gets ticked off, gets superseded → **`reference/`.**
+  - Has a date in the filename → **`Archive/`.**
+
+**ROOT HOLDS CANONICAL ONLY — TWELVE FILES, THREE KINDS:**
+- 📗 **The four governing documents** — `CLAUDE.md` · `TINZA_LAW.md` · `TINZA_RULINGS.md` · `TINZA_NOW.mermaid`
+- 🏗️ **The four build files** — `index.html` · `netlify.toml` · `README.md` · `.gitignore`
+- 🔧 **The four tools you RUN BY NAME** — `tinza-census.js` · `tinza-doctor.js` · `tidy-repo.sh` · `reconnect-photos.sh`
+
+**THE FOLDERS:**
+- 📐 **`standards/` — the HOW.** Timeless "this is how we build it" documents. `TINZA_STANDARD.md`, `WOW_STANDARD.md`, `MOOD_STANDARD.md`, `TINZA_WK_STANDARD.md`.
+- 📋 **`reference/` — the WHAT, and the working docs.** Queues, backlogs, briefs, staging, handoffs. `TINZA_FIX_QUEUE.md`, `TINZA_IDEAS_BACKLOG.md`, `MOOD_RECIPE_STAGING.md`, every MF brief, `NEW_CHAT_HANDOFF.md`, `BEERBOX_CAKE.md`.
+- 🗄️ **`Archive/` — dated snapshots and superseded docs.** Board SVGs live here.
+- ⚙️ **`sections/` · `Images/` · `Tools/` · `netlify/` · `.claude/`** — already correct. Leave them.
+
+- 🔧 **THE TOOLS STAY AT ROOT — THEY ARE COMMANDS, NOT DOCUMENTS.** *(Ruled 20 Jul.)* `node tinza-census.js` is typed in dozens of sessions and referenced by name in `CLAUDE.md` and in the briefs. Moving them into `Tools/` would break every one of those references and buy nothing. **`Tools/` is for supporting files that are never invoked directly.** The distinction is not "is it code" — it is **"do you type its name?"**
+
+- 🅿️ **KNOWN DRIFT, PARKED FOR THE TIDY DAY.** Two jobs, deliberately NOT done in this push (⚖️ Rule 1 — one job per push):
+  1. **Root cleanup** — `MOOD_RECIPE_STAGING.md`, `NEW_CHAT_HANDOFF.md`, `BEERBOX_CAKE.md`, `tinza_board_16jul.svg` are committed at root and belong in `reference/` / `Archive/`. Moving them makes git renames — own commit, own day.
+  2. **Section drift inside THIS file** — every ruling after 15 Jul (LOCALE · the normaliser · the store · `tinzaListLabel` · sections-are-destinations) sits as a `###` sub-block **under `## 11 · LAUNCH BLOCKERS`**, which is structurally wrong: the store is not a sub-point of launch blockers. They want promoting to top-level `## 12`–`## 16`, which moves this section to `## 17`. **Same tidy day, same commit.**
 
 ---
 

@@ -17,6 +17,9 @@ Key insight: multi-week, breakfast/lunch, conferences, camping, hiking, school l
 
 
 4. **💰 Load-shedding mode.** Filter: no power → gas / braai / no-cook recipes. Nobody overseas thinks of this. Tag recipes by cook-method; surface the no-power set. Markets itself.
+   - 🔥📦 **Cook-method is a shared axis — it also feeds the ADVENTUROUS mood + camping mode.** Foil / paper (en papillote) parcels, sheet-pan, Dutch-oven, stuffed-veg vessels are a cook-METHOD family, not new dishes — apply as a serving-style version chip across existing fish/chicken+veg dishes. Measured 17 Jul: ZERO parcel/papillote recipes in the library — the one genuine content gap here. Everything else "ambitious/adventurous" (gnocchi ×3, coq au vin, braised lamb shanks, drop dumplings) is already live → TAG-only. **One method tag → three payoffs: adventurous shelf · camping packing-list · load-shedding no-power set.**
+   - 🍲🔌 **Slow-cooker is the same axis — and the ultimate LAZY / EXHAUSTED play.** "Load it in the morning, dinner's ready when you walk in." A cook-method tag over EXISTING braises / stews / curries (not new recipes). Globally common (US/UK/Aus staple; present in SA); SA cousin = the **potjie**. Markets itself to the tired-parent shelf.
+   - 🍕 **"Lazify" example — pizza on bread.** French-bread / ciabatta pizza (e.g. BBQ Chicken French Bread Pizza) = pizza with ZERO dough-making → a 😴 lazy version chip on the pizza recipes. Same trick as skillet lasagne. (Europe brings lots of pizza + risotto variations to hang these on.)
 5. **💰 "Tested by a real caterer" trust thread.** Lean on the fact a working Pretoria caterer wrote/tested these. A small badge + your story on hero recipes. Trust + marketing, near-zero build.
 
 ## 🍽️ Premium depth (extend versions/variations)

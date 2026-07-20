@@ -36,7 +36,7 @@
 | impress | 0 | |
 | healthy | 3 | 🌿 lighter Butter Chicken + root-veg Mash + chickpea Bunny Chow (below) |
 | quick | 3 | ⚡ Chilli con Carne + Butter Chicken + Bunny Chow (below) |
-| lazy | 1 | Cheesy Taco Pasta |
+| lazy | 3 | Cheesy Taco Pasta + 😴 skillet Lasagne + no-stir Risotto (below); library also tag-rich |
 | fussy | 2 | Cheesy Taco Pasta + 👶 hidden-veg Bunny Chow (below) |
 | cold | 2 | Chicken Pot Pie Soup + 🌧️ Sloppy Joe cold chips (below) |
 | sweet | 0 | |
@@ -174,6 +174,23 @@
 - 🌽 **Cornbread-topped bake:** the filling under a from-scratch cornbread batter, baked golden — a cosy cold-night casserole.
 - **⚠️ RULING FLAG — one variation left OUT on purpose:** the popular "tater-tot topping" does NOT make the cut. Frozen tater tots are exactly the shop-shelf processed shortcut the 16 Jul mood-versions ruling bars ("no McDonald's-garbage; the freezer is for YOUR make-ahead, not the shop's"). Cornbread from scratch is the Tinza way. Tina can overrule.
 - **SA:** mince, peppers, tomato, maize meal (for cornbread) everyday. **Locale:** clean.
+
+---
+
+## 😴 Lazy — VERSION CHIPS (lazy)
+*"Lazify" a dish only if it has real steps worth REMOVING — one pan, fewer stages, no fuss. Never simplify by swapping to shop-bought (⚖️ mood-versions ruling: lazy comes from fewer steps, never a jar). Note: nachos/quesadillas are already lazy → those are TAG-only, not chips.*
+
+### 14. Beef Lasagne — 😴 "One-Pan Skillet" version
+- **mood[]:** `["lazy"]`  ·  **Type:** VERSION CHIP on the live **Beef Lasagne** (`sp-lasagne`)
+- **Feel (WOW):** "All the comfort of lasagne with none of the layering — broken sheets simmered right in the pan with the meat sauce, cheese stirred through, one skillet to wash."
+- **Delta:** skip the layering and the separate béchamel entirely; brown the mince and sauce in a wide pan, break the lasagne sheets straight in with a little extra liquid, simmer until the pasta is tender, stir cheese through the top and let it melt. One pan, no oven assembly.
+- **SA:** everyday. **Locale:** clean.
+
+### 15. Seafood Risotto — 😴 "Oven / No-Stir" version
+- **mood[]:** `["lazy"]`  ·  **Type:** VERSION CHIP on the live **Seafood Risotto** (`sp-seafood-risotto`)
+- **Feel (WOW):** "Risotto without standing at the stove — rice, stock and aromatics into a dish, into the oven, and it comes out creamy on its own while you get on with something else."
+- **Delta:** skip the ladle-and-stir. Sweat the onion, toast the rice, add all the warm stock at once, cover and bake until tender and creamy — no stirring. Stir the seafood in only for the last few minutes so it doesn't overcook, then the cheese/butter to finish. (The no-stir oven method also suits a plain or mushroom risotto beautifully.)
+- **SA:** everyday. **Locale:** clean.
 
 ---
 
