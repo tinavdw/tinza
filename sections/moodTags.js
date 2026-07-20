@@ -36,17 +36,24 @@
 // each. Census check 17 prints the per-mood tally: that is the scoreboard.
 // ⚖️ Law 36 — the count is the backlog number.
 //
-// ⚠️ SEED — 128 records, ONE mood live: celebrating (128). Seeded in two passes
-// (71 on 20 Jul, +59 top-up: in SA the braai IS the celebration), then −2 by the
-// MF125 occasion ruling. Every key below resolves to exactly ONE record in the live
+// ⚠️ SEED — 127 records, ONE mood live: celebrating (127). Seeded in two passes
+// (71 on 20 Jul, +59 top-up: in SA the braai IS the celebration), then −3 by the
+// occasion ruling. Every key below resolves to exactly ONE record in the live
 // index — 0 dead, 0 ambiguous, measured, not assumed. The other 11 moods are still
 // empty — their content pass has not run. ⚖️ Law 36 — the count is the backlog number.
 //
-// ⚖️ RULED 20 Jul (MF125) — CELEBRATING IS AN OCCASION TEST, NOT AN INCOME TEST.
-// Humble food STAYS: pap, chakalaka, braaibroodjies, samoosas. Everyday food and
-// self-treats GO. Removed on that ruling:
+// ⚖️ RULED 20 Jul — CELEBRATING IS AN OCCASION TEST, NOT AN INCOME TEST.
+// Humble food STAYS: pap, braaibroodjies, samoosas. Everyday food and self-treats GO.
+// Removed on that ruling:
 //   'db:braai:boerewors'    — boerewors is a Tuesday, not an occasion
 //   'db:bakes:bk-vetkoek'   — a payday treat; also unslotted pending its versions call
+//   'db:braai:chakalaka'    — everyday food, same call (MF126)
+//
+// 🩸 CHAKALAKA IS THE WORKED EXAMPLE OF THE TWO LAYERS. Its SLOT is SIDE and that is
+// correct everywhere in the app — do NOT revert it. Only its MOOD TAG was wrong.
+// A slot says WHAT A DISH IS. A mood tag says WHEN YOU WANT IT. They are set in two
+// different files for exactly this reason, and a dish can be a perfectly good SIDE
+// and still not be a celebration. ⚖️ Law 46 — one word, one meaning.
 //
 // ⚠️ beefstroganoff carries FOUR moods — it was in the MF123 seed (pickmeup/cold/lazy)
 // AND the celebrating pass. MERGED, not overwritten: a second
@@ -154,7 +161,6 @@ var MOOD_TAGS = {
   'db:braai:braaipie':                         ['celebrating'],   // Braai Pie (Spinach, Bacon and Feta)
   'db:braai:stywepap':                         ['celebrating'],   // Stywe Pap (Stiff Pap)
   'db:braai:pap':                              ['celebrating'],   // Phutu Pap
-  'db:braai:chakalaka':                        ['celebrating'],   // Chakalaka
   'db:braai:mielies':                          ['celebrating'],   // Mielies (Corn on the Cob)
   'db:braai:potbake':                          ['celebrating'],   // Creamy Potato Bake
   'db:events:potatosalad':                     ['celebrating'],   // Potato Salad
