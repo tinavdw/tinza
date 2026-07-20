@@ -871,6 +871,59 @@ head('17 · DOES "JUST FEED ME" SERVE REAL, OPENABLE RECIPES?   ⚖️ MF117');
     else warn('Could not read callMoodChef\'s AI gate — its shape changed. UPDATE THIS CHECK.');
 
     // ⑥ VARIETY — balancedOrder must spread the sections, or a mood is 10 WK dishes.
+    // ⑦ THE MOOD-TAG SCOREBOARD ═══════════════════ MF123 · 20 Jul · Law 36 ══
+    // The shelves above still run on MOOD_QUERY keyword guesses. The RULING (15 Jul)
+    // says a mood is a TAG. This rung counts how far that migration has got: a mood
+    // flips from keyword → allRecipes({mood}) once it carries ~15 tags.
+    // 🩸 IT NEVER FAILS THE BUILD. It is a BACKLOG NUMBER, not a gate. The tags come
+    // from CONTENT (author + cost the dish first), and content takes as long as it takes.
+    {
+      const TARGET = 15;
+      const tagged = all.filter(r => (r.mood || []).length);
+      const perMood = {};
+      moods.forEach(m => perMood[m] = 0);
+      tagged.forEach(r => r.mood.forEach(m => { perMood[m] = (perMood[m] || 0) + 1; }));
+      p('\n     \x1b[1mMOOD TAGS\x1b[0m  \x1b[2m' + tagged.length + ' of ' + all.length +
+        ' recipes carry a mood[] · a mood flips its shelf at ~' + TARGET + '\x1b[0m');
+      Object.entries(perMood).sort((a,b) => b[1]-a[1]).forEach(([m,n]) =>
+        p('     ' + num(n) + '  ' + m + (n >= TARGET ? '   \x1b[32m← READY TO FLIP\x1b[0m' : '')));
+      const unknown = Object.keys(perMood).filter(m => moods.indexOf(m) < 0);
+      if (unknown.length) bad(unknown.length + ' MOOD_TAGS VALUE(S) MATCH NO MOOD: ' + unknown.join(' · '),
+        '\n      \x1b[2mA tag nobody can ask for is a tag that does nothing. Fix sections/moodTags.js.\x1b[0m');
+
+      // 🩸 EVERY MOOD_TAGS KEY MUST RESOLVE TO EXACTLY ONE RECORD.
+      // 0 = a DEAD KEY: the dish was renamed, moved room, or never existed — the tag
+      // silently does nothing and the scoreboard above over-counts.
+      // 2+ = the key shape has REGRESSED to something that collides (19 bare ids collide
+      // across 38 records). Either way the tag store is lying. ⚖️ Law 3 · Law 42.
+      const TAGS = ctx.MOOD_TAGS || {};
+      const keyCount = {};
+      all.forEach(r => { const k = ctx.tinzaStore.favKey(r); keyCount[k] = (keyCount[k] || 0) + 1; });
+      const dead = Object.keys(TAGS).filter(k => !keyCount[k]);
+      const ambiguous = Object.keys(TAGS).filter(k => keyCount[k] > 1);
+      if (dead.length) bad(dead.length + ' MOOD_TAGS KEY(S) MATCH NO RECIPE IN THE LIBRARY',
+        '\n      ' + dead.slice(0,5).join(' · ') +
+        '\n      \x1b[2mA tag on a dish that is not there does nothing, loudly to nobody. The key is' +
+        '\n      source:section:id — check the room, not just the id. ⚖️ Law 22.\x1b[0m');
+      else if (ambiguous.length) bad(ambiguous.length + ' MOOD_TAGS KEY(S) MATCH MORE THAN ONE RECIPE',
+        '\n      ' + ambiguous.slice(0,5).map(k => k + ' ×' + keyCount[k]).join(' · ') +
+        '\n      \x1b[2mThe key shape has regressed. tinzaStore.favKey() is the ONE builder. ⚖️ Law 6.\x1b[0m');
+      else ok('All ' + Object.keys(TAGS).length + ' MOOD_TAGS key(s) resolve to exactly one recipe',
+        'source:section:id · the same key favourites use');
+      // the filter must actually work — the exact query the ruling specified
+      const probe = moods.find(m => perMood[m] > 0);
+      if (probe) {
+        const viaFilter = (ctx.allRecipes({mood:probe}) || []).length;
+        if (viaFilter !== perMood[probe]) bad('allRecipes({mood:"' + probe + '"}) returns ' + viaFilter +
+          ' but ' + perMood[probe] + ' records carry that tag',
+          '\n      \x1b[2mThe mood filter (index.js) disagrees with the mood[] field. One of them is lying.\x1b[0m');
+        else ok('allRecipes({mood:"' + probe + '"}) returns exactly the ' + viaFilter + ' tagged record(s)',
+          'the tag rail works end to end');
+      } else warn('No recipe carries a mood tag yet — the filter is untested',
+        '\n      \x1b[2mThe rail is built; the content pass fills it. sections/moodTags.js is the one place to tag.\x1b[0m');
+    }
+
+    // ⑥ VARIETY (continued)
     const first10 = BUILD('healthy').slice(0,10).map(r => r.section);
     const spread = new Set(first10).size;
     if (spread < 2) bad('The first 10 of `healthy` are all ONE section (' + first10[0] + ')',

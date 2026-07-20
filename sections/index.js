@@ -205,7 +205,8 @@
       storage:    o.storage || '',
       didYouKnow: o.didYouKnow || '',
       photoName:  o.photoName || o.name || '',
-      versions:   o.versions                       // ← the DOOR defaults to [] (was null — ruled 15 Jul)
+      versions:   o.versions,                      // ← the DOOR defaults to [] (was null — ruled 15 Jul)
+      mood:       o.mood                           // MF123 · ← the DOOR reads MOOD_TAGS[id], defaults to [] (⚖️ Law 45)
     });
   }
 
@@ -610,6 +611,9 @@
     var sects = f.section ==null ? null : (Array.isArray(f.section)  ? f.section  : [f.section]);
     var diets = f.diet    ==null ? null : (Array.isArray(f.diet) ? f.diet : [f.diet]).map(lc);
     var text  = f.text    ==null ? null : lc(f.text);
+    // MF123 · mood — mirrors `diet` above: one or many, any match keeps the record.
+    // Untagged records carry [] and so match NOTHING. ⚖️ Law 45 — unknown is not yes.
+    var moods = f.mood    ==null ? null : (Array.isArray(f.mood) ? f.mood : [f.mood]).map(lc);
     var res = _cache.filter(function(r){
       if(roles && roles.indexOf(r.mealRole) < 0) return false;
       if(sects && sects.indexOf(r.section)  < 0) return false;
@@ -618,6 +622,11 @@
         var ok = false;
         for(var i=0;i<diets.length;i++){ if(r.diet.indexOf(diets[i])>=0){ ok=true; break; } }
         if(!ok) return false;
+      }
+      if(moods){
+        var rm = r.mood || [], mok = false;
+        for(var j=0;j<moods.length;j++){ if(rm.indexOf(moods[j])>=0){ mok=true; break; } }
+        if(!mok) return false;
       }
       if(text && r.searchText.indexOf(text) < 0) return false;
       return true;

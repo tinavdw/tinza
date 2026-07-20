@@ -2773,6 +2773,24 @@ function normalizeRecipe(raw){
   // test `.length`, never the array itself. Census check 12 watches this.
   out.versions = (o.versions != null) ? o.versions : [];
 
+  // MF123 · mood → ALWAYS an array, never null. Read from MOOD_TAGS (sections/moodTags.js
+  // — THE single tag store, loaded one file before index.js). Untagged → [] = on NO mood
+  // shelf. ⚖️ Law 45 — unknown is not yes. ⚖️ Law 6 — one map, never inlined per record.
+  //
+  // 🩸 KEYED BY tinzaStore.favKey(out) — `source:section:id`, the SAME key favourites use.
+  // NOT the bare id: 19 bare ids collide across 38 records, and a duplicate key in an
+  // object literal overwrites SILENTLY. favKey runs on `out`, after source/section are
+  // defaulted above, so the key is the normalised one. ⚖️ Law 6 · Law 46.
+  //
+  // ⚠️ [] is TRUTHY. Any reader must test `.length`, never the array itself (same trap
+  // `versions: []` sprang above). Census check 17 counts what is tagged.
+  if (Array.isArray(o.mood)) out.mood = o.mood;
+  else {
+    var _mk = (typeof tinzaStore !== 'undefined' && tinzaStore.favKey) ? tinzaStore.favKey(out) : '';
+    var _mt = (_mk && typeof MOOD_TAGS !== 'undefined') ? MOOD_TAGS[_mk] : null;
+    out.mood = _mt ? _mt.slice() : [];
+  }
+
   return out;
 }
 
