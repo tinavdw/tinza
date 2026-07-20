@@ -458,7 +458,7 @@ const SIDES_GROUPS = [
       recipe:{ coalType:"Any heat — pot to the side", ingredients:["Onions — 20g per person, finely diced","Ripe tomatoes — 40g per person, chopped","Tomato paste — 5g per person","Sunflower oil — 5ml per person","Sugar — 2g per person","Salt — 2g per person","Black pepper — 1g per person"],
         method:["Heat oil. Fry onion golden — 5 min.","Add tomatoes and tomato paste.","Season with salt, pepper and pinch sugar.","Simmer 15–20 min until thick.","Serve hot alongside phutu pap. Enjoy! 😊"],
         tip:"Always served with phutu pap. The soul of Shisanyama." }},
-    { id:"chakalaka", name:"Chakalaka", emoji:"🫑", tier:"free", perPerson:60, unit:"g", note:"Spicy vegetable relish", pantryP:6, stdP:8, indulgeP:8,
+    { slot:"SIDE", id:"chakalaka", name:"Chakalaka", emoji:"🫑", tier:"free", perPerson:60, unit:"g", note:"Spicy vegetable relish", pantryP:6, stdP:8, indulgeP:8,
       shopping:[{name:"Onion",per:15,unit:"g"},{name:"Carrot",per:15,unit:"g"},{name:"Green pepper",per:10,unit:"g"},{name:"Baked beans (tin)",per:0.15,unit:"tin"},{name:"Chopped tomatoes (tin)",per:0.15,unit:"tin"}],
       recipe:{ coalType:"Any heat — make ahead", ingredients:["Onion — 15g per person (finely diced)","Garlic — 3g per person (crushed)","Curry powder — 3g per person","Turmeric — 1g per person","Carrot — 15g per person (grated)","Green peppers — 10g per person (diced)","Red chilli — 2g per person (finely chopped)","Tinned baked beans — 0.15 tin per person","Tinned chopped tomatoes — 0.15 tin per person","Sunflower oil — 5ml per person"],
         method:["Heat oil. Fry onion 5 min. Add garlic, curry, turmeric 1 min.","Add carrot, peppers, chilli 5 min.","Add tomatoes 10 min. Add beans. Season. Enjoy! 😊"],
