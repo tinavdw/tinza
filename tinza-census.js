@@ -1203,4 +1203,108 @@ p('       next cheesecake walks back on — so the SURFACE is gated, not the rec
   }
 }
 
+// ══ 22 · COSTING · THE COUNT→WEIGHT BRIDGE ═══ MF124 · Law 6 · Law 54b ══
+head('22 · CAN EVERY COUNT-PRICED INGREDIENT BE CONVERTED FROM GRAMS?   ⚖️ MF124');
+p('  \x1b[2m    "100g apple" against a R5-EACH apple must become two-thirds of an apple,');
+p('       never one hundred of them. Bircher Muesli shipped at R510 against R13.63.\x1b[0m');
+{
+  // Reached from INSIDE the context: PRICE_DB and AVG_WEIGHT_G are `var` in core.js
+  // but PACK_DB is `const` in packs.js — a plain ctx.X read returns undefined for the
+  // const ones and would print a triumphant 0 over a table it never opened. ⚖️ Law 54b.
+  const inside = expr => { try { return vm.runInContext(expr, ctx); } catch (e) { return null; } };
+  const PRICES = inside('typeof PRICE_DB!=="undefined" ? PRICE_DB : null');
+  const AVG    = inside('typeof AVG_WEIGHT_G!=="undefined" ? AVG_WEIGHT_G : null');
+
+  if (!PRICES || !AVG) {
+    bad('CANNOT REACH ' + (!PRICES ? 'PRICE_DB' : '') + (!PRICES && !AVG ? ' and ' : '') + (!AVG ? 'AVG_WEIGHT_G' : '') +
+        ' — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mA 0 here would be a green tick over a table never opened. ⚖️ Law 54b.\x1b[0m');
+  } else {
+    const countKeys = Object.keys(PRICES).filter(k => /_each$/.test(k)).map(k => k.replace(/_each$/, ''));
+    const missing = countKeys.filter(k => !AVG[k]);
+    p('     ' + num(countKeys.length) + '  count-priced PRICE_DB keys  (<name>_each)');
+    p('     ' + num(Object.keys(AVG).length) + '  AVG_WEIGHT_G entries');
+    if (!countKeys.length) {
+      bad('PRICE_DB EXPOSES NO COUNT-PRICED KEYS AT ALL — the check found nothing to check',
+        '\n      \x1b[2mEither the price list changed shape or it was not loaded. Not a pass.\x1b[0m');
+    } else if (missing.length) {
+      bad(missing.length + ' COUNT-PRICED KEY(S) HAVE NO AVERAGE WEIGHT — GRAMS CANNOT BE CONVERTED',
+        '\n      ' + missing.slice(0, 12).join(' · ') +
+        (missing.length > 12 ? '\n      \x1b[2m… and ' + (missing.length - 12) + ' more\x1b[0m' : '') +
+        '\n      \x1b[2mcostRecipe now REFUSES to price these rather than reading grams as units,' +
+        '\n      so each one silently drops recipe coverage and can hide a card price. ⚖️ Law 20.\x1b[0m');
+    } else {
+      ok('Every count-priced key has an average weight', countKeys.length + ' keys, 0 unconvertible');
+    }
+
+    // The engine must also be SINGULAR. Two more copies of this arithmetic is how the
+    // bug survived: both wkCostRecipe and mealsCostPP lacked the bridge. ⚖️ Law 6.
+    const engines = [];
+    for (const f of loadOrder) {
+      // 🩸 STRIP COMMENTS FIRST. Without this the rung flags the tombstone comment
+      // that documents the DELETED wkCostRecipe — it quotes the bad line on purpose.
+      // A check that reports the gravestone as the corpse is a check she stops reading.
+      // ⚖️ Law 54a. Newlines are preserved so line numbers stay honest.
+      const raw = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      const src = raw.replace(/\/\*[\s\S]*?\*\//g, m => m.replace(/[^\n]/g, ' '))
+                     .replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(Math.max(0, m.length - p1.length)));
+      // a cost loop is: per==='count' followed by a ceil(...)*price, with no AVG_WEIGHT_G nearby
+      const re = /per\s*===?\s*['"]count['"][\s\S]{0,220}?Math\.ceil\([^)]*\)\s*\*\s*\w+\.price/g;
+      let m;
+      while ((m = re.exec(src)) !== null) {
+        if (/AVG_WEIGHT_G/.test(m[0])) continue;                 // the bridged branch — fine
+        const before = src.slice(Math.max(0, m.index - 400), m.index);
+        if (/AVG_WEIGHT_G/.test(before)) continue;               // bridge sits just above
+        engines.push(f + ':' + src.slice(0, m.index).split('\n').length);
+      }
+    }
+    if (engines.length) bad(engines.length + ' UNBRIDGED COUNT-COST LOOP(S) — A SECOND COSTING ENGINE IS BACK',
+      '\n      ' + engines.join('\n      ') +
+      '\n      \x1b[2mcostRecipe() is the ONE engine. A surface with different SKIP rules filters' +
+      '\n      its own items and calls it. It does not grow its own arithmetic. ⚖️ Law 6.\x1b[0m');
+    else ok('No unbridged ceil-branch cost loop', 'the shape that caused MF124 is absent');
+
+    // ── THE INVENTORY ─────────────────────────────────────── asked 21 Jul ──
+    // 🩸 THE RUNG ABOVE ONLY MATCHES ONE SHAPE: per==='count' followed by
+    // ceil(x)*y.price. A fifth engine that prices count-by-weight DIFFERENTLY is
+    // invisible to it — and one exists: fingerPerPieceCost (events.js) does
+    // (qty/uw)*pr.price with NO ceil, against its own one-entry weight table.
+    // Shape-matching cannot be the whole check. So: enumerate EVERY consumer that
+    // does its own count arithmetic, and name them. New ones show up as new lines.
+    const consumers = [];
+    for (const f of loadOrder) {
+      const raw = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      const src = raw.replace(/\/\*[\s\S]*?\*\//g, m => m.replace(/[^\n]/g, ' '))
+                     .replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(Math.max(0, m.length - p1.length)));
+      const re = /per\s*===?\s*['"]count['"]/g;
+      let m;
+      while ((m = re.exec(src)) !== null) {
+        const span = src.slice(m.index, m.index + 340);
+        if (!/[*/]\s*\w+\.price|\w+\.price\s*[*/]/.test(span)) continue;   // no arithmetic here
+        if (/costOneLine\s*\(/.test(span)) continue;                        // routed to the one engine
+        const line = src.slice(0, m.index).split('\n').length;
+        // COOK vs BUY. The trolley legitimately counts WHOLE UNITS — buyAmt/buyCost/
+        // pack ladders run on an already-converted unit count, so demanding a weight
+        // table there would be 4 false alarms every run. ⚖️ Law 54a. Only the COOK
+        // side — the exact food cost — must convert a weight before it bills.
+        const side = /cookCost|total\s*\+=|cook\s*\+=/.test(span) ? 'COOK'
+                   : /buyCost|buyAmt|buyPacks|rung|ladder/.test(span) ? 'BUY' : 'COOK';
+        consumers.push({ at: f + ':' + line, side: side,
+          table: /AVG_WEIGHT_G/.test(span) ? 'AVG_WEIGHT_G' : (/_UNIT_G|UNIT_G\s*\[/.test(span) ? 'OWN TABLE' : 'none') });
+      }
+    }
+    p('     ' + num(consumers.length) + '  place(s) still doing their own count arithmetic outside costOneLine()');
+    consumers.forEach(c => p('        \x1b[2m' + c.at.padEnd(30) + c.side.padEnd(6) + 'weight table: ' + c.table + '\x1b[0m'));
+    const rogue = consumers.filter(c => c.side === 'COOK' && c.table !== 'AVG_WEIGHT_G');
+    if (rogue.length) warn(rogue.length + ' consumer(s) price count-by-weight WITHOUT AVG_WEIGHT_G',
+      '\n      ' + rogue.map(c => c.at + '  (' + c.table + ')').join('\n      ') +
+      '\n      \x1b[2mfingerPerPieceCost uses FINGER_UNIT_G = { egg: 50 } while AVG_WEIGHT_G says' +
+      '\n      egg: 58 — the same egg costs two different amounts depending on the room, and any' +
+      '\n      count-priced item that is NOT an egg is silently SKIPPED. Queued, not fixed: the' +
+      '\n      50-vs-58 split is a ruling, not a refactor. ⚖️ Law 6 · Law 46.\x1b[0m');
+    else if (consumers.length) ok('Every remaining count consumer uses AVG_WEIGHT_G', 'one weight table');
+    else ok('Nothing prices a count outside costOneLine()', 'one engine, one weight table');
+  }
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

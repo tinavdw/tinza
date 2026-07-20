@@ -1141,14 +1141,75 @@ var AVG_WEIGHT_G = {
   // 85 ingredient lines app-wide, all OVER-charging. No card edits needed — just weights.
   "garlic cloves":5, "garlic clove":5,      // one clove
   "green chilli":15, "green chillies":15, chilli:15, chillies:15,
-  // bay leaves deliberately NOT listed: a card saying "1g bay leaves" means ONE LEAF,
-  // not five. Adding a weight there would over-count them. Pennies either way.
 
   avocado:200, lemon:100, lime:70, apple:150, banana:120,
   tomato:120, onion:150, "green pepper":150, "red pepper":150, carrot:80,
   "corn on the cob":200, corn:200, mielie:200, garlic:50, egg:58,
   "hamburger roll":65, "burger buns":65, "hot-dog roll":50, vienna:30,
-  "russian sausage":90, tortilla:60, "large tortilla":60
+  "russian sausage":90, tortilla:60, "large tortilla":60,
+
+  // ══ MF136 · 21 Jul · COMPLETE THE TABLE ═════════════════════════════════════
+  // Every count-priced PRICE_DB key (`<name>_each`) MUST have a weight here, or
+  // costRecipe cannot convert an authored gram amount and now refuses to price it.
+  // Census 22 asserts the set is complete. Was 28 entries against 49 keys.
+  //
+  // 🩸 SOURCE IS RECORDED PER KEY. Three classes, and only two are repo-derived:
+  //   [A] synonym of an entry already in this table (strongest — Tina authored it)
+  //   [B] derived from PACK_DB: "white loaf" is size 700, and each bread key's
+  //       PACK_DB ladder is its slices-per-loaf, so 700 / slices = one slice
+  //   [C] standard reference weight. NOT verified against a live source in this
+  //       session, and NOT derived from anything in the repo. ⚠️ CONFIRM THESE.
+  //
+  // ⛔ A METHOD I TRIED AND REJECTED: deriving weight from PRICE_DB as
+  // (price_each / price_per_kg) x 1000. It reproduces only 4 of the 7 known keys
+  // and returns absurdities — lemon 1000g, eggs 1000g, bay leaves 0g — because the
+  // per-kg and per-each prices are not the same product. Do not revive it.
+
+  // ── [A] synonyms of entries above ──
+  eggs:58,                       // = egg 58
+  "burger bun":65,               // = burger buns 65
+  chillis:15, "small chilli":15, // = chilli 15  ⚠️ "small" implies less; kept equal, conservative
+  tortillas:60, "tortilla wrap":60,   // = tortilla / large tortilla 60
+  "smoked viennas":30,           // = vienna 30
+  "hot dog sausages":30,         // = vienna 30 — same PRICE_DB _each (R3.54), same product
+
+  // ── [B] derived from PACK_DB: 700 g white loaf / slices-per-loaf ladder ──
+  "white bread":32,              // 700 / 22 slices
+  "brown bread":32,              // 700 / 22
+  "wholewheat bread":32,         // 700 / 22
+  "thick white bread":44,        // 700 / 16
+  "sourdough bread":50,          // 700 / 14
+  "rye bread":39,                // 700 / 18
+  "bread slice":32, "bread slices":32,          // = white bread
+  "unsliced white loaf":700,     // PACK_DB "white loaf" { size: 700 }
+  // ⚠️ the 700 g loaf mass is PACK_DB's white loaf, applied across bread types.
+  //    A rye or sourdough loaf is not always 700 g. Flagged, not hidden.
+
+  // ── [C] standard reference. NOT repo-derived. CONFIRM BEFORE TRUSTING. ──
+  "bread roll":60, "bread rolls":60,
+  "portuguese roll":60, "portuguese rolls":60,
+  pita:60, "pita bread":60, "pita breads":60,
+  flatbread:90, flatbreads:90,   // R12.50 each — a large naan/roti-style, not a pita
+  "corn tortillas":30,           // smaller than a wheat tortilla
+  baguette:250, "small baguette or roll":80,
+  roti:60,
+  "pizza base":250,
+  granadilla:35,
+  wafer:5, "wafer shell":5, "wafer shells":5,
+
+  // ⚠️ BAY LEAVES — THIS OVERRIDES AN EARLIER IN-CODE RULING. FLAGGED, NOT SLIPPED IN.
+  // The old comment read: "bay leaves deliberately NOT listed: a card saying '1g bay
+  // leaves' means ONE LEAF, not five. Adding a weight there would over-count them."
+  // That reasoning stands as CONTENT, but the omission is no longer survivable: with
+  // the bridge now mandatory, a missing weight makes the ingredient UNPRICED, which
+  // drops recipe coverage and can hide a whole card's price (Law 20). So the key must
+  // exist. 0.2 g is the physical weight of a dried bay leaf — AVG_WEIGHT_G is a table
+  // of physical weights, and putting a non-physical number in it to paper over an
+  // authoring habit is the kind of lie that bites later.
+  // 🩸 CONSEQUENCE, STATED: "2g bay leaves" now reads as 10 leaves (R1.50), not 2
+  // (R0.30). Pennies either way, exactly as the original comment said — but Tina rules
+  // whether the fix is this weight or re-authoring those cards to "2 leaves".
+  "bay leaves":0.2, "bay leaf":0.2
 };
 // recipe unit → grams (null if not a weight/volume unit, e.g. 'each'/'egg')
 function unitToGrams(qty, unit){
@@ -1249,31 +1310,68 @@ function _priceLookup(n){
 }
 // cost a list of {name, qty, unit:'g'|'kg'|'ml'|'l'} for n servings.
 // → { cook, buy, priced, missing[] }. buy === cook until PACK_DB exists.
-function costRecipe(items,n){
+// ══ MF124 · THE ONE COSTING ENGINE ══════════════════ 21 Jul · Law 6 ══
+// 🩸 wkCostRecipe() and mealsCostPP() ARE DELETED. They were two more copies of this
+// arithmetic, and BOTH lacked the count->weight bridge below, so "100g apple" costed as
+// ceil(100) x R5 = R500. Bircher Muesli shipped at R510 against a true R13.63.
+// ⛔ DO NOT WRITE A THIRD. If a surface needs different SKIP rules (WK drops water,
+// Meals drops pantry) it filters its own items and calls THIS. Skip rules are the
+// caller's; the arithmetic is ours.
+//
+// `lookup` is the NAME->PRICE resolver, defaulting to priceOf(). World Kitchen passes
+// wkPriceLookup, which carries WK_ALIAS ("veg oil"->sunflower oil) and a stock/broth
+// guard that priceOf does not. Measured 21 Jul: forcing WK onto priceOf flips the 0.8
+// coverage gate on 24 records — ethiopia-ayib goes 100% -> 0% and LOSES its price
+// entirely. That is a Law 20 harm, and collapsing the two RESOLVERS is a different job
+// from collapsing the two ENGINES. One arithmetic now; one resolver is still owed.
+// ── THE ONE PRICED LINE ────────────────────────────────────── MF124 · Law 6 ──
+// The whole costing bug lived in FOUR copies of this six-line calculation, and three
+// of them were missing the count→weight branch. There is now exactly one copy, and
+// every caller — costRecipe() below, buildPlanData()'s lineCook() — goes through it.
+// Returns { cook, buy } in rand, or NULL when the line cannot be honestly priced.
+// ⛔ If you need different SKIP rules, filter your items BEFORE you call. Do not
+// copy this function. That is how R510 Bircher Muesli happened.
+function costOneLine(pr, qty, unit){
+  if(!pr || qty==null) return null;
+  if(pr.per==='count'){
+    var gC = unitToGrams(qty, unit);
+    if(gC!=null){
+      // A WEIGHT was authored for an each-priced item ("100g apple"). It MUST go
+      // through the average unit weight. ⛔ NEVER fall through to ceil(qty)*price:
+      // that reads 100 GRAMS as 100 APPLES and is the whole MF124 bug.
+      var avgG = AVG_WEIGHT_G[pr.key];
+      // ⚖️ Law 45 · UNKNOWN IS NOT A NUMBER. No average weight = we cannot convert,
+      // so we say so and the surface hides the figure. A wrong price is worse than
+      // no price (Law 20). Census 22 keeps AVG_WEIGHT_G complete for every
+      // count-priced PRICE_DB key, which makes this branch unreachable.
+      if(!avgG) return null;
+      var unitsC = gC / avgG;
+      return { cook: unitsC * pr.price,                  // exact food cost (green)
+               buy:  Math.ceil(unitsC) * pr.price };     // whole units (gold)
+    }
+    var whole = Math.ceil(qty) * pr.price;               // a genuine COUNT ("2 lemons")
+    return { cook: whole, buy: whole };
+  }
+  // 11 Jul — this used to be a SECOND, hardcoded copy of the unit table (g/kg/ml/l only),
+  // so "squeeze", "tsp", "tbsp", "pinch" and capital "L" all fell into missing[] even
+  // though their price resolved perfectly. One unit table now, in unitToGrams().
+  var gW = unitToGrams(qty, unit);
+  if(gW==null) return null;
+  var w = (gW/1000)*pr.price;
+  return { cook: w, buy: w };
+}
+
+function costRecipe(items,n,lookup){
   n = n||1; var cook=0, buy=0, priced=0, missing=[];
+  var _look = (typeof lookup==='function') ? lookup : priceOf;
   (items||[]).forEach(function(it){
     if(it==null || it.qty==null) return;
-    var pr = priceOf(it.name);
+    var pr = _look(it.name);
     if(!pr){ missing.push(it.name); return; }
-    var q = it.qty*n, c=0, b=0;
-    if(pr.per==='count'){
-      var gC = unitToGrams(q, it.unit);
-      if(gC!=null && AVG_WEIGHT_G[pr.key]){      // weight given for an each-priced item → convert
-        var unitsC = gC / AVG_WEIGHT_G[pr.key];
-        c = unitsC * pr.price;                   // COOK: exact food cost (green)
-        b = Math.ceil(unitsC) * pr.price;        // BUY: whole units (gold)
-      } else {                                   // count given as a count
-        c = Math.ceil(q) * pr.price; b = c;
-      }
-    }
-    // 11 Jul — this used to be a SECOND, hardcoded copy of the unit table (g/kg/ml/l only),
-    // so "squeeze", "tsp", "tbsp", "pinch" and capital "L" all fell into missing[] even
-    // though their price resolved perfectly. One unit table now, in unitToGrams().
-    else {
-      var gW = unitToGrams(q, it.unit);
-      if(gW==null){ missing.push(it.name); return; }
-      c = (gW/1000)*pr.price; b = c;
-    }
+    var q = it.qty*n;
+    var line = costOneLine(pr, q, it.unit);
+    if(!line){ missing.push(it.name); return; }
+    var c = line.cook, b = line.buy;
     cook += c; priced++;
     if(pr.pack && pr.pack.size && pr.per!=='count'){
       var need = unitToGrams(q, it.unit); if(need==null) need = q;
@@ -1390,13 +1488,15 @@ function buildShoppingList(){
     const pk = pr ? pr.pack : null;
     const need = it.amt;
     // COOK — exact, no buffer
+    // MF124 · was a sixth copy of the line arithmetic. Its count branch had the SAME
+    // unbridged `else Math.ceil(need) * pr.price` fallback — dead today only because
+    // AVG_WEIGHT_G is now complete for every count-priced key, which is a data promise,
+    // not a code guarantee. Routed through the one costOneLine() so it cannot come back.
     if(!pr) it.cookCost = null;
-    else if(pr.per === 'count'){
-      const gP = unitToGrams(need, it.unit);
-      if(gP!=null && AVG_WEIGHT_G[pr.key]) it.cookCost = Math.round((gP / AVG_WEIGHT_G[pr.key]) * pr.price);
-      else it.cookCost = Math.round(Math.ceil(need) * pr.price);
+    else {
+      const _cl = (typeof costOneLine==='function') ? costOneLine(pr, need, it.unit) : null;
+      it.cookCost = _cl ? Math.round(_cl.cook) : null;
     }
-    else it.cookCost = Math.round((need / 1000) * pr.price);
     // BUY — what you actually put in the trolley
     it.loose = false; it.packLine = false; it.buyAmt = need; it.buyUnit = it.unit; it.buyPacks = 0; it.packSize = 0;
     if(!pr){ it.buyCost = null; }
@@ -3287,13 +3387,16 @@ function buildPlanData(dishes){
   dishes = dishes || [];
   var skip = ['water','tap water','ice water','boiling water','warm water','salted water','salt & pepper','salt and pepper','to taste','for serving','to serve',"butcher's string"];
   var map = {};
+  // MF124 · was a FOURTH copy of the line arithmetic, and it had the same missing
+  // count→weight branch: "80g avocado" priced as ceil(80) x R13 = R1040 on a SHOPPING
+  // LIST. 137 ingredient lines app-wide could reach it. Now routed through the one
+  // costOneLine(). Returns unrounded rand, exactly as before — the caller sums first
+  // and rounds once, so no per-line rounding drift is introduced.
   function lineCook(name, amt, unit){
     var pr = (typeof priceOf==='function') ? priceOf(name) : null;
     if(!pr) return null;
-    if(pr.per==='count')          return Math.ceil(amt)*pr.price;
-    if(unit==='g'||unit==='ml')   return (amt/1000)*pr.price;
-    if(unit==='kg'||unit==='l')   return amt*pr.price;
-    return null;
+    var line = (typeof costOneLine==='function') ? costOneLine(pr, amt, unit) : null;
+    return line ? line.cook : null;
   }
   function add(name, amt, unit, priceName, pantry){
     if(!name || amt==null || amt<=0) return;
@@ -3342,9 +3445,14 @@ function buildPlanData(dishes){
       var _g = (typeof unitToGrams === 'function') ? unitToGrams(need, it.unit) : null;
       if (_g != null) { need = _g / AVG_WEIGHT_G[pr.key]; it.amt = need; it.unit = ''; }
     }
+    // MF124 · `need` was converted to whole units just above when the item is
+    // count-priced, so costOneLine sees a real count (unit '') and bills it as one.
+    // Routed through the one engine rather than keeping a private ceil().
     if(!pr) it.cookCost = null;
-    else if(pr.per==='count') it.cookCost = Math.round(Math.ceil(need)*pr.price);
-    else it.cookCost = Math.round((need/1000)*pr.price);
+    else {
+      var _cl2 = (typeof costOneLine==='function') ? costOneLine(pr, need, it.unit) : null;
+      it.cookCost = _cl2 ? Math.round(_cl2.cook) : null;
+    }
     it.loose=false; it.packLine=false; it.buyAmt=need; it.buyUnit=it.unit; it.buyPacks=0; it.packSize=0;
     if(!pr){ it.buyCost=null; }
     else if(pr.per==='count' && pk && pk.ladder){ var n0=Math.ceil(need), last=pk.ladder[pk.ladder.length-1]; var rung=pk.ladder.find(function(r){return r>=n0;})||(last*Math.ceil(n0/last)); it.buyAmt=rung; it.buyUnit='pcs'; it.packLine=(rung!==n0); it.buyCost=Math.round(rung*pr.price); }
@@ -3866,9 +3974,17 @@ function applyRecipeVersion(r){
   // ingredients (beef→lamb, etc.) — nudge the headline cost by the COMPUTED
   // difference so it stays honest, no hand-set costPP needed. Meals arrays only
   // (WK already recomputes its own); needs a base costPP; an explicit version costPP wins.
-  if(v.delta && v.costPP==null && r.costPP!=null && typeof mealsCostPP==='function'
+  if(v.delta && v.costPP==null && r.costPP!=null && typeof costRecipe==='function'
      && Array.isArray(out.ingredients) && Array.isArray(r.ingredients)){
-    var _bC = mealsCostPP(r.ingredients), _mC = mealsCostPP(out.ingredients);
+    // MF124 · both sides now priced by the ONE engine. Same skip rules as before
+    // (pantry out), same difference-nudge, but the count->weight bridge is no longer
+    // missing — so a delta that swaps a count-priced item no longer moves the headline
+    // by hundreds of rand. Measured 21 Jul: 0 deltas currently touch one, so this
+    // changes no live number today; it removes a live trap.
+    var _b = costRecipe(mealsCostItems(r.ingredients), 1);
+    var _m = costRecipe(mealsCostItems(out.ingredients), 1);
+    var _bC = _b && _b.priced ? _b.cook : null;
+    var _mC = _m && _m.priced ? _m.cook : null;
     if(_bC!=null && _mC!=null) out.costPP = Math.max(0, Math.round(r.costPP + (_mC - _bC)));
   }
   out._activeVersion = v.name;
@@ -3932,19 +4048,21 @@ function applyVersionDelta(out, d){
 }
 // BD12: per-person food cost from Meals {n,pp,u} ingredients — mirrors buildPlanData's
 // lineCook (priceOf + per/unit rules) and skips pantry items (§6.3). null if unpriceable.
-function mealsCostPP(ings){
-  if(!ings || !ings.length || typeof priceOf!=='function') return null;
-  var total=0, priced=false;
-  for(var i=0;i<ings.length;i++){
-    var ing=ings[i]; if(!ing) continue;
+// ══ MF124 · mealsCostPP() DELETED — it was a second copy of costRecipe's arithmetic
+// carrying the same missing count->weight bridge. Only its SKIP RULES survive here;
+// the sums are costRecipe's. ⚖️ Law 6.
+// Meals skips PANTRY items (salt, spices, bay leaves) — World Kitchen does not skip
+// them and drops water instead. Skip rules belong to the caller; arithmetic does not.
+function mealsCostItems(ings){
+  var out=[];
+  (ings||[]).forEach(function(ing){
+    if(!ing) return;
     var nm=ing.n||ing.name, amt=(ing.pp!=null?ing.pp:ing.amt), u=ing.u||ing.unit;
-    if(!nm || amt==null || amt<=0) continue;
-    if(typeof isPantryItem==='function' && isPantryItem(nm)) continue;
-    var pr=priceOf(ing.priceName||nm); if(!pr) continue;
-    var c=(pr.per==='count')?Math.ceil(amt)*pr.price:(u==='g'||u==='ml')?(amt/1000)*pr.price:(u==='kg'||u==='l')?amt*pr.price:null;
-    if(c!=null){ total+=c; priced=true; }
-  }
-  return priced?Math.round(total):null;
+    if(!nm || amt==null || amt<=0) return;
+    if(typeof isPantryItem==='function' && isPantryItem(nm)) return;
+    out.push({ name: ing.priceName||nm, qty: amt, unit: u });
+  });
+  return out;
 }
 function setRecipeVersion(id, name){
   var m = Object.assign({}, S.recipeVersion||{}); m[id]=name;

@@ -484,25 +484,37 @@ function wkPriceLookup(name){
   return null;
 }
 
-/* ── cost one recipe for N servings · returns {total, priced, missing[]} ── */
-function wkCostRecipe(recipe, n){
-  var items = wkParseIngredients(recipe.ingredients);
-  var total = 0, priced = 0, missing = [];
-  items.forEach(function(it){
-    if(it.toTaste || it.qty == null) return;          // spices/seasoning — skip
-    if(wkIsWater(it.name)) return;                       // water — not bought
-    var pr = wkPriceLookup(it.name);
-    if(!pr){ missing.push(it.name); return; }
-    var q = it.qty * n, c = 0;
-    if(pr.per === 'count')      c = Math.ceil(q) * pr.price;          // eggs
-    else if(it.unit === 'g')    c = (q/1000) * pr.price;
-    else if(it.unit === 'kg')   c = q * pr.price;
-    else if(it.unit === 'ml')   c = (q/1000) * pr.price;             // R per L
-    else if(it.unit === 'l')    c = q * pr.price;
-    else { missing.push(it.name); return; }            // countable but not egg → unpriced
-    total += c; priced++;
+/* ══ MF124 · wkCostRecipe() IS DELETED ═══════════════════ 21 Jul · Law 6 ══
+   It was a second copy of costRecipe()'s arithmetic, and it had no count->weight
+   bridge: `if (pr.per === 'count') c = Math.ceil(q) * pr.price` read "100g apple"
+   as ONE HUNDRED APPLES. Bircher Muesli shipped at R510 against a true R13.63;
+   norway-spekemat at R1286 against R36. 45 records carried it.
+
+   Only the SKIP RULES were ever WK's own, and they stay here. The sums are
+   costRecipe's, and there is now exactly one set of them.
+   ⛔ Do not reintroduce a WK-local cost loop. Filter items, then call the engine.
+
+   ⚠️ wkPriceLookup is passed in DELIBERATELY. It carries WK_ALIAS ("veg oil" ->
+   sunflower oil, "mince" -> beef mince) and a stock/broth guard that priceOf does
+   not. Measured 21 Jul: forcing World Kitchen onto priceOf flips the 0.8 coverage
+   gate on 24 records — ethiopia-ayib drops 100% -> 0% and loses its price entirely.
+   Collapsing the two RESOLVERS is a separate job from collapsing the two ENGINES,
+   and it is still owed. ⚖️ Law 20 — a price that vanishes is a harm. */
+function wkCostItems(recipe){
+  return (wkParseIngredients(recipe.ingredients) || []).filter(function(it){
+    if(it.toTaste || it.qty == null) return false;   // spices/seasoning — skip
+    if(wkIsWater(it.name)) return false;             // water — not bought
+    return true;
+  }).map(function(it){
+    return { name: it.name, qty: it.qty, unit: it.unit };
   });
-  return { total:Math.round(total), priced:priced, missing:missing };
+}
+/* cost one recipe for N servings · returns {total, priced, missing[]} — the shape
+   wkCostState and wkRecipeOpts already expect, mapped off the one engine. */
+function wkCostRecipeShape(recipe, n){
+  if(typeof costRecipe !== 'function') return { total:0, priced:0, missing:[] };
+  var c = costRecipe(wkCostItems(recipe), n||1, wkPriceLookup) || {cook:0,priced:0,missing:[]};
+  return { total: Math.round(c.cook||0), priced: c.priced||0, missing: c.missing||[] };
 }
 
 /* ── MF43 · ONE gate + ONE loud line for EVERY WK cost surface (card · detail · finder) ──
@@ -513,7 +525,7 @@ function wkCostRecipe(recipe, n){
    Every surface now calls this. If the main protein is unpriced, every surface says so —
    it NEVER quietly prints the sides. Law 6: one door. */
 function wkCostState(r, n){
-  var c = (typeof wkCostRecipe==='function') ? (wkCostRecipe(r, n||1) || {total:0,priced:0,missing:[]}) : {total:0,priced:0,missing:[]};
+  var c = wkCostRecipeShape(r, n||1);
   var missing = c.missing || [];
   var denom = (c.priced||0) + missing.length;
   var coverage = denom>0 ? (c.priced/denom) : 0;
@@ -598,7 +610,7 @@ function wkRecipeOpts(r, country, universal){
   var items = wkParseIngredients(r.ingredients);
   var apD = (typeof wkAppetite==='function') ? wkAppetite() : {mult:1,label:'Normal'};
   var baseMult = (typeof wkEffectiveMult==='function') ? wkEffectiveMult(r, 1, apD) : 1;  // standalone-dish standard portion
-  var cost  = wkCostRecipe(r, n * baseMult);
+  var cost  = wkCostRecipeShape(r, n * baseMult);
   var inPlan = wkInPlan(r.id);
 
   // main item + raw-carb flag (drives the qty box + the raw note)
