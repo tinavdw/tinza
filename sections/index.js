@@ -102,7 +102,12 @@
       // default no longer answers anything — it only MASKED the two records that genuinely
       // have no slot (vetkoek · amagwinya), dressing a data gap up as a TREAT.
       // ⚖️ Law 45 — unknown must be allowed to read as unknown.
-      if(v==='sides')                return 'TREAT';
+      //
+      // 🩸 MF126 · 'sides' REMOVED TOO — it was the LAST survivor of this pattern, and it
+      // was putting Béchamel, Napoletana Pizza Sauce, Chips and Mash on the SWEET shelf.
+      // Not a new bug: measured at 349aebf, all four were on that shelf before MF125.
+      // A room-wide "everything here is a TREAT" is never true of a room. All 9 sides
+      // records now carry an authored slot. NOTHING should be added back here.
       if(v==='spice')                return 'CONDIMENT';
       if(v==='beverages')            return 'DRINK';
       if(v==='braai')                return 'SUPPER';
