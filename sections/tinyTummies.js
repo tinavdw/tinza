@@ -41,7 +41,10 @@ function ttRecipeCostCard(base, mult, isPro, colour){
 
 function babyListHTML(){
   const isPro = tierAllows('pro');
-  const filtered = S.babyFilter==="all" ? BABY_RECIPES : BABY_RECIPES.filter(b=>b.stage===S.babyFilter);
+  // ⚖️ LAW 55 · THE CHILD GATE, before the stage filter — babies first, predicates
+  // second. childSafe() is the ONE definition (core.js); never re-implement it here.
+  const _safe = (typeof childSafe==='function') ? childSafe(BABY_RECIPES) : BABY_RECIPES;
+  const filtered = S.babyFilter==="all" ? _safe : _safe.filter(b=>b.stage===S.babyFilter);
   const planIds = S.babyPlan||[];
 
   // "Go to My Plan" button at bottom (like braai)

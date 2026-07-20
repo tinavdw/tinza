@@ -1460,6 +1460,102 @@ function fmtCookTime(min){
 }
 function isMakeAhead(min){ return (Number(min)||0) >= 240; }  // 4 hr+ → dominated by hands-off rest/chill/ferment
 
+// ══ LAW 55 · NO ALCOHOL ON ANY SURFACE INTENDED FOR CHILDREN ═══════════
+// RULED 20 Jul 2026. A HARD EXCLUSION, applied at the query BEFORE any predicate
+// runs. A record must not be able to EARN its way onto a child surface.
+//
+// 🩸 WHY IT IS A GATE AND NOT A REMOVAL. The symptom was two records — Amarula
+// Cheesecake and Gin & Tonic Cheesecake on "Fussy little ones". The CAUSE was
+// substring matching: the fussy predicate matched `cheese` inside "cheesecake".
+// Pull the two records and the next cheesecake walks straight back on. Same fault
+// put Crunchy Ginger Biscuits on the sick shelf via `ginger`. Gate the SURFACE.
+//
+// 🩸 DETECT ON THE INGREDIENTS AND THE METHOD, NEVER ON THE NAME ALONE. Amarula
+// and Gin happen to be in these two titles; the next one is a splash of brandy in
+// step 4 of a recipe with a perfectly clean name. The name is checked too, but it
+// is the weakest signal, not the test.
+//
+// ⚠️ WORD BOUNDARIES ARE LOAD-BEARING. Without \b this gate eats `ginger` (gin),
+// `rump` (rum), `margarine`/`aubergine` (gin), `portion`/`Portuguese` (port).
+// That is the very substring bug this rules against — do not loosen them.
+var CHILD_UNSAFE_RE = /\b(alcohol|alcoholic|wine|beer|brandy|rum|vodka|gin|whisky|whiskey|liqueur|sherry|port|amarula|advocaat|van der hum|cider|champagne|prosecco|marsala|kirsch|schnapps|tequila|bourbon|cognac|armagnac|grappa|vermouth|sambuca|ouzo|limoncello|amaretto|kahlua|baileys|triple sec|cointreau|calvados|mead|sake|soju)\b/i;
+
+// Contexts where a token above is NOT alcohol. Vinegar is the big one: "red wine
+// vinegar" and "apple cider vinegar" appear across 16 ingredient lines and are not
+// drinkable alcohol. ⚖️ Ruled: vanilla essence/extract is FINE and is not gated —
+// no essence or extract token appears above, so it passes untouched.
+var CHILD_SAFE_CTX = /vinegar|non-?alcoholic|alcohol[-\s]?free|virgin\b|mocktail/i;
+
+function _childUnsafeLine(s){
+  s = String(s == null ? '' : s);
+  if (!s) return false;
+  if (CHILD_SAFE_CTX.test(s)) return false;      // judged per LINE, so "red wine
+  return CHILD_UNSAFE_RE.test(s);                // vinegar" clears while "red wine" does not
+}
+
+// TRUE = keep this record away from children. Unknown is NOT safe: if a record
+// carries no ingredients at all we cannot clear it, but neither can we condemn it
+// on nothing — so it passes, and census 21 counts what could not be inspected.
+// ⚖️ Law 45 — say what you actually know.
+// ⚠️ WALK ANY SHAPE. The child surfaces do not agree on one: allRecipes gives
+// ingredients:[{n}], BABY_RECIPES gives `base`, MASTER_SNACKS and the KIDS_THEMES
+// recipes give `base12` as an OBJECT ({flour:"600g cake flour", …}), and a theme
+// nests whole recipes under recipes[] / drink / cake. A first cut of this walked
+// only strings and arrays, so String({}) === "[object Object]" and every kiddies
+// ingredient list silently scanned as the literal text "[object Object]" —
+// a gate that inspects nothing and passes everything. ⚖️ Law 3 · Law 22.
+function _scanAny(v, depth){
+  if (v == null) return false;
+  if (depth > 6) return false;                            // cycles/absurd nesting
+  if (typeof v === 'string') return _childUnsafeLine(v);
+  if (typeof v === 'number' || typeof v === 'boolean') return false;
+  if (Array.isArray(v)){
+    for (var i = 0; i < v.length; i++) if (_scanAny(v[i], depth + 1)) return true;
+    return false;
+  }
+  if (typeof v === 'object'){
+    for (var k in v){
+      if (!Object.prototype.hasOwnProperty.call(v, k)) continue;
+      if (_scanAny(v[k], depth + 1)) return true;
+    }
+  }
+  return false;
+}
+
+function tinzaHasAlcohol(r){
+  if (!r) return false;
+  var i, ings = r.ingredients || [];
+  for (i = 0; i < ings.length; i++){
+    var n = ings[i] && (ings[i].n || ings[i].name || ings[i]);
+    if (_scanAny(n, 0)) return true;
+  }
+  if (_scanAny(r.method, 0)) return true;
+  if (_scanAny(r.base,   0)) return true;   // BABY_RECIPES
+  if (_scanAny(r.base12, 0)) return true;   // MASTER_SNACKS + KIDS_THEMES recipes (OBJECT)
+  if (_scanAny(r.recipes,0)) return true;   // a KIDS_THEME nests whole recipes
+  if (_scanAny(r.drink,  0)) return true;   // …and a party drink
+  if (_scanAny(r.cake,   0)) return true;   // …and a cake
+  if (_childUnsafeLine(r.name)) return true;            // weakest signal, checked last
+  return false;
+}
+
+// THE ONE GATE. Every child-facing surface calls this and nothing else. ⚖️ Law 6.
+function childSafe(list){
+  return (Array.isArray(list) ? list : []).filter(function(r){ return !tinzaHasAlcohol(r); });
+}
+
+// The child-facing surfaces, named. Adding one here is a RULING, not a tidy-up.
+//   fussy   — "Fussy little ones · Kid friendly · Hidden veg · No drama"
+//   kiddies — the party planner (themes, snacks, cakes)
+//   tiny    — Tiny Tummies, baby food
+var CHILD_FACING_MOODS = { fussy: true };
+
+if (typeof window !== 'undefined'){
+  window.tinzaHasAlcohol = tinzaHasAlcohol;
+  window.childSafe = childSafe;
+  window.CHILD_FACING_MOODS = CHILD_FACING_MOODS;
+}
+
 // ── MOOD FEATURE ─────────────────────────────────────────────────────
 
 const MOODS = [
@@ -2033,11 +2129,16 @@ function buildMoodPool(moodId){
   // The eat-slot gate applies to BOTH paths — a tag is not a licence to serve a
   // chutney as supper. Census check 17 ③ watches it. ⚖️ Law 6 — one gate, not two.
   try {
+    // ⚖️ LAW 55 · the child gate runs FIRST, on the raw catalogue, before the mood
+    // predicate or the tag filter is even consulted. A record cannot earn its way
+    // onto a child surface by matching a keyword, carrying a tag, or any other route.
+    var candidates = allRecipes() || [];
+    if (CHILD_FACING_MOODS[moodId]) candidates = childSafe(candidates);
     pool = MOOD_TAGGED[moodId]
-      ? (allRecipes({ mood: moodId }) || []).filter(function(r){
-          return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0;
+      ? candidates.filter(function(r){
+          return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && (r.mood || []).indexOf(moodId) >= 0;
         })
-      : (allRecipes() || []).filter(function(r){
+      : candidates.filter(function(r){
           return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && q(r);
         });
   } catch(e){ return []; }

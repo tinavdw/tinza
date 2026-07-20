@@ -1131,4 +1131,76 @@ p('       twenty presses of "3 more ideas". Everything rendered; nothing was rea
   }
 }
 
+// ══ 21 · LAW 55 · CHILDREN ════════════════ MF128 · Law 55 · Law 42 ══
+head('21 · IS THERE ALCOHOL ON ANY SURFACE INTENDED FOR CHILDREN?   ⚖️ LAW 55');
+p('  \x1b[2m    "Fussy little ones" was serving Amarula Cheesecake and Gin & Tonic Cheesecake.');
+p('       The predicate matched `cheese` inside "cheesecake". Pull the two records and the');
+p('       next cheesecake walks back on — so the SURFACE is gated, not the records.\x1b[0m');
+{
+  const has = ctx.tinzaHasAlcohol, safe = ctx.childSafe;
+  if (typeof has !== 'function' || typeof safe !== 'function') {
+    bad('tinzaHasAlcohol() / childSafe() not reachable — THE CHILD GATE IS GONE',
+      '\n      \x1b[2mLaw 55 is a hard exclusion. If this is missing, children can be served alcohol.\x1b[0m');
+  } else {
+    // 🩸 BABY_RECIPES and EVENTS_FINGER_FOODS are declared `const`, so they exist in the
+    // context's LEXICAL scope and are NOT properties of ctx. Reading ctx.BABY_RECIPES
+    // returns undefined, and a first cut of this rung then reported "0 Tiny Tummies
+    // records" and "0 finger foods" — a green tick over two surfaces it never looked at.
+    // Reach them from INSIDE the context. A count of 0 must mean "none", never
+    // "could not see". ⚖️ Law 45 · Law 3.
+    const inside = expr => { try { return vm.runInContext(expr, ctx); } catch (e) { return null; } };
+    const leaks = [], blind = [];
+    // ① the fussy mood shelf
+    const fussy = ctx.buildMoodPool ? (ctx.buildMoodPool('fussy') || []) : [];
+    fussy.filter(has).forEach(r => leaks.push('fussy: ' + r.section + ':' + r.id + '  ' + r.name));
+    // ② Tiny Tummies
+    const baby = inside('typeof BABY_RECIPES!=="undefined" ? BABY_RECIPES : null');
+    if (!baby) blind.push('Tiny Tummies (BABY_RECIPES unreachable)');
+    else safe(baby).filter(has).forEach(r => leaks.push('tiny: ' + r.id + '  ' + r.name));
+    // ③ Kiddies — the door into the ADULT finger-food catalogue
+    let fingersChecked = 0, fingersRefused = 0;
+    const fingers = inside('typeof EVENTS_FINGER_FOODS!=="undefined" ? EVENTS_FINGER_FOODS : null');
+    const lookup = inside('typeof kidsFingerById==="function" ? kidsFingerById : null');
+    if (!fingers || !lookup) blind.push('Kiddies (EVENTS_FINGER_FOODS / kidsFingerById unreachable)');
+    else {
+      Object.keys(fingers).forEach(k => {
+        const g = fingers[k];
+        if (!Array.isArray(g)) return;
+        g.forEach(f => {
+          if (!f || !f.id) return;
+          fingersChecked++;
+          if (has(f)) { fingersRefused++; if (lookup(f.id)) leaks.push('kiddies: ' + f.id + '  ' + f.name + '  (lookup did NOT refuse it)'); }
+        });
+      });
+    }
+    if (blind.length) bad('CANNOT SEE ' + blind.length + ' CHILD SURFACE(S) — THIS RUNG IS NOT PROTECTING THEM',
+      '\n      ' + blind.join('\n      ') +
+      '\n      \x1b[2mA count of 0 here would be a green tick over an unchecked surface. ⚖️ Law 3.\x1b[0m');
+    p('     ' + num(fussy.length) + '  fussy cards after the gate');
+    p('     ' + num(baby ? baby.length : 0) + '  Tiny Tummies records');
+    p('     ' + num(fingersChecked) + '  kiddies-reachable finger foods · ' + fingersRefused + ' refused at the lookup');
+
+    if (leaks.length) bad(leaks.length + ' ALCOHOL-CARRYING RECORD(S) ON A CHILD SURFACE — ⚖️ LAW 55',
+      '\n      ' + leaks.slice(0, 8).join('\n      ') +
+      '\n      \x1b[2mThis is a hard exclusion. It is not a ranking problem. Fix before anything else.\x1b[0m');
+    else ok('No alcohol on fussy, Tiny Tummies or Kiddies', 'gated at the query, before any predicate ⚖️ Law 55');
+
+    // ④ the gate must still WORK — a detector that refuses nothing has never been tested.
+    // Synthetic probes, so this rung keeps its teeth even when the data is clean.
+    const probes = [
+      [{ name: 'X', ingredients: [{ n: 'apple' }], method: ['Fold in a splash of brandy.'] }, true,  'brandy in method'],
+      [{ name: 'X', base12: { sherry: '100ml sherry' } },                                     true,  'base12 object'],
+      [{ name: 'X', base: 'pear, a dash of rum' },                                            true,  'baby base string'],
+      [{ name: 'Vanilla Cupcakes', ingredients: [{ n: 'vanilla extract' }] },                 false, 'vanilla extract'],
+      [{ name: 'Slaw', ingredients: [{ n: 'red wine vinegar' }] },                            false, 'red wine vinegar'],
+      [{ name: 'Crunchy Ginger Biscuits', ingredients: [{ n: 'ginger' }] },                    false, 'ginger (substring trap)'],
+      [{ name: 'Rump Steak', ingredients: [{ n: 'rump steak' }] },                             false, 'rump (substring trap)']
+    ];
+    const wrong = probes.filter(([rec, want]) => has(rec) !== want).map(([, , label]) => label);
+    if (wrong.length) bad('THE CHILD GATE FAILED ' + wrong.length + ' OF ITS OWN PROBES: ' + wrong.join(' · '),
+      '\n      \x1b[2mIt is no longer detecting what it claims to. ⚖️ Law 55 · Law 42.\x1b[0m');
+    else ok('The gate passes all ' + probes.length + ' probes', 'catches method/base12/base · ignores vinegar, essence, ginger, rump');
+  }
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

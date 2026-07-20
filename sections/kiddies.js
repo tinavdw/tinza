@@ -249,7 +249,15 @@ const KIDS_EXTRA_SNACKS = {
 function kidsFingerById(id){
   if(typeof EVENTS_FINGER_FOODS==='undefined') return null;
   for(const g of Object.values(EVENTS_FINGER_FOODS)){
-    if(Array.isArray(g)){ const f=g.find(x=>x&&x.id===id); if(f) return f; }
+    if(Array.isArray(g)){ const f=g.find(x=>x&&x.id===id); if(f){
+      // ⚖️ LAW 55 · THE CHILD GATE. This is the door through which the kiddies party
+      // planner reaches EVENTS_FINGER_FOODS — an ADULT party catalogue. A record must
+      // not be able to earn its way onto a child surface, so it is refused HERE, at
+      // the lookup, not filtered out of some list downstream where a second caller
+      // could miss it. Returning null degrades exactly like an unknown id already does.
+      if(typeof tinzaHasAlcohol==='function' && tinzaHasAlcohol(f)) return null;
+      return f;
+    } }
   }
   return null;
 }
