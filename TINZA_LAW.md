@@ -250,7 +250,54 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 
 ---
 
-**New laws start at 54.**
+### 54 · 🆕 🩸 **A CHECK YOU HAVE NEVER WATCHED FAIL IS NOT A CHECK. IT IS DECORATION.**
+# **PROVE IT FIRES ON THE BUG IT WAS WRITTEN FOR — *BEFORE* YOU TRUST ITS GREEN.**
+*20 Jul 2026. The bug-2 ratchet printed a **green tick** while silently skipping the exact template it was written for — its head pattern excluded the arrow form, so it scanned 27 templates and called them balanced when there were 35. **It would have shipped a passing check over a live bug.***
+*Census 17 could never have caught the slot mislabel: the records were LABELLED `SUPPER`, so a check that reads labels is blind to a mislabel **by construction**.*
+➡️ **Write the check. Then re-introduce the bug and WATCH IT GO RED. Only then is it a check.**
+
+### 54a · **A CHECK THAT CRIES WOLF TRAINS YOU TO IGNORE IT.**
+**THREE FALSE ALARMS IN A RUN IS WORSE THAN NO CHECK AT ALL.**
+*Census 18's flat-distribution rule flagged `beverages` 66/66 DRINK, `spice` 190/190 CONDIMENT and `furry` 62/62 PETFOOD — all unanimous **by definition**.*
+➡️ **Exempt the PAIR, never the ROOM.** *`spice:CONDIMENT` is exempt; `spice:SUPPER` still flags. Exempt the room and a genuine blanket assign inside it stays silent forever — that is the escape hatch.*
+➡️ **The exemption list is EXPLICIT, SHORT, and PRINTS ON EVERY RUN. Adding a fourth entry is a RULING, not a code change.**
+
+### 54b · **A ZERO MUST DISTINGUISH "NONE FOUND" FROM "COULDN'T LOOK."**
+# **A CHECK THAT REPORTS 0 OVER A SURFACE IT NEVER REACHED IS WORSE THAN ONE THAT FAILS.**
+*Census 21 printed a green **"0 Tiny Tummies records, 0 finger foods"** over two surfaces it had never opened — it read `ctx.BABY_RECIPES` as a const instead of a context property.*
+*Same run: `base12` was an **object**, so `String(base12)` gave `"[object Object]"` and the gate passed everything on the exact surface it was written for.*
+➡️ **If a surface is UNREACHABLE, FAIL LOUD. Never report 0.**
+
+### 55 · 🆕 🩸 **NO ALCOHOL ON ANY SURFACE INTENDED FOR CHILDREN.**
+# **ENFORCED AS A HARD EXCLUSION AT THE QUERY, BEFORE ANY PREDICATE RUNS. A RECORD CANNOT EARN ITS WAY ON.**
+*Surfaces: **fussy · Kiddies · Tiny Tummies**. (Feeding My Family is NOT gated — it is family-facing, an adult cooking for everyone.)*
+*Found because `fussy`'s predicate matched `cheese` inside **"cheesecake"** — serving Amarula Cheesecake and Gin & Tonic Cheesecake on the children's shelf. Same substring fault put Crunchy Ginger Biscuits on `sick` via `ginger`.*
+⛔ **NO "COOKED OFF" EXCEPTION. The gate is ABSOLUTE.** *21 family staples were removed from fussy — Lasagne, Bolognaise, Tiramisu. **The answer is a no-alcohol VERSION, never a looser gate.***
+➡️ **Detect on the INGREDIENT LIST *and* the METHOD — the next one will be a splash of brandy under a clean name.** *Vanilla essence is fine. Vinegar is judged per line.*
+➡️ **Gate at the LOOKUP, not downstream** — *`kidsFingerById` reached into the ADULT party catalogue; a second caller can't miss a gate at the door.*
+
+### 56 · 🆕 🩸 **ANYTHING DERIVED FROM THE INGREDIENT LIST BELONGS TO THE *VERSION*, NOT THE RECORD.**
+# **DIET · ALLERGENS · COST · NUTRITION · ALCOHOL. ONLY THE VERSION THE PERSON SELECTED MAY BE DESCRIBED.**
+🔑 **SEARCH MATCHES *ANY* VERSION. DISPLAY DESCRIBES *THE SELECTED* VERSION.**
+*Vegetarian Bobotie must surface in a vegan search **and open on the vegan version**. Which means a search result is a **`(record, version)` pair**, not a record.*
+🩸 **THE TWO FAILURES ARE OPPOSITE AND MUST NOT SHARE A RULE:**
+*A missed veg bobotie is a **lost sale**. A record reading "nut-free" while the selected version contains peanuts is a **harm**.*
+➡️ **Diet searches PERMISSIVELY. Allergens display CONSERVATIVELY.**
+⚠️ **`contains` is locked at RECORD level in the seven-field contract. It is genuinely VERSION level. That is a hole in the contract.**
+➡️ **One function, `deriveFacets(effectiveIngredients, method)`, in Node, once PER VERSION. Never hand-typed.**
+
+### 57 · 🆕 🩸 **TINZA MAKES ONLY CLAIMS DERIVABLE FROM THE INGREDIENT LIST.**
+# **CERTIFICATION AND SOURCING CLAIMS ARE NEVER ASSERTED. NOT HALAAL. NOT KOSHER. NOT ORGANIC, FREE-RANGE, GRASS-FED, LINE-CAUGHT, FAIR-TRADE.**
+*Halaal and kosher are **certification** properties, not ingredient properties — they turn on slaughter method and supervision. **They cannot be derived in Node**, so asserting them breaks the derive-never-hand-type rule.*
+*A "Halaal" badge over a lamb curry, when we have no idea where she bought the lamb, is a claim we cannot stand behind.*
+➡️ **EXPOSE THE DERIVABLE COMPONENTS INSTEAD: no pork · no alcohol (Law 55) · no shellfish.** *The cook combines them and applies her own judgement on sourcing. Useful to her — and honest.*
+*Precedent: NYT Cooking filters diet/cuisine/meal-type/time/skill/ingredient/occasion — **no halaal or kosher filter**. Paprika ships **no dietary taxonomy at all**. Both stay on derivable ground. **We do the same, and we say so out loud.***
+
+---
+
+**New laws start at 58.**
+
+🩸 *54a and 54b are SUB-LETTERED, not renumbered — 55, 56 and 57 were already committed in code and briefs on 20 Jul, and renumbering would orphan live references. **Six numbers are already lost. Do not create a seventh.***
 
 🩸 *Eleven laws went missing because they lived on a whiteboard. Six are gone for good.
 **That is what a whiteboard costs. This file is why it will not happen again.***
