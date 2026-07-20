@@ -2015,13 +2015,32 @@ var MOOD_QUERY = {
 // Build a mood's pool: the eatable catalogue, filtered by the mood, then balanced by
 // section so a shelf isn't ten World Kitchen dishes in a row. balancedOrder is the ONE
 // variety engine — the budget finder already calls it (index.js:572). ⚖️ Law 6 · Law 35.
+// ── WHICH MOODS ARE TAG-DRIVEN ══════════ MF123 · 20 Jul · RULINGS §3 ══
+// A mood listed here reads its shelf from the TAGS (MOOD_TAGS, sections/moodTags.js)
+// instead of guessing with a MOOD_QUERY keyword predicate. ⚖️ RULED 15 Jul — A MOOD IS
+// A TAG, NOT A KEYWORD GUESS. The guesses put Fish & Chips under "Impress".
+//
+// 🩸 A MOOD GRADUATES ONE AT A TIME, AND ONLY ONCE ITS TAGS ARE IN. Do NOT add a mood
+// here before ~15 records carry it — census check 17 prints the tally, and Law 43 says
+// a shelf under 10 fires the PAID chef on page one. Adding a name here with no tags
+// behind it does not empty a shelf loudly; it empties it SILENTLY. ⚖️ Law 3 · Law 43.
+var MOOD_TAGGED = { celebrating: true };   // 130 tags · flipped 20 Jul
+
 function buildMoodPool(moodId){
   var q = MOOD_QUERY[moodId];
   if (!q || typeof allRecipes !== 'function') return [];
   var pool;
-  try { pool = (allRecipes() || []).filter(function(r){
-    return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && q(r);
-  }); } catch(e){ return []; }
+  // The eat-slot gate applies to BOTH paths — a tag is not a licence to serve a
+  // chutney as supper. Census check 17 ③ watches it. ⚖️ Law 6 — one gate, not two.
+  try {
+    pool = MOOD_TAGGED[moodId]
+      ? (allRecipes({ mood: moodId }) || []).filter(function(r){
+          return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0;
+        })
+      : (allRecipes() || []).filter(function(r){
+          return r && MOOD_EAT_SLOTS.indexOf(r.slot) >= 0 && q(r);
+        });
+  } catch(e){ return []; }
   if (typeof balancedOrder === 'function') pool = balancedOrder(pool, { bucketOf:'section' });
   return pool;
 }

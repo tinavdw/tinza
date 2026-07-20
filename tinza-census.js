@@ -885,8 +885,23 @@ head('17 · DOES "JUST FEED ME" SERVE REAL, OPENABLE RECIPES?   ⚖️ MF117');
       tagged.forEach(r => r.mood.forEach(m => { perMood[m] = (perMood[m] || 0) + 1; }));
       p('\n     \x1b[1mMOOD TAGS\x1b[0m  \x1b[2m' + tagged.length + ' of ' + all.length +
         ' recipes carry a mood[] · a mood flips its shelf at ~' + TARGET + '\x1b[0m');
+      // A mood in MOOD_TAGGED (core.js) is LIVE — its shelf already reads the tags.
+      // Saying "READY TO FLIP" about a mood that is already flipped is a document
+      // that is wrong, and a wrong document is silent. ⚖️ Law 3.
+      const FLIPPED = ctx.MOOD_TAGGED || {};
       Object.entries(perMood).sort((a,b) => b[1]-a[1]).forEach(([m,n]) =>
-        p('     ' + num(n) + '  ' + m + (n >= TARGET ? '   \x1b[32m← READY TO FLIP\x1b[0m' : '')));
+        p('     ' + num(n) + '  ' + m +
+          (FLIPPED[m] ? '   \x1b[32m← LIVE · tag-driven\x1b[0m'
+           : n >= TARGET ? '   \x1b[33m← READY TO FLIP\x1b[0m' : '')));
+
+      // 🩸 A FLIPPED MOOD WITH NO TAGS IS AN EMPTY SHELF. Adding a name to MOOD_TAGGED
+      // before its tags are in does not fail loudly — it just serves nothing, and the
+      // paid chef fires on page one. ⚖️ Law 43 · Law 3.
+      const starved = Object.keys(FLIPPED).filter(m => (perMood[m] || 0) < 10);
+      if (starved.length) bad(starved.length + ' MOOD(S) FLIPPED TO TAGS BUT CARRY FEWER THAN 10: ' + starved.join(' · '),
+        '\n      \x1b[2mRemove it from MOOD_TAGGED (core.js) or finish its tag pass. ⚖️ Law 43.\x1b[0m');
+      else if (Object.keys(FLIPPED).length) ok(Object.keys(FLIPPED).length + ' mood(s) are tag-driven and carry their shelf',
+        Object.keys(FLIPPED).map(m => m + ' (' + (perMood[m]||0) + ')').join(' · '));
       const unknown = Object.keys(perMood).filter(m => moods.indexOf(m) < 0);
       if (unknown.length) bad(unknown.length + ' MOOD_TAGS VALUE(S) MATCH NO MOOD: ' + unknown.join(' · '),
         '\n      \x1b[2mA tag nobody can ask for is a tag that does nothing. Fix sections/moodTags.js.\x1b[0m');
