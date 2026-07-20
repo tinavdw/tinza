@@ -84,6 +84,48 @@ Do not add a rule to an adapter.
 
 ---
 
+## 3b · THE 12 SHELVES — measured 20 Jul, pre-MF124. MEASUREMENT ONLY, nothing changed.
+
+**1 of 12 shelves runs on real tags. 11 are still keyword guesses.** The food-call work
+ahead is **11 shelves**, not 1.
+
+| shelf | cards | source | tags | SUPPER | SIDE | TREAT | STARTER | LUNCH | BREAKFAST |
+|---|---|---|---|---|---|---|---|---|---|
+| healthy | 782 | keyword | 0 | 255 | 172 | 230 | 70 | 54 | 1 |
+| fussy | 428 | keyword | 0 | 294 | 32 | 22 | 30 | 41 | 9 |
+| cold | 360 | keyword | 1 | 266 | 24 | 15 | 23 | 24 | 8 |
+| exhausted | 312 | keyword | 0 | 218 | · | · | · | 56 | 38 |
+| sweet | 308 | keyword | 0 | · | · | 308 | · | · | · |
+| sick | 252 | keyword | 0 | 167 | 20 | 15 | 20 | 26 | 4 |
+| quick | 237 | keyword | 0 | 167 | · | · | · | 37 | 33 |
+| adventurous | 202 | keyword | 0 | 138 | 27 | 11 | 26 | · | · |
+| lazy | 161 | keyword | 1 | 141 | · | · | · | 20 | · |
+| impress | 159 | keyword | 0 | 159 | · | · | · | · | · |
+| pickmeup | 158 | keyword | 1 | 139 | · | · | · | 6 | 13 |
+| **celebrating** | **127** | **REAL TAGS** | **127** | 84 | 36 | 6 | 1 | · | · |
+
+The 3 stray tags on cold / lazy / pickmeup are all **one record** — beefstroganoff, the
+MF123 seed. 8 shelves have zero tags. 127 tag records exist in total.
+
+### What the keyword guesses are actually serving — spot-checked, not assumed
+
+🩸 **fussy — "Fussy little ones · Kid friendly · No drama" is serving ALCOHOL.**
+`Amarula Cheesecake` and `Gin & Tonic Cheesecake` both match the predicate's `cheese`
+keyword. Two alcoholic desserts on the children's shelf. **This is the worst thing found
+in the sweep and it should not wait for that shelf's turn in the queue.**
+
+- **healthy — "Nutritious · Balanced"**: 230 of 782 cards are TREAT. The predicate counts
+  any vegetarian record as healthy, so cake qualifies.
+- **sick — "Light · Nourishing · Easy to digest"**: `Crunchy Ginger Biscuits` and
+  `Soetkoekies` — both match the `ginger`/text predicate. Biscuits for a sick stomach.
+- **impress**: `Fish & Chips` is still on it — **the exact example RULINGS §3 names as the
+  keyword-guess failure.** Confirmed live, not historical.
+- **adventurous**: 11 TREATs, mostly European biscuits (Speculoos, Basler Läckerli).
+
+None of this was touched. Logged for whoever takes each shelf's content pass.
+
+---
+
 ## 4 · Rare slots barely surface — MF127, logged, deliberately NOT fixed
 
 `balancedOrder({proportionalBy:'slot'})` deals each slot its **share of the pool**. A slot
