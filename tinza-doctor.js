@@ -255,6 +255,43 @@ head('10 · MONEY & LAUNCH');
   else pass('No tier switcher');
 }
 
+// ── 11. THE MOOD TAGS  (MF123 · ⚖️ Law 42 · Law 6) ───────────────────────
+head('11 · DO THE MOOD TAGS POINT AT REAL FOOD?');
+{
+  // Reads the index built in §3 (`all`, line 87). It does NOT build a second one. ⚖️ Law 6.
+  const TAGS = ctx && ctx.MOOD_TAGS;
+  const favKey = ctx && ctx.tinzaStore && ctx.tinzaStore.favKey;
+  if (!all || !all.length) warn('No index — cannot check the mood tags');
+  else if (!TAGS) fail('MOOD_TAGS is not reachable — the mood tag store is gone',
+    'sections/moodTags.js must load before sections/index.js');
+  else if (typeof favKey !== 'function') fail('tinzaStore.favKey() is not reachable',
+    'it is THE key builder for source:section:id — moods and favourites share it');
+  else {
+    // 🩸 THE KEY IS source:section:id. A key matching 0 records is a DEAD TAG (the dish
+    // was renamed or moved room — the tag silently does nothing). A key matching 2+ means
+    // the key shape has REGRESSED to something that collides: 19 bare ids collide across
+    // 38 records, and a duplicate key in an object literal overwrites SILENTLY.
+    // Either way the tag store is lying, and a lying document is a silent one. ⚖️ Law 3.
+    const keyCount = {};
+    all.forEach(r => { const k = favKey(r); keyCount[k] = (keyCount[k] || 0) + 1; });
+    const keys = Object.keys(TAGS);
+    const dead = keys.filter(k => !keyCount[k]);
+    const ambiguous = keys.filter(k => keyCount[k] > 1);
+    if (dead.length) fail('MOOD_TAGS keys that match NO recipe — DEAD TAGS', dead.length + ' of ' + keys.length,
+      dead.map(k => k + '  → 0 records'));
+    else if (ambiguous.length) fail('MOOD_TAGS keys that match MORE THAN ONE recipe', ambiguous.length + ' of ' + keys.length,
+      ambiguous.map(k => k + '  → ' + keyCount[k] + ' records'));
+    else pass('Every MOOD_TAGS key resolves to exactly one recipe', keys.length + ' tagged');
+
+    // mood[] must be an ARRAY on every record — never null, never undefined.
+    // ⚠️ [] is TRUTHY: any reader tests `.length`, never the array itself.
+    const notArr = all.filter(r => !Array.isArray(r.mood));
+    if (notArr.length) fail('Recipes whose mood is not an array', notArr.length + ' of ' + all.length,
+      notArr.slice(0,6).map(r => r.name + ' [' + r.section + '] → ' + typeof r.mood));
+    else pass('mood[] is an array on all ' + all.length + ' recipes', 'untagged = [] = on no shelf ⚖️ Law 45');
+  }
+}
+
 // ── RESOLVE THE SMOKE TEST, THEN THE VERDICT ─────────────────────────────
 (async () => {
 if (SMOKE_PROMISE) {
