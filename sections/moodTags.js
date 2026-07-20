@@ -36,11 +36,17 @@
 // each. Census check 17 prints the per-mood tally: that is the scoreboard.
 // ⚖️ Law 36 — the count is the backlog number.
 //
-// ⚠️ SEED — 130 records, ONE mood live: celebrating (130). Seeded in two passes
-// (71 on 20 Jul, +59 top-up: in SA the braai IS the celebration). Every key below
-// resolves to exactly ONE record in the live index — 0 dead, 0 ambiguous, measured,
-// not assumed. The other 11 moods are still empty — their content pass has not run.
-// ⚖️ Law 36 — the count is the backlog number.
+// ⚠️ SEED — 128 records, ONE mood live: celebrating (128). Seeded in two passes
+// (71 on 20 Jul, +59 top-up: in SA the braai IS the celebration), then −2 by the
+// MF125 occasion ruling. Every key below resolves to exactly ONE record in the live
+// index — 0 dead, 0 ambiguous, measured, not assumed. The other 11 moods are still
+// empty — their content pass has not run. ⚖️ Law 36 — the count is the backlog number.
+//
+// ⚖️ RULED 20 Jul (MF125) — CELEBRATING IS AN OCCASION TEST, NOT AN INCOME TEST.
+// Humble food STAYS: pap, chakalaka, braaibroodjies, samoosas. Everyday food and
+// self-treats GO. Removed on that ruling:
+//   'db:braai:boerewors'    — boerewors is a Tuesday, not an occasion
+//   'db:bakes:bk-vetkoek'   — a payday treat; also unslotted pending its versions call
 //
 // ⚠️ beefstroganoff carries FOUR moods — it was in the MF123 seed (pickmeup/cold/lazy)
 // AND the celebrating pass. MERGED, not overwritten: a second
@@ -76,7 +82,6 @@ var MOOD_TAGS = {
   'db:world:boerekos-gemsbok-stuffed-fillet':  ['celebrating'],   // Gestopte Gemsbokfilet (Stuffed Gemsbok Fillet)
   'db:world:poland-pierogi-ruskie':            ['celebrating'],   // Pierogi ruskie
   'db:world:cape-malay-samoosas':              ['celebrating'],   // Samoosas
-  'db:bakes:bk-vetkoek':                       ['celebrating'],   // Vetkoek
   'db:world:boerekos-koeksisters':             ['celebrating'],   // Koeksisters (Syrup-Plaited Doughnuts)
   'db:meals:sp-tagliatelle-ragu':              ['celebrating'],   // Tagliatelle al Ragù alla Bolognese
   'db:meals:sp-prawn-linguine':                ['celebrating'],   // Garlic Prawn Linguine
@@ -120,7 +125,6 @@ var MOOD_TAGS = {
   'db:events:slaphakskeentjies':               ['celebrating'],   // Slaphakskeentjies
   'db:braai:slaphakskeentjies':                ['celebrating'],   // Slaphakskeentjies
   'db:world:boerekos-crispy-roast-potatoes':   ['celebrating'],   // Bros Gebraaide Aartappels (Crispy Roast Potatoes)
-  'db:braai:boerewors':                        ['celebrating'],   // Boerewors
   'db:braai:fillet':                           ['celebrating'],   // Beef Fillet
   'db:braai:tbone':                            ['celebrating'],   // T-Bone Steak
   'db:braai:chuck':                            ['celebrating'],   // Beef Chuck (Shisanyama)
