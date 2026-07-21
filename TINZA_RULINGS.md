@@ -839,3 +839,58 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 2. **`CLAUDE.md` points here.** Every session, every AI, reads it before touching code.
 3. **Any ruling with a number becomes a doctor check.** ⚖️ Law 42 — the ratchet.
 4. ⛔ **If this file and the code disagree — THE FILE IS RIGHT AND THE CODE IS A BUG.**
+
+---
+
+## 🐟 18 · THE WHOLE FISH LAW — **PRICED WHOLE → WRITTEN WHOLE** — **RULED 21 Jul 2026**
+
+**The ruling.** Where an ingredient is **bought whole and cooked whole**, the ingredient line carries the **trolley weight** — what she puts on the scale in the shop — and the **method** states the edible yield. Never the other way round.
+
+- ✅ `Snoek — 1.5kg gutted whole (bone-in)` … method: *"flakes down to roughly 750–800g off the bone."*
+- ❌ `Snoek flakes — 780g` — a weight that exists in no shop, at a price key that does not match it.
+
+**Why.** The price key and the ingredient line must describe **the same object**. The moment they diverge, the cost is a plausible number with nothing behind it — and a plausible number never announces itself.
+
+**Yields banked (measured 21 Jul, use these):**
+
+| fish | bought as | flaked yield |
+|---|---|---|
+| **snoek** | gutted whole, bone-in | **50–55%** *(use 52.5%)* |
+| **maasbanker** | whole round | **40–45%** *(use 42.5%)* |
+
+**Prices locked** (`prices.js`, commit `e1c4649`): snoek **R147/kg** · snoek fillet **R120** · smoked snoek **R450** · maasbanker **R60** · whole mackerel **R60** · tinned mackerel **R92**.
+
+**The fish ladder — R/kg of flakes actually in the bowl:**
+pilchards **R65** · tinned mackerel **R92** · maasbanker **R141** · braai snoek **R314** · hot-smoked snoek **R450**.
+⟶ **Snoek is ~5× pilchards off the bone.** Any "budget" fish version starts here.
+
+**Species facts — check before any `didYouKnow`:** snoek = *Thyrsites atun* (**not** Thyrsatoxus). SA maasbanker = *Trachurus capensis* (*T. trachurus* is North Atlantic).
+
+---
+
+## 📏 19 · A GREP MISS IS NOT A MEASUREMENT — **RULED 21 Jul 2026**
+
+**The ruling.** In a **bilingual library**, a search that returns nothing proves **nothing**. One language, one spelling, one accent-form is not the corpus.
+
+**How it was earned.** Claude grepped for "snoek tart", found nothing, and reported the recipe **absent**. Tina typed it into the app's own search and it came straight up — **Korslose Snoek-en-Uietert**, `wk_southafrica:128`, aliases already including "Snoek Tart". *Her app beat Claude's grep.*
+
+**The rule that follows.** Before declaring anything absent: search the **Afrikaans** name, the **English** name, the **aliases** array, and — where it exists — run it through the app's own `searchNorm` path. A hand-rolled matcher is a **probe**, and a probe that disagrees with the real search is **wrong by definition**. ⚖️ Companion to Law 39.
+
+---
+
+## 🔒 20 · INVARIANT, NOT FEATURE — **RULED 21 Jul 2026**
+
+**The ruling.** Every change ships with an **invariant assertion** — a number that must be identical before and after, measured, not claimed.
+
+**Tinza's invariant:** `allRecipes() === 2083`, **and every section non-empty.**
+
+**Why this one.** An adapter that throws inside its own `forEach` **silently deletes a whole section**: no error, no console, `node --check` clean, and the census RED count does not move. It is invisible to every instrument on the bench. Only the count catches it.
+
+**Filed as CENSUS CHECK 25** — `allRecipes() === 2083` · every section count > 0. Prove it by re-introducing the fault: an adapter that throws must go **RED**.
+
+**⚖️ `node --check` proves the file parses. It proves nothing about the data.**
+
+---
+
+## 🥒 16.1 CONFIRMED · PICKLES ×64 = ACCOMPANIMENT — **21 Jul 2026**
+The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct, keep them.** They are not part of the 560-placeholder debt. **Zero work.** Do not "fix" them.

@@ -148,3 +148,35 @@
 - **What the "4 and 7" really were:** Sweet's R4 per person and Cheese's R7 per person — **two versions read as one screen.**
 - **Confirmed in code:** `recipeDetailFromResult()` sets `var _scale = _bakeP ? _bakeUnits : sv`, and the label prints `sv`. For a non-bake the label and the multiplier are **the same variable** and cannot diverge.
 - **Consequence.** MF124 is **unblocked** — the birchermuesli R510 needs its own look, but nothing upstream was poisoning it. ⚖️ **Law 39 — a tool result is also a hypothesis; cross-check it with your eyes.** Tina's eyes closed this one.
+
+---
+
+## 🔑 Silent duplicate keys — the later one wins, the earlier one has NEVER been used
+**Raised 21 Jul · MEASURED 21 Jul with an AST walk, not a grep.** *(A grep over `prices.js` counts 12 "duplicates" — 10 of those are legitimate keys in different objects. Only 2 are real.)*
+
+**`sections/prices.js` — 2 real:**
+- **`pork belly`** — line **154 = R120**, line **581 = R150** *("high end")*. **R150 silently wins. R120 has never once been used.**
+- **`pita_each`** — line **8 = R4**, line **487 = R7.70** *(R46/6-pack, Tina)*. **R7.70 wins. The R4 is dead.**
+
+**`sections/core.js` — the ingredient-alias map, 7 real:**
+`coconut` (L1011 → **L1053 wins**, "coconut flakes" loses to "desiccated coconut") · `niter kibbeh` · `fish stock` · `phyllo sheets` · `pastry dough` · `sukuma wiki` · `broad beans`.
+**`coconut` is the one that costs money** — two different products, two different prices, and the alias silently picks one.
+
+- **Fix.** Delete the loser, or keep the loser and delete the winner — but **decide**, don't leave two.
+- **Ratchet.** This is exactly CENSUS CHECK 26's family: an AST duplicate-key assertion across `sections/*.js` = **0**. One rung catches all nine and everything like them forever.
+- ⚖️ **Law 39 · §20.** No error, no console, `node --check` clean. A fifth silent hole.
+
+---
+
+## 🧂 "to taste" appended to lines that ALREADY carry an amount
+**Raised 21 Jul.** Braai Snoek card reads **"300g per person — to taste"**. Same pattern on salt, jam, butter. An amount and a hand-wave in one line: the amount is real and the "to taste" makes it look optional. ⚖️ WOW Standard — leaveners and seasonings measured, never hand-waved. **Sweep, don't patch one card.**
+
+---
+
+## 🥫 Tin convention — nominal vs drained
+**Raised 21 Jul.** `pilchards` **R65** and `tinned mackerel` **R92** are keyed on the **nominal 400g tin**, not the **drained** weight (~65%). If a recipe uses drained fish, both prices are **~35% light**. **Own session** — it touches every tinned key, not just fish.
+
+---
+
+## 🌍 STAGE 2 · WK delta costing will SHOW but not COST
+**Raised 21 Jul.** `delta.addIng` items in World Kitchen are **prose strings**, so a WK version renders its chip and its copy but produces **no cost**. **§15.5 is unsatisfied for WK until the strings are parsed.** Blocked behind MF135 (`_vHay` string tolerance) landing on live.

@@ -311,3 +311,38 @@ ingredients + `PRICE_DB`. Reading raw and reporting "0 priced" is wrong; India i
   find ramen is a roadmap item.
 - **`we-` prefix** — 28 dishes (`we-sauerbraten`, `we-currywurst`) use a REGION prefix
   where every other id uses a country. Check on live where they surface. ⚖️ Law 2.
+
+---
+
+## 🐟 4d · THE WHOLE FISH LAW — **ADDED 21 Jul 2026** ⚖️ §18
+
+**Priced whole → written whole.** The ingredient line is the **trolley weight**. The method states the flaked yield.
+
+- ✅ `Snoek — 1.5kg gutted whole (bone-in)` + method: *"flakes to roughly 780g off the bone."*
+- ❌ `Snoek flakes — 780g` — a weight no shop sells, against a price key that means something else.
+
+**Yields — use these, do not re-guess:** snoek (gutted whole, bone-in) → **52.5%** · maasbanker (whole round) → **42.5%**.
+
+**Prices live in `prices.js` at `e1c4649`:** snoek **R147** · snoek fillet **R120** · smoked snoek **R450** · maasbanker **R60** · whole mackerel **R60** · tinned mackerel **R92**.
+
+**The ladder — R/kg of flakes in the bowl:** pilchards R65 · tinned mackerel R92 · maasbanker R141 · braai snoek R314 · smoked snoek R450. **Snoek is ~5× pilchards.** Budget versions start at the cheap end of this ladder, not at a smaller weight of the expensive one.
+
+**Species — before any `didYouKnow`:** snoek = *Thyrsites atun*. SA maasbanker = *Trachurus capensis*.
+
+**Standing rulings on this family:**
+- **snoek R165** was wrong — it is **R147**, gutted whole, bone-in.
+- **makriel** = fresh frozen. **No tin alias.** Tinned mackerel is a separate key.
+- **maasbanker curry** is a **VERSION of the existing Snoek Curry** — only if it earns its place (§15.2). Not a new record.
+- **Korslose Snoek-en-Uietert ALREADY EXISTS** (`wk_southafrica:128`, aliases include "Snoek Tart"). 80g fish pp · WK prose ingredients · no `costPP` · no versions. It is a **fill-in**, not an author-new.
+
+---
+
+## 📏 4e · A GREP MISS IS NOT A MEASUREMENT ⚖️ §19
+
+This library is **bilingual**. Before writing "absent": search the **Afrikaans** name, the **English** name, and the **aliases** array. Claude declared snoektert missing; Tina's own app search found it in one keystroke. A hand-rolled matcher is a probe, and a probe that disagrees with the real search is wrong.
+
+---
+
+## 🔒 4f · INVARIANT, NOT FEATURE ⚖️ §20
+
+Every handback states, measured: **`allRecipes()` = 2083, every section non-empty.** An adapter that throws inside its own `forEach` deletes a whole section silently — no error, no console, `node --check` clean, census RED unmoved. The count is the only instrument that sees it. **`node --check` proves nothing.**

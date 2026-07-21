@@ -95,3 +95,19 @@ Full brief: `reference/FABLE_SESSION_BRIEF.md`
 - No retailer names. Leaveners in grams.
 - A fork counts only if people actually cook it. Never pad a rung with stubs (§15.2).
 - `node tinza-doctor.js` ≤ 9 · `node tinza-census.js` ≤ 19 before handback.
+
+---
+
+## 🐟 THE FISH FAMILY — banked 21 Jul 2026 *(this note lives HERE, not in a chat — a chat dies at cut-off)*
+
+**Ruled and priced. Nothing here is open.**
+
+- **Yields:** snoek (gutted whole, bone-in) → flakes **52.5%** · maasbanker (whole round) → **42.5%**.
+- **The Whole Fish Law** ⚖️ §18 — priced whole → written whole. Ingredient line = **trolley weight**; the method states the flaked yield.
+- **Prices in `prices.js` at `e1c4649`:** snoek **R147** *(was wrongly R165)* · snoek fillet **R120** · **smoked snoek R450 — this key was MISSING and four recipes were under-costing by roughly HALF** · maasbanker **R60** · whole mackerel **R60** · tinned mackerel **R92**.
+- **Ladder, R/kg of flakes in the bowl:** pilchards R65 · tinned mackerel R92 · maasbanker R141 · braai snoek R314 · smoked snoek R450.
+- **makriel** = fresh frozen, **no tin alias**.
+- **maasbanker curry** = a **version** of the existing Snoek Curry, only if it earns it.
+- ✅ **Korslose Snoek-en-Uietert already exists** — `wk_southafrica:128`, aliases include "Snoek Tart". Needs `costPP` + versions. **Do not author it new.**
+- ⚠️ **Open, waiting on Tina:** the Snoek Curry fish quantity, needed to judge the pilchard/maasbanker swap.
+- ⚠️ **Own session, not now:** pilchards (65) and tinned mackerel (92) are keyed on **nominal 400g**, not drained (~65%). Both may be ~35% light.
