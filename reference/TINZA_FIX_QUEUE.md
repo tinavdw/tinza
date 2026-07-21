@@ -76,9 +76,55 @@
 - ⛔ **DO NOT TOUCH `calcMeat` OR `PORTION_BRAAI`.** The portion brain is the better answer and stays exactly as it is. The translation exists so the rest of the app can *read* Braai, not to change how Braai thinks.
 - **Priority.** Structural. **After MF132**, or it re-authors into a shape that moves underneath it.
 
----
+## 💰 The Braai plan ships the ENTIRE Pro surface to Free
+**Seen:** 21 Jul 2026, on Tina's live screenshots — **the Free button was lit in the tier bar.**
 
-# ⛔ STRUCK — RAISED, INVESTIGATED, NOT A BUG
+- **Symptom.** The Braai plan renders, to a **Free** user: the shopping list in full (Boerewors 1.3kg · R158 · Coarse salt · R0 · Sunflower oil 750ml · R36), the plan dish-row total (**R144**), **What the food costs R145** and **What you'll spend R194**.
+- **Root.** `sections/braai.js:301–318` renders the shopping block and both totals with **no tier gate at all.** The only `tierAllows` in the entire file is line **213**, for side dishes. The §7 gate layer never got as far as this room.
+- **Why it survived.** Braai's cost was believed **absent** — the sameness matrix scored it cost 0%, and `adaptBraai()` genuinely emits `costPP:null`. That is the **derived facet** for shelves and search. **The plan screen computes its own totals by a different path entirely**, so "Braai has no cost" was true of the adapter and false of the screen. ⚖️ **Law 23 — two things sharing a name do not share a fix.**
+- **Fix.** Route through `costLine()` / the shared cost block. ⛔ **Do NOT patch a `tierAllows` in front of it** — that is the eighth hand-rolled gate and the reason this list exists.
+- **Priority.** **Rides with the cost-renderer consolidation.** Costs nothing today — there are no paying users — and becomes real the day PayFast goes live.
+
+## 💰 Budget prints a Rand per person on every row, ungated
+**Seen:** 21 Jul 2026, live.
+
+- **Symptom.** Every Budget result row reads e.g. *"⏱️ 25 min · **R22 pp**"*. Cost is Pro (`TINZA_RULINGS.md` §2).
+- **Root.** `sections/budget.js:155` hand-rolls `R${r.costPP||'?'} pp` straight into the row markup.
+- 🩸 **`||'?'` IS ITS OWN SMALL LIE.** An uncosted recipe prints **`R? pp`** — which reads as broken rather than as not-yet-costed. ⚖️ **Law 3.**
+- **Fix.** Same one fix as Braai — the shared renderer.
+- **Priority.** With the consolidation.
+
+## 📊 MEASURED — the §7 gate layer is bypassed in 21 places across 6 files
+**Seen:** 21 Jul 2026, counted at HEAD.
+
+- **The rule** (`core.js:714`): `costLine()`, `kcalChip()` and `nutritionGrid()` are **the ONLY three renderers allowed to emit a Rand, a kcal or a macro to the DOM.**
+- **The count of raw `R${...}` emitted outside them:** `budget.js` **6** · `meals.js` **4** · `braai.js` **4** · `health.js` **3** · `events.js` **2** · `core.js` **2**.
+- 🩸 **THIS IS THE NUMBER THAT MATTERS.** Braai and Budget above are not two bugs — they are **two of twenty-one**, and every one of them is a place the gate can be missed, the palette can drift and the price can go stale independently. ⚖️ **Law 6 — don't patch N sites, build the one thing they should all call.**
+- **Priority.** This *is* the Week 2 job. It now has a number attached to it.
+
+## 🤖 The chef is switched OFF but the app still sells him
+**Seen:** 21 Jul 2026, live — 4 Ingredients results screen.
+
+- **Symptom.** With `/api/claude` returning **503** since this morning, the app still renders: *"Pro also asks **Tinza Chef** to invent fresh ideas from what is in your fridge."* Under a heading, **🤖 Tinza Chef's ideas**, that will now never fill.
+- **Where — WIDENED 21 Jul on the no-`?dev` screenshots. FIVE surfaces, and two of them are LIVE BUTTONS, not text:**
+  - 📝 **Text (3):** `meals.js:15786` *(How-it-works: "then asks Tinza Chef")* · **15839** *(the 🤖 heading + subtitle)* · **15841** *(the Pro upsell line)*.
+  - 🔘 **BUTTONS THAT NOW FAIL (2):** `core.js:2501` — **✨ Show me 3 more ideas** on every mood shelf · `budget.js:165` — **✨ Show me 3 more recipes**. Both call the chef. Both get 503.
+- 😕 **IT DOES NOT CRASH — IT FAILS INTO A LOOP THAT CANNOT SUCCEED.** The error path at `core.js:2446` renders *"Couldn't load recipes right now"* with a **← Start again** button that **re-calls the same dead endpoint.** Politeness is not honesty: the screen implies *try again later*, and later will never work until MF78 ships.
+- 🩸 **THIS IS A LAW 3 BREACH, AND IT IS THE WORST KIND — IT IS A SALES PITCH FOR A DEAD FEATURE.** A Free user is being asked to pay **R90** partly for something that returns an error. ⚖️ **Law 7 — the lock is the salesman; a lock over nothing is a false salesman.**
+- **Fix.** The two buttons come out or go dark **first** — a broken control is worse than a missing one. Then the three strings. No logic, no endpoint work.
+- 🔁 **REVERSE THIS WHEN MF78 LANDS.** Written here so the app is not left saying "coming soon" forever after the chef is capped and switched back on.
+- **Priority.** **Rides with the tier-bar push.** Five strings, zero logic, and it closes the honesty gap the chef shutdown opened this morning.
+
+## 🧂 The Spice Room hands Free a working shopping list
+**Seen:** 21 Jul 2026, on `tinza.netlify.app` with **no `?dev`**, Free lit.
+
+- **Symptom.** Peri-Peri Sauce → a complete aisle-grouped list (Fruit & Veg · Pantry · Other), 8 items with amounts, tick-boxes, **📋 Copy List** and **Clear all**. The shopping list is **Pro** (`TINZA_RULINGS.md` §2).
+- **Root.** `sections/spice.js:8313–8321` renders the list screen and the Copy button with **no tier gate.** The room is not tier-blind — it calls `tierAllows` at **8074** and **8376** — **the list screen simply is not one of the gated paths.**
+- 🩸 **NO RANDS LEAK HERE, AND THAT IS WHY IT SURVIVED.** Every previous cost leak was found by spotting a Rand on a Free screen. **This one gives away the shopping list itself — the Pro surface — while emitting no money at all**, so every Rand-shaped search missed it. ⚖️ **Law 36 — measure the thing that is ruled, not the thing that is easy to grep.**
+- **Fix.** With the cost/gate consolidation. **The gate list must be built from `TINZA_RULINGS.md` §2, surface by surface — not from a grep for `R$`.**
+- **Priority.** With the consolidation. Fourth confirmed leak surface (Braai plan · Budget rows · Spice list · the tier bar itself).
+
+---
 *Kept so they are never re-raised. ⚖️ Law 23 — two bugs sharing a name do not share a fix; and a bug that was never a bug still costs a session the second time.*
 
 ## ~~Vetkoek cost block contradicts the scaler ("scaler said 4, cost said 7")~~

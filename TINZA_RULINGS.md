@@ -55,6 +55,8 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 ### DELUXE (level 2) — price TBD
 **Events** *(Buffet · Cakes · Beverages · Wedding)* · **the Weekly Planner** · the newsletter / monthly letter
 
+💀 **THE TIER SWITCHER IS NOT GATED — SEE §17.** *Measured 21 Jul: `tierBar` renders to every visitor, and its 👑 Pro button hands out everything listed above for free. Every line in this section is currently one tap away from anyone.*
+
 🚨 **Moving Events → Deluxe is a GATE MIGRATION** — every Events screen re-gated. **Its own session. Not a price change.**
 
 ---
@@ -563,6 +565,55 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - ✅ **THE CORRECT PAIRINGS — Tina, 21 Jul:** **fresh fruit** *(cuts the fried heaviness)* · **bacon or breakfast sausage** *(savoury against the jam)* · **scrambled or fried eggs** *(turns a snack into a breakfast plate)*.
 - 🆕 **THE SIMILARITY RELATION IS REAL AND WORTH KEEPING — BUT IT NEEDS ITS OWN FIELD.** `similarTo` / *"if you like this"* — and it must **NEVER** render in the `goesWith` box. **Until that field exists, wrong links are REMOVED, not kept.** ⚖️ **Law 45 — a missing link beats a wrong one; unknown is not yes.**
 - 🧹 **THIS IS A SWEEP, NOT A PATCH.** If vetkoek's `goesWith` was authored as *"similar deep-fried things"*, other cards were authored the same way. Every link verified against the real library — **C4**, `WOW_STANDARD.md`.
+
+---
+
+## 🔐 17 · DEV MODE IS A STORED FLAG ON TINA'S DEVICE, NEVER A URL — **RULED 21 Jul 2026**
+*Raised as Week 1 item 2: close the `?dev` back door. Measured first (⚖️ **Law 36**), and the measurement moved the target — **`?dev` was never the money door. The tier switcher was, and it has no door at all.***
+
+### 🩸 17.1 · WHAT THE MEASUREMENT FOUND — read at HEAD, 21 Jul
+
+- 🔍 **`?dev` GATES TWO THINGS, BOTH DIAGNOSTIC. NEITHER IS WORTH MONEY.**
+  1. `core.js:579` — the render-error boundary prints the real message + first stack line on screen *(MF44 · ⚖️ Law 19 — the tablet has no console)*.
+  2. `index.js:454` — a `console.info` of World-Kitchen costPP-skipped coverage.
+  **A stranger who guesses `?dev` gets an error message he did not want. That is the whole exposure.**
+- 💀 **THE ACTUAL OPEN DOOR: `tierBar`.** Built `core.js:526`, rendered `core.js:621` as `root.innerHTML = tierBar + _body + bottomBarHTML()` — **unconditional, every screen, every visitor.** The 👑 Pro button sets `USER_TIER='pro'`, and `tierAllows('pro')` then opens cost · My Plan · shopping list · the whole nutrition grid · dietary filters · favourites.
+- 🩸 **THIS IS THE SAME SHAPE OF BUG AS `tierAllows(){ return true; }`** — the one already recorded at `core.js:693` as *"All features unlocked."* **We closed the function and left the switch next to it.** ⚖️ **Law 20 — the fix that fixes one half.**
+- 📊 **SCALE: the chef leaked $2.02 of lifetime spend. The tier bar leaks the entire R90 product.** The smaller hole was found first because it had a bill attached; **this one is silent, which is exactly why it survived.**
+- ✅ **CONFIRMED ON LIVE, 21 Jul 13:00 — `tinza.netlify.app` with NOTHING after it.** The strip renders. ⚖️ **Law 2 — Tina's eyes closed it.** *(The first eleven screenshots were all taken on `/?dev` and could not settle it either way; the clean-URL shot is the one that counts. Noted because "I looked and it was there" is not evidence until the URL is checked.)*
+
+### 🔑 17.2 · THE RULING — ONE FLAG, STORED, GESTURE-ARMED
+
+- 🚪 **`tinzaIsDev()` STAYS THE ONE DEFINITION.** ⚖️ **Law 6.** Nothing else may read a dev flag; nothing else may invent one. *(This clause is already true and is hereby ratified, not built.)*
+- ❌ **THE `?dev` QUERY PARSE IS DELETED.** A URL flag is shareable, screenshottable, guessable, survives being pasted into WhatsApp, and lands in Netlify's request logs. **It is a password written on the door.**
+- ✅ **DEV BECOMES A STORED PREFERENCE — `tinzaStore.getPref('dev') === true`.** It lives in `preferences` on Tina's device, through the one state door *(`tinzaStore.js`, §11)*. It cannot be shared, linked or guessed, and it survives a reload, which `?dev` did not once you tapped anything.
+- 🖥️ **LOCALHOST STAYS AUTOMATIC.** `localhost` / `127.0.0.1` → dev, no gesture. **Nobody else can be on her localhost.**
+- 👆 **THE GESTURE ARMS IT: SEVEN TAPS ON THE "Appearance" HEADING ON THE PROFILE SCREEN** *(`profileHTML()`, `core.js:354`)*. Seven is past accident and short of a chore. **A gesture, not a typed secret — because the tablet is where dev mode is actually needed and typing a URL on it is the thing we are removing.**
+- 🔴 **WHEN DEV IS ON, IT SAYS SO, AND SAYING SO IS THE OFF SWITCH.** A visible strip — *"🔧 DEV MODE ON · tap to turn off"*. ⛔ **A hidden flag with no visible state is how you ship a debug build.** ⚖️ **Law 3 — the screen never lies about what it is.**
+- 🛡️ **FAIL CLOSED.** Anything other than a stored `true` → **false**, exactly the shape `tierLevel()` already uses for an unknown tier. **Fresh device, incognito, cleared storage → not dev.**
+
+### 🧱 17.3 · WHAT DEV GATES — THE LIST IS CLOSED
+
+**Three things, named here, and nothing joins the list without a ruling:**
+1. 🖥️ the on-screen render-error block *(`core.js:579`)*
+2. 📊 the costPP-coverage `console.info` *(`index.js:454`)*
+3. 👑 **the tier switcher — NEW, and the reason this ruling exists**
+
+- ⛔ **DEV MODE MUST NEVER *BE* PRO. IT ONLY SHOWS THE SWITCH.** Dev renders `tierBar`; `tierBar` sets `USER_TIER`; `tierAllows()` reads `USER_TIER`. **Three separate things, and they stay separate** — because at launch **PayFast** sets the tier, and a dev flag that implied Pro would make the real gate permanently untestable. ⚖️ **Law 7 — the lock is the salesman, so the lock must be the thing we can see working.**
+- 🩸 **THE FAILURE THIS CLAUSE PREVENTS:** `tinzaIsDev() → tierAllows('pro') === true` would look like a convenience for one session and would mean **Tina can never again see her own app as a free user sees it.** The switcher exists precisely so she can.
+
+### 📋 17.4 · THE WORK — ONE JOB, ONE PUSH
+
+| # | change | file · line |
+|---|---|---|
+| 1 | delete the `?dev` regex, read `tinzaStore.getPref('dev')` instead | `core.js:445` |
+| 2 | **wrap `tierBar` in `tinzaIsDev()`** — the strip and its three buttons | `core.js:621` |
+| 3 | seven-tap arm on the *Appearance* heading | `core.js:354` |
+| 4 | the visible **DEV MODE ON** strip, tap = off | `core.js` (with `tierBar`) |
+| 5 | census check: `tierBar` never reaches `innerHTML` ungated | `tinza-census.js` ⚖️ **Law 42** |
+
+- ⚠️ **`USER_TIER` IS `let USER_TIER = "free"` AT `data.js:113` AND IS *NOT* PERSISTED.** So a free user who taps Pro today loses it on reload — **which is why nobody has reported it.** ⛔ **That is not a mitigation, it is luck, and it disappears the day the tier is stored for PayFast.** Fix the gate now, while it is four lines.
+- 🚫 **`maxMeats()` at `core.js:710` still reads `USER_TIER==="free"` directly instead of `tierAllows()`.** Out of scope for this push — **logged to `TINZA_FIX_QUEUE.md`, not fixed here.** ⚖️ **Rule 1 — one job per push.**
 
 ---
 
