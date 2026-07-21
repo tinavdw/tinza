@@ -1417,4 +1417,57 @@ p('       never one hundred of them. Bircher Muesli shipped at R510 against R13.
   }
 }
 
+// ══ 23 · IS EVERY SOURCE FILE STILL LEGIBLE TEXT? ═══════ MF130c · Law 42 ══
+head('23 · CAN SHE STILL READ THE DIFF?   ⚖️ CLAUDE.md §4.3 — she stages LINE BY LINE');
+p('  \x1b[2m    21 Jul: two NUL bytes went into tinza-census.js. It PARSED. It RAN. Every check');
+p('       went GREEN. And git silently reclassified the file as BINARY — a 60-line change');
+p('       showed as 1420 insertions / 1420 deletions, with no line diff to stage through.');
+p('       Nothing was broken except the one thing she cannot check herself: whether what');
+p('       she is approving is legible. node --check proves a file parses, NOTHING else. ⚖️ Law 1.');
+{
+  // Sibling of the doctor's MOJI check (tinza-doctor.js:131), which catches text that
+  // survived as READABLE but WRONG (Â· â€ Ã¡). This one catches text that stopped being
+  // text at all. ⚖️ Law 6 — one home each; do not duplicate the mojibake regex here.
+  const EXT  = ['.js','.md','.json','.html','.mermaid','.css','.sh','.toml','.svg'];
+  const SKIP = ['.git','node_modules','Images','Tools/node_modules'];
+  const files = [];
+  (function walk(dir, rel){
+    let ents; try { ents = fs.readdirSync(dir, {withFileTypes:true}); } catch(e){ return; }
+    for (const e of ents) {
+      const r = rel ? rel + '/' + e.name : e.name;
+      if (SKIP.indexOf(e.name) >= 0 || SKIP.indexOf(r) >= 0) continue;
+      if (e.isDirectory()) walk(path.join(dir, e.name), r);
+      else if (EXT.indexOf(path.extname(e.name).toLowerCase()) >= 0) files.push(r);
+    }
+  })(ROOT, '');
+
+  // git calls a blob binary when it finds a NUL in the first 8000 bytes; grep is
+  // stricter and gives up on a NUL anywhere. Flag either — both cost her the diff.
+  // The other C0 controls are never intentional in these files; \x1A in particular
+  // still truncates a file for some Windows tooling.
+  const hits = [];
+  files.forEach(f => {
+    let s; try { s = fs.readFileSync(path.join(ROOT, f)); } catch(e){ return; }
+    let nul = 0, ctrl = {}, firstNul = -1;
+    for (let i = 0; i < s.length; i++) {
+      const b = s[i];
+      if (b === 0) { nul++; if (firstNul < 0) firstNul = i; }
+      else if (b < 32 && b !== 9 && b !== 10 && b !== 13) ctrl[b] = (ctrl[b]||0) + 1;
+    }
+    const ctrlKeys = Object.keys(ctrl);
+    if (nul || ctrlKeys.length) hits.push({ f, nul, firstNul, ctrl: ctrlKeys, gitBinary: firstNul >= 0 && firstNul < 8000 });
+  });
+
+  p('     ' + num(files.length) + '  source files scanned  \x1b[2m(' + EXT.join(' ') + ')\x1b[0m');
+  if (hits.length) bad(hits.length + ' SOURCE FILE(S) ARE NOT CLEAN TEXT — THE DIFF IS UNREADABLE',
+    '\n      ' + hits.slice(0,8).map(h =>
+      h.f + '  ' + (h.nul ? h.nul + ' × NUL @' + h.firstNul + (h.gitBinary ? '  ← GIT SEES BINARY' : '  (grep sees binary)') : '') +
+      (h.ctrl.length ? '  control bytes: ' + h.ctrl.map(c => '0x' + Number(c).toString(16).toUpperCase().padStart(2,'0')).join(' ') : '')
+    ).join('\n      ') +
+    '\n      \x1b[2mIt will still parse and still run. That is the whole danger. Find the string' +
+    '\n      literal that holds it and use a real separator — or a nested map and no' +
+    '\n      separator at all. ⚖️ Law 1 — node --check proves NOTHING but that it parses.\x1b[0m');
+  else ok('Every source file is clean text', files.length + ' files · no NUL, no stray control bytes — every diff stages line by line');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
