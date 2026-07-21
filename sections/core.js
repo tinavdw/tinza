@@ -567,6 +567,11 @@ function draw(){
   // MF133 · WHEN DEV IS ON IT SAYS SO, AND SAYING SO IS THE OFF SWITCH.
   // ⛔ A hidden flag with no visible state is how you ship a debug build. ⚖️ Law 3 —
   // the screen never lies about what it is. ⚖️ §17.2.
+  // ⚠️ ON LOCALHOST THIS TAP WILL NOT MAKE THE STRIP GO AWAY, and that is CORRECT, not
+  // a bug: tinzaIsDev() returns true for localhost/127.0.0.1 unconditionally (§17.2 —
+  // nobody else can be on her localhost). The tap does write `dev:false`, so it takes
+  // effect the moment the same browser loads the real site. Verified 21 Jul on
+  // localhost:8899. ➡️ TEST THE OFF SWITCH ON tinza.netlify.app, NEVER ON LOCALHOST.
   const devStrip = `<div onclick="tinzaStore.setPref('dev',false);draw();" style="background:var(--accent);color:#fff;padding:6px 16px;font-size:12px;letter-spacing:1px;text-align:center;cursor:pointer;">🔧 DEV MODE ON · tap to turn off</div>`;
 
   let content="";
