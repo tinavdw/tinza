@@ -223,32 +223,55 @@ head('7 · WHO CHANGES THE SCREEN WITHOUT CLOSING THE OPEN RECIPE?   ⚖️ Law 
   // you a key broke. Read the LINES. ⚖️ Law 51 is a count; this rung is a claim.
   //
   // 🩸 FOUND BY PROBE, 21 Jul — FIXING THE BUG ALSO TRIPS THE ALARM. The key IS the
-  // statement text, and fixing the statement CHANGES that text, so a genuine fix
-  // reads as a lost key. `fixed` below is therefore near-unreachable in practice.
-  // That is not a bug in the alarm — it is the alarm refusing to clear a claim it can
-  // no longer see. But it means A PROVEN BUG CANNOT BE RETIRED BY CODE: retiring one
-  // is a RULING (Tina proved it; Tina clears it), recorded in TINZA_RULINGS.md, and
-  // only then is the key removed. ⚖️ Law 2 — done is when her finger says so.
-  // ⚠️ NEEDS A RULING on the retirement path. Until then the alarm is correct to hold.
-  const lost = [], fixed = [];
+  // statement text, and fixing the statement CHANGES that text, so a genuine fix reads
+  // as a lost key. That is not a fault in the alarm — it is the alarm refusing to clear
+  // a claim it can no longer see. With statement keys a lost key now has exactly TWO
+  // causes: someone fixed it, or someone refactored around it. ⛔ A MACHINE MUST NEVER
+  // GUESS BETWEEN THEM. So `PROVEN NOW CLEAN` is WITHDRAWN (ruled 21 Jul) — it could
+  // not fire in practice, and a message that cannot fire is a lie waiting to be
+  // believed. The honest message is "retire it or explain it".
+  //
+  // ── THE RETIREMENT PATH ── RULED 21 Jul ─────────────────────────────────────────
+  // ⛔ A PROVEN KEY IS NEVER DELETED. IT IS RETIRED, BY RULING, IN WRITING.
+  // The only exit is a RETIRED entry below, written BY HAND, carrying the original
+  // statement verbatim, the commit that fixed it, the date, and one line of why.
+  // 🩸 RETIRED IS A GRAVEYARD, NOT A QUEUE — entries are NEVER removed. The ratchet's
+  // history stays auditable, and if the same bug is ever reintroduced we can see it
+  // has been buried before (and this rung says so, loudly).
+  // 🩸 Fixing a proven bug is a TWO-STEP ACT: fix the code, then retire the key. The
+  // second step is not admin — it is the record that the fix happened. ⚖️ Law 2.
+  const RETIRED = [
+    // { f:'spice.js', stmt:"S.screen='search_results';",
+    //   fixedIn:'<commit>', date:'<d mon yyyy>', why:'<one line>' },
+  ];
+  const rKey = {};   // file -> { statement -> entry }   nested: no separator to collide, no NUL
+  RETIRED.forEach(e => { (rKey[e.f] = rKey[e.f] || {})[e.stmt] = e; });
+
+  const lost = [], buried = [], reborn = [];
   Object.keys(PROVEN).forEach(f => PROVEN[f].forEach(stmt => {
     const state = (seen[f]||{})[stmt];
-    if (!state)               lost.push({f,stmt});
-    else if (state==='clean') fixed.push({f,stmt});
+    const ret   = (rKey[f]||{})[stmt];
+    if (state === 'guilty') { if (ret) reborn.push(ret); return; }   // still live → `proven` prints it
+    if (ret) { buried.push(ret); return; }                           // retired by ruling → no RED
+    lost.push({f,stmt});                                             // fixed or refactored, unexplained → RED
   }));
 
   proven.forEach(g => bad('PROVEN ON LIVE  ' + g.at, '→ ' + g.scr + '   (Tina, 14 Jul: it opened Butter Chicken)'));
-  lost.forEach(k => bad('PROVEN KEY LOST — ' + k.f + '  ' + JSON.stringify(k.stmt),
+  reborn.forEach(e => bad('PROVEN BUG REINTRODUCED — ' + e.f + '  ' + JSON.stringify(e.stmt),
+    '\n      \x1b[2mThis was buried ' + e.date + ' (' + e.fixedIn + ') and it is BACK. The graveyard' +
+    '\n      is why we can see that. Do not re-retire it — it is live again. ⚖️ MF130.\x1b[0m'));
+  lost.forEach(k => bad('PROVEN KEY LOST — retire it or explain it   ' + k.f + '  ' + JSON.stringify(k.stmt),
     '\n      \x1b[2mTina proved this on 14 Jul. A key that matches nothing is an UNVERIFIABLE' +
-    '\n      CLAIM, not a cleared bug. THREE causes, and the first is the likeliest:' +
-    '\n        1. SOMEONE FIXED IT — the fix rewrites the statement, so the key stops' +
-    '\n           matching. Good news, but it must be RETIRED BY A RULING, not by code.' +
-    '\n        2. The statement moved to another file.' +
-    '\n        3. It was edited or deleted without a ruling.' +
-    '\n      Do NOT delete the key to silence this. Rule on it, record it, THEN remove it.' +
-    '\n      ⚖️ MF130 · Law 2 — done is when her finger says so.\x1b[0m'));
-  fixed.forEach(k => ok('PROVEN NOW CLEAN — ' + k.f + '  ' + JSON.stringify(k.stmt),
-    'it closes the recipe first; this one is genuinely FIXED'));
+    '\n      CLAIM, not a cleared bug. With statement keys there are exactly TWO causes,' +
+    '\n      and a machine must never guess between them:' +
+    '\n        1. SOMEONE FIXED IT — the fix rewrites the statement, so the key stops matching.' +
+    '\n        2. SOMEONE REFACTORED AROUND IT — the bug may well still be there.' +
+    '\n      ⛔ NEVER DELETE THE KEY TO SILENCE THIS. Add a RETIRED entry by hand: the old' +
+    '\n      statement verbatim, the commit that fixed it, the date, one line of why.' +
+    '\n      Fix the code, THEN retire the key. ⚖️ MF130 · Law 2.\x1b[0m'));
+  if (buried.length) p('     \x1b[2mPROVEN RETIRED — ' + buried.length + ':  ' +
+    buried.map(e => e.f + ' (' + e.date + ', ' + e.fixedIn + ')').join(' · ') +
+    '   \x1b[0m\x1b[2m← a graveyard, never a queue; entries are never removed\x1b[0m');
   if (risk.length) warn(risk.length + ' MORE sites of the SAME SHAPE — same-shape, NOT yet proven',
     '\n      ' + risk.slice(0,12).map(g=>g.at).join(' · ') + (risk.length>12 ? ' …' : '') +
     '\n      \x1b[2m⚖️ Law 22 — this is a RISK LIST, not a bug list. Do not "fix" 32 sites.' +
