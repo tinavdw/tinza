@@ -106,3 +106,24 @@ Prized SA gamefish. Whole-roasted yellowtail is a genuine showstopper and a Cape
   - **🔥 Cheap + high impact:** venison carpaccio · honeycomb · Affogato / Amarula Affogato · chocolate-dipped strawberries · deviled eggs · Baked Brie en Croûte · Strawberries Romanoff · Dom Pedro variations.
   - **👍 Worth the effort:** molten lava cakes · chicken piccata · profiteroles · mushroom risotto · marinated calamari salad · whole roasted yellowtail · Beef Wellington and its SA twin **Venison Wellington**.
   - **🚫 Skip:** opera cake · macarons · tortellini in brodo · xiao long bao — days of work, tiny audience, and macarons fail on Highveld humidity alone.
+---
+
+# 🤝 PARTNERSHIP & LINKING IDEAS — *moved here 21 Jul 2026*
+*Lifted out of Claude's memory, where they had sat since May with no work attached to them. ⚖️ **Law 52 in reverse** — memory is for things that steer a session; a partnership idea nobody has acted on steers nothing. It belongs in the parking lot, written down, where it cannot be lost and cannot mislead.*
+
+## 20. 📚 Master recipe library — so every cross-link lands on a real recipe
+The original idea: author the most important dishes across every category (mains · starters · salads · veg · breads · biscuits), SA and international, **so `goesWith` pairings always point at something that actually exists in the app.**
+- ✅ **PARTLY OVERTAKEN BY EVENTS.** `WOW_STANDARD.md` **C4** already requires every `goesWith` link to be verified against the real library, and `TINZA_RULINGS.md` **§16** now rules that `goesWith` is a *pairing* and wrong links are **removed, not kept** (⚖️ **Law 45** — a missing link beats a wrong one).
+- 🩸 **SO THE REAL QUESTION IS NO LONGER "AUTHOR EVERYTHING" — IT IS "WHAT DOES §16 LEAVE EMPTY?"** Run the `goesWith` sweep first *(Week 3)*, then count the links that had to be dropped for want of a target. **That count is this backlog item, measured.** Authoring blind before the sweep builds recipes nothing links to.
+- **Cheapness:** unknown until the sweep runs. **Do not size it before then.** ⚖️ **Law 36.**
+
+## 21. 🍷 Wine pairing per dish
+A suggested wine for each main. Natural fit for a country with a serious wine industry, and a genuine premium-feel touch on a recipe card.
+- ⏳ **v2, and it needs a source.** Pairings written off the top of the head are the same class of error as the `goesWith` similarity bug — plausible-sounding, wrong, and invisible until someone who knows wine reads them.
+- ⚠️ **Watch the alcohol framing** — Tinza is a family recipe app; a wine line must be optional and never the default reading of a dish.
+
+## 22. 🛒 Retailer integration for the shopping list *(Checkers Sixty60 named)*
+One-tap: send the costed Tinza shopping list into a delivery basket.
+- 🩸 **THE HONEST POSITION, UNCHANGED SINCE JUNE: NO PUBLIC API EXISTS.** True basket hand-off requires a **partnership**, and a partnership requires **scale** — which means this is a *post-launch* conversation, not a build.
+- ✅ **WHAT IS ALREADY SHIPPED AND COVERS 90% OF THE VALUE:** export · WhatsApp share · copy-to-clipboard. **The list travels today.**
+- 🔗 **Related and already noted elsewhere:** the monthly price pass and the "cheap this month" seasonal flag *(⏳ Smaller / later, above)* are the parts of this idea that need no partner at all.
