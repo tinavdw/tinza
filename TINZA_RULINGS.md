@@ -237,6 +237,28 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 
 ---
 
+### 🍽️ 5.2 · THE BUDGET ROOM SERVES **THE BEST MEAL FOR THE MONEY**, NOT THE CHEAPEST FOOD — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul, looking at the Budget Bobotie card on live: **"a mother of 4 kids would rather make a bobotie than samp and beans."** One sentence, and it re-aims the sort.*
+
+- 🎯 **CHEAPNESS IS THE CONSTRAINT, NOT THE GOAL.** Nobody opens this room wanting *the cheapest food.* They want **the best meal they can make for the money they have.** Those are different sorts and they produce different lists:
+
+  | R26pp · cheapest-first *(today)* | R26pp · best-for-the-money |
+  |---|---|
+  | Idiyappam R5 | **Budget Bobotie R26** |
+  | Waakye R4 | Chicken Breyani R23 |
+  | Fluffy Drop Dumplings R4 | Tin Fish Curry R14 |
+
+  **The first list treats her as poor. The second treats her as someone cooking supper.** With R104 for four she can make bobotie tonight — and the room shows her drop dumplings **because they cost less.**
+- 💰 **THE DISH ITSELF ALREADY KNOWS.** Bobotie's own Did You Know, live on the card: *"soaking stale bread to bulk out and moisten mince is one of the oldest thrift techniques — bobotie was built to make a little meat feed a family."* **The food was invented for this exact person.** The query is the only thing that cannot find it.
+- ✅ **THE INSTINCT IS ALREADY IN THE CODE, AND IT IS BEING OVERRIDDEN.** `BUDGET_BAND_FRACS = [0.7, 0.5, 0.3, 0]` starts at **70% of budget and relaxes the floor only as far as needed** — written to *"hug the per-person figure"* (Tina, 3 Jul). Then **cheapest-first inside each bucket undoes it.** Fix the sort, not the band.
+- ⛔ **THIS IS NOT "HIDE THE CHEAP FOOD."** At **R8pp the stretchers ARE the best meal for the money** and must lead. The rule is *best for THIS money*, which at the floor genuinely is pap and beans. ⚖️ **Law 3 — never zero, never a lie.**
+- 🧭 **THE GENERAL FORM, third time tonight:** *a sort key that is a pure number is blind to the person.* Cost-ascending answers **"what is cheapest"** when she asked **"what can I cook."** ⚠️ Same root as the LOCALE ranking clause (§11) and §15.5 — **three symptoms, one cause: the sort does not know who is asking.**
+- ⏱️ **ORDER:** §15.4 → §15.5 → this. The Budget Bobotie must be **reachable** before it can be **ranked first.**
+
+---
+
+
 
 ## 🥬 6 · DIETARY
 
@@ -337,6 +359,31 @@ Two mechanisms, kept separate:
 **v1 ships SA only. UK/US is post-launch.**
 
 ---
+
+### 🌍 LOCALE IS A THIRD MECHANISM: IT NUDGES **WHAT SURFACES**, NOT ONLY WHAT RENDERS — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul, off the Budget results: **"it must be adaptable to where the person is finding himself."** The LOCALE ruling above has two mechanisms — TERMINOLOGY and PRODUCT — and **both only act once a recipe is already open.** Neither touches which recipes surface, or in what order. This is the third.*
+
+- 🩸 **THE MEASUREMENT, Budget pool at HEAD** *(mealRole:'main', no braai, priced — 670 meals)*:
+
+  | per person | meals | SA-reachable |
+  |---|---|---|
+  | **R0–R10** | 21 | **3 — 14%** |
+  | R10–R15 | 51 | 20 — 39% |
+  | R15–R25 | 130 | 46 — 35% |
+  | R25–R50 | 366 | 127 — 35% |
+
+  **THE POOREST BAND IS THE LEAST SOUTH AFRICAN.** At R8 a head she is served Waakye · Idiyappam · Farinata · Ful Medames · Bissara · Misal Pav. **Good food, every one — and the wrong answer to the question she asked.**
+- 🎯 **THE CAUSE IS NOT BAD DATA. IT IS AN UNWEIGHTED SORT.** Budget orders on `costPP` ascending, and **a number does not know who is asking.** Any shelf sorted on a pure number — cost, time — will surface whatever wins that number, and cheapness is not evenly distributed across the world's kitchens.
+- 📉 **THE NUDGE SCALES INVERSELY WITH THE MONEY.** At **R40pp browsing the world is a pleasure.** At **R8pp it is a wrong answer** — she needs supper tonight from what is in the Spar. **The tighter the budget, the stronger the local pull.** ⚖️ §5.1 — the audience is the ruling.
+- ⛔ **IT NUDGES ORDER. IT NEVER REMOVES.** World Kitchen is **1,021 recipes and a deliberate shelf** — Tinza is global on purpose. A locale rule that *hides* food is **a filter, not a nudge**, and a filter is a different feature needing its own ruling. ⚖️ **Law 3 — never zero results.**
+- 🔒 **LOCALE STAYS SYSTEM-PICKED.** Inherited from the ruling above: location picks the kitchen, **the user never picks it**, and it is **never a version chip.** Two axes, never tangled.
+- 🧭 **THE GENERAL FORM:** *a sort key that is a pure number is blind to the person.* Wherever Tinza ranks on cost or time alone, ask whether the winner of that number is also the right answer for **who is asking, and where they are standing.**
+- 📋 **QUEUED, NOT BUILT.** Budget is the surface that proved it; it is not the only one. **Do not bolt this into `budget.js`** — the sort is shared (`balancedOrder()`), so the nudge belongs beside it. ⚖️ **Law 6 — one door.**
+- ⚠️ **SEEN WHILE MEASURING, NOT DIAGNOSED:** the R8 entry reads **`Плацинда`** in the data and **"Plachynda (Stuffed Flatbread)"** on screen. Check it against the **wk_europe re-decode** queue before assuming either is correct.
+
+---
+
 
 ### 🆕 🚪 THE NORMALISER AT THE DOOR — **RULED 15 Jul 2026**
 *Reserve the SHAPE now, so nothing needs retrofitting across 2,083 recipes or everyone's saved data. Pairs with `sections/TINZA_CONTRACT_SLOTS.md`.*
@@ -583,6 +630,25 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - ⚠️ **TEMPTING EXCLUSION — BUNNY CHOW IS BELOVED, SA-ICONIC, AND STILL A `2`.** Icon status is not five real forks. **Never pad a rung with stubs to reach its number.**
 - 🩸 **15.1 AND 15.2 ARE READ TOGETHER.** Bobotie sets the **QUALITY BAR PER VERSION** — never the count. *"Make them all like bobotie"* read on its own becomes an unfinishable job before October.
 
+#### 🏅 THE RUNG MUST BE **STORED**, NOT INFERRED FROM THE VERSION COUNT — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul: **"we must give preference to these variations, it's better meals."** The intent is right — a dish that earned five versions IS a better meal. **The proxy is not**, and the measurement says why.*
+
+- 🚨 **VERSION COUNT TODAY MEASURES AUTHORING PROGRESS, NOT FAME.** Measured 21 Jul: **only 88 of 733 budget-pool meals carry versions — 12%.** Library-wide **203 of 2,083 — 10%.** Rank on "has versions" and **the sort becomes a map of how far the authoring sweep got.**
+- 🩸 **§15.2's OWN RUNG-5 EXAMPLES DISPROVE IT:**
+
+  | rung-5 dish | records | with versions | **bare** |
+  |---|---|---|---|
+  | curry | 33 | 4 | **29** |
+  | bobotie | 2 | 1 | **1** |
+  | bolognese | 2 | 2 | 0 |
+
+  **Twenty-nine curries would sink below an authored rung-2 dish** that happened to get written first. **Exactly backwards.**
+- ❌ **FAME IS NOT STORED ANYWHERE.** Measured: no `fame`, `rung`, `tier` or `rank` field exists on any record. §15.2 defines the **test** and nothing carries the **answer.**
+- ✅ **THE RULING: STORE THE RUNG AS A FIELD. RANK ON THE RUNG.** Then an **unauthored rung-5 curry ranks correctly the day it is written**, before it has a single version — and authoring progress stops contaminating the sort.
+- 🎁 **THE SAME FIELD IS THE AUTHORING QUEUE, FOR FREE.** *Rung 5 with zero versions* is precisely the list of what to write next. **One field, two jobs.**
+- ⚖️ **THIS IS LAW 47 AGAIN, ON A NEW AXIS.** *A diet is a FACT, not a word in a sentence.* **Fame is a FACT, not a count of how much work we did.** Derive it once, store it, query it.
+
 ### 🧬 15.3 · WHICH FIELDS LIVE ON THE VERSION — **MF131, WIDENED**
 
 - 🧪 **THE TEST: IS IT DERIVED FROM THE INGREDIENT LIST?**
@@ -608,6 +674,83 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 ---
 
+### 💰 15.5 · **COST IS A FACT ON THE VERSION. THE BUDGET ROOM MUST QUERY IT.** — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul: **"it would be nice if someone can find a budget bobotie in here — that's why all prices must also be tagged, like Veg and V."** She is right, and §15.4 already did most of the work.*
+
+- 🩸 **THE EVIDENCE, MEASURED AT HEAD — BOBOTIE:**
+
+  | | costPP |
+  |---|---|
+  | **record** | **R34** ← *the only price Budget can see* |
+  | Classic | R38 |
+  | **Budget** | **R26** — *exists, priced, unreachable* |
+  | Quick | R34 |
+  | **Lentil** | **R24** — *cheaper still* |
+
+  Ask Budget for **R26 a head and Bobotie does not appear.** The Budget Bobotie was authored, priced, and **the query has never once looked at it.**
+- ✅ **THE DATA IS ALREADY THERE — THIS IS A QUERY FIX, NOT AN AUTHORING JOB.** **686 of 708 versions carry their own `costPP` (97%)**, and **`budget` is the single most common version name in the library — 49 of them**, 55 counting *budget stretch · thrifty · budget pot-roast*. **All 55 invisible to the room built for exactly that person.**
+- 🪞 **IT IS THE SAME SHAPE AS THE VETKOEK EVIDENCE IN §15.4.** *The query reads the RECORD; the record's face is Classic; so a budget meal misses the budget room.* **One bug, two surfaces.**
+- 🧮 **THE HONEST GAIN — IT IS IN THE MIDDLE, NOT AT THE BOTTOM:**
+
+  | per person | now | by version | gain |
+  |---|---|---|---|
+  | R8 | 7 | 7 | **+0** |
+  | R15 | 64 | 66 | +2 |
+  | R25 | 187 | **221** | **+34** |
+  | R30 | 284 | **329** | **+45** |
+  | R40 | 441 | 476 | +35 |
+
+  ⚠️ **THIS DOES NOT RESCUE THE R8pp SHOPPER.** Budget versions are *"a little more per person and meat comes back"* food, not floor food. **The locale nudge is what serves the bottom band; this serves R25–R40.** Do not let one be sold as the other.
+- 🏷️ **COST BECOMES A QUERYABLE FACET, EXACTLY LIKE DIET.** Diet works because it is a **FACT ON THE VERSION**, derived in Node, never read out of prose (⚖️ Law 47). **Cost must be the same.** Then *"find me a budget bobotie"* stops being a special case and becomes an ordinary query.
+- 🔁 **THE RECORD'S PRICE STAYS THE DEFAULT VERSION'S PRICE** (MF131, unchanged). This ruling adds a **reachable minimum**, it does not move the face.
+- 💸 **THE SCALE OF WHAT IS HIDDEN — measured 21 Jul, budget pool:** of **88 meals carrying priced versions, 85 are cheaper via a version.** **69 hide a discount of ≥25%.** **12 hide more than half.**
+
+  | hidden | record → version | dish |
+  |---|---|---|
+  | **71%** | R52 → R15 | Crispy Fish Cakes |
+  | **71%** | R48 → R14 | **Cape Town Gatsby** |
+  | **67%** | R48 → R16 | **Lamb Sosaties** |
+  | 58% | R38 → R16 | Crunchy Chicken Schnitzel |
+  | 55% | R40 → R18 | **Durban Bunny Chow** |
+  | 51% | R59 → R29 | **Spaghetti Bolognese** |
+
+  🚨 **SPAG BOL IS THE CLEAREST CASE:** record **R59**, Budget **R31**, Quick **R29**. A shopper with R31pp **cannot reach it at all**, while the R31 version sits inside the record she was refused.
+- 🌍 **THIS PARTLY FIXES THE LOCALE SKEW ON ITS OWN — CONFIRM WHEN BUILDING.** The biggest hidden discounts are **disproportionately SA comfort food** — Gatsby, sosaties, bunny chow, bobotie. §11 measured the R0–R10 band at only **14% SA-reachable**; part of that is **SA budget versions being invisible, not absent.** Measure the band again after this ships **before** sizing the locale nudge.
+- ❓ **SEEN WHILE MEASURING — A DUPLICATE FOR TINA TO RULE:** **`Classic Bobotie` [meals] R34 with six versions** and **`Bobotie` [world] R26 with none.** The world record is bare and its single price equals the meals record's **Budget** version. Duplicate rule says *same dish + same name → keep the most comprehensive* — but these are **near-name, not same-name.** ⚖️ §2.3 — **ask Tina, do not infer.**
+- ⛓️ **THIS IS NOT NEW WORK — §15.4 UNBLOCKS IT.** §15.4 ruled *query · opener · plan* as three coupled changes and settled the plan half. **Budget-by-version is those same three changes on a second surface.** Ship §15.4 and this becomes small. Ship this first and the plan cannot hold what the shelf surfaced. ⏱️ **ORDER: §15.4 FIRST.**
+- ⛔ **DO NOT BOLT IT INTO `budget.js`.** Mood needs it, Budget needs it, and any future shelf that ranks on a number needs it. ⚖️ **Law 6 — one door.**
+
+---
+
+#### 🩸 15.6 · THE ADAPTER BINS WORLD KITCHEN'S VERSIONS — **FOUND 21 Jul 2026**
+
+*Found because Tina sent three screenshots of World Kitchen cards **showing version chips** after Claude had reported "0 of 1,021 WK records have versions." **The screenshots were right.** ⚖️ Law 2.*
+
+- 📍 **ONE LINE.** `sections/index.js:446` — the `section:'world'` adapter ends
+  `photoName: r.name, versions:null`.
+- 🩸 **THE DATA IS REAL AND IT IS BINNED:** **92 raw WK records carry versions — 213 version records in total. ZERO survive `allRecipes()`.**
+  *Feijoada raw:* `[{name:"Classic",default:true},{name:"de Feijão Branco (White-Bean)"}]` → *via the index:* `[]`.
+- 🖥️ **WHY IT LOOKS FINE ON SCREEN:** World Kitchen renders from the **raw arrays** (`WK_EUROPE` etc.) via `worldkitchen.js:728 → versionStripHTML`. **The card is honest. The INDEX is not.** So the chips show, and **Budget, Mood, search and every shelf query see nothing.**
+- 🔁 **IT IS THE SAME BUG AS BRAAI, IN THE SAME FILE, 112 LINES APART.** `index.js:334` hard-codes `costPP:null` and bins Braai's cost (⚖️ Law 23). `index.js:446` hard-codes `versions:null` and bins World Kitchen's versions. **One adapter, two hard-coded nulls, two rooms amputated from every query.**
+- ⚠️ **THIS BLOCKS §15.5.** *"Budget must query versions"* returns **nothing** for 1,021 World Kitchen dishes while this line stands. **Fix the adapter FIRST or §15.5 ships half-working and looks correct.**
+- 📏 **WHERE FABLE ACTUALLY GOT TO** — measured from the raw arrays, the only honest source:
+
+  | country | versioned | of |
+  |---|---|---|
+  | **Greece** | **54** | **54** ✅ complete |
+  | **Portugal** | **33** | 52 ⏸ stopped 19 short |
+  | Austria | 4 | 27 |
+  | Cape Malay | 1 | 21 |
+
+- 💰 **ONLY 1 OF THE 92 CARRIES A BUDGET FORK.** Fable wrote **cultural** forks — white-bean, lobster, lamb, mushroom. Good food, and **no help to the R26 shopper.** Tina, 21 Jul: *"a lot of these variations can have budget."* **That gap is real and it is hers to close.**
+- 🧭 **THE LESSON ABOUT MEASURING:** three separate wrong answers were given about `worldkitchen.js` in one session — the country count, whether versions render, and whether versions exist — **every one of them from reading the ADAPTER'S OUTPUT and calling it the data.** ⚖️ **Law 36, sharpened: measure the SOURCE, and name which layer you measured.**
+- ✅ **CENSUS CHECK CANDIDATE:** *no adapter branch may hard-code a reserved field to `null`.* Assert against `versions` and `costPP` in `index.js`; prove it by restoring either null.
+
+---
+
+
+
 ## 🔗 16 · `goesWith` IS A PAIRING, NEVER A SIMILARITY — **RULED 21 Jul 2026**
 *Raised by Tina off the vetkoek card, in four words: **"goes well with other deep fried stuff?"***
 
@@ -619,6 +762,28 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - 🧹 **THIS IS A SWEEP, NOT A PATCH.** If vetkoek's `goesWith` was authored as *"similar deep-fried things"*, other cards were authored the same way. Every link verified against the real library — **C4**, `WOW_STANDARD.md`.
 
 ---
+
+#### 🔗 16.1 · A `goesWith` ENTRY IS ONE OF **THREE** THINGS. THEY NEED THREE DIFFERENT FIXES. — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul, off the Bifana card: **"that is very important, the goes with."** Measured before ruling.*
+
+- 🩸 **THE STATE AT HEAD:** **4,672 `goesWith` entries across 1,548 recipes. Only 1,176 — 25% — resolve to a real dish in the library.** 1,156 distinct labels do not.
+- ⚠️ **BUT "DOES NOT RESOLVE" IS NOT THE SAME AS "WRONG."** Split three ways:
+
+  | kind | n | the fix |
+  |---|---|---|
+  | **NON-DISH ACCOMPANIMENT** *(tea · coffee · beer · wine · mustard · lemon · cream)* | **463** | ✅ **CORRECT AS WRITTEN. KEEP.** A Bifana **does** go with mustard and beer. **It must render as PLAIN TEXT, never as a dead link.** |
+  | **VAGUE PLACEHOLDER** *(bread · salad · rice · potatoes · vegetables)* | **560** | 🩸 **THE DEBT. REPLACE WITH A REAL NAMED DISH** — the library already has them: *"salad"* while **Greek Salad** exists; *"crusty bread"* while **Mielie Brood** and **Easy Beer Bread** exist. |
+  | **NAMED BUT ABSENT** | **2,473** | ❓ **NEEDS EYES.** Either the dish gets written, or the link is removed. ⚖️ **Law 45 — a missing link beats a wrong one.** |
+
+- 🍽️ **THE SPECIMEN:** `Bifana` [world · portugal] R22 — `goesWith: ["mustard","beer","chips"]`. **Two are correct accompaniments; one is a placeholder.** One card, two of the three kinds.
+- ⛔ **DO NOT "FIX" ALL 3,496.** Rewriting the 463 correct accompaniments into dishes would make the field **less** true. ⚖️ **Law 22 — this is a risk list, not a bug list.**
+- 🧭 **THE FIELD IS CARRYING TWO JOBS AND SHOULD PROBABLY CARRY ONE.** *"What shares the plate"* covers both **a dish you could cook** and **a thing you put on the table.** Only the first is linkable. **If they are ever separated, separate them by that test** — not by whether the string happens to match a recipe name.
+- 📋 **`pickles` appears 64 times and the library holds NOTHING.** Either a content gap or an accompaniment. **Tina rules.**
+- ⏱️ **THE 560 ARE THE SESSION.** They are unambiguous, the replacement dishes already exist, and they are the ones a user actually taps. Start there; leave the 2,473 until the rung pass says which dishes are coming anyway.
+
+---
+
 
 ## 🔐 17 · DEV MODE IS A STORED FLAG ON TINA'S DEVICE, NEVER A URL — **RULED 21 Jul 2026**
 *Raised as Week 1 item 2: close the `?dev` back door. Measured first (⚖️ **Law 36**), and the measurement moved the target — **`?dev` was never the money door. The tier switcher was, and it has no door at all.***
