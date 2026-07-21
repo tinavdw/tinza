@@ -73,6 +73,11 @@ var SPICE_DB = [
   },
 
   {
+    // MF125-B · SIDE, not CONDIMENT. Eaten by the bowl alongside pap, not spooned on
+    // like a relish. Spice-room MEMBERSHIP does not imply the CONDIMENT slot — Monkey
+    // Gland Sauce is CONDIMENT because its record says so, not because it lives here.
+    // Authored on the record; spice only transports it. ⚖️ MF125 · ruled 21 Jul.
+    slot: "SIDE",
     id: "chakalaka", emoji: "🥕",
     name: "Chakalaka",
     type: "relish",

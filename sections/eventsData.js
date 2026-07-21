@@ -725,7 +725,8 @@ const EVENTS_STARTERS = [
     base300:[{n:"Butternut (peeled, cubed)",a:"200g per person"},{n:"Vegetable stock",a:"200ml per person"},{n:"Onion",a:"20g per person"},{n:"Garlic",a:"1g per person"},{n:"Feta (for topping)",a:"20g per person"},{n:"Cream (optional)",a:"30ml per person"},],
     method:["Toss butternut with olive oil. Roast at 200°C 25 min until caramelised on edges.","Sauté onion and garlic until soft.","Add roasted butternut and stock. Simmer 15 min.","Blend completely smooth. Season with nutmeg, cinnamon, salt and pepper.","Stir in cream if using. Reheat gently.","Serve in bowls with crumbled feta and drizzle of olive oil."],
     tip:"Roasting the butternut first concentrates the sweetness and gives 10x more flavour than boiling. Never skip this." },
-  { id:"biltongsalad", name:"Biltong & Blue Cheese Salad", emoji:"🧀", costPP:21,
+  // MF125-B · SIDE. Braai already had it right; events derived SUPPER off the room.
+  { slot:"SIDE", id:"biltongsalad", name:"Biltong & Blue Cheese Salad", emoji:"🧀", costPP:21,
     perPerson:{meat:100,unit:"g"},
     base300:[
       {n:"Mixed leaves (rocket, spinach, watercress)",a:"50g per person"},
@@ -1055,7 +1056,8 @@ const EVENTS_DESSERTS = [
       "GANACHE GLAZE: Pour equal parts hot cream and melted dark chocolate over the chilled cake for a mirror-like finish."
     ],
     tip:"For large groups: use individual silicone moulds or ramekins — they bake faster, require no water bath, and provide an elegant pre-portioned serving. The 'low and slow' rule is everything — this is a custard, not a cake." },
-  { id:"advocaat", name:"Advocaat (Dutch Egg Liqueur)", emoji:"🥚", costPP:18,
+  // MF125-B · DRINK. Beverages already had it right; events derived SUPPER off the room.
+  { slot:"DRINK", id:"advocaat", name:"Advocaat (Dutch Egg Liqueur)", emoji:"🥚", costPP:18,
     serves:8,
     base300:[
       {n:"Large egg yolks (1 per person)",a:"1 per person"},
@@ -1100,7 +1102,9 @@ const EVENTS_DESSERTS = [
       "Serve with Chantilly cream (cream whipped with vanilla bean paste and a dash of maple syrup)."
     ],
     tip:"South African butternuts and pumpkins are more watery than American varieties — ALWAYS roast, never boil. Roasting concentrates the sugars and removes excess moisture for a firm, sliceable custard. For large events: individual mini-pies bake in 20–25 minutes and are the ultimate professional presentation. SA SWAP: no shortcrust? A crushed Tennis-biscuit & melted-butter base (about 200g biscuits to 80g butter, pressed and chilled) works beautifully." },
-  { id:"breadbutterpudding", name:"Bread & Butter Pudding", emoji:"🍞", costPP:12,
+  // MF125-B · TREAT — ruled 20 Jul. Braai carried the ruling; events never did, so the
+  // same pudding was a main through one door and a pudding through the other.
+  { slot:"TREAT", id:"breadbutterpudding", name:"Bread & Butter Pudding", emoji:"🍞", costPP:12,
     serves:8,
     base300:[
       {n:"Sturdy white bread (thick-cut)",a:"40g per person"},

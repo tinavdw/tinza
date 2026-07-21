@@ -442,7 +442,11 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:'events', name:r.name, emoji:r.emoji, mealRole:role,
+          // MF125-B · TRANSPORT ONLY. r.slot is authored on the record; this line just
+          // carries it across. It is NOT a rule — there is no literal on the right-hand
+          // side, and a record with no slot still falls through to derivation.
+          // ⛔ NEVER write a slot literal here. Put it in the data. ⚖️ Law 6.
+          id:r.id, section:'events', slot:r.slot||null, name:r.name, emoji:r.emoji, mealRole:role,
           diet: toArr(r.diet).map(lc), protein:null, cuisine:'',
           time:r.time!=null?r.time:null, kcal:num(r.kcal),
           costPP:r.costPP!=null?r.costPP:null,
@@ -526,7 +530,9 @@
     if(typeof SPICE_DB==='undefined') return [];
     return SPICE_DB.filter(Boolean).map(function(r){
       return rec({
-        id:r.id, section:'spice', name:r.name, emoji:r.emoji||'🧂', mealRole:'condiment',
+        // MF125-B · TRANSPORT ONLY — see adaptEvents. Spice-room membership does not
+        // imply CONDIMENT; chakalaka is a SIDE and says so on its own record.
+        id:r.id, section:'spice', slot:r.slot||null, name:r.name, emoji:r.emoji||'🧂', mealRole:'condiment',
         diet:[], protein:null, cuisine:r.region||'', aliases:r.aliases,
         time:null, kcal:null, costPP:r.costPP!=null?r.costPP:null,
         ingredients:[], goesWith:r.pairsWith||[],

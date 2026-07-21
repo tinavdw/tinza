@@ -170,7 +170,14 @@ head('7 · WHO CHANGES THE SCREEN WITHOUT CLOSING THE OPEN RECIPE?   ⚖️ Law 
 {
   const SD = path.join(ROOT,'sections');
   const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
-  const PROVEN = { 'braai.js:28':1, 'spice.js:7982':1 };   // Tina's fingers, 14 Jul
+  // 🩸 THIS KEY IS A LINE NUMBER AND LINE NUMBERS ROT. ⚖️ Law 22.
+  // 21 Jul: a 5-line edit at spice.js:76 moved the proven statement 7982 → 7987. The
+  // key stopped matching, the bug fell out of PROVEN into `risk`, and the census RED
+  // count went DOWN BY ONE WITH NOTHING FIXED. Under Law 51 — count before, count
+  // after — that reads as progress and would have waved the edit through.
+  // Nothing here was fixed; only the address changed. Re-pin on every move until this
+  // is re-keyed on the STATEMENT rather than its position. Needs a ruling.
+  const PROVEN = { 'braai.js:28':1, 'spice.js:7987':1 };   // Tina's fingers, 14 Jul
   const guilty = [], clean = [];
   files.forEach(f => {
     const s = fs.readFileSync(path.join(SD,f),'utf8');
@@ -957,14 +964,38 @@ p('       SUPPER looks exactly like an honest one. This rung reads the SHAPE ins
   // braai. Same record, three paths, two answers — and the room won. Bare id is the
   // right key here precisely BECAUSE it collides across sections: those collisions
   // ARE the multi-door recipes. (favKey includes the section, so it cannot see this.)
+  // ── ①'s OWN EXEMPTION LIST ── RULED 21 Jul. ONE PAIR. WRITTEN DOWN. ────────────
+  // An AUDIENCE marker is not a meal slot. tiny_tummies answers "who is eating" —
+  // BABYFOOD is not a course, so it cannot agree or disagree with SUPPER or SIDE.
+  // Braai Sweet Potato is a SIDE and a baby meal at once; that was never a conflict.
+  //
+  // 🩸 PAIR-PINNED, NOT ROOM-EXEMPT — the same discipline as ② below, for the same
+  // reason: tiny is silenced ONLY where it says BABYFOOD. If a tiny record ever
+  // resolves SUPPER through one door and SIDE through another, that is a real
+  // disagreement and this list must not swallow it.
+  // 🩸 A SECOND PAIR HERE IS A RULING, NOT A CODE CHANGE. Ask Tina. This list is the
+  // cheapest place in the census to hide a bug, so it PRINTS on every run.
+  // ⚠️ tiny is 18 records — BELOW ②'s 20-record floor, so ② does not watch it either.
+  //    A blanket assign inside tiny is currently unwatched by both halves. Logged.
+  const DOOR_EXEMPT = { tiny: 'BABYFOOD' };
+  const isMarker = r => DOOR_EXEMPT[r.section] === r.slot;
+
   const byId = {};
   all.forEach(r => { (byId[r.id] = byId[r.id] || []).push(r); });
   const multi = Object.keys(byId).filter(k => byId[k].length > 1);
-  const disagree = multi.filter(k => new Set(byId[k].map(r => r.slot)).size > 1);
+  // Compare only the doors that claim a COURSE. Drop the audience markers first; a
+  // recipe left with fewer than 2 course-claiming doors has nothing to disagree with.
+  const courseDoors = k => byId[k].filter(r => !isMarker(r));
+  const disagree = multi.filter(k => {
+    const d = courseDoors(k);
+    return d.length > 1 && new Set(d.map(r => r.slot)).size > 1;
+  });
   p('     ' + num(multi.length) + '  recipes reachable from more than one section');
+  p('     \x1b[2mexempt door (audience marker, not a course — ruled 21 Jul; a 2nd needs a ruling): ' +
+    Object.keys(DOOR_EXEMPT).map(k => k + '=' + DOOR_EXEMPT[k]).join(' · ') + '\x1b[0m');
   if (disagree.length) bad(disagree.length + ' RECIPE(S) RESOLVE A DIFFERENT SLOT DEPENDING ON THE ROOM',
     '\n      ' + disagree.slice(0,6).map(k =>
-      byId[k][0].name + ' → ' + byId[k].map(r => r.section + ':' + r.slot).join(' vs ')).join('\n      ') +
+      byId[k][0].name + ' → ' + courseDoors(k).map(r => r.section + ':' + r.slot).join(' vs ')).join('\n      ') +
     '\n      \x1b[2mThe record is not the variable — the adapter is. Slot belongs in the DATA. ⚖️ Law 6.\x1b[0m');
   else ok('Every multi-door recipe resolves the same slot on every path', multi.length + ' checked');
 
