@@ -329,9 +329,26 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 *`balancedOrder` in `sections/index.js` is a round-robin, not a model.*
 🔀 **MOVED FROM 12 ON 21 Jul 2026** by ⚖️ **Law 58** — it was the cheaper side. Its one live citation, the `(L12 · NO ML)` comment in `sections/index.js`, **moves in the same commit.** ⚖️ **Law 58.4.**
 
+### 60 · 🆕 🩸 **EVERY INSTRUCTION NAMES THE HAND THAT WILL DO IT.**
+# **EVERY PUSH IS TINA'S, BY HAND, UNTIL `gh` IS INSTALLED. CLAUDE SAYS "PUSH NOW" IN THOSE EXACT WORDS — OR TINA DOES NOT PUSH.**
+*Written down 21 Jul 2026. **It had been in force for weeks and had never been written** — it lived in chat handovers, was called "Law 56" from memory, and 56 was already taken. ⚖️ **Law 15**: a rule that lives only in the chat is not a rule. This one governed the hands and still wasn't on paper.*
+
+- 🖐️ **A BRIEF THAT DOES NOT NAME THE HAND IS INCOMPLETE.** Claude writes · Code implements · **Tina pushes.** Say which, every time.
+- 🗣️ **"PUSH NOW" IS A RESERVED PHRASE.** Not "you can push this", not "ready to push". **Those exact two words, or nothing has been authorised.**
+- ⛔ **NO SILENT HANDOFFS.** "This is done" without naming the hand has closed nothing. ⚖️ **Law 54d — work is banked by a commit, not by existing on disk.**
+- 🔓 **WHEN `gh` IS INSTALLED THIS LAW DOES NOT LAPSE — IT CHANGES HANDS.** The instruction still names who pushes. It simply becomes possible for that to be Claude, and it must then say so out loud.
+
+### 61 · 🆕 🩸 **A RED COUNT IS NOT A FACT. THE RED LINES ARE.**
+# **ANY MOVEMENT IN A CENSUS OR DOCTOR TOTAL IS DIFFED LINE BY LINE BEFORE IT IS ACCEPTED — OR FEARED.**
+*Born 21 Jul 2026 from MF131: census went **17 → 16** against a brief that predicted 17, and it was a **genuine clear.** Two rungs were watching one fault at different severities — **rung 11 as a hard RED, rung 18 as a warn** — one fault, two lines, and the brief had counted it once.*
+
+- 🔢 **A TOTAL IS A SUMMARY OF EVIDENCE, NEVER THE EVIDENCE.** Read the lines that moved. ⚖️ **Law 36 — the count is truth, the render is a courtesy;** this is its other half: the count is truth about *lines*, not about *faults*.
+- 🪜 **ONE FAULT MAY LIGHT TWO RUNGS.** Never assume a rung maps to a defect. Check which rungs moved before concluding how many things changed.
+- 🩸 **A BRIEF CARRYING A WRONG EXPECTED NUMBER IS CORRECTED IN ITS OWN COMMIT.** A wrong prediction trains the next session to absorb real movement as noise — **which is exactly what ⚖️ Law 54c exists to prevent.**
+
 ---
 
-**New laws start at 60.**
+**New laws start at 62.**
 
 🩸 *54a and 54b are SUB-LETTERED, not renumbered — 55, 56 and 57 were already committed in code and briefs on 20 Jul, and renumbering would orphan live references. **Six numbers are already lost. Do not create a seventh.***
 
