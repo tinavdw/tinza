@@ -170,29 +170,85 @@ head('7 · WHO CHANGES THE SCREEN WITHOUT CLOSING THE OPEN RECIPE?   ⚖️ Law 
 {
   const SD = path.join(ROOT,'sections');
   const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
-  // 🩸 THIS KEY IS A LINE NUMBER AND LINE NUMBERS ROT. ⚖️ Law 22.
-  // 21 Jul: a 5-line edit at spice.js:76 moved the proven statement 7982 → 7987. The
-  // key stopped matching, the bug fell out of PROVEN into `risk`, and the census RED
-  // count went DOWN BY ONE WITH NOTHING FIXED. Under Law 51 — count before, count
-  // after — that reads as progress and would have waved the edit through.
-  // Nothing here was fixed; only the address changed. Re-pin on every move until this
-  // is re-keyed on the STATEMENT rather than its position. Needs a ruling.
-  const PROVEN = { 'braai.js:28':1, 'spice.js:7987':1 };   // Tina's fingers, 14 Jul
+  // ── PROVEN — KEYED ON THE STATEMENT, SCOPED BY FILE ── MF130 · RULED 21 Jul ──────
+  // 🩸 THIS USED TO BE A LINE NUMBER, AND LINE NUMBERS ROT. On 21 Jul a 5-line edit at
+  // spice.js:76 — an unrelated part of the file — moved the proven statement 7982 →
+  // 7987. The key stopped matching, the bug fell out of PROVEN into `risk`, and the
+  // census RED count went DOWN BY ONE WITH NOTHING FIXED. Under Law 51 (count before,
+  // count after) that reads as progress and would have waved the edit through.
+  //
+  // 🩸 So the real hazard was never one missed bug: THE RATCHET CAN BE WALKED BACKWARDS
+  // BY EDITING AN UNRELATED PART OF THE SAME FILE — silently, with nobody acting in bad
+  // faith. Any insert above any pinned line reads as progress. ⚖️ Law 42 · Law 3.
+  //
+  // Ruled preference order was: a stable identifier if one exists; else the statement
+  // text with file as scope; line number ONLY as a printed hint, never as the key.
+  // A bare `S.screen=` statement carries no identifier, so it is the text. Verified
+  // 21 Jul: this text occurs EXACTLY ONCE in braai.js and ONCE in spice.js, so file
+  // scope is required and, with it, the key is unique.
+  const PROVEN = {                                    // Tina's fingers, 14 Jul
+    'braai.js': ["S.screen='search_results';"],
+    'spice.js': ["S.screen='search_results';"],
+  };
   const guilty = [], clean = [];
+  const seen = {};   // file → { statement → 'guilty' | 'clean' }   guilty always wins
   files.forEach(f => {
     const s = fs.readFileSync(path.join(SD,f),'utf8');
     const re = /(set\(\{[^}]*screen\s*:\s*['"][a-zA-Z_]+['"][^}]*\}\)|S\.screen\s*=\s*['"][a-zA-Z_]+['"][^;]*;)/g;
     let m;
     while ((m = re.exec(s))) {
       const stmt = m[0];
-      const at = f + ':' + s.slice(0,m.index).split('\n').length;
+      const at = f + ':' + s.slice(0,m.index).split('\n').length;   // a HINT to print, never a key
       const scr = (stmt.match(/screen\s*[:=]\s*['"]([a-zA-Z_]+)['"]/)||[])[1];
-      (/viewingRecipe\s*[:=]\s*(null|false)/.test(stmt) ? clean : guilty).push({at,scr});
+      const isClean = /viewingRecipe\s*[:=]\s*(null|false)/.test(stmt);
+      if (!seen[f]) seen[f] = {};
+      if (!isClean) seen[f][stmt] = 'guilty';
+      else if (!seen[f][stmt]) seen[f][stmt] = 'clean';
+      (isClean ? clean : guilty).push({at,scr,f,stmt});
     }
   });
-  const proven = guilty.filter(g=>PROVEN[g.at]);
-  const risk   = guilty.filter(g=>!PROVEN[g.at]);
+  const isProven = g => (PROVEN[g.f]||[]).indexOf(g.stmt) >= 0;
+  const proven = guilty.filter(isProven);
+  const risk   = guilty.filter(g => !isProven(g));
+
+  // ── THE LOST-KEY ALARM ── the half that matters more than the re-keying ──────────
+  // Whatever we key on can still drift. A key that matches NOTHING is an unverifiable
+  // claim, not a cleared bug — so it must SCREAM and HOLD RED. A key that matches a
+  // statement now classified CLEAN is a genuine fix, and may clear, but must say so
+  // out loud rather than simply vanishing from the output. ⚖️ MF130, ruled 21 Jul.
+  //
+  // ⚠️ BREAKING A KEY HOLDS THE COUNT, IT DOES NOT RAISE IT: the statement leaves
+  // `proven` (−1 RED) and the alarm arrives (+1 RED). That is the point — the ratchet
+  // CANNOT BE RELEASED by breaking a key. It also means the count alone will not tell
+  // you a key broke. Read the LINES. ⚖️ Law 51 is a count; this rung is a claim.
+  //
+  // 🩸 FOUND BY PROBE, 21 Jul — FIXING THE BUG ALSO TRIPS THE ALARM. The key IS the
+  // statement text, and fixing the statement CHANGES that text, so a genuine fix
+  // reads as a lost key. `fixed` below is therefore near-unreachable in practice.
+  // That is not a bug in the alarm — it is the alarm refusing to clear a claim it can
+  // no longer see. But it means A PROVEN BUG CANNOT BE RETIRED BY CODE: retiring one
+  // is a RULING (Tina proved it; Tina clears it), recorded in TINZA_RULINGS.md, and
+  // only then is the key removed. ⚖️ Law 2 — done is when her finger says so.
+  // ⚠️ NEEDS A RULING on the retirement path. Until then the alarm is correct to hold.
+  const lost = [], fixed = [];
+  Object.keys(PROVEN).forEach(f => PROVEN[f].forEach(stmt => {
+    const state = (seen[f]||{})[stmt];
+    if (!state)               lost.push({f,stmt});
+    else if (state==='clean') fixed.push({f,stmt});
+  }));
+
   proven.forEach(g => bad('PROVEN ON LIVE  ' + g.at, '→ ' + g.scr + '   (Tina, 14 Jul: it opened Butter Chicken)'));
+  lost.forEach(k => bad('PROVEN KEY LOST — ' + k.f + '  ' + JSON.stringify(k.stmt),
+    '\n      \x1b[2mTina proved this on 14 Jul. A key that matches nothing is an UNVERIFIABLE' +
+    '\n      CLAIM, not a cleared bug. THREE causes, and the first is the likeliest:' +
+    '\n        1. SOMEONE FIXED IT — the fix rewrites the statement, so the key stops' +
+    '\n           matching. Good news, but it must be RETIRED BY A RULING, not by code.' +
+    '\n        2. The statement moved to another file.' +
+    '\n        3. It was edited or deleted without a ruling.' +
+    '\n      Do NOT delete the key to silence this. Rule on it, record it, THEN remove it.' +
+    '\n      ⚖️ MF130 · Law 2 — done is when her finger says so.\x1b[0m'));
+  fixed.forEach(k => ok('PROVEN NOW CLEAN — ' + k.f + '  ' + JSON.stringify(k.stmt),
+    'it closes the recipe first; this one is genuinely FIXED'));
   if (risk.length) warn(risk.length + ' MORE sites of the SAME SHAPE — same-shape, NOT yet proven',
     '\n      ' + risk.slice(0,12).map(g=>g.at).join(' · ') + (risk.length>12 ? ' …' : '') +
     '\n      \x1b[2m⚖️ Law 22 — this is a RISK LIST, not a bug list. Do not "fix" 32 sites.' +

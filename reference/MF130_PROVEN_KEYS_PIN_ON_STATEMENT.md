@@ -49,6 +49,29 @@ missing key already prints `PROVEN KEY LOST`, SAY SO AND STOP.**
 - ⛔ The lost-key alarm must **hold RED**, not warn. A key matching nothing is an
   unverifiable claim, not a cleared bug.
 
+## 4b. 🆕 RULED 21 Jul — **A PROBE WHOSE PASS IS "NOTHING CHANGED" MUST BE POSITIVE-CONTROLLED**
+
+**Three instances this week of a check going quiet, and the quiet reading as success:**
+
+1. A `PROVEN` key lost its anchor — census fell 18 → 17, nothing fixed *(this brief)*.
+2. Census 18 fell to 16 the same way, on the same edit.
+3. The MF129 probe **read empty stdin and exited 0** — PowerShell here-string syntax
+   in a Bash tool. It printed a clean "no change" that was indistinguishable from a
+   pass. It was caught **only** because that probe expected `204 → 205` and the
+   number sat still.
+
+**The ruling:** any probe whose pass condition is *"nothing changed"* must **first be
+run in a mode where something MUST change, and that movement observed.**
+
+> 🩸 **A probe that has never been seen to fail has not been shown to work.**
+
+MF129's probe is the model — it was caught because a specific number was expected to
+move. **Make that the required shape, not the lucky shape.** Every "expect no change"
+proof in every brief must be preceded by an "expect this exact change" run.
+
+⚖️ Law 3 — a thing that is wrong is silent. ⚖️ Law 42 — the ratchet only holds if it
+cannot be quietly released. ⚖️ same root cause as §1, which is why it is filed here.
+
 ## 5. THE EXACT CHANGE
 
 **5a — re-key on the statement.** Ruled preference order was: a stable identifier if
