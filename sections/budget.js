@@ -12,6 +12,12 @@ var BUDGET_MEAT_LINE_PP = 15;
 // one. ⚖️ Law 7 — a button that cannot do what it says is a lie.
 // ⛔ getMoreBudgetRecipes() (line ~359) is DELIBERATELY LEFT INTACT — MF78 turns it
 // back on. 🔁 RESTORE THIS BUTTON WHEN MF78 LANDS.
+//
+// 🩸 AND THE COPY WENT WITH IT. Removing the button first left How-it-works step 4
+// saying 'tap "Show me 3 more" for extra ideas' about a button that no longer exists,
+// and step 3 crediting Tinza Chef, who returns 503. A change that leaves the screen
+// lying is not finished — it is the same change, half-done. ⚖️ Law 3 · Law 7.
+// 🔁 RESTORE STEP 4 AND THE CHEF CREDIT IN STEP 3 WHEN MF78 LANDS.
 function budgetPlannerHTML(){
   const budget = parseFloat(S.budgetAmount||0);
   const people = parseInt(S.budgetPeople||4);
@@ -67,8 +73,7 @@ function budgetPlannerHTML(){
             <div style="position:relative;z-index:10;background:#1a1208;border:1px solid #3a2010;border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#e0d4b8;line-height:1.6;">
               <strong style="color:${color};">1. Enter your budget</strong> — type any amount from R40 upwards.<br>
               <strong style="color:${color};">2. Set people count</strong> — we calculate cost per person automatically.<br>
-              <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza Chef finds real meals within your budget.<br>
-              <strong style="color:${color};">4. Want more?</strong> — tap "Show me 3 more" for extra ideas.<br>
+              <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza finds real meals within your budget.<br>
             </div>
           `:''}
         </div>
