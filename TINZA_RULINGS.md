@@ -59,6 +59,23 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 
 🚨 **Moving Events → Deluxe is a GATE MIGRATION** — every Events screen re-gated. **Its own session. Not a price change.**
 
+### 🎪 2.2 · EVENTS IS ONE UMBRELLA WITH ONE PLAN — **CORRECTED 21 Jul 2026**
+*Tina, 21 Jul, in her own words: **"what I really wanted is all celebration/big functions under one umbrella."** The previously LOCKED wording — *"each tab is an EQUAL STANDALONE feature with its OWN My Plan"* — is **STRUCK.** It never matched the intent, and it never matched the code.*
+
+- 🩸 **THE CODE ALREADY DOES THE RIGHT THING. THE RULING WAS THE BUG.** Measured at HEAD: **one `S.eventGuests`** — a single guest count spanning every tab — feeding **nine selection buckets**: `eventSelectedMains` · `Starters` · `Sides` · `Salads` · `Desserts` · `Sauces` · `Cakes` · `Beverages` · `Fingers`. **That is one plan for one function, which is what catering a wedding actually is.**
+- 🎂 **THE TABS ARE COURSES OF ONE EVENT, NOT FIVE APPS.** Nobody plans a 21st and wants the cake in one plan, the drinks in another and the snacks in a third. **One guest count, one plan, one shopping list, one cost.**
+- 📉 **CONSEQUENCE FOR THE GATE LIST: Events is ONE surface, not five.** *(An earlier count in this session said five; it was read off the struck ruling instead of off the code. ⚖️ **Law 36** — including when the thing being measured is our own file.)*
+- 🍴 **THE TABS STILL EXIST AS NAVIGATION.** Buffet · Cakes · Beverages · Finger Foods · Kiddies remain the way you move around the room. **What is struck is "own My Plan", not the tabs themselves.**
+- 📋 **THIS DOES NOT MAKE `My Menu` REDUNDANT.** Events combines *within one function*; `My Menu` combines *across rooms* — the stub already says so: *"everything you've planned across all sections — with a combined shopping list."* **Events-internal is built; cross-room is still coming.**
+
+### 🚩 2.3 · WHEN THE FILE AND THE INTENT DISAGREE — **RULED 21 Jul 2026**
+*Raised by the Events correction above, and it is worth its own clause because it is the first real test of the closing rule of this file.*
+
+- 📜 **THE STANDING RULE:** *"If this file and the code disagree — the file is right and the code is a bug."* **That rule assumes the file captured what Tina meant.**
+- ⚠️ **WHERE IT DOES NOT HOLD: when the FILE is what misheard her.** Then "the file is right" would enforce a mistake against working code, with the full authority of a locked ruling behind it.
+- ✅ **THE TEST — ASK TINA, DO NOT INFER.** Where code and file diverge, the question is *"which one is what you actually wanted?"* — **never** *"which one is older."*
+- 🖊️ **A CORRECTION IS WRITTEN, DATED AND MARKED STRUCK — NEVER SILENTLY DROPPED.** The struck wording stays visible with the reason, exactly as it is above. ⛔ **Letting the code quietly win erodes the closing rule the first time it is inconvenient** — and that rule is load-bearing for every other line in this file.
+
 ---
 
 ## 🧑‍🍳 3 · TINZA CHEF (the AI)
