@@ -190,7 +190,11 @@ const PRICE_DB = {
   "mussels": 250,             // R100/400g → R250/kg
   "seafood mix": 157,         // R110/700g → R157/kg
   "calamari rings": 313,      // R125/400g → R313/kg
-  "snoek": 165,               // R165/kg braai snoek
+  "snoek": 147,               // MF134: reconciled 165→147. Gutted whole, bone-in, butterflied ready-to-grill. Pre-packed 1kg R130–165 → honest mid. R165 was the band ceiling AND sat above the R90–150 fillet band, which a bone-in price must never do (you are paying for the frame). Yield to flakes 50–55%. src:PnP/Checkers when:2026-07 conf:shelf (Tina 22 Jul 2026)
+  "snoek fillet": 120,        // R90–150/kg fresh or frozen → honest mid. Separate buy from braai snoek. (Tina 22 Jul 2026)
+  "maasbanker": 60,           // WHOLE ROUND. Fresh R60–62.90/kg; frozen 800g R39.99–51.99 → R50–65/kg; 2kg bulk R149.99 → R75/kg (worse value). Honest mid R60. Yield to flakes 40–45%. (Tina 22 Jul 2026)
+  "whole mackerel": 60,       // WHOLE ROUND, frozen R59.99/kg. Same whole-weight rule as maasbanker. (Tina 22 Jul 2026)
+  "tinned mackerel": 92,      // R36.99/400g → R92/kg. Drained flakes, no waste. (Tina 22 Jul 2026)
   "tiger prawns": 394,        // R315/800g → R394/kg
   "salmon": 680,              // R340/500g → R680/kg
   "haddock fillets": 325,     // R130/400g → R325/kg
@@ -792,7 +796,8 @@ const PRICE_DB = {
   "sour cream": 100,               // ESTIMATE — ~R25/250ml tub → R100/kg
   "lime": 140,                     // ESTIMATE — ~R10/lime (~70g) → R140/kg (gram use; lime_each handles count)
   // ── FMF close-out pass (11 Jul, Tina-sourced) ──
-  "hot smoked snoek": 450,         // R89.99/200g → R450/kg (plain "snoek" R165 stays separate)
+  "hot smoked snoek": 450,         // R89.99/200g → R450/kg (plain "snoek" R147 stays separate)
+  "smoked snoek": 450,             // MF134: was MISSING. 4 live recipes use this exact string — Korslose Snoek-en-Uietert, Smoked Snoek Scrambled Eggs, Smoorsnoek on Roosterkoek, Smoked Snoek & Baby Potato Salad — and were word-matching down to plain snoek or resolving null. Same value as hot smoked snoek. (22 Jul 2026)
   "dukkah": 600,                   // R36/60g → R600/kg. MAKEABLE: Spice > Blends
   "pearl barley": 70,              // R35/500g → R70/kg
   "ground coffee": 496,            // R124/250g → R496/kg (instant "coffee" R1050 stays separate)
