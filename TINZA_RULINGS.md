@@ -42,7 +42,10 @@
 ## 🔓 2 · WHAT EACH TIER GETS
 
 ### FREE (level 0)
-- Browse **every** recipe · **cook and view the full recipe** · scale **+/−** (guests/servings) · **Anchor Ingredient**
+- Browse **every** recipe · **cook and view the full recipe** · scale **+/−** (guests/servings)
+- 🔄 **ANCHOR INGREDIENT MOVED TO PRO — RULED 21 Jul 2026.** *It was Free. It is not any more.*
+  🩸 **THE REASON: IT IS AI-POWERED, SO EVERY FREE TAP SPENT REAL MONEY.** *Measured 21 Jul — `meals.js` calls the paid chef to build dishes around the anchor. A free feature with a per-use cost attached is a different shape of thing from the rest of Free, which costs nothing to serve however many times it is used.*
+  ✅ **FREE IS NOT WEAKENED BY THIS.** Free still browses, opens and scales **every one of 2,083 recipes.** That was always the offer; Anchor Ingredient was an extra that quietly billed. ⚖️ **Law 7 — the lock is the salesman:** Free now sees an honest lock over a feature that genuinely works, instead of a free feature Tina pays for.
 - Sees the **dietary BADGE** on a card. *(Ruled 12 Jul.)*
 - Sees the **honest COUNT** behind a lock: *"199 vegan recipes in Tinza — unlock with Pro."* **Never zero results. Never a lie.** ⚖️ Law 3.
 
@@ -70,6 +73,17 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 - ⚖️ **ALL OR NOTHING PER CARD.** `missing[] = 0` → show the cost. **Anything missing → SHOW NO COST.**
   **A card that prices SOME of the food is worse than one that prices none.** ⚖️ **Law 20.**
 - 🏆 **AND LOG THE MISSES. That log IS the next PRICE_DB shopping list — written by the chef himself.** ⚖️ **Law 36.**
+
+### 🔌 3.1 · THE CHEF IS SWITCHED OFF UNTIL HE IS CAPPED — **RULED 21 Jul 2026**
+
+*Read from the repo 21 Jul: `netlify/functions/claude.js` forwarded the browser's whole request to the Anthropic API with Tina's key attached, answered **every origin** (`Access-Control-Allow-Origin: "*"`), and had no rate limit, no size limit and no daily ceiling. Not a missing cost cap — an open, unauthenticated proxy to a paid account, live on the internet.*
+
+- ⛔ **THE CHEF IS OFF.** The endpoint returns `503` and **never reads the key, never calls Anthropic.** It comes back only via `reference/MF78_AI_CHEF_LOCK_AND_CAP.md`.
+- 🚪 **HIDING THE BUTTON IS NOT CLOSING THE DOOR.** The exposure was never the button in the app — it was the endpoint, which answered anyone who knocked whether or not Tinza called it. **A feature is switched off at the endpoint or it is not switched off.** ⚖️ **Law 6.**
+- ✅ **NOTHING BREAKS, AND THIS WAS MEASURED NOT ASSUMED.** All three call sites already wrap the call in `try/catch` and degrade silently — *"the app results stay. Nothing is lost."* Mood shelves keep serving from a library **160–784 deep per mood**; the library was always meant to carry them. ⚖️ **Law 20 — the cache is not a shortcut, it IS the business model.**
+- 🚨 **WHILE A FEATURE IS OFF IT SHOWS "COMING SOON" — NEVER A PRO LOCK.** Anchor Ingredient is now Pro *and* currently dark, and those two facts together would sell a padlock on an empty room. **Sell it when it works, not before.** ⚖️ **Law 7.**
+- 🔑 **THE KEY IS REVOKED, NOT JUST UNUSED.** Nothing reads `ANTHROPIC_KEY` any more, so it is retired at the console and removed from Netlify. **A revoked key cannot be billed however wrong the code is** — the only guard that does not depend on Claude, Code or Tina getting anything right.
+- 💰 **AND THE BILL WAS NOT WHAT ANYONE THOUGHT.** All three call sites asked for **Sonnet**; the function overwrote it with **Opus** on every request. Every comment said Sonnet, every invoice said Opus. **When he returns, the model is ruled once, out loud, in one place.** ⚖️ **Law 11.**
 
 ### 🆕 HOW MANY, AND WHEN — **RULED 14 Jul 2026**
 > 🩸 **TINA SAID THIS THREE TIMES BEFORE IT WAS WRITTEN. ⚖️ LAW 52 EXISTS BECAUSE OF THIS RULING.**
@@ -486,6 +500,69 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 > 🩸 **Tinza builds flavour from ingredients, never from flavour powders. Where a shortcut is unavoidable, the honest version is always one tap away.**
 
 *(Tina's personal preferences — homemade stock always, no Marmite — are noted as preferences, NOT law. The ruling binds only the flavour-powder line above.)*
+
+---
+
+## 🍽️ 15 · A VERSION IS A FULL RECIPE — AND THE PLAN HOLDS THE VERSION — **RULED 21 Jul 2026**
+*Raised off the Bobotie card, read end to end on live: six versions, each with its own ingredient list, method, tip, did-you-know, cost and nutrition. Tina: **"we must do all the variations like this one."** MF131 had already ruled that SLOT lives on the version — reading all six proved slot was only the FIRST field to move, and that a plan cannot hold a recipe which has not chosen one.*
+
+### 🏆 15.1 · A VERSION IS A FULL RECIPE, NOT A NOTE ON ONE
+
+- 📖 **Every version carries its OWN ingredients, method, tip, `didYouKnow`, cost and nutrition.** Nothing stubbed, nothing inherited by proxy. **Bobotie is the reference implementation.**
+- ⛔ **A STUB VERSION IS WORSE THAN NO VERSION.** It presents as a choice and delivers nothing — and after MF131 it also carries a slot, a cost, an allergen set and a plan entry. **A chip that cannot do what it says is a lie.** ⚖️ **Law 3.**
+- 📏 **MEASURED 21 Jul on live, all six:** Classic 560 kcal · R266 / R38pp — Quick 510 · R238 / R34 — Budget 480 · R182 / R26 — Lentil 430 · R168 / R24 — Pumpkin 540 · R287 / R41 — 1600s lamb 540 · R329 / R47.
+- ✅ **THE COST ORDERING IS ITSELF A CORRECTNESS CHECK — AND IT PASSED.** Lentil cheapest · lamb dearest · Budget under Classic · Quick under Classic *(no raisins, no almonds, 10 g less mince)* · Pumpkin over Classic *(+200 g pp)*. **Every number moved the direction its own ingredient list dictates.** ⚖️ **Law 22 — the render is the measurement.**
+  🔢 **Doctor candidate (⚖️ Law 42):** a version's `costPP` must move with **its own** ingredient list, never with the record's.
+
+### 🪜 15.2 · THE FAME LADDER — HOW MANY VERSIONS A DISH EARNS
+
+*`WOW_STANDARD.md` already rules count by fame (5/4/2/1). What it never gave was a **TEST** for which rung a dish sits on — and "very well known" means one thing to Tina at 11pm and something else to an agent reading the brief cold in six weeks.*
+
+| rung | the test | examples |
+|---|---|---|
+| **5** | national dish or global household name · **genuine** dietary forks · documented history | bobotie · spaghetti bolognese · lasagne · curry |
+| **4** | widely known, one or two real forks | shepherd's / cottage pie · chicken pie |
+| **2** | common dish with one obvious variation — usually budget or quick | most of the rooms |
+| **1** | everything else | most of the 1,877 |
+
+- 🍴 **A FORK COUNTS ONLY IF PEOPLE ACTUALLY COOK IT.** A vegetarian version invented to fill a slot is a stub, and 15.1 already forbids it.
+- ⚠️ **TEMPTING EXCLUSION — BUNNY CHOW IS BELOVED, SA-ICONIC, AND STILL A `2`.** Icon status is not five real forks. **Never pad a rung with stubs to reach its number.**
+- 🩸 **15.1 AND 15.2 ARE READ TOGETHER.** Bobotie sets the **QUALITY BAR PER VERSION** — never the count. *"Make them all like bobotie"* read on its own becomes an unfinishable job before October.
+
+### 🧬 15.3 · WHICH FIELDS LIVE ON THE VERSION — **MF131, WIDENED**
+
+- 🧪 **THE TEST: IS IT DERIVED FROM THE INGREDIENT LIST?**
+  - ✅ **ON THE VERSION:** `slot` · `costPP` · `nutrition` · `allergens` · `diet`.
+  - ✅ **ON THE RECORD:** `storage` · `freezes` · `fridgeDays`. *Measured: "Keeps 3 days; reheats beautifully" is identical across all six bobotie versions — and correctly so.*
+- 🔁 **The record's value for any version-level field is its DEFAULT VERSION's value.** *(MF131, unchanged.)*
+- ✅ **COST AND NUTRITION ALREADY DERIVE PER VERSION** — verified on screen, six for six. This clause mostly **ratifies what the code already does**, which is the cheapest kind of ruling to make.
+- 🔴 **ALLERGENS AND DIET ARE THE OUTSTANDING HALF — AND ALLERGENS IS A SAFETY FIELD, NOT A TIDINESS ONE.** Classic carries **almonds**; the other five do not. **Nuts is one of the ten R146 tokens.** A record-level allergen set is FALSE whichever way it falls — either Budget falsely warns nuts, or Classic falsely does not. Likewise `diet`: **Lentil is V** *(eggs and milk, so not VE)* and Classic is neither — **one record-level diet tag cannot be true for both.**
+- ⚠️ **CONFIRM THE NODE DERIVATION READS VERSIONS.** If it reads record-level ingredients only, then `derived 1877` was computed off **default versions alone** and silently under-counts. ⚖️ **Law 36 — measure it, do not assume it.**
+
+### 🛒 15.4 · THE PLAN HOLDS A VERSION, NOT A RECORD
+
+*Tina, 21 Jul, off the vetkoek card: you can add **"Vetkoek"** to a plan; you cannot add **"Vetkoek (Cheese)"**. The shopping list is what settles it.*
+
+- 🩸 **A LIST FOR "BOBOTIE" IS NOT BUILDABLE.** *Beef mince or brown lentils* is not a detail a shopping list can defer. **Add-to-plan per version is not a nicety — it is the only thing that makes the list buildable at all.**
+- 🔑 **PLAN KEY BECOMES `source:section:id:version`.** Same class of fix as the `source:section:id` correction that closed the **19 bare-id collisions** — the key was not specific enough to name the thing being stored. One level deeper, same lesson.
+- 💾 **`schemaVersion` 1 → 2. MIGRATION: A STORED ENTRY WITH NO VERSION RESOLVES TO THE DEFAULT VERSION** — which is exactly what it already silently does, **so the migration changes nothing a user can see.** A migration that preserves current meaning is the only safe kind.
+- 🔘 **ONE "Add to Plan" CONTROL PER PAGE, BOUND TO THE LIT VERSION CHIP**, labelled with the version name — *"Add Lentil to My Plan"* — via `tinzaListLabel()`. ⛔ **Not six buttons:** the chips already hold the choice, six buttons is the same state expressed twice and fights the scaler for space. ⚖️ **Law 6 — one door.**
+- 🧾 **THE SHOPPING LIST BUILDS FROM THE VERSION'S INGREDIENTS,** and `tinzaListLabel()` splits the plan rows — two vetkoek versions in one plan read as **two distinct rows**, never two identical lines.
+- 🔓 **THIS SETTLES THE OPEN QUESTION.** *"Does ANY version qualify"* for mood shelves was three coupled changes — **query · opener · plan** — and **the plan was the deciding one.** With the plan holding a version, the shelf may surface a version honestly and the opener opens what matched.
+  💀 **Evidence it was never optional:** vetkoek shows on *"it's cold and cloudy"* but **NOT** in *Sweets*. The query reads the RECORD, the record's face is **Sweet** — so a sweet treat misses the sweet shelf, while a mood that fits the savoury version surfaces the sweet one. **Both halves wrong in the same direction.**
+- ⏱️ **ORDER MATTERS — THE PLAN WORK SHIPS BEFORE THE VERSION AUTHORING SWEEP.** Author first and every version written **ships unreachable from a plan on the day it lands**; the backlog then grows faster than the fix.
+
+---
+
+## 🔗 16 · `goesWith` IS A PAIRING, NEVER A SIMILARITY — **RULED 21 Jul 2026**
+*Raised by Tina off the vetkoek card, in four words: **"goes well with other deep fried stuff?"***
+
+- 🍽️ **`goesWith` = WHAT SHARES THE PLATE OR THE MEAL.** Never the same dish family. Never a substitute.
+  🧪 **THE TEST — would A and B be an odd thing to serve together? Then the link is wrong.**
+- ❌ **THE FAILURE CASE, LIVE ON THE VETKOEK CARD:** *Amagwinya · Koeksisters · Doughnuts*. Those are not what you eat **with** vetkoek — **they are what vetkoek IS.** A similarity list wearing a pairing label.
+- ✅ **THE CORRECT PAIRINGS — Tina, 21 Jul:** **fresh fruit** *(cuts the fried heaviness)* · **bacon or breakfast sausage** *(savoury against the jam)* · **scrambled or fried eggs** *(turns a snack into a breakfast plate)*.
+- 🆕 **THE SIMILARITY RELATION IS REAL AND WORTH KEEPING — BUT IT NEEDS ITS OWN FIELD.** `similarTo` / *"if you like this"* — and it must **NEVER** render in the `goesWith` box. **Until that field exists, wrong links are REMOVED, not kept.** ⚖️ **Law 45 — a missing link beats a wrong one; unknown is not yes.**
+- 🧹 **THIS IS A SWEEP, NOT A PATCH.** If vetkoek's `goesWith` was authored as *"similar deep-fried things"*, other cards were authored the same way. Every link verified against the real library — **C4**, `WOW_STANDARD.md`.
 
 ---
 
