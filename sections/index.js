@@ -641,7 +641,7 @@
     return all;
   }
 
-  // ── balancedOrder — deterministic VARIETY round-robin (L12 · NO ML) ────────
+  // ── balancedOrder — deterministic VARIETY round-robin (L59 · NO ML) ────────
   //  Rule: diversify the axes the query left open. Partition `list` into buckets
   //  via opts.bucketOf (a field NAME or an r→key function), sort inside each
   //  bucket by opts.within, then draw ONE item per bucket in priority order
@@ -780,7 +780,7 @@
       return true;
     });
     // opts.balanceBy → run the variety round-robin over the filtered result.
-    // { balanceBy: field|fn, bucketOrder:[...], within:cmp }  (L12 primitive)
+    // { balanceBy: field|fn, bucketOrder:[...], within:cmp }  (L59 primitive)
     if(opts && opts.balanceBy){
       return balancedOrder(res, { bucketOf:opts.balanceBy, order:opts.bucketOrder, within:opts.within });
     }

@@ -239,7 +239,7 @@ function _budgetPool(perPersonBudget){
   }
   return pool;
 }
-/* ── B3 VARIETY (3 Jul, L12) ─────────────────────────────────────────────────
+/* ── B3 VARIETY (3 Jul, L59) ─────────────────────────────────────────────────
    Cheapest-first alone was swamped by the big cheap-vegan World Kitchen corpus,
    so the top of every budget looked the same. Fix = diversify the axis the query
    left open: bucket each result by protein/format and round-robin across buckets

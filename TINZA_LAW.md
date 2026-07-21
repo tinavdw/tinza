@@ -55,7 +55,10 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 
 ### 7 · 🩸 **THE LOCK IS THE SALESMAN.**
 *A Free user sees "Unlock the cost with Tinza Pro", pays — opens Lamb Tagine — and gets **"not yet priced."** **The lock SOLD her something Tinza does not have.***
-🏆 **RECOVERED 14 Jul from `TINZA_WK_PRICE_GAPS`.** ⚠️ **Law 44 is a restatement of this law. They are the same law, six weeks apart.** *(Tina to rule: merge 44 into 7, or keep both.)*
+**NO COST → RENDER NOTHING, NOT A LOCK. NO TIME → NO EMPTY "⏱️ —".**
+🆕 **AND SO MUST A BUTTON. A button that cannot do what it says is a lie.** *("Find again" returns the identical four cards, forever, from the cache.)*
+🏆 **RECOVERED 14 Jul from `TINZA_WK_PRICE_GAPS`.**
+✅ **RULED 21 Jul 2026 — LAW 44 IS MERGED INTO THIS LAW.** They were the same law told twice, six weeks apart. **44's BUTTON CLAUSE SURVIVES THE MERGE** — it was the only thing 44 said that 7 did not, and a merge that drops the new half is a deletion wearing a merge's coat. ⚖️ **Law 58 — 7 is older and more cited; the cheaper side moved.**
 
 ### 8 · ⚠️ **LOST. DO NOT REUSE.**
 
@@ -69,10 +72,10 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 *A model may not invent a Rand figure, and may not name a traditional dish. **It may, however, have its output PRICED** — by `costRecipe()`, off shelf-verified PRICE_DB. Two different acts.*
 *And: there is no English word for a koeksister. There is a koeksister.* **Gloss, never translate.**
 
-### 12 · 🚨 **CONFLICT — TWO DIFFERENT LAWS ARE BOTH CALLED 12. TINA MUST RULE.**
-- **12a** *(from `TINZA_BRIEF_MF28_rulings.md`, 12 Jul — Tina's own words)*: **DON'T SHIP A LOUD BLANK WHEN THE ANSWER IS RIGHT.**
-- **12b** *(from a code comment in `index.js`)*: **VARIETY IS DETERMINISTIC. NO ML.** *(`balancedOrder` — a round-robin, not a model.)*
-⚖️ **Law 22 — I did not guess. BOTH are written down somewhere. One of them needs a new number.**
+### 12 · 🩸 **DON'T SHIP A LOUD BLANK WHEN THE ANSWER IS RIGHT.**
+*From `TINZA_BRIEF_MF28_rulings.md`, 12 Jul — Tina's own words.*
+✅ **RULED 21 Jul 2026 — THE COLLISION IS CLOSED. 12 KEEPS THIS TEXT.** The second text — *variety is deterministic, no ML* — **moved to Law 59.**
+⚖️ **LAW 58 DECIDED IT, NOT PREFERENCE.** This text is cited in `Archive/TINZA_BRIEF_MF28_rulings.md`, and **archive is history — never edited to accommodate a renumber.** The other text had exactly one live citation, the `(L12 · NO ML)` comment in `sections/index.js`: a one-line change. **The cheaper side moved.**
 
 ### 13 · **A GUARD THAT NULLS A CORRECT ANSWER IS A BUG.**
 *`Coconut oil for frying → coconut oil` is a **correct** key. The L3 identity blanket nulled it. **The guard was the bug.***
@@ -169,10 +172,10 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 **A BOBOTIE HAS NO POTATO IN IT — NOT EVEN IF SHE HAS A POTATO.**
 ✅ *Held on live, 13 Jul. Four honest names. Not one stolen.*
 
-### 44 · 🆕 A LOCK MUST HAVE SOMETHING BEHIND IT. **NEVER SELL A PADLOCK ON AN EMPTY ROOM.**
-*A Free user taps a chef's card, sees "💰 Unlock cost with Tinza Pro", pays — **and the box is empty.***
-**NO COST → RENDER NOTHING, NOT A LOCK. NO TIME → NO EMPTY "⏱️ —".**
-🆕 **AND SO MUST A BUTTON. A button that cannot do what it says is a lie.** *("Find again" returns the identical four cards, forever, from the cache.)*
+### 44 · ✅ **MERGED INTO LAW 7 — 21 Jul 2026. DO NOT REUSE.**
+*A Free user taps a chef's card, sees "💰 Unlock cost with Tinza Pro", pays — **and the box is empty.** The same story Law 7 tells, six weeks later.*
+➡️ **THE FULL TEXT NOW LIVES AT LAW 7**, including the button clause, which 7 did not have.
+🩸 **MERGED IS NOT LOST.** *Lost* means never written. **44 was written, and its words survive at 7.** Both numbers stay retired; only one is a wound. ⚖️ **Law 58.**
 
 ### 45 · 🩸 **UNKNOWN IS NOT NO.**
 **AN UNTAGGED RECIPE IS NOT A NON-VEGETARIAN RECIPE. AN UNPRICED RECIPE IS NOT A FREE ONE.**
@@ -238,7 +241,7 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 
 ✅ **RECOVERED: 7 · 9 · 13 · 14 · 16 · 19 · 32** *(and Law 12's second text).*
 ⛔ **STILL LOST: 8 · 17 · 18 · 21 · 24 · 25.** **DO NOT REUSE THESE NUMBERS.**
-🚨 **AWAITING TINA: Law 12 has TWO texts. And Law 44 may simply BE Law 7.**
+✅ **CLOSED 21 Jul 2026 — BOTH, BY ⚖️ LAW 58.** *Law 12 keeps 12a; 12b moved to **59**. Law 44 **IS** Law 7 — merged, button clause preserved.* **The register no longer awaits anybody.**
 
 ### 53 · 🆕 🩸 **FINISH THE WHOLE THING, OR IT IS NOT DONE.**
 # **A FIX THAT DOES THE EASY CASES AND LEAVES THE REST FOR "A LATER PASS" IS NOT A FIX. IT IS A LEAK IN A GOOD MOOD.**
@@ -308,9 +311,27 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 ➡️ **EXPOSE THE DERIVABLE COMPONENTS INSTEAD: no pork · no alcohol (Law 55) · no shellfish.** *The cook combines them and applies her own judgement on sourcing. Useful to her — and honest.*
 *Precedent: NYT Cooking filters diet/cuisine/meal-type/time/skill/ingredient/occasion — **no halaal or kosher filter**. Paprika ships **no dietary taxonomy at all**. Both stay on derivable ground. **We do the same, and we say so out loud.***
 
+### 58 · 🆕 🩸 **THE NUMBER BELONGS TO WHOEVER IS MORE EXPENSIVE TO MOVE. THE CHEAPER SIDE MOVES.**
+# **A NEW NUMBER IS READ FROM THIS FILE. NEVER RECALLED FROM MEMORY.**
+*Born 21 Jul 2026 from two collisions found by **counting, not remembering**: **Law 12** carried two texts for nine days, and **Law 56** was being used in chat for a push rule while this file already held the version-derivation law at 56. Both happened the same way — a number assigned from memory by someone who had not read the register.*
+
+**WHEN TWO LAWS SHARE A NUMBER:**
+1. **COUNT THE CITATIONS. THE MORE-CITED TEXT KEEPS THE NUMBER.** *(56: nine citations across three reference files, against zero. No contest, no discussion.)*
+2. **ARCHIVE NEVER MOVES.** A text cited in `Archive/` or in a shipped brief keeps its number, because **history is not edited to accommodate a renumber.** *(This is what decided 12.)*
+3. **THE MOVER GOES TO `max + 1` READ FROM THIS FILE** — never to "the next number I remember."
+4. **EVERY CITATION OF THE MOVER IS UPDATED IN THE SAME COMMIT.** ⚖️ **Law 53** — a half-renumbered law is a leak in a good mood.
+5. **MERGED IS NOT LOST.** *Lost* = never written. *Merged* = written, its words alive elsewhere. Both numbers retire; only one is a wound.
+
+⚖️ **THIS LAW WAS ALREADY IN THE FOOTER OF THIS FILE** — *"renumbering would orphan live references… six numbers are already lost, do not create a seventh."* **It was said, it was true, and it was not a law — so it did not bind.** ⚖️ **Law 52.**
+✅ **DOCTOR CANDIDATE (⚖️ Law 42):** a register check reporting **highest number · gaps · duplicates · reuse of a LOST number · unresolved conflicts.** Then nobody guesses again, in any session, ever.
+
+### 59 · **VARIETY IS DETERMINISTIC. NO ML.**
+*`balancedOrder` in `sections/index.js` is a round-robin, not a model.*
+🔀 **MOVED FROM 12 ON 21 Jul 2026** by ⚖️ **Law 58** — it was the cheaper side. Its one live citation, the `(L12 · NO ML)` comment in `sections/index.js`, **moves in the same commit.** ⚖️ **Law 58.4.**
+
 ---
 
-**New laws start at 58.**
+**New laws start at 60.**
 
 🩸 *54a and 54b are SUB-LETTERED, not renumbered — 55, 56 and 57 were already committed in code and briefs on 20 Jul, and renumbering would orphan live references. **Six numbers are already lost. Do not create a seventh.***
 
