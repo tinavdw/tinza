@@ -34,8 +34,24 @@ const ctx = { console:{log(){},warn(){},error(){}}, fetch:()=>Promise.reject(new
   document:{getElementById:()=>null, addEventListener(){}, querySelector:()=>null},
   localStorage:{getItem:()=>null,setItem(){},removeItem(){}}, navigator:{onLine:true}, location:{href:''} };
 ctx.window = ctx; vm.createContext(ctx);
-for (const f of loadOrder) { try { vm.runInContext(fs.readFileSync(path.join(ROOT,f),'utf8'), ctx, {filename:f}); } catch(e){} }
-const all = ctx.allRecipes ? ctx.allRecipes() : [];
+// 🩸 MF135 JOB 0 · THE INSTRUMENT WAS PART OF THE BUG. This loop used to be
+//    `catch(e){}` — the census SWALLOWED ITS OWN LOAD ERRORS, so a section file that
+//    threw on load was indistinguishable from one that loaded clean. That is why the
+//    RED count never moved through five silent holes in three days, and why the _vHay
+//    throw could delete 1021 world records with every instrument on the bench saying
+//    fine. A watcher that swallows its own failures cannot watch for silent failure.
+// ⛔ The `try` STAYS — the census must still finish and report. COLLECT, then report
+//    (rung 26 ③ turns this list RED). Never discard. ⚖️ Law 3 · Rulings §20.
+const LOAD_FAILURES = [];
+for (const f of loadOrder) {
+  try { vm.runInContext(fs.readFileSync(path.join(ROOT,f),'utf8'), ctx, {filename:f}); }
+  catch(e){ LOAD_FAILURES.push({ file: f, msg: (e && e.message) ? String(e.message).split('\n')[0].slice(0,120) : String(e) }); }
+}
+// allRecipes() itself can throw (an adapter blowing up inside its own forEach is exactly
+// how MF134 happened). Catching it here without recording it would rebuild the same bug.
+let ALL_THREW = null, all = [];
+try { all = ctx.allRecipes ? ctx.allRecipes() : []; }
+catch(e){ ALL_THREW = (e && e.message) ? String(e.message).split('\n')[0].slice(0,140) : String(e); all = []; }
 
 p('\n\x1b[1m\x1b[36m📊  TINZA CENSUS\x1b[0m  \x1b[2m' + new Date().toISOString().slice(0,16).replace('T',' ') + ' · read-only · writes nothing\x1b[0m');
 p('\x1b[2m    ' + all.length + ' recipes in the index\x1b[0m');
@@ -1672,6 +1688,145 @@ p('       ⚖️ §2.4 — I\'ve Got R100 is ALL FILTER. The filter IS the produ
     '\n      \x1b[2m§2 FREE: browse, cook, view and SCALE every one of 2,083 recipes. Grams,' +
     '\n      servings and yields are never Pro. Lock the Rand, never the amount.\x1b[0m');
   else ok('No quantity is gated', 'grams, servings and yields stay free — only Rand locks');
+}
+
+// ══ 26 · THE INVARIANT ══════════════════════ MF135 · §20 · MF134 ══
+head('26 · IS THE WHOLE LIBRARY STILL THERE?   ⚖️ Rulings §20 · MF134');
+p('  \x1b[2m    MF134: one throw inside adaptWorld\'s forEach deleted 1021 world records —');
+p('       allRecipes() went 2083 → 1062 — with NO error, NO console, node --check clean');
+p('       and the census RED count unmoved. Five silent holes in three days, not one of');
+p('       which announced itself. ⚖️ §20 — INVARIANT, NOT FEATURE. A silent hole needs a');
+p('       mechanical watcher, not a sharper pair of eyes.');
+{
+  // ① THE COUNT. Exact — not "roughly", not "≥". If the library is legitimately meant to
+  // grow, THIS CONSTANT CHANGES IN THE SAME COMMIT AS THE RECIPES, deliberately, and Tina
+  // sees it in the diff. That is the whole point: the number is a promise, not a reading.
+  const EXPECTED_TOTAL = 2083;
+  // ② THE SHAPE. A section at 0 is RED even if the total somehow still reaches 2083 —
+  // one room emptying while another doubles is exactly the shape MF134 would have taken
+  // had the counts happened to balance.
+  const EXPECTED_SECTIONS = ['meals','bakes','sides','floor','health','world','events','braai','beverages','tiny','spice','furry'];
+
+  const bySec = {};
+  all.forEach(r => bySec[r.section] = (bySec[r.section] || 0) + 1);
+  const shape = EXPECTED_SECTIONS.map(s => s + ' ' + (bySec[s] || 0)).join(' · ');
+
+  if (all.length !== EXPECTED_TOTAL) bad('allRecipes() RETURNS ' + all.length + ', NOT ' + EXPECTED_TOTAL + ' — THE LIBRARY LOST RECORDS',
+    '\n      ' + shape +
+    '\n      \x1b[2mIf this is a deliberate change, EXPECTED_TOTAL moves in the SAME COMMIT as the' +
+    '\n      recipes. If it is not, an adapter is throwing and taking a whole room with it.\x1b[0m');
+  else ok('allRecipes() === ' + EXPECTED_TOTAL, shape);
+
+  const empty = EXPECTED_SECTIONS.filter(s => !bySec[s]);
+  const unexpected = Object.keys(bySec).filter(s => EXPECTED_SECTIONS.indexOf(s) < 0);
+  if (empty.length) bad(empty.length + ' SECTION(S) ARE EMPTY: ' + empty.join(' · '),
+    '\n      \x1b[2mA room at zero is a room whose adapter died. The total can still look right.\x1b[0m');
+  else ok('Every section has records', EXPECTED_SECTIONS.length + ' rooms, none empty');
+  if (unexpected.length) warn('New section(s) not in the expected shape: ' + unexpected.join(' · '),
+    '\n      \x1b[2mAdd it to EXPECTED_SECTIONS deliberately, so it is watched too.\x1b[0m');
+
+  // ③ THE LOADER TOLD THE TRUTH (job 0). A swallowed load error is the thing that let
+  // every one of these bugs through. ⚖️ §20.
+  if (ALL_THREW) bad('allRecipes() THREW — the index could not be built',
+    '\n      ' + ALL_THREW +
+    '\n      \x1b[2mAn adapter is throwing inside its own forEach. Everything above this line' +
+    '\n      was measured against an EMPTY library and means nothing.\x1b[0m');
+  if (LOAD_FAILURES.length) bad(LOAD_FAILURES.length + ' SECTION FILE(S) THREW ON LOAD — and the census used to swallow this',
+    '\n      ' + LOAD_FAILURES.map(f => f.file + '\n        ' + f.msg).join('\n      ') +
+    '\n      \x1b[2mThe file did not load. Anything it defines is absent from every count above.\x1b[0m');
+  else if (!ALL_THREW) ok('Every section file loaded without throwing', loadOrder.length + ' files · the loader no longer swallows its own errors');
+}
+
+// ══ 27 · DUPLICATE KEYS ═══════════════════════ MF135 · §20 · Law 39 ══
+head('27 · DOES ANY OBJECT DEFINE THE SAME KEY TWICE?   ⚖️ Rulings §20 · Law 39');
+p('  \x1b[2m    The second definition wins SILENTLY. "pork belly" is priced R120 at one line');
+p('       and R150 at another; R120 has never once been used and nothing ever said so.');
+p('       ⛔ THIS CANNOT BE GREPPED. A regex over prices.js counts 12 — and 10 of those');
+p('       are legitimate keys in DIFFERENT objects. A rung that cries wolf is worse than');
+p('       no rung, because she learns to skip past it. So this PARSES. ⚖️ §19.');
+{
+  // Brace-depth scanner: acorn is not available in this repo (no node_modules), and the
+  // brief permits a scanner ONLY if it reproduces the known nine EXACTLY. It does —
+  // all nine, same lines, same values. It also passes 15 unit cases including the ones
+  // a grep fails: same key in two DIFFERENT objects, in sibling array objects, in a
+  // parent vs its nested child, inside strings, comments, template literals, regexes
+  // and ternaries. A key belongs to the object that DIRECTLY encloses it, and no other.
+  function scanDuplicateKeys(src) {
+    const dups = [], stack = [];
+    let i = 0, line = 1, atKeyPos = false, prevSig = '';
+    const N = src.length;
+    function peekValue(from) {
+      let j = from, d = 0, out = '', guard = 0;
+      while (j < N && guard++ < 400) {
+        const c = src[j];
+        if (c === '"' || c === "'" || c === '`') { const q = c; out += c; j++; while (j < N && src[j] !== q) { if (src[j] === '\\') { out += src[j]; j++; } out += src[j]; j++; } out += q; j++; continue; }
+        if ('{[('.indexOf(c) >= 0) d++;
+        if ('}])'.indexOf(c) >= 0) { if (d === 0) break; d--; }
+        if (c === ',' && d === 0) break;
+        if (c === '\n') { out += ' '; j++; continue; }
+        out += c; j++;
+      }
+      return out.trim().slice(0, 44);
+    }
+    while (i < N) {
+      const c = src[i];
+      if (c === '/' && src[i+1] === '/') { while (i < N && src[i] !== '\n') i++; continue; }
+      if (c === '/' && src[i+1] === '*') { i += 2; while (i < N && !(src[i] === '*' && src[i+1] === '/')) { if (src[i] === '\n') line++; i++; } i += 2; continue; }
+      // a key must be tried BEFORE the string handler, or every quoted key is swallowed
+      // as a plain string and the scanner silently finds nothing. (It did, first draft.)
+      const top0 = stack[stack.length - 1];
+      if (atKeyPos && top0 && top0.type === 'obj' && (c === '"' || c === "'" || /[A-Za-z_$0-9]/.test(c))) {
+        const startLine = line; let key = null, after = i;
+        if (c === '"' || c === "'") {
+          const q = c; let j = i + 1, k = '';
+          while (j < N && src[j] !== q) { if (src[j] === '\\') { k += src[j+1]; j += 2; continue; } k += src[j]; j++; }
+          key = k; after = j + 1;
+        } else { let j = i, k = ''; while (j < N && /[A-Za-z0-9_$]/.test(src[j])) { k += src[j]; j++; } key = k; after = j; }
+        let j = after; while (j < N && /\s/.test(src[j])) j++;
+        if (key !== null && src[j] === ':') {
+          if (top0.keys.has(key)) dups.push({ key, first: top0.keys.get(key), second: { line: startLine, val: peekValue(j+1) } });
+          else top0.keys.set(key, { line: startLine, val: peekValue(j+1) });
+          i = after; atKeyPos = false; prevSig = 'x'; continue;
+        }
+      }
+      if (c === '"' || c === "'") { const q = c; i++; while (i < N && src[i] !== q) { if (src[i] === '\\') i++; if (src[i] === '\n') line++; i++; } i++; prevSig = 'x'; atKeyPos = false; continue; }
+      if (c === '`') { i++; let td = 0; while (i < N) { if (src[i] === '\\') { i += 2; continue; } if (src[i] === '\n') { line++; i++; continue; } if (src[i] === '$' && src[i+1] === '{') { td++; i += 2; continue; } if (td > 0 && src[i] === '}') { td--; i++; continue; } if (td === 0 && src[i] === '`') { i++; break; } i++; } prevSig = 'x'; atKeyPos = false; continue; }
+      if (c === '/' && '(,=:[!&|?{};+-*%~^'.indexOf(prevSig) >= 0) { i++; let inClass = false; while (i < N) { if (src[i] === '\\') { i += 2; continue; } if (src[i] === '[') inClass = true; else if (src[i] === ']') inClass = false; else if (src[i] === '/' && !inClass) { i++; break; } else if (src[i] === '\n') { line++; break; } i++; } while (i < N && /[gimsuy]/.test(src[i])) i++; prevSig = 'x'; atKeyPos = false; continue; }
+      if (c === '\n') { line++; i++; continue; }
+      if (c === ' ' || c === '\t' || c === '\r') { i++; continue; }
+      if (c === '{') { stack.push({ type:'obj', keys:new Map() }); i++; prevSig = '{'; atKeyPos = true; continue; }
+      if (c === '[') { stack.push({ type:'arr', keys:null }); i++; prevSig = '['; atKeyPos = false; continue; }
+      if (c === '(') { stack.push({ type:'paren', keys:null }); i++; prevSig = '('; atKeyPos = false; continue; }
+      if (c === '}' || c === ']' || c === ')') { stack.pop(); i++; prevSig = c; atKeyPos = false; continue; }
+      if (c === ',') { const t = stack[stack.length-1]; atKeyPos = !!(t && t.type === 'obj'); i++; prevSig = ','; continue; }
+      atKeyPos = false; prevSig = c; i++;
+    }
+    return dups;
+  }
+
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f => f.endsWith('.js'));
+  const hits = [], skipped = [];
+  files.forEach(f => {
+    const src = fs.readFileSync(path.join(SD,f),'utf8');
+    // a file that does not parse cannot be scanned honestly — say so by name, do not
+    // let it fail the run, and do NOT report it as clean. ⚖️ Law 54b — a zero must
+    // distinguish "none found" from "couldn't look".
+    try { new (require('vm').Script)(src, {filename:f}); }
+    catch(e){ skipped.push(f); return; }
+    scanDuplicateKeys(src).forEach(d => hits.push({ file:f, ...d }));
+  });
+
+  p('     ' + num(files.length - skipped.length) + '  section file(s) parsed and walked');
+  if (hits.length) bad(hits.length + ' DUPLICATE KEY(S) — THE SECOND ONE WINS, SILENTLY',
+    '\n      ' + hits.map(d =>
+      d.file + '  ' + JSON.stringify(d.key) + '\n        loser  L' + d.first.line + '  ' + d.first.val +
+      '\n        WINNER L' + d.second.line + '  ' + d.second.val).join('\n      ') +
+    '\n      \x1b[2m⛔ NOT Code\'s to fix — WHICH coconut and WHICH pork belly price is a CONTENT' +
+    '\n      call, and it is Tina\'s. This rung\'s job is to surface them, not resolve them.\x1b[0m');
+  else ok('No object defines the same key twice', (files.length - skipped.length) + ' files walked');
+  if (skipped.length) warn(skipped.length + ' file(s) could not be parsed — NOT scanned, not "clean"',
+    '\n      ' + skipped.join(' · ') + '   \x1b[2m⚖️ Law 54b\x1b[0m');
 }
 
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
