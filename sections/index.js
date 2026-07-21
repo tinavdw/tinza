@@ -75,6 +75,27 @@
     return VALID_SLOTS.indexOf(s) >= 0 ? s : '';   // a typo'd slot is NOT a slot (Law 45)
   }
 
+  // MF131 · A RECORD'S SLOT IS ITS DEFAULT VERSION'S SLOT. ⚖️ RULED 21 Jul.
+  // Vetkoek is a TREAT split with jam and a SUPPER split with curried mince — one
+  // record, two courses, so it could carry no honest slot and sat 'unresolved'. That
+  // was never a data gap; it was the wrong SHAPE. The split already existed as
+  // versions[]; this reads the label off it.
+  // 🩸 ADDITIVE, NEVER BREAKING: a record whose versions carry no slot behaves exactly
+  // as before. That clause IS the test — census must not move except unresolved 2 → 0.
+  // ⚠️ Test .length, never truthiness — `versions: []` is truthy and `null` was not.
+  // ⛔ No default:true → fall THROUGH. Never silently pick [0]; a record that has not
+  //    said which version is its face has not said what course it is. ⚖️ Law 45.
+  // 📏 Measurement reads THIS — the filed value. Display reads whatever version she
+  //    picked. One record must never count in two distributions. ⚖️ ruled 21 Jul.
+  function fromDefaultVersion(o){
+    var vs = o && o.versions;
+    if (!vs || !vs.length) return '';
+    for (var i = 0; i < vs.length; i++) {
+      if (vs[i] && vs[i].default === true) return fromRecord(vs[i].slot);
+    }
+    return '';
+  }
+
   function slot(o){
     function fromMealCat(v){
       if(/break/.test(v))            return 'BREAKFAST';
@@ -132,7 +153,11 @@
     // via events but SUPPER via braai. Same record, two answers, and the room won.
     // A section default may only speak when the record itself has said NOTHING.
     // ⚖️ Law 45 · census 18 watches both halves of this.
+    // MF131 · the DEFAULT VERSION sits directly under the recipe-level slot and ABOVE
+    // every derivation: both are AUTHORED data, and authored always beats inferred.
+    // A recipe-level slot still wins where it exists (clause 3, ruled 21 Jul).
     return fromRecord(o.slot)
+        || fromDefaultVersion(o)
         || fromMealCat(lc(o.mealCat))
         || fromCat(lc(o.cat))
         || fromCourse(lc(o.course))
@@ -210,8 +235,13 @@
       // never stamp it on something merely hard to call. Ruled 20 Jul, MF125 §4a.
       // It renders normally in its own section and is excluded from every mood shelf
       // ('unknown' is not in MOOD_EAT_SLOTS, so the exclusion is structural, not a flag).
+      // MF131 · 'version' is its own source, NOT folded into 'record'. Two different
+      // questions: 'record' means the recipe said it outright; 'version' means we read
+      // it off the face this record chose to show. Folding them would hide how much of
+      // the library is slotted by proxy. ⚖️ Law 36 — the count is truth.
       slotSource: slot(o) === 'unknown' ? 'unresolved'
                 : fromRecord(o.slot)     ? 'record'
+                : fromDefaultVersion(o)  ? 'version'
                 : 'derived',
       name:      o.name || '',
       nameAlt:   o.nameAlt || '',                  // English gloss → tinzaDisplayName
