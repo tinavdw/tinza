@@ -207,11 +207,28 @@
     // MF98 · pre-normalise each version's name (for the version-name deep-link) and its full hay
     // (name + feel + ingredient names, for the version-body match) — exactly the two strings
     // tinzaAllSearch used to build per keystroke, now built once here.
+    // MF134 · A VERSION'S INGREDIENTS MAY BE A `·`-STRING. World Kitchen's contract is
+    // the string — 890 WK ingredients are strings and ZERO are arrays — so the string is
+    // the norm there, not an exception. This line assumed an array and threw
+    // `(ve.ingredients || []).map is not a function` on the 25 WK versions that carry
+    // one. Inside adaptWorld's forEach that ONE throw killed the whole adapter and
+    // silently dropped ALL 1021 world records from allRecipes(): 2083 → 1062, with no
+    // error, no console, no crash. ⚖️ Law 3 — silent wrong is worse than loud missing.
+    // ⚖️ Law 6 — wkParseIngredients() already splits this string. REUSE IT, never write
+    //    a second parser. It returns {qty,unit,name,…}, and `x.name` is read below.
+    // 🩸 GUARD, DO NOT CONVERT. The array branch must stay byte-identical: 1047 working
+    //    versions (BAKES 322 · SUPPER 284 · SIDES 37 · BREAKFAST 37 …) cannot regress.
+    //    Proved by snapshotting every record's _vHay before and after. ⚖️ ruled 21 Jul.
+    function _vIng(ve){
+      if (typeof ve.ingredients === 'string')
+        return (typeof wkParseIngredients === 'function') ? wkParseIngredients(ve.ingredients) : [];
+      return ve.ingredients || [];
+    }
     var _vHay = (o.versions || null) && o.versions.map(function(ve){
       return {
         n:   searchNorm(ve.name || ''),
         hay: searchNorm((ve.name||'') + ' ' + (ve.feel||'') + ' ' +
-                        (ve.ingredients||[]).map(function(x){ return x.n || x.name || ''; }).join(' '))
+                        _vIng(ve).map(function(x){ return x.n || x.name || ''; }).join(' '))
       };
     });
     // normalizeRecipe() (core.js) is THE DOOR — ruled 15 Jul. It owns EVERY reserved-slot
@@ -443,7 +460,18 @@
         ingredients: ings, goesWith: wkGoesWith(r),
         feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null,
         tip: r.chefNotes||'', storage: r.storage||'', didYouKnow: r.trivia||'',
-        photoName: r.name, versions:null
+        // MF134 · World Kitchen HAS versions and this adapter was throwing them away.
+        // 92 WK records carry a versions[] (wk_europe 91 · wk_southafrica 1), every one
+        // with a default:true — the chips had data all along and never rendered.
+        // ⛔ ONLY this adapter. The other seven `versions:null` sites stay — six have
+        //    nothing to pass through, and out of scope is out of scope. ⚖️ Rule 1.
+        // ⚠️ THIS LINE IS ONLY SAFE BECAUSE OF THE `_vIng` GUARD ABOVE. Without it the
+        //    25 string-ingredient versions throw and take all 1021 world records with
+        //    them. If that guard is ever removed, this must be reverted in the same
+        //    breath. The invariant is allRecipes() === 2083.
+        // ✅ Additive for MF131: no WK version carries a `slot` key, so
+        //    fromDefaultVersion() returns '' for all 92 and no slot moves.
+        photoName: r.name, versions: r.versions || null
       });
     });
     window._tinzaWKSkipped = skipped;   // pricing-hygiene audit (URI U2.3) — fill PRICE_DB later
