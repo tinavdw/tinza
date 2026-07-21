@@ -56,6 +56,25 @@ catch(e){ ALL_THREW = (e && e.message) ? String(e.message).split('\n')[0].slice(
 p('\n\x1b[1m\x1b[36m📊  TINZA CENSUS\x1b[0m  \x1b[2m' + new Date().toISOString().slice(0,16).replace('T',' ') + ' · read-only · writes nothing\x1b[0m');
 p('\x1b[2m    ' + all.length + ' recipes in the index\x1b[0m');
 
+// 🩸 MF135 · REPORTED HERE, AT BOOT, AND NOT DOWN IN RUNG 26 — LEARNED THE HARD WAY.
+// Collecting the failures was not enough: proof test 4 broke sections/utils.js on load
+// and the census DIED AT RUNG 1 with a raw stack trace, long before rung 26 could say
+// why. RED went to 0 — not because nothing was wrong, but because the report never
+// got to print. A watcher that dies before it speaks is no better than one that
+// swallows. The brief's words: the census must still FINISH AND REPORT.
+// ⛔ Never move this below a rung. Rung 26 ③ restates it; THIS is the copy that lands.
+if (LOAD_FAILURES.length || ALL_THREW) {
+  head('0 · DID THE LIBRARY EVEN LOAD?   ⚖️ MF135 job 0 · Rulings §20');
+  if (LOAD_FAILURES.length) bad(LOAD_FAILURES.length + ' SECTION FILE(S) THREW ON LOAD',
+    '\n      ' + LOAD_FAILURES.map(f => f.file + '\n        ' + f.msg).join('\n      ') +
+    '\n      \x1b[2mThe file did not load. Everything it defines is ABSENT from every count below,' +
+    '\n      and later rungs may crash on the hole it left. Fix this before reading on.\x1b[0m');
+  if (ALL_THREW) bad('allRecipes() THREW — the index could not be built',
+    '\n      ' + ALL_THREW +
+    '\n      \x1b[2mAn adapter is throwing inside its own forEach — the MF134 shape. Every number' +
+    '\n      below was measured against an EMPTY library and means nothing.\x1b[0m');
+}
+
 // ══ 1 · SEARCH SPEED ═════════════════════════════════════════════ MF98 ══
 head('1 · IS THE SEARCH INSTANT?   ⚖️ she types, she must not wait');
 {
@@ -1727,14 +1746,12 @@ p('       mechanical watcher, not a sharper pair of eyes.');
 
   // ③ THE LOADER TOLD THE TRUTH (job 0). A swallowed load error is the thing that let
   // every one of these bugs through. ⚖️ §20.
-  if (ALL_THREW) bad('allRecipes() THREW — the index could not be built',
-    '\n      ' + ALL_THREW +
-    '\n      \x1b[2mAn adapter is throwing inside its own forEach. Everything above this line' +
-    '\n      was measured against an EMPTY library and means nothing.\x1b[0m');
-  if (LOAD_FAILURES.length) bad(LOAD_FAILURES.length + ' SECTION FILE(S) THREW ON LOAD — and the census used to swallow this',
-    '\n      ' + LOAD_FAILURES.map(f => f.file + '\n        ' + f.msg).join('\n      ') +
-    '\n      \x1b[2mThe file did not load. Anything it defines is absent from every count above.\x1b[0m');
-  else if (!ALL_THREW) ok('Every section file loaded without throwing', loadOrder.length + ' files · the loader no longer swallows its own errors');
+  // Restated, NOT re-counted — rung 0 above already carries the RED, and double-counting
+  // one fault as two would corrupt the Law 51 baseline it exists to protect.
+  if (LOAD_FAILURES.length || ALL_THREW)
+    p('     \x1b[31m✘ see rung 0 — ' + (LOAD_FAILURES.length ? LOAD_FAILURES.length + ' file(s) failed to load' : 'allRecipes() threw') +
+      '; every count in this rung is measured against a broken library\x1b[0m');
+  else ok('Every section file loaded without throwing', loadOrder.length + ' files · the loader no longer swallows its own errors');
 }
 
 // ══ 27 · DUPLICATE KEYS ═══════════════════════ MF135 · §20 · Law 39 ══
