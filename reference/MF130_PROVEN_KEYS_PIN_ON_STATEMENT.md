@@ -49,7 +49,14 @@ missing key already prints `PROVEN KEY LOST`, SAY SO AND STOP.**
 - ⛔ The lost-key alarm must **hold RED**, not warn. A key matching nothing is an
   unverifiable claim, not a cleared bug.
 
-## 4b. 🆕 RULED 21 Jul — **A PROBE WHOSE PASS IS "NOTHING CHANGED" MUST BE POSITIVE-CONTROLLED**
+## 4b. ⬆️ **PROMOTED OUT OF THIS BRIEF — it is now `TINZA_LAW.md` Law 54c (and 54d).**
+🩸 **The Law is the home. This section is kept only as the evidence that bought it.**
+*A brief is for a day and ends in `Archive/`, which is never read as current — a rule about
+how we work cannot live here. ⚖️ A STANDARD IS FOREVER. A BRIEF IS FOR A DAY.*
+
+<details><summary>the original section, as evidence</summary>
+
+### RULED 21 Jul — **A PROBE WHOSE PASS IS "NOTHING CHANGED" MUST BE POSITIVE-CONTROLLED**
 
 **Three instances this week of a check going quiet, and the quiet reading as success:**
 
@@ -70,7 +77,9 @@ move. **Make that the required shape, not the lucky shape.** Every "expect no ch
 proof in every brief must be preceded by an "expect this exact change" run.
 
 ⚖️ Law 3 — a thing that is wrong is silent. ⚖️ Law 42 — the ratchet only holds if it
-cannot be quietly released. ⚖️ same root cause as §1, which is why it is filed here.
+cannot be quietly released. ⚖️ same root cause as §1, which is why it was filed here.
+
+</details>
 
 ## 5. THE EXACT CHANGE
 

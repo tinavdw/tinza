@@ -268,6 +268,21 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 *Same run: `base12` was an **object**, so `String(base12)` gave `"[object Object]"` and the gate passed everything on the exact surface it was written for.*
 ➡️ **If a surface is UNREACHABLE, FAIL LOUD. Never report 0.**
 
+### 54c · 🆕 **A PROBE WHOSE PASS IS "NOTHING CHANGED" MUST BE POSITIVE-CONTROLLED.**
+# **RUN IT FIRST IN A MODE WHERE SOMETHING *MUST* CHANGE, AND WATCH THAT MOVEMENT. A PROBE THAT HAS NEVER BEEN SEEN TO FAIL HAS NOT BEEN SHOWN TO WORK.**
+*21 Jul 2026. **Law 54 says watch the check go red. This says watch the PROBE move** — because a probe that silently does nothing looks exactly like a probe that passed.*
+🩸 **THREE IN ONE WEEK, all reading as success:**
+- *A `PROVEN` key pinned to `file:line` lost its anchor on an unrelated 5-line insert — census fell **18 → 16 with nothing fixed**.*
+- *The MF129 probe **read empty stdin and exited 0**, reporting a clean "no change". Caught **only** because that probe expected `204 → 205` and the number sat still.*
+- *MF130's own control then showed that breaking a key **holds** the count at 17 rather than raising it — which the brief had predicted wrongly.*
+➡️ **COROLLARY: A COUNT ALONE IS NEVER PROOF. DIFF THE LINES.** *⚖️ Law 51 gives you a count; a count cannot tell you whether a check stopped asking.*
+
+### 54d · 🆕 🩸 **WORK IS BANKED BY A COMMIT, NOT BY EXISTING ON DISK.**
+# **NEVER RUN A DESTRUCTIVE GIT COMMAND ON A FILE HOLDING UNCOMMITTED WORK. COMMIT FIRST, THEN PROBE, THEN REVERT FREELY.**
+*21 Jul 2026. `git checkout -- tinza-census.js` was used to revert a probe while the whole MF130 rung sat **uncommitted** — it wiped the rung back to HEAD. It was recovered, but **the catch was luck, not design**.*
+➡️ **The probe ruling (54c) protects against a silent CHECK. This protects against a silent REVERT.** *Same failure: something disappeared and the screen looked normal.*
+⛔ **Never `git stash` in this repo.** *A dirty tree is unbanked work — stop and report; stage by explicit path only.*
+
 ### 55 · 🆕 🩸 **NO ALCOHOL ON ANY SURFACE INTENDED FOR CHILDREN.**
 # **ENFORCED AS A HARD EXCLUSION AT THE QUERY, BEFORE ANY PREDICATE RUNS. A RECORD CANNOT EARN ITS WAY ON.**
 *Surfaces: **fussy · Kiddies · Tiny Tummies**. (Feeding My Family is NOT gated — it is family-facing, an adult cooking for everyone.)*

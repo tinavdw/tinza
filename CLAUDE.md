@@ -9,7 +9,7 @@
 
 | file | trigger | what it is |
 |---|---|---|
-| 📕 **`TINZA_LAW.md`** | **`/law`** | **HOW WE WORK.** 52 laws. Every one was paid for. |
+| 📕 **`TINZA_LAW.md`** | **`/law`** | **HOW WE WORK.** 57 laws. Every one was paid for. |
 | 📗 **`TINZA_RULINGS.md`** | **`/rule`** | **WHAT TINZA IS.** Every decision Tina has made — with the date and the reason. |
 
 ## ⛔ IF THOSE FILES AND THE CODE DISAGREE — **THE FILE IS RIGHT AND THE CODE IS A BUG.**
