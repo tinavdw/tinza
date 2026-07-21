@@ -15783,7 +15783,7 @@ function fourIngredientsHTML(){
         <div onclick="set({fourHowOpen:false})" style="position:fixed;inset:0;z-index:9;"></div>
         <div style="position:relative;z-index:10;background:#161210;border:1px solid ${border};border-radius:10px;padding:12px;margin-top:8px;font-size:13px;color:#e0d4b8;line-height:1.6;">
           <strong style="color:#f5c842;">1. Enter 2–4 ingredients</strong> — whatever's in your fridge or pantry.<br>
-          <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — Tinza checks its own recipes first, then asks Tinza Chef.<br>
+          <strong style="color:#f5c842;">2. Tap Find Recipes</strong> — Tinza checks its own recipes.<br>
           <strong style="color:#f5c842;">3. Tap any recipe</strong> — full ingredients and method.<br>
           <span style="color:#e0d4b8;font-size:13px;">The more ingredients you add, the closer the match.</span>
         </div>`:''}
@@ -15833,13 +15833,20 @@ function fourIngredientsHTML(){
           out += '<div style="text-align:center;padding:20px;color:#e0d4b8;font-size:13px;">No matches yet — try different ingredients.</div>';
         }
         // MF77-B · Tinza Chef gets his OWN room — NEVER mixed with the app's cards.
-        var chefRelevant = aiLoading || ai.length>0 || (!isPro && total < 10);
+        // MF133 · THE CHEF'S ROOM IS HIDDEN WHILE HE IS DEAD (endpoint 503).
+        // Removed: the "🤖 Tinza Chef's ideas" heading, and the Free-tier upsell that
+        // sold "Pro also asks Tinza Chef to invent fresh ideas…" — a paywall in front of
+        // a feature that cannot run. ⚖️ Law 7 — the lock is the salesman, and this lock
+        // was selling something Tinza does not have.
+        // 🩸 `(!isPro && total < 10)` is dropped from chefRelevant DELIBERATELY: that
+        // clause existed ONLY to open the room for the upsell. Leaving it would render a
+        // bare horizontal divider to every Free user with under 10 results — an orphan
+        // rule with nothing beneath it. The upsell and its trigger are one thing.
+        // 🔁 RESTORE ALL THREE — heading, upsell, and the !isPro clause — WHEN MF78 LANDS.
+        var chefRelevant = aiLoading || ai.length>0;
         if(chefRelevant){
           out += '<div style="border-top:1px solid '+border+';margin:22px 0 14px;"></div>';
-          out += '<div style="margin-bottom:12px;"><div style="font-size:15px;color:#f5e8cc;font-weight:bold;">🤖 Tinza Chef\'s ideas</div><div style="font-size:12px;color:#8a7055;font-style:italic;margin-top:2px;">Not Tinza recipes — fresh ideas for what you have.</div></div>';
-          if(!isPro){
-            out += '<div style="background:#161210;border:1px solid '+border+';border-radius:10px;padding:14px;font-size:13px;color:#e0d4b8;line-height:1.5;">Pro also asks <strong style="color:#f5c842;">Tinza Chef</strong> to invent fresh ideas from what is in your fridge.</div>';
-          } else if(aiLoading){
+          if(aiLoading){
             out += '<div style="padding:10px 2px;font-size:13px;color:'+color+';font-style:italic;">Tinza Chef is thinking…</div>';
           } else {
             out += ai.map(function(r,i){ return recipeResultCard(r,"openFourChefRecipe("+i+")",color); }).join('');

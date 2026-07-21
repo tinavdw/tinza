@@ -6,6 +6,12 @@ function budgetTogglePlan(i){
 // R15/person is the MEAT LINE (L15): below = honest stretcher mode (pap·beans·soup),
 // R15pp+ = meat features. Per-person, so it converts by group size (R30/2 · R60/4 · R90/6).
 var BUDGET_MEAT_LINE_PP = 15;
+// MF133 · THE "✨ Show me 3 more recipes" BUTTON IS REMOVED FROM THIS RENDER.
+// The chef endpoint returns 503 (netlify/functions/claude.js), so the button failed
+// politely into a loop that cannot succeed. A broken control is worse than a missing
+// one. ⚖️ Law 7 — a button that cannot do what it says is a lie.
+// ⛔ getMoreBudgetRecipes() (line ~359) is DELIBERATELY LEFT INTACT — MF78 turns it
+// back on. 🔁 RESTORE THIS BUTTON WHEN MF78 LANDS.
 function budgetPlannerHTML(){
   const budget = parseFloat(S.budgetAmount||0);
   const people = parseInt(S.budgetPeople||4);
@@ -161,9 +167,6 @@ function budgetPlannerHTML(){
 
           </div>`).join('')}
         ${sectionPlanBtn('budgetPlan',"I've Got R"+budget,'💰',color,bg,people,"setQuiet({budgetPlanView:true})")}
-        <button onclick="getMoreBudgetRecipes()" style="width:100%;padding:11px;border-radius:10px;background:#1a1208;border:1px solid ${color};color:${color};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
-          ✨ Show me 3 more recipes
-        </button>
       `:''}
 
       ${results&&results.length>0&&results[0]._error?`

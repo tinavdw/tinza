@@ -362,7 +362,7 @@ function profileHTML(){
       <h1 style="font-size:24px;font-weight:normal;color:var(--ink);">👤 Profile</h1>
     </div>
     <div class="content">
-      <div style="font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">Appearance</div>
+      <div onclick="tinzaDevTap()" style="font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">Appearance</div>
       <div style="background:#161210;border:1px solid #2a1a10;border-radius:12px;padding:5px;display:flex;gap:4px;">
         ${seg('light','Light')}${seg('dark','Dark')}${seg('auto','Auto')}
       </div>
@@ -442,9 +442,41 @@ function goBack(){
 // local `var _tinzaDev` inside adaptWorld(), which core.js could never see. Copying
 // it here would have made two flags that drift apart; index.js now calls this instead.
 // (Do NOT delete — MF44 · Law 19. The instrument stays; it just doesn't ship to users.)
+// MF133 · DEV IS A STORED FLAG ON HER DEVICE, NEVER A URL. ⚖️ RULED 21 Jul, §17.2.
+// 🩸 The `?dev` query parse is DELETED, not weakened — and it must not come back as
+// `?dev=<secret>` either. A URL flag is shareable, screenshottable, guessable, survives
+// being pasted into WhatsApp, and lands in Netlify's request logs. It is a password
+// written on the door.
+// 🛡️ FAIL CLOSED — anything other than a stored `true` is false. Fresh device,
+// incognito, cleared storage → not dev. Same shape tierLevel() uses for an unknown tier.
+// 🚪 THIS STAYS THE ONE DEFINITION. Nothing else may read a dev flag or invent one. ⚖️ Law 6.
+// ⛔ DEV IS NOT PRO. It renders the tier switcher; the switcher sets USER_TIER;
+//    tierAllows() reads USER_TIER. Three separate things, and they stay separate —
+//    at launch PayFast sets the tier, and a dev flag that implied Pro would make the
+//    real gate permanently untestable, and would mean Tina can never again see her
+//    own app as a free user sees it. ⚖️ §17.3.
 function tinzaIsDev(){
-  try { return /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /(?:\?|&)dev\b/.test(location.search); }
-  catch(e){ return false; }
+  try {
+    if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return true;   // her own machine, no gesture needed
+    return tinzaStore.getPref('dev') === true;                              // fail closed: anything else is NOT dev
+  } catch(e){ return false; }
+}
+
+// MF133 · the gesture that arms dev: SEVEN taps on the Appearance heading (profileHTML).
+// Seven is past accident and short of a chore. A gesture, not a typed secret — the
+// tablet is where dev mode is actually needed, and typing a URL on it is the thing
+// being removed. ⛔ No visible hint, label or counter: if it announces itself it is
+// not hidden. ⚖️ §17.2.
+var _devTaps = 0, _devTapT = 0;
+function tinzaDevTap(){
+  var now = Date.now();
+  if(now - _devTapT > 3000) _devTaps = 0;   // a slow tap is not a gesture
+  _devTapT = now;
+  if(++_devTaps >= 7){
+    _devTaps = 0;
+    try{ tinzaStore.setPref('dev', true); }catch(e){}
+    draw();
+  }
 }
 
 // ── THEME (light | dark | auto) ───────────────────────────────────
@@ -532,6 +564,11 @@ function draw(){
     </div>
   </div>`;
 
+  // MF133 · WHEN DEV IS ON IT SAYS SO, AND SAYING SO IS THE OFF SWITCH.
+  // ⛔ A hidden flag with no visible state is how you ship a debug build. ⚖️ Law 3 —
+  // the screen never lies about what it is. ⚖️ §17.2.
+  const devStrip = `<div onclick="tinzaStore.setPref('dev',false);draw();" style="background:var(--accent);color:#fff;padding:6px 16px;font-size:12px;letter-spacing:1px;text-align:center;cursor:pointer;">🔧 DEV MODE ON · tap to turn off</div>`;
+
   let content="";
   try{
   if(S.wkCooking && typeof wkCookingView==='function'){ content=wkCookingView(); }
@@ -618,7 +655,12 @@ function draw(){
   const _body = _warm
     ? '<div class="warm'+(_night?' night':'')+'" style="background:var(--bg);min-height:100vh;color:var(--ink);">'+content+'</div>'
     : content;
-  root.innerHTML = tierBar + _body + bottomBarHTML();
+  // MF133 · THE POINT OF THE WHOLE JOB. tierBar rendered UNCONDITIONALLY to every
+  // visitor, and its 👑 Pro button sets USER_TIER='pro' — opening cost · My Plan ·
+  // shopping list · the nutrition grid · dietary filters · favourites. The chef leaked
+  // $2.02; this leaked the entire R90 product, and it survived precisely because it was
+  // SILENT: no Rand, no error, no bill. ⚖️ §17.1 · census 24 watches this line.
+  root.innerHTML = (tinzaIsDev() ? tierBar + devStrip : '') + _body + bottomBarHTML();
   document.body.style.paddingBottom = "62px";
 
   if(_aeId){
@@ -2399,6 +2441,15 @@ function moodTogglePlan(i){
   var pid=r.id||(r.name||'').replace(/\s+/g,'-').toLowerCase();
   togglePlanItem('moodPlan',{id:pid,name:r.name||'',emoji:r.emoji||'😋',time:r.time||0,ingredients:r.ingredients||[],nutrition:r.nutrition||null,costPP:r.costPP||0,serves:1});
 }
+// MF133 · THE "✨ Show me 3 more ideas" BUTTON IS REMOVED FROM THIS RENDER.
+// The chef endpoint returns 503 (netlify/functions/claude.js). It did not crash — it
+// failed POLITELY into a loop that cannot succeed: the error path below renders
+// "Couldn't load recipes right now" with a ← Start again button that re-calls the same
+// dead endpoint, and a Free user was shown that loop as a reason to pay R90.
+// A broken control is worse than a missing one. ⚖️ Law 7 — a button that cannot do what
+// it says is a lie. ⚖️ Law 3 — if you cannot do the thing, do not offer it.
+// ⛔ getMoreMoodRecipes() itself is DELIBERATELY LEFT INTACT — MF78 turns it back on.
+// 🔁 RESTORE THIS BUTTON WHEN MF78 LANDS.
 function moodHTML(){
   if(S.moodPlanView){
     window._sectionPlanForShare = S.moodPlan||[];
@@ -2496,10 +2547,7 @@ function moodHTML(){
             </div>`).join('')}
           ${sectionPlanBtn('moodPlan','Just Feed Me','😋','#8060c0','#0f0818',S.moodServings||1,"setQuiet({moodPlanView:true})")}
 
-          <button onclick="getMoreMoodRecipes('${mood.id}')"
-            style="width:100%;padding:11px;border-radius:10px;background:#0a0812;border:1px solid ${mood.colour};color:${mood.colour};font-size:13px;cursor:pointer;margin-top:4px;margin-bottom:20px;">
-            ✨ Show me 3 more ideas
-          </button>` : ''}
+          ` : ''}
       </div>
     </div>`;
   }

@@ -1470,4 +1470,81 @@ p('       she is approving is legible. node --check proves a file parses, NOTHIN
   else ok('Every source file is clean text', files.length + ' files · no NUL, no stray control bytes — every diff stages line by line');
 }
 
+// ══ 24 · THE TIER SWITCHER ══════════════ MF133 · §17 · Law 42 · Law 4 ══
+head('24 · CAN A STRANGER STILL HAND HIMSELF PRO?   ⚖️ MF133 · Rulings §17');
+p('  \x1b[2m    tierBar rendered UNCONDITIONALLY to every visitor, on every screen, and its');
+p('       👑 Pro button sets USER_TIER=\'pro\' — opening cost · My Plan · shopping list ·');
+p('       the nutrition grid · dietary filters · favourites. The chef leaked $2.02 of');
+p('       spend and was found in days. This leaked the ENTIRE R90 PRODUCT and survived,');
+p('       because it emitted no Rand, threw no error and sent no bill. A SILENT HOLE');
+p('       NEEDS A MECHANICAL WATCHER, NOT A SHARPER PAIR OF EYES.');
+{
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
+
+  // ① THE GATE — tierBar may never reach innerHTML without tinzaIsDev() beside it.
+  const ungated = [], gated = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    s.split('\n').forEach((line, i) => {
+      if (!/innerHTML\s*=/.test(line) || !/\btierBar\b/.test(line)) return;
+      (/tinzaIsDev\s*\(\s*\)/.test(line) ? gated : ungated).push(f + ':' + (i+1));
+    });
+  });
+  if (ungated.length) bad(ungated.length + ' UNGATED tierBar → innerHTML — THE TIER SWITCHER IS PUBLIC',
+    '\n      ' + ungated.join('\n      ') +
+    '\n      \x1b[2mAnyone who loads the page can tap 👑 Pro and take the whole R90 product.' +
+    '\n      Gate it: root.innerHTML = (tinzaIsDev() ? tierBar + devStrip : \'\') + …  ⚖️ §17.4.\x1b[0m');
+  else if (gated.length) ok('Every tierBar render is behind tinzaIsDev()', gated.join(' · '));
+  else bad('tierBar NEVER REACHES innerHTML AT ALL — the switcher is gone, not gated',
+    '\n      \x1b[2mTina needs it to see her own app as a free user sees it. Deleting it is not' +
+    '\n      the fix; hiding it behind dev is. If this was deliberate it needs a ruling. ⚖️ §17.3.\x1b[0m');
+
+  // ② THE URL FLAG MUST NOT COME BACK — ruled DELETED, not weakened. ⚖️ §17.2.
+  // Not "just in case", and not as ?dev=<secret> either: a URL flag is shareable,
+  // screenshottable, guessable, survives WhatsApp, and lands in Netlify's request logs.
+  const urlDev = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    s.split('\n').forEach((line, i) => {
+      if (/location\.(search|href)/.test(line) && /\bdev\b/.test(line)) urlDev.push(f + ':' + (i+1) + '  ' + line.trim().slice(0,80));
+    });
+  });
+  if (urlDev.length) bad(urlDev.length + ' site(s) READ A DEV FLAG OFF THE URL — ?dev IS BACK',
+    '\n      ' + urlDev.join('\n      ') +
+    '\n      \x1b[2mIt is a password written on the door. Dev is a STORED preference. ⚖️ §17.2.\x1b[0m');
+  else ok('No dev flag is read from the URL', '?dev is deleted, not weakened');
+
+  // ③ ONE DEFINITION — nothing else may read a dev flag or invent one. ⚖️ Law 6 · §17.2.
+  let defs = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    s.split('\n').forEach((line, i) => { if (/function\s+tinzaIsDev\s*\(/.test(line)) defs.push(f + ':' + (i+1)); });
+  });
+  if (defs.length === 1) ok('tinzaIsDev() has exactly one definition', defs[0]);
+  else bad(defs.length + ' DEFINITION(S) OF tinzaIsDev() — ' + (defs.length ? 'it can drift' : 'the door is gone'),
+    '\n      ' + (defs.join(' · ') || '(none found)') +
+    '\n      \x1b[2mOne door, one definition. A second copy is a second answer. ⚖️ Law 6.\x1b[0m');
+
+  // ④ DEV MUST NEVER *BE* PRO — the clause that keeps the real gate testable.
+  // tinzaIsDev() renders the switcher; the switcher sets USER_TIER; tierAllows() reads
+  // USER_TIER. Three things, and they stay separate — at launch PayFast sets the tier,
+  // and a dev flag that implied Pro would mean Tina can never again see her own app as
+  // a free user sees it. ⚖️ §17.3.
+  const bleed = [];
+  files.forEach(f => {
+    const s = fs.readFileSync(path.join(SD,f),'utf8');
+    s.split('\n').forEach((line, i) => {
+      if (/^\s*(\/\/|\*)/.test(line)) return;                       // a comment about it is not a bleed
+      if (/tinzaIsDev\s*\(\s*\)/.test(line) && /USER_TIER|tierAllows|tierLevel/.test(line))
+        bleed.push(f + ':' + (i+1) + '  ' + line.trim().slice(0,80));
+    });
+  });
+  if (bleed.length) bad(bleed.length + ' site(s) LET DEV MODE IMPLY A TIER',
+    '\n      ' + bleed.join('\n      ') +
+    '\n      \x1b[2mDev SHOWS the switch. It must never BE Pro, or the real gate is' +
+    '\n      permanently untestable and she can never see her own app as free. ⚖️ §17.3.\x1b[0m');
+  else ok('Dev mode never implies a tier', 'dev shows the switch; the switch sets USER_TIER; tierAllows() reads it');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');
