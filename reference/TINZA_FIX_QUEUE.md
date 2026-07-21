@@ -124,7 +124,21 @@
 - **Fix.** With the cost/gate consolidation. **The gate list must be built from `TINZA_RULINGS.md` §2, surface by surface — not from a grep for `R$`.**
 - **Priority.** With the consolidation. Fourth confirmed leak surface (Braai plan · Budget rows · Spice list · the tier bar itself).
 
+## 🍗 Anchor Ingredient matches the whole record, not the ingredients
+**Seen:** 21 Jul 2026. **"chicken" returns Gyeran-jjim (Korean Steamed Eggs)** and other unrelated dishes.
+
+- **Symptom.** *I Have Chicken…* lists recipes that contain no chicken. Gyeran-jjim is an egg dish; it merely **mentions** chicken somewhere in its prose.
+- **Root — one line.** `sections/meals.js:15703`:
+  `allRecipes.filter(r => JSON.stringify(r).toLowerCase().includes(ingLower))`
+  **It stringifies the ENTIRE record** — name, method, tip, `didYouKnow`, `storage`, `goesWith`, tags — and substring-matches all of it. A recipe whose method says *"…as you would for chicken"* is a hit.
+- ✅ **THE FIX ALREADY EXISTS, 110 LINES ABOVE, IN THE SAME FILE.** `findFourIngredients()` at **15592** builds its haystack with `ingredientText(r)`, commented *"ingredients ONLY — never the trivia or chefNotes"*, under ⚖️ **Law 41**. **Anchor was never migrated onto it.** ⚖️ **Law 6 — the one door was built, and one caller kept its own.**
+- **Fix.** Reroute anchor's `dbMatches` through `ingredientText()`. **One line.** The Law 41 threshold question does not arise — anchor takes a single ingredient.
+- 🩸 **WHY IT MATTERS MORE THAN IT LOOKS.** Anchor Ingredient was ruled **Pro** this morning (§2 · §3.1). **A feature people now pay for must not return egg dishes for chicken.** ⚖️ **Law 7 — the lock is the salesman.**
+- **Priority.** Parked. One line, rides with any `meals.js` touch.
+
 ---
+
+# ⛔ STRUCK — RAISED, INVESTIGATED, NOT A BUG
 *Kept so they are never re-raised. ⚖️ Law 23 — two bugs sharing a name do not share a fix; and a bug that was never a bug still costs a session the second time.*
 
 ## ~~Vetkoek cost block contradicts the scaler ("scaler said 4, cost said 7")~~
