@@ -1547,4 +1547,131 @@ p('       NEEDS A MECHANICAL WATCHER, NOT A SHARPER PAIR OF EYES.');
   else ok('Dev mode never implies a tier', 'dev shows the switch; the switch sets USER_TIER; tierAllows() reads it');
 }
 
+
+// ══ 25 · CAN A FREE VISITOR SEE A PRICE? ═════ MF132 · §2.4 · Law 42 · Law 3 ══
+head('25 · CAN A FREE VISITOR SEE A PRICE?   ⚖️ MF132 · Rulings §2.4');
+p('  \x1b[2m    Check 24 watches the tier SWITCH. Nothing watched the MONEY. Measured 21 Jul:');
+p('       core.js:597 rendered the whole Budget room ungated, and 11 of 21 hand-rolled');
+p('       R${} sites sat outside costLine() — live Rand to any free visitor. Same silent');
+p('       shape as tierBar: no error, no bill, nothing missing from the screen.');
+p('       ⚖️ §2.4 — I\'ve Got R100 is ALL FILTER. The filter IS the product.');
+{
+  const SD = path.join(ROOT,'sections');
+  const files = fs.readdirSync(SD).filter(f=>f.endsWith('.js'));
+  const read = f => fs.readFileSync(path.join(SD,f),'utf8');
+  const isComment = l => /^\s*(\/\/|\*|\/\*)/.test(l);
+
+  // ① THE ROOM. A tool whose ANSWER is money is Pro at the door, not per render line.
+  // ⚖️ §2.4 — ask what the tool's ANSWER is, not what its screen shows.
+  const MONEY_ROOMS = ['budget'];          // add a room here the day its answer becomes money
+  const openRooms = [], shutRooms = [];
+  MONEY_ROOMS.forEach(room => {
+    const re = new RegExp("S\\.screen\\s*===?\\s*[\"']" + room + "[\"']");
+    let found = false;
+    files.forEach(f => {
+      read(f).split('\n').forEach((line, i) => {
+        if (isComment(line) || !re.test(line)) return;
+        found = true;
+        (/tierAllows\s*\(|tierLevel\s*\(|lockPanel\s*\(/.test(line) ? shutRooms : openRooms)
+          .push(room + '  ' + f + ':' + (i+1) + '  ' + line.trim().slice(0,70));
+      });
+    });
+    if (!found) openRooms.push(room + '  (NO SCREEN BRANCH FOUND — did the room move?)');
+  });
+  if (openRooms.length) bad(openRooms.length + ' MONEY ROOM(S) RENDER UNGATED — A FREE VISITOR GETS THE PAID ANSWER',
+    '\n      ' + openRooms.join('\n      ') +
+    '\n      \x1b[2mBudget is ALL filter — there is no free "badge half" to keep. Handing Free the' +
+    '\n      filtered list gives away the whole answer and withholds only the receipt.' +
+    '\n      Gate the ROOM and return lockPanel() carrying an HONEST COUNT. ⚖️ §2.4 · Law 6.\x1b[0m');
+  else ok('Every money room is gated at the door', shutRooms.join(' · '));
+
+  // ② THE HONEST COUNT. Law 3 forbids zero results and forbids a lie. A bare lock on a
+  // question tool is a zero. The count must exist, and must come from the SAME query
+  // that builds the paid list — two code paths would be two numbers. ⚖️ Law 3 · Law 7.
+  const lockSites = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    if (isComment(line)) return;
+    if (/lockPanel\s*\(/.test(line) && /budget/i.test(line)) lockSites.push(f+':'+(i+1));
+  }));
+  if (!openRooms.length && !lockSites.length)
+    warn('Budget is gated but NO lockPanel() names it — is Free seeing a blank room?',
+      '\n      \x1b[2mA gate that renders nothing is a zero result. Law 3 wants the COUNT:' +
+      '\n      "R100 feeds your family from N recipes — unlock with Pro." ⚖️ Law 3 · Law 7.\x1b[0m');
+  else if (lockSites.length) ok('Budget\'s lock is named and rendered', lockSites.join(' · '));
+
+  // ③ ONE DOOR FOR MONEY. Every Rand on every screen is built by costLine()/costOneLine().
+  // A hand-rolled R${} is not merely untidy — it is money rendered OUTSIDE the gate,
+  // which is exactly how 11 of these leaked. ⚖️ Law 6 · MF132.
+  const rawMoney = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    if (isComment(line)) return;
+    if (!/R\$\{/.test(line)) return;
+    if (/costLine\s*\(|costOneLine\s*\(/.test(line)) return;   // already through the door
+    rawMoney.push(f+':'+(i+1)+'  '+line.trim().slice(0,64));
+  }));
+  if (rawMoney.length) bad(rawMoney.length + ' HAND-ROLLED money string(s) OUTSIDE costLine()',
+    '\n      ' + rawMoney.slice(0,12).join('\n      ') +
+    (rawMoney.length>12 ? '\n      \x1b[2m… and ' + (rawMoney.length-12) + ' more\x1b[0m' : '') +
+    '\n      \x1b[2mcostLine() IS the gate (core.js) — it reads tierAllows(\'pro\') and locks.' +
+    '\n      Money built by hand is money the gate never saw. ⚖️ Law 6 · MF132.\x1b[0m');
+  else ok('Every Rand is built by the one door', 'no hand-rolled R${} anywhere in sections/');
+
+  // ④ THE DOOR IS ONE DOOR.
+  let costDefs = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    if (/function\s+costLine\s*\(/.test(line)) costDefs.push(f+':'+(i+1));
+  }));
+  if (costDefs.length === 1) ok('costLine() has exactly one definition', costDefs[0]);
+  else bad(costDefs.length + ' DEFINITION(S) OF costLine() — ' + (costDefs.length ? 'the gate can drift' : 'the gate is gone'),
+    '\n      ' + (costDefs.join(' · ') || '(none found)') + '\n      \x1b[2mOne door, one definition. ⚖️ Law 6.\x1b[0m');
+
+  // ⑤ NO GATE READS USER_TIER BY HAND — AND THE HAND-READ ONES FAIL OPEN.
+  // tierLevel() fails CLOSED by design (undefined → 0 → Free). maxMeats did the opposite:
+  // USER_TIER==="free"?2:99 returns 99 for undefined, for "Free", for a numeric level.
+  // Every other gate in Tinza fails closed. This one handed Free unlimited meats.
+  // ⚠️ A TRAILING COMMENT IS NOT CODE. Six of the seven this first flagged were the
+  // comment "// … never USER_TIER==='pro'" sitting after a CORRECT tierAllows() call —
+  // the file warning against the very bug, reported as the bug. Strip comments first.
+  const strip = l => l.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\/\/.*$/,'');
+  const handRead = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    const c = strip(line);
+    if (!c.trim()) return;
+    if (!/USER_TIER\s*===?|===?\s*USER_TIER/.test(c)) return;
+    if (/typeof\s+USER_TIER|TIER_LEVEL\[/.test(c)) return;           // tierLevel(), the door itself
+    if (/USER_TIER\s*=\s*['"]/.test(c)) return;                      // the switcher SETS it
+    handRead.push(f+':'+(i+1)+'  '+c.trim().slice(0,70));
+  }));
+  if (handRead.length) bad(handRead.length + ' gate(s) COMPARE USER_TIER BY HAND — these fail OPEN',
+    '\n      ' + handRead.join('\n      ') +
+    '\n      \x1b[2mtierLevel() fails CLOSED: undefined → 0 → Free. A hand comparison does not —' +
+    '\n      undefined, "Free" and a numeric level all miss the string and land on the PAID' +
+    '\n      branch. Ask at the door: tierAllows(\'pro\'). ⚖️ Law 6 · §17.3.\x1b[0m');
+  else ok('No gate compares USER_TIER by hand', 'every gate asks tierAllows() and inherits fail-closed');
+
+  // ⑥ A QUANTITY IS NOT MONEY. Free scales EVERY one of 2,083 recipes (§2 FREE).
+  // Spice is the trap: spiceFmt() returns money AND grams, so a grep for R$ misses the
+  // money and a careless gate catches the grams. Gating a gram is as much a bug as
+  // leaking a Rand — it just never announces itself either. ⚖️ §2 FREE · Law 3.
+  // ⚠️ A QUANTITY PASSED AS AN ARGUMENT IS NOT A GATED QUANTITY. health.js:850 gates an
+  // add-to-plan button that hands S.servings along as a parameter — My Plan IS Pro, so
+  // that gate is CORRECT. Only a quantity being RENDERED behind a gate is the bug.
+  const QTY  = /\b(spiceFmt|qtyBox|scaleQty)\b|\bservings\b|\byield\b/;
+  const PAID = /\b(plan|Plan|favourite|favorite|shop|Shop|cart|Cart|save|Save|toggle|Toggle|download)\b/;
+  const gatedQty = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    const c = strip(line);
+    if (!/tierAllows\s*\(|tierLevel\s*\(|lockPanel\s*\(/.test(c)) return;
+    if (!QTY.test(c)) return;
+    if (/cost|price|Rand|R\$\{/i.test(c)) return;   // money beside a qty name is fine
+    if (PAID.test(c)) return;                      // gating My Plan / favourites / list is RULED
+    gatedQty.push(f+':'+(i+1)+'  '+c.trim().slice(0,70));
+  }));
+  if (gatedQty.length) bad(gatedQty.length + ' site(s) GATE A QUANTITY — Free must still scale',
+    '\n      ' + gatedQty.join('\n      ') +
+    '\n      \x1b[2m§2 FREE: browse, cook, view and SCALE every one of 2,083 recipes. Grams,' +
+    '\n      servings and yields are never Pro. Lock the Rand, never the amount.\x1b[0m');
+  else ok('No quantity is gated', 'grams, servings and yields stay free — only Rand locks');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

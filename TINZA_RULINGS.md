@@ -78,6 +78,22 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 
 ---
 
+### 💰 2.4 · 💰 I'VE GOT R100 IS **PRO**, LOCKED AT THE ROOM — **RULED 21 Jul 2026**
+
+*Tina, in one line: **"What use is budget when there is no prices anyway?"** She was right and the derivation against her was wrong. Written down because it was argued twice. ⚖️ Law 52.*
+
+- 🩸 **THE MEASUREMENT THAT RAISED IT:** `core.js:597` — `else if(S.screen==="budget"){ content=budgetPlannerHTML(); }` — **no gate.** Six raw `R${}` sites inside rendered live Rand to any free visitor. Same silent shape as `tierBar`: no error, no bill, no missing element. The screen looked correct.
+- ⛔ **THE WRONG FIX, AND WHY IT WAS TEMPTING:** *room stays open, lock only the Rand.* It read as consistent with the dietary ruling — **badge free, filter Pro.**
+- ✅ **WHY IT IS WRONG: BUDGET HAS NO BADGE HALF. IT IS ALL FILTER.** Dietary splits cleanly — the **V badge is a fact about the recipe**, useful standing alone, so it is Free; the **filter is the work**, so it is Pro. **Budget is filter end to end.** Hand Free the filtered list and hide only the numbers, and Free has *the answer to "what can I make for R100"* — the entire product — with the receipt withheld. **The numbers are not the value. The FILTER is the value.**
+- 📜 **LAW 3 IS SATISFIED BY THE LOCK, NOT BREACHED BY IT.** The objection raised was *"a locked room prints zero results."* It does not. §2 FREE already names the compliant shape: **"sees the honest COUNT behind a lock."** The Budget lock reads **"R100 feeds your family from N recipes — unlock with Pro."** **N is real, computed from the same query that builds the paid list, never zero, never rounded to flatter.** ⚖️ **Law 3 · Law 7 — the lock is the salesman.**
+- 🔑 **THE GATE GOES AT THE ROOM** (`core.js:597`), **not on the six lines inside it.** One door. ⚖️ **Law 6.** Gating six render sites leaves the seventh to be found later.
+- ⛔ **`budgetPeople` AND `budgetPlan` ARE ON THE RED LINE (§5) AND DO NOT CLEAR.** A Free visitor who hits the lock and later upgrades finds her people count and her plan intact. **Gating is not clearing.**
+- 🔴 **KNOWN GAP, NOT PAPERED OVER:** `index.js:483` — `if(r.costPP==null) return false` — so **N is computed against 1551 recipes, not 2083.** 532 are invisible to any budget. The count is honest about **what Tinza can answer**, which is not the same as **what Tinza holds.** That gap is the 294-uncosted work on the Week 3 board.
+- 🧭 **THE GENERAL FORM, worth more than the Budget case:** *when deciding a tier gate, ask **what the tool's ANSWER is**, not what its screen shows.* If the answer itself is the paid thing, the room is Pro. If the screen merely decorates a free answer, only the decoration locks.
+
+---
+
+
 ## 🧑‍🍳 3 · TINZA CHEF (the AI)
 
 **RULED 13–14 Jul 2026.**
@@ -202,6 +218,25 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 ✅ **Spice DOES appear in 🔍 Search and 🧅 4 Ingredients.** *(An onion + tomato fridge should absolutely find Chakalaka.)*
 
 ---
+
+### 💸 5.1 · 💰 BUDGET IS FOR PEOPLE WHOSE MONEY IS SHORT — **RULED 21 Jul 2026**
+
+*Tina, 21 Jul: **"it's a budget section, for people low on cash. People low on cash won't have R500 for an event."** Recovered from a 24 May decision that had drifted. Written down this time. ⚖️ Law 52.*
+
+- 🎯 **THE AUDIENCE IS THE RULING.** Budget exists for the person whose problem is that **money is short this week.** Every feature in the room answers to that person or it does not belong in the room.
+- ⛔ **PARTY AND EVENT PLANNING IS NOT THAT PERSON.** Someone with R500 for a function is not short of money — they are **catering**, and catering has its own umbrella (§2.2, Events). Pointing a tight-budget user at party planning aims the tool at somebody it was not built for.
+- 🩸 **WHAT WAS FOUND, 21 Jul:** `budget.js:72` promised *"R500+ unlocks party & event planning mode"* and `:43` switched the subtitle to *"🎉 Party & event planning mode"* at R500. **Both DELETED.**
+- 🧭 **THE HISTORY MATTERS, BECAUSE IT WAS NOT ALWAYS FALSE.** Built 24 May as Tina's own idea, and it **worked** — at a high budget-per-person the chef was told to generate *"impressive celebratory"* recipes instead of budget ones. It survived the 10 Jun warm re-skin untouched, which is how a live feature quietly becomes a decision nobody remembers making. **It was orphaned on 21 Jul when the chef was switched off (§3.1)** — the promise did not die, its engine did.
+- ✅ **THE AMOUNT SURVIVES. THE PROMISE DOES NOT.** R500 stays as a chip, stays in the honest range *"R40 – R500"*, and stays as the threshold at `budget.js:150` that gates the **"Tight budget, honest food"** message. **A number is not a claim.** ⚖️ Law 3 — never promise what nothing keeps.
+- ✅ **THE CEILING IS 12 PEOPLE — RULED 21 Jul 2026.** `budget.js:83` reached **500**, raised from 20 on 24 May *for party mode*, which parked Budget in the CATERING band beside `cakeGuests` · `beverageGuests` · `barGuests`. **Measured, not guessed:**
+  · **12 is the last point where the room still ANSWERS** — R100 ÷ 12 = R8.33pp returns **226 real recipes.** Not zero, not a lie. ⚖️ Law 3.
+  · **At 50 the room CANNOT answer at all** — even R500, the top chip, lands at R10pp, **under the R15 meat line.** The old ceiling was ten times past where the tool stops working.
+  · **The meat-line message already covers the gap** — R100 drops below R15pp at **7 people**, so from there up `:150` is already telling the truth. 12 gives that message room to be useful before the cap arrives.
+  · **Past 12 is catering, and catering has Events.** The SA month-end reality — extended family, a gogo feeding grandchildren — fits inside 12.
+- ⚠️ **DO NOT REVIVE THIS WITH THE CHEF.** When MF78 restores the chef capped, the other five chef hides come back. **This one does not** — it was removed for PURPOSE, not for cost. Reversing it would re-aim the room. ⚖️ §2.3.
+
+---
+
 
 ## 🥬 6 · DIETARY
 

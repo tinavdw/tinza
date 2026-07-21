@@ -40,7 +40,7 @@ function budgetPlannerHTML(){
       <button onclick="set({screen:'home'})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.45);border:1px solid #3a2010;border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Home</button>
       <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 0;">
         <h1 style="margin:0 0 2px;font-size:22px;font-weight:bold;color:#f5e8cc;font-family:Georgia,serif;">💰 Budget Meals</h1>
-        <p style="margin:0 0 10px;font-size:13px;color:#e0d4b8;font-style:italic;">${budget>=500?'🎉 Party & event planning mode':'R40 – R500 · Real food · Real savings'}</p>
+        <p style="margin:0 0 10px;font-size:13px;color:#e0d4b8;font-style:italic;">R40 – R500 · Real food · Real savings</p>
         <div style="display:flex;align-items:center;background:rgba(6,16,8,0.85);border:1px solid #3a2010;border-radius:20px;padding:7px 14px;margin-bottom:14px;">
           <span style="color:${color};margin-right:8px;font-size:14px;">🔍</span>
           <input type="text" placeholder="Search budget recipes…"
@@ -69,7 +69,6 @@ function budgetPlannerHTML(){
               <strong style="color:${color};">2. Set people count</strong> — we calculate cost per person automatically.<br>
               <strong style="color:${color};">3. Tap Find Recipes</strong> — Tinza Chef finds real meals within your budget.<br>
               <strong style="color:${color};">4. Want more?</strong> — tap "Show me 3 more" for extra ideas.<br>
-              <span style="color:#e0d4b8;font-size:13px;">R500+ unlocks party & event planning mode.</span>
             </div>
           `:''}
         </div>
@@ -81,7 +80,7 @@ function budgetPlannerHTML(){
             <div style="font-size:22px;color:#f5c842;font-weight:bold;line-height:1;">${people}</div>
             <div style="font-size:13px;color:#e0d4b8;letter-spacing:1px;text-transform:uppercase;">people</div>
           </div>
-          <button onclick="setQuiet({budgetPeople:Math.min(500,(S.budgetPeople||4)+1)})"
+          <button onclick="setQuiet({budgetPeople:Math.min(12,(S.budgetPeople||4)+1)})"
             style="width:32px;height:32px;border-radius:50%;background:#1a1208;border:2px solid ${color};color:${color};font-size:18px;line-height:1;cursor:pointer;">+</button>
         </div>
       </div>
