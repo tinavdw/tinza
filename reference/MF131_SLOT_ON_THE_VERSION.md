@@ -1,6 +1,6 @@
 # MF131 — `slot` lives on the version; a record's slot is its default's
 
-**Status:** open · **unblocked** · not started
+**Status:** ✅ CODE LANDED 21 Jul (`4d284c5`) · awaiting Tina's proof on live ⚖️ Law 2
 **Raised:** 21 Jul 2026 · **RULED 21 Jul 2026** — see `TINZA_RULINGS.md`, *"`slot` LIVES ON THE VERSION"*
 **Closes:** census 18 assertion ③ — `unresolved` 2 → 0, honestly
 **Contract:** this is a **contract change**. `slot` becomes a reserved field at the **version** level as well as the recipe level.
@@ -111,10 +111,16 @@ record on Sweet-with-jam, and she has been lied to. ⚖️ Law 2.
 
 1. `node --check` on every touched file.
 2. `node tinza-census.js` — rung 18 ③ reads `✔ Every record resolves a slot`,
-   `slot source` shows `unresolved 0`. **Census stays 17 · doctor stays 9.**
-   ③ is a `▲` warn today, so no RED clears. **Any other number that moves is a bug —
-   report it, do not absorb it.** ⚖️ Law 51 · ⚖️ a RED can clear because a check lost
-   its anchor, so diff the RED *lines*, not just the count.
+   `slot source` shows `unresolved 0`.
+   🩸 **CORRECTED 21 Jul, ON THE BUILD — this step predicted "census stays 17" and it
+   was WRONG. Census goes 17 → 16.** Rung 18 ③ is only a `▲`, but **rung 11 was watching
+   the same two records as a hard RED** (`2 recipes are UNKNOWN — the ratchet slipped`)
+   and that one legitimately clears; rung 11 now reads `2083 slot present · 0 unknown`.
+   *Two rungs watched one fault at two severities, and the brief only counted one.*
+   ➡️ **The lesson is the method, not the number: the count was diffed LINE BY LINE
+   against HEAD before it was trusted, which is the only reason we know 17 → 16 is a
+   real fix and not another lost anchor.** ⚖️ Law 54c corollary — a count alone is never
+   proof. **Doctor stays 9. Any OTHER moving number is still a bug — report, do not absorb.**
 3. Assertion ① stays green — vetkoek must not disagree with itself across doors.
 4. **Prove clause 3 (additive):** confirm `record` / `derived` move by **exactly**
    the two records slotted, and no third. Then temporarily strip the four version
