@@ -322,6 +322,35 @@ Two mechanisms, kept separate:
 
 ---
 
+### 🆕 🍽️ `slot` LIVES ON THE **VERSION**. A RECORD'S SLOT IS ITS **DEFAULT VERSION'S** SLOT. — **RULED 21 Jul 2026**
+*MF131. Extends the reserved-slots contract to a second level. **`slot` is now a contract field at BOTH the recipe level and the VERSION level.***
+
+**The dish that forced it:** **Vetkoek** is a `TREAT` split with butter, jam and syrup — and a `SUPPER` split with curried mince. **Amagwinya** is the same dish. One record, two courses, so the record could not carry one honest slot and stayed **`unresolved`**. It was never a data gap; it was the **wrong shape**.
+
+⛔ **"Split it into two records" was RULED AND THEN WITHDRAWN (21 Jul).** It was ruled before `versions[]` was on the table. Both records **already carry the sweet/savoury split as versions**, each with its own ingredients, method, time, `costPP` and nutrition. Splitting would have duplicated the dough method **four ways**, and put **two records under one name** — against the ingredient standard's *same dish + same name → keep the most comprehensive*. ⚖️ **Law 22 — the data is the end of guessing.**
+
+**THE SHAPE — additive, never breaking:**
+1. **`slot` is an OPTIONAL field on a version**, sitting alongside the `ingredients` · `method` · `time` · `costPP` · `nutrition` each version already carries.
+2. **A record's slot is its DEFAULT version's slot, when its versions carry one.** Vetkoek defaults to *Sweet (Jam & Syrup)* → **the record is `TREAT`**. Pick *Curried Mince (Maalvleis)* → **it reads `SUPPER`**.
+3. **A record whose versions carry no slot behaves EXACTLY as it does today.** Recipe-level `slot` still wins where it is authored; derivation still runs where it is not. Nothing existing changes behaviour.
+
+🩸 **THAT THIRD CLAUSE IS THE TEST FOR WHETHER THIS LANDED.** After MF131: **census 17 · doctor 9, unmoved — the ONLY change is `unresolved` 2 → 0.** *Any other number that moves means a record silently changed course, and that is a bug, not a bonus.* ⚖️ **Law 51.**
+
+**⚠️ OPEN — NOT YET RULED: does a shelf ask the DEFAULT, or does it ask ANY version?**
+Every consumer of `r.slot` today reads **one** value, so under this ruling they all read **the default version's**. That is right for some and wrong for others, and the difference is now visible:
+- `MOOD_QUERY.sweet` (`core.js:2201`) asks `r.slot === 'TREAT'` — Vetkoek **passes** on its default. Correct.
+- `MOOD_QUERY.lazy` / `.impress` ask for `SUPPER` — **Maalvleis Vetkoek can never surface**, because the record reads `TREAT`. A real supper is invisible to every supper shelf.
+- ⛔ **And the trap: a shelf that matches on ANY version MUST OPEN THAT VERSION.** Match "supper" on Maalvleis and then open the record on *Sweet with jam* and she has been lied to. **Matching on any version is not a query change — it is a query change PLUS a "which version opened" change.** ⚖️ **Law 2.**
+
+🩸 **AND THE QUERY CHANGE AND THE WHICH-VERSION-OPENS CHANGE SHIP TOGETHER, OR NEITHER SHIPS.** *Half of it makes the shelf **confidently wrong** rather than merely incomplete, and confidently wrong is the worse failure.*
+
+**📏 MEASUREMENT READS THE FILED VALUE — RULED 21 Jul 2026.**
+**Census rungs measure the record AS FILED — the default version's slot — and continue to do so even if "any version" later lands. One record must never count in two distributions.** **Measurement reads the filed value; display reads the version the user picked.** A rung that cannot be reconciled is the same failure as a **`PROVEN` key going quiet** (MF130): the number still prints, and it is no longer answering the question it claims to answer. ⚖️ **Law 36 — the count is truth. Law 42 — the ratchet only holds if it cannot be quietly released.**
+
+**Nothing may change here without a ruling.** ⛔ **Do NOT flip any rung or shelf to "does ANY version qualify" unilaterally.**
+
+---
+
 ### 🆕 🗄️ THE STORE — `tinzaStore`, THE ONE DOOR FOR USER STATE — **RULED 15 Jul 2026**
 *The mirror of `normalizeRecipe()`: that door makes every RECIPE complete, this door makes every SAVE safe. Extends §7 — "today Tinza saves NOTHING except `tinzaTheme`." This is how it starts saving.*
 
