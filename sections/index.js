@@ -267,7 +267,9 @@
       (arr||[]).forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:'meals', mealCat:kind, cat:r.cat, name:r.name, emoji:r.emoji,   // MF56 · store the kind it already knows · MF119 · carry cat
+          // MF129 · TRANSPORT ONLY. No literal on the right — a record with no authored
+          // slot still falls through to derivation. ⛔ Never write a slot rule here. ⚖️ Law 6.
+          id:r.id, section:'meals', slot:r.slot||null, mealCat:kind, cat:r.cat, name:r.name, emoji:r.emoji,   // MF56 · store the kind it already knows · MF119 · carry cat
           mealRole: kind==='breakfast' ? 'component' : kind==='lunch' ? 'main' : mealRoleFromCat(r.cat),
           diet: r.diet ? [r.diet] : [],
           protein: r.protein||null, cuisine: r.cuisine||'',
@@ -294,7 +296,7 @@
     if(typeof BUDGET_FLOOR_RECIPES==='undefined') return [];
     return BUDGET_FLOOR_RECIPES.filter(Boolean).map(function(r){
       return rec({
-        id:r.id, section:'floor', name:r.name, emoji:r.emoji, mealRole:'main',
+        id:r.id, section:'floor', slot:r.slot||null, name:r.name, emoji:r.emoji, mealRole:'main',   // MF129 · transport only
         diet: r.diet ? [r.diet] : [], protein:r.protein||null, cuisine:r.cuisine||'',
         time:r.time!=null?r.time:null,
         kcal:(r.nutrition && r.nutrition.kcal!=null)?r.nutrition.kcal:(r.kcal!=null?r.kcal:null),
@@ -347,7 +349,7 @@
       arr.forEach(function(r){
         if(!r || !r.id) return;
         out.push(rec({
-          id:r.id, section:'health', name:r.name, emoji:r.emoji, mealRole:role,
+          id:r.id, section:'health', slot:r.slot||null, name:r.name, emoji:r.emoji, mealRole:role,   // MF129 · transport only
           diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
           kcal:r.kcal!=null?r.kcal:null, costPP:r.costPP!=null?r.costPP:null,
           ingredients: normIng(r.shopping || r.base300 || r.base || r.ingredients),
@@ -403,7 +405,7 @@
                : 'component';                               // starter/dessert/other → component
 
       return rec({
-        id:r.id, section:'world', course:r.course, name:r.name, emoji:r.emoji||'🌍', mealRole:role,   // MF119 · stop discarding course (Law 46 · line 257)
+        id:r.id, section:'world', slot:r.slot||null, course:r.course, name:r.name, emoji:r.emoji||'🌍', mealRole:role,   // MF119 · stop discarding course (Law 46 · line 257) · MF129 · transport only
         diet: toArr(r.diet).map(lc), protein:null,
         cuisine: r.cuisine||r.country||'', country:r.country,
         nameAlt:r.nameAlt, aliases:r.aliases,
@@ -502,7 +504,7 @@
     if(typeof EVENTS_BEVERAGE_RECIPES==='undefined') return [];
     return EVENTS_BEVERAGE_RECIPES.filter(Boolean).map(function(r){
       return rec({
-        id:r.id, section:'beverages', name:r.name, emoji:r.emoji, mealRole:'drink',
+        id:r.id, section:'beverages', slot:r.slot||null, name:r.name, emoji:r.emoji, mealRole:'drink',   // MF129 · transport only
         diet:[], protein:null, cuisine:r.category||'', time:null, kcal:null, costPP:null,
         ingredients: nameOnlyIng(r.base300 || r.ingredients), goesWith:[],
         feel:'', method:r.method, nutrition:null, tip:r.tip||'', storage:'',
@@ -516,7 +518,7 @@
     if(typeof BABY_RECIPES==='undefined') return [];
     return BABY_RECIPES.filter(Boolean).map(function(r){
       return rec({
-        id:r.id, section:'tiny', name:r.name, emoji:r.emoji, mealRole:'baby',
+        id:r.id, section:'tiny', slot:r.slot||null, name:r.name, emoji:r.emoji, mealRole:'baby',   // MF129 · transport only
         diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
         kcal:null, costPP:null, ingredients: normIng(r.base), goesWith:[],
         feel:'', method:r.method, nutrition:null, tip:r.tip||'',
@@ -551,7 +553,7 @@
         (map[k]||[]).forEach(function(r){
           if(!r || !r.id) return;
           out.push(rec({
-            id:r.id, section:'furry', name:r.name, emoji:r.emoji||'🐾', mealRole:'pet',
+            id:r.id, section:'furry', slot:r.slot||null, name:r.name, emoji:r.emoji||'🐾', mealRole:'pet',   // MF129 · transport only
             diet:[], protein:null, cuisine:'', time:r.time!=null?r.time:null,
             kcal:null, costPP:null, ingredients:normIng(r.base), goesWith:[],
             feel:'', method:r.method, nutrition:null, tip:r.tip||'',
