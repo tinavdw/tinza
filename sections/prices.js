@@ -5,7 +5,7 @@ const PRICE_DB = {
   "trout": 400,                   // whole gutted R360–425/kg → honest mid
   "garlic clove_each": 0.3, "garlic cloves_each": 0.3,   // ~5g clove of R60/kg garlic
   "bread roll_each": 3.5, "bread rolls_each": 3.5,       // 6-pack ~R20
-  "pita bread_each": 4, "pita_each": 4, "pita breads_each": 4,
+  "pita bread_each": 4, "pita breads_each": 4,   // MF137 · dead "pita_each": 4 deleted — L487 R7.70 (R46/6-pack, Tina's own measure) always won
   "bay leaf_each": 0.15, "bay leaves_each": 0.15,        // negligible aromatic
   "bread slice_each": 1, "bread slices_each": 1,         // loaf ~R18 / 18 slices
   "chilli_each": 1, "chillies_each": 1, "chillis_each": 1,
@@ -151,7 +151,8 @@ const PRICE_DB = {
   "pork roast": 80,
   "pork shank": 80,
   "pork potjiekos": 80,
-  "pork belly": 120,
+  // MF137 · dead "pork belly": 120 deleted — the later R150 always won silently.
+  // R150 ruled 22 Jul: SA shelf R129.99 (PnP) to R186.99 (Woolworths), honest middle.
   "pork mince": 125,
   "pork bangers": 110,
   "pork braai chops": 100,
@@ -655,7 +656,7 @@ const PRICE_DB = {
   // ── Finger-food ingredients (PRICE_DB audit, 19 Jun 2026) — were NULL -> counted R0 ──
   // Base keys; priceOf's longest-word fallback resolves the parenthetical variants too.
   "rump steak": 225,          // = beef rump (Roadmap R225/kg) — was the big zero
-  "shortcrust pastry": 100,   // R40/400g roll -> ~R100/kg (cf puff pastry 80)
+  "shortcrust pastry": 82,   // R32.99/400g PnP Today (Tina, 22 Jul) — same shelf price as puff
   "bell pepper": 50,          // = green pepper R50/kg
   "blue cheese": 260,         // SA blue/gorgonzola ~R260/kg
   "calamari": 130,            // frozen tubes/rings ~R130/kg
