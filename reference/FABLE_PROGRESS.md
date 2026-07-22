@@ -2,16 +2,14 @@
 
 **This file is the handoff. A conversation does not survive a cut-off. This does.**
 
-⚠️ **FIRST ACTION OF EVERY SESSION: READ THIS FILE.**
-Do not re-derive what is done. Do not start from the top. Start at `NEXT UP`.
+⚠️ **FIRST ACTION OF EVERY SESSION: READ THIS FILE.** Start at `NEXT UP`, never re-derive `DONE`.
 
-**AFTER EVERY SINGLE RECIPE:** write the file → `node --check` → append one line to
-`DONE` below → only then begin the next. **A cut-off must cost one recipe, never a session.**
+**AFTER EVERY SINGLE RECIPE:** write the file → `node --check` → append one line to `DONE` →
+only then begin the next. **A cut-off must cost one recipe, never a session.**
 
-**ONE CHAT = ONE SESSION = MANY RECIPES.** Keep writing in the same chat (~10–15 recipes).
-Download the updated files as you go — each download holds everything done so far. Start a
-FRESH chat only when the chat gets long or you break — never per recipe. A fresh chat reads
-this file and resumes at `NEXT UP`; that is the whole point of the file being the memory.
+**ONE CHAT = ONE SESSION = MANY RECIPES.** Keep writing in the same chat (~10–15 recipes),
+download as you go. Start a FRESH chat only when the chat gets long or you break — never per
+recipe. A fresh chat clones GitHub and resumes at `NEXT UP`. **The file is the memory, not the chat.**
 
 ---
 
@@ -19,19 +17,10 @@ this file and resumes at `NEXT UP`; that is the whole point of the file being th
 
 A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md`.
 
-1. **Michelin-chef-to-granny voice.** Explain it like a Michelin chef teaching his own
-   grandmother — real technique, warm plain words, and the **WHY** behind every step
-   (why sear, why rest, why that order). Never a flat instruction list.
-2. **`didYouKnow` = real history, not filler.** Genuine, interesting trivia about the dish's
-   origin and story — the era, the place, how it came to be. *(Example: bobotie traces to
-   the 1600s Cape, carried in by the Cape Malay community.)* If it doesn't teach something
-   true and surprising, rewrite it.
-3. **Leftover suggestions — proper ones.** Specific, appetising next-day ideas that turn the
-   leftovers into a **second real meal** — never "eat it cold." *(e.g. leftover Caldo Verde
-   → a thick potato-and-greens hash under a fried egg.)*
-4. **Make the ordinary extraordinary.** Every card should leave a home cook feeling they
-   learned the *best* way to make it. If a dish can't be made special, it doesn't earn a
-   card — **remove and replace it** (Shelf-WOW). Anyone can make plain rice; they don't need us for that.
+1. **Michelin-chef-to-granny voice.** Real technique, warm plain words, the **WHY** behind every step. Never a flat instruction list.
+2. **`didYouKnow` = real history, not filler.** Genuine origin/era/story. *(bobotie → 1600s Cape.)* If it doesn't teach something true and surprising, rewrite it.
+3. **Leftover suggestions — proper ones.** A **second real meal**, never "eat it cold."
+4. **Make the ordinary extraordinary.** *"White Rice — simple, clean and ready for anything"* is a placeholder, not a recipe. If a dish can't be made special, **remove and replace it** (Shelf-WOW). Anyone can make plain rice; they don't need us for that.
 
 ---
 
@@ -47,104 +36,85 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 [x] Migas à Alentejana · Portugal · 2 versions (Classic R28 · de Azeite budget R22) · wk_europe.js · 22 Jul
 [x] Bolo Rei · Portugal · 2 versions (Classic R56 · Bolo Rainha budget R39) · wk_europe.js · 22 Jul
 [x] Queijo Assado · Portugal · 3 versions (Classic R38 · Feta budget R34 · Camembert R62) · wk_europe.js · 22 Jul
+[x] Favas Guisadas · Portugal · 3 versions (Classic R36 · de Azeite budget R18 · com Ovos R40) · wk_europe.js · 22 Jul
+[x] Bifinhos com Cogumelos · Portugal · 3 versions (Classic R51 · com Cerveja budget R30 · de Frango R48) · wk_europe.js · 22 Jul
+[x] Peixinhos da Horta · Portugal · 3 versions (Classic R30 · de Legumes budget R26 · à Cerveja R32) · wk_europe.js · 22 Jul
+[x] Bifana · Portugal · 3 versions (Classic à Vendas Novas R24 · de Perna budget R19 · do Porto R28) · pairsWith UNTOUCHED (§16 fence) · wk_europe.js · 22 Jul
+[x] Leitão à Bairrada · Portugal · 3 versions (Classic whole pig R72 · Assado de Perna budget R30 · de Barriga belly R51) · wk_europe.js · 22 Jul
+[x] Cozido à Portuguesa · Portugal · 3 versions (Classic R53 · Remediado budget R32 · Farto feast R71) · wk_europe.js · 22 Jul
+[⛔] Ginjinha · Portugal · FENCED unpriced — brandy + sour cherries absent from PRICE_DB (Code brief) · 22 Jul
 
 ---
 
-## LANE ORDER — THIS WINDOW · ~4 sessions today (now · ~12h00 · ~17h00 · ~22h00)
+## LANE ORDER — this window + tomorrow (4 sessions before 17:00 Thu reset)
 
-**Portugal (finish 7) → Spain (elevate + replace) → SA-safe → [NEXT WINDOW: India / Sri Lanka / Pakistan]**
-
-Every version pass **LEADS WITH A BUDGET FORK** — Budget needs the cheap one (§15.5, `costPP` on every version).
+**Spain (active) → SA-safe → [NEXT WINDOW: India / Sri Lanka / Pakistan]**
+Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET FORK** (§15.5, `costPP` on every version).
 
 ---
 
-## WHERE FABLE IS — measured 22 Jul
+## WHERE FABLE IS — 22 Jul
 
 | country | versioned | of | state |
 |---|---|---|---|
 | **Greece** | 54 | 54 | ✅ complete |
-| **Portugal** | 43 | 52 | ▶ **7 left (Frango + Pastéis fenced) — RESUME HERE** |
-| **Spain** | 0 | 59 | ⬜ block — after Portugal (map below) |
+| **Portugal** | 49 | 52 | ✅ **CLOSED** — 3 fenced (Ginjinha unpriced · Frango + Pastéis = pointers per §2.6) |
+| **Spain** | 0 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
 | Austria | 4 | 27 | parked |
-| Cape Malay | 1 | 21 | mostly BLOCKED (duplicates) |
 
 ---
 
 ## NEXT UP
 
-Always leave three named. If a session is cut off, this is the handoff.
+Always leave three named.
 
-### ▶ NOW · PORTUGAL — 7 left of 52 (Frango + Pastéis fenced)
+### ▶ NOW · SPAIN — 59 dishes · mostly ELEVATE, small REPLACE
 
-1. **Favas Guisadas** (stewed broad beans) — add a budget fork.
-2. **Bifinhos com Cogumelos** (pork medallions in mushroom cream).
-3. **Peixinhos da Horta** (green-bean tempura fritters).
+1. **Gazpacho** — elevate to /wow; budget fork.
+2. **Patatas Bravas** — elevate; the two-sauce Madrid/Barcelona split is the version story.
+3. **Croquetas de Jamón** — elevate; bechamel-technique card; budget chicken/leftover fork.
 
-Then: **Bifana** *(⚠️ version it, but leave its `goesWith` alone — Tina's §16 worked example)* ·
-**Leitão** · **Ginjinha** · **Cozido à Portuguesa**.
-⛔ **Frango Piri-Piri** and **Pastéis de Nata** are FENCED — see BLOCKED.
-
-### THEN · SPAIN — 59 dishes · MOSTLY ELEVATE, SMALL REPLACE (map confirmed 22 Jul)
-
-Spain is DEEP — ~49 real dishes written thin + ~8 genuine filler. **Elevate the real ones,
-cull the filler, spend those slots on the missing icons.** ⚖️ Shelf-WOW: never fake-dress a
-boring card. Budget fork wherever the dish carries one.
-
-⛔ **FENCED:** Tortilla Española (duplicate with `meals` — see BLOCKED).
+Work the ELEVATE list top to bottom, one at a time. Cull a REPLACE-list filler **only** when you add its ADD-list replacement in the same sitting. Never fake-dress a boring card.
 
 ✅ **KEEP & ELEVATE — real dishes that only *look* ordinary (do NOT delete):**
 Aceitunas Aliñadas *(marinated olives)* · Ensaladilla Rusa *(potato salad)* · Escalivada ·
 Zanahorias Aliñadas · Pan con Tomate · Setas al Ajillo · Espinacas con Garbanzos.
 
-📝 **ELEVATE to /wow — real dishes written thin (the bulk):**
-Patatas Bravas · Croquetas de Jamón · Gazpacho · Pimientos de Padrón · Calamares a la Romana ·
-Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · Paella de Marisco ·
-Pollo al Ajillo · Cocido Madrileño · Fabada Asturiana · Bacalao a la Vizcaína ·
-Merluza en Salsa Verde · Cochinillo Asado · Cordero Asado · Pisto · Arroz Negro · Fideuà ·
-Pollo al Chilindrón · Solomillo al Whisky · Patatas Panaderas · Patatas con Alioli ·
-Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche ·
-Torrijas) · drinks (Sangría · Tinto de Verano · Rebujito · Clara · Horchata).
+📝 **ELEVATE to /wow (the bulk):**
+Patatas Bravas · Croquetas de Jamón · Gazpacho · **Tortilla Española** *(🔓 now WK-Spain canonical, §2.6 — elevate + version it; `meals` copy is a pointer, so no double)* · Pimientos de Padrón · Calamares a la Romana · Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · Paella de Marisco · Pollo al Ajillo · Cocido Madrileño · Fabada Asturiana · Bacalao a la Vizcaína · Merluza en Salsa Verde · Cochinillo Asado · Cordero Asado · Pisto · Arroz Negro · Fideuà · Pollo al Chilindrón · Solomillo al Whisky · Patatas Panaderas · Patatas con Alioli · Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche · Torrijas) · drinks (Sangría · Tinto de Verano · **Rebujito** *(real feria drink — tell the story)*).
 
 🔁 **REPLACE — genuine filler (anyone can make these):**
 Arroz Blanco · Ensalada de Tomate · Patatas Hervidas · Pan Tostado · Pan Frito ·
-Pan con Ajo · Ensalada Mixta · Café con Leche.
+Pan con Ajo · Ensalada Mixta · Café con Leche · **Clara** *(a shandy — barely a recipe)*.
 
 ➕ **ADD in their place — iconic Spanish dishes Spain is MISSING:**
 Gambas al Ajillo · Pulpo a la Gallega · Salmorejo · Rabo de Toro · Bacalao al Pil-Pil ·
-Marmitako · Empanada Gallega · Bocadillo de Calamares.
-*(Tina may swap any of these for another icon she prefers.)*
+Marmitako · Empanada Gallega · Bocadillo de Calamares. *(Tina may swap any.)*
 
-### THEN · SA-SAFE (if the window lasts) — no duplicate, priced
+### THEN · SA-SAFE (absent dishes — no duplicate, safe to author now)
 
 Snoektert *(+ budget pilchard-tart fork)* · Maasbanker curry · Beesstert (Oxtail) R43 ·
 Pickled Fish R33 · Snoek Curry R34 · Chicken Breyani R23 · Durban Chicken Curry R24 ·
 Durban Mutton Curry R34 · Durban Fish Curry R40.
-⚠️ **Korslose Snoek-en-Uietert already exists** (`wk_southafrica:128`) — add `costPP` + versions, do NOT author it new.
+⚠️ **Korslose Snoek-en-Uietert already exists** (`wk_southafrica:128`) — add `costPP` + versions, do NOT author new.
 
-### NEXT WINDOW (after 17:00 Thu) · THE EAST BLOCK — SCOPE, Tina's call
+**AFTER THE SA CODE MERGE (§2.5) runs, these two open:**
+- **Waterblommetjiebredie** (boerekos canonical) — 🆕 **MUST carry a version with an inland substitute** for the waterblommetjies (coastal seasonal thing, hard to find inland).
+- **Braaibroodjies** (Braai canonical) — if versioned at all, in the Braai record.
 
-India (49 · 28 mains · 0 versioned) · Indian/Durban (20 · 9 mains, SA food §5.1) ·
-Sri Lanka + Pakistan (new countries). ⚠️ `india` and `indian` are two cuisines, correctly separated.
+### NEXT WINDOW · THE EAST BLOCK — SCOPE, Tina's call
+
+India (49 · 28 mains · 0 versioned) · Indian/Durban (20 · 9 mains, §5.1) · Sri Lanka + Pakistan (new). ⚠️ `india` and `indian` are two cuisines, correctly separated.
 
 ---
 
 ## BLOCKED — do not start these
 
-- ⛔ **EUROPE DUPLICATES — settle canonical first (§2.3):**
-  - **Tortilla Española** [spain] × `meals ln-tortilla-espanola` (R20)
-  - **Frango Piri-Piri** [portugal] × `meals` "Peri-Peri Flame-Grilled Chicken" (R30)
-  - **Pastéis de Nata** [portugal] × `bakes bk-pasteis-nata` — the bakes copy is ALREADY
-    VERSIONED (Classic · Chocolate · Coconut), so versioning the WK copy makes a versioned
-    DOUBLE. Fenced mid-session; **Tina rules the canonical** (proposed: bakes keeps it, WK
-    Portugal becomes a pointer so it still shows on the Portugal shelf). One line unblocks.
-- ⛔ **SA duplicate pairs** — `meals` copy carries 3–6 versions; `world` copy none. Authoring
-  onto `world` creates a SECOND versioned record. bobotie · cape malay chicken curry ·
-  bunny chow · shepherd's pie · tamatie bredie · waterblommetjiebredie · braaibroodjies.
-  60 library-wide. ⚖️ §2.3 — Tina rules each pair.
-- ⛔ **Unpriced dishes** — price first (Node + `PRICE_DB`), then version.
+- ⛔ **GINJINHA — UNPRICED.** Brandy/aguardente and sour/morello cherries are absent from `PRICE_DB`; Fable never touches the price maps (MF138). A Code brief adds them, then it's next in line.
+- ⛔ **Frango Piri-Piri + Pastéis de Nata — RULED §2.6 as POINTERS.** Do NOT author the WK copies. Peri-peri is owned in `meals`; Pastéis in `bakes`. *(Tortilla is NOT here — it's now canonical, elevate it in Spain.)*
+- ⛔ **The 7 SA duplicate pairs — RULED §2.5, awaiting the Code merge.** bobotie · cape malay chicken curry · bunny chow · shepherd's pie · tamatie bredie · waterblommetjiebredie · braaibroodjies. Canonical is decided (mostly `meals`), but until Code strips bobotie's live double and repoints the rest, **Fable stays off all seven.**
 - ⛔ **The `goesWith` sweep** — 4,672 entries, 25% resolve. ⚖️ §16.1. Own session, later.
-- ⛔ **Europe version *audit*** — Tina audits AFTER Fable hands back; the `DONE` list is her
-  checklist. Fable OWNS Portugal + Spain authoring — no parallel editing of the same card.
+- ⛔ **Europe version *audit*** — Tina audits AFTER Fable hands back; the `DONE` list is her checklist.
 - ⛔ **Italy · China · Japan · Thailand · South America · USA** — flags, no food. Scope, after October.
 
 ---
@@ -155,14 +125,11 @@ Full brief: `reference/FABLE_SESSION_BRIEF.md`
 
 - One recipe in flight. Never batch. Never "save at the end."
 - No refactoring, renaming or tidying. Out of scope is out of scope.
-- ⛔ **Never edit `PRICE_ALIAS` / `WK_ALIAS`** — the costing maps are Code's, ruled separately
-  (MF138). Fable writes recipes; it never touches the price maps.
-- Every version carries its own `costPP` — without it the Budget room cannot see it (§15.5).
-- Every version pass LEADS with a budget fork where the dish can carry one.
-- `goesWith` is a pairing, never a similarity (§16).
-- Diet is derived in Node, never hand-written (Law 47).
-- No retailer names. Leaveners in grams.
-- A fork counts only if people actually cook it. Never pad a rung with stubs (§15.2).
+- ⛔ **Never edit `PRICE_ALIAS` / `WK_ALIAS`** — costing maps are Code's (MF138).
+- Every version carries its own `costPP` (§15.5), and every version pass LEADS with a budget fork.
+- `goesWith` is a pairing, never a similarity (§16). Diet is derived in Node (Law 47).
+- No retailer names. Leaveners in grams. A fork counts only if people cook it (§15.2).
+- `/wow` = `WOW_STANDARD.md`.
 - `node tinza-doctor.js` ≤ 9 · `node tinza-census.js` ≤ 19 before handback.
 - End every session by naming the next three under `NEXT UP`.
 
@@ -170,12 +137,9 @@ Full brief: `reference/FABLE_SESSION_BRIEF.md`
 
 ## 🐟 THE FISH FAMILY — banked 21 Jul 2026 *(lives HERE, not in a chat)*
 
-**Ruled and priced. Nothing here is open.**
-
-- **Yields:** snoek (gutted whole, bone-in) → flakes **52.5%** · maasbanker (whole round) → **42.5%**.
-- **The Whole Fish Law** ⚖️ §18 — priced whole → written whole. Ingredient line = **trolley weight**; the method states the flaked yield.
-- **Prices at `e1c4649`:** snoek **R147** · snoek fillet **R120** · **smoked snoek R450** · maasbanker **R60** · whole mackerel **R60** · tinned mackerel **R92**.
+- **Yields:** snoek (gutted whole, bone-in) → **52.5%** · maasbanker (whole round) → **42.5%**.
+- **Whole Fish Law** ⚖️ §18 — priced whole → written whole. Ingredient line = trolley weight; method states the flaked yield.
+- **Prices at `e1c4649`:** snoek R147 · snoek fillet R120 · smoked snoek R450 · maasbanker R60 · whole mackerel R60 · tinned mackerel R92.
 - **Ladder, R/kg of flakes:** pilchards R65 · tinned mackerel R92 · maasbanker R141 · braai snoek R314 · smoked snoek R450.
-- **makriel** = fresh frozen, **no tin alias**.
-- **maasbanker curry** = a **version** of the existing Snoek Curry, only if it earns it.
+- **makriel** = fresh frozen, no tin alias. **maasbanker curry** = a version of Snoek Curry, only if it earns it.
 - ⚠️ **Open, waiting on Tina:** the Snoek Curry fish quantity (for the pilchard/maasbanker swap).

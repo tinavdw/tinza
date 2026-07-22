@@ -94,6 +94,37 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 ---
 
 
+### 🍽️ 2.5 · THE SEVEN SA DUPLICATE PAIRS — RESOLVED 22 Jul 2026
+
+*Raised repeatedly — the bobotie note in §15 below, and the Fable SA lane. Tina rules each, applying §2.3; Claude never infers. ⚖️ Law 60.*
+
+- 📜 **THE RULE FOR 1–5:** where an SA dish lives in both `meals` (versioned) and World Kitchen (bare), **the versioned `meals` copy is CANONICAL.** The World Kitchen copy becomes a **POINTER** — it still appears on its Cape Malay / Indian / Boerekos shelf, but there is exactly ONE versioned record. No version data moves; the budget forks — the whole reason for the SA work — stay where they already are. ⚖️ *Duplicate rule: same dish + same name → keep the most comprehensive.*
+- 🩸 **#1 BOBOTIE — THE DOUBLE IS ALREADY LIVE.** `meals sp-bobotie` **and** `wk_southafrica cape-malay-bobotie` both carry the identical six versions (Classic · Budget · Quick · Lentil · 1600s Original · In a Pumpkin). Canonical = **`meals`**. **Code strips the WK copy's six duplicated versions and repoints it.** A resolve, not a prevent.
+- **#2 Cape Malay Chicken Curry** — canonical `meals sp-capemalay-curry` (4 vers, R32); `wk cape-malay-chicken-curry` → **pointer.**
+- **#3 Bunny Chow** — canonical `meals sp-bunny-chow` (4 vers, R40); `wk indian-bunny-chow` → **pointer.**
+- **#4 Shepherd's Pie** — canonical `meals sp-shepherds-pie` (3 vers, R48, incl a Budget fork); `wk boerekos-herderspastei` → **pointer.** The Budget fork holds the cheap end the bare WK price used to.
+- **#5 Tamatie Bredie** — canonical `meals sp-lamb-bredie` (3 vers, R47); `wk cape-malay-tomato-bredie` (bare, unpriced) → **pointer.**
+- **#6 Waterblommetjiebredie — WK-internal double, neither versioned.** Keep **`wk boerekos-waterblommetjiebredie`** (it is a Cape-Dutch stew, not Cape Malay); `wk cape-malay-waterblommetjie-bredie` **dies.** 🆕 **CONTENT REQUIREMENT (Tina, 22 Jul):** the surviving record MUST carry a **version that substitutes an inland-available alternative for the waterblommetjies.** They are a Western Cape seasonal delicacy — easy at the coast, genuinely hard to find away from it. The dish must not be dead to anyone inland.
+- **#7 Braaibroodjies — Braai section × WK boerekos, neither versioned.** Keep the **Braai** record (`braaibroodjies`) — it is a braai dish; `wk boerekos-braai-broodjies` **dies.**
+- ✅ **NOT DUPLICATES — KEEP BOTH/ALL:** Cape Malay **Fish** Curry [events] ≠ Cape Malay **Chicken** Curry [meals]. Cape Malay Curry **Powder** [spice] is a blend, not the dish.
+- ⚙️ **RULING ≠ DONE.** Executing 1–7 is a **Code / Node merge** — strip bobotie's double · repoint 2–5 to their canonical · drop the dead copies in 6–7. Until it runs, Fable stays fenced off these pairs. This is the next SA Code brief.
+
+---
+
+
+### 🇪🇺 2.6 · THE THREE EUROPE DUPLICATES — RESOLVED 22 Jul 2026
+
+*Fenced during the Fable Portugal/Spain run; ruled here so they unblock. ⚖️ §2.3 · Law 60.*
+
+- **Pastéis de Nata** — `bakes bk-pasteis-nata` is **CANONICAL** (already versioned: Classic · Chocolate · Coconut). `wk portugal pasteis-nata` → **pointer**, still on the Portugal shelf. The versioned copy wins — same logic as §2.5.
+- **Tortilla Española** — neither copy is versioned. **CANONICAL = `wk spain`.** It sits inside the Spain block Fable is elevating right now, and its home is Spain. `meals ln-tortilla-espanola` → **pointer** (keeps it in the everyday/quick room). 🔓 **This UNFENCES it for Fable's Spain pass** — Fable elevates + versions the WK Spain record; no double is created because `meals` carries zero versions.
+- **Frango Piri-Piri** — neither copy is versioned; same dish under two flags. **CANONICAL = `meals` "Peri-Peri Flame-Grilled Chicken".** Peri-peri chicken is iconically SA (Nando's country) — its home is the everyday SA room, not the Portugal shelf. `wk portugal frango-piri-piri` → **pointer** (still shows as Frango Piri-Piri on the Portugal shelf). Fable does NOT author the WK copy — peri-peri stays owned in `meals`.
+- 🧭 **THE TIEBREAKER (general form):** when neither copy is versioned, canonical = **where the dish is culturally at home AND where it is being actively developed.** Tortilla → Spain (WK, being elevated now). Peri-peri → SA (meals, the hero framing). The versioned-copy rule (§2.5) only applies when one side actually has versions.
+- ⚙️ **RULING ≠ DONE** — the same Code/Node merge as §2.5 repoints these pointers. Until it runs, Frango and Pastéis stay fenced from Fable; Tortilla is the one that opens.
+
+---
+
+
 ## 🧑‍🍳 3 · TINZA CHEF (the AI)
 
 **RULED 13–14 Jul 2026.**
@@ -717,7 +748,7 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
   🚨 **SPAG BOL IS THE CLEAREST CASE:** record **R59**, Budget **R31**, Quick **R29**. A shopper with R31pp **cannot reach it at all**, while the R31 version sits inside the record she was refused.
 - 🌍 **THIS PARTLY FIXES THE LOCALE SKEW ON ITS OWN — CONFIRM WHEN BUILDING.** The biggest hidden discounts are **disproportionately SA comfort food** — Gatsby, sosaties, bunny chow, bobotie. §11 measured the R0–R10 band at only **14% SA-reachable**; part of that is **SA budget versions being invisible, not absent.** Measure the band again after this ships **before** sizing the locale nudge.
-- ❓ **SEEN WHILE MEASURING — A DUPLICATE FOR TINA TO RULE:** **`Classic Bobotie` [meals] R34 with six versions** and **`Bobotie` [world] R26 with none.** The world record is bare and its single price equals the meals record's **Budget** version. Duplicate rule says *same dish + same name → keep the most comprehensive* — but these are **near-name, not same-name.** ⚖️ §2.3 — **ask Tina, do not infer.**
+- ✅ **RESOLVED → §2.5 (22 Jul): bobotie canonical = `meals`; the WK copy is now a live six-version DOUBLE, Code strips it.** *(original measurement note kept below — note the WK copy has since been versioned, so "with none" is out of date):* **SEEN WHILE MEASURING — A DUPLICATE:** **`Classic Bobotie` [meals] R34 with six versions** and **`Bobotie` [world] R26 with none.** The world record is bare and its single price equals the meals record's **Budget** version. Duplicate rule says *same dish + same name → keep the most comprehensive* — but these are **near-name, not same-name.** ⚖️ §2.3 — **ask Tina, do not infer.**
 - ⛓️ **THIS IS NOT NEW WORK — §15.4 UNBLOCKS IT.** §15.4 ruled *query · opener · plan* as three coupled changes and settled the plan half. **Budget-by-version is those same three changes on a second surface.** Ship §15.4 and this becomes small. Ship this first and the plan cannot hold what the shelf surfaced. ⏱️ **ORDER: §15.4 FIRST.**
 - ⛔ **DO NOT BOLT IT INTO `budget.js`.** Mood needs it, Budget needs it, and any future shelf that ranks on a number needs it. ⚖️ **Law 6 — one door.**
 
