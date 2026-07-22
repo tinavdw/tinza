@@ -48,7 +48,7 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 
 ## LANE ORDER — this window + tomorrow (4 sessions before 17:00 Thu reset)
 
-**Spain (active) → SA-safe → [NEXT WINDOW: India / Sri Lanka / Pakistan]**
+**Spain (active) → SA-safe → [NEXT WINDOW · East block v1: India · Durban · Sri Lanka — Pakistan post-Oct]**
 Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET FORK** (§15.5, `costPP` on every version).
 
 ---
@@ -102,9 +102,16 @@ Durban Mutton Curry R34 · Durban Fish Curry R40.
 - **Waterblommetjiebredie** (boerekos canonical) — 🆕 **MUST carry a version with an inland substitute** for the waterblommetjies (coastal seasonal thing, hard to find inland).
 - **Braaibroodjies** (Braai canonical) — if versioned at all, in the Braai record.
 
-### NEXT WINDOW · THE EAST BLOCK — SCOPE, Tina's call
+### NEXT WINDOW · THE EAST BLOCK — SCOPE DECIDED (Tina, 22 Jul)
 
-India (49 · 28 mains · 0 versioned) · Indian/Durban (20 · 9 mains, §5.1) · Sri Lanka + Pakistan (new). ⚠️ `india` and `indian` are two cuisines, correctly separated.
+**v1 = India + Durban + Sri Lanka. Pakistan → post-October.**
+
+- **India** (49 · 28 mains · 0 versioned) — ELEVATE + version pass. Exists; no new authoring.
+- **Durban-Indian** (`indian`, 20 · 9 mains, §5.1) — ELEVATE + version pass. Exists.
+  ⚠️ `india` and `indian` are two cuisines, correctly separated — keep the split.
+- **Sri Lanka** (🆕 NEW) — **the one authored-from-scratch lift in v1.** Treat as a fresh
+  shelf (Portugal/Spain-sized), not a version sweep. Budget its own sessions.
+- **Pakistan** — HELD to post-October (new cuisine, same bucket as Italy/China/etc.).
 
 ---
 
@@ -116,6 +123,7 @@ India (49 · 28 mains · 0 versioned) · Indian/Durban (20 · 9 mains, §5.1) ·
 - ⛔ **The `goesWith` sweep** — 4,672 entries, 25% resolve. ⚖️ §16.1. Own session, later.
 - ⛔ **Europe version *audit*** — Tina audits AFTER Fable hands back; the `DONE` list is her checklist.
 - ⛔ **Italy · China · Japan · Thailand · South America · USA** — flags, no food. Scope, after October.
+- ⛔ **Pakistan** — HELD post-October per the 22 Jul East-block scope call (new cuisine). India · Durban · Sri Lanka are the v1 East block.
 
 ---
 
@@ -142,4 +150,8 @@ Full brief: `reference/FABLE_SESSION_BRIEF.md`
 - **Prices at `e1c4649`:** snoek R147 · snoek fillet R120 · smoked snoek R450 · maasbanker R60 · whole mackerel R60 · tinned mackerel R92.
 - **Ladder, R/kg of flakes:** pilchards R65 · tinned mackerel R92 · maasbanker R141 · braai snoek R314 · smoked snoek R450.
 - **makriel** = fresh frozen, no tin alias. **maasbanker curry** = a version of Snoek Curry, only if it earns it.
-- ⚠️ **Open, waiting on Tina:** the Snoek Curry fish quantity (for the pilchard/maasbanker swap).
+- ✅ **Snoek Curry fish quantity — LOCKED 130 g flaked pp (Tina, 22 Jul).** Trolley weights off the banked yields:
+  - **snoek** (whole, bone-in, ÷52.5%) → **~248 g pp** · fish line ≈ **R36/pp** (whole snoek R147/kg). = the Classic.
+  - **maasbanker** (whole round, ÷42.5%) → **~306 g pp** · ≈ **R18/pp**. Budget fork — *only if it earns a version, §15.2.*
+  - **pilchards** (tinned, costed straight at flake) → **~130 g pp** · ≈ **R8/pp**. Budget fork.
+  Ingredient line carries the **trolley** weight; method states the flaked yield (Whole Fish Law §18).
