@@ -46,6 +46,12 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 [x] Gazpacho · Spain · 3 versions (Classic Andaluz R21 · De Faena budget R18 · Con Guarnición R27) · elevated to /wow · wk_europe.js · 22 Jul
 [x] Patatas Bravas · Spain · 3 versions (Classic Madrid R16 · Al Horno budget R13 · a la Catalana R21) · elevated to /wow · Madrid/Barcelona split is the version story · wk_europe.js · 22 Jul
 [x] Croquetas de Jamón · Spain · 3 versions (Classic R32 · de Pollo budget R24 · de Espinacas y Queso veg R35) · elevated to /wow · freezer-bank + leftover-engine card · wk_europe.js · 22 Jul
+[x] Tortilla Española · Spain · 3 versions (Classic Con Cebolla R26 · De Girasol budget R18 · Sin Cebolla Betanzos R26) · elevated to /wow · WK-Spain canonical §2.6 · con/sin cebolla IS the version story · wk_europe.js · 22 Jul
+[x] Pan con Tomate · Spain · 3 versions (Classic Pa amb Tomàquet R20 · De Cada Día budget R9 · Con Jamón R24) · elevated to /wow · KEEP&ELEVATE proof-case — toast-as-grater technique + Pomés book · wk_europe.js · 22 Jul
+[x] Pimientos de Padrón · Spain · 2 versions ONLY per §15.2 (Classic R18 · Pimientos Fritos budget green-pepper R13) · elevated to /wow · Herbón monastery + 1-in-10 roulette story · 'padron peppers' prices via the word-boundary sweep → 'peppers' R70, no map touched · wk_europe.js · 22 Jul
+[x] Calamares a la Romana · Spain · 3 versions (Classic egg-batter R36 · A la Andaluza budget flour-dust R32 · Bocadillo de Calamares Madrid R40) · elevated to /wow · buy-name fixed 'squid'→'calamari' (was unpriced!) · Romana-vs-Andaluza + landlocked-Madrid stories · first use of removeIng delta · wk_europe.js · 22 Jul
+[x] Albóndigas · Spain · 3 versions (Classic en salsa de tomate R41 · De la Abuela bread-stretched budget R34 · En Salsa de Almendras Sevilla saffron R53) · elevated to /wow · panade + finish-in-sauce technique · al-bunduqa 1200s Moorish story · saffron measured 0.1g per Amount Law · wk_europe.js · 22 Jul
+[x] Boquerones en Vinagre · Spain · 3 versions (Classic en vinagre R27 · Boquerones Fritos budget R25 · El Matrimonio R34) · elevated to /wow · authentic-fish-primary: SA stand-in = fresh sardines R115, declared not silent · SAFETY step written in full — freeze 48hr FIRST, vinegar does NOT kill anisakis (2007 Spanish decree = the didYouKnow) · wk_europe.js · 22 Jul
 
 ---
 
@@ -62,7 +68,7 @@ Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET
 |---|---|---|---|
 | **Greece** | 54 | 54 | ✅ complete |
 | **Portugal** | 49 | 52 | ✅ **CLOSED** — 3 fenced (Ginjinha unpriced · Frango + Pastéis = pointers per §2.6) |
-| **Spain** | 0 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
+| **Spain** | 9 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
 | Austria | 4 | 27 | parked |
 
 ---
@@ -73,9 +79,9 @@ Always leave three named.
 
 ### ▶ NOW · SPAIN — 59 dishes · mostly ELEVATE, small REPLACE
 
-1. **Tortilla Española** — 🔓 WK-Spain canonical (§2.6): elevate + version (con/sin cebolla is the version story).
-2. **Pan con Tomate** — KEEP & ELEVATE list; make the two-ingredient dish extraordinary or it's filler.
-3. **Pimientos de Padrón** — elevate; 'unos pican y otros no' russian-roulette story.
+1. **Chorizo al Vino** — elevate + version (al vino vs. a la sidra is the fork; check wine/cider price keys first).
+2. **Huevos Rotos** — elevate + version (con chorizo budget fork vs. con jamón).
+3. **Setas al Ajillo** — KEEP & ELEVATE list (garlic mushrooms; the al ajillo technique family is the story).
 
 Work the ELEVATE list top to bottom, one at a time. Cull a REPLACE-list filler **only** when you add its ADD-list replacement in the same sitting. Never fake-dress a boring card.
 
