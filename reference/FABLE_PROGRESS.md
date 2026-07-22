@@ -101,7 +101,7 @@ Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET
 |---|---|---|---|
 | **Greece** | 54 | 54 | ✅ complete |
 | **Portugal** | 49 | 52 | ✅ CLOSED — 2 pointers (Frango + Pastéis, §2.6) · 🔓 Ginjinha unfenced 22 Jul, queued |
-| **Spain** | 24 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
+| **Spain** | 40 | 59 | ▶ **ACTIVE — desserts + drinks lane next (map below)** |
 | Austria | 4 | 27 | parked |
 
 ---
@@ -115,9 +115,11 @@ Always leave three named.
 **⚖️ TINA RULED (22 Jul, end of session): SPAIN FIRST.** Ginjinha is unfenced but WAITS — do not
 break the Spain lane for it. It slots in when Spain closes (or on Tina's explicit call).
 
-1. **Patatas con Alioli** — elevate + version (bar-counter classic; the alioli emulsion teaching card — mortar story; potatoes + garlic + oil all priced).
-2. **Pimientos Asados** — elevate + version (fire-roasted peppers, steam-in-a-bag peeling law; red pepper R100 priced; pairs the Escalivada card).
-3. **Judías Verdes** — elevate + version (green beans con jamón — the refrito treatment; verify 'green beans' price before writing).
+⚠️ **NEXT-UP WAS STALE (caught 22 Jul, second sitting): Alioli · Pimientos Asados · Judías Verdes were already in DONE.** The DONE list is the truth; NEXT UP below is rebuilt from it.
+
+1. **Torrijas** — elevate + version (exists flat; Holy Week bread-redemption story; bread/milk/egg/cinnamon/honey all priced — the dessert lane opens here).
+2. **Tarta de Santiago** — elevate + version (exists flat; almonds R330/kg PRICED, verified 22 Jul; the cross-of-Santiago stencil + 1577 pilgrim record; pairs the Empanada's Camino story).
+3. **Flan** — elevate + version (exists flat; caramel-is-controlled-burning card; flan de la abuela vs restaurant crème-caramel version story).
 
 ⚠️ **GATE LESSON (22 Jul, binding): a price gate = prices.js AND the alias maps (core.js ~1050 + worldkitchen.js ~461).** The Pulpo fence was issued and struck the same day because only prices.js was checked. Also re-check the Espinacas con-bacalao skip next Spain session — `bacalhau`→`salted snoek` alias exists, so that fork may be priceable after all.
 
@@ -129,19 +131,20 @@ break the Spain lane for it. It slots in when Spain closes (or on Tina's explici
 Work the ELEVATE list top to bottom, one at a time. Cull a REPLACE-list filler **only** when you add its ADD-list replacement in the same sitting. Never fake-dress a boring card.
 
 ✅ **KEEP & ELEVATE — real dishes that only *look* ordinary (do NOT delete):**
-Aceitunas Aliñadas *(marinated olives)* · Ensaladilla Rusa *(potato salad)* · Escalivada ·
-Zanahorias Aliñadas · Pan con Tomate · Setas al Ajillo · Espinacas con Garbanzos.
+~~Aceitunas Aliñadas~~ *(done 22 Jul)* · Ensaladilla Rusa *(potato salad)* · Escalivada ·
+~~Zanahorias Aliñadas~~ *(done 22 Jul)* · Pan con Tomate · Setas al Ajillo · Espinacas con Garbanzos.
 
 📝 **ELEVATE to /wow (the bulk):**
 Patatas Bravas · Croquetas de Jamón · Gazpacho · **Tortilla Española** *(🔓 now WK-Spain canonical, §2.6 — elevate + version it; `meals` copy is a pointer, so no double)* · Pimientos de Padrón · Calamares a la Romana · Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · ~~Paella de Marisco~~ *(done 22 Jul)* · Pollo al Ajillo · ~~Cocido Madrileño~~ *(done 22 Jul)* · ~~Fabada Asturiana~~ *(done 22 Jul)* · ~~Bacalao a la Vizcaína~~ *(done 22 Jul)* · ~~Merluza en Salsa Verde~~ *(done 22 Jul)* · ~~Cochinillo Asado~~ *(done 22 Jul)* · ~~Cordero Asado~~ *(done 22 Jul)* · ~~Pisto~~ *(done 22 Jul)* · ~~Arroz Negro~~ *(done 22 Jul)* · ~~Fideuà~~ *(done 22 Jul)* · ~~Pollo al Chilindrón~~ *(done 22 Jul)* · ~~Solomillo al Whisky~~ *(done 22 Jul)* · ~~Patatas Panaderas~~ *(done 22 Jul)* · Patatas con Alioli · Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche · Torrijas) · drinks (Sangría · Tinto de Verano · **Rebujito** *(real feria drink — tell the story)*).
 
 🔁 **REPLACE — genuine filler (anyone can make these):**
-~~Arroz Blanco~~ *(culled 22 Jul → Gambas al Ajillo)* · ~~Ensalada de Tomate~~ *(culled 22 Jul → Salmorejo)* · ~~Patatas Hervidas~~ *(culled 22 Jul → Pulpo a la Gallega)* · Pan Tostado · Pan Frito ·
-Pan con Ajo · Ensalada Mixta · Café con Leche · **Clara** *(a shandy — barely a recipe)*.
+~~Arroz Blanco~~ *(culled 22 Jul → Gambas al Ajillo)* · ~~Ensalada de Tomate~~ *(culled 22 Jul → Salmorejo)* · ~~Patatas Hervidas~~ *(culled 22 Jul → Pulpo a la Gallega)* · ~~Ensalada Mixta~~ *(culled 22 Jul → Rabo de Toro)* · ~~Pan Frito~~ *(culled 22 Jul → Bacalao al Pil-Pil)* · ~~Pan con Ajo~~ *(culled 22 Jul → Empanada Gallega)* ·
+**Pan Tostado** *(SURVIVES on purpose — its cull is reserved for Marmitako once the tuna-steak fence lifts; cull-only-with-replacement, 1:1)* · Café con Leche · **Clara** *(a shandy — barely a recipe; both wait for the drinks pass)*.
 
 ➕ **ADD in their place — iconic Spanish dishes Spain is MISSING:**
-~~Gambas al Ajillo~~ *(added 22 Jul)* · ~~Salmorejo~~ *(added 22 Jul)* · ~~Pulpo a la Gallega~~ *(added 22 Jul, in-slot over Patatas Hervidas)* · Rabo de Toro · Bacalao al Pil-Pil ·
-Marmitako · Empanada Gallega · Bocadillo de Calamares. *(Tina may swap any.)*
+~~Gambas al Ajillo~~ *(added 22 Jul)* · ~~Salmorejo~~ *(added 22 Jul)* · ~~Pulpo a la Gallega~~ *(added 22 Jul, in-slot over Patatas Hervidas)* · ~~Rabo de Toro~~ *(added 22 Jul, in-slot over Ensalada Mixta)* · ~~Bacalao al Pil-Pil~~ *(added 22 Jul, in-slot over Pan Frito)* · ~~Empanada Gallega~~ *(added 22 Jul, in-slot over Pan con Ajo)* ·
+⛔ **Marmitako — FENCED unpriced** *(fresh tuna steak absent from PRICE_DB; only 'tuna' R120 tinned-estimate + 'canned tuna' R171 exist, and pricing a fresh bonito pot off a tin estimate is dishonest — Code brief, same bucket as cider. When Code adds 'tuna steak', Marmitako returns and culls Pan Tostado.)* ·
+~~Bocadillo de Calamares~~ **STRUCK from ADD** *(already lives as v3 of Calamares a la Romana — authoring it standalone would double it).* *(Tina may swap any.)*
 
 ### THEN · SA-SAFE (absent dishes — no duplicate, safe to author now)
 
@@ -207,3 +210,11 @@ Full brief: `reference/FABLE_SESSION_BRIEF.md`
   - **maasbanker** (whole round, ÷42.5%) → **~306 g pp** · ≈ **R18/pp**. Budget fork — *only if it earns a version, §15.2.*
   - **pilchards** (tinned, costed straight at flake) → **~130 g pp** · ≈ **R8/pp**. Budget fork.
   Ingredient line carries the **trolley** weight; method states the flaked yield (Whole Fish Law §18).
+[x] Rabo de Toro · Spain · 🆕 AUTHORED from ADD list · 3 versions (Classic Cordobés R84 · De Jarrete budget beef-shin R57, more-meat-per-mouthful truth · Al Pedro Ximénez sherry-lacquer R91) · the TWO-INGREDIENT-CONVERSATION braise (flour-dust two-jobs · brown-HARD-rescue-the-floor · wine-reduced-by-HALF-before-stock · tremble-never-boil-3hr · BONE-PULLS-CLEAN is the only doneness test · better-tomorrow gelatin law) · Córdoba bullring-tail-to-taberna-same-evening + El Caballo Rojo + honest today-it-is-oxtail declaration moat · croquetas-de-rabo leftover engine · 22 Jul
+[x] 🔁 CULLED: Ensalada Mixta (Shelf-WOW — genuine filler, zero external references, replaced in-slot by Rabo de Toro per the cull-only-with-replacement rule) · 22 Jul
+[x] Bacalao al Pil-Pil · Spain · 🆕 AUTHORED from ADD list · 3 versions (Classic R55 · De Merluza con Patatas budget fresh-hake no-soak R46, flour-net + potatoes-drink-the-oil per Merluza precedent · Club Ranero pepper-sofrito R61, sofrito-must-be-DRY law) · the SAUCE-IS-HIDING-INSIDE-THE-FISH card: skin-ON-poach-skin-down · oil-MURMURS-never-bubbles · white-pearls-are-the-gelatin-announcing-itself · vaivén rock declared sister of Merluza's card · mayonnaise-with-no-egg chemistry · pil-pil-is-onomatopoeia + Gurtubay million-cod telegram/1835 siege + Club Ranero named-address moat · bacalhau priced via alias (both maps checked, Vizcaína buy-name precedent) · 22 Jul
+[x] 🔁 CULLED: Pan Frito (Shelf-WOW — genuine filler, replaced in-slot by Bacalao al Pil-Pil per the cull-only-with-replacement rule: the pan of frying oil becomes an emulsion) · 22 Jul
+[x] Empanada Gallega · Spain · 🆕 AUTHORED from ADD list · 3 versions (Classic de Atún R34 · De Sardiñas budget pilchards R29, xoubas stand-in DECLARED + coastal-cooks-quietly-prefer-it truth · De Zorza paprika-pork R37, chorizo-that-never-met-its-casing + overnight-marinade-is-chemistry) · the AMBER-DOUGH card: filling-first-because-its-stained-oil-IS-the-dough · onions-MELT-20-min · filling-COLD-and-dry-or-the-floor-boils · roll-THIN-both-floors · rope-crimp + the CHIMNEY vent law · yeast 3g measured · Pórtico da Gloria empanadas-carved-in-stone + Codex Calixtinus pilgrim-food + engineered-to-keep moat · 22 Jul
+[x] 🔁 CULLED: Pan con Ajo (Shelf-WOW — genuine filler, replaced in-slot by Empanada Gallega per the cull-only-with-replacement rule: the bread slot inherits Galicia's bread-dough pie) · 22 Jul
+[x] Aceitunas Aliñadas · Spain · KEEP&ELEVATE · 2 versions ONLY per §15.2 (Classic Machacás Andaluz R32 · Con Naranja Valencia orange-peel-and-thyme R29, peel-bent-skin-out-mist trick — the cheaper jar, so budget-leads honoured; no separate budget fork because the olives ARE the cost and nothing honest sits under them, Merluza/basa precedent) · the CRACK card: cracked-olives-DRINK-intact-olives-WEAR · pits-stay-IN-keep-flesh-firm · tub-brine-into-the-jar · 24hr-minimum-marinade-not-dressing · never-fridge-cold serving · original card's lactobacillus fermentation note PRESERVED and promoted (Fermentastic heart) · olives-arrive-unasked-as-law + 1-in-3-world-olives + az-zaytūna Arabic etymology moat · marinade-is-a-finished-vinaigrette leftover engine · 22 Jul
+[x] Zanahorias Aliñadas · Spain · KEEP&ELEVATE · 2 versions ONLY per §15.2 (Classic Aliño Gaditano R10 · Picantes con guindilla R11, chilli-WHOLE-and-torn-never-powdered slow-warmth law) · at R10 this card IS the budget — no fork sits under it · TWO INHERITED LAWS DECLARED: boil-whole-unpeeled = the Ensaladilla potato raincoat working for carrots · dress-WARM = the warm-vegetable-drinks law · plus overnight-IS-the-recipe · Cádiz free-tapa economy + feria tubs + cumin-garlic-vinegar-oregano al-Andalus thumbprint (links Espinacas card) + 'aliñás' dropped-D moat · tub-logic + carrot-purée-swoosh leftover engine · 22 Jul
