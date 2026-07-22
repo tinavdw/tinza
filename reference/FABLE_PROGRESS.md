@@ -43,6 +43,9 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 [x] Leitão à Bairrada · Portugal · 3 versions (Classic whole pig R72 · Assado de Perna budget R30 · de Barriga belly R51) · wk_europe.js · 22 Jul
 [x] Cozido à Portuguesa · Portugal · 3 versions (Classic R53 · Remediado budget R32 · Farto feast R71) · wk_europe.js · 22 Jul
 [⛔] Ginjinha · Portugal · FENCED unpriced — brandy + sour cherries absent from PRICE_DB (Code brief) · 22 Jul
+[x] Gazpacho · Spain · 3 versions (Classic Andaluz R21 · De Faena budget R18 · Con Guarnición R27) · elevated to /wow · wk_europe.js · 22 Jul
+[x] Patatas Bravas · Spain · 3 versions (Classic Madrid R16 · Al Horno budget R13 · a la Catalana R21) · elevated to /wow · Madrid/Barcelona split is the version story · wk_europe.js · 22 Jul
+[x] Croquetas de Jamón · Spain · 3 versions (Classic R32 · de Pollo budget R24 · de Espinacas y Queso veg R35) · elevated to /wow · freezer-bank + leftover-engine card · wk_europe.js · 22 Jul
 
 ---
 
@@ -70,9 +73,9 @@ Always leave three named.
 
 ### ▶ NOW · SPAIN — 59 dishes · mostly ELEVATE, small REPLACE
 
-1. **Gazpacho** — elevate to /wow; budget fork.
-2. **Patatas Bravas** — elevate; the two-sauce Madrid/Barcelona split is the version story.
-3. **Croquetas de Jamón** — elevate; bechamel-technique card; budget chicken/leftover fork.
+1. **Tortilla Española** — 🔓 WK-Spain canonical (§2.6): elevate + version (con/sin cebolla is the version story).
+2. **Pan con Tomate** — KEEP & ELEVATE list; make the two-ingredient dish extraordinary or it's filler.
+3. **Pimientos de Padrón** — elevate; 'unos pican y otros no' russian-roulette story.
 
 Work the ELEVATE list top to bottom, one at a time. Cull a REPLACE-list filler **only** when you add its ADD-list replacement in the same sitting. Never fake-dress a boring card.
 
