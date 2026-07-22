@@ -51,6 +51,15 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 [x] Pimientos de Padrón · Spain · 2 versions ONLY per §15.2 (Classic R18 · Pimientos Fritos budget green-pepper R13) · elevated to /wow · Herbón monastery + 1-in-10 roulette story · 'padron peppers' prices via the word-boundary sweep → 'peppers' R70, no map touched · wk_europe.js · 22 Jul
 [x] Calamares a la Romana · Spain · 3 versions (Classic egg-batter R36 · A la Andaluza budget flour-dust R32 · Bocadillo de Calamares Madrid R40) · elevated to /wow · buy-name fixed 'squid'→'calamari' (was unpriced!) · Romana-vs-Andaluza + landlocked-Madrid stories · first use of removeIng delta · wk_europe.js · 22 Jul
 [x] Albóndigas · Spain · 3 versions (Classic en salsa de tomate R41 · De la Abuela bread-stretched budget R34 · En Salsa de Almendras Sevilla saffron R53) · elevated to /wow · panade + finish-in-sauce technique · al-bunduqa 1200s Moorish story · saffron measured 0.1g per Amount Law · wk_europe.js · 22 Jul
+[x] Chorizo al Vino · Spain · 3 versions (Classic al Vino Tinto R53 · A la Cerveza con Patatas budget R42 · Al Pedro Ximénez R58) · elevated to /wow · a la Sidra fork FENCED — 'cider' absent from PRICE_DB (Code brief, same bucket as Ginjinha) · pre-Columbus white chorizo + Yuste pimentón story · wk_europe.js · 22 Jul
+[x] Gambas al Ajillo · Spain · 🆕 AUTHORED from ADD list · 3 versions (Classic Madrid cazuela R63 · Gambas y Setas budget half-mushroom R51 · Al Pil Pil Basque emulsion R64) · completes the AJILLO TRILOGY (cold-oil-start = the ORDER REVERSAL vs Setas, taught explicitly) · Mercamadrid landlocked-fish-capital + La Casa del Abuelo 1906 + pil-pil-no-egg-emulsion stories · wk_europe.js · 22 Jul
+[x] 🔁 CULLED: Arroz Blanco (Shelf-WOW — Tina's named placeholder example, zero references in repo, replaced in-slot by Gambas al Ajillo per the cull-only-with-replacement rule) · 22 Jul
+[x] Espinacas con Garbanzos · Spain · 3 versions (Classic Sevillana majado R36 · Potaje budget chickpea-heavy R26 · A la Catalana pasas y piñones R54) · KEEP&ELEVATE · the MAJADO card (fried-bread thickening — third member of the pre-flour family with Albóndigas almond sauce) · 'the Spanish vegetable' + El Rinconcillo 1670 + Sent Soví 1324 stories · con-bacalao fork SKIPPED (no Spanish 'bacalao' price alias; 'salted snoek' buy-name would break the no-SA-names ruling) · wk_europe.js · 22 Jul
+[x] Pollo al Ajillo · Spain · 3 versions (Classic al Jerez y Brandy venta-style R50 · De Diario con Patatas budget R41 · Conejo al Ajillo rabbit R57) · elevated to /wow · TWO-GARLIC law (unpeeled confit + sliced coins) · chop-small-through-the-bone · venta story + Las Pedroñeras + rabbit-named-Spain etymology · rabbit prices via core alias rabbit→chicken R90 · wk_europe.js · 22 Jul
+[x] 🔓 GINJINHA FENCE LIFTED (verified at HEAD 22 Jul): Code ran the brief — PRICE_DB now carries brandy R200 · sour cherries R180 · aguardente R499. Ginjinha moves from BLOCKED to NEXT UP. (Cider still absent — Chorizo a la Sidra fence stands.)
+[x] Setas al Ajillo · Spain · 3 versions (Classic al Jerez R36 · A la Plancha budget R27 · Champiñones al Ajillo whole-button R48) · KEEP&ELEVATE · the AL AJILLO MOTHER-TECHNIQUE card (mushrooms-first/garlic-second order inversion) — teaches gambas + pollo al ajillo by proxy · setas-vs-champiñones + Soria + Mesón del Champiñón stories · button mushrooms R148 makes champiñones the PREMIUM fork (fun inversion) · wk_europe.js · 22 Jul
+[x] Huevos Rotos · Spain · 3 versions (Classic con Jamón Casa Lucio R22 · A Secas budget R15 · Con Chorizo R35) · elevated to /wow · SOFT-not-crisp potato law is the technique inversion · puntilla egg + break-at-the-table · Casa Lucio/Lucio Blázquez story · wk_europe.js · 22 Jul
+[x] GLOBAL-WORDING SWEEP (Tina ruling 22 Jul: no SA shop/place names — global app) · 5 phrasings neutralized in wk_europe.js (Pan con Tomate 'SA buy' · Boquerones 'SA stand-in' ×2 + 'SA shops' · Vizcaína snoek note · Hünkar cheddar note) · delta from/to kept in sync · 22 Jul
 [x] Boquerones en Vinagre · Spain · 3 versions (Classic en vinagre R27 · Boquerones Fritos budget R25 · El Matrimonio R34) · elevated to /wow · authentic-fish-primary: SA stand-in = fresh sardines R115, declared not silent · SAFETY step written in full — freeze 48hr FIRST, vinegar does NOT kill anisakis (2007 Spanish decree = the didYouKnow) · wk_europe.js · 22 Jul
 
 ---
@@ -67,7 +76,7 @@ Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET
 | country | versioned | of | state |
 |---|---|---|---|
 | **Greece** | 54 | 54 | ✅ complete |
-| **Portugal** | 49 | 52 | ✅ **CLOSED** — 3 fenced (Ginjinha unpriced · Frango + Pastéis = pointers per §2.6) |
+| **Portugal** | 49 | 52 | ✅ CLOSED — 2 pointers (Frango + Pastéis, §2.6) · 🔓 Ginjinha unfenced 22 Jul, queued |
 | **Spain** | 9 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
 | Austria | 4 | 27 | parked |
 
@@ -79,9 +88,17 @@ Always leave three named.
 
 ### ▶ NOW · SPAIN — 59 dishes · mostly ELEVATE, small REPLACE
 
-1. **Chorizo al Vino** — elevate + version (al vino vs. a la sidra is the fork; check wine/cider price keys first).
-2. **Huevos Rotos** — elevate + version (con chorizo budget fork vs. con jamón).
-3. **Setas al Ajillo** — KEEP & ELEVATE list (garlic mushrooms; the al ajillo technique family is the story).
+**⚖️ TINA RULED (22 Jul, end of session): SPAIN FIRST.** Ginjinha is unfenced but WAITS — do not
+break the Spain lane for it. It slots in when Spain closes (or on Tina's explicit call).
+
+1. **Paella de Marisco** — elevate + version (the big one; the socarrat is the technique story — gate seafood keys first: mussels · calamari · saffron · paella/short-grain rice).
+2. **Salmorejo** — from the ADD list (Córdoba's thick cousin of gazpacho; cull Ensalada de Tomate in the same sitting — same tomato territory, and salmorejo IS what that filler wishes it was).
+3. **Cocido Madrileño** — elevate + version (Madrid's three-course chickpea pot; the sopa/garbanzos/carnes serving ritual is the story).
+
+*(Parked, unfenced: 🔓 Ginjinha — authors after Spain, closes Portugal 50/52.)*
+
+⚠️ **NEW RULING (Tina, 22 Jul): NO SA shop/place names anywhere — Tinza is a global app.** Sweep done on wk_europe.js; apply to all future authoring. Say "the stand-in", never "the SA stand-in".
+⛔ **Chorizo a la Sidra — FENCED unpriced.** `cider` absent from PRICE_DB (Code brief, same bucket as Ginjinha). If Code adds it, sidra becomes a 4th version of Chorizo al Vino.
 
 Work the ELEVATE list top to bottom, one at a time. Cull a REPLACE-list filler **only** when you add its ADD-list replacement in the same sitting. Never fake-dress a boring card.
 
@@ -93,11 +110,11 @@ Zanahorias Aliñadas · Pan con Tomate · Setas al Ajillo · Espinacas con Garba
 Patatas Bravas · Croquetas de Jamón · Gazpacho · **Tortilla Española** *(🔓 now WK-Spain canonical, §2.6 — elevate + version it; `meals` copy is a pointer, so no double)* · Pimientos de Padrón · Calamares a la Romana · Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · Paella de Marisco · Pollo al Ajillo · Cocido Madrileño · Fabada Asturiana · Bacalao a la Vizcaína · Merluza en Salsa Verde · Cochinillo Asado · Cordero Asado · Pisto · Arroz Negro · Fideuà · Pollo al Chilindrón · Solomillo al Whisky · Patatas Panaderas · Patatas con Alioli · Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche · Torrijas) · drinks (Sangría · Tinto de Verano · **Rebujito** *(real feria drink — tell the story)*).
 
 🔁 **REPLACE — genuine filler (anyone can make these):**
-Arroz Blanco · Ensalada de Tomate · Patatas Hervidas · Pan Tostado · Pan Frito ·
+~~Arroz Blanco~~ *(culled 22 Jul → Gambas al Ajillo)* · Ensalada de Tomate · Patatas Hervidas · Pan Tostado · Pan Frito ·
 Pan con Ajo · Ensalada Mixta · Café con Leche · **Clara** *(a shandy — barely a recipe)*.
 
 ➕ **ADD in their place — iconic Spanish dishes Spain is MISSING:**
-Gambas al Ajillo · Pulpo a la Gallega · Salmorejo · Rabo de Toro · Bacalao al Pil-Pil ·
+~~Gambas al Ajillo~~ *(added 22 Jul)* · Pulpo a la Gallega · Salmorejo · Rabo de Toro · Bacalao al Pil-Pil ·
 Marmitako · Empanada Gallega · Bocadillo de Calamares. *(Tina may swap any.)*
 
 ### THEN · SA-SAFE (absent dishes — no duplicate, safe to author now)
@@ -126,7 +143,7 @@ Durban Mutton Curry R34 · Durban Fish Curry R40.
 
 ## BLOCKED — do not start these
 
-- ⛔ **GINJINHA — UNPRICED.** Brandy/aguardente and sour/morello cherries are absent from `PRICE_DB`; Fable never touches the price maps (MF138). A Code brief adds them, then it's next in line.
+- ~~⛔ GINJINHA — UNPRICED~~ **STRUCK 22 Jul — fence lifted.** Code added brandy R200 · sour cherries R180 · aguardente R499 to PRICE_DB. Ginjinha now sits in NEXT UP.
 - ⛔ **Frango Piri-Piri + Pastéis de Nata — RULED §2.6 as POINTERS.** Do NOT author the WK copies. Peri-peri is owned in `meals`; Pastéis in `bakes`. *(Tortilla is NOT here — it's now canonical, elevate it in Spain.)*
 - ⛔ **The 7 SA duplicate pairs — RULED §2.5, awaiting the Code merge.** bobotie · cape malay chicken curry · bunny chow · shepherd's pie · tamatie bredie · waterblommetjiebredie · braaibroodjies. Canonical is decided (mostly `meals`), but until Code strips bobotie's live double and repoints the rest, **Fable stays off all seven.**
 - ⛔ **The `goesWith` sweep** — 4,672 entries, 25% resolve. ⚖️ §16.1. Own session, later.
