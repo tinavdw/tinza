@@ -201,6 +201,7 @@ const PRICE_DB = {
   "haddock fillets": 325,     // R130/400g → R325/kg
   "salted snoek": 180,        // R90/500g → R180/kg
   "canned tuna": 171,         // R29/170g → R171/kg
+  "tuna steak": 350,          // src:Tina when:2026-07 conf:shelf  R140/400g → R350/kg (fresh — unfences Marmitako)
   "canned salmon": 300,       // R120/400g → R300/kg
   "pilchards": 65,            // R29/400g → was R73/kg, adjusted to R65 (8 Jun 2026)
   "barley": 35,               // pet recipes (Tina)
