@@ -64,6 +64,10 @@ A card that misses any of these is **not done.** Full standard: `WOW_STANDARD.md
 [x] Paella de Marisco · Spain · 3 versions (Classic Marisco R93 · De Mejillones y Calamares budget R58 · Del Senyoret R84) · elevated to /wow · stock-is-the-dish + sofrito-to-jam + no-stirring/socarrat · calamari-into-sofrito technique · paella=the-PAN etymology + arroz a banda fishermen story · senyoret 'gentleman's rice' Alicante story · colorante/turmeric budget truth · smoked paprika absent from PRICE_DB → buy-name 'paprika', pimentón in prose (soft gap, note for Code) · wk_europe.js · 22 Jul
 [x] Salmorejo · Spain · 🆕 AUTHORED from ADD list · 3 versions (Classic Cordobés con jamón y huevo R29 · De Diario budget sin-tropezones VEGAN R20 · Porra Antequerana tuna+green-pepper R33) · the NO-WATER law + bread-drinks-tomato + oil-in-a-stream EMULSION (a tomato mayonnaise — red→salmon colour shift is the doneness cue) · University of Córdoba 2018 peer-reviewed recipe moat · white pre-tomato salmorejo + porra-the-club stories · sherry vinegar absent from PRICE_DB → buy-name 'vinegar', sherry in prose (soft gap) · wk_europe.js · 22 Jul
 [x] 🔁 CULLED: Ensalada de Tomate (Shelf-WOW — genuine filler, zero external references, replaced in-slot by Salmorejo per the cull-only-with-replacement rule — same tomato territory, salmorejo IS what that filler wished it was) · 22 Jul
+[x] Cocido Madrileño · Spain · 3 versions (Classic Los Tres Vuelcos R71 · De Pollo budget R46 · Maragato Astorga REVERSED-ORDER R78) · elevated to /wow · the tres-vuelcos three-courses-from-one-pot ritual IS the card · chickpeas-in-a-bag (red de garbanzos) + salt-the-soak + pot-smiles-never-laughs + cabbage refrito techniques · adafina Jewish-Sabbath-pot lineage + Lhardy 1839/La Bola 1870 moat · maragato muleteer reversal story · SOFT GAPS for Code: morcilla/blood sausage + vermicelli absent from PRICE_DB (spaghetti broken short = declared fideos stand-in) · wk_europe.js · 22 Jul
+[x] Fabada Asturiana · Spain · 3 versions (Classic El Compango R66 · De Chorizo budget R34 · Viudas VEGETARIAN 'widowed beans' R30) · elevated to /wow · asustar-las-fabes (frighten the beans, cold water ×3) + NO-SPOON-swirl-the-pot + salt-late + mantecosas texture test · beans-are-the-luxury inversion + world championship + cider escanciado moat · 🐛 FIXED: flat card's 'white beans' was UNPRICED — buy-name now 'butter beans' R68 (honest fabes stand-in) · morcilla stand-in declared in prose (bacon) · wk_europe.js · 22 Jul
+[x] ~~Pulpo a la Gallega FENCE~~ STRUCK same day (22 Jul) — the fence was WRONG: `octopus`→`calamari rings` alias ALREADY EXISTS in the costing maps (core.js + worldkitchen.js, Code's maps). LESSON FOR ALL FUTURE GATES: a price gate is prices.js AND the alias maps, never prices.js alone. Pulpo is PRICED (R313/kg via alias) and returns to NEXT UP with its cull. · 22 Jul
+[x] Bacalao a la Vizcaína · Spain · 3 versions (Classic Sin Tomate orthodox R50 · De Sardinas budget TINNED no-soak R31 · Con Tomate 'worldwide heresy' R56) · elevated to /wow · desalt-skin-UP-48h + onions-melt-30min-are-the-body + fried-bread thickener + poach-at-a-shiver-never-boil · choricero stand-in DECLARED (roasted red pepper + smoked paprika) · Basque-cod-fleets-before-Columbus + mother-sauce-on-everything + tomato-war moat · a-la-vizcaína-names-the-SAUCE budget story (pilchards) · Philippines Christmas Eve angle on the tomato fork · diet fixed omnivore→pescatarian · wk_europe.js · 22 Jul
 
 ---
 
@@ -80,7 +84,7 @@ Portugal is CLOSED (49/52 · 3 fenced). Every version pass **LEADS WITH A BUDGET
 |---|---|---|---|
 | **Greece** | 54 | 54 | ✅ complete |
 | **Portugal** | 49 | 52 | ✅ CLOSED — 2 pointers (Frango + Pastéis, §2.6) · 🔓 Ginjinha unfenced 22 Jul, queued |
-| **Spain** | 11 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
+| **Spain** | 14 | 59 | ▶ **ACTIVE — elevate + replace (map below)** |
 | Austria | 4 | 27 | parked |
 
 ---
@@ -94,9 +98,11 @@ Always leave three named.
 **⚖️ TINA RULED (22 Jul, end of session): SPAIN FIRST.** Ginjinha is unfenced but WAITS — do not
 break the Spain lane for it. It slots in when Spain closes (or on Tina's explicit call).
 
-1. **Cocido Madrileño** — elevate + version (Madrid's three-course chickpea pot; the sopa/garbanzos/carnes serving ritual is the story).
-2. **Fabada Asturiana** — elevate + version (Asturias' bean pot; the compango trio + the "never stir, swirl the pot" law — gate keys first: white beans · chorizo · bacon/pork).
-3. **Pulpo a la Gallega** — from the ADD list (Galicia's fair-day octopus; cull Patatas Hervidas in the same sitting — the potatoes live UNDER the pulpo, where they belong). ⚠️ Gate `octopus` in PRICE_DB first — likely absent → fence + Code brief if so.
+1. **Pulpo a la Gallega** — from the ADD list, 🔓 UNFENCED (octopus→calamari rings alias, R313/kg) — cull Patatas Hervidas in the same sitting: the potatoes live UNDER the pulpo, where they belong. The copper-pot triple-dip ("asustar el pulpo") + fair-day polbeiras are the story.
+2. **Merluza en Salsa Verde** — elevate + version (Basque hake in parsley-garlic green sauce; the pan-swirl emulsion is the technique — hake fillets R180 priced, sister technique to pil-pil).
+3. **Pisto** — elevate + version (La Mancha's slow vegetable fry — Spain's ratatouille cousin; con huevo is the classic fork, natural vegetarian card).
+
+⚠️ **GATE LESSON (22 Jul, binding): a price gate = prices.js AND the alias maps (core.js ~1050 + worldkitchen.js ~461).** The Pulpo fence was issued and struck the same day because only prices.js was checked. Also re-check the Espinacas con-bacalao skip next Spain session — `bacalhau`→`salted snoek` alias exists, so that fork may be priceable after all.
 
 *(Parked, unfenced: 🔓 Ginjinha — authors after Spain, closes Portugal 50/52.)*
 
@@ -110,14 +116,14 @@ Aceitunas Aliñadas *(marinated olives)* · Ensaladilla Rusa *(potato salad)* ·
 Zanahorias Aliñadas · Pan con Tomate · Setas al Ajillo · Espinacas con Garbanzos.
 
 📝 **ELEVATE to /wow (the bulk):**
-Patatas Bravas · Croquetas de Jamón · Gazpacho · **Tortilla Española** *(🔓 now WK-Spain canonical, §2.6 — elevate + version it; `meals` copy is a pointer, so no double)* · Pimientos de Padrón · Calamares a la Romana · Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · ~~Paella de Marisco~~ *(done 22 Jul)* · Pollo al Ajillo · Cocido Madrileño · Fabada Asturiana · Bacalao a la Vizcaína · Merluza en Salsa Verde · Cochinillo Asado · Cordero Asado · Pisto · Arroz Negro · Fideuà · Pollo al Chilindrón · Solomillo al Whisky · Patatas Panaderas · Patatas con Alioli · Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche · Torrijas) · drinks (Sangría · Tinto de Verano · **Rebujito** *(real feria drink — tell the story)*).
+Patatas Bravas · Croquetas de Jamón · Gazpacho · **Tortilla Española** *(🔓 now WK-Spain canonical, §2.6 — elevate + version it; `meals` copy is a pointer, so no double)* · Pimientos de Padrón · Calamares a la Romana · Albóndigas · Boquerones en Vinagre · Chorizo al Vino · Huevos Rotos · ~~Paella de Marisco~~ *(done 22 Jul)* · Pollo al Ajillo · ~~Cocido Madrileño~~ *(done 22 Jul)* · ~~Fabada Asturiana~~ *(done 22 Jul)* · ~~Bacalao a la Vizcaína~~ *(done 22 Jul)* · Merluza en Salsa Verde · Cochinillo Asado · Cordero Asado · Pisto · Arroz Negro · Fideuà · Pollo al Chilindrón · Solomillo al Whisky · Patatas Panaderas · Patatas con Alioli · Pimientos Asados · Judías Verdes · desserts (Tarta de Santiago · Flan · Arroz con Leche · Torrijas) · drinks (Sangría · Tinto de Verano · **Rebujito** *(real feria drink — tell the story)*).
 
 🔁 **REPLACE — genuine filler (anyone can make these):**
 ~~Arroz Blanco~~ *(culled 22 Jul → Gambas al Ajillo)* · ~~Ensalada de Tomate~~ *(culled 22 Jul → Salmorejo)* · Patatas Hervidas · Pan Tostado · Pan Frito ·
 Pan con Ajo · Ensalada Mixta · Café con Leche · **Clara** *(a shandy — barely a recipe)*.
 
 ➕ **ADD in their place — iconic Spanish dishes Spain is MISSING:**
-~~Gambas al Ajillo~~ *(added 22 Jul)* · ~~Salmorejo~~ *(added 22 Jul)* · Pulpo a la Gallega · Rabo de Toro · Bacalao al Pil-Pil ·
+~~Gambas al Ajillo~~ *(added 22 Jul)* · ~~Salmorejo~~ *(added 22 Jul)* · Pulpo a la Gallega *(🔓 unfenced same day — octopus aliased to calamari rings)* · Rabo de Toro · Bacalao al Pil-Pil ·
 Marmitako · Empanada Gallega · Bocadillo de Calamares. *(Tina may swap any.)*
 
 ### THEN · SA-SAFE (absent dishes — no duplicate, safe to author now)
