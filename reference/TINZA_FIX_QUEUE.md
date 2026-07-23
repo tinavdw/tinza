@@ -36,6 +36,46 @@ its card meta now prefers How This Feels, falling back to region → portion onl
 
 ---
 
+## 🎨🎨 SAMENESS DRIFT IS APP-WIDE — measured on colour, now widened to type/boxes/placement (Tina 23 Jul)
+Not isolated spots, and NOT only colour. The real bug: sections that don't render through the shared
+`core.js` functions drift on EVERYTHING at once. ⚖️ SAMENESS mechanism = render ONLY via the shared fns
+(`warmCard`/`sectionHeader`/`qtyBox`/`recipePage`) + `var(--token)`. Four lenses, ONE root, ONE fix:
+
+- **🎨 COLOUR** — hardcoded hex instead of `var(--token)`. MEASURED 23 Jul (1,249 across `sections/*.js`).
+- **🔤 TYPE** — font family must be Mulish (body/UI) · Fraunces (`.ttl` titles/card names) · DM Mono (`.mono`
+  numbers/chips); sizes must follow the scale (title 22 · name 16 · line 14 · labels 13 · body 16–17,
+  MASTER TEMPLATE). Audit = hardcoded `font-family`/`font-size` in style attrs instead of the shared classes.
+- **📦 BOXES** — radius (18px cards / 10px boxes), padding, borders must come from the shared card/box, not
+  hand-rolled. Audit = hardcoded `border-radius`/`padding`/`border` off the token values.
+- **📍 PLACEMENT & PRESENCE** — every recipe shows the same blocks in the same slot, same order, same look:
+  How This Feels (always) · didYouKnow/trivia · ingredients · method · tip · storage/freezes/fridgeDays ·
+  goesWith · nutrition · versions. Audit = is the detail page rendered via shared `recipePage`, and does the
+  DATA carry each field? A missing/reordered block on one section is drift.
+
+**MEASURED so far (colour lens) — hardcoded hex per `sections/*.js` (1,249 total):**
+tinyTummies **527** · core 169 *(incl. legit TOKEN DEFINITIONS)* · spice 167 · meals 166 · budget 50 ·
+furry 36 · buffet 36 · braai 34 · worldkitchen 23 · health 9 · barplanner 9 · utils 6 · **events 6** (target).
+*(Type/box/placement lenses still to be measured the same mechanical way.)*
+
+**This is its own MF/session, NOT a card-at-a-time fix. Method (Tina's own playbook):**
+1. **AUDIT FIRST, all four lenses.** A script/census pass listing every hardcoded hex / font / size / radius
+   in a style slot with `file:line` (excluding the token block + gradients), PLUS a per-section presence-map
+   of the recipe blocks. Turns the vague "lots of drift" into an exact worklist per lens.
+2. **CENSUS RUNGS as the ratchet** (next free check #s), one count per lens; freeze today's numbers as the
+   FLOOR (RED-N baseline, floor not gate) so each can only go DOWN. ⚖️ A silent hole needs a mechanical watcher.
+3. **TWO CLASSES — do not treat a rebuild and a colour-swap as the same job (Tina 23 Jul: "and furry"):**
+   - 🏗️ **BESPOKE sections — `tinyTummies` (805 lines, 527 hex) + `furry` (70 lines, 36 hex).** VERIFIED
+     23 Jul: BOTH use ZERO shared renderers (no `warmCard`/`sectionHeader`/`qtyBox`) — hand-rolled top to
+     bottom, so they break ALL FOUR lenses (colour, type, boxes, placement). **Fix = MIGRATE onto `warmCard`/
+     `core.js`** (the §10 sameness sequence); colour, font, box AND element order all fall into line for free,
+     exactly like `events` dropping to 6 once migrated. Each is its own session; tinyTummies is the giant.
+   - 🎨 **MIGRATED-but-drifted — `spice` 167 · `meals` 166 · `budget` 50 · `braai` 34 · `worldkitchen` 23.**
+     Already call the shared renderers; carry leftover hardcoded overrides. **Fix = strip the overrides**
+     (hex→token, font/size→shared class, box→shared geometry). No token fits → token GAP to raise. core LAST.
+4. Close the instances below (note · spice · legacy cost block) AS this lands — they're the same bug.
+
+---
+
 ## 🎨 "Buying vs cooking" note unreadable — dark-theme hex on warm-light (palette drift)
 **Seen:** 23 Jul on live, under every finger-food shopping list. Tina likes the note; it's just barely legible.
 
@@ -43,6 +83,7 @@ its card meta now prefers How This Feels, falling back to region → portion onl
 - **Root cause.** `packSizeNote()` (`meals.js:16287`) is still styled for the OLD dark theme: `color:#e0d4b8` (light-on-dark text) + `background:rgba(255,255,255,0.03)` (a 3%-white panel that vanishes on cream) + hardcoded accent `#c0a040`. On the warm-LIGHT palette this is pale-on-pale.
 - **Same class as the known drift.** `#e0d4b8` is the exact off-palette hex already logged all over budget.js and called out in the MASTER TEMPLATE 19 Jun open thread ("dark boxes bleeding into warm-light → migrate to `var(--…)`"). This note is one more instance.
 - **Fix — SWEEP, DON'T PATCH (Tina, 23 Jul).** Do NOT recolour this one note alone. Roll it into the app-wide hex→token sweep: `#e0d4b8` → `var(--ink-soft)`, the white overlay → `var(--card2)`, `#c0a040` → `var(--gold)`/`var(--turmeric)`, and grep every `#e0d4b8`/`rgba(255,255,255,0.0x)`/dark-theme hex across `sections/*.js` in the same pass. ⚖️ SAMENESS: render via `var(--token)`, never hardcode hex. **Own session (the palette-drift sweep), not MF132.**
+- **➕ SPICE joins this sweep (found 23 Jul in MF132 §2.D).** `spice.js` quantity numbers wear the LOCKED *cost* colours — `#c8e840` (food-cost green) at 8147, `#f5c842` (shop-spend gold) at 8152/8169/8187/8196/8203/8303 — on YIELDS and INGREDIENT AMOUNTS, which are NOT money. Green=food-cost-only / gold=shop-spend-only are LOCKED; a Free user seeing a gold "500g" reads it as a price. Recolour these to a neutral token (`var(--ink)`/`var(--paprika)`), never green/gold. Plus dark-theme hex through spice's list/entry views (`#e0d4b8` 8186/8195, `#a88a5e` 8008/8097, `#b0a070`, `#c0915a`). Same pass.
 
 ---
 
