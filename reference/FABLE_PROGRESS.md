@@ -4,12 +4,28 @@
 
 ⚠️ **FIRST ACTION OF EVERY SESSION: READ THIS FILE.** Start at `NEXT UP`, never re-derive `DONE`.
 
-**AFTER EVERY SINGLE RECIPE:** write the file → `node --check` → append one line to `DONE` →
-only then begin the next. **A cut-off must cost one recipe, never a session.**
+**AFTER EVERY SINGLE RECIPE — THIS SEQUENCE IS THE SAVE, AND IT IS NON-NEGOTIABLE:**
+1. Write the recipe into its section file AND append its one line to `DONE` below.
+2. `node --check` the section file.
+3. **`present_files` the section file + THIS file (FABLE_PROGRESS).** ⬅️ **THIS is the save.**
+   Then tell Tina "banked — grab it." **You may not write one word of the next recipe until you
+   have done step 3.** Presenting is the gate to the next recipe.
+4. Only now begin the next recipe.
 
-**ONE CHAT = ONE SESSION = MANY RECIPES.** Keep writing in the same chat (~10–15 recipes),
-download as you go. Start a FRESH chat only when the chat gets long or you break — never per
-recipe. A fresh chat clones GitHub and resumes at `NEXT UP`. **The file is the memory, not the chat.**
+⛔ **"Write the file" is NOT a save. The container is NOT a save. The chat is NOT a save.**
+The ONLY save is a file Tina has downloaded. An **unpresented recipe is already lost** — treat it
+that way from the moment you finish writing it. If a session ends with recipes you wrote but never
+`present_files`'d, they are GONE and get re-authored from scratch.
+🩸 **23 Jul: 6 recipes written, never handed back, session cut off → all 6 remade the next session.
+Two sessions of usage burned, six recipes banked.** A silent hole needs a mechanical watcher, not a
+promise to remember — so present_files is now step 3, the gate, not a courtesy at the end.
+
+**BATCH 5–6 RECIPES PER SESSION (Tina's number), NOT 10–15.** A shorter session is a smaller window
+to lose. Every present in step 3 hands back the CUMULATIVE file, so Tina's most recent download always
+holds everything up to it. ⚠️ **If usage or chat length is climbing, do NOT start a recipe you might
+not finish-and-present** — present what's banked, name the next three under `NEXT UP`, and stop clean.
+A fresh chat clones GitHub and resumes at `NEXT UP`. **GitHub — reached only through a file Tina
+downloaded and pushed — is the memory. Not the chat. Not the container.**
 
 ---
 
@@ -181,6 +197,13 @@ S2 overflow rolls to S3 tail (only if the window allows): Dhal Curry (lentils R6
 📋 **CODE BRIEF — MF141 · SOSATIES DUP (Tina ruled YES, 23 Jul): strike or repoint `boerekos-sosaties`.** The cape-malay card is the WOW'd, versioned, costPP'd comprehensive one — keep-most-comprehensive rules for it. Code's job: remove `boerekos-sosaties` from wk_southafrica.js OR repoint it as a pointer to `cape-malay-sosaties` (same pattern as the §2.6 Frango/Pastéis pointers), whichever matches the repo's pointer convention — then re-run the census. Fable stays off the record either way. Same bucket as the §2.5 seven but not on that list; this brief is its paper trail.
 
 *(Parked on Tina's explicit call only: 🔓 Ginjinha — unlocked 23 Jul when Spain closed, closes Portugal 50/52 whenever she says the word.)*
+
+**▶ QUEUED LANE · BELGIUM (WK Europe) — Tina flagged 23 Jul; runs after SA, post-reset.**
+File: `sections/wk_europe.js` · global `WK_EUROPE` (⚠️ TWO JSON formats in this file — PARSE-NEVER-REGEX, load & walk, never text-match). 22 Belgium records mapped 23 Jul:
+- 🔴 **CULL (Shelf-WOW, replace in-slot):** `belgium-kriek-beer` "Kriek Beer" — its method is "pour the beer into a glass," a bought product, not a recipe. Replace in-slot with a real Belgian dish/drink (NOT another commercial beer). Tina 23 Jul: "this recipe needs to go" — she's skipping its photo in Photo Studio.
+- 🟡 **DEDUPE FIRST (dup-scan by parse, id AND name):** *Endive au Gratin* ≈ *Chicons au Gratin* — `chicons` is Belgian-French for endive, almost certainly the SAME dish → keep-most-comprehensive · *Waterzooi* vs *Gentse Waterzooi* (Ghent variant — same dish? check) · *Belgian Waffles* vs *Liège* vs *Brussels* (Liège & Brussels genuinely differ; "Belgian Waffles" may be the generic dupe). Resolve per Duplicate Rules before authoring.
+- 🟢 **ELEVATE (~20 real recipes to WOW):** Moules-Frites · Carbonnade Flamande · Stoofvlees · Waterzooi · Speculoos · Croquettes aux Crevettes · Filet Américain · Vol-au-Vent · Belgian Fries · Liège/Brussels Waffles · Rabbit in Beer · Boulets à la Liégeoise · Stoemp · Speculoos Spread · Jambon d'Ardenne · Chocolate Mousse (+ whichever survive the dedupe).
+- All standing law applies: save-as-you-go (one card → node --check → DONE line → download), WOW bar, budget-fork-leads §15.5, costPP on every version, price gate = prices.js AND both alias maps, global-wording (no shop names in prose), `howThisFeels` field (not `howItFeels`).
 
 ⚠️ **GATE LESSON (22 Jul, binding): a price gate = prices.js AND the alias maps (core.js ~1050 + worldkitchen.js ~461).** The Pulpo fence was issued and struck the same day because only prices.js was checked. Also re-check the Espinacas con-bacalao skip next Spain session — `bacalhau`→`salted snoek` alias exists, so that fork may be priceable after all.
 

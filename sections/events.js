@@ -85,7 +85,6 @@ function eventsHTML(){
   if(S.eventGuests==null||isNaN(S.eventGuests)) S.eventGuests=20;
   const guests = S.eventGuests;
   const isPro = tierAllows('pro');
-  const isPlus = tierAllows('plus');
 
   // Recipe lookup is handled by openEvent() using the global arrays
 
@@ -870,35 +869,30 @@ function eventsHTML(){
     const toggleAction = (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : `openRecipe('events','${r.id}')`;
     const openAction = `openRecipe('events','${r.id}')`;
 
-    // Cost badge — removed fixed /pp, shows portion context for Pro
-    let portionBadge = '';
-    if(isPro && isSelected && category){
-      const catKey = category.replace('eventSelected','').toLowerCase();
-      const catMap = {mains:'mains',sides:'sides',salads:'salads',starters:'starters'};
-      const key = catMap[catKey];
-      if(key){
-        const selIds = S[category]||[];
-        const scaleFactor = PORTION_RULES[key].scale[Math.min(selIds.length-1,3)];
-        const g = Math.round(PORTION_RULES[key].base * scaleFactor);
-        portionBadge = `<span style="background:var(--card2);border:1px solid var(--accent);border-radius:10px;font-size:13px;color:var(--accent);padding:2px 7px;margin-left:6px;">${g}g pp</span>`;
-      }
-    } else if(isPlus && r.costPP){
-      portionBadge = `<span style="background:var(--card2);border:1px solid var(--accent);border-radius:10px;font-size:13px;color:var(--accent);padding:2px 7px;margin-left:6px;">~R${r.costPP}/pp</span>`;
-    }
-
     // Route through the shared Warm Spice card (Standard §3): card opens the recipe,
     // checkbox toggles the plan (only when a Pro category selection is active).
+    // META = "HOW THIS FEELS" (Tina 23 Jul: gram pp already shows on the recipe page, so
+    // the card line is spent on the evocative one-liner — matches WK + Spice). Reads BOTH
+    // field names (howThisFeels app-wide · howItFeels in Health) until they're unified.
+    // Graceful fallback so no card goes blank until events feel-copy is authored (Fable):
+    // How This Feels → region → per-person portion ("{meat} {unit} pp", buffet.js:71 shape).
+    // A portion is a quantity, never gated. Halal/Kosher flags always kept.
+    const _feel = r.howThisFeels || r.howItFeels || '';
+    const _portionPP = r.perPerson ? (r.perPerson.meat + ' ' + (r.perPerson.unit||'g') + ' pp') : '';
     const eMeta = [
-      (r.region || (r.perPerson ? (r.perPerson.meat+' '+r.perPerson.unit+'/person') : '')),
+      (_feel || r.region || _portionPP),
       (r.halalFlag ? '⚠️ Halal' : ''),
       (r.kosherFlag ? '⚠️ Kosher' : '')
     ].filter(Boolean).join(' · ');
     // Finger-piece items show the REAL per-piece cost (same value/rounding the
     // recipe page uses, L1713) labelled "/piece" — never the stale static costPP.
     // Buffet mains etc. keep their per-person "pp" badge. Pro-gating unchanged.
+    // Cost gate lives in warmCard → costLine (tierAllows('pro')): Pro sees the price,
+    // Free sees the lock. The old caller-side isPlus guard was a dead tier ('plus' ∉
+    // TIER_LEVEL) that hid the chip from everyone — Tina ruled 23 Jul: price shows for Pro.
     const _isFinger = isFingerPieceItem(r);
     const _perPiece = _isFinger ? fingerPerPieceCost(r) : 0;
-    const _costText = (isPlus && _isFinger && _perPiece > 0)
+    const _costText = (_isFinger && _perPiece > 0)
       ? '≈R' + (Math.round(_perPiece*100)/100) + '/piece'
       : '';
     return warmCard({
@@ -906,7 +900,7 @@ function eventsHTML(){
       photoName: r.photoName || r.name,
       emoji: r.emoji || '🍽️',
       meta: eMeta,
-      costPP: (isPlus && !_isFinger && r.costPP) ? r.costPP : '',
+      costPP: (!_isFinger && r.costPP) ? r.costPP : '',
       costText: _costText,
       openJs: openAction,
       toggleJs: (category && isPro) ? `setQuiet({${category}:toggle(S.${category}||[],'${r.id}')})` : '',

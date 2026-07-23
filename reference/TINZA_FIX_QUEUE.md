@@ -3,6 +3,60 @@
 
 ---
 
+## 💬 "How This Feels" on every card — the app-wide card line (Tina ruled 23 Jul)
+**Direction (Tina):** the card `meta` line is for **"How This Feels"**, app-wide. Per-person portion
+(gram pp) already shows on the RECIPE page, so it does NOT belong on the card. Events flipped 23 Jul:
+its card meta now prefers How This Feels, falling back to region → portion only until copy is written.
+
+**The map (23 Jul) — two blockers before this is truly consistent:**
+- 🔤 **Field-name split.** Most of the app stores **`howThisFeels`** (World Kitchen, Spice, all `wk_*`).
+  **Health stores `howItFeels`** (60 refs); `core.js` carries both. A shared renderer reading only
+  `howThisFeels` shows BLANK for Health. **Unify to one name** (pick `howThisFeels`, migrate Health's
+  `howItFeels`), or make every card reader tolerate both (events already does: `howThisFeels||howItFeels`).
+- ✍️ **Events has NO feel-copy.** `eventsData.js` / `buffet.js` / `beveragesData.js` carry neither field.
+  Until Fable writes a unique "How This Feels" one-liner per event item (⚖️ WOW Standard), event cards
+  fall back to region/portion. **Authoring job, Fable lane.**
+
+**Coverage today:** ✅ WK · Spice · Health (as `howItFeels`) show it on cards · ⚙️ events wired, awaiting copy
+· ❓ Braai / meals / buffet — confirm each shows it (buffet currently shows portion; migrate to feel).
+
+- **Fix — SWEEP via warmCard, don't patch (Tina).** Once the field is unified, confirm every section's
+  `warmCard` call feeds How This Feels into `meta`. One reader, every section inherits it. Portion is a
+  quantity → never gated; feel isn't money → never gated either. **Own session, not MF132.**
+
+---
+
+## 🇪🇸 Some Spanish dishes (Fable, 23 Jul) show no price — unpriced ingredients
+**Seen:** 23 Jul, Tina on live. Several of today's Spain records render without a cost.
+
+- **Symptom.** The dish has ingredients and a card, but no food-cost figure — because one or more ingredients aren't priced.
+- **Root cause (Tina's read).** It's the ingredients: new Spanish buy-names Fable introduced today aren't in PRICE_DB yet, so `costPP` can't complete. ⚖️ PRICE GATE = `prices.js` **AND both alias maps** (`core.js` ~1050 + `worldkitchen.js` ~461), never prices.js alone — a name missing from any of the three costs nothing.
+- **Fix.** Add the missing Spanish ingredients to prices.js + both alias maps. When picked up, run an unpriced-ingredient scan across the Spain records first (walk the objects, don't grep) to get the exact list in one pass — Claude can generate that on request.
+- **Related but distinct** from "🌍 STAGE 2 · WK delta costing" below: that one is about version *delta* strings not costing; this one is base ingredients missing from PRICE_DB. **Own session, not MF132.**
+
+---
+
+## 🎨 "Buying vs cooking" note unreadable — dark-theme hex on warm-light (palette drift)
+**Seen:** 23 Jul on live, under every finger-food shopping list. Tina likes the note; it's just barely legible.
+
+- **Symptom.** Pale tan text on the cream card — very low contrast, hard to read. Not a content problem; the wording is good.
+- **Root cause.** `packSizeNote()` (`meals.js:16287`) is still styled for the OLD dark theme: `color:#e0d4b8` (light-on-dark text) + `background:rgba(255,255,255,0.03)` (a 3%-white panel that vanishes on cream) + hardcoded accent `#c0a040`. On the warm-LIGHT palette this is pale-on-pale.
+- **Same class as the known drift.** `#e0d4b8` is the exact off-palette hex already logged all over budget.js and called out in the MASTER TEMPLATE 19 Jun open thread ("dark boxes bleeding into warm-light → migrate to `var(--…)`"). This note is one more instance.
+- **Fix — SWEEP, DON'T PATCH (Tina, 23 Jul).** Do NOT recolour this one note alone. Roll it into the app-wide hex→token sweep: `#e0d4b8` → `var(--ink-soft)`, the white overlay → `var(--card2)`, `#c0a040` → `var(--gold)`/`var(--turmeric)`, and grep every `#e0d4b8`/`rgba(255,255,255,0.0x)`/dark-theme hex across `sections/*.js` in the same pass. ⚖️ SAMENESS: render via `var(--token)`, never hardcode hex. **Own session (the palette-drift sweep), not MF132.**
+
+---
+
+## 🥚 Shopping list shows cooking grams for count-sold items — not supermarket-ready
+**Seen:** 23 Jul on live, Finger Foods → My Plan → shopping list (20 guests). Example: **"Egg (beaten) 476g"**.
+
+- **Symptom.** Count-sold / pack-sold ingredients render as raw grams you can't buy off a shelf. Clearest cases: **eggs** — `476g` should read **"≈10 large eggs"** (476 ÷ 50g = 9.5, round UP — you buy whole eggs); **bread** — `300g` should read **"1 loaf"** (a loaf ≈700g, round UP — you buy whole loaves, not 0.4 of one). Same class hits any count/pack-sold item (eggs, bread/loaves, pastry sheets, wraps, tins).
+- **NOT a math bug.** The gram total is correct; it's the *unit* that isn't shoppable. The `packSizeNote()` "Buying vs cooking" disclaimer beneath the list explains leftover-in-pack, but it does NOT convert count-sold items to a count — so the note promises a cooking→shopping bridge the list doesn't finish.
+- **The find that matters.** The conversion constant ALREADY EXISTS: `events.js:13  var FINGER_UNIT_G = { egg:50 };` (grams per egg). It's wired into the *pricing* path only (`events.js:24`, `fingerCostPP`), NOT into the shopping *display*. `fingerShopItems`'s `fmt(raw,unit)` (events.js ~1875) only does g→kg / ml→L / slices — no count path.
+- **Fix shape.** In the shopping formatter, for names matching a count-sold set, divide grams by `FINGER_UNIT_G[key]`, `Math.ceil`, render "≈N eggs". Widen `FINGER_UNIT_G` beyond egg as needed. ⚖️ TINZA INGREDIENT STANDARD already rules this: "count for unit-sold items (eggs, muffins, pastry sheets)."
+- **Scope — SWEEP, DON'T PATCH (Tina, 23 Jul).** When picked up, first find EVERY shopping surface in the app with the same count-in-grams problem and fix them all in one go: `fingerShopItems` · `drinkShopItems` (~1773) · `cakeShopItems` (~1818) · `buildCombinedShoppingList` (meals.js ~16294) · any Braai/WK/Health shop list. ONE shared count-aware formatter that all of them call — never a per-builder patch (that's how drift starts). **Leave a census rung behind:** "no count-sold item renders in grams on any shopping list." **Own session, not MF132.** Promote to an MF-number when picked up.
+
+---
+
 ## 🎂 Whole-unit bakes show a misleading per-person dial
 **Seen:** 15 Jul AM, still live 16 Jul. Example: **Gin & Tonic Cheesecake** (`bk-gin-tonic-cheesecake`, meals.js).
 
