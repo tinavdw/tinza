@@ -317,7 +317,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
         const nameEsc=r.name.replace(/'/g,"\\'");
         return warmCard({
           name:r.name, photoName:r.name, emoji:r.emoji||'🍽️',
-          meta:`${typeLabel} · ${r.per||''} per child · ${r.time||'?'} min · ~${r.kcal||'?'} kcal`,
+          meta:`${typeLabel} · ${r.per||''} per child · ${r.time?r.time+' min':'—'} · ~${r.kcal||'?'} kcal`,
           openJs:`openKidsRecipe('${nameEsc}')`
         });
       }).join('');

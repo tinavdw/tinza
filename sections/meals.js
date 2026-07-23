@@ -15948,7 +15948,7 @@ function recipeResultCard(r, onClickFn, color){
     <span style="font-size:28px;flex-shrink:0;">${r.emoji||'🍽️'}</span>
     <div style="flex:1;min-width:0;">
       <div style="font-size:14px;color:#f5e8cc;margin-bottom:3px;">${r.name}</div>
-      <div style="font-size:13px;color:${color||'#e0d4b8'};">${r.cuisine||''} · ⏱️ ${r.time||'?'} min</div>
+      <div style="font-size:13px;color:${color||'#e0d4b8'};">${r.cuisine||''} · ⏱️ ${r.time?r.time+' min':'—'}</div>
       <div style="margin-top:4px;">${matchBadge}${sourceBadge}</div>
     </div>
     <span style="color:${color||'#c06020'};font-size:14px;flex-shrink:0;">→</span>

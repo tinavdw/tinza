@@ -18,6 +18,38 @@ var BUDGET_MEAT_LINE_PP = 15;
 // and step 3 crediting Tinza Chef, who returns 503. A change that leaves the screen
 // lying is not finished — it is the same change, half-done. ⚖️ Law 3 · Law 7.
 // 🔁 RESTORE STEP 4 AND THE CHEF CREDIT IN STEP 3 WHEN MF78 LANDS.
+// ── MF132 §2.A — THE BUDGET ROOM IS PRO ──────────────────────────────────────
+// Ruled §2.4: Budget is all filter, no badge half. Handing Free the filtered list
+// gives away the whole answer and withholds only the receipt. So core.js:597 gates
+// the ROOM (one door, Law 6) and Free lands here instead.
+//
+// The lock must carry an HONEST COUNT, never a bare lock or a zero (Law 3 · Law 7).
+// ⚠️ N comes from the SAME query the paid list uses — _budgetPool + _budgetDupKey +
+// _budgetComp are the very functions findBudgetRecipes() runs. One query, one N; two
+// paths would be two numbers, and the smaller-truth would be the lie Law 3 forbids.
+// 🔴 Known & accepted: allRecipes() answers against ~1551 not 2083 (index.js:483) —
+// honest about what Tinza can ANSWER, not what it holds. Not papered over.
+function _budgetHonestCount(budget, people){
+  var per = (parseFloat(budget)||0) / (parseInt(people)||1);
+  if(!per || typeof _budgetPool !== 'function') return 0;
+  var byKey = {};
+  _budgetPool(per).forEach(function(r){
+    if(!r || !r.costPP || r.costPP > per) return;   // priced + affordable — the same gate _passBudget applies (no search box, floor open = the honest ceiling)
+    var k = _budgetDupKey(r);
+    if(!byKey[k] || _budgetComp(r) > _budgetComp(byKey[k])) byKey[k] = r;   // same de-dupe as the finder
+  });
+  return Object.keys(byKey).length;
+}
+function budgetLockPanel(){
+  var budget = parseFloat(S.budgetAmount) || 100;   // their last figure, else the room's namesake R100
+  var people = parseInt(S.budgetPeople)  || 4;
+  var n = _budgetHonestCount(budget, people);
+  var blurb = (n > 0)
+    ? ('R' + budget + ' feeds ' + people + (people===1?' person':' people') + ' from <b>' + n + '</b> real recipe' + (n===1?'':'s') + ' that fit your budget — each with its own costed shopping list.')
+    : ('Tell Tinza what you have to spend and it finds real meals that fit — each with a costed shopping list.');
+  return lockPanel('Budget Meal Finder', blurb);   // inherits the one price string in lockPanel() — swept in Week 3, never re-typed here
+}
+
 function budgetPlannerHTML(){
   const budget = parseFloat(S.budgetAmount||0);
   const people = parseInt(S.budgetPeople||4);
@@ -162,7 +194,7 @@ function budgetPlannerHTML(){
               <span style="font-size:20px;">${r.emoji||'🍽️'}</span>
               <div style="flex:1;">
                 <div style="font-size:14px;color:${isPlanItem('budgetPlan',r.id)?'#f5e8cc':'#e0d4b8'};font-weight:${isPlanItem('budgetPlan',r.id)?'bold':'normal'};">${(typeof tinzaDisplayName==='function')?tinzaDisplayName(r):r.name}</div>
-                <div style="font-size:13px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time||'?'} min · R${r.costPP||'?'} pp</div>
+                <div style="font-size:13px;color:${isPlanItem('budgetPlan',r.id)?color:'#7a5a30'};margin-top:2px;">⏱️ ${r.time?`${r.time} min`:'—'}${r.costPP?` · ${costLine({html:`R${r.costPP} pp`})}`:''}</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
                 <button onclick="event.stopPropagation();budgetOpenRecipe(${i})" style="background:${color};border:none;border-radius:6px;padding:4px 10px;font-size:13px;color:#fff;cursor:pointer;white-space:nowrap;">Recipe →</button>

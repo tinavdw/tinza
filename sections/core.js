@@ -572,7 +572,8 @@ function draw(){
   // nobody else can be on her localhost). The tap does write `dev:false`, so it takes
   // effect the moment the same browser loads the real site. Verified 21 Jul on
   // localhost:8899. ➡️ TEST THE OFF SWITCH ON tinza.netlify.app, NEVER ON LOCALHOST.
-  const devStrip = `<div onclick="tinzaStore.setPref('dev',false);draw();" style="background:var(--accent);color:#fff;padding:6px 16px;font-size:12px;letter-spacing:1px;text-align:center;cursor:pointer;">🔧 DEV MODE ON · tap to turn off</div>`;
+  const _devLocal = (location.hostname==='localhost' || location.hostname==='127.0.0.1');  // MF132 §2.G
+  const devStrip = `<div onclick="tinzaStore.setPref('dev',false);draw();" style="background:var(--accent);color:#fff;padding:6px 16px;font-size:12px;letter-spacing:1px;text-align:center;cursor:pointer;">🔧 DEV MODE ON · ${_devLocal ? 'localhost' : 'tap to turn off'}</div>`;
 
   let content="";
   try{
@@ -594,7 +595,7 @@ function draw(){
   else if(S.screen==="supper"){ content=supperHTML(); }
   else if(S.screen==="bakes"){ content=bakesHTML(); }
   else if(S.screen==="sidesbasics"){ content=sidesbasicsHTML(); }
-  else if(S.screen==="budget"){ content=budgetPlannerHTML(); }
+  else if(S.screen==="budget"){ content = tierAllows('pro') ? budgetPlannerHTML() : budgetLockPanel(); }  // MF132 §2.A — room is Pro (all filter, no badge half). One door, honest count inside.
   else if(S.screen==="ingredient"){ content=anchorIngredientHTML(); }
   else if(S.screen==="fourIngredients"){ content=fourIngredientsHTML(); }
   else if(S.screen==="mood"){ content=moodHTML(); }
@@ -754,7 +755,7 @@ function tierAllows(t){
   if(need == null) need = 0;
   return tierLevel() >= need;
 }
-function maxMeats(){ return USER_TIER==="free"?2:99; }
+function maxMeats(){ return tierAllows('pro') ? 99 : 2; }  // MF132 §2.H — was USER_TIER==="free"?2:99, which fails OPEN (anything not the exact string "free" → 99). Now inherits tierAllows' fail-closed door. NOT arithmetic — calcMeat/PORTION_BRAAI untouched.
 
 function tierBadgeSmall(t){ return ""; } // No tier badges shown
 
