@@ -1637,11 +1637,29 @@ p('       ⚖️ §2.4 — I\'ve Got R100 is ALL FILTER. The filter IS the produ
   // ③ ONE DOOR FOR MONEY. Every Rand on every screen is built by costLine()/costOneLine().
   // A hand-rolled R${} is not merely untidy — it is money rendered OUTSIDE the gate,
   // which is exactly how 11 of these leaked. ⚖️ Law 6 · MF132.
-  const rawMoney = [];
+  //
+  // ⚖️ §2.4 EXEMPTION (ruled 23 Jul) — THE USER'S OWN BUDGET FIGURE, INSIDE THE GATED ROOM.
+  // These are not RECIPE money. They echo the amount the user typed — the R40–R500 picker
+  // buttons, the "Finding recipes for R100" loading line, "R25 per person to spend" — and they
+  // live inside budgetPlannerHTML, which assertion ① confirms is gated at the door. A free
+  // visitor never reaches them. Routing a budget-PICKER button through a food-cost gate would
+  // be a lie of a different kind. One-door purity is for recipe money; a user's own input is
+  // not that. 🩸 Same discipline as RETIRED: keyed by a STABLE NEEDLE (never a line number, so a
+  // shift can't re-arm or silently widen it), written in, and REPORTED dim — allowlisted, not hidden.
+  const MONEY_EXEMPT = [
+    { f:'budget.js', needle:'per person to spend',      why:'user budget echo' },
+    { f:'budget.js', needle:'selectBudget(',            why:'R40–R500 picker buttons' },
+    { f:'budget.js', needle:'Finding recipes for R',    why:'loading line' },
+    { f:'budget.js', needle:'.toFixed(0)} per person',  why:'per-person budget echo' },
+    { f:'budget.js', needle:'Tight budget, honest food',why:'tight-budget prose' },
+  ];
+  const rawMoney = [], moneyExempt = [];
   files.forEach(f => read(f).split('\n').forEach((line,i) => {
     if (isComment(line)) return;
     if (!/R\$\{/.test(line)) return;
     if (/costLine\s*\(|costOneLine\s*\(/.test(line)) return;   // already through the door
+    const ex = MONEY_EXEMPT.find(e => f===e.f && line.includes(e.needle));
+    if (ex) { moneyExempt.push(f+':'+(i+1)+'  \x1b[2m('+ex.why+')\x1b[0m'); return; }   // §2.4 exemption — ruled, in writing
     rawMoney.push(f+':'+(i+1)+'  '+line.trim().slice(0,64));
   }));
   if (rawMoney.length) bad(rawMoney.length + ' HAND-ROLLED money string(s) OUTSIDE costLine()',
@@ -1649,7 +1667,9 @@ p('       ⚖️ §2.4 — I\'ve Got R100 is ALL FILTER. The filter IS the produ
     (rawMoney.length>12 ? '\n      \x1b[2m… and ' + (rawMoney.length-12) + ' more\x1b[0m' : '') +
     '\n      \x1b[2mcostLine() IS the gate (core.js) — it reads tierAllows(\'pro\') and locks.' +
     '\n      Money built by hand is money the gate never saw. ⚖️ Law 6 · MF132.\x1b[0m');
-  else ok('Every Rand is built by the one door', 'no hand-rolled R${} anywhere in sections/');
+  else ok('Every recipe Rand is built by the one door', 'no hand-rolled R${} in sections/ except the ruled §2.4 exemptions');
+  if (moneyExempt.length) p('     \x1b[2m§2.4 EXEMPT — ' + moneyExempt.length + ' (user\'s own budget figure, gated room, ruled 23 Jul):  '
+    + moneyExempt.join('  ·  ') + '\x1b[0m');
 
   // ④ THE DOOR IS ONE DOOR.
   let costDefs = [];

@@ -122,6 +122,14 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 - 🧭 **THE TIEBREAKER (general form):** when neither copy is versioned, canonical = **where the dish is culturally at home AND where it is being actively developed.** Tortilla → Spain (WK, being elevated now). Peri-peri → SA (meals, the hero framing). The versioned-copy rule (§2.5) only applies when one side actually has versions.
 - ⚙️ **RULING ≠ DONE** — the same Code/Node merge as §2.5 repoints these pointers. Until it runs, Frango and Pastéis stay fenced from Fable; Tortilla is the one that opens.
 
+### 🗺️ 2.7 · MY PLAN IS PRO **EVERYWHERE** — NOT JUST ITS MONEY — **RULED 23 Jul 2026**
+*§2 already names My Plan and shopping as PRO. This ruling is the ENFORCEMENT clause, filed because MF132 §2.B found braai's plan/shopping surface still reachable by a free visitor — only its Rand was locked.*
+
+- 🔒 **EVERY My Plan / plan / shopping surface, in EVERY room, is gated at the surface — not merely its prices.** Braai · Events · Budget *(already room-gated §2.4)* · World Kitchen · Feed My Family · anywhere a "My Plan" or shopping list renders. Free browses, views and scales recipes; the moment a screen's job is *"here is your plan / your shopping list,"* it is Pro.
+- 🧱 **THE SHAPE IS §2.4's, RE-USED:** gate the SURFACE and hand Free a `lockPanel()` carrying an honest line *("Plan your braai for N guests — unlock with Pro")*, never a blank screen (⚖️ Law 3), never a cleared plan (⚖️ §5 red line — gating is not clearing; an upgrade later finds the plan intact).
+- 🩸 **MF132 §2.B IS NOT SUPERSEDED BY THIS.** Locking braai's Rand was correct and stays — it is defence-in-depth beneath the surface gate. Money-locked *and* surface-gated is not redundant; it is two doors on the same room.
+- ⚙️ **RULING ≠ DONE — THIS IS A NEW JOB, NOT PART OF MF132.** MF132 is money (the §7 gate layer). This is the My-Plan *surface* gate and gets its own brief. Census Check 25 watches the money; a sibling assertion (or its own rung) must watch the plan surface, or this silently rots the same way. ⚖️ Law 6 · §2.3.
+
 ---
 
 

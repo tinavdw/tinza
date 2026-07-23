@@ -21,3 +21,26 @@
 | `bk-beer-bread` | Beer Bread | **Easy Beer Bread** | `Easy Beer Bread.jpg` |
 
 **Applied in code (this session):** `meals.js` — each card's `name` **and** `photoName` set to the new name (photo key follows the name). `core.js` — `GOESWITH_LINKS` old-name→id aliases added so every existing `goesWith` reference still resolves to the renamed card.
+
+---
+
+## 🇪🇸🇵🇹 SPAIN + PORTUGAL — FABLE ELEVATION (logged 23 Jul 2026 · NOT URGENT)
+
+**What happened:** Fable's WOW pass replaced/renamed a large batch of **Spanish** recipes and a
+few **Portuguese** ones in `sections/wk_europe.js`. Photo Studio matches a photo to a card by NAME
+(accents stripped), so every renamed dish now falls back to the emoji tile until its photo is
+reconnected or regenerated — exactly the bakes situation above.
+
+**The job (when Tina wants it):** produce the same old-name → new-name → photo-file table for
+Spain/Portugal, then either reconnect (alias old→new so the existing photo still matches) or
+fresh-generate where no photo existed.
+
+**How Claude builds the list (no guessing):**
+1. `node Tools/photo-audit.js --missing` → the authoritative list of cards now showing no photo.
+2. Cross-reference the new names against `reference/FABLE_PROGRESS.md` (Spain closed 23 Jul, ~51
+   versioned records) to separate *renamed-but-had-a-photo* (→ reconnect map) from *brand-new*
+   (→ fresh generate).
+3. Hand back the table + any `GOESWITH_LINKS` old-name→id aliases so pairings still resolve.
+
+**Status:** logged, not started. Other countries Tina is photographing herself — this is only the
+Fable-touched Spain/Portugal set. Say the word and Claude generates the exact table.
