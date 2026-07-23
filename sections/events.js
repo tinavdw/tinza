@@ -795,7 +795,7 @@ function eventsHTML(){
         <div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">${guests} guests · ${totalTypes} snack type${totalTypes!==1?'s':''} · ~${piecesPerType} pieces pp per type</div>
         <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-top:1px solid var(--card2);">
           <span style="color:var(--ink-soft);">Estimated total cost</span>
-          <span style="color:var(--gold);font-weight:bold;">~R${Math.round(totalCost).toLocaleString()} · R${Math.round(totalCostPP)}/pp</span>
+          <span style="color:var(--gold);font-weight:bold;">${costLine({html:'~R'+Math.round(totalCost).toLocaleString()+' · R'+Math.round(totalCostPP)+'/pp'})}</span>
         </div>
       </div>
 
