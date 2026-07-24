@@ -284,6 +284,8 @@
       feel:       o.feel || '',
       method:     Array.isArray(o.method) ? o.method : methodToArr(o.method),
       nutrition:  o.nutrition || null,             // object only (never a string)
+      equipment:  o.equipment != null ? o.equipment : null,   // MF144 · vessel holder — forward it or the door only ever sees undefined
+
       tip:        o.tip || '',
       storage:    o.storage || '',
       didYouKnow: o.didYouKnow || '',
@@ -326,7 +328,7 @@
           freezes: r.freezes!=null ? r.freezes : null,
           fridgeDays: r.fridgeDays!=null ? r.fridgeDays : null,
           ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
-          feel:r.feel, method:r.method, nutrition:r.nutrition||null,
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment,   // MF144 · carry the holder to the door
           tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
           photoName:r.photoName, versions:r.versions||null
         }));
@@ -374,7 +376,7 @@
           costPP: r.costPP!=null ? r.costPP : null,
           freezes:r.freezes!=null?r.freezes:null, fridgeDays:r.fridgeDays!=null?r.fridgeDays:null,
           ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
-          feel:r.feel, method:r.method, nutrition:r.nutrition||null,
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment,   // MF144 · carry the holder to the door
           tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
           photoName:r.photoName, versions:r.versions||null
         }));
@@ -401,7 +403,7 @@
           kcal:r.kcal!=null?r.kcal:null, costPP:r.costPP!=null?r.costPP:null,
           ingredients: normIng(r.shopping || r.base300 || r.base || r.ingredients),
           goesWith:[], feel:r.howItFeels||r.howThisFeels||'', method:r.method,
-          nutrition:null, tip:r.tip, storage:r.storage, didYouKnow:'', versions:null
+          nutrition:null, tip:r.tip, storage:r.storage, didYouKnow:'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
         }));
       });
     }
@@ -458,7 +460,7 @@
         nameAlt:r.nameAlt, aliases:r.aliases,
         time: parseTimeMin(r.cookTime), kcal: num(r.kcal), costPP: costPP,
         ingredients: ings, goesWith: wkGoesWith(r),
-        feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null,
+        feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null, equipment:r.equipment,   // MF144 · carry the holder to the door
         tip: r.chefNotes||'', storage: r.storage||'', didYouKnow: r.trivia||'',
         // MF134 · World Kitchen HAS versions and this adapter was throwing them away.
         // 92 WK records carry a versions[] (wk_europe 91 · wk_southafrica 1), every one
@@ -512,7 +514,7 @@
           costPP:r.costPP!=null?r.costPP:null,
           ingredients: nameOnlyIng(r.base300 || r.ingredients || r.base),
           goesWith:[], feel:r.feel||'', method:r.method, nutrition:null,
-          tip:r.tip||'', storage:r.storage||'', didYouKnow:r.didYouKnow||'', versions:null
+          tip:r.tip||'', storage:r.storage||'', didYouKnow:r.didYouKnow||'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
         }));
       });
     }
@@ -597,7 +599,7 @@
         time:null, kcal:null, costPP:r.costPP!=null?r.costPP:null,
         ingredients:[], goesWith:r.pairsWith||[],
         feel:r.howThisFeels||'', method:[], nutrition:null,
-        tip:'', storage:'', didYouKnow:r.story||'', versions:null
+        tip:'', storage:'', didYouKnow:r.story||'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
       });
     });
   }

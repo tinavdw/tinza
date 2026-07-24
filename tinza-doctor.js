@@ -313,12 +313,26 @@ if (all && all.length) {
     else if (!counts) fail('The vessel does not scale with the dial', 'ceil(scaledYield / per) is wrong, or the past-one contract banner is missing');
     else pass('Vessels scale in a slot — silent when absent, count up when present', 'MF142 engine live');
 
+    // PROVE the holder SURVIVES THE DOOR (⚖️ MF144 regression guard). rec() + normalizeRecipe
+    // once projected `equipment` away, so every finder/search/mood record opened through
+    // recipeDetailFromResult lost its holder app-wide (Cottage Pie opened at 4, no dish line)
+    // while direct openers were fine. Assert an authored holder still rides an allRecipes()
+    // (door-built) record — if the passthrough is ever dropped again, this goes RED.
+    const anyEquipped = (bakeSrc0 => bakeSrc0.find(r => Array.isArray(r.equipment) && r.equipment.length))((ctx && ctx.BAKES_RECIPES) || [])
+                     || ((ctx && ctx.SUPPER_RECIPES) || []).find(r => Array.isArray(r.equipment) && r.equipment.length);
+    if (anyEquipped && all && all.length) {
+      const door = all.find(r => r.id === anyEquipped.id);
+      if (!door) warn('Door-survival check skipped — sample equipped record not in the index', anyEquipped.id);
+      else if (!Array.isArray(door.equipment) || !door.equipment.length)
+        fail('The equipment field is DROPPED at the door', 'rec()/normalizeRecipe must forward `equipment` — ' + anyEquipped.name + ' has a holder in source but loses it through allRecipes()');
+      else pass('The holder survives the door (rec → normalizeRecipe → allRecipes)', anyEquipped.name);
+    }
+
     // COVERAGE census — ⚠️ WARN, NOT A GATE. Authoring the holders is a separate Fable
     // pass; until it lands every bake honestly has eq=none. This counts the gap out loud
     // (never silently), so the ratchet tightens to a RED gate the day authoring is done.
-    // Read the SOURCE array, NOT allRecipes(): the per-section index adapters project a
-    // fixed field set and drop `equipment`, so allRecipes() can never see a holder even
-    // once authored. The bake family all lives in BAKES_RECIPES (with cat + equipment).
+    // Reads the SOURCE array directly (equipment now survives the door — MF144 — but the
+    // source is the authoritative, adapter-independent count). Bake family = BAKES_RECIPES.
     const BAKE_CATS = ['cheesecakes', 'cakes', 'tarts', 'pastries'];
     const bakeSrc = (ctx && ctx.BAKES_RECIPES) || [];
     const bakes = bakeSrc.filter(r => BAKE_CATS.indexOf(r.cat) > -1);

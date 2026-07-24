@@ -3043,6 +3043,13 @@ function normalizeRecipe(raw){
   // different levels. They do not collide. NEVER flatten one into the other.
   out.yield = (o.yield != null) ? o.yield : null;
 
+  // MF144 · the vessel holder is a reserved passthrough. It was being dropped app-wide:
+  // rec() (index.js) hands this door an explicit field list that omitted it, so every
+  // finder/search/mood record lost its holder (Cottage Pie opened at 4, no dish line),
+  // while direct openers using the source record were fine. The door defaults it here
+  // AND rec() now forwards it — census check 12 asserts it survives, so it can't regress.
+  out.equipment = (o.equipment != null) ? o.equipment : null;
+
   // normDiet() (index.js) is the ONE diet vocabulary — MF94-A. Empty → ['unknown'] (Law 45).
   out.diet = (typeof normDiet === 'function') ? normDiet(o.diet)
            : (Array.isArray(o.diet) && o.diet.length) ? o.diet : ['unknown'];
