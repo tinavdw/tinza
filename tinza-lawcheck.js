@@ -34,7 +34,7 @@ function walk(dir, out = []) {
   for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
     if (e.name === '.git' || e.name === 'node_modules') continue;
     const rel = path.join(dir, e.name);
-    if (e.isDirectory()) walk(rel, out); else out.push(rel);
+    if (e.isDirectory()) walk(rel, out); else out.push(rel.replace(/\\/g, '/'));  // normalise Windows \ to /
   }
   return out;
 }
