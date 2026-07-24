@@ -18,7 +18,7 @@ const EVENTS_BIG_COOKING_MAINS = [
     base300:[{n:"Pork leg or shoulder (skin on)",a:"220g per person"},{n:"Coarse salt (heavy rub on skin)",a:"2 tbsp per kg skin"},{n:"Fennel seeds",a:"0.7g per person"},{n:"Garlic powder",a:"0.7g per person"},{n:"Black pepper",a:"1g per person"},{n:"Olive oil",a:"1 tbsp per kg"},{n:"Apple cider vinegar",a:"6ml per person"},{n:"Apple sauce to serve",a:"see sauce recipe"}],
     method:["Score the pork skin deeply with a sharp knife — every 1cm.","Rub skin GENEROUSLY with coarse salt, fennel seeds and black pepper. Rub meat with garlic and oil.","Roast UNCOVERED at 230°C for first 30 min to blister the skin.","Reduce to 170°C for remaining time (35 min per kg).","Rest 20 min. Crackling should be completely crisp.","Serve with apple sauce and pan juices."],
     tip:"The salt must go on at least 1 hour before (overnight is better) and the skin must be completely dry. Moisture is the enemy of crackling." },
-  { id:"chickenpie", name:"Chicken Pie", photoName:"Hoenderpastei (Chicken Pie)", emoji:"🥧", costPP:26,
+  { id:"chickenpie", equipment:[{n:'pie dish',per:8}], name:"Chicken Pie", photoName:"Hoenderpastei (Chicken Pie)", emoji:"🥧", costPP:26,
     perPerson:{meat:180,unit:"g"},
     base300:[{n:"Chicken thighs (boneless, skinless)",a:"180g per person"},{n:"Puff pastry",a:"30g per person (1 roll per 6 people)"},{n:"Onion (diced)",a:"20g per person"},{n:"Carrots (diced)",a:"25g per person"},{n:"Frozen peas",a:"25g per person"},{n:"Milk (for white sauce)",a:"120ml per person"},{n:"Flour (for sauce)",a:"10g per person"},{n:"Butter",a:"12g per person"},{n:"Oil",a:"5ml per person"},{n:"Fresh thyme",a:"1g per person"},{n:"Egg (for egg wash)",a:"½ per person"}],
     method:["Poach the chicken in water or stock until cooked, then shred into large pieces.","Make a béchamel white sauce: melt the butter, stir in the flour to a roux, then whisk in the milk until thick and smooth.","Fry the onion in the oil, add the carrots and peas and cook 5 min.","Stir in the shredded chicken and the béchamel; season well with salt, pepper and thyme. Cool completely.","Fill the pie dishes, cover with puff pastry, brush with egg wash and score the top.","Bake at 200°C for 25-30 min until golden and bubbling.","For large groups: use deep serving pans (about 53 × 33 cm) — 1 pan feeds 20."],
@@ -790,7 +790,7 @@ const EVENTS_STARTERS = [
 ];
 
 const EVENTS_DESSERTS = [
-  { id:"malvapudding", name:"Malva Pudding", emoji:"🍮", sa:true, costPP:20,
+  { id:"malvapudding", equipment:[{n:'23×33cm (9×13″) ovenproof dish',per:6,soft:true}], name:"Malva Pudding", emoji:"🍮", sa:true, costPP:20,
     serves:12,
     base300:[
       {n:"Sugar",a:"20ml per person"},
@@ -1104,7 +1104,7 @@ const EVENTS_DESSERTS = [
     tip:"South African butternuts and pumpkins are more watery than American varieties — ALWAYS roast, never boil. Roasting concentrates the sugars and removes excess moisture for a firm, sliceable custard. For large events: individual mini-pies bake in 20–25 minutes and are the ultimate professional presentation. SA SWAP: no shortcrust? A crushed Tennis-biscuit & melted-butter base (about 200g biscuits to 80g butter, pressed and chilled) works beautifully." },
   // MF125-B · TREAT — ruled 20 Jul. Braai carried the ruling; events never did, so the
   // same pudding was a main through one door and a pudding through the other.
-  { slot:"TREAT", id:"breadbutterpudding", name:"Bread & Butter Pudding", emoji:"🍞", costPP:12,
+  { slot:"TREAT", id:"breadbutterpudding", equipment:[{n:'23×33cm (9×13″) ovenproof dish',per:6,soft:true}], name:"Bread & Butter Pudding", emoji:"🍞", costPP:12,
     serves:8,
     base300:[
       {n:"Sturdy white bread (thick-cut)",a:"40g per person"},
