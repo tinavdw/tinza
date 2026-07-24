@@ -374,6 +374,27 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
   - 👶 **Ships as a version chip (👶) under the Bobotie rule** — same dish, kid-tuned. Now **inherited** by every dish that uses the move (root-veg mash · fussy bunny chow · gentle spag bol · future ones). No more per-recipe flag. ⚖️ **Law 52.**
   - 🎯 **Used for TWO groups who genuinely need the help — young children (👶) and frail / elderly care (🧓)**, where stubbornness and a poor appetite make getting wholesome food in genuinely hard. Both deserve real, nourishing food, and both will refuse visible veg. Not a house style beyond those two — never on ordinary adult dishes where honest, visible vegetables are the point.
 
+### 🆕 🍽️ VESSELS SCALE IN A SLOT, NEVER IN PROSE — **RULED 24 Jul 2026** *(app-wide, not just bakes)*
+
+**The bug that named it:** scale a cheesecake to 2 and the ingredients doubled, but the method still read *"Line a 22cm springform tin"* — one tin, one cake's gelatine, frozen at 1×. Tina hit it on a live bake. It is **not** a bakes bug — a census found the same frozen holder across the app: **54 "baking dish"** plus oven / ovenproof / tart / pie / springform mentions in method prose, spread through meals, World Kitchen, Health, Buffet and Events. Bobotie *"spoon into a greased dish"*, melktert *"press into a tin"*, the kid muffin *"24 mini muffins — 2 per child for 12 kids"* — all singular, all fixed at one batch.
+
+**The law:**
+1. 📝 **Method prose is authored for ONE finished unit** — one cheesecake, one dish of bobotie, one tart, one tray of muffins. Prose NEVER carries a scale-dependent absolute (*"make 2 tins"*, *"24 muffins"*, *"24g gelatine as the whole job"*).
+2. ⛔ **No number inside method prose is EVER auto-scaled by the engine.** Prose holds dimensions (22cm), temperatures (180°C), times (5 min) and ratios (per 12g) — every one of which must stay **fixed**. A regex that scaled prose numbers would turn 180°C into 360°C and a 22cm tin into 44cm. **Forbidden, permanently.**
+3. 📦 **Everything that scales lives in a structured slot:**
+   - **Ingredients** already scale (`pp × scale`). The *total* of any quantity — gelatine, flour — is **read from the ingredient list**, never counted out of the prose.
+   - **`equipment`** — a NEW per-recipe field: the fixed-capacity holders, each tagged with the servings it covers. The engine multiplies by the batch and renders its own **"🍽️ You'll need"** line: *"2 × 22cm springform tins" · "2 × ovenproof dishes" · "2 muffin trays".*
+4. 🪧 **Past one holder, the page states the contract:** *"This method makes 1 [unit] — work one [tin/dish] at a time. The ingredient amounts above are your total for all [N]."* That one line makes every existing per-unit ratio correct.
+
+**The `equipment` contract** *(for Code + Fable)*:
+`equipment:[ { n:'22cm springform tin', per:12 } ]` — `per` = servings ONE holder covers. `count = Math.max(1, Math.ceil(scaledServings / per))`, where `scaledServings` = `bakeUnits` for a modelled bake, else `sv`. Render `count>1 ? count+' × '+n : '1 × '+n`. **No `equipment` field → no line shown** — a soup pot or a braai grid is not a fixed holder. Silent and unchanged. **Batch recipes** — jam, chilli sauce, preserves, cordials (yield in **g/ml**, not servings) — count too: the holder is a **jar or bottle** and `per` is its capacity in ml/g, so `count = Math.ceil(totalYield / per)`. Scale the jam and the jars multiply, exactly like tins scale for cake. The renderer is unit-agnostic — `per` just has to be in whatever unit that recipe's yield is measured.
+
+**Why this is the right shape:** bobotie "In a Pumpkin" already scales perfectly — because its vessel *is an ingredient* (200g pumpkin per portion). The holder that lives in a slot scales itself; the holder frozen in prose cannot. So every scaling vessel goes in a slot.
+
+- 🔧 **Engine** = MF142 — add the field + one shared renderer, wire into every recipe page. ⚖️ **Law 52.**
+- ✍️ **Authoring** = a Fable-scale pass to tag holders and reword any *"make N tins"* prose to per-unit. Worklist starts with the oven-dish family (census in `reference/`).
+
+
 ---
 
 ## 🚨 11 · LAUNCH BLOCKERS *(top of October)*
