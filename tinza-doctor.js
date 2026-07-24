@@ -316,8 +316,12 @@ if (all && all.length) {
     // COVERAGE census — ⚠️ WARN, NOT A GATE. Authoring the holders is a separate Fable
     // pass; until it lands every bake honestly has eq=none. This counts the gap out loud
     // (never silently), so the ratchet tightens to a RED gate the day authoring is done.
+    // Read the SOURCE array, NOT allRecipes(): the per-section index adapters project a
+    // fixed field set and drop `equipment`, so allRecipes() can never see a holder even
+    // once authored. The bake family all lives in BAKES_RECIPES (with cat + equipment).
     const BAKE_CATS = ['cheesecakes', 'cakes', 'tarts', 'pastries'];
-    const bakes = all.filter(r => BAKE_CATS.indexOf(r.cat) > -1);
+    const bakeSrc = (ctx && ctx.BAKES_RECIPES) || [];
+    const bakes = bakeSrc.filter(r => BAKE_CATS.indexOf(r.cat) > -1);
     const missing = bakes.filter(r => !Array.isArray(r.equipment) || !r.equipment.length);
     if (!bakes.length) {
       warn('No {cheesecakes,cakes,tarts,pastries} recipes found to census', 'the .cat field may have moved — check the census');

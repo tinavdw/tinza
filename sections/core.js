@@ -3853,7 +3853,12 @@ function bakesRecipeOpts(r, servingsKey){
   // that opens the page names its own count-state key; default keeps the historic
   // S.recipeServings so the bakes browse + every cross-link caller is unchanged.
   var sk = servingsKey || 'recipeServings';
-  var n = Math.max(1, S[sk] || S.people || 4);
+  // MF144 · a SOFT oven-dish opens at its holder size (serves 6) when the user hasn't
+  // dialled a count — but any real user count still wins. Non-soft recipes fall to 4,
+  // exactly as before → byte-identical. Soft dishes keep FREE up/down scaling (no
+  // bakesPortion round-up model); the holder just seeds the default.
+  var soft = (r.equipment||[]).find(function(e){ return e && e.soft; });
+  var n = Math.max(1, S[sk] || S.people || (soft ? (soft.per||6) : 4));
   var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;
   // ── bakes portion model (Batch Law · §PART I): bakes answer in WHOLE units — you
   // can't bake ⅓ of a cake. `scale` is the ingredient/cost multiplier: whole units
@@ -3900,7 +3905,7 @@ function bakesRecipeOpts(r, servingsKey){
     ? (bakeP.mode==='slice'
         ? 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · serves '+bakeUnits+' · 1 '+bakeP.pieceWord+' each'
         : 'makes '+bakeBatches+' '+bakeP.unitWord+(bakeBatches>1?'s':'')+' · ~'+bakeUnits+' '+bakeP.pieceWord+'s')
-    : '';
+    : (soft ? 'Built for a standard dish that serves 6 — scale down for a smaller dish, or make the full dish and freeze the rest.' : '');   // MF144 · SOFT oven-dish assumption (byte-identical when no soft holder)
   // Batch Law: for a modelled bake the stepper counts WHOLE UNITS (1 cheesecake, 2…),
   // not people — so it never reads "4 people" beside "serves 12". Non-bakes unchanged.
   var _incTarget = bakeP ? bakeP.perBatch*(bakeBatches+1) : 0;

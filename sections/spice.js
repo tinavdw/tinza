@@ -45,7 +45,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "peri-peri-sauce", emoji: "🔥",
+    id: "peri-peri-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🔥",
     name: "Peri-Peri Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -160,7 +160,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mango-atchar", emoji: "🥭",
+    id: "mango-atchar", equipment: [{n: "375ml jar", per: 375}], emoji: "🥭",
     name: "Mango Atchar",
     type: "chutney",
     shelf: "chutneys-atchars",
@@ -188,7 +188,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "apricot-chutney", emoji: "🍑",
+    id: "apricot-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🍑",
     name: "Apricot Chutney",
     type: "chutney",
     shelf: "chutneys-atchars",
@@ -1779,7 +1779,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sweet-chilli-sauce", emoji: "🌶️",
+    id: "sweet-chilli-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Sweet Chilli Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1806,7 +1806,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sriracha", emoji: "🌶️",
+    id: "sriracha", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Sriracha",
     type: "sauce",
     shelf: "sauces",
@@ -1831,7 +1831,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "chilli-garlic-sauce", emoji: "🌶️",
+    id: "chilli-garlic-sauce", equipment: [{n: "375ml jar", per: 375}], emoji: "🌶️",
     name: "Chilli Garlic Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1858,7 +1858,7 @@ var SPICE_DB = [
 
   
   {
-    id: "harissa-paste", emoji: "🌶️",
+    id: "harissa-paste", equipment: [{n: "375ml jar", per: 375}], emoji: "🌶️",
     name: "Harissa Paste",
     type: "paste",
     shelf: "sauces",
@@ -1888,7 +1888,7 @@ var SPICE_DB = [
 
   
   {
-    id: "crispy-chilli-oil", emoji: "🌶️",
+    id: "crispy-chilli-oil", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Crispy Chilli Oil",
     type: "sauce",
     shelf: "sauces",
@@ -1917,7 +1917,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "louisiana-hot-sauce", emoji: "🌶️",
+    id: "louisiana-hot-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Louisiana Hot Sauce (Fermented)",
     type: "sauce",
     shelf: "sauces",
@@ -1940,7 +1940,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "habanero-mango-hot-sauce", emoji: "🌶️",
+    id: "habanero-mango-hot-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Habanero Mango Hot Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -1968,7 +1968,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "gochujang", emoji: "🌶️",
+    id: "gochujang", equipment: [{n: "375ml jar", per: 375}], emoji: "🌶️",
     name: "Gochujang (Korean Chilli Paste)",
     type: "paste",
     shelf: "sauces",
@@ -1994,7 +1994,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fermented-chilli-mash", emoji: "🌶️",
+    id: "fermented-chilli-mash", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Fermented Chilli Mash Hot Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2018,7 +2018,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "scotch-bonnet-sauce", emoji: "🌶️",
+    id: "scotch-bonnet-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🌶️",
     name: "Scotch Bonnet Pepper Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2047,7 +2047,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tomato-ketchup", emoji: "🍅",
+    id: "tomato-ketchup", equipment: [{n: "500ml bottle", per: 500}], emoji: "🍅",
     name: "Tomato Ketchup",
     type: "sauce",
     shelf: "sauces",
@@ -2076,7 +2076,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mayonnaise", emoji: "🥚",
+    id: "mayonnaise", equipment: [{n: "375ml jar", per: 375}], emoji: "🥚",
     name: "Mayonnaise",
     type: "sauce",
     shelf: "sauces",
@@ -2102,7 +2102,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "aioli", emoji: "🥚",
+    id: "aioli", equipment: [{n: "375ml jar", per: 375}], emoji: "🥚",
     name: "Aioli (Garlic Mayo)",
     type: "sauce",
     shelf: "sauces",
@@ -2129,7 +2129,7 @@ var SPICE_DB = [
 
   
   {
-    id: "marie-rose-sauce", emoji: "🦐",
+    id: "marie-rose-sauce", equipment: [{n: "375ml jar", per: 375}], emoji: "🦐",
     name: "Marie Rose Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2155,7 +2155,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "english-mustard", emoji: "🟡",
+    id: "english-mustard", equipment: [{n: "375ml jar", per: 375}], emoji: "🟡",
     name: "English Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2181,7 +2181,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "dijon-mustard", emoji: "🟡",
+    id: "dijon-mustard", equipment: [{n: "375ml jar", per: 375}], emoji: "🟡",
     name: "Dijon Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2207,7 +2207,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "wholegrain-mustard", emoji: "🟡",
+    id: "wholegrain-mustard", equipment: [{n: "375ml jar", per: 375}], emoji: "🟡",
     name: "Wholegrain Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2233,7 +2233,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "honey-mustard", emoji: "🍯",
+    id: "honey-mustard", equipment: [{n: "375ml jar", per: 375}], emoji: "🍯",
     name: "Honey Mustard",
     type: "sauce",
     shelf: "sauces",
@@ -2258,7 +2258,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "bbq-sauce", emoji: "🍖",
+    id: "bbq-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🍖",
     name: "BBQ Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2288,7 +2288,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "sweet-and-sour-sauce", emoji: "🍍",
+    id: "sweet-and-sour-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🍍",
     name: "Sweet & Sour Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2317,7 +2317,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "teriyaki-sauce", emoji: "🍶",
+    id: "teriyaki-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🍶",
     name: "Teriyaki Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2344,7 +2344,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hoisin-sauce", emoji: "🥢",
+    id: "hoisin-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🥢",
     name: "Hoisin Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -2372,7 +2372,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-sauce", emoji: "🥢",
+    id: "plum-sauce", equipment: [{n: "500ml bottle", per: 500}], emoji: "🥢",
     name: "Plum Sauce",
     type: "sauce",
     shelf: "sauces",
@@ -3515,7 +3515,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "date-paste", emoji: "🌴",
+    id: "date-paste", equipment: [{n: "375ml jar", per: 375}], emoji: "🌴",
     name: "Date Paste",
     type: "paste",
     shelf: "sauces",
@@ -3807,7 +3807,7 @@ var SPICE_DB = [
 
   // ─────────────── PASTES (type:"paste") ───────────────
   {
-    id: "tahini", emoji: "🌰", name: "Tahini", type: "paste", shelf: "sauces",
+    id: "tahini", equipment: [{n: "375ml jar", per: 375}], emoji: "🌰", name: "Tahini", type: "paste", shelf: "sauces",
     region: "Kitchen Basics",
     flavourChips: ["Nutty", "Creamy", "Earthy"],
     whenToUse: "start",
@@ -3827,7 +3827,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "peanut-butter", name: "Peanut Butter", nameAlt: "Roasted Peanut Spread",
+    id: "peanut-butter", equipment: [{n: "375ml jar", per: 375}], name: "Peanut Butter", nameAlt: "Roasted Peanut Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🥜", kcal: 180, costPP: 5, appearsIn: ["health"],
     flavourChips: ["Nutty", "Creamy", "Toasty"], whenToUse: "start",
@@ -3847,7 +3847,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "almond-butter", name: "Almond Butter", nameAlt: "Roasted Almond Spread",
+    id: "almond-butter", equipment: [{n: "375ml jar", per: 375}], name: "Almond Butter", nameAlt: "Roasted Almond Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🌰", kcal: 185, costPP: 13, appearsIn: ["health"],
     flavourChips: ["Nutty", "Creamy", "Rich"], whenToUse: "start",
@@ -3867,7 +3867,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cashew-butter", name: "Cashew Butter", nameAlt: "Creamy Cashew Spread",
+    id: "cashew-butter", equipment: [{n: "375ml jar", per: 375}], name: "Cashew Butter", nameAlt: "Creamy Cashew Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🥜", kcal: 175, costPP: 16, appearsIn: ["health"],
     flavourChips: ["Mild", "Creamy", "Buttery"], whenToUse: "start",
@@ -3887,7 +3887,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "macadamia-butter", name: "Macadamia Butter", nameAlt: "Macadamia Nut Spread",
+    id: "macadamia-butter", equipment: [{n: "375ml jar", per: 375}], name: "Macadamia Butter", nameAlt: "Macadamia Nut Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🌰", kcal: 200, costPP: 17, appearsIn: ["health"],
     flavourChips: ["Rich", "Buttery", "Smooth"], whenToUse: "start",
@@ -3906,7 +3906,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "hazelnut-butter", name: "Hazelnut Butter", nameAlt: "Roasted Hazelnut Spread",
+    id: "hazelnut-butter", equipment: [{n: "375ml jar", per: 375}], name: "Hazelnut Butter", nameAlt: "Roasted Hazelnut Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🌰", kcal: 195, costPP: 9, appearsIn: ["health"],
     flavourChips: ["Toasty", "Deep", "Nutty"], whenToUse: "start",
@@ -3925,7 +3925,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "mixed-nut-butter", name: "Mixed Nut Butter", nameAlt: "Roasted Mixed Nut Spread",
+    id: "mixed-nut-butter", equipment: [{n: "375ml jar", per: 375}], name: "Mixed Nut Butter", nameAlt: "Roasted Mixed Nut Spread",
     type: "paste", shelf: "sauces", region: "Kitchen Basics",
     emoji: "🥜", kcal: 182, costPP: 14, appearsIn: ["health"],
     flavourChips: ["Balanced", "Nutty", "Creamy"], whenToUse: "start",
@@ -3946,7 +3946,7 @@ var SPICE_DB = [
 
 
   {
-    id: "strawberry-jam", emoji: "🍓",
+    id: "strawberry-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍓",
     name: "Strawberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -3968,7 +3968,7 @@ var SPICE_DB = [
     howThisFeels: "Bright, sweet and a little jammy-sticky — the taste of summer on a warm scone."
   },
   {
-    id: "apricot-jam", emoji: "🍑",
+    id: "apricot-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍑",
     name: "Apricot Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4040,7 +4040,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "fig-jam", emoji: "🍯",
+    id: "fig-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍯",
     name: "Fig Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4108,7 +4108,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "raspberry-jam", emoji: "🍓",
+    id: "raspberry-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍓",
     name: "Raspberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4182,7 +4182,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "plum-jam", emoji: "🍇",
+    id: "plum-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍇",
     name: "Plum Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4257,7 +4257,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "peach-jam", emoji: "🍑",
+    id: "peach-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍑",
     name: "Peach Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4327,7 +4327,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cherry-jam", emoji: "🍒",
+    id: "cherry-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍒",
     name: "Cherry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -4397,7 +4397,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "seville-marmalade", emoji: "🍊",
+    id: "seville-marmalade", equipment: [{n: "375ml jar", per: 375}], emoji: "🍊",
     name: "Seville Orange Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4464,7 +4464,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lemon-marmalade", emoji: "🍊",
+    id: "lemon-marmalade", equipment: [{n: "375ml jar", per: 375}], emoji: "🍊",
     name: "Lemon Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4523,7 +4523,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "three-fruit-marmalade", emoji: "🍊",
+    id: "three-fruit-marmalade", equipment: [{n: "375ml jar", per: 375}], emoji: "🍊",
     name: "Three-Fruit Marmalade",
     type: "paste",
     shelf: "jams-preserves",
@@ -4580,7 +4580,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "lemon-curd", emoji: "🍋",
+    id: "lemon-curd", equipment: [{n: "375ml jar", per: 375}], emoji: "🍋",
     name: "Lemon Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4648,7 +4648,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "passionfruit-curd", emoji: "🥝",
+    id: "passionfruit-curd", equipment: [{n: "375ml jar", per: 375}], emoji: "🥝",
     name: "Passionfruit Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4710,7 +4710,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "orange-curd", emoji: "🍊",
+    id: "orange-curd", equipment: [{n: "375ml jar", per: 375}], emoji: "🍊",
     name: "Orange Curd",
     type: "paste",
     shelf: "jams-preserves",
@@ -4775,7 +4775,7 @@ var SPICE_DB = [
     ]
   },
   {
-    id: "watermelon-konfyt", emoji: "🍉",
+    id: "watermelon-konfyt", equipment: [{n: "375ml jar", per: 375}], emoji: "🍉",
     name: "Watermelon Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4831,7 +4831,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "green-fig-konfyt", emoji: "🍯",
+    id: "green-fig-konfyt", equipment: [{n: "375ml jar", per: 375}], emoji: "🍯",
     name: "Green Fig Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4887,7 +4887,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "makataan-konfyt", emoji: "🍉",
+    id: "makataan-konfyt", equipment: [{n: "375ml jar", per: 375}], emoji: "🍉",
     name: "Makataan Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4932,7 +4932,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "korrelkonfyt", emoji: "🍇",
+    id: "korrelkonfyt", equipment: [{n: "375ml jar", per: 375}], emoji: "🍇",
     name: "Korrelkonfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -4986,7 +4986,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "blueberry-jam", emoji: "🍇",
+    id: "blueberry-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍇",
     name: "Blueberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5055,7 +5055,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cape-gooseberry-jam", emoji: "🟡",
+    id: "cape-gooseberry-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🟡",
     name: "Cape Gooseberry Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5109,7 +5109,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "tomato-jam", emoji: "🍅",
+    id: "tomato-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍅",
     name: "Tomato Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5171,7 +5171,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "naartjie-konfyt", emoji: "🍊",
+    id: "naartjie-konfyt", equipment: [{n: "375ml jar", per: 375}], emoji: "🍊",
     name: "Naartjie Konfyt",
     type: "paste",
     shelf: "jams-preserves",
@@ -5226,7 +5226,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "membrillo", emoji: "🍐",
+    id: "membrillo", equipment: [{n: "375ml jar", per: 375}], emoji: "🍐",
     name: "Membrillo (Quince Paste)",
     type: "paste",
     shelf: "jams-preserves",
@@ -5294,7 +5294,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "quince-jam", emoji: "🍐",
+    id: "quince-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🍐",
     name: "Quince Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5355,7 +5355,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "rose-petal-jam", emoji: "🌹",
+    id: "rose-petal-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🌹",
     name: "Rose-Petal Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5412,7 +5412,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "date-jam", emoji: "🌴",
+    id: "date-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🌴",
     name: "Date Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5475,7 +5475,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "cherry-confiture", emoji: "🍒",
+    id: "cherry-confiture", equipment: [{n: "375ml jar", per: 375}], emoji: "🍒",
     name: "Cherry Confiture",
     type: "paste",
     shelf: "jams-preserves",
@@ -5535,7 +5535,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "onion-confit", emoji: "🧅",
+    id: "onion-confit", equipment: [{n: "375ml jar", per: 375}], emoji: "🧅",
     name: "Onion Confit",
     type: "paste",
     shelf: "jams-preserves",
@@ -5607,7 +5607,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "apple-butter", emoji: "🍎",
+    id: "apple-butter", equipment: [{n: "375ml jar", per: 375}], emoji: "🍎",
     name: "Apple Butter",
     type: "paste",
     shelf: "jams-preserves",
@@ -5677,7 +5677,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "preserved-lemons", emoji: "🍋",
+    id: "preserved-lemons", equipment: [{n: "jar", per: 6}], emoji: "🍋",
     name: "Preserved Lemons",
     type: "paste",
     shelf: "jams-preserves",
@@ -5745,7 +5745,7 @@ var SPICE_DB = [
   },
 
   {
-    id: "marrow-ginger-jam", emoji: "🥒",
+    id: "marrow-ginger-jam", equipment: [{n: "375ml jar", per: 375}], emoji: "🥒",
     name: "Marrow & Ginger Jam",
     type: "paste",
     shelf: "jams-preserves",
@@ -5802,7 +5802,7 @@ var SPICE_DB = [
   },
 
 {
-  "id": "mango-chutney", emoji: "🥭",
+  "id": "mango-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🥭",
   "name": "Mango Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -5963,7 +5963,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "coriander-mint-chutney", emoji: "🍃",
+  "id": "coriander-mint-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🍃",
   "name": "Coriander & Mint Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6111,7 +6111,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "tamarind-date-chutney", emoji: "🌴",
+  "id": "tamarind-date-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🌴",
   "name": "Tamarind & Date Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6241,7 +6241,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "coconut-chutney", emoji: "🥥",
+  "id": "coconut-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🥥",
   "name": "Coconut Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6392,7 +6392,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "lime-pickle", emoji: "🥒",
+  "id": "lime-pickle", equipment: [{n: "375ml jar", per: 375}], emoji: "🥒",
   "name": "Lime Pickle",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6511,7 +6511,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "green-tomato-chutney", emoji: "🍅",
+  "id": "green-tomato-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🍅",
   "name": "Green Tomato Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6639,7 +6639,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "caramelised-onion-chutney", emoji: "🧅",
+  "id": "caramelised-onion-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🧅",
   "name": "Caramelised Onion Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6754,7 +6754,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "rhubarb-ginger-chutney", emoji: "🌱",
+  "id": "rhubarb-ginger-chutney", equipment: [{n: "375ml jar", per: 375}], emoji: "🌱",
   "name": "Rhubarb & Ginger Chutney",
   "type": "chutney",
   "shelf": "chutneys-atchars",
@@ -6982,7 +6982,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "sambal-oelek", emoji: "🌶️",
+  "id": "sambal-oelek", equipment: [{n: "375ml jar", per: 375}], emoji: "🌶️",
   "name": "Sambal Oelek",
   "type": "relish",
   "shelf": "sambals-relishes",
@@ -7695,7 +7695,7 @@ var SPICE_DB = [
   ]
 },
 {
-  "id": "ajvar", emoji: "🍆",
+  "id": "ajvar", equipment: [{n: "375ml jar", per: 375}], emoji: "🍆",
   "name": "Ajvar",
   "type": "relish",
   "shelf": "sambals-relishes",
