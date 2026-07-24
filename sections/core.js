@@ -3822,7 +3822,14 @@ function bakesRecipeOpts(r, servingsKey){
     var amt = (n===1 && !bakeP) ? totStr : '<span style="color:var(--ink-soft);font-weight:normal;font-size:13px;">'+ppStr+' pp · </span>'+totStr;
     return ingredientRow(it.n, amt);
   }).join('');
-  var ingredientsHTML = ingredientsBox(rows, n);
+  // Batch Law (MF120 follow-through): a modelled bake's ingredients header must speak
+  // the same language as its stepper. Ungated, this read "for 4 people" beside a stepper
+  // saying "makes 1 cheesecake · serves 12" — the sister renderer recipeDetailFromResult
+  // already gates on bakeP; this one did not. Now it reads "makes 1 cheesecake". Non-bakes
+  // (bakeP null) fall through to the people branch untouched.
+  var ingredientsHTML = bakeP
+    ? ingredientsBox(rows, bakeBatches, bakeP.unitWord + (bakeBatches>1?'s':''))
+    : ingredientsBox(rows, n);
   var stepsHTML = (r.method||[]).map(function(s,i){ return methodStep(i, s); }).join('');
   var methodHTML = methodBox(stepsHTML, '');
   var kcal = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;

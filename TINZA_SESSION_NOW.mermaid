@@ -1,0 +1,28 @@
+flowchart TD
+    START["Session: node tinza-lawcheck.js = 0 red / 0 drift"] --> GO["Rulebook held - working the bugs"]
+
+    GO --> P1["1 - Bug queue"]
+    P1 --> B1["bakes '4 people' contradiction — FIXED, core.js gated on bakeP · node --check clean"]
+    B1 --> B1v["NEXT: push core.js + verify on live (modelled bake reads 'makes 1 cheesecake')"]
+    P1 --> B2["biscuits search returns pet food — open"]
+    P1 --> B3["~231 World Kitchen double-encoded UTF-8 names — open"]
+
+    GO --> P2["2 - Parallel: hand Code MF_VERIFY_TWO_FACTS.md"]
+    P2 --> B4["confirm 12 moods live in code"]
+    P2 --> B5["check 3 unloaded files: bakes_additions.js · makeable.js · photo-audit.FIXED.js (lawcheck named them)"]
+
+    GO --> P3["3 - Last: add load-shedding to build queue"]
+
+    START -.-> NEW["Logged this session"]
+    NEW --> N1["WhatsApp share text hard-codes 'For N people' on bakes — both renderers, cosmetic follow-up"]
+
+    START -.-> HK["Housekeeping - whenever"]
+    HK --> H1["Prune 1 old memory (full) — doc-doctor + rulings-merge note couldn't save"]
+    HK --> H2["Archive done MF-briefs (17 in reference/), skip live/paused"]
+    HK --> H3["Reword 2 renderer notes · RENDERER HOME: sectionPlanView doc-vs-code"]
+    HK --> H4["Tidy 2 comments to MOOD_RECORDS_PENDING.md name"]
+
+    START -.-> PARK["Parked - not this session"]
+    PARK --> K1["Fable S3 - post-reset only"]
+    PARK --> K2["R50 to R90 price sweep"]
+    PARK --> K3["wk_europe re-decode"]
