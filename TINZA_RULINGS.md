@@ -933,3 +933,89 @@ pilchards **R65** · tinned mackerel **R92** · maasbanker **R141** · braai sno
 
 ## 🥒 16.1 CONFIRMED · PICKLES ×64 = ACCOMPANIMENT — **21 Jul 2026**
 The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct, keep them.** They are not part of the 560-placeholder debt. **Zero work.** Do not "fix" them.
+
+---
+
+## 😴 21 · MOOD — WHAT **"JUST FEED ME"** IS — **MERGED INTO ROOT 24 Jul 2026**
+*Ruled 14 Jul 2026. Was stranded in the Tools rulings copy — carried into root 24 Jul so `/rule` finally holds it. ⚖️ Law 15.*
+
+**A shelf is a QUERY, not a LIST.** ⚖️ Law 15. *`MOOD_DB` (`core.js`) began as 12 moods × 3 hand-typed recipes = 36 — 2% of the app. The deep shelf is a query over `allRecipes()`.*
+
+### 🎭 THE VOCABULARY IS **12 MOODS. LOCKED.** — **CONFIRMED 24 Jul 2026**
+> ⛔ **STRUCK 24 Jul 2026 — the old note "SWEET SPLITS IN TWO → 13 MOODS" is DEAD.**
+> *Tina ruled 24 Jul: **we keep it at 12.** The split into a 13th "sweet & savoury supper" mood is not happening. The 12-mood vocabulary is the whole truth. A correction is written, dated and marked struck — never silently dropped.* ⚖️ §2.3.
+
+### 🚫 MOOD DISQUALIFIERS — **NEVER SERVED IN A MOOD**
+⛔ **Tinned meat** *(bully beef · spam · viennas)* · ⛔ **instant noodles** · ⛔ **tinned pâté**
+
+> 🩸 **EXHAUSTED IS NOT POOR. EXHAUSTED IS NOT DESPERATE.**
+> **She is tired, not broke. She still wants REAL FOOD — just EASY.**
+> **Cheap food belongs in 💰 I've Got R100 — that room is ABOUT the price.**
+> **A mood is about how she FEELS.** ⚖️ **Law 23 — one room, one question.**
+
+### 🪜 THE SHELF BEHIND THE PICKS
+- ✅ **The hand-picked curated set stays — as the CURATED TOP.** *(They carry a mood-framed `why` no query can write.)* ⚖️ **Law 11.**
+- ✅ **A QUERY over `allRecipes()` is the DEEP SHELF behind them.** 🏆 **Budget already does this** — `_budgetPool()` + curated floor. **LIFT IT, don't invent it.** ⚖️ **Law 35 · Law 50.**
+- 💰 **The paid chef only wakes when the shelf is THIN.** *(A deep query means Tinza stops paying Anthropic to invent food Tina already wrote.)*
+
+---
+
+## 🔌 22 · LOAD-SHEDDING — **A FIRST-CLASS FILTER. NOT A MOOD.** 🏆 — **MERGED INTO ROOT 24 Jul 2026**
+*Ruled 14 Jul 2026. Was stranded in the Tools rulings copy. Carried into root 24 Jul.*
+
+- **`noPower` = the method needs NO oven, NO grill, NO air-fryer.** *(Gas hob, braai fire, no-cook, and anything already baked all pass.)*
+- 🪟 **It sits NEXT TO THE DIETARY FILTER** — a standing filter on the whole app, not a mood tile. *A mood is how she feels. The power being off is a FACT about her kitchen.*
+- 🔒 **It is a PRO feature.**
+
+> 💰 **NOBODY OUTSIDE THIS COUNTRY WOULD THINK OF IT. This is a moat.**
+
+### 📌 STATUS — **RULED 24 Jul 2026**
+- 🟠 **NOT BUILT.** *Verified 24 Jul against live HEAD: zero code references to `noPower`/loadshed anywhere in `sections/`.*
+- ⏳ **BUILD QUEUE: LAST.** *Tina, 24 Jul: "we do still have load-shedding here, but not so frequent anymore." It stays a real ruling and a real feature — it just sits at the back of the queue behind everything shipping for October.*
+- 📏 *The ~1,197-recipe figure from 14 Jul must be re-measured by census at build time, not trusted.* ⚖️ Law 19.
+
+---
+
+## 🏛️ 23 · THE SLOT COLUMN *(the 12th)* + `mood[]` *(the 13th)* — **MERGED INTO ROOT 24 Jul 2026**
+*Ruled + LOCKED 14 Jul 2026. Was stranded in the Tools rulings copy. Carried into root 24 Jul. ⚖️ Law 11 — derived in NODE, never by hand. Law 45 — empty means `unknown`, never "no".*
+
+### 📅 THE 12th — THE MEAL SLOT
+✅ **THE COLUMN IS `slot`. BUILT. `unknown` = 0 of 2083.** *(Commits `f429a17` · `c05096a` · `d9b4922` · `4020da1`.)*
+🩸 **WHY:** *recipes that don't know breakfast-from-supper are why an "I'm exhausted" query once handed her Boererusks for supper.*
+
+**THE TEN TOKENS — the canonical vocabulary. ⚖️ Law 46 — nothing outside this list may ever enter the column.**
+**Counts below are LIVE — measured by `tinza-census.js` on 24 Jul 2026, not the 14-Jul figures.** ⚖️ Law 22.
+
+| token | n *(24 Jul)* |
+|---|---|
+| **SUPPER** | 797 |
+| **TREAT** | 311 |
+| **SIDE** | 258 |
+| **CONDIMENT** | 232 |
+| **STARTER** | 119 |
+| **DRINK** | 117 |
+| **LUNCH** | 106 |
+| **BREAKFAST** | 63 |
+| **PETFOOD** | 62 |
+| **BABYFOOD** | 18 |
+| `unknown` | **0** — *the final fallback. Emptied, never deleted.* ⚖️ **Law 45.** |
+
+*(Sums to 2083. The exact numbers move as recipes are added/re-slotted — the **vocabulary** and the **zero-unknown invariant** are what is locked, not the counts.)*
+
+- ⛔ **STARTER DOES NOT FOLD INTO TREAT.** *A samosa is not a dessert.*
+- ⛔ **SIDE DOES NOT FOLD INTO SUPPER.** *A chakalaka is not dinner.*
+- ⛔ **THE TOKEN NAMES THE FOOD, NEVER THE ROOM.** `PETFOOD`/`BABYFOOD` — **not** `FURRY`/`TINY`. ⚖️ **Law 46.**
+
+### 🚨 THE COLLISION — AND THE TRIPWIRE THAT GUARDS IT
+💀 **World Kitchen has a field called `occasion`** *(festival · Christmas · street-food · everyday)* — **NOT a meal slot.**
+✅ **Left untouched** — a "when in life" tag, useful later for 🎉 Events.
+🩺 **`tinza-census.js` §11 fires if any `occasion` value ever leaks into `slot`.** *(Verified holding 24 Jul: the axis is clean.)* ⚖️ **Law 42.**
+
+### 📏 DERIVATION ORDER *(most specific first — index.js `slot()`)*
+`mealCat` → `cat` → `course` → **SECTION rule** → **`mealRole` fallback** → `unknown`
+*(WK strays: `course:'soup'` → **SUPPER** — soup is a main in SA. `course:'salad'` → **SIDE**.)*
+
+### 😴 THE 13th — `mood[]`  *(a data column — NOT a 13th mood; the mood vocabulary stays 12, §21)*
+- ⚖️ **DERIVED from TIME + SECTION + INGREDIENTS.**
+- ⛔ **NEVER matched against the `feel` PROSE.** ⚖️ **Law 47 — that is how a vegan got a lamb tagine.**
+- ⚠️ **`impress` and `pickmeup` are PURE TASTE. Not derivable. They stay hand-picked.** ⚖️ **Law 11.**

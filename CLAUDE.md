@@ -24,8 +24,9 @@ It told every AI, every session, to do the wrong thing.**
 # 🩺 1 · HOW TO START A SESSION
 
 ```
-node tinza-doctor.js      ← is it broken?   RED or GREEN.  5 seconds. Read-only.
+node tinza-doctor.js      ← is the CODE broken?   RED or GREEN.  5 seconds. Read-only.
 node tinza-census.js      ← how much of it is there?   A number.
+node tinza-lawcheck.js    ← is the GOVERNANCE drifting?   A DRIFT SCORE. Read-only.
 ```
 
 ⚖️ **LAW 51 — THE DOCTOR'S RED IS A BASELINE, NOT A GATE.**
@@ -168,7 +169,7 @@ because a document that is wrong is SILENT.** ⚖️ **Law 3.**
 
 ### 📁 THE REPO, AFTER 14 JULY
 ```
-sections/     the 29 .js files the app actually loads.  NOTHING ELSE IS LOADED.
+sections/     the .js files the app loads — the loaded set is whatever index.html lists, nothing else.
 standards/    the files that answer a question, FOREVER.
 reference/    data that is still TRUE and gets looked up (prices, weights, photo maps).
 Archive/      HISTORY. Every closed brief, every old board. Nothing here is current.
