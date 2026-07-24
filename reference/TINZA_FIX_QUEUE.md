@@ -275,3 +275,14 @@ furry 36 · buffet 36 · braai 34 · worldkitchen 23 · health 9 · barplanner 9
 
 ## 🌍 STAGE 2 · WK delta costing will SHOW but not COST
 **Raised 21 Jul.** `delta.addIng` items in World Kitchen are **prose strings**, so a WK version renders its chip and its copy but produces **no cost**. **§15.5 is unsatisfied for WK until the strings are parsed.** Blocked behind MF135 (`_vHay` string tolerance) landing on live.
+
+---
+
+## 📏 SCHEDULED (≈6 weeks · NOT a live defect) — portion standard reaches the recipe sections
+**Raised 24 Jul (Tina), during the vessel work.** Trigger to start: **only once sameness + all bugs + all WK recipes are done.** Tina's call: "it's ok for now, not too bad, can be better" — so this waits, it does not jump the queue.
+
+- **The gap.** The SHARED PORTION STANDARD already exists in `core.js §6.1` and is good: two category tiers — everyday `{boneless:180,bonein:250,fish:160,shellfish:180,veg:200,side:150,dessert:120,starter:60,drink:0}` and `PORTION_BRAAI {boneless:300,bonein:400,fish:280,shellfish:320,veg:250}` — plus the grazing taper and a live `APPETITE` multiplier ("Big Eaters" in Profile). **But it only governs braai + events.** The recipe sections (WK, meals/FMF, Health mains) use hand-typed `pp` per ingredient and never call `PORTION`, so nothing checks them. This is the root cause of the Bobotie drift — WK Bobotie 90g vs FMF Bobotie 150g, two authors' guesses, no standard between them. The `appetiteMult` also does not reach these sections.
+- **Fix — TWO parts, split hard:**
+  1. **Governance (cheap, do first).** Promote the existing `PORTION` numbers into an authoring + audit rule: a main targets ~150–180g protein pp, side ~150g, starter ~60g, dessert ~120g. Add a `tinza-doctor` check that flags any recipe whose protein pp falls outside the band for its dish-type. A portion standard exactly as WOW_STANDARD is a voice standard — it would have caught the 90g Bobotie the moment it was written. **Own session.**
+  2. **Engine reach (real feature, much later).** Make `appetiteMult` + the base standard apply app-wide so "Big Eaters" scales every recipe, not just braai. **Same multi-opener surgery as vessels** — every recipe opener multiplies pp through the shared path. Its own project, after part 1.
+- **Note.** Nothing in the locked PORTION BRAIN (§6.1, braai-only) forces a number on mince bakes, so the bands are Tina's caterer call to set. Ideas-adjacent but agreed + scheduled, so it lives here with its gate, not in the backlog.

@@ -17,34 +17,52 @@ the engine never has to guess:
 `equipment:[{ n:'23×33cm (9×13″) ovenproof dish', per:6, soft:true }]`
 Only soft oven-dishes carry `soft:true`. Jars/bottles and hard tins never do.
 
-**A2 · Default the dial to the soft holder's `per` when the user hasn't set a count.**
-Anchor — `sections/core.js:3859` in `bakesRecipeOpts`, currently:
+**A2 · ONE shared helper, seeded by EVERY opener — this is NOT a single-renderer change.**
+⚠️ The recipe dial is seeded independently in **at least three openers**, each with its own
+`var n = Math.max(1, …)`. A copy-paste fix per opener will drift; write ONE helper and route every seed
+through it (sameness law — render soft-default via a shared fn, never hand-roll per section):
 ```js
-var n = Math.max(1, S[sk] || S.people || 4);
+// core.js — shared, next to equipmentLine
+function softDefaultN(r, base){
+  var s = (r && r.equipment || []).find(function(e){ return e && e.soft; });
+  return s ? (s.per || 6) : base;   // user count still wins upstream; this only replaces the fallback
+}
 ```
-Change the fallback so a soft dish opens at its holder size (6), while any real user count still wins:
-```js
-var soft = (r.equipment||[]).find(function(e){ return e && e.soft; });
-var n = Math.max(1, S[sk] || S.people || (soft ? (soft.per||6) : 4));
-```
-No `bakesPortion` for soft dishes → they keep free up/down scaling (dialling 2 stays allowed). Do NOT add
-a round-up model to soft dishes; that is HARD-batch only.
+Then seed each opener through it, keeping any real user count first:
 
-**A3 · Render the soft-default note** in the qtyBox sub-slot (same slot the bake `scaleNote` uses). When a
-soft holder is present and `bakeP` is null, set:
+| Opener | File · anchor | Current seed | New seed |
+|---|---|---|---|
+| Bakes / cross-links | `core.js:3859` `bakesRecipeOpts` | `S[sk] \|\| S.people \|\| 4` | `S[sk] \|\| S.people \|\| softDefaultN(r,4)` |
+| Search / Mood / Budget | `meals.js` `recipeDetailFromResult` | its `S.people \|\| 4` seed | `… \|\| softDefaultN(r,4)` |
+| **World Kitchen** | `worldkitchen.js:608` `wkRecipeOpts` | `S.wkServings \|\| 1` | `S.wkServings \|\| softDefaultN(r,1)` |
+
+**Enumerate the rest before writing:** grep every opener for `var n = Math.max(1,` (events/buffet, spice,
+kiddies, health may each seed their own). ANY opener that can open a soft oven-dish must seed through
+`softDefaultN`. Most of the ~87 soft mains are **World Kitchen** dishes — the WK opener is not optional.
+
+No `bakesPortion` for soft dishes → they keep free up/down scaling (dialling 2 stays allowed). Do NOT add a
+round-up model to soft dishes; that is HARD-batch only.
+
+**A3 · Render the soft-default note** in the qtyBox sub-slot (same slot the bake `scaleNote` uses), in EACH
+opener above. When a soft holder is present and there's no `bakesPortion`, set:
 ```
 "Built for a standard dish that serves 6 — scale down for a smaller dish, or make the full dish and freeze the rest."
 ```
-Gate it on the soft holder so every non-soft recipe is byte-identical.
+Gate on the soft holder so every non-soft recipe is byte-identical.
 
-**A4 · Mirror A2/A3 into the legacy `recipeDetailFromResult` branch in `meals.js`** (the Search/Mood/Budget
-path — the same two-renderer split MF138 tracks). A soft dish reached via search must open at 6 and show the
-note too, or the two maps disagree.
+**A4 · The two-Bobotie reality (why this matters):** "Bobotie" (WK, `cape-malay-bobotie`, `servings:1`) and
+"Classic Bobotie" (FMF, `meals.js`) are two intentional records (search.js confirms the pair) rendered by two
+different openers — which is exactly why one opens at 1 and one at 4. Both are oven dishes; both get the soft
+holder; both must soft-default via `softDefaultN`. This is MF138's "two maps" made concrete — treat the shared
+helper as the fix for it here.
 
-**Phase A gate:** `node --check` core.js + meals.js → push → on live, temporarily add
-`equipment:[{n:'23×33cm (9×13″) ovenproof dish',per:6,soft:true}]` to ONE dish (e.g. Bobotie), confirm it
-opens at 6, shows the note, scales 2↔12, and the "🍽️ You'll Need" line reads "1 ×"/"2 × ovenproof dishes".
-Only then proceed to Phase B. Every recipe without a soft holder must be byte-identical.
+**Phase A gate — test ONE dish in EACH opener path, not just one dish:**
+`node --check` core.js + meals.js + worldkitchen.js → push → temporarily add
+`equipment:[{n:'23×33cm (9×13″) ovenproof dish',per:6,soft:true}]` to **one bakes dish, the WK Bobotie, AND
+the FMF Bobotie**. Confirm each opens at 6, shows the note, scales 2↔12, and reads "1 ×"/"2 × ovenproof
+dishes". ⚠️ Do NOT judge the gate on the WK Bobotie alone — if the WK opener wasn't routed through
+`softDefaultN`, it will still open at 1 and look like the delta failed. All three green → proceed. Every
+recipe without a soft holder stays byte-identical.
 
 ---
 
