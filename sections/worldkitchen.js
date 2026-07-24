@@ -605,7 +605,7 @@ var WK_CROSS_LINKS = {
 function wkRecipeOpts(r, country, universal){
   r = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;  // BD10: overlay chosen version before cost/render
   var green='var(--accent)';
-  var n = Math.max(1, S.wkServings || 1);
+  var n = Math.max(1, S.wkServings || softDefaultN(r, 1));   // MF144 · soft oven-dish (most WK bakes) opens at serves 6; user count wins
   var disp = (typeof tinzaDisplayName === 'function') ? tinzaDisplayName(r) : (r.name + (r.nameAlt ? (' ('+r.nameAlt+')') : ''));
   var items = wkParseIngredients(r.ingredients);
   var apD = (typeof wkAppetite==='function') ? wkAppetite() : {mult:1,label:'Normal'};
@@ -626,7 +626,7 @@ function wkRecipeOpts(r, country, universal){
     ? costLine({ pp:_dgc.total, total:cost.total.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' })
     : '';
   var qtyHTML = qtyBox({
-    label:'How Much To Make', total:qtyTotal, ppLine:qtyPP, n:n, info:costInfo,
+    label:'How Much To Make', sub:softDishNote(r), total:qtyTotal, ppLine:qtyPP, n:n, info:costInfo,   // MF144 · soft-dish note ('' when none → byte-identical)
     decJs:"set({wkServings:Math.max(1,(S.wkServings||1)-1)})",
     incJs:"set({wkServings:(S.wkServings||1)+1})"
   });

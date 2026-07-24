@@ -398,6 +398,18 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 - 🔧 **Engine** = MF142 — add the field + one shared renderer, wire into every recipe page. ⚖️ **Law 52.**
 - ✍️ **Authoring** = a Fable-scale pass to tag holders and reword any *"make N tins"* prose to per-unit. Worklist starts with the oven-dish family (census in `reference/`).
 
+#### 🆕 🍽️ SOFT-6 IS A **FAMILY-MEAL** DEFAULT — COUNT-SCALED ROOMS KEEP THEIR OWN COUNT — **RULED 24 Jul 2026** *(refines the SOFT rule above)*
+
+The SOFT default (open at 6, *"scale up or freeze"*) is a **family-meal** idea — feed six, freeze the rest. It must **never** seed the dial in a room that scales to a **count of people**: **Events guests · Buffet guests · Kiddies kids-count.** Soft-defaulting an event bake to 6 would **fight the one-guest-count Events model** (§2.2 — one `S.eventGuests` drives every bucket) and the kids-count, and the *"scale up or freeze"* line reads wrong at a catered function — nobody freezes a wedding buffet.
+
+- 🍽️ **The rule in one line:** count-scaled surface → **keep its own count** as the dial seed. Family-meal surface → **soft-6.** Nothing count-scaled ever routes through `softDefaultN`.
+- 🔢 **The vessel COUNT line still shows there** — a buffet bake for 20 is `ceil(20/6) = 4` ovenproof dishes, exactly what a caterer needs. What drops on those surfaces is only the **family framing** (the *"serves 6, scale up or freeze"* assumption line), never the dish count.
+- ✅ **Proven — MF144 Phase A (Code, 24 Jul):** four **family-meal** openers — `bakesRecipeOpts` (core.js) · `recipeDetailFromResult` (meals.js) · `wkRecipeOpts` (worldkitchen.js) · `healthRecipeOpts` (health.js) — route through **one shared `softDefaultN` helper**, not a copy per renderer (the copy-per-renderer trap was MF138). Gate passed 3/3 — bakes · WK `cape-malay-bobotie` · FMF Bobotie all open at 6 (the WK path previously opened at **1** — the whole point). **Non-soft dishes stayed byte-identical** (no note, open at 1). `events` and `kiddies` were **deliberately left off** the helper — they keep their guest/kids seed. ⚖️ **Law 52.**
+
+#### 🅿️ IN-BETWEEN DISH COUNTS **ROUND UP** — THE "1 FULL + 1 SMALLER" NOTE IS **PARKED** — **RULED 24 Jul 2026**
+
+An awkward serving count (8, 10, 15) is **not** an architecture problem. The existing contract already answers it: `count = Math.ceil(scaledServings / per)` — **confirmed live at HEAD** (Code, 24 Jul): the ceil is present in **both** vessel renderers, `equipmentLine` (`core.js:3163`) and `equipmentContract` (`core.js:3182`), and a grep found no un-ceiled `servings ÷ per` anywhere in the vessel path. **Nothing to edit.** Ten servings → **2 dishes** (five each — shallow, never wrong, nobody misled). The truer *"one full 9×13 dish plus a smaller one"* answer would need a **defined second vessel per recipe** plus remainder logic — real cost for a marginal gain. **Parked, not forgotten.** *(Tina, 24 Jul: revisit as an in-app helper once at scale — a chef assistant that answers "how many dishes for 14?" live is the right home for it, never hard-coded per recipe.)*
+
 
 ---
 

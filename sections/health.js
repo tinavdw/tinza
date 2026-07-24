@@ -395,7 +395,7 @@ function healthOpenRaw(id){ openRecipe('health', id); }
 function healthRecipeOpts(recipe){
   if(!recipe) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'← Back',
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
-  var srv = S.servings||1;
+  var srv = S.servings||softDefaultN(recipe,1);   // MF144 · soft oven-dish (baked mains) opens at serves 6; user count wins
   var found = (typeof healthFind==='function') ? healthFind(recipe.id) : null;
   var rtype = (found && found.type) || recipe.cat || recipe.type || 'health';
   var inPlan = (S.healthPlan||[]).some(function(x){return x.id===recipe.id;});
@@ -430,7 +430,8 @@ function healthRecipeOpts(recipe){
     ? costLine({ pp:cpp, total:ctot.toLocaleString(), note:'This food cost is for costing only \u2014 it\u2019s not the same as the cost at the grocery store.' })
     : '';
   var qtyHTML = qtyBox({
-    label:'How Much To Make', total: srv+' '+(srv===1?'serving':'servings'),
+    label:'How Much To Make', sub: softDishNote(recipe),   // MF144 · '' when no soft holder → byte-identical
+    total: srv+' '+(srv===1?'serving':'servings'),
     ppLine: recipe.kcal ? kcalChip({html:recipe.kcal+' kcal per person', label:'\uD83D\uDD25 Calories'}) : '',
     n: srv, info: costInfo,
     decJs:"set({servings:Math.max(1,(S.servings||1)-1)})",

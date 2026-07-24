@@ -15983,14 +15983,12 @@ function bakesPortion(r){
 
 function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);   // ⭐ versions: render the chosen version
-  // MF144 · a SOFT oven-dish opens at its holder size (serves 6) when no count is set;
-  // any real user count still wins. Non-soft → _sd is null → the original per-path
-  // defaults (4/1/4) stand → byte-identical.
-  const _soft = (r.equipment||[]).find(function(e){ return e && e.soft; });
-  const _sd = _soft ? (_soft.per||6) : null;
-  const sv = S._budgetActiveRecipe ? (S.budgetPeople||_sd||4)
-           : S.moodActiveRecipe    ? (S.moodServings||_sd||1)
-           : (S.searchServings||_sd||4);
+  // MF144 · seed through the shared softDefaultN (one door with bakes + WK + health).
+  // A soft oven-dish opens at serves 6; any real user count wins (it's first). Non-soft →
+  // softDefaultN returns the original per-path default (4/1/4) → byte-identical.
+  const sv = S._budgetActiveRecipe ? (S.budgetPeople||softDefaultN(r,4))
+           : S.moodActiveRecipe    ? (S.moodServings||softDefaultN(r,1))
+           : (S.searchServings||softDefaultN(r,4));
 
   // PART I — bakes answer in WHOLE units. _scale = the ingredient/cost multiplier:
   // whole slices/pieces produced for a modelled bake, else the raw people count.
@@ -16000,9 +15998,9 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   var _scale = _bakeP ? _bakeUnits : sv;
   var _incW=_bakeP?_bakeP.perBatch*(_bakeBatches+1):0, _decW=_bakeP?Math.max(1,_bakeP.perBatch*(_bakeBatches-1)):0;
   var _bakeUnitLbl=_bakeP?(_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')):'';
-  // MF144 · the SOFT oven-dish assumption line — shown only for a soft holder with no
-  // bake model. '' otherwise → byte-identical. Same string as bakesRecipeOpts (one door).
-  var _softNote = (_soft && !_bakeP) ? 'Built for a standard dish that serves 6 — scale down for a smaller dish, or make the full dish and freeze the rest.' : '';
+  // MF144 · the SOFT oven-dish assumption line — shared softDishNote, suppressed for a
+  // modelled bake. '' otherwise → byte-identical. One door with bakes + WK + health.
+  var _softNote = _bakeP ? '' : softDishNote(r);
 
   function fmtAmt(pp, u){
     if(!pp) return '';
