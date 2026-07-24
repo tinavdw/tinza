@@ -292,6 +292,45 @@ head('11 · DO THE MOOD TAGS POINT AT REAL FOOD?');
   }
 }
 
+// ── 12 · DO VESSELS SCALE IN A SLOT?  (MF142 · ⚖️ Rulings §10) ────────────
+head('12 · DO VESSELS SCALE IN A SLOT?  (MF142 — the holder scales in a slot, never in prose)');
+if (all && all.length) {
+  const eLine = ctx && ctx.equipmentLine;
+  const eContract = ctx && ctx.equipmentContract;
+  if (typeof eLine !== 'function' || typeof eContract !== 'function') {
+    fail('The equipment engine is GONE', 'equipmentLine / equipmentContract not reachable — the shared door is missing');
+  } else {
+    // PROVE the byte-identical guarantee: no equipment field → '' (no render, no drift).
+    const silent = eLine({}, 4) === '' && eLine(undefined, 4) === ''
+                && eLine({ equipment: [] }, 4) === '' && eContract({}, 24, 'cake', 3) === '';
+    // PROVE it scales with the dial: 24 / per:12 → "2 ×"; 12 → "1 ×"; the >1 banner fires past one.
+    const spec = { equipment: [{ n: '22cm springform tin', per: 12 }] };
+    const counts = eLine(spec, 24).indexOf('2 × 22cm springform tin') > -1
+                && eLine(spec, 12).indexOf('1 × 22cm springform tin') > -1
+                && eContract(spec, 24, 'cheesecake', 2).indexOf('total for all 2.') > -1
+                && eContract(spec, 12, 'cheesecake', 1) === '';
+    if (!silent) fail('A recipe with NO equipment is NOT byte-identical', 'the renderer must return "" when the field is absent — else every existing page drifts');
+    else if (!counts) fail('The vessel does not scale with the dial', 'ceil(scaledYield / per) is wrong, or the past-one contract banner is missing');
+    else pass('Vessels scale in a slot — silent when absent, count up when present', 'MF142 engine live');
+
+    // COVERAGE census — ⚠️ WARN, NOT A GATE. Authoring the holders is a separate Fable
+    // pass; until it lands every bake honestly has eq=none. This counts the gap out loud
+    // (never silently), so the ratchet tightens to a RED gate the day authoring is done.
+    const BAKE_CATS = ['cheesecakes', 'cakes', 'tarts', 'pastries'];
+    const bakes = all.filter(r => BAKE_CATS.indexOf(r.cat) > -1);
+    const missing = bakes.filter(r => !Array.isArray(r.equipment) || !r.equipment.length);
+    if (!bakes.length) {
+      warn('No {cheesecakes,cakes,tarts,pastries} recipes found to census', 'the .cat field may have moved — check the census');
+    } else if (missing.length) {
+      warn('Bakes with no equipment holder yet — authoring pending (Fable, not a gate)',
+        missing.length + ' of ' + bakes.length + ' bake-family recipes · cats: ' + BAKE_CATS.join(', '),
+        missing.map(r => r.name + '  [' + (r.section || '?') + ' · ' + r.cat + ']'));
+    } else {
+      pass('Every bake-family recipe carries an equipment holder', bakes.length + ' bakes · authoring complete → promote this to a gate');
+    }
+  }
+}
+
 // ── RESOLVE THE SMOKE TEST, THEN THE VERDICT ─────────────────────────────
 (async () => {
 if (SMOKE_PROMISE) {

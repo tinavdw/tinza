@@ -3137,6 +3137,59 @@ function ingredientRow(name, amount, note){
     + '<span class="mono" style="font-size:16px;color:var(--gold);font-weight:bold;white-space:nowrap;">' + amount + '</span></div>';
 }
 
+// ── MF142 · VESSELS SCALE IN A SLOT (⚖️ Rulings §10 · 24 Jul 2026) ──────────────
+// A recipe may carry an OPTIONAL recipe-level field:
+//   equipment:[ { n:'22cm springform tin', per:12 } ]   // per = yield-units ONE holder covers
+// The engine multiplies by the scaled batch and renders its OWN "🍽️ You'll Need"
+// line — the holder scales in a slot, NEVER in method prose (no number inside
+// r.method is ever touched). The renderer is UNIT-AGNOSTIC: `per` just has to be in
+// the same unit as scaledYield — servings for a serving recipe, g/ml for a preserve.
+// No `equipment` field → returns '' → the page is byte-identical (silent absence).
+// Pluralise the LAST word only ("22cm springform tin"→"…tins", "ovenproof dish"→
+// "…dishes", "muffin tray"→"…trays"): s/ss/sh/ch/x → +es · consonant+y → -y+ies ·
+// else → +s. Prep/dimensions live earlier in the phrase, so only the noun changes.
+function pluralizeLastWord(name){
+  var parts = String(name).split(' ');
+  var w = parts[parts.length-1];
+  if(!w) return name;
+  if(/(s|ss|sh|ch|x)$/i.test(w)) parts[parts.length-1] = w + 'es';
+  else if(/[^aeiou]y$/i.test(w)) parts[parts.length-1] = w.slice(0,-1) + 'ies';
+  else parts[parts.length-1] = w + 's';
+  return parts.join(' ');
+}
+function equipmentLine(r, scaledYield){
+  if(!r || !Array.isArray(r.equipment) || !r.equipment.length) return '';
+  var rows = r.equipment.map(function(e){
+    var count = Math.max(1, Math.ceil((scaledYield||1) / (e.per||1)));
+    // >1 holder → plural noun (e.nPlural override wins for irregulars); 1 stays singular.
+    var name  = (count>1) ? (e.nPlural || pluralizeLastWord(e.n)) : e.n;
+    var label = (count>1 ? count+' × ' : '1 × ') + name;
+    return '<div style="font-size:14px;color:var(--ink2);padding:3px 0;">• '+label+'</div>';
+  }).join('');
+  return recipeBox('🍽️ You’ll Need', rows);   // reuse the shared titled box
+}
+// The per-unit CONTRACT banner (Rulings §10 · point 4). Method prose is authored for
+// ONE finished unit; once the batch needs more than one holder — a modelled bake making
+// >1 unit (batches>1), or any single holder overflowing its capacity — this states the
+// contract so every per-unit ratio in the prose stays correct. Gated on r.equipment so
+// a recipe with no declared holder is byte-identical (no banner ever). {unit} = the
+// bake's unitWord where known, else "batch". Sits directly under the qty card.
+function equipmentContract(r, scaledYield, unitWord, batches){
+  if(!r || !Array.isArray(r.equipment) || !r.equipment.length) return '';
+  var b = Math.max(1, batches||1);
+  var maxHolders = 1;
+  r.equipment.forEach(function(e){
+    var c = Math.max(1, Math.ceil((scaledYield||1) / (e.per||1)));
+    if(c > maxHolders) maxHolders = c;
+  });
+  var n = Math.max(b, maxHolders);
+  if(n <= 1) return '';
+  var unit = unitWord || 'batch';
+  return '<div style="font-size:13px;color:var(--ink-soft);line-height:1.5;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:12px;">'
+    + 'This method makes 1 ' + unit + ' — work one at a time. The ingredient amounts above are your total for all ' + n + '.'
+    + '</div>';
+}
+
 // §4b.6 — method box + a single numbered step (optional timer HTML)
 function methodBox(stepsHTML, startJs){
   return '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;">'
@@ -3830,6 +3883,9 @@ function bakesRecipeOpts(r, servingsKey){
   var ingredientsHTML = bakeP
     ? ingredientsBox(rows, bakeBatches, bakeP.unitWord + (bakeBatches>1?'s':''))
     : ingredientsBox(rows, n);
+  // MF142 — the scaling vessel (bakes yield in whole units). '' when no equipment field.
+  var _eqYield = bakeP ? bakeUnits : n;
+  var equipHTML = equipmentContract(r, _eqYield, bakeP?bakeP.unitWord:null, bakeBatches) + equipmentLine(r, _eqYield);
   var stepsHTML = (r.method||[]).map(function(s,i){ return methodStep(i, s); }).join('');
   var methodHTML = methodBox(stepsHTML, '');
   var kcal = (r.nutrition && r.nutrition.kcal!=null) ? r.nutrition.kcal : null;
@@ -3884,7 +3940,7 @@ function bakesRecipeOpts(r, servingsKey){
     sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
     meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },
     versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, 'var(--accent)') : '',
-    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
+    qtyHTML:qtyHTML, equipHTML:equipHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
     goesWith: (r.goesWith && r.goesWith.length) ? r.goesWith : [],
     extrasHTML: tipBox + dykBox + nutriBox + storeBox,
     actions: {},   // legacy save deleted 15 Jul — the heart is the only save
@@ -3990,6 +4046,7 @@ function recipePage(o){
     +   meta
     +   (o.versionHTML || '')      // version selector slot — sections that pass it (Meals-style strip)
     +   (o.qtyHTML || '')
+    +   (o.equipHTML || '')      // MF142 — scaling vessel holders + per-unit contract; '' when no equipment → byte-identical
     +   portion
     +   (o.ingredientsHTML || '')
     +   (o.notesHTML || '')        // fixed slot 1 — section notes (e.g. SA swaps)
@@ -4626,6 +4683,7 @@ function recipeView(){
     photoEmoji:item.emoji,
     name:item.name,
     qtyHTML:quantityBlock,
+    equipHTML: equipmentContract(recipe, p, null, 1) + equipmentLine(recipe, p),   // MF142 — '' when no equipment field (braai grids aren't fixed holders)
     ingredientsHTML:ingredientsHTML,
     notesHTML: braaiCross + fireGuideHTML,
     methodHTML:methodHTML,

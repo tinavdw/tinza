@@ -1453,7 +1453,7 @@ function eventsRecipeOpts(r, guests){
     backJs:"closeRecipe()", backLabel:'\u2190 Back',
     name:r.name, sub:(r.region||''),
     meta:{ time: r.time?(r.time+' min'):'', kcal:r.kcal },
-    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    qtyHTML:qtyHTML, equipHTML:equipmentContract(r, guests, null, 1) + equipmentLine(r, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },
     nav:{ backJs:"closeRecipe()", planJs:"closeRecipe()", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
   };
@@ -1625,7 +1625,7 @@ function cakesRecipeOpts(cake, guests){
     photoName:cake.photoName||cake.name, photoEmoji:emoji,
     backJs:"closeRecipe()", backLabel:'\u2190 Back',
     name:cake.name, sub:sub, meta:{},
-    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    qtyHTML:qtyHTML, equipHTML:equipmentContract(cake, guests, null, batchesNeeded) + equipmentLine(cake, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },
     nav:{ backJs:"closeRecipe()", planJs:"closeRecipe({cakeCat:'myplan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
   };
@@ -1749,7 +1749,7 @@ function beveragesRecipeOpts(bev, guests){
     photoName:bev.photoName||bev.name, photoEmoji:emoji,
     backJs:"closeRecipe()", backLabel:'← Back',
     name:bev.name, sub:sub, meta:{},
-    qtyHTML:verStrip+qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
+    qtyHTML:verStrip+qtyHTML, equipHTML:equipmentContract(bev, guests, null, batchesNeeded) + equipmentLine(bev, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },
     nav:{ backJs:"closeRecipe()", planJs:"closeRecipe({beverageCat:'myplan'})", planCount:planCount, homeJs:"closeRecipe({screen:'home'})" }
   };

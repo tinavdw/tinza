@@ -512,6 +512,7 @@ function kiddiesRecipeOpts(rec, themeId, catId, k){
     sub: [typeLabel, rec.per?rec.per+' per child':''].filter(Boolean).join(' \u00b7 '),
     meta: { time: rec.time?(rec.time+' min'):'', kcal: rec.kcal },
     qtyHTML: qtyHTML,
+    equipHTML: equipmentContract(rec, k, null, 1) + equipmentLine(rec, k),   // MF142 \u2014 '' when no equipment field
     ingredientsHTML: ingredientsHTML,
     methodHTML: methodHTML,
     actions: { addJs: addJs, inPlan: inPlan },

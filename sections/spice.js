@@ -8394,7 +8394,7 @@ function spiceRecipeOpts(r){
     sub: r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '',
     meta:{ origin:r.region },
     versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, 'var(--accent)') : '',
-    qtyHTML:qtyHTML, ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,
+    qtyHTML:qtyHTML, equipHTML:equipmentLine(r, scale), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML,   // MF142 · jar path — the g/ml total counts jars/bottles. No contract banner (one continuous batch, not per-unit). '' when no equipment field.
     goesWith: (r.pairsWith||[]).slice(0,6),
     extrasHTML: storyBox,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" }

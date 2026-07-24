@@ -727,6 +727,7 @@ function wkRecipeOpts(r, country, universal){
     meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },
     versionHTML: (typeof versionStripHTML==='function') ? versionStripHTML(r, green) : '',
     qtyHTML: qtyHTML,
+    equipHTML: equipmentContract(r, n, null, 1) + equipmentLine(r, n),   // MF142 \u2014 '' when no equipment field
     portionRawNote: rawCarb ? 'Amounts shown are <strong style="color:var(--ink-soft);">raw / uncooked</strong> \u2014 rice &amp; pasta roughly triple once cooked.' : '',
     ingredientsHTML: ingredientsHTML,
     notesHTML: notesHTML,

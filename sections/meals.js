@@ -16119,6 +16119,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
           <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;">${_bakeP?scaleNoteW:(sv+" "+(sv===1?"person":"people")+" · "+scaleNoteW)}</div>
           <div style="margin-top:8px;font-size:12.5px;color:var(--ink-soft);">${noteW}</div>
         </div>
+        ${equipmentContract(r, _bakeP?_bakeUnits:sv, _bakeP?_bakeP.unitWord:null, _bakeBatches)}${equipmentLine(r, _bakeP?_bakeUnits:sv)}
         <!-- Ingredients -->
         <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -16194,6 +16195,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
         <div style="margin-top:8px;font-size:13px;color:#6c8c23;">${_bakeP?('💡 Bakes come in whole '+_bakeP.unitWord+'s — the dial rounds up so you never bake a fraction.'):'💡 Adjust the number and all ingredients update instantly.'}</div>
       </div>
 
+      ${equipmentContract(r, _bakeP?_bakeUnits:sv, _bakeP?_bakeP.unitWord:null, _bakeBatches)}${equipmentLine(r, _bakeP?_bakeUnits:sv)}
       <!-- Ingredients — bullet style like braai, no tick boxes -->
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">

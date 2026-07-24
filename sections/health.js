@@ -462,6 +462,7 @@ function healthRecipeOpts(recipe){
     sub: (recipe.feel||recipe.howItFeels||''),
     meta: { kcal: recipe.kcal },
     qtyHTML: qtyHTML,
+    equipHTML: equipmentContract(recipe, srv, null, 1) + equipmentLine(recipe, srv),   // MF142 — '' when no equipment field
     ingredientsHTML: ingredientsHTML,
     notesHTML: notesHTML,
     methodHTML: methodHTML,
