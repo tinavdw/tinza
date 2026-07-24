@@ -16182,14 +16182,14 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <!-- How much to make block -->
       <div style="background:#1a2208;border:2px solid #6a8020;border-radius:12px;padding:14px;margin-bottom:14px;">
         <div style="font-size:13px;letter-spacing:2px;color:#8ab030;text-transform:uppercase;margin-bottom:8px;">🧮 How Much To Make</div>
-        <div style="font-size:13px;color:#718933;margin-bottom:10px;">${sv} ${sv===1?'person':'people'}</div>
+        <div style="font-size:13px;color:#718933;margin-bottom:10px;">${_bakeP?_bakeUnitLbl:(sv+' '+(sv===1?'person':'people'))}</div>
         <div style="display:flex;align-items:center;gap:12px;">
-          <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.max(1,(S[_k]||4)-1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">−</button>
+          <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:${_bakeP?_decW:'Math.max(1,(S[_k]||4)-1)'}})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">−</button>
           <div style="flex:1;text-align:center;">
-            <div style="font-size:32px;font-weight:bold;color:#c8e840;">${sv}</div>
+            <div style="font-size:32px;font-weight:bold;color:#c8e840;">${_bakeP?_bakeBatches:sv}</div>
             <div style="font-size:13px;color:#718d28;">${_bakeP?(_bakeP.mode==='slice'?('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · serves '+_bakeUnits+' · 1 '+_bakeP.pieceWord+' each'):('makes '+_bakeBatches+' '+_bakeP.unitWord+(_bakeBatches>1?'s':'')+' · ~'+_bakeUnits+' '+_bakeP.pieceWord+'s')):'people · all quantities scale'}</div>
           </div>
-          <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:Math.min(500,(S[_k]||4)+1)})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">+</button>
+          <button onclick="const _k=S._budgetActiveRecipe?'budgetPeople':S.moodActiveRecipe?'moodServings':'searchServings';setQuiet({[_k]:${_bakeP?_incW:'Math.min(500,(S[_k]||4)+1)'}})" style="width:36px;height:36px;border-radius:50%;background:#0f1a04;border:2px solid #6a8020;color:#8ab030;font-size:20px;cursor:pointer;">+</button>
         </div>
         <div style="margin-top:8px;font-size:13px;color:#6c8c23;">${_bakeP?('💡 Bakes come in whole '+_bakeP.unitWord+'s — the dial rounds up so you never bake a fraction.'):'💡 Adjust the number and all ingredients update instantly.'}</div>
       </div>
@@ -16198,7 +16198,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
       <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div style="font-size:13px;letter-spacing:2px;color:${color};text-transform:uppercase;">Ingredients</div>
-          <div style="font-size:13px;color:#908066;font-style:italic;">scaled for ${sv} ${sv===1?'person':'people'}</div>
+          <div style="font-size:13px;color:#908066;font-style:italic;">${_bakeP?('for '+_bakeUnitLbl):('scaled for '+sv+' '+(sv===1?'person':'people'))}</div>
         </div>
         ${(r.ingredients||[]).map(i=>{
           if(!i.pp) return `<div style="padding:5px 0;border-bottom:1px solid #1a1810;font-size:13px;color:#8e7c7c;font-style:italic;">• ${i.n} — to taste</div>`;
