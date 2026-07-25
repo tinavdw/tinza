@@ -1232,3 +1232,24 @@ A dish can sit on **more than one shelf**. Bobotie's country is **Cape Malay**; 
 - ⚠️ **THE TRAP IN THE FIX:** the shelf renders via `.map()`, which passes **(item, INDEX, array)**. A bare `.map(wkRecipeCard)` would hand the new second parameter **0, 1, 2…** instead of a country — silently, with no error. Callers must use `.map(function(x){ return wkRecipeCard(x, country); })`. **This is watched, not remembered.**
 - 📋 **CENSUS 8 RUNG ⑧ — four assertions**, proven by re-introducing **both** failure shapes *(the `r.country` open → RED · a bare `.map` → RED)*, then restoring → GREEN.
 - ⚠️ **`sharedWith` IS A STRING, NOT A LIST — 1021 records, ZERO arrays. QUEUED, NOT FIXED** *(reference/TINZA_FIX_QUEUE.md)*. The filter uses `.indexOf()`, which on a string means **substring**, so it works by accident. Already odd in the data: two records share with **themselves** (`peppermint-crisp-tart → "Cape Malay"`, `zulu-umngqusho → "Zulu"`) and one crams two countries into one string (`sweden-gravlax → "Norway · Denmark"`). ⚠️ **THE LANDMINE:** a country **"India"** and a culture **"Indian"** both exist — one record tagged `sharedWith:"Indian"` would surface on the **India** shelf, because "Indian" *contains* "India". ⚖️ **This is the INGREDIENT STANDARD applied to data: one item per line, never a "+" line.** A migration, not a patch — needs its own session.
+### 🗝️ 24.5 · THE DRILL IS FIVE KEYS — **A RESET THAT NAMES FEWER IS SHORT** *(ruled + built 25 Jul)*
+
+**Her words:** *"While I was looking for Nigeria, I clicked from main home on WK but ended up in Southern Africa instead of main WK screen — maybe it was sticky from going to Bobotie in Boerekos."* **She was right, and she named the cause.**
+
+`wkWorldHome()` decides what to draw purely from the drill keys:
+
+| state | screen |
+|---|---|
+| `wkContinent && wkRegion` | the country grid for that region |
+| `wkContinent` | the region list |
+| neither | the continent grid |
+
+⚖️ **A KEY LEFT BEHIND IS A SCREEN LEFT BEHIND.**
+
+- 🩸 **THE BUG:** `core.js`'s leave-World-Kitchen reset cleared **`wkScreen` · `wkDataCountry` · `wkDataRecipe`** — and stopped. **`wkContinent` and `wkRegion` survived the exit**, so walking out of Boerekos and back in from Home re-opened Southern Africa. Nothing threw; the room simply remembered.
+- 🩸 **THE SAME TWO KEYS AS THE §24 HEADER BUG, THE SAME EVENING** *(worldkitchen.js:308 — "the label wasn't lying, it was TWO KEYS SHORT")*. Twice in one night, in two unrelated functions. **`wkContinent` and `wkRegion` are the two keys everybody forgets** — which is exactly why the list stops being remembered and becomes a function.
+- 📊 **MEASURED BEFORE CUTTING — five hand-rolled resets, FOUR of them short:** `core.js:599` *(3/5, missing wkContinent + wkRegion)* · the three tier-switcher buttons `core.js:610–612` *(4/5, each missing wkDataRecipe)* · and `worldkitchen.js:321` *(5/5 — the only complete one, and it was written the session before as the §24 fix)*.
+- ✅ **ONE DOOR: `wkResetDrill()`** in `worldkitchen.js`, over `WK_DRILL_KEYS = ['wkScreen','wkContinent','wkRegion','wkDataCountry','wkDataRecipe']`. All four short sites now call it. ⚖️ **Law 6 — five places hand-rolled the same list and four got it wrong. That is not carelessness, that is the wrong shape.**
+- ⛔ **A LEVEL MOVE IS NOT A RESET.** `← continent` nulls **`wkRegion` alone** and must keep doing so. Stepping up one level is not leaving the room, and `wkResetDrill()` is not for it.
+- 📋 **CENSUS 8 RUNG ⑨ — two assertions, all three failure shapes proven RED then GREEN:** her exact bug *(drop wkContinent + wkRegion → **RED, naming both**)* · the door renamed → **RED at 0 definitions** · a second definition → **RED at 2**. It ignores any statement nulling fewer than 3 drill keys, so a step-up never cries wolf. ⚖️ **Law 22.**
+- 🩸 **THE INSTRUMENT ALMOST SHIPPED BLIND AGAIN.** The door-exists probe was first written `/function wkResetDrill/` — which **still matches `wkResetDrillX`**, so renaming the door passed GREEN. Worse, every caller is guarded by `typeof`, so a renamed door **fails silently and falls back**. Now matched to the whole name plus its paren, and counted. ⚖️ **Law 19 — a rung that cannot fail is not a rung, and I proved it by trying to break it.**

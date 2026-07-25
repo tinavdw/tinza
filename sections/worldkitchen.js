@@ -134,6 +134,23 @@ function wkCourseEmoji(course){
 // shelf then Boerekos is the door, and Back belongs to the door.
 // ⚠️ CALLERS MUST NOT USE BARE .map(wkRecipeCard) — .map passes (item, INDEX, array), so
 //    `shelf` would silently receive 0, 1, 2… Use .map(function(x){ return wkRecipeCard(x, country); }).
+// ⚖️ §24.5 · THE WORLD KITCHEN DRILL IS FIVE KEYS, AND A RESET THAT NAMES FEWER IS SHORT.
+// wkWorldHome() branches on (wkContinent && wkRegion) → country grid · (wkContinent) →
+// region list · else → the continent grid. So a key left behind is a SCREEN left behind.
+// 🩸 MEASURED 25 Jul (Tina, on live): "I clicked from main home on WK but ended up in
+//    Southern Africa instead of main WK screen" — core.js's leave-reset cleared wkScreen,
+//    wkDataCountry and wkDataRecipe but NOT wkContinent/wkRegion, so World Kitchen
+//    remembered Boerekos's region and re-opened inside it. SAME TWO KEYS as the §24 header
+//    bug the same evening: the code was not lying, it was TWO KEYS SHORT.
+// ⚖️ Law 6 — FIVE call sites hand-rolled this list and four of them were incomplete.
+//    This is now the ONE door. Do not null the drill by hand anywhere. Census 8 rung ⑨.
+// ⛔ NOT a level move. "← continent" clears wkRegion ALONE and must keep doing so —
+//    stepping up one level is not a reset, and this function is not for that.
+var WK_DRILL_KEYS = ['wkScreen','wkContinent','wkRegion','wkDataCountry','wkDataRecipe'];
+function wkResetDrill(){
+  for(var i=0;i<WK_DRILL_KEYS.length;i++){ S[WK_DRILL_KEYS[i]] = null; }
+}
+
 function wkRecipeCard(r, shelf){
   var green='var(--accent)', cream='var(--ink)', feelCol='var(--ink-soft)';
   var disp = (typeof tinzaDisplayName === 'function')

@@ -488,6 +488,43 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
     else ok('A shared dish keeps its origin and inherits its door', 'Bobotie opened from Boerekos: Back = Boerekos, chip = Cape Malay');
   }
 
+  // ⑨ ⚖️ §24.5 — THE WORLD KITCHEN DRILL IS FIVE KEYS. wkWorldHome() branches on
+  //    (wkContinent && wkRegion) → country grid · (wkContinent) → region list · else →
+  //    the continent grid. A key left behind is A SCREEN LEFT BEHIND.
+  //    🩸 Tina, on live 25 Jul: "I clicked from main home on WK but ended up in Southern
+  //    Africa instead of main WK screen." core.js's leave-reset named THREE of the five;
+  //    wkContinent/wkRegion survived the exit and WK re-opened inside Boerekos's region.
+  //    SAME TWO KEYS as the §24 header bug the same evening — not lying, TWO KEYS SHORT.
+  //    ⛔ A LEVEL MOVE IS NOT A RESET: "← continent" nulls wkRegion ALONE and is ignored
+  //    here (threshold 3), or this rung would cry wolf on every step-up. ⚖️ Law 22.
+  {
+    const DRILL = ['wkScreen','wkContinent','wkRegion','wkDataCountry','wkDataRecipe'];
+    let short = [], hand = 0;
+    fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+      const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8')
+        .replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/\/\/.*$/,'')).join('\n');
+      src.split('\n').forEach((l,i)=>{
+        if(/WK_DRILL_KEYS|function wkResetDrill/.test(l)) return;   // the door defines the list; it is not a caller
+        const hit = DRILL.filter(k=>new RegExp('\\b'+k+'\\s*[:=]\\s*null').test(l));
+        if(hit.length < 3) return;                                   // a level move, not a reset
+        hand++;
+        const miss = DRILL.filter(k=>!hit.includes(k));
+        if(miss.length) short.push(f+':'+(i+1)+'  has '+hit.length+'/5 \u2014 MISSING '+miss.join(', '));
+      });
+    });
+    if (short.length) bad(short.length + ' World Kitchen reset(s) are SHORT \u2014 a key left behind is a screen left behind',
+      '\n      ' + short.join('\n      ') +
+      '\n      \x1b[2m⚖️ §24.5 · Law 6 — call wkResetDrill(); do not hand-null the drill.\x1b[0m');
+    else ok('Every World Kitchen reset names all 5 drill keys', 'wkResetDrill() is the one door \u00b7 ' + hand + ' hand-rolled reset(s) remain, none short');
+    // \u26A0\uFE0F THE PROBE MUST MATCH THE WHOLE NAME. Written first as /function wkResetDrill/,
+    //    it still matched `wkResetDrillX` \u2014 a rung that could not fail. And renaming the
+    //    door fails SILENTLY, because every caller is guarded by typeof and falls back.
+    const wkSrc = fs.readFileSync(path.join(ROOT,'sections','worldkitchen.js'),'utf8');
+    const defs = (wkSrc.match(/function\s+wkResetDrill\s*\(/g)||[]).length;
+    if (defs !== 1) bad('wkResetDrill() has ' + defs + ' definition(s), expected exactly 1 \u2014 the one door is gone or doubled');
+    else ok('wkResetDrill() exists exactly once', 'the single door \u2696\uFE0F Law 6');
+  }
+
   // every sectionHeader back — are they honest about where they go?
   let liars = 0, homes = 0;
   fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
