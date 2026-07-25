@@ -639,6 +639,16 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - 🗄️ **"SECTION-AGNOSTIC STORE" IS PLUMBING ONLY.** `tinzaStore` never memorises the roster — it holds whatever a section hands it. Navigation still knows every room; the storage layer beneath simply doesn't need to. **Adding Bar Planner needs zero store changes.**
 - 🔀 **Cross-section mixing happens ONLY in deliberately cross-section shelves** — Favourites, Just Feed Me / MOOD_DB. Every actual room stays its own place.
 
+#### 🔍 EVERY SCROLLABLE LIST OF RECIPES GETS A SEARCH — **RULED 25 Jul 2026** *(Tina)*
+*Not a new feature. “Search bar every screen” was ruled long ago; this states the LINE so it can be measured instead of judged.*
+
+- ✅ **The line: any screen showing a scrollable LIST OF RECIPES gets a search box.** Spice › Spice Blends & Masalas is 40 entries with pills and no search — a screen. It gets one.
+- ❌ **A hub of TILES does not.** The Spice Room front door is six tiles; there is nothing to scan past. Tiles are a menu, not a list.
+- ⚖️ **Because it is mechanical, it is censusable.** Count the rooms that render a recipe list, count the ones with a search slot, fail on the difference. A line you can measure is a ratchet; a line you argue about is a taste.
+- 🔧 **ONE shared renderer, rolled to ALL rooms at once** — never a search box hand-rolled per room. ⚖️ Sameness: different content, different door, identical furniture.
+- 🩸 **THREE OF THE DOCTOR’S TEN REDS ARE THIS ONE PROBLEM** (measured 25 Jul): *rooms that do not use the shared header* · *rooms whose search box LIES (it navigates away)* · *rooms with a hand-rolled search input*. A search box that navigates away is worse than none — it **lies to the finger**. One sameness pass closes all three.
+
+
 > 🩸 **Sections are distinct navigable destinations rendered by shared machinery. The shared functions SERVE the rooms; they do not dissolve them.**
 
 ---
