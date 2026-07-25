@@ -498,7 +498,7 @@ const SIDES_GROUPS = [
       recipe:{ coalType:"Stovetop — 10 min", ingredients:["Onion — 10g pp (finely diced)","Garlic — 2g pp","Tomato sauce — 15ml pp","Chutney — 10ml pp","Worcestershire sauce — 3ml pp","Brown sugar — 2g pp","Vinegar — 2ml pp"],
         method:["Fry onion and garlic 5 min until soft.","Add all remaining ingredients.","Simmer 5 min stirring. Season. Enjoy! 😊"],
         tip:"The SA steakhouse classic. Goes with any grilled meat." }},
-        { id:"periperibraai", name:"Peri-Peri Sauce", emoji:"🌶️", tier:"plus", perPerson:25, unit:"ml", note:"SA classic — adjustable heat", pantryP:3, stdP:5, indulgeP:5,
+        { id:"periperibraai", name:"Peri-Peri Sauce", emoji:"🌶️", yieldBasis:"perHead", tier:"plus", perPerson:25, unit:"ml", note:"SA classic — adjustable heat", pantryP:3, stdP:5, indulgeP:5,
       shopping:[{name:"Bird's eye chillies",per:3,unit:"g"},{name:"Garlic",per:3,unit:"g"},{name:"Lemon juice",per:8,unit:"ml"},{name:"Olive oil",per:8,unit:"ml"},{name:"Smoked paprika",per:1,unit:"g"}],
       recipe:{ coalType:"No cooking needed — blend and rest", ingredients:["Bird's eye chillies — 3g pp (adjust to taste)","Garlic — 3g pp","Lemon juice — 8ml pp","Olive oil — 8ml pp","Smoked paprika — 1g pp","Salt — 1g pp"],
         method:["Blend all ingredients until smooth.","Taste and adjust chilli and salt.","Rest 30 min minimum before serving. Enjoy! 😊"],

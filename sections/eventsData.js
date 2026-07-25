@@ -2444,7 +2444,7 @@ const EVENTS_SAUCES = [
     ],
     tip:"The professional secret is whipping the tahini first with lemon and garlic before adding chickpeas — it creates an airy mousse that transforms the texture. For absolute smoothness, peel the chickpeas by rubbing between two kitchen towels. For large events, dried chickpeas cooked yourself are significantly more cost-effective than canned." },
 
-  { id:"tahini", name:"Tahini", emoji:"🌰", ppG:15,
+  { id:"tahini", name:"Tahini", emoji:"🌰", ppG:15, yieldBasis:"perHead",
     base300:[
       {n:"Hulled sesame seeds",u:"g",pp:12},
       {n:"Neutral oil (sunflower)",u:"ml",pp:3},
@@ -2622,7 +2622,7 @@ const EVENTS_SAUCES = [
     tip:"Temperature is critical — you must incorporate the oil while the potatoes are still warm. Cold potatoes will not emulsify and the dip will feel greasy. Potatoes have a high yield but cost based on peeled weight — a 2kg bag loses 10–15% to peeling. For a more complex variation: replace 1/4 of potatoes with ground blanched almonds (traditional Northern Greek)." },
 
   // ── SAUCES — STEAK & BRAAI ─────────────────────────────────────────
-  { id:"periperi", name:"Peri-Peri Sauce", emoji:"🌶️", ppG:20,
+  { id:"periperi", name:"Peri-Peri Sauce", emoji:"🌶️", ppG:20, yieldBasis:"perHead",
     base300:[
       {n:"Bird's eye chillies",u:"g",pp:2},
       {n:"Red bell pepper (for body)",u:"g",pp:8},

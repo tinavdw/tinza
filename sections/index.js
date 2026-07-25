@@ -285,6 +285,13 @@
       method:     Array.isArray(o.method) ? o.method : methodToArr(o.method),
       nutrition:  o.nutrition || null,             // object only (never a string)
       equipment:  o.equipment != null ? o.equipment : null,   // MF144 · vessel holder — forward it or the door only ever sees undefined
+      // MF145 · THE YIELD BASIS IS A DECLARED FACT, NOT AN INFERRED ONE. ⚖️ Rulings §10.
+      // 'perHead' = the ingredients scale per person, so the recipe has NO fixed yield and
+      // by ruling takes NO holder. Null = not declared (the default, and never a claim).
+      // ⛔ NEVER infer this from the name or the room. events/braai ingredients come through
+      // nameOnlyIng() with pp:null BY DESIGN — the door carries names for search, not costing —
+      // so nothing downstream can work the basis out. The record has to say it. ⚖️ Law 6.
+      yieldBasis: o.yieldBasis || null,
 
       tip:        o.tip || '',
       storage:    o.storage || '',
@@ -328,7 +335,7 @@
           freezes: r.freezes!=null ? r.freezes : null,
           fridgeDays: r.fridgeDays!=null ? r.fridgeDays : null,
           ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
-          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment,   // MF144 · carry the holder to the door
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
           tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
           photoName:r.photoName, versions:r.versions||null
         }));
@@ -376,7 +383,7 @@
           costPP: r.costPP!=null ? r.costPP : null,
           freezes:r.freezes!=null?r.freezes:null, fridgeDays:r.fridgeDays!=null?r.fridgeDays:null,
           ingredients: normIng(r.ingredients), goesWith: r.goesWith||[],
-          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment,   // MF144 · carry the holder to the door
+          feel:r.feel, method:r.method, nutrition:r.nutrition||null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
           tip:r.tip, storage:r.storage, didYouKnow:r.didYouKnow,
           photoName:r.photoName, versions:r.versions||null
         }));
@@ -403,7 +410,7 @@
           kcal:r.kcal!=null?r.kcal:null, costPP:r.costPP!=null?r.costPP:null,
           ingredients: normIng(r.shopping || r.base300 || r.base || r.ingredients),
           goesWith:[], feel:r.howItFeels||r.howThisFeels||'', method:r.method,
-          nutrition:null, tip:r.tip, storage:r.storage, didYouKnow:'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
+          nutrition:null, tip:r.tip, storage:r.storage, didYouKnow:'', versions:null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
         }));
       });
     }
@@ -460,7 +467,7 @@
         nameAlt:r.nameAlt, aliases:r.aliases,
         time: parseTimeMin(r.cookTime), kcal: num(r.kcal), costPP: costPP,
         ingredients: ings, goesWith: wkGoesWith(r),
-        feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null, equipment:r.equipment,   // MF144 · carry the holder to the door
+        feel: r.howThisFeels||'', method: methodToArr(r.method), nutrition:null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
         tip: r.chefNotes||'', storage: r.storage||'', didYouKnow: r.trivia||'',
         // MF134 · World Kitchen HAS versions and this adapter was throwing them away.
         // 92 WK records carry a versions[] (wk_europe 91 · wk_southafrica 1), every one
@@ -514,7 +521,7 @@
           costPP:r.costPP!=null?r.costPP:null,
           ingredients: nameOnlyIng(r.base300 || r.ingredients || r.base),
           goesWith:[], feel:r.feel||'', method:r.method, nutrition:null,
-          tip:r.tip||'', storage:r.storage||'', didYouKnow:r.didYouKnow||'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
+          tip:r.tip||'', storage:r.storage||'', didYouKnow:r.didYouKnow||'', versions:null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
         }));
       });
     }
@@ -549,7 +556,11 @@
             time:null, kcal:null, costPP:null,
             ingredients:ings, goesWith:[], feel:it.note||'',
             method:(it.recipe && it.recipe.method)||[], nutrition:null,
-            tip:(it.recipe && it.recipe.tip)||'', storage:'', didYouKnow:'', versions:null
+            tip:(it.recipe && it.recipe.tip)||'', storage:'', didYouKnow:'', versions:null,
+            // MF145 · braai deliberately forwards NO equipment (a grid is not a fixed
+            // holder) — but it must still forward the BASIS, or a per-head braai sauce
+            // reads as a bare twin of its Spice batch copy forever. ⚖️ Rulings §10.
+            yieldBasis:it.yieldBasis
           }));
         });
       });
@@ -599,7 +610,7 @@
         time:null, kcal:null, costPP:r.costPP!=null?r.costPP:null,
         ingredients:[], goesWith:r.pairsWith||[],
         feel:r.howThisFeels||'', method:[], nutrition:null,
-        tip:'', storage:'', didYouKnow:r.story||'', versions:null, equipment:r.equipment   // MF144 · carry the holder to the door
+        tip:'', storage:'', didYouKnow:r.story||'', versions:null, equipment:r.equipment, yieldBasis:r.yieldBasis,   // MF144 · carry the holder to the door
       });
     });
   }
