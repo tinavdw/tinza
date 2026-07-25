@@ -1727,6 +1727,30 @@ p('       ⚖️ §2.4 — I\'ve Got R100 is ALL FILTER. The filter IS the produ
     '\n      \x1b[2m§2 FREE: browse, cook, view and SCALE every one of 2,083 recipes. Grams,' +
     '\n      servings and yields are never Pro. Lock the Rand, never the amount.\x1b[0m');
   else ok('No quantity is gated', 'grams, servings and yields stay free — only Rand locks');
+
+  // ⑦ IS THE PITCHED PRICE THE RULED PRICE? ⚖️ Ruled 28 Jun (R50→R90) · §11 · Law 6.
+  // Check 25 above asks whether Free can SEE money. This rung asks whether the money
+  // we SHOW is TRUE. Different failure, same silence: a stale price renders perfectly,
+  // throws nothing, and is wrong on the one screen whose entire job is to sell Pro.
+  // Measured 25 Jul: 21 user-facing "R50/month" strings across 9 section files, four
+  // weeks after the R90 ruling. The sweep sat in a queue and the queue did not run.
+  // ⚖️ A stale price must go RED on its own, not wait for someone to open the file.
+  const PRO_PRICE = 90;                        // ⛔ THE DAY PRO'S PRICE CHANGES, CHANGE IT HERE.
+  const priceRe   = /R\s?(\d{1,4})\s*\/\s*(month|mo\b)/gi;
+  const stale = [];
+  files.forEach(f => read(f).split('\n').forEach((line,i) => {
+    const c = strip(line);
+    let m;
+    while ((m = priceRe.exec(c)) !== null) {
+      if (Number(m[1]) !== PRO_PRICE) stale.push(f+':'+(i+1)+'  R'+m[1]+'  '+c.trim().slice(0,60));
+    }
+  }));
+  if (stale.length) bad(stale.length + ' SITE(S) PITCH A PRICE THAT IS NOT R' + PRO_PRICE + '/month',
+    '\n      ' + stale.join('\n      ') +
+    '\n      \x1b[2mPro was ruled R' + PRO_PRICE + ' on 28 Jun 2026. Every one of these is live to a' +
+    '\n      non-Pro visitor, on the exact surface that asks her for the money. Nothing' +
+    '\n      breaks, nothing logs, and the number is wrong. ⚖️ Law 6 · §11.\x1b[0m');
+  else ok('Every pitched price reads R' + PRO_PRICE + '/month', 'no stale price survives anywhere in sections/');
 }
 
 // ══ 26 · THE INVARIANT ══════════════════════ MF135 · §20 · MF134 ══

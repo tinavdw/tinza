@@ -766,13 +766,13 @@ function tierBadgeSmall(t){ return ""; } // No tier badges shown
 // IDENTICALLY to Pro (never empty). NEVER USER_TIER==='pro'. Two lock shapes:
 // INLINE (cards/rows/meta) → a small 🔒 that keeps the row; SURFACE (plan/shopping/
 // nutrition/leftovers) → the full teaser panel, cloned from shoppingView (below).
-var TINZA_LOCK = '<span title="Tinza Pro — R50/month" style="color:var(--accent);font-weight:700;white-space:nowrap;">🔒</span>';
+var TINZA_LOCK = '<span title="Tinza Pro — R90/month" style="color:var(--accent);font-weight:700;white-space:nowrap;">🔒</span>';
 function lockPanel(title, blurb){
   return '<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:20px;margin-bottom:12px;text-align:center;">'
     + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
     + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">' + (title || 'Tinza Pro') + '</div>'
     + (blurb ? '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">' + blurb + '</div>' : '')
-    + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R50/month</div></div>';
+    + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R90/month</div></div>';
 }
 // RANDS. o.html = the site's exact Pro figure (pills / meta / cart / totals), OR pass
 // o.pp + o.total (+ optional o.label, o.note) for the standard "Food cost" line.
@@ -799,7 +799,7 @@ function kcalChip(o){
 // body (byte-matched to the old nutritionBoxHTML teaser — sameness).
 function nutritionGrid(nut){
   if(!nut || nut.kcal == null) return '';
-  if(!tierAllows('pro')) return '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">📊 • • •</div><div style="font-size:13px;color:var(--ink-soft);">Full nutrition — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+  if(!tierAllows('pro')) return '<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">📊 • • •</div><div style="font-size:13px;color:var(--ink-soft);">Full nutrition — <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div></div>';
   var cells = [['kcal', nut.kcal], ['protein', (nut.protein_g || 0) + 'g'], ['carbs', (nut.carbs_g || 0) + 'g'], ['fat', (nut.fat_g || 0) + 'g']];
   return '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;">'
     + cells.map(function(x){ return '<div style="background:var(--card2);border-radius:8px;padding:8px 4px;"><div style="font-size:16px;font-weight:bold;color:var(--ink);">' + x[1] + '</div><div style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;">' + x[0] + '</div></div>'; }).join('')
@@ -3664,7 +3664,7 @@ function shoppingView(o){
       + '<div style="font-size:32px;margin-bottom:8px;">🔒</div>'
       + '<div style="font-size:14px;color:var(--accent);margin-bottom:6px;font-weight:bold;">Shopping list &amp; cost</div>'
       + '<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;">Every ingredient across your plan, combined with no duplicates, aisle-sorted and costed two ways.</div>'
-      + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R50/month</div></div>';
+      + '<div style="font-size:13px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R90/month</div></div>';
   }
   if(!items.length) return '';
   // pantry spices/seasonings list separately (§6.3) — never in the aisle rows or totals
@@ -4434,7 +4434,7 @@ function leftoverBoxHTML(keys){
   // Food-safety note lives ONCE, in the always-free Storage box (its natural home, and
   // it always renders alongside leftovers) — not repeated here, to avoid duplication.
   if(!isPro){
-    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\u267b \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Leftover ideas \u2014 <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div></div>';
     return (typeof recipeBox==='function') ? recipeBox('\u267b\ufe0f Leftover ideas', teaser) : '';
   }
   var heritage = LEFTOVER_HERITAGE.length ? '<div style="font-size:12.5px;color:var(--ink-soft);font-style:italic;margin-bottom:10px;line-height:1.45;">\ud83d\udca1 '+LEFTOVER_HERITAGE[Math.floor(Math.random()*LEFTOVER_HERITAGE.length)]+'</div>' : '';
@@ -4474,7 +4474,7 @@ function storageBoxHTML(cls){
   var isPro = tierAllows('pro');   // §7 level gate (Deluxe==Pro), never USER_TIER==='pro'
   var safetyLine='<div style="font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45;">'+sc.note+'</div>';
   if(!isPro){
-    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udce6 \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Storage guide \u2014 <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>';
+    var teaser='<div style="text-align:center;padding:4px 0;"><div style="font-size:20px;color:var(--accent);letter-spacing:5px;margin-bottom:4px;">\ud83d\udce6 \u2022 \u2022 \u2022</div><div style="font-size:13px;color:var(--ink-soft);">Storage guide \u2014 <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div></div>';
     return (typeof recipeBox==='function') ? recipeBox('\ud83d\udce6 Storage & safety', teaser + safetyLine) : '';
   }
   var rows=[['Fridge',sc.fridge],['Freezer',sc.freeze]]; if(sc.reheat) rows.push(['Reheat',sc.reheat]);
@@ -4660,7 +4660,7 @@ function recipeView(){
     } else if(!tierAllows('pro')){
       return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
         <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div>
+        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div>
       </div>`;
     }
     return '';
@@ -4895,7 +4895,7 @@ function braaiMyPlanBtn(){
   const sideCount = (S.selectedSides||[]).length;
   const total = meatCount + sideCount;
   if(!total) return '';
-  if(!tierAllows('pro')) return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:var(--ink-soft);">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
+  if(!tierAllows('pro')) return `<div style="background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;"><div style="font-size:13px;color:var(--ink-soft);">📋 My Plan — <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div></div>`;
   return `<button onclick="var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid var(--accent);background:#1a1008;color:var(--gold);font-size:14px;cursor:pointer;font-family:Georgia,serif;">
     📋 See my Braai Plan & Shopping List →
     <div style="font-size:13px;color:#c36633;margin-top:3px;">${meatCount} meat${meatCount!==1?'s':''} · ${sideCount} side${sideCount!==1?'s':''} · ${S.people} people</div>

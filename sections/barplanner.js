@@ -225,7 +225,7 @@ function barPlannerHTML(){
       + '<div style="padding:28px 18px;text-align:center;color:var(--ink-soft);">'
       + '<div style="font-size:32px;">👑</div>'
       + '<div style="font-family:Fraunces,serif;font-size:20px;color:var(--gold);margin:8px 0;">Bar Planner is a Pro feature</div>'
-      + '<div style="font-size:15px;line-height:1.6;max-width:340px;margin:0 auto;">Work out exactly how much beer, wine, spirits, mixers and ice you need for a wedding or big event — and what it costs — for R50/mo.</div>'
+      + '<div style="font-size:15px;line-height:1.6;max-width:340px;margin:0 auto;">Work out exactly how much beer, wine, spirits, mixers and ice you need for a wedding or big event — and what it costs — for R90/mo.</div>'
       + '</div></div>';
   }
 

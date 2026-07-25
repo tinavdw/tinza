@@ -1,18 +1,21 @@
 flowchart TD
 
-  A["SESSION · 25 Jul 2026<br/>MF146 · memory lean · Bar Planner truth-check<br/>STATUS: ready to commit + push"]
+  A["SESSION · 25 Jul 2026<br/>MF146 · memory lean · Bar Planner truth-check · THE PRICE SWEEP<br/>STATUS: ready to commit + push"]
 
   A --> B["✅ DONE THIS SESSION"]
   A --> R["⚖️ RULED THIS SESSION (Tina)"]
   A --> C["🍸 BAR PLANNER · verified at HEAD"]
+  A --> M["🩸 THE FIND · 25 Jul late — THE R50 LEAK WAS NEVER ONE SITE"]
   A --> D["📋 STILL OPEN (carried)"]
-  A --> P["📤 PUSH SET (one commit)"]
+  A --> P["📤 PUSH SET"]
 
   %% ── DONE ──
-  B --> B1["TINZA_RULINGS.md — 1139 lines, drop-ready<br/>2 new rulings at §11"]
+  B --> B1["TINZA_RULINGS.md — 1139 lines, drop-ready<br/>2 new rulings at §11 · VERIFIED at :662–:670"]
   B --> B2["MF146_SAMENESS_SEARCH_PASS.md — 126 lines<br/>closes doctor reds #5 #6 #7 + 4 of 6 in #2"]
   B --> B3["MF146 corrected — barplanner question CLOSED,<br/>header count 0 → 1, R50 leak added"]
   B --> B4["Memory #21 leaned — stale WK polish list PARKED<br/>to TINZA_BUILD_CHECKLIST.md §STRAGGLERS"]
+  B --> B5["🆕 CENSUS CHECK 25 · RUNG ⑦ WRITTEN<br/>'IS THE PITCHED PRICE THE RULED PRICE?'"]
+  B --> B6["🆕 R50→R90 SWEEP RUN — 21 strings, 9 files<br/>node --check clean ×9 · census now GREEN"]
 
   %% ── RULINGS ──
   R --> R1["🔎 ONE SLOT, ONE BEHAVIOUR<br/>the search pill NEVER navigates"]
@@ -35,12 +38,21 @@ flowchart TD
   CW --> CW4["4 presets · buffer exact/safe/generous<br/>· 25 or 50ml tot · open / cash / limited-tab"]
   CW --> CW5["Packs + Rand shop-spend per line"]
 
-  CX --> CX1["⛔ R50 LEAK in the Pro upsell — must be R90<br/>LIVE on the screen that SELLS the feature<br/>→ becomes a CENSUS ASSERTION, not a memory item"]
+  CX --> CX1["✅ CLOSED — R50 leak swept (:228 now R90)<br/>and a watcher now stands over it"]
   CX --> CX2["🍋 LEMONS defined line 51, engine never uses it<br/>garnish missing from every plan"]
   CX --> CX3["🧾 NO My Plan / shopping integration<br/>cannot join the ONE Events plan (§2.2)"]
   CX --> CX4["🎨 Inline header :214 + pre-reskin dark hexes<br/>⚖️ Law 19 — the TAG was absent, not the header"]
   CX --> CX5["💰 Prices = admitted UNVERIFIED estimates"]
   CX --> CX6["💾 State in S.bar* only — not tinzaStore"]
+
+  %% ── THE FIND ──
+  M --> M1["Measured at HEAD: 21 user-facing 'R50/month'<br/>strings across 9 SECTION FILES — not 1"]
+  M1 --> M2["core.js 9 · health 3 · kiddies 2 · meals 2<br/>braai 1 · events 1 · tinyTummies 1 · WK 1 · barplanner 1"]
+  M2 --> M3["⏳ Pro was ruled R90 on 28 JUN — the wrong price<br/>was live for FOUR WEEKS on every upsell in the app"]
+  M3 --> M4["🩸 Bar Planner was the SMALLEST share of it.<br/>The queue item D9 existed the whole time and did not run."]
+  M4 --> M5["⚖️ TINA WAS RIGHT AND MORE RIGHT THAN SHE KNEW —<br/>a queue is a memory; only a watcher is a mechanism"]
+  M5 --> M6["CHECK 25 RUNG ⑦ · PRO_PRICE = 90 in ONE place<br/>any R{n}/month ≠ 90 anywhere in sections/ → RED"]
+  M6 --> M7["PROVEN BOTH WAYS (Check 24 discipline):<br/>RED at 20 sites before · GREEN after the sweep"]
 
   %% ── QUEUE ──
   D --> D1["MF86 adaptSpice → 190 records"]
@@ -51,15 +63,19 @@ flowchart TD
   D --> D6["131 holder-pending"]
   D --> D7["Fable S3 — POST-RESET ONLY"]
   D --> D8["MF141 sosaties strike/repoint"]
-  D --> D9["R50→R90 sweep (now includes barplanner)"]
+  D --> D9["✅ R50→R90 sweep — DONE + WATCHED (was D9)"]
   D --> D10["wk_europe re-decode (~231 names)"]
   D --> D11["Toum rename — wk_africa.js ~line 132"]
   D --> D12["Photo Studio rebuild from live data"]
-  D --> D13["🆕 Bar Planner finishing session — lemons,<br/>My Plan wiring, price verification, sub-header"]
+  D --> D13["Bar Planner finishing session — lemons,<br/>My Plan wiring, price verification, sub-header"]
+  D --> D14["🆕 sectionHeader() sub:true variant — the build<br/>side of §11; needs its own brief for Code"]
+  D --> D15["🆕 §-NUMBER COLLISION — ask Tina.<br/>'§11' now names the LOCALE ranking clause (:295),<br/>the store (:963) AND the tool ruling (:662)"]
 
   %% ── PUSH ──
   P --> P1["TINZA_RULINGS.md"]
   P --> P2["MF146_SAMENESS_SEARCH_PASS.md"]
   P --> P3["this flowchart"]
+  P --> P4["🆕 tinza-census.js (rung ⑦)"]
+  P --> P5["🆕 9 section files — the price sweep<br/>barplanner · braai · core · events · health<br/>· kiddies · meals · tinyTummies · worldkitchen"]
 
   A --> Z["⚖️ Law 2 — Claude read the REPO at HEAD.<br/>Tina's eyes on tinza.netlify.app close each step.<br/>⛔ Nothing banked until it is on GitHub + live."]

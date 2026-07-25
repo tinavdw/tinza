@@ -212,7 +212,7 @@ function braaiStep3(){
         ${group.items.map(side=>{
           const allowed=tierAllows(side.tier||"free");
           const sel=S.selectedSides.includes(side.id);
-          if(!allowed) return `<div style="background:var(--bg);border:1px solid #1a1808;border-radius:10px;padding:12px;margin-bottom:6px;opacity:0.55;cursor:not-allowed;" onclick="alert('Upgrade to Tinza Pro R50/month to unlock!')"><div style="display:flex;align-items:center;gap:10px;"><div style="font-size:18px;opacity:0.4;">🔒</div><span style="font-size:20px;opacity:0.4;">${side.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#3a2a18;">${side.name} ${tierBadgeSmall(side.tier)}</div></div></div></div>`;
+          if(!allowed) return `<div style="background:var(--bg);border:1px solid #1a1808;border-radius:10px;padding:12px;margin-bottom:6px;opacity:0.55;cursor:not-allowed;" onclick="alert('Upgrade to Tinza Pro R90/month to unlock!')"><div style="display:flex;align-items:center;gap:10px;"><div style="font-size:18px;opacity:0.4;">🔒</div><span style="font-size:20px;opacity:0.4;">${side.emoji}</span><div style="flex:1;"><div style="font-size:14px;color:#3a2a18;">${side.name} ${tierBadgeSmall(side.tier)}</div></div></div></div>`;
           return itemCard(side.emoji,side.name,side.note,sel,sel?calcSide(side):null,false,`set({selectedSides:toggle(S.selectedSides,'${side.id}')})`, "side",side.id,3,braaiSideCostPP(side));
         }).join("")}
       `).join("")}

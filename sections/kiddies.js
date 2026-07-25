@@ -393,7 +393,7 @@ function kidsCategoryHTML(themeId,catId,k,budget){
         <div style="font-size:28px;margin-bottom:6px;">🔒</div>
         <div style="font-size:13px;color:var(--accent);margin-bottom:4px;font-family:Georgia,serif;">Full Shopping List</div>
         <div style="font-size:10px;color:var(--accent);margin-bottom:8px;">Auto-scaled &amp; consolidated for ${k} kids</div>
-        <div style="font-size:12px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R50/month</div>
+        <div style="font-size:12px;color:var(--accent);font-weight:bold;">Unlock with Tinza Pro — R90/month</div>
       </div>`}`;
   }
 
@@ -649,7 +649,7 @@ function kidsPlanHTML(themeId, k, budget){
           <div style="font-size:34px;margin-bottom:8px;">🔒</div>
           <div style="font-size:15px;color:var(--accent);margin-bottom:6px;font-family:Georgia,serif;">Party Plan &amp; Shopping List</div>
           <div style="font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;">Get your whole party menu auto-scaled to <b style="color:var(--accent);">${k} kids</b>, consolidated into one aisle-sorted shopping list with a live cost estimate.</div>
-          <div style="font-size:13px;color:var(--on-media);background:var(--accent);border-radius:8px;padding:9px 18px;display:inline-block;">Unlock with Tinza Pro — R50/month</div>
+          <div style="font-size:13px;color:var(--on-media);background:var(--accent);border-radius:8px;padding:9px 18px;display:inline-block;">Unlock with Tinza Pro — R90/month</div>
         </div>
         <button onclick="set({kidsScreen:'categories'})" style="width:100%;padding:13px;border-radius:10px;cursor:pointer;background:var(--card);border:1px solid var(--line2);color:var(--accent);font-size:13px;margin:4px 0 20px;">← Back to ${th.name}</button>
       </div>

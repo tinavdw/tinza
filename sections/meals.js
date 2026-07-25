@@ -16043,7 +16043,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   const _costEstimate = (()=>{
     if(!_isPro) return `<div style="background:#1a1008;border:1px dashed #5a3010;border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
       <div style="font-size:22px;color:#bf6d24;letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-      <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R50/month</strong></div>
+      <div style="font-size:13px;color:#c86449;">💰 Cost estimate — <strong style="color:${color};">Tinza Pro R90/month</strong></div>
     </div>`;
     if(r.costPP){
       const total = r.costPP * _scale;
@@ -16095,7 +16095,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     const costW = (()=>{
       if(!_isPro) return `<div style="background:var(--card2);border:1px dashed var(--accent);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;">
         <div style="font-size:22px;color:var(--accent);letter-spacing:6px;margin-bottom:6px;">R • • • •</div>
-        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R50/month</strong></div></div>`;
+        <div style="font-size:13px;color:var(--ink-soft);">💰 Cost estimate — <strong style="color:var(--accent);">Tinza Pro R90/month</strong></div></div>`;
       if(r.costPP){ const total=r.costPP*_scale; return `<div style="background:var(--green-tint);border:1px solid var(--green-soft);border-radius:10px;padding:14px;margin-bottom:12px;">
         <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:10px;">💰 Food Cost</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;color:var(--ink-soft);">${_bakeP?("Total · "+_bakeUnitLbl):("Total for "+sv+" people")}</div><div style="font-size:24px;font-weight:bold;color:var(--green);">R${total}</div></div>

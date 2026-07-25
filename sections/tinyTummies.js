@@ -27,7 +27,7 @@ function ttCostCard(items, colour){
 }
 // Cost card for a single recipe's base[] scaled by mult. Pro-gated (matches braai).
 function ttRecipeCostCard(base, mult, isPro, colour){
-  if(!isPro) return '<div style="background:#120f0a;border:1px dashed '+(colour||'#5a3010')+';border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#ab7618;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#9c7b29;">💰 Cost estimate — <strong style="color:#c0a020;">Tinza Pro R50/month</strong></div></div>';
+  if(!isPro) return '<div style="background:#120f0a;border:1px dashed '+(colour||'#5a3010')+';border-radius:10px;padding:14px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;color:#ab7618;letter-spacing:6px;margin-bottom:6px;">R • • • •</div><div style="font-size:12px;color:#9c7b29;">💰 Cost estimate — <strong style="color:#c0a020;">Tinza Pro R90/month</strong></div></div>';
   var total=0, matched=0, n=0;
   (base||[]).forEach(function(i){ if(!i||!i.n||!i.pp||typeof i.pp!=='number') return; n++; var c=ttLineCost(i.n, i.pp*mult, i.u); if(c!=null){ total+=c; matched++; } });
   total=Math.round(total);
