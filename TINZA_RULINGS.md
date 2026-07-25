@@ -422,6 +422,18 @@ An awkward serving count (8, 10, 15) is **not** an architecture problem. The exi
 - 🍽️ **Copying a twin's holder is a decision, not a mechanic.** Two records can be the same dish and still want different vessels — a Dutch **Appeltaart** is a deep springform where an SA **Appeltert** is not. Where the vessel genuinely differs, **ask Tina** (⚖️ §2.3), never infer.
 - 🔧 **The watcher** = `Tools/tinza-holder-audit.js` — boots the real library and **walks the records** (⚖️ §19 parse-never-grep), groups cross-language twins, and is `require`d by the doctor so there is **one** grouping, not a copy per tool. If the module goes missing the doctor **fails loudly** — ⚖️ **MF135, a watcher that swallows its own failure cannot watch.**
 
+#### 🆕 ⚖️ THE YIELD BASIS IS **DECLARED**, NEVER INFERRED — **RULED 25 Jul 2026** *(MF145)*
+*The §10 rule above was right and the watcher could not apply it. The record had no way to say what it was.*
+
+- 📣 **A per-head record declares itself:** `yieldBasis:"perHead"` — authored on the record, one line, exactly as a holder is. It means *the ingredients scale per person, so there is no fixed yield, so there is no holder.* Null = **not declared**, and null is never a claim.
+- ⛔ **The watcher must not guess the basis.** `events` and `braai` ingredients cross the door through `nameOnlyIng()` with `pp:null` **by design** — the door carries names for *search*, not for *costing*. So the basis is genuinely unknowable downstream, and any regex on the name would be a silent wrong answer wearing a green tick. **The tool asks the record; the record answers.** ⚖️ Law 6 — the data states the rule, never the function.
+- 🔴 **It fails LOUD, not safe.** Drop the door line and `yieldBasis` arrives undefined, the exemption stops applying and every one of these goes back to **RED**. *Proven both ways 25 Jul:* strip one declaration → split 0 → 1; drop the door line → split 0 → 3 dishes / 4 copies. A missing exemption must **reappear as a bug**, never vanish into green. ⚖️ MF135.
+- 👁️ **An exemption nobody can see is indistinguishable from a check that quietly stopped running.** The audit prints **list C · EXEMPT** and a `per-head exempt=N` total. Silence is not a pass.
+- 🩸 **The four founding records** (all bare, all correct): `braai:periperibraai` · `events:periperi` · `events:tahini` · `world:indian-mango-atchar` — each a per-head copy standing beside a **Spice batch twin** (*500ml bottle* · *375ml jar* ×2). **Same name, different construction — the Apple Tart shape again.** Spice bottles it; Events scales it to the guest count.
+- 🩸 **`adaptBraai` forwards no `equipment` on purpose** (a grid is not a fixed holder) — but it **must** forward the basis, or a per-head braai sauce reads as a bare twin of its Spice copy forever.
+- 📁 **Path corrected:** the tool lives at the **repo root** beside `tinza-census.js` / `tinza-doctor.js`, not in `Tools/`. The doctor's `require` was pointing at `./Tools/` and would have red-flagged a module that was there all along.
+
+
 
 #### 🆕 🍽️ THE HOLDER IS A **RECOMMENDATION**, NEVER A REQUIREMENT — **RULED 25 Jul 2026** *(Tina)*
 
