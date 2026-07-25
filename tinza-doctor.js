@@ -343,12 +343,12 @@ if (all && all.length) {
     //   ALL-BARE → WARN. Holder-shaped, but no copy anywhere has one. Genuinely
     //              authoring-pending (a Fable pass), so it stays a warning.
     var AUD = null;
-    try { AUD = require('./Tools/tinza-holder-audit.js'); } catch (e) { AUD = null; }
+    try { AUD = require('./tinza-holder-audit.js'); } catch (e) { AUD = null; }
     if (!AUD || typeof AUD.analyse !== 'function') {
       // ⚖️ MF135 — a watcher that swallows its own failure cannot watch. If the
       // audit module is gone, coverage is UNCHECKED, and unchecked must be LOUD.
       fail('The holder-coverage audit module is MISSING',
-        'Tools/tinza-holder-audit.js — cross-room holder coverage is now UNCHECKED');
+        'tinza-holder-audit.js — cross-room holder coverage is now UNCHECKED');
     } else {
       var doorAll = [];
       try { doorAll = (ctx && ctx.allRecipes) ? ctx.allRecipes() : []; } catch (e) { doorAll = []; }
@@ -366,7 +366,7 @@ if (all && all.length) {
       var cand = rep.allBare.reduce(function (n, x) { return n + x.g.length; }, 0);
       if (cand) {
         warn('Holder-shaped dishes with no holder anywhere — authoring pending (Fable, not a gate)',
-          cand + ' records across ' + rep.allBare.length + ' dishes · run  node Tools/tinza-holder-audit.js');
+          cand + ' records across ' + rep.allBare.length + ' dishes · run  node tinza-holder-audit.js');
       } else {
         pass('Every holder-shaped dish carries a holder', 'authoring complete → promote this WARN to a gate');
       }
