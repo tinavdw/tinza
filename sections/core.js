@@ -405,6 +405,28 @@ function bottomBarGo(screen){
   }
 }
 
+// ── LEAVING A SEARCH SCREEN — the ONE definition ───────── ⚖️ Law 6 · census 8 ──
+// TWO Back buttons live on the search screen: the header one (utils.js:246) and the
+// bottom-left one (goBack). They had already drifted — the header honoured
+// S.searchPrevScreen, goBack ignored it and dumped her on Home. One screen, two Backs,
+// two different answers. They now call THIS, so they cannot drift again.
+// BOTH screen names are live and both render through searchPageHTML(): 'search'
+// (bottom-nav + Home tile + globalSearch) and the legacy 'search_results'
+// (braai.js:28, spice.js:7987). Neither is dead — do not "tidy" one away.
+const SEARCH_SCREENS = ['search','search_results'];
+function tinzaOnSearchScreen(){
+  return typeof S !== 'undefined' && SEARCH_SCREENS.indexOf(S.screen) !== -1;
+}
+// 🛡️ FAIL SAFE — an unset, stale or self-referential target means Home, never a loop.
+// 🚪 The target is CONSUMED (set to null) on the way out, so a search done in Braai an
+//    hour ago can never hijack a Back press in some other room later.
+function tinzaSearchBack(){
+  var to = S.searchPrevScreen;
+  if(!to || SEARCH_SCREENS.indexOf(to) !== -1) to = 'home';
+  set({ screen: to, _searchActiveRecipe: null, searchPrevScreen: null,
+        searchQuery: '', searchResults: [], searchScope: null, searchScopeLabel: null });
+}
+
 function goBack(){
   if(typeof S!=='undefined'){
     // (0) Returned from a Makeable shelf cross-link (bakes/spice) → the jump pushed a
@@ -430,6 +452,12 @@ function goBack(){
     if(_appNavDepth > _screenRootDepth && typeof history !== 'undefined'){
       try{ history.back(); return; }catch(_e){}
     }
+    // (3b) A SEARCH screen entered FROM a room → that room is the parent, not Home.
+    //      braai.js, spice.js and liveSearch() have all been writing S.searchPrevScreen
+    //      since MF46/MF49; goBack() simply never read it, so the bottom-left Back and the
+    //      header Back on the SAME screen disagreed. ONE reader, not one fix per room.
+    //      ⚖️ Law 6 · census 8.
+    if(tinzaOnSearchScreen()){ tinzaSearchBack(); return; }
     // (4) At the section's ROOT screen → its logical parent is Home. Deterministic, so Back
     //     never walks history into an unrelated earlier screen (the FMF leak). (3 Jul fix)
     if(S.screen && S.screen !== 'home'){ bottomBarGo('home'); return; }

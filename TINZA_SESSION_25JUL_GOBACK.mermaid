@@ -1,0 +1,55 @@
+flowchart TD
+
+  A["🔙 25 Jul · SAMENESS session<br/>Census 8 — the bottom-left Back"]:::hdr
+
+  A --> B["THE BUG<br/>braai.js:28 · spice.js:7987 · liveSearch()<br/>all WRITE S.searchPrevScreen<br/>goBack() NEVER READ IT"]:::bad
+
+  B --> B1["step (4) fired instead:<br/>if(S.screen!=='home') bottomBarGo('home')"]:::bad
+  B --> B2["THE STALL = set() → draw() → navSnapshot()<br/>JSON-deep-clones ALL of S incl. 40 full<br/>recipe objects in S.searchResults,<br/>then renders Home from scratch"]:::bad
+  B --> B3["⚠️ ONE SCREEN, TWO BACKS, TWO ANSWERS<br/>header Back (utils.js:246) honoured searchPrevScreen<br/>bottom-left Back dumped her Home<br/>they had ALREADY drifted"]:::bad
+
+  A --> C["✅ THE FIX — ONE exit, TWO callers  ⚖️ Law 6"]:::fix
+  C --> C1["core.js NEW · SEARCH_SCREENS = ['search','search_results']<br/>both live, both render via searchPageHTML()<br/>tinzaOnSearchScreen() · tinzaSearchBack()"]:::fix
+  C --> C2["goBack() step (3b) — BEFORE the Home fallback<br/>if(tinzaOnSearchScreen()){ tinzaSearchBack(); return; }"]:::fix
+  C --> C3["utils.js:246 header Back → tinzaSearchBack()<br/>inline setQuiet DELETED — cannot drift again"]:::fix
+  C --> C4["🛡️ FAIL SAFE unset/stale/self-referential → 'home', never a loop<br/>🚪 target CONSUMED on exit — an hour-old Braai<br/>search can never hijack a later Back press"]:::fix
+  C --> C5["BONUS: returns to the exact braai sub-view<br/>braiStep/braiCat were never touched by the<br/>search jump — better than history.back()"]:::fix
+
+  A --> D["🔬 CENSUS 8 REBUILT — 4 rungs, each PROVEN RED"]:::watch
+  D --> D1["① exit is consumed BEFORE the Home fallback<br/>(order is the bug) → RED when call removed ✔"]:::watch
+  D --> D2["② tinzaSearchBack() actually READS the target<br/>first attempt was a FAKE rung — it matched<br/>'searchPrevScreen: null' in the clear-down.<br/>Tightened to /= S.searchPrevScreen/ → RED ✔"]:::watch
+  D --> D3["③ ANTI-DRIFT: utils.js may not hand-roll<br/>its own exit → RED when re-inlined ✔"]:::watch
+  D --> D4["④ exactly ONE definition app-wide<br/>→ RED at 2 ✔"]:::watch
+  D --> D5["⚖️ LESSON: a rung that cannot fail is not a rung.<br/>Prove RED or it is decoration."]:::law
+
+  A --> E["📦 HANDBACK — node --check clean ×3<br/>core.js · utils.js · tinza-census.js<br/>Tina pushes · Law 2 closes it on live"]:::out
+
+  E --> E1["ACCEPTANCE TEST on tinza.netlify.app:<br/>Braai → search pill → bottom-left Back<br/>= BRAAI, not Home, no pause.<br/>Repeat in Spice. Then header Back, same answer."]:::out
+
+  A --> F["❓ STILL TO RULE — ask, never infer (§2.3)"]:::ask
+  F --> F1["Is 'a screen with two Backs has ONE exit'<br/>a new law, or just Law 6 restated?<br/>NOT filed in TINZA_RULINGS.md — your call."]:::ask
+  F --> F2["§11 seam: I've Got R100 · I Have Chicken…<br/>· Just Feed Me — tool input, shelf result.<br/>Search box or not?<br/>(proposal: input=tool, result=shelf)"]:::ask
+  F --> F3["'§11' names THREE things in TINZA_RULINGS.md<br/>LOCALE :295 · store :963 · tool ruling :662<br/>Which keeps the number?"]:::ask
+  F --> F4["core.js:656 _warm = hard-coded allow-list of 10.<br/>HOME IS NOT ON IT, nor the 6 Smart Features.<br/>The front door is the last unmigrated room.<br/>When do we move the line?"]:::ask
+
+  A --> G["📋 QUEUE — next, in order"]:::todo
+  G --> G1["2 · shareList() — 21 WhatsApp copies,<br/>5 different labels, 2 button styles<br/>('straight to' vs 'directly to' — nobody chose)"]:::todo
+  G --> G2["3 · TINZA_PRICE (MF91) — price written 21×.<br/>Last session fixed the VALUE, this kills the<br/>DUPLICATION"]:::todo
+  G --> G3["4 · openSectionSearch(scope) (MF95) —<br/>census 6+7: braai/spice pills NAVIGATE AWAY.<br/>Ruling R1: the search pill never navigates.<br/>30 more same-shape sites = RISK list (Law 22),<br/>do NOT fix 32 sites"]:::todo
+  G --> G4["5 · sectionHeader() gains sub:true — build side of §11.<br/>Kills barplanner.js hand-rolled header :214.<br/>budget.js + tinyTummies.js have NO sectionHeader() at all"]:::todo
+
+  A --> H["📌 CARRIED — untouched today"]:::carry
+  H --> H1["STRAGGLERS: Toum in wk_africa.js ~:132 (one word) ·<br/>Photo Studio regenerate from live data ·<br/>wk_europe ~231 double-encoded names"]:::carry
+  H --> H2["BAR PLANNER open: lemons dead data (BAR_ITEMS:51) ·<br/>no My Plan/shopping join (§2.2 ONE Events plan) ·<br/>prices unverified · state in S.bar* not tinzaStore"]:::carry
+  H --> H3["FABLE ⏸️ PAUSED (usage) — S3 POST-RESET ONLY.<br/>S3 = Melktert · Koesisters · Koeksisters ·<br/>Peppermint Crisp · Umngqusho + S2 tail.<br/>MF141: strike/repoint boerekos-sosaties"]:::carry
+  H --> H4["Census still RED elsewhere: 2 search engines ·<br/>118 vegan invisible to veg filter (Law 48) ·<br/>21 meat recipes answer a vegan search (Law 47)"]:::carry
+
+  classDef hdr fill:#b5462b,stroke:#2c211a,color:#fffaf2,font-weight:bold
+  classDef bad fill:#fbe4e0,stroke:#b5462b,color:#2c211a
+  classDef fix fill:#e8f0d8,stroke:#46530c,color:#2c211a
+  classDef watch fill:#fdf0d8,stroke:#876213,color:#2c211a
+  classDef law fill:#d98a2b,stroke:#2c211a,color:#2c211a,font-weight:bold
+  classDef out fill:#fffaf2,stroke:#6b5849,color:#2c211a
+  classDef ask fill:#f7ebdc,stroke:#b5462b,color:#2c211a,stroke-dasharray:4 3
+  classDef todo fill:#fbf3e6,stroke:#6b5849,color:#2c211a
+  classDef carry fill:#f2ece2,stroke:#a89684,color:#4a3d33

@@ -243,7 +243,7 @@ function searchPageHTML() {
   var resultsHTML = renderSearchResults(q, S.searchResults || []);
   return '<div>'
     + '<div class="header">'
-    + '<button class="back-btn" onclick="setQuiet({_searchActiveRecipe:null,screen:S.searchPrevScreen||\'home\',searchQuery:\'\',searchResults:[],searchScope:null})" style="color:var(--accent);">&#8592; Back</button>'
+    + '<button class="back-btn" onclick="tinzaSearchBack()" style="color:var(--accent);">&#8592; Back</button>'   // ⚖️ Law 6 · census 8 — the SAME exit the bottom-left Back uses. Was an inline setQuiet that had already drifted from goBack().
     + '<h1 style="font-size:18px;font-weight:normal;color:#f5e8cc;">&#128269; Search</h1>'
     + '</div>'
     + '<div class="content">'

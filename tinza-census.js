@@ -319,13 +319,39 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
 {
   const core = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
   const gb = (core.match(/function goBack[\s\S]{0,2400}?\n\}/)||[''])[0];
-  const dumpsHome = /if\s*\(\s*S\.screen\s*&&\s*S\.screen\s*!==\s*'home'\s*\)\s*\{\s*bottomBarGo\('home'\)/.test(gb);
-  const readsPrev = /searchPrevScreen/.test(gb);
-  if (dumpsHome && !readsPrev) bad('goBack() DUMPS HER ON HOME from any root screen',
-    "\n      \x1b[2mcore.js — step (4): if(S.screen!=='home'){ bottomBarGo('home'); }" +
-    "\n      S.searchPrevScreen IS ALREADY SET by braai.js, spice.js and liveSearch() — and goBack() NEVER READS IT." +
-    '\n      ⚖️ Law 6 — ONE line in goBack(). Not one fix per room.\x1b[0m');
-  else if (readsPrev) ok('goBack() honours searchPrevScreen');
+  const utils = fs.readFileSync(path.join(ROOT,'sections/utils.js'),'utf8');
+  const exitFn = (core.match(/function tinzaSearchBack[\s\S]{0,900}?\n\}/)||[''])[0];
+  const homeIdx = gb.search(/bottomBarGo\('home'\)/);
+  const exitIdx = gb.search(/tinzaSearchBack\s*\(/);
+
+  // ① goBack must ASK about search before it falls through to Home. Order is the bug.
+  if (exitIdx === -1 || homeIdx === -1 || exitIdx > homeIdx)
+    bad('goBack() DUMPS HER ON HOME from a search screen',
+      "\n      \x1b[2mcore.js — step (4): if(S.screen!=='home'){ bottomBarGo('home'); }" +
+      "\n      S.searchPrevScreen IS SET by braai.js, spice.js and liveSearch() — goBack() must consume it FIRST." +
+      '\n      ⚖️ Law 6 — ONE reader in goBack(). Not one fix per room.\x1b[0m');
+  else ok('goBack() consumes searchPrevScreen before the Home fallback');
+
+  // ② the exit must exist and must actually read the target it was built to read.
+  if (!/=\s*S\.searchPrevScreen/.test(exitFn))
+    bad('tinzaSearchBack() does not read S.searchPrevScreen', '\n      \x1b[2mthe target is written by three callers and would be ignored again.\x1b[0m');
+  else ok('tinzaSearchBack() reads S.searchPrevScreen');
+
+  // ③ THE RUNG THAT MATTERS — the header Back must not hand-roll its own exit.
+  //    Both Backs on this screen drifted apart once already: the header honoured
+  //    searchPrevScreen, goBack sent her Home. One screen, two Backs, two answers.
+  if (/screen\s*:\s*S\.searchPrevScreen/.test(utils))
+    bad('utils.js HAND-ROLLS its own search exit — the two Backs can drift again',
+      '\n      \x1b[2mthe header Back must call tinzaSearchBack(), not re-implement it. ⚖️ Law 6.\x1b[0m');
+  else if (/onclick="tinzaSearchBack\(\)"/.test(utils))
+    ok('both Backs on the search screen call the SAME exit');
+  else warn('utils.js search header Back calls neither — check it by hand');
+
+  // ④ ONE definition, app-wide.
+  const defs = fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js'))
+    .reduce((n,f)=> n + (fs.readFileSync(path.join(ROOT,'sections',f),'utf8').match(/function tinzaSearchBack/g)||[]).length, 0);
+  if (defs !== 1) bad(defs + ' definitions of tinzaSearchBack() — there must be exactly ONE  ⚖️ Law 6');
+  else ok('tinzaSearchBack() is defined once');
   // every sectionHeader back — are they honest about where they go?
   let liars = 0, homes = 0;
   fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
