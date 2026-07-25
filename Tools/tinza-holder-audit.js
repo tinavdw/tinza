@@ -110,6 +110,22 @@ function keyOf(r) {
 const has = r => Array.isArray(r.equipment) && r.equipment.length > 0;
 const loc = r => (r.section || '?') + ':' + r.id;
 
+// ── BARE BY RULING, NOT BY OMISSION ─────────── MF145 · 25 Jul · Rulings §10 ──
+// ⚖️ "Ingredients scale per person → no fixed yield → NO holder. Ask of the
+//    RECORD, never the NAME." A per-head sauce next to a batch twin is not a
+//    split — it is two different constructions wearing one name, exactly like
+//    the three Apple Tarts. Spice bottles 500ml; Events scales to the guest count.
+//
+// ⛔ THIS READS A DECLARATION, IT NEVER INFERS. There is no regex here on
+//    purpose. events/braai ingredients cross the door through nameOnlyIng() with
+//    pp:null BY DESIGN, so the basis is genuinely unknowable downstream — any
+//    guess would be a silent wrong answer wearing a green tick.
+// ⛔ AND IT FAILS LOUD, NOT SAFE. If MF145's door line is ever dropped, yieldBasis
+//    arrives undefined, the exemption stops applying and the records go back to
+//    RED. A missing exemption must reappear as a bug, never vanish into green.
+//    ⚖️ MF135 — a watcher that swallows its own failure cannot watch.
+const perHead = r => r.yieldBasis === 'perHead';
+
 // ── DOES THIS RECORD LOOK LIKE IT NEEDS A FIXED HOLDER? ──────────────────
 // Only used for list B (candidates). List A never asks — a twin already proved it.
 const HOLDER_WORDS = /\b(lasagne|lasagna|bake|baked|pie|tart|tert|taart|quiche|gratin|crumble|cobbler|casserole|moussaka|pastitsio|pudding|poeding|cheesecake|brownie|blondie|cake|koek|torte|kuchen|loaf|brood|muffin|scone|tray ?bake|roulade|flan|clafoutis|strata|cannelloni|hotpot|potbake|melktert|malva|souffle|nockerl|terrine|tiramisu|trifle|sernik|mazurek)\b/;
@@ -140,19 +156,26 @@ const seed = r => COUNT_SCALED[r.section] ? 'no soft: (count-scaled room)' : 'so
 function analyse(all) {
   const groups = {};
   all.forEach(r => { const k = keyOf(r); (groups[k] = groups[k] || []).push(r); });
-  const split = [], allBare = [];
+  const split = [], allBare = [], exempt = [];
   Object.keys(groups).forEach(k => {
-    const g = groups[k], eq = g.filter(has), bare = g.filter(r => !has(r));
+    const g = groups[k], eq = g.filter(has);
+    // A declared per-head record is bare BY RULING. Pull it out before either
+    // question is asked — it is neither a bug nor an authoring candidate.
+    // Reported all the same: an exemption nobody can see is indistinguishable
+    // from a check that quietly stopped running.
+    const ex = g.filter(r => !has(r) && perHead(r));
+    const bare = g.filter(r => !has(r) && !perHead(r));
+    ex.forEach(r => exempt.push({ k, r }));
     if (eq.length && bare.length) split.push({ k, eq, bare });
-    else if (!eq.length) { const nd = g.filter(needsHolder); if (nd.length) allBare.push({ k, g: nd }); }
+    else if (!eq.length) { const nd = bare.filter(needsHolder); if (nd.length) allBare.push({ k, g: nd }); }
   });
-  return { split, allBare };
+  return { split, allBare, exempt };
 }
-module.exports = { analyse, needsHolder, keyOf, has, loc, seed };
+module.exports = { analyse, needsHolder, keyOf, has, loc, seed, perHead };
 if (!CLI) return;   // required by the doctor — stop here, print nothing
 
 const all = bootLibrary();
-const { split: SPLIT, allBare: ALLBARE } = analyse(all);
+const { split: SPLIT, allBare: ALLBARE, exempt: EXEMPT } = analyse(all);
 
 // ── REPORT ───────────────────────────────────────────────────────────────
 const C = { r:'\x1b[31m', g:'\x1b[32m', y:'\x1b[33m', c:'\x1b[36m', b:'\x1b[1m', d:'\x1b[2m', x:'\x1b[0m' };
@@ -178,6 +201,12 @@ Object.keys(byRoom).sort().forEach(sec => {
   byRoom[sec].forEach(r => console.log('    · ' + r.id.padEnd(34) + r.name));
 });
 
+console.log('\n\n' + C.b + C.c + 'C \u00b7 EXEMPT \u2014 declared per-head, so NO holder by ruling' + C.x +
+  C.d + '   (\u2696\ufe0f Rulings \u00a710 \u00b7 not a bug, not a candidate)' + C.x);
+if (!EXEMPT.length) console.log('  ' + C.d + 'none declared' + C.x);
+EXEMPT.forEach(x => console.log('    ' + C.c + '\u25cb' + C.x + ' ' + loc(x.r).padEnd(32) + x.r.name +
+  C.d + '   [' + x.k + ']' + C.x));
+
 console.log('\n' + C.b + 'TOTALS' + C.x + '  split dishes=' + SPLIT.length +
   ' (' + SPLIT.reduce((n, x) => n + x.bare.length, 0) + ' bare copies)  ·  all-bare candidates=' +
-  ALLBARE.reduce((n, x) => n + x.g.length, 0) + '\n');
+  ALLBARE.reduce((n, x) => n + x.g.length, 0) + '  \u00b7  per-head exempt=' + EXEMPT.length + '\n');
