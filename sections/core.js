@@ -76,8 +76,21 @@ function navSnapshot(){
   try { return JSON.parse(JSON.stringify(S)); }
   catch(_e){ return Object.assign({}, S); }
 }
+// ⚖️ THIS IS A CONTRACT, NOT A LIST. Every key a room NAVIGATES by must appear here.
+// draw() pushes a history entry only when this string changes, so a level the signature
+// cannot see is a level Back cannot walk — goBack() step (3) finds nothing and falls
+// through to step (4), which dumps her on Home. That is not a goBack() bug; it is a
+// signature gap, and it produced the SAME symptom in five different rooms.
+// 25 Jul · REMOVED S.wkCountry + S.wkSelectedRegion — DEAD. They appeared only here and
+// in the tier-switcher clear-down; worldkitchen.js has never written either. The signature
+// was watching keys that do not exist while the real drill (wkContinent → wkRegion →
+// wkDataCountry) went completely unseen. ⚖️ Law 19 — measured, not assumed. Census 8 rung ⑤.
+// ADDED: wkContinent · wkRegion · wkDataCountry · wkDataTab · wkCourseTab · mealPlanView ·
+//        healthGroupTab · catSection · dogSection · barMode.
+// ⏸️ NOT added: S.cookStep (cooking mode) — Back there should EXIT the mode, not walk 12
+//    steps backwards. Tina's call, not mine. S.searchPrevScreen is a memo, not a level.
 function navSignature(){
-  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkCountry||'', S.wkSelectedRegion||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||'', S.mealCat||'', S.mealActiveRecipe?(S.mealActiveRecipe.id||'mar'):''].join('|');
+  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkContinent||'', S.wkRegion||'', S.wkDataCountry||'', S.wkDataTab||'', S.wkCourseTab||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||'', S.mealCat||'', S.mealPlanView?'mpv':'', S.healthGroupTab||'', S.catSection||'', S.dogSection||'', S.barMode||'', S.mealCat||'', S.mealActiveRecipe?(S.mealActiveRecipe.id||'mar'):''].join('|');
 }
 function navInit(){
   if(window._tinzaNavInit) return;
@@ -435,6 +448,14 @@ function goBack(){
     if(S._shelfJump && _appNavDepth > 0 && typeof history !== 'undefined'){
       try{ history.back(); return; }catch(_e){}
     }
+    // (0c) COOKING MODE — Back EXITS the mode. ⚖️ §24.1, RULED 25 Jul.
+    //      Cooking mode is not a place, it is a MODE a recipe is put into: full-screen,
+    //      one step at a time. Walking Back through twelve steps would cost twelve presses
+    //      to leave, and the twelfth would land on the recipe she was already reading.
+    //      This is exactly WHY S.cookStep is NOT in navSignature() — no history entries,
+    //      nothing to walk. Without this step, Back fell to (4) and dumped her on HOME
+    //      from mid-recipe, mid-cook, hands covered in flour.
+    if(S.cookRecipe){ set({cookRecipe:null, cookStep:0}); window.scrollTo(0,0); return; }
     // (1) Details that pushed NO history entry (budget recipe isn't in navSignature) →
     //     close via their own closer, returning to that section's own list.
     if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
@@ -586,9 +607,9 @@ function draw(){
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
     <div style="font-size:13px;color:#a87849;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
-      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
-      <button onclick="USER_TIER='deluxe';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkSelectedRegion=null;S.wkCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='deluxe'?'#40c0a0':'#0a1810'};background:${USER_TIER==='deluxe'?'#0a1810':'var(--card)'};color:${USER_TIER==='deluxe'?'#40c0a0':'#204030'};font-size:13px;">💎 Deluxe</button>
+      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
+      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
+      <button onclick="USER_TIER='deluxe';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='deluxe'?'#40c0a0':'#0a1810'};background:${USER_TIER==='deluxe'?'#0a1810':'var(--card)'};color:${USER_TIER==='deluxe'?'#40c0a0':'#204030'};font-size:13px;">💎 Deluxe</button>
     </div>
   </div>`;
 
