@@ -1,0 +1,74 @@
+flowchart TD
+
+  A["🔙 25 Jul · THE TWO BACKS<br/>§24 · §24.1 · §24.2 — all ruled by Tina on live"]:::hdr
+
+  A --> P["✅ BANKED EARLIER TODAY<br/>§11 ROOM/SHELF/TOOL · R50→R90 sweep ·<br/>goBack/tinzaSearchBack (census 8 ①–④)"]:::done
+
+  A --> B["⚖️ §24 · THE TWO BACKS ARE TWO JOBS"]:::law
+  B --> B1["BOTTOM = step back ONE level, never Home first press<br/>TOP = jump UP to the ROOM FRONT DOOR, any depth"]:::law
+  B --> B2["A TOP BACK MUST NAME WHERE IT GOES.<br/>On the room's own front door it reads '← Home'"]:::law
+  B --> B3["OPTION A ruled — no room bends it.<br/>Cost accepted: Boerekos→Cape Malay = 2 extra taps"]:::law
+
+  A --> C["🌍 WORLD KITCHEN — FIXED"]:::fix
+  C --> C1["worldkitchen.js:308 — said '← World Kitchen',<br/>cleared wkScreen+wkDataCountry but NOT<br/>wkContinent/wkRegion → landed on the region list.<br/>The label wasn't lying, it was TWO KEYS SHORT"]:::fix
+  C --> C2["worldkitchen.js:190 — ONE header served the<br/>continent grid AND the region list; said '← Home'<br/>on both. Now asks its own depth"]:::fix
+
+  A --> D["🚨 THE FINDING UNDER THE FINDING<br/>navSignature() IS A CONTRACT, NOT A LIST"]:::crit
+  D --> D1["draw() pushes history ONLY when the signature<br/>changes → a level it cannot see is a level Back<br/>cannot walk → step (3) empty → step (4) = HOME"]:::crit
+  D --> D2["🩸 Watched wkCountry + wkSelectedRegion —<br/>WRITTEN BY NO ROOM EVER (so the tier-switcher<br/>'reset' never reset WK either, repointed ×3) —<br/>while wkContinent→wkRegion→wkDataCountry<br/>went completely unseen"]:::crit
+  D --> D3["11 BLIND KEYS, 5 ROOMS · TEN ADDED<br/>WK ×5 · healthGroupTab · mealPlanView ·<br/>catSection · dogSection · barMode"]:::crit
+  D --> D4["⚖️ NEVER PATCH goBack() FOR THIS — ADD THE KEY.<br/>Step (4) was CORRECT all along (3 Jul FMF-leak fix);<br/>the rooms gave it nothing to walk"]:::law
+
+  A --> E["🍳 §24.1 · COOKING MODE — BACK EXITS"]:::fix
+  E --> E1["Not a place — a MODE a recipe is put into.<br/>12 steps = 12 presses to leave, and the 12th lands<br/>on the recipe she was already reading"]:::fix
+  E --> E2["S.cookRecipe was in NO signature either →<br/>Back dumped her HOME from mid-cook.<br/>goBack step (0c) added. cookStep STAYS OUT"]:::fix
+
+  A --> F["🎉 §24.2 · EVENTS — A FRONT DOOR IS A PLACE<br/>YOU GO TO, NOT A THING YOU CARRY"]:::fix
+  F --> F1["The 5-tile grid rendered on EVERY Events screen;<br/>picking a tile only called eventsScrollToContent()<br/>to SCROLL PAST it — so scrolling back up to the<br/>Back button walked her through all four tabs<br/>she had not chosen"]:::fix
+  F --> F2["Grid now renders ONLY when no tab is open.<br/>Header NAMES the tab (title+emoji+tagline switch),<br/>Back reads '← Events' → the grid; '← Home' on it"]:::fix
+  F --> F3["GUEST BAR STAYS inside every tab —<br/>it is the ONE Events guest count (§2.2)"]:::fix
+  F --> F4["Cost, same as WK, accepted the same way:<br/>Finger Foods → Cakes = Back, then Cakes"]:::fix
+
+  A --> G["🩺 CENSUS 8 — now SIX rungs"]:::watch
+  G --> G1["⑤ every room-nav key in navSignature ✔<br/>proven RED by removing wkContinent/wkRegion"]:::watch
+  G --> G2["⑥ every header Back names its destination —<br/>BORN RED: 14 labelled just '← Back'<br/>(events ×6 · spice ×2 · health ×2 · kiddies ×2 ·<br/>meals · core). Bottom Back MAY be anonymous;<br/>a header Back is a jump and must say where.<br/>⚖️ Law 22 — RISK LIST, not a same-session fix"]:::watch
+  G --> G3["4 dead keys LEFT IN on purpose<br/>(wkCourseTab wkTab kiddiesView healthTab)"]:::watch
+
+  A --> H["🩸 THE INSTRUMENT LIED THREE TIMES TODAY"]:::law
+  H --> H1["① scanned core.js and counted navSignature's<br/>OWN REFLECTION → clean bill, 9 false deaths"]:::law
+  H --> H2["② read the COMMENT naming a key dead and<br/>RE-ANIMATED it off my own sentence"]:::law
+  H --> H3["③ the goBack matcher had a FIXED 2400-char window;<br/>the §24.1 comment pushed the function past it, so it<br/>stopped reading and reported an ALREADY-FIXED bug<br/>as unfixed"]:::law
+  H --> H4["⚖️ Law 19, three shapes: a measurement that<br/>includes the measurer is not a measurement ·<br/>prose is not evidence · an instrument with an<br/>arbitrary limit measures the LIMIT, not the code"]:::law
+
+  A --> I["📦 HANDBACK — node --check clean ×4"]:::out
+  I --> I1["core.js · events.js · worldkitchen.js ·<br/>tinza-census.js · TINZA_RULINGS.md (§24, 24.1, 24.2)"]:::out
+  I --> I2["ACCEPTANCE ON LIVE (Law 2 — your eyes close it):<br/>1 · Events → Finger Foods = ONLY finger foods,<br/>   guest bar still on top, header says Finger Foods,<br/>   top Back says '← Events'<br/>2 · WK → Southern Africa → Boerekos → top Back =<br/>   the CONTINENTS screen<br/>3 · bottom Back walks ONE level, no dead tap,<br/>   no jump Home on the first press<br/>4 · Start Cooking → bottom Back EXITS to the recipe<br/>5 · spot-check Health · Tiny Tummies · Bar Planner"]:::out
+
+  A --> J["❓ STILL OPEN"]:::ask
+  J --> J1["14 anonymous '← Back' labels — fix as a sweep<br/>(rung ⑥ turns green when they name destinations)"]:::ask
+  J --> J2["'§11' names THREE things in TINZA_RULINGS.md<br/>LOCALE :295 · store :963 · tool ruling :662"]:::ask
+  J --> J3["core.js _warm allow-list of 10 screens —<br/>HOME IS NOT ON IT, nor the 6 Smart Features"]:::ask
+  J --> J4["§11 seam: I've Got R100 · I Have Chicken ·<br/>Just Feed Me — input=tool, result=shelf?"]:::ask
+
+  A --> K["📋 QUEUE — next in order"]:::todo
+  K --> K1["2 · shareList() — 21 WhatsApp copies, 5 labels"]:::todo
+  K --> K2["3 · TINZA_PRICE (MF91) — written 21×"]:::todo
+  K --> K3["4 · openSectionSearch(scope) (MF95) — braai/spice<br/>pills navigate away; 30 same-shape = RISK list"]:::todo
+  K --> K4["5 · sectionHeader() sub:true — kills barplanner<br/>hand-rolled header :214; budget.js + tinyTummies.js<br/>have NO sectionHeader() at all"]:::todo
+
+  A --> L["📌 CARRIED"]:::carry
+  L --> L1["Toum wk_africa.js ~:132 · Photo Studio regenerate ·<br/>wk_europe ~231 double-encoded names"]:::carry
+  L --> L2["Bar Planner: lemons dead data · no My Plan join ·<br/>unverified prices · state not in tinzaStore"]:::carry
+  L --> L3["FABLE ⏸️ POST-RESET ONLY — S3 dessert icons +<br/>Umngqusho + S2 tail · MF141 sosaties"]:::carry
+  L --> L4["Census RED elsewhere: 2 search engines ·<br/>118 vegan invisible to veg filter (Law 48) ·<br/>21 meat recipes answer a vegan search (Law 47)"]:::carry
+
+  classDef hdr fill:#b5462b,stroke:#2c211a,color:#fffaf2,font-weight:bold
+  classDef law fill:#d98a2b,stroke:#2c211a,color:#2c211a,font-weight:bold
+  classDef fix fill:#e8f0d8,stroke:#46530c,color:#2c211a
+  classDef crit fill:#f5d0c8,stroke:#b5462b,color:#2c211a,font-weight:bold
+  classDef watch fill:#fdf0d8,stroke:#876213,color:#2c211a
+  classDef done fill:#e8f0d8,stroke:#46530c,color:#2c211a
+  classDef out fill:#fffaf2,stroke:#6b5849,color:#2c211a
+  classDef ask fill:#f7ebdc,stroke:#b5462b,color:#2c211a,stroke-dasharray:4 3
+  classDef todo fill:#fbf3e6,stroke:#6b5849,color:#2c211a
+  classDef carry fill:#f2ece2,stroke:#a89684,color:#4a3d33

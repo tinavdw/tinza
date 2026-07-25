@@ -1137,3 +1137,73 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 - ⚖️ **DERIVED from TIME + SECTION + INGREDIENTS.**
 - ⛔ **NEVER matched against the `feel` PROSE.** ⚖️ **Law 47 — that is how a vegan got a lamb tagine.**
 - ⚠️ **`impress` and `pickmeup` are PURE TASTE. Not derivable. They stay hand-picked.** ⚖️ **Law 11.**
+
+---
+
+## 🔙 24 · THE TWO BACKS — **RULED 25 Jul 2026** *(Tina, on live, in World Kitchen)*
+
+> ⚖️ **THE PROPOSED LAW "A SCREEN WITH TWO BACKS HAS ONE EXIT" IS STRUCK BEFORE IT WAS EVER FILED.**
+> It was wrong. Two Backs are not a duplicate — **they are two different jobs**, and Tina had already designed it that way.
+
+### 🧭 THE TWO JOBS
+
+| | job | goes |
+|---|---|---|
+| **BOTTOM Back** *(spine)* | **step back ONE level** | egg recipe → Eggs → Breakfast → Family Meals. **Never Home on the first press.** |
+| **TOP Back** *(header)* | **go UP to the ROOM front door** | from anywhere inside, however deep, in one press |
+
+- ✅ **THE TOP BACK EXISTS SO SHE CAN GO SIDEWAYS.** From an egg recipe to Supper is *Family Meals → Supper* — **two taps, not four.** Delete it and the bottom Back gets pressed three times to do the same thing.
+- ⚖️ **A TOP BACK MUST NAME WHERE IT GOES.** `← Family Meals`, `← World Kitchen`, `← Home`. **A Back labelled just "← Back" that lands somewhere different depending on how you arrived is a liar** — census 8 already tests this for the six that go Home; it now tests all of them.
+- ⚖️ **ON A ROOM'S OWN FRONT DOOR THE TOP BACK READS `← Home`.** There is nothing above the room. *(Answers the 25 Jul open question.)*
+
+### 🌍 OPTION A — **RULED, WORLD KITCHEN INCLUDED**
+
+**The top Back goes to the ROOM FRONT DOOR. Everywhere. No room bends the rule.**
+
+- ⚠️ **THE COST IS REAL AND WAS ACCEPTED WITH EYES OPEN:** WK is one level deeper than Family Meals *(continent → region → country → dish)*, so from Boerekos, reaching Cape Malay — its own neighbour — means re-drilling Africa → Southern Africa. **Two extra taps on the likeliest next move.**
+- ⛔ **OPTION B WAS REJECTED** *(top Back → the region list)*: on a country page the **bottom** Back already goes there, so B would give **two buttons doing one job** — the exact thing this ruling exists to prevent. ⚖️ **A rule that bends per room is not a rule.**
+
+### 🐛 WHAT WAS ACTUALLY BROKEN *(measured at HEAD, 25 Jul)*
+
+1. **`worldkitchen.js:308`** — the country header said `← World Kitchen` and cleared `wkScreen` + `wkDataCountry` but **not `wkContinent`/`wkRegion`**, so it re-rendered the *region list*. **The label was not lying on purpose. It was two keys short.**
+2. **`worldkitchen.js:190`** — **ONE header serves both the continent grid and the region list** *(the drill happens in the content area, so the header never learns she went deeper)*. It read `← Home` on both and **walked out of the room from both.** Now it asks its own depth.
+3. **`navSignature()` — the real one.** ⬇️
+
+### 🚨 THE FINDING UNDER THE FINDING — **navSignature() IS A CONTRACT, NOT A LIST**
+
+`draw()` pushes a history entry **only when `navSignature()` changes.** A level the signature cannot see is **a level Back cannot walk** — `goBack()` step (3) finds nothing and falls through to step (4), which dumps her on Home.
+
+- 🩸 **THE SIGNATURE WATCHED `wkCountry` AND `wkSelectedRegion` — WHICH NO ROOM HAS EVER WRITTEN** *(they appear only in the signature itself and the tier-switcher clear-down, which therefore also never reset World Kitchen)* — **while the real drill `wkContinent → wkRegion → wkDataCountry` went completely unseen.**
+- 🕳️ **ELEVEN blind keys across FIVE rooms:** `wkContinent` `wkRegion` `wkDataCountry` `wkDataTab` `wkCourseTab` *(WK)* · `healthGroupTab` *(Health)* · `mealPlanView` *(FMF)* · `catSection` `dogSection` *(Tiny Tummies)* · `barMode` *(Bar Planner)*.
+- ✅ **TEN ADDED. THE SAME SYMPTOM IN FIVE ROOMS HAD ONE CAUSE.**
+- ⛔ **NEVER PATCH `goBack()` FOR THIS. ADD THE KEY.** ⚖️ **Law 6.** goBack() step (4) is **correct** — it is the deliberate 3 Jul fix that stops Back walking into an unrelated earlier screen. It only *looked* wrong because the rooms gave it nothing to walk.
+- ⏸️ **`S.cookStep` DELIBERATELY NOT ADDED** — Back in cooking mode should **exit the mode**, not walk twelve steps backwards. **Tina's call, still open.** `S.searchPrevScreen` is a **memo, not a level** — it stays out.
+- 📋 **FOUR DEAD KEYS LEFT IN ON PURPOSE** *(`wkCourseTab` `wkTab` `kiddiesView` `healthTab`)* — always empty, so they cost nothing, and **deleting keys on a tool's say-so is how a live key gets buried.** Reported, not removed.
+
+### 🩺 CENSUS 8 RUNG ⑤ — **THE WATCHER**
+
+> **Every key a room navigates by must appear in `navSignature()`; every key it watches must be written by some room.**
+
+- ✔️ **Proven RED** by removing `wkContinent`/`wkRegion` — the original bug, reproduced on demand.
+- ⚖️ **THE TWO SIDES USE DELIBERATELY DIFFERENT EVIDENCE.** Blind spots test **strictly** (`S.key` only) or the delta verbs `addStep`/`swapStep` sweep in and it cries wolf. Dead keys test **leniently** (`S.key` **or** `key:`) or three live keys written only as `set({wkSACulture:…})` get **buried alive**. *Each side errs the safe way.*
+- 🩸 **THE INSTRUMENT LIED TWICE BEFORE IT TOLD THE TRUTH.** First it scanned `core.js` and **counted `navSignature()`'s own reflection** — clean bill, nine false deaths. Then, once comments were in, it read **the prose naming a key dead** and **re-animated it off my own sentence.** ⚖️ **Law 19 — a measurement that includes the measurer is not a measurement.** Comments are now stripped before scanning.
+
+
+### 🍳 24.1 · COOKING MODE — **BACK EXITS THE MODE** *(ruled 25 Jul, Tina)*
+
+- ✅ **Cooking mode is not a PLACE. It is a MODE a recipe is put into** — full screen, one step at a time.
+- ⛔ **Back does NOT walk the steps backwards.** Twelve steps would cost **twelve presses to leave**, and the twelfth would land on the recipe she was already reading.
+- ⚖️ **THIS IS WHY `S.cookStep` STAYS OUT OF `navSignature()`** — no history entries, nothing to walk. `goBack()` step **(0c)** clears `cookRecipe` + `cookStep` and returns her to the recipe.
+- 🩸 **IT WAS ALSO BROKEN:** `S.cookRecipe` was in no signature either, so Back fell through to step (4) and **dumped her on Home from mid-cook.**
+
+### 🎉 24.2 · A FRONT DOOR IS A PLACE YOU GO TO, NOT A THING YOU CARRY
+
+**Events, ruled 25 Jul from live.** The five-tile grid *(Big Buffet · Finger Foods · Celebration Cakes · Kiddies · Beverages)* rendered on **every** Events screen; picking a tile only called `eventsScrollToContent()` to **scroll past it**. So scrolling back up to reach the top Back **walked her through all four tabs she had not chosen.**
+
+- ✅ **THE TILE GRID NOW RENDERS ONLY WHEN NO TAB IS OPEN.** Open Finger Foods and you are **in Finger Foods** — nothing else.
+- ✅ **THE HEADER NAMES THE TAB** *(title, emoji and tagline all switch)* and its Back reads **`← Events`**, returning to the tile grid. On the grid itself it reads **`← Home`**. ⚖️ **§24.**
+- ✅ **THE GUEST BAR STAYS VISIBLE INSIDE EVERY TAB** — it is the **ONE Events guest count** (§2.2) and it drives every portion on screen.
+- ⚖️ **THE COST, SAME AS WORLD KITCHEN AND ACCEPTED THE SAME WAY:** Finger Foods → Cakes is **Back to Events, then Cakes** — two taps. **A rule that bends per room is not a rule.**
+- 📋 **CENSUS 8 RUNG ⑥ — BORN RED ON PURPOSE:** **14 header Backs are labelled just `← Back`** *(events ×6, spice ×2, health ×2, kiddies ×2, meals, core)* and **name no destination.** The **bottom** Back may be anonymous — it always means one level. A **header** Back is a jump and must say where. ⚖️ **Law 22 — a RISK LIST, not a same-session fix.**
+- 🩸 **THE INSTRUMENT LIED A THIRD TIME.** The `goBack()` matcher used a **fixed 2400-character window**; the §24.1 comment pushed the function past it, the matcher stopped reading before the call it was looking for, and it reported the *already-fixed* search bug as unfixed. ⚖️ **Law 19 — an instrument with an arbitrary limit measures the limit, not the code.** Now matched to the closing brace.
+

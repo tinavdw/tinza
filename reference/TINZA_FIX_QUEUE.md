@@ -286,3 +286,38 @@ furry 36 · buffet 36 · braai 34 · worldkitchen 23 · health 9 · barplanner 9
   1. **Governance (cheap, do first).** Promote the existing `PORTION` numbers into an authoring + audit rule: a main targets ~150–180g protein pp, side ~150g, starter ~60g, dessert ~120g. Add a `tinza-doctor` check that flags any recipe whose protein pp falls outside the band for its dish-type. A portion standard exactly as WOW_STANDARD is a voice standard — it would have caught the 90g Bobotie the moment it was written. **Own session.**
   2. **Engine reach (real feature, much later).** Make `appetiteMult` + the base standard apply app-wide so "Big Eaters" scales every recipe, not just braai. **Same multi-opener surgery as vessels** — every recipe opener multiplies pp through the shared path. Its own project, after part 1.
 - **Note.** Nothing in the locked PORTION BRAIN (§6.1, braai-only) forces a number on mince bakes, so the bands are Tina's caterer call to set. Ideas-adjacent but agreed + scheduled, so it lives here with its gate, not in the backlog.
+
+---
+
+## 🎂 LOGGED FOR LATER (Tina, 25 Jul) — **CELEBRATION CAKES NEEDS A FULL MAKEOVER**
+**Not a bug. A content-quality call, in Tina's words: "it's not up to standard at this stage."**
+
+- **The scope.** The Celebration Cakes tab becomes **celebration / wedding / baptism / christening / anniversary cakes** with **proper recipes and methods** — not the placeholder-grade content sitting there now.
+- **The bar is the WOW STANDARD** *(`/wow`, `WOW_STANDARD.md`)*: Michelin-chef-to-grandma voice, why-led method with temps + times + sensory cues, unique "How This Feels", a `didYouKnow` moat, buy-name ingredients matching `PRICE_DB`, storage/freezes/fridgeDays, verified `goesWith`.
+- **⚖️ Leaveners in g/ml, never "to taste."** Non-negotiable on cakes above all — this is the section where a guessed raising agent ruins a wedding.
+- **Tiering matters here.** Cakes sit under **Events**, which is **Deluxe** territory. A showstopper section is a reason to upgrade — it should read like one.
+- **GATE:** does **not** jump the queue. Sameness first, then bugs, then WK recipes. Same gate as the portion-standard item above.
+- **Related, still open:** `weddingCakeView` is one of the four **dead keys** in `navSignature()` *(§24)* — check whether Cakes still navigates by it when this work starts.
+
+---
+
+## 🎉 RAISED 25 Jul (Tina, from live) — **EVENTS NEEDS A SAMENESS REVAMP**
+**"Events needs a sameness revamp."** Measured at HEAD the same day.
+
+**Events is not one room with five tabs. It is a room plus three sub-apps that each invented their own header.**
+
+| file | headers | notes |
+|---|---|---|
+| `events.js` | 1 `sectionHeader()` | the actual room |
+| `buffet.js` | **7** `sectionHeader()` + `eventsTopNav()` ×2 | its own sub-app |
+| `kiddies.js` | 1, rendered as `eventsTopNav() + sectionHeader({…})` | **the pair sits ABOVE the photo header** |
+| `barplanner.js` | **0** — hand-rolled inline at `:214` | pre-reskin dark hexes |
+
+- 🩸 **`eventsTopNav()` IS A DUPLICATE.** It hand-rolls a **"← Events / 🏠 Home"** button pair and renders it on top of a header **that already has a Back**, on a spine that **already has Home**. On Kiddies that is **four ways out of one screen**. ⚖️ **§24 — two Backs are allowed only when they do two different jobs. Four is not two jobs.**
+- ⚖️ **§24.2 already ruled the principle:** *a front door is a place you go to, not a thing you carry.* Beverages and Kiddies show the same scroll-up symptom Finger Foods did.
+- **PROPOSED SEQUENCE — one step per session, measure each:**
+  1. **Delete `eventsTopNav()`.** The header Back (`← Events`) + the spine (Home) already do both jobs. Three call sites: `buffet.js:94`, `buffet.js:140`, `kiddies.js:46`.
+  2. **`sectionHeader()` gains `sub:true`** *(already queued as item 5)* — kills `barplanner.js:214`'s hand-rolled header and gives every Events sub-screen ONE header shape.
+  3. **Collapse buffet.js's 7 headers** to the shared one.
+  4. **The 14 anonymous `← Back` labels** *(census 8 rung ⑥)* — 6 of them are in `events.js`.
+- ⚠️ **DO NOT do all four in one push.** ⚖️ **Stability rule 1** — one section at a time, `node --check`, Tina's eyes on live between each.

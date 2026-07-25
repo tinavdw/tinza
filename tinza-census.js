@@ -318,7 +318,11 @@ head('7 · WHO CHANGES THE SCREEN WITHOUT CLOSING THE OPEN RECIPE?   ⚖️ Law 
 head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
 {
   const core = fs.readFileSync(path.join(ROOT,'sections/core.js'),'utf8');
-  const gb = (core.match(/function goBack[\s\S]{0,2400}?\n\}/)||[''])[0];
+  // ⚠️ NO FIXED-SIZE WINDOW. This was /[\s\S]{0,2400}?/ and a comment added to goBack()
+  // pushed the function past the cap, so the matcher stopped reading before the call it
+  // was looking for and reported the bug as UNFIXED. ⚖️ Law 19 — an instrument with an
+  // arbitrary limit measures the limit, not the code. Match to the closing brace.
+  const gb = (core.match(/function goBack\(\)\{[\s\S]*?\n\}/)||[''])[0];
   const utils = fs.readFileSync(path.join(ROOT,'sections/utils.js'),'utf8');
   const exitFn = (core.match(/function tinzaSearchBack[\s\S]{0,900}?\n\}/)||[''])[0];
   const homeIdx = gb.search(/bottomBarGo\('home'\)/);
@@ -352,6 +356,87 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
     .reduce((n,f)=> n + (fs.readFileSync(path.join(ROOT,'sections',f),'utf8').match(/function tinzaSearchBack/g)||[]).length, 0);
   if (defs !== 1) bad(defs + ' definitions of tinzaSearchBack() — there must be exactly ONE  ⚖️ Law 6');
   else ok('tinzaSearchBack() is defined once');
+  // ⑤ THE SIGNATURE IS A CONTRACT — every key a ROOM navigates by must appear in it.
+  //    draw() pushes a history entry only when navSignature() changes, so a level the
+  //    signature cannot see is a level Back cannot walk: goBack() step (3) finds nothing
+  //    and step (4) dumps her on Home. WK drilled continent→region→country on THREE keys
+  //    the signature had never heard of, while watching two (wkCountry, wkSelectedRegion)
+  //    that no room has ever written. Same symptom, five rooms. ⚖️ Law 19 · §12.
+  //    NOTE: core.js is EXCLUDED as a writer — it holds the signature itself and the
+  //    tier-switcher clear-down, and counting those makes the instrument measure its own
+  //    reflection (it did, on 25 Jul, and reported a clean bill).
+  {
+    const sigFn = (core.match(/function navSignature\(\)\{[\s\S]*?\n\}/)||[''])[0];
+    const watched = new Set((sigFn.match(/S\.([A-Za-z_]\w*)/g)||[]).map(x=>x.slice(2)));
+    const NAVISH = /(Screen|View|Tab|Cat|Step|Country|Region|Continent|Section|Group|Theme|Culture|Detail|Pet|Mode)$/;
+    const EXEMPT = new Set(['searchPrevScreen','cookStep']);   // a memo, and a ruled-open question — not levels
+    // core.js HOSTS rooms (Mood, the SA culture view) so it cannot be excluded wholesale —
+    // that made the first version of this rung report 9 false deaths. Blind exactly TWO
+    // blocks instead: navSignature() itself and the tier-switcher clear-down. COMMENTS ARE
+    // STRIPPED FIRST — the prose naming a key dead mentions S.<key> and thereby re-animates
+    // it (this rung reported wkCountry alive off my own comment). data.js is not a writer:
+    // declaring a key in the initial state is not navigating by it.
+    const strip = t => t.replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/\/\/.*$/,'')).join('\n');
+    const writers = {};
+    fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js') && f!=='data.js').forEach(f=>{
+      let src = strip(fs.readFileSync(path.join(ROOT,'sections',f),'utf8'));
+      if(f==='core.js'){
+        src = src.replace(/function navSignature\(\)\{[\s\S]*?\n\}/,'')
+                 .split('\n').filter(l=>!/USER_TIER\s*=\s*'/.test(l)).join('\n');
+      }
+      (src.match(/S\.([a-z]\w*)/g)||[]).map(x=>x.slice(2)).forEach(k=>{
+        if(NAVISH.test(k) && !EXEMPT.has(k)) (writers[k]=writers[k]||new Set()).add(f);
+      });
+    });
+    const blind = Object.keys(writers).filter(k=>!watched.has(k)).sort();
+    if (blind.length) bad(blind.length + ' NAV KEYS THE BACK BUTTON CANNOT SEE',
+      '\n      ' + blind.map(k=>'\x1b[31m'+k+'\x1b[0m \x1b[2m← '+[...writers[k]].join(', ')+'\x1b[0m').join('\n      ') +
+      '\n      \x1b[2meach one is a level she can walk INTO and cannot walk back OUT of.' +
+      '\n      ⚖️ §12 — navSignature() is a CONTRACT. Add the key; do not patch goBack().\x1b[0m');
+    else ok('every room-nav key is in navSignature()', Object.keys(writers).length + ' keys, ' + watched.size + ' watched');
+
+    // DEAD KEYS use DIFFERENT, LOOSER evidence than blind spots — deliberately.
+    // Blind spots must be strict (S.key only): matching `key:` sweeps in the delta-contract
+    // verbs addStep/swapStep and cries wolf. Dead keys must be lenient (S.key OR key:):
+    // three live keys are only ever written as set({wkSACulture:…}) and a strict test
+    // buried them alive. Each side errs the SAFE way — toward "there is a bug" for blind
+    // spots, toward "it is alive" for deletions.
+    const anyWrite = {};
+    fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js') && f!=='data.js').forEach(f=>{
+      let src = strip(fs.readFileSync(path.join(ROOT,'sections',f),'utf8'));
+      if(f==='core.js') src = src.replace(/function navSignature\(\)\{[\s\S]*?\n\}/,'')
+                                 .split('\n').filter(l=>!/USER_TIER\s*=\s*'/.test(l)).join('\n');
+      [].concat((src.match(/S\.([a-z]\w*)/g)||[]).map(x=>x.slice(2)),
+                (src.match(/\b([a-z]\w*)\s*:/g)||[]).map(x=>x.replace(/\s*:$/,'')))
+        .forEach(k=>{ (anyWrite[k]=anyWrite[k]||new Set()).add(f); });
+    });
+    const dead = [...watched].filter(k=>NAVISH.test(k) && !anyWrite[k]);
+    if (dead.length) bad(dead.length + ' DEAD keys in navSignature(): ' + dead.join(' · '),
+      '\n      \x1b[2mwatched but written by no room — the signature guarding a door that is not there.\x1b[0m');
+    else ok('navSignature() watches no dead keys');
+  }
+
+  // ⑥ ⚖️ §24 — A TOP BACK MUST NAME WHERE IT GOES. The BOTTOM (spine) Back is allowed to
+  //    be anonymous: it always means "one level", every screen, no exceptions. A HEADER
+  //    Back is a jump to a named place, so "← Back" tells her nothing and is free to land
+  //    somewhere different depending on how she arrived. Born RED on purpose — this is the
+  //    remaining work, measured, not a gate.
+  {
+    let anon = [];
+    fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+      const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+      [...src.matchAll(/backLabel\s*:\s*(['"])(?:\\.|(?!\1).)*\1/g)].forEach(m=>{
+        if(/[\u2190]|&#8592;|\\u2190/.test(m[0]) && /Back['"]\s*$/.test(m[0]))
+          anon.push(f + ' ' + m[0].slice(0,44));
+      });
+    });
+    if (anon.length) bad(anon.length + ' header Backs are labelled just "← Back" — they name NO destination',
+      '\n      ' + anon.join('\n      ') +
+      '\n      \x1b[2m⚖️ §24 — the bottom Back may be anonymous (it always means one level).' +
+      '\n      A header Back is a JUMP, so it must say where: "← Events", "← Braai", "← Home".\x1b[0m');
+    else ok('every header Back names its destination  ⚖️ §24');
+  }
+
   // every sectionHeader back — are they honest about where they go?
   let liars = 0, homes = 0;
   fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
