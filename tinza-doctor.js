@@ -328,23 +328,48 @@ if (all && all.length) {
       else pass('The holder survives the door (rec → normalizeRecipe → allRecipes)', anyEquipped.name);
     }
 
-    // COVERAGE census — ⚠️ WARN, NOT A GATE. Authoring the holders is a separate Fable
-    // pass; until it lands every bake honestly has eq=none. This counts the gap out loud
-    // (never silently), so the ratchet tightens to a RED gate the day authoring is done.
-    // Reads the SOURCE array directly (equipment now survives the door — MF144 — but the
-    // source is the authoritative, adapter-independent count). Bake family = BAKES_RECIPES.
-    const BAKE_CATS = ['cheesecakes', 'cakes', 'tarts', 'pastries'];
-    const bakeSrc = (ctx && ctx.BAKES_RECIPES) || [];
-    const bakes = bakeSrc.filter(r => BAKE_CATS.indexOf(r.cat) > -1);
-    const missing = bakes.filter(r => !Array.isArray(r.equipment) || !r.equipment.length);
-    if (!bakes.length) {
-      warn('No {cheesecakes,cakes,tarts,pastries} recipes found to census', 'the .cat field may have moved — check the census');
-    } else if (missing.length) {
-      warn('Bakes with no equipment holder yet — authoring pending (Fable, not a gate)',
-        missing.length + ' of ' + bakes.length + ' bake-family recipes · cats: ' + BAKE_CATS.join(', '),
-        missing.map(r => r.name + '  [' + (r.section || '?') + ' · ' + r.cat + ']'));
+    // ── COVERAGE · MF144 PHASE C ────────────────────────────────────────
+    // ⚖️ THE OLD GUARD READ `BAKES_RECIPES` ONLY — and that is exactly how the
+    // bare twins survived a green board. The library keeps the SAME DISH as
+    // separate records in different rooms; the Phase B pass tagged the NAMED
+    // record and every cross-room copy stayed bare, silently. Melktert carried
+    // a holder in bakes and none in World Kitchen or Events. A room-blind
+    // watcher cannot see a room-crossing bug. ⚖️ Law 42 — the ratchet.
+    //
+    // Now spans EVERY room, and splits the finding in two:
+    //   SPLIT    → RED. A twin of this dish HAS a holder and this copy does not.
+    //              The dish is PROVEN to need one, so a bare copy is a BUG —
+    //              never a pending authoring decision.
+    //   ALL-BARE → WARN. Holder-shaped, but no copy anywhere has one. Genuinely
+    //              authoring-pending (a Fable pass), so it stays a warning.
+    var AUD = null;
+    try { AUD = require('./Tools/tinza-holder-audit.js'); } catch (e) { AUD = null; }
+    if (!AUD || typeof AUD.analyse !== 'function') {
+      // ⚖️ MF135 — a watcher that swallows its own failure cannot watch. If the
+      // audit module is gone, coverage is UNCHECKED, and unchecked must be LOUD.
+      fail('The holder-coverage audit module is MISSING',
+        'Tools/tinza-holder-audit.js — cross-room holder coverage is now UNCHECKED');
     } else {
-      pass('Every bake-family recipe carries an equipment holder', bakes.length + ' bakes · authoring complete → promote this to a gate');
+      var doorAll = [];
+      try { doorAll = (ctx && ctx.allRecipes) ? ctx.allRecipes() : []; } catch (e) { doorAll = []; }
+      var rep = AUD.analyse(doorAll);
+      var bareCopies = rep.split.reduce(function (n, x) { return n + x.bare.length; }, 0);
+      if (bareCopies) {
+        fail('BARE TWINS — a copy of a holder-carrying dish has NO holder',
+          bareCopies + ' bare copies across ' + rep.split.length + ' dishes · the dish is proven, the copy is a bug',
+          rep.split.map(function (x) {
+            return x.eq[0].name + '   ✓ ' + AUD.loc(x.eq[0]) + '   ✗ ' + x.bare.map(AUD.loc).join(' , ');
+          }));
+      } else {
+        pass('No bare twins — every copy of a holder-carrying dish carries it too', 'all rooms agree');
+      }
+      var cand = rep.allBare.reduce(function (n, x) { return n + x.g.length; }, 0);
+      if (cand) {
+        warn('Holder-shaped dishes with no holder anywhere — authoring pending (Fable, not a gate)',
+          cand + ' records across ' + rep.allBare.length + ' dishes · run  node Tools/tinza-holder-audit.js');
+      } else {
+        pass('Every holder-shaped dish carries a holder', 'authoring complete → promote this WARN to a gate');
+      }
     }
   }
 }

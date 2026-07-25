@@ -408,8 +408,32 @@ The SOFT default (open at 6, *"scale up or freeze"*) is a **family-meal** idea �
 
 #### 🅿️ IN-BETWEEN DISH COUNTS **ROUND UP** — THE "1 FULL + 1 SMALLER" NOTE IS **PARKED** — **RULED 24 Jul 2026**
 
+
 An awkward serving count (8, 10, 15) is **not** an architecture problem. The existing contract already answers it: `count = Math.ceil(scaledServings / per)` — **confirmed live at HEAD** (Code, 24 Jul): the ceil is present in **both** vessel renderers, `equipmentLine` (`core.js:3163`) and `equipmentContract` (`core.js:3182`), and a grep found no un-ceiled `servings ÷ per` anywhere in the vessel path. **Nothing to edit.** Ten servings → **2 dishes** (five each — shallow, never wrong, nobody misled). The truer *"one full 9×13 dish plus a smaller one"* answer would need a **defined second vessel per recipe** plus remainder logic — real cost for a marginal gain. **Parked, not forgotten.** *(Tina, 24 Jul: revisit as an in-app helper once at scale — a chef assistant that answers "how many dishes for 14?" live is the right home for it, never hard-coded per recipe.)*
 
+
+#### 🆕 🍽️ THE HOLDER FOLLOWS THE **YIELD BASIS**, NOT THE NAME — AND A **BARE TWIN IS RED** — **RULED 25 Jul 2026** *(MF144 Phase C)*
+
+**What Phase B missed.** The holder pass tagged **one named record per dish**. The library keeps the *same dish* as **separate records in different rooms**, so every cross-room twin stayed bare — and the coverage guard read `BAKES_RECIPES` only, so it never looked. Melktert carried a tin in **bakes** and nothing in **World Kitchen** or **Events**; Malva carried a dish in **Events** and nothing in **bakes** or **WK**; **Beef Lasagne**, the textbook soft dish, had nothing anywhere. A green board the whole time. ⚖️ **A room-blind watcher cannot see a room-crossing bug.**
+
+- 🔴 **A BARE TWIN IS RED, NEVER "PENDING".** If any copy of a dish carries a holder, the dish is **proven** to need one — so a bare copy is a **bug**, not an authoring decision waiting its turn. Doctor rung 12 now **fails** on it. *(Proven by re-introducing the bug: stripping `events:melktert` moved the count 6 → 7 and named the record.)*
+- ⚠️ **NO copy anywhere has one → WARN, not RED.** Holder-shaped and untagged across the board is genuinely authoring-pending (a Fable pass). It stays a warning until authoring closes, then the WARN is promoted to a gate. ⚖️ **Law 42 — the ratchet.**
+- ⚖️ **THE HOLDER FOLLOWS THE YIELD BASIS.** Same name is **not** same holder. A record whose ingredients scale **per person** has **no fixed yield** and therefore takes **NO holder** — `braai:periperibraai` is costed at *3g pp · 8ml pp*, so a *"500ml bottle"* would be a lie on the page, even though `spice:peri-peri-sauce` (a batch, yield in ml) correctly carries one. **Ask of the record, never of the name:** does it yield a *fixed thing* (a dish, a tin, a jar) or a *per-head amount*? Only the first takes a holder.
+- 🍽️ **Copying a twin's holder is a decision, not a mechanic.** Two records can be the same dish and still want different vessels — a Dutch **Appeltaart** is a deep springform where an SA **Appeltert** is not. Where the vessel genuinely differs, **ask Tina** (⚖️ §2.3), never infer.
+- 🔧 **The watcher** = `Tools/tinza-holder-audit.js` — boots the real library and **walks the records** (⚖️ §19 parse-never-grep), groups cross-language twins, and is `require`d by the doctor so there is **one** grouping, not a copy per tool. If the module goes missing the doctor **fails loudly** — ⚖️ **MF135, a watcher that swallows its own failure cannot watch.**
+
+
+#### 🆕 🍽️ THE HOLDER IS A **RECOMMENDATION**, NEVER A REQUIREMENT — **RULED 25 Jul 2026** *(Tina)*
+
+> *"Not everyone will have exactly the dish that is recommended. A housewife at home works with what she's got; a chef will probably have all the recommended dishes. This feature is just a helpful feature for the subscriber."*
+
+A chef owns every tin on the list. A woman cooking supper on a Tuesday owns **what is in her cupboard** — and the app must **never imply her dish is wrong**. The vessel line exists to tell her *what the method was written for*, so the times and depths make sense. It does **not** exist to send her shopping.
+
+- 🗣️ **The heading is `🍽️ What To Cook It In`** — *not* **"You'll Need"**. "You'll need" is an instruction and reads as a barrier at the exact moment she is deciding whether to cook the thing.
+- 📏 **The box says the quiet part out loud**, every time, under the holder rows: *"A guide, not a rule — cook it in what you have. Anything close in size works. A smaller dish bakes deeper and needs a little longer; a bigger one bakes flatter and is done sooner."* That last clause is the **useful** half — it hands her the trade-off instead of a rule, which is the WOW Standard's whole voice (⚖️ *Michelin chef explaining it to a grandma*).
+- 🔢 **The COUNT still matters and still shows.** Recommendation-framing softens the *vessel*, never the *arithmetic* — 13 servings is still `ceil(13/6) = 3 dishes`, because a caterer plating a function needs that number to be true.
+- ✍️ **The banner names its noun.** *"your total for all 3"* was a dangling number; it now reads *"your total for all 3 **dishes**"* — a modelled bake uses its own unit word (cake, tray), a soft oven dish borrows the honest word *dish*. *(Closes the cosmetic loose thread carried from 24 Jul.)*
+- 🍏 **Same name ≠ same tin — proven, not assumed.** Ruled by reading the ingredient bases: `bakes:bk-apple-tart` is **puff pastry** (flat tart) · `netherlands-appeltaart` is a **pastry dough with egg** (deep — 24cm springform) · `boerekos-appeltert` carries **baking powder**, so it is a **batter, not a crust** (a soft baked pudding-tart → ovenproof dish). Three constructions, three depths, three holders. ⚖️ The ingredient list settles a vessel question that the name cannot.
 
 ---
 

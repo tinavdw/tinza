@@ -23,7 +23,7 @@ const EVENTS_BIG_COOKING_MAINS = [
     base300:[{n:"Chicken thighs (boneless, skinless)",a:"180g per person"},{n:"Puff pastry",a:"30g per person (1 roll per 6 people)"},{n:"Onion (diced)",a:"20g per person"},{n:"Carrots (diced)",a:"25g per person"},{n:"Frozen peas",a:"25g per person"},{n:"Milk (for white sauce)",a:"120ml per person"},{n:"Flour (for sauce)",a:"10g per person"},{n:"Butter",a:"12g per person"},{n:"Oil",a:"5ml per person"},{n:"Fresh thyme",a:"1g per person"},{n:"Egg (for egg wash)",a:"½ per person"}],
     method:["Poach the chicken in water or stock until cooked, then shred into large pieces.","Make a béchamel white sauce: melt the butter, stir in the flour to a roux, then whisk in the milk until thick and smooth.","Fry the onion in the oil, add the carrots and peas and cook 5 min.","Stir in the shredded chicken and the béchamel; season well with salt, pepper and thyme. Cool completely.","Fill the pie dishes, cover with puff pastry, brush with egg wash and score the top.","Bake at 200°C for 25-30 min until golden and bubbling.","For large groups: use deep serving pans (about 53 × 33 cm) — 1 pan feeds 20."],
     tip:"The filling MUST be cold before adding pastry or it will make the bottom soggy. Make filling day before." },
-  { id:"lasagna", name:"Lasagna", emoji:"🍝", costPP:23,
+  { id:"lasagna", "equipment": [{"n":"23×33cm (9×13″) ovenproof dish","per":6}], name:"Lasagna", emoji:"🍝", costPP:23,
     perPerson:{meat:120,unit:"g (1 tray = 20 portions)"},
     base300:[{n:"Lasagna sheets",a:"12g per person"},{n:"Beef mince",a:"50g per person"},{n:"Tinned tomatoes",a:"40g per person"},{n:"Tomato paste",a:"1.5g per person"},{n:"Onion (diced)",a:"5g per person"},{n:"Garlic (minced)",a:"1g per person (1 clove per 3 people)"},{n:"Red wine (optional)",a:"5ml per person"},{n:"Béschamel — butter",a:"3g per person"},{n:"Béschamel — flour",a:"3g per person"},{n:"Béschamel — full cream milk",a:"30ml per person"},{n:"Mozzarella (grated)",a:"10g per person"},{n:"Parmesan (grated)",a:"3g per person"},{n:"Dried Italian herbs",a:"0.5g per person"},{n:"Nutmeg",a:"1g per person"}],
     method:["Bolognaise: brown mince with onion, garlic. Add tomato paste 2 min. Add wine, reduce. Add tomatoes, herbs. Simmer 25 min.","Béschamel: melt butter, whisk in flour, gradually add milk stirring constantly until thick. Season with nutmeg.","Layer: béschamel base, sheets, bolognaise, sheets, bolognaise, sheets, béschamel, cheese.","Bake covered 180°C 35 min. Uncover 15 min until golden.","REST 10 min before cutting — non-negotiable!","1 tray = 20 people. Make as many trays as needed."],
@@ -839,7 +839,7 @@ const EVENTS_DESSERTS = [
       "WOW FINISH: grate a tiny amount of 70% dark chocolate over the top just before serving — the bitterness against the sweet peppermint is a sophisticated contrast that elevates the whole dish."
     ],
     tip:"For 100–300 guests: serve in individual clear dessert pots or cups — prevents the soggy biscuit issue, looks professional, and speeds up buffet service dramatically. Use a piping bag for the cream mixture; much faster and cleaner than spoons at scale. Always assemble the night before." },
-  { id:"melktert", name:"Melktert", emoji:"🥧", sa:true, costPP:15,
+  { id:"melktert", "equipment": [{"n":"23cm loose-bottom tart tin","per":12}], name:"Melktert", emoji:"🥧", sa:true, costPP:15,
     serves:8,
     base300:[
       {n:"Shortcrust pastry base (baked blind, brushed inside with egg white while hot)",a:"1 tart shell per 8 people"},

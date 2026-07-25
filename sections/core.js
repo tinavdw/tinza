@@ -3173,7 +3173,16 @@ function equipmentLine(r, scaledYield){
     var label = (count>1 ? count+' × ' : '1 × ') + name;
     return '<div style="font-size:14px;color:var(--ink2);padding:3px 0;">• '+label+'</div>';
   }).join('');
-  return recipeBox('🍽️ You’ll Need', rows);   // reuse the shared titled box
+  // ⚖️ THE HOLDER IS A RECOMMENDATION, NOT A REQUIREMENT (Rulings §10, 25 Jul).
+  // A chef owns every tin on this list; a woman cooking at home uses what is in her
+  // cupboard, and she must never be told her dish is wrong. So the box GUIDES — it
+  // names the size the method was written for, then says out loud that close is fine
+  // and what changes if it isn't. Never "you'll need".
+  rows += '<div style="font-size:13px;color:var(--ink-soft);line-height:1.5;padding:6px 0 0;">'
+        + 'A guide, not a rule — cook it in what you have. Anything close in size works. '
+        + 'A smaller dish bakes deeper and needs a little longer; a bigger one bakes flatter and is done sooner.'
+        + '</div>';
+  return recipeBox('🍽️ What To Cook It In', rows);   // reuse the shared titled box
 }
 // The per-unit CONTRACT banner (Rulings §10 · point 4). Method prose is authored for
 // ONE finished unit; once the batch needs more than one holder — a modelled bake making
@@ -3191,9 +3200,13 @@ function equipmentContract(r, scaledYield, unitWord, batches){
   });
   var n = Math.max(b, maxHolders);
   if(n <= 1) return '';
-  var unit = unitWord || 'batch';
+  // The noun matters: "all 2" is a dangling number. A modelled bake knows its unit
+  // (cake, tray); a soft oven dish does not, so it borrows the honest word — "dish".
+  var soft = r.equipment.find(function(e){ return e && e.soft; });
+  var unit = unitWord || (soft ? 'dish' : 'batch');
   return '<div style="font-size:13px;color:var(--ink-soft);line-height:1.5;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:12px;">'
-    + 'This method makes 1 ' + unit + ' — work one at a time. The ingredient amounts above are your total for all ' + n + '.'
+    + 'This method makes 1 ' + unit + ' — work one at a time. The ingredient amounts above are your total for all '
+    + n + ' ' + pluralizeLastWord(unit) + '.'
     + '</div>';
 }
 
