@@ -596,7 +596,11 @@ function draw(){
   // Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit.
   if((root._lastScreen||'') === "worldkitchen" && S.screen !== "worldkitchen"){
     S.wkPlan = []; S.wkBump = {};
-    S.wkScreen = null; S.wkDataCountry = null; S.wkDataRecipe = null;
+    // ⚖️ §24.5 — the drill is FIVE keys and this named THREE. wkContinent/wkRegion survived
+    // the exit, so re-entering from Home re-opened the last REGION (Southern Africa) instead
+    // of the continent grid. ONE door now; nothing here hand-nulls the drill. ⚖️ Law 6.
+    if(typeof wkResetDrill === 'function'){ wkResetDrill(); }
+    else { S.wkScreen = null; S.wkContinent = null; S.wkRegion = null; S.wkDataCountry = null; S.wkDataRecipe = null; }
   }
   const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
   // Stage 1 scroll-to-content: on an in-section navigation (new tab/category/list — not a quiet toggle/slider), land on the content instead of the banner
@@ -607,9 +611,9 @@ function draw(){
   const tierBar=`<div style="background:#0f0d0a;border-bottom:2px solid #2a1f10;padding:8px 16px;">
     <div style="font-size:13px;color:#a87849;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Testing — Switch Tier:</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
-      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
-      <button onclick="USER_TIER='deluxe';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;S.wkScreen=null;S.wkContinent=null;S.wkRegion=null;S.wkDataCountry=null;S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='deluxe'?'#40c0a0':'#0a1810'};background:${USER_TIER==='deluxe'?'#0a1810':'var(--card)'};color:${USER_TIER==='deluxe'?'#40c0a0':'#204030'};font-size:13px;">💎 Deluxe</button>
+      <button onclick="USER_TIER='free';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;wkResetDrill();S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='free'?'var(--accent)':'#2a1808'};background:${USER_TIER==='free'?'#2a1808':'var(--card)'};color:${USER_TIER==='free'?'var(--accent)':'#4a3020'};font-size:13px;">🆓 Free</button>
+      <button onclick="USER_TIER='pro';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;wkResetDrill();S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='pro'?'#c0a020':'#181808'};background:${USER_TIER==='pro'?'#181808':'var(--card)'};color:${USER_TIER==='pro'?'var(--gold)':'#403820'};font-size:13px;">👑 Pro</button>
+      <button onclick="USER_TIER='deluxe';S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={};S.braiStep=1;S.activeBaby=null;S.activeDog=null;S.activeCat=null;S.activeFermented=null;wkResetDrill();S.wkSACulture=null;S.wkCourseTab='mains';S.wkRecipeDetail=null;draw()" style="padding:7px;border-radius:8px;border:2px solid ${USER_TIER==='deluxe'?'#40c0a0':'#0a1810'};background:${USER_TIER==='deluxe'?'#0a1810':'var(--card)'};color:${USER_TIER==='deluxe'?'#40c0a0':'#204030'};font-size:13px;">💎 Deluxe</button>
     </div>
   </div>`;
 
