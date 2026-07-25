@@ -942,10 +942,15 @@ function eventsHTML(){
   return `<div style="min-height:100vh;background:var(--bg);">
 
     ${sectionHeader({
-      title:'Events & Celebrations', emoji:'🎉',
-      tagline:'Every gathering that brings your people to one table',
+      title: et ? (tabs.find(t=>t.id===et)||{}).label.replace(/^\S+\s*/,'') || 'Events & Celebrations' : 'Events & Celebrations',
+      emoji: et ? ((tabs.find(t=>t.id===et)||{}).label||'🎉').split(' ')[0] : '🎉',
+      tagline: et ? ((tabs.find(t=>t.id===et)||{}).feel || '') : 'Every gathering that brings your people to one table',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Events.jpg',
-      backJs:"set({screen:'home'})", backLabel:'← Home',
+      // ⚖️ §24 · A TOP BACK MUST NAME WHERE IT GOES. Inside a tab, the room front door is
+      // the Events tile grid — not Home. Same shape as World Kitchen (Boerekos → WK).
+      backJs: et ? "set({eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null});window.scrollTo(0,0)"
+                 : "set({screen:'home'})",
+      backLabel: et ? '← Events' : '← Home',
       search:{ value:(S.eventsSearch||'').replace(/"/g,'&quot;'), placeholder:'Search Events…', oninput:"liveSearch(this,'eventsSearchResults',{sections:['events','beverages'],stateKey:'eventsSearch'})", clearJs:"set({eventsSearch:'',searchResults:[]})" }
     })}
 
@@ -965,13 +970,18 @@ function eventsHTML(){
         ]
       })}
 
-      <!-- Tab grid — braai v33 style boxes -->
+      <!-- Tab grid = the Events FRONT DOOR. ⚖️ §24 — it renders ONLY when no tab is open.
+           It used to render on every screen and eventsScrollToContent() just scrolled past
+           it, so scrolling back up to reach the Back button walked her through all four
+           tabs she had not chosen. A front door is a place you go to, not a thing you
+           carry with you. The guest bar above STAYS — it is the ONE Events guest count (§2.2). -->
+      ${et ? '' : `
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;">
         ${tabs.map(t=>{
           const isActive = et===t.id;
           const onClick = t.id==='kiddies'
-            ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null});eventsScrollToContent()`
-            : `set({eventTab:'${t.id}',eventShowShopList:false});eventsScrollToContent()`;
+            ? `set({eventTab:'kiddies',eventShowShopList:false,kidsScreen:'themes',kidsTheme:null,kidsCategory:null,kidsRecipe:null});window.scrollTo(0,0)`
+            : `set({eventTab:'${t.id}',eventShowShopList:false});window.scrollTo(0,0)`;
           return `<div onclick="${onClick}"
             style="background:${isActive?'var(--card2)':'var(--bg)'};border:1px solid ${isActive?'var(--accent)':'var(--line)'};border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;"
             onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='${isActive?'var(--accent)':'var(--line)'}'">
@@ -980,7 +990,7 @@ function eventsHTML(){
             <div style="font-size:13px;color:var(--ink-soft);font-style:italic;line-height:1.3;margin-top:4px;">${t.feel}</div>
           </div>`;
         }).join('')}
-      </div>
+      </div>`}
     </div>
 
     <div class="content">

@@ -187,7 +187,14 @@ function wkWorldHome(){
     tagline:'Tap a continent, then a region, then a country',
     emoji:'🌍',
     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
-    backJs:"set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})", backLabel:'← Home',
+    // ⚖️ §12 — A TOP BACK MUST NAME WHERE IT GOES. This ONE header renders the continent
+    // grid AND the region list (the drill happens in the content area, so the header never
+    // learned she had gone deeper). It said "← Home" on both and left the room from both.
+    // Drilled in → go UP to the room front door. At the front door → out to Home.
+    backJs: (S.wkContinent||S.wkRegion)
+      ? "set({wkContinent:null,wkRegion:null,wkSearch:''});window.scrollTo(0,0)"
+      : "set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})",
+    backLabel: (S.wkContinent||S.wkRegion) ? '← World Kitchen' : '← Home',
     myPlan:{ count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" },
     search:{ value:searchVal('wkSearch').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:"liveSearch(this,'wkSearchResults',{sections:['world'],stateKey:'wkSearch'})", clearJs:"set({wkSearch:'',searchResults:[]})" }
   });
@@ -305,7 +312,11 @@ function wkDataCountryHTML(){
     tagline: recipes.length + ' dish' + (recipes.length===1?'':'es'),
     emoji: '🍽️',
     img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/' + encodeURIComponent(country) + '.jpg',
-    backJs: "set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null});window.scrollTo(0,0);",
+    // ⚖️ §12 · RULED A (25 Jul) — the top Back goes to the ROOM FRONT DOOR, same as
+    // Family Meals. It cleared the country but NOT wkContinent/wkRegion, so it re-rendered
+    // the region list while wearing the label "← World Kitchen". The label was not lying
+    // on purpose; it was two keys short.
+    backJs: "set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null,wkContinent:null,wkRegion:null});window.scrollTo(0,0);",
     backLabel: '← World Kitchen',
     myPlan: { count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" }
   });
