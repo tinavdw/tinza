@@ -1,0 +1,65 @@
+flowchart TD
+
+  A["SESSION · 25 Jul 2026<br/>MF146 · memory lean · Bar Planner truth-check<br/>STATUS: ready to commit + push"]
+
+  A --> B["✅ DONE THIS SESSION"]
+  A --> R["⚖️ RULED THIS SESSION (Tina)"]
+  A --> C["🍸 BAR PLANNER · verified at HEAD"]
+  A --> D["📋 STILL OPEN (carried)"]
+  A --> P["📤 PUSH SET (one commit)"]
+
+  %% ── DONE ──
+  B --> B1["TINZA_RULINGS.md — 1139 lines, drop-ready<br/>2 new rulings at §11"]
+  B --> B2["MF146_SAMENESS_SEARCH_PASS.md — 126 lines<br/>closes doctor reds #5 #6 #7 + 4 of 6 in #2"]
+  B --> B3["MF146 corrected — barplanner question CLOSED,<br/>header count 0 → 1, R50 leak added"]
+  B --> B4["Memory #21 leaned — stale WK polish list PARKED<br/>to TINZA_BUILD_CHECKLIST.md §STRAGGLERS"]
+
+  %% ── RULINGS ──
+  R --> R1["🔎 ONE SLOT, ONE BEHAVIOUR<br/>the search pill NEVER navigates"]
+  R --> R2["🍸 ROOM vs SHELF vs TOOL"]
+  R2 --> R2a["ROOM = front door · photo header + search"]
+  R2 --> R2b["SHELF = scrollable list inside a room"]
+  R2 --> R2c["TOOL = you OPERATE it · give numbers, get an answer<br/>Bar Planner · Buffet · Weekly Planner"]
+  R2c --> R2d["→ TOOL gets a SUB-HEADER (sectionHeader sub:true)"]
+  R2c --> R2e["→ TOOL gets NO SEARCH — nothing to search"]
+  R2e --> R2f["🩸 Sameness = the same slot BEHAVES the same,<br/>not that every screen CARRIES every slot"]
+
+  %% ── BAR PLANNER ──
+  C --> C0["Tina was right: NOT finished"]
+  C0 --> CW["WORKS ✅"]
+  C0 --> CX["OPEN ❌"]
+
+  CW --> CW1["334 lines · loaded index.html:169"]
+  CW --> CW2["WIRED: events.js:991 + tile :1066"]
+  CW --> CW3["Drinks Brain: 8 spirits · wine · bubbly toast<br/>· beer+cider cases · soft · mixers · ICE (1kg/2.5 guests)"]
+  CW --> CW4["4 presets · buffer exact/safe/generous<br/>· 25 or 50ml tot · open / cash / limited-tab"]
+  CW --> CW5["Packs + Rand shop-spend per line"]
+
+  CX --> CX1["⛔ R50 LEAK in the Pro upsell — must be R90<br/>LIVE on the screen that SELLS the feature<br/>→ becomes a CENSUS ASSERTION, not a memory item"]
+  CX --> CX2["🍋 LEMONS defined line 51, engine never uses it<br/>garnish missing from every plan"]
+  CX --> CX3["🧾 NO My Plan / shopping integration<br/>cannot join the ONE Events plan (§2.2)"]
+  CX --> CX4["🎨 Inline header :214 + pre-reskin dark hexes<br/>⚖️ Law 19 — the TAG was absent, not the header"]
+  CX --> CX5["💰 Prices = admitted UNVERIFIED estimates"]
+  CX --> CX6["💾 State in S.bar* only — not tinzaStore"]
+
+  %% ── QUEUE ──
+  D --> D1["MF86 adaptSpice → 190 records"]
+  D --> D2["versions[] ingredients (13)"]
+  D --> D3["vessel scaling — doctor red #10"]
+  D --> D4["sauce merge triage"]
+  D --> D5["events:tahini 'to taste' ×3"]
+  D --> D6["131 holder-pending"]
+  D --> D7["Fable S3 — POST-RESET ONLY"]
+  D --> D8["MF141 sosaties strike/repoint"]
+  D --> D9["R50→R90 sweep (now includes barplanner)"]
+  D --> D10["wk_europe re-decode (~231 names)"]
+  D --> D11["Toum rename — wk_africa.js ~line 132"]
+  D --> D12["Photo Studio rebuild from live data"]
+  D --> D13["🆕 Bar Planner finishing session — lemons,<br/>My Plan wiring, price verification, sub-header"]
+
+  %% ── PUSH ──
+  P --> P1["TINZA_RULINGS.md"]
+  P --> P2["MF146_SAMENESS_SEARCH_PASS.md"]
+  P --> P3["this flowchart"]
+
+  A --> Z["⚖️ Law 2 — Claude read the REPO at HEAD.<br/>Tina's eyes on tinza.netlify.app close each step.<br/>⛔ Nothing banked until it is on GitHub + live."]

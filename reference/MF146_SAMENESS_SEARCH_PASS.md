@@ -76,12 +76,12 @@ For each: delete the hand-rolled `<div><span>🔍</span><input …></div>` block
 |---|---|---|---|
 | 1 | `furry.js` | 1 | 1 |
 | 2 | `budget.js` | 1 | 3 |
-| 3 | `barplanner.js` | 0 | 0 |
+| 3 | `barplanner.js` | 1 (hand-rolled inline, `:214`) — **`sub:true`, no search** | 0 — but 4 hard-coded dark hexes |
 | 4 | `spice.js` | 4 | 5 |
 | 5 | `health.js` | 6 | 0 |
 | 6 | `tinyTummies.js` | 8 | 15 |
 
-- **`barplanner.js` renders no `<h1>` at all** — inspect before touching. It may need a header rather than a migration, or it may not be a room in this sense. **Ask Tina rather than inventing one.**
+- **`barplanner.js` — RULED 25 Jul, question closed.** Bar Planner is a **TOOL**, not a room (`TINZA_RULINGS.md` §11). It gets **a sub-header and NO search box.** Its current header is **hand-rolled inline at `:214`** — an *unmigrated* header, not a missing one; the doctor's "no `<h1>`" was reading the tag, not the block. ⚠️ It also hard-codes the **pre-reskin dark palette** (`#0f0e0c` · `#1a1208` · `#fff` · `#e0d4b8`) — those go, `var(--token)` replaces them. **Work = add a `sub:true` variant to `sectionHeader()` and render through it.** Header sites: **1**, not 0. Correct the table above accordingly.
 - **`tinyTummies.js` is over half the job.** Its own session.
 - **`#f5e8cc` is pre-reskin ink.** Do not port it into the new header — `sectionHeader()` uses `var(--on-media)` / `var(--on-media-soft)`. ⚖️ Never hand-roll hex.
 
@@ -98,7 +98,15 @@ Per the 25 Jul ruling: a scrollable **recipe list** gets a search; a hub of **ti
 | Spice sub-shelves (Spice Blends & Masalas, 40 entries) | **gets one** — ruled explicitly |
 | Spice hub (6 tiles) | already correct, leave it |
 | `tinyTummies` | judge per screen — list yes, tile hub no |
-| `buffet` · `barplanner` | **ask Tina** — planners, not obviously recipe lists |
+| `buffet` · `barplanner` | **NO — RULED 25 Jul.** Both are **TOOLS**, not rooms: you operate them, they hold no recipes, there is nothing to search. Sub-header, no search slot. |
+
+---
+
+## ⛔ FOUND WHILE INSPECTING BARPLANNER — FIX IT IN THE SAME TOUCH
+
+`barplanner.js`, the non-Pro upsell block (~line 227): the pitch still reads **"for R50/mo"**. Pro is **R90** (ruled 28 Jun 2026). This is live to every non-Pro visitor and it is the *price on the pitch* — the one number a stranger reads before deciding. While the file is open, change it.
+
+⚖️ Same failure shape as the `tierBar` leak: silent, no error, only visible to someone who looked. The R50→R90 sweep is now a **census check**, not a memory item.
 
 ---
 
