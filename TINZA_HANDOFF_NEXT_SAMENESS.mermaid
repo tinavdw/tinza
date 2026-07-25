@@ -1,0 +1,56 @@
+flowchart TD
+
+  A["TINZA · HANDOFF INTO NEXT CHAT<br/>written 25 Jul 2026, end of the R90 session<br/>NEXT SESSION PURPOSE: SAMENESS · Law 6 · build the ONE thing"]
+
+  A --> DONE["✅ CLOSED + BANKED ON LIVE — do not reopen"]
+  A --> NEXT["🎯 NEXT SESSION — ONE PURPOSE"]
+  A --> ORDER["📐 THE ORDER (cheapest proof first)"]
+  A --> ASK["❓ NEEDS TINA BEFORE CODE"]
+  A --> CARRY["📋 CARRIED QUEUE — not this session"]
+  A --> LAW["⚖️ RULES THAT GOVERN THE NEXT SESSION"]
+
+  %% ── DONE ──
+  DONE --> D1["§11 · A TOOL GETS A SUB-HEADER AND NO SEARCH<br/>filed TINZA_RULINGS.md :662–:670<br/>ROOM / SHELF / TOOL — three categories, not two"]
+  DONE --> D2["R50→R90 SWEEP — 21 strings, 9 section files<br/>node --check clean ×9 · pushed · LIVE"]
+  DONE --> D3["CENSUS 25 · RUNG ⑦ 'IS THE PITCHED PRICE THE RULED PRICE?'<br/>PRO_PRICE=90 in ONE place · proven RED then GREEN"]
+  DONE --> D4["LAW 2 CLOSED — Tina walked 7 rooms on live<br/>Braai · WK · Spice · FMF · Health · Bakes · Tiny Tummies"]
+  DONE --> D5["MF146 sameness/search pass · memory lean"]
+
+  %% ── NEXT SESSION ──
+  NEXT --> N0["🩸 THE THEME: every item below is the SAME BUG.<br/>The same code written N times, drifting quietly.<br/>⚖️ Law 6 — build the ONE thing they call."]
+  NEXT --> N1["1️⃣ goBack() — ONE LINE<br/>census 8: dumps her on Home from any root screen.<br/>core.js step (4) ignores S.searchPrevScreen,<br/>which braai/spice/liveSearch ALREADY set.<br/>⚖️ ONE line in goBack(), NOT one fix per room."]
+  NEXT --> N2["2️⃣ shareList() — 21 COPIES, 5 LABELS<br/>census 9. Already drifted on live:<br/>'Share Recipe via WhatsApp' ×6 · 'this recipe on' (WK)<br/>'Recipe on' (tiny) · 'straight to' (meals) · 'directly to' (core)<br/>+ two different button STYLES.<br/>🩸 'straight' vs 'directly' — nobody chose either."]
+  NEXT --> N3["3️⃣ TINZA_PRICE — MF91, 21 COPIES<br/>census 9. The sweep fixed the VALUE;<br/>this fixes the DUPLICATION. After it lands,<br/>rung ⑦ has exactly one line left to check."]
+  NEXT --> N4["4️⃣ openSectionSearch(scope) — MF95, 2 pills<br/>census 9 + census 6: braai.js + spice.js are<br/>search PILLS that NAVIGATE AWAY.<br/>⚖️ R1 — the search pill NEVER navigates."]
+  NEXT --> N5["5️⃣ sectionHeader() GAINS sub:true<br/>the BUILD side of §11. Bar Planner's hand-rolled<br/>header at barplanner.js:214 dies with it.<br/>⛔ budget.js + tinyTummies.js have NO<br/>sectionHeader() AT ALL — never migrated (Law 34)"]
+  NEXT --> N6["6️⃣ THE STORAGE SLOT RENDERS TWO WAYS<br/>braai/core: header + Pro teaser + free line<br/>meals: bare line, no header, no teaser<br/>⚖️ §11 — the same slot must BEHAVE the same"]
+
+  %% ── ORDER ──
+  ORDER --> O1["goBack() FIRST — one line, instantly visible on live,<br/>proves the session works before anything big moves"]
+  O1 --> O2["THEN the three Law 6 builds together —<br/>shareList · TINZA_PRICE · openSectionSearch.<br/>They are ONE job wearing three hats;<br/>splitting them across sessions is how they rot."]
+  O2 --> O3["THEN sectionHeader sub:true<br/>(unblocks Bar Planner AND budget AND tinyTummies)"]
+  O3 --> O4["storage slot LAST — smallest, and the shared<br/>renderers above may absorb it anyway"]
+  O4 --> O5["⛔ EACH ONE GETS A CENSUS ASSERTION OR IT ROTS.<br/>D9 sat in a queue for four weeks and did nothing.<br/>A queue is a memory; only a watcher is a mechanism."]
+
+  %% ── NEEDS TINA ──
+  ASK --> Q1["❓ §11 SEAM — the three input-AND-list screens:<br/>I've Got R100 · I Have Chicken... · Just Feed Me.<br/>They take an input like a TOOL but return a<br/>SCROLLABLE RECIPE LIST like a SHELF.<br/>PROPOSED: input state = tool (no search),<br/>result state = shelf (gets a search).<br/>⚖️ §2.3 — ask Tina, never infer."]
+  ASK --> Q2["❓ §-NUMBER COLLISION — '§11' now names THREE<br/>things in TINZA_RULINGS.md: the LOCALE ranking<br/>clause (:295) · the store (:963) · the tool ruling (:662)"]
+  ASK --> Q3["❓ THE PALETTE FRONTIER — core.js:656<br/>_warm is a HARD-CODED ALLOW-LIST of 10 screens.<br/>HOME is not on it. Neither are ANY of the six<br/>Smart Features. The front door — the first thing<br/>every visitor sees — is the last unmigrated room.<br/>One line moves it. Tina's call WHEN."]
+
+  %% ── CARRIED ──
+  CARRY --> C1["Bar Planner finishing session — lemons (dead data,<br/>BAR_ITEMS:51) · My Plan / shopping wiring (§2.2)<br/>· price verification · sub-header · S.bar*→tinzaStore"]
+  CARRY --> C2["Toum rename — wk_africa.js ~line 132"]
+  CARRY --> C3["wk_europe re-decode (~231 names)"]
+  CARRY --> C4["Photo Studio rebuild from live data"]
+  CARRY --> C5["MF86 adaptSpice → 190 records"]
+  CARRY --> C6["versions[] ingredients (13) · vessel scaling (doctor #10)<br/>· sauce merge triage · events tahini ×3 · 131 holder-pending"]
+  CARRY --> C7["Fable S3 — POST-RESET ONLY (usage cost)<br/>MF141 sosaties strike/repoint"]
+  CARRY --> C8["census 2/3/4 REDS — two search engines ·<br/>118 vegan invisible to vegetarian (Law 48) ·<br/>21 meat recipes answer a vegan search (Law 47).<br/>⚠️ These are DIET, not sameness. Own session."]
+
+  %% ── LAWS ──
+  LAW --> L1["⚖️ Law 6 — build the ONE thing they call.<br/>This session IS Law 6, four times over."]
+  LAW --> L2["⚖️ Law 2 — Claude reads the REPO at HEAD.<br/>Tina's eyes on tinza.netlify.app close every bug.<br/>⛔ Nothing banked until GitHub + live."]
+  LAW --> L3["⚖️ Law 19 — a grep miss is not a measurement.<br/>Parse, never regex, on any file audit (§19)."]
+  LAW --> L4["⚖️ Law 22 — a risk list is not a bug list.<br/>census 7's 30 same-shape sites: do NOT 'fix' 32 places."]
+  LAW --> L5["⚖️ Stability rule 1 — never edit a working section<br/>unless that IS the session purpose. Next session's<br/>purpose IS shared renderers, so touching all<br/>sections is IN scope — say so out loud at the start."]
+  LAW --> L6["⚖️ Claude CAN clone the repo and read HEAD.<br/>Never screenshot code again — only screenshot LIVE.<br/>Claude CANNOT push. Tina pushes, GitHub Desktop."]

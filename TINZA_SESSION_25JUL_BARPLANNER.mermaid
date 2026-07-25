@@ -78,4 +78,41 @@ flowchart TD
   P --> P4["🆕 tinza-census.js (rung ⑦)"]
   P --> P5["🆕 9 section files — the price sweep<br/>barplanner · braai · core · events · health<br/>· kiddies · meals · tinyTummies · worldkitchen"]
 
+
+  %% ── THE HOME SCREEN (screenshot, 25 Jul) ──
+  A --> H["🏠 THE SCREENSHOT · MEASURED AT HEAD"]
+  H --> H1["core.js:656 — _warm is a HARD-CODED ALLOW-LIST<br/>of 10 screens. 'home' is NOT on it."]
+  H1 --> H2["→ Home renders on index.html:16 DEFAULT DARK<br/>--bg #0f0e0c · --card2 #1a1208 — pre-reskin"]
+  H1 --> H3["→ ALL SIX Smart Features are also off the list:<br/>search · budget · ingredient · fourIngredients<br/>· mood · weekplanner"]
+  H --> H4["+ 7 hard-coded hexes in the home block<br/>#2d1f0a · #4a3520 · #b0986a ×2 · #c4a87c ×3"]
+  H --> H5["🩸 The FRONT DOOR is the last unmigrated room —<br/>the one screen that sets the first impression"]
+  H --> H6["⚖️ ONE LINE MOVES THE FRONTIER (core.js:656).<br/>Palette is a separate job from §11 classification."]
+
+  %% ── §11 APPLIED TO THE SIX ──
+  A --> S11["⚖️ §11 APPLIED TO THE SIX TILES"]
+  S11 --> S11a["CLEAR — TOOL (no search, sub-header)<br/>4 Ingredients · Weekly Meal Planner"]
+  S11 --> S11b["CLEAR — IS the search<br/>Search & Discover (⚖️ R1 · pill never navigates)"]
+  S11 --> S11c["⚠️ THE SEAM — NEEDS TINA (§2.3)<br/>I've Got R100 · I Have Chicken... · Just Feed Me"]
+  S11c --> S11d["They take an INPUT (tool) but return a<br/>SCROLLABLE RECIPE LIST (searchable)"]
+  S11d --> S11e["§11 as written asks 'is there anything IN it<br/>to search?' — for these three the answer is YES"]
+  S11e --> S11f["PROPOSED: input screen = TOOL (no search)<br/>· RESULT screen = SHELF (gets a search)<br/>ONE screen, TWO states — Tina rules"]
+
+
+  %% ── LIVE VERIFICATION (Law 2 — Tina's eyes, 25 Jul) ──
+  A --> L["✅ BANKED ON LIVE · Law 2 CLOSED"]
+  L --> L1["Tina walked EVERY listed room on tinza.netlify.app<br/>Braai · World Kitchen · Spice · Feeding My Family<br/>· Health · Bakes · Tiny Tummies"]
+  L --> L2["R90/month on every locked surface —<br/>nutrition · storage · leftovers · cost estimate"]
+  L --> L3["⚖️ The census said where. Her fingers closed it.<br/>D9 IS DEAD. Rung ⑦ now stands guard."]
+
+  %% ── WHAT THE SCREENSHOTS ALSO SHOWED ──
+  A --> W["🔎 NEW FINDS · from the same screenshots"]
+  W --> W1["🩸 CHECK 9 MADE VISIBLE — the 21 WhatsApp copies<br/>HAVE ALREADY DRIFTED. Five labels for one button:"]
+  W1 --> W1a["'Share Recipe via WhatsApp' ×6<br/>'Share this recipe on WhatsApp' (worldkitchen)<br/>'Share Recipe on WhatsApp' (tinyTummies)<br/>'Share your list straight to WhatsApp' (meals)<br/>'Share your list directly to WhatsApp' (core)"]
+  W1a --> W1b["⚖️ 'straight to' vs 'directly to' — the SAME line,<br/>two wordings, no decision behind either.<br/>THAT is what a copy does when nobody watches it."]
+  W1b --> W1c["+ two different BUTTON STYLES on live:<br/>filled dark-green (WK) vs white outline (meals)"]
+  W1c --> W1d["→ MF91's sibling: build the ONE shareList()<br/>Law 6 · already named in census 9"]
+  W --> W2["📦 THE STORAGE SLOT RENDERS TWO WAYS<br/>braai/core: header + Pro teaser + free line<br/>meals: bare line, NO header, NO teaser"]
+  W --> W3["🧭 THREE DIFFERENT FOOTERS<br/>'Back · My Plan · Home' (health, bakes)<br/>'Back · Home' (spice)<br/>none at all (world kitchen)"]
+  W --> W4["🌑 DARK CONFIRMED ON LIVE — spice + tinyTummies<br/>render pre-reskin dark, exactly as core.js:656 predicted"]
+
   A --> Z["⚖️ Law 2 — Claude read the REPO at HEAD.<br/>Tina's eyes on tinza.netlify.app close each step.<br/>⛔ Nothing banked until it is on GitHub + live."]
