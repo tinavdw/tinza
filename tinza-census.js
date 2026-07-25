@@ -437,6 +437,57 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
     else ok('every header Back names its destination  ⚖️ §24');
   }
 
+  // ⑧ ⚖️ §24.3 — ONE SCREEN, ONE TOP BACK. eventsTopNav() hand-rolled a
+  //    "← Events / 🏠 Home" PAIR and three screens rendered it ON TOP of a sectionHeader
+  //    that already had a Back, on a spine that already had Home — FOUR ways out of one
+  //    Kiddies screen, and on kiddies the pair sat ABOVE the photo header. Deleted 25 Jul.
+  //    ⛔ The fix is not "remember not to call it". A deleted helper is one npm-less
+  //    copy-paste away from coming back, and it came back once already as a second copy
+  //    inside buffet. So the WATCHER is mechanical: nothing may define or call a room-nav
+  //    pair again — a screen that cannot reach its room gets a sectionHeader backJs.
+  {
+    const banned = ['eventsTopNav'];
+    let hits = [];
+    fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+      // ⚠️ COMMENTS ARE STRIPPED — Law 19, learned 25 Jul when this instrument
+      //    re-animated a dead key off a COMMENT that named it dead. The §24.3 comment
+      //    block in events.js says "eventsTopNav()" three times. Prose is not evidence.
+      const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8')
+        .replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/\/\/.*$/,'')).join('\n');
+      src.split('\n').forEach((l,i)=>{
+        banned.forEach(b=>{ if(new RegExp('\\b'+b+'\\s*\\(').test(l)) hits.push(f+':'+(i+1)+'  '+l.trim().slice(0,70)); });
+      });
+    });
+    if (hits.length) bad(hits.length + ' hand-rolled room-nav pair(s) — eventsTopNav() is DELETED, not deprecated',
+      '\n      ' + hits.join('\n      ') +
+      '\n      \x1b[2m⚖️ §24.3 · Law 6 — give the sectionHeader the right backJs/backLabel instead.\x1b[0m');
+    else ok('No screen hand-rolls its own room-nav pair', 'eventsTopNav() is gone — 0 definitions, 0 call sites');
+  }
+
+  // ⑧ ⚖️ §24.4 — THE DOOR IS NOT THE ORIGIN. A dish can sit on more than one shelf
+  //    (Bobotie is Cape Malay AND carried on Boerekos). wkRecipeCard passed r.country
+  //    into the OPEN call, so tapping it from Boerekos ran wkOpenRecipe('Cape Malay'),
+  //    which sets S.wkDataCountry "so Back lands on this country's list" — the door
+  //    RE-LABELLED ITSELF BEHIND HER and both Backs honestly returned her somewhere
+  //    she had never been. ⛔ meta.origin must stay r.country: the shelf can change,
+  //    the dish's origin cannot.
+  {
+    const src = fs.readFileSync(path.join(ROOT,'sections','worldkitchen.js'),'utf8')
+      .replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/\/\/.*$/,'')).join('\n');
+    const probes = [
+      [/function wkRecipeCard\(r,\s*shelf\)/,        'wkRecipeCard takes the shelf it is rendered on'],
+      [/var _door = shelf \|\| r\.country/,           'the card opens the DOOR, not the origin'],
+      [/wkRecipeOpts\(item,\s*S\.wkDataCountry\s*\|\|/,'the recipe page labels Back with the door walked'],
+      [/origin:r\.country/,                           'meta.origin is still the dish\'s own country']
+    ];
+    let miss = probes.filter(p=>!p[0].test(src));
+    if(/\.map\(wkRecipeCard\)/.test(src)) miss.push([null,'a BARE .map(wkRecipeCard) — arg 2 would be the INDEX']);
+    if (miss.length) bad(miss.length + ' door/origin assertion(s) FAILED in worldkitchen.js',
+      '\n      ' + miss.map(m=>'✗ '+m[1]).join('\n      ') +
+      '\n      \x1b[2m⚖️ §24.4 — the shelf can change, the dish\'s origin cannot.\x1b[0m');
+    else ok('A shared dish keeps its origin and inherits its door', 'Bobotie opened from Boerekos: Back = Boerekos, chip = Cape Malay');
+  }
+
   // every sectionHeader back — are they honest about where they go?
   let liars = 0, homes = 0;
   fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{

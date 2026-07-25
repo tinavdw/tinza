@@ -321,3 +321,52 @@ furry 36 · buffet 36 · braai 34 · worldkitchen 23 · health 9 · barplanner 9
   3. **Collapse buffet.js's 7 headers** to the shared one.
   4. **The 14 anonymous `← Back` labels** *(census 8 rung ⑥)* — 6 of them are in `events.js`.
 - ⚠️ **DO NOT do all four in one push.** ⚖️ **Stability rule 1** — one section at a time, `node --check`, Tina's eyes on live between each.
+
+---
+
+## 🩸 LOGGED 25 Jul (evening) — TINA'S EYES ON LIVE, MEASURED AT HEAD
+
+### ① 🔴 FMF DEAD TAP — **A KEY CANNOT BE IN BOTH LISTS** *(measured, root cause found)*
+**Her words:** *"FMF bottom back stalls on first back click from a recipe, then main home menu."*
+
+`mealActiveRecipe` and `moodActiveRecipe` are in **BOTH**:
+- `SIMPLE_RECIPE_KEYS` (`core.js:59`) — goBack step **(2b)**: closed by **nulling the key**, no history touched.
+- `navSignature()` (`core.js:93`) — so opening the recipe **PUSHED a history entry**.
+
+**The two mechanisms are mutually exclusive.** Open → push. First Back → step (2b) nulls the key and `setQuiet()` **pushes a SECOND entry** instead of consuming the first. Screen looks unchanged = **the dead tap**. Depth is now wrong, so the next press falls past step (3) to step **(4) → HOME.** Exactly what she walked.
+
+- ✅ **THE OTHER THREE ARE CORRECT AND PROVE THE RULE:** `_anchorActiveRecipe` · `_fourActiveRecipe` · `_searchActiveRecipe` are in `SIMPLE_RECIPE_KEYS` and **NOT** in `navSignature()`. `viewingRecipe` is in `navSignature()` and closed by `closeRecipe()`, which **consumes** its entry (`core.js:3910`).
+- 🔧 **THE FIX IS ONE OF TWO, AND IT IS A RULING, NOT A REFACTOR:** either drop the two keys out of `navSignature()`, or move them to the `closeRecipe()` consume-path. **⚖️ §2.3 — ask Tina, do not infer.**
+- 📋 **CENSUS RUNG OWED:** *no key may appear in `SIMPLE_RECIPE_KEYS` **and** `navSignature()`.* Would be **RED at 2** today. Rung ⑤ passed this GREEN because it only asks whether a key is *watched*, never whether it is watched **twice by two contradictory mechanisms.**
+
+### ② 🟠 A LATERAL IS NOT A LEVEL — **NEEDS A RULING** *(§2.3)*
+**Her words:** *"from Waffles it takes me to Eggs on first click, and from Porridge to Eggs, and from Sandwiches to Wraps to main home."*
+
+`draw()` (`core.js:739`) pushes a history entry on **every signature change**. A sub-category pill is `setQuiet({mealCat:'…'})` (`meals.js:15432`) and `mealCat` is watched — so **tapping Eggs → Waffles → Porridge stacks three entries at the SAME level.** Back then walks the **sideways trail** instead of stepping up.
+
+- ⚖️ **§24 says the bottom Back steps back ONE LEVEL.** History says "the last screen you were on." **On a lateral those are different answers**, and today history wins.
+- 💡 **PROPOSAL ON THE TABLE (her call):** a lateral (tab/pill switch at the same depth) **REPLACES** its history entry (`replaceState`) instead of pushing. Back then goes **up**, never sideways.
+- 🎯 **SAME SHAPE ELSEWHERE:** WK course tabs · Events tabs · health group tabs · `wkDataTab`. **One ruling fixes all of them; do not fix per room.** ⚖️ **Law 6.**
+
+### ③ 🔴 FINGER FOODS RENDERS THE GUEST BAR **TWICE** *(visible in her screenshot)*
+Two identical `▼ How it works — ⊖ 20 ⊕` rows stack on Finger Foods. `guestBar()` is called at **`events.js:960`** (the shared Events bar, §2.2 — **stays**) and **again at `events.js:1094`** inside the `et==='fingerfoods'` branch. The second is **leftover from the STRUCK §2.2 ruling** when Finger Foods had its own plan. **Delete `events.js:1094`.** *(Her "Finger Foods bottom back was stuck again, thereafter it worked right twice" is likely ① as well.)*
+
+### ④ 🟡 BOEREKOS → BOBOTIE — **ONE QUESTION OUTSTANDING**
+**Measured:** there is **exactly ONE Bobotie record** — `cape-malay-bobotie`, `country:"Cape Malay"`, **no `sharedWith`**. The Boerekos list filter is `x.country === country || x.sharedWith.includes(country)` (`worldkitchen.js:289`) — so **Bobotie cannot legitimately appear under Boerekos**, and none of the 48 `boerekos-*` ids is a bobotie. The top Back reading `← Cape Malay` and the bottom Back landing on Cape Malay are both **honest about the record** — it really is the Cape Malay one. **The bug is upstream: how did that card get onto the Boerekos shelf?** ⚠️ Needs one answer from Tina — *which card did she tap* — before anything is changed. ⚖️ **§2.3.**
+
+### ⑤ 🔵 BANKED FOR LATER (her call, 25 Jul)
+**Tiny Tummies + Furry Friends need a REDESIGN** — *"that section doesn't make sense."* Not a bug; a section rethink. Gated behind sameness + bugs + WK recipes, alongside 🎂 Celebration Cakes.
+
+**✅ CONFIRMED WORKING ON LIVE (her fingers, Law 2):** Health bottom Back walks one level at a time all the way out · Tiny Tummies Back is correct · Bar Planner is correct · Events tabs open clean (Finger Foods = only Finger Foods, `← Events` on top) · WK region-list Back reads `← World Kitchen` · Cooking mode Back exits to the recipe.
+
+### 🔤 `sharedWith` IS A SENTENCE WHERE IT SHOULD BE A LIST — **QUEUED 25 Jul, needs its own session**
+**Measured by parsing every `wk_*.js`: 1021 records carry `sharedWith`, and ZERO of them are arrays.** All strings.
+
+The shelf filter is `x.country === country || x.sharedWith.indexOf(country) !== -1` (`worldkitchen.js:289`). On an **array**, `.indexOf` asks *"is this one of the items?"*. On a **string** it asks *"does this text contain those letters?"* — substring matching. It gives the right answer today **by luck**.
+
+- 🩸 `cape-malay-peppermint-crisp-tart` → `sharedWith:"Cape Malay"` — **shares with its own country**
+- 🩸 `zulu-umngqusho` → `sharedWith:"Zulu"` — same
+- 🩸 `sweden-gravlax` → `sharedWith:"Norway · Denmark"` — **two countries in one string**, works only because neither name collides
+- ⚠️ **THE LANDMINE:** the library has a country **"India"** *and* a culture **"Indian"**. One record tagged `sharedWith:"Indian"` appears on the **India** shelf, silently. One data entry away.
+- ⚖️ **THIS IS THE INGREDIENT STANDARD, APPLIED TO DATA:** one item per line, no "+" lines, for exactly the same reason.
+- 🔧 **SHAPE:** `sharedWith: ["Norway","Denmark"]` · empty = `[]` or absent, never `""` · a record may never share with its own country. Migration in Node, then a census rung asserting the shape. **⛔ Do not hand-edit 1021 records.**

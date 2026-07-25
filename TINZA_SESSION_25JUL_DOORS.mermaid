@@ -1,0 +1,48 @@
+flowchart TD
+
+  START["🗓️ 25 Jul · evening<br/>Verify §24 → EVENTS SAMENESS step 1 → her live bugs"]
+  START --> V["✅ VERIFIED AT HEAD<br/>census 8 · ①–⑤ GREEN · ⑥ RED at 14"]
+
+  V --> S1["🧭 §24.3 · eventsTopNav() DELETED<br/>1 definition + 3 call sites"]
+  S1 --> TRAP1["⚠️ THE TRAP<br/>buffet bypasses the Events wrapper and its<br/>header said ← Home. The strip was Buffet's ONLY<br/>route to Events ⇒ bare deletion STRANDS Buffet"]
+  TRAP1 --> FIX1["✅ buffet.js:136 now reads ← Events<br/>same unchanged eAct payload<br/>⚖️ a helper is safe to delete only<br/>once its JOB has a new home"]
+  S1 --> KID["✅ Kiddies needed nothing — measured first<br/>all 4 kidsHeader sites already name a door"]
+  FIX1 --> R7["📋 RUNG ⑦ · no hand-rolled room-nav pair<br/>proven RED at 1, then GREEN"]
+  KID --> R7
+
+  V --> B4["🚪 BOEREKOS → BOBOTIE<br/>top Back said Cape Malay<br/>bottom Back landed in Cape Malay"]
+  B4 --> WRONG["🩸 I WAS WRONG FIRST TIME<br/>I said the card shouldn't be on Boerekos.<br/>I'd measured with a REGEX — a lazy regex pairs<br/>an id with the NEXT object's country<br/>⚖️ HER OWN LAW: PARSE, NEVER REGEX"]
+  WRONG --> PARSE["✅ PARSED PROPERLY<br/>Boerekos = 50 own + 5 shared = 55 ✓<br/>Bobotie · Yellow Rice · Tamatie Bredie<br/>Melktert · Hertzoggie<br/>ALL DELIBERATE. THE SHELF IS RIGHT."]
+  PARSE --> CAUSE["🩸 THE REAL BUG<br/>worldkitchen.js:140 opened with r.country<br/>⇒ wkOpenRecipe('Cape Malay') sets wkDataCountry<br/>THE DOOR RE-LABELLED ITSELF BEHIND HER<br/>RECIPE_BUILDERS.world repeated it"]
+  CAUSE --> RULE["⚖️ §24.4 RULED BY TINA<br/>THE DOOR OWNS THE BACK → ← Boerekos<br/>THE ORIGIN DOES NOT MOVE → Cape Malay<br/>'a truth Boerekos doesn't want to accept,<br/>but only a few people actually know this'"]
+  RULE --> ALREADY["✅ THE CODE WAS ALREADY SHAPED FOR IT<br/>backLabel = THE DOOR · meta.origin = THE TRUTH<br/>two slots; the wrong value fed the door<br/>⇒ ONE argument corrected in 3 places"]
+  ALREADY --> TRAP2["⚠️ THE TRAP IN THE FIX<br/>.map passes (item, INDEX, array)<br/>a bare .map(wkRecipeCard) would hand<br/>0,1,2… where a country belongs — silently"]
+  TRAP2 --> R8["📋 RUNG ⑧ · 4 assertions<br/>BOTH failure shapes proven RED<br/>(r.country open · bare .map) then GREEN"]
+
+  ALREADY --> OOPS["🩸 I TRUNCATED worldkitchen.js TO 0 BYTES<br/>a surrogate escape threw mid-write<br/>✅ git checkout restored it in one command<br/>⚖️ STABILITY RULE 3 EARNED ITS PLACE TODAY"]
+
+  PARSE --> SW["⚠️ FOUND WHILE MEASURING — QUEUED<br/>sharedWith is a STRING on all 1021 records<br/>ZERO arrays. .indexOf on a string = SUBSTRING<br/>⇒ it works BY ACCIDENT"]
+  SW --> SWX["🩸 2 records share with THEMSELVES<br/>gravlax crams 'Norway · Denmark' into one string<br/>💣 country 'India' + culture 'Indian'<br/>— 'Indian' CONTAINS 'India'. One entry away.<br/>⚖️ = the INGREDIENT STANDARD, applied to data<br/>🚦 A MIGRATION, NOT A PATCH — own session"]
+
+  V --> B1["🔴 FMF dead tap, then Home<br/>mealActiveRecipe + moodActiveRecipe are in<br/>SIMPLE_RECIPE_KEYS AND navSignature()<br/>open PUSHES · close PUSHES AGAIN<br/>⚖️ ASK TINA: drop from navSignature,<br/>or move to the consume-path?"]
+  V --> B2["🟠 Waffles → Eggs · Sandwiches → Wraps<br/>draw() pushes on EVERY signature change,<br/>so laterals stack at the SAME depth<br/>⚖️ NEEDS A RULING: a lateral REPLACES,<br/>never pushes — one ruling fixes WK tabs,<br/>Events tabs, health tabs. Not per room."]
+  V --> B3["🔴 Finger Foods guest bar ×2<br/>events.js:960 shared STAYS<br/>+ events.js:1094 leftover from struck §2.2<br/>🔧 delete :1094"]
+  V --> B5["🔵 BANKED · Tiny Tummies + Furry redesign"]
+
+  R7 --> HAND["📦 HANDBACK · node --check ×5 clean<br/>events.js · buffet.js · kiddies.js<br/>worldkitchen.js · tinza-census.js<br/>TINZA_RULINGS.md · TINZA_FIX_QUEUE.md<br/>ONE commit, ONE push"]
+  R8 --> HAND
+
+  HAND --> NEXT["👁️ YOUR EYES NEXT<br/>1 · Boerekos → Bobotie → top Back = ← Boerekos<br/>2 · …and the chip STILL says Cape Malay<br/>3 · bottom Back lands on the BOEREKOS list<br/>4 · Cape Malay → Bobotie still says Cape Malay<br/>5 · Kiddies = ONE way out per screen<br/>6 · Buffet top Back → Events, not Home"]
+
+  NEXT --> Q["❓ STILL WAITING ON YOU (§2.3)<br/>a · the two-list contradiction: which fix?<br/>b · lateral = replace, not push?<br/>c · _warm allow-list — when does Home go on?<br/>d · the §11 seam: input=tool, result=shelf?<br/>e · §11 still names 3 things (:295 :963 :662)"]
+
+  Q --> QUEUE["🚦 NOT YET — one step at a time<br/>② sectionHeader sub:true<br/>③ buffet's 7 headers<br/>④ the 14 anonymous ← Back labels<br/>🔤 sharedWith → array migration<br/>🎂 Celebration Cakes · 🐾 Tiny+Furry<br/>📏 portion standard into the recipes"]
+
+  classDef good fill:#1f3a1f,stroke:#4caf50,color:#e8f5e9
+  classDef bad fill:#3a1f1f,stroke:#e57373,color:#ffebee
+  classDef warn fill:#3a331f,stroke:#ffb74d,color:#fff8e1
+  classDef ask fill:#1f2f3a,stroke:#64b5f6,color:#e3f2fd
+  class V,FIX1,KID,R7,R8,PARSE,ALREADY,HAND good
+  class WRONG,CAUSE,TRAP1,B1,B3,OOPS bad
+  class TRAP2,SW,SWX,B2,QUEUE warn
+  class RULE,Q,NEXT,B5 ask
