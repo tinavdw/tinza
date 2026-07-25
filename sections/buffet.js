@@ -91,7 +91,7 @@ function buffetItemCard(r, selArr, stateKey){
       {step:8,emoji:'🥫',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
       {step:7,emoji:'📋',label:'My Plan',  count:null},
     ].filter(s=> !(hideMyPlan && s.step===7));
-    return eventsTopNav() + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
+    return '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:14px;">'
       + secs.map(s=>{
           const isActive = activeStep===s.step;
           const hasSel = s.count>0;
@@ -132,12 +132,15 @@ function buffetStep1(){
       emoji:'🍽️',
       tagline:isPro?'Build your full menu — quantities, cost, shopping list':'Browse recipes and see quantities',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      backJs:"set({screen:'home',eventTab:'bigcooking',buffetStep:1})",
-      backLabel:'← Home',
+      // ⚖️ §24 · Buffet is a TOOL INSIDE Events, so its top Back goes to the Events front
+      // door, not Home. It said '← Home' only because eventsTopNav() was carrying the
+      // '← Events' job in a hand-rolled strip below it; that strip is deleted, so the
+      // header now does the job itself. Payload = eventsTopNav's own eAct, unchanged.
+      backJs:"set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null});window.scrollTo(0,0)",
+      backLabel:'← Events',
       myPlan:{ count:totalSel, label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">
-      ${eventsTopNav()}
       ${guestBar({
         state:'eventGuests', min:6, max:350,
         decJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})",

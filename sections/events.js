@@ -50,15 +50,13 @@ function fingerCostPP(r, piecesPP){
   return Math.round(per * piecesPP);
 }
 
-function eventsTopNav(accent){
-  accent = accent || 'var(--accent)';
-  var eAct = "set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
-  var hAct = "set({screen:'home',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})";
-  return '<div style="display:flex;gap:8px;margin-bottom:12px;">'
-    + '<button onclick="'+eAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">\u2190 Events</button>'
-    + '<button onclick="'+hAct+'" style="flex:1;padding:8px;background:rgba(0,0,0,0.25);border:1px solid '+accent+';border-radius:8px;color:'+accent+';font-size:13px;cursor:pointer;font-family:Georgia,serif;">\uD83C\uDFE0 Home</button>'
-    + '</div>';
-}
+// ⚖️ §24.3 · eventsTopNav() IS DELETED (25 Jul). It hand-rolled a "← Events / 🏠 Home"
+// PAIR on top of a header that already carries a Back, on a spine that already carries
+// Home — FOUR ways out of one Kiddies screen. Two Backs are allowed only when they do
+// TWO JOBS (§24): bottom = one level, top = the room front door. A second top Back doing
+// the SAME job as the header's is not a shortcut, it is a second answer to one question.
+// ⛔ DO NOT REBUILD IT. If a screen cannot reach Events, give its sectionHeader the right
+// backJs/backLabel — never bolt a strip above the photo. ⚖️ Law 6 · census 8 rung ⑥.
 
 // Shared guest stepper for EVERY Events ± control (recipe page + planner).
 // Reaches small groups (floor 2 — so 4 and 6 work) and steps sensibly when

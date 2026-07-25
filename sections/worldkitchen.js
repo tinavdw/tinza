@@ -128,7 +128,13 @@ function wkCourseEmoji(course){
 }
 
 /* Braai-style row: emoji · name/note · green "Recipe →" button (WK green theme). */
-function wkRecipeCard(r){
+// ⚖️ §24.4 · THE DOOR YOU CAME THROUGH, NOT THE DISH'S ORIGIN. `shelf` is the culture
+// whose list this card is rendered ON. It is a SEPARATE THING from r.country and must stay
+// separate: Bobotie's origin is Cape Malay forever, but if she reached it from the Boerekos
+// shelf then Boerekos is the door, and Back belongs to the door.
+// ⚠️ CALLERS MUST NOT USE BARE .map(wkRecipeCard) — .map passes (item, INDEX, array), so
+//    `shelf` would silently receive 0, 1, 2… Use .map(function(x){ return wkRecipeCard(x, country); }).
+function wkRecipeCard(r, shelf){
   var green='var(--accent)', cream='var(--ink)', feelCol='var(--ink-soft)';
   var disp = (typeof tinzaDisplayName === 'function')
     ? tinzaDisplayName(r)
@@ -137,7 +143,12 @@ function wkRecipeCard(r){
   // Standard row: name + ONE feel one-liner. Use howThisFeels when written;
   // fall back to country (keeps cross-cuisine search useful) until the writing pass fills feel lines.
   var sub   = r.howThisFeels ? r.howThisFeels : r.country;
-  var open  = "wkOpenRecipe('"+r.country+"','"+r.id+"')";
+  // 🩸 THE BUG (25 Jul, Tina's eyes on live): this passed r.country, so opening Bobotie from
+  //    the Boerekos shelf called wkOpenRecipe('Cape Malay') — which sets S.wkDataCountry "so
+  //    Back lands on this country's list". THE DOOR RE-LABELLED ITSELF BEHIND HER, and both
+  //    Backs then honestly returned her to a shelf she had never walked through.
+  var _door = shelf || r.country;
+  var open  = "wkOpenRecipe('"+_door.replace(/'/g,"\\'")+"','"+r.id+"')";
   var checked = (typeof wkInPlan === 'function') && wkInPlan(r.id);
   // live per-person portion — recalculates as dishes are added to the plan
   var pk = (typeof wkPoolOf==='function') ? wkPoolOf(r.course) : 'main';
@@ -302,7 +313,7 @@ function wkDataCountryHTML(){
     + '</div>';
 
   var list = inTab.length
-    ? inTab.map(wkRecipeCard).join('')
+    ? inTab.map(function(x){ return wkRecipeCard(x, country); }).join('')   // ⚠️ never a bare .map — arg 2 would be the INDEX
     : '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;text-align:center;color:var(--ink-soft);font-size:13px;">No '+tab+' for '+country+' yet.</div>';
 
   // V33 shared 200px photo header (core.js sectionHeader). Country banner
@@ -758,7 +769,12 @@ if(typeof RECIPE_SOURCES !== 'undefined'){
   RECIPE_SOURCES.world = function(id){ return wkPool().find(function(r){ return r && r.id === id; }); };
 }
 if(typeof RECIPE_BUILDERS !== 'undefined'){
-  RECIPE_BUILDERS.world = function(item, recipe, vr){ return wkRecipeOpts(item, item.country, true); };
+  // ⚖️ §24.4 — wkRecipeOpts ALREADY keeps these apart: backLabel:'← '+country is THE DOOR,
+  //    meta.origin:r.country is THE TRUTH. This fed the origin into the door slot, so a dish
+  //    opened from Boerekos wore a "← Cape Malay" Back. S.wkDataCountry IS the door she walked.
+  //    ⛔ meta.origin is NOT touched. Bobotie stays Cape Malay — Tina, 25 Jul: "it's a truth
+  //    Boerekos doesn't want to accept, but only a few people actually know this."
+  RECIPE_BUILDERS.world = function(item, recipe, vr){ return wkRecipeOpts(item, S.wkDataCountry || item.country, true); };
 }
 
 /* parse a cook time out of a method step → pill label ("⏲ 20 min", "⏲ overnight") */

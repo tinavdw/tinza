@@ -37,13 +37,15 @@ function kidsName(label,rest){
 }
 
 
-// Shared section banner (sectionHeader) + the Events ←/🏠 nav strip, exactly like
-// the other Events sub-sections (buffet renders sectionHeader + eventsTopNav too).
+// Shared section banner — sectionHeader() and NOTHING above it. ⚖️ §24.3, 25 Jul:
+// this used to prepend eventsTopNav(), so a '← Events / 🏠 Home' pair sat ABOVE the
+// photo header that already had its own Back, on a spine that already had Home.
+// Every kidsHeader call site already passes a backLabel that names where it goes.
 // Themed via the per-theme header image; emoji-on-gradient fallback when it 404s.
 // `tint` is no longer used (the banner is photo-based) — kept in the signature so
 // the existing call sites need no change.
 function kidsHeader(title,subtitle,backAction,backLabel,headerImg,tint){
-  return eventsTopNav('var(--accent)') + sectionHeader({
+  return sectionHeader({
     title: title, emoji: '', tagline: subtitle,
     img: 'https://raw.githubusercontent.com/tinavdw/tinza/refs/heads/main/Images/Image%20header/'+encodeURIComponent(headerImg||'')+'.jpg',
     backJs: backAction, backLabel: backLabel
