@@ -234,9 +234,12 @@ function globalSearchLive(query) {
 // when one is open, else the search box + live universal results.
 function searchPageHTML() {
   if(S._searchActiveRecipe && typeof recipeDetailFromResult === 'function'){
+    // §24.9 — General Search is FLAT (the search screen → a recipe): depth 1, so two-up is
+    // Home by the clamp. The bottom Back still returns to the results she was reading.
     return recipeDetailFromResult(
       S._searchActiveRecipe, "setQuiet({_searchActiveRecipe:null})",
-      S.searchServings||4, '#c06020', '#1a1208', '#3a2010'
+      S.searchServings||4, '#c06020', '#1a1208', '#3a2010',
+      (typeof topBack === 'function') ? topBack([], 1) : null
     );
   }
   var q = S.searchQuery || '';

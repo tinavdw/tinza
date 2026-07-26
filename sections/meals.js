@@ -15379,7 +15379,9 @@ function mealSectionHTML(sectionKey){
   // Recipe detail view
   const activeRecipe = S.mealActiveRecipe;
   if(activeRecipe && activeRecipe._section===sectionKey){
-    return recipeDetailFromResult(activeRecipe, "closeMealRecipe()", S.searchServings||4, cfg.color, cfg.bg, cfg.border);
+    // §24.9/§24.11 — three-deep (Family Meals → shelf → recipe), so the recipe is depth 2
+    // and the top Back is "← Family Meals". The bottom stays closeMealRecipe() = one level.
+    return recipeDetailFromResult(activeRecipe, "closeMealRecipe()", S.searchServings||4, cfg.color, cfg.bg, cfg.border, topBack(TINZA_CHAINS.meals(), 2));
   }
 
   // List view
@@ -15760,7 +15762,10 @@ function openAnchorRecipe(i){ var a=S._anchorResults||[]; if(a[i]) setQuiet({_an
 function fourIngredientsHTML(){
   const color='#c06020', bg='#1a1208', border='#3a2010';
   if(S._fourActiveRecipe){
-    return recipeDetailFromResult(S._fourActiveRecipe, "setQuiet({_fourActiveRecipe:null})", S.searchServings||4, color, bg, border);
+    // §24.9 — 4 Ingredients is FLAT (front door → recipe), so the recipe is depth 1 and
+    // two-up is Home by the clamp Tina ruled 27 Jul. topBack() supplies it; the empty
+    // chain is honest — this room declares no intermediate level, because it has none.
+    return recipeDetailFromResult(S._fourActiveRecipe, "setQuiet({_fourActiveRecipe:null})", S.searchServings||4, color, bg, border, topBack([], 1));
   }
   const loading=S._fourLoading, results=S._fourResults, error=S._fourError;
   const howOpen=S.fourHowOpen||false;
@@ -15866,7 +15871,8 @@ function fourIngredientsHTML(){
 function anchorIngredientHTML(){
   const color='#c06020', bg='#1a1208', border='#3a2010';
   if(S._anchorActiveRecipe){
-    return recipeDetailFromResult(S._anchorActiveRecipe, "setQuiet({_anchorActiveRecipe:null})", S.searchServings||4, color, bg, border);
+    // §24.9 — Anchor Ingredient is FLAT (front door → recipe): depth 1, two-up = Home.
+    return recipeDetailFromResult(S._anchorActiveRecipe, "setQuiet({_anchorActiveRecipe:null})", S.searchServings||4, color, bg, border, topBack([], 1));
   }
   const loading=S._anchorLoading, results=S._anchorResults, error=S._anchorError;
   const howOpen=S.anchorHowOpen||false;
@@ -15982,7 +15988,23 @@ function bakesPortion(r){
   return null;
 }
 
-function recipeDetailFromResult(r, backAction, servings, color, bg, border){
+// ⚖️ §24.11 — A SHELL THAT CANNOT BE TOLD THE LABEL WILL ALWAYS SAY "← Back".
+// MF149-B named every sectionHeader() caller and Tina STILL found a bare "← Back" in
+// Family Meals and Mood. The measurement: this shell had no label parameter at all, so
+// all six of its rooms fell through to the hard-coded string below. Its sibling
+// sectionPlanView() was given the argument in MF149-B; this one was missed because it was
+// never a sectionHeader() caller — it hand-rolls its own four Back buttons.
+// ⛔ NOTE FOR THE NEXT READER: this function does NOT call recipePage(). It builds two
+//    whole page shells of its own (warm + dark), each with a TOP photo Back and a BOTTOM
+//    full-width Back. That is why the sectionHeader sweep could never have caught it.
+// `top` is a topBack() RESULT — {backJs, backLabel} — not a bare string, so the label and
+// the destination come from the SAME declared chain and cannot disagree. ⚖️ §24.9.
+// 🛡️ OMIT-SAFE: with no `top` the render is byte-identical to before.
+function recipeDetailFromResult(r, backAction, servings, color, bg, border, top){
+  // TOP Back = two levels up, NAMED (§24.9). BOTTOM Back = one level, and the bottom is
+  // allowed to stay anonymous — it always means "one level", on every screen (§24).
+  var _topJs    = (top && top.backJs)    || backAction;
+  var _topLabel = (top && top.backLabel) || '← Back';
   if(typeof applyRecipeVersion==='function') r = applyRecipeVersion(r);   // ⭐ versions: render the chosen version
   // MF144 · seed through the shared softDefaultN (one door with bakes + WK + health).
   // A soft oven-dish opens at serves 6; any real user count wins (it's first). Non-soft →
@@ -16106,7 +16128,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
     return `<div style="min-height:100vh;background:var(--bg);">
       <div style="position:relative;">
         ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
-        <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.55);border:1px solid rgba(255,255,255,0.55);border-radius:20px;color:#fff;font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
+        <button onclick="${_topJs}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.55);border:1px solid rgba(255,255,255,0.55);border-radius:20px;color:#fff;font-size:13px;padding:5px 12px;cursor:pointer;">${_topLabel}</button>
         ${_heart}
       </div>
       <div class="content" style="padding:0 16px 16px;max-width:600px;margin:0 auto;">
@@ -16177,7 +16199,7 @@ function recipeDetailFromResult(r, backAction, servings, color, bg, border){
   return `<div style="min-height:100vh;background:#0f0e0c;">
     <div style="position:relative;">
       ${(typeof recipePhoto==='function')?recipePhoto(r.photoName||r.name, r.emoji, 200):''}
-      <button onclick="${backAction}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
+      <button onclick="${_topJs}" style="position:absolute;top:10px;left:10px;z-index:3;background:rgba(8,4,2,0.65);border:1px solid ${border};border-radius:20px;color:${color};font-size:13px;padding:5px 12px;cursor:pointer;">${_topLabel}</button>
       ${_heart}
     </div>
     <div style="padding:0 16px 16px;max-width:600px;margin:0 auto;">

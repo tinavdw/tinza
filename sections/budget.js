@@ -65,7 +65,12 @@ function budgetPlannerHTML(){
 
   if(active){
     // Shopping list = only what they need to buy (all ingredients - userHas:false)
-    return recipeDetailFromResult(active, "budgetCloseRecipe()", S.budgetPeople||4, color, bg, border);
+    // §24.9/§24.11 — three-deep (the room → its step list → recipe): depth 2, so the top
+    // Back names the room. The bottom stays budgetCloseRecipe() = exactly one level.
+    // 📌 The label comes from TINZA_CHAINS.budget(), so it reads "← I've Got R100" — the
+    //    name the room wears on the Home tile and on its own plan header — never the
+    //    internal screen key "budget", which she has never seen anywhere.
+    return recipeDetailFromResult(active, "budgetCloseRecipe()", S.budgetPeople||4, color, bg, border, topBack(TINZA_CHAINS.budget(), 2));
   }
 
   const budgetHowOpen = S.budgetHowOpen || false;

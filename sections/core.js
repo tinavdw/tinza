@@ -2637,13 +2637,16 @@ function moodHTML(){
   if(S.moodActiveRecipe){
     const r = S.moodActiveRecipe;
     const mood = MOODS.find(m=>m.id===S.moodSelected)||{colour:'#8060c0',bg:'#0f0818'};
+    // §24.9/§24.11 — three-deep (Just Feed Me → mood list → recipe): depth 2, so the top
+    // Back is "← Just Feed Me". The bottom stays closeMoodRecipe() = exactly one level.
     return recipeDetailFromResult(
       r,
       "closeMoodRecipe()",
       S.moodServings||1,
       mood.colour,
       mood.bg,
-      mood.colour
+      mood.colour,
+      topBack(TINZA_CHAINS.mood(), 2)
     );
   }
 
