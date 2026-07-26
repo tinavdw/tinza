@@ -398,3 +398,21 @@ The shelf filter is `x.country === country || x.sharedWith.indexOf(country) !== 
 - ⚠️ **THE LANDMINE:** the library has a country **"India"** *and* a culture **"Indian"**. One record tagged `sharedWith:"Indian"` appears on the **India** shelf, silently. One data entry away.
 - ⚖️ **THIS IS THE INGREDIENT STANDARD, APPLIED TO DATA:** one item per line, no "+" lines, for exactly the same reason.
 - 🔧 **SHAPE:** `sharedWith: ["Norway","Denmark"]` · empty = `[]` or absent, never `""` · a record may never share with its own country. Migration in Node, then a census rung asserting the shape. **⛔ Do not hand-edit 1021 records.**
+
+---
+
+## ⑤ 🔴 A VERSION MATCHED, THE PARENT GOT NAMED — **Anchor Ingredient (measured 27 Jul 2026, Tina's live catch)**
+
+**What she did:** Anchor Ingredient → typed **beef mince** → got a card reading **"Pannekoek"**.
+
+**Measured at HEAD `456bf17`:** `bf-pannekoek` (meals.js:2644) carries **two versions** — `"Cinnamon Sugar"` and `"Savoury Mince-Filled"`. The mince version has its own ingredients and its own method (meals.js:2827 — *"Brown the mince hard in one layer…"*). **The search is RIGHT: beef mince really is in that recipe.** The bug is the **label** — the result card prints the parent's `name` and says nothing about *which version* earned the hit. It reads like a search error and isn't one.
+
+⚖️ **THE RULE THIS BREAKS — "mood is a tag" / versions ruling, applied to results:** if a VERSION produced the match, the VERSION must be what the card names. Otherwise the app claims a pancake contains mince and looks broken to the one person it should look right to.
+
+🔧 **TWO PARTS, AND PART 2 IS THE ONE THAT ACTUALLY BITES:**
+1. **NAME IT** — the card reads the version, not just the parent.
+2. **OPEN ON IT** — tapping through must land with the **matching version chip pre-selected**. Today it opens on the default (Cinnamon Sugar), so she taps a mince result and arrives at a cinnamon-sugar pancake with no mince in the ingredient list. ⚖️ **Part 1 without part 2 moves the lie one screen later.**
+
+✅ **WORDING RULED BY TINA, 27 Jul 2026:** the card reads **`<Parent> — <Version name, exactly as stored>`** → **"Pannekoek — Savoury Mince-Filled"**. ⚖️ **The version name is NEVER rewritten** — no "Mince Pannekoek", no per-version short names, no data job. The parent answers *what is it*, the version answers *which one*, and both already exist in the data today. **Nothing new is added to any record; this is a display rule only.**
+
+🔭 **SCOPE IS BIGGER THAN THE ANCHOR ROOM:** every surface that searches ingredients across versions has this shape — Anchor Ingredient, General Search, 4 Ingredients, and the mood shelves' `allRecipes()` query. **Own session.** Do not bolt it onto a navigation brief.

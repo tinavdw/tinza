@@ -1371,6 +1371,26 @@ The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is th
 
 ---
 
+### 📍 24.10 · WHERE A SCREEN **LANDS** — *(RULED by Tina 27 Jul 2026, from live · build = MF150)*
+
+**A push lands at the TOP. A lateral lands ON THE THING YOU TAPPED. Nothing lands in a random middle.**
+
+- 🩸 **WHAT SHE SAW ON LIVE:** Events → Finger Foods opened **below the banner**, with the top Back scrolled off-screen — the header's own navigation control hidden by the landing. Cause is **NOT** MF149: `core.js:657` `jumpToContent` is an older feature that deliberately scrolls past the banner to `.content` on any in-section navigation. ⚖️ **It was written before the top Back meant anything. Now it does — a landing that hides the room's Back is a landing that hides the way out.**
+- ⚖️ **THE LAW RIDES THE PUSH/LATERAL LINE ALREADY RULED IN §24.7** — one distinction, two behaviours, nothing new to remember:
+  - **PUSH** *(entering a level: Events → Finger Foods, a country → its dish list, a room → a category)* → **`scrollTo(0,0)`. The top. Always.** The banner, the title and the top Back are all part of arriving somewhere new.
+  - **LATERAL** *(a pill or tab inside a level — `LATERAL_KEYS`: Meaty → Pastry, `mealCat`, `healthGroupTab`, …)* → **land on the block that pill selected**, its heading at the top of the viewport. ⚖️ **Not "stay put"** *(Tina, live: tapping Meaty Snacks left her where she was and made her scroll down to find it)* and **not the top either** *(a pill tap is not an arrival; re-showing the banner on every pill is the thing `jumpToContent` was built to avoid)*.
+  - **RECIPE OPEN** → top *(already correct — `openedRecipe`)*. **BACK** → restore the scroll she left *(already correct)*. **COOKING STEP** → top *(already correct)*.
+- 🔧 `jumpToContent` is **deleted** as the default; its scroll-to-content behaviour survives only inside the lateral branch, and aimed at the SELECTED block rather than at `.content`'s top.
+- 📋 **RUNG OWED:** no push path may land at a non-zero scroll. Born RED against the current tree.
+
+### 🏷️ 24.11 · A BACK SHELL WITHOUT A LABEL ARGUMENT WILL ALWAYS SAY "← Back" — *(MEASURED 27 Jul 2026, Tina's live catch)*
+
+MF149-B named every `sectionHeader()` caller and Tina still found bare `← Back` in **Family Meals and Mood**. The measurement: **`recipeDetailFromResult(r, backAction, servings, color, bg, border)` (meals.js:15985) has no `backLabel` parameter at all** — so FMF, Mood and Search all fall through the `'← Back'` default at core.js:3072/4318. Its sibling shell `sectionPlanView()` **was** given the argument in MF149-B; this one was missed because it was never in the `sectionHeader()` sweep.
+
+⚖️ **THE GENERAL LAW:** *a shell that renders a Back must TAKE the label as an argument — a shell that can only default is a shell that will default.* Naming the callers is not enough if the shell has no parameter to name into. **Census rung:** every Back-rendering shell in `core.js` accepts a label argument; every call site passes one *(a bare `|| '← Back'` fallback may exist as a crash-guard, but zero live callers may rely on it)*.
+
+---
+
 ## 🎭 25 · WATCHING WHAT THE APP **DOES** — **RULED 26 Jul 2026 (Tina)**
 
 ### ⛔ 25.1 · CORRECTION — **"TINA DECLINED PLAYWRIGHT" WAS NEVER TRUE** *(struck 26 Jul 2026)*
