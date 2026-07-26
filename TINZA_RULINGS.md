@@ -1071,6 +1071,32 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 > **Cheap food belongs in 💰 I've Got R100 — that room is ABOUT the price.**
 > **A mood is about how she FEELS.** ⚖️ **Law 23 — one room, one question.**
 
+### 🍟 21.1 · A MOOD SERVES A MEAL — **THE SLOT GATE** *(ruled 26 Jul, Tina)*
+
+**Her find, on live:** *"I went to Just Feed Me, I want to be healthy, and chips is a recipe that comes up."*
+
+⚖️ **THE QUESTION WAS NEVER "IS CHIPS HEALTHY". IT IS "IS CHIPS A MEAL".** Nobody opens Just Feed Me wanting a bowl of chips — **or a bowl of steamed broccoli.** Both are sides. The mood asked to be **fed**.
+
+- 🩸 **MEASURED — THE GATE ALREADY EXISTS AND `healthy` IS THE ONE MOOD THAT SKIPS IT.** `core.js:2270` allows six slots *(`SUPPER · LUNCH · BREAKFAST · SIDE · STARTER · TREAT`)*, but `core.js:2291` defines `_MOOD_MEALSLOT = ['SUPPER','LUNCH','BREAKFAST']` and **five moods already use it** — `exhausted` · `quick` · `pickmeup` · `lazy` · `impress`. `healthy` *(core.js:2293)* checks diet and **nothing else**, so `SIDE` and `STARTER` walk through.
+- ⚖️ **THIS IS AN INCONSISTENCY, NOT A NEW DESIGN.** Five moods have the gate; one does not. ⚖️ **Law 6.**
+- ✅ **RULED: every mood that promises a MEAL gates on `_MOOD_MEALSLOT`.** `sweet` keeps `TREAT` — it promises a treat, and ⚖️ **Law 23, one room one question**, cuts both ways.
+- ⛔ **DO NOT FIX THIS BY RE-TAGGING CHIPS.** Every fried, sugary or refined vegetarian record passes the same test; re-tagging one dish moves the symptom onto the next. ⚖️ **The predicate is the bug, not the record.**
+
+### 🥗 21.2 · **HEALTHY IS NOT A DIET** — DEEP-FRIED IS A SIGNAL, NEVER A VETO *(ruled 26 Jul, Tina · build = MF123)*
+
+`core.js:2293` reads `healthy: r.section==='health' || _moodDiet(r,['vegan','vegetarian','pescatarian'])`.
+
+⚖️ **THAT FILTER ASKS "DOES THIS CONTAIN AN ANIMAL?" AND CALLS THE ANSWER "HEALTHY."** Slap Chips is potatoes and oil — **vegan** — so it passes. **Diet and health are two different facets and this line conflates them.** *(⚖️ Consistent with DIETARY (locked 12 Jul): diet is derived from ingredients in Node, never by hand — that ruling makes diet a FACT. Health is a JUDGEMENT, and must be built from facts, not borrowed from diet.)*
+
+- ⛔ **DEEP-FRIED IS A SIGNAL, NOT A VETO — TINA'S CONSTRAINT, AND IT IS THE DESIGN.** Her words: *"In general deepfried foods arent healthy, but its not always the case."* **Falafel is deep-fried chickpeas. Tempura is deep-fried vegetables.** A blanket deep-fried veto would cull real food and would be wrong.
+- ✅ **BUILD IT FROM THREE FACTS THE APP ALREADY HOLDS:**
+  1. **TECHNIQUE** — deep-fry is nameable from the method *(`reference/TINZA_TECHNIQUES.md`)*.
+  2. **PLATE SHARE** — vegetable/legume grams as a share of per-person grams. **Every ingredient already carries `pp`; this is computable today, no new authoring.**
+  3. **ADDED SUGAR** — from the ingredient list, same derivation as diet.
+- ⚖️ **THE SHAPE:** `healthy` = **meal-slot** AND **plant-or-lean-protein-forward** AND NOT (**deep-fried** AND **starch-dominant**).
+  *Chips → out at the slot gate. Fish & chips → a MAIN, so it survives the slot gate and falls at starch-dominant-and-fried. **Falafel and tempura survive** — legume/vegetable-dominant. Her nuance, made mechanical.*
+- 📋 **DERIVED IN NODE, NEVER BY HAND** *(⚖️ DIETARY, locked 12 Jul)*. **Two layers, two sessions:** 21.1 is small enough to ride with the Just Feed Me button fix; **21.2 is MF123 and needs its own session.**
+
 ### 🪜 THE SHELF BEHIND THE PICKS
 - ✅ **The hand-picked curated set stays — as the CURATED TOP.** *(They carry a mood-framed `why` no query can write.)* ⚖️ **Law 11.**
 - ✅ **A QUERY over `allRecipes()` is the DEEP SHELF behind them.** 🏆 **Budget already does this** — `_budgetPool()` + curated floor. **LIFT IT, don't invent it.** ⚖️ **Law 35 · Law 50.**
@@ -1253,3 +1279,106 @@ A dish can sit on **more than one shelf**. Bobotie's country is **Cape Malay**; 
 - ⛔ **A LEVEL MOVE IS NOT A RESET.** `← continent` nulls **`wkRegion` alone** and must keep doing so. Stepping up one level is not leaving the room, and `wkResetDrill()` is not for it.
 - 📋 **CENSUS 8 RUNG ⑨ — two assertions, all three failure shapes proven RED then GREEN:** her exact bug *(drop wkContinent + wkRegion → **RED, naming both**)* · the door renamed → **RED at 0 definitions** · a second definition → **RED at 2**. It ignores any statement nulling fewer than 3 drill keys, so a step-up never cries wolf. ⚖️ **Law 22.**
 - 🩸 **THE INSTRUMENT ALMOST SHIPPED BLIND AGAIN.** The door-exists probe was first written `/function wkResetDrill/` — which **still matches `wkResetDrillX`**, so renaming the door passed GREEN. Worse, every caller is guarded by `typeof`, so a renamed door **fails silently and falls back**. Now matched to the whole name plus its paren, and counted. ⚖️ **Law 19 — a rung that cannot fail is not a rung, and I proved it by trying to break it.**
+
+### 🔁 24.6 · ONE KEY, ONE CLOSE PATH — **A KEY MAY NOT BE IN BOTH LISTS** *(ruled 26 Jul, Tina)*
+
+**Her find, on live:** the Feed My Family recipe Back was a **dead tap, and then Home.**
+
+Two lists in `core.js` govern a recipe view, and they are **mechanically opposite**:
+
+| list | line | what membership means |
+|---|---|---|
+| `navSignature()` | core.js:93 | opening the key **PUSHES** a history entry |
+| `SIMPLE_RECIPE_KEYS` | core.js:59 | closing the key **NULLS it** → `setQuiet` → `draw()` → *pushes AGAIN* |
+
+⚖️ **A KEY IN BOTH LISTS OPENS BY PUSHING AND CLOSES BY PUSHING. NOTHING EVER CONSUMES.**
+
+**MEASURED, depth in brackets** *(enter Supper = depth 1, root 1)*:
+
+| action | what happens | depth |
+|---|---|---|
+| tap recipe | sig changes → push | 2 |
+| Back ① | step 2b nulls the key → draw → **pushes again** | 3 |
+| Back ② | step 3: `3 > root 1` → `history.back()` → popstate restores depth 2 = **the recipe, open again** | 2 |
+| Back ③ | key is set again → nulls → pushes | 3 |
+
+It **ping-pongs**, and when the depth arithmetic desyncs, step (4) dumps her on **Home**. Exactly the symptom she reported, exactly the cause she guessed.
+
+- ✅ **THE CONTRAST THAT PROVES THE RULE:** `closeRecipe()` *(core.js:3914)* calls `history.back()` — it **CONSUMES the entry it pushed**. That is why `viewingRecipe` has never had this bug.
+- ⚖️ **THE RULING — MOVE THEM TO THE CONSUME PATH.** `moodActiveRecipe` and `mealActiveRecipe` come **OUT of `SIMPLE_RECIPE_KEYS`** and **STAY in `navSignature()`**. Closing goes through the consuming path, exactly like `closeRecipe`. ⚖️ **Law 6.**
+- ⛔ **THE OTHER DIRECTION WAS REJECTED, AND WHY.** Dropping them from `navSignature()` instead would mean opening a recipe pushes nothing — and then the **phone's back button** pops straight past the list to **Home**. Consume-path gives the in-app Back and the device Back **one mechanism**. *(The in-app Back alone would have worked either way. The device Back is what decides it.)*
+- 🔧 **TWO CALL SITES ONLY** — `meals.js:16480` and `core.js:2523` change from `setQuiet({key:null})` to the consuming close.
+- 📋 **RUNG OWED — `No key appears in both lists`. Born RED at 2.**
+- 🔴 **PROVEN ON LIVE — TINA, 26 Jul, phone + tablet** *(⚖️ Law 2 — her fingers closed it)*. **Sides & Basics: "it loops chips and the recipe, chips and the recipe"** — and the same with **Gnocchi**. **The bottom-left Back CAN get out; the phone Back cannot.** That split is the proof, and it sharpened the trace:
+  - open Chips → history gets a **recipe** entry
+  - bottom-left Back → nulls the key → redraw → pushes a **list** entry *(she is out — this is why the in-app Back works)*
+  - so every open-and-close cycle leaves the stack `list · recipe · list · recipe · list…`
+  - the phone Back walks **down that whole stack**, replaying the session alternately
+  ⚖️ **THE IN-APP BACK ESCAPES BY MAKING THE MESS THE PHONE BACK THEN WALKS THROUGH.**
+- ⚠️ **JUST FEED ME IS UNWALKED BUT NOT UNAFFECTED.** `moodActiveRecipe` is the other key in both lists. She reported *"it's only FMF"* because Mood was not on the walk — **expect the identical loop there**, and check it when the fix lands.
+
+**🧹 THE SWEEP — because a bug is never in one place *(Tina's standing law)*. Every open-detail key in the app, classified:**
+
+| shape | keys | verdict |
+|---|---|---|
+| ✅ **push + consume** *(correct)* | `viewingRecipe` · `activeBaby` · `activeDog` | the target shape |
+| 🔴 **in BOTH lists** | `moodActiveRecipe` · `mealActiveRecipe` | **this ruling** |
+| 🟠 **in NEITHER list** | `_anchorActiveRecipe` · `_fourActiveRecipe` · `_searchActiveRecipe` | in-app Back works *(one tap, no push, no sig change)*; **the DEVICE back overshoots to Home** — nothing was pushed to consume. **Measured, NOT proven on live.** Own job. |
+| ⚪ **bespoke path** | `_budgetActiveRecipe` | handled by its own `goBack` step (1). Works; is its own shape. |
+
+### ↔️ 24.7 · A LATERAL REPLACES, NEVER PUSHES *(ruled 26 Jul, Tina)*
+
+**Her find:** *"Eggs → Waffles → Porridge and Back walks SIDEWAYS."*
+
+`draw()` pushes on **every** signature change, and a pill is `setQuiet({mealCat:…})` *(meals.js:15432)*. Three taps at the **same depth** = three history entries. Back then walks across the shelf instead of out of the room.
+
+- ⚖️ **THE RULING: a move that does not change DEPTH does not create HISTORY.** A lateral uses **`replaceState`**; only a level uses `pushState`. **ONE ruling, every room** — WK course tabs, Events tabs, Health group tabs, `wkDataTab`, the FMF pills. ⚖️ **Law 6 — not one fix per room.**
+- 🔑 **MECHANISM — a declared `LATERAL_KEYS` list.** If the **only** signature keys that changed are lateral, replace instead of push. Candidates: `mealCat · eventTab · wkDataTab · wkCourseTab · healthGroupTab · beverageCat · cakeCat · catSection · dogSection · barMode · braiCat · fingerView · healthTab`.
+- ✅ **THE QUESTION I EXPECTED TO ASK HER, MEASURED INSTEAD.** *Is the FIRST pill tap a level or a lateral?* `meals.js:15395` reads `activeCat = cats.find(c=>c.id===S.mealCat) ? S.mealCat : cats[0].id` — **a pill is ALWAYS selected**, falling back to the first. There is no unfiltered state behind the pills, so **nothing is lost by replacing**. The first tap is a lateral like any other. ⚖️ **Law 19 — measured, not assumed.**
+- 🔴 **PROVEN ON LIVE — TINA, 26 Jul, THREE ROOMS** *(⚖️ Law 2)*. **Oven Bakes & Roasts → phone Back → Homestyle Plates.** **Deep-Fried → phone Back → Breads & Rolls.** **Waffles → Back → Eggs** *(tablet)*. ⚖️ **IT ALWAYS LANDS ON THE FIRST PILL** — because entering the room drew with the default pill *(`cats[0].id`)* and pushed an entry, then her tap pushed a second. **Back walks to the default, not out of the room.** Her words: *"it's been doing this for a while."*
+- ⚠️ **CONFIRM ON LIVE BEFORE `eventTab` GOES IN THE LIST.** It has a default *(`data.js:33`, `'mains'`)* so it passes the same test on paper — but Events is the room being reworked, and **Law 2 says her fingers close it.**
+
+### 🪦 24.8 · READ AND CLEARED IS NOT ALIVE — **DEAD RENDER BRANCHES** *(measured + RULED 26 Jul, Tina)*
+
+**Found by the sweep, not by the symptom** — nothing on live pointed at this.
+
+The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is this name mentioned anywhere in `sections/`?"* — and counts a **read** or a **`key: null` clear** as proof of life. That leniency is **deliberate and correct** *(the rung's own comment: err toward "it is alive" for deletions)*. But it leaves a harder question unasked:
+
+⚖️ **CAN THIS KEY EVER BECOME TRUTHY?** Asked that way, **10 more keys are dead** — read, cleared, watched by the signature, and **written by nothing**:
+
+`eventActiveRecipe` · `weddingCakeView` · `kidsShowMasterSnacks` · `wkSACulture` · `wkRecipeDetail` · `activeSmoothie` · `activeCat2` — plus `activeOats` · `activeMuffin` · `activeRaw` *(not in the signature at all)*.
+
+- 🩸 **THE ONE THAT MATTERS:** `health.js:963–966` renders **four recipe-detail branches** — smoothie, oats, muffin, raw — each with its own back-state, its own cooking-mode line *(:955)* and its own Home button *(:858)*. **Not one of them can ever be opened.** They are leftovers from Health's migration onto the universal opener. Live code, reachable by nothing.
+- ✅ **WHY DELETION IS SAFE HERE, AND THE LAW IT OBEYS:** ⚖️ *a helper is safe to delete only once its job has a new home* **(§24.3)**. These jobs moved to `openRecipe()`/`viewingRecipe` **at migration** — the new home already exists and has been live for weeks. That is the opposite of the `eventsTopNav` trap, where buffet's only route out would have been stranded.
+- 🩸 **MY INSTRUMENT CRIED WOLF FIRST, AND I CAUGHT IT BY HAND.** The first probe reported `barMode` dead. It is **live** — `barplanner.js:285` writes it through `chipRow(..., 'barMode')`, a helper that takes the key **as a string**, which no `key:` pattern can see. ⚖️ **Law 19 — every one of the 10 above was then re-checked repo-wide for string-name writes AND for computed writes (`S[k]`), and the only dynamic writers in the app are `goBack`'s clear and `closeRecipe`'s snapshot restore. Both clear; neither sets.**
+- ✅ **RULED — TINA SAID YES TO ALL THREE, 26 Jul:** **(a)** the four dead Health branches are DELETED · **(b)** the dead keys come OUT of `navSignature()` · **(c)** the rung is TIGHTENED to ask *"is it ever SET?"*.
+- ⛔ **THE PRICE OF (c), WRITTEN DOWN BEFORE IT IS PAID.** A stricter rung can one day bury a **live** key that is only ever written through a helper taking its name as a string — *the exact shape that made my own probe call `barMode` dead*. **The rung must therefore count string-name writes (`'key'`) as writes, not only `key:` literals**, and that requirement is part of the ruling, not an implementation detail. ⚖️ **Law 19.**
+
+---
+
+## 🎭 25 · WATCHING WHAT THE APP **DOES** — **RULED 26 Jul 2026 (Tina)**
+
+### ⛔ 25.1 · CORRECTION — **"TINA DECLINED PLAYWRIGHT" WAS NEVER TRUE** *(struck 26 Jul 2026)*
+
+> ⛔ **STRUCK.** For a month it was carried — including by Claude, to Tina's face, on 26 Jul — that Tina had *"explicitly decided against a full Playwright/CLI test-suite overhaul"* in June. **She did not.** Her words on being told: *"I dont even remember that? I wonder why I would say that?"*
+>
+> **THE SOURCE, 26 Jun 2026 — it was CLAUDE'S RECOMMENDATION, not her decision:** *"Skip Playwright for now. It can test a PWA, but setting it up is its own project and overkill for how you build. **Graduate to it only if manual verification keeps missing things.**"* What Tina actually greenlit was a **written definition-of-done checklist**. A session SUMMARY then compressed the recommendation into *"items explicitly decided against"*, and the summary was read back as fact.
+
+- 🩸 **THE FAILURE SHAPE, AND IT IS THE WEEK'S THIRD:** trusting a convenient digest instead of the source. *(25 Jul — reading my own working copy instead of the remote and telling her the batch was unpushed. 25 Jul — a regex instead of a parse, wrongly telling her Bobotie did not belong on Boerekos. 26 Jul — a conversation summary instead of the transcript.)* ⚖️ **Law 19 widens: A SUMMARY IS NOT EVIDENCE. Read the source before repeating a decision back to her.**
+- ⚖️ **A RECOMMENDATION IS NOT A RULING.** Claude's advice, however sound, never becomes Tina's decision by being written down near it. Only Tina rules. ⚖️ **§2.3.**
+- ✅ **THE EXIT CONDITION IN THAT ADVICE HAS FIRED.** *"Only if manual verification keeps missing things."* **26 Jul, one live walk:** the Just Feed Me button missing **five days** · the FMF back-loop *"doing this for a while"* · Oven Bakes → Homestyle Plates, also *"for a while"*. **Manual verification is not missing things through carelessness — it is one person checking a 2,083-recipe app on two devices.** Her words: *"its impossible for me to check every single spot in the app."*
+
+### 🎯 25.2 · **TEST BEHAVIOUR, NEVER APPEARANCE** — the scope, ruled with the tool
+
+**RULED: Playwright comes in, scoped to NAVIGATION INVARIANTS ONLY, AFTER the top-Back build lands.**
+
+- ⚖️ **THE DIVIDING LINE — WHY BOTH WATCHERS EXIST AND NEITHER REPLACES THE OTHER:**
+  | watcher | catches | cannot catch |
+  |---|---|---|
+  | **MF147** — pure functions in Node, inside the census | wrong records, dead ends, orphaned functions | anything the browser does |
+  | **MF148** — Playwright | back loops, dead taps, a control that is not on screen | nothing a query can answer more cheaply |
+  **Half of 26 July's bugs were browser-only.** No Node rung could ever have found the back-loop.
+- ⛔ **NEVER ASSERT COLOUR, LABEL TEXT, FONT, OR LAYOUT.** The sameness sweep and the tinyTummies rebuild will churn every one of those daily. ⚖️ **A test that breaks every day is a test she learns to ignore — the rung-that-cries-wolf law, applied to the browser.** The rulings of 25–26 Jul are the right targets **because they are CONTRACTS, not cosmetics.**
+- ⏱️ **AFTER THE TOP-BACK BUILD, NOT BEFORE.** That build changes what every top Back *does*. Tests written first would be written against a shape about to be replaced. **Land the build, then lock it.**
+- ⚠️ **CLAUDE CANNOT BUILD OR VERIFY THIS ONE.** Playwright downloads its browsers from a CDN the Claude sandbox cannot reach. **Claude writes the brief; Code builds and runs it on Tina's machine.** Stated plainly so it is never assumed otherwise. ⚖️ **Law 19.**
+- ⚖️ **LAW 2 IS UNCHANGED AND IS NOT UP FOR REVIEW.** Neither watcher closes a bug. **Her fingers on live close a bug.** These only narrow where one can hide.

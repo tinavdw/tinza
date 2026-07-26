@@ -3,6 +3,34 @@
 
 ---
 
+## 🔴 JUST FEED ME GIVES 3 RECIPES AND NO WAY TO ASK FOR MORE — **FIX, DO NOT QUEUE**
+**Seen:** 26 Jul, Tina, phone AND laptop, mood "I want to be healthy". Pro tier. *"it's supposed to say Want another 3 recipes, and another, and another."* Worked ~a week ago.
+
+- **NOT DRIFT — a deliberate removal with an unmeasured blast radius.** `core.js:2496` (MF133, 21 Jul) removed the "✨ Show me 3 more ideas" button because the AI chef endpoint returns **503**, and a Free user was being shown a broken button as the reason to pay R90. ⚖️ *A broken control is worse than a missing one* — **that call was right.**
+- 🩸 **THE BUTTON HAD TWO JOBS AND ONLY ONE WAS BROKEN:**
+  | job | needs the chef? | state |
+  |---|---|---|
+  | pages 2..N from the **local library** | ❌ no — free, offline, pool is **160–784 deep** | ✅ fine |
+  | fallback once the library is exhausted | ✅ yes | ❌ 503 |
+  Removing the control killed both. `getMoreMoodRecipes()` was deliberately left intact and the note reads *"restore this button when MF78 lands"* — **but MF78 is the AI cost cap, and library paging never needed the chef.** The working half has been waiting on something it does not depend on.
+- 📏 **SCALE:** `healthy` pool = `section==='health'` (**158 records**) plus every veg/vegan/pescatarian record app-wide. She is seeing **3 of 158+** — over 50 pages behind a missing button.
+- ⚖️ **THIS IS §24.3 INVERTED — the law already exists:** *a helper is safe to delete only once its job has a new home.* A **control** is a helper. This one was deleted while still holding a live job, and that job got no new home. **Same shape as the `eventsTopNav` trap, opposite outcome — there we measured first and buffet was saved; here we did not.**
+- ✅ **FIX = restore the button for LIBRARY pages only**, hidden once the pool is exhausted, until MF78 lands the chef. **Does not touch MF78. Does not touch the 503.** Small, and Just Feed Me is a headline shelf on Home.
+
+---
+
+## 🥔 "I WANT TO BE HEALTHY" RETURNS SLAP CHIPS — **the predicate is wrong, QUEUE with MF123**
+**Seen:** same walk, 26 Jul. Tina: *"chips is a recipe that comes up."*
+
+- **Root cause, measured** — `core.js:2293`: `healthy: r.section === 'health' || _moodDiet(r, ['vegan','vegetarian','pescatarian'])`.
+- ⚖️ **THE FILTER ASKS "DOES THIS CONTAIN AN ANIMAL?" AND CALLS THE ANSWER "HEALTHY."** Slap Chips is potatoes and oil — **vegan** — so it passes. Deep-fried potato qualifies as nutritious. **Diet is not health**; they are different facets and this line conflates them.
+- ⚠️ **NOT a bad-recipe problem and NOT fixable by re-tagging chips** — every fried, sugary or refined vegetarian record in the app passes the same test. Re-tagging one dish moves the symptom.
+- ✅ **RULED 26 Jul — TWO LAYERS, see `TINZA_RULINGS.md` §21.1 + §21.2.** **Layer 1 (small, rides with the button fix):** `healthy` gets the `_MOOD_MEALSLOT` gate that `exhausted`/`quick`/`pickmeup`/`lazy`/`impress` **already have** — chips is a SIDE, and a mood serves a MEAL. **Layer 2 (MF123, own session):** the real health facet — technique + vegetable/legume share of `pp` grams + added sugar; **deep-fried is a SIGNAL, never a VETO** (falafel and tempura are deep-fried and survive).
+- 🅵 **Layer 2 belongs with MF123 mood-tag foundation** — needs a ruling on what `healthy` MEANS (a real health facet: not-fried · not-refined-sugar · vegetable-forward, derived in Node from ingredients per the DIETARY ruling, never by hand) before any code. **Own session, ruling first.**
+- 📝 Tina, a week ago: *"it's a difficult thing to get the right recipes for the right mood."* She was describing this.
+
+---
+
 ## 💬 "How This Feels" on every card — the app-wide card line (Tina ruled 23 Jul)
 **Direction (Tina):** the card `meta` line is for **"How This Feels"**, app-wide. Per-person portion
 (gram pp) already shows on the RECIPE page, so it does NOT belong on the card. Events flipped 23 Jul:
