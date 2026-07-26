@@ -4131,7 +4131,7 @@ function resolveRecipe(section, id){
 // §24.9 header that was "two keys short", and now the returnTo snapshot.
 // ⛔ wkDataRecipe is deliberately NOT here — returnTo lands on the LIST she came from,
 //    never a silently re-opened recipe.
-var NAV_KEYS = ['screen','eventTab','buffetStep','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kiddiesView','wkScreen','wkTab','wkContinent','wkRegion','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
+var NAV_KEYS = ['screen','eventTab','buffetStep','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kiddiesView','wkScreen','wkTab','wkContinent','wkRegion','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealPlanView','mealActiveRecipe'];
 
 function snapshotNav(){
   var s = {};

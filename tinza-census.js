@@ -621,6 +621,49 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
       else ok('Every Back shell takes a label, and every caller passes one  ⚖️ §24.11',
         SHELLS.length + ' shells · 0 callers on the fallback');
     }
+
+    // ⑭ ⚖️ THE LIST-AGREEMENT RUNG — ONE KEY, EVERY LIST THAT OWNS IT.
+    //    🩸 FIVE TIMES NOW, one disease: a key that one list knows and another does not.
+    //      1. wkCountry + wkSelectedRegion — ghosts in NAV_KEYS long after the drill moved
+    //      2. fingerSection — missing from LATERAL_KEYS, so a pill pushed history
+    //      3. wkContinent + wkRegion — missing from NAV_KEYS, so a cross-link return
+    //         restored a country with no parents and dropped her at the front door
+    //      4. the mood-selection level — pushed an entry, had no consuming closer
+    //      5. mealPlanView — its two siblings moodPlanView/budgetPlanView were in
+    //         NAV_KEYS and it was not. Found BY THIS RUNG, on its first run.
+    //    Every one was found by a person, on live, after shipping. So:
+    //    EVERY KEY navSignature() WATCHES MUST BE OWNED — restored (NAV_KEYS), replaced
+    //    (LATERAL_KEYS), or EXPLICITLY EXCLUDED with a reason printed below. A key in the
+    //    signature is a key the app navigates by; a key no list owns is a level that
+    //    survives nothing and nobody remembers to check.
+    // ⛔ WHAT THIS RUNG DOES NOT CATCH — SAY IT, DO NOT LET IT BE ASSUMED.
+    //    It asks "is this key owned by SOME list?", so it catches cases 1, 3 and 5 above.
+    //    It CANNOT catch case 2: fingerSection was in NAV_KEYS the whole time and merely
+    //    missing from LATERAL_KEYS — owned, but by the WRONG list. Proven: removing
+    //    fingerSection from LATERAL_KEYS again leaves this rung GREEN. Level-vs-pill is a
+    //    judgement about what a key MEANS, and no static rule can make it; §24.7 and
+    //    Tina's fingers do. Nor does it catch case 4 — a level needing a consuming closer
+    //    is not a list question at all (rung ⑩ is the one that watches that shape).
+    {
+      const list = name => new Set(((core.match(new RegExp('(?:var|const) '+name+'\\s*=\\s*\\[[\\s\\S]*?\\];'))||[''])[0]
+        .match(/'([^']+)'/g)||[]).map(x=>x.slice(1,-1)));
+      const navK = list('NAV_KEYS'), latK = list('LATERAL_KEYS');
+      // ⚠️ THE EXCLUSIONS ARE PRINTED, ALWAYS. A silent exemption list is how a real gap
+      //    hides in plain sight — every one of the five above hid in a list nobody read.
+      const EXCLUDED = {
+        viewingRecipe: 'the universal recipe-open key — snapshotNav() saves it separately as _viewingRecipe, and a returnTo lands on the LIST, never a re-opened recipe',
+        moodSelected:  'watched as a LENGTH, not a value; it is a level with its own consuming closer (closeMoodSelection), not a value to restore'
+      };
+      const sigKeys = [...new Set((sigFn.match(/S\.([A-Za-z_]\w*)/g)||[]).map(x=>x.slice(2)))];
+      const orphans = sigKeys.filter(k => !navK.has(k) && !latK.has(k) && !(k in EXCLUDED));
+      if (orphans.length) bad(orphans.length + ' navSignature key(s) OWNED BY NO LIST: ' + orphans.join(' · '),
+        '\n      \x1b[2mevery key the signature watches must be RESTORED (NAV_KEYS), REPLACED' +
+        '\n      (LATERAL_KEYS), or explicitly EXCLUDED with a reason. A key no list owns is a' +
+        '\n      level that survives nothing — the wkContinent/mealPlanView shape, 5× so far.\x1b[0m');
+      else ok('Every navSignature key is owned by a list', sigKeys.length + ' watched · ' +
+        navK.size + ' restored · ' + latK.size + ' replaced · ' + Object.keys(EXCLUDED).length + ' excluded');
+      Object.keys(EXCLUDED).forEach(k => p('     \x1b[2mEXCLUDED  ' + k + ' — ' + EXCLUDED[k] + '\x1b[0m'));
+    }
   }
 
   // ⑥ ⚖️ §24 — A TOP BACK MUST NAME WHERE IT GOES. The BOTTOM (spine) Back is allowed to
