@@ -99,10 +99,36 @@ function navSnapshot(){
 function navSignature(){
   return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkContinent||'', S.wkRegion||'', S.wkDataCountry||'', S.wkDataTab||'', S.wkCourseTab||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||'', S.mealCat||'', S.mealPlanView?'mpv':'', S.healthGroupTab||'', S.catSection||'', S.dogSection||'', S.barMode||'', S.mealCat||'', S.mealActiveRecipe?(S.mealActiveRecipe.id||'mar'):''].join('|');
 }
+// ⚖️ §24.7 — A LATERAL REPLACES. IT NEVER PUSHES.
+// A LEVEL is a place she walked INTO: Home → Supper → a recipe. Back should walk it.
+// A LATERAL is a pill that swaps what ONE level SHOWS: Homestyle Plates → Oven Bakes.
+// She did not go anywhere. But navSignature() watches these keys (it must — the screen
+// really did change), so draw() pushed a history entry for every pill tap, and the phone's
+// Back then walked her through every pill she had ever tried before it let her out of the
+// room. Tina, on live: Homestyle Plates → Oven Bakes → Back → Homestyle Plates.
+// ⛔ eventTab is DELIBERATELY NOT HERE. Tina checked Events buffet + cakes on live
+//    26 Jul and both Backs were fine — eventTab is a LEVEL move (§24.9's Events chain),
+//    not a pill. It may only join this list if her fingers ever prove the same symptom
+//    there, and they have not. DO NOT TOUCH A WORKING ROOM.
+// 📌 First-pill fact, measured: meals.js falls back to cats[0].id, so there is no
+//    "unfiltered" state to lose — replacing the entry loses nothing she could go back to.
+const LATERAL_KEYS = ['mealCat','wkDataTab','wkCourseTab','healthGroupTab','beverageCat',
+                      'cakeCat','catSection','dogSection','barMode','braiCat','fingerView','healthTab'];
+// The signature with the laterals blanked. ⚖️ Law 6 — this does NOT re-implement
+// navSignature(); it CALLS it with the lateral keys temporarily cleared, so the two can
+// never drift apart the way two hand-kept lists always do. Synchronous, and S is restored
+// in a finally, so the live state is never left blanked even if the signature throws.
+function navSignatureCore(){
+  var saved = {}, i, k;
+  for(i=0;i<LATERAL_KEYS.length;i++){ k=LATERAL_KEYS[i]; saved[k]=S[k]; S[k]=undefined; }
+  try { return navSignature(); }
+  finally { for(i=0;i<LATERAL_KEYS.length;i++){ k=LATERAL_KEYS[i]; S[k]=saved[k]; } }
+}
 function navInit(){
   if(window._tinzaNavInit) return;
   window._tinzaNavInit = true;
   window._navSig = navSignature();
+  window._navSigCore = navSignatureCore();
   _lastNavScreen = S.screen;
   _screenRootDepth = 0;
   try { history.replaceState({tinza:true, sig:window._navSig, snap:navSnapshot(), rootDepth:0}, ''); } catch(_e){}
@@ -115,6 +141,7 @@ function navInit(){
       NAV_DATA_KEYS.forEach(function(k){ if(k in S) restored[k] = S[k]; });
       S = restored;
       window._navSig = st.sig;
+      window._navSigCore = navSignatureCore();   // §24.7 — recompute against the RESTORED state
       _appNavDepth = Math.max(0, _appNavDepth - 1);   // a back consumed one of our forward entries
       // restore this entry's section-root depth + screen so goBack stays accurate after popstate
       _screenRootDepth = (typeof st.rootDepth === 'number') ? st.rootDepth : Math.min(_screenRootDepth, _appNavDepth);
@@ -756,10 +783,26 @@ function draw(){
   if(!_navRestoring){
     const _sig = navSignature();
     if(window._navSig !== undefined && _sig !== window._navSig){
-      // Entering a different top-level screen starts a new section → this new entry IS the
-      // section root. Staying on the same screen (sub-nav) keeps the existing root depth.
-      if(S.screen !== _lastNavScreen) _screenRootDepth = _appNavDepth + 1;
-      try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot(), rootDepth:_screenRootDepth}, ''); _appNavDepth++; } catch(_e){}
+      // §24.7 · THE PUSH DECISION. The signature changed — but did she MOVE, or did she
+      // just swap a pill? navSignatureCore() answers it: if everything OUTSIDE the
+      // laterals is identical, the only differing keys are laterals, so this is the SAME
+      // level wearing a different filter. REPLACE the entry in place; do not push, and
+      // leave _appNavDepth alone — there is no new level for Back to walk back out of.
+      const _core = navSignatureCore();
+      if(window._navSigCore !== undefined && _core === window._navSigCore){
+        // carry the entry's saved scroll across the replace, or a lateral would silently
+        // eat the list position Back is supposed to restore
+        let _sc = null; try { _sc = (history.state && history.state._scroll != null) ? history.state._scroll : null; } catch(_e){}
+        const _st = {tinza:true, sig:_sig, snap:navSnapshot(), rootDepth:_screenRootDepth};
+        if(_sc != null) _st._scroll = _sc;
+        try { history.replaceState(_st, ''); } catch(_e){}
+      } else {
+        // Entering a different top-level screen starts a new section → this new entry IS the
+        // section root. Staying on the same screen (sub-nav) keeps the existing root depth.
+        if(S.screen !== _lastNavScreen) _screenRootDepth = _appNavDepth + 1;
+        try { history.pushState({tinza:true, sig:_sig, snap:navSnapshot(), rootDepth:_screenRootDepth}, ''); _appNavDepth++; } catch(_e){}
+      }
+      window._navSigCore = _core;
     }
     window._navSig = _sig;
     _lastNavScreen = S.screen;
