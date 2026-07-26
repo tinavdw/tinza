@@ -520,6 +520,107 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
         '\n      level map, so a jump can never wear a name it does not go to. ⚖️ §24.9.\x1b[0m');
       else ok('No screen hand-rolls a ≥2-key back-jump', 'every multi-key top Back routes through topBack()  \x1b[2m· EXEMPT: TINZA_CHAINS (core.js) — the declared jumps live there\x1b[0m');
     }
+
+    // ⑫ ⚖️ §24.10 — WHERE A SCREEN LANDS. NO PUSH PATH MAY LAND AT A NON-ZERO SCROLL.
+    //    🩸 Tina, on live 27 Jul: Events → Finger Foods opened BELOW the banner with the
+    //    room's own top Back scrolled off-screen. Cause was `jumpToContent`, an older
+    //    feature that deliberately scrolled past the banner to `.content` on ANY
+    //    in-section navigation. It was written before the top Back meant anything.
+    //    ⛔ A landing that hides the way out is not a landing.
+    //    This rung reads the LANDING BLOCK in draw() and checks its four branches and
+    //    THEIR ORDER — order is the bug here, exactly as it was in goBack() (rung ①).
+    //    A push branch placed after the scrollToRestore fallback would silently restore
+    //    the scroll of the screen she just LEFT, because setQuiet() saves it on every call.
+    {
+      // ⚠️ THE CAPTURE MUST SPAN THE WHOLE if/else-if CHAIN. A plain non-greedy
+      //    `[\s\S]*?\n  \}` stops at the FIRST branch's closing brace — which is
+      //    `  } else if(…)` — so the rung saw only the openedRecipe branch and cried
+      //    wolf on all six probes against code that was correct. Reject a `}` that is
+      //    followed by `else`; the chain ends at the one that is not. ⚖️ Law 19 — an
+      //    instrument that measures the wrong window measures the window, not the code.
+      const landing = (core.match(/if\(openedRecipe\)\{[\s\S]*?\n  \}(?!\s*else)/)||[''])[0];
+      const iPush = landing.search(/else if\(_pushMove\)\{/);
+      const iLat  = landing.search(/else if\(_lateralMove\)\{/);
+      const iRest = landing.search(/scrollTo\(0,\s*scrollToRestore\)/);
+      const probes = [
+        [!/\bconst jumpToContent\b|\bjumpToContent\s*=/.test(core),
+          'the .content-top landing is DELETED, not disabled'],
+        [iLat  !== -1, 'a lateral has its own landing branch'],
+        [iPush !== -1, 'a push has its own landing branch'],
+        [/else if\(_pushMove\)\{[\s\S]{0,600}?window\.scrollTo\(0,\s*0\)/.test(landing),
+          'a push lands at scroll 0'],
+        [iPush !== -1 && iRest !== -1 && iPush < iRest,
+          'the push branch is asked BEFORE the scrollToRestore fallback'],
+        [iLat !== -1 && iRest !== -1 && iLat < iRest,
+          'the lateral branch is asked BEFORE the scrollToRestore fallback'],
+        [/t\s*==\s*null\s*\?\s*0/.test(landing),
+          'a lateral with no declared block lands at the TOP, never "stay put"'],
+        [/_lateralMove\s*=\s*\(window\._navSigCore/.test(core),
+          'push-vs-lateral comes from navSignatureCore — ONE predicate, not a second one'],
+        [/function lateralBlockTop/.test(core),
+          'lateralBlockTop() exists — the anchor reader'],
+      ];
+      const failed = probes.filter(p=>!p[0]);
+      if (failed.length) bad(failed.length + ' landing-law assertion(s) FAILED in draw()',
+        '\n      ' + failed.map(p=>'✗ '+p[1]).join('\n      ') +
+        '\n      \x1b[2m⚖️ §24.10 — a push lands at the TOP, a lateral lands ON THE THING YOU' +
+        '\n      TAPPED, nothing lands in a random middle.\x1b[0m');
+      else {
+        // Rooms that DECLARE a lateral block. Not a gate — a lateral with no anchor lands
+        // at the top, which is honest. Printed so a room that forgot is VISIBLE.
+        let declared = [];
+        fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+          const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+          [...src.matchAll(/data-lateral-block="([a-zA-Z]\w*):/g)].forEach(m=>{
+            if(declared.indexOf(m[1])===-1) declared.push(m[1]);
+          });
+        });
+        ok('No push path lands at a non-zero scroll  ⚖️ §24.10',
+          'push → 0 · lateral → its block · quiet toggle → hold' +
+          '\n     \x1b[2mblocks declared by: ' + (declared.join(', ')||'NONE — every lateral lands at the top') + '\x1b[0m');
+      }
+    }
+
+    // ⑬ ⚖️ §24.11 — A BACK SHELL WITHOUT A LABEL ARGUMENT WILL ALWAYS SAY "← Back".
+    //    MF149-B named every sectionHeader() caller and Tina STILL found a bare "← Back"
+    //    in Family Meals and Mood. Naming callers is not enough if the SHELL has no
+    //    parameter to name into: recipeDetailFromResult had none, so all six of its rooms
+    //    defaulted. It was missed because it never called sectionHeader() — it hand-rolls
+    //    its own page. ⚖️ THE GENERAL LAW: a shell that can only default WILL default.
+    //    The `|| '← Back'` fallback may stay as a crash-guard; a live CALLER leaning on
+    //    it is the bug. Born RED at 6.
+    {
+      const SHELLS = [
+        // shell name          · file            · the param that carries the label
+        ['recipeDetailFromResult', 'sections/meals.js', /function recipeDetailFromResult\([^)]*\btop\b[^)]*\)/],
+        ['sectionPlanView',        'sections/meals.js', /function sectionPlanView\([^)]*\bbackLabel\b[^)]*\)/],
+        ['sectionHeader',          'sections/core.js',  /function sectionHeader\(o\)/],
+      ];
+      let noParam = [], leaning = [];
+      SHELLS.forEach(([name,file,sig])=>{
+        const src = fs.readFileSync(path.join(ROOT,file),'utf8');
+        if(!sig.test(src)) noParam.push(name + '  \x1b[2m(' + file + ')\x1b[0m');
+      });
+      // every LIVE call site of the two positional shells must pass its label.
+      [['recipeDetailFromResult',/topBack\s*\(/],['sectionPlanView',/'←|"←|\\u2190/]].forEach(([name,ev])=>{
+        fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+          const src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8');
+          [...src.matchAll(new RegExp(name+'\\(([\\s\\S]{0,400}?)\\);','g'))].forEach(m=>{
+            if(/^\s*function/.test(m[0])) return;
+            if(!ev.test(m[1])) leaning.push(f+':'+src.slice(0,m.index).split('\n').length+'  '+name);
+          });
+        });
+      });
+      if (noParam.length) bad(noParam.length + ' Back-rendering shell(s) take NO label argument',
+        '\n      ' + noParam.join('\n      ') +
+        '\n      \x1b[2ma shell that can only default WILL default. ⚖️ §24.11.\x1b[0m');
+      else if (leaning.length) bad(leaning.length + ' live caller(s) rely on the "← Back" fallback',
+        '\n      ' + leaning.join('\n      ') +
+        '\n      \x1b[2mthe fallback is a crash-guard, not a destination. Name it from the' +
+        '\n      room\'s chain — topBack(chain, depth). ⚖️ §24.11 · §24.9.\x1b[0m');
+      else ok('Every Back shell takes a label, and every caller passes one  ⚖️ §24.11',
+        SHELLS.length + ' shells · 0 callers on the fallback');
+    }
   }
 
   // ⑥ ⚖️ §24 — A TOP BACK MUST NAME WHERE IT GOES. The BOTTOM (spine) Back is allowed to
