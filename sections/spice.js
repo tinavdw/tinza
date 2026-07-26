@@ -8340,7 +8340,11 @@ if (typeof window !== "undefined") {
 // so a cross-linked sauce looks & scales identically to the Spice-room view.
 // (Spice's internal browsing is untouched — this only adds the universal path.)
 function spiceRecipeOpts(r){
-  if(!r || !r.makeYourOwn) return { name:(r?r.name:'Recipe not found'), backJs:'closeRecipe()', backLabel:'← Back', nav:{ backJs:'closeRecipe()' } };
+  // ⚖️ §24.9 — a spice entry is DEPTH 2 (room → shelf → entry), so the photo Back is two
+  // up: the Spice Room, NAMED. It said "← Back" and named nothing. The bottom nav Back
+  // stays closeRecipe() — exactly one level, back to the shelf she was reading.
+  var _spTop = topBack(TINZA_CHAINS.spice(), 2);
+  if(!r || !r.makeYourOwn) return { name:(r?r.name:'Recipe not found'), backJs:_spTop.backJs, backLabel:_spTop.backLabel, nav:{ backJs:'closeRecipe()' } };
   r = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // overlay chosen twist (version) before rendering
   var my = r.makeYourOwn, y = my.yield || { base:1, step:1, unit:'serving', label:'' };
   var base = y.base || 1, step = y.step || 1;
@@ -8389,7 +8393,7 @@ function spiceRecipeOpts(r){
   var storyBox = r.story ? recipeBox('📖 Good to know', '<div style="font-size:15px;color:#f0ebe1;line-height:1.6;">'+r.story+'</div>') : '';
   return {
     photoName:r.name, photoEmoji:(r.emoji || '🥫'),   // 11 Jul: was hardcoded for all 191 cards
-    backJs:'closeRecipe()', backLabel:'← Back',
+    backJs:_spTop.backJs, backLabel:_spTop.backLabel,
     name:r.name,
     sub: r.howThisFeels ? '<span style="font-style:italic;">'+r.howThisFeels+'</span>' : '',
     meta:{ origin:r.region },

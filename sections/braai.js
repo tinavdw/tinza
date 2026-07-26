@@ -285,8 +285,12 @@ function braaiStep4(){
         <span style="font-size:15px;color:var(--gold);font-weight:bold;white-space:nowrap;">${amtStr}${priceStr}</span>
       </div>`;
   });
+  // ⚖️ §24.9 — Your Braai Plan sits one level below the Braai front door (depth 1), so
+  // the top Back is two up = Home; the one-level step back into Braai is the BOTTOM
+  // Back's job. It used to hand-roll a two-key jump (braaiView + braiStep) of its own.
+  const _braaiPlanTop = topBack(TINZA_CHAINS.braai(), 1);
   return `<div>
-    ${sectionHeader({ title:'Your Braai Plan', emoji:'\u{1F4CB}', tagline:'Everything you need, costed and ready', img:BRAAI_HDR_IMG, backJs:"set({braaiView:'browse',braiStep:1})", backLabel:'\u2190 Braai', myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, label:'My Plan', onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" } })}
+    ${sectionHeader({ title:'Your Braai Plan', emoji:'\u{1F4CB}', tagline:'Everything you need, costed and ready', img:BRAAI_HDR_IMG, backJs:_braaiPlanTop.backJs, backLabel:_braaiPlanTop.backLabel, myPlan:{ count:(S.selectedMeats||[]).length+(S.selectedSides||[]).length, label:'My Plan', onclick:"set({braaiView:'myplan',viewingRecipe:null,recipeServings:null})" } })}
     <div class="content">
       ${braaiQuickNav('myplan')}
 

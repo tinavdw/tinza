@@ -15373,7 +15373,7 @@ function mealSectionHTML(sectionKey){
   // Plan view
   if(S.mealPlanView){
     window._sectionPlanForShare = S.mealPlan||[];
-    return sectionPlanView('mealPlan', cfg.title+' Plan', cfg.emoji||'🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "setQuiet({mealPlanView:false})");
+    return sectionPlanView('mealPlan', cfg.title+' Plan', cfg.emoji||'🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "setQuiet({mealPlanView:false})", '← '+cfg.title);
   }
 
   // Recipe detail view
@@ -16384,7 +16384,12 @@ function planShareShoppingList(){
   var txt = encodeURIComponent(emoji+' '+title+'\n'+people+' '+(people===1?'person':'people')+'\n\n\U0001F6D2 Shopping List:\n'+lines+'\n\nFrom Tinza tinza.netlify.app');
   window.open('https://wa.me/?text='+txt,'_blank');
 }
-function sectionPlanView(planKey, title, emoji, color, bg, border, people, backAction){
+// ⚖️ §24 — the header Back is a JUMP, so it must SAY where it goes. This shell served
+// three rooms and labelled all three "← Back", naming nothing. The destination belongs
+// to the CALLER (it is the caller's backAction), so the caller names it too — one
+// argument, no room logic in here. Omit it and nothing changes: '← Back' as before.
+function sectionPlanView(planKey, title, emoji, color, bg, border, people, backAction, backLabel){
+  backLabel = backLabel || '← Back';
   // stash context for the shared WhatsApp share button (planShareShoppingList)
   window._sectionPlanForShare = S[planKey]||[];
   window._sectionPlanPeople   = people;
@@ -16394,7 +16399,7 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
   return planView({
     header:{ title:emoji+' '+title, emoji:emoji,
       tagline:'Menu \u00B7 shopping list \u00B7 cost for '+people+' '+(people===1?'person':'people'),
-      backJs:backAction, backLabel:'\u2190 Back' },
+      backJs:backAction, backLabel:backLabel },
     guests:{ value:people, label:'People', note:'the whole plan scales to this',
       decJs:"set({"+svKey+":Math.max(1,(S."+svKey+"||"+people+")-1)})",
       incJs:"set({"+svKey+":(S."+svKey+"||"+people+")+1})" },

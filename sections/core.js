@@ -2522,7 +2522,7 @@ function moodTogglePlan(i){
 function moodHTML(){
   if(S.moodPlanView){
     window._sectionPlanForShare = S.moodPlan||[];
-    return sectionPlanView('moodPlan','Just Feed Me Plan','😋','#8060c0','#0f0818','#2a1840',S.moodServings||1,"setQuiet({moodPlanView:false})");
+    return sectionPlanView('moodPlan','Just Feed Me Plan','😋','#8060c0','#0f0818','#2a1840',S.moodServings||1,"setQuiet({moodPlanView:false})",'← Just Feed Me');
   }
   const mood = MOODS.find(m=>m.id===S.moodSelected);
   const recipes = S.moodRecipes;
@@ -2868,6 +2868,128 @@ function qtyBox(o){
       </div>
     </div>`;
 }
+
+// ══ §24.9 · THE LEVEL MAPS + topBack() ═══════════════ RULED, Tina 26–27 Jul ══
+// 🩸 TOP Back = exactly TWO levels up.  BOTTOM Back = exactly ONE.  Every room, no
+//    exceptions. Before this, every screen hand-rolled its own multi-key jump and the
+//    label was written by hand beside it — so "← World Kitchen" cleared the country but
+//    not the continent and re-rendered the REGION LIST while wearing the room's name.
+//    It was not lying on purpose. It was two keys short, and nothing could see that.
+//
+//   chain = [{name, go}, …]   front door FIRST.
+//           `go` = the state write that LANDS on that level, nulling everything below it.
+//           `name` = what the label says. A level with no name is UNDECLARED (see below).
+//   depth = how far below the front door the CURRENT screen sits. Front door = 0.
+//
+//   topBack(chain, depth) → { backJs, backLabel }   ·  chain[depth-2], labelled '← '+name
+//
+// ⛔ LATERALS ARE NEVER CHAIN LEVELS (§24.7). A pill that swaps what ONE level shows
+//    (mealCat, cakeCat, healthGroupTab, wkDataTab…) is not a level she walked into.
+// 🚪 THE CHAIN IS THE DOOR'S CHAIN (§24.4). Entered via Boerekos → walk Boerekos's
+//    parents, never the dish's origin. That is why worldkitchen takes the door as an arg.
+// 🛡️ FAIL SAFE — an undeclared level (null, or missing name/go) means HOME, never a
+//    mislabelled jump. A Back that says one thing and does another is the bug this
+//    whole ruling exists to kill; sending her Home is honest and always reachable.
+function topBack(chain, depth){
+  var lvl = (chain && depth >= 2) ? chain[depth-2] : null;
+  // depth 0 (the front door) and depth 1 (one below it) have no grandparent INSIDE the
+  // room — two levels up IS Home. ⚖️ THE DEPTH-1 CLAMP, ruled by Tina 27 Jul 2026.
+  if(!lvl || !lvl.go || !lvl.name) return { backJs:"bottomBarGo('home')", backLabel:'← Home' };
+  return { backJs: lvl.go, backLabel: '← ' + lvl.name };
+}
+
+// The declared levels, one room per key. ⚖️ ONE HOME for every chain — a room that
+// declares its levels here can never disagree with itself the way the hand-rolled
+// jumps did.
+// ⚠️ A level is declared `null` where its NAME lives inside that room's own private
+//    table (health's groupDefs, braai's SIDES_GROUPS, events' tabs, meals' configs).
+//    Copying those names here would be a second home for them — exactly the drift
+//    ⚖️ Law 15 was written about. NOTHING reads those levels today: every one of those
+//    rooms is 3 levels deep, so only chain[0] is ever asked for. When a room grows a
+//    4th level, that room names its level 1 here — it does not get copied.
+var TINZA_CHAINS = {
+  // World Kitchen · continents → regions → countries → dishes → recipe (5 levels)
+  // The only chain read below level 0, so every level is named — and every name comes
+  // from WK_COUNTRY_GEO, the room's own single source, never a copy of it.
+  worldkitchen: function(door){
+    var q = function(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); };
+    var d    = door || S.wkDataCountry || '';
+    var geo  = (typeof WK_COUNTRY_GEO!=='undefined' && WK_COUNTRY_GEO[d]) ? WK_COUNTRY_GEO[d] : null;
+    var cont = geo ? geo[0] : (S.wkContinent||'');
+    var reg  = geo ? geo[1] : (S.wkRegion||'');
+    // ⚖️ §24.5 · Law 6 — CALL wkResetDrill(); NEVER hand-null the five drill keys. It
+    // clears all five in one place, then the level writes back only the ones it stands on.
+    // Hand-nulling three of five is how "I clicked WK and landed in Southern Africa"
+    // happened: a key left behind is a screen left behind.
+    var lands = function(sets){ return "wkResetDrill();set({screen:'worldkitchen',viewingRecipe:null,wkSearch:''"+(sets?","+sets:"")+"});window.scrollTo(0,0)"; };
+    return [
+      { name:'World Kitchen', go: lands('') },
+      cont        ? { name:cont, go: lands("wkContinent:'"+q(cont)+"'") } : null,
+      (cont&&reg) ? { name:reg,  go: lands("wkContinent:'"+q(cont)+"',wkRegion:'"+q(reg)+"'") } : null,
+      d ? { name:d, go: lands("wkContinent:'"+q(cont)+"',wkRegion:'"+q(reg)+"',wkScreen:'wkdata',wkDataCountry:'"+q(d)+"',wkDataTab:'mains'") } : null
+    ];
+  },
+  // Kiddies lives INSIDE Events, so its front door is the Events tile grid.
+  // Events grid → themes → theme categories → category → recipe/plan (5 levels).
+  // `theme` is the DOOR she walked in by (§24.4) — the recipe page knows its own themeId
+  // and must not read S.kidsTheme, which a cross-link can have moved on.
+  kiddies: function(theme){
+    var q  = function(s){ return String(s||'').replace(/'/g,"\\'"); };
+    var tid = theme || S.kidsTheme || '';
+    var th = (typeof KIDS_THEMES!=='undefined' && tid)
+      ? KIDS_THEMES.filter(function(t){ return t.id===tid; })[0] : null;
+    var toKids = "kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null,kidsOpenRecipe:null,viewingRecipe:null";
+    return [
+      { name:'Events',          go:"set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',"+toKids+"});window.scrollTo(0,0)" },
+      { name:'Kiddies Parties', go:"set({screen:'events',eventTab:'kiddies',"+toKids+"});window.scrollTo(0,0)" },
+      th ? { name: th.emoji+' '+th.name,
+             go:"set({screen:'events',eventTab:'kiddies',kidsScreen:'categories',kidsTheme:'"+q(th.id)+"',kidsCategory:null,kidsOpenRecipe:null,kidsRecipe:null,viewingRecipe:null});window.scrollTo(0,0)" } : null,
+      null   // level 3 = the category. Named by kiddies.js when a 6th level appears.
+    ];
+  },
+  events: function(){
+    return [
+      { name:'Events', go:"set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null,viewingRecipe:null});window.scrollTo(0,0)" },
+      null   // level 1 = the tab. Its label lives in eventsHTML's own `tabs`.
+    ];
+  },
+  meals: function(){
+    return [
+      { name:'Family Meals', go:"set({screen:'feedfamily',mealActiveRecipe:null,mealPlanView:false,viewingRecipe:null,mealSearch:''})" },
+      null   // level 1 = the shelf. Its label lives in mealSectionHTML's own `configs`.
+    ];
+  },
+  braai: function(){
+    return [
+      { name:'Braai', go:"set({screen:'braai',braiStep:1,braiCat:null,braaiView:'browse',viewingRecipe:null})" },
+      null   // level 1 = the category. Its label lives in braai.js's own SIDES_GROUPS.
+    ];
+  },
+  health: function(){
+    return [
+      { name:'Health Hub', go:"set({screen:'health',healthGroup:null,healthGroupTab:null,healthShowPlan:false,viewingRecipe:null})" },
+      null   // level 1 = the group. Its label lives in healthGroupScreen's own groupDefs.
+    ];
+  },
+  spice: function(){
+    return [
+      { name:'Spice Room', go:"set({screen:'spice',spiceShelf:null,spiceEntry:null,spiceFilter:null,spiceGroupFilter:null,viewingRecipe:null})" },
+      null   // level 1 = the shelf. Its label lives in spice.js's own SPICE_SHELVES.
+    ];
+  },
+  mood: function(){
+    return [
+      { name:'Just Feed Me', go:"set({screen:'mood',moodSelected:null,moodRecipes:null,moodLoading:false,moodActiveRecipe:null,moodPlanView:false,viewingRecipe:null})" },
+      null   // level 1 = the mood list. Its label lives in MOODS.
+    ];
+  },
+  budget: function(){
+    return [
+      { name:"I've Got R100", go:"set({screen:'budget',budgetStep:1,budgetPlanView:false,_budgetActiveRecipe:null,viewingRecipe:null})" },
+      null   // level 1 = the step.
+    ];
+  }
+};
 
 // ── SHARED SECTION HEADER ─────────────────────────────────────────
 // ONE 200px photo header, identical in every section. Real photo +
@@ -3951,6 +4073,7 @@ function recipeNotFound(){
 // jumped from (incl. another recipe, via the _viewingRecipe snapshot above).
 function bakesRecipeOpts(r, servingsKey){
   if(!r) return { name:'Recipe not found' };
+  var _bkTop = topBack(TINZA_CHAINS.meals(), 2);
   // ⭐ versions: overlay the chosen version BEFORE costing/rendering, and show the
   // "Choose your version" strip (Rule Zero — same chips as recipeDetailFromResult).
   // Reached via WK cross-links (openBakesRecipe → openRecipe('bakes')).
@@ -4043,7 +4166,10 @@ function bakesRecipeOpts(r, servingsKey){
   var shareHTML = '<button onclick="window.open(\'https://wa.me/?text='+_waText+'\',\'_blank\')" style="width:100%;padding:13px;border-radius:10px;background:var(--card);border:2px solid #25d366;color:#25d366;font-size:13px;cursor:pointer;margin-bottom:12px;">📱 Share Recipe via WhatsApp</button>';
   return {
     photoName:r.photoName||r.name, photoEmoji:r.emoji||'🍰',
-    backJs:'closeRecipe()', backLabel:'← Back',
+    // ⚖️ §24.9 — a bakes recipe is DEPTH 2 (Family Meals → shelf → recipe), so the photo
+    // Back is two up: Family Meals, NAMED. The bottom nav Back stays closeRecipe() —
+    // exactly one level, back to the shelf she was reading.
+    backJs:_bkTop.backJs, backLabel:_bkTop.backLabel,
     name:r.name,
     sub: r.feel ? '<span style="font-style:italic;">'+r.feel+'</span>' : '',
     meta:{ origin:r.cuisine, time:(r.time?r.time+' min':''), kcal:kcal },

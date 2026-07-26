@@ -393,7 +393,11 @@ function healthOpenRaw(id){ openRecipe('health', id); }
    (sectionHeader photo 200px · qtyBox · ingredientsBox · methodBox ·
    goesWellBox · recipeActions · recipeNav) — no bespoke chrome. */
 function healthRecipeOpts(recipe){
-  if(!recipe) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'← Back',
+  // ⚖️ §24.9 — a health recipe is DEPTH 2 (hub → group → recipe), so the photo Back is
+  // two up: the Health Hub, NAMED. It said "← Back" and named nothing. The bottom nav
+  // Back stays closeRecipe() — exactly one level, back to the group she was reading.
+  var _hTop = topBack(TINZA_CHAINS.health(), 2);
+  if(!recipe) return { name:'Recipe not found', backJs:_hTop.backJs, backLabel:_hTop.backLabel,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   var srv = S.servings||softDefaultN(recipe,1);   // MF144 · soft oven-dish (baked mains) opens at serves 6; user count wins
   var found = (typeof healthFind==='function') ? healthFind(recipe.id) : null;
@@ -458,7 +462,7 @@ function healthRecipeOpts(recipe){
 
   return {
     photoName: recipe.name, photoEmoji: recipe.emoji||'\uD83C\uDF3F',
-    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    backJs:_hTop.backJs, backLabel:_hTop.backLabel,
     name: recipe.name,
     sub: (recipe.feel||recipe.howItFeels||''),
     meta: { kcal: recipe.kcal },

@@ -210,19 +210,17 @@ function wkWorldHome(){
 
   // V33 shared 200px photo header (core.js sectionHeader). Header image
   // lives in Images/Headers/ — emoji-falls-back until the file is added.
+  // ⚖️ §24.9 — this ONE header renders THREE levels: the continent grid (depth 0), the
+  // region list (depth 1) and the country grid (depth 2). It used to work out its own
+  // Back from a ternary, and the ternary was two keys short. topBack() reads the depth.
+  var _wkTop = topBack(TINZA_CHAINS.worldkitchen(), (S.wkContinent && S.wkRegion) ? 2 : (S.wkContinent ? 1 : 0));
   var header = sectionHeader({
     title:'World Kitchen',
     tagline:'Tap a continent, then a region, then a country',
     emoji:'🌍',
     img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/world-map.jpg',
-    // ⚖️ §12 — A TOP BACK MUST NAME WHERE IT GOES. This ONE header renders the continent
-    // grid AND the region list (the drill happens in the content area, so the header never
-    // learned she had gone deeper). It said "← Home" on both and left the room from both.
-    // Drilled in → go UP to the room front door. At the front door → out to Home.
-    backJs: (S.wkContinent||S.wkRegion)
-      ? "set({wkContinent:null,wkRegion:null,wkSearch:''});window.scrollTo(0,0)"
-      : "set({screen:'home',wkContinent:null,wkRegion:null,wkSearch:''})",
-    backLabel: (S.wkContinent||S.wkRegion) ? '← World Kitchen' : '← Home',
+    backJs: _wkTop.backJs,
+    backLabel: _wkTop.backLabel,
     myPlan:{ count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" },
     search:{ value:searchVal('wkSearch').replace(/"/g,'&quot;'), placeholder:'Search dishes, countries…', oninput:"liveSearch(this,'wkSearchResults',{sections:['world'],stateKey:'wkSearch'})", clearJs:"set({wkSearch:'',searchResults:[]})" }
   });
@@ -335,17 +333,20 @@ function wkDataCountryHTML(){
 
   // V33 shared 200px photo header (core.js sectionHeader). Country banner
   // lives in Images/Headers/<Country>.jpg — emoji-falls-back until added.
+  var _wkDishTop = topBack(TINZA_CHAINS.worldkitchen(country), 3);
   var hdr = sectionHeader({
     title: country,
     tagline: recipes.length + ' dish' + (recipes.length===1?'':'es'),
     emoji: '🍽️',
     img: 'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/' + encodeURIComponent(country) + '.jpg',
-    // ⚖️ §12 · RULED A (25 Jul) — the top Back goes to the ROOM FRONT DOOR, same as
-    // Family Meals. It cleared the country but NOT wkContinent/wkRegion, so it re-rendered
-    // the region list while wearing the label "← World Kitchen". The label was not lying
-    // on purpose; it was two keys short.
-    backJs: "set({wkScreen:null,wkDataCountry:null,wkDataRecipe:null,wkContinent:null,wkRegion:null});window.scrollTo(0,0);",
-    backLabel: '← World Kitchen',
+    // ⚖️ §24.9 — the dish list is DEPTH 3, so its top Back is two up: the REGION LIST,
+    // named after the continent it lists. Tina's own worked example: Boerekos → "← Africa".
+    // The old hand-rolled jump cleared the country but not wkContinent/wkRegion, so it
+    // re-rendered the region list while wearing the label "← World Kitchen" — the right
+    // screen under the wrong name. It was not lying on purpose; it was two keys short.
+    // 🚪 The chain is the DOOR's chain (§24.4) — `country` is the shelf she walked in by.
+    backJs: _wkDishTop.backJs,
+    backLabel: _wkDishTop.backLabel,
     myPlan: { count:(S.wkPlan||[]).length, onclick:"set({wkScreen:'wkplan'})" }
   });
 
@@ -757,10 +758,18 @@ function wkRecipeOpts(r, country, universal){
     : "var _r=document.getElementById('root');if(_r)_r._savedScroll=0;set({wkScreen:'wkplan',wkDataRecipe:null});";
   var _homeJs = universal ? "closeRecipe({screen:'home'})" : "set({screen:'home'})";
 
+  // ⚖️ §24.9 — TWO BUTTONS, TWO JOBS. Until now the photo Back and the bottom-nav Back
+  // were handed the SAME _back: two ways out of one screen, both doing the identical
+  // one-level close. The recipe is DEPTH 4, so the photo Back is two up (the region
+  // list, named after the region) and the bottom stays exactly one up (the dish list,
+  // consuming the entry the open pushed — cross-link restore lives there).
+  // 🚪 `country` is the DOOR she walked in by, never r.country. §24.4.
+  var _wkRecTop = topBack(TINZA_CHAINS.worldkitchen(country), 4);
+
   // ── opts for the ONE shared page builder (Standard §4b) ──
   return {
     photoName: r.photoName||r.name, photoAlt: r.nameAlt, photoEmoji: '🍽️',
-    backJs: _back, backLabel: '← '+country,
+    backJs: _wkRecTop.backJs, backLabel: _wkRecTop.backLabel,
     name: disp,
     sub: sub,
     meta: { origin:r.country, time:r.cookTime, kcal:r.kcal },

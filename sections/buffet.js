@@ -126,18 +126,19 @@ function buffetStep1(){
     {step:8,emoji:'🥫',label:'Sauces',   count:(S.eventSelectedSauces||[]).length},
   ];
   const totalSel = secs.slice(0,6).reduce((s,x)=>s+x.count,0);
+  // ⚖️ §24.9 — Buffet is a TOOL INSIDE Events, one level below the tile grid (depth 1),
+  // so its top Back is two up = Home. Stepping back to the Events grid is the BOTTOM
+  // Back's one-level job. The multi-key payload it used to hand-roll now lives once, in
+  // TINZA_CHAINS.events() — it was copied byte-for-byte here and in events.js.
+  const _bufTop = topBack(TINZA_CHAINS.events(), 1);
   return `<div>
     ${sectionHeader({
       title:'Buffet Planner',
       emoji:'🍽️',
       tagline:isPro?'Build your full menu — quantities, cost, shopping list':'Browse recipes and see quantities',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Buffet%20Planner.jpg',
-      // ⚖️ §24 · Buffet is a TOOL INSIDE Events, so its top Back goes to the Events front
-      // door, not Home. It said '← Home' only because eventsTopNav() was carrying the
-      // '← Events' job in a hand-rolled strip below it; that strip is deleted, so the
-      // header now does the job itself. Payload = eventsTopNav's own eAct, unchanged.
-      backJs:"set({screen:'events',eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null});window.scrollTo(0,0)",
-      backLabel:'← Events',
+      backJs:_bufTop.backJs,
+      backLabel:_bufTop.backLabel,
       myPlan:{ count:totalSel, label:'My Plan', onclick:"set({buffetStep:7})" }
     })}
     <div class="content">

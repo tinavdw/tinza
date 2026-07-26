@@ -936,6 +936,7 @@ function eventsHTML(){
   ];
 
   const howItWorksOpen = S.eventsHowOpen || false;
+  const _evTop = topBack(TINZA_CHAINS.events(), et ? 1 : 0);
 
   return `<div style="min-height:100vh;background:var(--bg);">
 
@@ -944,11 +945,12 @@ function eventsHTML(){
       emoji: et ? ((tabs.find(t=>t.id===et)||{}).label||'🎉').split(' ')[0] : '🎉',
       tagline: et ? ((tabs.find(t=>t.id===et)||{}).feel || '') : 'Every gathering that brings your people to one table',
       img:'https://raw.githubusercontent.com/tinavdw/tinza/main/Images/Headers/Events.jpg',
-      // ⚖️ §24 · A TOP BACK MUST NAME WHERE IT GOES. Inside a tab, the room front door is
-      // the Events tile grid — not Home. Same shape as World Kitchen (Boerekos → WK).
-      backJs: et ? "set({eventTab:null,eventActiveRecipe:null,buffetStep:1,activeCake:null,cakeCat:null,beverageCat:null,fingerView:'browse',kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null});window.scrollTo(0,0)"
-                 : "set({screen:'home'})",
-      backLabel: et ? '← Events' : '← Home',
+      // ⚖️ §24.9 — the tile grid is depth 0 and a tab is depth 1, so BOTH are two levels
+      // up from Home. The one-level step back to the tile grid is the BOTTOM Back's job.
+      // ⛔ eventTab is the LEVEL move here — it is NOT a lateral (§24.7 keeps it out of
+      //    LATERAL_KEYS); cakeCat/beverageCat/buffetStep are the laterals inside a tab.
+      backJs: _evTop.backJs,
+      backLabel: _evTop.backLabel,
       search:{ value:(S.eventsSearch||'').replace(/"/g,'&quot;'), placeholder:'Search Events…', oninput:"liveSearch(this,'eventsSearchResults',{sections:['events','beverages'],stateKey:'eventsSearch'})", clearJs:"set({eventsSearch:'',searchResults:[]})" }
     })}
 
@@ -1319,7 +1321,11 @@ function eventsResolve(id){
 }
 
 function eventsRecipeOpts(r, guests){
-  if(!r) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+  // \u2696\ufe0f \u00a724.9 \u2014 an Events recipe is DEPTH 2 (grid \u2192 tab \u2192 recipe), so the photo Back is
+  // two up: the Events tile grid, NAMED. It said "\u2190 Back" and named nothing. The bottom
+  // nav Back stays closeRecipe() \u2014 exactly one level, back to the tab she was reading.
+  var _evTop = topBack(TINZA_CHAINS.events(), 2);
+  if(!r) return { name:'Recipe not found', backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   guests = guests || 20;
   var emoji   = r.emoji || '\uD83C\uDF7D\uFE0F';
@@ -1458,7 +1464,7 @@ function eventsRecipeOpts(r, guests){
   return {
     photoName:r.photoName||r.name, photoEmoji:emoji,
     portionHowText: isFingerPieceItem(r) ? 'Finger foods are counted in pieces per person, set by the event type above \u2014 about 4\u20135 each at a braai, 5\u20136 before a meal, and 12\u201315 for a snacks-only spread. That total is shared across the snacks you pick, so each one scales down to keep the spread sensible. Set your exact amounts in My Plan.' : '',
-    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     name:r.name, sub:(r.region||''),
     meta:{ time: r.time?(r.time+' min'):'', kcal:r.kcal },
     qtyHTML:qtyHTML, equipHTML:equipmentContract(r, guests, null, 1) + equipmentLine(r, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
@@ -1546,7 +1552,9 @@ function cakesResolve(id){
 }
 
 function cakesRecipeOpts(cake, guests){
-  if(!cake) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+  // \u2696\ufe0f \u00a724.9 \u2014 depth 2. Photo Back = two up (the Events grid, named); bottom = one up.
+  var _evTop = topBack(TINZA_CHAINS.events(), 2);
+  if(!cake) return { name:'Recipe not found', backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   guests = guests || 50;
   var emoji = cake.emoji || '\uD83C\uDF82';
@@ -1631,7 +1639,7 @@ function cakesRecipeOpts(cake, guests){
 
   return {
     photoName:cake.photoName||cake.name, photoEmoji:emoji,
-    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     name:cake.name, sub:sub, meta:{},
     qtyHTML:qtyHTML, equipHTML:equipmentContract(cake, guests, null, batchesNeeded) + equipmentLine(cake, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },
@@ -1663,7 +1671,9 @@ function beveragesResolve(id){
 }
 
 function beveragesRecipeOpts(bev, guests){
-  if(!bev) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'← Back',
+  // ⚖️ §24.9 — depth 2. Photo Back = two up (the Events grid, named); bottom = one up.
+  var _evTop = topBack(TINZA_CHAINS.events(), 2);
+  if(!bev) return { name:'Recipe not found', backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   guests = guests || 50;
   var emoji = bev.emoji || '🍹';
@@ -1755,7 +1765,7 @@ function beveragesRecipeOpts(bev, guests){
 
   return {
     photoName:bev.photoName||bev.name, photoEmoji:emoji,
-    backJs:"closeRecipe()", backLabel:'← Back',
+    backJs:_evTop.backJs, backLabel:_evTop.backLabel,
     name:bev.name, sub:sub, meta:{},
     qtyHTML:verStrip+qtyHTML, equipHTML:equipmentContract(bev, guests, null, batchesNeeded) + equipmentLine(bev, guests), ingredientsHTML:ingredientsHTML, methodHTML:methodHTML, extrasHTML:extras,
     actions:{ addJs:addJs, inPlan:inPlan },

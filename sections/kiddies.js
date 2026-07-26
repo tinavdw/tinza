@@ -103,8 +103,11 @@ function kidsPartyHTML(){
     3 · Set your <strong style="color:var(--accent);">kid count</strong> — every recipe scales automatically<br>
     4 · Add extras with <strong style="color:var(--accent);">+ Add more snacks</strong> on the Savoury &amp; Sweet pages`;
 
+  // ⚖️ §24.9 — the themes grid is depth 1 inside Events, so its top Back is two up = Home.
+  // The one-level step back to the Events tile grid is the BOTTOM Back's job.
+  const _kTop = topBack(TINZA_CHAINS.kiddies(), 1);
   return `<div>
-    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · scales automatically',"set({eventTab:null,kidsScreen:'themes',kidsTheme:null,kidsRecipe:null,kidsCategory:null})",'← Events','kiddies')}
+    ${kidsHeader('🎂 Kiddies Parties','12 themes · 4 to 50 kids · scales automatically',_kTop.backJs,_kTop.backLabel,'kiddies')}
     <div class="content">
       <div style="display:flex;align-items:center;background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:7px 14px;margin-bottom:12px;">
         <span style="color:var(--accent);margin-right:8px;font-size:14px;">🔍</span>
@@ -146,8 +149,11 @@ function kidsThemeCategoriesHTML(themeId,k,budget){
   const cats = kidsCategoryDefs(th);
   const howHTML = `Each box opens its own recipes. <strong style="color:var(--accent);">Everything scales</strong> to your kid count. Add extra snacks with <strong style="color:var(--accent);">+ Add more snacks</strong> on the Savoury &amp; Sweet pages.`;
 
+  // ⚖️ §24.9 — a theme's category boxes sit at depth 2, so the top Back is two up: the
+  // Events tile grid. Stepping back to the 12 themes is the BOTTOM Back's one-level job.
+  const _kTop = topBack(TINZA_CHAINS.kiddies(), 2);
   return `<div>
-    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', "set({kidsScreen:'themes',kidsTheme:null})", '← 12 Themes', th.name, tint)}
+    ${kidsHeader(th.emoji+' '+th.name, th.vibe||'', _kTop.backJs, _kTop.backLabel, th.name, tint)}
     <div class="content">
       <div style="font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;">What do you want to plan?</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;">
@@ -399,8 +405,12 @@ function kidsCategoryHTML(themeId,catId,k,budget){
       </div>`}`;
   }
 
+  // ⚖️ §24.9 — a category page sits at depth 3, so the top Back is two up: the 12 themes.
+  // Stepping back to this theme's own boxes is the BOTTOM Back's one-level job — and the
+  // full-width "← Back to <theme>" button below the list still does it by hand.
+  const _kTop = topBack(TINZA_CHAINS.kiddies(), 3);
   return `<div>
-    ${kidsHeader(th.emoji+' '+th.name, labels[catId]||'', "set({kidsScreen:'categories',kidsCategory:null,kidsOpenRecipe:null})", '← '+th.name, th.name, tint)}
+    ${kidsHeader(th.emoji+' '+th.name, labels[catId]||'', _kTop.backJs, _kTop.backLabel, th.name, tint)}
     <div class="content">
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;">${pills}</div>
       ${kidsControlBar(k,'kidsCatHowOpen',isOpen,howHTML)}
@@ -446,7 +456,11 @@ function kiddiesResolve(themeId,catId,name){
   var out=Object.assign({}, rec); out._themeId=themeId; out._catId=catId; return out;
 }
 function kiddiesRecipeOpts(rec, themeId, catId, k){
-  if(!rec) return { name:'Recipe not found', backJs:'closeRecipe()', backLabel:'\u2190 Back',
+  // \u2696\ufe0f \u00a724.9 \u2014 a kiddies recipe is DEPTH 4, so the photo Back is two up: this theme's
+  // own category boxes, named after the theme. The bottom nav Back stays closeRecipe() \u2014
+  // exactly one level, consuming the entry the open pushed.
+  var _kTop = topBack(TINZA_CHAINS.kiddies(themeId), 4);
+  if(!rec) return { name:'Recipe not found', backJs:_kTop.backJs, backLabel:_kTop.backLabel,
     nav:{ backJs:'closeRecipe()', homeJs:"closeRecipe({screen:'home'})" } };
   k=k||12;
   var th=(typeof KIDS_THEMES!=='undefined')?KIDS_THEMES.find(function(t){return t.id===themeId;}):null;
@@ -509,7 +523,7 @@ function kiddiesRecipeOpts(rec, themeId, catId, k){
 
   return {
     photoName: rec.name, photoEmoji: emoji,
-    backJs:"closeRecipe()", backLabel:'\u2190 Back',
+    backJs:_kTop.backJs, backLabel:_kTop.backLabel,
     name: rec.name,
     sub: [typeLabel, rec.per?rec.per+' per child':''].filter(Boolean).join(' \u00b7 '),
     meta: { time: rec.time?(rec.time+' min'):'', kcal: rec.kcal },
