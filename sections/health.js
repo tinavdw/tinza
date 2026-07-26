@@ -717,154 +717,17 @@ function healthImgUrl(name){
   return base + encodeURIComponent(clean) + '.jpg';
 }
 
-function healthRecipeDetail(recipe, backState){
-  if(!recipe) return '';
-  const isPro = tierAllows('pro');
-  const srv = S.servings||1;
-  const inPlan = (S.healthPlan||[]).some(x=>x.id===recipe.id);
-  const imgUrl = healthImgUrl(recipe.name);
-  const _bs = backState||{activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null};
-  const backBtn = Object.entries(_bs).map(([k,v])=>k+":"+JSON.stringify(v)).join(",");
-
-  // Build ingredients scaled to servings
-  const ings = (recipe.base300||recipe.shopping||[]);
-  const ingsHTML = ings.map(i=>{
-    if(!i||!i.n) return '';
-    let amt = '';
-    if(i.pp && i.u && i.u!=='pinch'){
-      const total = Math.round(i.pp * srv * 10)/10;
-      amt = total>=1000&&i.u==='g'?`${(total/1000).toFixed(1)}kg`:
-            total>=1000&&i.u==='ml'?`${(total/1000).toFixed(1)}L`:
-            `${total}${i.u}`;
-    } else if(i.pp && !i.u){
-      amt = `${Math.round(i.pp*srv)}`;
-    } else if(i.u==='pinch'){
-      amt = 'pinch';
-    }
-    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;">
-      <span style="color:var(--ink-soft);">${i.n}</span>
-      <span style="color:var(--gold);font-weight:bold;flex-shrink:0;margin-left:8px;">${amt}</span>
-    </div>`;
-  }).join('');
-
-  // Method steps
-  const steps = recipe.method||[];
-  const stepsHTML = steps.map((step,i)=>`
-    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);">
-      <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--card2);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);font-weight:bold;">${i+1}</div>
-      <div style="font-size:13px;color:var(--ink-soft);line-height:1.6;padding-top:4px;">${step}${hcStepTimer(step)?`<div style="margin-top:6px;"><span style="display:inline-block;background:var(--card2);border:1px solid var(--accent);border-radius:6px;color:var(--gold);font-size:13px;padding:3px 9px;">${hcStepTimer(step)}</span></div>`:''}</div>
-    </div>`).join('');
-
-  return `<div style="min-height:100vh;background:var(--bg);">
-    <!-- Photo header -->
-    <div style="position:relative;height:220px;overflow:hidden;background:var(--card);">
-      <img src="${imgUrl}"
-           onerror="this.style.display='none';var ns=this.nextElementSibling;if(ns)ns.style.display='flex';"
-           style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:0;">
-      <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:var(--card);z-index:0;">
-        <span style="font-size:48px;">${recipe.emoji||'🌿'}</span>
-        <span style="font-size:13px;color:var(--accent);">📷 Photo coming soon</span>
-      </div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,4,14,0.2) 0%,rgba(10,4,14,0.85) 100%);z-index:1;pointer-events:none;"></div>
-      <button onclick="set({${backBtn}})" style="position:absolute;top:14px;left:16px;z-index:3;background:rgba(0,0,0,0.5);border:1px solid var(--accent);border-radius:20px;color:var(--gold);font-size:13px;padding:5px 12px;cursor:pointer;">← Back</button>
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px;">
-        <div style="font-size:28px;margin-bottom:4px;">${recipe.emoji||'🌿'}</div>
-        <h1 style="margin:0 0 4px;font-size:20px;font-weight:bold;color:var(--ink);font-family:Georgia,serif;">${recipe.name}</h1>
-        ${recipe.feel?`<p style="margin:0;font-size:13px;color:var(--ink-soft);font-style:italic;line-height:1.4;">${recipe.feel}</p>`:''}
-      </div>
-    </div>
-
-    <!-- Badges -->
-    ${(recipe.badges||[]).length?`
-    <div style="padding:12px 16px 0;display:flex;flex-wrap:wrap;gap:6px;">
-      ${(recipe.badges||[]).map(b=>`<span style="background:var(--line);border:1px solid var(--line2);border-radius:20px;padding:4px 10px;font-size:13px;color:var(--accent);">${b}</span>`).join('')}
-    </div>`:``}
-
-    <!-- Quantity box -->
-    <div style="margin:12px 16px 0;background:var(--card2);border:1px solid var(--accent);border-radius:12px;padding:14px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-size:13px;color:var(--ink-soft);letter-spacing:1px;text-transform:uppercase;">Serving${srv!==1?'s':''}</div>
-          <div style="font-size:26px;color:var(--gold);font-weight:bold;line-height:1;">${srv} person${srv!==1?'s':''}</div>
-          ${recipe.kcal?`<div style="font-size:13px;color:var(--accent);margin-top:2px;">${kcalChip({html:(recipe.kcal*srv)+' kcal total', label:'🔥 Calories'})}</div>`:''}
-          ${recipe.costPP?`<div style="font-size:13px;color:var(--ink-soft);">${costLine({html:'~R'+(recipe.costPP*srv)+' total', label:'💰 Cost'})}</div>`:''}
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <button onclick="setQuiet({servings:Math.max(1,S.servings-1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--gold);font-size:20px;cursor:pointer;">−</button>
-          <button onclick="setQuiet({servings:Math.min(50,S.servings+1)})" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:2px solid var(--accent);color:var(--gold);font-size:20px;cursor:pointer;">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div style="padding:0 16px 100px;">
-      <!-- Ingredients -->
-      <div style="margin-top:16px;">
-        <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">🛒 Ingredients — ${srv} person${srv!==1?'s':''}</div>
-        <div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;">
-          ${ingsHTML||'<div style="color:var(--ink-soft);font-size:13px;">No ingredients listed.</div>'}
-        </div>
-      </div>
-
-      <!-- Method -->
-      ${stepsHTML?`
-      <div style="margin-top:16px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;">
-          <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;">👨‍🍳 Method</div>
-          ${tierAllows('pro')?`<button onclick="set({healthCooking:{step:0}});window.scrollTo(0,0);" style="background:var(--card2);border:1px solid var(--accent);border-radius:8px;color:var(--gold);font-size:13px;padding:6px 12px;cursor:pointer;white-space:nowrap;">🍳 Start Cooking →</button>`:`<span style="background:var(--card2);border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:13px;padding:6px 12px;white-space:nowrap;">🔒 Start Cooking — Pro</span>`}
-        </div>
-        <div style="background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 14px;">
-          ${stepsHTML}
-        </div>
-      </div>`:''}
-
-      <!-- Tip -->
-      ${recipe.tip?`
-      <div style="margin-top:12px;background:var(--card2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 14px;">
-        <div style="font-size:13px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">💡 Tip</div>
-        <div style="font-size:13px;color:var(--ink-soft);line-height:1.5;">${recipe.tip}</div>
-      </div>`:''}
-
-      <!-- Cost estimate box -->
-      <div style="margin-top:12px;background:var(--card2);border:1px solid var(--line2);border-radius:10px;padding:14px;">
-        <div style="font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:8px;">💰 Cost Estimate</div>
-        ${(function(){
-          if(!tierAllows('pro')) return `<div style="font-size:14px;color:var(--accent);font-weight:bold;">🔒 Pro</div>`;
-          if(recipe.costPP) return `<div style="font-size:18px;color:var(--gold);font-weight:bold;">~R${Math.round(recipe.costPP*srv)} total (R${recipe.costPP}/pp)</div><div style="font-size:13px;color:var(--green);margin-top:4px;">SA&#39;s biggest retailers · ${PRICE_ASOF} · Buy 10% extra</div>`;
-          let t=0, m=0, n=0;
-          (ings||[]).forEach(function(i){ if(!i||!i.n||!i.pp) return; n++; const c=hcLineCost(i.n, Math.round((i.pp||0)*srv*10)/10, i.u); if(c!=null){ t+=c; m++; } });
-          t=Math.round(t);
-          if(m>0) return `<div style="font-size:18px;color:var(--gold);font-weight:bold;">~R${t} total (R${srv>0?Math.round(t/srv):t}/pp)</div><div style="font-size:13px;color:var(--green);margin-top:4px;">${m}/${n} ingredients priced · SA&#39;s biggest retailers · Buy 10% extra</div>`;
-          return `<div style="font-size:13px;color:var(--green);font-style:italic;">Price estimate coming soon</div>`;
-        })()}
-      </div>
-
-      <!-- Goes Well With -->
-      ${(function(){
-        var g = recipe.goesWith||recipe.pairsWith;
-        if(!g) return '';
-        var list = Array.isArray(g) ? g : String(g).split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean);
-        if(!list.length) return '';
-        return `<div style="margin-top:12px;background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:14px;">
-          <div style="font-size:13px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">❤ Goes Well With</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">${list.slice(0,5).map(function(x){return '<span style="padding:5px 12px;border-radius:16px;border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;">'+x+'</span>';}).join('')}</div>
-        </div>`;
-      })()}
-
-      <!-- Actions (braai pattern) -->
-      <div style="margin-top:20px;">
-        <div style="display:flex;gap:8px;margin-bottom:12px;">
-          ${tierAllows('pro') ? `<button onclick="healthToggleById('${recipe.id}','${recipe.cat||'health'}',S.servings)" style="flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;${inPlan?'background:var(--card2);border:1px solid var(--gold);color:var(--gold);':'background:var(--accent);border:1px solid var(--accent);color:var(--bg);'}">${inPlan?'✅ In Plan':'📋 Add to Plan'}</button>` : `<button onclick="" style="flex:1;padding:12px 8px;border-radius:10px;cursor:default;font-size:13px;font-weight:bold;background:var(--card2);border:1px dashed var(--line);color:var(--ink-soft);">📋 Add to Plan — 🔒 Pro</button>`}
-          <button onclick="alert('Download — coming soon')" style="flex:1;padding:12px 8px;border-radius:10px;background:var(--card2);border:1px solid var(--line2);color:var(--ink-soft);font-size:13px;cursor:pointer;">⬇️ Download</button>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid var(--line2);font-size:13px;">
-          <button onclick="set({${backBtn}})" style="background:none;border:none;color:var(--gold);cursor:pointer;">← Back</button>
-          <button onclick="set({healthShowPlan:true})" style="background:none;border:none;color:var(--gold);cursor:pointer;">🛒 My Plan</button>
-          <button onclick="set({screen:'home'})" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button>
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
+// 🪦 healthRecipeDetail(recipe, backState) — DELETED 26 Jul 2026 (MF149-G).
+// It rendered the Health recipe page for S.activeSmoothie / activeOats / activeMuffin /
+// activeRaw. MF149-D deleted those four branches after measuring that no file in
+// sections/ has ever set any of the four to anything but null, which left this function
+// with ZERO call sites — re-grepped repo-wide before this deletion, definition only.
+// ⚖️ §24.3 — the job has a live home: openRecipe() → viewingRecipe → healthRecipeOpts()
+//    → recipePage(). That is the ONE health recipe page. This was a second one that
+//    nothing could reach, carrying its own hand-rolled Back, its own Home button and its
+//    own cost block — three chances to drift away from the shared renderers.
+// ⛔ DO NOT BRING IT BACK. A health recipe renders through recipePage(), like every other
+//    room. healthImgUrl() above is NOT dead — healthExtDetail still calls it.
 
 function healthOpenExt(id, arrName, grp, tab){
   // universal opener: snapshot the group/tab we came from so Back returns there
