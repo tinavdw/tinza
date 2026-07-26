@@ -1389,6 +1389,18 @@ MF149-B named every `sectionHeader()` caller and Tina still found bare `← Back
 
 ⚖️ **THE GENERAL LAW:** *a shell that renders a Back must TAKE the label as an argument — a shell that can only default is a shell that will default.* Naming the callers is not enough if the shell has no parameter to name into. **Census rung:** every Back-rendering shell in `core.js` accepts a label argument; every call site passes one *(a bare `|| '← Back'` fallback may exist as a crash-guard, but zero live callers may rely on it)*.
 
+⚖️ **AMENDED (Tina, 27 Jul 2026):** **the back label is the name the user TAPPED — the tile text — never the internal screen key.**
+*Origin: the Budget room. Its screen key is `budget`, a word she has never once seen on screen; the tile she taps says **I've Got R100**, and so does the room's own plan header. The Back reads `← I've Got R100` and stays that way.* ⚖️ A label naming something only the code can see is not a name — it is a leak.
+
+### 🧭 24.12 · A LATERAL PUSHES NOTHING, SO BACK FROM ONE LEAVES THE ROOM — *(RULED by Tina 27 Jul 2026, from live · confirms MF150)*
+
+**This is INTENDED. It is not a missing step, and nobody may "fix" it back.**
+
+- §24.7 ruled that a lateral **replaces** its history entry rather than pushing one. The direct consequence: from a lateral-selected state, **one Back press leaves the room** — because tapping a pill never created a step to walk back through.
+- 🩸 **Confirmed on live by Tina, 27 Jul:** Finger Foods (Meaty list → Back → **Events**) and Supper (Oven Bakes → Back → **out of the room**). Both correct.
+- ⚖️ **WHY IT IS RIGHT:** she did not GO anywhere when she tapped Meaty — she changed what one level was showing. Making Back retrace pills is what produced the original bug: every pill she ever tried standing between her and the way out.
+- 📌 **AND:** Finger Foods' top Back stays a **static `← Home`** even when the room was entered via Events. Ruled, not an oversight — Finger Foods sits at depth 1, and §24.9's depth-1 clamp says two-up from there IS Home. The one-level step back to the Events grid is the BOTTOM Back's job.
+
 ---
 
 ## 🎭 25 · WATCHING WHAT THE APP **DOES** — **RULED 26 Jul 2026 (Tina)**
