@@ -16495,6 +16495,22 @@ function closeMoodRecipe(){
   window.scrollTo(0,S._moodListScroll||0);
   requestAnimationFrame(function(){ window.scrollTo(0,S._moodListScroll||0); });
 }
+// 🩸 §24.6 ONE LEVEL DOWN — THE SAME DISEASE, THE LEVEL ABOVE THE RECIPE.
+// Picking a mood PUSHES an entry: navSignature() watches (S.moodSelected||[]).length, so
+// null → 'tired' changes the signature. "← Change mood" then went back up with a plain
+// setQuiet, which does not consume that entry — it pushes a FRESH one. Every mood she
+// tried left a stale entry behind, and each later Back press consumed one and restored a
+// snapshot identical to the picker she was already looking at: the screen did not move.
+// Tina reproduced it on live — one dead Back press per mood tried.
+// MF149-A gave moodActiveRecipe a consuming closer; this level never got one. Same shape,
+// same fix, same fail-safe: at depth 0 there is no entry to consume, so setQuiet is the
+// only close there is.
+function closeMoodSelection(){
+  if(typeof _appNavDepth!=='undefined' && _appNavDepth>0 && typeof history!=='undefined'){
+    try { history.back(); return; } catch(_e){}
+  }
+  setQuiet({moodSelected:null,moodRecipes:null,moodLoading:false});
+}
 function openMealRecipe(id){
   const sec = S.screen||'';
   const sectionRecipes = {

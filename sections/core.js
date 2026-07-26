@@ -2654,7 +2654,7 @@ function moodHTML(){
   if(mood && (loading || recipes)){
     return `<div style="min-height:100vh;background:var(--bg);">
       <div style="background:#100818;border-bottom:1px solid ${mood.colour};padding:14px 20px;">
-        <button onclick="setQuiet({moodSelected:null,moodRecipes:null,moodLoading:false})" style="background:none;border:none;color:${mood.colour};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Change mood</button>
+        <button onclick="closeMoodSelection()" style="background:none;border:none;color:${mood.colour};font-size:13px;cursor:pointer;margin-bottom:8px;padding:0;display:block;">← Change mood</button>
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:32px;">${mood.e}</span>
           <div>
