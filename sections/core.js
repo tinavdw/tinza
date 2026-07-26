@@ -120,8 +120,17 @@ function navSignature(){
 //    there, and they have not. DO NOT TOUCH A WORKING ROOM.
 // 📌 First-pill fact, measured: meals.js falls back to cats[0].id, so there is no
 //    "unfiltered" state to lose — replacing the entry loses nothing she could go back to.
+// 🩸 27 Jul · fingerSection ADDED. §24.10's ruling names "Meaty → Pastry" as its own
+//    example of a lateral, and the Finger Foods pills are exactly that — a pill inside
+//    the Finger Foods tab. The key was simply missing from MF149-C's list (fingerView,
+//    the more level-ish of the pair, was in it). Measured: the Meaty pill fires
+//    setQuiet({fingerSection,savouryExpanded,fingerView}) — all three now laterals — so
+//    tapping it no longer pushes a history entry she has to walk back through, and it
+//    lands on the block. ⛔ eventTab STILL STAYS OUT: it is a LEVEL move in the §24.9
+//    Events chain and Tina's fingers confirmed both Backs fine on 26 Jul.
 const LATERAL_KEYS = ['mealCat','wkDataTab','wkCourseTab','healthGroupTab','beverageCat',
-                      'cakeCat','catSection','dogSection','barMode','braiCat','fingerView','healthTab'];
+                      'cakeCat','catSection','dogSection','barMode','braiCat','fingerView',
+                      'fingerSection','healthTab'];
 // The signature with the laterals blanked. ⚖️ Law 6 — this does NOT re-implement
 // navSignature(); it CALLS it with the lateral keys temporarily cleared, so the two can
 // never drift apart the way two hand-kept lists always do. Synchronous, and S is restored
@@ -653,8 +662,16 @@ function draw(){
     else { S.wkScreen = null; S.wkContinent = null; S.wkRegion = null; S.wkDataCountry = null; S.wkDataRecipe = null; }
   }
   const scrollToRestore = screenChanged ? 0 : (root._savedScroll != null ? root._savedScroll : (sameContext ? window.scrollY : 0));
-  // Stage 1 scroll-to-content: on an in-section navigation (new tab/category/list — not a quiet toggle/slider), land on the content instead of the banner
-  const jumpToContent = !screenChanged && root._savedScroll == null && !sameContext;
+  // 🩸 §24.10 · THE LANDING LAW — A PUSH LANDS AT THE TOP. A LATERAL LANDS ON THE THING
+  //    YOU TAPPED. NOTHING LANDS IN A RANDOM MIDDLE.
+  // ⛔ `jumpToContent` IS DELETED. It scrolled past the banner to `.content` on ANY
+  //    in-section navigation, so Events → Finger Foods opened BELOW the banner with the
+  //    room's own top Back scrolled off-screen. It was written before the top Back meant
+  //    anything. It does now: a landing that hides the way out is not a landing.
+  // ⚖️ The decision rides the push/lateral line ALREADY RULED in §24.7 — one distinction,
+  //    two behaviours, nothing new to remember. Both flags are set by the ONE predicate in
+  //    the nav block below (navSignatureCore); this does NOT re-derive it. ⚖️ Law 6.
+  let _pushMove = false, _lateralMove = false;
   const openedRecipe = !!S.viewingRecipe && (root._lastVR !== ((S.viewingRecipe && S.viewingRecipe.id) || 'vr'));
   root._savedScroll = null;
 
@@ -797,7 +814,10 @@ function draw(){
       // level wearing a different filter. REPLACE the entry in place; do not push, and
       // leave _appNavDepth alone — there is no new level for Back to walk back out of.
       const _core = navSignatureCore();
-      if(window._navSigCore !== undefined && _core === window._navSigCore){
+      // §24.10 — the SAME answer drives the history entry AND the landing. One predicate.
+      _lateralMove = (window._navSigCore !== undefined && _core === window._navSigCore);
+      _pushMove    = !_lateralMove;
+      if(_lateralMove){
         // carry the entry's saved scroll across the replace, or a lateral would silently
         // eat the list position Back is supposed to restore
         let _sc = null; try { _sc = (history.state && history.state._scroll != null) ? history.state._scroll : null; } catch(_e){}
@@ -816,17 +836,50 @@ function draw(){
     _lastNavScreen = S.screen;
   }
 
+  // ── §24.10 · WHERE THIS SCREEN LANDS ──────────────────────────────────────
   if(openedRecipe){
+    // a recipe opens at its photo. Already correct — untouched.
     window.scrollTo(0, 0);
     requestAnimationFrame(()=>{ window.scrollTo(0, 0); });
-  } else if(jumpToContent){
-    const ct = ()=>{ const el=root.querySelector('.content'); return el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - 8) : 0; };
-    window.scrollTo(0, ct());
-    requestAnimationFrame(()=>{ window.scrollTo(0, ct()); });
+  } else if(_lateralMove){
+    // A PILL IS NOT AN ARRIVAL. Land on the block it selected, heading at the top —
+    // not the banner (she did not go anywhere) and NOT where she was standing, which
+    // is the bug Tina reported: tapping Meaty left her in place, hunting for it.
+    // 🛡️ No anchor → the TOP. Never "stay put": that is the reported bug, and a silent
+    //    fallback to it would hide a room that simply forgot to declare its block.
+    const lt = ()=>{ const t = lateralBlockTop(root); return t == null ? 0 : t; };
+    window.scrollTo(0, lt());
+    requestAnimationFrame(()=>{ window.scrollTo(0, lt()); });
+  } else if(_pushMove){
+    // ENTERING A LEVEL — the banner, the title and the top Back are all part of
+    // arriving somewhere new. The top. Always. ⚖️ §24.10.
+    // ⛔ This deliberately IGNORES root._savedScroll: setQuiet() saves the scroll on
+    //    every call, so a push made with setQuiet used to "restore" the position of the
+    //    screen she just LEFT. A push is not a return.
+    window.scrollTo(0, 0);
+    requestAnimationFrame(()=>{ window.scrollTo(0, 0); });
   } else {
+    // No level move at all — a quiet toggle, a slider, a serving ± , a collapsible.
+    // HOLD POSITION. Also the Back/popstate path, which restores the saved scroll.
     window.scrollTo(0, scrollToRestore);
     requestAnimationFrame(()=>{ window.scrollTo(0, scrollToRestore); });
   }
+}
+
+// §24.10 — the block the active lateral selected. A room DECLARES its blocks with a
+// stable anchor: data-lateral-block="<key>:<value>". Only the room on screen renders
+// one, so the first match is the right one. Returns null when nothing is declared, and
+// the caller lands at the top rather than guessing.
+function lateralBlockTop(root){
+  if(!root || typeof LATERAL_KEYS === 'undefined') return null;
+  for(var i=0;i<LATERAL_KEYS.length;i++){
+    var k = LATERAL_KEYS[i], v = S[k];
+    if(v == null || v === '' || v === false) continue;
+    var el = null;
+    try { el = root.querySelector('[data-lateral-block="'+k+':'+String(v).replace(/["\\\]]/g,'')+'"]'); } catch(_e){}
+    if(el) return Math.max(0, el.getBoundingClientRect().top + window.scrollY - 8);
+  }
+  return null;
 }
 
 function openEvent(id,t){

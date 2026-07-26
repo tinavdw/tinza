@@ -1170,7 +1170,9 @@ function eventsHTML(){
 
         return `
           ${miniNav()}
-          <div style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;overflow:hidden;margin-bottom:8px;">
+          <!-- §24.10 — the anchor the landing law scrolls to. Tapping Meaty must land on
+               "🥩 Meaty Snacks", not the banner and not where she was standing. -->
+          <div data-lateral-block="fingerSection:${active.id}" style="background:var(--card2);border:1px solid var(--line2);border-radius:10px;overflow:hidden;margin-bottom:8px;">
             <div style="padding:10px 14px;border-bottom:1px solid var(--card2);display:flex;align-items:center;justify-content:space-between;">
               <span style="font-size:15px;color:var(--gold);font-weight:bold;">${active.emoji} ${active.fullLabel}</span>
               ${activeSelCount>0?`<span style="background:var(--card2);border:1px solid var(--accent);border-radius:10px;font-size:13px;color:var(--gold);padding:2px 8px;">${activeSelCount} selected</span>`:''}
