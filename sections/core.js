@@ -54,10 +54,17 @@ function liveSearch(inputEl, resultsId, spec){
 // you are looking at goes back one step.
 const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople'];
 // MF99 · Every room opened its own private "recipe is open" key, and goBack() only ever knew
-// about ONE of them (budget). These five all close the SAME way — setQuiet({key:null}) — which
+// about ONE of them (budget). These three all close the SAME way — setQuiet({key:null}) — which
 // is exactly what each room's own top-Back button already does. ⚖️ Law 6 · Law 35.
-const SIMPLE_RECIPE_KEYS = ['_anchorActiveRecipe','_fourActiveRecipe','_searchActiveRecipe',
-                            'moodActiveRecipe','mealActiveRecipe'];
+// 🩸 MF149-A · §24.6 — ONE KEY, ONE CLOSE PATH. moodActiveRecipe + mealActiveRecipe were in
+// BOTH this list AND navSignature(). In the signature = opening the recipe PUSHES a history
+// entry. In this list = goBack() step (2b) closed it with setQuiet, which pushes ANOTHER
+// entry — so the phone's Back walked chips → recipe → chips → recipe forever. Proven on live
+// by Tina (Sides & Basics → Chips). A key that pushes must be closed by CONSUMING that push.
+// ⛔ Neither key goes back in here. They stay in navSignature() (dropping them there would
+//    pop straight past the list to Home) and are closed by closeMealRecipe()/closeMoodRecipe(),
+//    which goBack() calls by name. ⚖️ §24.6.
+const SIMPLE_RECIPE_KEYS = ['_anchorActiveRecipe','_fourActiveRecipe','_searchActiveRecipe'];
 let _navRestoring = false;
 // Forward app-history depth = (history entries WE pushed) − (popstate-backs WE consumed).
 // 0 = sitting on the first app screen (nothing of ours to go back into). This is the
@@ -461,8 +468,16 @@ function goBack(){
     if(S._budgetActiveRecipe && typeof budgetCloseRecipe==='function'){ budgetCloseRecipe(); return; }
     // (2) Universal recipe view → closeRecipe (cross-link aware; consumes its pushed entry).
     if(S.viewingRecipe && typeof closeRecipe==='function'){ closeRecipe(); return; }
-    // (2b) MF99 · A room's PRIVATE recipe view → close it the way that room's own Back does.
-    //      Without this, Back falls through to step (4) and dumps her on HOME. ⚖️ Law 6.
+    // (2a) MF149-A · §24.6 — the two rooms whose recipe view PUSHES a history entry
+    //      (mealActiveRecipe + moodActiveRecipe are both in navSignature()). They must be
+    //      closed by CONSUMING that entry, never by a fresh setQuiet — which is exactly what
+    //      their own closers do. Same shape as step (2)'s viewingRecipe. These sit ABOVE
+    //      (2b) because (2b) is the generic setQuiet close, and it was intercepting them.
+    if(S.mealActiveRecipe && typeof closeMealRecipe==='function'){ closeMealRecipe(); return; }
+    if(S.moodActiveRecipe && typeof closeMoodRecipe==='function'){ closeMoodRecipe(); return; }
+    // (2b) MF99 · A room's PRIVATE recipe view that pushed NO entry (not in navSignature())
+    //      → close it the way that room's own Back does. Without this, Back falls through to
+    //      step (4) and dumps her on HOME. ⚖️ Law 6.
     for(var _i=0; _i<SIMPLE_RECIPE_KEYS.length; _i++){
       var _k = SIMPLE_RECIPE_KEYS[_i];
       if(S[_k]){ var _p = {}; _p[_k] = null; setQuiet(_p); return; }
@@ -2520,7 +2535,7 @@ function moodHTML(){
     const mood = MOODS.find(m=>m.id===S.moodSelected)||{colour:'#8060c0',bg:'#0f0818'};
     return recipeDetailFromResult(
       r,
-      "setQuiet({moodActiveRecipe:null})",
+      "closeMoodRecipe()",
       S.moodServings||1,
       mood.colour,
       mood.bg,

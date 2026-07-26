@@ -16445,7 +16445,28 @@ function openBudgetRecipe(idx){
 }
 function openMoodRecipe(idx){
   const arr = S.moodRecipes||[];
-  if(arr[idx]) setQuiet({moodActiveRecipe: arr[idx]});
+  if(!arr[idx]) return;
+  var _y = window.scrollY||0;
+  // persist the list scroll onto the history entry we're leaving, so Back returns to the
+  // exact spot (mirrors openMealRecipe / openRecipe). ⚖️ MF149-A · §24.6.
+  try { var _st=history.state; if(_st && _st.tinza){ _st._scroll=_y; history.replaceState(_st,''); } } catch(_e){}
+  setQuiet({moodActiveRecipe: arr[idx], _moodListScroll:_y});
+  window.scrollTo(0,0); requestAnimationFrame(function(){ window.scrollTo(0,0); });
+}
+// Close a mood recipe by CONSUMING the history entry that openMoodRecipe pushed
+// (mirrors closeMealRecipe). moodActiveRecipe IS in navSignature(), so opening it pushes —
+// and a setQuiet close would push a FRESH forward entry, so the phone's Back bounced
+// straight back INTO the recipe. That is the Just Feed Me half of the loop §24.6 warned
+// about, the identical shape Tina proved on Chips. ⚖️ MF149-A.
+// The depth-0 fallback is deliberate and correct: with nothing of ours to consume there is
+// no pushed entry to bounce off, so setQuiet is the only close there is.
+function closeMoodRecipe(){
+  if(typeof _appNavDepth!=='undefined' && _appNavDepth>0 && typeof history!=='undefined'){
+    try { history.back(); return; } catch(_e){}
+  }
+  setQuiet({moodActiveRecipe:null});
+  window.scrollTo(0,S._moodListScroll||0);
+  requestAnimationFrame(function(){ window.scrollTo(0,S._moodListScroll||0); });
 }
 function openMealRecipe(id){
   const sec = S.screen||'';
