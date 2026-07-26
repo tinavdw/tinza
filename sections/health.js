@@ -859,7 +859,7 @@ function healthRecipeDetail(recipe, backState){
         <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0 30px;border-top:1px solid var(--line2);font-size:13px;">
           <button onclick="set({${backBtn}})" style="background:none;border:none;color:var(--gold);cursor:pointer;">← Back</button>
           <button onclick="set({healthShowPlan:true})" style="background:none;border:none;color:var(--gold);cursor:pointer;">🛒 My Plan</button>
-          <button onclick="set({screen:'home',activeSmoothie:null,activeOats:null,activeMuffin:null,activeRaw:null})" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button>
+          <button onclick="set({screen:'home'})" style="background:none;border:none;color:var(--ink-soft);cursor:pointer;">Home</button>
         </div>
       </div>
     </div>
@@ -956,7 +956,7 @@ function healthHTML(){
 
   // ── Cooking mode (overlays any health screen) ──
   if(S.healthCooking){
-    const _cookRecipe = S.activeSmoothie||S.activeOats||S.activeMuffin||S.activeRaw||S.activeHealthExt;
+    const _cookRecipe = S.activeHealthExt;   // §24.8 — the other four are deleted keys
     if(_cookRecipe) return healthCookingView(_cookRecipe);
   }
 
@@ -964,10 +964,12 @@ function healthHTML(){
   if(S.healthShowPlan) return healthPlanScreen(isPro);
 
   // ── Recipe detail screens ────────────────────────────────────
-  if(S.activeSmoothie) return healthRecipeDetail(S.activeSmoothie, {activeSmoothie:null});
-  if(S.activeOats)     return healthRecipeDetail(S.activeOats,     {activeOats:null});
-  if(S.activeMuffin)   return healthRecipeDetail(S.activeMuffin,   {activeMuffin:null});
-  if(S.activeRaw)      return healthRecipeDetail(S.activeRaw,      {activeRaw:null});
+  // 🩸 §24.8 · MF149-D — the activeSmoothie / activeOats / activeMuffin / activeRaw
+  // branches are DELETED. Measured 26 Jul: no file in sections/ has EVER set any of the
+  // four to anything but null — they were declared in data.js, cleared by the tier
+  // switcher, and read here. Four dead doors in a room that already renders every one of
+  // these recipes through openRecipe() → viewingRecipe → healthRecipeOpts(). The new home
+  // is live, so §24.3's deletion law is satisfied: this is a REMOVAL, not a disabling.
   if(S.activeHealthExt) return healthExtDetail(S.activeHealthExt);
 
   // ── Sub-group screen (e.g. "Body Goals" → Keto / Weight Loss / High-Protein) ──

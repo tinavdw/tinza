@@ -96,8 +96,16 @@ function navSnapshot(){
 //        healthGroupTab · catSection · dogSection · barMode.
 // ⏸️ NOT added: S.cookStep (cooking mode) — Back there should EXIT the mode, not walk 12
 //    steps backwards. Tina's call, not mine. S.searchPrevScreen is a memo, not a level.
+// 🩸 26 Jul · §24.8 · MF149-D — REMOVED SEVEN KEYS NO ROOM HAS EVER SET:
+//    eventActiveRecipe · weddingCakeView · kidsShowMasterSnacks · wkSACulture ·
+//    wkRecipeDetail · activeSmoothie · activeCat2.
+//    Each was measured first (Law 19): the ONLY writes anywhere in sections/ were `:null`
+//    in the tier-switcher clear-down, plus one in a COMMENT. A signature entry for a key
+//    nothing sets is a slot that is always '' — it can never change, so it can never
+//    cause a push. It cost nothing and taught every reader that the door existed.
+//    ⛔ S.mealCat was ALSO listed TWICE. The duplicate is gone; the key stays.
 function navSignature(){
-  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.eventActiveRecipe?'er':'', S.buffetStep||'', S.weddingCakeView||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.kidsShowMasterSnacks?'ks':'', S.wkScreen||'', S.wkContinent||'', S.wkRegion||'', S.wkDataCountry||'', S.wkDataTab||'', S.wkCourseTab||'', S.wkSACulture||'', S.wkRecipeDetail?'wkr':'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', S.activeSmoothie?'sm':'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.activeCat2?'c':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||'', S.mealCat||'', S.mealPlanView?'mpv':'', S.healthGroupTab||'', S.catSection||'', S.dogSection||'', S.barMode||'', S.mealCat||'', S.mealActiveRecipe?(S.mealActiveRecipe.id||'mar'):''].join('|');
+  return [S.screen, S.viewingRecipe?(S.viewingRecipe.id||'r'):'', S.eventTab||'', S.buffetStep||'', S.braiStep||'', S.braiCat||'', S.braaiView||'', S.activeCat||'', S.fingerSection||'', S.fingerView||'', S.kidsScreen||'', S.kidsTheme||'', S.wkScreen||'', S.wkContinent||'', S.wkRegion||'', S.wkDataCountry||'', S.wkDataTab||'', S.wkCourseTab||'', S.wkTab||'', S.babyView||'', S.activeBaby?'b':'', S.kiddiesView||'', S.healthTab||'', S.healthGroup||'', (S.moodSelected||[]).length, S.moodActiveRecipe?'mr':'', S.moodPlanView?'mp':'', S.dogView||'', S.catView||'', S.activeDog?'d':'', S.furryPet||'', S.budgetPlanView?'bp':'', S.budgetStep||'', S.beverageCat||'', S.cakeCat||'', S.mealCat||'', S.mealPlanView?'mpv':'', S.healthGroupTab||'', S.catSection||'', S.dogSection||'', S.barMode||'', S.mealActiveRecipe?(S.mealActiveRecipe.id||'mar'):''].join('|');
 }
 // ⚖️ §24.7 — A LATERAL REPLACES. IT NEVER PUSHES.
 // A LEVEL is a place she walked INTO: Home → Supper → a recipe. Back should walk it.
@@ -630,7 +638,7 @@ function draw(){
   if(!root) return;
 
   const prevContext = root._lastContext||'';
-  const currContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
+  const currContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'');
   const sameContext = prevContext === currContext;
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
   if(screenChanged) S._searchOwner = null;   // MF59-B · a query belongs to the screen it was typed on; on any screen change it is no longer on-screen. Runs BEFORE section content renders this pass, so searchVal() reads the nulled owner in the same draw (Law 31/33).
@@ -774,7 +782,7 @@ function draw(){
   if(guestSlider) guestSlider.value = S.eventGuests;
   const peopleSlider = document.querySelector('input[type=range][min="1"]');
   if(peopleSlider) peopleSlider.value = S.people;
-  root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.eventActiveRecipe?'recipe':'') + (S.weddingCakeView||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'') + (S.kidsShowMasterSnacks?'snacks':'');
+  root._lastContext = S.screen + (S.eventTab||'') + (S.buffetStep||'') + (S.braiStep||'') + (S.braiCat||'') + (S.braaiView||'') + (S.fingerSection||'') + (S.fingerView||'') + (S.kidsScreen||'') + (S.kidsTheme||'');
   root._lastScreen = S.screen;
   root._lastVR = S.viewingRecipe ? (S.viewingRecipe.id || 'vr') : null;
 
@@ -4054,7 +4062,11 @@ function resolveRecipe(section, id){
 // Nav-location state keys (mirrors historyKey) — snapshotted so Back can
 // restore the exact origin screen. Selection arrays (plans) are excluded
 // on purpose: we restore WHERE you were, never what you'd chosen.
-var NAV_KEYS = ['screen','eventTab','eventActiveRecipe','buffetStep','weddingCakeView','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kidsShowMasterSnacks','kiddiesView','wkScreen','wkCountry','wkSelectedRegion','wkSACulture','wkRecipeDetail','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','activeSmoothie','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','activeCat2','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
+// 🩸 26 Jul · §24.8 · MF149-D — PURGED NINE DEAD KEYS. wkCountry + wkSelectedRegion have
+// been dead since the WK drill moved to wkContinent → wkRegion → wkDataCountry (25 Jul);
+// the other seven are the ones navSignature() dropped in the same commit. Restoring a key
+// no room ever sets restores nothing, and a list that names it says the door is there.
+var NAV_KEYS = ['screen','eventTab','buffetStep','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kiddiesView','wkScreen','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
 
 function snapshotNav(){
   var s = {};

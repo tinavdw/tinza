@@ -397,23 +397,49 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
 
     // DEAD KEYS use DIFFERENT, LOOSER evidence than blind spots — deliberately.
     // Blind spots must be strict (S.key only): matching `key:` sweeps in the delta-contract
-    // verbs addStep/swapStep and cries wolf. Dead keys must be lenient (S.key OR key:):
-    // three live keys are only ever written as set({wkSACulture:…}) and a strict test
-    // buried them alive. Each side errs the SAFE way — toward "there is a bug" for blind
-    // spots, toward "it is alive" for deletions.
-    const anyWrite = {};
+    // verbs addStep/swapStep and cries wolf. Each side errs the SAFE way — toward "there is
+    // a bug" for blind spots, toward "it is alive" for deletions.
+    //
+    // 🩸 26 Jul · §24.8 · MF149-D — TIGHTENED FROM "is it MENTIONED?" TO "is it ever SET
+    //    TRUTHY?". The old test counted `wkSACulture:null` in the tier-switcher clear-down
+    //    as evidence the key was alive, so SEVEN keys that no room has ever set to anything
+    //    sat in the signature and this rung called them healthy. A key that is only ever
+    //    written null is a slot that can never change — a door that is not there.
+    // ⛔ AND IT MUST COUNT STRING-NAME WRITES. barplanner.js does chipRow(…,'barMode') and
+    //    the helper writes S[key] — there is no `barMode:` and no `S.barMode=` anywhere.
+    //    A rung that cannot see that BURIES A LIVE KEY, which is far worse than missing a
+    //    dead one: the next session deletes the key and the room stops navigating. This is
+    //    part of the ruling (§24.8), not an implementation detail. ⚖️ Law 19 · Law 22.
+    const NULLISH = /^(null|false|undefined|''|""|``|0|\{\}|\[\])$/;
+    const anyWrite = {}, WHY = {};
+    const evid = (k,f,how)=>{ (anyWrite[k]=anyWrite[k]||new Set()).add(f); if(!WHY[k]) WHY[k]=f+' ('+how+')'; };
     fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js') && f!=='data.js').forEach(f=>{
       let src = strip(fs.readFileSync(path.join(ROOT,'sections',f),'utf8'));
       if(f==='core.js') src = src.replace(/function navSignature\(\)\{[\s\S]*?\n\}/,'')
                                  .split('\n').filter(l=>!/USER_TIER\s*=\s*'/.test(l)).join('\n');
-      [].concat((src.match(/S\.([a-z]\w*)/g)||[]).map(x=>x.slice(2)),
-                (src.match(/\b([a-z]\w*)\s*:/g)||[]).map(x=>x.replace(/\s*:$/,'')))
-        .forEach(k=>{ (anyWrite[k]=anyWrite[k]||new Set()).add(f); });
+      // (a) object-literal writes — set({key:'x'}) / setQuiet({key:2}). null/false do NOT count.
+      [...src.matchAll(/\b([a-z]\w*)\s*:\s*([^,;)}\n]+)/g)]
+        .forEach(m=>{ if(!NULLISH.test(m[2].trim())) evid(m[1], f, 'key:value'); });
+      // (b) direct assignment — S.key = 'x'. Same nullish rule.
+      [...src.matchAll(/S\.([a-z]\w*)\s*=\s*([^;,\n]+)/g)]
+        .forEach(m=>{ if(!NULLISH.test(m[2].trim())) evid(m[1], f, 'S.key='); });
+      // (c) STRING-NAME WRITES — the key travels as a string into a helper that writes S[k].
+      //     Deliberately lenient: for a DELETION rung, a false "alive" costs nothing and a
+      //     false "dead" costs a room. ⚖️ err toward "it is alive".
+      [...src.matchAll(/['"]([a-z]\w*)['"]/g)].forEach(m=> evid(m[1], f, 'string name'));
     });
     const dead = [...watched].filter(k=>NAVISH.test(k) && !anyWrite[k]);
     if (dead.length) bad(dead.length + ' DEAD keys in navSignature(): ' + dead.join(' · '),
-      '\n      \x1b[2mwatched but written by no room — the signature guarding a door that is not there.\x1b[0m');
-    else ok('navSignature() watches no dead keys');
+      '\n      \x1b[2mwatched but never SET TRUTHY by any room — the signature guarding a door' +
+      '\n      that is not there. Not even as a string name. ⚖️ §24.8.\x1b[0m');
+    else ok('navSignature() watches no dead keys',
+      [...watched].filter(k=>NAVISH.test(k)).length + ' navish keys, each proven SET somewhere');
+    // 🩸 PROVE THE STRING-NAME ARM ACTUALLY FIRES. A rung nobody has watched go red is a
+    //    claim, not a check. barMode is live ONLY through chipRow(…,'barMode'); if this
+    //    line ever stops holding, arm (c) has been broken and live keys are being buried.
+    if (watched.has('barMode') && !anyWrite['barMode'])
+      bad('the string-name arm of the dead-key rung is BROKEN', '\n      \x1b[2mbarMode is written only as chipRow(…,\'barMode\') and this rung can no longer see it. ⚖️ §24.8.\x1b[0m');
+    else if (watched.has('barMode')) ok('the string-name arm fires', 'barMode proven alive via ' + (WHY['barMode']||'?'));
   }
 
   // ⑥ ⚖️ §24 — A TOP BACK MUST NAME WHERE IT GOES. The BOTTOM (spine) Back is allowed to
