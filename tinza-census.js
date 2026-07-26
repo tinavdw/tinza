@@ -440,6 +440,86 @@ head('8 · WHERE DOES THE BOTTOM-LEFT BACK BUTTON GO?');
     if (watched.has('barMode') && !anyWrite['barMode'])
       bad('the string-name arm of the dead-key rung is BROKEN', '\n      \x1b[2mbarMode is written only as chipRow(…,\'barMode\') and this rung can no longer see it. ⚖️ §24.8.\x1b[0m');
     else if (watched.has('barMode')) ok('the string-name arm fires', 'barMode proven alive via ' + (WHY['barMode']||'?'));
+
+    // ⑩ ⚖️ §24.6 — ONE KEY, ONE CLOSE PATH.
+    //    A key in navSignature() is a key whose screen PUSHES a history entry when it
+    //    opens. A key in SIMPLE_RECIPE_KEYS is a key goBack() closes with setQuiet — which
+    //    pushes ANOTHER entry. A key in BOTH lists therefore pushes on open AND pushes on
+    //    close, and the phone's Back walks chips → recipe → chips → recipe and never lets
+    //    her out. Tina proved it on live (Sides & Basics → Chips), and Just Feed Me was
+    //    the identical unwalked loop. TWO keys were in both lists: mealActiveRecipe and
+    //    moodActiveRecipe. Born RED at 2, 26 Jul; GREEN once each got a closer that
+    //    CONSUMES its entry (closeMealRecipe / closeMoodRecipe) and goBack called it by name.
+    // ⛔ The fix is never "drop it from the signature" — then Back pops past the list to
+    //    Home. It is "close it the way it opened". ⚖️ §24.6 · Law 6.
+    {
+      const simpleBlock = (core.match(/const SIMPLE_RECIPE_KEYS\s*=[\s\S]*?\];/)||[''])[0];
+      const simpleKeys  = (simpleBlock.match(/'([^']+)'/g)||[]).map(x=>x.slice(1,-1));
+      const both = simpleKeys.filter(k => watched.has(k));
+      if (both.length) bad(both.length + ' key(s) in BOTH SIMPLE_RECIPE_KEYS and navSignature(): ' + both.join(' · '),
+        '\n      \x1b[2mpush-on-open AND push-on-close — Back bounces straight back INTO the recipe.' +
+        '\n      Give it a closer that CONSUMES the entry (see closeMealRecipe) and call that' +
+        '\n      from goBack() by name. Do NOT drop it from the signature. ⚖️ §24.6.\x1b[0m');
+      else ok('No key is in both SIMPLE_RECIPE_KEYS and navSignature()',
+        simpleKeys.length + ' setQuiet-closed keys, none of them pushes on open');
+    }
+
+    // ⑪ ⚖️ §24.9 — NO SCREEN HAND-ROLLS A ≥2-KEY BACK-JUMP.
+    //    A top Back that clears two or more nav keys is a JUMP, and every hand-rolled jump
+    //    in this app has been wrong at least once: "← World Kitchen" cleared the country
+    //    but not wkContinent/wkRegion and re-rendered the REGION LIST under the room's
+    //    name. Nothing could see that, because the payload and the label were two separate
+    //    hand-written strings sitting next to each other. topBack(chain, depth) derives
+    //    BOTH from one declared level map, so they cannot disagree.
+    //    Born RED at 8, measured 26 Jul: worldkitchen ×2 · events · buffet · braai ·
+    //    kiddies ×3. GREEN once every one routed through topBack().
+    // 🛡️ TINZA_CHAINS is EXEMPT and the exemption is PRINTED — it is where the declared
+    //    jumps LIVE. Blinding it silently would let a hand-rolled jump hide inside it.
+    {
+      const navKeysDecl = (core.match(/var NAV_KEYS\s*=\s*\[[^\]]*\]/)||[''])[0];
+      const NAVSET = new Set([].concat(
+        (sigFn.match(/S\.([A-Za-z_]\w*)/g)||[]).map(x=>x.slice(2)),
+        (navKeysDecl.match(/'([^']+)'/g)||[]).map(x=>x.slice(1,-1))));
+      const EXEMPT_BLOCK = /var TINZA_CHAINS\s*=\s*\{[\s\S]*?\n\};/;
+      let rolled = [];
+      const clears = js => [...new Set((js.match(/([A-Za-z_]\w*)\s*:/g)||[])
+        .map(s=>s.replace(/\s*:$/,'')).filter(k=>NAVSET.has(k)))];
+      fs.readdirSync(path.join(ROOT,'sections')).filter(f=>f.endsWith('.js')).forEach(f=>{
+        // COMMENTS STRIPPED — the sectionHeader doc block writes an example backJs, and
+        // prose is not a call site. ⚖️ Law 19, learned 25 Jul.
+        // ⚠️ \r IS NORMALISED FIRST. On a CRLF checkout every line ends in \r, and \r is a
+        //    line terminator — so /\/\/.*$/ never matches and the comment survives. The
+        //    rung then reads its own prose as code. Measured 26 Jul in a fresh worktree:
+        //    it re-animated wkCountry off the very comment that names it dead.
+        let src = fs.readFileSync(path.join(ROOT,'sections',f),'utf8').replace(/\r\n?/g,'\n')
+          .replace(/\/\*[\s\S]*?\*\//g,'').split('\n').map(l=>l.replace(/\/\/.*$/,'')).join('\n');
+        if(f==='core.js') src = src.replace(EXEMPT_BLOCK,'');
+        // (a) every sectionHeader spec pairs backJs with backLabel — read between them.
+        // ⚠️ THE WINDOW MUST STOP AT THE SPEC. A bare {0,700} overran the `nav:{backJs,
+        //    planJs, homeJs}` block — which has NO backLabel — and kept reading into the
+        //    NEXT function's header, reporting a jump that no header ever made. Measured
+        //    26 Jul: it invented a 9th hit at events.js:1617 out of two unrelated specs.
+        //    So the window ends at whichever comes first, and only backLabel counts:
+        //    planJs/homeJs/nav mean this backJs belongs to the BOTTOM nav, not a header.
+        [...src.matchAll(/backJs\s*:\s*([\s\S]{0,700}?)(backLabel|planJs|homeJs|nav\s*:)/g)].forEach(m=>{
+          if(m[2] !== 'backLabel') return;
+          const hit = clears(m[1]);
+          if(hit.length>=2) rolled.push(f+':'+src.slice(0,m.index).split('\n').length+'  ['+hit.length+'] '+hit.join(','));
+        });
+        // (b) kidsHeader(title, sub, BACKJS, backLabel, …) is a sectionHeader in a wrapper.
+        //     Scanning only `backJs:` would miss three call sites — it did, on the first
+        //     pass of this rung, and a wrapper is exactly where a hand-rolled jump hides.
+        [...src.matchAll(/kidsHeader\s*\(([\s\S]{0,600}?)\)\s*\}/g)].forEach(m=>{
+          const hit = clears(m[1]);
+          if(hit.length>=2) rolled.push(f+':'+src.slice(0,m.index).split('\n').length+'  ['+hit.length+'] '+hit.join(',')+'  \x1b[2m(via kidsHeader)\x1b[0m');
+        });
+      });
+      if (rolled.length) bad(rolled.length + ' hand-rolled ≥2-key back-jump(s) — they must route through topBack()',
+        '\n      ' + rolled.join('\n      ') +
+        '\n      \x1b[2mtopBack(chain, depth) derives the payload AND the label from ONE declared' +
+        '\n      level map, so a jump can never wear a name it does not go to. ⚖️ §24.9.\x1b[0m');
+      else ok('No screen hand-rolls a ≥2-key back-jump', 'every multi-key top Back routes through topBack()  \x1b[2m· EXEMPT: TINZA_CHAINS (core.js) — the declared jumps live there\x1b[0m');
+    }
   }
 
   // ⑥ ⚖️ §24 — A TOP BACK MUST NAME WHERE IT GOES. The BOTTOM (spine) Back is allowed to
