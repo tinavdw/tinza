@@ -1091,11 +1091,11 @@ function eventsHTML(){
 
     ${et==='fingerfoods'?`
       ${S.fingerView==='myplan' ? fingerMyPlanHTML() : `
-      ${guestBar({
-        state:'eventGuests', min:6, max:350,
-        decJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,-1)})",
-        incJs:"setQuiet({eventGuests:eventGuestStep(S.eventGuests,1)})"
-      })}
+      ${/* 🩸 fix-queue ③ — a SECOND guestBar() used to sit here. The shared Events bar
+            (§2.2, above the tab grid) is ungated, so it renders on every Events screen
+            including this one: Finger Foods showed TWO identical guest steppers, one
+            under the other, both driving eventGuests. Leftover from the per-tab-plan
+            ruling, which is STRUCK. The shared bar stays; this copy is deleted. */''}
       ${(()=>{
         const ETYPES=[
           {id:'standalone',label:'🥪 Snacks only',sub:'12–15 pcs pp'},
