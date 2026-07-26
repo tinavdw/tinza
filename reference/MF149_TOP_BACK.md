@@ -2,7 +2,7 @@
 **Brief: Claude, 27 Jul 2026 · repo measured at HEAD `0c020e4` · implements §24.6 · §24.7 · §24.8 · §24.9 (+ fix-queue ③)**
 **Rule (Tina, 26 Jul): TOP Back = exactly TWO levels up · BOTTOM Back = exactly ONE. Uniformly, every room.**
 
-⚠️ **ONE QUESTION GATES COMMIT B — the depth-1 clamp.** §24.9 as written says: at depth 1 (one level below a room's front door) the top Back reads `← Home`; on the front door itself it also reads `← Home`. This clamp is inferred (from "uniformly" + never-two-buttons-one-job), not Tina's explicit words. **Tina answers yes/no before commit B ships.** Everything in commit A is independent of it.
+✅ **NO GATES. The depth-1 clamp is RULED (Tina, 27 Jul 2026):** at depth 1 (one level below a room's front door) the top Back reads `← Home`; on the front door itself it also reads `← Home`. Build all six commits.
 
 ---
 
