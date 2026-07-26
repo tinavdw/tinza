@@ -4122,7 +4122,16 @@ function resolveRecipe(section, id){
 // been dead since the WK drill moved to wkContinent → wkRegion → wkDataCountry (25 Jul);
 // the other seven are the ones navSignature() dropped in the same commit. Restoring a key
 // no room ever sets restores nothing, and a list that names it says the door is there.
-var NAV_KEYS = ['screen','eventTab','buffetStep','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kiddiesView','wkScreen','wkTab','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
+// 🩸 27 Jul · §24.5 — wkContinent + wkRegion ADDED. THE DRILL IS FIVE KEYS AND THIS LIST
+// NAMED THREE. snapshotNav() saves only NAV_KEYS and closeRecipe() patches back only
+// NAV_KEYS, so a cross-link out of a World Kitchen dish saved the country but not the
+// continent or the region. Leaving WK nulls all five (wkResetDrill), so coming back
+// restored a country with no parents and dropped her at the WK front door — the drill she
+// had walked was simply gone. Same two keys, same shape, third time: §24.5's own bug, the
+// §24.9 header that was "two keys short", and now the returnTo snapshot.
+// ⛔ wkDataRecipe is deliberately NOT here — returnTo lands on the LIST she came from,
+//    never a silently re-opened recipe.
+var NAV_KEYS = ['screen','eventTab','buffetStep','braiStep','braiCat','braaiView','braaiSidesFilter','activeCat','fingerSection','fingerView','kidsScreen','kidsTheme','kidsCategory','kiddiesView','wkScreen','wkTab','wkContinent','wkRegion','wkDataCountry','wkDataTab','babyView','activeBaby','healthTab','healthGroup','healthGroupTab','moodActiveRecipe','moodPlanView','dogView','catView','activeDog','furryPet','budgetPlanView','budgetStep','cakeCat','beverageCat','mealCat','mealActiveRecipe'];
 
 function snapshotNav(){
   var s = {};
