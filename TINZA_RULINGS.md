@@ -1176,18 +1176,18 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 | | job | goes |
 |---|---|---|
 | **BOTTOM Back** *(spine)* | **step back ONE level** | egg recipe → Eggs → Breakfast → Family Meals. **Never Home on the first press.** |
-| **TOP Back** *(header)* | **go UP to the ROOM front door** | from anywhere inside, however deep, in one press |
+| **TOP Back** *(header)* | ~~go UP to the ROOM front door~~ **⛔ SUPERSEDED 26 Jul — see §24.9: EXACTLY TWO LEVELS UP** | *(the two-jobs split itself stands; only the top Back's destination changed)* |
 
 - ✅ **THE TOP BACK EXISTS SO SHE CAN GO SIDEWAYS.** From an egg recipe to Supper is *Family Meals → Supper* — **two taps, not four.** Delete it and the bottom Back gets pressed three times to do the same thing.
 - ⚖️ **A TOP BACK MUST NAME WHERE IT GOES.** `← Family Meals`, `← World Kitchen`, `← Home`. **A Back labelled just "← Back" that lands somewhere different depending on how you arrived is a liar** — census 8 already tests this for the six that go Home; it now tests all of them.
 - ⚖️ **ON A ROOM'S OWN FRONT DOOR THE TOP BACK READS `← Home`.** There is nothing above the room. *(Answers the 25 Jul open question.)*
 
-### 🌍 OPTION A — **RULED, WORLD KITCHEN INCLUDED**
+### 🌍 ~~OPTION A — RULED, WORLD KITCHEN INCLUDED~~ **⛔ STRUCK 26 Jul 2026 — superseded by §24.9 (two levels up)**
 
-**The top Back goes to the ROOM FRONT DOOR. Everywhere. No room bends the rule.**
-
-- ⚠️ **THE COST IS REAL AND WAS ACCEPTED WITH EYES OPEN:** WK is one level deeper than Family Meals *(continent → region → country → dish)*, so from Boerekos, reaching Cape Malay — its own neighbour — means re-drilling Africa → Southern Africa. **Two extra taps on the likeliest next move.**
-- ⛔ **OPTION B WAS REJECTED** *(top Back → the region list)*: on a country page the **bottom** Back already goes there, so B would give **two buttons doing one job** — the exact thing this ruling exists to prevent. ⚖️ **A rule that bends per room is not a rule.**
+> ⛔ **STRUCK.** *(kept visible + dated per §2.3 — never silently rewrite a ruling)*
+> ~~The top Back goes to the ROOM FRONT DOOR. Everywhere. No room bends the rule.~~
+> The 25 Jul cost note stands as the reason it fell: from Boerekos, Cape Malay — its own neighbour — meant re-drilling Africa → Southern Africa, **two extra taps on the likeliest next move**. One day on live was enough: Tina ruled **exactly two levels up** on 26 Jul. The sprint plan carried the new rule from day one; this file lagged it — caught 27 Jul, the §2.2 lag shape again.
+> **What SURVIVES from the old §24, unchanged:** the two-jobs split *(top ≠ bottom)* · a top Back must NAME where it goes · on the room's front door it reads `← Home` · Option B's law — **never two buttons doing one job on the same screen** *(§24.9 obeys it: bottom = one up, top = two up, never equal)*.
 
 ### 🐛 WHAT WAS ACTUALLY BROKEN *(measured at HEAD, 25 Jul)*
 
@@ -1353,6 +1353,21 @@ The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is th
 - 🩸 **MY INSTRUMENT CRIED WOLF FIRST, AND I CAUGHT IT BY HAND.** The first probe reported `barMode` dead. It is **live** — `barplanner.js:285` writes it through `chipRow(..., 'barMode')`, a helper that takes the key **as a string**, which no `key:` pattern can see. ⚖️ **Law 19 — every one of the 10 above was then re-checked repo-wide for string-name writes AND for computed writes (`S[k]`), and the only dynamic writers in the app are `goBack`'s clear and `closeRecipe`'s snapshot restore. Both clear; neither sets.**
 - ✅ **RULED — TINA SAID YES TO ALL THREE, 26 Jul:** **(a)** the four dead Health branches are DELETED · **(b)** the dead keys come OUT of `navSignature()` · **(c)** the rung is TIGHTENED to ask *"is it ever SET?"*.
 - ⛔ **THE PRICE OF (c), WRITTEN DOWN BEFORE IT IS PAID.** A stricter rung can one day bury a **live** key that is only ever written through a helper taking its name as a string — *the exact shape that made my own probe call `barMode` dead*. **The rung must therefore count string-name writes (`'key'`) as writes, not only `key:` literals**, and that requirement is part of the ruling, not an implementation detail. ⚖️ **Law 19.**
+
+---
+
+### 📐 24.9 · THE TOP BACK GOES **EXACTLY TWO LEVELS UP** — *(RULED by Tina 26 Jul 2026 · written into this file 27 Jul · supersedes §24 Option A, struck above · build = MF149)*
+
+**The rule, whole:** **TOP Back = exactly TWO levels up. BOTTOM Back = exactly ONE. Uniformly, every room.** ⚖️ *A rule that bends per room is not a rule* — that law survives; only the destination changed.
+
+- ⚖️ **WHY TWO, NOT THE FRONT DOOR:** in the 3-deep rooms *(Braai · FMF · Health · Spice · Mood · Budget)* two-up from a recipe **IS** the front door — the rules coincide and nothing changes. Only WK (4-deep) and the Kiddies drill differ, and there the front-door jump was the measured pain: Boerekos → Cape Malay cost a full re-drill. **Two-up keeps her in the neighbourhood.**
+- ✅ **THE WORKED EXAMPLE *(Tina's own)*:** on the **Boerekos dish list** *(WK depth 3: continents 0 → regions 1 → countries 2 → dishes 3 → recipe 4)* the top Back reads **`← Africa`** — two up, the region list. Bottom Back = one up, the Southern Africa country grid. **Different destinations, both named.** ⚖️ Option B's never-two-buttons-one-job law is obeyed *by construction*: one-up and two-up can never be the same screen.
+- ✅ **ON A RECIPE**, top = two up *(WK: `← Southern Africa`, the country grid — computed along the DOOR's chain, §24.4: enter via Boerekos, walk up Boerekos's parents, never the origin's)*; bottom = one up *(the dish list, via the consuming close, §24.6)*. **This ends the current WK shape where photo-Back and bottom-Back share one `_back`** *(worldkitchen.js:763 + 777)* — two buttons, one job, the exact rejected shape, live today.
+- ⚖️ **THE CLAMP:** at depth 1, two-up = **Home** *(`← Home`)*. On the front door (depth 0), one above is Home and there is nothing two above — top Back reads **`← Home`** *(unchanged from §24)*. So `← Home` appears at depths 0 **and** 1; at depth 1 the bottom Back goes to the front door, the top to Home — still two jobs. ⚠️ **This clamp is my inference from "uniformly" + the never-two-buttons law, NOT Tina's explicit words — she confirms it before Code builds.** ⚖️ **§2.3.**
+- 🔑 **MECHANISM — ROOMS DECLARE THEIR PARENT CHAIN.** *(Sprint plan: "rooms need to know their parent.")* One helper in `core.js` — `topBack(chain, depth)` — takes a room's declared level chain *(names + the state-writes that land on each level)* and returns the header's `{backJs, backLabel}` for two-up. ⚖️ **Law 6 — nine rooms hand-rolling "null the right keys" is the §24.5 five-resets-four-short shape waiting to happen again.** No screen hand-rolls a two-up jump.
+- 📛 **THE LABELS COME FREE:** the chain declares each level's NAME, so the 14 anonymous `← Back` headers *(census rung ⑥, born RED 25 Jul)* are named by the same build — a top Back's label **is** `'← ' + chain[depth−2].name`.
+- ⛔ **LATERALS ARE NOT LEVELS.** Pills and tabs *(`mealCat`, `healthGroupTab`, `wkDataTab`, …)* live INSIDE a level *(§24.7 — they replace, never push)*. A chain never lists a lateral.
+- 📋 **RUNG OWED:** no `sectionHeader()` ships a hand-rolled multi-key back-jump — every header `backJs` that clears ≥2 nav keys must route through `topBack()`. Born RED at the current hand-rolled count, proven by re-introducing one.
 
 ---
 
