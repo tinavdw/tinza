@@ -1,0 +1,33 @@
+{
+  "note": "Canonical record key set for the Asia lane. Frozen 29 Jul 2026 from wk_china.js at 43 records (zero drift across all 43). Ruling A3: schema control is the Snoek Curry record in wk_southafrica.js; this is that shape as it landed in the lane. Every country file validates against THIS list, never against its own record 1 — a new country file has no record 1, and letting each file set its own precedent is how five near-identical files drift apart (Law 50).",
+  "frozen": "2026-07-29",
+  "source": "wk_china.js @ 43 records",
+  "count": 25,
+  "keys": [
+    "id",
+    "name",
+    "nameAlt",
+    "aliases",
+    "course",
+    "type",
+    "diet",
+    "cuisine",
+    "country",
+    "occasion",
+    "ingredients",
+    "method",
+    "cookTime",
+    "kcal",
+    "nutrition",
+    "storage",
+    "chefNotes",
+    "pairsWith",
+    "trivia",
+    "howThisFeels",
+    "leftovers",
+    "servings",
+    "sharedWith",
+    "versions",
+    "crossLinks"
+  ]
+}

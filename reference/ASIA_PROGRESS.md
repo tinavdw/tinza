@@ -125,6 +125,56 @@ Region strings must match `WK_CONTINENTS` exactly — note it is `South-eastern 
 43. ✅ **Tang Yuan** (black sesame rice balls) — **VEGETARIAN · course:dessert** — 3 versions: Peanut & Sugar budget R6 · Classic Black Sesame R11 · In Sweet Fermented Rice R18. Laws: **cook a walnut of the dough first and knead it back in** — glutinous rice flour has no gluten and nothing binding it, so a plain dough cracks the instant you stretch it; that one gelatinised lump is the difference between neat spheres and leaking wreckage, and it is the step nearly every failed attempt skipped; glutinous rice flour and rice flour are **not interchangeable in either direction**; the fat must be SOLID cold and LIQUID hot — lard or butter, never oil, because oil-filled paste cannot be wrapped at all (the traditional ingredient chosen for a mechanical reason, not a sentimental one); black sesame hides its colour change so your NOSE is the only instrument, ~30 s between toasted and burnt; chill the filling firm before wrapping; dough under a damp cloth always; push the edges up, don't stretch the base (a thin patch bursts); cook in PLAIN water not the broth (they shed starch and cloud it); gentle simmer never a rolling boil, and knock the heat back with cold water twice — same law as the wontons; the centre is genuinely hot enough to burn. Moat: the **same food is manufactured two different ways** — southern tang yuan are *wrapped* like dumplings, northern yuanxiao are *rolled*, tumbled damp in a flat basket of dry flour over and over so the shell builds in layers like a snowball, which gives a rougher chewier skin that clouds the water; Lantern Festival, 15th day of the first lunar month. ⚠️ The reunion homophone is kept as a **subordinate clause, not the moat** — homophone angles are already spent on Qing Zheng Yu (fish/surplus) and Lo Bak Go (cake/rising).
 
 
+### ✅ PUSHED + VERIFIED LIVE (29 Jul 2026)
+Batches 7+8 pushed with `index.html` and `worldkitchen.js` in the **same commit** (recipes and wiring are all-or-nothing).
+Tina confirmed on tinza.netlify.app: World Kitchen → Asia → Eastern Asia → **China, 43 dishes**. Wiring proven end to end —
+geo map, pool concat and script tag all holding. Tab counts 9 + 29 + 3 + 2 = 43, nothing lost.
+`ASIA_PLAN.mermaid` filed in `reference/` following the **FABLE_PLAN.mermaid precedent** — lane plans live with their lane,
+only app-wide mermaids (`TINZA_NOW`, `TINZA_PLAN_26JUL`) sit at root. `merge.js` pushed to `sections/` for now (see job 2).
+
+### 🩸 TWO OPEN JOBS FOR THE LANE
+
+**1. STAPLES ARE SHOWING IN THE MAINS TAB (found live, 29 Jul).**
+The Mains tab reads **29** = 25 real mains + **4 staples** (Homemade Tofu · Chilli Oil · Master Stock · Suan Cai).
+`course:"staple"` has no tab to land in, so it falls through to the default and a cook browsing tonight's dinner is
+offered a jar of chilli oil. **The code is not wrong so much as never told** — ruling A5 says staples are real cards
+reached via `crossLinks`, but it never said they should be absent from the course tabs, so this is a gap in the ruling
+rather than a breach of it.
+Two honest fixes:
+- **(preferred)** Give staples their own tab — "Basics" — which is more work but matches what they are, and it will
+  only grow: Japan brings dashi, Thailand curry paste, Indonesia sambal. A cook who wants to make chilli oil
+  *deliberately* currently has no route to it except opening some other dish that happens to link to it.
+- Filter `course:"staple"` out of the tabs entirely, closer to A5's literal wording, but leaves staples undiscoverable.
+⚠️ Whichever is chosen, **it needs a ruling written first** (Law 52) — and it is a `worldkitchen.js` tab-render change,
+so it must NOT be done in the middle of an authoring batch.
+
+**2. GENERALISE `merge.js` BEFORE JAPAN OPENS.**
+It is hardcoded to China in four places: the `wk_china.js` read, the `WK_CHINA` variable, and two assertions demanding
+`cuisine === 'east-asia'` and `country === 'China'`. It also resolves `wk_china.js` by **bare filename**, so it only runs
+from the folder that file is in — which is why it currently lives in `sections/` rather than at root with
+`tinza-census.js` / `tinza-doctor.js`.
+Target: `node merge.js japan batch1.js`, proper path resolution, country+cuisine taken from the argument, filed at root.
+⚠️ **Not a casual tidy-up.** `merge.js` is the thing that catches everything else, and a bug in it does not announce
+itself — it just quietly stops asserting something, the same shape as the ungated `tierBar`. So the rewrite gets a
+**born-RED proof per assertion** (re-introduce a bad record deliberately, confirm it still goes red), exactly like
+census check 24. **Do it as the first job of the batch 9 chat, with batch 9 itself as the live test.**
+The three routes NOT to take: rewriting it later under pressure, copying it five times (Law 50 — five near-identical
+files drifting apart, invisibly), or loosening the assertions to fit a second country (a validator relaxed to fit a
+new case catches less than it did).
+
+### ▶️ NEXT — CHINA BATCH 9, THE CLOSING SEVEN (43 → 50)
+Suan Cai Bai Rou (pork & pickled cabbage — **uses the new staple**) · Beggar's Chicken · Tea-Smoked Duck ·
+**Jianbing** (fills the breakfast gap — only the congee touches `occasion:breakfast`) · Wuxi Sweet & Sour Ribs ·
+Luo Han Zhai (**vegan**) · Scallion Oil Noodles.
+Order of work in that chat: generalise `merge.js` first → author batch 9 through it → China closes → then Japan
+(needs `wk_japan.js` + 2 wiring lines; `WK_COUNTRY_GEO` is already done for all four remaining countries).
+
+### 🔢 HOUSEKEEPING — MF NUMBER COLLISIONS IN `reference/` (spotted 29 Jul, low priority)
+`MF139` is both `ginjinha_price.md` and `liquor_price_keys.md`. `MF142` is both `CODE_PROMPT.md` and
+`VESSEL_EQUIPMENT_SLOT.md`. Two different briefs under one number bites the day someone says "check MF139".
+The `MF144 ×4` set looks deliberate (phases of one job) and is fine. Worth a renumber pass **after the lane closes**.
+
+
 ### ⚖️ RUNG UPGRADE + A3 BREACH FOUND (29 Jul, after batch 6)
 Auditing prices turned into a **full-file** validation pass — and `merge.js` had only ever validated the
 *incoming* batch's version rules. Existing records were re-checked for crossLinks and nothing else, so a
