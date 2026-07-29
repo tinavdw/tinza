@@ -176,11 +176,45 @@ function validate(existing, incoming, cfg, KEYS) {
           bad(r.id, 'diet token "' + x + '" not in v1 vocabulary [' + DIET_VOCAB + '] — halaal/kosher are SEPARATE LAWS, never diet tags');
         }
       });
+
+      // DIET vs INGREDIENTS cross-check. Added 29 Jul after tagging china-cong-you-ban-mian
+      // "vegan" while its base ingredients listed 10g dried shrimp. The token was valid
+      // vocabulary, so every structural assertion passed it — a judgement error wearing a
+      // legal shape, which is precisely the class this file cannot normally see.
+      //
+      // A **WARN**, deliberately, because it is keyword matching and cannot be authoritative:
+      // "oyster mushrooms" contains "oyster", a vegetarian record legitimately contains egg,
+      // and a version delta can remove the offending item. It flags for human eyes; it does
+      // not block. Making this a hard fail would train the author to work around it.
+      const vegan = r.diet.includes('vegan');
+      const vegetarian = r.diet.includes('vegetarian');
+      if ((vegan || vegetarian) && typeof r.ingredients === 'string') {
+        const ing = r.ingredients.toLowerCase();
+        const FLESH = ['pork', 'beef', 'chicken', 'duck', 'lamb', 'mutton', 'fish', 'prawn',
+                       'shrimp', 'crab', 'squid', 'anchov', 'bacon', 'sausage', 'lard',
+                       'tallow', 'tripe', 'kidney', 'liver', 'blood', 'gelatine', 'bones'];
+        const DAIRY_EGG = ['egg', 'butter', 'milk', 'cream', 'cheese', 'honey'];
+        const FALSE_FRIENDS = ['oyster mushroom', 'chicken of the woods', 'eggplant', 'coconut milk', 'soya milk', 'soy milk'];
+        const cleaned = FALSE_FRIENDS.reduce((acc, ff) => acc.split(ff).join(''), ing);
+        const flesh = FLESH.filter(w => cleaned.includes(w));
+        if (flesh.length) warn(r.id, 'tagged ' + JSON.stringify(r.diet) + ' but ingredients mention: ' + flesh.join(', ') + ' — check this is not a mis-tag');
+        if (vegan) {
+          const de = DAIRY_EGG.filter(w => cleaned.includes(w));
+          if (de.length) warn(r.id, 'tagged vegan but ingredients mention: ' + de.join(', ') + ' — check this is not a mis-tag');
+        }
+      }
     }
 
     // costPP belongs on versions, never the record (A3). Checked ONCE per record —
     // the China version had this inside the versions loop, so it reported three times.
     if (r.costPP !== undefined) bad(r.id, 'costPP on the record — A3 says versions only');
+
+    // SERVINGS CONVENTION. Added 29 Jul after authoring china-jiao-hua-ji with servings:4,
+    // reasoning that a whole bird feeds four. All 44 records already banked use 1 — including
+    // china-roast-duck, which lists a whole 2kg duck. Ingredient amounts are per-serving and
+    // the app scales them; a record claiming 4 would have scaled wrong against every sibling.
+    // Nothing on screen would have said so. Exactly the class of drift this file exists to stop.
+    if (r.servings !== 1) bad(r.id, 'servings is ' + r.servings + ', lane convention is 1 — amounts are per-serving and the app scales them (see china-roast-duck: a whole 2kg bird at servings:1)');
 
     checkVersions(r, 'incoming');
 

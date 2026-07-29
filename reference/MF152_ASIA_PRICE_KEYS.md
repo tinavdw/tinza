@@ -168,3 +168,78 @@ Same caveat as batch 7: candidates only, `prices.js` was not in the container. C
 | `mustard greens` | Suan Cai v3 | |
 | `Chinese cabbage` / `napa` | Suan Cai, Hotpot | DB has `cabbage` — ⚠️ different vegetable and usually a different price. Check. |
 | `lard` | Tang Yuan (named in method) | Not in the ingredient line — butter leads — but named as traditional. No key needed unless a future record uses it. |
+
+## ➕ APPENDED FROM CHINA BATCH 9 (29 Jul) — NOT YET AUDITED
+
+Same caveat as batches 7 and 8: `prices.js` is not in the container, so these are candidates only. Check every one against the 786 keys at HEAD before the price batch.
+
+| Candidate key | From | Note |
+|---|---|---|
+| `blood sausage` | Suan Cai Bai Rou v3 | 120g. Likely absent from an SA-built PRICE_DB under this name — check for any existing sausage key before adding. |
+| `tofu puffs` | Suan Cai Bai Rou v3 | ✅ Already flagged from batch 8 (Hotpot) — same key, no separate action. |
+| `glass noodles` | Suan Cai Bai Rou | ✅ Already flagged from batch 8 (Hotpot, Cucumber v3) — same key. |
+| `suan cai` / `Chinese sour cabbage` | Suan Cai Bai Rou | ⚠️ **Judgement call.** It is a made staple with its own card (R6–R14/batch), not a bought item. Either price it as a bought jar, or cost it through the staple record. Do NOT alias to `cabbage` — it is a ferment, same collision shape as `fermented black beans` vs `black beans`. |
+| `pork shoulder` | Suan Cai Bai Rou budget | DB has `pork` R110 and `pork loin chops` R120. Alias or own key — Tina's call. |
+| `white peppercorns` | Suan Cai Bai Rou | Already on the batch-7 check-first list. |
+
+### From Beggar's Chicken (batch 9) — also unaudited
+
+| Candidate key | Note |
+|---|---|
+| `lotus leaves` (dried) | ⚠️ Specialty grocer, sold light and used by the leaf, not by weight. May hit the same no-retail-price wall as `wheat starch` — `_each` is probably the honest form. The card already warns the cook to buy them before planning the day. |
+| `pickled mustard greens` | ⚠️ Do NOT alias to `mustard greens` (already a batch-8 candidate from Suan Cai v3). One is a fresh vegetable, one is a salted ferment sold by the jar — same collision shape as `fermented black beans` vs `black beans`. |
+| `glutinous rice` | v3. Distinct from `jasmine rice` R63 AND from `glutinous rice flour` (batch 8). Three separate keys, do not merge any pair. |
+| `lap cheong` | ✅ Already outstanding from batches 1–4. Same key. |
+| `whole chicken` | DB has `chicken` / `chicken pieces` R90. Probably alias, not a new key. |
+| `coarse salt` · `plain flour` · `dried shiitake mushrooms` · `five spice` | ✅ All already listed from earlier batches. Check only. |
+
+### From Tea-Smoked Duck (batch 9) — also unaudited
+
+| Candidate key | Note |
+|---|---|
+| `jasmine tea leaves` | 30g per bird, burnt not drunk. DB may carry tea under Beverages — check before adding. |
+| `duck legs` | ✅ Already used by `china-roast-duck`'s budget fork — should already be a candidate or a key. Check, do not duplicate. |
+| `whole duck` | Same — `china-roast-duck` leads with a 2kg bird. Existing key or alias. |
+| `brown sugar` · `uncooked rice` · `Sichuan peppercorns` R1300 · `shaoxing wine` | ✅ All present or already listed. Check only. |
+| ⚠️ `vegetable oil` (1 litre, for deep frying) | **Costing judgement, not a key problem.** Frying oil is reused, so costing a full litre against one duck would put ~R40 on the plate that the cook does not actually spend. Same question already lurking in Gu Lao Rou, Jiao Yan You Yu and Sheng Jian Bao. **Tina's call at the price batch: cost deep-frying oil at a fraction, or exclude it.** Nothing mechanical will ever flag this — `merge.js` would pass a duck costed at R120 without comment. |
+
+### From Jianbing (batch 9) — also unaudited
+
+| Candidate key | Note |
+|---|---|
+| `mung bean flour` | ⚠️ **Do NOT alias to `rice flour`, `plain flour` or `cornflour`.** Fourth distinct flour in the lane after `rice flour`, `glutinous rice flour` and `wheat starch`. Specialty grocer; may hit the same no-retail-price wall as wheat starch. |
+| `bao cui` (crisp sheet) | ⚠️ Almost certainly unobtainable and unpriceable outside the region. The budget fork exists precisely for this. Consider costing via `youtiao` or plain crackers instead of adding a key nobody can buy. |
+| `sweet bean sauce` / `tianmianjiang` | ⚠️ **Do NOT alias to `hoisin sauce`** (already outstanding from batches 1–4) — related but distinct, and hoisin is sweeter and thicker. Same collision shape as the black bean trap. |
+| `chilli sauce` | Generic. DB very likely has something already — check before adding. |
+| `coriander` · `spring onion` · `sesame seeds` R244 · `cornflour` R68 · `eggs` | ✅ Present or already listed. Check only. |
+
+### From Wuxi Ribs (batch 9) — also unaudited
+
+| Candidate key | Note |
+|---|---|
+| `pork ribs` | Leads the record. DB has `pork` R110 and `pork loin chops` R120 — ribs are a distinct cut and usually priced apart. High priority. |
+| `pork rib tips` | Budget fork. Cheap trim cut, very likely absent. Could alias → `pork ribs` but the whole point of the fork is that it costs a fraction, so an alias would erase the saving. **Own key, or the budget fork is a lie.** |
+| `red yeast rice` / `hong qu mi` | v3. Specialty grocer, used 15g. May hit the `wheat starch` no-retail-price wall. |
+| `rock sugar` | ✅ Already a batch-7 candidate (Da Pan Ji). Same key — 45g here, so the alias-to-`sugar` question now matters more than it did at 25g. |
+| `black vinegar` · `star anise` · `cinnamon stick` · `shaoxing wine` | ✅ All already listed. Check only. |
+
+### From Luo Han Zhai + Scallion Oil Noodles (batch 9, closing China) — unaudited
+
+| Candidate key | Note |
+|---|---|
+| `dried bean curd sticks` / `fu zhu` | ⚠️ **Do NOT alias to `tofu` or `tofu puffs`.** A third distinct soya product in the lane. Sold dry and light, used in grams — same unit-handling question as `dried shiitake`. |
+| `dried bean curd knots` | v3. Same product tied — almost certainly alias → `dried bean curd sticks`. |
+| `fermented red bean curd` / `nam yu` | ⚠️ **Do NOT alias to `tofu`.** It is a jarred ferment and the seasoning engine of the dish. Fourth soya key. Same collision shape as `fermented black beans` vs `black beans`. |
+| `dried wood ear fungus` · `dried lily buds` · `snow fungus` | Specialty, all sold light and used in grams. Check the unit handling together. |
+| `lotus root` · `water chestnuts` · `ginkgo nuts` · `baby corn` | v3 only. `lotus root` already a batch-8 candidate (Hotpot) — same key. |
+| `dried shrimp` | ✅ Already on the ADD list at R800/kg. Same key. |
+| `thin wheat noodles` | ⚠️ Check against `chow mein noodles` R60 AND the `thin egg noodles` candidate — this is a third noodle in the same family and the wrong alias silently mis-prices it. |
+| `spring onions` | 150g per serving here, which is a lot. Whatever the existing key is, this record will expose it if the price is stale. |
+| `mangetout` · `bamboo shoots` · `Chinese cabbage` · `carrot` · `tofu puffs` | ✅ All already listed from earlier batches. Check only. |
+
+---
+
+## 📌 CHINA CLOSED — MF152 STATUS
+All 50 China records authored. The price batch (A7) still waits for Japan, Indonesia, Thailand and Vietnam.
+**Nothing in this file has been actioned.** Before the batch runs, every candidate above must go through a
+check-not-add pass against `prices.js` at HEAD — batches 7, 8 and 9 were all appended without one.

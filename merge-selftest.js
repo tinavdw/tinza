@@ -111,6 +111,7 @@ red('two defaults',                 r => { r.versions[0].default = true; r.versi
 red('budget fork NOT in slot 1',    r => { const v = r.versions.shift(); r.versions.push(v); }, 'A3 says it LEADS');
 red('non-numeric costPP',           r => { r.versions[1].costPP = '42'; },        'numeric costPP');
 red('costPP on the record',         r => { r.costPP = 42; },                      'costPP on the record');
+red('servings 4 not 1',             r => { r.servings = 4; },                     'lane convention is 1');
 
 // ── 4. DELTAS ────────────────────────────────────────────────────────────────
 console.log('\n── delta contract ──');
@@ -151,7 +152,35 @@ console.log('\n── existing-record re-check ──');
   else { console.log('  ❌ MISS existing dead crossLink not caught'); fail++; }
 }
 
-// ── 7. THE WARN RUNG MUST NOT BLOCK ──────────────────────────────────────────
+// ── 8. DIET vs INGREDIENTS (the china-cong-you-ban-mian miss) ────────────────
+// A judgement error wearing a legal shape: "vegan" is valid vocabulary, so every
+// structural assertion passed a record whose ingredients listed dried shrimp.
+console.log('\n── diet vs ingredients (warn rung) ──');
+{
+  const r = fixture();
+  r.diet = ['vegan'];
+  r.ingredients = '200g pork belly, cubed · 30g ginger · 20ml soy sauce';
+  r.versions.forEach(v => delete v.delta);   // deltas point at the ORIGINAL ingredients string;
+                                             // replacing it wholesale would orphan them and the
+                                             // record would fail the dead-delta check instead,
+                                             // which is not what this test is measuring.
+  const out = run(r);
+  if (out.fails.length === 0 && out.warns.some(w => w.includes('pork'))) {
+    console.log('  ✅ WARN vegan record listing pork is flagged, and does not block'); pass++;
+  } else { console.log('  ❌ diet/ingredient mismatch not flagged: warns=' + JSON.stringify(out.warns)); fail++; }
+}
+{
+  const r = fixture();
+  r.diet = ['vegan'];
+  r.ingredients = '200g oyster mushrooms, torn · 30g ginger · 20ml soy sauce';
+  r.versions.forEach(v => delete v.delta);
+  const out = run(r);
+  if (!out.warns.some(w => w.includes('oyster'))) {
+    console.log('  ✅ CONTROL "oyster mushrooms" does NOT false-trigger the shellfish check'); pass++;
+  } else { console.log('  ❌ false positive on oyster mushrooms — the false-friend list is not working'); fail++; }
+}
+
+// ── 9. THE WARN RUNGS MUST NOT BLOCK ─────────────────────────────────────────
 // char-siu and roast-duck legitimately lead with a budget fork that is not the cheapest
 // version, because a protein-swap fork is a different dish. A blocking test here would
 // have forced three wrong "fixes". This proves it warns and stays green.

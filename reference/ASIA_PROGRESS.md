@@ -4,12 +4,12 @@
 ## SCOPE (Tina, 29 Jul)
 | Country | Target | Banked | File | Wired |
 |---|---|---|---|---|
-| China | 50 | **43** | `sections/wk_china.js` | ⬜ not yet |
+| China | 50 | **50** ✅ | `sections/wk_china.js` | ⬜ not yet |
 | Japan | 50 | 0 | `sections/wk_japan.js` | — |
 | Indonesia | 50 | 0 | `sections/wk_indonesia.js` | — |
 | Thailand | 50 | 0 | `sections/wk_thailand.js` | — |
 | Vietnam | 40 | 0 | `sections/wk_vietnam.js` | — |
-| **TOTAL** | **240** | **43** | | |
+| **TOTAL** | **240** | **50** | | |
 
 Next lane after Asia: **South America.**
 
@@ -44,7 +44,7 @@ Region strings must match `WK_CONTINENTS` exactly — note it is `South-eastern 
 
 ---
 
-## 🇨🇳 CHINA — 43 / 50
+## 🇨🇳 CHINA — ✅ CLOSED 50 / 50 (29 Jul 2026)
 
 ### DONE
 1. ✅ **Hong Shao Rou** (Red-Braised Pork Belly) — 3 versions: Pork Neck budget R26 · Classic Belly R42 · With Tea Eggs R47. Caramel-colour law in method. Mao/Hunan moat.
@@ -125,6 +125,22 @@ Region strings must match `WK_CONTINENTS` exactly — note it is `South-eastern 
 43. ✅ **Tang Yuan** (black sesame rice balls) — **VEGETARIAN · course:dessert** — 3 versions: Peanut & Sugar budget R6 · Classic Black Sesame R11 · In Sweet Fermented Rice R18. Laws: **cook a walnut of the dough first and knead it back in** — glutinous rice flour has no gluten and nothing binding it, so a plain dough cracks the instant you stretch it; that one gelatinised lump is the difference between neat spheres and leaking wreckage, and it is the step nearly every failed attempt skipped; glutinous rice flour and rice flour are **not interchangeable in either direction**; the fat must be SOLID cold and LIQUID hot — lard or butter, never oil, because oil-filled paste cannot be wrapped at all (the traditional ingredient chosen for a mechanical reason, not a sentimental one); black sesame hides its colour change so your NOSE is the only instrument, ~30 s between toasted and burnt; chill the filling firm before wrapping; dough under a damp cloth always; push the edges up, don't stretch the base (a thin patch bursts); cook in PLAIN water not the broth (they shed starch and cloud it); gentle simmer never a rolling boil, and knock the heat back with cold water twice — same law as the wontons; the centre is genuinely hot enough to burn. Moat: the **same food is manufactured two different ways** — southern tang yuan are *wrapped* like dumplings, northern yuanxiao are *rolled*, tumbled damp in a flat basket of dry flour over and over so the shell builds in layers like a snowball, which gives a rougher chewier skin that clouds the water; Lantern Festival, 15th day of the first lunar month. ⚠️ The reunion homophone is kept as a **subordinate clause, not the moat** — homophone angles are already spent on Qing Zheng Yu (fish/surplus) and Lo Bak Go (cake/rising).
 
 
+
+### BATCH 9 — THE CLOSING SEVEN (in progress, 29 Jul)
+44. ✅ **Suan Cai Bai Rou** (Sour Cabbage & White-Boiled Pork) — 3 versions: Pork Shoulder & Jar Suan Cai budget R24 · Classic Dongbei Pot R34 · The Full Pot w/ Blood Sausage & Tofu Puffs R46. **The record that pays off the batch-8 staple.** Laws: poach the belly in ONE PIECE from COLD and **PRESS IT UNDER A PLATE** — belly floats, and a half-submerged piece cooks at two rates with a grey exposed face you cannot correct; **TASTE the suan cai and let the jar decide the recipe** — rinse a sharp young jar, leave a round old one alone, because rinsing is *calibration, not cleaning*, and no recipe can make that call for you; **dry-fry the squeezed suan cai in skimmed pork fat 4–5 min BEFORE any liquid** (raw acidity is volatile and boils off, what is left concentrates — tipped straight into broth the pot tastes like a jar); **suan cai simmers 45 min, the one vegetable in the file that cannot overcook** — fermentation already broke it down and what it needs is time to trade its acid into the fat; slice **ACROSS the layers** so every slice carries skin-fat-meat (a slice cut along them is all fat or all lean and reads as a mistake); no boiling once the sliced pork is back in; glass noodles LAST, 5 min. Moat: ***bai* is a technical term, not a colour** — a whole family of dishes (*bai qie ji*, *bai zhuo* prawns) named for what is deliberately NOT added; it inverts the kitchen, because the cook's skill is restraint with nothing to hide behind and the seasoning is **handed to the diner's bowl** — a pot that arrives tasting perfect has in a sense been over-cooked by its cook. ⚠️ **Deliberately does NOT lead on chill-before-slicing** (spent on Hui Guo Rou AND Lanzhou) — it survives as one subordinate clause. Cellar-storage moat avoided too (spent on Di San Xian), as was the ancestral-offering angle (spent on Hui Guo Rou). 💰 New price keys → MF152.
+
+45. ✅ **Beggar's Chicken** (Jiao Hua Ji) — 3 versions: Chicken Thighs in Foil budget R30 · Classic Clay-Baked Whole Bird R48 · Stuffed w/ Sticky Rice & Cured Sausage R62. Laws: **the shell is EQUIPMENT, not a flavour** — nothing crosses it in either direction, it turns the oven into a sealed vessel so the bird bastes in its own steam, and it is broken and binned; **honest framing up front — the skin will NOT be crisp** (a steam-roast in a sealed box cannot crisp, same honesty as the Roast Duck home-oven framing); DRY bird, DRY filling — free liquid flashes to steam, finds the weakest seam and blows the shell open an hour in; **lotus leaves are structural, not decorative** — skin touching a salt-dough shell comes out inedibly salty and grainy, and foil is the modern insurance layer; soak the dried leaves or they crack along every fold; **inspect for thin spots BEFORE it goes in — a crack is the whole cooking method leaking out and the shell hides it until the end**; ⚠️ **you cannot check it** — there is no test that does not end the method, so you commit at the seal; rest 15 min still sealed (the shell holds enormous carry-over heat); crack at the table. Moat: **a novel manufactured the appetite** — Jin Yong's *Legend of the Condor Heroes* (serialised 1957) has Huang Rong cook it for the stomach-ruled Hong Qigong, described in loving technical detail, and a Changshu regional speciality became a nationwide restaurant fixture; one of the clearest cases anywhere of wuxia fiction doing for a dish what a film does for a location. ⚠️ **Deliberately does NOT retell the beggar-buries-a-stolen-chicken legend** — the "told as legend, but the one plausible detail" angle is spent TWICE (Duo Jiao Yu Tou's fleeing scholar, Crossing-the-Bridge's lake island). 💰 New price keys → MF152.
+
+46. ✅ **Tea-Smoked Duck** (Zhang Cha Ya) — 3 versions: Duck Legs Stovetop-Smoked budget R42 · Classic Zhang Cha Ya R78 · Tea-Smoked Chicken R44. Laws: **FOUR cooks in a fixed order, each doing one job none of the others can** — cure · smoke · steam · fry, and reordering gives a worse bird every time; ⚠️ **THE SMOKE DOES NOT COOK** — 25 min of perfume applied to a RAW bird that is then cooked entirely in a steamer, and a cook who smokes it towards doneness gets a bitter sooty half-raw duck; bone dry before the smoke (particles LAND on dry surfaces and DISSOLVE into wet ones — the difference between aroma and ashtray); **25 min and not a minute more chasing colour** — past ~30 the harsh compounds arrive and no later cooking removes them, and the colour is the FRY's job not the smoke's; rice gives a steady smoulder instead of a flare, sugar caramelises and carries colour; **steam AFTER smoking, never roast** — steaming drives the smoke down into the fat layer, so it tastes smoky all the way through rather than only on the surface, and it renders enormous fat without drying the skin; keep the rendered smoked duck fat, it is one of the best things in the recipe; **the final fry is 45–60 SECONDS and makes the skin ONLY** — the duck is already cooked, and this is where thirteen hours of work gets ruined by "just another minute". Moat: **smoke here is perfume, not preservation** — the inversion of nearly everywhere else in the world, and the timing proves it (25 min smoke vs 1 hr steam preserves nothing); *zhang* = camphor, a **street tree** in Chengdu, and the genus is the surprise — *Cinnamomum camphora*, a close relative of cinnamon *Cinnamomum verum*; camphor is unobtainable outside the region so nearly every version you meet is a tea-smoked duck wearing an older name. ⚠️ Differentiated hard from `china-roast-duck` (technique, not just protein). Avoided the "mild cuisine is the prestigious one" angle — spent on Lion's Head. 🔴 **merge.js caught a stray `swapIng2` delta op mid-authoring** — first live catch of the generalised validator on new work, not on legacy. 💰 New price keys → MF152.
+
+47. ✅ **Jianbing** (Jianbing Guozi) — **VEGETARIAN** — 3 versions: Wheat Flour & Crackers budget R14 · Classic Tianjin Guozi R22 · Loaded w/ Crispy Chicken & Double Egg R34. Laws: ⚠️ **THE DISH STARTS DYING THE MOMENT IT IS FINISHED** — the crisp sheet has ~2 good minutes, and every other law below exists to buy seconds; lay out every sauce, herb and crisp BEFORE the pan is hot (there is no point in the sequence where you can go and find the coriander); **mung bean flour is structural, not an affectation** — no gluten, so the crepe stays flexible and folds without cracking, where all-wheat tightens into a pancake; spread in ONE continuous spiral and NEVER go back over setting batter (a tear cannot be repaired because everything after is built on top of it); **crack the eggs straight onto the crepe, never pre-beaten** — cracked-and-spread egg BONDS into the surface as it sets and the two become one sheet, pre-beaten egg sits as a separate layer that slides out at the fold; herbs onto WET egg only, nothing sticks after it sets; flip ONCE; **sauces go on the DRY side** — sauce on the egg side traps steam and softens the crisp before it reaches the plate. Moat: **it cannot be plated, held or delivered** — that is why it never became a restaurant dish and never travelled frozen the way dumplings and buns did; the *bao cui* crisp sheet is a fried cracker made more or less exclusively to go inside a jianbing, which is a rare thing for a product to exist for; Tianjin takes the what-belongs-inside question seriously enough that a trade association publishes a standard. ⚠️ Avoided the Zhuge-Liang-cooking-on-shields legend — "told as legend, one plausible detail" is spent TWICE. 📌 vegetarian count 9 → 10 of 47. 🔴 **merge.js caught a stray `swapIng2` op AGAIN** — the identical typo I had just made in Tea-Smoked Duck, and careful re-reading missed it both times. The clearest small argument in the lane for mechanical rungs over sharper eyes. 💰 New price keys → MF152.
+
+48. ✅ **Wuxi Sweet & Sour Ribs** (Wuxi Pai Gu) — 3 versions: Rib Tips & Trimmings budget R30 · Classic Wuxi Pai Gu R42 · The Deep Red w/ Red Yeast Rice R50. Laws: **TAKE THE RIBS OUT BEFORE THE FINAL REDUCTION and put them back after** — a rib that has already had 50 min disintegrates over 15 min of hard boiling, the meat leaves the bone in the pot, and you get shreds in syrup instead of ribs with a lacquer (the whole dish is that contrast); **TASTE THE LIQUID BEFORE REDUCING and aim UNDER on both sweet and salt** — reduction concentrates both equally and there is no way to un-reduce a sauce, which is where nearly every failed version failed; **swirl, never stir, a sugar-heavy pot** — a spoon dragged along the bottom lifts whatever has caught and puts the burnt note through the whole dish; heavy-bottomed pot, not a thin one; **vinegar goes in OFF THE HEAT at the end** — its aroma is volatile and an hour of simmering leaves nothing but vague sourness, and it is the vinegar that makes this read sweet-savoury rather than dessert; blanch from cold, rinse the ribs AND wash the pot (set scum returns into a sauce you are about to concentrate fourfold). Moat: **Jiangnan sweetness is a dialect, not a mistake** — the sugar-to-soy ratio here would be judged a fault almost anywhere else in China, but around Wuxi/Suzhou/Shanghai sweetness is calibrated as seriously as a Sichuan cook calibrates ma la, and cooks there call a dish *undersweet* the way others call one under-salted; underneath it sits a practical fact — a heavy sugar glaze is a **preservative**, which is why these keep for days, sell cold off shop counters and are more often bought than cooked. ⚠️ **Avoided caramel-colour law** (spent on Hong Shao Rou AND Da Pan Ji) and **avoided transport-corridor fame** — the railway-station-vendor angle would have repeated Da Pan Ji's highway-truck-stop moat exactly. v3 carries the red yeast rice so the base stays sourceable. 💰 New price keys → MF152.
+
+49. ✅ **Luo Han Zhai** (Buddha's Delight) — **VEGAN** — 3 versions: Everyday Six budget R18 · Classic R32 · The Full Eighteen R48. Laws: **THE SOAKING WATER IS THE RECIPE** — no meat stock exists or is coming, so the strained shiitake and wood-ear liquid IS the stock, and a dried shiitake gives up far more savoury character to its soaking water than the mushroom ever gives a pan; **pour off the last centimetre — grit settles**; bean curd sticks want 2–3 hr in COOL water and cannot be rushed with hot (hot softens the outside while the core stays hard, and they break up in the pot); **fry the fermented bean curd a full minute in oil before any liquid** — a ferment tipped straight into liquid stays sharp and flat; knot the lily buds so they don't unravel; staged by density, gentle simmer throughout (bean curd sticks that boil hard shred and there is no way back). Moat: **it is a stricter brief than "no meat"** — monastic Chinese cooking also excludes the five pungent roots (garlic, onion, leek, chives, asafoetida) as agitating to the mind, so an entire cuisine had to be built without the aromatic base nearly all Chinese cooking starts from; remove meat, stock, garlic AND onion and you have closed almost every conventional route to savoury depth at once, and what replaced them is exactly what this dish is made of — dried mushrooms, fermented soya, dried fungus, all concentrating glutamates through drying and fermentation rather than through animals or alliums. **Not a compromise by subtraction: a solution to a hard problem.** ⚠️ Avoided Di San Xian's fry-each-vegetable-separately law. 💰 New price keys → MF152.
+
+50. ✅ **Scallion Oil Noodles** (Cong You Ban Mian) — 3 versions: No Shrimp / Store the Oil budget R16 · Classic R24 · With Soft Egg & Chilli Oil R34. **CHINA CLOSES HERE.** Laws: **the onions go into COLD oil** so onions and fat climb together and the onions give up moisture slowly instead of searing wet; **whites first for 20 min, greens for another 15–20** — greens are thinner and burn while the whites are still going, and burnt is bitter and unfixable; **40 minutes, until the onions are dark, shrivelled and BRITTLE — not golden, not soft**; ⚠️ **the trap is that at 20 minutes the kitchen already smells superb** and a bowl made then is fine and forgettable — the last 15 minutes is where the famous flavour actually arrives; soy + sugar bubbled INTO the hot oil, never poured raw over noodles (raw soy slides off and pools); **DO NOT RINSE the noodles** — surface starch is what the oil grips, rinsed strands are slippery and the sauce ends up in the bottom of the bowl; keep the fried onions, they go back on top. Moat: **the only famous dish where nothing separates a good cook from a bad one but willingness to wait** — no knife skill, no wok control, no timing window, no equipment, no hard-to-find ingredient; almost every other dish rewards a skill you must acquire, this one rewards only the decision to stand there. Also a rare Chinese noodle dish with neither broth nor stir-fry (*ban mian* = simply mixed), and the dried shrimp are Shanghai's fingerprint — coastal Ningbo/Jiangnan influence showing up as small salty dried seafood used as seasoning rather than protein.
+
 ### ✅ PUSHED + VERIFIED LIVE (29 Jul 2026)
 Batches 7+8 pushed with `index.html` and `worldkitchen.js` in the **same commit** (recipes and wiring are all-or-nothing).
 Tina confirmed on tinza.netlify.app: World Kitchen → Asia → Eastern Asia → **China, 43 dishes**. Wiring proven end to end —
@@ -148,7 +164,14 @@ Two honest fixes:
 ⚠️ Whichever is chosen, **it needs a ruling written first** (Law 52) — and it is a `worldkitchen.js` tab-render change,
 so it must NOT be done in the middle of an authoring batch.
 
-**2. GENERALISE `merge.js` BEFORE JAPAN OPENS.**
+**2. ~~GENERALISE `merge.js` BEFORE JAPAN OPENS.~~ ✅ DONE 29 Jul 2026 — see MERGE VALIDATOR below.**
+Now `node merge.js <country> <batchfile.js>`. Country + cuisine + varName + id-prefix come from a
+`COUNTRIES` map at the top; adding a country is one line, not a sixth copy of the file (Law 50).
+Paths resolve against the script folder, so it can sit at root with `tinza-census.js` / `tinza-doctor.js`.
+**31 assertions proven born-RED** in `merge-selftest.js`, control proven GREEN.
+Two real bugs fell out of writing the proof — see the LEFTOVERS SHAPE section.
+
+**~~2b.~~ ORIGINAL WORDING, KEPT FOR THE RECORD:**
 It is hardcoded to China in four places: the `wk_china.js` read, the `WK_CHINA` variable, and two assertions demanding
 `cuisine === 'east-asia'` and `country === 'China'`. It also resolves `wk_china.js` by **bare filename**, so it only runs
 from the folder that file is in — which is why it currently lives in `sections/` rather than at root with
@@ -162,9 +185,62 @@ The three routes NOT to take: rewriting it later under pressure, copying it five
 files drifting apart, invisibly), or loosening the assertions to fit a second country (a validator relaxed to fit a
 new case catches less than it did).
 
+
+### ⚖️ CAUGHT 29 JUL — A JUDGEMENT ERROR WEARING A LEGAL SHAPE
+`china-cong-you-ban-mian` was authored `diet:["vegan"]` with **10g dried shrimp in the base ingredient line**.
+`"vegan"` is valid v1 vocabulary, so **every structural assertion passed it.** This is the exact class of fault
+`merge.js` has always said it cannot see — and here it was, in the last record of the lane.
+Fixed to `omnivore`. A sweep of all 50 for animal words against vegetarian/vegan tags found **no other instance.**
+
+**New WARN rung:** diet vs ingredients keyword cross-check. A **warn, not a fail**, because it is keyword matching
+and cannot be authoritative — *oyster mushrooms* contains "oyster", a vegetarian record legitimately contains egg,
+and a version delta can remove the offending item. It flags for human eyes and does not block; a hard fail here
+would only train the author to work around it. Born-RED proven, **plus a false-friend control** (oyster mushrooms
+must NOT trigger). **34 assertions.**
+
+⛔ **OPEN QUESTION FOR TINA — per-version diet.** The budget fork of Scallion Oil Noodles removes the shrimp and is
+genuinely vegan, but `diet` lives on the **record**, not the version, so the record reads omnivore and a vegan user
+filtering the app will never see it. This will recur across the whole lane — many budget forks drop the meat.
+Options: leave it (the filter under-reports), derive record diet as the *union* of its versions, or move `diet`
+onto versions. **Needs a ruling before Japan** (§21.2 MF123 territory).
+
+### 🇨🇳 CHINA FINAL CENSUS (29 Jul 2026)
+**50 records · 150 versions · 150 crossLinks · 0 dead · `servings` all 1 · costPP range R5–R96**
+course: main 32 · starter 9 · staple 4 · side 3 · dessert 2 · vegetarian-or-vegan **11** · breakfast **5**
+`node --check` clean · `merge-selftest.js` 34 passed / 0 failed.
+
+⛔ **STILL NOT DONE: staples in the Mains tab.** 4 staples (Tofu · Chilli Oil · Master Stock · Suan Cai) still fall
+into Mains because `course:"staple"` has no tab. Ruling required before the fix (Law 52), and it is a
+`worldkitchen.js` render change — **not** to be done inside an authoring batch. Japan brings dashi, Thailand curry
+paste, Indonesia sambal, so the problem grows with every country.
+
+### 🩸 FOUND 29 JUL — `leftovers` IS TWO DIFFERENT SHAPES IN THE LIVE FILE
+Writing the born-RED proof surfaced it: **`leftovers` is a STRING in 5 records and an ARRAY in 38.**
+The five are `hong-shao-rou · mapo-tofu · gong-bao-ji-ding · char-siu · dan-dan-mian` — batches 1 and 2,
+authored **before `merge.js` existed**. Every record since has been an array.
+
+The old validator *did* assert `Array.isArray(r.leftovers)` — but only on the **incoming** batch, so the five
+that predate it were never once tested. **Identical shape to the cong-you-bing hole, in a different field.**
+That is now twice the same hole has produced a real defect, which is the argument for the existing-record
+re-check being the default posture, not an extra.
+
+⚠️ **NOT FIXED, DELIBERATELY.** Two reasons: `core.js` was not in the container, so nothing here can say which
+shape actually *renders* — and that needs Tina's eyes on live either way (Law 2). Rewriting five banked
+records on a guess is how you turn a display inconsistency into five broken cards.
+
+**Rung applied — the two-rung pattern, same as budget-leads:**
+- **HARD (incoming):** a new record with a non-array `leftovers`/`type`/`diet`/`occasion` blocks the merge.
+- **WARN (existing):** the five legacy records print on **every single merge** and block nothing, so the lane
+  keeps moving and the debt stays visible. Off-vocabulary diet tokens on existing records warn the same way.
+
+**⛔ TINA'S CALL, NEEDS A LIVE LOOK:** open one of the five (e.g. Hong Shao Rou) and one of the 38
+(e.g. Tang Yuan) on tinza.netlify.app and compare how the leftovers block renders. If array is right — and
+38-vs-5 plus the authoring order says it is — the five get converted, and it wants a **ruling filed in
+`TINZA_RULINGS.md`** (Law 52) fixing the field's shape once, before Japan repeats it.
+
 ### ▶️ NEXT — CHINA BATCH 9, THE CLOSING SEVEN (43 → 50)
 Suan Cai Bai Rou (pork & pickled cabbage — **uses the new staple**) · Beggar's Chicken · Tea-Smoked Duck ·
-**Jianbing** (fills the breakfast gap — only the congee touches `occasion:breakfast`) · Wuxi Sweet & Sour Ribs ·
+~~**Jianbing** (fills the breakfast gap — only the congee touches `occasion:breakfast`)~~ ⚠️ **that gap claim was WRONG and is struck** — measured 29 Jul, FOUR records already carry `occasion:breakfast` (cong-you-bing · sheng-jian-bao · pi-dan congee · lo-bak-go). The note predated batches 7–8. Jianbing earns its slot on its own merits · Wuxi Sweet & Sour Ribs ·
 Luo Han Zhai (**vegan**) · Scallion Oil Noodles.
 Order of work in that chat: generalise `merge.js` first → author batch 9 through it → China closes → then Japan
 (needs `wk_japan.js` + 2 wiring lines; `WK_COUNTRY_GEO` is already done for all four remaining countries).
@@ -199,17 +275,47 @@ Wonton Noodle Soup line, dried shrimp does. The flounder string was **also** the
 changing one without the other would have left a dead delta, which is precisely what the DEAD-DELTA rung exists for.
 
 
-### QUEUE — CHINA (next batches, 5 per batch)
-**Batch 7:** Braised Aubergine w/ garlic · Chinese Broccoli in oyster sauce · Tiger Salad · Smashed Cucumber (pai huang gua) · Tea-Smoked Duck
-**Batch 8:** Buddha's Delight · Sesame Balls (jian dui) · Tangyuan · Red Bean Buns · Scallion Oil Noodles
-**Batch 9:** Chongqing Chicken (la zi ji) · Water-Boiled Fish (shui zhu yu) · Braised Lamb Hotpot · Sichuan Boiled Beef · Beggar's Chicken
-**Batch 10:** Youtiao · Soy Milk & fried dough breakfast set · Guo Bao Rou (Northeastern sweet-sour pork) · Lanzhou Beef Noodle Soup · Mooncakes (or a WOW substitute if too specialist)
+### ~~QUEUE — CHINA (next batches, 5 per batch)~~ ⛔ STRUCK 29 Jul 2026 — STALE, DO NOT WORK FROM THIS
+⚠️ **This block was pre-queued before batches 7 and 8 were authored, and those batches went a different way.**
+It lists **Smashed Cucumber** and **Lanzhou Beef Noodle Soup** as still-to-do — both are BANKED (records 42 and 34),
+and Tangyuan (43) and Chongqing Hotpot (40) too. Working from this list re-authors four existing records.
+Struck rather than deleted, dated and visible, per §2.3.
+**The live list is `▶️ NEXT — CHINA BATCH 9, THE CLOSING SEVEN` above — that one, and only that one.**
+
+<details><summary>struck text (kept for the record)</summary>
+
+~~**Batch 7:** Braised Aubergine w/ garlic · Chinese Broccoli in oyster sauce · Tiger Salad · Smashed Cucumber (pai huang gua) · Tea-Smoked Duck~~
+~~**Batch 8:** Buddha's Delight · Sesame Balls (jian dui) · Tangyuan · Red Bean Buns · Scallion Oil Noodles~~
+~~**Batch 9:** Chongqing Chicken (la zi ji) · Water-Boiled Fish (shui zhu yu) · Braised Lamb Hotpot · Sichuan Boiled Beef · Beggar's Chicken~~
+~~**Batch 10:** Youtiao · Soy Milk & fried dough breakfast set · Guo Bao Rou (Northeastern sweet-sour pork) · Lanzhou Beef Noodle Soup · Mooncakes~~
+
+Survivors worth keeping in mind as substitutes if any of the closing seven falls over: Braised Aubergine w/ garlic ·
+Chinese Broccoli in oyster sauce · Tiger Salad · Sesame Balls (jian dui) · Water-Boiled Fish (shui zhu yu) ·
+Guo Bao Rou · Youtiao. (Scallion Oil Noodles and Beggar's Chicken and Tea-Smoked Duck already appear in the closing seven.)
+</details>
 
 ---
 
 
-## 🔧 MERGE VALIDATOR (`merge.js`, built 29 Jul — keep it with the lane)
-Run as `node merge.js batch5.js`. Refuses to write the file if ANY assertion fails. Asserts:
+
+### ⚖️ NEW RUNG 29 JUL — `servings` MUST BE 1 (caught the author, not the code)
+Authoring Beggar's Chicken I set `servings: 4`, reasoning that a whole 1.5kg bird feeds four. Wrong:
+**all 44 records already banked use `servings: 1`, including `china-roast-duck`, which lists a whole 2kg duck.**
+Ingredient amounts in this lane are per-serving and the app scales them, so a record claiming 4 would have
+scaled wrong against every sibling in the file — and **nothing on screen would have said so.**
+Caught only because I checked the convention instead of assuming it. `merge.js` now hard-asserts `servings === 1`,
+proven born-RED. **32 assertions.** Worth noting what this rung really is: the first one added because the
+*author* drifted rather than because a past record was wrong.
+
+## 🔧 MERGE VALIDATOR (`merge.js` — GENERALISED 29 Jul, keep it with the lane)
+Run as **`node merge.js <country> <batchfile.js>`** — e.g. `node merge.js japan batch1.js`.
+Known countries: china · japan · indonesia · thailand · vietnam (one line each in `COUNTRIES`).
+Bootstraps a country file that does not exist yet, writes the standard header, and prints the
+**two wiring lines** still needed. Canonical 25-key schema lives in `reference/ASIA_SCHEMA_KEYS.json`,
+**never in record 1 of the target** — a new country file has no record 1, and letting each file set its
+own precedent is exactly how five near-identical files drift apart.
+Proof harness: **`node merge-selftest.js` → 31 assertions born-RED, control GREEN.** Run it after ANY edit to merge.js.
+Asserts: Refuses to write the file if ANY assertion fails. Asserts:
 key-set identical to record 1 · no duplicate id · cuisine/country correct · type/diet/occasion/leftovers are arrays ·
 **diet token in vocabulary** (omnivore/vegetarian/vegan/unknown — halaal & kosher are separate laws) ·
 exactly 3 versions · exactly one `default:true` · budget fork LEADS · numeric `costPP` on every version · no `costPP` on the record ·
