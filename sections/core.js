@@ -4493,7 +4493,7 @@ function applyVersionDelta(out, d){
     var ings = isArr ? out.ingredients.slice() : String(out.ingredients).split(' · ');
     var hit = function(x,key){ var nm = isArr ? (x&&x.n||'') : String(x); return isArr ? nm===key : nm.indexOf(key)>-1; };
     (d.swapIng||[]).forEach(function(s){ for(var i=0;i<ings.length;i++){ if(hit(ings[i],s.from)){ ings[i]=s.to; break; } } });
-    (d.removeIng||[]).forEach(function(rm){ ings = ings.filter(function(x){ return !hit(x,rm); }); });
+    (d.removeIng||[]).forEach(function(rm){ var rk=(rm&&rm.item!=null)?rm.item:rm; ings = ings.filter(function(x){ return !hit(x,rk); }); });
     (d.addIng||[]).forEach(function(a){
       var item=(a&&a.item!=null)?a.item:a, after=a&&a.after, idx=-1;
       if(after){ for(var i=0;i<ings.length;i++){ if(hit(ings[i],after)){ idx=i; break; } } }

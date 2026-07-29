@@ -1436,3 +1436,247 @@ not a patch. R11 · R23 · R19 remain provisional.
 ⚖️ **PROCESS LESSON:** where a ruling turns on a factual claim about how an ingredient
 behaves — not on policy, not on preference — check the claim *before* filing the ruling.
 The sushi safety line was verified first and held. This one was not and did not.
+
+---
+
+## ⚖️ §31.3 STRUCK AND REPLACED — RETAINED vs CONSUMED (29 Jul 2026, Tina)
+
+The second §31 amendment of the same day, and the second one caused by treating unlike things
+as one category. §31.3 charged a nukadoko, a starter, a master stock, a jar of chilli oil and a
+batch of kaeshi as one class. **Only the first three are retained.** Oil and kaeshi are consumed,
+slowly, and the engine already prices them correctly per unit used — the rule did no work there.
+
+✅ **§31.3a THE TEST: does the thing survive the recipe?** Retained → equipment, out of costPP.
+Consumed → ordinary per-unit pricing. Nobody costs the potjie into the potjiekos.
+✅ **§31.3b** the one-time cost is stated in the method with the real rand figure, so §31.1 still
+protects the shopper — better than a broken-looking costPP does.
+⚠️ Stated in the ruling rather than papered over: a bed *is* slowly depleted and topped up, so
+"retained" is not a razor. It persists between cooks; that is what the test turns on.
+
+### ✅ NUKAZUKE NO LONGER PROVISIONAL — R11 · R23 · R19 → **R9 · R10 · R15**
+
+| Version | was | now | working |
+|---|---|---|---|
+| 💰 Daikon to Ninjin (budget · vegan) | R11 | **R9** | daikon 150g @R45/kg + carrots 80g @R25/kg + salt |
+| 🥒 Kyuri no Nukazuke (default · vegan) | R23 | **R10** | one cucumber, leaning high per §31.1, + the salt rub |
+| 🥚 Tamago to Chīzu (vegetarian) | R19 | **R15** | egg R3.70 + cheddar 60g @R187/kg + salt |
+
+Budget still leads and is still cheapest (A3) — by R1, thin but correctly ordered.
+Method now carries the setup line: ~R40 for a 500g bag of bran plus salt, paid once.
+`wheat bran` stays ABSENT; the rand figure is Tina-sourced **prose**, and §31.2 holds — prose may
+name a route, an absence still does not become a number.
+
+**GATES RUN:** `node --check` clean · merge.js re-validated the record by splitting it back out
+and re-merging it — **40/40, all checks pass, [R9 · R10 · R15]** · pricecheck **wrong-product 0,
+absent 40, exact 121** — all identical to the B9 close except the three figures.
+
+### 🔴 FOUND WHILE COSTING — TWO COUNT/WEIGHT MISMATCHES IN NUKAZUKE'S OWN BASE LINE
+
+Costing the record through the app's own `wkCostRecipeShape()` rather than by hand showed the
+live card **prices nothing at all**: coverage 1 of 5, far under the 0.8 gate, so it renders the
+not-priced line. Two causes, both the same shape:
+
+- `1 cucumber` — `cucumber` R21 is a **weight** key. A count with no unit cannot be costed against
+  it, so the cucumber lands on `missing`.
+- `2 dried chillies` — `dried chillies` R200 is likewise a **weight** key.
+
+⚖️ **NOT PATCHED, because it is bigger than Nukazuke.** This is a third class alongside
+wrong-product and absent: **a key that exists, matches, and still cannot be costed because the
+record writes a count where the key wants grams.** pricecheck reports it as EXACT — it checks the
+key, not the unit. Neither gate can see it. Worth a rung, and worth a sweep across all 40.
+⚠️ Also noted: `cucumber` R21/kg looks low for SA retail regardless. Not this lane's key.
+
+### ▶️ STILL WAITING ON TINA — 4
+1. **Push `wk_japan.js` unwired at batch close?** Asked a sixth time. Origin 30, local 40.
+2. **REVIEW-list ruling** — the qualifier-ledger proposal (SAME / DIFFERENT / PENDING).
+3. **`pickled ginger` R280 key + drop the word "red"** from 3 live lines · **`crab sticks` R120 key.**
+4. **B10 record 5** — dessert (6) or staple (4)? Sashimi deferred to B11.
+
+---
+
+## ✅ TWO PRICE KEYS TAKEN + FOUR LINES RENAMED (29 Jul 2026, Tina ruled)
+
+Both taken under §29.5 rather than deferred to A7: neither was a gap, each was a phrase already
+resolving silently to a different product. Sourcing is Tina's, leaning high per §31.1.
+
+- **`crab sticks` R120/kg** — was falling to `crab` R400, a 3–6× over-charge. Third crab key
+  (`crab` 400 · `crab meat` 660 · `crab sticks` 120); ⛔ do not merge any pair. Keyed **ahead of**
+  its first use so B10 cannot author into the trap.
+- **`pickled ginger` R280/kg** — was falling to `ginger` R280. The money was accidentally right;
+  the route was fragile and would have broken the day fresh ginger repriced. ⚠️ One key covers
+  gari and beni shoga, which are different products — ruled with eyes open, not missed.
+
+📌 **THE KEY ALONE FIXED NOTHING.** `pickled red ginger (beni shoga)` still resolved to `ginger`,
+because the lookup wants the key as a contiguous phrase. **Four** ingredient lines renamed to
+`pickled ginger (beni shoga)` — `japan-okonomiyaki`, `japan-takoyaki` (base **and** one version
+delta, which a three-record count would have missed), `japan-chirashizushi`. Probed, not reasoned.
+
+🟢 **`tuna steak` R350 ALREADY EXISTS** (prices.js:239, Tina-sourced for Marmitako). Nothing to
+source for sushi. But bare `tuna` R120 is commented `(tinned)`, and `tuna loin` / `sashimi tuna`
+both fall to it — a right answer one word from a 3× wrong one. ⛔ Sushi records write `tuna steak`.
+
+**GATES:** `node --check` clean ×2 · merge re-validated all three renamed records by split-and-
+remerge — **40/40 pass** · pricecheck **wrong-product 0**, absent 40 unchanged,
+**exact 121 → 123, REVIEW 99 → 97.**
+
+🔴 **FOUND IN THE REVIEW OUTPUT — one-ingredient-per-line violation:**
+`japan-yakitori` carries `chicken mince with 5g grated ginger, for tsukune`, which prices the
+whole line as `chicken` R90 and loses the ginger entirely. Same shape as the B3 green-beans line.
+Not patched — flagged for the sweep.
+
+---
+
+## ▶️ JAPAN B10 IN PROGRESS — 40 → 45 (29 Jul 2026)
+
+**⚖️ SPLIT RULED BY TINA:** the closing ten are **8 savoury/sushi + 2 desserts**, and "main"
+in that instruction meant *the savoury eight*, not the course tag — **`main` stays frozen at 11**,
+confirmed by Tina. B10 = 4 sushi + 1 dessert · B11 = 4 sushi + 1 dessert.
+
+**⚖️ PUSH TIMING — CLOSED, STOP RE-ASKING IT.** Tina confirmed 29 Jul that this was settled at the
+batch-3 handover and has been carried forward as open ever since: `wk_japan.js` is pushed **ONCE at
+Japan close (50/50), together with its two wiring lines** — the China B7+B8 all-or-nothing pattern.
+An unwired file is invisible, so pushing it alone spends a deploy credit on records nobody can see.
+The risk (origin 30, local 41; the downloaded files are the second copy) was **accepted
+deliberately** and must not be re-raised as a discovery. ⛔ The line *"PROPOSED, NEEDS TINA'S
+RULING: push wk_japan.js UNWIRED at every batch close"* is **STRUCK** from this file, from every
+`JAPAN_B*_COLD_START.md` and from every handoff. ⚖️ **Fourth instance of the pattern:** a to-do list
+re-asking a question the record already answers — same shape as MF152 grepped against itself and
+the TINZA_SPRINT_PLAN split-brain. **Before listing anything as "waiting on Tina", check the record.**
+
+**🔴 TWO BASELINE DISCREPANCIES FOUND AND CLOSED AT SESSION OPEN.** The B10 cold start's numbers
+(exact 123 · REVIEW 97 · absent 40 · sourced 8/listed 29/new 3) did not reproduce; the first run
+gave 121 · 99 · new 40. Both causes were real, neither was a counting error:
+
+1. **`crab sticks` and `pickled ginger` were not at origin.** The four renamed
+   `pickled ginger (beni shoga)` lines had shipped and the two keys had not, so they resolved to
+   `ginger` and `crab` R400 — the exact over-charge the keys were taken to kill. Tina's local
+   `prices.js` had them; origin did not. ⚖️ Fifth instance of *a shallow clone is a snapshot*.
+2. **⚠️ `pricecheck.js` HAS TWO PATH ROOTS.** The three gate files resolve off `repoRoot`, but
+   `MF152` resolves off `__dirname` (line 42). Run from `sections/`, `readMF152()` returns
+   `{ok:false}` and **reports anyway** — every already-sourced key is re-discovered as "new".
+   `loadGate()` refuses on a missing gate file; `readMF152()` shrugs. **The ROOT copy is the
+   working one; §7's documented command points at the broken one.** Needs the same refusal.
+
+### ✅ RECORD 41 — HOSOMAKI (`side`) · R10 · R28 · R16
+
+Leads on **the mat and the margin**: nori rough-side up · half sheet, long edge to the mat's near
+edge · the **two-thirds rule with a bare far border** as the thing that seals the roll · tezu
+(wet hands, not dripping) · rice placed one grain thick, never pressed · the **tuck-and-pull** as
+one opposing movement, which is why a mat exists · seam-side down to glue · **cut with a pull,
+never a push, wiping and re-wetting the blade between every single cut.** Rice prep deliberately
+kept short and pointed at Chirashizushi + Gohan per §3 — those two already own it in full.
+
+⚠️ **The verbatim raw-fish safety line was omitted from the first draft and caught before the
+gates ran.** It is now in-method ahead of the filling step, unaltered.
+
+**MOAT — nori is a manufactured paper, and the debt inside it.** Porphyra slurried, poured on a
+screen, drained, pressed, sun-dried: washi papermaking step for step, which is why sheets are
+rectangular, standard-sized and have a rough and a smooth face. Asakusa-nori named for Tokyo Bay
+beds long outlived by the name. Then the part almost nobody knows: nori farming was a lottery
+because no one knew where the seaweed came from between seasons, and it was collapsing after the
+war — until **Kathleen Mary Drew-Baker**, a British phycologist in Manchester, published in Nature
+in 1949 that the shell-boring pink alga catalogued as a separate species was the missing half of
+the Porphyra life cycle. It lives in old oyster shells. She never visited Japan; there is a
+monument to her at Uto in Kumamoto and a **Drew Festival every 14 April.** ⛔ Not a name-origin
+moat — those stay spent at four.
+
+**VERSIONS** (budget leads and is cheapest): **Kappamaki — Cucumber** 💰 vegan R10 (kappa folklore;
+seed core scraped out because it weeps into the rice) · **Tekkamaki — Tuna** 🏆 default omnivore
+R28 · **Kanikama — Crab Stick and Cucumber** 🦀 omnivore R16 (surimi since the twelfth century,
+the modern stick invented 1973 in Hiroshima by a firm trying to make artificial jellyfish; the
+no-raw-fish route). crossLinks: Chirashizushi · Inarizushi · Gohan.
+
+**GATES:** `node --check` clean ×2 · **merge 40 + 1 = 41, all checks pass [R10 · R28 · R16]** ·
+**pricecheck wrong-product 0**, absent 40 unchanged, **no new keys**, exact 123 → 125.
+📌 Default costPP was hand-declared R31 and **corrected to R28 to match `wkCostRecipeShape()`** —
+costed through the app, not by hand.
+
+### 🔴 FOUND WHILE COSTING — 15 OF 41 JAPAN RECORDS RENDER NO COST AT ALL
+
+Swept every record through the live gate `wkCostState()` (coverage ≥ 0.8 **and** the main protein
+actually priced, worldkitchen.js:582). **15 of 41 fail it**, so those cards print the not-priced
+line instead of a number:
+
+`japan-staple-dashi` 0% · `japan-nukazuke` 20% · `japan-tsukemono` 40% · `japan-takoyaki` 50% ·
+`japan-zaru-soba` 50% · `japan-chawanmushi` 55% · `japan-matcha-warabimochi` 60% ·
+`japan-okonomiyaki` 62% · `japan-shoyu-ramen` 67% · `japan-kinpira-gobo` 67% · `japan-anmitsu` 67% ·
+`japan-yakitori` 73% · `japan-oyakodon` 75% · **`japan-hosomaki` 78%** · `japan-tempura` 88%*
+*(*tempira fails on the protein clause, not coverage: `large prawns` is the main and is unpriced.*)
+
+⚖️ **NOT PATCHED, AND HOSOMAKI WAS NOT DISTORTED TO DODGE IT.** Hosomaki misses by one honest
+ABSENT (`sheet nori`, `wasabi`); dropping `wasabi` from the base line would tip it to 87% and pass,
+and that is gaming a gate rather than authoring a record. ⚖️ **THE REAL QUESTION FOR TINA, and it
+is an A7 question, not a Japan one:** A7 defers the price batch until all five countries are
+authored — but the measured consequence is that **more than a third of Japan ships costless**, on
+an app whose whole pitch is honest costing in Rand. Missing prices are a gap, not a bug (§29.5), so
+A7 formally applies. But 15 blank cards is a launch-visible gap. **Options: hold to A7 · or take a
+Japan-only mini-batch of the ~10 keys that unlock the most cards** (`sheet nori`, `katsuobushi`,
+`dried kombu`, `sake`, `spring onion(s)` plural/prep forms, `wasabi`, `okonomiyaki sauce`, `aonori`,
+`daikon`, `agar agar powder`).
+⚠️ Note `japan-nukazuke` and `japan-tsukemono` fail partly on the **count-vs-weight** class already
+open — `cucumber` and `dried chillies` are weight keys written as counts. Same sweep.
+
+### ✅ RECORD 42 — TEMAKI (`starter`) · R9 · R39 · R39
+
+Leads on **the clock**. The organising fact is that nori begins dying the moment rice touches it,
+so a temaki is not made-then-served but assembled-and-eaten. Everything in the method protects
+those thirty seconds: nori kept sealed until the moment of rolling · **rice on the LEFT THIRD
+only**, the bare tail being what your fingers hold and what stops the cone leaking · filling laid
+**on the diagonal**, which is what lets a flat sheet wrap into a cone rather than a tube · roll into
+a cone with a **closed point** (an open point is the only real failure mode) · one grain of rice as
+glue · and eat it now, not once everybody has one. ⚖️ No mat and no knife is the *reason* it is the
+home format, not a shortcut — stated as such. Rice prep kept short and pointed at Chirashizushi +
+Gohan per §3. Verbatim safety line in-method, unaltered.
+
+**MOAT — home cooks in Japan do not make nigiri.** Sushi at a Japanese kitchen table is chirashi or
+temaki; nigiri is what you buy from somebody who trained for it, and the training is real (the
+shaping is one motion at one pressure, aiming at a body roughly forty percent air that still holds
+in the fingers; apprentices historically spent years on rice before touching fish). So the home
+format evolved to need none of it — tezukuri-zushi, a platter and a stack of nori and everyone
+building their own, closer to a taco night than a sushi counter. The trade is the clock: at a good
+counter a hand roll is passed straight over and the correct thing is to eat it standing there.
+⛔ Deliberately does NOT touch papermaking, Asakusa, Tokyo Bay or Drew-Baker — Hosomaki owns those.
+⛔ Not a name-origin moat; those stay spent at four.
+
+**VERSIONS** (budget leads and is cheapest): **Yasai — Cucumber, Carrot and Sesame** 💰 vegan R9
+(water management: seed core scraped, matchsticks not discs, sesame toasted and tipped straight out
+of the pan) · **Sake — Salmon and Spring Onion** 🏆 default omnivore R39 · **Ebi — Prawn, Avocado
+and Japanese Mayonnaise** 🍤 omnivore R39 (prawns to a loose C not a tight O; avocado sliced at the
+last second; the avocado-and-mayo family came *back* to Japan from North America and is now standard
+on a conveyor belt). crossLinks: Hosomaki · Chirashizushi · Onigiri.
+
+**GATES:** `node --check` clean ×2 · **merge 41 + 1 = 42, all checks pass [R9 · R39 · R39]** ·
+**pricecheck wrong-product 0**, absent 40 unchanged, **no new keys**, exact 125 → 127.
+📌 Two costPP hand-declared at R42 and R40, **both corrected to R39 against `wkCostRecipeShape()`**.
+Second record running: hand-costing drifts, the app does not. Cost through the app, always.
+
+### 🔴 COUNT-VS-WEIGHT HAS **TWO DIRECTIONS**, AND ONLY ONE OF THEM ANNOUNCES ITSELF
+
+Measured in isolation against the app's own `wkCostRecipeShape()`:
+
+| written | key is | result | what the card does |
+|---|---|---|---|
+| `1 cucumber` | weight | `{total:0, priced:0, missing:["cucumber"]}` | **A — a GAP.** Renders blank, drops coverage, announces itself. |
+| `60g cucumber` | weight | `{total:1, priced:1}` | ✅ correct |
+| `30g avocado` | **count** | `{total:2, priced:1, missing:[]}` | **B — a BUG.** Should be R13. Renders R2, *counts as priced*, coverage unaffected. |
+| `1 avocado` | count | `{total:13, priced:1}` | ✅ correct |
+
+⚖️ **DIRECTION B IS THE WORSE RUNG AND IT WAS NOT ON THE LIST.** The open item recorded at B9 close
+was direction A (Nukazuke's `1 cucumber`, `2 dried chillies`) — which lands in `missing`, is visible
+in coverage, and is a gap. **Direction B is invisible to everything we own:** pricecheck reports it
+EXACT (the key exists and matches), the 0.8 coverage gate counts it as priced, and merge has no view
+of units. It renders a number that looks correct. Straight off the ladder — **missing < duplicate <
+wrong** — and this is the wrong rung.
+
+🩸 **ONE LIVE INSTANCE FOUND, OUTSIDE THE ASIA LANE:** `boerekos-gemsbok-stuffed-fillet` in
+`sections/wk_southafrica.js` carries **`30g avocado`**, which prices the card at **R88 where the
+honest figure is R99** — pushed, wired and live today. ⚖️ Per §29.5 this is a WRONG price, not a
+missing one, so A7 does not shelter it. Not patched here because it is outside the lane and the
+sweep should be one pass over all files, not one line.
+
+▶️ **THE RUNG TO BUILD, and it is mechanical with zero judgement:** for every parsed ingredient
+line, compare the unit written (`g`/`ml` vs bare count) against `wkPriceLookup().per`
+(`weight`/`count`). Mismatch either way = flag. **Direction A soft** (already visible via coverage),
+**direction B HARD** (invisible, renders a wrong number). Born-RED proof: `30g avocado` → RED,
+`1 avocado` → GREEN, `1 cucumber` → RED, `60g cucumber` → GREEN. Then sweep every `wk_*.js`,
+not just Japan.

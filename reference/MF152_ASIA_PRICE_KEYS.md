@@ -526,3 +526,32 @@ A7 defers the work of sourcing, not a number already in hand.
 
 `aburaage` [japan-inarizushi] — **the record does not exist in this file.** See the B7 note in
 ASIA_PROGRESS. Do not write the row until the record is back.
+
+
+---
+
+## ✅ TAKEN, NOT DEFERRED — TWO KEYS ADDED TO `prices.js` 29 Jul 2026
+
+Same reasoning as the `chilli oil` exception: **A7 defers MISSING prices, never WRONG ones
+(§29.5).** Neither of these was a gap waiting for the batch — each was a phrase that already
+resolved, silently, to a different product. Both prices are Tina-sourced, not estimated, and
+both lean high per §31.1.
+
+| key | price | sourcing | why it could not wait |
+|---|---|---|---|
+| `crab sticks` | **R120/kg** | R32–52/500g · R75–99/800g–1kg → R64–124/kg, took the top | fell through to `crab` R400 — a 3–6× over-charge. Third crab key alongside `crab` R400 and `crab meat` R660; ⛔ do not merge any pair. |
+| `pickled ginger` | **R280/kg** | R15–70 per 110–454g jar; mainstream buy ~R150–270/kg | fell through to `ginger` R280. Money was accidentally right, route was fragile — it would have broken silently the day fresh ginger repriced. |
+
+⚠️ **`pickled ginger` covers gari AND beni shoga**, which are not the same product. At 10–20g a
+card they cannot diverge enough to matter. Ruled with eyes open, not missed.
+
+📌 **The rename that made the key work.** Adding the key alone changed nothing: `pickled red
+ginger (beni shoga)` still fell to `ginger`, because the lookup needs the key as a contiguous
+phrase. Four ingredient lines across `japan-okonomiyaki`, `japan-takoyaki` (base + one version
+delta) and `japan-chirashizushi` were renamed to **`pickled ginger (beni shoga)`**. Verified by
+probe, not by reasoning. **A key without the matching name is not a fix.**
+
+⛔ **STILL NOT KEYED, deliberately:** `tuna` R120 is commented `(tinned)` and `tuna loin` /
+`sashimi tuna` both fall through to it. The correct key **`tuna steak` R350 already exists**
+(prices.js:239, Tina-sourced for Marmitako). This is not a missing price — it is a right answer
+sitting one word from a 3× wrong one. Sushi records write **`tuna steak`**, never bare `tuna`.

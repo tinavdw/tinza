@@ -309,6 +309,11 @@ const PRICE_DB = {
   "chili": 70,                // per kg
   "garlic": 280,              // per kg
   "ginger": 280,              // per kg
+  "pickled ginger": 280,     // src:Tina when:2026-07 conf:shelf  R15-70 per 110-454g jar → a wide band; the mainstream buy
+                             // (~150g at R30-40, 340g jar at R50) lands R150-270/kg, took R280 per §31.1. Same number the
+                             // wrong route was already rendering via `ginger` — the money was fine, the ROUTE was fragile and
+                             // would have broken silently the day fresh ginger repriced. ⚠️ Covers gari AND beni shoga, which
+                             // are not the same product; at 10-20g a card they cannot diverge enough to matter. Ruled, not missed.
   "mushroom": 165,            // R37/225g → R165/kg
   "button mushrooms": 148,    // R37/250g → R148/kg
   "avocado": 65,              // per kg (R13/each ÷ ~200g). avocado_each handles COUNT; this weight key is for gram lines ("ripe avocado"). Was 13 → implied R13/kg (a latent under-price on any weight use).
@@ -655,6 +660,9 @@ const PRICE_DB = {
   "wood apple pulp": 170,
   "crab": 400,
   "crab meat": 660,
+  "crab sticks": 120,        // src:Tina when:2026-07 conf:shelf  R32-52/500g · R75-99/800g-1kg → R64-124/kg, took the top per §31.1.
+                             // ⛔ THIRD crab key, deliberately. Surimi is not crab: without this, "crab sticks" fell through to
+                             // `crab` R400 — a 3-6x over-charge wearing the right word (the rice bran → rice shape). Do not merge.
   "gruyere cheese": 971,
   "emmental cheese": 600,
   "ouzo": 320,
