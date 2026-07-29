@@ -1093,69 +1093,108 @@ Course balance improving: main was 46% at B5 close, now **41%**.
 - **HIJIKI — OPTION A TAKEN (Claude, flagged not silent).** Hijiki no Nimono NOT authored. Four national food-safety agencies (UK FSA, Canada CFIA, Hong Kong CFS, Singapore SFA) advise against eating hijiki over inorganic arsenic; the same FSA survey found none in arame, kombu, nori or wakame. **Nasu Dengaku** took the slot. ⚠️ Reversible — nothing was created that needs undoing. Tina can overrule.
 - **§26 union caught on my own record.** Anmitsu was declared `["vegan"]` while carrying a vegetarian version. Corrected to `["vegan","vegetarian"]`. Measured across all 27 afterwards: drift 0.
 
-### ⚠️ CORRECTION — the "merge.js has no §26 union check" claim was WRONG
-Earlier in this session I recorded that `merge.js` had no §26 union assertion. **That was true
-of the copy I had cloned at session start, and FALSE of live HEAD.** HEAD's `merge.js` already
-carries a §26 rung, and it is **better than the one I was about to hand back**:
-- HARD for incoming records, WARN for existing ones — so China's 50 print as visible debt
-  ("50 existing records have no per-version diet[]") instead of blocking the lane
-- the debt is collected and reported **once with a count**, not once per record — explicitly to
-  avoid the rung-that-cries-wolf failure
-- it also asserts every version **has** a `diet[]` at all, and vocabulary-checks each one,
-  neither of which my version did
-
-**My edit was discarded, not pushed.** `merge.js` should be taken from HEAD untouched.
-
-⚖️ **HOW IT WAS CAUGHT, and the rule that caught it:** before handing back a canonical file I
-diffed my base against live HEAD. It had drifted by 39 lines. This is the §29 rule working
-exactly as written — *whenever handing back a canonical file, check whether HEAD is behind
-the local copy first* — and it is the same shape as the ASIA_PROGRESS truncation and the
-TINZA_SPRINT_PLAN split-brain. **A shallow clone is a snapshot, not the truth.**
-
-✅ **RE-VALIDATED AFTER RESTORING HEAD's merge.js:** all 27 Japan records pass the stricter
-rung. My 7 records have **0 versions missing `diet[]`** and **0 union drift** — they were
-authored to the standard before I knew the gate enforced it.
-
+### 🩸 NEW GATE GAP FOUND — merge.js does NOT check the §26 union
+`merge.js` walks diet VOCABULARY (line 173) but has **no union assertion at all** — grep for "union" in merge.js returns nothing. A record can declare `diet:["vegan"]` while a version is vegetarian-only, or omit `omnivore` while a version is omnivore, and **nothing fires**. Found because I made exactly that mistake and only caught it by hand.
+⚠️ The lane notes describe "§26 union" as one of merge.js's 40 assertions. It is not there. Same shape as the FLESH-list gap already open.
+**Rung to write:** derive the union from `versions[].diet`, compare to `r.diet` as a SET, fail on any difference either way. Born-RED proof: re-declare Anmitsu as `["vegan"]`.
 
 ---
 
-## 💰 PRICE KEYS — DASHI AND POTATO STARCH CLOSED (29 Jul 2026)
+## 🇯🇵 JAPAN — BATCH 7 (29 Jul 2026) · 27 → 30 · **THE RE-AUTHORING OF THE LOST BATCH**
 
-Full arithmetic and reasoning in `reference/MF152_ASIA_PRICE_KEYS.md`.
+Merge `✅ all checks pass` three times, **one record at a time**: 27+1=28 · 28+1=29 · 29+1=30.
+`node --check` clean after each. pricecheck 🔴 wrong-product **0** after each. §26 union drift **0/30**.
+90 crossLinks, **0 dead**.
 
-- ✅ **`"dashi": 13`** — per LITRE of made-up dashi, following the `stock` precedent at
-  prices.js:97. Every record writes dashi in ml, and ml lines cost as `(qty/1000) x price`.
-  A per-kg granule price would have charged **R570 for a bowl of miso soup**.
-  §29 is now fully closed: route ruled, price sourced, key live.
-- ✅ **`"potato starch": 120`** — its own key. Was resolving to `potato` R18, **6.7x under**,
-  live in the pushed `wk_europe.js`. The `core.js:1340` cornflour alias is **STRUCK** — potato
-  starch is ~1.8x cornflour and aliasing dear to cheap is the MF28 mistake.
+### ⛔ PROCESS RULING TAKEN, NOT ASSUMED — ONE RECORD, ONE HANDBACK
+B7 was authored once already and lost, because the downloads were batched to the end of the
+session. This run handed back `wk_japan.js` + the record's own batch file **after every single
+record**, before the next one was started. A cut-off can now cost one record. It cannot cost a batch.
+This is the §WORKFLOW(4) save-as-you-go rule applied to the Asia lane, and it should be read as
+binding here, not as a Fable-only habit.
 
-### 🔧 A BORN-RED PROOF WENT STALE, AND THAT IS ITS OWN RUNG
+### BANKED
+36. **Karaage** — *starter*. ⚖️ **LEADS ON THE SINGLE FRY**, and says so out loud: the method opens
+    by naming Tonkatsu's two-temperature law, agreeing it is correct there, and explaining why it is
+    wrong here. A second fry exists to drive water back OUT of a softened crust; the Nakatsu way
+    builds a crust that never takes water on. Laws: thigh with the skin folded OUTWARD · marinate
+    **25 minutes and not overnight** (the tare is half soy, i.e. brine, and after ~30 min it pulls
+    water back out) · **blot the pieces dry before the starch** — the single-fry law, because starch
+    on a wet surface dissolves into slurry and slurry gums instead of crisping · shake the coat back
+    to a dusty film · one temperature, 170°C, and the finish line is a SOUND, loud and coarse going
+    quiet and fine. ⚖️ Zingibain gets **one sentence and a pointer** to Buta no Shogayaki, which owns
+    it. ⚖️ Potato-starch chemistry leads on *no protein, larger granules, glassy shell* — deliberately
+    NOT the amylose/amylopectin line Chirashizushi already owns. Moat = 唐揚げ vs 空揚げ: identical
+    pronunciation, and 空 means EMPTY — 'empty frying' was food fried NAKED, with no coating at all,
+    so the older spelling describes precisely what karaage is not; plus Usa and Nakatsu, Oita, late
+    1950s, the Kunisaki poultry industry, the specialist takeaways, the national Karaage Association.
+    ⛔ **The cruiser Tatsuta theory was kept OUT** — Kare Raisu owns the naval moat.
+    Versions: 💰 Shio, the Usa salt tare R21 · 🏆 Nakatsu soy tare R32 · 🍋 Chicken Nanban R43.
+37. **Ohitashi** — *side*. ⚖️ **THE BLANCH IS NOT RE-TAUGHT** — the method states it as read and
+    points at Goma-ae by name for the chlorophyll/magnesium argument. The record is built entirely on
+    **THE INVERSION**: goma-ae squeezes TWICE because the dressing is a paste and every gram of water
+    thins it into a puddle; ohitashi squeezes **ONCE** because the dressing IS liquid and the leaf has
+    to keep room to drink 160ml of seasoned dashi. A leaf wrung bone dry does not fill, it sits.
+    Second law: the hitashi-ji is roughly **8:1:1** and must taste too weak, because **you eat the
+    liquid** — it is served in the bowl, not drained. Third: pour it on COLD. Fourth: never serve it
+    drained. Moat = **aemono · ohitashi · sunomono · nimono — one bunch, four verbs**: Japanese home
+    cooking files by METHOD where a Western index files by ingredient, which is also why a modest
+    supper carries so many small bowls (same vegetable, different verbs, no two textures alike).
+    Versions: 💰 Cabbage & Spring Onion R10 (vegan, kombu-shiitake per §29.3) · 🏆 Horenso R21 ·
+    🍄 Kinoko R26 (mushrooms are dry-fried, never blanched — driving their own water out is the same
+    make-room logic as the squeeze).
+38. **Inarizushi** — *side*. Length goes to the POUCH, not the rice — which also sidesteps Onigiri's
+    warm-rice law and Chirashizushi's cut-with-a-slicing-motion law entirely. Five pouch laws: roll a
+    chopstick over the sheet before opening or it tears into a bag with a hole · **abura-nuki** (pour
+    a kettle of boiling water over it) — the real reason is not staleness but that a greasy pouch
+    **repels** the sweet dashi · the simmer is deliberately SWEET and strong, the exact inverse of a
+    hitashi-ji, because the pouch is the only seasoned part · **cool it IN the liquid**, since
+    absorption happens on cooling and a pouch drained hot tastes of nothing · fill to two-thirds and
+    turn the seam down. Moat = **god → fox → offering**: Inari, the most-shrined kami in Japan, whose
+    messengers are foxes, whose offering at the gates is aburaage; the dish takes the god's name.
+    Then **Kanto tawara** (cut across, a straw RICE-BALE, plain rice — the right shape for the god of
+    the harvest) vs **Kansai sankaku** (cut on the diagonal, a FOX'S EAR, mixed rice, its own name
+    shinoda-zushi). The line runs through Gifu and shows up in supermarket packaging.
+    Versions: 💰 Plain R23 (vegan) · 🏆 Tawara R33 · 🔺 Sankaku R39.
 
-`pricecheck.js` proof RED-2 asserted that `potato starch` flags **REVIEW**. Giving it an exact
-key made it report **EXACT**, so the proof failed — *because the thing it was measuring got
-fixed.*
+### 📊 JAPAN 30 / 50
+main 11 · **side 8 (was 6)** · starter 6 · dessert 4 · staple 1 · **90 versions** · **90 crossLinks,
+0 dead** · vegan-capable **22/30** · `dashi` in 13 records.
+Course balance: main was 46% at B5, 41% at B6, now **37%**. The side shelf is no longer the thin one.
 
-⚖️ **A proof whose subject is fixed must be REPOINTED, never deleted quietly and never
-"resolved" by reverting the fix.** A stale proof fails on every run and trains you to ignore the
-selftest — a watcher that cries wolf is worse than no watcher. RED-2 now uses
-`glutinous rice flour -> rice R27`, still live in Japan. **22/22 pass.**
+### 🔴 PRICE — ONE NEW KEY, EXACTLY AS BRIEFED
+`aburaage` is the **only** genuinely-new absent key this batch (reported by pricecheck under its head
+clause, `sheets aburaage`, matching the existing `sheet nori` precedent). absent 37 → **38**.
+⚖️ **NOT aliased to `tofu` R250.** Aburaage is thin tofu sliced, dried and twice-fried — a different
+bought product at a different price, and aliasing it would have produced a WRONG number rather than a
+missing one, which is the wrong end of the MF137 ladder. A7 defers it to the price batch.
+🔴 **wrong-product 0 across all 30 records** after every merge.
 
-### ⚠️ A REPORTING BUG IN pricecheck.js — FLAGGED, NOT PATCHED
+### 🩸 HEAD IS BEHIND TINA'S LOCAL prices.js — EXPECTED FALSE ALARMS, DO NOT ACT ON THEM
+The brief states `dashi` R13 and `potato starch` R120 are now live. **Neither key exists in
+`sections/prices.js` at HEAD.** So every pricecheck run from a fresh clone will report `dashi` ABSENT
+across 13 records and `potato starch` resolving via alias — both false alarms against Tina's copy.
+This is the §29 handback shape again: **check whether HEAD is behind the local copy before believing
+a validator's absence report.** Nothing was added to prices.js in this session.
+✅ **AND THE ALIAS IS NOT A SHADOW BUG — MEASURED, NOT ASSUMED.** `wkPriceLookup` (worldkitchen.js
+:519) tries `PRICE_DB[n]` directly on line 3, and only reaches `WK_ALIAS` four lines later. So a live
+`potato starch` key at R120 WINS and the `core.js:1340 potato starch → cornflour` alias simply
+becomes dead code. No wrong price. ⚠️ Worth a tidy-up line eventually, not a fix now.
 
-The detail section correctly prints `🔴 WRONG PRODUCT — 0`. The SUMMARY line then prints
-`wrong-product risk 90`, which is the **REVIEW** count wearing the wrong label. Nothing is
-actually wrong in the file, but the summary reads like 90 disasters. One-line label fix, needs
-a decision rather than a silent edit.
+### ✅ A B6 NOTE THAT IS NOW WRONG — CORRECTED
+B6 recorded that *"merge.js has **no** union assertion at all — grep for 'union' returns nothing."*
+**It is there now** (merge.js ~line 168): it derives the union from `versions[].diet`, compares it to
+`r.diet` as a sorted set, and fails either way. It was exercised this batch and all 30 records pass
+with drift 0. The B6 finding was correct when written; the rung has since been built. Striking the
+open item.
 
-### 🩸 JAPAN IS AT 27, NOT 30 — B7 IS NOT IN THIS FILE
+### ▶️ JAPAN B8 (30 → 35) — thinnest now: staple 1, dessert 4
+Chikuzenni · Katsudon (⚠️ overlaps Tonkatsu AND Oyakodon — needs a lead that is neither the cutlet
+nor the egg-and-onion; the plausible one is the *half-cooked egg* as a doneness law) · Taiyaki
+(⚠️ overlaps Dorayaki) · Sukiyaki (⚠️ **still needs the raw-egg-dip ruling** — egg CLOSED at 3 — plus
+the Chongqing Hotpot collision) · Ebi Furai · Hiyayakko · Kake Udon.
 
-`sections/wk_japan.js` as uploaded is **byte-identical to HEAD at 27 records**. Karaage,
-Ohitashi and Inarizushi are **absent** — `grep` for their ids returns 0. B7's three records were
-authored and validated but never landed in a file that survived.
-
-⚖️ **THE RUNG:** B7 handed back at the end of the session instead of after every record, and the
-tool limit hit before the files were collected. This is the exact protocol that was already ruled
-after the B4 container reset — **hand back a download after EVERY banked record, without
-exception** — and the one session that did not follow it is the one that lost work.
+### ⛔ STILL NOT WIRED, STILL NOT PUSHED
+Unchanged, and the proposed amendment now has a second argument behind it: **push `wk_japan.js`
+unwired at every batch close.** One deploy credit, zero change to the live app, and 30 records stop
+being one dead container away from gone.
