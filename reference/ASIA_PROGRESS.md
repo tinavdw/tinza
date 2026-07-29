@@ -1115,3 +1115,47 @@ TINZA_SPRINT_PLAN split-brain. **A shallow clone is a snapshot, not the truth.**
 ✅ **RE-VALIDATED AFTER RESTORING HEAD's merge.js:** all 27 Japan records pass the stricter
 rung. My 7 records have **0 versions missing `diet[]`** and **0 union drift** — they were
 authored to the standard before I knew the gate enforced it.
+
+
+---
+
+## 💰 PRICE KEYS — DASHI AND POTATO STARCH CLOSED (29 Jul 2026)
+
+Full arithmetic and reasoning in `reference/MF152_ASIA_PRICE_KEYS.md`.
+
+- ✅ **`"dashi": 13`** — per LITRE of made-up dashi, following the `stock` precedent at
+  prices.js:97. Every record writes dashi in ml, and ml lines cost as `(qty/1000) x price`.
+  A per-kg granule price would have charged **R570 for a bowl of miso soup**.
+  §29 is now fully closed: route ruled, price sourced, key live.
+- ✅ **`"potato starch": 120`** — its own key. Was resolving to `potato` R18, **6.7x under**,
+  live in the pushed `wk_europe.js`. The `core.js:1340` cornflour alias is **STRUCK** — potato
+  starch is ~1.8x cornflour and aliasing dear to cheap is the MF28 mistake.
+
+### 🔧 A BORN-RED PROOF WENT STALE, AND THAT IS ITS OWN RUNG
+
+`pricecheck.js` proof RED-2 asserted that `potato starch` flags **REVIEW**. Giving it an exact
+key made it report **EXACT**, so the proof failed — *because the thing it was measuring got
+fixed.*
+
+⚖️ **A proof whose subject is fixed must be REPOINTED, never deleted quietly and never
+"resolved" by reverting the fix.** A stale proof fails on every run and trains you to ignore the
+selftest — a watcher that cries wolf is worse than no watcher. RED-2 now uses
+`glutinous rice flour -> rice R27`, still live in Japan. **22/22 pass.**
+
+### ⚠️ A REPORTING BUG IN pricecheck.js — FLAGGED, NOT PATCHED
+
+The detail section correctly prints `🔴 WRONG PRODUCT — 0`. The SUMMARY line then prints
+`wrong-product risk 90`, which is the **REVIEW** count wearing the wrong label. Nothing is
+actually wrong in the file, but the summary reads like 90 disasters. One-line label fix, needs
+a decision rather than a silent edit.
+
+### 🩸 JAPAN IS AT 27, NOT 30 — B7 IS NOT IN THIS FILE
+
+`sections/wk_japan.js` as uploaded is **byte-identical to HEAD at 27 records**. Karaage,
+Ohitashi and Inarizushi are **absent** — `grep` for their ids returns 0. B7's three records were
+authored and validated but never landed in a file that survived.
+
+⚖️ **THE RUNG:** B7 handed back at the end of the session instead of after every record, and the
+tool limit hit before the files were collected. This is the exact protocol that was already ruled
+after the B4 container reset — **hand back a download after EVERY banked record, without
+exception** — and the one session that did not follow it is the one that lost work.

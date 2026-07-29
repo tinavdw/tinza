@@ -466,3 +466,62 @@ Measured against `sections/prices.js` at HEAD **and both alias maps** (core.js ~
 | `dried wakame` | japan-miso-soup | ⚠️ Do NOT alias to `nori flakes` (R4150) — different seaweed, different product, and that price would be badly wrong. Rehydrates 5–10×, so 2g dry is a portion. |
 
 ⚠️ **Both are ABSENT, not wrong.** A7 applies — they wait for the one price batch after all five countries.
+
+
+---
+
+## 💰 TWO KEYS ADDED TO `prices.js` — 29 Jul 2026 (Tina-sourced, A7 exceptions #2 and #3)
+
+Measured against `sections/prices.js` **and both alias maps**, never against this file.
+Both were verified with `node pricecheck.js japan` before and after the edit.
+
+| Key | Value | Unit | Source |
+|---|---|---|---|
+| `dashi` | **13** | **per LITRE of made-up dashi** | 40g retail pack R76 = R1.90/g · Ajinomoto on-pack dose 4g per 600ml = 6.67 g/L · 6.67 x 1.90 = R12.67/L |
+| `potato starch` | **120** | per kg | Tina: R50-70 per retail 500g -> R100-140/kg -> honest mid |
+
+### 🍲 `dashi` — WHY PER LITRE AND NOT PER KG
+
+Every Japan record writes dashi as a **volume**: `60ml dashi`, `300ml dashi`, `400ml dashi`.
+`wkPriceLookup` costs an ml line as `(qty / 1000) x price`, so the key is a **per-litre** key.
+
+This is not a new decision. `prices.js:97` already carries the identical ruling for `stock`:
+
+> `"stock": 8,   // LIQUID stock (per L) — was 170 (powder price) which over-priced 68+ recipes`
+
+A per-kg granule price here (R1900/kg from the 40g pack) would repeat that bug exactly:
+**300ml of miso-soup dashi would have cost R570 instead of R4.**
+
+⚠️ **THE ONE JUDGEMENT CALL — one word overrules it.** Bulk packs (R120/500g and R240/1kg,
+both R0.24/g) work out to **R1.60/L, cheaper than plain stock R8**, which is not what a home
+cook buys and would understate every Japanese soup in the app. The 40g retail pack is the
+honest store route per **§29.2**. If Tina wants the bulk route, the key becomes `2`.
+
+⚠️ **OMNIVORE (§29.3).** Hon dashi carries bonito extract. The Node diet tagger must read
+`dashi` as animal and `kombu and shiitake dashi` as NOT, and must not substring-match between
+them (same collision shape as `radish` vs `daikon`).
+
+🟠 **SURFACED BY THE RUN, NOT A BUG:** `kombu and shiitake dashi` now resolves to `dashi` R13
+via the qualifier rung. For **pricing** that is roughly honest — kombu dashi powder sits in the
+same band. For **diet** it is exactly the collision §29.3 warns about. Pricing is fine; the
+tagger still needs the explicit rule.
+
+### 🥔 `potato starch` — OWN KEY, THE ALIAS WAS THE BUG
+
+It was resolving to **`potato` R18** — a 6.7x understatement, live in the pushed `wk_europe.js`
+as well as `wk_japan.js`. The `core.js:1340` alias to `cornflour` never reached it, because
+`wkPriceLookup()` reads **`WK_ALIAS` in worldkitchen.js**, which has no such entry.
+
+⚠️ **The fix was NOT to copy the alias across.** At R120/kg potato starch is ~1.8x cornflour
+R68 — aliasing a dearer product to a cheaper one is the MF28 lamb->mutton mistake. It gets an
+**exact key**, and the stale `core.js:1340` alias is **struck in the same edit** so the two maps
+stop disagreeing.
+
+⚖️ **A7 DOES NOT APPLY TO EITHER.** Both are the §29.5 case: potato starch was a **wrong**
+price already shipping, and dashi was a **missing** price whose number Tina has now supplied.
+A7 defers the work of sourcing, not a number already in hand.
+
+### ⛔ STILL OWED, CANNOT BE WRITTEN YET
+
+`aburaage` [japan-inarizushi] — **the record does not exist in this file.** See the B7 note in
+ASIA_PROGRESS. Do not write the row until the record is back.

@@ -1337,7 +1337,7 @@ var PRICE_ALIAS = {
   "maizena":"cornflour",
   "starch":"cornflour",
   "corn starch":"cornflour",
-  "potato starch":"cornflour",
+  // "potato starch":"cornflour",  // STRUCK 29 Jul 2026 - potato starch has its own key at R120/kg (~1.8x cornflour). See prices.js.
   "tapioca starch":"cornflour",
   "garlic cloves":"garlic","garlic clove":"garlic",
 

@@ -94,6 +94,21 @@ const PRICE_DB = {
   "cloves": 1022,
   "coconut flakes": 230,
   "pecan nuts": 530,
+  // ── DASHI — PER LITRE OF MADE-UP DASHI, 29 Jul 2026 (Tina-sourced) ──
+  // §29.1/29.2: a real bought product fills the slot (instant hon dashi granules), so it
+  // gets a key, priced as the STORE route. It follows the "stock" precedent immediately
+  // below, and for the identical reason: every Japan record writes dashi in ML
+  // ("300ml dashi"), and wkPriceLookup costs ml as (qty/1000) x price. A per-KG GRANULE
+  // price here would repeat the exact bug the stock comment records - 300ml of miso-soup
+  // dashi would cost R570 instead of R4.
+  // ARITHMETIC: retail 40g pack R76 = R1.90/g. Ajinomoto's on-pack dose is 4g per 600ml
+  // = 6.67 g/L. 6.67 x R1.90 = R12.67/L -> R13.
+  // ⚠️ JUDGEMENT CALL, ONE WORD TO OVERRULE: bulk packs (R120/500g, R240/1kg - both
+  //    R0.24/g) would give R1.60/L, which is CHEAPER THAN PLAIN STOCK R8 and is not what
+  //    a home cook buys. The 40g pack is the honest store route per 29.2.
+  // ⚠️ OMNIVORE (§29.3). Hon dashi carries bonito. The diet tagger must read "dashi" as
+  //    animal and "kombu and shiitake dashi" as NOT, without substring-matching between them.
+  "dashi": 13,              // per L made-up - NOT the granule price
   "stock": 8,               // LIQUID stock (per L) — was 170 (powder price) which over-priced 68+ recipes using "<ml> stock"
   "chilli": 80,
   // ── BEEF (adjusted per roadmap) ──
@@ -357,6 +372,16 @@ const PRICE_DB = {
   "wheat flour": 22,
   "self raising flour": 36,
   "almond flour": 533,        // R160/300g → R533/kg
+  // ── POTATO STARCH — OWN KEY, 29 Jul 2026 (Tina-sourced: R50–70 per retail 500g) ──
+  // A7 EXCEPTION #2, taken for the same reason as "chilli oil" (§29.5): this was a live
+  // WRONG price, not a missing one. wkPriceLookup() reads WK_ALIAS in worldkitchen.js,
+  // which has no potato-starch entry, so the name fell through to the longest-whole-word
+  // rung and landed on "potato" R18 — 6.7x under, rendering as a number that looks fine,
+  // live in the pushed wk_europe.js as well as wk_japan.js.
+  // ⚠️ IT IS NOT CORNFLOUR. The core.js:1340 alias to cornflour R68 is STRUCK in the same
+  //    edit: at R120/kg potato starch is ~1.8x cornflour, and aliasing a dearer product to
+  //    a cheaper one is the MF28 lamb->mutton mistake. An exact key beats an alias.
+  "potato starch": 120,       // R50-70/500g -> R100-140/kg -> honest mid
   "cornflour": 68,            // R17/250g → R68/kg
   "white sugar": 35,          // per kg
   "brown sugar": 35,

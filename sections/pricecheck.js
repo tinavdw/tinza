@@ -248,7 +248,12 @@ function selftest(repoRoot) {
   check('  and with no unit it is not HARD-flagged', flagsFor('apple', null) !== 'HARD', true);
 
   // ── RED 2 · THE SUBSTRING FALLBACK. Everything "prices"; most of it prices wrong.
-  [['potato starch','potato'], ['sushi rice','rice'], ['silken tofu','tofu'],
+  // ⚠️ 'potato starch' was RETIRED from this list 29 Jul 2026 — it now has its own
+  //    exact key at R120/kg, so it correctly reports EXACT and can no longer prove
+  //    the fallback. A proof whose subject gets FIXED goes stale and starts crying
+  //    wolf on every run; it is repointed at a live case, never deleted quietly.
+  //    Replacement: 'glutinous rice flour' -> rice R27, still live in Japan.
+  [['glutinous rice flour','rice'], ['sushi rice','rice'], ['silken tofu','tofu'],
    ['rice vinegar','vinegar'], ['fresh shiitake mushrooms','mushrooms']].forEach(([n]) => {
     check('RED · "' + n + '" flagged REVIEW (qualifier, not absent)', flagsFor(n, 'g'), 'REVIEW');
   });
