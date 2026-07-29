@@ -1,4 +1,19 @@
 const PRICE_ASOF = 'July 2026';   // pricing as-of date — single source; referenced by meals.js + health.js cost footers
+const PRICE_BASIS = 'Checkers, mid-shelf, national';
+// ⚖️ §30.4 (Tina, 29 Jul 2026) — THE BASIS WAS UNDECLARED UNTIL NOW AND IT IS LOAD-BEARING.
+// Nearly every key here was sourced at ONE retailer. That is a FEATURE for recipe-to-recipe
+// comparison (one basis = comparable numbers) and a known bias in absolute rands (a shopper at a
+// cheaper chain pays less than the app says). It only stays honest if it stays consistent:
+// ⛔ RE-PRICE AT THE SAME RETAILER. An anchor walk done somewhere else injects a step-change that
+// looks exactly like inflation and is not. If the basis ever changes, change it HERE, in one place,
+// and re-price the whole anchor set in the same pass — never key by key.
+// ⚠️ This constant is for the code and the audit trail. It must NOT surface as a retailer name in
+// app prose (no-retailer-names law). Display wording is "typical national supermarket prices".
+// ⚖️ §30.5 — THE HIGH BIAS IS DELIBERATE. DO NOT "IMPROVE" IT BY AVERAGING RETAILERS.
+// A dearer basis is the CORRECT direction of error for a budgeting tool: a plan that comes in under
+// is a good surprise, one that comes in over is a broken promise. Averaging across chains would
+// look more accurate, would read better in a spec, and would silently delete that margin — leaving
+// every shopper at a dearer store short. ⛔ Anyone tempted to "fix" this: it is not a bug.
 const PRICE_DB = {
   // ── WK pricing pass (1 Jul, Tina-sourced) — duck/trout priced (buyable in SA), count-items ──
   "duck": 200,                    // whole duck R160–250/kg → honest mid
@@ -717,7 +732,7 @@ const PRICE_DB = {
   "atchar": 123,
   "coleslaw": 83,
   "ranch dressing": 67,
-  "tofu": 250,                // per kg — SA market: 200g/R50, 400g/R100–120, 350g/R60 → R250–300/kg (11 Jul close-out; was 225)
+  "tofu": 171,                // per kg — RULED 29 Jul 2026 (was 250, was 225). Tina-sourced live: Woolworths R59.99/350g = R171/kg; PnP + Checkers ordinary 350–400g blocks R125–171/kg; ~R250/kg ONLY on specialist 200g lines. R250 was the TOP of the range being used as the mid — same error shape as "stock": 8 (was 170, a powder price) at line 97. Honest mid = R171.
   "tempeh": 318,
   "edamame": 140,
   "granola": 163,

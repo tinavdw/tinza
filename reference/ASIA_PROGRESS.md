@@ -1238,3 +1238,83 @@ guaranteed drift. Law 52 counts a thing said twice by accident, not a thing file
 📌 **Standing decision: leave it here as a note. If it recurs a third time, it becomes a Law.**
 The fix is not more rules — it is that the cold-start files must be checked against the rules that
 already exist before they are pasted.
+
+---
+
+## ✅ JAPAN B8 — CLOSED 29 Jul 2026 (30 → 35)
+
+**Authored:** `japan-kake-udon` (staple) · `japan-hiyayakko` (side) · `japan-chikuzenni` (side) ·
+`japan-ebi-furai` (starter) · `japan-taiyaki` (dessert).
+
+**Measured at close:** records 35 · staple 2 · main 11 · side 10 · starter 7 · dessert 5 ·
+versions 105 · crossLinks 105, **0 dead** · vegan-capable 26/35 · §26 union drift **0/35** ·
+exactly one `default:true` everywhere · budget fork cheapest in every record ·
+`node --check` clean · merge 40/40 · pricecheck **wrong-product 0**.
+
+⚠️ **B7 WAS NOT AT ORIGIN WHEN THE SESSION OPENED.** A fresh shallow clone read **27**, not 30 —
+Karaage, Ohitashi and Inarizushi were missing, and so were `JAPAN_B8_HANDOFF.md` and
+`JAPAN_B7_COLD_START.md`. Authoring on that file would have silently deleted three records.
+Tina pushed mid-session and the clone then read 30. **This is the fourth time origin has been behind
+the local copy** (TINZA_SPRINT_PLAN split-brain · the §29 handback · B7 close · this). The §1
+baseline gate caught it exactly as designed — it is working, and it is the reason to keep it.
+
+### 🩸 PRICE — TWO THINGS FOUND, NEITHER ACTED ON
+
+**1. `tofu` R250/kg may be stale, and it is load-bearing.** Tina sourced live SA shelf prices during
+the session: Woolworths R59.99/350g ≈ **R171/kg**; Pick n Pay / Checkers ≈ R125–R171/kg for ordinary
+350–400g blocks, ~R250/kg only for specialist 200g lines. So **R250 is the top of the range, not the
+middle**, and R171 is the honest mid on the same reasoning as `duck` and `trout`.
+⚖️ Left alone deliberately. This is a **stale** price, not a **wrong-product** match, so §29.5 does
+not force it, and re-pricing it moves four records at once. **Needs Tina's ruling at the price batch.**
+
+**2. costPP and PRICE_DB may not share a basis, and tofu is where it shows.** 200g of tofu at the
+live key is R50, yet `japan-agedashi-tofu` — same 200g silken tofu *plus* starch and 400ml oil — is
+banked at costPP **R22**. `japan-hiyayakko` was authored to match its sibling (R12 · R18 · R21)
+rather than diverge, because one record priced on a different basis is worse than a consistent file.
+⚠️ **But if costPP is meant to be derived from PRICE_DB, every tofu record in the file is under by
+roughly R30 a serving.** That is the bad rung — it renders as a number and looks correct. Not a
+lane decision. **Needs a ruling.**
+
+### 🔵 NEW ABSENT KEYS — 2, BOTH DEFERRED UNDER A7 (36 → 38)
+- **`bamboo shoots`** — `japan-chikuzenni`, Osechi version only.
+- **`red bean paste`** — `japan-taiyaki`, base line. Distinct from `dried azuki beans` (already
+  absent, used by Dorayaki/Anmitsu/Taiyaki-budget): one is a bought finished paste, the other is the
+  raw pulse. ⛔ **Do not alias them to each other** — same shape as the aburaage/tofu trap.
+- `aburaage` remains open and unaliased. `dashi` R13 and `potato starch` R120 stayed closed and were
+  not re-derived. Nothing was added to `prices.js`.
+
+### ⚖️ COLLISION MAP — WHAT B8 NOW OWNS (append to §4 of the next handoff)
+
+| Owned by | Do not re-use |
+|---|---|
+| **Kake Udon** | kaeshi as a KEEPING sauce · the two halves separated by SHELF LIFE, never stored together · one concentrate two dilutions (1:3 through / 1:8 sitting in) · honkaeshi vs namagaeshi · "kake" as Edo slang for slopping · Kagawa / Udon-ken / foot-kneaded Sanuki dough |
+| **Hiyayakko** | what tofu IS — nigari as seawater leftover · momen/kinugoshi named after CLOTH, the weave printed on the block, "silk-strained" as a lie · every cut face weeps, so fewest cuts + wet blade + one big square · yakko the Edo footman and his square crest · the yakko-dako kite · the dawn tofu-maker's rappa horn |
+| **Chikuzenni** | the simmer that BEGINS IN OIL (seals cut faces / fat-soluble flavour / the shine that survives a cold box) · SEASON IT FOR COLD because chilling blunts salt and sweetness · gameni as the local name and chikuzenni as the outsiders' one · osechi as a language of puns (lotus = seeing through, taro = children) · the box exists so nobody has to cook |
+| **Ebi Furai** | sujikiri — belly nicks + bend backwards, and WHY (the belly muscle is shorter because a prawn escapes by snapping its tail under itself) · the tail as a water bomb, snip and scrape · Nagoya, Tamori and "ebi furyaa" · the eat-the-tail question · scoring fish SKIN as the same problem with a different fix |
+| **Taiyaki** | tennenmono vs yoshokumono and why a single iron gives a thinner shell · fill as a STRIP into head and tail, never a blob · the head-first/tail-first argument as a quality test · the hane frill at the seam · tai/medetai and the poor man's sea bream · Oyoge! Taiyaki-kun as Japan's best-selling single |
+
+**Pointers used, never re-taught:** dashi → the staple record · noodle squeak → Zaru Soba ·
+pressing tofu → Agedashi · osmotic dressing → Goma-ae · moving bonito flakes → Agedashi/Okonomiyaki ·
+rangiri → Kare Raisu · mentori, otoshibuta, sa-shi-su-se-so → Nikujaga · konjac prep → Nikujaga ·
+cool-in-the-liquid → Inarizushi · panko → Tonkatsu · rack-never-paper → Korokke ·
+anko and the sugar-osmosis rule → Dorayaki · special-equipment honesty → Takoyaki's precedent ·
+school lunch → Korokke (avoided entirely) · Rengatei/Ginza/Meiji/yoshoku → Tonkatsu (avoided entirely).
+
+### ▶️ JAPAN B9 (35 → 40)
+Thinnest is now **staple 2** and **dessert 5**; `main` stays frozen at 11 until the others catch up.
+⛔ Sukiyaki still BLOCKED pending the raw-egg-dip ruling (egg CLOSED at 3 + Chongqing Hotpot).
+Katsudon still overlaps Tonkatsu AND Oyakodon.
+
+### 🩸 STILL UNANSWERED, ASKED AGAIN
+**Push `wk_japan.js` unwired at every batch close?** One deploy credit, zero change to the live app.
+Origin being behind cost this session its first twenty minutes. Fourth occurrence.
+
+### ⚖️ POST-CLOSE: §30 RULED (29 Jul 2026)
+**costPP is DERIVED from PRICE_DB, not authored** (§30.1) — so the lane's costPP figures are
+hand-typed and unverified, and the fix is `costcheck.js`, not a typing session. ⚠️ **Authoring is
+unchanged until the tool exists**: keep matching sibling records rather than diverging.
+`"tofu"` 250 → **171** applied (§30.2). Price-refresh route ruled for before October (§30.3):
+anchor set by hand, indexed remainder off PMBEJD month-on-month + StatsSA CPI food, ⛔ never by
+scraping retailers. Block lives in `reference/RULING_30_COSTPP_AND_PRICE_REFRESH.md`.
+✅ Also fixed: `pricecheck.js` MF152 path — absent now reads `sourced 8 · listed 29 · new 1`
+instead of `new 38`. The single genuinely-new key in the whole Japan file is `sheets aburaage`.

@@ -39,7 +39,13 @@ const COUNTRIES = {
   vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' }
 };
 
-const MF152 = path.join(__dirname, 'reference', 'MF152_ASIA_PRICE_KEYS.md');
+// ⚠️ __dirname is sections/, but MF152 lives at REPO ROOT reference/. Using __dirname
+// meant the file was never found, "already sourced" was never reported, and every
+// ABSENT key printed as `new` — which is how `bamboo shoots` was reported as newly
+// discovered at Japan B8 when Tina had already sourced it at R55.99/410g (MF152:46).
+// TINZA_REPO is required on every invocation anyway; use it. (Fixed 29 Jul 2026.)
+const REPO_ROOT = process.env.TINZA_REPO || path.join(__dirname, '..');
+const MF152 = path.join(REPO_ROOT, 'reference', 'MF152_ASIA_PRICE_KEYS.md');
 
 // ── LOAD THE REAL GATE ────────────────────────────────────────────────────────
 // All three files, in the order the app loads them, into one shared sandbox so the

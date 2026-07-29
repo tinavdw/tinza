@@ -44,6 +44,7 @@ Tina flagged these as "we already have these", and the audit confirms it. Twelve
 | `wonton wrappers` | R95/500g | **190** | |
 | `thin egg noodles` | R60/340g | **176** | 🟡 conflicts with existing `chow mein noodles` R60 — see discrepancies |
 | `bamboo shoots` | R55.99/410g can | **~136** | Canned — drained weight is lower than tin weight, price on drained |
+| `red bean paste` | R49–R60 / 400–500g | **~120** | Tina-sourced 29 Jul. Bought sweet adzuki paste from specialty Asian grocers. ⛔ **Do NOT alias to `dried azuki beans`** — one is a finished sweetened paste, the other the raw pulse, and the from-scratch route is cheaper by design (that gap is the argument for the budget fork). Same trap shape as `aburaage`→`tofu`. Used by `japan-taiyaki`. |
 | `evaporated milk` | R34.99–43.99 / 380–410g | **~100** (or `_each` ≈ R39) | `_each` is probably the honest form |
 | `choy sum` | R15/250g | **60** | |
 | `fried shallots` | — | — | Tina: onion as the alternative. Either alias → `onion` R27, or add as a bought item |
