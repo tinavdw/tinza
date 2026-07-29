@@ -484,6 +484,19 @@ function wkCleanName(name){
 }
 function wkIsWater(name){ var n=wkCleanName(name); return /^(water|tap water|boiling water|warm water|cold water|ice water|warm water or milk)$/.test(n) || (/\bwater\b/.test(n) && /\b(stock|broth)\b/.test(n)); }
 var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil",
+  // ── NEUTRAL-OIL FAMILY (29 Jul 2026, Asia lane) ──
+  // "neutral oil" is what the WOW standard writes, deliberately: the global-wording
+  // ruling forbids naming a local product in recipe prose. It is a CATEGORY, and every
+  // member of that category is the same commodity frying oil at the same shelf price —
+  // canola, generic vegetable blends and soybean are interchangeable here. This is not a
+  // new decision, it is the sixth instance of the five above it.
+  // ⚠️ RICE BRAN OIL IS DELIBERATELY NOT IN THIS LIST. It is a genuinely dearer product
+  //    (the traditional tempura oil), and aliasing an expensive oil to a cheap one is the
+  //    MF28 lamb→mutton mistake: the alias lies quietly and nothing catches it. If a card
+  //    names it, let it fail loud and earn its own key.
+  "neutral oil":"sunflower oil","canola oil":"sunflower oil","rapeseed oil":"sunflower oil",
+  "soybean oil":"sunflower oil","soya oil":"sunflower oil","neutral cooking oil":"sunflower oil",
+
   // ── SA coverage aliases (8 Jun 2026) — conservative, lean-high ──
   "mince":"beef mince","beef or lamb mince":"beef mince",   // MF28: deleted lamb mince→beef mince (real key R215)
   // MF28 R1: WHOLE lamb→mutton block DELETED (priced LAMB as MUTTON — worse than the alias lies). Every WK lamb line now fails loud → method tick-list. "lamb or chicken cubes" is an MF37 A-or-B line.

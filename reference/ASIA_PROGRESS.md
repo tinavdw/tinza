@@ -5,11 +5,11 @@
 | Country | Target | Banked | File | Wired |
 |---|---|---|---|---|
 | China | 50 | **50** ✅ | `sections/wk_china.js` | ⬜ not yet |
-| Japan | 50 | **10** | `sections/wk_japan.js` | ⬜ **not yet — 2 lines** |
+| Japan | 50 | **27** | `sections/wk_japan.js` | ⬜ **not yet — 2 lines, at Japan close** |
 | Indonesia | 50 | 0 | `sections/wk_indonesia.js` | — |
 | Thailand | 50 | 0 | `sections/wk_thailand.js` | — |
 | Vietnam | 40 | 0 | `sections/wk_vietnam.js` | — |
-| **TOTAL** | **240** | **60** | | |
+| **TOTAL** | **240** | **77** | | |
 
 Next lane after Asia: **South America.**
 
@@ -325,7 +325,7 @@ exactly 3 crossLinks, none self-pointing, every target resolving, and every EXIS
 
 Honest limit: it cannot tell you a moat is boring, a law is wrong, or a price is unrealistic. It catches structure, not judgement.
 
-## 🇯🇵 JAPAN — see the JAPAN section below (10 / 50)
+## 🇯🇵 JAPAN — see the JAPAN section below (20 / 50)
 ## 🇮🇩 INDONESIA — 0 / 50 · not started
 ## 🇹🇭 THAILAND — 0 / 50 · not started
 ## 🇻🇳 VIETNAM — 0 / 40 · not started
@@ -359,7 +359,7 @@ plus version deltas on chilli-oil, qing-zheng-yu and gon-chow-ngau-ho). Add as i
 
 ---
 
-## 🇯🇵 JAPAN — 10 / 50 (opened 29 Jul 2026)
+## 🇯🇵 JAPAN — 20 / 50 (opened 29 Jul 2026 · B4 closed 29 Jul)
 
 ⛔ **NOT WIRED.** Two lines, and a file that is not wired is not in the app:
 ```
@@ -607,26 +607,493 @@ country files to resolve targets). ⚠️ **Do not loosen the assertion to fit**
 accommodate a new case catches less than it did, which is the lesson already written into the budget-leads rung.
 Gyoza now links Ramen · Dashi · Okonomiyaki, all within Japan, so nothing is blocked.
 
-### ▶️ NEXT — JAPAN BATCH 3 (10 → 15)
-⚠️ **Course spread is still the thing to watch — 6 of 10 are mains.** Batch 3 should carry **at least one
-`side` and one more `starter` or `dessert`**, and Japan has no `side` at all yet.
-Candidates, with the collision already checked:
-- **Agedashi Tofu** (`starter`) — leads on the potato-starch coating and the fact the dashi is poured *around*
-  it at the table, never over it. ⚠️ Must not re-lead on drain-on-a-rack (Tempura, same file).
-- **Miso Soup** (`starter`/`staple`) — ⚠️ only earns a slot if it leads on **never boiling the miso** (the
-  live cultures and the aroma both go) and on the awase blend. Borderline against A4 icons-only.
-- **Sunomono / Goma-ae** (`side`) — fills the empty `side` slot cheaply. ⚠️ Goma-ae must not lead on
-  toast-the-sesame-by-nose — spent on China's Tang Yuan (black sesame, ~30s between toasted and burnt).
-- **Onigiri** (`snack`/`side`) — the salt-hands-and-shape law, and the nori kept separate until the moment of
-  eating. Strong `occasion:lunchbox` value.
-- **Katsu Curry / Japanese Curry** (`main`) — ⚠️ the roux-block moat overlaps nothing yet, and the Royal Navy
-  → Imperial Japanese Navy → Friday-curry route is excellent and untouched. But Tonkatsu **already carries
-  Katsu Curry as its v3**, so this would need to be the *curry* record, not the cutlet one.
-- **Sukiyaki / Shabu-shabu** (`main`) — ⚠️ **hard collision risk with China's Chongqing Hotpot** (table
-  cooking, timing-is-the-meal, never crowd the pot). Only author it if it leads on the **raw egg dip** and on
-  sukiyaki being *fried first then simmered*, which shabu-shabu and hotpot are not.
-- **Onsen Tamago · Tamagoyaki · Karaage · Takoyaki · Matcha Warabimochi · Taiyaki** — all still open.
-⚠️ **Egg is getting crowded**: Chawanmushi, Oyakodon, Tamagoyaki and Onsen Tamago would be four egg records.
-Pick at most one more.
+### DONE — BATCH 3 (29 Jul) — the course-correction batch
+
+**Schema control regenerated before merging** — `reference/ASIA_SCHEMA_KEYS.json` rebuilt from
+`wk_japan.js` record 1 (`japan-staple-dashi`), 25 keys, order locked. **Zero key drift across all 10
+existing records**, the first time the file has been measured rather than assumed.
+
+11. ✅ **Onigiri** (Omusubi) — `side`, **the empty side slot is filled**. 3 versions: Gomashio & Salted
+    Rice **budget · VEGAN** R5 · Classic Salted Salmon R16 · Yaki Onigiri Grilled with Miso R9 (vegan).
+    Laws: **short-grain only** — amylopectin bonds, amylose does not, so a long-grain onigiri is not a
+    firmer ball but a pile of rice; rinse to near-clear, then **rest the drained grain 20 min dry** (dry
+    grains crack on contact with water); 12 min cook + **10 min lid-on off-heat rest** (the top layer
+    always lags the bottom, a pot opened early gives two rices in one bowl); **RICE WARM, NEVER HOT OR
+    COLD** — hot steams itself to paste in the palm, cold has already retrograded and will not bond,
+    which is exactly why last night's fridge rice falls apart; **SALT ON THE HANDS, NEVER IN THE RICE**
+    (tenoshio — it seasons the surface the mouth meets first AND puts the preservative on the outside
+    where a travelling rice ball actually needs it); **press only enough to hold — a ball that holds
+    together perfectly is too tight**, three or four turns, firm corners, loose middle; filling completely
+    buried or it tears the wrap; **nori on at the moment of eating**, never before. Moat: **a packaging
+    invention created a retail category.** Onigiri was homemade until the late 1970s because a shop could
+    not sell one — nori wrapped on is ruined by the shelf, nori left off and nobody wants it. A three-layer
+    film patented in 1978 keeps the seaweed physically apart from the rice until a pull-tab splits the
+    wrapper and drags the plastic out from between them; it made onigiri the biggest-selling item in
+    Japanese convenience stores. Plus the Yayoi-period carbonised rice lumps from Ishikawa — deliberately
+    shaped by hand ~2,000 years ago, the same shape — and **umeboshi as the travel filling because it is
+    genuinely antibacterial**, not because anyone loved it. 📌 The triangle is logistics: it stacks, it
+    does not roll, and shaped rice was offering food long before it was lunch.
+
+12. ✅ **Tamagoyaki** (Dashimaki Tamago) — `side`, **the one permitted egg record** (Chawanmushi ·
+    Oyakodon · Tamagoyaki = 3; Onsen Tamago is now closed off for the lane). 3 versions: Plain Sweet
+    **budget · VEGETARIAN** R7 · Classic Dashimaki R12 · Layered with Nori & Spring Onion R10
+    (vegetarian). Laws: **MIX, NEVER WHISK** — chopstick tips on the bottom of the bowl, because air
+    becomes bubbles becomes holes and holes are where two layers cannot touch; **STRAIN THE EGG** — the
+    chalazae are structural protein that never break down at any temperature used here and show as white
+    ropes in a pale slice; **cold dashi** (warm dashi starts setting the egg in the bowl); medium-LOW,
+    a faint hiss not a spit — **browning is a fault in Japan, not rustic charm**; **oil between EVERY
+    layer** with a folded-paper pad, for release rather than for sticking; **ROLL WHILE THE TOP IS STILL
+    WET** — a fully-cooked surface is a sealed surface and sealed surfaces do not bond, which is the whole
+    delamination failure; **lift the roll and let each new pour run UNDERNEATH it** — that trapped film is
+    the weld; shape warm in a mat for 5 min. Moat: **the egg is the only thing on a sushi counter that
+    cannot be bought.** Every other item depends on the fish market, so a chef with a good supplier and a
+    fair knife can serve superb tuna while telling you nothing about himself — the tamagoyaki is made
+    entirely in-house from cheap universal ingredients, so it is pure technique, and connoisseurs order it
+    FIRST to read the shop before committing to the meal. Apprentices spent years on it. The regional split
+    is visible in the pans: Tokyo square, sweeter, firmer (sugar-as-wealth); Kansai long and rectangular,
+    pushing the dashi ratio as high as egg will physically hold. 📌 The dashi stays in because setting egg
+    protein gels into a mesh that **traps water** — tamagoyaki is a rolled savoury custard, not a fried
+    egg, which is also why it does NOT freeze (ice crystals tear the gel and it thaws weeping).
+
+13. ✅ **Kare Raisu** (Japanese Curry Rice) — `main`. 3 versions: Vegetable & Chickpea **budget · VEGAN**
+    R22 · Classic Beef R42 · Sapporo Soup Curry R48. ⚠️ Authored as the **curry** record, not the cutlet —
+    Katsu Curry stays Tonkatsu v3 and the card cross-links to it rather than repeating it. Laws:
+    **ame-iro tamanegi — 35 minutes of onion, not 12** (a hot pan gives browned edges and raw sulphurous
+    middles, which reads sharp not sweet, and is why every thin curry you have made was an under-cooked
+    onion); dry meat, hard sear, skim the first foam; **spices go into the roux OFF THE HEAT** — ground
+    spice in hot fat scorches in seconds and nothing later lifts it out; roux cooked LOW 15–20 min to
+    peanut-butter colour (browner roux thickens less per gram and tastes incomparably better);
+    **rolling-cut the carrot** for cut surface; **WAXY potato, added at 15 min** — a floury one
+    disintegrates, clouds the sauce and turns the pot to gluey mash; **THE ROUX NEVER GOES INTO A BOILING
+    POT** — kill the heat, let it settle 2 min, slacken the roux with a 150ml ladle of hot liquid off the
+    heat, then return, because a stiff roux hitting boiling liquid gelatinises its own outside instantly
+    and seals into lumps that never disperse; then 10 min on the lowest heat to swell the starch, cloudy
+    → glossy; **rest overnight** — starch keeps hydrating, fat emulsifies as it cools, and the
+    oil-soluble spice spends twelve hours distributing through that fat instead of sitting in patches.
+    **kakushi-aji** introduced as a named concept: apple + honey here, chocolate and coffee the other
+    classics, and the test is that a guest tastes depth and cannot name the cause. Moat: **curry reached
+    Japan from BRITAIN, not India** — Anglo-Indian naval stew thickened with a flour roux in the standard
+    British manner, which is exactly why it is a brown gravy and why Japan files it under *yoshoku*,
+    Western food. The Imperial Japanese Navy adopted it in the 1880s for a **medical** reason: crews on
+    polished white rice were being destroyed by beriberi, and Takaki Kanehiro ran one of the first
+    controlled dietary trials in history — two ships, near-identical voyages, different rations — proving
+    a varied barley-meat-vegetable diet all but eliminated it. One pot fed a crew and kept well. The
+    JMSDF **still serves curry every Friday, and the stated reason is calendrical, not culinary** — long
+    patrols with no daylight lose track of the days, so Friday curry is a clock. Ships guard their recipes
+    competitively and base towns run public curry competitions ashore. 📌 Freeze WITHOUT the potato —
+    potato cells rupture and thaw grainy and hollow. 📌 v3 Soup Curry (Sapporo, 1970s) is a genuine fork,
+    not a garnish change: **no roux at all**, vegetables roasted separately and stood in the bowl.
+
+14. ✅ **Agedashi Tofu** (Agedashi Dofu) — `starter`. 3 versions: Firm Tofu Shallow-Fried
+    **budget · VEGAN** R14 · Classic Silken R22 · Mushroom Ankake R19 (vegan). ⚠️ Deliberately does NOT
+    re-lead on drain-on-a-rack — that is Tempura's, same file. Laws: **press 30 min under something
+    flat and moderately heavy** (tofu is ~85% water and every gram left is a gram trying to escape
+    violently through the coating — you are draining silken tofu, not crushing it); simmer the tsuyu
+    2 min to **drive the mirin alcohol off**, or it reads as a thin chemical sharpness behind everything;
+    oil at **180°C** — under 170 the coating sets too slowly and the block absorbs oil, over 190 the
+    starch colours before the inside has warmed at all; **COAT ONE CUBE AT A TIME, IN THE SECOND BEFORE
+    IT GOES IN** — starch sitting on damp tofu pulls water out and turns to paste within minutes, and
+    this is the commonest home failure and it happens during the *tidy, well-organised* version of the
+    process; **potato starch not cornflour** (large granules, swells hard, brittle and translucent;
+    cornflour is a fair stand-in but denser and browns sooner; plain flour is not a substitute at all);
+    **TAKE THEM OUT PALE** — deeply browned means over-fried, the crust has gone hard and thick and will
+    sit in the broth like a shell; **THE BROTH GOES IN THE BOWL FIRST AND THE TOFU IS SET INTO IT**,
+    ~1cm deep, lower third submerged, so each cube carries three textures at once. Moat: **a fried dish
+    engineered to go soggy on purpose**, which is close to unique in fried cookery — everything else
+    fried anywhere defends its crust, and this one fries in a starch chosen because it *dissolves*, pulls
+    out pale so the crust stays thin, and is then stood in hot liquid so the coating melts into the broth
+    and thickens it. The crispness is a stage, not the goal. Second moat: **Tofu Hyakuchin, Osaka 1782** —
+    'One Hundred Delights of Tofu', a whole cookbook on one cheap ingredient, one of the first real food
+    bestsellers in Japan; it set off a *hyakuchin* publishing craze (daikon, sweet potato, egg), is still
+    in print 240 years later, and agedashi tofu made the original list. 📌 Honest storage: it does not
+    keep and the card says so — press and make the broth ahead, fry to order, which is how a restaurant
+    does it too. 📌 v3 teaches the **re-stir-the-slurry** law (starch settles to a solid pad in ~90 s).
+
+15. ✅ **Goma-ae** (Horenso no Goma-ae) — `side`, and **fully vegan across all three versions**, which
+    is deliberate given the diet-filter RED (118 vegan records currently invisible). 3 versions: Cabbage &
+    Green Bean **budget · VEGAN** R6 · Classic Spinach R11 · Shira-ae Tofu & Sesame R13. ⚠️ Deliberately
+    does NOT lead on toast-the-sesame-by-nose — spent on China's Tang Yuan. Laws: hard rolling boil,
+    **salt the water properly** (5g/litre, seasons the leaf from outside in); stems 15 s first, then
+    30–45 s total; **ICE WATER WAITING BEFORE THE GREENS GO IN** — chlorophyll holds a magnesium ion,
+    heat and the plant's own acids knock it out and replace it with hydrogen, the pigment becomes
+    pheophytin and the colour goes tinned-pea olive; irreversible, and it keeps happening in the three
+    minutes the greens steam in a colander; **THE SQUEEZE IS THE DISH** — gather into a log, wring along
+    it in sections, then re-gather and do it a SECOND time, because every gram of water left ends up as a
+    grey puddle thinning the dressing off the leaves, and that puddle is the whole difference between the
+    restaurant version and the home one; keep the stems aligned so the cut gives neat bundles;
+    **GRIND TO HALF-BROKEN, NOT TO PASTE** — ~2/3 cracked, 1/3 whole, and both extremes fail for opposite
+    reasons: an intact hull is not opened by human digestion so a whole seed contributes nothing and
+    passes straight through, while a full grind releases all the oil and becomes tahini, coating the
+    leaves in a slick film and losing the granular catch that is the texture of the dish; **ratio 3:1:1
+    by weight** (sesame : sugar : soy) and you never need the recipe again; **DRESS AT THE LAST MINUTE** —
+    the dressing is salty and sweet and therefore osmotically hungry, and twenty minutes standing pulls
+    the water straight back out of the leaves you just wrung dry. Moat: **grinding sesame gave Japanese
+    its word for a flatterer** — *goma-suri*, 'sesame-grinding', is everyday slang for someone who sucks
+    up to their superiors, and the image is exact rather than vague: ground sesame is sticky, smears
+    around the grooves and clings to everything it touches. Second moat, and the angle is the TOOL, not
+    the temple: a suribachi is **not a Western mortar with a different name** — its interior is combed
+    with dozens of fine radial grooves and it works by SHEAR, dragging seeds across ridges to split them,
+    where a smooth marble mortar works by impact and pressure. Hence rotate, don't pound; hence 90 seconds
+    versus five minutes and half of it turned to butter; hence a food processor is the *poor* option here,
+    because blades either miss the seeds or overshoot into paste with very little useful ground between.
+    And the reason the tool is in Japanese kitchens at all is a nutritional constraint: shojin cooking
+    permits no meat, fish or dairy, leaving almost no fat and little concentrated protein, so **the
+    ground-seed dressings are a solution to a problem** — goma-ae, walnut dressing, and shira-ae where
+    tofu and sesame together do the work cream does elsewhere. 📌 Storage ruling for the card: store
+    greens and dressing APART (3 days / 1 week), combine per portion.
+
+### 📊 JAPAN CENSUS AFTER BATCH 3 — **15 / 50**
+
+| course | n | % |
+|---|---|---|
+| main | 7 | 47% |
+| starter | 3 | 20% |
+| **side** | **3** | **20%** |
+| staple | 1 | 7% |
+| dessert | 1 | 7% |
+
+**45 versions · 45 crossLinks, all resolving · 0 dead · `node --check` clean · merge.js 40/40 with ZERO
+warnings** (no §26 existing-diet debt, because Japan has carried per-version diet from record 1; and no
+"v1 is not the cheapest" warn, because all five budget forks genuinely lead on price).
+
+✅ **THE COURSE CORRECTION LANDED.** Mains were 6/10 = 60% at batch 2 and are now 7/15 = **47%**.
+Japan went from **zero sides to three**. China's late scramble for `side` and `dessert` has not repeated.
+🔎 **Diet spread**: omnivore 13 · vegan **9** · vegetarian 4 — Japan is now the most vegan-capable country
+in the lane, which matters directly to the open diet-filter RED.
+⚠️ **Dessert is now the thin one at 1** (Dorayaki alone). Batch 4 should carry one, and Japan has strong
+untouched candidates (Matcha Warabimochi · Taiyaki · Mitarashi Dango).
+
+### 🔧 SCHEMA CONTROL — REGENERATED, AND IT MEASURED CLEAN
+`reference/ASIA_SCHEMA_KEYS.json` rebuilt from `wk_japan.js` record 1 (`japan-staple-dashi`) before the
+merge, per A3 — **25 keys, order locked**. All 10 existing records matched it exactly: **zero key drift**.
+That is the first time the file has been *measured* rather than assumed, and it is the cheap version of
+the census habit: regenerate from record 1 at the start of every batch, not once per country.
+
+### ⚠️ PROCESS NOTE — A TOOL BUG THAT COST NOTHING BECAUSE THE SOURCE WAS READ-ONLY
+Mid-batch, an edit to this file truncated it to **0 bytes**. Cause was not the data: hand-written `\ud83d`
+surrogate escapes in a Python string are invalid UTF-8, and Python opens the file for writing (truncating
+it) *before* it discovers the encoding error — so the check fails after the destruction. `ASIA_PROGRESS.md`
+itself decodes as clean UTF-8; the file was fine. Recovered instantly from the read-only upload.
+⚖️ **Lesson, and it generalises past this file:** write to a temp path and `os.replace()` it in, so a
+failed write cannot destroy a good file. Same shape as the "nothing is banked until it is on GitHub"
+lesson — the intermediate state is where the loss happens.
+
+### ▶️ NEXT — JAPAN BATCH 4 (15 → 20)
+⚠️ **Now the thin course is `dessert` (1) — Dorayaki alone.** Batch 4 should carry one dessert and can
+afford to go back to mains. Egg is CLOSED for the lane at 3 (Chawanmushi · Oyakodon · Tamagoyaki) —
+**Onsen Tamago is off the list**.
+Candidates, collisions already checked:
+- **Karaage** (`main`) — ⚠️ must not re-lead on oil temperature or drain-on-a-rack (Tempura and Agedashi
+  both live in this file now). Lead on the **double-fry at two temperatures** and the potato-starch-vs-flour
+  choice already half-spent on Agedashi — or lead on the **buttermilk-less marinade**: sake and ginger as
+  tenderisers doing enzymatic work. ⚠️ Double-fry is China's Gu Lao Rou law. **Tight squeeze — check first.**
+- **Takoyaki** (`starter`/`snack`) — the turning-with-a-pick technique is unlike anything else in the file
+  and the Osaka street-food moat is untouched. ⚠️ Octopus availability in SA is a real question; the card
+  must be honest about the stand-in.
+- **Matcha Warabimochi** (`dessert`) — ✅ **strongest dessert candidate.** Warabi starch, the set-and-cut,
+  and the moat that warabimochi is one of the very few Japanese sweets that predates sugar's arrival.
+- **Taiyaki** (`dessert`) — ⚠️ overlaps Dorayaki heavily (anko, batter, pan). Only if it leads on something
+  else entirely — the fish shape's origin as a cheaper knock-off of imagawayaki is a real moat.
+- **Mitarashi Dango** (`dessert`) — the tare glaze and the shiratamako/joshinko flour split.
+- **Miso Soup** (`starter`/`staple`) — ⚠️ only earns a slot on **never boil the miso** and the awase blend.
+  Borderline against A4 icons-only, and "never boil" now risks reading as a repeat of Dashi's kombu law.
+- **Sukiyaki / Shabu-shabu** (`main`) — ⚠️ unchanged hard collision risk with China's Chongqing Hotpot.
+  Only on the **raw egg dip** and fried-first-then-simmered.
+- **Zaru Soba · Katsudon · Nikujaga · Chirashi · Korokke** — all still open. **Nikujaga** is interesting
+  now: it shares the Imperial Navy origin story with Kare Raisu, so it would need a *different* angle.
+
+### ⚖️ STILL OPEN FROM BATCH 2 — crossLinks CANNOT CROSS COUNTRIES
+Unchanged and still needs a ruling, not a patch. Batch 3 authored all 15 links within Japan, so nothing
+is blocked, but the question is now 45 links old.
+
+### 🔴 PRICE-KEY AUDIT — TINA CAUGHT IT ON ONE LINE (29 Jul, post-batch-3)
+Tina: *"we have salmon fillets, in the price list."* She was right, and the one line opened a hole.
+The batch-3 MF152 append had been written by grepping **MF152 itself** for each candidate — which is
+checking a to-do list against itself. The check-not-add pass is defined as a check against **`prices.js`
+at HEAD AND both alias maps** (`core.js` ~1050 · `worldkitchen.js` ~461), and the repo has been directly
+clonable since 21 Jul, so the real check was available the whole time and was simply not run.
+
+Re-measured against the real gate:
+- **6 of 10 batch-3 "new" keys were already priced** — `salmon` R680 (+`canned salmon` R300) ·
+  `beef chuck` R130 exact · `miso paste` R135 · `apples` R27 · `butternut` R13 · `chickpeas` R68.
+- **`potato starch` is already aliased in `core.js:1340` → `cornflour`.** The note had called this
+  "Tina's call, do not decide it silently" — it was decided, in code, before the lane opened. Same shape
+  as the Events §2.2 inversion: **the code was right and the note was the bug.**
+- 🔴 **The error also ran the other way, which is worse.** Four keys were parked on *check-do-not-add*
+  lists while being **absent from all three files**: `daikon` (only `radish` R108 exists) ·
+  `fresh shiitake mushrooms` (only `mushroom` R165 / `mushrooms` R90) · `rice vinegar` (only `vinegar`
+  R25 / `white vinegar` R49) · `firm tofu` (only `tofu` R250). `soba noodles` was the reverse — listed
+  NEW, already present.
+- ⚠️ **The file contradicted itself**: the batch-2 append warns that `garlic chives` vs `chives` is
+  "the same collision shape as `radish` vs `daikon`" — two lines above parking `daikon` as already-there.
+- ⚠️ Separate pre-existing oddity surfaced: **`mushroom` R165 and `mushrooms` R90 are both live keys at
+  different prices.** Not this lane's problem, but worth its own look.
+
+⚖️ **NEW RUNG — an MF152 append is not written until it has been measured against `prices.js`, never
+against MF152.** MF137 says a duplicate key is worse than a missing one. This adds the third case:
+**a key wrongly parked as "already there" is worse than both**, because a duplicate announces itself at
+merge and a wrongly-parked key announces itself *never* — the price batch skips it and the card ships
+with no cost at all. Silent holes need a mechanical watcher, not sharper eyes (the tierBar lesson, §17).
+📌 Cheap and mechanical: `git clone --depth 1` + grep all three files, and **write down what was
+measured, not what was assumed**. Candidate for a census rung once the price batch runs.
+🩸 Full corrected tables live in `reference/MF152_ASIA_PRICE_KEYS.md`. **Japan batch 3 adds 3 real keys,
+not 10.** Batches 1–2 gain 3 from the correction and lose 1.
+📌 One live risk carried forward: the Kare Raisu ingredient line reads **"30g apple"** (singular) and the
+key is **`apples`** (plural) — if the alias map does not catch it, that line silently fails to price.
+
+### 🔧 NEW TOOL — `pricecheck.js` (built 29 Jul, 22 born-RED proofs)
+Built after the price-key audit above, because the failure was not carelessness that could be
+fixed by trying harder — it was **freelancing in the one area with no tool**. Every error that
+day landed there. `merge.js` territory held at 40/40; the price bookkeeping, which had no
+watcher, failed three separate ways in one session.
+
+**`node pricecheck.js <country> [batch.js]` · `node pricecheck.js --selftest`**
+
+⚖️ **THE DESIGN DECISION THAT MATTERS: it does not reimplement pricing.** It loads
+`prices.js` + `core.js` + `worldkitchen.js` into a sandbox and calls the app's **own**
+`wkParseIngredients()` / `wkCleanName()` / `wkPriceLookup()` over every base ingredient line
+**and every version delta**. A watcher with a private model of how pricing works measures a
+program that does not exist — which is exactly how a grep-based check missed everything.
+Same law as PARSE-NEVER-REGEX: read the real thing, do not model it. If any of the three gate
+files fails to load, it **refuses to report** rather than silently checking two of three.
+
+**THREE STATES, NOT TWO.** The first draft asked "does it price?" and got it wrong, because
+`wkPriceLookup()`'s last rung is *longest key appearing as a whole word anywhere in the name* —
+so almost everything "prices", often as the wrong thing:
+- ✅ **EXACT** — real key or real alias.
+- 🔴 **WRONG PRODUCT** — HARD. Two mechanical flags, no judgement, so neither can drift:
+  a count-priced key matched a gram/ml ingredient (the apple bug), or the key was found
+  **only in the prep/note tail**, not in the ingredient itself (the coarse-salt bug).
+- 🟠 **REVIEW** — a qualifier sits next to the key (`potato starch`→`potato`,
+  `sushi rice`→`rice`, `silken tofu`→`tofu`). Prints, never blocks — same hard/soft split
+  `merge.js` uses for budget-leads.
+- 🔵 **ABSENT** — no price at all, deduped by head clause and cross-read against MF152 so a
+  key Tina already sourced is never "discovered" a second time.
+
+**FIRST REAL RUN CAUGHT 7 WRONG-PRODUCT BUGS** across all three Japan batches — 3 from batch 3,
+4 pre-existing. All fixed; `wk_japan.js` re-validates 40/40. Full table in MF152.
+
+⚖️ **THE LADDER, one rung past MF137:** missing < duplicate < **wrong**. A missing cost renders
+blank and announces itself; a wrong cost renders as a number and looks correct.
+
+📌 **MF152's Japan section is now GENERATED, not hand-written.** The three hand-written appends
+are struck — they contradicted each other and the canonical head of the same file. A generated
+section cannot drift from itself.
+
+🩸 **Two gate gaps this surfaced, both needing a ruling, both bigger than the lane:**
+`neutral oil` is absent and used in 7 of 15 Japan records (`WK_ALIAS` has `oil`/`veg oil`/
+`cooking oil` → `sunflower oil` but not `neutral oil` — one line closes it app-wide); and
+`dashi` is absent but is a real staple **card**, so this is §27 arriving as a pricing question:
+does a staple that is an ingredient of other cards get a PRICE_DB key, or does its cost come
+from its own record?
+
+🔎 **Honest limits, written into the tool:** presence and shape only. It cannot tell you R680 is
+the wrong salmon, that a price is stale, or that an exact key points at the wrong product.
+It also cannot judge the 🟠 REVIEW list — that stays Tina's eyes, by design.
+
+### ⚖️ RULED 29 JUL — NEUTRAL OIL, AND THE BUG BEHIND IT
+Tina supplied the Japanese neutral-oil set (canola dominant in modern kitchens, generic
+vegetable blends, soybean for commercial deep-frying, rice bran the traditional tempura oil).
+**Ruling: `neutral oil` is a CATEGORY, not a product** — it is what the WOW standard writes
+deliberately, because the global-wording ruling forbids naming a local product in prose. Every
+member of that category is the same commodity frying oil at the same shelf price. `vegetable
+oil` is already a real key at R48 and five terms already alias to `sunflower oil` R48, so this
+is **the sixth instance of a decision already made five times**, not a new one.
+✅ Added to `WK_ALIAS` (`worldkitchen.js`): `neutral oil` · `canola oil` · `rapeseed oil` ·
+`soybean oil` · `soya oil` · `neutral cooking oil` → `sunflower oil`. `node --check` clean.
+⚠️ **RICE BRAN OIL DELIBERATELY EXCLUDED** — genuinely dearer, and aliasing an expensive oil to
+a cheap one is the MF28 lamb→mutton mistake: the alias lies quietly and nothing catches it. Let
+it fail loud and earn its own key.
+
+### 🔴 AND THE ALIAS ONLY HALF-WORKED — WHICH FOUND A BIGGER BUG
+The alias fixed the bare `neutral oil` but **not** `neutral oil, for frying` / `for the pan` /
+`for the roux`. `wkPriceLookup()` cleans the whole string, so a purpose clause blocks **every**
+rung, including the alias map. That is **TINZA INGREDIENT STANDARD** being breached — *prep goes
+in the method, not the name* — and the fix was the cause, not six more aliases. 11 purpose
+clauses stripped from Japan ingredient names; `merge.js` re-validates 40/40.
+⚖️ **RUNG FOR THE WHOLE LANE: a purpose clause in an ingredient name is not a style issue, it is
+a PRICING bug.** `pricecheck.js` now surfaces it automatically, because the head clause is what
+it judges against.
+
+### ✅ JAPAN PRICE STATE — CLEAN
+`node pricecheck.js japan` → **exact 57 · wrong-product 0 · absent 29, of which GENUINELY NEW: 0.**
+Every unpriced Japan ingredient is now either already sourced by Tina (3) or already on MF152
+(26). Nothing undiscovered is left in the country.
+
+### 🩸 ONE RULING STILL OPEN — STAPLES THAT ARE INGREDIENTS
+`dashi` (6 records) and `chilli oil` (Gyoza) are absent from PRICE_DB **but are real staple cards
+with their own costed versions.** §27 arriving as a pricing question: does a staple that is an
+ingredient of other cards get a PRICE_DB key, or does its cost come from its own record?
+⚠️ `chilli oil` currently resolves to `chilli` R80 by substring — wrong product until ruled.
+
+### ⚖️ §29 DRAFTED 29 JUL — A STAPLE THAT IS ALSO AN INGREDIENT
+Full block in `reference/RULING_29_STAPLES_AS_INGREDIENTS.md`, ready to paste after §28.
+⚠️ **Handed back as a BLOCK, not as the whole rulings file, deliberately** — the repo at HEAD
+stops at §25, so §26/§27/§28 exist only in Tina's un-pushed copy. Rebuilding "the complete file"
+from HEAD would silently delete three rulings: the same shape as today's ASIA_PROGRESS truncation
+and last week's TINZA_SPRINT_PLAN split-brain.
+
+**29.1 THE TEST — does a real bought product fill the slot?** A staple that is an ingredient of
+other cards gets a PRICE_DB key **if and only if** a cook can buy something that fills that slot.
+Dashi ✅ (instant hon dashi granules — a real jar, a real shelf price, and what most cooks
+actually use; confirmed by Tina). Chilli oil ✅ (an ordinary jar). Master Stock ❌ (nothing on a
+shelf is a master stock) → fails loud, and its cost waits for a sub-recipe costing engine that
+**does not exist yet**. "No bought equivalent" therefore means "no cost", which is the honest
+answer rather than a guessed one.
+
+✅ **29.2 RULED BY TINA 29 JUL — THE STORE ROUTE.** The Dashi *card* already prices R4/R9/R7 — the from-scratch route.
+A `dashi` *key* would price the bought route inside other cards. Two questions, two right
+answers, no conflict. A staple inside another card's ingredient line is costed as the
+product a cook BUYS. The staple card is unaffected and keeps pricing its own from-scratch route,
+which stays lower — that gap is the argument for the card existing. The alternative (slots priced
+from the staple's own record) is now formally closed: it needs a sub-recipe costing engine, which
+is a BUILD, not a ruling, and is not happening before launch.
+📌 First application: `chilli oil` R490/L is in `prices.js` as the bought condiment.
+⏳ `dashi` still needs ONE number — the shelf price of instant hon dashi granules. Route is ruled,
+price is not sourced. One line for next session; do NOT guess it.
+
+**29.3 A DASHI KEY IS OMNIVORE, AND IT IS LOAD-BEARING.** Hon dashi contains bonito extract, and
+`dashi` is already on the hidden-animal dictionary. ✅ **Measured and clean:** all 6 Japan records
+with a plain `dashi` base line carry an omnivore default, and all 7 vegan/vegetarian forks swap
+explicitly to a kombu-and-shiitake dashi. No card claims vegan while carrying bonito.
+⚠️ The Node diet tagger must treat `dashi` as animal and `kombu and shiitake dashi` as NOT —
+it cannot substring-match between them. Same collision shape as `radish` vs `daikon`.
+
+**29.4 THE THREE HONEST ROUTES (Tina):** instant granules · light chicken/veg broth + a splash of
+soy (the pantry route, worth naming in-method rather than pretending) · shiitake steeping liquid,
+which is the vegan route and already what every Japan vegan fork uses.
 
 ### 💰 PRICES — DEFERRED PER A7, KEYS APPENDED TO MF152
+
+
+---
+
+## 🇯🇵 JAPAN BATCH 4 — CLOSED 29 Jul 2026 · 15 → 20 · merge 40/40 · wrong-product 0
+
+⚠️ **This batch was authored TWICE.** The first run was lost to a container reset with nothing
+handed back — five records written, zero downloaded. The re-run below banked and presented the
+file **after every single record**, which is the standing FABLE rule and the one the lost session
+broke. A cut-off must cost one recipe, never a batch.
+
+### THE FIVE
+| # | record | course | versions | the law it teaches |
+|---|---|---|---|---|
+| 24 | Matcha Warabimochi | dessert | R9 · R17 · R21 | cold mix · translucency is doneness, not thickness · NEVER refrigerate |
+| 25 | Mitarashi Dango | dessert | R11 · R14 · R19 | the two-flour blend · earlobe firmness · grill it DRY and grill it FIRST |
+| 26 | Takoyaki | starter | R24 · R38 · R30 | batter far too thin · flood the plate on purpose · the QUARTER-TURN, never a flip |
+| 27 | Zaru Soba | main | R19 · R26 · R41 | no salt in the water · rub them until they SQUEAK · keep the soba-yu |
+| 28 | Nikujaga | main | R27 · R34 · R30 | otoshibuta · SUGAR BEFORE SOY · beef out and back |
+
+### 📊 JAPAN 20 / 50
+main 9 · starter 4 · **dessert 3 (was 1 — the batch brief)** · side 3 · staple 1 ·
+60 versions · 60 crossLinks all resolving · **vegan-capable 14/20**
+
+### ⛔ COLLISION CHECKED FIRST, NOT ASSUMED
+- **Karaage stays dropped.** Double-fry is owned twice: China's Gu Lao Rou, and Tonkatsu's
+  "two temperatures" inside this very file. It returns in a batch where it can lead on the
+  marinade as enzymatic tenderiser.
+- **Takoyaki vs Okonomiyaki** — the closest neighbours in the file. Okonomiyaki owns the flip,
+  the teppan-as-dining-table moat and the breathing bonito flakes. Takoyaki leads on the
+  quarter-turn (explicitly *not* a flip) and on the radio-yaki ancestry. Clean split.
+- **Nikujaga vs Kare Raisu** — both have a Navy origin. Kare Raisu owns Britain, the IJN, Takaki
+  Kanehiro's two-ship beriberi trial and JMSDF Friday curry. Nikujaga therefore leads on
+  **sa-shi-su-se-so**, the seasoning-order mnemonic, with the two rival port towns as one clause only.
+- **Zaru Soba** avoided beriberi entirely for the same reason; its moat is toshikoshi soba — the
+  only major noodle tradition that celebrates a noodle *breaking*.
+
+### 🔴 THREE VALIDATOR CATCHES, ALL ON THE AUTHOR
+1. `"20ml water, for the syrup"` → `syrup` R50 (note-tail bug, batch-3 shape). **pricecheck.**
+2. `2 sheets nori` → invented a duplicate MF152 entry against the file's `1 sheet nori`. **pricecheck.**
+3. `swapIng:[{from},{to}]` split across two objects instead of one. **merge.js, 3 born-RED assertions, refused to write.**
+Plus one stray `]` caught by `node --check` before merge ran.
+📌 All four were authoring errors, none were recipe errors. The watchers are doing exactly the job
+§17 says they should: a silent hole needs a mechanical watcher, not sharper eyes.
+
+### 🩸 TWO GAPS FOUND IN THE VALIDATORS THEMSELVES — NEED A RULING, NOT A PATCH
+**(1) `merge.js` FLESH list is missing `octopus` and `dashi`.** It carries `squid` but not
+`octopus`, so `japan-takoyaki` — 60g octopus in the base under a union tag including `vegan` —
+sailed past the mis-tag check entirely. It caught the *egg* and missed the octopus. `dashi` is
+absent too, which matters because **§29.3 rules dashi as animal**: a record tagged vegan with plain
+`dashi` in its base would not warn. Two words into that array closes both. ⚠️ Do **not** add
+`kombu and shiitake dashi` as a false friend by substring — same collision shape as radish vs daikon.
+
+**(2) The vegan-mistag warn cannot see version deltas, and says so in its own comment.** It fired
+on both Takoyaki and Nikujaga, correctly, because §26 makes the record diet a UNION — so a record
+legitimately carries `vegan` while its base is omnivore. Both forks were verified **mechanically**
+(delta applied in a script, resulting ingredient list scanned) rather than by eye, and both are
+clean. But this warning will now fire on every future record with a vegan fork off an animal base,
+which is most of them. Either it becomes noise, or the rung learns to apply the delta first.
+
+### 🔧 pricecheck.js — THE repoRoot BUG, FIXED AGAIN
+Line 370 defaulted `repoRoot` to `path.join(__dirname,'..','tinzarepo')` — a sibling folder that
+only ever existed in the container that built it. **Every run from the repo root died with
+"price gate incomplete."** Fail-closed was the right failure, but a watcher that never runs never
+watches. Now `__dirname`; 22/22 proofs still pass. ⚠️ This fix was made in the LOST session too
+and went down with it — it is in the handed-back file this time.
+
+### ⚖️ A MEMORY NOTE THAT WAS WRONG, AND THE FILE SAID SO
+The habit "regenerate `ASIA_SCHEMA_KEYS.json` from record 1 at the start of every batch" is
+**STRUCK.** Doing it broke `merge.js` (wrong top-level key) and, worse, it is the exact failure
+mode the file was written to prevent — its own note reads: *every country file validates against
+THIS list, never against its own record 1 ... letting each file set its own precedent is how five
+near-identical files drift apart (Law 50).* The list is frozen from `wk_china.js` @ 43 records.
+Restored from HEAD. **Do not regenerate it.** Same inversion as Events §2.2 and the potato-starch
+alias: the file was right and the note was the bug.
+
+### ▶️ JAPAN B5 (20 → 25) — thin now: side 3 · starter 4
+Korokke *(⚠️ it is the canonical second life of Nikujaga — cross-link, and do not re-teach the
+mash)* · Kinpira Gobo · Hijiki no Nimono · Buta no Shogayaki · Chirashizushi.
+⚠️ **Sukiyaki still needs a ruling first** — the raw-egg dip against egg CLOSED at 3, plus the
+Chongqing Hotpot collision.
+
+### ⛔ STILL NOT WIRED, STILL NOT PUSHED
+Unchanged: push ONCE at Japan close, two lines. **Proposed amendment for Tina's ruling:** push
+`wk_japan.js` *unwired* at every batch close — one deploy credit, zero change to the live app,
+and it cannot be lost to a dead container. Today's re-authoring is the argument.
+
+---
+
+## 🇯🇵 JAPAN — BATCH 5 (29 Jul 2026) · 20 → 24
+
+Merge: `✅ all checks pass · 20 + 4 = 24`. `node --check` clean. `pricecheck japan`: 🔴 wrong-product **0**, genuinely-new keys **0**.
+
+### BANKED
+29. **Korokke** — *starter*. Floury potato, not waxy (the one Japanese potato dish that inverts the Nikujaga law). Dry the mash in the hot empty pot for a full minute · chill the filling before shaping · lift onto a rack never paper. Moat = made famous three times and never by a cook: the 1917 comic song *Korokke no Uta* · the 1953 frozen school-lunch programme · the 2000s 2channel typhoon ritual. Versions: 💰 Yasai (vegan, egg-free flour-water slurry coating) R20 · 🏆 Classic Beef R30 · 🍛 Curry R33.
+30. **Kinpira Gobo** — *side*. Kinpira is a TECHNIQUE (fry hard, then season and cook the pan completely dry), not a recipe. Moat = named after Sakata no Kinpira, the strongman of Edo puppet theatre — an eighteenth-century snack named after a superhero; plus burdock is the weed whose burs became Velcro (de Mestral, 1941). ⚖️ GOBO ROUTE, same shape as the warabi-starch ruling: burdock is not on an ordinary SA shelf, so the record LEADS on carrot + parsnip and names gobo honestly in-method. No burdock price key created. Versions: 💰 All-Carrot (vegan) R9 · 🏆 Carrot & Parsnip (vegan, default) R16 · 🥓 Pork Belly R23.
+31. **Buta no Shogayaki** — *main*. THE timing law: add the sauce while the pork is still faintly pink and let it finish in the bubbling glaze. Short marinade or none — zingibain keeps working and turns thin pork mealy. Moat = it tastes ancestral and is younger than the ballpoint pen (Ginza restaurant, 1940s, invented as a fast high-volume delivery dish), on top of Japan's ~1200-year meat prohibition reversed in the 1870s — ginger was there to cover an unfamiliar meat. Versions: 💰 Nasu (aubergine, vegan) R26 · 🏆 Classic Pork R36 · 🍶 Miso R39.
+32. **Chirashizushi** — *main*. Cut the vinegar in with a slicing motion in a WIDE FLAT dish; a stir in a deep bowl crushes grains and makes it gluey. Never refrigerate. Moat = a sumptuary-law loophole — Ikeda Mitsumasa's "one soup, one side dish" decree in Bizen-Okayama, answered by mixing the feast INTO the rice so it counted as one dish (and hiding it under the rice for inspections); 27 June, the anniversary of his death, was registered as Chirashizushi Day in 2004. Second half of the moat: sushi means the vinegared rice, not raw fish. Versions: 💰 Gomoku (vegetarian, dashi → kombu-and-shiitake per §29.3) R19 · 🏆 Prawn & Egg R38 · 🎎 Hinamatsuri R72.
+
+### 📊 JAPAN 24 / 50
+main 11 · starter 5 · side 4 · dessert 3 · staple 1 · **72 versions** · **72 crossLinks, 0 dead** · vegan-capable 17/24 · `dashi` in 10 records.
+
+### ⚖️ RULINGS / DECISIONS THIS BATCH
+- **Burdock (gobo)** — lead on carrot + parsnip, name gobo honestly, create no price key. Direct precedent: warabi starch → cornflour (29 Jul).
+- **"Leftover Japanese curry" was REJECTED as an ingredient line.** pricecheck flagged it as the batch's only genuinely-new absent key, and §29.1 rules it out: nothing on a shelf is leftover curry, so it can never be priced. Replaced with the from-scratch route (`8g curry powder · 6g butter, extra · 6g cake flour, extra`, all already priced) and the leftover route named in-method as the better option. Batch now adds **zero** new keys.
+- **🩸 HIJIKI NO NIMONO NOT AUTHORED — needs a Tina ruling.** See the open list.
+
+### ▶️ JAPAN B6 (24 → 29) — course gaps: dessert 3, side 4, staple 1
+Karaage (⚠️ double-fry is China's Gu Lao Rou law) · Miso Soup or Tonjiru (staple/side) · Sukiyaki (⚠️ still needs the raw-egg-dip ruling + Chongqing Hotpot collision) · Taiyaki (⚠️ overlaps Dorayaki) · Ohitashi · Nasu Dengaku · Katsudon (⚠️ overlaps Tonkatsu + Oyakodon) · Chikuzenni.
+
+---
+
+## 🇯🇵 JAPAN — BATCH 6 (29 Jul 2026) · 24 → 27
+
+Merge `✅ all checks pass · 24 + 3 = 27`. `node --check` clean. pricecheck 🔴 wrong-product **0**. §26 union drift **0/27**. 81 crossLinks, **0 dead**.
+
+### BANKED
+33. **Nasu Dengaku** — *side, vegan*. Score the cut face in a 1cm diamond lattice without breaking the skin · cook the aubergine well PAST done (squeaky aubergine is the one failure a glaze cannot hide) · dengaku miso on LOW heat, stirring, because burnt miso is acrid not deep. Moat = named after a dance — the one-stilt dengaku field-dancer that skewered miso tofu resembled; plus what miso actually is (Aspergillus oryzae, and white-vs-red is the same browning reaction run over years instead of forty seconds). Versions: 💰 Simple R13 · 🏆 Nasu Dengaku R19 (both vegan) · 🍖 Niku Miso R30.
+34. **Miso Soup** — *side*. ONE LAW: never boil miso — off the heat, dissolve the paste in a ladle of hot dashi first. Boiling loses the volatile aroma AND drops the soy proteins out grainy. Moat = ichiju-issai (ties straight back to Chirashizushi's sumptuary-law moat), plus miso as samurai stipend and military ration — dense salt-preserved protein that keeps for years. Versions: 💰 Wakame & Spring Onion R9 (vegan, kombu-shiitake dashi per §29.3) · 🏆 Tofu & Wakame R17 · 🐖 Tonjiru R32.
+35. **Anmitsu** — *dessert, vegan*. Agar must reach a ROLLING BOIL for a full two minutes — a simmer will not dissolve it and the jelly sets weak and grainy with no warning · sugar goes into the beans only AFTER they are completely soft · dango straight into ice water. Moat = **the jelly in this bowl is why medicine has petri dishes**: Minoya Tarozaemon, Fushimi 1658, leftover tokoroten frozen overnight → kanten; Walther Hesse (on Fanny Hesse's suggestion) swapped it for gelatin in Koch's lab, published 1882, and it is still the standard medium of microbiology. Versions: 💰 Mitsumame R14 · 🏆 Anmitsu R24 (both vegan) · 🍨 Cream Anmitsu R31 (vegetarian).
+
+### 📊 JAPAN 27 / 50
+main 11 · side 6 · starter 5 · dessert 4 · staple 1 · **81 versions** · **81 crossLinks, 0 dead** · vegan-capable 20/27.
+Course balance improving: main was 46% at B5 close, now **41%**.
+
+### ⚖️ DECISIONS
+- **HIJIKI — OPTION A TAKEN (Claude, flagged not silent).** Hijiki no Nimono NOT authored. Four national food-safety agencies (UK FSA, Canada CFIA, Hong Kong CFS, Singapore SFA) advise against eating hijiki over inorganic arsenic; the same FSA survey found none in arame, kombu, nori or wakame. **Nasu Dengaku** took the slot. ⚠️ Reversible — nothing was created that needs undoing. Tina can overrule.
+- **§26 union caught on my own record.** Anmitsu was declared `["vegan"]` while carrying a vegetarian version. Corrected to `["vegan","vegetarian"]`. Measured across all 27 afterwards: drift 0.
+
+### 🩸 NEW GATE GAP FOUND — merge.js does NOT check the §26 union
+`merge.js` walks diet VOCABULARY (line 173) but has **no union assertion at all** — grep for "union" in merge.js returns nothing. A record can declare `diet:["vegan"]` while a version is vegetarian-only, or omit `omnivore` while a version is omnivore, and **nothing fires**. Found because I made exactly that mistake and only caught it by hand.
+⚠️ The lane notes describe "§26 union" as one of merge.js's 40 assertions. It is not there. Same shape as the FLESH-list gap already open.
+**Rung to write:** derive the union from `versions[].diet`, compare to `r.diet` as a SET, fail on any difference either way. Born-RED proof: re-declare Anmitsu as `["vegan"]`.

@@ -2339,4 +2339,50 @@ p('       no rung, because she learns to skip past it. So this PARSES. ⚖️ §
     '\n      ' + skipped.join(' · ') + '   \x1b[2m⚖️ Law 54b\x1b[0m');
 }
 
+
+// ── 28 · PAGE-LOAD PAYLOAD ────────────────────────────────────────────────
+// ⚖️ WHY THIS RUNG EXISTS (29 Jul 2026): every sections/*.js is a SYNCHRONOUS
+// <script src> in index.html — no defer, no async, no lazy-load — so the whole
+// catalogue ships on every first paint. That number only ever goes UP, one good
+// authoring session at a time. Nothing breaks, no error fires, no console warning.
+// It is the tierBar shape exactly: a silent hole needs a mechanical watcher, not
+// sharper eyes (§17). Measured 29 Jul: 6.9 MB across 32 files, ~90% recipe data.
+//
+// THE THRESHOLD IS A DECISION TRIGGER, NOT A BUG LINE. Below it, keep authoring —
+// a one-time download that buys permanent offline use is the right trade for a
+// prepaid-data market. Above it, the download itself starts getting abandoned, and
+// the lazy-load brief (split per-country JSON · build the index at BUILD time, not
+// runtime — buildIndex() already exists at index.js:676 · fetch one recipe on open)
+// stops being early and becomes due.
+//
+// HONEST LIMIT: bytes ON DISK, uncompressed. Netlify serves these gzipped, so the
+// wire cost is smaller — but the PARSE cost is this number, and parse is what makes
+// a cheap phone stall. It also cannot see images, or what a browser already cached.
+const PAYLOAD_RED_MB = 12;
+head('28 · HOW BIG IS THE FIRST LOAD?   ⚖️ §17 — a silent hole needs a mechanical watcher');
+{
+  const seen = new Set(); let total = 0, counted = 0, missing = [];
+  const rows = [];
+  loadOrder.forEach(rel => {
+    if (seen.has(rel)) return; seen.add(rel);
+    const fp = path.join(ROOT, rel);
+    if (!fs.existsSync(fp)) { missing.push(rel); return; }
+    const sz = fs.statSync(fp).size; total += sz; counted++;
+    rows.push([rel.replace('sections/',''), sz]);
+  });
+  const mb = total / 1048576;
+  rows.sort((a,b) => b[1] - a[1]);
+  p('     ' + num(counted) + '  script(s) loaded synchronously from index.html');
+  p('     ' + String(mb.toFixed(2)).padStart(5) + '  MB shipped on every first paint  \x1b[2m(uncompressed, on disk)\x1b[0m');
+  p('\x1b[2m      heaviest: ' + rows.slice(0,4).map(r => r[0] + ' ' + Math.round(r[1]/1024) + 'KB').join(' · ') + '\x1b[0m');
+  if (missing.length) warn(missing.length + ' script(s) in index.html do not exist on disk',
+    '\n      ' + missing.join(' · ') + '   \x1b[2m⚖️ Law 54b — not counted, so this total is a FLOOR\x1b[0m');
+  if (mb > PAYLOAD_RED_MB) bad('FIRST LOAD IS ' + mb.toFixed(1) + ' MB — OVER THE ' + PAYLOAD_RED_MB + ' MB TRIGGER',
+    '\n      \x1b[2mThis is not a bug, it is a DUE DATE. Write the lazy-load brief now:\n' +
+    '      split recipe data per country/section · build the search index at BUILD time\n' +
+    '      (buildIndex() at index.js:676 already does it, just at runtime) · fetch one\n' +
+    '      recipe on open · service worker caches opened + favourites for offline.\x1b[0m');
+  else ok('First load under the ' + PAYLOAD_RED_MB + ' MB trigger', mb.toFixed(2) + ' MB · ' + counted + ' files · headroom ' + (PAYLOAD_RED_MB - mb).toFixed(1) + ' MB');
+}
+
 p('\n\x1b[2m⚖️ Law 2 — none of this is proof. Her fingers on live close a bug. This only tells you where to put them.\x1b[0m\n');

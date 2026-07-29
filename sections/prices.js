@@ -62,6 +62,11 @@ const PRICE_DB = {
   "sherry": 93,               // R70/750ml → R93/L (Tina)
   "fish sauce": 200,
   "sesame oil": 600,
+  "chilli oil": 490,           // R48.95/100ml (Woolworths) and R125/250ml (Banhoek) both → ~R490/L.
+                               // Tina-sourced 29 Jul 2026. ⚠️ FIXES A LIVE WRONG PRICE, not a gap:
+                               // without this key "chilli oil" fell through to `chilli` R80/kg — a
+                               // FRESH CHILLI price, ~6x under, live in 24 wk_china.js mentions.
+
   "pine nuts": 1175,
   "sweetcorn": 59,
   "peas": 61,

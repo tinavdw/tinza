@@ -1,0 +1,80 @@
+flowchart TD
+
+    START["🇯🇵 JAPAN LANE — 10 / 50"] --> B3
+
+    subgraph B3["✍️ BATCH 3 — 5 RECORDS"]
+        R1["11 · Onigiri — side ✅"]
+        R2["12 · Tamagoyaki — side ✅ · the ONE egg"]
+        R3["13 · Kare Raisu — main"]
+        R4["14 · Agedashi Tofu — starter"]
+        R5["15 · Goma-ae — side ✅ · all 3 vegan"]
+        R1 --> R2 --> R3 --> R4 --> R5
+    end
+
+    B3 --> M["🔧 merge.js → 40/40, ZERO warnings"]
+    M --> C["📊 15 / 50 · mains 60% → 47% · sides 0 → 3<br/>45 versions · 45 crossLinks · 9/15 vegan-capable"]
+
+    C --> TINA
+
+    subgraph TINA["🔴 TINA'S CATCH — one line"]
+        T1["'we have salmon fillets, in the price list'"]
+        T2["the MF152 append had been written by grepping<br/>MF152 ITSELF — a to-do list against itself"]
+        T3["6 of 10 'new' keys were already priced"]
+        T4["4 keys parked as 'already there' were ABSENT<br/>— that half is worse: a wrongly-parked key<br/>announces itself NEVER"]
+        T5["daikon + shiitake were already on MF152's<br/>canonical head WITH Tina's sourced prices<br/>— her own work, re-discovered"]
+        T1 --> T2 --> T3 --> T4 --> T5
+    end
+
+    TINA --> DIAG
+
+    DIAG{"Where did the errors land?"}
+    DIAG --> D1["merge.js territory · 40/40 · HELD"]
+    DIAG --> D2["price bookkeeping · NO TOOL · failed 3 ways"]
+    D2 --> LESSON["⚖️ Not carelessness — FREELANCING where no tool existed.<br/>A silent hole needs a mechanical watcher, not sharper eyes"]
+
+    LESSON --> BUILD
+
+    subgraph BUILD["🔧 pricecheck.js — 22 born-RED proofs"]
+        BD["DESIGN LAW: does NOT reimplement pricing.<br/>Loads prices.js + core.js + worldkitchen.js and calls<br/>the app's OWN wkParseIngredients / wkPriceLookup<br/>over base lines AND every version delta.<br/>Refuses to report if any gate file fails to load"]
+        BS1["✅ EXACT — real key or real alias"]
+        BS2["🔴 WRONG PRODUCT — HARD, 2 mechanical flags:<br/>count-key on a gram ingredient · key found<br/>ONLY in the prep/note tail"]
+        BS3["🟠 REVIEW — qualifier beside the key. Prints, never blocks"]
+        BS4["🔵 ABSENT — deduped by head, cross-read against MF152<br/>so a sourced key is never 'discovered' twice"]
+        BD --> BS1 --> BS2 --> BS3 --> BS4
+    end
+
+    BUILD --> FOUND
+
+    subgraph FOUND["🔴 FIRST RUN — 7 WRONG-PRODUCT BUGS, ALL INVISIBLE BEFORE"]
+        F1["'coarse salt, for curing the salmon' → salmon R680"]
+        F2["'cooked yakisoba or egg noodles' → egg R3.70 per COUNT<br/>150g read as 150 eggs"]
+        F3["'fine salt, for the blanching water' → water R0.02"]
+        F4["'potato starch, slaked in cold water' → cold water R0"]
+        F5["'nagaimo — or baking powder' → baking powder R76"]
+        F6["'sprigs mitsuba, or spring onion' → spring onion R343"]
+        F7["'cabbage, and 60g green beans' → green beans<br/>also broke one-ingredient-per-line"]
+    end
+
+    FOUND --> FIX["✅ all 7 fixed · merge.js re-validates 40/40<br/>pricecheck now reports 0 wrong-product"]
+
+    FIX --> LADDER["⚖️ THE LADDER, one rung past MF137<br/>missing &lt; duplicate &lt; WRONG<br/>a missing cost renders blank and announces itself<br/>a wrong cost renders as a number and looks correct"]
+
+    LADDER --> GEN["📌 MF152 Japan section is now GENERATED.<br/>The 3 hand-written appends are STRUCK —<br/>they contradicted each other AND the file's own head"]
+
+    GEN --> OPEN
+
+    subgraph OPEN["🩸 NEEDS A RULING — both bigger than the lane"]
+        O1["neutral oil absent, used in 7 of 15 records.<br/>WK_ALIAS has oil / veg oil / cooking oil<br/>→ sunflower oil, but not neutral oil.<br/>ONE line closes it app-wide"]
+        O2["dashi absent but IS a staple CARD.<br/>§27 arriving as a pricing question: does a staple<br/>that is an ingredient get a PRICE_DB key,<br/>or does its cost come from its own record?"]
+        O3["pre-existing: mushroom R165 AND mushrooms R90<br/>both live, different prices"]
+        O4["⛔ Japan still NOT WIRED — 2 lines at close"]
+        O5["⚖️ crossLinks cannot cross countries — still open"]
+    end
+
+    OPEN --> NEXT["▶️ BATCH 4 · 15 → 20 · dessert is thin at 1<br/>Matcha Warabimochi — RULED: cornflour is the SA route.<br/>hon-warabi is R350–600/100–200g imported, not stocked"]
+
+    style B3 fill:#fffaf2,stroke:#d98a2b
+    style TINA fill:#fbf3e6,stroke:#b5462b
+    style BUILD fill:#f7ebdc,stroke:#46530c
+    style FOUND fill:#fbf3e6,stroke:#b5462b
+    style OPEN fill:#fbf3e6,stroke:#876213
