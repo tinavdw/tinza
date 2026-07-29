@@ -1,0 +1,47 @@
+flowchart TD
+
+    START["🥢 ASIA LANE · opened 29 Jul 2026<br/>240 recipes to WOW_STANDARD<br/>THE FILE IS THE MEMORY = reference/ASIA_PROGRESS.md"]
+
+    START --> CN["🇨🇳 CHINA · 43 / 50<br/>129 versions · 129 crossLinks · 0 dead"]
+    START --> REST["🇯🇵 Japan 0/50 · 🇮🇩 Indonesia 0/50<br/>🇹🇭 Thailand 0/50 · 🇻🇳 Vietnam 0/40<br/>not started"]
+    START --> NEXT_LANE["➡️ next lane after Asia:<br/>SOUTH AMERICA"]
+
+    CN --> PRIOR["batches 1–6 · 33 records<br/>banked in earlier sessions"]
+    CN --> NEW
+
+    subgraph NEW["✅ THIS SESSION — 10 new records, 30 versions"]
+        B7["BATCH 7 · the regional spread<br/>Lanzhou Beef Noodle Soup (Gansu/Hui)<br/>Chopped Chilli Fish Head (Hunan)<br/>Crossing-the-Bridge Noodles (Yunnan)<br/>Di San Xian (Dongbei · VEGAN · side)<br/>Big Plate Chicken (Xinjiang)"]
+        B8["BATCH 8 · the table<br/>🔧 STAPLE — Suan Cai (VEGAN)<br/>Chongqing Hotpot<br/>Bang Bang Chicken (first cold plate)<br/>Smashed Cucumber (VEGAN · side)<br/>Tang Yuan (dessert #2)"]
+        B7 --> B8
+    end
+
+    NEW --> GAPS["📌 GAPS CLOSED<br/>vegan 3 → 6 · side 1 → 3<br/>staple 3 → 4 · dessert 1 → 2<br/>regions: Gansu · Hunan · Yunnan<br/>Dongbei · Xinjiang · Chongqing"]
+
+    NEW --> CHECKS{"🔒 merge.js — all green, every record"}
+    CHECKS --> G1["node --check clean"]
+    CHECKS --> G2["43 records · 129 versions<br/>129 crossLinks, every target resolves"]
+    CHECKS --> G3["budget fork LEADS ×43<br/>exactly one default:true ×43<br/>diet vocab clean"]
+    CHECKS --> G4["DEAD-DELTA check passing<br/>existing records re-checked each merge"]
+
+    NEW --> MF["📝 MF152 APPENDED · ~35 new candidate keys<br/>⚠️ NOT audited — prices.js was not in the container<br/>check-not-add every one before the price batch"]
+
+    MF --> COLL["⚠️ NEW COLLISION RISKS FLAGGED<br/>glutinous rice flour ≠ rice flour<br/>Chinese sesame paste ≠ peanut butter/tahini<br/>chopped salted chilli ≠ chillies<br/>Chinese cabbage ≠ cabbage<br/>fresh rice noodles ≠ dried"]
+
+    NEW --> PUSH["📤 TINA PUSHES AFTER CHINA CLOSES<br/>wk_china.js · ASIA_PROGRESS.md · MF152<br/>several commits, ONE push"]
+
+    CN --> WIRED["✅ WIRING DONE 29 Jul — all THREE lines<br/>index.html · worldkitchen.js:58 concat<br/>WK_COUNTRY_GEO ~:79<br/>geo already done for JP/ID/TH/VN too"]
+
+    PUSH --> B9["▶️ NEXT · CHINA BATCH 9 — the closing seven<br/>Suan Cai Bai Rou (uses the new staple)<br/>Beggar's Chicken · Tea-Smoked Duck<br/>Jianbing (fills the breakfast gap)<br/>Wuxi Sweet & Sour Ribs<br/>Luo Han Zhai (vegan) · Scallion Oil Noodles"]
+
+    B9 --> STARTUP["⚠️ NEW-CHAT STARTUP — container resets<br/>UPLOAD wk_china.js + ASIA_PROGRESS.md<br/>+ MF152 + merge.js<br/>or the batch starts blind"]
+
+    B9 --> JP["then 🇯🇵 JAPAN — needs wk_japan.js<br/>+ 2 wiring lines (geo already done)"]
+
+    subgraph HOLD["🩸 STILL OPEN — untouched, waiting for the lane to close"]
+        H1["Just Feed Me 3-recipes fix<br/>MF132 §2.E/F money close<br/>MF148 Playwright"]
+        H2["R50→R90 sweep · mojibake ~231<br/>biscuits→dog-food · Chef pitch hide"]
+        H3["diet filter RED (118 vegan invisible)<br/>sharedWith string→list (1021)<br/>Toum wk_africa.js ~:132"]
+        H4["Fable S3 — POST-RESET ONLY<br/>Marketing — starts once app streamlined"]
+    end
+
+    NEXT_LANE -.-> HOLD
