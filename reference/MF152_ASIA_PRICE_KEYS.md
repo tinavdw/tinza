@@ -277,3 +277,33 @@ check-not-add pass against `prices.js` at HEAD — batches 7, 8 and 9 were all a
 ### ⚠️ CHECK AGAINST THE CHINA APPEND — do not list twice
 `dried shiitake mushrooms` reads NEW against `prices.js` but China's records use it heavily, so it is
 **probably already on this file from a China batch.** Search this document before adding it a second time.
+
+---
+
+## 🇯🇵 JAPAN BATCH 2 APPEND (29 Jul 2026) — Gyoza · Chawanmushi · Yakitori · Tempura · Dorayaki
+Per A7 these are **appended, not acted on.** One price batch after all five countries.
+
+### ➕ NEW KEYS
+| Key | Note |
+|---|---|
+| `gyoza wrappers` | ⚠️ **Collision risk with `wonton wrappers`** (already on the ADD list at R95/500g). They are genuinely different products — gyoza wrappers are round, larger and noticeably thinner, and the Gyoza card's method makes thinness a *law*. Tina's call whether that earns a separate key or an alias. Do not alias silently. |
+| `garlic chives` / `nira` | ⚠️ **Do NOT alias to the existing `chives` R650.** Different plant, different price, and the Classic version's trivia says explicitly they are not interchangeable. Same collision shape as `radish` vs `daikon`. Grows like a weed in SA gardens — a cheap real key. |
+| `silken tofu` | ⚠️ **Fifth distinct soya key in the lane** (`tofu` · `firm tofu` · `tofu puffs` · `dried bean curd sticks` · `fermented red bean curd` already listed). Do not alias. Chawanmushi's vegan fork is built on it. |
+| `sansho pepper` | ⚠️ **Do NOT alias to `sichuan peppercorns` R1300.** Same genus, different product, different heat, and the Yakitori card names it specifically. |
+| `azuki beans` / `adzuki beans` | Dried. ⚠️ Do NOT alias to `black beans` or any other legume key. The Dorayaki budget fork deliberately falls back to tinned kidney beans, so `red kidney beans, tinned` is worth a check-not-add. |
+| `matcha powder` | Culinary grade, not ceremonial — a very large price gap between the two. Used at 4g. |
+| `soba noodles` | Dried buckwheat. ⚠️ Distinct from `udon` and from `ramen noodles` (already listed). |
+| `udon noodles` | Fresh or vacuum-packed cooked. The Chawanmushi odamaki version uses 120g. |
+| `kamaboko` | Steamed fish cake, sold in a log. May be genuinely unavailable in SA — the Chawanmushi ingredient line survives without it. |
+| `chicken skin` | ⚠️ **Often free or near-free from a butcher**, which the pricing engine has no way to express. Flag for a judgement call rather than a number. Yakitori v3 only. |
+| `shiso` / `perilla leaves` | ⚠️ Almost certainly unavailable in SA retail. Grows easily from seed. Same treatment as `mitsuba` — probably **does not need a key**. |
+| `dried azuki` vs tinned | Two different products at very different prices; the budget fork's whole saving is the tin. |
+
+### ✅ CHECK, DO NOT ADD — believed already in `prices.js` or already listed above
+`prawns` · `cornflour` · `cake flour` · `chicken thighs` · `chicken livers` · `chicken mince` · `pork mince` ·
+`spring onion` · `white cabbage` · `sweet potato` · `pumpkin` · `aubergine` · `green pepper` · `carrot` ·
+`green beans` · `onion` · `cream` · `honey` · `caster sugar` · `bicarbonate of soda` · `rice vinegar` ·
+`soy sauce` · `mirin` · `sake` · `sesame oil` · `sesame paste` · `fresh shiitake mushrooms` · `daikon` · `ginger` · `garlic`
+
+⚠️ `sesame paste` reads new against Japan but China's Dan Dan and Bang Bang records use it heavily — **search this
+document before adding it a second time**, same caution as `dried shiitake mushrooms`.

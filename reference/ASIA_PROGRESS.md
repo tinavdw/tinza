@@ -5,11 +5,11 @@
 | Country | Target | Banked | File | Wired |
 |---|---|---|---|---|
 | China | 50 | **50** ✅ | `sections/wk_china.js` | ⬜ not yet |
-| Japan | 50 | **5** | `sections/wk_japan.js` | ⬜ **not yet — 2 lines** |
+| Japan | 50 | **10** | `sections/wk_japan.js` | ⬜ **not yet — 2 lines** |
 | Indonesia | 50 | 0 | `sections/wk_indonesia.js` | — |
 | Thailand | 50 | 0 | `sections/wk_thailand.js` | — |
 | Vietnam | 40 | 0 | `sections/wk_vietnam.js` | — |
-| **TOTAL** | **240** | **55** | | |
+| **TOTAL** | **240** | **60** | | |
 
 Next lane after Asia: **South America.**
 
@@ -325,7 +325,7 @@ exactly 3 crossLinks, none self-pointing, every target resolving, and every EXIS
 
 Honest limit: it cannot tell you a moat is boring, a law is wrong, or a price is unrealistic. It catches structure, not judgement.
 
-## 🇯🇵 JAPAN — 0 / 50 · not started
+## 🇯🇵 JAPAN — see the JAPAN section below (10 / 50)
 ## 🇮🇩 INDONESIA — 0 / 50 · not started
 ## 🇹🇭 THAILAND — 0 / 50 · not started
 ## 🇻🇳 VIETNAM — 0 / 40 · not started
@@ -359,7 +359,7 @@ plus version deltas on chilli-oil, qing-zheng-yu and gon-chow-ngau-ho). Add as i
 
 ---
 
-## 🇯🇵 JAPAN — 5 / 50 (opened 29 Jul 2026)
+## 🇯🇵 JAPAN — 10 / 50 (opened 29 Jul 2026)
 
 ⛔ **NOT WIRED.** Two lines, and a file that is not wired is not in the app:
 ```
@@ -479,5 +479,154 @@ had to go looking for `side` and `dessert` late. **Batch 2 should carry at least
 — candidates: Agedashi Tofu · Chawanmushi · Gyoza · Yakitori · Miso Soup · Matcha Warabimochi · Dorayaki.
 ⚠️ **Chawanmushi's laws overlap China's Egg Tarts heavily** (bubbles · strain · low heat or it curdles · pull
 it wobbling) — if it is authored, it must lead on the **3:1 dashi-to-egg ratio by weight**, not on bubbles.
+
+### DONE — BATCH 2 (29 Jul) — the starter, the dessert and the fire
+6. ✅ **Gyoza** — **course:starter** — 3 versions: Chicken & Spring Onion budget R17 · Classic Pork & Garlic Chive
+   R25 · Shiitake & Tofu **VEGAN** R21. Laws: **SALT THE CABBAGE AND WRING IT UNTIL IT HURTS** — a third of its
+   weight leaves as water, and that water is the single cause of split seams, soggy insides and a spitting pan
+   (it also seasons the cabbage through, which is why no salt appears again in the recipe); **a Japanese wrapper
+   is thinner than a Chinese one and that IS the difference** — this dumpling is fried not boiled, and a thick
+   wrapper will never crisp, it only goes leathery, which is a *thickness* problem no extra pan time solves;
+   **pleat ONE SIDE ONLY** so the dumpling curves and stands on a flat base; **arrange them before the liquid
+   goes in, because after it you cannot move them**; the **hane** — a 1:20 flour-and-water slurry instead of
+   plain water — is a single crisp lace sheet welding the whole panful together, and ⚠️ **it must go PAST
+   golden**, deep brown and brittle, because it is a starch sheet not a dumpling and everyone pulls it early.
+   Moat: **gyoza came home in the kit bags of repatriated soldiers, and Japan adopted the *leftover* version on
+   purpose** — northern Chinese dumplings are overwhelmingly boiled and pan-frying is what you do with
+   yesterday's, yet Japan has essentially no boiled-gyoza culture at all; several million repatriated from
+   Manchuria after 1945, and Utsunomiya and Hamamatsu — both tied to those returning divisions — still trade
+   the national top spot for household gyoza spending every year, reported like a sports result. The garlic is
+   the other Japanese fingerprint (northern jiaozi often has none), and it is exactly why gyoza was for decades
+   slightly disreputable: food for after drinking, not before work. ⚠️ Deliberately does **NOT** lead on
+   fry→water→lid→the-hiss-changing-pitch — spent on China's Sheng Jian Bao. 💰 New price keys → MF152.
+
+7. ✅ **Chawanmushi** — **course:starter** — 3 versions: Mushroom & Spring Onion budget **VEGAN** R9 · Classic
+   R21 · **Odamaki Mushi** (with udon underneath, Osaka) R32. Laws: **THREE PARTS DASHI TO ONE PART EGG, BY
+   WEIGHT — and you weigh the egg**, which is the whole recipe; eggs are not a unit of measurement, a large one
+   is ~50g out of the shell and a small one ~40, so "one egg to 150ml" is quietly asking for anywhere between
+   3:1 and 4:1; under ~2.5:1 it is a savoury omelette standing in a cup, over ~4:1 it will not set and no extra
+   time rescues it; **season and TASTE the dashi before the egg goes in — it is the only moment you can**, and
+   it must be **cooled**, because hot dashi cooks the egg into fine ribbons that will not strain out; **every
+   filling must already be cooked, cut small and cold** (a raw prawn releases water and leaves a wet hollow
+   around itself in twelve minutes of gentle steam); **COVER EACH CUP** — a steamer lid drips and one drop of
+   condensation craters the surface, and this dish is judged on being a flat mirror; bare simmer ~85°C, never a
+   hard steam, or it blows into a weeping honeycomb; **the doneness test is a skewer at the edge — CLEAR liquid
+   means done, cloudy means two more minutes**. Moat: **it is one of the very few Japanese dishes eaten with a
+   SPOON, and the spoon is the fingerprint of a foreign parent** — it came in through Nagasaki, the one port
+   left open during the seclusion, where Chinese and Dutch trade produced the hybrid *shippoku* banquet cuisine
+   (round table, shared dishes, spoons); Yossou in Nagasaki has served it since 1866. And the name is the other
+   tell: *chawan* = tea bowl, *mushi* = steamed — **named for its container, not its contents**, because it was
+   made in whatever cup was to hand, so the purpose-made lidded cups sold today are a formalisation of a dish
+   whose whole character was improvisation. ⚠️ Led on the ratio exactly as ASIA_PROGRESS instructed, and
+   deliberately **did NOT lead on bubbles/strain/low-heat-or-it-curdles** — spent on China's Egg Tarts.
+   💰 New price keys → MF152.
+
+8. ✅ **Yakitori** — 3 versions: Thigh & Spring Onion **grill pan** budget R27 · Classic Negima over Coals R40 ·
+   The Yakitori-ya Spread (skin · liver · tsukune) R58. Laws: **THE SKEWER IS A COOKING TOOL, NOT A WAY OF
+   CARRYING FOOD** — pieces cut to equal *thickness* not equal weight, and threaded **touching but never
+   compressed** (a gap dries two cut faces grey, compression shields the middle raw); **RADIANT HEAT, NO FLAME**
+   — coals down to grey ash, because skin-on thigh drips fat continuously and fat meeting flame is soot, and
+   ⚠️ **never water on a flare-up** (it lifts ash straight onto the food and kills the part of the fire you
+   needed); **shio vs tare is decided by the CUT, not by preference** — lean and delicate goes salt because tare
+   would bury it, fat and strong takes tare — **and the timing is opposite: salt goes on BEFORE, tare goes on
+   only in the last third**, because reduced tare is a third sugar and sugar over live coals burns black in
+   under a minute; **THREE THIN COATS with a turn between each**, never one thick one (which slides into the
+   fire); decant what you brush with — nothing raw ever touches the master pot. The spring onion in negima is
+   *mechanical*: it steams beside the chicken and a 3cm length cooks in almost exactly the time a 25g piece of
+   thigh does. Moat: **binchotan, and the way the fuel dictates the equipment** — white charcoal from ubame oak,
+   fired hot then smothered in damp ash and sand (hence the colour), close to pure carbon, no smoke, no flame,
+   ~1,000°C, burns for hours, and **rings like metal when two pieces are struck, which is part of how it is
+   graded**; because it gives radiant infrared rather than smoke and hot air, a yakitori grill is long, narrow
+   and **lidless** — the whole geometry follows from the charcoal, and a lid would be actively wrong. ⚠️ The
+   perpetual-tare-pot angle is kept to **one subordinate clause** — the never-emptied pot is China's Master
+   Stock moat. Fat-threaded-between-lean-cubes avoided too (spent on Cumin Lamb). ⚡ `occasion` carries **braai**
+   — deliberate cross-shelf appeal. 💰 New price keys → MF152.
+
+9. ✅ **Tempura** — 3 versions: Vegetable **VEGAN** budget R23 · Classic Prawn & Vegetable R52 · Kakiage & Cold
+   Soba (ten-zaru) R46. Laws: **the entire method is a campaign against gluten** — flour + water + agitation
+   makes gluten, gluten makes bread, and bread is the opposite of tempura; **ICED water, COLD flour, CHOPSTICKS
+   not a whisk, TEN TO FIFTEEN STROKES AND STOP** — ⚠️ **THE BATTER MUST STILL LOOK WRONG**, visible lumps and
+   dry pockets of unmixed flour on the surface, thin enough to see the prawn's colour through, and if it looks
+   like pancake batter you have already lost; **oil to temperature FIRST, batter second** (it has ~10 minutes of
+   life, so make a second bowl rather than stretch one); everything **bone dry** — water repels hot oil
+   violently, so a wet prawn both spits and sheds its coating; **temperature follows the job** — vegetables
+   165–170°C because they must cook *through*, seafood 180–190°C because it needs speed; never more than a third
+   of the oil's surface covered; **FLICK droplets of batter over each piece as it fries** to make the spiky
+   flowers bloom, because that ragged surface *is* the shattering texture; drain **standing on a rack, never
+   paper, never stacked** (a flat piece steams its own base soft in a minute), salt at once, and **serve
+   immediately — this is a dish timed to the diner, not the kitchen**, which is the entire reason a tempura
+   counter hands over one piece at a time. Moat: **Japan's most formal fried food began as street food, and it
+   began there because of a fire regulation** — Edo was wood and paper and burned regularly, so deep-frying was
+   pushed out of buildings and onto mobile stalls, eaten standing, off a skewer, dipped into a communal pot;
+   that it is now a decade-apprenticeship counter cuisine is one of the most complete reversals in food. The
+   Portuguese/Nagasaki *quatuor tempora* origin is kept to **one closing clause**. ⚠️ Prawn-straightening is
+   presented explicitly as a **borrowed** law (Tonkatsu's snip-the-membrane) rather than a new one — an honest
+   cross-reference instead of a repeat. 💰 New price keys → MF152.
+
+10. ✅ **Dorayaki** — **course:dessert · VEGETARIAN — the file's first dessert** — 3 versions: Quick Anko from
+    Tinned Beans budget R8 · Classic R13 · Matcha & Cream (nama dorayaki) R20. Laws: **boil the azuki three
+    minutes and THROW THE FIRST WATER AWAY** (*shibukiri* — tannins and saponins, not squeamishness); keep them
+    submerged the whole cook or the exposed beans toughen permanently; ⚠️ **SUGAR GOES IN ONLY WHEN A BEAN
+    CRUSHES TO NOTHING BETWEEN FINGER AND THUMB — sugar added to beans that are not yet soft keeps them hard
+    forever**, because it draws water back out by osmosis and no further boiling undoes it, and *every* gritty
+    homemade anko is this one mistake; **stop the paste looser than you want it** (it sets hard cold); **honey
+    and mirin are structural, not sweeteners** — hygroscopic, and the whole reason a dorayaki is soft on day
+    three where a pancake is stale in an hour; **REST THE BATTER 30 min** then thin it back, because a rested
+    batter finds its own circle; **wipe the pan almost DRY** — visible oil mottles the face, and the face is the
+    entire aesthetic; **pour from one point and one height, never spread**; flip when the bubbles **stay open**;
+    **only the first side is the good side**, pair pale-to-pale; **wrap each one in cling film while still
+    warm** — the trapped steam is what turns two pancakes with filling into a dorayaki. Moat: **Japan built an
+    entire confectionery tradition with almost no dairy** — no butter, no cream, no milk — so the job fat does
+    in European sweets (carrying sweetness, giving body, coating the mouth) had to be done by something else,
+    and azuki paste is that something: starchy, faintly protein-rich, and coating without being a fat. **Sweet
+    beans are not an eccentric ingredient dropped into a Western dessert; they are a different and completely
+    coherent answer to the same question.** Plus red as the colour that wards off misfortune (sekihan at births,
+    weddings, New Year), and the genuine national split shops declare on: *tsubuan* chunky vs *koshian* sieved.
+    ⚠️ **The Doraemon angle was deliberately NOT used** — "a work of fiction manufactured the appetite" is
+    China's Beggar's Chicken moat (Jin Yong), and it would have been the same shape twice. The
+    name-outlived-its-shape angle was also avoided, having just been used inside this batch (negima).
+    💰 New price keys → MF152.
+
+### 📊 JAPAN CENSUS AFTER BATCH 2
+**10 records · 30 versions · 30 crossLinks · 0 dead · `servings` all 1 · costPP R4–R62**
+course: **main 6 · starter 2 · staple 1 · dessert 1** · per-version `diet` on **30/30**
+version diet tokens: omnivore 20 · vegan 5 · vegetarian 5
+`node --check` clean · merge ran with **zero warnings** on all five records.
+✅ **The batch-1 course-spread warning was acted on** — batch 2 delivered the starter and the dessert it asked
+for, and China's late scramble for `side` and `dessert` has not been repeated. Mains are 6 of 10, which is
+still the number to watch.
+
+### 🔴 FOUND 29 JUL — **crossLinks CANNOT CROSS COUNTRIES**
+Gyoza was authored with a crossLink to `china-staple-chilli-oil` and `merge.js` rejected it as a DEAD target.
+It is right to, given how it is built: `ids` is the set of the **country file's** records plus the incoming
+batch, so no cross-country target can ever resolve. But **the live app pool is global** — `wkPool()` concatenates
+every country — so a Japan→China link would almost certainly render fine in the app.
+⚖️ **This needs a ruling, not a patch.** Either cross-country links are forbidden (in which case say so in A6
+and the validator is already correct), or they are allowed (in which case `merge.js` must load the sibling
+country files to resolve targets). ⚠️ **Do not loosen the assertion to fit** — a validator relaxed to
+accommodate a new case catches less than it did, which is the lesson already written into the budget-leads rung.
+Gyoza now links Ramen · Dashi · Okonomiyaki, all within Japan, so nothing is blocked.
+
+### ▶️ NEXT — JAPAN BATCH 3 (10 → 15)
+⚠️ **Course spread is still the thing to watch — 6 of 10 are mains.** Batch 3 should carry **at least one
+`side` and one more `starter` or `dessert`**, and Japan has no `side` at all yet.
+Candidates, with the collision already checked:
+- **Agedashi Tofu** (`starter`) — leads on the potato-starch coating and the fact the dashi is poured *around*
+  it at the table, never over it. ⚠️ Must not re-lead on drain-on-a-rack (Tempura, same file).
+- **Miso Soup** (`starter`/`staple`) — ⚠️ only earns a slot if it leads on **never boiling the miso** (the
+  live cultures and the aroma both go) and on the awase blend. Borderline against A4 icons-only.
+- **Sunomono / Goma-ae** (`side`) — fills the empty `side` slot cheaply. ⚠️ Goma-ae must not lead on
+  toast-the-sesame-by-nose — spent on China's Tang Yuan (black sesame, ~30s between toasted and burnt).
+- **Onigiri** (`snack`/`side`) — the salt-hands-and-shape law, and the nori kept separate until the moment of
+  eating. Strong `occasion:lunchbox` value.
+- **Katsu Curry / Japanese Curry** (`main`) — ⚠️ the roux-block moat overlaps nothing yet, and the Royal Navy
+  → Imperial Japanese Navy → Friday-curry route is excellent and untouched. But Tonkatsu **already carries
+  Katsu Curry as its v3**, so this would need to be the *curry* record, not the cutlet one.
+- **Sukiyaki / Shabu-shabu** (`main`) — ⚠️ **hard collision risk with China's Chongqing Hotpot** (table
+  cooking, timing-is-the-meal, never crowd the pot). Only author it if it leads on the **raw egg dip** and on
+  sukiyaki being *fried first then simmered*, which shabu-shabu and hotpot are not.
+- **Onsen Tamago · Tamagoyaki · Karaage · Takoyaki · Matcha Warabimochi · Taiyaki** — all still open.
+⚠️ **Egg is getting crowded**: Chawanmushi, Oyakodon, Tamagoyaki and Onsen Tamago would be four egg records.
+Pick at most one more.
 
 ### 💰 PRICES — DEFERRED PER A7, KEYS APPENDED TO MF152
