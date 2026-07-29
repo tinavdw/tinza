@@ -1318,3 +1318,121 @@ anchor set by hand, indexed remainder off PMBEJD month-on-month + StatsSA CPI fo
 scraping retailers. Block lives in `reference/RULING_30_COSTPP_AND_PRICE_REFRESH.md`.
 ✅ Also fixed: `pricecheck.js` MF152 path — absent now reads `sourced 8 · listed 29 · new 1`
 instead of `new 38`. The single genuinely-new key in the whole Japan file is `sheets aburaage`.
+
+---
+
+## ✅ JAPAN B9 CLOSED — 35 → 40 (29 Jul 2026)
+
+`node --check` clean throughout · merge 40/40 assertions · **pricecheck wrong-product 0** ·
+selftest 22/22 · §26 union drift 0.
+
+**Counts at close:** 40 records · staple 4 · main 11 · starter 8 · side 11 · dessert 6 ·
+120 versions · 120 crossLinks 0 dead · vegan-capable 30.
+
+| # | Record | Course | Versions | Notes |
+|---|---|---|---|---|
+| 1 | Gohan | staple | R3 · R4 · R18 | water-by-weight ×1.4, crop-age drift |
+| 2 | Nukazuke | staple | R11 · R23 · R19 | ⚠️ costPP PROVISIONAL — written with `nuka` at R0 |
+| 3 | Tsukemono | side | R5 · R26 · R11 | the deliberate inverse of Nukazuke |
+| 4 | Castella | dessert | R4 · R6 · R5 | no fat, no chemical leavener |
+| 5 | Edamame | starter | R16 · R23 · R35 | budget fork = mukimame, honestly traded |
+
+### 🔴 THE BUG CLASS THIS BATCH CONFIRMED — THREE INSTANCES, ONE SHAPE
+
+**An ingredient whose name contains a price key as a whole word, but is a different product,
+mis-prices silently.** Neither hard flag fires when the key sits in the HEAD CLAUSE and the
+units agree, so it lands in the soft REVIEW list next to 99 harmless entries.
+
+- `rice bran` → `rice` R27/kg — caught only because the ABSENT count did not move when it should have. Fixed by renaming to `nuka`.
+- `bread flour` → `bread` R18/kg — caught by **probing `wkPriceLookup()` before authoring**. Fixed by naming it `strong flour`, which resolves to null.
+- (carried) `chilli oil` → `chilli`, `potato starch` → `potato`, `sushi rice` → `rice`.
+
+⚖️ **NEEDS A RULING, NOT A PATCH.** The 99-line REVIEW list holds both "fine" and "wrong"
+with nothing separating them mechanically. Same diagnosis as the tierBar leak: a silent hole
+needs a mechanical watcher, not sharper eyes.
+
+📌 **NEW PRACTICE THAT EARNED ITSELF TWICE — PROBE BEFORE AUTHORING.**
+Run every planned ingredient name through `wkPriceLookup()` *before* writing the record.
+Neither merge nor pricecheck can catch this class after the fact.
+
+### 📌 MF140 DELTA CONTRACT — CORRECTION
+merge.js **refused** the first Castella draft: `addIng` / `removeIng` / `addStep` / `swapIng`
+all take **ARRAYS** of objects, not bare objects. `{item}` vs `[{item}]` reads identically in
+prose and is a hard failure in the gate. Correct MF140.
+
+### 🔵 NEW ABSENT KEY — 1 (38 → 40 lines; 3 genuinely new)
+- **`strong flour`** — `japan-castella`. ⛔ Never write `bread flour`. No key created.
+- `nuka` and `sheets aburaage` remain open and unaliased. Nothing added to `prices.js`.
+
+### ⚖️ RULINGS TAKEN DURING B9
+- **§29.5 applied twice.** A7 defers MISSING prices, never WRONG ones.
+- **§31 RATHER MORE THAN LESS** (block: `reference/RULING_31_COSTING_DIRECTION.md`) — estimates
+  round UP; absences stay ABSENT; reusable beds/stocks charged IN FULL, not amortised;
+  "not findable online" ≠ "not available" (specialty-grocer route, no key created).
+- **SUSHI UNBLOCKED.** Tina ruled sushi authorable with a warning. Approved safety line is now
+  the verbatim standard for every raw-fish card: farmed pellet-fed salmon and commercially
+  frozen tuna are the safe home route; wild fish needs −20°C for 7 days; most home freezers
+  only reach −18°C; **freezing kills parasites, not bacteria.**
+  ▶️ maki · temaki · nigiri · sashimi all open for B10/B11.
+- **`dashi` R13/L CONFIRMED** against shelf price (Hondashi R51.99/40g → R9–11/L). No change.
+
+### ⚖️ COLLISION MAP — WHAT B9 NOW OWNS (append to §4 of the next handoff)
+
+| Owned by | Do not re-use |
+|---|---|
+| **Gohan** | water-by-weight ×1.4 · crop-age drift · ginshari/silver rice and the brown-rice inversion (poor man's compromise → expensive choice) · the steam-release cut-and-fold · freeze-hot-never-fridge · zosui · drying leftover rice to puff into crackers |
+| **Nukazuke** | lacto-fermentation as a colony you KEEP · the daily bare-handed turn as oxygen management · Leuconostoc → L. plantarum handover across the 10–14 day sutezuke · yeasts at the surface / butyric at the bottom · wet-and-weak equilibrium drift · smell diagnostics · the salt cap to sleep the bed · **itazuri** (the salt rub) · fermentation making a vegetable MORE nutritious than raw · bran worthless overnight from rice-polishing, early 1600s |
+| **Tsukemono** | the deliberate inverse — no bed, no bacteria, salt/weight/clock · salt as 2% of WEIGHED vegetable, why a pinch is not a measurement · **the weight is an ingredient** (pressure breaks cells so salt travels through broken structure) · never serve drained, it sits in its own expressed brine · the tenbin lever press, 120kg doubled by leverage, Kyoto winter |
+| **Castella** | no fat AND no chemical leavener — every bubble beaten in · the three-second ribbon · **strong bread flour in a cake as the fossil of what castella used to be** · awakiri, bubble-cutting (explicitly distinguished from Gohan's steam-fold and Chirashizushi's vinegar fold) · the 30cm pour · zarame base layer / demerara stand-in · kihankan wooden frame and why wood insulates · the overnight upside-down wrap while hot · **the Sugar Road** (Nagasaki Kaidō, 228km, Kokura's Tokiwabashi, 25 lodging towns, Japan Heritage 2020, "far from Nagasaki") · bread-to-cake inversion · Okinawan kokutō |
+| **Edamame** | **the pod as a lid, not packaging** — blanching in-pod measurably retains sucrose vs shelled · seasoning through a wall / seawater-salty pot · harvested at 80–90% pod fill, sugars collapse within hours, yellow by day six · **frozen beats travelled-fresh because it is blanched at harvest** · never shock in cold water · mukimame and the honest pod-weight trade · zunda |
+
+**Pointers used, never re-taught:** the wash / 20-min soak / 12+10 / amylose-amylopectin →
+Onigiri · ochazuke, yaki-onigiri, fried rice → Onigiri · beriberi and Takaki Kanehiro →
+Kare Raisu · osmotic dressing → Goma-ae · the squeeze → Ohitashi · cool-in-the-liquid →
+Inarizushi · itazuri → **Nukazuke took it, asazuke no longer has it**.
+
+⚠️ **NAME-ORIGIN MOATS ARE NOW SPENT FOUR TIMES** — Hiyayakko (the yakko's square crest),
+Miso Soup (ichiju-issai), Nasu Dengaku (the stilt dancer), Dorayaki. Edamame's obvious 枝豆
+"branch bean" etymology was **deliberately not used** for this reason. B10 should avoid a fifth.
+⚠️ **Beer as a pairing appears in 11 records.** It is not a moat.
+
+### ▶️ JAPAN B10 (40 → 45)
+Thinnest is now **staple 4** and **dessert 6**; `main` still frozen at 11.
+🍣 **Sushi is the obvious B10 spine** — maki/temaki/nigiri lead on fish handling and the hand,
+since Onigiri and Chirashizushi already own the rice. Approved safety line goes in verbatim.
+⛔ Sukiyaki still BLOCKED pending the raw-egg-dip ruling. Katsudon still overlaps Tonkatsu AND Oyakodon.
+
+### 🩸 STILL UNANSWERED, ASKED A FIFTH TIME
+**Push `wk_japan.js` unwired at every batch close?** One deploy credit, zero change to the live
+app. Origin now reads 30 while local reads **40 — ten records ahead.**
+
+### ⚠️ POST-CLOSE AMENDMENT — §31.4b (29 Jul 2026, same day)
+
+**The no-substitute clause in §31.4 is STRUCK.** It ruled that wheat bran could not stand in
+for `nuka`, on culinary first-principles reasoning. Fermenters who have kept beds of both
+report the pickles taste closely alike and that wheat bran is the standard fallback. The
+ruling was stated more firmly than the evidence supported and lasted under 24 hours.
+
+✅ `nuka` moves into the ordinary **NOT-IN-SA family** (warabi starch → cornflour, gobo →
+carrot + parsnip). `japan-nukazuke` base line is now **`500g wheat bran`**; rice bran is named
+in-method as the original and the upgrade. `nuka` therefore leaves the ABSENT list (method
+prose is not scanned) and `wheat bran` replaces it — absent stays 40, wrong-product still 0.
+
+✅ **Heat-toasted / stabilised bran WORKS.** Stabilisation kills the lactic bacteria on the
+bran surface, but the culture arrives from the vegetables and the cook's hands — the bed
+establishes, just slower. Allow an extra week of sutezuke. Same trade-off for home-toasting,
+now stated in-method instead of recommending the toast unconditionally.
+
+💰 **Tina-sourced, NOT yet keyed (A7 defers MISSING prices):** wheat bran R20–R40 per 500g at
+Checkers / Pick n Pay → **R40–R80/kg, take R80 under §31.1.** Feed-grade rice bran is under
+R50/kg at agricultural co-ops but is ⛔ not food-safe. Imported food-grade nuka / ready-made
+nukadoko runs R350–R950+ per 500g–1kg before duty — a 3x spread, which is why it is not a
+price and no key was created.
+
+⛔ **§31.3 UNDER REVIEW, Nukazuke costPP NOT changed.** Charging a 500g bed in full still puts
+~R40 against one cucumber. Needs a capital-purchase carve-out or a rethink — Tina's ruling,
+not a patch. R11 · R23 · R19 remain provisional.
+
+⚖️ **PROCESS LESSON:** where a ruling turns on a factual claim about how an ingredient
+behaves — not on policy, not on preference — check the claim *before* filing the ruling.
+The sushi safety line was verified first and held. This one was not and did not.
