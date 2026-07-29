@@ -55,7 +55,7 @@ function worldKitchenHTML(){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
@@ -505,6 +505,12 @@ var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","fryi
   "cheese":"cheddar","cheddar cheese":"cheddar",
   "flour":"cake flour","flour for dusting":"cake flour","self raising flour":"cake flour",
   "carrot":"carrots",
+  // ── DAIKON, 30 Jul 2026 ── `daikon` R45 is a real key in prices.js (Tina-sourced) and is NOT
+  // `radish` R108 — a different vegetable, 2.4x apart. Both key strings are 6 characters, so
+  // "daikon radish" hits BOTH in the longest-whole-word rung, ties, and resolves by object key
+  // order. These two lines sit above that rung and settle it: whichever way it is written, it
+  // prices as daikon. ⛔ Never add a `radish`->`daikon` line or the reverse.
+  "daikon radish":"daikon","mooli":"daikon","white radish":"daikon","japanese radish":"daikon",
   "masala":"curry powder","durban masala":"curry powder","durban curry masala":"curry powder","breyani masala":"curry powder","biryani masala":"curry powder","mild curry powder":"curry powder",
   "potatoes":"potato","potato chunks":"potato","potato cubes":"potato",
   "yoghurt":"yoghurt","plain yoghurt":"yoghurt",

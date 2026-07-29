@@ -309,6 +309,17 @@ const PRICE_DB = {
   "chili": 70,                // per kg
   "garlic": 280,              // per kg
   "ginger": 280,              // per kg
+  "wasabi": 1775,            // src:Tina when:2026-07-30 conf:shelf  TUBES R38-104 per 35-45g. The four corners of
+                             // that bracket normalise to R844/kg (R38/45g) · R1086 (R38/35g) · R2311 (R104/45g) ·
+                             // R2971/kg (R104/35g), so this key is the MIDPOINT OF HER OWN RANGE: R71 / 40g = R1775/kg.
+                             // ⚠️ THE SPREAD IS A PRODUCT DIFFERENCE, NOT NOISE: the cheap tubes are horseradish,
+                             // mustard and colour with little or no real wasabi in them, the dear ones carry a real
+                             // percentage. The cards mean THE ORDINARY TUBE, so one edit moves this to R850 (cheap end)
+                             // or R2950 (real end) if that is the call. ⚖️ WHY THE MIDPOINT IS SAFE HERE: every wasabi
+                             // line app-wide is 3g or 5g, so the whole bracket is worth about R6 on a card —
+                             // 3g costs R2.53 at the cheap end, R5.33 here, R8.91 at the dear end.
+                             // Written in GRAMS everywhere, so this must stay a per-kg weight key, never a _each tube.
+                             // Live in wk_japan.js: sashimi, zaru soba, hosomaki, temaki, nigirizushi.
   "pickled ginger": 280,     // src:Tina when:2026-07 conf:shelf  R15-70 per 110-454g jar → a wide band; the mainstream buy
                              // (~150g at R30-40, 340g jar at R50) lands R150-270/kg, took R280 per §31.1. Same number the
                              // wrong route was already rendering via `ginger` — the money was fine, the ROUTE was fragile and
@@ -669,6 +680,15 @@ const PRICE_DB = {
   "aguardente": 499,
   "cola": 12.5,
   "radish": 108,
+  "daikon": 45,                // R45/kg. TINA-SOURCED 29 Jul 2026 (MF152 ADD list), LOCKED IN 30 Jul on
+                               // her instruction. ⚠️ A DISTINCT VEGETABLE FROM `radish` R108 ABOVE —
+                               // 2.4x apart, never alias one to the other in either direction. Both keys
+                               // are 6 characters, so "daikon radish" would TIE in wkPriceLookup's
+                               // longest-whole-word rung and resolve by object key order, i.e. by luck.
+                               // WK_ALIAS carries an explicit "daikon radish" -> "daikon" line above that
+                               // rung so the tie can never be reached. Used in wk_japan.js (tempura,
+                               // tamagoyaki, agedashi tofu, zaru soba, sashimi) and wk_china.js
+                               // (turnip cake 900g, lanzhou beef noodle 300g).
   "vine leaves": 61,
   "endive": 60,
   "millet flour": 85,

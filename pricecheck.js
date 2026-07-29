@@ -263,7 +263,13 @@ function selftest(repoRoot) {
   });
 
   // ── RED 3 · GENUINE HOLES still report as absent, not swallowed by the fallback.
-  ['daikon', 'warabi starch', 'panko', 'kombu', 'katsuobushi'].forEach(k => {
+  // ⚖️ REPOINTED 30 Jul 2026: this row was `daikon`, which now has a real Tina-sourced key at
+  //    R45/kg, so the proof went RED for the right reason — its subject was fixed. Same rung as
+  //    the RED-2 potato-starch repoint: a proof whose subject gets fixed is REPOINTED at another
+  //    live hole, never deleted quietly, or the assertion count silently drops.
+  //    Replacement: `aonori`, still genuinely absent and unsourced (wk_japan.js okonomiyaki,
+  //    takoyaki). ⛔ Do not repoint this at `wasabi` — that one is being sourced.
+  ['aonori', 'warabi starch', 'panko', 'kombu', 'katsuobushi'].forEach(k => {
     check('RED · "' + k + '" reports ABSENT', flagsFor(k, 'g'), 'ABSENT');
   });
 
