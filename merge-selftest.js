@@ -14,16 +14,23 @@
 
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
-const { validate, COUNTRIES } = require('./merge.js');
+const { validate, COUNTRIES, loadSchemaKeys, readCountryFile } = require('./merge.js');
 
-const KEYS = JSON.parse(fs.readFileSync(path.join(__dirname, 'reference', 'ASIA_SCHEMA_KEYS.json'), 'utf8')).keys;
+const KEYS = loadSchemaKeys();
 const cfg = COUNTRIES.china;
 
-// Load the real China file as the "existing" body of records.
-const sandbox = { window: {} };
-vm.runInNewContext(fs.readFileSync(path.join(__dirname, 'wk_china.js'), 'utf8'), sandbox);
-const EXISTING = sandbox.window.WK_CHINA;
+// Load the real China file as the "existing" body of records — through merge.js's OWN
+// resolver, not a hardcoded path. 29 Jul: this harness originally did
+// __dirname + '/wk_china.js', which worked in a flat folder and died with ENOENT in the
+// real repo, where the file lives in sections/. Two copies of the path logic is one too
+// many — the same fault merge.js had just been fixed for.
+const loaded = readCountryFile(cfg);
+if (loaded.isNew || !loaded.records.length) {
+  console.error('🔴 could not load ' + cfg.file + ' — looked in sections/ and alongside merge.js.');
+  console.error('   Run this from the repo root, with merge.js at root and the data file in sections/.');
+  process.exit(1);
+}
+const EXISTING = loaded.records;
 
 const clone = o => JSON.parse(JSON.stringify(o));
 
