@@ -5,11 +5,11 @@
 | Country | Target | Banked | File | Wired |
 |---|---|---|---|---|
 | China | 50 | **50** ✅ | `sections/wk_china.js` | ⬜ not yet |
-| Japan | 50 | 0 | `sections/wk_japan.js` | — |
+| Japan | 50 | **5** | `sections/wk_japan.js` | ⬜ **not yet — 2 lines** |
 | Indonesia | 50 | 0 | `sections/wk_indonesia.js` | — |
 | Thailand | 50 | 0 | `sections/wk_thailand.js` | — |
 | Vietnam | 40 | 0 | `sections/wk_vietnam.js` | — |
-| **TOTAL** | **240** | **50** | | |
+| **TOTAL** | **240** | **55** | | |
 
 Next lane after Asia: **South America.**
 
@@ -356,3 +356,128 @@ against `cornflour` R68 / `tapioca` R70, weigh a real packet, or leave it blank.
 ✅ **RULED 29 Jul — FERMENTED BLACK BEANS (douchi) = R95–180 / 400g → ~R340/kg.** That is **~7× the existing
 `black beans` R50 legume key**, and douchi appears in **six records** (mapo-tofu · hui-guo-rou · mala-xiang-guo,
 plus version deltas on chilli-oil, qing-zheng-yu and gon-chow-ngau-ho). Add as its own key; never alias.
+
+---
+
+## 🇯🇵 JAPAN — 5 / 50 (opened 29 Jul 2026)
+
+⛔ **NOT WIRED.** Two lines, and a file that is not wired is not in the app:
+```
+1. index.html          →  <script src="sections/wk_japan.js"></script>
+2. worldkitchen.js:58  →  window.WK_JAPAN || [],   in the wkPool() concat
+```
+`WK_COUNTRY_GEO` (`"Japan":["Asia","Eastern Asia"]`) was already done during the China wiring.
+
+### ⚖️ THREE RULINGS FILED BEFORE A WORD WAS AUTHORED — `TINZA_RULINGS.md` §26 · §27 · §28
+- **§26 · DIET LIVES ON THE VERSION; THE RECORD'S DIET IS THE DERIVED UNION.** Japan carries per-version
+  `diet` from record 1. China's 50 convert at **lane close**, not mid-lane; `merge.js` prints the debt as
+  ONE warn with a count, never 50.
+- **§27 · STAPLES GET A "BASICS" TAB, LAST, AND ARE NOT PLANNABLE.** ⚠️ Not built yet — it is a
+  `worldkitchen.js` render change and does not happen inside an authoring batch. Japan has now added
+  **dashi** to the pile, so the Mains tab is currently 4 mains + 1 jar.
+- **§28 · `leftovers` IS AN ARRAY — AND HAS NO RENDERER, WHICH IS THE ACTUAL BUG.**
+
+### 🔴 THE FINDING THAT CLOSED THE LEFTOVERS QUESTION
+ASIA_PROGRESS asked Tina to open Hong Shao Rou (string) and Tang Yuan (array) on live and compare.
+**That test could never have worked.** Grepped app-wide 29 Jul: **nothing reads `r.leftovers`.** World Kitchen
+renders `wkLeftoverKeys(r)` (`core.js:4765`) — a keyword guess over the ingredient string resolving to one of
+15 generic keys. Both shapes render identically, which is to say **not at all**, and the honest conclusion from
+the live comparison would have been "no difference, leave it" — exactly wrong.
+✅ **The 5 legacy strings were converted anyway** (`hong-shao-rou · mapo-tofu · gong-bao-ji-ding · char-siu ·
+dan-dan-mian`) — safe because it is **zero-judgement**: the string is wrapped, not rewritten. **China is now
+50/50 arrays, 140 lines**, `node --check` clean.
+🩸 **STILL OPEN — the renderer.** A Code brief: authored `leftovers` WINS, `wkLeftoverKeys()` is the fallback
+only when a record has none. ⚠️ **Do not delete the guesser** — it also feeds `LEFTOVER_CLASS` → `SAFETY_CLASS`
+→ the Storage & safety box, which is a **food-safety** engine. Two jobs, one function, one of them broken.
+📌 **THIRD TIME for this shape** (cong-you-bing · leftovers shape · now a field nothing reads).
+**New rung, one command: when a lane introduces a field, grep for its READER once, at the start.**
+
+### 🔧 MERGE.JS — **40 assertions**, all born-RED, control GREEN
+- **NEW §26 rung, four born-RED proofs:** a version with no `diet[]` · an off-vocabulary version token ·
+  record diet **under**-reporting (the cong-you-ban-mian shape) · record diet **over**-reporting. Plus a
+  GREEN control proving the union is compared as a **SET, not a sequence** (a rung that failed on ordering
+  would train the author to hand-sort for nothing).
+- 🔴 **§26 IMMEDIATELY MADE AN OLD RUNG CRY WOLF, AND IT WAS CAUGHT ON THE FIRST BATCH.** The
+  diet-vs-ingredients warn read `r.diet` — now a *union* — against the *base* ingredients, so all four
+  correctly-authored Japan records tripped it at once ("tagged vegan but ingredients mention pork").
+  **Fixed to judge the DEFAULT VERSION's diet**, because the base ingredients string *is* the default
+  version's ingredients. ⚖️ **A ruling can break a rung that was correct the day before it.** Honest limit
+  stated in the code: deltas are not resolved, so a mis-tag on a non-default version's *own added*
+  ingredients is invisible to it.
+
+### DONE — BATCH 1 (29 Jul)
+1. ✅ **🔧 STAPLE — Dashi** (Ichiban Dashi) — 3 versions: Kombu & Shiitake **budget · VEGAN** R4 · Classic
+   Ichiban R9 · Niboshi (Dried Sardine) R7. Laws: **kombu into COLD water and NEVER boils** — pull at 60–65°C,
+   past ~80°C it gives alginates instead of glutamate and that is not reversible; **do NOT wipe the white bloom
+   off** (mannitol and glutamate drying out — the recipes saying "wipe clean" say wash the point off);
+   katsuobushi off the heat, **no stirring**, 60–90 s; **NEVER SQUEEZE the flakes** — same result as boiling,
+   cloudy and bitter, and the commonest way a good dashi is ruined at the last step. Moat: **umami was
+   discovered in this exact bowl** — Ikeda, Tokyo Imperial, 1908, chasing why his wife's dashi tasted of a
+   fifth thing; isolated glutamate, named umami, patented MSG. Then **Kodama 1913** found inosinate in
+   katsuobushi, and the two are **synergistic** — several times more savoury together than apart. A
+   two-ingredient stock cooks had used for centuries turns out to be a built chemical amplifier, and the
+   chemistry arrived last. Katsuobushi's mould-ripening noted as the hardest food in the world.
+   📌 Niban dashi is the leftovers, properly — the second extraction is a real ingredient, not thrift.
+2. ✅ **Shoyu Ramen** — 3 versions: Shiitake & Kombu **budget · VEGAN** R24 · Classic Tokyo R48 · The Full Bowl
+   R62. Laws: **it is THREE things made separately — soup, tare, aroma oil — and THE TARE SEASONS THE BOWL,
+   NOT THE SOUP.** ⚠️ If the finished broth tastes properly seasoned on its own you have made a *soup*, and the
+   assembled bowl will be flat and salty. Unsalted noodle water (everything here was measured to the
+   millilitre) and **shake the noodles BONE DRY** — carried water dilutes the tare. Ajitama 6½ min fridge→boil,
+   ice bath, and **never marinate past ~12 hr** (rubbery, salty, no way back). Assembly is ~20 seconds.
+   Moat: **Japan's national dish is Chinese and said so in its own name** — *shina soba* / *chuka soba* until
+   the 1950s — and what made it national was **American wheat**: the 1945 rice failure, occupation surplus
+   flour as food aid, a government promoting noodles because it had wheat and no rice. Sapporo miso, Hakata
+   tonkotsu and the instant packet are all 1950s–70s. **The dish is younger than most people laying down its
+   rules.** ⚠️ Deliberately did NOT lead on never-boil-the-bones (spent twice in China: Lanzhou + Wonton
+   Noodle Soup) or on fat-caps-hold-heat (spent on Crossing-the-Bridge).
+3. ✅ **Tonkatsu** — 3 versions: Chicken Katsu **budget** R28 · Classic Tonkatsu R42 · Katsu Curry R52. Laws:
+   **SNIP THE MEMBRANE between fat and meat at 3–4 points** — it shrinks faster than muscle and curls the
+   cutlet into a bowl so the middle lifts clear of the oil; the step most recipes omit and the one that
+   explains most failures. Flour is a **dusting, tapped almost all off** (excess hydrates into a paste and the
+   crust slides off in one sheet under the knife); press panko ONCE and never again. **Two temperatures because
+   of THICKNESS, not tradition** — 160°C/6–7 min, rest 4 min standing on its edge, then 190°C/30–60 s for
+   colour; no single temperature does both on a 2.5cm cutlet. Ice-water the shredded cabbage. Slice in one
+   draw, never saw. Moat: a ~1,200-year prohibition on four-legged meat (edict of 675 AD), then the **Meiji
+   Emperor publicly eating beef in 1872 as policy** — reported as news, and men broke into the Palace in
+   protest and were shot. Rengatei, Ginza, **1899** made three changes to the French cutlet — pork not veal,
+   deep-fried not pan-fried, **served pre-sliced with rice, chopsticks and raw cabbage** — and those three
+   changes are the whole distance between a foreign dish and a Japanese one. The cabbage was a **wartime
+   staffing shortcut** that turned out to be right and stayed. ⚠️ Double-fry framed as a *thickness* problem to
+   keep it clear of Gu Lao Rou's crust-survives-sauce law.
+4. ✅ **Okonomiyaki** — 3 versions: Cabbage & Egg **budget · VEGETARIAN** R16 · Classic Osaka Pork Belly R26 ·
+   Hiroshima-Style Layered with Noodles R38. Laws: **it is NOT a pancake with cabbage in it — it is cabbage
+   held together by batter**, roughly equal weights, and if it looks like batter you have already lost;
+   **CUT the cabbage into 1cm squares**, never grate (grated bleeds water); **nagaimo is structural** — grated
+   mountain yam goes stringy and aerates the batter, with the honest stand-in stated plainly as 2g baking
+   powder and less texture; **fold the cabbage in AT THE LAST SECOND** and **10–12 cutting turns, never beat**;
+   ⚠️ **DO NOT PRESS IT DOWN WITH THE SPATULA** — every instinct says to, and it undoes the nagaimo, the loose
+   fold and the cut cabbage in one movement. Flip ONCE, and commit. Moat: **the teppan is the table and the
+   customer often cooks** — which quietly explains the whole recipe, because everything in it is built to
+   **survive an amateur**: nothing delicate, a forgiving medium heat, and a sauce strong enough to carry a bad
+   flip. Okonomimura's floors of competing stalls; Hiroshima calls Osaka's the *mixed* style. Closes on the
+   bonito flakes writhing — a few microns thick, moved by convection, deliberate theatre.
+   ⚠️ **Did NOT reuse the American-wheat moat** — spent on Ramen in this same batch.
+5. ✅ **Oyakodon** — 3 versions: Mushroom & Tofu **budget · VEGETARIAN** R18 · Classic R30 · **Katsudon** R48.
+   Laws: ⚠️ **IT IS SERVED DELIBERATELY UNDERCOOKED** and finishes on the hot rice — a properly set oyakodon is
+   an overcooked one; **ONE PORTION AT A TIME, never scaled** (geometry, not tradition — a shallow wide layer
+   sets in seconds, a deep pool must be stirred and becomes scrambled egg in broth); onion sliced **WITH the
+   grain** or it collapses to strings; **BEAT THE EGGS BADLY** — 5–6 strokes, visible ribbons of yolk and white,
+   because they set at different speeds and that is the marbling; **TWO POURS** — two-thirds, lid, 45–60 s,
+   then the last third, lid, count to 20, heat off. Moat: *oyako* = **parent and child**, printed on menus
+   without comment; Tamahide, Nihonbashi, **1891**, formalising what customers were already doing with the
+   dregs of a gamecock hotpot — and the donburi category's whole logic, that **the rice is the meal and the
+   thing on top is the seasoning**, which is close to the inverse of a Western plate. Katsudon carries the
+   exam-night homophone (*katsu* = to win) and the interrogation-room trope.
+
+### 📊 JAPAN CENSUS AFTER BATCH 1
+**5 records · 15 versions · 15 crossLinks · 0 dead · `servings` all 1 · costPP R4–R62**
+course: staple 1 · main 4 · per-version `diet` on **15/15** · record diets: omnivore · vegetarian · vegan
+`node --check` clean · `merge-selftest.js` **40 passed / 0 failed** · merge ran with **zero warnings**.
+
+⚠️ **COURSE SPREAD IS THE THING TO WATCH.** Batch 1 is 4 mains and a staple. China ended 32 mains of 50 and
+had to go looking for `side` and `dessert` late. **Batch 2 should carry at least one starter and one dessert**
+— candidates: Agedashi Tofu · Chawanmushi · Gyoza · Yakitori · Miso Soup · Matcha Warabimochi · Dorayaki.
+⚠️ **Chawanmushi's laws overlap China's Egg Tarts heavily** (bubbles · strain · low heat or it curdles · pull
+it wobbling) — if it is authored, it must lead on the **3:1 dashi-to-egg ratio by weight**, not on bubbles.
+
+### 💰 PRICES — DEFERRED PER A7, KEYS APPENDED TO MF152

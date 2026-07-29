@@ -103,6 +103,10 @@ function validate(existing, incoming, cfg, KEYS) {
   const warns = [];
   const bad  = (id, msg) => fails.push(id + ' — ' + msg);
   const warn = (id, msg) => warns.push(id + ' — ' + msg);
+  // §26 debt is collected and reported ONCE, not once per record. 50 identical warns on every
+  // merge is the rung-that-cries-wolf failure — a warning she learns to scroll past is a
+  // warning that has stopped working. One line with a count stays readable and stays true.
+  const dietDebt = [];
 
   const all = existing.concat(incoming);
   const ids = new Set(all.map(r => r && r.id));
@@ -132,6 +136,36 @@ function validate(existing, incoming, cfg, KEYS) {
       const cheapest = Math.min.apply(null, costs);
       if (r.versions[0].costPP !== cheapest) {
         warn(r.id, 'v1 "' + r.versions[0].name + '" R' + r.versions[0].costPP + ' is not the cheapest (R' + cheapest + '). Check this is a protein-swap fork, not a breach.');
+      }
+    }
+
+    // ── §26 · DIET LIVES ON THE VERSION, RECORD DIET IS THE DERIVED UNION (29 Jul 2026) ──
+    // Forced by china-cong-you-ban-mian: its budget fork drops the dried shrimp and is
+    // genuinely vegan, but diet lived on the record, so a vegan user filtering the app would
+    // never be shown it. Budget forks drop the meat by design — this recurs across the lane.
+    //
+    // TWO RUNGS, same pattern as budget-leads and leftovers:
+    //   HARD (incoming): every version carries a valid diet, and the record's diet is exactly
+    //     the union of them. A derived field that is ALSO typed by hand is a field that drifts.
+    //   WARN (existing): China's 50 predate this ruling and are converted at LANE CLOSE, not
+    //     mid-lane. They print on every merge so the debt stays visible and cannot be forgotten.
+    const vDiets = r.versions.map(v => (v && Array.isArray(v.diet)) ? v.diet : null);
+    if (vDiets.some(d => d === null)) {
+      if (where === 'existing') {
+        dietDebt.push(r.id);
+      } else {
+        r.versions.forEach((v, i) => {
+          if (!v || !Array.isArray(v.diet)) bad(r.id, 'version ' + (i + 1) + ' "' + ((v && v.name) || '?') + '" has no diet[] — §26 says diet lives on the version');
+        });
+      }
+    } else {
+      vDiets.forEach((d, i) => d.forEach(x => {
+        if (!DIET_VOCAB.includes(x)) bad(r.id, (where === 'existing' ? 'existing record: ' : '') + 'version ' + (i + 1) + ' diet token "' + x + '" not in v1 vocabulary [' + DIET_VOCAB + ']');
+      }));
+      const union = Array.from(new Set([].concat.apply([], vDiets))).sort();
+      const onRec = Array.isArray(r.diet) ? r.diet.slice().sort() : [];
+      if (union.join(',') !== onRec.join(',')) {
+        bad(r.id, (where === 'existing' ? 'existing record: ' : '') + 'record diet ' + JSON.stringify(onRec) + ' is not the union of its versions ' + JSON.stringify(union) + ' — §26 says the record diet is DERIVED, never typed');
       }
     }
   }
@@ -186,8 +220,19 @@ function validate(existing, incoming, cfg, KEYS) {
       // "oyster mushrooms" contains "oyster", a vegetarian record legitimately contains egg,
       // and a version delta can remove the offending item. It flags for human eyes; it does
       // not block. Making this a hard fail would train the author to work around it.
-      const vegan = r.diet.includes('vegan');
-      const vegetarian = r.diet.includes('vegetarian');
+      // §26 FOLLOW-ON (29 Jul, caught on the very first Japan batch). This check must read the
+      // DEFAULT VERSION's diet, not the record's. Since §26 the record diet is the UNION, so a
+      // record whose budget fork is vegan now legitimately carries "vegan" while its BASE
+      // ingredients — which are the default version's ingredients — are full of pork. Reading
+      // r.diet here fired on all four correctly-authored Japan records at once.
+      // ⚖️ A rung that fires on every correct record is the rung she learns to scroll past.
+      // The base ingredients string belongs to the default version, so that is what it is judged
+      // against. Deltas are NOT resolved here — an honest limit, stated: a mis-tag on a
+      // non-default version's own added ingredients is invisible to this rung.
+      const _def = (Array.isArray(r.versions) ? r.versions : []).find(v => v && v.default === true);
+      const _judgeDiet = (_def && Array.isArray(_def.diet)) ? _def.diet : r.diet;
+      const vegan = _judgeDiet.includes('vegan');
+      const vegetarian = _judgeDiet.includes('vegetarian');
       if ((vegan || vegetarian) && typeof r.ingredients === 'string') {
         const ing = r.ingredients.toLowerCase();
         const FLESH = ['pork', 'beef', 'chicken', 'duck', 'lamb', 'mutton', 'fish', 'prawn',
@@ -197,10 +242,10 @@ function validate(existing, incoming, cfg, KEYS) {
         const FALSE_FRIENDS = ['oyster mushroom', 'chicken of the woods', 'eggplant', 'coconut milk', 'soya milk', 'soy milk'];
         const cleaned = FALSE_FRIENDS.reduce((acc, ff) => acc.split(ff).join(''), ing);
         const flesh = FLESH.filter(w => cleaned.includes(w));
-        if (flesh.length) warn(r.id, 'tagged ' + JSON.stringify(r.diet) + ' but ingredients mention: ' + flesh.join(', ') + ' — check this is not a mis-tag');
+        if (flesh.length) warn(r.id, 'default version tagged ' + JSON.stringify(_judgeDiet) + ' but base ingredients mention: ' + flesh.join(', ') + ' — check this is not a mis-tag');
         if (vegan) {
           const de = DAIRY_EGG.filter(w => cleaned.includes(w));
-          if (de.length) warn(r.id, 'tagged vegan but ingredients mention: ' + de.join(', ') + ' — check this is not a mis-tag');
+          if (de.length) warn(r.id, 'default version tagged vegan but base ingredients mention: ' + de.join(', ') + ' — check this is not a mis-tag');
         }
       }
     }
@@ -262,6 +307,9 @@ function validate(existing, incoming, cfg, KEYS) {
     }
   });
 
+  if (dietDebt.length) {
+    warns.push(dietDebt.length + ' existing records have no per-version diet[] (§26 debt, converted at LANE CLOSE not mid-lane) — e.g. ' + dietDebt.slice(0, 3).join(', '));
+  }
   return { fails, warns };
 }
 

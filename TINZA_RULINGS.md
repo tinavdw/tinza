@@ -1429,3 +1429,114 @@ MF149-B named every `sectionHeader()` caller and Tina still found bare `← Back
 - ⏱️ **AFTER THE TOP-BACK BUILD, NOT BEFORE.** That build changes what every top Back *does*. Tests written first would be written against a shape about to be replaced. **Land the build, then lock it.**
 - ⚠️ **CLAUDE CANNOT BUILD OR VERIFY THIS ONE.** Playwright downloads its browsers from a CDN the Claude sandbox cannot reach. **Claude writes the brief; Code builds and runs it on Tina's machine.** Stated plainly so it is never assumed otherwise. ⚖️ **Law 19.**
 - ⚖️ **LAW 2 IS UNCHANGED AND IS NOT UP FOR REVIEW.** Neither watcher closes a bug. **Her fingers on live close a bug.** These only narrow where one can hide.
+
+---
+
+## 🥬 26 · **DIET LIVES ON THE VERSION. THE RECORD'S DIET IS DERIVED, NEVER TYPED.** — **RULED 29 Jul 2026**
+
+**The catch that forced it.** `china-cong-you-ban-mian` — Scallion Oil Noodles. The budget fork removes the dried
+shrimp and is genuinely, completely vegan. But `diet` lives on the **record**, so the record reads `omnivore`, and a
+vegan user with the filter on will **never be shown a dish that has a vegan version sitting inside it.**
+
+This is not a China problem. It is the whole lane and most of the app: **budget forks drop the meat by design.**
+Japan's ramen, Thailand's curries, Indonesia's sambal dishes — the same fork, the same disappearance.
+
+### THE RULING
+1. **`diet` is a property of the VERSION.** Every version carries its own `diet:[…]`, exactly the way it already
+   carries its own `costPP`. This follows straight from **§15 — a version is a full recipe.** A full recipe has a diet.
+2. **The record's `diet` is the UNION of its versions' diets, and it is DERIVED.** It is never hand-typed, and
+   `merge.js` asserts it. A record whose versions are `[omnivore, omnivore, vegan]` has record diet
+   `["omnivore","vegan"]`. ⚖️ **A field that is typed by hand AND computable is a field that will drift** — same
+   reasoning as `tinzaListLabel()` and the reserved-slots contract.
+3. **UNION, NOT INTERSECTION — and the honest cost is stated.** Union means the vegan filter surfaces Scallion Oil
+   Noodles. That is right: under-reporting *hides real food from the people who most need to find it*, which is the
+   worse failure of the two. The cost is that a vegan user could open the record and land on an omnivore default.
+   Therefore:
+4. ⚖️ **A FILTER THAT MATCHED ON A NON-DEFAULT VERSION MUST OPEN ON THAT VERSION.** If the vegan filter is what
+   surfaced the card, the vegan version is the one preselected — `default:true` is overridden by the filter that
+   brought her here. **Without this clause the ruling is a lie**, and it is not optional to it. *(Code job — a brief,
+   not an authoring change. Related to the open fix-queue item ⑤ version-label + chip-preselect.)*
+5. **Vocabulary is unchanged:** `omnivore · vegetarian · vegan · unknown`, and **halaal + kosher are separate laws
+   and are never diet tags** (12 Jul, restated because it has already been breached once this lane).
+
+### SCOPE — WHAT IS DONE WHEN
+- **Japan onwards: authored per-version from record 1.** No retrofit, no debt.
+- **China's 50: derived at LANE CLOSE, not now.** ⚠️ Rewriting 50 banked records mid-lane, on a Wednesday, to fix a
+  filter that is *already* red app-wide, is how a display inconsistency becomes fifty broken cards. The `merge.js`
+  rung warns on them every merge so the debt stays visible and cannot be forgotten.
+- ⚠️ **This does NOT fix the app-wide diet filter** (118 vegan records invisible, still open). It stops this lane
+  from adding to it.
+
+---
+
+## 🔧 27 · **STAPLES GET THEIR OWN TAB — "BASICS" — AND ARE NOT PLANNABLE** — **RULED 29 Jul 2026**
+
+**The gap.** Ruling **A5** made staples real cards with `course:"staple"`. It never said where they land. `wkCourseToTab()`
+has no case for `staple`, so it falls to `default: return "mains"` — and China's Mains tab reads **29 = 25 real mains
++ 4 jars.** A cook browsing tonight's dinner is offered a bottle of chilli oil.
+
+⚖️ **The code is not wrong so much as never told.** This is a gap in A5, not a breach of it.
+
+### THE RULING
+1. **A sixth tab: `basics`, 🔧, label "Basics", LAST in the tab bar** — after Drinks. Last because it is a
+   **reference shelf, not a meal course**; it does not belong between Mains and Sides.
+2. **`wkCourseToTab("staple") → "basics"`.** One case in one switch.
+3. ⚖️ **STAPLES ARE NOT ADDABLE TO MY PLAN.** Hide the plan button when `course === "staple"`. **You do not serve
+   chilli oil to eight people.** The portion brain would cheerfully scale a jar of master stock by guest count and
+   produce a number that means nothing. A staple is made in a batch and kept; that is what makes it a staple.
+   ⚠️ **This is the clause most likely to be missed in the build — it is the one that stops an absurdity.**
+4. **Staples still count toward the country's dish target.** They are real cards with real work in them.
+5. **The rejected option, and why.** Filtering `staple` out of the tabs entirely is closer to A5's literal wording
+   and is less work — and it leaves a staple reachable **only** by opening some other dish that happens to link to
+   it. A cook who wants to make chilli oil *on purpose* would have no route at all. **Discoverability was the whole
+   point of making them cards.**
+6. ⏱️ **This is a `worldkitchen.js` render change and does NOT happen inside an authoring batch.** It grows with
+   every country — Japan brings dashi, Thailand curry paste, Indonesia sambal — so it wants doing before Japan
+   closes, not before Japan opens.
+
+---
+
+## ♻️ 28 · **`leftovers` IS AN ARRAY — AND IT HAS NO RENDERER, WHICH IS THE ACTUAL BUG** — **RULED 29 Jul 2026**
+
+### 🔴 THE FINDING THAT CHANGED THE QUESTION
+The open question was "string or array, and which one renders?" **Measured 29 Jul, and neither does.**
+**Nothing in the app reads `r.leftovers`.** Grepped app-wide: the only occurrences outside recipe data are
+`merge.js`'s own assertions.
+
+What World Kitchen actually renders is `worldkitchen.js:739` → `wkLeftoverKeys(r)` in `core.js:4765`, which
+**keyword-guesses over the ingredient string** and returns **one** key from a closed generic list of fifteen
+(`beef · lamb · pork · chicken · seafood · pasta · rice · potato · beans · cheese · bread · roast-veg …`), which is
+then looked up in `LEFTOVER_IDEAS` for three generic lines.
+
+⚖️ **So Tea-Smoked Duck's authored line — keep the rendered smoked duck fat, fry rice in it — is invisible, and
+what a cook is shown instead is the generic `chicken` blurb.** All **150 authored leftover lines across China's 50
+records render nowhere.** The WOW Standard requires proper leftovers = a second real meal; the app has been
+throwing them away since the first record.
+
+⚖️ **THIS IS WHY THE LIVE LOOK COULD NEVER HAVE SETTLED IT.** ASIA_PROGRESS asked Tina to open Hong Shao Rou (string)
+and Tang Yuan (array) and compare. **Both would have looked identical, because both render nothing** — and the
+honest conclusion from that test would have been "no difference, leave it", which is exactly wrong.
+📌 **Law 2 stands and is not weakened by this** — her eyes close bugs. But a *comparison* test is only valid if the
+two things compared are actually being read, and that is a thing Node can check and eyes cannot.
+
+### THE RULING
+1. **`leftovers` is an ARRAY of prose strings.** 45 of 50 already are; the 5 that are not predate `merge.js`. The
+   shape question is settled by authoring order and majority, not by display.
+2. **The five legacy records are converted NOW** — `hong-shao-rou · mapo-tofu · gong-bao-ji-ding · char-siu ·
+   dan-dan-mian`. ⚖️ **Safe to do because it is zero-judgement: the string is wrapped, not rewritten.** No prose is
+   touched, no meaning is decided. This is the opposite of the "don't rewrite five banked records on a guess"
+   caution in ASIA_PROGRESS — there is no guess left.
+3. 🩸 **THE RENDERER IS A CODE BRIEF, NOT AN AUTHORING FIX.** Rule for the build:
+   **authored `leftovers` WINS; `wkLeftoverKeys()` is the FALLBACK only when a record has no `leftovers` array.**
+   A record that took the trouble to say what to do with its own leftovers is never overridden by a keyword guess.
+4. ⚖️ **KEEP `wkLeftoverKeys()` — IT IS DOING A SECOND, DIFFERENT JOB.** It also feeds `LEFTOVER_CLASS` →
+   `SAFETY_CLASS` → the Storage & safety box, which is a **food-safety classifier** (the starch/cool-fast rule is a
+   real hazard note). Deleting the guesser to fix the display would silently delete the food-safety engine with it.
+   **Two jobs, one function, and only one of them is broken.**
+5. **The generic fallback stays free; authored leftovers follow the existing Pro gate.** No tier change here.
+
+### ⚖️ THE PATTERN, WRITTEN DOWN — **THIRD TIME**
+`cong-you-bing` (budget-leads, existing records unchecked) · `leftovers` shape (incoming-only assertion) · and now
+**a field asserted for years by a validator while nothing on earth read it.**
+**A validator that checks a field's SHAPE has not established that the field is USED.** New rung: when a lane
+introduces a field, grep for its reader once, at the start. It costs one command.

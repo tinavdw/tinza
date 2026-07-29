@@ -243,3 +243,37 @@ Same caveat as batches 7 and 8: `prices.js` is not in the container, so these ar
 All 50 China records authored. The price batch (A7) still waits for Japan, Indonesia, Thailand and Vietnam.
 **Nothing in this file has been actioned.** Before the batch runs, every candidate above must go through a
 check-not-add pass against `prices.js` at HEAD — batches 7, 8 and 9 were all appended without one.
+
+---
+
+## 🇯🇵 JAPAN — BATCH 1 (29 Jul 2026)
+⚖️ **A7 — DO NOT ACT ON THIS YET.** All Asian keys land in ONE batch after all five countries are authored.
+⚠️ **MF137 — a duplicate key is worse than a missing one.** Checked against `sections/prices.js` before listing.
+
+### NEW — not in prices.js (16)
+| key | note |
+|---|---|
+| `kombu` | dried kelp, sold in sheets. Specialist / Asian grocer. Small quantity per serving (3–8g) so cost-per-use is low even at a high pack price. |
+| `katsuobushi` | dried bonito flakes. Bag price is high, 5g per serving. |
+| `niboshi` | dried sardines. Cheaper than katsuobushi and a real budget lever for the whole country. |
+| `panko` | Japanese breadcrumbs. Now stocked in mainstream SA supermarkets — check the everyday shelf before pricing it as specialist. |
+| `tonkatsu sauce` | thick fruit-and-vegetable brown sauce. ⚠️ Several brands contain fish extract — matters for §26 vegetarian tagging. |
+| `japanese mayonnaise` | egg-yolk-only, rice vinegar. Priced separately from plain mayonnaise — it is a different product, not a brand. |
+| `aonori` | dried green seaweed flakes. |
+| `nagaimo` | mountain yam. ⚠️ **May be genuinely unavailable in SA.** The card already states the baking-powder stand-in honestly in-method, so a missing price is not a blocker — but decide whether it gets a key at all or whether the stand-in becomes the priced default. |
+| `pickled red ginger` | beni shoga. Distinct from sushi ginger (gari) — different cut, different colour, different use. |
+| `menma` | seasoned bamboo shoots. Marked optional in the ramen line. |
+| `nori` | sheets. Likely mainstream. |
+| `shichimi togarashi` | seven-spice. |
+| `mitsuba` | Japanese parsley. ⚠️ Almost certainly unavailable — the card already offers flat-leaf parsley in the ingredient line. Probably **does not need a key**. |
+| `yakisoba noodles` | for the Hiroshima version. Fresh egg noodles are the stand-in. |
+| `karashi` | Japanese mustard. Marked optional. |
+| `sake` | ⚠️ **LIQUOR — see MF139 liquor_price_keys.** Cooking sake and drinking sake are different products at very different prices; price the cooking grade. Small volumes (10–15ml/serving). |
+
+### ✅ CHECK, DO NOT ADD — already in prices.js
+`mirin` · `ramen noodles` · `curry powder` · `garam masala` · `cake flour` · `pork belly` · `chicken thighs` ·
+`white cabbage` · `sweetcorn` · `firm tofu` · `spring onion` · `sesame seeds`
+
+### ⚠️ CHECK AGAINST THE CHINA APPEND — do not list twice
+`dried shiitake mushrooms` reads NEW against `prices.js` but China's records use it heavily, so it is
+**probably already on this file from a China batch.** Search this document before adding it a second time.

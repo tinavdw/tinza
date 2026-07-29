@@ -51,6 +51,11 @@ if (!FIXTURE_SOURCE) { console.error('🔴 no clean fixture record found — can
 function fixture() {
   const r = clone(FIXTURE_SOURCE);
   r.id = 'china-selftest-fixture';
+  // §26 (29 Jul): diet lives on the VERSION and the record diet is the derived union.
+  // FIXTURE_SOURCE is a China record authored before the ruling, so the fixture is brought
+  // up to the current contract here rather than by rewriting a banked record.
+  r.versions.forEach(v => { v.diet = ['omnivore']; });
+  r.diet = ['omnivore'];
   return r;
 }
 
@@ -158,7 +163,9 @@ console.log('\n── existing-record re-check ──');
 console.log('\n── diet vs ingredients (warn rung) ──');
 {
   const r = fixture();
-  r.diet = ['vegan'];
+  r.versions.forEach(v => { v.diet = ['vegan']; });   // §26: set the versions too, so the union
+  r.diet = ['vegan'];                                 // matches and THIS test measures only the
+                                                      // ingredient cross-check, not the union rung.
   r.ingredients = '200g pork belly, cubed · 30g ginger · 20ml soy sauce';
   r.versions.forEach(v => delete v.delta);   // deltas point at the ORIGINAL ingredients string;
                                              // replacing it wholesale would orphan them and the
@@ -193,6 +200,45 @@ console.log('\n── judgement rung stays a WARN, never a block ──');
     console.log('  ✅ WARN-not-FAIL — v1 not cheapest prints and does not block'); pass++;
   } else {
     console.log('  ❌ the judgement rung is wrong: fails=' + out.fails.length + ' warns=' + out.warns.length); fail++;
+  }
+}
+
+// ── §26 · PER-VERSION DIET (ruled 29 Jul 2026) ───────────────────────────────
+console.log('\n── §26 diet lives on the version ──');
+red('a version with no diet[]',
+    r => { delete r.versions[1].diet; },
+    'has no diet[]');
+red('a version diet token outside v1 vocabulary',
+    r => { r.versions[1].diet = ['halaal-friendly']; },
+    'not in v1 vocabulary');
+red('record diet under-reports its versions (the cong-you-ban-mian shape)',
+    r => { r.versions[0].diet = ['vegan']; },              // record still says omnivore only
+    'is not the union of its versions');
+red('record diet over-reports — claims a diet no version has',
+    r => { r.diet = ['omnivore', 'vegan']; },
+    'is not the union of its versions');
+
+// The union is order-insensitive: a record listing the same tokens in a different order is
+// NOT a breach, and a rung that failed it would train the author to sort by hand for no reason.
+console.log('\n── §26 union is a SET, not a sequence ──');
+{
+  const r = fixture();
+  r.versions[0].diet = ['vegan'];
+  r.diet = ['vegan', 'omnivore'];        // union, unsorted
+  const out = run(r);
+  if (out.fails.length === 0) { console.log('  ✅ GREEN — union compared as a set, order ignored'); pass++; }
+  else { console.log('  ❌ order-sensitive: ' + out.fails.join(' | ').slice(0, 160)); fail++; }
+}
+
+// EXISTING records predate §26 and must WARN once, never block — China converts at lane close.
+console.log('\n── §26 existing-record debt is a single WARN, never a block ──');
+{
+  const out = run(fixture());
+  const d = out.warns.filter(w => w.includes('no per-version diet[]'));
+  if (out.fails.length === 0 && d.length === 1) {
+    console.log('  ✅ WARN-not-FAIL, and reported ONCE not per-record → ' + d[0].slice(0, 90)); pass++;
+  } else {
+    console.log('  ❌ debt rung wrong: fails=' + out.fails.length + ' debt-warns=' + d.length); fail++;
   }
 }
 
