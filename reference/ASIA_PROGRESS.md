@@ -1093,7 +1093,25 @@ Course balance improving: main was 46% at B5 close, now **41%**.
 - **HIJIKI — OPTION A TAKEN (Claude, flagged not silent).** Hijiki no Nimono NOT authored. Four national food-safety agencies (UK FSA, Canada CFIA, Hong Kong CFS, Singapore SFA) advise against eating hijiki over inorganic arsenic; the same FSA survey found none in arame, kombu, nori or wakame. **Nasu Dengaku** took the slot. ⚠️ Reversible — nothing was created that needs undoing. Tina can overrule.
 - **§26 union caught on my own record.** Anmitsu was declared `["vegan"]` while carrying a vegetarian version. Corrected to `["vegan","vegetarian"]`. Measured across all 27 afterwards: drift 0.
 
-### 🩸 NEW GATE GAP FOUND — merge.js does NOT check the §26 union
-`merge.js` walks diet VOCABULARY (line 173) but has **no union assertion at all** — grep for "union" in merge.js returns nothing. A record can declare `diet:["vegan"]` while a version is vegetarian-only, or omit `omnivore` while a version is omnivore, and **nothing fires**. Found because I made exactly that mistake and only caught it by hand.
-⚠️ The lane notes describe "§26 union" as one of merge.js's 40 assertions. It is not there. Same shape as the FLESH-list gap already open.
-**Rung to write:** derive the union from `versions[].diet`, compare to `r.diet` as a SET, fail on any difference either way. Born-RED proof: re-declare Anmitsu as `["vegan"]`.
+### ⚠️ CORRECTION — the "merge.js has no §26 union check" claim was WRONG
+Earlier in this session I recorded that `merge.js` had no §26 union assertion. **That was true
+of the copy I had cloned at session start, and FALSE of live HEAD.** HEAD's `merge.js` already
+carries a §26 rung, and it is **better than the one I was about to hand back**:
+- HARD for incoming records, WARN for existing ones — so China's 50 print as visible debt
+  ("50 existing records have no per-version diet[]") instead of blocking the lane
+- the debt is collected and reported **once with a count**, not once per record — explicitly to
+  avoid the rung-that-cries-wolf failure
+- it also asserts every version **has** a `diet[]` at all, and vocabulary-checks each one,
+  neither of which my version did
+
+**My edit was discarded, not pushed.** `merge.js` should be taken from HEAD untouched.
+
+⚖️ **HOW IT WAS CAUGHT, and the rule that caught it:** before handing back a canonical file I
+diffed my base against live HEAD. It had drifted by 39 lines. This is the §29 rule working
+exactly as written — *whenever handing back a canonical file, check whether HEAD is behind
+the local copy first* — and it is the same shape as the ASIA_PROGRESS truncation and the
+TINZA_SPRINT_PLAN split-brain. **A shallow clone is a snapshot, not the truth.**
+
+✅ **RE-VALIDATED AFTER RESTORING HEAD's merge.js:** all 27 Japan records pass the stricter
+rung. My 7 records have **0 versions missing `diet[]`** and **0 union drift** — they were
+authored to the standard before I knew the gate enforced it.
