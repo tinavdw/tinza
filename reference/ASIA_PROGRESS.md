@@ -1198,3 +1198,43 @@ the Chongqing Hotpot collision) · Ebi Furai · Hiyayakko · Kake Udon.
 Unchanged, and the proposed amendment now has a second argument behind it: **push `wk_japan.js`
 unwired at every batch close.** One deploy credit, zero change to the live app, and 30 records stop
 being one dead container away from gone.
+
+### 🔧 B7 POST-CLOSE — TWO CORRECTIONS FILED (29 Jul 2026)
+
+**1. A CLAIM I MADE THAT WAS NOT MEASURED, AND SHOULD NOT HAVE BEEN MADE.**
+At B7 close I wrote that thirty records were "one dead container away from gone." **Wrong** — Tina
+had pushed `japan wowing` (5f5344a) before the session started, and every B7 record was handed back
+to her desktop within a minute of being written. ⚖️ The failure is not the phrasing, it is that I
+**asserted a repo state I had no way to see and never asked about**. That is the MF152 shape exactly:
+the append written by grepping MF152 itself. A claim about the repo has to be measured against the
+repo. ⚠️ It also happened to make my own handoff sound more necessary than it was, which is the part
+worth flagging: advocacy in the shape of assessment.
+
+**2. `dashi` R13 — THE UNIT IS THE RULING, NOT THE NUMBER.** Closed by Tina in commit `0ef4d75`.
+`"dashi": 13` is **per LITRE of made-up dashi**, because every record writes dashi in **ml** and an
+ml line costs as `(qty/1000) × price`. Priced per kg of instant granules, one 300ml bowl of miso soup
+would have cost **R570**. Exact precedent already in the file at `prices.js:97` — `"stock": 8, //
+LIQUID stock (per L) — was 170 (powder price) which over-priced 68+ recipes using "<ml> stock"`.
+⚖️ **GENERALISED:** any concentrate, paste, granule, roux or stock-like key must be quoted in the
+unit the recipes actually write it in. Check this on kaeshi, mentsuyu and curry roux before they are
+authored. ✅ §29 fully closed — route ruled AND price sourced; the "hon dashi unsourced" item is
+STRUCK. ✅ `potato starch` R120 also live; the `core.js:1340 → cornflour` alias is now **dead code**,
+not a shadow bug, because `wkPriceLookup` resolves `PRICE_DB[n]` before `WK_ALIAS`.
+
+**3. 🔴 THE COLD-START FILES CARRY THE INSTRUCTION THAT LOST B7.**
+`JAPAN_B7_COLD_START.md` line 11 reads *"Author 3 records, hand back once at the end."* It survived
+only because Tina's typed brief overrode it on the day. It is a **copy-forward defect** — the same
+sentence is line 11 of `JAPAN_B5_COLD_START.md`, its ancestor. **B5 is fixed in the B7 handback**, and
+`reference/JAPAN_B8_COLD_START.md` was written **correct from birth** — that is the chain broken, and
+nothing is left to do by hand. B7's own cold start is **spent**: B7 is closed, it will never be
+pasted again, and it exists only in un-pushed local commits, so it was not touched (rebuilding it
+from HEAD would have deleted content — the §29 block-not-file rule). Delete it or leave it.
+⚖️ **NOT PROMOTED TO A LAW — TINA'S CALL, 29 Jul, AND THE REASON MATTERS.**
+The rule already exists: **SAVE AS YOU GO (Tina, 22 Jul)** — *"after EVERY banked recipe, present the
+updated files; a cut-off must cost one recipe, never a session."* B7 did not expose a missing law, it
+exposed **a file contradicting an existing one**. Writing a second copy into `TINZA_LAW.md` would be
+the split-brain shape ruled against on `TINZA_SPRINT_PLAN.md` and Events §2.2 — two files, one rule,
+guaranteed drift. Law 52 counts a thing said twice by accident, not a thing filed twice on purpose.
+📌 **Standing decision: leave it here as a note. If it recurs a third time, it becomes a Law.**
+The fix is not more rules — it is that the cold-start files must be checked against the rules that
+already exist before they are pasted.

@@ -8,7 +8,7 @@ Nothing else needs saying. No diagnosis, no baseline hunting, no "let me check H
 ## 📋 PASTE THIS
 
 ```
-Japan batch 5. Author 5 records, then hand back once at the end.
+Japan batch 5. Author 5 records. ⛔ HAND BACK A DOWNLOAD AFTER EVERY SINGLE RECORD — never batch to the end.
 
 ATTACHED: wk_japan.js (20 records) · ASIA_PROGRESS.md · MF152_ASIA_PRICE_KEYS.md · pricecheck.js
 CLONE for the rest: git clone --depth 1 https://github.com/tinavdw/tinza.git
