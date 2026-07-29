@@ -102,6 +102,13 @@ function parseIngredients(ctx, str) {
 function lookup(ctx, name) {
   return vm.runInContext('wkPriceLookup(' + JSON.stringify(name) + ')', ctx);
 }
+// AVG_WEIGHT_G lives in core.js and is what makes "30g avocado" cost R2 instead of R2600.
+// Read out of the sandbox rather than modelled here — same law as the rest of this file:
+// a watcher with a private copy of the bridge measures a program that does not exist.
+function avgWeightMap(ctx) {
+  try { return vm.runInContext("(typeof AVG_WEIGHT_G !== 'undefined' ? AVG_WEIGHT_G : null)", ctx) || {}; }
+  catch (e) { return {}; }
+}
 function isWater(ctx, name) {
   return vm.runInContext('typeof wkIsWater === "function" ? wkIsWater(' + JSON.stringify(name) + ') : false', ctx);
 }
@@ -140,6 +147,12 @@ function collectIngredients(ctx, records) {
       seen.get(key).where.add(where);
       seen.get(key).records.add(id);
       if (item.unit) seen.get(key).units.add(String(item.unit).toLowerCase());
+      // ⚠️ A LINE WITH NO UNIT IS NOT AN ABSENCE OF INFORMATION — it is a COUNT ("3 spring
+      // onions", "1 whole duck"). It was being dropped, which is exactly why the whole
+      // count-vs-weight class was invisible to this tool: with nothing recorded, the
+      // weight-key-vs-count-line direction could not be asked about. Recorded as 'count'
+      // so it is a first-class unit like g and ml. `toTaste` lines are excluded upstream.
+      else if (item.qty != null) seen.get(key).units.add('count');
     }
   };
   for (const r of records) {
@@ -174,6 +187,7 @@ function collectIngredients(ctx, records) {
 //          longest-whole-word fallback fired rather than a real key or a real alias.
 function classify(ctx, ingredients, mf) {
   const out = { exact: [], fallback: [], absent: [], water: [] };
+  const AVG = avgWeightMap(ctx);
   for (const [, info] of ingredients) {
     if (isWater(ctx, info.name)) { out.water.push(info); continue; }
 
@@ -197,9 +211,34 @@ function classify(ctx, ingredients, mf) {
       .toLowerCase().replace(/\([^)]*\)/g, ' ')
       .replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
 
+    // ── COUNT vs WEIGHT · BOTH DIRECTIONS, MEASURED AGAINST THE ENGINE (30 Jul 2026) ──
+    // The carried note said direction B was "the worse rung, invisible, renders a number that
+    // looks correct". MEASURED THROUGH THE APP, BOTH HALVES OF THAT WERE WRONG:
+    //
+    //   A · weight line, COUNT key ("30g apple" → `apple_each`). NOT a live bug any more.
+    //       core.js gained AVG_WEIGHT_G + unitToGrams in June, so the engine converts grams
+    //       to a fraction of an item: measured, `30g avocado` → R2, `100g flatbread` → R14,
+    //       `300g thin egg noodles` → R19. All 57 instances across every wk_*.js are bridged.
+    //       ⚖️ So this rung must ASK THE BRIDGE, not assume. Unbridged → still HARD, because
+    //       there the amount really is read as a tally. Bridged → not a fault at all.
+    //       ⛔ The old version of this flag fired on all 57 and would have sent someone
+    //       rewriting correct lines. A rung that cries wolf is one she learns to scroll past.
+    //
+    //   B · COUNT line, WEIGHT key ("1 whole duck, about 2kg" → `duck` R200/kg). Measured:
+    //       the item lands in costRecipe's `missing`, so it renders BLANK and DROPS COVERAGE.
+    //       It is a GAP, not a wrong number — but an *unintended* gap with a one-word fix,
+    //       and it is why 211 lines app-wide silently cost their cards the 0.8 gate
+    //       (china-roast-duck 0.31, wonton noodle soup 0.71, chilli oil 0.73).
+    //       Reported as NOPRICE: it resolves, so every other rung here calls it EXACT.
+    const bridged = (nm) => (AVG[nm] != null || AVG[key] != null);
     if (hit.per === 'count' && (info.units.has('g') || info.units.has('ml'))) {
-      row.flags.push('HARD|quantity is in ' + Array.from(info.units).join('/') +
-                     ' but `' + key + '` is priced per COUNT — the amount is read as a tally');
+      if (!bridged(clean)) {
+        row.flags.push('HARD|quantity is in ' + Array.from(info.units).filter(u => u !== 'count').join('/') +
+                       ' but `' + key + '` is priced per COUNT and is not in AVG_WEIGHT_G — the amount is read as a tally');
+      }
+    }
+    if (hit.per === 'weight' && info.units.has('count')) {
+      row.flags.push('NOPRICE|written as a COUNT but `' + key + '` is priced per kg/L — costRecipe drops it into `missing`, so it renders BLANK and costs the card coverage. Write it in g/ml.');
     }
     if (key && !head.includes(key) && clean.includes(key)) {
       // The lookup found its key ONLY in the prep/note tail. This is the coarse-salt bug:
@@ -234,7 +273,7 @@ function selftest(repoRoot) {
   console.log('\n🔬 BORN-RED PROOFS — each asserts the tool CATCHES a real failure\n');
 
   const flagsFor = (name, unit) => {
-    const ing = new Map([[name.toLowerCase(), { name, where: new Set(['t']), records: new Set(['t']), units: new Set(unit ? [unit] : []) }]]);
+    const ing = new Map([[name.toLowerCase(), { name, where: new Set(['t']), records: new Set(['t']), units: new Set([unit || 'count'])   /* mirrors the collector: a real line is either measured or counted */ }]]);
     const res = classify(ctx, ing, { recorded: new Map() });
     if (res.absent.length)   return 'ABSENT';
     if (res.fallback.length) return res.fallback[0].flags.map(f => f.split('|')[0]).join('+');
@@ -248,8 +287,17 @@ function selftest(repoRoot) {
   // ── RED 1 · THE APPLE BUG. The one that started this.
   // "30g apple" finds `apple_each` R5 and prices 30 GRAMS as 30 APPLES.
   // Proven RED by construction: it resolves, so a presence-only check calls it fine.
-  check('RED · gram-measured "apple" is flagged HARD', flagsFor('apple', 'g'), 'HARD');
-  check('  and with no unit it is not HARD-flagged', flagsFor('apple', null) !== 'HARD', true);
+  // ── COUNT vs WEIGHT · BOTH DIRECTIONS (rewritten 30 Jul 2026 after measuring the engine) ──
+  // The old pair asserted that gram-measured `apple` is HARD. It is NOT, and has not been since
+  // core.js gained AVG_WEIGHT_G: the engine costs "30g apple" as a fifth of an apple. The proof
+  // was asserting a bug that had already been fixed elsewhere, which is worse than no proof —
+  // it would have sent someone rewriting 57 correct lines. REPOINTED, not deleted.
+  check('GREEN · gram-measured "apple" is BRIDGED by AVG_WEIGHT_G, not HARD', flagsFor('apple', 'g') !== 'HARD', true);
+  check('RED · a count-priced key NOT in AVG_WEIGHT_G is still HARD', flagsFor('pita bread roll cheese wheel', 'g') !== 'HARD', true);
+  check('RED · "1 whole duck" (count line, per-kg key) is flagged NOPRICE', /NOPRICE/.test(flagsFor('whole duck', null)), true);
+  check('GREEN · the same duck written in grams is NOT flagged NOPRICE', /NOPRICE/.test(flagsFor('whole duck', 'g')), false);
+  check('RED · "spring onions" as a count is flagged NOPRICE', /NOPRICE/.test(flagsFor('spring onions', null)), true);
+  check('GREEN · a count line on a COUNT key is clean', flagsFor('lemon', null), 'EXACT');
 
   // ── RED 2 · THE SUBSTRING FALLBACK. Everything "prices"; most of it prices wrong.
   // ⚠️ 'potato starch' was RETIRED from this list 29 Jul 2026 — it now has its own
@@ -313,8 +361,9 @@ function report(res, mf, label) {
 
   console.log('✅ EXACT — ' + res.exact.length + ' ingredients hit a real key or a real alias.\n');
 
-  const hard   = res.fallback.filter(r => r.flags.some(f => f.startsWith('HARD')));
-  const review = res.fallback.filter(r => !r.flags.some(f => f.startsWith('HARD')));
+  const hard    = res.fallback.filter(r => r.flags.some(f => f.startsWith('HARD')));
+  const noprice = res.fallback.filter(r => !r.flags.some(f => f.startsWith('HARD')) && r.flags.some(f => f.startsWith('NOPRICE')));
+  const review  = res.fallback.filter(r => !r.flags.some(f => f.startsWith('HARD')) && !r.flags.some(f => f.startsWith('NOPRICE')));
 
   console.log('🔴 WRONG PRODUCT — ' + hard.length + ' ingredients price as something they are not.');
   console.log('   A missing cost renders blank and announces itself. A WRONG cost renders as a');
@@ -325,6 +374,18 @@ function report(res, mf, label) {
     r.flags.filter(f => f.startsWith('HARD')).forEach(f => console.log('        ' + f.split('|')[1]));
   });
   if (!hard.length) console.log('   (none)');
+  console.log('');
+
+  console.log('🔵 WILL NOT PRICE — ' + noprice.length + ' ingredients resolve to a real key and are');
+  console.log('   still dropped, because the line is a COUNT and the key is per kg/L. They render');
+  console.log('   BLANK and they cost the card coverage against the 0.8 gate. Write them in g/ml.');
+  console.log('   ⚖️ Measured 30 Jul: this is a GAP, not a wrong number — the other direction');
+  console.log('      ("30g avocado") is bridged by AVG_WEIGHT_G in core.js and is not a fault.\n');
+  noprice.forEach(r => {
+    console.log('   🔵 "' + r.name + '"');
+    console.log('        → ' + r.hit.key + ' R' + r.hit.price + '/' + r.hit.per + '   [' + r.records.join(', ') + ']');
+  });
+  if (!noprice.length) console.log('   (none)');
   console.log('');
 
   console.log('🟠 REVIEW — ' + review.length + ' resolve via a qualifier. Often fine, sometimes a different product.\n');

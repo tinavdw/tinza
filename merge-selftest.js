@@ -81,6 +81,17 @@ function red(label, mutate, expect) {
   }
 }
 
+// The mirror of red(): mutate into something the contract ALLOWS and demand zero failures.
+// Needed the day a validator turns out to be stricter than the renderer it validates.
+function green(label, mutate) {
+  const r = fixture();
+  let out;
+  try { mutate(r); out = run(r); }
+  catch (e) { console.log('  ❌ ' + label + '\n       validator CRASHED: ' + e.message); fail++; return; }
+  if (!out.fails.length) { console.log('  ✅ GREEN ' + label); pass++; }
+  else { console.log('  ❌ ' + label + '\n       expected NO failures, got: ' + out.fails.join(' | ').slice(0, 200)); fail++; }
+}
+
 console.log('\n═══ MERGE.JS BORN-RED PROOF ═══');
 console.log("existing records: " + EXISTING.length + " · canonical keys: " + KEYS.length + " · fixture built from: " + FIXTURE_SOURCE.id + "\n");
 
@@ -122,6 +133,11 @@ red('servings 4 not 1',             r => { r.servings = 4; },                   
 console.log('\n── delta contract ──');
 red('unknown delta op',             r => { r.versions[0].delta.replaceEverything = [{ item: 'x' }]; }, 'unknown delta op');
 red('addIng wrong shape',           r => { r.versions[2].delta.addIng = [{ text: 'x' }]; },            'should be "item"');
+// ⚖️ 30 Jul 2026 — the OPPOSITE proof, added because the validator was wrong rather than the
+// record: {item, after} is the documented contract (MF140) and core.js renders it, so it must
+// PASS. And an anchor pointing at nothing must FAIL, or the insert silently moves to the end.
+green('addIng WITH a valid after anchor', r => { r.versions[2].delta.addIng = [{ item: '5g extra thing', after: r.ingredients.split(' · ')[0] }]; });
+red('addIng with a DEAD after anchor',  r => { r.versions[2].delta.addIng = [{ item: '5g extra thing', after: 'nothing like this in the base line' }]; }, 'DEAD addIng anchor');
 red('addStep wrong shape',          r => { r.versions[0].delta.addStep = [{ item: 'x' }]; },           'should be "text"');
 red('DEAD swapIng (not in ings)',   r => { r.versions[0].delta.swapIng = [{ from: 'unicorn steak', to: 'beef' }]; }, 'DEAD swapIng');
 red('DEAD removeIng',               r => { r.versions[0].delta.removeIng = [{ item: 'unicorn steak' }]; },           'DEAD removeIng');

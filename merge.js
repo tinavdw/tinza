@@ -28,7 +28,14 @@ const COUNTRIES = {
 };
 
 const DIET_VOCAB = ['omnivore', 'vegetarian', 'vegan', 'unknown'];
-const DELTA_OPS  = { swapIng: 'from+to', swapStep: 'from+to', addIng: 'item', removeIng: 'item', addStep: 'text' };
+// ⚖️ 30 Jul 2026 — addIng MAY carry an OPTIONAL `after` anchor. Found at record 47: the
+// validator rejected `{item, after}` while applyVersionDelta() in core.js explicitly supports
+// it ("addIng takes an optional {after:'name'} anchor") and MF140 documents it as the contract.
+// The renderer and the documented contract agreed; THIS FILE was the one out of step, so this
+// is not loosening an assertion to fit a record — it is correcting a validator that contradicted
+// the thing it validates. Values may be a fixed shape or a list of accepted shapes.
+const DELTA_OPS  = { swapIng: 'from+to', swapStep: 'from+to', addIng: ['item', 'item+after'], removeIng: 'item', addStep: 'text' };
+const okShape = (op, ks) => Array.isArray(DELTA_OPS[op]) ? DELTA_OPS[op].includes(ks) : DELTA_OPS[op] === ks;
 
 // Canonical key set lives in a file, NOT in record 1 of the target.
 // A brand-new country file HAS no record 1 — it would validate its keys against nothing
@@ -272,7 +279,12 @@ function validate(existing, incoming, cfg, KEYS) {
         if (!Array.isArray(v.delta[key])) { bad(r.id, 'delta op "' + key + '" must hold an array'); continue; }
         v.delta[key].forEach(o => {
           const ks = Object.keys(o).join('+');
-          if (ks !== DELTA_OPS[key]) bad(r.id, key + ' shape "' + ks + '" should be "' + DELTA_OPS[key] + '"');
+          if (!okShape(key, ks)) bad(r.id, key + ' shape "' + ks + '" should be "' +
+            (Array.isArray(DELTA_OPS[key]) ? DELTA_OPS[key].join('" or "') : DELTA_OPS[key]) + '"');
+          // An anchor that points at nothing silently appends at the end instead of inserting
+          // where the author meant — a quiet lie, so it is checked like any other dead delta.
+          if (key === 'addIng' && o.after && typeof r.ingredients === 'string' && !r.ingredients.includes(o.after))
+            bad(r.id, 'DEAD addIng anchor — `after` is not in ingredients: "' + String(o.after).slice(0, 50) + '"');
           // DEAD-DELTA: the thing being swapped/removed must actually exist in the base record.
           const ing = typeof r.ingredients === 'string' ? r.ingredients : '';
           const mth = typeof r.method === 'string' ? r.method : '';
