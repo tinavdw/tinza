@@ -309,6 +309,152 @@ const PRICE_DB = {
   "chili": 70,                // per kg
   "garlic": 280,              // per kg
   "ginger": 280,              // per kg
+  "sake": 417,               // R75 per 180ml → R417/L. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // ⚠️ COOKING sake, not drinking grade — MF152 is explicit they are
+                             // different products at very different prices. Cards use 10-20ml, so a
+                             // 20ml splash costs R8.33. 180ml is the small one-cup size and the dearest
+                             // per litre; a 720ml bottle works out cheaper, so this figure is the
+                             // CONSERVATIVE end and no card can be under-costed by it.
+                             // ⛔ NEVER aliased to `mirin` R200 — mirin is sweetened, sake is not, and
+                             //    aliasing a dearer product to a cheaper one is the MF28 mistake.
+                             // 🟣 THIS KEY WAS "PARKED" ON MF152 AS ALREADY-PRESENT SINCE BATCH 3 AND
+                             //    WAS NEVER HERE. 10 Japan cards. Tina supplied the price three times.
+                             //    pricecheck now carries a PARKED-BUT-ABSENT rung so it cannot recur.
+  // ══ TINA'S MF152 "TO ADD" LIST, APPLIED 30 Jul 2026 — SOURCED WEEKS AGO, NEVER KEYED ══
+  // Every figure below was already normalised to R/kg in her own file and left there by A7. Each
+  // one was silently resolving to a DIFFERENT, CHEAPER PRODUCT, so these are not missing prices —
+  // they are wrong prices, and §29.5 says A7 never sheltered those.
+  "rice flour": 40,          // R40/1kg. Was resolving to `rice` R27 — a bag of grains priced for a
+                             // milled flour. ⛔ Not interchangeable with `glutinous rice flour`.
+  "dried shiitake mushrooms": 1750, // R35/20g. Was resolving to `mushrooms` R90 — FRESH mushroom price
+                             // on a dried product, 19x under. Live in China and in japan-chikuzenni (8g)
+                             // and japan-chirashizushi (15g).
+  "dried shrimp": 800,       // R40/50g. Was resolving to `prawns` R350 — fresh prawn price, 2.3x under.
+  "dried flounder": 2500,    // R250/100g. ⚠️ Luxury; the wonton record already demotes it to optional
+                             // and leads with dried shrimp. Keyed so the optional line stops being a hole.
+  "thin egg noodles": 176,   // R60/340g. 🔴 WAS RESOLVING TO `egg` R3.70 **PER COUNT**, so a 300g line
+                             // read as 300 eggs. Required the lookup-order fix in worldkitchen.js —
+                             // no key could be reached while the egg guard ran first.
+  "wonton wrappers": 190,    // R95/500g. ⛔ Deliberately dearer than `gyoza wrappers` R158 and kept
+                             // separate — thinner, rounder, and the Gyoza card makes thinness a law.
+  "choy sum": 60,            // R15/250g. Was ABSENT outright.
+  "evaporated milk": 100,    // R34.99-43.99 per 380-410g. Was resolving to `milk` R20 — fresh milk on a
+                             // reduced tinned product, 5x under.
+  "fermented black beans": 340, // R95-180/400g. 🔴 Was resolving to `black beans` R50 — A LEGUME PRICE ON
+                             // A SALTED FERMENTED CONDIMENT, ~7x under, and MF152 warned about exactly
+                             // this collision in writing. Live in SIX pushed China records.
+  "wheat bran": 80,          // R20-40 per 500g at Checkers / Pick n Pay → R40-80/kg, taking R80 per
+                             // §31.1. ⚠️ TINA-SOURCED **29 JULY**, one day before it was keyed. It was
+                             // written into ASIA_PROGRESS.md that day as "Tina-sourced, NOT yet keyed
+                             // (A7 defers MISSING prices)" — recorded and then deliberately left out of
+                             // this file, after which pricecheck reported it missing and she was asked
+                             // for it again. 🔴 THAT IS THE A7 FAILURE, not a memory failure: a price
+                             // given, logged as prose, never keyed, then re-requested. Nukazuke's bed is
+                             // out of costPP under §31.3a, so this key changes no card cost — it exists
+                             // so the number stops being asked for.
+  "strong flour": 25,        // ⚠️ CLAUDE-SOURCED 30 Jul 2026, NOT TINA-SOURCED — flagged so it can be
+                             // corrected on sight. Bread/strong flour in SA: Best Bake White Bread
+                             // Flour 10kg R169.99 (Agrimark) = R17/kg · Sasko White Bread Flour 12.5kg
+                             // R199.99 = R16/kg. Those are BULK bags; a 1kg retail pack runs dearer, and
+                             // `cake flour` is already keyed at R22, so R25 is the 1kg-pack figure
+                             // leaning high per the locked round-up rule. 180g in Castella = R4.50.
+                             // ⛔ Do NOT alias to `cake flour` R22 — different protein, and Castella
+                             //    names strong flour specifically for the structure it gives.
+  "agar agar powder": 1467,  // R110 per 75g → R1467/kg. TINA-SOURCED 30 Jul 2026. Band R700/kg (R70
+                             // per 100g) to R3000/kg (R150 per 50g); midpoint of her own range, the
+                             // method used all day. 4g in Anmitsu costs R5.87.
+                             // ⛔ NEVER aliased to gelatine — different setting temperature and a
+                             //    different DIET CLASS: agar is vegan, gelatine is not. A silent alias
+                             //    there would mis-tag a vegan card, which is a harm, not a rounding.
+  "tonkatsu sauce": 287,     // R85.99 per 300ml → R287/L. TINA-SOURCED 30 Jul 2026. 30ml = R8.60.
+                             // ⚠️ Several brands carry fish extract — MF152 flags this for §26
+                             //    vegetarian tagging, so a vegetarian fork using it needs checking.
+                             // ⛔ Not `okonomiyaki sauce` R320 — related, sweeter, different product.
+  "shichimi togarashi": 2533,// R38 per 15g shaker → R2533/kg. TINA-SOURCED 30 Jul 2026. 1g = R2.53.
+                             // Seven-spice. ⛔ Not `chilli` and not `sichuan peppercorns` — it is a
+                             //    blend, and one of its seven components is sansho, which is why it is
+                             //    buyable here while loose sansho is not (see the Yakitori method).
+  "konjac": 140,             // R40.50 per 290g → R140/kg. TINA-SOURCED 30 Jul 2026, taken from the
+                             // shirataki noodle/knot packs (R38-43 per 200-380g) because that IS the
+                             // buyable form. Jelly pouches run ~R369/kg and keto-branded pasta more
+                             // again; the ordinary pack leads per §31.1.
+  "shirataki noodles": 140,  // Same product, same price, its own key. ⚠️ IT WAS RESOLVING TO `noodles`
+                             // R80 — a WHEAT price on a konjac product, ~1.75x under, live in
+                             // japan-nikujaga's 60g line. §29.5: a wrong price is a bug, not a gap.
+  "sesame paste": 260,       // ~R250-270/kg for bulk tubs → R260/kg. TINA-SOURCED 30 Jul 2026.
+                             // Jars run R58-160 depending on brand, size and shop. 🟣 THIS KEY WAS
+                             // PARKED ON MF152 AS ALREADY-PRESENT AND WAS NOT HERE — the second one the
+                             // new parked-but-absent rung caught, after `sake`. It is not only a Japan
+                             // gap: MF152 records China's Dan Dan and Bang Bang using it heavily, and
+                             // Japan's Gyoza dip needs it, so those cards were all costing without it.
+  "dried azuki beans": 116,  // R29 per 250g supermarket pack → R116/kg. TINA-SOURCED 30 Jul 2026.
+                             // Band: R60-80/kg for a 1kg bag up to R132/kg for the dearest 250g pack;
+                             // the ordinary 250g pack leads per §31.1. 40g in a card costs R4.64.
+                             // 📌 Tina also sourced whole green or brown mung bean as the closest
+                             // substitute — NOT NEEDED, and that is the useful finding: at R116/kg the
+                             // real bean is cheap enough that no card has to compromise.
+                             // ⛔ Never aliased to `red bean paste` R120/kg — that is the finished
+                             //    sweetened paste and the from-scratch route being cheaper is exactly
+                             //    what Taiyaki's and Dorayaki's budget forks are arguing.
+  "matcha powder": 3556,     // R320 per 90g → R3556/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // ⚖️ CULINARY GRADE, which is the correct product for a card: her culinary
+                             // band is R260-380 per 80-100g (R2600-4750/kg) and this is its midpoint,
+                             // the same method as `wasabi` and `aonori`. ⛔ NOT ceremonial grade, which
+                             // is a drinking product at a drinking price, and ⛔ not the 1kg bulk tins
+                             // at R399-1000/kg — a kilo of matcha is not a home buy and pricing off it
+                             // would understate every card by 4x or more. 4g in a card costs R14.22.
+  "kinako": 2465,            // R350 per 142g → R2465/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // Roasted soybean flour, rare on physical shelves and usually imported.
+                             // 15g in Warabimochi costs R37, which is honest for an imported pack —
+                             // and the card already names the fallback in-method (toast plain soy flour
+                             // in a dry pan), so nobody is blocked by the price.
+  "aonori": 28125,           // R225 per 8g → R28,125/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // Her band: R150/10g = R15,000/kg at the cheap end, R300/6g = R50,000/kg
+                             // at the dear end — a 3.3x spread on pack size and brand, so this key is
+                             // the MIDPOINT OF HER OWN RANGE (money mid R225, size mid 8g), the same
+                             // method used for `wasabi` R1775 earlier today rather than a new one.
+                             // ⚠️ IT IS ENORMOUS PER KILO AND THAT IS THE TRUTH OF THE PRODUCT: these
+                             // are 6-10g shakers. A 2g dusting costs R56, which is why Okonomiyaki and
+                             // Takoyaki jump. If that reads wrong on the card, THE LEVER IS THE
+                             // QUANTITY, NOT THE PRICE — 2g is a generous dusting and 0.5g is a real
+                             // one at R14. ⛔ Never aliased to `nori flakes` R1800 or `dried wakame`.
+  "okonomiyaki sauce": 320,  // R95.99 per 300g bottle → R320/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // Cards write it in ml and sauce is ~1g/ml, so 30ml costs R9.60.
+                             // ⛔ Not `tonkatsu sauce`, still unpriced — they are different sauces and
+                             //    MF152 flags tonkatsu sauce separately for its fish-extract question.
+  "dried kombu": 1300,       // R65 per 50g → R1300/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // ⭐ THE LAST PIECE OF DASHI. With katsuobushi R2250 this completes the
+                             // staple every other Japanese card points at — it had been rendering R0.
+                             // Cards use 3-10g, so the 3g piece in Dashi costs R3.90.
+                             // ⛔ Never aliased to `dried wakame` or `nori flakes` — three different
+                             //    seaweeds at three different prices for three different jobs.
+  "katsuobushi": 2250,       // R90 per 40g → R2250/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.
+                             // Band R2250 (40g mainstream pack) to R2743 (70g imported, R192). The
+                             // mainstream pack leads per §31.1. It LOOKS enormous per kilo and it is
+                             // correct — dried bonito is shaved almost to air, and cards use 2-6g, so
+                             // 5g costs R11.25. ⛔ Never aliased to `niboshi` (dried sardine, cheaper
+                             //    and a different fish) and never to `dried kombu`, still unpriced.
+  "sheet nori_each": 4.7,    // R45-49 per pack of 10 → R4.50-4.90 A SHEET. TINA-SOURCED 30 Jul 2026.
+                             // ⚠️ A COUNT KEY ON PURPOSE: every card writes "1 sheet nori" or
+                             // "1/4 sheet nori", so per-sheet is the honest unit and a per-kg figure
+                             // would be unusable. Bulk 50-sheet packs run R135-150 = R2.70-3.00 a
+                             // sheet; the small pack is the mainstream buy and leads (§31.1).
+                             // ⛔ NOT `nori flakes` R1800/kg — different product, different aisle.
+  "gyoza wrappers": 158,     // R47.50 per 300g pack → R158/kg. TINA-SOURCED 30 Jul 2026 (specialty
+                             // Asian grocer; band R47.50–95/pack). ⚠️ A SEPARATE KEY, AND THE NUMBER PROVES
+                             // IT: gyoza wrappers land BELOW `wonton wrappers` R190, so aliasing the two
+                             // would have over-costed every gyoza card. They are round, larger and
+                             // noticeably thinner, and the Gyoza card makes thinness a law. ⛔ Do not merge.
+  "tapioca starch": 70,      // R35/500g. TINA-SOURCED (MF152 ADD list), applied 30 Jul 2026.
+                             // ⚠️ Not interchangeable with `cornflour` R68 in either direction even
+                             // though the numbers are close — Warabimochi v3 names it specifically.
+  "bamboo shoots": 136,      // R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.
+                             // ⚠️ Priced on DRAINED weight, which is lower than the tin weight —
+                             // a card writing 60g means 60g drained, so this is the honest per-kg.
+  "red bean paste": 120,     // R49–60 per 400–500g → ~R120/kg. TINA-SOURCED, applied 30 Jul 2026.
+                             // ⛔ NEVER alias to dried azuki beans: one is a finished sweetened paste,
+                             // the other the raw pulse, and the from-scratch route is cheaper BY DESIGN.
+                             // That gap is the whole argument for Taiyaki's budget fork existing.
   "wasabi": 1775,            // src:Tina when:2026-07-30 conf:shelf  TUBES R38-104 per 35-45g. The four corners of
                              // that bracket normalise to R844/kg (R38/45g) · R1086 (R38/35g) · R2311 (R104/45g) ·
                              // R2971/kg (R104/35g), so this key is the MIDPOINT OF HER OWN RANGE: R71 / 40g = R1775/kg.
@@ -898,11 +1044,20 @@ const PRICE_DB = {
   "miso paste": 135,               // R27/200g. Sub: soy sauce
   "sriracha": 74,                  // R32/435ml → R74/L
   "mirin": 200,                    // R30/150g
-  "nori flakes": 4150,             // R415/100g
+  "nori flakes": 1800,             // R90/50g = R1800/kg. CORRECTED 30 Jul 2026 (Tina-sourced band).
+                                   // ⚠️ WAS R4150, taken from R415/100g — which is the ORGANIC TOP END of
+                                   // a wide band, so every card using it was costing at 2.3x the mainstream
+                                   // pack. Band is R1800 (small 50g) to R4150 (100g organic); the mainstream
+                                   // buy leads, per §31.1. ⛔ STILL NOT `sheet nori`, which is a different
+                                   // product and still unpriced.
   "gochugaru": 800,                // R80/100g — Korean dried chilli, NOT fresh chilli
   "amchur": 260,                   // R26/100g — dried mango powder, NOT fresh mango
   "asafoetida": 400,               // R20/50g (hing)
-  "sichuan peppercorns": 1300,     // R65/50g
+  "sichuan peppercorns": 1300,     // R65/50g. ✅ RE-CHECKED 30 Jul 2026 against Tina's band
+                                   // (R30/28g ≈ R1071 · R55/30g ≈ R1833 · R20/10g = R2000 · R120–167/50g
+                                   // ≈ R2400–3340): R1300 sits inside it, near the low end. Left as is.
+                                   // ⛔ NEVER the fallback for `sansho pepper` — same genus, different
+                                   //    product, and sansho is import-only in SA (see the Yakitori method).
   "nigella seeds": 600,            // R30/50g. Sub: black sesame seeds
   "allspice": 760,                 // R19/25g
   "caraway seeds": 760,            // R19/25g

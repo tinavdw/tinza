@@ -511,6 +511,17 @@ var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","fryi
   // order. These two lines sit above that rung and settle it: whichever way it is written, it
   // prices as daikon. ⛔ Never add a `radish`->`daikon` line or the reverse.
   "daikon radish":"daikon","mooli":"daikon","white radish":"daikon","japanese radish":"daikon",
+  // Kombu is only ever sold dried, so a bare `kombu` line means the same product as `dried kombu`
+  // R1300. Added with the key on 30 Jul 2026 so a future country writing the short form cannot
+  // fall silently through to nothing — no wk_*.js writes it today, and that is the point of doing
+  // it now rather than after it ships. ⛔ Still NOT `dried wakame` or `nori flakes`.
+  "kombu":"dried kombu","kelp":"dried kombu","dried kelp":"dried kombu",
+  // 🔴 `beansprouts` (one word) was reported ABSENT for the whole lane while Tina's OWN key
+  // `bean sprouts` R270 has been in prices.js since July (Woolies/PnP, 100g punnet ~R27).
+  // The lookup matches whole words, so the closed-up spelling never met it. She said she had
+  // given this weeks ago and she had — it was a spelling gap wearing the shape of a missing price,
+  // which is the same class as `carrot, <prep>` and the `_each` tails. 30 Jul 2026.
+  "beansprouts":"bean sprouts","bean shoots":"bean sprouts","mung bean sprouts":"bean sprouts",
   "masala":"curry powder","durban masala":"curry powder","durban curry masala":"curry powder","breyani masala":"curry powder","biryani masala":"curry powder","mild curry powder":"curry powder",
   "potatoes":"potato","potato chunks":"potato","potato cubes":"potato",
   "yoghurt":"yoghurt","plain yoghurt":"yoghurt",
@@ -526,9 +537,15 @@ function wkPriceLookup(name){
   if(typeof PRICE_DB === 'undefined') return null;
   var n = wkCleanName(name);
   if(!n) return null;
-  if(/\beggs?\b/.test(n)) return { key:'egg', price:(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7), per:'count' };
+  // ⚖️ ORDER FIXED 30 Jul 2026 — AN EXACT KEY NOW BEATS THE EGG GUARD.
+  // The egg rung used to run FIRST, so `thin egg noodles` returned `egg` R3.70 PER COUNT and a
+  // 300g line was read as 300 eggs. Tina sourced that product at R60/340g = R176/kg weeks ago and
+  // the figure could never be applied, because no key could ever be reached past this guard.
+  // An exact key is the most specific thing we know about a name; a word-match guard is the least.
+  // The guard still catches bare `egg` / `eggs`, which is all it was ever for.
   if(PRICE_DB[n+'_each'] != null) return { key:n, price:PRICE_DB[n+'_each'], per:'count' };   // count items (pita, loaf, lemon…)
   if(PRICE_DB[n] != null) return { key:n, price:PRICE_DB[n], per:'weight' };
+  if(/\beggs?\b/.test(n)) return { key:'egg', price:(PRICE_DB['eggs_each']||PRICE_DB['eggs']||3.7), per:'count' };
   // deplural
   if(n.slice(-1)==='s' && PRICE_DB[n.slice(0,-1)] != null) return { key:n.slice(0,-1), price:PRICE_DB[n.slice(0,-1)], per:'weight' };
   if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null){ return (typeof l2Blocks==='function' && l2Blocks(name, WK_ALIAS[n])) ? null : { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' }; }

@@ -120,16 +120,67 @@ function isWater(ctx, name) {
 function readMF152() {
   if (!fs.existsSync(MF152)) return { recorded: new Map(), ok: false };
   const recorded = new Map();
+  // ⚠️ FIXED 30 Jul 2026 — THE WATCHER HAD THE BUG IT WAS BUILT TO CATCH.
+  // `priced` was tested against the WHOLE LINE, so a rand figure belonging to a DIFFERENT key
+  // on the same row marked this key as sourced. Measured damage: `sansho pepper` was reported
+  // as already-priced off a row that says "do NOT alias to `sichuan peppercorns` R1300";
+  // `dried wakame` off "do not alias to `nori flakes` (R4150)"; `gyoza wrappers` off a
+  // collision note quoting `wonton wrappers` R95/500g. All three have NO price of their own.
+  // ⚖️ That is precisely MF137's worst case — a key WRONGLY PARKED as already-there, which
+  // announces itself never, because the price batch skips it and the card ships costless.
+  // THE RULE NOW: a rand figure counts for a key only when that key is the row's SUBJECT —
+  // the first backticked token on the line, or the first cell of a markdown table row.
   for (const line of fs.readFileSync(MF152, 'utf8').split('\n')) {
-    const priced = /R\s?[0-9]/.test(line);
-    let m; const re = /`([^`]+)`/g;
+    const hasRand = /R\s?[0-9]/.test(line);
+    const cells = line.split('|');
+    let m, first = true; const re = /`([^`]+)`/g;
     while ((m = re.exec(line)) !== null) {
       const k = m[1].trim().toLowerCase();
+      const isSubject = first;
+      first = false;
       if (!k || k.length > 40 || /[(){}]/.test(k)) continue;
+      // For a table row, the subject key sits in cell 1 and its price in a LATER cell — but
+      // ⚠️ ONLY a cell that names no OTHER key. Second pass at this: cell-1 matching alone still
+      // credited `sansho pepper` with the R1300 sitting inside "do NOT alias to
+      // `sichuan peppercorns` R1300", and `dried wakame` with `nori flakes` (R4150). A price in
+      // a cell that mentions another ingredient belongs to that ingredient.
+      const subjectCell = cells.length > 2 && cells[1] && cells[1].toLowerCase().includes('`' + k + '`');
+      const ownPrice = subjectCell && cells.slice(2).some(c =>
+        /R\s?[0-9]/.test(c) && !/`[^`]+`/.test(c));
+      const priced = (isSubject && hasRand && !/`[^`]+`/.test(line.replace('`' + k + '`', ''))) || ownPrice;
       if (priced || !recorded.has(k)) recorded.set(k, { priced, line: line.trim().slice(0, 150) });
     }
   }
   return { recorded, ok: true };
+}
+
+// ── 🟣 PARKED BUT ABSENT ─────────────────────────────────────────────────────
+// MF152 carries a "CHECK, DO NOT ADD — believed already in prices.js" block. A key parked
+// there is skipped by the price batch FOREVER, so if the belief is wrong the card ships
+// costless and nothing ever asks again. THIS IS THE HOLE THAT HID `sake` — 10 Japan cards,
+// the single biggest gap in the country, parked as already-present since batch 3 and never
+// once requested. ⚖️ MF137's ladder: missing < duplicate < WRONGLY PARKED, because a parked
+// key announces itself never.
+// Mechanical, no judgement: read every backticked key under that heading, ask the real
+// PRICE_DB, report the ones that are not there.
+function parkedButAbsent(ctx) {
+  if (!fs.existsSync(MF152)) return null;
+  const lines = fs.readFileSync(MF152, 'utf8').split('\n');
+  const out = [];
+  let inBlock = false;
+  for (const line of lines) {
+    if (/^#{2,4}\s*.*CHECK,\s*DO NOT ADD/i.test(line)) { inBlock = true; continue; }
+    if (inBlock && /^#{2,4}\s/.test(line)) inBlock = false;
+    if (!inBlock) continue;
+    let m; const re = /`([^`]+)`/g;
+    while ((m = re.exec(line)) !== null) {
+      const k = m[1].trim();
+      if (!k || k.length > 40) continue;
+      let hit = null; try { hit = lookup(ctx, k); } catch (e) {}
+      if (!hit && out.indexOf(k) < 0) out.push(k);   // dedupe: a key may be parked on two lines
+    }
+  }
+  return out;
 }
 
 // ── COLLECT EVERY INGREDIENT THE RECORDS ACTUALLY USE ────────────────────────
@@ -317,7 +368,20 @@ function selftest(repoRoot) {
   //    live hole, never deleted quietly, or the assertion count silently drops.
   //    Replacement: `aonori`, still genuinely absent and unsourced (wk_japan.js okonomiyaki,
   //    takoyaki). ⛔ Do not repoint this at `wasabi` — that one is being sourced.
-  ['aonori', 'warabi starch', 'panko', 'kombu', 'katsuobushi'].forEach(k => {
+  // ⚖️ REPOINTED AGAIN 30 Jul 2026: `katsuobushi` now has a real key (R2250/kg, Tina-sourced), so
+  //    its ABSENT proof went RED for the right reason — the subject was fixed. Third repoint in this
+  //    file (potato starch → glutinous rice flour, daikon → aonori, katsuobushi → nagaimo). Replaced
+  //    with `nagaimo`, which §MF152 records as probably unavailable in SA at all, so it will stay a
+  //    hole. ⛔ Never delete one of these — the assertion count must not fall silently.
+  // ⚖️ FOURTH REPOINT, 30 Jul 2026: `kombu` now resolves — the key `dried kombu` R1300 is in, and
+  //    WK_ALIAS carries the short form deliberately so a future country cannot write it and get
+  //    nothing. Subject fixed → proof repointed, never deleted. Replaced with `mitsuba`, which MF152
+  //    records as almost certainly unavailable in SA and probably needing no key at all.
+  // ⚖️ FIFTH REPOINT, 30 Jul 2026 — `aonori` now has a key (R28,125/kg, Tina-sourced), so its ABSENT
+  //    proof went RED for the right reason. Replaced with `sheets aburaage`, which MF152 records as a
+  //    genuinely new key and explicitly warns must never be aliased to `tofu`. Five repoints in one
+  //    day is not churn — it is the price batch actually landing, and the count has never fallen.
+  ['sheets aburaage', 'warabi starch', 'panko', 'mitsuba', 'nagaimo'].forEach(k => {
     check('RED · "' + k + '" reports ABSENT', flagsFor(k, 'g'), 'ABSENT');
   });
 
@@ -375,6 +439,15 @@ function report(res, mf, label) {
   });
   if (!hard.length) console.log('   (none)');
   console.log('');
+
+  if (res.parked && res.parked.length) {
+    console.log('🟣 PARKED BUT ABSENT — ' + res.parked.length + ' keys sit under MF152\'s');
+    console.log('   "CHECK, DO NOT ADD — believed already in prices.js" heading and are NOT there.');
+    console.log('   ⚖️ Worse than missing and worse than duplicate: a parked key is skipped by every');
+    console.log('      price batch and never asked for again. This is what hid `sake` for four batches.\n');
+    res.parked.forEach(k => console.log('   🟣 `' + k + '`'));
+    console.log('');
+  }
 
   console.log('🔵 WILL NOT PRICE — ' + noprice.length + ' ingredients resolve to a real key and are');
   console.log('   still dropped, because the line is a COUNT and the key is per kg/L. They render');
@@ -474,7 +547,9 @@ function main() {
   }
 
   const ingredients = collectIngredients(ctx, records);
-  report(classify(ctx, ingredients, mf), mf, label);
+  const res = classify(ctx, ingredients, mf);
+  res.parked = parkedButAbsent(ctx) || [];
+  report(res, mf, label);
 }
 
 if (require.main === module) main();
