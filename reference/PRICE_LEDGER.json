@@ -7,7 +7,7 @@
       "value": 1467,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R110 per 75g → R1467/kg. TINA-SOURCED 30 Jul 2026. Band R700/kg (R70",
+      "evidence": "R110 per 75g \u2192 R1467/kg. TINA-SOURCED 30 Jul 2026. Band R700/kg (R70",
       "pricesLine": 381
     },
     {
@@ -15,7 +15,7 @@
       "value": 19,
       "date": null,
       "grandfathered": true,
-      "evidence": "2kg/R38 → R19/kg (Tina)",
+      "evidence": "2kg/R38 \u2192 R19/kg (Tina)",
       "pricesLine": 1013
     },
     {
@@ -23,7 +23,7 @@
       "value": 28125,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R225 per 8g → R28,125/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R225 per 8g \u2192 R28,125/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 429
     },
     {
@@ -71,7 +71,7 @@
       "value": 136,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.",
+      "evidence": "R55.99 per 410g can \u2192 ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.",
       "pricesLine": 469
     },
     {
@@ -87,7 +87,7 @@
       "value": 40,
       "date": null,
       "grandfathered": true,
-      "evidence": "Libya — bazin (Tina)",
+      "evidence": "Libya \u2014 bazin (Tina)",
       "pricesLine": 261
     },
     {
@@ -111,7 +111,7 @@
       "value": 60,
       "date": "30 Jul 2026",
       "grandfathered": false,
-      "evidence": "TINA-SOURCED 30 Jul 2026, given in-conversation with retailer/market sources (Woolworths, Vegetarium price list, Joburg Market daily price list, PnP, Impfruit). Her band: standard whole spinach in bunches/prepacks R15.00-R25.00 per 300g-350g bunch, which she gives as approx R45.00-R70.00 per kg. Median of that band R57.50; §31 rounds up -> R60. This is the BUNCH route and is distinct from \"spinach\" R93 (cleaned/cut 400g prepack) and \"baby spinach\" R216 (125g punnet), both of which remain unchanged.",
+      "evidence": "TINA-SOURCED 30 Jul 2026, given in-conversation with retailer/market sources (Woolworths, Vegetarium price list, Joburg Market daily price list, PnP, Impfruit). Her band: standard whole spinach in bunches/prepacks R15.00-R25.00 per 300g-350g bunch, which she gives as approx R45.00-R70.00 per kg. Median of that band R57.50; \u00a731 rounds up -> R60. This is the BUNCH route and is distinct from \"spinach\" R93 (cleaned/cut 400g prepack) and \"baby spinach\" R216 (125g punnet), both of which remain unchanged.",
       "pricesLine": 538
     },
     {
@@ -119,7 +119,7 @@
       "value": 430,
       "date": null,
       "grandfathered": true,
-      "evidence": "R43/100g (Tina) — same 100g-pack shape as walnuts/almonds",
+      "evidence": "R43/100g (Tina) \u2014 same 100g-pack shape as walnuts/almonds",
       "pricesLine": 99
     },
     {
@@ -127,7 +127,7 @@
       "value": 350,
       "date": null,
       "grandfathered": true,
-      "evidence": "100g/R35 → R350/kg (Tina)",
+      "evidence": "100g/R35 \u2192 R350/kg (Tina)",
       "pricesLine": 1014
     },
     {
@@ -135,7 +135,7 @@
       "value": 100,
       "date": null,
       "grandfathered": true,
-      "evidence": "ready-to-use, gelatin-rich — R50/500ml → R100/L (Tina)",
+      "evidence": "ready-to-use, gelatin-rich \u2014 R50/500ml \u2192 R100/L (Tina)",
       "pricesLine": 802
     },
     {
@@ -151,7 +151,7 @@
       "value": 30,
       "date": null,
       "grandfathered": true,
-      "evidence": "pet raw — R30/kg (Tina)",
+      "evidence": "pet raw \u2014 R30/kg (Tina)",
       "pricesLine": 262
     },
     {
@@ -159,7 +159,7 @@
       "value": 55,
       "date": null,
       "grandfathered": true,
-      "evidence": "pet — R55/kg (Tina)",
+      "evidence": "pet \u2014 R55/kg (Tina)",
       "pricesLine": 263
     },
     {
@@ -167,7 +167,7 @@
       "value": 550,
       "date": null,
       "grandfathered": true,
-      "evidence": "R22/40g → R550/kg (Tina 11 Jul)",
+      "evidence": "R22/40g \u2192 R550/kg (Tina 11 Jul)",
       "pricesLine": 646
     },
     {
@@ -183,7 +183,7 @@
       "value": 119,
       "date": null,
       "grandfathered": true,
-      "evidence": "R46/385g → R119/kg (Tina 11 Jul)",
+      "evidence": "R46/385g \u2192 R119/kg (Tina 11 Jul)",
       "pricesLine": 556
     },
     {
@@ -191,7 +191,7 @@
       "value": 120,
       "date": "2026-07",
       "grandfathered": true,
-      "evidence": "src:Tina when:2026-07 conf:shelf  R32-52/500g · R75-99/800g-1kg → R64-124/kg, took the top per §31.1.",
+      "evidence": "src:Tina when:2026-07 conf:shelf  R32-52/500g \u00b7 R75-99/800g-1kg \u2192 R64-124/kg, took the top per \u00a731.1.",
       "pricesLine": 849
     },
     {
@@ -199,7 +199,7 @@
       "value": 3500,
       "date": null,
       "grandfathered": true,
-      "evidence": "10g/R35 → R3500/kg (Tina); used in pinches",
+      "evidence": "10g/R35 \u2192 R3500/kg (Tina); used in pinches",
       "pricesLine": 1017
     },
     {
@@ -217,6 +217,14 @@
       "grandfathered": true,
       "evidence": "R32/200g (Tina, 16 Jun)",
       "pricesLine": 723
+    },
+    {
+      "key": "doubanjiang",
+      "value": 413,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R50-R95 per 230-400g jar = R125-R413/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). Sichuan fermented broad-bean chilli paste.",
+      "pricesLine": null
     },
     {
       "key": "double cream plain yoghurt",
@@ -247,7 +255,7 @@
       "value": 116,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R29 per 250g supermarket pack → R116/kg. TINA-SOURCED 30 Jul 2026.",
+      "evidence": "R29 per 250g supermarket pack \u2192 R116/kg. TINA-SOURCED 30 Jul 2026.",
       "pricesLine": 408
     },
     {
@@ -255,7 +263,7 @@
       "value": 240,
       "date": null,
       "grandfathered": true,
-      "evidence": "mixed, 500g/R120 → R240/kg (Tina)",
+      "evidence": "mixed, 500g/R120 \u2192 R240/kg (Tina)",
       "pricesLine": 1015
     },
     {
@@ -263,7 +271,7 @@
       "value": 1300,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R65 per 50g → R1300/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R65 per 50g \u2192 R1300/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 443
     },
     {
@@ -275,12 +283,36 @@
       "pricesLine": 269
     },
     {
+      "key": "dried wakame",
+      "value": 725,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "NOT Tina-sourced - FOUND BY CLAUDE 30 Jul 2026 after she supplied it three times in earlier sessions without it ever reaching prices.js, and then said 'the rest you can look for'. Manna J Wakame Seaweed 200g, R145.00, HelloAsia (helloasia.co.za, Cape Town, nationwide delivery), price read from the live product page. R145/200g = R725/kg. One product, one pack, no band.",
+      "pricesLine": null
+    },
+    {
+      "key": "fermented red bean curd",
+      "value": 217,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R55.00-R65.00 per 300-335g jar of namru / red furu = R164-R217/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). NOT red bean paste R120 - furu is fermented bean curd, salty; red bean paste is sweet azuki.",
+      "pricesLine": null
+    },
+    {
       "key": "fish frames",
       "value": 50,
       "date": null,
       "grandfathered": true,
       "evidence": "maasbanker/white fish (Tina)",
       "pricesLine": 268
+    },
+    {
+      "key": "five spice powder",
+      "value": 540,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R23.99-R27.00 per standard 50g jar = R480-R540/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1).",
+      "pricesLine": null
     },
     {
       "key": "foil sheet_each",
@@ -311,7 +343,7 @@
       "value": 550,
       "date": null,
       "grandfathered": true,
-      "evidence": "R22/40g → R550/kg (Tina 11 Jul)",
+      "evidence": "R22/40g \u2192 R550/kg (Tina 11 Jul)",
       "pricesLine": 646
     },
     {
@@ -327,15 +359,23 @@
       "value": 158,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R47.50 per 300g pack → R158/kg. TINA-SOURCED 30 Jul 2026 (specialty",
+      "evidence": "R47.50 per 300g pack \u2192 R158/kg. TINA-SOURCED 30 Jul 2026 (specialty",
       "pricesLine": 461
+    },
+    {
+      "key": "hoisin sauce",
+      "value": 465,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R64.99-R93.00 per 200-240g bottle = R271-R465/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1).",
+      "pricesLine": null
     },
     {
       "key": "hot sauce",
       "value": 160,
       "date": null,
       "grandfathered": true,
-      "evidence": "R40/250ml → R160/L, AVERAGE (Tina 11 Jul) — MAKEABLE: Spice > Sauces",
+      "evidence": "R40/250ml \u2192 R160/L, AVERAGE (Tina 11 Jul) \u2014 MAKEABLE: Spice > Sauces",
       "pricesLine": 1016
     },
     {
@@ -343,7 +383,7 @@
       "value": 800,
       "date": null,
       "grandfathered": true,
-      "evidence": "R160/200g (Tina) — brewed espresso costs as coffee via alias",
+      "evidence": "R160/200g (Tina) \u2014 brewed espresso costs as coffee via alias",
       "pricesLine": 958
     },
     {
@@ -351,7 +391,7 @@
       "value": 2250,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R90 per 40g → R2250/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R90 per 40g \u2192 R2250/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 449
     },
     {
@@ -359,7 +399,7 @@
       "value": 260,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "Tina-sourced 30 Jul 2026, two batches. NORMALISED: local 250ml R49 →",
+      "evidence": "Tina-sourced 30 Jul 2026, two batches. NORMALISED: local 250ml R49 \u2192",
       "pricesLine": 613
     },
     {
@@ -367,7 +407,7 @@
       "value": 2465,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R350 per 142g → R2465/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R350 per 142g \u2192 R2465/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 424
     },
     {
@@ -375,7 +415,7 @@
       "value": 140,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R40.50 per 290g → R140/kg. TINA-SOURCED 30 Jul 2026, taken from the",
+      "evidence": "R40.50 per 290g \u2192 R140/kg. TINA-SOURCED 30 Jul 2026, taken from the",
       "pricesLine": 395
     },
     {
@@ -415,7 +455,7 @@
       "value": 90,
       "date": null,
       "grandfathered": true,
-      "evidence": "calf's / chicken liver, R80–100 mid (Tina) — covers \"calf's liver\"",
+      "evidence": "calf's / chicken liver, R80\u2013100 mid (Tina) \u2014 covers \"calf's liver\"",
       "pricesLine": 724
     },
     {
@@ -423,7 +463,7 @@
       "value": 60,
       "date": "22 Jul 2026",
       "grandfathered": true,
-      "evidence": "WHOLE ROUND. Fresh R60–62.90/kg; frozen 800g R39.99–51.99 → R50–65/kg; 2kg bulk R149.99 → R75/kg (worse value). Honest mid R60. Yield to flakes 40–45%. (Tina 22 Jul 2026)",
+      "evidence": "WHOLE ROUND. Fresh R60\u201362.90/kg; frozen 800g R39.99\u201351.99 \u2192 R50\u201365/kg; 2kg bulk R149.99 \u2192 R75/kg (worse value). Honest mid R60. Yield to flakes 40\u201345%. (Tina 22 Jul 2026)",
       "pricesLine": 249
     },
     {
@@ -447,7 +487,7 @@
       "value": 3556,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R320 per 90g → R3556/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R320 per 90g \u2192 R3556/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 417
     },
     {
@@ -455,7 +495,7 @@
       "value": 55,
       "date": null,
       "grandfathered": true,
-      "evidence": "frozen mixed veg ~R54.99/kg (Tina — always use frozen)",
+      "evidence": "frozen mixed veg ~R54.99/kg (Tina \u2014 always use frozen)",
       "pricesLine": 665
     },
     {
@@ -467,11 +507,19 @@
       "pricesLine": 726
     },
     {
+      "key": "niboshi",
+      "value": 3125,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R150-R250 per 80-100g pack, rarely stocked in SA - specialist importers or custom order only = R1500-R3125/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). ~10g in a dashi = R31 a pot.",
+      "pricesLine": null
+    },
+    {
       "key": "noodles",
       "value": 80,
       "date": null,
       "grandfathered": true,
-      "evidence": "Tina-sourced — egg noodles 454g @ R35–40 ≈ R80/kg (also the target for the renamed \"egg noodles\" soup)",
+      "evidence": "Tina-sourced \u2014 egg noodles 454g @ R35\u201340 \u2248 R80/kg (also the target for the renamed \"egg noodles\" soup)",
       "pricesLine": 1028
     },
     {
@@ -487,7 +535,7 @@
       "value": 320,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R95.99 per 300g bottle → R320/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R95.99 per 300g bottle \u2192 R320/kg. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 439
     },
     {
@@ -503,7 +551,7 @@
       "value": 280,
       "date": "2026-07",
       "grandfathered": true,
-      "evidence": "src:Tina when:2026-07 conf:shelf  R15-70 per 110-454g jar → a wide band; the mainstream buy",
+      "evidence": "src:Tina when:2026-07 conf:shelf  R15-70 per 110-454g jar \u2192 a wide band; the mainstream buy",
       "pricesLine": 487
     },
     {
@@ -511,7 +559,7 @@
       "value": 4,
       "date": null,
       "grandfathered": true,
-      "evidence": "MF137 · dead \"pita_each\": 4 deleted — L487 R7.70 (R46/6-pack, Tina's own measure) always won",
+      "evidence": "MF137 \u00b7 dead \"pita_each\": 4 deleted \u2014 L487 R7.70 (R46/6-pack, Tina's own measure) always won",
       "pricesLine": 23
     },
     {
@@ -519,7 +567,7 @@
       "value": 4,
       "date": null,
       "grandfathered": true,
-      "evidence": "MF137 · dead \"pita_each\": 4 deleted — L487 R7.70 (R46/6-pack, Tina's own measure) always won",
+      "evidence": "MF137 \u00b7 dead \"pita_each\": 4 deleted \u2014 L487 R7.70 (R46/6-pack, Tina's own measure) always won",
       "pricesLine": 23
     },
     {
@@ -551,7 +599,7 @@
       "value": 120,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R49–60 per 400–500g → ~R120/kg. TINA-SOURCED, applied 30 Jul 2026.",
+      "evidence": "R49\u201360 per 400\u2013500g \u2192 ~R120/kg. TINA-SOURCED, applied 30 Jul 2026.",
       "pricesLine": 472
     },
     {
@@ -559,7 +607,7 @@
       "value": 417,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R75 per 180ml → R417/L. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
+      "evidence": "R75 per 180ml \u2192 R417/L. TINA-SOURCED 30 Jul 2026, LOCKED IN.",
       "pricesLine": 330
     },
     {
@@ -567,23 +615,39 @@
       "value": 260,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "~R250-270/kg for bulk tubs → R260/kg. TINA-SOURCED 30 Jul 2026.",
+      "evidence": "~R250-270/kg for bulk tubs \u2192 R260/kg. TINA-SOURCED 30 Jul 2026.",
       "pricesLine": 402
+    },
+    {
+      "key": "shaoxing wine",
+      "value": 200,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R70-R120 per 600ml bottle = R117-R200 per litre. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). Largest single unlock in the Asia lane - 75 versions were UNSCOREABLE on this key alone.",
+      "pricesLine": null
     },
     {
       "key": "sheet nori_each",
       "value": 4.7,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R45-49 per pack of 10 → R4.50-4.90 A SHEET. TINA-SOURCED 30 Jul 2026.",
+      "evidence": "R45-49 per pack of 10 \u2192 R4.50-4.90 A SHEET. TINA-SOURCED 30 Jul 2026.",
       "pricesLine": 455
+    },
+    {
+      "key": "sheets aburaage",
+      "value": 617,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R110-R148 per 240-270g pack of pre-seasoned/imported Japanese deep-fried tofu pouches = R407-R617/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). No mainstream SA pack exists, so the rule decides it.",
+      "pricesLine": null
     },
     {
       "key": "sherry",
       "value": 93,
       "date": null,
       "grandfathered": true,
-      "evidence": "R70/750ml → R93/L (Tina)",
+      "evidence": "R70/750ml \u2192 R93/L (Tina)",
       "pricesLine": 85
     },
     {
@@ -591,7 +655,7 @@
       "value": 2533,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R38 per 15g shaker → R2533/kg. TINA-SOURCED 30 Jul 2026. 1g = R2.53.",
+      "evidence": "R38 per 15g shaker \u2192 R2533/kg. TINA-SOURCED 30 Jul 2026. 1g = R2.53.",
       "pricesLine": 391
     },
     {
@@ -599,7 +663,7 @@
       "value": 82,
       "date": null,
       "grandfathered": true,
-      "evidence": "R32.99/400g PnP Today (Tina, 22 Jul) — same shelf price as puff",
+      "evidence": "R32.99/400g PnP Today (Tina, 22 Jul) \u2014 same shelf price as puff",
       "pricesLine": 908
     },
     {
@@ -607,7 +671,7 @@
       "value": 1300,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R65/50g. ✅ RE-CHECKED 30 Jul 2026 against Tina's band",
+      "evidence": "R65/50g. \u2705 RE-CHECKED 30 Jul 2026 against Tina's band",
       "pricesLine": 1171
     },
     {
@@ -615,7 +679,7 @@
       "value": 147,
       "date": "22 Jul 2026",
       "grandfathered": true,
-      "evidence": "MF134: reconciled 165→147. Gutted whole, bone-in, butterflied ready-to-grill. Pre-packed 1kg R130–165 → honest mid. R165 was the band ceiling AND sat above the R90–150 fillet band, which a bone-in pri",
+      "evidence": "MF134: reconciled 165\u2192147. Gutted whole, bone-in, butterflied ready-to-grill. Pre-packed 1kg R130\u2013165 \u2192 honest mid. R165 was the band ceiling AND sat above the R90\u2013150 fillet band, which a bone-in pri",
       "pricesLine": 247
     },
     {
@@ -623,8 +687,16 @@
       "value": 120,
       "date": "22 Jul 2026",
       "grandfathered": true,
-      "evidence": "R90–150/kg fresh or frozen → honest mid. Separate buy from braai snoek. (Tina 22 Jul 2026)",
+      "evidence": "R90\u2013150/kg fresh or frozen \u2192 honest mid. Separate buy from braai snoek. (Tina 22 Jul 2026)",
       "pricesLine": 248
+    },
+    {
+      "key": "spring onion",
+      "value": 200,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026. Woolworths R10.99 per min-100g pack = R110/kg; Shoprite/Checkers R14.99 per 75g pack = R200/kg; ~140g bunch to R29.00 = R207/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1). Locked at R200, the Checkers/Shoprite pack. CORRECTION of a live wrong price: the key held R343 (R24/70g, a small premium pack), on 107 versions across China and Japan.",
+      "pricesLine": null
     },
     {
       "key": "springbok",
@@ -647,8 +719,16 @@
       "value": 25,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "⚠️ CLAUDE-SOURCED 30 Jul 2026, NOT TINA-SOURCED — flagged so it can be",
+      "evidence": "\u26a0\ufe0f CLAUDE-SOURCED 30 Jul 2026, NOT TINA-SOURCED \u2014 flagged so it can be",
       "pricesLine": 373
+    },
+    {
+      "key": "suan cai",
+      "value": 100,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R35.00 per 350g jar of sour pickled green mustard = R100/kg. Single product, no band. 29.1 satisfied - a real bought jar fills the ingredient slot, so the Suan Cai card keeps its own from-scratch route per 29.2.",
+      "pricesLine": null
     },
     {
       "key": "sugar cane stalk_each",
@@ -719,15 +799,23 @@
       "value": 110,
       "date": null,
       "grandfathered": true,
-      "evidence": "Tina-confirmed — Checkers ~R99–110/kg (the renamed \"economy steak\"; fixes 3 budget versions that were costing R0)",
+      "evidence": "Tina-confirmed \u2014 Checkers ~R99\u2013110/kg (the renamed \"economy steak\"; fixes 3 budget versions that were costing R0)",
       "pricesLine": 1022
+    },
+    {
+      "key": "tianmianjiang",
+      "value": 450,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R65.00-R90.00 per 200-300g jar of tianmianjiang (sweet bean / sweet flour sauce) = R217-R450/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul). Distinct from red bean paste R120 - verified against the records before keying: jianbing writes 'sweet bean sauce (tianmianjiang)' and two other records offer 'or hoisin sauce'.",
+      "pricesLine": null
     },
     {
       "key": "tiger nuts",
       "value": 400,
       "date": null,
       "grandfathered": true,
-      "evidence": "Spain — horchata (Tina)",
+      "evidence": "Spain \u2014 horchata (Tina)",
       "pricesLine": 107
     },
     {
@@ -743,7 +831,7 @@
       "value": 92,
       "date": "22 Jul 2026",
       "grandfathered": true,
-      "evidence": "R36.99/400g → R92/kg. Drained flakes, no waste. (Tina 22 Jul 2026)",
+      "evidence": "R36.99/400g \u2192 R92/kg. Drained flakes, no waste. (Tina 22 Jul 2026)",
       "pricesLine": 251
     },
     {
@@ -751,7 +839,7 @@
       "value": 171,
       "date": "29 Jul 2026",
       "grandfathered": true,
-      "evidence": "per kg — RULED 29 Jul 2026 (was 250, was 225). Tina-sourced live: Woolworths R59.99/350g = R171/kg; PnP + Checkers ordinary 350–400g blocks R125–171/kg; ~R250/kg ONLY on specialist 200g lines. R250 wa",
+      "evidence": "per kg \u2014 RULED 29 Jul 2026 (was 250, was 225). Tina-sourced live: Woolworths R59.99/350g = R171/kg; PnP + Checkers ordinary 350\u2013400g blocks R125\u2013171/kg; ~R250/kg ONLY on specialist 200g lines. R250 wa",
       "pricesLine": 938
     },
     {
@@ -759,7 +847,7 @@
       "value": 287,
       "date": "30 Jul 2026",
       "grandfathered": true,
-      "evidence": "R85.99 per 300ml → R287/L. TINA-SOURCED 30 Jul 2026. 30ml = R8.60.",
+      "evidence": "R85.99 per 300ml \u2192 R287/L. TINA-SOURCED 30 Jul 2026. 30ml = R8.60.",
       "pricesLine": 387
     },
     {
@@ -767,7 +855,7 @@
       "value": 350,
       "date": "2026-07",
       "grandfathered": true,
-      "evidence": "src:Tina when:2026-07 conf:shelf  R140/400g → R350/kg (fresh — unfences Marmitako)",
+      "evidence": "src:Tina when:2026-07 conf:shelf  R140/400g \u2192 R350/kg (fresh \u2014 unfences Marmitako)",
       "pricesLine": 257
     },
     {
@@ -783,7 +871,7 @@
       "value": 30,
       "date": null,
       "grandfathered": true,
-      "evidence": "R30/kg — pre-cut bumps it (Tina, 26 Jun)",
+      "evidence": "R30/kg \u2014 pre-cut bumps it (Tina, 26 Jun)",
       "pricesLine": 961
     },
     {
@@ -791,7 +879,7 @@
       "value": 293,
       "date": null,
       "grandfathered": true,
-      "evidence": "R220/750ml → R293/L (Tina)",
+      "evidence": "R220/750ml \u2192 R293/L (Tina)",
       "pricesLine": 84
     },
     {
@@ -801,6 +889,14 @@
       "grandfathered": true,
       "evidence": "WHOLE ROUND, frozen R59.99/kg. Same whole-weight rule as maasbanker. (Tina 22 Jul 2026)",
       "pricesLine": 250
+    },
+    {
+      "key": "yellow soybean paste",
+      "value": 295,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026: R45-R65 per 220-340g jar of huangdoujiang = R132-R295/kg. RULE APPLIED: take the most expensive (Tina, 30 Jul 2026 - restating the 13 Jun rule 'on any duplicate price across rounds take the MOST EXPENSIVE'; same call as crab sticks, which took the top per 31.1).",
+      "pricesLine": null
     }
   ]
 }

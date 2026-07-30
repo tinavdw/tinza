@@ -1072,6 +1072,26 @@ function calcSideCost(side){
 // BUY number the moment PACK_DB is live. Never fake a price — an unresolved
 // name returns null and the caller HIDES the figure (same as World).
 var PRICE_ALIAS = {
+  // ── SPELLING GAPS FOUND BY costcheck.js, 30 Jul 2026 ──────────────────────────
+  // Tina: "a lot of these are already in price list, cinnamon sticks is there, dried
+  // chilis is chili flakes, anise im sure is on." She was right. costcheck reported these
+  // as UNSCOREABLE and I reported that as a pricing gap; the product was in PRICE_DB the
+  // whole time under a different spelling. ⚖️ A spelling gap wearing the shape of a
+  // missing price — the same shape as `beansprouts` vs `bean sprouts` on 29 Jul.
+  // ⛔ Each one is a RENAME, never a substitution: same product, different words.
+  "dried red chillies": "dried chillies",
+  "dried red chilli": "dried chillies",
+  "sichuan pepper": "sichuan peppercorns",
+  "ground sichuan pepper": "sichuan peppercorns",
+  "szechuan pepper": "sichuan peppercorns",
+  "white peppercorns": "white pepper",
+  "powdered gelatine": "gelatin",
+  "powdered gelatin": "gelatin",
+  "fresh red chillies": "chilli",
+  "fresh red chilli": "chilli",
+  "lamb leg": "leg of lamb",
+  "firm white fish fillet": "hake fillet",
+
   // Suya Spice's "roasted peanut powder" is kuli-kuli — roasted peanuts, ground. NOT the
   // R769/kg defatted supplement powder (that key exists separately as "peanut butter powder").
   "roasted peanut powder": "peanuts",
@@ -1363,6 +1383,26 @@ var AVG_WEIGHT_G = {
   "hamburger roll":65, "burger buns":65, "hot-dog roll":50, vienna:30,
   "russian sausage":90, tortilla:60, "large tortilla":60,
 
+  // ── [C] COUNT LINES AGAINST WEIGHT KEYS — added 30 Jul 2026 with the mirror bridge.
+  // These keys are priced per kg but the recipes write them as counts ("4 spring onions",
+  // "2 star anise"). Without a weight the line is DROPPED and the card loses coverage.
+  // ⚠️ CLASS [C] per this table's own convention: standard reference weights, NOT verified
+  //    against a live source. They are physical facts, not prices, and every one is small
+  //    enough that being 20% out moves a card by under a rand — but confirm them anyway.
+  // ⛔ Only UNITLESS lines reach these. "5g cinnamon" still goes through unitToGrams.
+  "spring onion": 15,           // one trimmed stalk
+  "star anise": 1,              // one whole star
+  "cinnamon": 4,                // one stick
+  "dried chillies": 1,          // one small dried chilli
+  "dried shiitake mushrooms": 4,// one dried cap
+  "cloves": 0.1,                // one whole clove
+  "cardamom": 0.3,              // one pod
+  "wonton wrappers": 5,         // one wrapper
+  "whole chicken": 1500,        // one bird
+  "duck": 2000,                 // one bird
+  "leek": 150,
+  "cucumber": 200,
+
   // ══ MF136 · 21 Jul · COMPLETE THE TABLE ═════════════════════════════════════
   // Every count-priced PRICE_DB key (`<name>_each`) MUST have a weight here, or
   // costRecipe cannot convert an authored gram amount and now refuses to price it.
@@ -1571,7 +1611,20 @@ function costOneLine(pr, qty, unit){
   // so "squeeze", "tsp", "tbsp", "pinch" and capital "L" all fell into missing[] even
   // though their price resolved perfectly. One unit table now, in unitToGrams().
   var gW = unitToGrams(qty, unit);
-  if(gW==null) return null;
+  if(gW==null){
+    // ── THE MIRROR BRIDGE ─────────────────────────────── 30 Jul 2026 · Law 6 ──
+    // A COUNT was authored for a WEIGHT-priced item ("4 spring onions" against
+    // `spring onion` R200/kg). The branch above already handles the opposite case —
+    // a weight authored for a count-priced item — and this direction had no bridge at
+    // all, so the line was silently DROPPED and the card lost coverage. Measured 30 Jul:
+    // 98 versions in China alone blocked on `spring onions` written as a count.
+    // ⛔ NOT a patch on 200 recipe lines. One conversion, in the one engine, per Law 6.
+    // ⚖️ Law 45 — UNKNOWN IS NOT A NUMBER. No average weight = we still return null and
+    //    the surface hides the figure. A wrong price is worse than no price (Law 20).
+    var avgW = AVG_WEIGHT_G[pr.key];
+    if(!avgW) return null;
+    gW = qty * avgW;
+  }
   var w = (gW/1000)*pr.price;
   return { cook: w, buy: w };
 }

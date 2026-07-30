@@ -6,6 +6,18 @@
       "hash": "4c9925928ddf28e6",
       "updated": "2026-07-30",
       "lastBatch": "t.js"
+    },
+    "china": {
+      "records": 50,
+      "hash": "71fef4c12c88fcd0",
+      "updated": "2026-07-30",
+      "lastBatch": "t.js"
+    },
+    "japan": {
+      "records": 50,
+      "hash": "63e5d34808e2fe62",
+      "updated": "2026-07-30",
+      "lastBatch": "t.js"
     }
   }
 }

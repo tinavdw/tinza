@@ -483,7 +483,27 @@ function wkCleanName(name){
     .replace(/\s+/g,' ').trim();
 }
 function wkIsWater(name){ var n=wkCleanName(name); return /^(water|tap water|boiling water|warm water|cold water|ice water|warm water or milk)$/.test(n) || (/\bwater\b/.test(n) && /\b(stock|broth)\b/.test(n)); }
-var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil",
+var WK_ALIAS = {
+  // ── SPELLING GAPS FOUND BY costcheck.js, 30 Jul 2026 ──────────────────────────
+  // Tina: "a lot of these are already in price list, cinnamon sticks is there, dried
+  // chilis is chili flakes, anise im sure is on." She was right. costcheck reported these
+  // as UNSCOREABLE and I reported that as a pricing gap; the product was in PRICE_DB the
+  // whole time under a different spelling. ⚖️ A spelling gap wearing the shape of a
+  // missing price — the same shape as `beansprouts` vs `bean sprouts` on 29 Jul.
+  // ⛔ Each one is a RENAME, never a substitution: same product, different words.
+  "dried red chillies": "dried chillies",
+  "dried red chilli": "dried chillies",
+  "sichuan pepper": "sichuan peppercorns",
+  "ground sichuan pepper": "sichuan peppercorns",
+  "szechuan pepper": "sichuan peppercorns",
+  "white peppercorns": "white pepper",
+  "powdered gelatine": "gelatin",
+  "powdered gelatin": "gelatin",
+  "fresh red chillies": "chilli",
+  "fresh red chilli": "chilli",
+  "lamb leg": "leg of lamb",
+  "firm white fish fillet": "hake fillet",
+ "veg oil":"sunflower oil","vegetable oil":"sunflower oil","frying oil":"sunflower oil","cooking oil":"sunflower oil","oil":"sunflower oil",
   // ── NEUTRAL-OIL FAMILY (29 Jul 2026, Asia lane) ──
   // "neutral oil" is what the WOW standard writes, deliberately: the global-wording
   // ruling forbids naming a local product in recipe prose. It is a CATEGORY, and every
@@ -533,6 +553,20 @@ var WK_ALIAS = { "veg oil":"sunflower oil","vegetable oil":"sunflower oil","fryi
   "eggplant":"brinjal","aubergine":"brinjal","zucchini":"baby marrow","courgette":"baby marrow","molokhia":"spinach","molokhia leaves":"spinach","injera":"teff flour","torn injera":"teff flour","vermicelli":"pasta","orzo":"pasta","filo":"phyllo pastry","filo pastry":"phyllo pastry","warqa":"phyllo pastry","kunafa":"phyllo pastry","kataifi":"phyllo pastry","malsouka":"phyllo pastry","shredded phyllo":"phyllo pastry","scotch bonnet":"chilli","scotch bonnet pepper":"chilli","steak":"beef","minced meat":"beef","reindeer meat":"beef","greens":"spinach","amaranth":"spinach","swiss chard":"spinach","wild greens":"spinach","green plantain":"plantain","green plantains":"plantain","ripe plantain":"plantain","fried ripe plantain":"plantain","ground egusi seeds":"pumpkin seeds","cassava root":"cassava","cassava dough":"cassava","bell pepper":"green pepper","red bell pepper":"green pepper","chicken stock":"stock","vegetable stock":"stock","veg stock":"stock","broth":"stock","lime juice":"lemon juice","sultanas":"raisins","cod":"hake","sea bass":"basa","white fish fillets":"basa","white fish fillet":"basa","merguez":"boerewors","date paste":"dates","grated cheese":"cheddar","dried mloukhia powder":"spinach","stewing lamb":"lamb potjiekos","stewing lamb shoulder or neck":"lamb potjiekos","shrimp":"prawns","clams":"mussels","octopus":"calamari rings","cooked octopus":"calamari rings","port wine":"red wine","curry spices":"curry powder","plain flour":"cake flour","peanut oil":"sunflower oil","peeled beans":"sugar beans","brown beans":"sugar beans","bay leaf":"bay leaves","ground crayfish":"prawns","corn dough":"maize meal","fermented corn dough":"maize meal","corn flour":"maize meal","oil for frying":"sunflower oil","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts","lamb cubes":"lamb neck","biscuit crumbs":"marie biscuits","peppermint essence":"vanilla essence","rose water":"vanilla essence","dried apricot":"dried apricots","stock powder":"stock","vegetable stock powder":"stock","beef stock powder":"stock","chicken stock powder":"stock","roasted maize kernels":"sweetcorn","sorghum grains":"sorghum meal","wors":"boerewors","shortcrust pastry base":"puff pastry","sweet wine":"white wine","oregano":"origanum","white sauce":"milk","black peppercorns":"black pepper","short grain rice":"rice","rabbit":"chicken","rabbit meat":"chicken","bacalhau":"salted snoek","lamb cutlets":"leg of lamb","ground almonds":"almonds","roasted red peppers":"red pepper","padron peppers":"green pepper","lemon soda":"soda water","lager":"beer","lager beer":"beer","espresso":"coffee","short pasta":"macaroni","green peppers":"green pepper","squid":"calamari rings","flat pasta":"macaroni","orzo pasta":"macaroni","warqa pastry":"phyllo pastry","sheet warqa pastry":"phyllo pastry","meaty beef bones":"beef bones","pig s trotters":"pork bones","pork trotters":"pork bones","white fish bones and heads":"fish frames","white fish bones and heads gills removed":"fish frames","chicken carcasses necks and wings":"chicken frames","garlic-ginger paste":"ginger-garlic paste","ginger garlic paste":"ginger-garlic paste","ginger and garlic paste":"ginger-garlic paste","garlic cloves":"garlic","garlic clove":"garlic",
   // ── WK pricing pass (1 Jul) — generic pantry → priced keys ──
   "pepper":"black pepper","wine":"red wine","fries":"slap chips","starch":"cornflour","grated coconut":"desiccated coconut","mixed fish":"hake","sardines":"pilchards","fresh ayib cheese":"cottage cheese","maize flour":"maize meal","herbs":"mixed herbs","mint sprigs":"mint","beef broth":"stock","biscuits":"marie biscuits","whole grain flour":"cake flour","firm white fish fillets":"hake","cured meats":"bacon","whey cheese":"cottage cheese","carp fish":"hake","vendace fish":"hake","marjoram":"mixed herbs" };
+// Head clause = everything before the first comma that is NOT inside brackets.
+// Used by wkPriceLookup so a prep tail cannot choose the product. Kept separate and
+// exported-by-position so pricecheck/costcheck can reason about the same string.
+function wkHeadClause(s){
+  s = String(s == null ? '' : s);
+  var depth = 0;
+  for(var i = 0; i < s.length; i++){
+    var c = s[i];
+    if(c === '(' || c === '[') { depth++; continue; }
+    if(c === ')' || c === ']') { depth--; continue; }
+    if(c === ',' && depth === 0) return s.slice(0, i).trim();
+  }
+  return s.trim();
+}
 function wkPriceLookup(name){
   if(typeof PRICE_DB === 'undefined') return null;
   var n = wkCleanName(name);
@@ -551,6 +585,25 @@ function wkPriceLookup(name){
   if(WK_ALIAS[n] && PRICE_DB[WK_ALIAS[n]] != null){ return (typeof l2Blocks==='function' && l2Blocks(name, WK_ALIAS[n])) ? null : { key:WK_ALIAS[n], price:PRICE_DB[WK_ALIAS[n]], per:'weight' }; }
   // stock/broth = cheap pantry liquid — never let it fall through to a raw-protein price
   if(/\b(stock|broth)\b/.test(n)) return null;
+  // ── HEAD CLAUSE, BEFORE THE LONGEST-KEY-ANYWHERE FALLBACK ─── 30 Jul 2026 ──
+  // ⚖️ A PREP TAIL MUST NOT CHOOSE THE PRODUCT. The last rung below matches the longest key
+  // appearing anywhere in the name, so a comma tail can hijack it:
+  //     "spring onions, sliced thin"          → `onions` R27   (should be `spring onion`)
+  //     "full-cream milk, lukewarm (37-43°C)" → `cream`        (should be `milk`) ← RENDERED LIVE
+  // Prep belongs in the method (/wow §3), but the resolver must not price a card wrongly while
+  // that debt is outstanding — a wrong price renders as a number and looks correct (§29.5).
+  //
+  // ⚠️ BRACKET-AWARE, AND THAT IS THE WHOLE DESIGN. Splitting on the first comma anywhere
+  // breaks "firm white fish head (about 800g, hake or similar)" and "rabbit (bone-in, chopped
+  // — priced as chicken)", which lose their price entirely. A parenthetical SPECIFIES the
+  // product; a comma tail at depth 0 DESCRIBES what you do to it. Only the second is dropped.
+  // ⛔ Splitting on "(" as well was measured and REJECTED: it degraded 146 keys —
+  //    "hake (fillet)" → hake, "beef (brisket or stewing)" → beef, "½ lemon (juice)" → lemon.
+  //
+  // MEASURED over all 2593 World Kitchen ingredient names: 2545 unchanged · 16 unpriced now
+  // price · 32 keys corrected (19 of them spring onion) · **0 losses**.
+  var _head = wkHeadClause(name);
+  if(_head && _head !== name){ var _h = wkPriceLookup(_head); if(_h) return _h; }
   // longest key that appears as a whole word inside the name
   var best=null;
   for(var k in PRICE_DB){

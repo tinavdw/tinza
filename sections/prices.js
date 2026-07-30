@@ -353,7 +353,19 @@ const PRICE_DB = {
   "onion": 27,                // per kg
   "onions": 27,
   "red onion": 45,
-  "spring onion": 343,        // R24/70g → R343/kg (use sparingly — tiny amount)
+  "spring onion": 200,        // R155/kg. TINA-SOURCED 30 Jul 2026. ⚠️ CORRECTED FROM R343.
+                             // R343 came from R24/70g — a small premium pack. Her mainstream buys:
+                             // Woolworths R10.99/100g = R110/kg · Checkers/Shoprite R14.99/75g =
+                             // R200/kg · a ~140g bunch to R29 = R207/kg. Midpoint of the two
+                             // supermarket packs = R155, and the ordinary pack LEADS per §31.1.
+                             // 🔴 THIS WAS A LIVE WRONG PRICE, 1.7-3x over, sitting on 107 versions
+                             //    across China + Japan. Latent only because those lines are COUNTS
+                             //    ("4 spring onions") which the engine refuses to price — the moment
+                             //    they are rewritten in grams it would have rendered. §29.5: A7 defers
+                             //    a MISSING price, never a WRONG one.
+                             // ⛔ NEVER let a prep tail reach the lookup: "spring onions, sliced thin"
+                             //    resolves to `onions` R27 on the longest-key-anywhere rung. Head
+                             //    clause only.
   "green pepper": 50,         // per kg
   "peppers": 70,
   "red pepper": 100,
@@ -436,7 +448,69 @@ const PRICE_DB = {
   "shirataki noodles": 140,  // Same product, same price, its own key. ⚠️ IT WAS RESOLVING TO `noodles`
                              // R80 — a WHEAT price on a konjac product, ~1.75x under, live in
                              // japan-nikujaga's 60g line. §29.5: a wrong price is a bug, not a gap.
-  "sesame paste": 260,       // ~R250-270/kg for bulk tubs → R260/kg. TINA-SOURCED 30 Jul 2026.
+  "sesame paste": 260,
+  "shaoxing wine": 200,      // R158/L. TINA-SOURCED 30 Jul 2026: R70-120 per 600ml bottle
+                             // → R117-200/L, TOP OF THE BAND R200 — Tina 30 Jul: "take the most expensive one" (the 13 Jun rule, and the same call as `crab sticks`, which took the top per §31.1). ⛔ NOT aliased to `red wine` R45 or
+                             //    `white wine` R47 — a fortified fermented rice wine is a different
+                             //    product at 3x the price, and that alias would be the MF28
+                             //    lamb→mutton mistake again.
+                             // 📌 THE SINGLE BIGGEST UNLOCK IN THE LANE: 75 versions were UNSCOREABLE
+                             //    on this one key alone — more than every other gap combined.
+  "doubanjiang": 413,        // R269/kg. TINA-SOURCED 30 Jul 2026: R50-95 per 230-400g jar
+                             // → R125-413/kg, TOP OF THE BAND R413 per the most-expensive rule. Sichuan fermented broad-bean chilli
+                             // paste. ⛔ NOT `chilli` R80 and NOT `red bean paste` R120 (which is the
+                             //    SWEET azuki paste for desserts — opposite end of the meal).
+  "five spice powder": 540,  // R510/kg. TINA-SOURCED 30 Jul 2026: R23.99-27.00 per 50g jar
+                             // → R480-540/kg, TOP OF THE BAND R540 per the most-expensive rule. A tight band, mainstream supermarket
+                             // spice aisle, so §31.1's ordinary pack IS the band.
+  "hoisin sauce": 465,       // R368/L. TINA-SOURCED 30 Jul 2026: R64.99-93.00 per 200-240g bottle
+                             // → R271-465, TOP OF THE BAND R465 per the most-expensive rule. ⛔ NOT `tonkatsu sauce` R287 — related in
+                             //    style, different product, and Japan already prices tonkatsu sauce
+                             //    separately.
+  "fermented red bean curd": 217,  // R190/kg. TINA-SOURCED 30 Jul 2026: R55-R65 per 300-335g jar
+                             // → R164-R217/kg, TOP OF THE BAND R217 per the most-expensive rule. Namru / red furu.
+                             // ⛔ NOT `red bean paste` R120 — furu is fermented BEAN CURD (tofu),
+                             //    salty and savoury; red bean paste is sweet azuki for desserts.
+                             //    Same three words in a different order, opposite ends of the meal.
+  "yellow soybean paste": 295,     // R214/kg. TINA-SOURCED 30 Jul 2026: R45-R65 per 220-340g jar
+                             // → R132-R295/kg, TOP OF THE BAND R295 per the most-expensive rule. Huangdoujiang.
+  "tianmianjiang": 450,      // R450/kg. TINA-SOURCED 30 Jul 2026: R65-R90 per 200-300g jar
+                             // → R217-R450/kg, TAKE THE MOST EXPENSIVE → R450. Sweet bean / sweet
+                             // flour sauce — a SAVOURY fermented WHEAT paste, the Peking-duck and
+                             // zhajiang condiment.
+                             // ⛔⛔ NOT `red bean paste` R120. Those are different products that share
+                             //    three words: red bean paste is sweet azuki for desserts. Checked
+                             //    30 Jul against the records before keying — jianbing's own line reads
+                             //    "20g sweet bean sauce (tianmianjiang)", and hui-guo-rou and
+                             //    zhajiangmian both offer "or hoisin sauce" as the alternative, which
+                             //    settles it as the savoury paste. A dessert price on a savoury
+                             //    condiment would have rendered as a number and looked correct.
+  "suan cai": 100,           // R100/kg. TINA-SOURCED 30 Jul 2026: R35 per 350g (sour pickled green
+                             // mustard). Single product, single pack, no band.
+                             // 📌 §29.1 SATISFIED: the app has a Suan Cai CARD, and the test is
+                             //    whether a real bought product fills the ingredient slot. A 350g jar
+                             //    on a shelf does, so the key is legitimate and §29.2 applies — the
+                             //    slot is priced as the STORE route, the card keeps its own
+                             //    from-scratch route, and the gap between them is why the card exists.
+  "sheets aburaage": 617,    // R617/kg. TINA-SOURCED 30 Jul 2026: R110-R148 per 240-270g pack of
+                             // pre-seasoned / imported tofu pouches → R407-R617/kg. TAKE THE MOST
+                             // EXPENSIVE (Tina, 30 Jul) → R617. Specialist import; there is no
+                             // mainstream SA pack for §31.1 to lead with, which is exactly why the
+                             // most-expensive rule decides it.
+  "niboshi": 3125,           // R3125/kg. TINA-SOURCED 30 Jul 2026: R150-R250 per 80-100g pack, and
+                             // rarely stocked — specialist importers or custom order only
+                             // → R1500-R3125/kg. TAKE THE MOST EXPENSIVE → R3125.
+                             // ⚠️ It LOOKS enormous per kilo and it is correct: a dashi uses ~10g,
+                             //    so R31 a pot. Same shape as `aonori` R28,125 and `bay leaves`.
+                             // ⛔ NOT aliased to `anchovies` or `dried kapenta` R350 — a different
+                             //    fish, a different cure and a different job (Niboshi Dashi).
+  "dried wakame": 725,       // R725/kg. R145 per 200g, Manna J via HelloAsia (Cape Town, nationwide
+                             // delivery), confirmed 30 Jul 2026. ⚠️ FOUND BY CLAUDE, NOT TINA — she
+                             // supplied this three times in earlier sessions and it never reached this
+                             // file, then said "the rest you can look for." One product, one pack, no
+                             // band, no judgement call.
+                             // ⛔ NEVER aliased to `nori flakes` R1800, `dried kombu` R1300 or
+                             //    `sheet nori` — four different seaweeds, four prices, four jobs.       // ~R250-270/kg for bulk tubs → R260/kg. TINA-SOURCED 30 Jul 2026.
                              // Jars run R58-160 depending on brand, size and shop. 🟣 THIS KEY WAS
                              // PARKED ON MF152 AS ALREADY-PRESENT AND WAS NOT HERE — the second one the
                              // new parked-but-absent rung caught, after `sake`. It is not only a Japan
