@@ -383,6 +383,48 @@ if (SMOKE_PROMISE) {
   else pass('Every function survives being called', r.n + ' functions');
 }
 
+
+// ══ 13 · DOES THE PORTION BRAIN INFLATE A CONDIMENT INTO A PORTION? ═══ Law 42 ══
+head('13 · IS ANY WORLD KITCHEN DISH SCALED INTO NONSENSE?  (30 Jul — the 160g of shrimp paste)');
+p('  \x1b[2m    Sambal Terasi rendered "160g shrimp paste · R529 pp". The cost was honest —');
+p('       it correctly priced what the qty box displayed. wkEffectiveMult had stretched a');
+p('       30g condiment onto a 180g staple plate. ⚖️ Law 42: it cannot walk in again.\x1b[0m');
+{
+  const mult = ctx && ctx.wkEffectiveMult;
+  const parse = ctx && ctx.wkParseIngredients;
+  if (typeof mult !== 'function' || typeof parse !== 'function') {
+    fail('CANNOT REACH wkEffectiveMult — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mA 0 here would be a green tick over a function never called. Law 54b.\x1b[0m');
+  } else {
+    // Read the WK arrays straight off ctx, the way checks 11 and 12 read their engines.
+    // ⚠️ allRecipes() was tried first and returned 0 here — a filter over an empty list
+    // would have printed a triumphant green tick over nothing. Law 54b: the check refuses
+    // to report rather than pass on an empty set, which is exactly what it did.
+    const wk = [];
+    Object.keys(ctx).forEach(k => {
+      if (!/^WK_[A-Z_]+$/.test(k) || !Array.isArray(ctx[k])) return;
+      ctx[k].forEach(r => { if (r && r.course && typeof r.ingredients === 'string') wk.push(r); });
+    });
+    const ap = (ctx && typeof ctx.wkAppetite === 'function') ? ctx.wkAppetite() : { mult: 1 };
+    const blown = [];
+    wk.forEach(r => {
+      let m; try { m = mult(r, 1, ap); } catch (e) { return; }
+      if (m > 3) blown.push(r.id + ' ×' + Math.round(m * 10) / 10);
+    });
+    if (!wk.length) {
+      fail('NO WORLD KITCHEN RECORDS REACHED THIS CHECK', 'it found nothing to measure — that is not a pass');
+    } else if (blown.length) {
+      fail(blown.length + ' DISH(ES) SCALED MORE THAN 3x — the card will show an absurd amount and price it honestly',
+        '\n      ' + blown.slice(0, 10).join(' · ') +
+        (blown.length > 10 ? '\n      \x1b[2m… and ' + (blown.length - 10) + ' more\x1b[0m' : '') +
+        '\n      \x1b[2mEither the dish declares itself (type: condiment/sauce/pickle/dip/relish)' +
+        '\n      or the clamp in wkEffectiveMult has been removed. Law 20 — a wrong number renders.\x1b[0m');
+    } else {
+      pass('No World Kitchen dish is inflated past 3x', wk.length + ' records measured through the real wkEffectiveMult');
+    }
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {

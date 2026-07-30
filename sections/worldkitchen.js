@@ -1091,12 +1091,22 @@ function wkMainBase(cat){
   if(cat==='pulse')  return null;  // dry pulses (lentils/beans/chickpeas) -> keep authored DRY amounts
   return 180;                      // boneless meat / poultry (default)
 }
+// ⚖️ A CONDIMENT IS NOT A PORTION (30 Jul 2026 — Tina's eyes on live: Sambal Terasi
+// rendered "160g shrimp paste · R529 pp"). This list is the DECLARATIVE rung: a card that
+// says what it is keeps its authored amounts. It is checked against `type`, which these
+// dishes already carry, rather than against a hand-maintained list of ids.
+var WK_KEEP_AUTHORED = /\b(condiment|sambal|sauce|dressing|pickle|relish|spice-blend|spice blend|paste|dip|garnish)\b/i;
 function wkEffectiveMult(r, count, ap){
   // scale the recipe's authored per-person amounts so the MAIN ingredient lands
   // on its CATEGORY plate (base x spread), floored by the curve.
   var pk = wkPoolOf(r.course);
   var mult = (ap && ap.mult) || 1;
   if(pk==='drink') return mult;                         // per guest, authored amounts
+  // ── RUNG 1 · DECLARED. A sambal is a spoonful on the side of the plate, not a 180g
+  //    serving, so rescaling its first ingredient onto a pool base is meaningless. Ghana's
+  //    shito and Libya's filfel chuma are the same dish-shape in other countries.
+  var _types = Array.isArray(r.type) ? r.type.join(' ') : String(r.type||'');
+  if(WK_KEEP_AUTHORED.test(_types)) return wkSpreadMult(pk, count) * mult;
   var items = wkParseIngredients(r.ingredients), main, base, i;
   if(pk==='main'){
     var cls = wkClassifyMain(items);                    // meat / bonein / fish / veg / carb
@@ -1119,7 +1129,18 @@ function wkEffectiveMult(r, count, ap){
     if(u==='kg'){ q=q*1000; } if(u==='l'){ q=q*1000; }
     if(u==='g'||u==='kg'||u==='ml'||u==='l') authored=q;
   }
-  if(authored && authored>0) return (base*spread*mult)/authored;
+  if(authored && authored>0){
+    // ── RUNG 2 · THE CLAMP. `base/authored` is how far the authored amount is being
+    //    stretched. Above 3x the premise has failed: the first quantified ingredient is
+    //    not the thing the portion is made of, so scaling it to a plate weight produces
+    //    an absurd card (160g of shrimp paste, 40x a koeksister, 25x chirashizushi).
+    //    ⚖️ A GUARD, NOT A RULE — it does not know the right answer, it only knows this
+    //    one is wrong, so it falls back to what the author wrote. The rice/pasta carve-out
+    //    above is the same fault arriving in 2026 for the first time; this is the second,
+    //    which is why it is now mechanical instead of a third hand-written word list.
+    if(base/authored > 3) return spread*mult;
+    return (base*spread*mult)/authored;
+  }
   return spread*mult;
 }
 function wkBumpOf(id){ var b=S.wkBump||{}; return b[id]||1; }
