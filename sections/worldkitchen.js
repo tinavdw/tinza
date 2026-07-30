@@ -779,9 +779,19 @@ function wkRecipeOpts(r, country, universal){
   // ── goes well with (array → shared box) ──
   var gwwList = [];
   if(r.goesWith && r.goesWith.length){ gwwList = [].concat(r.goesWith); }
-  else if(r.pairsWith){ gwwList = r.pairsWith.split(/,|\band\b|&/i).map(function(x){return x.trim();}).filter(Boolean); }
+  else if(r.pairsWith){
+    // ⚖️ SPLIT ONLY IF THE RESULT IS A LIST OF NAMES. Splitting on "," / "and" / "&" is
+    // correct for the older records, which wrote pairsWith as a short comma list — 749 of
+    // 1124 WK records still chip perfectly and are untouched by this. But /wow authors
+    // pairsWith as prose, and splitting prose gave pills like "wet" and "it is the right
+    // one" on the other 375. If ANY fragment is longer than a pairing name can plausibly
+    // be, the field is prose: hand the whole string through and let goesWellBox render it
+    // as a paragraph in the same box. No heuristic guessing at where a sentence ends.
+    var _gwwSplit = r.pairsWith.split(/,|\band\b|&/i).map(function(x){ return x.trim(); }).filter(Boolean);
+    gwwList = _gwwSplit.some(function(x){ return x.length > 40; }) ? r.pairsWith : _gwwSplit;
+  }
   else { var gt=wkCourseToTab(r.course); gwwList = (gt==='desserts'?['Coffee','Fresh cream','Berries']:gt==='starters'?['A main course','Fresh bread','Lemon wedges']:['Fresh salad','Crusty bread','Steamed rice']); }
-  gwwList = gwwList.map(function(g){ return String(g).replace(/[.;,\s]+$/,'').trim(); }).filter(Boolean);
+  if(Array.isArray(gwwList)) gwwList = gwwList.map(function(g){ return String(g).replace(/[.;,\s]+$/,'').trim(); }).filter(Boolean);
 
   // ── sub line: native-script name (if any) + the feel one-liner ──
   var nonLatin = /[^\u0000-\u024F\u1E00-\u1EFF]/.test(r.name||'');

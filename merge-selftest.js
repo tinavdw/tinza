@@ -305,11 +305,32 @@ console.log('\n── ASIA_LEDGER: count is a HARD REFUSE, hash drift is a WARN 
 
   // RED 4 — a country with no ledger entry yet must BASELINE, never refuse. Otherwise the
   // first merge of every new country file is blocked by the tool meant to protect it.
+  // ⚠️ FIXTURE CORRECTED 30 Jul 2026, and the correction is the point rather than a tidy-up.
+  // This passed `4` as the count, but ledgerCheck is called at merge.js:410 with
+  // `records.length` — the records the country file ALREADY holds, BEFORE the batch is added.
+  // A genuinely new country has no file, so readCountryFile returns [] and the count is ZERO.
+  // The old fixture therefore described "a file holding 4 records with no ledger entry",
+  // which is not a new lane at all — it is the missing-ledger case, and asserting that it
+  // should baseline silently was asserting the bug. ⚖️ Correcting a fixture that contradicted
+  // the call site, not loosening an assertion to fit a change.
   {
-    const out = ledgerCheck(led, 'thailand', 4, fingerprint(four));
-    if (out.state === 'baseline' && !out.fails.length) {
-      console.log('  ✅ a brand-new country baselines instead of refusing'); pass++;
+    const out = ledgerCheck(led, 'thailand', 0, fingerprint([]));
+    if (out.state === 'baseline' && !out.fails.length && !out.warns.length) {
+      console.log('  ✅ a brand-new country (empty file) baselines silently, no noise'); pass++;
     } else { console.log('  ❌ new country was not baselined: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 4b — THE REAL BUG THIS RUNG EXISTS FOR (Tina, 30 Jul 2026). Both ledger JSONs were
+  // pushed to the repo ROOT instead of reference/, so merge could not find its own record and
+  // printed "first entry for indonesia — baselining at 25 records" — a line that reads like a
+  // healthy start. Every merge in that window ran with no count-and-hash gate.
+  // No entry + a file that ALREADY holds records is never a new lane. It must say so.
+  {
+    const out = ledgerCheck(led, 'thailand', 25, fingerprint(four));
+    if (out.state === 'baseline-over-existing' && !out.fails.length && out.warns.length === 1
+        && /NOT protecting this merge/.test(out.warns[0])) {
+      console.log('  ✅ RED: no ledger entry but 25 records on disk → LOUD WARN, not a silent baseline'); pass++;
+    } else { console.log('  ❌ a missing ledger looked like a fresh start: ' + JSON.stringify(out)); fail++; }
   }
 
   // RED 5 — the fingerprint must be content-sensitive, or the hash rung asserts nothing.

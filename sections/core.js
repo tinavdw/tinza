@@ -3693,6 +3693,16 @@ function goesWithLink(label){
 
 function goesWellBox(items){
   if(!items || !items.length) return '';
+  // ⚖️ A PILL IS A NAME, NOT A CLAUSE (30 Jul 2026, Tina's eyes on live).
+  // A caller may hand this a STRING of prose instead of an array of pairing names. That
+  // happens because /wow authors `pairsWith` as real writing, and the World Kitchen caller
+  // used to split that prose on commas and the word "and" — which produced pills reading
+  // "wet", "sharp" and "it is the right one" on 375 of 1124 WK records. Prose renders AS
+  // prose, in the same box and the same slot; only a genuine list becomes pills.
+  if(typeof items === 'string'){
+    return recipeBox('❤ Goes Well With',
+      '<p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">' + items + '</p>');
+  }
   return recipeBox('❤ Goes Well With',
     '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
     + items.slice(0,6).map(function(g){

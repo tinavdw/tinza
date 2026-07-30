@@ -351,7 +351,33 @@ function fingerprint(records) {
 // Pure, so the selftest can feed it a disagreeing ledger without touching a real file.
 function ledgerCheck(ledger, country, count, hash) {
   const prev = ledger && ledger.countries && ledger.countries[country];
-  if (!prev) return { state: 'baseline', fails: [], warns: [] };
+  if (!prev) {
+    // ⚖️ A MISSING WATCHER MUST NOT LOOK LIKE A FRESH START (30 Jul 2026, Tina's find).
+    // PRICE_LEDGER.json and ASIA_LEDGER.json were pushed to the repo ROOT instead of
+    // reference/, so for one deploy this file could not find its own record — and it said
+    // "first entry for indonesia — baselining", which reads like a healthy startup line.
+    // Every merge in that window ran with NO count-and-hash gate and announced it in green.
+    // Same shape as the ungated tierBar: the hole was invisible because absence looked normal.
+    //
+    // THE DISCRIMINATOR IS THE FILE, NOT THE LEDGER. `count` is how many records the country
+    // file ALREADY holds. Genuinely new lane → 0 records → silent baseline, which is correct.
+    // No ledger entry but 25 records already on disk → the ledger is missing or was reset,
+    // and adopting whatever is there without a word is exactly what must not happen.
+    //
+    // A **WARN**, not a fail, deliberately: China and Japan are closed with no ledger entries
+    // and will not be re-baselined, so a hard block would stop a legitimate merge dead. It
+    // prints, it is impossible to mistake for a healthy line, and it proceeds.
+    if (count > 0) {
+      return { state: 'baseline-over-existing', fails: [], warns: [
+        'NO LEDGER ENTRY for ' + country + ', but ' + count + ' record' + (count === 1 ? '' : 's') + ' already on disk. ' +
+        'This is NOT a new lane — it means reference/ASIA_LEDGER.json is missing, was reset, or ' +
+        'sits in the wrong folder (it belongs in reference/, not the repo root). The count-and-hash ' +
+        'gate is NOT protecting this merge. Whatever is in the file right now is about to become ' +
+        'the new baseline, unverified. If you did not expect this, stop and put the ledger back.'
+      ]};
+    }
+    return { state: 'baseline', fails: [], warns: [] };
+  }
   if (prev.records !== count) {
     return { state: 'count-mismatch', warns: [], fails: [
       'ASIA_LEDGER says ' + country + ' held ' + prev.records + ' records at the last merge (' +
