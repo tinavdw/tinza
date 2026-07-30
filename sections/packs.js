@@ -49,6 +49,15 @@ const PACK_DB = {
   "tomato":         { ladder: [1000, 2000], loosable: true },
   "tomatoes":       { ladder: [1000, 2000], loosable: true },
 
+  // ── BY PACK · SOLD IN A BUNCH (the bunch IS the pack — you cannot buy half of one) ──
+  // TINA-SOURCED 30 Jul 2026: an average bunch of spinach weighs 250–340g.
+  // ⚖️ THE SMALL END IS DELIBERATE. `size` is a guaranteed-content assumption and the one
+  // rule here is "round the need UP to the next real pack" — assume 340g and a shopper who
+  // gets a small bunch is SHORT in the kitchen, which is the failure that actually hurts.
+  // Cross-check: 250g × R60/kg = R15, exactly the cheap end of her R15–R25 per bunch.
+  // ⛔ NOT `loosable` — a bunch is the unit; there is no loose route.
+  "bunched spinach": { size: 250 },
+
   // ── LADDER · MILK (1 L / 2 L) ──
   "milk":           { ladder: [1000, 2000] },
 

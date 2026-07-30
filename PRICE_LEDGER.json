@@ -107,6 +107,14 @@
       "pricesLine": 533
     },
     {
+      "key": "bunched spinach",
+      "value": 60,
+      "date": "30 Jul 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 30 Jul 2026, given in-conversation with retailer/market sources (Woolworths, Vegetarium price list, Joburg Market daily price list, PnP, Impfruit). Her band: standard whole spinach in bunches/prepacks R15.00-R25.00 per 300g-350g bunch, which she gives as approx R45.00-R70.00 per kg. Median of that band R57.50; §31 rounds up -> R60. This is the BUNCH route and is distinct from \"spinach\" R93 (cleaned/cut 400g prepack) and \"baby spinach\" R216 (125g punnet), both of which remain unchanged.",
+      "pricesLine": 538
+    },
+    {
       "key": "cashew nuts",
       "value": 430,
       "date": null,

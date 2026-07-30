@@ -534,7 +534,8 @@ const PRICE_DB = {
   "lettuce": 22,              // each
   "rocket": 500,              // R20/40g → R500/kg
   "baby spinach": 216,        // R27/125g → R216/kg
-  "spinach": 93,              // R37/400g → R93/kg
+  "spinach": 93,              // R37/400g → R93/kg  ⚠️ this is the CLEANED/CUT PREPACK route, not the bunch
+  "bunched spinach": 60,      // TINA-SOURCED 30 Jul 2026: R15–R25 per 300–350g bunch → R45–R70/kg band. Median R57.50, §31 rounds up → R60. The BUNCH route: thick pale rib, broad leaf — what a cooked-greens recipe actually buys. ⛔ QUALIFIER MUST LEAD: "spinach bunch" falls through to spinach R93; write "bunched spinach".
   "cabbage": 25,              // whole
   "carrots": 25,              // per kg
   "baby carrots": 83,         // R25/300g → R83/kg

@@ -55,7 +55,7 @@ function worldKitchenHTML(){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
