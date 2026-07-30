@@ -22,6 +22,14 @@ const PRICE_DB = {
   "bread roll_each": 3.5, "bread rolls_each": 3.5,       // 6-pack ~R20
   "pita bread_each": 4, "pita breads_each": 4,   // MF137 · dead "pita_each": 4 deleted — L487 R7.70 (R46/6-pack, Tina's own measure) always won
   "bay leaf_each": 0.15, "bay leaves_each": 0.15,        // negligible aromatic
+  // ⚖️ §31.3a CONSUMED, RULED BY TINA 30 Jul 2026 — her words: "Skewers you throw away after using
+  //    them, you stick meat on them." So they are NOT retained equipment and DO belong in costPP.
+  //    Checkers Prochef 100-pack R24.99 → R0.25 each (the mainstream buy) · 50-pack R19.99 → R0.40 each.
+  //    R0.25 per §31.1. ⛔ COUNT KEY VIA `_each`, DELIBERATELY — a skewer is bought and used by the
+  //    piece, so a weight key would price "4 bamboo skewers" at nothing (the will-not-price bug).
+  //    WRITE "4 bamboo skewers", never a gram figure.
+  "bamboo skewer_each": 0.25, "bamboo skewers_each": 0.25,
+  "skewer_each": 0.25, "skewers_each": 0.25,
   "bread slice_each": 1, "bread slices_each": 1,         // loaf ~R18 / 18 slices
   "chilli_each": 1, "chillies_each": 1, "chillis_each": 1,
   "green chilli_each": 1, "green chillies_each": 1, "small chilli_each": 1,
@@ -124,6 +132,16 @@ const PRICE_DB = {
   // ⚠️ OMNIVORE (§29.3). Hon dashi carries bonito. The diet tagger must read "dashi" as
   //    animal and "kombu and shiitake dashi" as NOT, without substring-matching between them.
   "dashi": 13,              // per L made-up - NOT the granule price
+  // ⛔⛔ CLOSED. DO NOT RE-ASK. Sourced by Tina 29 Jul 2026 (40g pack R76) and RE-CONFIRMED by her
+  //    30 Jul 2026 at R51.99/40g via Market Kokoro — which at the 6.67 g/L on-pack dose gives
+  //    R8.67/L. R13 IS RETAINED: §31 rounds up, and the cheaper figure only widens the margin.
+  //    THE NUMBER DID NOT MOVE. ⚠️ On 30 Jul this key was re-derived from scratch and a DUPLICATE
+  //    "dashi": 13 was very nearly shipped 16 lines below — in a JS object literal the last one wins
+  //    SILENTLY, which is the live `mushroom` R165 / `mushrooms` R90 bug shape. Caught and removed.
+  //    ⚖️ LESSON, FIFTH INSTANCE OF THE SAME PATTERN: a carried-forward to-do list re-asking a
+  //    question the record already answers (MF152 grepped against itself · TINZA_SPRINT_PLAN
+  //    split-brain · push-timing asked six times · Japan record counts · this). GREP THE FILE AND
+  //    SEARCH PAST CHATS BEFORE ASKING TINA FOR ANY PRICE.
   "stock": 8,               // LIQUID stock (per L) — was 170 (powder price) which over-priced 68+ recipes using "<ml> stock"
   "chilli": 80,
   // ── BEEF (adjusted per roadmap) ──
@@ -592,6 +610,17 @@ const PRICE_DB = {
   "white vinegar": 49,        // R37/750ml → R49/L
   "apple cider vinegar": 99,  // R37/375ml → R99/L
   "soy sauce": 236,           // R59/250ml → R236/L
+  "kecap manis": 260,         // Tina-sourced 30 Jul 2026, two batches. NORMALISED: local 250ml R49 →
+                              // R196/L · ABC 275ml R56 → R204/L · Ayam 210ml R61.99 → R295/L ·
+                              // Woolworths Asian Sweet Indonesian Style 150ml R51.99 → R347/L.
+                              // Spread R196–347, median R249, mean R260 → R260 per §31.1.
+                              // ⚖️ The Ayam 210ml figure SUPERSEDES an earlier R84/210ml (→R400/L) that
+                              // had been excluded as a small-bottle outlier; the spread is now honest end
+                              // to end and the number did not move. New data, same conclusion.
+                              // ⚖️ SEPARATE KEY, NOT AN ALIAS OF `soy sauce`: `sweet soy sauce`
+                              // deliberately still falls to soy sauce, because in a Japanese context that
+                              // phrase means soy + sugar, not kecap manis. No live record uses the phrase
+                              // as an ingredient line, so nothing changes behaviour. Write `kecap manis`.
   "worcestershire sauce": 108, // R27/250ml → R108/L
   "peri peri sauce": 116,     // R29/250ml → R116/L
   "tomato sauce": 60,         // R42/700ml → R60/L
@@ -1008,6 +1037,92 @@ const PRICE_DB = {
   "spice mix": 120,                // ESTIMATE — generic blend; vague name, consider naming the specific spice in-recipe
   // ── added 29 Jun (oven-bakes WOW batch) ──
   "red curry paste": 900,          // ESTIMATE — Thai red curry paste (~R50/110g jar), matches green curry paste shape
+
+  // ══ INDONESIAN BOUGHT PRODUCTS — Tina-sourced 30 Jul 2026, keyed in the same message ══
+  // ⚖️ §29.2: a staple that is ALSO an ingredient of another card is priced as the STORE ROUTE.
+  //    Each card below still keeps its own from-scratch route, which costs less; that gap is the
+  //    argument for the card existing. Two numbers, two questions, both correct.
+  // ⚖️ All four checked before keying: absent (or wrong-resolving) in prices.js, absent in BOTH
+  //    alias maps, and NO live ingredient line in any section contains the phrase.
+  "satay sauce": 350,              // Woolworths Asian Satay Sauce 150ml R49.99 → R333/L · Por Kwan Satay
+                                   // Peanut Sauce 200g R70 → R350/kg. Two independent sources agreeing
+                                   // → R350 per §31.1. ⚠️ NAMED `satay sauce` AND NOT `peanut sauce`
+                                   // ON PURPOSE: "peanut sauce" appears in four live prose fields
+                                   // (meals.js tips, wk_africa.js leftovers) and a broad key is how a
+                                   // wrong number lands somewhere nobody was looking. 🟡 CAVEAT: both
+                                   // products are Thai/generic Asian rather than Indonesian bumbu kacang,
+                                   // but §29.2 prices the BOUGHT condiment and the two agree at ~R350.
+                                   // Same shape as the `chilli oil` R490 caveat.
+  "nasi goreng paste": 355,        // 185g jar R64.99 → R351.30/kg → R355. Same shape as
+                                   // "green curry paste": 960 / "red curry paste": 900 — a bought bumbu
+                                   // jar, per kg. The Nasi Goreng card leads FROM SCRATCH; this prices
+                                   // the jar-shortcut version only.
+  "instant noodles": 100,          // Single 80g packet R6.99–8.99 → R87–112/kg · 5-pack 5x80g R27–39.99
+                                   // → R68–100/kg. Mainstream single-serve buy ≈ R7.99/80g = R100/kg.
+                                   // ⚠️ WAS RESOLVING TO `noodles` R80 — close, but a fried instant block
+                                   // is not an egg noodle. Longer key wins, so this now takes precedence.
+                                   // ⛔ WRITE IT IN GRAMS ("80g instant noodles"), NEVER "1 packet" —
+                                   // this is a WEIGHT key and a count line on it prices NOTHING.
+  "semur spice mix": 510,          // Bamboe Bumbu Semur 69g sachet R25–45 → R362–652/kg, mid R35/69g
+                                   // = R507 → R510. 🔴 WAS RESOLVING TO `spice mix` R120 — roughly a
+                                   // QUARTER of the real price, rendering as a number that looks correct.
+                                   // Exactly the `chilli oil` → `chilli` R80 shape, so this is a wrong
+                                   // number closed, not merely a gap filled.
+                                   // ⚠️ SPECIALTY IMPORTERS ONLY, not standard SA supermarkets (Tina).
+                                   // It passes §29.1 because a real bought product fills the slot, but
+                                   // the SEMUR CARD MUST LEAD ON THE FROM-SCRATCH ROUTE (kecap manis,
+                                   // nutmeg, clove, coriander) with the sachet as the optional shortcut.
+                                   // Same precedent as warabi starch → cornflour: the accessible local
+                                   // route leads and the unavailable one is named honestly in-method.
+  // ⛔ NO `bakmi spice` KEY — §29.1 FAILS LOUD, DELIBERATELY. Tina, 30 Jul 2026: a standalone bakmi
+  //    spice jar is not sold in SA. The flavour comes from the seasoning sachet INSIDE an Indomie Mi
+  //    Goreng packet, which is not separately buyable and is already priced by `instant noodles`.
+  //    No bought product = no price. Do not key it and do not re-ask.
+
+  // ── KELUAK (black nut, Pangium edule) — Tina-sourced 30 Jul 2026 ──
+  // ⚖️ §29.1 PASSES: it IS obtainable in SA through specialty importers, so Rawon is authorable.
+  // ARITHMETIC — Tina's figure is a RANGE ON BOTH AXES, R150–550 per 100–250g pack, which normalises
+  //    four ways: R150/250g = R600/kg · R150/100g = R1500/kg · R550/250g = R2200/kg · R550/100g =
+  //    R5500/kg. That is a NINE-FOLD spread, far too wide for a naive midpoint, so §31.1 decides it:
+  //    the mainstream buy for a specialty import used in one dish is the SMALL 100g PACK, at the
+  //    low-to-mid of her rand range, ≈R200/100g → R2000/kg.
+  // 🟡 THE PACK SIZE IS MY ASSUMPTION, NOT HERS — the rand range is Tina's and is firm. One word
+  //    from her moves this number and nothing else.
+  // ✅ SANITY CHECK: Rawon uses roughly 10–12g of keluak paste per serving, so ~R24 a plate against
+  //    ~R23 of beef chuck. Material, and it correctly tells a cook that Rawon is expensive here.
+  // ⚠️ THREE SPELLINGS ALL KEYED, same precedent as `bamboo skewer_each`/`bamboo skewers_each` —
+  //    all three were absent everywhere and none appears in any live ingredient line, so this adds
+  //    coverage without changing any existing cost. Prefer `keluak` in new records.
+  "keluak": 2000, "kluwek": 2000, "kluwak": 2000,
+  // ── RAWON SPICE PASTE (bumbu rawon sachet) — Tina-sourced 30 Jul 2026 ──
+  // ARITHMETIC: R30–35 per individual 45–54g sachet normalises tightly, unlike keluak itself:
+  //    R30/54g = R556/kg · R35/54g = R648/kg · R30/45g = R667/kg · R35/45g = R778/kg.
+  //    Mean R662, median R657, a 1.4x spread — narrow enough that a mid IS honest here.
+  //    Round up per §31 → R680/kg.
+  // 🔴 WAS RESOLVING TO `spice mix` R120 — roughly a FIFTH of the real price, rendering as a number
+  //    that looks correct. Same shape as `semur spice mix` and as the `chilli oil` → `chilli` R80 bug.
+  //    A WRONG number closed, not merely a gap filled.
+  // ⚖️ THIS ONE IS STRUCTURALLY DIFFERENT FROM THE OTHER PASTE SACHETS, and it matters for authoring:
+  //    a bumbu rawon sachet CONTAINS keluak — that is what makes it rawon — so it is not a seasoning
+  //    shortcut but a genuine ALTERNATIVE ROUTE to the whole nut. Compare honestly: a 45–54g sachet
+  //    serves about four, so ~12g a plate = ~R8, against ~R24 a plate for whole keluak at R2000/kg,
+  //    and R30 to enter rather than ~R200. That makes the sachet the natural BUDGET FORK of the Rawon
+  //    card — but the card must still LEAD ON WHOLE KELUAK, because the nut is the dish and the moat.
+  // ⚠️ INFERENCE, NOT TINA'S WORD: this is the same Bamboe/Indofood sachet family she described as
+  //    "rare in standard South African supermarkets" for semur, so assume specialty importers and name
+  //    it that way in-method. She gave the price without repeating that caveat; do not put it in her mouth.
+  // ⚠️ TWO SPELLINGS, both absent before and neither in any live ingredient line, so this adds
+  //    coverage and changes no existing cost. Prefer `rawon spice mix`.
+  "rawon spice mix": 680, "bumbu rawon": 680,
+  // ⛔ NO `banana leaf` / `banana leaves` KEY — §29.1 FAILS LOUD. Tina, 30 Jul 2026: "not sold here,
+  //    unless you have a banana tree, and it's quite common." A garden tree is not a bought product,
+  //    so there is no store route and therefore no cost.
+  // 🔴 AND IT CURRENTLY MIS-RESOLVES: `banana leaves` → `banana` R32/kg — a LEAF priced as FRUIT,
+  //    via wkPriceLookup's longest-word-anywhere rung. Measured 30 Jul: NO live ingredient line in
+  //    any section uses the phrase, so nothing is wrong today. ⛔ KEEP IT THAT WAY — banana leaf is
+  //    named IN-METHOD only, never as an ingredient line. Honest route for a parcel dish (Pepes,
+  //    Botok, Otak-Otak): cut a leaf if there is a tree in the garden, otherwise baking paper inside
+  //    foil, which is what the method should lead on.
   "creamed corn": 59,              // cream-style sweetcorn tin (~R24/410g) = tinned corn proxy
   "cream style corn": 59,          // alias for creamed corn
   "kasuri methi": 800,             // ESTIMATE — dried fenugreek leaves (~R35/45g), pinch use

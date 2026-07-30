@@ -258,6 +258,69 @@ console.log('\n── §26 existing-record debt is a single WARN, never a block 
   }
 }
 
+// ── THE STATE LEDGER — every rung proven by reproducing the real failure ──────
+// The bug this exists for, exactly as it happened on 30 Jul 2026: merge reported "0 + 4 = 4",
+// two tools independently confirmed 4, and a FIFTH record was afterwards in the file.
+console.log('\n── ASIA_LEDGER: count is a HARD REFUSE, hash drift is a WARN ──');
+{
+  const { ledgerCheck, fingerprint } = require('./merge.js');
+  const four = [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }];
+  const five = four.concat([{ id: 'e' }]);
+  const led  = { countries: { indonesia: { records: 4, hash: fingerprint(four), updated: '2026-07-30' } } };
+
+  // CONTROL — a file that matches the ledger must pass silently.
+  {
+    const out = ledgerCheck(led, 'indonesia', 4, fingerprint(four));
+    if (out.state === 'match' && !out.fails.length && !out.warns.length) {
+      console.log('  ✅ CONTROL: matching count and hash → clean, no noise'); pass++;
+    } else { console.log('  ❌ control failed: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 1 — THE REAL BUG. A fifth record appears. Must be a HARD FAIL.
+  {
+    const out = ledgerCheck(led, 'indonesia', 5, fingerprint(five));
+    if (out.state === 'count-mismatch' && out.fails.length === 1 && /RECORD APPEARED/.test(out.fails[0])) {
+      console.log('  ✅ RED: 4 → 5 outside a merge → HARD REFUSE (the nasi-uduk failure)'); pass++;
+    } else { console.log('  ❌ a record appearing was not refused: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 2 — the other direction. A record vanishing is equally always wrong.
+  {
+    const out = ledgerCheck(led, 'indonesia', 3, fingerprint(four.slice(0, 3)));
+    if (out.state === 'count-mismatch' && /VANISHED/.test(out.fails[0])) {
+      console.log('  ✅ RED: 4 → 3 → HARD REFUSE, and named as a vanish not an appearance'); pass++;
+    } else { console.log('  ❌ a record vanishing was not refused: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 3 — hash drift with an UNCHANGED count must WARN and NOT block. This is the Betawi
+  // etymology fix: editing prose inside an existing record is legitimate, and a gate that
+  // blocks Tina for a correct edit is an obstacle rather than a watcher.
+  {
+    const edited = JSON.parse(JSON.stringify(four)); edited[0].trivia = 'corrected prose';
+    const out = ledgerCheck(led, 'indonesia', 4, fingerprint(edited));
+    if (out.state === 'hash-drift' && out.fails.length === 0 && out.warns.length === 1) {
+      console.log('  ✅ WARN-not-FAIL: same count, changed content → warns, does not block'); pass++;
+    } else { console.log('  ❌ hash drift rung wrong: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 4 — a country with no ledger entry yet must BASELINE, never refuse. Otherwise the
+  // first merge of every new country file is blocked by the tool meant to protect it.
+  {
+    const out = ledgerCheck(led, 'thailand', 4, fingerprint(four));
+    if (out.state === 'baseline' && !out.fails.length) {
+      console.log('  ✅ a brand-new country baselines instead of refusing'); pass++;
+    } else { console.log('  ❌ new country was not baselined: ' + JSON.stringify(out)); fail++; }
+  }
+
+  // RED 5 — the fingerprint must be content-sensitive, or the hash rung asserts nothing.
+  {
+    const edited = JSON.parse(JSON.stringify(four)); edited[2].id = 'c2';
+    if (fingerprint(four) !== fingerprint(edited) && fingerprint(four) === fingerprint(four)) {
+      console.log('  ✅ fingerprint changes with content and is stable for identical input'); pass++;
+    } else { console.log('  ❌ fingerprint is not content-sensitive'); fail++; }
+  }
+}
+
 // ── RESULT ───────────────────────────────────────────────────────────────────
 console.log('\n═══ ' + pass + ' passed · ' + fail + ' failed ═══');
 if (fail) { console.log('🔴 merge.js is NOT trustworthy — do not author a batch through it.\n'); process.exit(1); }

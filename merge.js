@@ -325,7 +325,57 @@ function validate(existing, incoming, cfg, KEYS) {
   return { fails, warns };
 }
 
-module.exports = { validate, COUNTRIES, loadSchemaKeys, readCountryFile, newHeader, DIET_VOCAB, DELTA_OPS };
+// ── THE STATE LEDGER (added 30 Jul 2026, ruled by Tina) ───────────────────────
+// WHY: on 30 Jul, merge reported "0 + 4 = 4" and two separate tools independently confirmed
+// 4 records — and a FIFTH record was afterwards present in wk_indonesia.js. Nothing in the
+// toolchain could have caught it, because merge.js validates what it is HANDED and pricecheck
+// reports on whatever is in the FILE. Neither knows how many records were supposed to be there.
+// Same shape as the ungated tierBar: a silent hole needs a mechanical watcher, not sharper eyes.
+//
+// ⚖️ TWO RUNGS, DELIBERATELY DIFFERENT, and the split is the whole design:
+//   COUNT mismatch → HARD REFUSE. A record appearing or vanishing outside a merge is ALWAYS
+//     wrong. This is the rung that would have caught 4 → 5.
+//   HASH mismatch, count matching → LOUD WARN, then proceed. Editing prose inside an existing
+//     record is legitimate and happens (the Betawi etymology fix, same day). A gate that blocks
+//     Tina for a correct edit is an obstacle, not a watcher, and she ruled these in on the
+//     condition that they save her time rather than cost it.
+const crypto = require('crypto');
+const LEDGER_PATH = path.join(__dirname, 'reference', 'ASIA_LEDGER.json');
+
+// Fingerprint the RECORDS, not the file text — so a header edit or a reformat never false-alarms,
+// while a record appearing, vanishing or changing always does.
+function fingerprint(records) {
+  return crypto.createHash('sha256').update(JSON.stringify(records)).digest('hex').slice(0, 16);
+}
+
+// Pure, so the selftest can feed it a disagreeing ledger without touching a real file.
+function ledgerCheck(ledger, country, count, hash) {
+  const prev = ledger && ledger.countries && ledger.countries[country];
+  if (!prev) return { state: 'baseline', fails: [], warns: [] };
+  if (prev.records !== count) {
+    return { state: 'count-mismatch', warns: [], fails: [
+      'ASIA_LEDGER says ' + country + ' held ' + prev.records + ' records at the last merge (' +
+      prev.updated + '), but the file now holds ' + count + '. ' +
+      (count > prev.records ? 'A RECORD APPEARED outside a merge.' : 'A RECORD VANISHED.') +
+      ' Nothing is written until this is explained.'
+    ]};
+  }
+  if (prev.hash !== hash) {
+    return { state: 'hash-drift', fails: [], warns: [
+      'ASIA_LEDGER hash drift on ' + country + ' — the record COUNT is unchanged (' + count +
+      ') but content changed since the last merge. Legitimate for a prose edit inside an existing ' +
+      'record; not legitimate for anything you did not do. Re-baselined after this merge.'
+    ]};
+  }
+  return { state: 'match', fails: [], warns: [] };
+}
+
+// ⚠️ EXPORT SITS HERE, BELOW EVERYTHING IT NAMES. It was originally placed above the ledger
+// block and died with "Cannot access 'LEDGER_PATH' before initialization" — a temporal dead
+// zone on a `const`. Caught by merge-selftest.js on the first run after the edit, which is the
+// whole argument for running the self-test before shipping a change to the gate itself.
+module.exports = { validate, COUNTRIES, loadSchemaKeys, readCountryFile, newHeader, DIET_VOCAB, DELTA_OPS,
+                   ledgerCheck, fingerprint, LEDGER_PATH };
 
 // ── CLI ───────────────────────────────────────────────────────────────────────
 if (require.main === module) {
@@ -354,6 +404,23 @@ if (require.main === module) {
 
   if (isNew) console.log('📄 ' + cfg.file + ' does not exist yet — it will be created at ' + filePath);
 
+  // ── LEDGER GATE — runs BEFORE validation, because if the file's state is unexplained then
+  //    validating a batch against it is answering the wrong question.
+  const ledger = fs.existsSync(LEDGER_PATH) ? JSON.parse(fs.readFileSync(LEDGER_PATH, 'utf8')) : null;
+  const lc = ledgerCheck(ledger, countryArg.toLowerCase(), records.length, fingerprint(records));
+  lc.warns.forEach(w => console.log('  ⚠️  ' + w));
+  if (lc.fails.length) {
+    lc.fails.forEach(f => console.log('  ❌ ' + f));
+    console.log('\n🔴 LEDGER MISMATCH — NOTHING WRITTEN.');
+    console.log('   This is the watcher for a record appearing or vanishing outside a merge.');
+    console.log('   If the current file is known-good, re-baseline deliberately:');
+    console.log('     node merge.js ' + countryArg + ' <batch> --accept-count');
+    console.log('   Do NOT use that flag to make a surprise go away. Find out what happened first.');
+    if (!process.argv.includes('--accept-count')) process.exit(1);
+    console.log('   ⚠️  --accept-count given: proceeding and re-baselining. This is on the record.');
+  }
+  if (lc.state === 'baseline') console.log('  📒 ledger: first entry for ' + countryArg + ' — baselining at ' + records.length + ' records.');
+
   const { fails, warns } = validate(records, NEW, cfg, KEYS);
 
   warns.forEach(w => console.log('  ⚠️  ' + w));
@@ -375,6 +442,23 @@ if (require.main === module) {
 
   console.log('✅ all checks pass · ' + records.length + ' + ' + NEW.length + ' = ' + all.length + ' records written to ' + path.relative(process.cwd(), filePath));
   NEW.forEach(r => console.log('   + ' + r.id + '  [' + r.versions.map(v => 'R' + v.costPP).join(' · ') + ']'));
+
+  // Re-baseline the ledger to what was just written. Written AFTER the file, so a crash between
+  // the two leaves the ledger BEHIND rather than ahead — which fails loud next run instead of
+  // silently blessing a state nobody verified. Missing < wrong, as always.
+  const nextLedger = ledger || { note: 'Record count + content fingerprint per country at the last ' +
+    'successful merge. merge.js REFUSES to write on a count mismatch (a record appearing or ' +
+    'vanishing outside a merge) and WARNS on hash drift with an unchanged count (a legitimate prose ' +
+    'edit). Derived by merge.js, never hand-typed.', countries: {} };
+  nextLedger.countries[countryArg.toLowerCase()] = {
+    records: all.length,
+    hash: fingerprint(all),
+    updated: new Date().toISOString().slice(0, 10),
+    lastBatch: path.basename(batchArg)
+  };
+  fs.mkdirSync(path.dirname(LEDGER_PATH), { recursive: true });
+  fs.writeFileSync(LEDGER_PATH, JSON.stringify(nextLedger, null, 2) + '\n');
+  console.log('   📒 ledger baselined: ' + all.length + ' records · ' + fingerprint(all));
 
   if (isNew) {
     console.log('\n⛔ WIRING — a file that is not wired is not in the app. TWO lines still needed:');
