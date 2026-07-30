@@ -56,7 +56,20 @@ function fixture() {
   // up to the current contract here rather than by rewriting a banked record.
   r.versions.forEach(v => { v.diet = ['omnivore']; });
   r.diet = ['omnivore'];
-  return r;
+  // `goesWith` (30 Jul, Tina unfroze A3): same situation, same handling. China predates the
+  // key, so the clone lacks it and the schema check fails — which then cascaded through five
+  // other assertions that share this fixture, reading as six unrelated bugs. One missing
+  // field, six red lines.
+  if (!Array.isArray(r.goesWith)) r.goesWith = ['Steamed rice', 'Sambal'];
+  // ⚖️ REBUILT IN SCHEMA ORDER, not just topped up. merge's key check compares
+  // Object.keys(r).join(',') to KEYS.join(',') — it is ORDER-SENSITIVE, so assigning a new
+  // field appends it at the end and still fails. Rebuilding from KEYS makes this fixture
+  // survive the NEXT schema addition too, instead of going red again the same way.
+  // Anything not in KEYS is kept and left at the end, so the extra-keys rung still fires.
+  const ordered = {};
+  KEYS.forEach(k => { if (k in r) ordered[k] = r[k]; });
+  Object.keys(r).forEach(k => { if (!(k in ordered)) ordered[k] = r[k]; });
+  return ordered;
 }
 
 const run = rec => validate(EXISTING, [rec], cfg, KEYS);

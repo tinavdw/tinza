@@ -1,7 +1,7 @@
 {
-  "note": "Canonical Asia-lane record key set + ORDER. Regenerated 29 Jul 2026 from wk_japan.js record 1 (japan-staple-dashi) per ruling A3. merge.js compares Object.keys(r).join() to this exactly — order counts.",
-  "source": "sections/wk_japan.js → WK_JAPAN[0] → japan-staple-dashi",
-  "regenerated": "2026-07-29",
+  "note": "Canonical Asia-lane record key set + ORDER. Regenerated 29 Jul 2026 from wk_japan.js record 1 (japan-staple-dashi) per ruling A3. merge.js compares Object.keys(r).join() to this exactly \u2014 order counts. \u2696\ufe0f UNFROZEN ONCE, 30 Jul 2026 by Tina: `goesWith` added after `pairsWith`. A3 froze this from wk_japan.js record 1, which had no goesWith \u2014 so no Asia record could carry the array the renderer prefers, and every WK card fell through to splitting pairsWith prose on commas and the word 'and'. That produced pills reading 'wet' and 'it is the right one' on 375 of 1124 records. pairsWith stays as the prose; goesWith is the short list of real card names.",
+  "source": "sections/wk_japan.js \u2192 WK_JAPAN[0] \u2192 japan-staple-dashi",
+  "regenerated": "2026-07-30",
   "keys": [
     "id",
     "name",
@@ -21,6 +21,7 @@
     "storage",
     "chefNotes",
     "pairsWith",
+    "goesWith",
     "trivia",
     "howThisFeels",
     "leftovers",
