@@ -30,6 +30,43 @@ const PRICE_DB = {
   //    WRITE "4 bamboo skewers", never a gram figure.
   "bamboo skewer_each": 0.25, "bamboo skewers_each": 0.25,
   "skewer_each": 0.25, "skewers_each": 0.25,
+  // Tina 30 Jul 2026 named "standard wooden or bamboo skewers" as the structural substitute for
+  // a lemongrass stalk, so the wooden spelling is aliased to the same sourced R0.25 rather than
+  // left to fall through to nothing. NOT a new price -- the same skewer, a second name.
+  "wooden skewer_each": 0.25, "wooden skewers_each": 0.25,
+
+  // ── SUGARCANE (Tina-sourced 30 Jul 2026) ─────────────────────────────────────
+  //    Tina: R15-R25 per fresh stalk from street vendors and township markets, with
+  //    Johannesburg metro at the R20-R25 end. Mid of her range R20, §31 rounds up.
+  //    ⛔ COUNT KEY VIA `_each` — sugarcane is bought and sold BY THE STALK, so a weight
+  //       key would price "1 sugarcane stalk" at nothing (the will-not-price bug).
+  //    🔴 CLOSES A WRONG-PRODUCT TRAP: with no key, `sugar cane` (two words) fell through
+  //       to `sugar` R35/kg. Both spellings are keyed below so neither can resolve to sugar.
+  //    📌 WHY IT EXISTS BEFORE ITS RECORD: Vietnam's cha~o tom is prawn paste moulded onto
+  //       sugarcane — the identical technique to Sate Lilit on a different stalk. Keyed now
+  //       so P4 does not discover it mid-record.
+  //    🟡 OPEN MODELLING QUESTION, NOT GUESSED: a recipe at servings:1 uses a 10cm baton, not
+  //       a whole stalk, and HOW MANY BATONS A STALK YIELDS IS NOT SOURCED. Do not invent a
+  //       divisor. Ask Tina when the cha~o tom record is authored.
+  "sugarcane_each": 20, "sugarcane stalk_each": 20, "sugarcane stalks_each": 20,        // Tina 30 Jul 2026: R15-R25/stalk
+  "sugar cane_each": 20, "sugar cane stalk_each": 20, "sugar cane stalks_each": 20,     // Tina 30 Jul 2026: same, two-word spelling
+
+  // ── §31.3b CONSUMED WRAPPERS (Tina-sourced 30 Jul 2026) ──────────────────────
+  //    Tina: baking paper 5m R34.99 · heavy-duty foil 5m R39 (Pick n Pay).
+  //    Normalised per 30cm SHEET, which is one fish parcel: 5m = 500cm = 16 usable
+  //    sheets. Paper R34.99/16 = R2.19 -> R2.20. Foil R39/16 = R2.44 -> R2.45. §31 rounds up.
+  //    ✅ 30cm ROLL WIDTH CONFIRMED BY TINA 30 Jul 2026. The 5m length, both rand figures and
+  //       the sheet width are all hers -- nothing here is assumed.
+  //    ⛔ COUNT KEYS VIA `_each`, same precedent as bamboo skewers - a sheet is used by the
+  //       piece. WRITE "1 baking paper sheet" / "1 foil sheet", never a gram figure.
+  //    ⚠️ NOT YET APPLIED TO ANY RECORD. Measured 30 Jul: `foil` appears in-method 31 times
+  //       across wk_japan (5), wk_china (9) and wk_indonesia (17) - incl. Sambal Terasi's
+  //       terasi-toasting step. Adding it to one record's ingredient list and not the other
+  //       thirty would be a worse inconsistency than leaving all thirty-one as equipment.
+  //       AWAITING TINA'S LANE-WIDE RULING: are consumed wrappers costed, or are they
+  //       equipment like a pan? The keys exist so the answer is one sweep away either way.
+  "baking paper sheet_each": 2.20, "baking paper sheets_each": 2.20, "baking paper_each": 2.20,  // Tina 30 Jul 2026: 5m roll R34.99
+  "foil sheet_each": 2.45, "foil sheets_each": 2.45, "foil_each": 2.45,  // Tina 30 Jul 2026: heavy duty 5m R39
   "bread slice_each": 1, "bread slices_each": 1,         // loaf ~R18 / 18 slices
   "chilli_each": 1, "chillies_each": 1, "chillis_each": 1,
   "green chilli_each": 1, "green chillies_each": 1, "small chilli_each": 1,
@@ -551,6 +588,18 @@ const PRICE_DB = {
   "chopped tomatoes": 66,
   "tomato paste": 180,        // R9/50g → R180/kg
   "tomato puree": 68,         // R28/410g → R68/kg
+  // ⚠️ WAS A WRONG-PRODUCT TRAP: with no key, "coconut water" fell through to `water` R0.02 --
+  //    ~R85/L read as 2 cents. Measured 30 Jul: zero live ingredient lines used it, so it was
+  //    latent rather than shipping (§29.5), and it is now closed.
+  "coconut water": 85,        // per L. Tina 30 Jul 2026: R24.99/330ml small pack = R75.70/L;
+                              // R92.99/1L premium imported. Mean of her two endpoints R84.50,
+                              // §31 rounds up. ✅ CONFIRMED CORRECT BY TINA 30 Jul 2026.
+                              // ⚖️ SECOND STORE ROUTE (Tina, 30 Jul): people also buy a WHOLE COCONUT
+                              //    and split it for the water. Real and common, but the whole-coconut
+                              //    price is UNSOURCED -- do not key or guess it. `coconut` currently
+                              //    resolves to `desiccated coconut` R160/kg, so "1 whole coconut"
+                              //    would be a COUNT line on a weight key = will-not-price (blank).
+                              //    ⛔ Name the whole-coconut route IN-METHOD only until she prices it.
   "coconut milk": 63,         // R25/400ml → R63/kg approx
   "coconut cream": 83,        // R33/400ml → R83/kg
   "condensed milk": 119,      // R46/385g → R119/kg (Tina 11 Jul)
@@ -754,7 +803,10 @@ const PRICE_DB = {
   "pawpaw": 30,               // ESTIMATE
   "granadilla": 180,          // ESTIMATE (pulp) — updated 17 Jun
   "granadilla_each": 10,      // per fruit (count)
-  "apple_each": 5,            // per fruit (count)
+  "apple_each": 6,            // per fruit (count). Tina 30 Jul 2026: loose apples R5-R7 each
+                              // depending on size, and DEARER per apple than a 1kg or 1.5kg bag.
+                              // Mid of her range, §31 rounds up. The bag route is "apples" R27/kg
+                              // (R40/1.5kg) below -- two real store routes, not a duplicate key.
   "mushrooms": 90,            // ESTIMATE
   "rooibos": 8,               // ESTIMATE (brewed, per L)
   "koeksisters": 120,         // ESTIMATE
@@ -951,7 +1003,13 @@ const PRICE_DB = {
   "brussels sprouts": 193,    // RENAMED 12 Jul from bare "sprouts" — a bare key mispriced "bean sprouts" at R193. src:online when:2026-07 conf:online
   "bean sprouts": 270,        // src:Woolies/PnP when:2026-07 conf:shelf  (100g punnet ~R27)
   "microgreens": 193,
-  "lemongrass": 500,
+  "lemongrass": 500,          // per kg. Tina 30 Jul 2026: Woolworths fresh 30g pack R14.99
+                              // -> R499.67/kg, so the existing key was already right and is now
+                              // SOURCED rather than assumed. Fresh stalks R15-R20/bunch agree.
+                              // 🟡 `dried lemongrass` aliases here but Tina priced dried at
+                              //    R79/75g = R1053/kg, ~2x. Zero live lines use it; left alone.
+                              // ⛔ COUNT LINES DO NOT PRICE: "4 lemongrass stalks" -> R0.00 at
+                              //    coverage 0.00 (weight key, count line). ALWAYS WRITE GRAMS.
   "tamari": 867,
   "erythritol": 190,
   "xylitol": 190,

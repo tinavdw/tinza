@@ -27,12 +27,44 @@
       "pricesLine": 429
     },
     {
+      "key": "apple_each",
+      "value": 6,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "per fruit (count). Tina 30 Jul 2026: loose apples R5-R7 each",
+      "pricesLine": 757
+    },
+    {
       "key": "asparagus",
       "value": 513,
       "date": null,
       "grandfathered": true,
       "evidence": "fresh, 150g/R77 (Tina)",
       "pricesLine": 943
+    },
+    {
+      "key": "baking paper sheet_each",
+      "value": 2.2,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: 5m roll R34.99",
+      "pricesLine": 48
+    },
+    {
+      "key": "baking paper sheets_each",
+      "value": 2.2,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: 5m roll R34.99",
+      "pricesLine": 48
+    },
+    {
+      "key": "baking paper_each",
+      "value": 2.2,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: 5m roll R34.99",
+      "pricesLine": 48
     },
     {
       "key": "bamboo shoots",
@@ -129,6 +161,14 @@
       "grandfathered": true,
       "evidence": "R22/40g → R550/kg (Tina 11 Jul)",
       "pricesLine": 646
+    },
+    {
+      "key": "coconut water",
+      "value": 85,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "per L. Tina 30 Jul 2026: R24.99/330ml small pack = R75.70/L;",
+      "pricesLine": 574
     },
     {
       "key": "condensed milk",
@@ -235,6 +275,30 @@
       "pricesLine": 268
     },
     {
+      "key": "foil sheet_each",
+      "value": 2.45,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: heavy duty 5m R39",
+      "pricesLine": 49
+    },
+    {
+      "key": "foil sheets_each",
+      "value": 2.45,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: heavy duty 5m R39",
+      "pricesLine": 49
+    },
+    {
+      "key": "foil_each",
+      "value": 2.45,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: heavy duty 5m R39",
+      "pricesLine": 49
+    },
+    {
       "key": "ground cinnamon",
       "value": 550,
       "date": null,
@@ -329,6 +393,14 @@
       "grandfathered": true,
       "evidence": "R28/500ml -> R56/L (Tina round 2)",
       "pricesLine": 717
+    },
+    {
+      "key": "lemongrass",
+      "value": 500,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "per kg. Tina 30 Jul 2026: Woolworths fresh 30g pack R14.99",
+      "pricesLine": 990
     },
     {
       "key": "liver",
@@ -569,6 +641,54 @@
       "grandfathered": true,
       "evidence": "⚠️ CLAUDE-SOURCED 30 Jul 2026, NOT TINA-SOURCED — flagged so it can be",
       "pricesLine": 373
+    },
+    {
+      "key": "sugar cane stalk_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: same, two-word spelling",
+      "pricesLine": 52
+    },
+    {
+      "key": "sugar cane stalks_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: same, two-word spelling",
+      "pricesLine": 52
+    },
+    {
+      "key": "sugar cane_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: same, two-word spelling",
+      "pricesLine": 52
+    },
+    {
+      "key": "sugarcane stalk_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: R15-R25/stalk",
+      "pricesLine": 51
+    },
+    {
+      "key": "sugarcane stalks_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: R15-R25/stalk",
+      "pricesLine": 51
+    },
+    {
+      "key": "sugarcane_each",
+      "value": 20,
+      "date": "30 Jul 2026",
+      "grandfathered": true,
+      "evidence": "Tina 30 Jul 2026: R15-R25/stalk",
+      "pricesLine": 51
     },
     {
       "key": "tahini",
