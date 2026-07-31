@@ -115,6 +115,15 @@ function wkCourseToTab(course){
   switch((course||"").toLowerCase()){
     case "starter": return "starters";
     case "side":    return "sides";
+    // ⚖️ §27 AMENDED 30 Jul 2026 (Tina): "lets rather add staples to sides."
+    // The original §27 ruled a sixth "Basics" tab. STRUCK. Staples land on the
+    // Sides shelf instead — no sixth tab, no layout risk on a phone. A sambal,
+    // a jar of chilli oil and a bowl of coconut rice are all things that sit
+    // BESIDE the meal, which is what the Sides shelf already means.
+    case "staple":  return "sides";
+    // `salad` used to fall through to mains here while wkPoolOf() already
+    // portioned it as a side — the two switches disagreed. Aligned.
+    case "salad":   return "sides";
     case "dessert": return "desserts";
     case "drink":   return "drinks";
     case "beverage":return "drinks";
@@ -1073,7 +1082,12 @@ function wkPrintPlan(){
    Self-contained in worldkitchen.js -- no core.js changes. */
 function wkPoolOf(course){
   switch(course){
-    case 'side': case 'salad': return 'side';
+    // ⚖️ `staple` added 30 Jul 2026 alongside the §27 amendment. It previously
+    // fell to `default: return 'main'`, so a sambal or a bowl of rice in a plan
+    // COUNTED AS A MAIN and dragged every real main down the spread curve —
+    // rice + sambal + a curry read as "3 mains" and halved all three. The shelf
+    // and the portion brain must agree, so a staple portions as a side.
+    case 'side': case 'salad': case 'staple': return 'side';
     case 'dessert': return 'dessert';
     case 'starter': case 'snack': case 'finger': return 'starter';
     case 'drink': case 'beverage': return 'drink';
