@@ -641,6 +641,25 @@ const PRICE_DB = {
   "rice": 27,
   "basmati rice": 80,
   "jasmine rice": 63,
+  // ⚖️ TINA-SOURCED 30 Jul 2026: "glutinous rice (also called sticky or sweet rice) typically
+  // costs between R46.00 and R79.00 per 1kg pack." Mean of the range = R62.50; §31 rounds up
+  // → R63/kg. ⚠️ The figure lands on the SAME number as jasmine rice above by coincidence, not
+  // by copying — do not "tidy" one to match the other, they were sourced separately.
+  // 🔴 WAS RESOLVING TO `rice` R27 (less than half), which is a WRONG price, not a missing one,
+  // so §29.5 applies and it was fixed on sight rather than deferred to the A7 batch.
+  // ✅ UNBLOCKS: Khao Niao Mamuang (mango sticky rice), Isaan sticky-rice service, and khao khua
+  // (toasted glutinous rice powder) which is the signature of Larb.
+  // ⛔ DOES NOT UNBLOCK `glutinous rice flour` (mochiko) — a different, dearer product Tina has
+  // NOT sourced. ⚠️⚠️ AND IT NEARLY BROKE IT: at HEAD that name already resolved CORRECTLY to
+  // `rice flour` R40, and adding this 14-character key would have outranked it in the
+  // longest-key-anywhere fallback and priced a FLOUR as a bag of GRAINS at R63 — in FOUR records
+  // across THREE countries (Tang Yuan, Klepon, Mitarashi Dango, Anmitsu). Caught by costcheck,
+  // then blocked with an explicit `glutinous rice flour` → `rice flour` alias in both maps.
+  // ⚖️ THE LESSON, AND IT IS NEW: ADDING A PRICE KEY IS NOT PURELY ADDITIVE. A longer key can
+  // hijack a longer ingredient NAME that was already resolving correctly. Any new key must be
+  // regression-tested against every record that contains it as a substring, not just against the
+  // lines it was added for.
+  "glutinous rice": 63,
   "arborio rice": 128,        // R64/500g → R128/kg
   "brown rice": 35,           // R35/1kg (Tina 11 Jul)
   "couscous": 100,            // per kg
@@ -1264,6 +1283,18 @@ const PRICE_DB = {
   "oregano": 900,                  // ESTIMATE — dried oregano (~R30/15-20g), pinch use; cf mixed herbs 1111
   "sour cream": 100,               // ESTIMATE — ~R25/250ml tub → R100/kg
   "lime": 140,                     // ESTIMATE — ~R10/lime (~70g) → R140/kg (gram use; lime_each handles count)
+  // ⚖️ TINA-SOURCED 30 Jul 2026: "dried kaffir lime leaves (10g–20g packs) cost between R15.00
+  // and R25.00 from online spice shops and major retailers." The four corners of that range
+  // normalise to R1500 · R2500 · R750 · R1250 per kg; mean = R1500, median = R1375, §31 rounds
+  // up → R1500/kg. ⚠️ Tina also noted fresh or frozen leaves cost slightly more.
+  // 🔴 WAS RESOLVING TO `lime` R140 — the FRUIT, ~10× under. A wrong price, not a missing one.
+  // ⚠️ WEIGHT KEY, DELIBERATELY, so write lines in grams ("1g dried kaffir lime leaves"). Tina
+  // priced PACKS, not leaves, and a per-leaf figure would need a leaf weight she did not give —
+  // inventing one is the error class this project treats as the worst. If fresh leaves are ever
+  // sourced by count, that is a separate `kaffir lime leaves_each` key, not a guess off this one.
+  // ✅ SUBSTITUTION, Tina's own words: with no leaves, lime zest plus a tiny splash of lime juice
+  // is the best direct substitute — name it in-method, do not silently swap the ingredient line.
+  "kaffir lime leaves": 1500,
   // ── FMF close-out pass (11 Jul, Tina-sourced) ──
   "hot smoked snoek": 450,         // R89.99/200g → R450/kg (plain "snoek" R147 stays separate)
   "smoked snoek": 450,             // MF134: was MISSING. 4 live recipes use this exact string — Korslose Snoek-en-Uietert, Smoked Snoek Scrambled Eggs, Smoorsnoek on Roosterkoek, Smoked Snoek & Baby Potato Salad — and were word-matching down to plain snoek or resolving null. Same value as hot smoked snoek. (22 Jul 2026)

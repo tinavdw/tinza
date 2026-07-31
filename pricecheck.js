@@ -381,7 +381,19 @@ function selftest(repoRoot) {
   //    proof went RED for the right reason. Replaced with `sheets aburaage`, which MF152 records as a
   //    genuinely new key and explicitly warns must never be aliased to `tofu`. Five repoints in one
   //    day is not churn — it is the price batch actually landing, and the count has never fallen.
-  ['sheets aburaage', 'warabi starch', 'panko', 'mitsuba', 'nagaimo'].forEach(k => {
+  // ⚖️ SIXTH REPOINT, 30 Jul 2026 — `sheets aburaage` now has a key (R617/kg, Tina-sourced), so its
+  //    ABSENT proof went RED for the right reason, exactly as `aonori` did before it.
+  // ⛔ AND THIS IS WHERE THE REPOINTING STOPS. Six repoints in one day is no longer "the price batch
+  //    landing" — it is a proof with a DESIGN FAULT. It asserts a NEGATIVE about a live, growing
+  //    database, so every real ingredient it names is a future failure waiting for Tina to source it.
+  //    The proof is supposed to test that the ABSENT code path works; it is not supposed to be a
+  //    running inventory of what has not been bought yet.
+  // ✅ THE FIX: a SYNTHETIC sentinel that can never become a product, so the proof is stale-proof
+  //    forever. The real unsourced names are kept alongside it because they are genuinely absent
+  //    today and their coverage is worth asserting — but if any of them is sourced later, DELETE it
+  //    from this list rather than repointing the whole proof. The sentinel is what guarantees the
+  //    assertion still means something once the others are gone.
+  ['zzq-sentinel-not-a-real-ingredient', 'warabi starch', 'panko', 'mitsuba', 'nagaimo'].forEach(k => {
     check('RED · "' + k + '" reports ABSENT', flagsFor(k, 'g'), 'ABSENT');
   });
 

@@ -493,6 +493,26 @@ function wkCleanName(name){
 }
 function wkIsWater(name){ var n=wkCleanName(name); return /^(water|tap water|boiling water|warm water|cold water|ice water|warm water or milk)$/.test(n) || (/\bwater\b/.test(n) && /\b(stock|broth)\b/.test(n)); }
 var WK_ALIAS = {
+  // ⚠️ 30 Jul 2026 — `glutinous rice flour` must NOT fall to the new `glutinous rice` R63 key.
+  // That would price a FLOUR as a bag of GRAINS, which is the exact bug prices.js already fixed
+  // once (see the `rice flour` R40 comment: "Was resolving to `rice` R27 — a bag of grains priced
+  // for a flour"). It is a rice flour, so it prices as one; the `glutinous` qualifier is unpriced,
+  // which is an honest 🟠 REVIEW state, not a silent wrong number.
+  // ⏳ STILL NEEDS ITS OWN SOURCED PRICE — glutinous rice flour is dearer than plain rice flour.
+  "glutinous rice flour": "rice flour",
+  "sticky rice flour": "rice flour",
+
+  // ── THAILAND OPENING, 30 Jul 2026 · Tina-sourced keys ────────────────────────
+  // Two keys were added to prices.js: `glutinous rice` R63 and `kaffir lime leaves` R1500.
+  // These aliases point the other names people actually write at them, so the exact-key rung
+  // catches them before the longest-key-anywhere fallback can price a leaf as a fruit.
+  "sticky rice": "glutinous rice",
+  "sweet rice": "glutinous rice",
+  "lime leaves": "kaffir lime leaves",
+  "makrut lime leaves": "kaffir lime leaves",
+  "makrut lime leaf": "kaffir lime leaves",
+  "kaffir lime leaf": "kaffir lime leaves",
+
   // ── SPELLING GAPS FOUND BY costcheck.js, 30 Jul 2026 ──────────────────────────
   // Tina: "a lot of these are already in price list, cinnamon sticks is there, dried
   // chilis is chili flakes, anise im sure is on." She was right. costcheck reported these
