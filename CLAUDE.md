@@ -9,7 +9,7 @@
 
 | file | trigger | what it is |
 |---|---|---|
-| 📕 **`TINZA_LAW.md`** | **`/law`** | **HOW WE WORK.** 57 laws. Every one was paid for. |
+| 📕 **`TINZA_LAW.md`** | **`/law`** | **HOW WE WORK.** 59 laws, highest number 63. Every one was paid for. |
 | 📗 **`TINZA_RULINGS.md`** | **`/rule`** | **WHAT TINZA IS.** Every decision Tina has made — with the date and the reason. |
 
 ## ⛔ IF THOSE FILES AND THE CODE DISAGREE — **THE FILE IS RIGHT AND THE CODE IS A BUG.**
@@ -163,6 +163,44 @@ because a document that is wrong is SILENT.** ⚖️ **Law 3.**
 | **`/wow`** | `standards/WOW_STANDARD.md` | **Is this recipe good enough?** |
 | **`/tinza`** | `standards/TINZA_STANDARD.md` | **Does this sound like Tinza?** |
 | **`/wk`** | `standards/TINZA_WK_STANDARD.md` | **World Kitchen content.** |
+| ⭐ **`/all`** | **ALL SIX ABOVE, AT ONCE** | **Everything. Read them all, then work.** |
+
+**WATCHERS:** `/law` → `tinza-lawcheck.js` · `/wow` + `/wk` → `wowcheck.js` · `/tinza` → `tinza-echo.js` · **`/rule` and `/bug` have none — they are judgement.**
+
+### ⭐ `/all` — THE ONE TRIGGER (added 31 Jul 2026, ⚖️ **Law 62**)
+
+> **Tina:** *"please put all in one command that I can just drop, something like / 6"*
+
+**`/all` means: read all six files above and apply every one of them — without being asked twice.**
+⛔ It is **not** a shortcut that skips them. It is the opposite: it removes the chance of firing
+five and forgetting the sixth, **which is exactly how eleven Indonesian records were banked with
+`/wk` never run once.** `/wow` was remembered. `/wk` was not.
+
+**The mechanical half runs as one shell command:**
+
+```
+node tinza-all.js                     # /law + the six files exist where the triggers say
+node tinza-all.js thailand            # + /wow and /wk over a whole country file
+node tinza-all.js thailand batch01.js # + /wow and /wk over a batch BEFORE it is merged
+```
+
+It shells out to `tinza-lawcheck.js` and `wowcheck.js` — ⚖️ **it does not reimplement one single
+standard**, same design law as `merge.js`, `pricecheck.js` and `costcheck.js`. A runner with a
+private copy of the checklist is a **seventh standard that drifts from the other six.**
+
+⚖️ **AND IT PRINTS WHAT IT DID NOT MEASURE.** **`/rule` and `/bug`** have no watcher and are pure
+judgement. The tool lists them as **JUDGEMENT REQUIRED** every run rather than showing a tick
+beside them. *A runner that showed six greens while measuring four would manufacture confidence,
+which is worse than no runner at all.*
+
+🆕 **`/tinza` GOT ITS WATCHER ON 31 JUL** — `tinza-echo.js`, built the same day Tina looked at the
+JUDGEMENT REQUIRED list and said **"we need a watcher."** ⚖️ **Law 63.**
+
+⚖️ **WHY `/all` AND NOT `/6`:** a number inside a name **goes stale the moment a seventh standard
+lands**, and a stale number that still looks authoritative is this project's most expensive
+recurring bug — the China 23/50 evening, `ASIA_PROGRESS.md` reading 77, memory holding
+"Indonesia 6/50". `/all` cannot go stale. **The count is read from the table at runtime and
+printed; it is never hardcoded into the name.**
 
 **The board:** `TINZA_NOW.mermaid` *(root)* — **what is in flight, right now.**
 *It carries no laws and no rulings any more. **It is a BOARD, not a library.***

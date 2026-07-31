@@ -346,9 +346,31 @@ It proves the file parses. It does not prove the app works. ⚖️ *See Law 2.*
 - 🪜 **ONE FAULT MAY LIGHT TWO RUNGS.** Never assume a rung maps to a defect. Check which rungs moved before concluding how many things changed.
 - 🩸 **A BRIEF CARRYING A WRONG EXPECTED NUMBER IS CORRECTED IN ITS OWN COMMIT.** A wrong prediction trains the next session to absorb real movement as noise — **which is exactly what ⚖️ Law 54c exists to prevent.**
 
+### 62 · 🆕 ⭐ **THERE IS ONE TRIGGER, AND IT FIRES ALL SIX.**
+# **`/all` = READ ALL SIX STANDARDS AND APPLY THEM. FIRING FIVE AND FORGETTING THE SIXTH IS THE FAILURE THIS LAW EXISTS TO KILL.**
+*Born 31 Jul 2026. **Tina:** "please put all in one command that I can just drop, something like / 6" — said one day after she asked "you forgot the /wow with indonesia, what about the other /?" **Eleven Indonesian records were banked with `/wk` never run once.** `/wow` was remembered; `/wk` was not. Nobody forgets on purpose — **they forget because the checklist lives in a head instead of in a file.** ⚖️ **Law 15.***
+
+- ⭐ **`/all` IS THE DEFAULT, NOT THE SHORTCUT.** It does not skip the six; it removes the chance of missing one. The individual triggers survive for when only one is wanted.
+- ⚙️ **THE MECHANICAL HALF IS ONE COMMAND:** `node tinza-all.js [country] [batch.js]` *(repo root — tools resolve off `__dirname`)*. It shells out to `tinza-lawcheck.js` and `wowcheck.js`.
+- ⛔ **IT REIMPLEMENTS NOTHING.** Same design law as `merge.js`, `pricecheck.js`, `costcheck.js`, `wowcheck.js`. **A runner carrying its own copy of the checklist is a SEVENTH STANDARD that drifts from the other six.**
+- 👁️ **IT MUST PRINT WHAT IT DID NOT MEASURE.** `/rule`, `/bug` and `/tinza` have no watcher. They are listed as **JUDGEMENT REQUIRED** on every run. ⚖️ **A tool that shows six greens while measuring three MANUFACTURES CONFIDENCE, which is worse than no tool** — the tierBar lesson pointed the other way.
+- 🔢 **THE NAME CARRIES NO NUMBER.** `/6` was the request and `/all` is the build, because **a number in a name goes stale the moment a seventh standard lands** — and a stale number that still looks authoritative is this project's most-paid-for bug: the China 23/50 evening, `ASIA_PROGRESS.md` reading 77, memory holding "Indonesia 6/50". **The count is read at runtime from the table and printed. It is never hardcoded.**
+- 🩸 **THE DIAGNOSIS IS THE SAME ONE, A FOURTH TIME:** `pricecheck.js`, the ungated `tierBar`, `wowcheck.js`, and now this. **A silent hole needs a mechanical watcher, not sharper eyes.**
+
+### 63 · 🆕 🔊 **A VOICE STANDARD IS WATCHABLE — BY ASKING "HAS THIS ALREADY BEEN SAID?", NEVER "IS THIS GOOD?"**
+# **`tinza-echo.js` MEASURES REPETITION, NOT QUALITY. THE DATABASE SMELL IS AN ARITHMETIC FACT ABOUT THE CORPUS.**
+*Born 31 Jul 2026. **Tina, reading the JUDGEMENT REQUIRED list on `/all`: "we need a watcher."** `/tinza` looked unmechanisable because its own test is "read it aloud." **But its FIRST named failure is THE DATABASE — "correct, complete, and dead. Nobody wrote it" — and a card sounds like a database when it REPEATS ANOTHER CARD.** That is not an opinion. It is a collision, and collisions are countable.*
+
+- 🔊 **THE QUESTION IS "HAS THIS ALREADY BEEN SAID?"** Never "is this well written." A watcher that grades prose is a critic, and a critic drifts.
+- 🌏 **SCOPE IS LANE-WIDE, ALWAYS.** `crossLinks` are country-bound; **LEADS AND MOATS ARE NOT.** The comparison corpus is every `wk_*.js`, even when one country or one batch is named.
+- ⚖️ **NO HAND-WRITTEN QUALITY THRESHOLD EXISTS ANYWHERE IN IT.** Every flag is either an exact collision between two records, or an outlier against **this corpus's own mean and standard deviation.** 🩸 **This is the direct lesson of 30 Jul, when a phrase whitelist for why-led method flagged 8 densely why-led records as failures and had to be demoted: COUNT, NEVER JUDGE.**
+- 🟡 **VOICE AND FUNCTIONAL ARE SEPARATE TIERS.** The first run flagged 216 hard echoes and the top twenty were all *"store in an airtight container for up to"* — **a storage instruction is SUPPOSED to repeat.** Burying the real signal under correct boilerplate is how a rung becomes noise, and **a rung that cries wolf is worse than no rung.**
+- 👁️ **IT NAMES WHAT IT CANNOT SEE, EVERY RUN.** Of `/tinza`'s five failures it measures three. **THE CONFIDENT LIE** needs a grandmother. **THE GOOGLE CARD** needs someone who knows what is common knowledge. Both print as **NOT MEASURED**.
+- 🩸 **WHAT IT CAUGHT ON ITS FIRST RUN, all invisible to every prior check:** *"the other thing worth knowing is that"* in **4 WOW-authored records across two countries** — an authoring tic, the exact database tell, in the newest content, not the legacy; a whole clause copy-pasted across **4 Nigerian cards**; *"heat the oil and fry the onion"* opening **8** records; and **154 records carrying US spelling** — `flavor` ×85, `eggplant` ×14, `zucchini` ×4 — while the price maps had *already* aliased eggplant→brinjal and zucchini→baby marrow. ⚖️ **The pricing layer knew she was South African. The prose did not.**
+
 ---
 
-**New laws start at 62.**
+**New laws start at 64.**
 
 🩸 *54a and 54b are SUB-LETTERED, not renumbered — 55, 56 and 57 were already committed in code and briefs on 20 Jul, and renumbering would orphan live references. **Six numbers are already lost. Do not create a seventh.***
 

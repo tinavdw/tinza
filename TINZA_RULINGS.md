@@ -2187,3 +2187,151 @@ the self-test.**
 - `PRICE_LEDGER` proves **provenance**, never correctness. It cannot tell you R2000/kg is the right
   keluak, or that a normalisation is sound.
 - Neither replaces **Law 2**: Tina's eyes on live close a bug.
+
+---
+
+## 🌍 33 · **A SOUTH AFRICAN WORD IS EXPLAINED, NEVER TRANSLATED AWAY** — **RULED 31 Jul 2026 (Tina)**
+
+> **Tina, 31 Jul 2026, in her own words:**
+> *"as long as it is written somewhere, what it is, **preferably on gloss**, but otherwise when they open the recipe."*
+>
+> Asked because the app must be **readable to the rest of the world, not just SA** — a reader in London
+> or Lagos meets *boerewors*, *vetkoek*, *pannekoek*, *umngqusho* and must not be left guessing.
+
+### §33.0 THE RULING
+
+**Every South African term must be resolvable BY A READER WHO HAS NEVER LEFT THE CARD SHE IS ON.**
+
+1. 🥇 **PREFERRED — GLOSS AT THE MENTION.** The term, then the explanation, right there:
+   *"serve it with pap (soft maize porridge)"* · *"pap — the soft maize porridge"*.
+2. 🥈 **FALLBACK — THE OPENED RECIPE EXPLAINS IT.** Automatic when the term **is** the dish: a
+   Bobotie card need not gloss *bobotie*, because `name` + `nameAlt` already say what it is.
+3. ⛔ **NEITHER = A FAULT.** A term used mid-sentence, on a card that is not that dish, with no
+   explanation anywhere on it, is a reader hitting a wall.
+
+### §33.1 ⚖️ IT IS A GLOSS. IT IS NEVER A REPLACEMENT.
+
+**`/tinza` already ruled this half and it is not softened here:**
+
+> ## **"There is no English word for a koeksister. THERE IS A KOEKSISTER."**
+
+The dish name **stays**. It is explained, not swapped, not anglicised, not "internationalised".
+🩸 **Boerekos is not a category. It is the house she lives in.** A Tinza that says *"plaited doughnut"*
+instead of *koeksister* has sold the only thing NYT Cooking can never copy.
+⚖️ **GLOSSING and SWAPPING are two different operations. This ruling authorises only the first.**
+
+### §33.2 WHAT WAS ALREADY RIGHT — MEASURED 31 JUL, NOT ASSUMED
+
+`wk_southafrica.js` = **131 records · 131 carry an English `nameAlt` · 112 carry `aliases[]`.**
+Many names already gloss inline: `Melktert (Milk Tart)` · `Potjiekos (Three-Legged-Pot Stew)`.
+✅ **The card level was never the problem.** A foreign reader opening a card already gets
+*Golden Spiced Mince Bake* under **Bobotie**.
+
+### §33.3 🩸 WHERE IT ACTUALLY LEAKS — AND IT WAS PREDICTED SIX WEEKS AGO
+
+**68 bare mentions across the corpus** — an SA term used in prose, on a card that is not that dish,
+with nothing on the card to resolve it: `pap` ×15 · `umngqusho` ×7 · `chakalaka` ×5 ·
+`roosterkoek` ×4 · `morogo` ×4 · `boerewors` ×3 · `bunny chow` ×3 · `amasi` ×3 · `samp` ×3.
+
+⚠️ **The worst class: `pap` and `samp` appear in prose but are NOT the name of any card.**
+There is no recipe to open and no link to tap. The fallback route does not exist for them.
+
+⚖️ **THE LOCALE RULING (§11, 15 Jul) CALLED THIS EXACTLY AND IT WAS NOT OBEYED:**
+> *"author SA-first, but **mark every locale-specific line as it is written** — so UK/US is a
+> fill-in, not a rewrite of 2,083 recipes. **The marking is free today; the rewrite is not.**"*
+
+**Nothing was watching, so the marking stopped.** ⚖️ **Law 15 · and the same diagnosis as
+`pricecheck`, the `tierBar` and `wowcheck`: a silent hole needs a mechanical watcher, not sharper eyes.**
+
+### §33.4 ✅ THE WATCHER — `tinza-echo.js` RUNG 6 (built the same day)
+
+`node tinza-echo.js [country] [batch.js]`, and inside `/all`. Three states, no judgement:
+- ✅ **GLOSSED** — explanation follows the term · or the card **is** that dish (`name` / `nameAlt` / `aliases`)
+- 🟡 **LINK-ONLY** — a `crossLink` reaches it. Allowed, but flagged: it is a tap away, **not on the recipe she opened.** *(Currently 0.)*
+- 🔴 **BARE** — nothing resolves it. **The fault.**
+
+⛔ **`sambal` IS DELIBERATELY NOT ON THE SA LIST.** It reads Cape Malay and it is also Indonesian —
+and in this corpus it is Indonesian on **34 of 34** cards. Listing it as "an SA term" would put a
+**wrong reason beside a real finding**, which teaches a reader to distrust the whole rung.
+⚖️ Untranslated *non-SA* loanwords are a different list and need their own ruling.
+
+### §33.5 HONEST LIMITS
+
+- It sees whether an explanation **exists**, never whether it is **correct or good**. *"pap (a type of
+  couscous)"* passes the rung and is a **potato bobotie**. ⚖️ **Law 43 — still Tina's eyes.**
+- The term list is **hand-written and therefore incomplete.** A word nobody added is a word nobody
+  watches. Add to `SA_TERMS` as they appear; the list is not a closed set.
+- It does not touch the **display dictionary** the LOCALE ruling called for. That is still **ruled and
+  NOT built** — confirmed 31 Jul, no matching code in `core.js` or `index.js`. When it is built, the
+  gloss can become locale-conditional (invisible to an SA reader, shown to everyone else) and this
+  ruling does not change: **the explanation must still exist.**
+
+### §33.6 ✅ THE SWEEP — DONE 31 JUL 2026, BOTH HALVES
+
+**LOCALE: 149 records · 167 hits → 0.** 223 replacements over two passes.
+- **Pass 1 — spelling only** (`flavour` ·`colour` · `favourite` · `savoury` · `caramelise` · `litre` · `fibre`):
+  168 replacements. ✅ **Price resolution diffed before and after: ZERO movement.**
+- **Pass 2 — produce names** (`brinjal` · `baby marrow` · `spring onion` · `coriander`): 55 replacements.
+  ✅ **13 lines changed key NAME only, at identical price** — eggplant R43 → brinjal R43, zucchini →
+  baby marrow R50. **8,812 ingredient lines · 285 ABSENT, unchanged. 0 dead crossLinks.**
+- 🔑 **`aliases` WERE MASKED AND SURVIVED UNTOUCHED, DELIBERATELY.** `Scallion Oil Noodles` became
+  `Spring Onion Oil Noodles` but kept *"Shanghai Scallion Noodles"* in its aliases. ⚖️ **An alias
+  carrying the US word is not drift — it is how a reader in Ohio FINDS the card**, which is the whole
+  point of this ruling. **Never strip a US alias.**
+- ⛔ **`molasses` → `treacle` WAS PULLED FROM THE LIST BEFORE IT RAN.** Molasses is ordinary SA
+  English, and `greece-koulouri` says **grape molasses** — petimezi, a distinct Greek product.
+  Renaming it would have been a **potato bobotie** (⚖️ Law 43). **A locale list carries SPELLING and
+  PRODUCE names only. It never renames a different product.**
+
+**GLOSS: 68 → 4.** 59 glosses inserted across `wk_southafrica.js`, `wk_japan.js`, `wk_europe.js`.
+
+🩸 **TWO DEFECTS CAUGHT BY READING THE OUTPUT BEFORE APPLYING IT — neither was mechanical:**
+1. **NESTED GLOSSES.** The first pass produced `Steamed bread (ujeqe (steamed bread))` and
+   `Umngqusho (samp (cracked, hulled maize kernels) and beans)`, because **the gloss text itself
+   contained SA terms** and the glosser then glossed inside its own output.
+   ✅ **RULE: A GLOSS MUST BE PLAIN ENGLISH ONLY AND MAY NOT CONTAIN A GLOSSABLE TERM.** Asserted
+   mechanically before the sweep ran, and a nested-bracket scan over the whole corpus returns **0**.
+2. **THE REVERSE GLOSS WAS INVISIBLE TO THE RUNG.** `wild greens (imifino)` is perfectly resolvable,
+   and the watcher flagged it as bare. **The planner that wrote the sweep already understood the
+   pattern; the watcher did not.** ⚖️ **A watcher dumber than the tool doing the work teaches its
+   reader to ignore it.** Backported, born-RED proof added.
+
+### §33.7 ⚠️ THE FALSE-POSITIVE FLOOR — 4 REMAIN AND THEY ARE CORRECT AS WRITTEN
+
+`indonesia-sate-ayam` *(sosatie ×2)* · `indonesia-dendeng-balado` *(biltong)* ·
+`boerekos-koeksisters` *(koesister)*. **All four explain the term IN PROSE, without bracket
+punctuation**, which the rung cannot see:
+
+> *"The Afrikaans **sosatie** comes from the Malay words for sauce and for skewered spiced meat…"*
+> *"Dried meat turns up as **biltong**, as jerky, as charqui in the Andes…"*
+
+⚖️ **Adding brackets to these would make the writing WORSE, and the rung exists to serve the writing,
+not the other way round.** **4 is the floor, not a debt.** ⚖️ Same shape as the `/wow` why-led check
+demoted on 30 Jul: **count, never judge — then a human reads the count.**
+
+### §33.8 ⚖️ SOME WORDS HAVE NO TRANSLATION. THOSE GET AN **EXPLANATION**, NOT A NEAR-MISS.
+
+**Ruled by Tina, 31 Jul 2026:** *"waterblommetjie and roosterkoek are 2 of those that can't be
+translated properly, maybe just explanations will do."*
+
+⚖️ **THIS IS §33.1 ARRIVING FROM THE OTHER SIDE.** That clause protects the NAME — *there is a
+koeksister.* This one governs the BRACKET: when no English word exists, **do not reach for the
+nearest one.** A near-miss translation is worse than a plain description, because it reads as
+authoritative and is quietly wrong. ⚖️ **Law 43 — a confident lie is the failure; "I can't translate
+this, here is what it is" is not.**
+
+| term | ❌ near-miss | ✅ explanation |
+|---|---|---|
+| `waterblommetjie` | ~~Cape pond-flower buds~~ | **the buds of a Cape marsh flower, cooked like a vegetable** |
+| `roosterkoek` | ~~bread rolls baked on the braai grid~~ | **rounds of dough cooked straight on the braai grid until they crust** |
+
+🩸 **WHY THE FIRST COLUMN FAILED.** *"Cape pond-flower buds"* sounds like a botanical name and is not
+one — nobody buys or says that, and it tells a cook nothing about what lands on the plate.
+*"Bread rolls"* implies something bought and baked in an oven, which is the one thing a roosterkoek
+is not: **it is dough that meets the fire directly.** Both were plausible. **Plausible is the
+problem** — the same shape as the potato bobotie.
+
+✅ **THE TEST:** *Does the bracket tell her WHAT ARRIVES ON THE PLATE and HOW IT WAS MADE?*
+If it only offers a different word, it is a translation and it has failed.
+⚠️ **The remaining glosses in the map are Tina's to correct** — she is the caterer and the domain
+expert, and every one of them is a claim about South African food made by a model. ⚖️ **Law 11.**
