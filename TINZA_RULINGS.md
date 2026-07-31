@@ -1469,30 +1469,79 @@ Japan's ramen, Thailand's curries, Indonesia's sambal dishes — the same fork, 
 
 ---
 
-## 🔧 27 · **STAPLES GET THEIR OWN TAB — "BASICS" — AND ARE NOT PLANNABLE** — **RULED 29 Jul 2026**
+## 🔧 27 · **STAPLES LAND ON THE SIDES SHELF** — **RULED 29 Jul 2026 · AMENDED 30 Jul 2026 (Tina)**
 
-**The gap.** Ruling **A5** made staples real cards with `course:"staple"`. It never said where they land. `wkCourseToTab()`
-has no case for `staple`, so it falls to `default: return "mains"` — and China's Mains tab reads **29 = 25 real mains
-+ 4 jars.** A cook browsing tonight's dinner is offered a bottle of chilli oil.
+> ⚖️ **AMENDED 30 Jul 2026.** The original §27 ruled a sixth tab, `basics` 🔧, placed last after
+> Drinks. **That is STRUCK.** Tina, 30 Jul: *"a staple can most of the times be a side, I suppose"* →
+> *"lets rather add staples to sides."* Clauses 1 and 2 below are rewritten; clauses 4 and 5 stand;
+> clause 3 is **carried, unbuilt, and is the only open question left** (see 27.6).
 
-⚖️ **The code is not wrong so much as never told.** This is a gap in A5, not a breach of it.
+**The gap.** Ruling **A5** made staples real cards with `course:"staple"`. It never said where they
+land. `wkCourseToTab()` had no case for `staple`, so it fell to `default: return "mains"` — and a
+cook browsing tonight's dinner was offered a bottle of chilli oil. ⚖️ **The code was not wrong so
+much as never told.** A gap in A5, not a breach of it.
 
-### THE RULING
-1. **A sixth tab: `basics`, 🔧, label "Basics", LAST in the tab bar** — after Drinks. Last because it is a
-   **reference shelf, not a meal course**; it does not belong between Mains and Sides.
-2. **`wkCourseToTab("staple") → "basics"`.** One case in one switch.
-3. ⚖️ **STAPLES ARE NOT ADDABLE TO MY PLAN.** Hide the plan button when `course === "staple"`. **You do not serve
-   chilli oil to eight people.** The portion brain would cheerfully scale a jar of master stock by guest count and
-   produce a number that means nothing. A staple is made in a batch and kept; that is what makes it a staple.
-   ⚠️ **This is the clause most likely to be missed in the build — it is the one that stops an absurdity.**
-4. **Staples still count toward the country's dish target.** They are real cards with real work in them.
-5. **The rejected option, and why.** Filtering `staple` out of the tabs entirely is closer to A5's literal wording
-   and is less work — and it leaves a staple reachable **only** by opening some other dish that happens to link to
-   it. A cook who wants to make chilli oil *on purpose* would have no route at all. **Discoverability was the whole
-   point of making them cards.**
-6. ⏱️ **This is a `worldkitchen.js` render change and does NOT happen inside an authoring batch.** It grows with
-   every country — Japan brings dashi, Thailand curry paste, Indonesia sambal — so it wants doing before Japan
-   closes, not before Japan opens.
+### THE RULING (as amended)
+
+1. ⚖️ **`wkCourseToTab("staple") → "sides"`.** No sixth tab. A sambal, a jar of chilli oil and a bowl
+   of coconut rice are all things that sit **beside** the meal, which is what the Sides shelf already
+   means. ✅ **And it removes a real layout risk**: the tab bar already renders five buttons across a
+   phone with "Desserts" wrapping, and a sixth would have taken each to roughly 57px.
+2. ⚖️ **`wkPoolOf("staple") → 'side'` MOVES WITH IT, and this half is a genuine bug fix rather than a
+   preference.** `staple` previously fell to `default: return 'main'` in the portion brain, so a
+   sambal or a bowl of rice added to a plan **counted as a MAIN** and dragged every real main down
+   the spread curve — rice + sambal + a curry read as *three mains* and halved all three.
+   **The shelf and the portion brain must agree.** They now do.
+3. ⚠️ **CARRIED, UNBUILT, AND NOW THE ONLY OPEN QUESTION — staples and the plan button.** The
+   original clause read: *staples are not addable to My Plan; you do not serve chilli oil to eight
+   people.* That reasoning assumed a separate reference shelf. **It sits differently now that
+   staples are among the sides**, because the 14 staples are not one kind of thing — see 27.6.
+   ⛔ **No plan guard has been built and nothing has been silently decided.**
+4. **Staples still count toward the country's dish target.** They are real cards with real work in
+   them. Unchanged.
+5. **The rejected option, and why.** Filtering `staple` out of the tabs entirely would leave a staple
+   reachable **only** through some other dish that happens to link to it — a cook who wants to make
+   chilli oil *on purpose* would have no route at all. **Discoverability was the whole point of
+   making them cards.** Unchanged, and the Sides route satisfies it just as well as a Basics tab did.
+6. 📊 **THE MEASUREMENT BEHIND 27.3, taken 30 Jul across all 1,162 WK records.** There are 14
+   `course:"staple"` cards and they are **two different kinds of object**:
+   - ✅ **2 are genuine plate portions and SHOULD be plannable:** `Gohan` (100g rice per person) and
+     `Nasi Uduk` (90g coconut rice per person).
+   - ❌ **11 are batch-and-keep jars, where a guest multiplier means nothing:** Dashi · Ponzu · Gari ·
+     Nukazuke (a **500g bran bed** you keep alive) · Chilli Oil · Master Stock (**1.5L**, re-used) ·
+     Homemade Tofu · Suan Cai (**2kg** cabbage) · Sambal Terasi · Sambal Matah · Bawang Goreng.
+   - ⚠️ **1 is MIS-COURSED:** `Kake Udon` is a bowl of noodle soup — a dish, almost certainly `main`.
+   ⚖️ **So a blanket guard on `course === "staple"` would be wrong in both directions**: it would
+   strip the plan button off two bowls of rice while the 2kg ferment problem it was written for
+   affects the other eleven. **The clean fix is a data change, not a render change** — re-course
+   `Gohan` and `Nasi Uduk` to `side`, re-course `Kake Udon` to `main`, and clause 3 then applies to a
+   set of 11 with nothing ambiguous in it. ⏱️ **Japan and China are closed and pushed**, so those
+   re-courses are edits to shipped files and should be batched into one deploy rather than done
+   alone.
+7. 🩸 **A SECOND SWITCH DISAGREEMENT WAS FOUND AND FIXED IN PASSING.** `salad` fell through to the
+   Mains tab while `wkPoolOf()` already portioned it as a side — the two switches held different
+   opinions about the same course. `wkCourseToTab("salad") → "sides"` now. It moved 1 record in
+   `wk_europe.js` and 1 in `wk_southafrica.js`. ⚖️ **`soup` was checked and deliberately left alone**
+   — both switches already agree it is a main, which is right for a bowl of soup as a meal.
+
+### 📊 WHAT THIS CHANGED ON THE SHELVES
+
+| file | Mains | Sides |
+|---|---|---|
+| `wk_japan.js` | 17 → **11** | 15 → **21** |
+| `wk_china.js` | 36 → **32** | 3 → **7** |
+| `wk_indonesia.js` | 22 → **18** | 6 → **10** |
+| `wk_europe.js` | 277 → **276** | 74 → **75** |
+| `wk_southafrica.js` | 68 → **67** | 26 → **27** |
+
+⚖️ **China's Sides shelf more than doubled** (3 → 7), which is the clearest sign the change was
+overdue — a fifty-record country was rendering three sides. ✅ **And it incidentally corrects the
+Indonesia shelf tilt raised at record 41**: mains drops from 22 to 18 and sides rises from 6 to 10
+without a single record being re-authored.
+
+**Gates after the change:** `node --check sections/worldkitchen.js` ✅ · behaviour proved by calling
+both switches directly on every course value ✅ · `tinza-doctor` RED **10** (floor, unchanged) ✅ ·
+Indonesia `costcheck` 123/123 ✅ · `pricecheck` exact 90, wrong-product 0 ✅.
 
 ---
 
@@ -1864,3 +1913,277 @@ word, not a tidy-up.
 📌 Sits alongside the other deliberate asymmetries already ruled: budget fork **leads** and must be
 cheapest (A3) · a **missing** price is honest and a **wrong** one is not (§29.5, MF137 ladder) ·
 free tier gets the whole recipe and the gate sits on planning, not browsing.
+
+---
+
+## ⚖️ 31 · **RATHER MORE THAN LESS (COSTING DIRECTION)** — **RULED 29 Jul 2026 (Tina)**
+
+### §31.1 THE RULE
+
+**Where a price must be estimated, estimate HIGH.**
+
+A shopper who budgeted R80 and spends R60 has a good day. A shopper who budgeted R60 and
+spends R80 is short at the till with a trolley full of food. The two errors are not
+symmetrical, so the estimate must not be centred — it must lean.
+
+This applies to: `// ESTIMATE` keys in prices.js, pack-size rounding, version costPP,
+and any figure Tina has not personally sourced from a shelf.
+
+### §31.2 THE BOUNDARY — ESTIMATES ROUND UP, ABSENCES STAY ABSENT
+
+§31.1 does **not** license inventing a number to fill a gap.
+
+- A **missing** price renders blank and announces itself. It stays missing. A7 applies.
+- An **estimated** price renders as a number and gets trusted. It rounds up.
+- A **wrong** price renders as a number and looks correct. It is a bug. §29.5 applies.
+
+Rounding an ABSENT key up to "something, to be safe" converts an honest gap into a
+guessed number — which is the aburaage→tofu failure wearing a helpful face. Do not.
+
+### ⚠️ §31.3 IS STRUCK AND REPLACED — SEE §31.3a / §31.3b
+
+**Ruled 29 Jul 2026 by Tina, same session.** The original §31.3 read: *"a nukadoko, a sourdough
+starter, a master stock, a jar of chilli oil and a batch of kaeshi are all capital: bought once,
+used for months … the full purchase is charged to the record that builds it."*
+
+**That put five things in one category that do not belong in one category**, and the Nukazuke
+figures were the proof: a 500g bed charged in full against one cucumber, which is not "rather
+more than less" but roughly a twentyfold distortion. A number that wrong stops reading as
+cautious and starts reading as broken.
+
+### ✅ §31.3a THE TEST — DOES IT SURVIVE THE RECIPE?
+
+**RETAINED → it is equipment. It does not enter costPP.**
+After the dish is made it still exists, in usable form, for the next one. A nukadoko, a
+sourdough starter, a master stock. Nobody costs the potjie into the potjiekos.
+
+**CONSUMED → it is an ingredient. It is priced per unit used, exactly as now.**
+A jar of chilli oil and a batch of kaeshi are consumed — slowly, but consumed. 15ml of a
+R490/L oil is R7 and the engine already gets that right unaided. There is nothing to amortise
+here and the old rule did no work.
+
+### ✅ §31.3b THE COST IS NAMED IN THE METHOD, NOT HIDDEN
+
+Equipment is kept out of costPP **and stated in prose, with the real rand figure**, so the
+shopper is not ambushed. §31.1 protects the cook at the till; a method line does that job
+better than a costPP does. *"You buy a R40 bag of bran once and it feeds you for months"* is
+information. *"R40 per cucumber"* is a number that tells a shopper nothing true about their
+trolley and makes the card look broken.
+
+⚠️ **THE LINE IS NOT PERFECTLY CLEAN, AND THE RULING SAYS SO RATHER THAN PRETENDING.**
+A nukadoko is slowly depleted and topped up; a master stock is topped up every time it is used.
+Both still sit on the equipment side, because what matters is that the thing persists between
+cooks, not that it never diminishes. If a future record finds a case this genuinely cannot
+place, that is a ruling, not a patch.
+
+### ✅ §31.3c NUKAZUKE RECOMPUTED — NO LONGER PROVISIONAL
+
+Under §31.3a the bed (bran · salt · kombu · chillies · water) leaves costPP and the versions
+carry the vegetable and the salt rub, which is what a pickle actually costs once the bed exists.
+
+| Version | was | now | working |
+|---|---|---|---|
+| 💰 Daikon to Ninjin (budget · vegan) | R11 | **R9** | daikon 150g @ R45/kg + carrots 80g @ R25/kg + salt |
+| 🥒 Kyuri no Nukazuke (default · vegan) | R23 | **R10** | one cucumber, leaning high per §31.1, + the salt rub |
+| 🥚 Tamago to Chīzu (vegetarian) | R19 | **R15** | egg R3.70 + cheddar 60g @ R187/kg + salt |
+
+Budget still leads and is still cheapest (A3), by R1 — thin, but correctly ordered.
+The one-time bed cost is now stated in-method: ~R40 for a 500g bag of bran plus a bag of salt.
+`wheat bran` remains an ABSENT key — the rand figure is Tina-sourced prose, and §31.2 stands:
+prose may name a route, an absence still does not become a number.
+
+### §31.4 "NOT FINDABLE ONLINE" IS NOT "NOT AVAILABLE"
+
+**⚠️ AMENDED 29 Jul 2026 by Tina, same day it was ruled. The original no-substitute clause
+is STRUCK — see §31.4b. The clause below is what stands.**
+
+Japanese, Chinese and Indian specialty grocers in Gauteng and the Cape run on word of mouth,
+WhatsApp groups and walk-in trade. They have no web presence, no price list and no SEO. A
+failed search proves nothing about the shelf.
+
+**Ruled: an ingredient may be authored as available, and sourced honestly in-method, on
+Tina's trade knowledge alone — with no PRICE_DB key created.** `nuka` and `aburaage` are here,
+they are simply not on a supermarket shelf or a search engine. Name the route, create no key,
+price stays ABSENT.
+
+### ⚠️ §31.4b THE NO-SUBSTITUTE CLAUSE IS STRUCK — AND WHY IT WAS WRONG
+
+The original §31.4 ruled that wheat bran must **not** stand in for nuka, on the reasoning
+that it "makes a different pickle, not a cheaper nukazuke," and that substituting it would be
+disguising under the Shelf-WOW Law. **That was reasoned from culinary first principles and
+stated more firmly than the evidence supported. It is struck.**
+
+Fermenters who have built nukadoko from both rice bran and wheat bran report the finished
+pickles taste closely alike, and that wheat bran is the standard fallback where rice bran is
+hard to source. A practitioner who has made both outranks a first-principles argument and
+outranks a market-research page.
+
+✅ **RULED: `nuka` moves into the ordinary NOT-IN-SA family** alongside warabi starch → cornflour
+and gobo → carrot + parsnip. Lead on the accessible route, name the real thing in-method,
+create no key. Nukazuke's base ingredient line is now `wheat bran`; rice bran is named in the
+method as the original and the upgrade.
+
+✅ **ALSO RULED, from the same sourcing:** heat-toasted or heat-stabilised bran **does** work.
+Stabilisation kills the lactic bacteria living on the bran's surface, but almost all of the
+culture arrives from the vegetables and the cook's hands, so the bed still establishes — just
+slower. Allow an extra week of sutezuke. This applies equally to bran the cook toasts at home,
+and the method now states the trade-off rather than recommending the toast unconditionally.
+
+⚖️ **THE PROCESS LESSON, which is the part worth keeping.** A ruling written the same day it
+was needed, on reasoning rather than evidence, survived less than twenty-four hours. Where a
+ruling turns on a factual claim about how an ingredient behaves — not on policy, not on
+Tina's preference — the claim gets checked before the ruling is filed, not after. Compare
+the sushi safety line, where the freezing standard was verified before it was approved.
+
+### ✅ §31.3 REVIEW CLOSED
+
+The block that stood here recorded §31.3 as under review because charging a 500g bed in full
+put ~R40 against one cucumber. **That review is now closed by §31.3a/b/c above.** Nukazuke's
+costPP values are R9 · R10 · R15 and are no longer provisional.
+
+The nuka-as-import worry that produced the original rule is separately gone under §31.4b:
+wheat bran at R40–R80/kg, not an R350–950 import.
+
+---
+
+### 📋 IN-METHOD SOURCING LINE — NUKAZUKE
+
+⚠️ **The original block here is STRUCK under §31.4b** — it led on rice bran as the only route.
+The replacement is already written into `wk_japan.js` at `japan-nukazuke` and leads on wheat
+bran, names nuka as the original and the upgrade, warns off animal-feed grade, and states the
+toasted/stabilised trade-off honestly. Read it there rather than keeping a second copy here —
+a duplicate is the split-brain shape.
+
+### 📋 IN-METHOD SOURCING LINE — ABURAAGE (drop-ready, same shelf)
+
+> Aburaage — thin tofu sheets, twice-fried until they puff hollow — comes from the same
+> counter as the bran, and the same rule applies: an Asian grocer will have it frozen, a
+> supermarket will not. Frozen is normal and correct; it is how it is sold in Japan too.
+
+---
+
+## 📒 32 · **THE TWO LEDGERS** — **RULED 30 Jul 2026 (Tina)**
+
+### §32.0 THE RULING AND ITS CONDITION
+
+Tina, 30 Jul 2026: **"as long as it can help that I don't have to waste hours duplicating things."**
+
+That is the ruling **and** the acceptance test. Both ledgers exist to stop repeated work, not to add
+process. **A gate that blocks a correct edit is an obstacle, not a watcher**, and §32 is written so that
+neither ledger can become one — see §32.2 and §32.4, where each has an explicit non-blocking rung.
+
+**THE TWO FAILURES BEING CLOSED, both on 30 Jul, both cost hours rather than correctness alone:**
+
+1. **A record appeared outside a merge.** `merge.js` reported `0 + 4 = 4`, `node --check` and
+   `pricecheck` independently confirmed **4**, and a fifth record — `indonesia-nasi-uduk` — was
+   afterwards present in `wk_indonesia.js` and in the copy already handed to Tina. **Nothing in the
+   toolchain could have caught it**: merge validates what it is *handed*, pricecheck reports on whatever
+   is in the *file*, and neither knows how many records were *supposed* to be there.
+2. **Four fabricated entries in `prices.js`, three of them figures signed with Tina's name** —
+   `sambal terasi` 590, `peanut sauce` 260, `rendang paste` 520, and a false "Tina re-sourced tempeh"
+   comment. Reverted with `git checkout`. Separately, she was asked for the hon dashi price she had
+   already given on 29 Jul, and the identical reasoning was re-derived from scratch, nearly shipping a
+   **duplicate `"dashi": 13`** where the last one wins silently.
+
+⚖️ **THE LADDER, one rung past §29.5: missing < duplicate < wrong < WRONG-AND-SIGNED.** A fabricated
+figure wearing Tina's name renders as a number, *looks* sourced, and its own comment tells the next
+reader not to re-check it.
+⚖️ **AND THE STANDING LAW THIS IS AN INSTANCE OF:** a silent hole needs a mechanical watcher, not
+sharper eyes (§17, the ungated `tierBar`).
+
+---
+
+### §32.1 `reference/ASIA_LEDGER.json` — RECORD COUNT + CONTENT FINGERPRINT
+
+`merge.js` writes, per country, the **record count** and a **sha256 fingerprint of the records array**
+after every successful merge, and **checks them before the next one**.
+
+- The fingerprint is taken over the **records**, not the file text, so a header edit or a reformat never
+  false-alarms while a record appearing, vanishing or changing always does.
+- The check runs **before validation**, because if the file's state is unexplained then validating a
+  batch against it is answering the wrong question.
+- The ledger is written **after** the country file, so a crash between the two leaves the ledger
+  **behind** rather than ahead — failing loud next run instead of silently blessing an unverified state.
+  **Missing < wrong**, as always.
+- **Derived by `merge.js`, never hand-typed.**
+
+### §32.2 TWO RUNGS, AND THE SPLIT IS THE WHOLE DESIGN
+
+| Condition | Rung | Why |
+|---|---|---|
+| **COUNT** mismatch | **HARD REFUSE**, nothing written | A record appearing or vanishing outside a merge is **always** wrong. This is the rung that catches 4 → 5. |
+| **HASH** drift, count unchanged | **LOUD WARN**, then proceed | Editing prose inside an existing record is legitimate and happened the same day (the Betawi etymology fix). Blocking that would make the tool an obstacle. |
+| Country **absent** from the ledger | **BASELINE**, no refusal | Otherwise the first merge of every new country file is blocked by the tool meant to protect it. |
+
+⚖️ **`--accept-count` EXISTS AND IS ON THE RECORD.** A deliberate re-baseline is available for when the
+current file is known-good, it prints a warning naming itself, and **it must never be used to make a
+surprise go away.** Find out what happened first.
+
+### §32.3 `reference/PRICE_LEDGER.json` + `priceledger.js` — PROVENANCE
+
+⚖️ **DERIVED FROM `prices.js`, NEVER TYPED.** A hand-maintained second list of prices is a second source
+of truth, which is exactly the MF152-grepped-against-itself failure. `--seed` reads the real file. The
+**only** thing added by hand is a **dated entry when Tina gives a new price**, because that is the one
+fact `prices.js` cannot prove about itself.
+
+- **84 existing Tina-attributed keys are GRANDFATHERED** — they predate the ledger and cannot be
+  retro-proved, so they are recorded as-found rather than deleted or pretended-verified. 50 of them carry
+  no date in their comment and are recorded as **undated, not invented**.
+- `--check` **fails** any `prices.js` key claiming Tina attribution with **no ledger entry**. All four of
+  the 30 Jul fabrications would have gone RED.
+- **`--ask <term>` IS THE ONE THAT ANSWERS TINA'S CONDITION.** It searches the ledger *and* the live file
+  *and* near-spellings, and answers "has she already given this?" in one command. Verified: **`--ask dashi`
+  returns 🛑 ALREADY IN prices.js**, which is precisely the question that wasted her time.
+- `--selftest` — **20 born-RED proofs**.
+
+### §32.4 THE MATCHER RULE — earned, not designed
+
+The tool produced a **false positive on its own first run**: `--ask "peanut sauce"` reported a hit that
+did not exist, because a naive two-way substring test lets a short key match inside a longer phrase.
+⚖️ **A false positive here is the exact harm the tool exists to prevent** — it would tell Tina a price is
+already keyed when it is not, which is the *same* wasted hour from the other direction. So:
+
+- a **single-word** key must match **exactly**, with plural tolerance;
+- only a **multi-word** phrase may match by **containment**;
+- **space-stripped equality is kept**, because `bean sprouts` vs `beansprouts` cost her a repeat once.
+
+⚠️ Also fixed on the first run: the scanner read whole lines and picked up `"dashi": 13` from inside a
+**comment** documenting the near-duplicate, reporting a phantom second key. **A key named in prose is not
+a key** — the code side of a line only.
+
+### §32.5 MANDATORY SEQUENCE — this is the part that must be obeyed
+
+⛔ **BEFORE ASKING TINA FOR ANY PRICE:** `node priceledger.js --ask <term>`. If it says
+**ALREADY IN prices.js**, the question is whether the number is **wrong**, never whether it is missing
+(§29.5). **Do not re-source a right number.**
+⛔ **WHEN SHE GIVES A PRICE:** key it in `prices.js` **and** add a dated ledger entry **in the same
+message**. Never deferred, never left as prose in MF152.
+⛔ **AFTER ANY `prices.js` EDIT:** `node priceledger.js --check`.
+⛔ **`merge.js` NOW RUNS THE STATE LEDGER AUTOMATICALLY.** No extra step, no flag, nothing to remember —
+which is the only way a gate survives contact with a long session.
+
+### §32.6 PROVEN, NOT ASSERTED
+
+| Check | Result |
+|---|---|
+| `node merge-selftest.js` | **48 passed · 0 failed** (42 pre-existing + **6 new ledger proofs**) |
+| `node priceledger.js --selftest` | **20/20** |
+| `node pricecheck.js --selftest` | **26/26** unchanged |
+| Live end-to-end: phantom 12th record injected into `wk_indonesia.js` | **HARD REFUSE**, exit 1, *"A RECORD APPEARED outside a merge"* |
+| File restored afterwards | **md5 byte-identical** (`ba2480c7…`), 11 records, ledger state `match` |
+| `pricecheck.js indonesia` | exact 41 · wrong-product 0 · absent 0, **unchanged** |
+| `tinza-doctor.js` | **RED 10 floor, unchanged** |
+
+⚖️ **ONE BUG THE SELF-TEST CAUGHT IN THE GATE ITSELF**, worth recording because it is the argument for
+the discipline: `module.exports` was placed above the ledger block and died with *"Cannot access
+'LEDGER_PATH' before initialization"* — a temporal dead zone on a `const`. It was caught on the first run
+of `merge-selftest.js` after the edit, before anything shipped. **Never edit `merge.js` without running
+the self-test.**
+
+### §32.7 HONEST LIMITS, stated the way the other tools state theirs
+
+- `ASIA_LEDGER` proves **state**, never correctness. It cannot tell you a record is good — only that the
+  set of records changed when it should not have.
+- `PRICE_LEDGER` proves **provenance**, never correctness. It cannot tell you R2000/kg is the right
+  keluak, or that a normalisation is sound.
+- Neither replaces **Law 2**: Tina's eyes on live close a bug.
