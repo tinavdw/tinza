@@ -11,7 +11,7 @@
 | China | ✅ CLOSED **50** · pushed + wired |
 | Japan | ✅ CLOSED **50** · pushed + wired |
 | Indonesia | ✅ CLOSED **42** · pushed + wired · ledger `42 · 8a1c2521f08a717e` |
-| **Thailand** | ▶️ **OPEN — 25 records banked · B8 CLOSED 1 Aug 2026 · ⏸️ PUSHED, AWAITING NEXT SESSION** · ⚖️ COUNT WITH NODE, NEVER FROM THIS LINE |
+| **Thailand** | ▶️ **OPEN — 30 records banked · B9 · ledger `30 · f825fb7d0cf8c441`** · ⚖️ COUNT WITH NODE, NEVER FROM THIS LINE |
 | Vietnam | ⏸️ not started |
 
 ⚖️ **A1 IS AMENDED:** 50 is a target, not a gate. **42 is a CLOSE, never a shortfall.**
@@ -64,6 +64,9 @@ sauce outright.** `Moo Ping` is in the same position.
 | `rice noodles` R45 ✅ | 🔴 `vermicelli` *(bare)* | → **`pasta` R36** — silent wrong product |
 | `noodles` R80 ✅ *(CORRECT for khao soi)* | 🆕 `egg noodles` | → **`egg` R3.70 PER COUNT** — direction-B collision, silent |
 | *(in-method only)* | `banana leaves` | → `banana` R32, the fruit |
+| 🆕 *(NOT IN SA — do not write)* | 🔴 `water chestnuts` | → **`water` R0.02** — the substring wins. **The ugliest silent resolution in the lane.** ⛔ Tub Tim Krob is blocked on it |
+| 🆕 `cornflour` R68 *(ONE WORD)* | 🔴 `corn flour` *(spaced)* | → **`maize meal` R19** — wrong product, silently. Same fault class as `rice vermicelli` |
+| 🆕 *(write `eggs`, note duck in chefNotes)* | 🔴 `duck eggs` | → **`egg` R3.70 PER COUNT** — a hen's price on a duck's egg, and plural→singular as well. **Two faults in one key** |
 
 ✅ **LIVE AND EXACT:** `fish sauce` R200 · `rice noodles` R45 · `green papaya` R32 · `mango` R40 ·
 `coconut milk` R63 · `coconut cream` R83 · `peanuts` R128 · `dried shrimp` R800 · `bean sprouts` R270 ·
@@ -847,6 +850,273 @@ is a METHOD lead that Tom Yum does not already carry** — not a flavour compari
 
 ---
 
+## 4e · ▶️ B9 — OPENED 1 AUG 2026 · ONE RECORD, ONE BANK
+
+| # | dish | id | course | costPP (engine-derived) |
+|---|---|---|---|---|
+| 26 | Khao Tom | `thailand-khao-tom` | soup | R46 · R47 · R76 |
+| 27 | Sup Nor Mai | `thailand-sup-nor-mai` | side | R62 · R68 · R78 |
+| 28 | Sangkhaya Fak Thong | `thailand-sangkhaya-fak-thong` | dessert | R22 · R29 · R37 |
+| 29 | Kai Palo | `thailand-kai-palo` | main | R47 · R53 · R71 |
+| 30 | Moo Krob | `thailand-moo-krob` | main | R53 · R62 · R70 |
+
+⚖️ **CHOSEN ON COURSE BALANCE, RULED BY TINA.** The lane was carrying **10 mains** against
+1 soup, 1 drink and 1 staple. Khao Tom takes the soup shelf to 2. **Kai Palo was declined for
+being an eleventh main; Sangkhaya Fak Thong was declined on a thin moat** (its obvious register,
+the Columbian exchange, is already spent by Nam Prik Ong).
+
+### ⛔ LEAD NOW SPENT
+**Khao Tom:** *khao tom and jok are the same pot and the only difference is whether the grain
+stays WHOLE or is BROKEN* — cooked rice into hot stock keeps it whole, raw rice boiled an hour
+dissolves it. ⚖️ **Written as the explicit ANTI-KHAO SUAY: that card forbids stirring, this one
+stirs on purpose, and the variable is time in liquid rather than the stirring itself.**
+**+ cold retrograded rice survives the four minutes where warm rice sheds starch** (the same
+preference Khao Pad has, for the same structural reason) **+ garlic oil started in a COLD pan
+and pulled at pale gold, because garlic carries over hard** **+ the pork goes in as pinched
+lumps and is left alone 90 seconds, or it disperses into threads and clouds the broth**
+**+ it is UNDER-seasoned on purpose — the only card on the shelf not calibrated against a mound
+of plain starch, because the starch is already in the bowl.**
+⛔ **JOK IS NOW BLOCKED as its own card** — it is the contrast this lead is built on.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **nutritional epidemiology**
+*(Khao Tom — beriberi and polished rice. Steam mills made white rice cheap and the disease
+followed it. Christiaan Eijkman, Batavia 1880s, hospital chickens on leftover polished rice.
+✅ **The fair turn: Eijkman drew the WRONG conclusion from his own experiment** — he proposed a
+starch-borne nerve toxin with an antidote in the bran, not a deficiency. **Gerrit Grijns** got it
+right around 1901. Thiamine crystallised by Jansen and Donath 1926, synthesised by Robert
+Williams 1936. Eijkman shared the **1929 Nobel** with Frederick Gowland Hopkins. ✅ **And the
+ending is not the expected one: the world did not stop polishing rice** — bran oil goes rancid,
+so the answer was fortification and a varied plate. The grain in the pot is still polished, and
+that is a trade rather than an oversight.)*
+
+### ⚠️ AN A3 OBSERVATION FOR TINA, NOT A FAILURE
+The budget fork leads and IS cheapest, so **A3 passes** — but only by **R1** (R46 against R47).
+⚖️ The cause is honest arithmetic rather than a soft version: `mushrooms` R90/kg and
+`pork mince` R125/kg are simply close, and 120g of mushrooms is already justified on shrinkage.
+⛔ **Not fudged by trimming quantities to manufacture a gap.** ⚠️ But a fork labelled *Budget*
+that saves one rand may be a claim the card should not make. **Tina's ruling.**
+*(This is NOT the B3 shape — there the VEGAN came in under the BUDGET. Here they are one fork.)*
+
+### ✅ ALL GATES GREEN, RECORD 26
+`/all` — 0 red · 0 drift · 4 hygiene *(all pre-existing corpus items, none this record)* ·
+`costcheck` **78/78** · `pricecheck` **exact 89 · absent 0** *(4 🟠 REVIEW, all previously accepted)* ·
+`wowcheck` every mechanical box ticked · `tinza-echo` 0 echo · 0 mascot · 0 locale · 0 gloss.
+
+### ✅ `unitcheck` RUN STANDALONE — RULED BY TINA 1 AUG 2026
+⚖️ **NOT wired as a seventh gate. Run alongside `/all` and reported SEPARATELY.**
+This preserves Law 62's own argument that a runner showing more greens than it measured
+manufactures confidence. ✅ Thailand **26 records scanned · 🔴 0 · 9/9 self-tests pass.**
+
+### ⛔ LEAD NOW ALSO SPENT — RECORD 27
+**Sup Nor Mai:** *a bamboo shoot is a GROWING TIP and is not the same vegetable all the way down*
+— the tender top third goes into chunks ACROSS the grain, the fibrous bottom two-thirds is
+shredded ALONG it, and one shoot takes two knives. ⚖️ **A fibre cut across is a splinter; a fibre
+followed is a thread.** **+ boil uncovered and throw the water away** (a safety step, not a
+softening step — ⛔ the cyanogenic argument itself belongs to **Rawon**, so this card DEFERS to it
+in prose in one line and does not restate it) **+ tinned shoots still get 5 minutes, to strip the
+brine** **+ dress the shoots WARM because boiled bamboo is a sponge** — written as the explicit
+opposite of Pla Goong, where the prawn absorbs nothing and the dressing must be strong enough to
+work on contact **+ the rice powder goes in AT THE TABLE or it swells and pastes the bowl.**
+⚠️ **`nam bai yanang` is NOT IN SA and the card says so out loud** rather than substituting
+quietly; the toasted rice carries the body instead. ⛔ **Khao khua itself stays LARB'S** — this
+card uses it as a *thickener* and says so in one deferring sentence.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **population ecology / mast seeding**
+*(Sup Nor Mai — most bamboos are monocarpic and gregariously flowering: decades of vegetative
+growth, then every plant of the species across a region flowers, seeds enormously and DIES,
+usually explained as predator satiation. In the Mizo hills *Melocanna baccifera* runs at roughly
+**48 years** and the cycle is named **mautam**. Black rats breed on the seed crop, then move into
+the rice when it runs out. ⚖️ **1959: the Mizo elders predicted it and the administration called
+it superstition.** The Mizo National Famine Front dropped a word and became the **Mizo National
+Front**, which took up arms in 1966. ✅ Fair version: the rodent link was long argued over and is
+far better documented since the **2006–08 mautam**, which arrived on schedule and which the state
+planned for in advance.)*
+
+### ✅ ALL GATES GREEN, RECORD 27
+`/all` — 0 red · 0 drift · 4 hygiene *(pre-existing)* · `costcheck` **81/81** ·
+`pricecheck` **exact 90 · absent 0** · `wowcheck` all mechanical boxes · echo/mascot/locale/gloss 0.
+`unitcheck` standalone — 27 scanned · 🔴 0 · 9/9 self-tests.
+
+### ✅ COURSE BALANCE AFTER 27 — COUNTED, NOT ASSUMED
+`main 10 · side 4 · dessert 3 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+⚖️ **Mains are the crowded shelf.** Tina ruled 1 Aug that mains come AFTER the queue below.
+
+### ▶️ THE QUEUE — RULED BY TINA, 1 AUG 2026
+1. ~~**Sangkhaya Fak Thong**~~ ✅ **DONE — record 28.** *(prices were clean: `pumpkin` R35 · `eggs` R3.70/count ·
+   `coconut cream` R83 · `jaggery` R100. 🔴 **NEEDS A FRESH MOAT BEFORE IT IS WRITTEN** — its
+   obvious register, the Columbian exchange, is **spent by Nam Prik Ong**. Do not open it cold.
+2. ~~**Kai Palo**~~ ✅ **DONE — record 29.** *(prices were clean: `pork belly` R150 · `eggs` · `star anise` R1000 ·
+   `cinnamon` R550 · `soy sauce` R236. ⚠️ Its obvious moat, the Teochew diaspora route, collides
+   with **Khao Soi's cartography**. Needs a different angle.
+3. ▶️ **Mains, plural — IN PROGRESS.** ✅ Moo Krob is record 30. ⛔ Pad See Ew struck (see below).
+   ⚪ Rad Na and Pu Phad Pong Karee both have a moat already proven clear — see the banked list.
+
+### ⛔ NOW BLOCKED BY RECORD 27
+**Jok** *(blocked at record 26 — it is the contrast Khao Tom's lead is built on)* ·
+**Tub Tim Krob** *(🔴 `water chestnuts` → `water` R0.02)* · **Sakoo Sai Moo · Khanom Chan ·
+Khanom Tom** *(`tapioca` · `sago` · `pandan` · `taro` all ABSENT — A7 defer)*.
+
+### ⛔ LEAD NOW ALSO SPENT — RECORD 28
+**Sangkhaya Fak Thong:** *the custard and its own bowl are on TWO DIFFERENT CLOCKS and you are
+cooking them as one thing* — custard sets in ~25 min, a raw pumpkin needs ~45. ⚖️ **The fix is a
+head start, not a longer cook: steam the pumpkin EMPTY and CUT SIDE DOWN for 12–15 min first**,
+which also drains the cavity instead of letting it pool. **+ scrape out every strand of fibre and
+wipe the cavity dry** **+ ⛔ DO NOT WHISK — rub the custard together by hand, because air sets as a
+foam crust and inside an opaque closed mould there is nothing to skim** **+ cover the opening so
+steamer condensation cannot rain on the surface and pit it** **+ test the WALL, never the custard**
+**+ chill 2 hr before cutting, because the cross-section IS the dish.**
+⚠️ **THE SA RULING ON THIS CARD:** Thai `fak thong` is dense and dry-fleshed, and the match here is
+**butternut — the same botanical species** — NOT the big ribbed `boerpampoen`, which is wetter and
+slumps. *(Glossed on the card per §33.)*
+⛔ **THE CUSTARD TECHNIQUE ITSELF IS NOT THIS CARD'S** — straining the chalaza, 80°C setting and
+the wobble test all belong to **Khao Niao Mamuang's sangkhaya version**. This card defers in one
+line and does not restate them.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **integrated rice–duck agriculture**
+*(Sangkhaya Fak Thong — the traditional egg is a DUCK egg because of a farming system. Duck flocks
+were herded onto paddies across Thailand, Vietnam and southern China; they ate spilled grain,
+insects, weed seedlings and snails, their paddling suppressed weed germination and their droppings
+fertilised the field. **The farmer got weeding, pest control and manure for free and eggs on top**,
+which is why a duck egg was the cheap egg here and a hen's egg often the dearer one — the reverse of
+the Western situation. Formalised again in the 1990s as Takao Furuno's *aigamo* method. ✅ **The
+honest ending: free-grazing duck flocks were identified as a significant factor in the spread of
+H5N1 through Thailand and Vietnam from 2004, and Thailand moved to restrict exactly that movement.
+The mobility that made the eggs cheap is the mobility that moved the virus.**)*
+⚠️ **ADJACENCY NOTED HONESTLY:** this touches epidemiology, and **nutritional epidemiology** was
+spent two records earlier on Khao Tom. The FRAME here is agricultural systems and the disease is
+one clause of the turn — but if it reads as the same register on a re-read, **that is Tina's call.**
+
+### 🩸 A MOAT COLLISION CAUGHT BEFORE A WORD WAS WRITTEN — AND WHERE
+The intended moat was the **Portuguese convent surplus-yolk economy** (Maria Guyomar de Pinha,
+`foi thong` from `fios de ovos`). ⛔ **`wk_europe.js`'s Ovos Moles card already owns it outright**,
+down to the whites going to starching habits and clarifying wine. ⚖️ **GREENFIELD A MOAT ACROSS THE
+WHOLE CORPUS, NOT JUST THE ASIA LANE** — registers are lane-wide, but a *fact* is corpus-wide.
+
+### 🩸 SEVENTH SCAR — AND IT IS MINE, NOT THE TOOLS'
+🟡 `LECTURE` fired on **Khao Tom (318 words) and Sup Nor Mai (291)** and **I did not see it on
+either**, because on those two I grepped `/all` for RED markers only and the yellow rung never
+reached the summary I read. ⛔ **A grep that filters for 🔴 will silently drop every 🟡.**
+✅ Found only when record 28 fired the same rung and the detail print listed all three.
+✅ All three trimmed by cutting non-load-bearing clauses; **the whole lane is now clean at a
+265-word bar.** ⚖️ **READ THE ECHO SECTIONS IN FULL, OR GREP FOR 🟡 AS WELL AS 🔴.**
+
+### ⚙️ LEDGER RE-BASELINE AFTER A PROSE EDIT — THE MECHANIC, RECORDED
+A trim inside a shipped record changes the fingerprint with the count unchanged. ✅ The route is
+**`node merge.js thailand empty.js`** with `empty.js` being `module.exports = [];` — merge WARNS
+about hash drift, re-baselines, and every assertion still runs. ⛔ **Never `git checkout`** (B6 scar)
+and ⛔ never hand-edit the ledger.
+
+### ✅ ALL GATES GREEN, RECORD 28 — RE-RUN ACROSS THE WHOLE LANE AFTER THE TRIMS
+`costcheck` **84/84** · `pricecheck` **exact 92 · absent 0** · `unitcheck` **28 scanned · 🔴 0** ·
+`tinza-echo` **every 🔴 and 🟠 rung at 0, LECTURE 0** · `wowcheck` all mechanical boxes.
+*(🟡 FUNCTIONAL ECHO 63 is the lane-wide count of storage/pairsWith similarity — the tool states
+outright it is not a fault.)*
+
+### ✅ COURSE BALANCE AFTER 28
+`main 10 · side 4 · dessert 4 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+
+### ⛔ LEAD NOW ALSO SPENT — RECORD 29
+**Kai Palo:** *the brown is BURNT SUGAR, not soy sauce* — and the usual failure is pulling the
+caramel at a pretty gold, finding the braise pale, and reaching for more soy, ⚖️ **which cannot
+darken a braise without also salting it.** The dark caramel's bitterness is the only thing standing
+between this and a pudding. **+ take it 30–45 seconds past dessert colour, to strong-tea and faintly
+smoking** **+ pour the stock in at arm's length; the seize is normal** **+ blanch the belly FROM COLD
+WATER and discard it, so the scum coagulates outside the meat and the braise stays clear amber**
+**+ whole spices counted IN so they can be counted OUT; ⛔ two stars of anise and no more**
+**+ ⚖️ THE SEASONING HAPPENS AFTER THE HEAT IS OFF — a peeled egg takes colour by SOAKING, not by
+cooking, so the eggs go in for the last 20 min and then rest overnight** **+ skim the fat cold, as a
+solid lid.**
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **phylogenetics / what "ancient" actually means**
+*(Kai Palo — star anise is *Illicium verum*, in the **Austrobaileyales**, the **third branch to split
+off at the base of the whole flowering-plant tree**, after only *Amborella* and the water lilies.
+Anise and fennel are Apiaceae, deep inside the most derived part of the tree — and all three
+independently make **anethole**, which is why they taste alike. *Illicium* still has undifferentiated
+tepals and is pollinated largely by small flies and gall midges. ✅ **The correction is the point:
+"ancient lineage" is routinely misread. Illicium is not primitive and not a survivor — it has been
+evolving exactly as long as fennel has. What is old is the BRANCH POINT, not the plant.**)*
+
+### 🩸 THREE MOATS KILLED BEFORE A WORD WAS WRITTEN — KAI PALO IS A CROWDED DISH
+⛔ **Teochew diaspora route** → collides with **Khao Soi's cartography**.
+⛔ **Master stock / Ship of Theseus continuity** → `wk_china.js` has a whole **`china-staple-master-stock`
+card** owning the keeping, the decades and the never-boil. **China also owns five-spice.**
+⛔ **Star anise → shikimic acid → oseltamivir** → the exact SHAPE of the spent **industrial chemistry /
+natural-product feedstocks** register (lemongrass citral), *and* H5N1 was used one record earlier.
+⛔ **Japanese star anise / anisatin** and ⛔ **cassia coumarin limits** → collide with **food fraud /
+species substitution** and **food additive regulation** respectively.
+⚖️ **FOUR of the five obvious angles for this dish were already taken. Greenfield the moat FIRST.**
+
+### ⚖️ A LEAD-SHAPE COLLISION AVOIDED, WORTH NAMING AS A CLASS
+The natural Kai Palo lead is *"pork wants 90 minutes and an egg wants 20"* — ⛔ **which is the same
+SHAPE as Sangkhaya's "two clocks, one vessel", two records earlier.** ✅ Rewritten around the caramel
+instead, and the egg timing demoted to one rule inside the resting beat.
+⚖️ **A lead can collide by STRUCTURE as well as by content. `tinza-echo` cannot see this — only a
+reader can.**
+
+### ✅ ALL GATES GREEN, RECORD 29 — AND THE 🟡 RUNGS WERE READ THIS TIME
+`costcheck` **87/87** · `pricecheck` **exact 93 · absent 0** · `unitcheck` **29 scanned · 🔴 0** ·
+`tinza-echo` **every 🔴 and 🟠 at 0 · LECTURE 0** *(trivia measured at **254 words** BEFORE merging,
+against the 265 bar — ⚖️ that pre-check is now the habit)* · `wowcheck` all mechanical boxes.
+
+### ✅ COURSE BALANCE AFTER 29
+`main 11 · side 4 · dessert 4 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+⚠️ **Mains are now at 11, which is where Japan froze its own main shelf.** Tina's queue says mains
+next regardless — **but the moat, not the dish, is the binding constraint from here.**
+
+### ⛔ LEAD NOW ALSO SPENT — RECORD 30
+**Moo Krob:** *crackling is DEHYDRATION, not cooking* — pork skin is ~2/3 water, crisp happens when
+the collagen has set and the remaining water leaves fast enough to blow the skin into a rigid foam,
+⚖️ **so water is the enemy from the first minute to the plate.** **+ the simmer cooks the meat and
+leaves the skin WETTER than it started — the fridge does the real work** **+ ⛔ 8–24 hr UNCOVERED on
+a rack: a fridge is a dehumidifier with a light in it, and a lid rebuilds the humid box** **+ prick
+the skin ONLY — a hole into the fat lets rendered fat well up and block drying, a hole into the meat
+gives one soft grey patch** **+ salt and vinegar on the skin, then WIPED OFF, because a salt crystal
+at frying temperature is a hot point, not a seasoning** **+ two oil temperatures: 160°C dries, 190°C
+puffs** **+ ⛔ REST ON A RACK, never paper, never a plate** **+ one decisive cleaver stroke, never
+sawing.**
+⚠️ **Real safety beat, stated plainly:** water left in the skin flashes to steam under hot oil and
+throws it out of the pan.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **psychoacoustics of eating**
+*(Moo Krob — crispness is **brittle fracture**: a dry rigid material fails all at once and the energy
+comes out as sound, while water plasticises it so it bends and goes quiet. **Sound and texture are
+one event sensed twice.** ✅ Zampini & Spence, 2004: volunteers bit crisps through headphones playing
+their own crunch back altered in real time, and boosting the high frequencies made **identical**
+crisps rate as fresher. Ig Nobel 2008. ⚖️ **Fair reading: the effect is real but modest and what
+happens against the teeth still dominates** — what it establishes is that some of the pleasure is
+genuinely acoustic, which is the honest reason a late plate is worse when nothing about the flavour
+changed.)* ⚖️ **Load-bearing rather than decorative** — it is the argument behind serve-at-once and
+behind the rack rule.
+
+### 🩸 A DISH STRUCK ON COLLISION BEFORE IT WAS OFFERED — **PAD SEE EW**
+⛔ `wk_china.js`'s **Beef Chow Fun** is the same wide rice noodle, the same char, and it already owns
+the wok-skill argument outright *(it is the Hong Kong kitchen interview dish)*. ⚖️ **China also owns
+`wok hei` as a term.** A Thai wide-noodle card led by the char would be a sameness failure across the
+corpus even though it passes every mechanical gate. **Do not open Pad See Ew without a lead that has
+nothing to do with the wok.**
+
+### ⚪ TWO MOATS PROVEN CLEAR AND NOT YET USED — BANKED FOR LATER
+Both greenfielded across the whole corpus on 1 Aug and both came back with **zero hits**:
+- **rheology / non-Newtonian shear-thinning** → the natural home is **Rad Na**'s cornflour gravy.
+  ⚠️ Register is clean but the CONTENT is crowded: Kluay Tod owns starch gelatinisation and pH,
+  Yam Woon Sen owns rice-vs-mung starch. ⛔ `soybean paste` and `salted soybeans` are **ABSENT**,
+  so tao jiew must be built around.
+- **a marine animal as a laboratory reagent** *(horseshoe crab blood, endotoxin testing, and the
+  synthetic-replacement argument)* → the natural home is **Pu Phad Pong Karee**. ⚠️ Honest weakness:
+  a horseshoe crab is not a crab, so the hop from pan to moat is longer than usual.
+  ✅ Prices clean: `crab` R400 · `crab meat` R660 · `curry powder` R300 · `evaporated milk` R100.
+  🔴 **`crab sticks` R120 is a separate live key — the documented landmine. Write `crab`.**
+
+### ✅ ALL GATES GREEN, RECORD 30
+`costcheck` **90/90** · `pricecheck` **exact 95 · absent 0** · `unitcheck` **30 scanned · 🔴 0** ·
+`tinza-echo` **every 🔴 and 🟠 at 0 · LECTURE 0** *(trivia pre-checked at **257 words** before merge)* ·
+`wowcheck` all mechanical boxes.
+
+### ✅ COURSE BALANCE AFTER 30
+`main 12 · side 4 · dessert 4 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+
+---
+
 ## 4z · ▶️ HANDOFF — THREE DECISIONS WAITING FOR TINA (written 1 Aug 2026, at B8 close)
 
 ⚖️ **NONE OF THESE WERE ACTIONED, DELIBERATELY.** Each is a ruling or a live-surface change.
@@ -869,7 +1139,7 @@ session.** This is the `glutinous rice` shape that cost four records across thre
   misses it and the engine tries to cost it. ⚠️ **A real bug in the water guard.**
 - the rest = true count against a per-kg key with no average weight.
 
-### 2 · ⚖️ SHOULD `unitcheck` BECOME THE SEVENTH GATE IN LAW 62?
+### 2 · ✅ RULED 1 AUG 2026 — **NO. STANDALONE, REPORTED SEPARATELY.** *(see §4e)*
 `tinza-all.js` fires six standards. Adding a seventh is a **ruling**, not a quiet edit — and Law 62's
 own comment argues that a runner showing more greens than it measured manufactures confidence.
 ⛔ **NOT WIRED.** Run it standalone: `node unitcheck.js [country] [batch.js]`.

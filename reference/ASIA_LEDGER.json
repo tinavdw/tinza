@@ -20,10 +20,10 @@
       "lastBatch": "t.js"
     },
     "thailand": {
-      "records": 25,
-      "hash": "8cd52f266c71e0e3",
+      "records": 30,
+      "hash": "f825fb7d0cf8c441",
       "updated": "2026-08-01",
-      "lastBatch": "batch25.js"
+      "lastBatch": "batch30.js"
     }
   }
 }
