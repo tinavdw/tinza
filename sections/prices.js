@@ -748,6 +748,7 @@ const PRICE_DB = {
   "sunflower oil": 48,        // R95/2L → R48/kg (litre)
   "olive oil": 250,           // per litre
   "coconut oil": 80,          // per litre
+  "peanut oil": 200,          // groundnut oil. Tina-sourced 31 Jul 2026: R99.99/500ml -> R200/L (250ml runs R74-84 = R296-336/L, the 500ml is the sensible pack). RULED A7 EXCEPTION: the alias to sunflower oil made nigeria-suya name one product and charge for another (S29.2). Sunflower/canola ~R48/L stays the budget alternative, named in-method.
   "balsamic vinegar": 180,    // R90/500ml → R180/L
   "balsamic glaze": 360,      // R54/150ml → R360/L
   "white vinegar": 49,        // R37/750ml → R49/L

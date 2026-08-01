@@ -3,9 +3,9 @@
   "countries": {
     "indonesia": {
       "records": 42,
-      "hash": "8a1c2521f08a717e",
+      "hash": "4bb01006b269b17d",
       "updated": "2026-07-31",
-      "lastBatch": "batch42.js"
+      "lastBatch": "empty.js"
     },
     "china": {
       "records": 50,
@@ -18,6 +18,12 @@
       "hash": "63e5d34808e2fe62",
       "updated": "2026-07-30",
       "lastBatch": "t.js"
+    },
+    "thailand": {
+      "records": 10,
+      "hash": "294ad07a7cd17194",
+      "updated": "2026-07-31",
+      "lastBatch": "e.js"
     }
   }
 }

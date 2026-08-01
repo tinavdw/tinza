@@ -1089,6 +1089,8 @@ var PRICE_ALIAS = {
   "sweet rice": "glutinous rice",
   "lime leaves": "kaffir lime leaves",
   "makrut lime leaves": "kaffir lime leaves",
+  "thai lime leaves": "kaffir lime leaves",
+  "thai lime leaf": "kaffir lime leaves",
   "makrut lime leaf": "kaffir lime leaves",
   "kaffir lime leaf": "kaffir lime leaves",
 
@@ -1266,7 +1268,7 @@ var PRICE_ALIAS = {
   "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
   "scotch bonnet":"chilli","scotch bonnet pepper":"chilli","maize flour":"maize meal",
   "corn flour":"maize meal","gram flour":"cake flour","palm oil":"sunflower oil",
-  "peanut oil":"sunflower oil","sweet wine":"white wine","port wine":"red wine",
+  "groundnut oil":"peanut oil","sweet wine":"white wine","port wine":"red wine",
   "niter kibbeh or oil":"ghee",
   // World Kitchen exotic aliases (16 Jun) — every target verified present in
   // PRICE_DB (real substitute price, never invented). egusi now -> pumpkin seeds

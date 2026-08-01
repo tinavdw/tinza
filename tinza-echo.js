@@ -182,6 +182,21 @@ function rungFormula(corpus, targetIds) {
    it is checked literally. The squeal list is short and is drawn verbatim from
    the standard's own FAIL example, not invented. */
 const SQUEAL = ['yay', 'yummy', 'yum', 'delish', 'scrumptious', 'nom', 'omg', 'super duper', 'begging for more'];
+/* \u2696\ufe0f TWO FALSE-POSITIVE FIXES, 31 Jul 2026, both caught by thailand-tom-yum-goong.
+   The rung used a bare .includes(), so:
+     1. 'nom' matched ECONOMISTS and ECONOMIC in a perfectly sober piece of trivia.
+     2. 'yum' matched TOM YUM \u2014 the dish's own name.
+   A rung that fires on a CORRECT record is the rung she learns to scroll past, which is the
+   same reasoning as the merge.js coconut-cream strip and the FLESH false-friends list.
+   \u2705 FIX 1: word boundaries, so a squeal must be a WORD, never a fragment.
+   \u2705 FIX 2: SQUEAL_EXEMPT is stripped BEFORE matching \u2014 real dish names that legitimately
+      contain a squeal word. Kept deliberately short; it is an exemption list, not a loophole. */
+const SQUEAL_EXEMPT = ['tom yum', 'tom yam'];
+const squealHits = prose => {
+  let t = norm(prose);
+  for (const ex of SQUEAL_EXEMPT) t = t.split(ex).join(' ');
+  return SQUEAL.filter(w => new RegExp('(^|[^a-z])' + w + '([^a-z]|$)').test(t));
+};
 function rungMascot(corpus, targetIds) {
   const out = [];
   for (const { file, rec } of corpus) {
@@ -190,7 +205,7 @@ function rungMascot(corpus, targetIds) {
     const prose = VOICE_FIELDS.map(f => String(rec[f] || '')).join(' ') + ' ' + String(rec.method || '');
     const bangs = (prose.match(/!/g) || []).length;
     const runs = (prose.match(/([\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]\s*){3,}/gu) || []).length;
-    const squeals = SQUEAL.filter(s => norm(prose).includes(s));
+    const squeals = squealHits(prose);
     if (bangs || runs || squeals.length) out.push({ id, file, bangs, runs, squeals });
   }
   return out.sort((a, b) => b.bangs - a.bangs);
@@ -231,7 +246,17 @@ const LOCALE = [
   ['caramelized', 'caramelised'], ['realize', 'realise'], ['organize', 'organise'],
   ['eggplant', 'brinjal'], ['zucchini', 'baby marrow'], ['scallion', 'spring onion'],
   ['scallions', 'spring onions'], ['cilantro', 'coriander'], ['skillet', 'pan'],
-  ['liter', 'litre'], ['liters', 'litres'], ['fiber', 'fibre']
+  ['liter', 'litre'], ['liters', 'litres'], ['fiber', 'fibre'],
+  /* \u2696\ufe0f ADDED 31 Jul 2026. The 31 Jul locale sweep reported LOCALE clean while
+     72 of 1,167 records carried the US 'chili' \u2014 because this list had never been
+     told the word. A watcher blind to the thing it watches for is worse than none:
+     it prints a green line and trains its reader to trust it. Same shape as the
+     reverse-gloss blindness found the same day.
+     \u2705 SUBSTRING-SAFE BY CONSTRUCTION: the rung tests ' chili ' with both spaces,
+     so 'chilli' (no 'chili '+space inside it) and 'chilindron' (spain-pollo-al-
+     chilindron, a real Spanish dish) cannot trip it. Both proven born-RED below.
+     \u26d4 'chile' is deliberately NOT listed \u2014 it is a country. */
+  ['chili', 'chilli'], ['chilies', 'chillies']
   /* ⛔ molasses→treacle REMOVED 31 Jul. It is not an Americanism: molasses is
      ordinary SA English and is what you buy. Worse, greece-koulouri says "grape
      molasses" — petimezi, a specific Greek product — and calling that treacle is
@@ -469,6 +494,12 @@ function selftest() {
   t('sober prose → clean', rungMascot([mk('a', { trivia: 'A calm, dry sentence about salt.' })]).length === 0);
   t('BORN-RED: exclamation mark → flagged',
     rungMascot([mk('a', { trivia: 'This is amazing!' })]).some(x => x.bangs === 1));
+  t('FALSE-POSITIVE GUARD — "economists" must NOT read as the squeal "nom"',
+    rungMascot([mk('a', { trivia: 'Economists still call it that, and the economic damage was real.' })]).length === 0);
+  t('FALSE-POSITIVE GUARD — the dish name "Tom Yum" must NOT read as the squeal "yum"',
+    rungMascot([mk('a', { trivia: 'Tom Yum Goong is the name, and Tom Yam is the other spelling.' })]).length === 0);
+  t('STILL BORN-RED: a real "yum" as its own word is still caught',
+    rungMascot([mk('a', { trivia: 'This is so yum.' })]).length === 1);
   t('BORN-RED: squeal word → flagged',
     rungMascot([mk('a', { trivia: 'Yummy little things.' })]).some(x => x.squeals.length > 0));
   t('BORN-RED: 3+ emoji run → flagged',
@@ -494,6 +525,14 @@ function selftest() {
     rungLocale([mk('a', { trivia: 'color', method: 'zucchini' })])[0].found.length === 2);
   t('SUBSTRING SAFETY — "flavour" must NOT trip the "flavor" rule',
     rungLocale([mk('a', { trivia: 'flavour flavours flavourful' })]).length === 0);
+  t('BORN-RED: "chili" → flagged, and it knows the SA spelling',
+    rungLocale([mk('a', { ingredients: '5g chili powder' })]).some(x => x.found.some(f => f[1] === 'chilli')));
+  t('BORN-RED: "chilies" → flagged',
+    rungLocale([mk('a', { method: 'Add the chilies now.' })]).some(x => x.found.some(f => f[1] === 'chillies')));
+  t('SUBSTRING SAFETY — "chilli"/"chillies" must NOT trip the "chili" rule',
+    rungLocale([mk('a', { ingredients: '5g chilli powder', method: 'two chillies' })]).length === 0);
+  t('SUBSTRING SAFETY — "chilindron" is a Spanish dish, NOT a US spelling',
+    rungLocale([mk('a', { nameAlt: 'pollo al chilindron', method: 'the chilindron sauce' })]).length === 0);
 
   console.log('\n  ── RUNG 6 · GLOSS ──');
   t('BORN-RED: bare SA term in prose → flagged',

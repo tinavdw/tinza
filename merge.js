@@ -246,7 +246,12 @@ function validate(existing, incoming, cfg, KEYS) {
                        'shrimp', 'crab', 'squid', 'anchov', 'bacon', 'sausage', 'lard',
                        'tallow', 'tripe', 'kidney', 'liver', 'blood', 'gelatine', 'bones'];
         const DAIRY_EGG = ['egg', 'butter', 'milk', 'cream', 'cheese', 'honey'];
-        const FALSE_FRIENDS = ['oyster mushroom', 'chicken of the woods', 'eggplant', 'coconut milk', 'soya milk', 'soy milk'];
+        const FALSE_FRIENDS = ['oyster mushroom', 'chicken of the woods', 'eggplant', 'coconut cream', 'coconut milk', 'soya milk', 'soy milk'];
+        // \u2696\ufe0f 'coconut cream' ADDED 31 Jul 2026 and it MUST sit before 'coconut milk'.
+        // Found on thailand-khao-niao-mamuang: a correctly-tagged VEGAN record warned on every
+        // single merge, because 'coconut milk' was stripped but 'coconut cream' was not, so the
+        // bare word 'cream' hit DAIRY_EGG. A rung that fires on a CORRECT record is the rung she
+        // learns to scroll past \u2014 same family as the FLESH list missing octopus and dashi.
         const cleaned = FALSE_FRIENDS.reduce((acc, ff) => acc.split(ff).join(''), ing);
         const flesh = FLESH.filter(w => cleaned.includes(w));
         if (flesh.length) warn(r.id, 'default version tagged ' + JSON.stringify(_judgeDiet) + ' but base ingredients mention: ' + flesh.join(', ') + ' — check this is not a mis-tag');
