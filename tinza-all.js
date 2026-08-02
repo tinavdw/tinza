@@ -42,7 +42,7 @@ const { spawnSync } = require('child_process');
 
 const ROOT = __dirname;
 
-/* THE SIX. Canonical source is CLAUDE.md §11 "THE STANDARDS".
+/* THE EIGHT. Canonical source is CLAUDE.md §11 "THE STANDARDS".
    `tool` null = no mechanical watcher exists, and we say so out loud. */
 const STANDARDS = [
   { trig: '/law',   file: 'TINZA_LAW.md',                    asks: 'How do we work?',            tool: 'tinza-lawcheck.js' },
@@ -50,7 +50,15 @@ const STANDARDS = [
   { trig: '/bug',   file: 'standards/BUG_STANDARD.md',       asks: 'How do we hunt?',            tool: null },
   { trig: '/wow',   file: 'standards/WOW_STANDARD.md',       asks: 'Is this recipe good enough?',tool: 'wowcheck.js' },
   { trig: '/tinza', file: 'standards/TINZA_STANDARD.md',     asks: 'Does this sound like Tinza?',tool: 'tinza-echo.js' },
-  { trig: '/wk',    file: 'standards/TINZA_WK_STANDARD.md',  asks: 'World Kitchen content.',     tool: 'wowcheck.js' }
+  { trig: '/wk',    file: 'standards/TINZA_WK_STANDARD.md',  asks: 'World Kitchen content.',     tool: 'wowcheck.js' },
+  // ── ADDED 2 Aug 2026, ON TINA'S INSTRUCTION, AFTER A SESSION THAT PROVED BOTH GAPS ──
+  // ⚖️ /price — she has given the same prices repeatedly and been asked for them again. The
+  // watcher existed since 30 Jul and was never wired here, so it was never run. `--ask lamb`
+  // was ALSO returning a false negative against fourteen live lamb keys. Both fixed 2 Aug.
+  { trig: '/price', file: 'reference/PRICE_LEDGER.json',     asks: 'Has she given this already?',tool: 'priceledger.js' },
+  // ⚖️ /claim — every other standard measures NUMBERS. Two fabricated SENTENCES shipped into
+  // one record on 2 Aug and nothing in the repo could see either.
+  { trig: '/claim', file: 'claimcheck.js',                   asks: 'Is this sentence TRUE?',     tool: 'claimcheck.js' }
 ];
 
 const [country, batch] = process.argv.slice(2);
@@ -98,11 +106,17 @@ function run(tool, args, label) {
 
 console.log('');
 run('tinza-lawcheck.js', [], '/law  — THE DOC DOCTOR');
+
+/* ⚖️ /price RUNS FIRST AND ALWAYS, COUNTRY OR NOT.
+   A price Tina gave that never got a dated ledger entry is invisible to the next session,
+   and she gets asked for it again. That is not a country-scoped fault, it is a repo-wide one. */
+run('priceledger.js', ['--check'], '/price  — HAS SHE ALREADY GIVEN THIS?');
 if (!country) run('tinza-echo.js', [], '/tinza  — THE DATABASE WATCHER (whole corpus)');
 
 if (country) {
   run('wowcheck.js', batch ? [country, batch] : [country], '/wow + /wk  — THE RECIPE + WORLD KITCHEN GATE');
   run('tinza-echo.js', batch ? [country, batch] : [country], '/tinza  — THE DATABASE WATCHER');
+  run('claimcheck.js', batch ? [country, batch] : [country], '/claim  — IS THE SENTENCE TRUE?');
 } else {
   line();
   console.log('⏭️  /wow + /wk  — SKIPPED, no country given.');
@@ -124,7 +138,7 @@ for (const s of judgement) {
   console.log(`  📖 ${s.trig.padEnd(7)} ${s.file.padEnd(36)} ${s.asks}`);
 }
 console.log('');
-console.log('  ⚖️  A runner that showed six greens while measuring four would manufacture');
+console.log('  ⚖️  A runner that showed eight greens while measuring five would manufacture');
 console.log('      confidence, which is worse than no runner at all. It measured ' +
             `${STANDARDS.length - judgement.length}.`);
 console.log('');

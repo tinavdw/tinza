@@ -577,6 +577,27 @@ const PRICE_DB = {
   "tapioca starch": 70,      // R35/500g. TINA-SOURCED (MF152 ADD list), applied 30 Jul 2026.
                              // ⚠️ Not interchangeable with `cornflour` R68 in either direction even
                              // though the numbers are close — Warabimochi v3 names it specifically.
+  "tapioca flour": 70,       // ⚖️ THE SAME PRODUCT AS `tapioca starch` ABOVE, UNDER ITS OTHER NAME.
+                             // Cassava root starch is sold as both and they are not different things.
+                             // src:Tina — R35/500g (MF152, 30 Jul) and re-confirmed 1-2 Aug at
+                             // R39-73/500g depending on brand and pack size. §31.1 says lean high;
+                             // R70/kg sits inside that band and matches the already-sourced key.
+                             // ⛔ A DUPLICATE VALUE, DELIBERATELY, NOT AN ALIAS: PRICE_ALIAS is built
+                             // at load and a runtime entry is a no-op, so an alias here was untestable.
+                             // ⚠️ THESE TWO KEYS MUST MOVE TOGETHER. Change one, change both.
+                             // 🔴 core.js ALSO carries `"tapioca starch":"cornflour"` in PRICE_ALIAS,
+                             // which is dead while the direct keys exist but is a trap for whoever
+                             // deletes them. Flagged as carried debt #14, not touched here.
+  "soya beans": 65,          // src:Tina when:2026-08 conf:shelf  R25-38/500g and R50-65/1kg
+                             // → sourced band R50-76/kg. §31.1 says lean high and do not centre:
+                             // R65 is the top of her own 1kg figure, which is the pack a cook
+                             // actually buys. ⚖️ THE DRIED BEAN, not a paste and not a milk.
+                             // ⛔ THREE SOY KEYS ALREADY EXIST AND THIS IS NONE OF THEM:
+                             // `yellow soybean paste` R295 (fermented, = tao jiew) · `soya mince`
+                             // R95 (textured protein) · `soy milk` R30. Checked with
+                             // `priceledger.js --ask soybeans` BEFORE adding — which is how the
+                             // yellow soybean paste key was found, and how Rad Na's false
+                             // "tao jiew is not sold here" line was caught the same minute.
   "sago": 56,                // R28/500g. TINA-SOURCED, applied 1 Aug 2026.
                              // ⚖️ WHY THIS WAS MISSING FOR SO LONG: `wk_southafrica.js` was not in
                              // pricecheck.js's COUNTRIES list, so 131 SA records sat outside every
@@ -1004,8 +1025,37 @@ const PRICE_DB = {
   "sour cherries": 180,
   "plums": 40,
   "wood apple pulp": 170,
-  "crab": 400,
-  "crab meat": 660,
+  "crab": 400,               // src:Tina when:2026-08 conf:shelf  Whole frozen / portions, SA retail Aug 2026:
+                             // supermarket large whole ≈R250/kg · deep-sea portions & clusters R275-290/kg ·
+                             // Namibian golden whole, 2-packs of ~1.1-1.2kg, R350-395/pack. Smaller pieces
+                             // from R150/kg. FULL SOURCED RANGE R150-395/kg.
+                             // 🆕 SECOND SOURCE SET, same day: whole / sectioned frozen R130-320/kg,
+                             // cleaned crab portions sold as full-value with no wastage. This range runs
+                             // LOWER than the first. ⚖️ R400 still clears the top of BOTH (395 and 320),
+                             // so §31.1 is satisfied against the widest evidence available, not the
+                             // friendliest. ⚠️ If a third source lands below R320, this wants revisiting
+                             // as a real over-charge rather than a lean.
+                             // ⚖️ §31.1 — KEPT AT 400, WHICH IS THE TOP OF THE RANGE AND NOT ITS MIDDLE.
+                             // This looked over-priced against the R250 supermarket figure and it is not:
+                             // a caterer buying Namibian golden clusters pays R395/kg, and §31.1 exists
+                             // precisely so that shopper is not short at the till. Centring this on ~R270
+                             // would be the symmetrical error §31.1 forbids. ✅ Re-checked, not re-priced.
+                             // ⚠️ WHAT WAS ACTUALLY WRONG HERE WAS THE SILENCE: this key carried NO
+                             // provenance at all and was indistinguishable from a legacy guess.
+                             // ✅ Resolves correctly from `whole crab` · `frozen crab` · `crab pieces` ·
+                             // `crab clusters` · `fresh crab pieces` — all probed 2 Aug, all → crab R400.
+  "crab meat": 660,          // src:Tina when:2026-08 conf:shelf  Blue crab meat, picked, 250g pack R165
+                             // → R660/kg EXACTLY. ✅ Confirmed 2 Aug against a second, independent SA
+                             // source set from the one that documented `crab` above.
+                             // ⚖️ This key was flagged UNSOURCED earlier the same day and the flag was
+                             // right — it carried no provenance and was indistinguishable from a guess.
+                             // But the figure itself was correct to the rand. ⛔ WORTH REMEMBERING: an
+                             // undocumented price is a real defect even when the number is right, because
+                             // nobody downstream can tell the two cases apart. The fix was the comment.
+                             // ⚠️ Picked meat at R660 against whole crab at R400 is a 65% premium and that
+                             // is the correct shape — you are paying for the picking, not for better crab.
+                             // A record wanting bulk should key `crab`; only key `crab meat` where the
+                             // method genuinely cannot use shell-on.
   "crab sticks": 120,        // src:Tina when:2026-07 conf:shelf  R32-52/500g · R75-99/800g-1kg → R64-124/kg, took the top per §31.1.
                              // ⛔ THIRD crab key, deliberately. Surimi is not crab: without this, "crab sticks" fell through to
                              // `crab` R400 — a 3-6x over-charge wearing the right word (the rice bran → rice shape). Do not merge.

@@ -146,6 +146,25 @@ function termMatchesKey(term, key) {
   return false;                                  // a single word never matches by containment
 }
 
+// ── 🩸 THE FALSE NEGATIVE, FOUND 2 AUG 2026 ───────────────────────────────────
+// The 30 Jul tightening above is CORRECT and stays. But it created the opposite fault, and the
+// opposite fault is the expensive one:
+//     node priceledger.js --ask lamb   →   "✅ GENUINELY ABSENT"
+// …while prices.js holds FOURTEEN lamb keys — lamb loin chops · lamb rib chops · lamb braai
+// chops · lamb shoulder chops · lamb riblets · leg of lamb · lamb neck · lamb mince · lamb
+// shank · lamb potjiekos · lamb knuckles · lamb rump · lamb bones · lamb liver — every one of
+// them sourced, most by Tina, several given more than once.
+// ⚖️ A FALSE POSITIVE WASTES ONE QUESTION. A FALSE NEGATIVE SENDS HER BACK TO THE SHOPS FOR
+// PRICES SHE HAS ALREADY GIVEN. She said so repeatedly, and she was right every time.
+// ✅ THE FIX IS NOT TO LOOSEN THE VERDICT. Containment still does not earn a 🛑 ALREADY-KEYED
+// ruling — but it absolutely earns a LOOK BEFORE YOU ASK. The tool may never again print
+// ABSENT while the asked word appears inside a key.
+function relatedKeys(term, all) {
+  const t = depl(norm(term));
+  if (!t) return [];
+  return all.filter(p => norm(p.key).split(' ').map(depl).includes(t));
+}
+
 function ask(term) {
   const t = String(term || '').trim();
   if (!t) { console.error('usage: node priceledger.js --ask <term>'); process.exit(1); }
@@ -174,7 +193,22 @@ function ask(term) {
       '  · date ' + (e.date || 'UNDATED') + (e.grandfathered ? ' · grandfathered' : '')));
     console.log('');
   }
-  if (!inPrices.length && !inLedger.length) {
+  const related = relatedKeys(t, all).filter(p => !inPrices.includes(p));
+  if (related.length) {
+    console.log('🔎 NOT AN EXACT KEY — BUT "' + term + '" APPEARS IN ' + related.length +
+                ' KEY(S). READ THESE BEFORE ASKING HER:');
+    related.forEach(p => {
+      console.log('   · "' + p.key + '": ' + p.value + '   (line ' + p.line + ')' +
+                  (claimsTina(p.comment) ? '  ✍️ TINA-SOURCED' : ''));
+      if (p.comment) console.log('       ' + p.comment.slice(0, 150));
+    });
+    console.log('   ⚖️ The product she buys is almost certainly one of the above under its');
+    console.log('      SHOP name. Ask only if none of them is the thing. See');
+    console.log('      reference/TINZA_MEATCUT_ADDENDUM_buy_names.md — the name is what you BUY.');
+    console.log('');
+  }
+
+  if (!inPrices.length && !inLedger.length && !related.length) {
     console.log('✅ GENUINELY ABSENT from prices.js and from the ledger, including near-spellings.');
     console.log('   Safe to ask her — and when she answers, key it AND add a dated ledger entry');
     console.log('   in the SAME message. Never defer a price she has given.');
@@ -238,6 +272,29 @@ function selftest() {
     { key: 'kecap manis', value: 260, date: '30 Jul 2026' },
     { key: 'old thing',   value: 10,  date: null, grandfathered: true }
   ]};
+
+  // ── 🩸 THE LAMB PROOFS, added 2 Aug 2026 ────────────────────────────────────
+  // Born-RED against the exact failure that sent Tina back to the shops. On 2 Aug
+  // `--ask lamb` printed "✅ GENUINELY ABSENT" while prices.js held fourteen lamb keys.
+  // ⚖️ These proofs exist so that verdict can never be printed again while the word is keyed.
+  const lambish = [
+    { key: 'lamb loin chops',    value: 255, line: 216, comment: 'src:online' },
+    { key: 'lamb neck',          value: 170, line: 223, comment: 'src:online' },
+    { key: 'leg of lamb',        value: 205, line: 221, comment: 'src:online' },
+    { key: 'lamb potjiekos',     value: 150, line: 226, comment: 'src:Shoprite/PnP conf:shelf' }
+  ];
+  t('LAMB: a single word finds every key that contains it (14 in the real file)',
+    relatedKeys('lamb', lambish).length === 4);
+  t('LAMB: it finds the word mid-key too — "leg of lamb", not just a lamb-* prefix',
+    relatedKeys('lamb', lambish).some(p => p.key === 'leg of lamb'));
+  t('LAMB: plural tolerance survives — "knuckles" finds the key, and back again',
+    relatedKeys('knuckle', [{ key: 'lamb knuckles', value: 200, line: 227, comment: '' }]).length === 1);
+  t('LAMB: the 30 Jul discipline is INTACT — a related key is NOT an exact match',
+    termMatchesKey('lamb', 'lamb loin chops') === false);
+  t('LAMB: and the peanut false positive it was built to stop STAYS stopped',
+    termMatchesKey('peanut', 'peanut sauce') === false);
+  t('LAMB: a word in no key at all is still honestly absent',
+    relatedKeys('rambutan', lambish).length === 0);
 
   // 0 — CONTROL. A checker that fails everything proves nothing.
   t('CONTROL: an attributed key WITH a ledger entry passes',
