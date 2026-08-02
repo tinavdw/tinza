@@ -577,6 +577,19 @@ const PRICE_DB = {
   "tapioca starch": 70,      // R35/500g. TINA-SOURCED (MF152 ADD list), applied 30 Jul 2026.
                              // ⚠️ Not interchangeable with `cornflour` R68 in either direction even
                              // though the numbers are close — Warabimochi v3 names it specifically.
+  "sago": 56,                // R28/500g. TINA-SOURCED, applied 1 Aug 2026.
+                             // ⚖️ WHY THIS WAS MISSING FOR SO LONG: `wk_southafrica.js` was not in
+                             // pricecheck.js's COUNTRIES list, so 131 SA records sat outside every
+                             // price watcher. `boerekos-sagopoeding` ships with `25g sago (soaked)`
+                             // and it has been costing R0. Law 20: a price that vanishes is a harm.
+                             // ✅ §2 REGRESSION RUN BEFORE ADDING: the only ingredient line in the
+                             // whole corpus this moves is that one. All five `tapioca starch` lines
+                             // (Bakso · Bika Ambon · Es Cendol · Kue Lapis · Har Gow) are untouched,
+                             // and sagopoeding carries no versions[] and therefore no costPP, so
+                             // NOTHING in any ledger moves. Measured, not assumed.
+                             // ⚠️ NOT the same product as `tapioca starch` R70 — sago is palm-trunk
+                             // starch, tapioca is cassava root. Kue Lapis's trivia argues this out.
+                             // They substitute for each other in a steamer; they are not one key.
   "bamboo shoots": 136,      // R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.
                              // ⚠️ Priced on DRAINED weight, which is lower than the tin weight —
                              // a card writing 60g means 60g drained, so this is the honest per-kg.

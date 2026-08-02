@@ -36,7 +36,15 @@ const COUNTRIES = {
   japan:     { varName: 'WK_JAPAN',     file: 'wk_japan.js' },
   indonesia: { varName: 'WK_INDONESIA', file: 'wk_indonesia.js' },
   thailand:  { varName: 'WK_THAILAND',  file: 'wk_thailand.js' },
-  vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' }
+  vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' },
+  // 🆕 ADDED 1 Aug 2026. ⚖️ THIS FILE WAS NEVER IN THE LIST, AND THAT IS WHY `sago` WAS ABSENT
+  // FROM prices.js WHILE A SHIPPED RECORD USED IT. 131 SA records sat outside every price
+  // watcher — pricecheck, and therefore coverage — since the day this tool was written.
+  // The Asia lane got a mechanical rung and the home file did not. Same shape as the tierBar
+  // lesson this file opens with: a silent hole needs a watcher, not sharper eyes.
+  // ⚠️ HONEST LIMIT: wk_southafrica.js is NOT ledger-tracked the way the Asia files are, so
+  // this brings it under pricecheck only. costcheck still has nothing to score it against.
+  southafrica: { varName: 'WK_SOUTHAFRICA', file: 'wk_southafrica.js' }
 };
 
 const REPO_ROOT = process.env.TINZA_REPO || __dirname;

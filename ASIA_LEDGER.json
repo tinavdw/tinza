@@ -1,0 +1,29 @@
+{
+  "note": "Record count + content fingerprint per country at the last successful merge. merge.js REFUSES to write on a count mismatch (a record appearing or vanishing outside a merge) and WARNS on hash drift with an unchanged count (a legitimate prose edit). Derived by merge.js, never hand-typed.",
+  "countries": {
+    "indonesia": {
+      "records": 42,
+      "hash": "4bb01006b269b17d",
+      "updated": "2026-07-31",
+      "lastBatch": "empty.js"
+    },
+    "china": {
+      "records": 50,
+      "hash": "71fef4c12c88fcd0",
+      "updated": "2026-07-30",
+      "lastBatch": "t.js"
+    },
+    "japan": {
+      "records": 50,
+      "hash": "63e5d34808e2fe62",
+      "updated": "2026-07-30",
+      "lastBatch": "t.js"
+    },
+    "thailand": {
+      "records": 31,
+      "hash": "69549a16a9f6da7a",
+      "updated": "2026-08-01",
+      "lastBatch": "batch31.js"
+    }
+  }
+}

@@ -1117,6 +1117,105 @@ Both greenfielded across the whole corpus on 1 Aug and both came back with **zer
 
 ---
 
+## 4f · ▶️ B10 — OPENED 1 AUG 2026 · ONE RECORD, ONE BANK
+
+| # | dish | id | course | costPP (engine-derived) |
+|---|---|---|---|---|
+| 31 | Rad Na | `thailand-rad-na` | main | R39 · R45 · R85 |
+
+⚖️ **RULED BY TINA at session open: Rad Na and Pu Phad Pong Karee may start at the writing** —
+both moats were already greenfielded and banked at B9 close. **Pu Phad Pong Karee is NOT written.
+It is the next record and its moat is still unspent.**
+
+### ⛔ LEAD NOW SPENT
+**Rad Na:** *the gravy is thinner MOVING than STILL, so you judge it at the exact moment it lies
+to you* — a shear-thinning cornflour gel reads thin in the pan and sets to a slab on the plate.
+⚖️ **The card gives a stationary test with a number: off the heat, drag the spoon through and
+count. Closes before "one" = too thin. Still open at "three" = glue. THE ANSWER IS TWO.**
+**+ noodles blistered SEPARATELY and the gravy never meets their pan** — one plate, two dishes,
+deliberately not married (this is also what keeps it clear of the struck Pad See Ew: the char is
+not the lead, the gravy is) **+ velveting uses 3g of the cornflour and the gravy uses 15g, measured
+apart, the same powder doing two jobs** **+ slurry in at a BARE simmer, in halves, and then STOP —
+a set cornflour gravy beaten or boiled hard thins permanently and does not come back.**
+⚖️ **THE IRREVERSIBLE THINNING IS THE CARD'S SECOND HALF and is written as distinct from the
+reversible shear-thinning of the lead.** ⛔ Gelatinisation is **Kluay Tod's** and amylose /
+rice-vs-mung starch is **Yam Woon Sen's** — this card touches neither and defers by silence.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **rheology / shear-thinning**
+*(Rad Na — shear-thickening cornflour is the party trick everybody has met; shear-THINNING is the
+one that runs the world. Non-drip paint is thin under a brush and thick the moment it leaves.
+Ketchup. ✅ **And blood** — red cells stack into rouleaux at rest and the stacks break apart under
+shear in narrow vessels, so it thins exactly where thick blood would be dearest to push.
+⚠️ Fair correction written in: **shear-thinning is rate-dependent, thixotropy is TIME-dependent**,
+and paint tins claim the second while mostly doing the first.)*
+
+### 🩸 A MOAT ADJACENCY THE B9 GREENFIELD MISSED — AND WHY IT MISSED IT
+🔴 **`non-Newtonian` IS ALREADY IN THE CORPUS.** `sections/spice.js`, the tahini story card:
+*"tahini is a non-Newtonian fluid, so it stiffens the harder you stir it."*
+⚖️ **The B9 scan that declared this moat clear only grepped `wk_*.js`.** Same shape as the Ovos
+Moles scar at record 28 — **a REGISTER is lane-wide, but a FACT is corpus-wide, and the corpus is
+not only the wk files.** ✅ **Assessed, not waved away:** the tahini line is one passing clause,
+names no mechanism, and is the OPPOSITE direction (thickening). Rad Na uses shear-thickening as its
+setup and owns shear-thinning as its payoff, so the card is stronger for the contrast existing.
+⚠️ **But if it reads as a re-tread, that is Tina's call.**
+⚖️ **RULE TO CARRY: greenfield every moat against `sections/*.js`, not `sections/wk_*.js`.**
+
+### ⚠️ A3 FIRED FOR REAL AND THE FIRST DRAFT WAS WRONG
+The budget fork was authored as **Rad Na Jay (tofu)** and came back from the engine at **R57
+against the pork default's R45** — a "Budget" fork **R12 DEARER** than the dish it forks.
+🩸 **Cause: `tofu` R171/kg is well above `pork fillet` R110/kg. Tofu is not a thrift protein in SA.**
+⛔ **NOT fixed by trimming quantities to manufacture a gap.** ✅ Fixed by replacing the fork with
+**Rad Na Kai — Egg**, which is the honest cheap version here, and the version's own trivia now says
+out loud that tofu is a preference rather than a saving.
+⚠️ **SECOND PASS NEEDED TOO:** the egg fork first landed at **R43 vs R45 — a R2 gap**, because a
++40g broccoli bump was quietly eating the saving. ⚖️ **A fork labelled Budget that saves R2 is a
+claim the card should not make** (the §4e Khao Tom concern, hit again). The broccoli increase was
+struck and the delta now argues **more bite from the same 90g**, not more weight. **Final R39 · R45 · R85.**
+
+### 🔴 NEW LANDMINES CONFIRMED, RECORD 31
+| write this | ⛔ NEVER write | resolves to |
+|---|---|---|
+| `broccoli` R100 *(and say "stems" in method)* | 🔴 `gai lan` | **ABSENT** |
+| `broccoli` R100 | 🔴 `chinese broccoli` | → `broccoli` R100 *(via — works, but it is a different vegetable and the card must say so)* |
+| `broccoli` R100 | 🔴 `chinese kale` | → **`kale` R87 — a different plant, silently** |
+| `birds eye chillies` R100 | 🔴 `chillies` | → **R1 PER COUNT** · 🔴 `red chillies` **ABSENT** |
+| `cornflour` R68 | 🔴 `corn flour` *(spaced)* | → `maize meal` R19 — **re-confirmed live** |
+| — | 🔴 `salted soybeans` · `soybean paste` · `yellow bean sauce` · `miso` | **ALL ABSENT** — tao jiew is built around and the card says so out loud (§33, the Sup Nor Mai precedent) |
+| — | 🔴 `green peppercorns` | **ABSENT** |
+🆕 ✅ **`neutral oil` NOW RESOLVES → `sunflower oil` R48.** The lane memory had it as absent and
+unaliased; it has been fixed since. **The landmine list in §2 is stale on this one line.**
+⚠️ `dark soy sauce` → `soy sauce` R236 · `pork shoulder` → `pork` R110 · `spring onions` →
+`spring onion` R200 · `wide rice noodles` and `fresh rice noodles` both → `rice noodles` R45 ✅.
+
+### ⚙️ A MERGE ASSERTION MET FOR THE FIRST TIME
+🔴 `DEAD addIng anchor — 'after' is not in ingredients`. The seafood fork anchored
+`60g calamari rings` after `100g prawns` — **but `100g prawns` is created by that same version's
+own swapIng, so it does not exist in the BASE string merge validates against.**
+⚖️ **`after` must always name a BASE ingredient line, never one a delta introduces.**
+
+### ✅ ALL GATES GREEN, RECORD 31
+`/all` — 0 red · 0 drift · 4 hygiene *(pre-existing corpus items, none this record)* ·
+`costcheck` **93/93** · `pricecheck` **exact 99 · absent 0** *(4 🟠 REVIEW, all previously accepted)* ·
+`wowcheck` every mechanical box · `tinza-echo` 0 echo · 0 mascot · 0 locale · 0 gloss ·
+🟡 LECTURE clean *(trivia pre-checked at **228 words**, bar 267)*.
+`unitcheck` standalone, NOT wired — **31 scanned · 🔴 0 · 9/9 self-tests.**
+📒 ledger `31 · 69549a16a9f6da7a`
+
+### ✅ COURSE BALANCE AFTER 31 — COUNTED, NOT ASSUMED
+`main 13 · side 4 · dessert 4 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+⚠️ **Mains are now 13 of 31.** Pu Phad Pong Karee is a fourteenth. ⚖️ **Tina's call whether it goes
+next or whether the shelf gets a correction first.**
+
+### ▶️ NEXT RECORD — **PU PHAD PONG KAREE**, MOAT BANKED AND STILL UNSPENT
+✅ Prices re-probed live 1 Aug and all clean: `crab` R400 · `crab meat` R660 · `curry powder` R300 ·
+`evaporated milk` R100 · `eggs` R3.70/count · `celery` R27 · `onions` R27 · `milk` R20 ·
+`condensed milk` R119 · `butter` R160 · `cornflour` R68.
+🔴 **`crab sticks` R120 IS A SEPARATE LIVE KEY — write `crab`.** ⚖️ Moat: *a marine animal as a
+laboratory reagent* (horseshoe crab blood, LAL endotoxin testing, the synthetic Factor C argument).
+⚠️ Honest weakness already recorded: a horseshoe crab is not a crab.
+
+---
+
 ## 4z · ▶️ HANDOFF — THREE DECISIONS WAITING FOR TINA (written 1 Aug 2026, at B8 close)
 
 ⚖️ **NONE OF THESE WERE ACTIONED, DELIBERATELY.** Each is a ruling or a live-surface change.
@@ -1208,3 +1307,35 @@ write batch  →  node --check
 11. 🆕 `eggplant` R43 and `brinjal` R43 are **both live keys** for one product. Harmless (same price)
     and now unused by any record, but it is the `mushroom`/`mushrooms` shape. **Needs a ruling before
     either is deleted.**
+12. 🆕 ⚖️ **`wk_southafrica.js` IS NOW IN `pricecheck.js` — ADDED 1 AUG 2026, AND THE FIRST RUN IS
+    A FINDING, NOT A CLEAN BILL.** 131 SA records had sat outside every price watcher since the
+    tool was written. ⚖️ **This is how `sago` came to be ABSENT from `prices.js` while
+    `boerekos-sagopoeding` shipped with `25g sago (soaked)` costing R0.** ✅ Now keyed at
+    **`sago` R56** *(R28/500g, Tina-sourced 1 Aug)*. §2 regression run BEFORE adding: it moves
+    that one ingredient line and nothing else corpus-wide, and sagopoeding carries no `versions[]`
+    and therefore no `costPP`, so **no ledger moved.** costcheck on china · japan · indonesia ·
+    thailand was identical before and after, line for line.
+    🔴 **FIRST SA RUN: `exact 192 · wrong-product risk 131 · absent 30`.** ⚠️ Roughly half the 30
+    are parser artefacts of the §4z-#1 kind — `oil for deep-frying` · `spices` · `fresh herbs` ·
+    `yields ≈130g flesh)`. **The rest are real and one is startling:**
+    ⛔ **`lamb` IS ABSENT while `mutton` R180 IS LIVE.** It hits `boerekos-sosaties` ·
+    `boerekos-waterblommetjiebredie` · `boerekos-karoo-lamb-chops` · `indian-lamb-biryani` ·
+    `cape-malay-denningvleis` · `cape-malay-tomato-bredie` · `boerekos-cabbage-bredie` ·
+    `zulu-inyama-namadombolo`. Also absent: `millet` · `aniseed` · `cayenne` · `vanilla` ·
+    `creme fraiche` · `sheep head` · `tinned caramel` · stock cubes.
+    🔴 **AND A SILENT WRONG PRODUCT, THE VERMICELLI SHAPE AGAIN:**
+    **`tinned pilchards in tomato sauce` → `tomato sauce` R60** — the fish priced as the sauce.
+    ⚖️ **A7: all of the above are DEFERRED, not guessed. Tina's eyes on the shelf.**
+    ⚠️ **HONEST LIMIT:** this brings SA under `pricecheck` only. It is not ledger-tracked, so
+    `costcheck` still has nothing to score it against.
+13. 🆕 ⚠️ **`tapioca flour` IS THE SAME PRODUCT AS THE KEYED `tapioca starch` R70** *(Tina-sourced
+    at R35/500g, 30 Jul)*. It wants an **ALIAS, not a second key.** ⛔ **NOT ADDED — HELD.**
+    ⚖️ Tina quoted R39–R73 per 500g on 1 Aug, which is **R78–R146/kg — a range sitting entirely
+    ABOVE the banked R70/kg.** Either the 30 Jul price is stale or the range is small-pack. Moving
+    it would shift costPP on five shipped records across three countries *(Bakso · Bika Ambon ·
+    Es Cendol · Kue Lapis · Har Gow)* — a measured job. **Needs ONE number per kg from Tina.**
+    ⚠️ The quoted source was a US retailer, so under A7 it cannot set a South African shelf price.
+14. 🆕 🔴 **`core.js` line 1383 carries `"tapioca starch":"cornflour"` in the alias map** while
+    `prices.js` holds the direct Tina-sourced key. The direct key wins, so nothing is broken today
+    — but **a redundant alias pointing a SOURCED key at a different product is a trap** for whoever
+    later deletes the direct line. Same family as `eggplant`/`brinjal` in item 11. **Needs a ruling.**
