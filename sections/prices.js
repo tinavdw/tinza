@@ -614,6 +614,17 @@ const PRICE_DB = {
   "bamboo shoots": 136,      // R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.
                              // ⚠️ Priced on DRAINED weight, which is lower than the tin weight —
                              // a card writing 60g means 60g drained, so this is the honest per-kg.
+  "water chestnuts": 152,    // R86 per 567g can -> R152/kg. TINA-SOURCED 2 Aug 2026: her band was
+                             // R69-R86 for a 567g tin (Sun Phoenix and similar). §31.1 says lean high
+                             // and do not centre, so the TOP of her band is taken, then §31 rounds up.
+                             // ⚖️ ARITHMETIC MATCHES THE `bamboo shoots` PRECEDENT EXACTLY: price divided
+                             //    by the weight printed on the tin. A card writing 60g means 60g drained.
+                             // ⚠️ OPEN, NON-BLOCKING: if a tin prints a SEPARATE drained weight well under
+                             //    567g, this key is understated and so is bamboo shoots. Both would move
+                             //    together, in one pass, never key by key. Worth an eyeball next shop.
+                             // ⛔ PLURAL KEYED DELIBERATELY — a recipe writes "60g water chestnuts". The
+                             //    singular is aliased below so neither spelling can fall through to nothing.
+  "water chestnut": 152,
   "red bean paste": 120,     // R49–60 per 400–500g → ~R120/kg. TINA-SOURCED, applied 30 Jul 2026.
                              // ⛔ NEVER alias to dried azuki beans: one is a finished sweetened paste,
                              // the other the raw pulse, and the from-scratch route is cheaper BY DESIGN.

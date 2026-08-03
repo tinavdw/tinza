@@ -1,0 +1,95 @@
+%% TINZA + FERMENTASTIC — session flowchart
+%% 02–03 Aug 2026 · Thailand closed at 38 · Vietnam wired · lamb aliases fixed · FAQ 41 written
+
+flowchart TD
+
+  START(["Session 02–03 Aug 2026"]) --> TINZA
+  START --> FERM
+
+  %% ══════════ TINZA ══════════
+  subgraph TINZA["🍲 TINZA"]
+    direction TB
+
+    T0["🩸 OPENED ON 2 REDS the handoff said were 0<br/>last session wrote both reference files to REPO ROOT<br/>tools read reference/ → SPLIT-BRAIN + 5 unprovable prices<br/>FIXED · DRIFT SCORE 3 → 0"]
+
+    T1["✅ SIX RECORDS · Thailand 32 → 38<br/>33 Oliang · 34 Khanom Jeen · 35 Miang Kham<br/>36 Kua Kling · 37 Tub Tim Grob · 38 Moo Sarong"]
+    T2["✅ /all GREEN ×6 · costcheck 115/115<br/>pricecheck 117 EXACT<br/>claimcheck 🔴0 · 🟠11 · 🔵20<br/>🟠 finished where it started"]
+    T3["⛔ 11 dishes STRUCK with reasons<br/>3 re-proposed dishes ALREADY EXISTED"]
+    T4["🇹🇭 THAILAND CLOSED AT 38"]
+    T5["🇻🇳 VIETNAM WIRED EMPTY<br/>all 3 wiring lines live · 0 records"]
+
+    T6["🐑 LAMB — found the 12 Jul ruling, it was never neck<br/>every PRICE landed · the ALIAS LAYER never did<br/>✅ 7 aliases fixed, all pre-ruled:<br/>lamb chops→shoulder chops · cubes→leg of lamb<br/>pieces/chunks/on-the-bone→potjiekos · shin→shank"]
+    T7["🔴 KILL LAST: bare lamb→lamb neck still live<br/>19 bare lines across 4 lanes must be named FIRST"]
+
+    T0 --> T1 --> T2 --> T3 --> T4 --> T5
+    T4 --> T6 --> T7
+  end
+
+  %% ══════════ RULINGS ══════════
+  subgraph RULED["⚖️ RULINGS TAKEN"]
+    direction TB
+    R1["§37 Budget is a CLAIM, not a category"]
+    R2["§26 vegan vs vegetarian per fork"]
+    R3["a claim can be arithmetically right<br/>and false on the card"]
+    R4["⭐ VERSION SETS VARY THE DISH, NOT THE ANIMAL"]
+    R5["⭐ GREENFIELD THE ARGUMENT, NOT THE NOUN"]
+    R6["chillies by GRAM, not count<br/>→ kills §4z item 4 outright"]
+    R7["UK = 4 SEPARATE LANES under W. Europe<br/>merging = too much clicking"]
+    R8["every country needs starter/side/main/dessert<br/>drinks may sit under dessert"]
+    R9["Italy = MERGE BEFORE BUILD<br/>sharedWith, same as bobotie"]
+  end
+
+  %% ══════════ FERMENTASTIC ══════════
+  subgraph FERM["🫙 FERMENTASTIC"]
+    direction TB
+    F1["41-question FAQ WRITTEN IN FULL<br/>not a question list — finished answers"]
+    F2["facts pulled from the live site<br/>Courier Guy · Mon/Tue dispatch · real prices"]
+    F3["✅ delivery R150 economy / R220 express<br/>flat to 6 jars · economy free over R1000"]
+    F4["✅ farm collection REMOVED — the dirt road"]
+    F5["✅ locker-to-locker OFFERED<br/>condition: collect the SAME DAY"]
+    F6["📄 split into 5 .txt paste blocks<br/>Sidekick rejects file uploads entirely"]
+    F1 --> F2 --> F3 --> F4 --> F5 --> F6
+  end
+
+  %% ══════════ OPEN ══════════
+  subgraph OPEN["🟡 STILL OPEN"]
+    direction TB
+    O1["TINZA · chilli-gram sweep<br/>incl. Miang Kham + Kua Kling written today"]
+    O2["TINZA · 19 bare lamb lines to name, then kill the alias"]
+    O3["TINZA · 11 pre-existing 🟠 unanchored cost claims"]
+    O4["TINZA · wkCourseToTab sends soup → Mains tab"]
+    O5["TINZA · tinned drained weight<br/>water chestnuts + bamboo move together"]
+    O6["FERM 🔴 homepage health claims<br/>Let Food be thy Medicine · boost your immune system<br/>THE ONE WITH REAL LEGAL RISK"]
+    O7["FERM · meta description identical sitewide<br/>and contains a health claim"]
+    O8["FERM · locker rate must EXIST at checkout"]
+    O9["FERM · Google Business Profile — free, highest off-site lever"]
+    O10["FERM · basket size, not delivery price<br/>R150 on one R140 jar reads badly"]
+  end
+
+  %% ══════════ NEXT ══════════
+  subgraph NEXT["▶️ NEXT SESSION"]
+    direction TB
+    N1["clone · read reference/THAILAND_COLD_START.md FIRST<br/>§4l §4m §4n §4o are this session"]
+    N2["count with node · never by eye"]
+    N3["node tinza-all.js thailand<br/>expect 38 · 0 red · 0 drift · 🔴0 🟠11 🔵20"]
+    N4["priceledger.js --ask BEFORE any price question"]
+    N5{"THEN: Vietnam or Italy?"}
+    N1 --> N2 --> N3 --> N4 --> N5
+  end
+
+  T5 --> N1
+  T7 --> O2
+  F6 --> O8
+  R6 --> O1
+
+  classDef found fill:#f7e9e9,stroke:#a85454,color:#4d1f1f
+  classDef done  fill:#e8f3ec,stroke:#4a7c59,color:#1f3d2b
+  classDef rule  fill:#f4ecdd,stroke:#9c7a3c,color:#4a3a1a
+  classDef open  fill:#fdf1e0,stroke:#c98a2e,color:#5c3d0c
+  classDef next  fill:#e9eff6,stroke:#4a6d8c,color:#1e3348
+
+  class T0,T3,T7 found
+  class T1,T2,T4,T5,T6,F1,F2,F3,F4,F5,F6 done
+  class R1,R2,R3,R4,R5,R6,R7,R8,R9 rule
+  class O1,O2,O3,O4,O5,O6,O7,O8,O9,O10 open
+  class N1,N2,N3,N4,N5 next

@@ -1216,6 +1216,612 @@ laboratory reagent* (horseshoe crab blood, LAL endotoxin testing, the synthetic 
 
 ---
 
+## 4g · ▶️ B10 CONTINUED — RECORD 32 BANKED 2 AUG 2026
+
+| # | dish | id | course | costPP (engine-derived) |
+|---|---|---|---|---|
+| 32 | Pu Phad Pong Karee | `thailand-pu-phad-pong-karee` | main | R46 · R97 · R151 |
+
+### ⛔ LEAD NOW SPENT
+**Crab is sold ALIVE or FROZEN and nothing in between, because a dead crab digests itself.**
+Gut proteolytic enzymes are contained while the animal lives and are not once it dies; they work
+on its own muscle within hours at room temperature. ✅ **So a frozen whole crab is not a
+compromise on a live one — it is the same animal with the clock stopped**, and every step follows
+from that one fact rather than from a rule. **+ THE THAW IS A COOKING STEP: 12 hr on a rack in the
+fridge, ⛔ never water, never the counter — a fast thaw warms the OUTER meat back into the enzyme
+range while the core is still ice, and that is the soft ammoniac crab everyone blames on the shop**
+**+ clean it HALF-FROZEN so the gills and stomach sac come away whole instead of shredding**
+**+ crack every joint BEFORE cooking, then lid on for 5 min so steam gets INSIDE the shell — the
+cracking and the lid are one idea** **+ bloom the curry powder 60–90 sec in fat, where the colour
+of the finished plate is decided** **+ celery in at the last 20 sec, the only crisp thing on the plate.**
+
+### ⛔ REGISTER SPENT — **a marine animal as a laboratory reagent**
+*(horseshoe crab: not a crab at all but a chelicerate, nearer spiders than crustaceans · blue blood
+on copper · amebocytes clotting around bacterial endotoxin at parts per trillion · LAL the world
+standard since 1977 for everything injected into a human · ~500,000 bled a year, disputed mortality ·
+✅ recombinant Factor C exists since ~2003 and works, adoption slow because revalidating a
+pharmaceutical test is expensive and nobody wants to go first.)*
+⚖️ **The banked "honest weakness" — a horseshoe crab is not a crab — was turned into the OPENING
+LINE rather than buried.** The hop from pan to moat is the hook, not the flaw.
+
+### 🩸 THREE LEADS WERE ALREADY SPENT, AND ONE OF THEM I SPENT MYSELF
+🔴 **EGG RIBBONS — spent by ME, at record 31, in the SAME SESSION.** `Rad Na Kai` (the budget fork)
+argues beaten egg poured from a height into a moving pan stretching into ribbons, and its
+`howThisFeels` says exactly that. **A VERSION DELTA SPENDS A LEAD AS SURELY AS A RECORD DOES.**
+✅ Handled by making record 32 the deliberate OPPOSITE — off the heat, poured round the edge,
+15 sec untouched, then **four or five LARGE SLOW FOLDS. Folds, not ribbons**, with Rad Na named in
+the text so a reader meeting both learns the contrast rather than reading it twice.
+🔴 **EVAPORATED MILK — spent by Cha Yen, in-country, two records away.** Cha Yen owns the
+condensed-vs-evaporated argument outright. Record 32 defers to it by name in `chefNotes` and does
+not re-argue it. 🔴 **"the Thai curry with no coconut milk"** — 7 hits corpus-wide. Not clear.
+🩸 **AND THE FIRST LEAD I PROPOSED WAS FACTUALLY WRONG.** I asserted *"you cannot buy a live crab in
+Pretoria, so every crab has already been cooked once."* ⛔ **Tina corrected it: frozen WHOLE RAW crab
+is easy to buy at Pretoria seafood shops and she has made crab curries for years.** The premise was
+two assumptions stacked and the second was invented. ⚖️ **RULE: do not reason from a city to a shelf.
+Ask. Tina has been to the shop.** ✅ The correction produced a better lead than the wrong one did.
+
+### ⚠️ A3 FIRED AGAIN, AND THIS TIME IT CAUGHT A FACTUAL ERROR IN THE PROSE
+First draft: `180g crab meat`, engine **R150 against the whole-crab default's R151** — while the
+version's own trivia claimed picked meat *"costs more than the shell-on one."* ⛔ **The card
+contradicted its own derived number.** ⚖️ Working the arithmetic out properly inverted the claim:
+**a whole crab is roughly a quarter to a third edible, so `crab` R400/kg is nearer R1400/kg of
+actual meat, against `crab meat` R660/kg — picked meat is about HALF the price per gram of food.**
+🩸 The 180g portion was also wrong on yield: 300g whole crab gives ~84g of meat, so the honest
+equivalent is ~100g, not 180g. ✅ Portion corrected, trivia rewritten around the true arithmetic
+*(the premium is an illusion produced by weighing the packaging; what the shell buys is steam,
+sauce-holding and PACE, not value)*, versions reordered ascending **R46 · R97 · R151**.
+⚖️ **THE COSTCHECK NUMBER CAUGHT A PROSE ERROR THAT NO VOICE WATCHER WOULD HAVE SEEN.**
+
+### ✅ THREE CRAB KEYS NOW FULLY SOURCED — TINA, 2 AUG
+| key | banked | Tina's sourced evidence | ruling |
+|---|---|---|---|
+| `crab meat` | **R660** | blue crab meat 250g R165 → **R660/kg exactly** | ✅ correct to the rand |
+| `crab` | **R400** | R150–395/kg *(Checkers ~R250 · clusters R350–395/pack)* **and** R130–320/kg | ✅ clears the top of BOTH ranges — §31.1 |
+| `crab sticks` | **R120** | ~R100/kg | ✅ above, as §31.1 wants |
+⚖️ **`crab` R400 LOOKED like a 60% over-charge against the R250 supermarket figure and I nearly cut
+it. That would have been a §31.1 violation** — the ruling says lean high and do not centre, and a
+caterer buying Namibian golden clusters pays R395/kg. ⚠️ **TRIGGER RECORDED IN THE KEY: if a third
+source lands below R320, R400 stops being a lean and becomes an over-charge. Revisit then.**
+🩸 **`crab` and `crab meat` both carried NO provenance at all** before today — no src/when/conf —
+and `crab meat` turned out right to the rand anyway. ⚖️ **AN UNDOCUMENTED PRICE IS A REAL DEFECT
+EVEN WHEN THE NUMBER IS CORRECT, because nobody downstream can tell a checked figure from a lucky
+one.** The fix was the comment, not the number.
+
+### ✅ ALL GATES GREEN, RECORD 32
+`/all` **0 red · 0 drift · 4 hygiene** *(pre-existing)* · `costcheck` **96/96** ·
+`pricecheck` **exact 101 · absent 0** · `unitcheck` standalone **32 scanned · 🔴 0** ·
+🟡 LECTURE clean *(record trivia 229 of bar 267; versions 144 · 191 · 156)*.
+📒 ledger `32 · 0593e4586a8b6598`
+
+### ⚠️ COURSE BALANCE AFTER 32 — COUNTED
+`main 14 · side 4 · dessert 4 · salad 3 · starter 3 · soup 2 · drink 1 · staple 1`
+⚖️ **Mains 14 of 32 = 44%.** Measured against the closed lanes this is still healthy — China closed
+at **64%**, Indonesia at **45%**, Japan at **22%**. ⚠️ **But `staple` is 1 and `drink` is 1, and
+those are now the thin shelves, not mains.** Next record should probably not be a main.
+
+---
+
+## 4h · 🆕 `claimcheck.js` — BUILT 2 AUG 2026 · THE WATCHER FOR PROSE
+
+⚖️ **WHY:** two fabricated claims reached record 32 in one session. One was caught by TINA;
+the other by `costcheck`, **and only by luck, because the claim happened to sit next to a number
+the engine derives.** Three paragraphs further away and nothing in this repo would have seen it.
+🩸 **BOTH HAD ONE SHAPE: the lead was chosen first and the supporting fact was generated to fit
+it.** From the inside a fabricated fact is indistinguishable from a recalled one — there is no
+flag on it — so a fix that depends on the author noticing is not a fix.
+⚖️ **THE GAP: every watcher in this repo checks NUMBERS.** pricecheck→keys · costcheck→costPP ·
+unitcheck→R0 · wowcheck→shape · tinza-echo→voice. **Nothing checked whether a SENTENCE was true.**
+
+**WHAT IT DOES — two detectors, and only one of them is allowed to fail.**
+🔴 **A · CONTRADICTION.** (1) A version claiming it costs MORE/LESS than a *named* other version,
+checked against the derived `costPP`. (2) A version labelled `(Budget)` that is not the cheapest
+on its record — the A3 shape that fired twice by hand on 1–2 Aug. (3) A card asserting an
+ingredient cannot be bought while **the app's own `wkPriceLookup()` returns a live price for it.**
+🔵 **B · AVAILABILITY CLAIMS — PRINTED, NEVER FAILED.** §33 and the Sup Nor Mai precedent *want*
+cards to say out loud when something is not on an SA shelf. ⛔ *"Gai lan is not sold in SA"* and
+*"sago is not sold in SA"* look **identical** to this tool — both absent keys, both pass.
+⚖️ **So it prints them and hands the list to Tina.** A watcher that pretended to judge these would
+be committing the exact error it was built to catch. Same rule as `pricecheck`: it does NOT
+reimplement lookup, it loads the real gate in a sandbox and calls the app's own function.
+
+### 🩸 I AUDITED MY OWN TOOL AND IT HAD TWO FALSE POSITIVES. BOTH ARE NOW REGRESSION PROOFS.
+🔴 **`thailand-som-tam`** was failed for *"cannot find green papaya at all"* — but the sentence
+begins ***"IF** you cannot find green papaya at all…"*. ⛔ **A CONDITIONAL IS NOT AN ASSERTION.**
+The card was telling you what to do when YOUR shop is out. Now guarded by a look-back for
+`if · unless · should · where · when · in case`.
+🔴 **Record 32's CHICKEN fork** was failed for reading as "the expensive one" — the sentence is
+*"Crab is the famous one and the expensive one"*, about crab, not about itself. ⚖️ **A comparative
+with no resolvable `than X` CANNOT BE ATTRIBUTED to the version that happens to contain it.**
+Demoted from 🔴 to 🟠 NOTE.
+⚠️ **AND A THIRD, IN THE TOOL ITSELF:** the record-32 born-RED proof failed on first run because
+`shell` and `crab` were in my STOPWORDS list — **the only two words that told the versions apart.**
+⛔ **A stoplist may hold grammar words. It must never hold DOMAIN words, because the domain word
+is always the one carrying the match.**
+
+### ✅ FIRST FULL SWEEP — AFTER THE AUDIT
+| lane | 🔴 | 🟠 | 🔵 | records |
+|---|---|---|---|---|
+| **thailand** | **0** | 11 | 13 | 32 |
+| indonesia | 3 | 11 | 12 | 42 |
+| japan | 7 | 6 | 7 | 50 |
+| china | 6 | 4 | 6 | 50 |
+| southafrica | 2 | 0 | 0 | 131 |
+✅ **Thailand is 0 red — records 31 and 32 are clean.** `--selftest` **12/12** (5 born-RED + 7 anti).
+⚠️ **18 REDS ACROSS THE CLOSED LANES, ALL PRE-EXISTING, NONE MINE. NOTHING FIXED — TINA RULES.**
+🔴 **15 are A3 budget-not-cheapest**, and two are large enough to be worth looking at first:
+`china-da-pan-ji` Budget **R280** while its free-range/lamb version is **R62**, and
+`china-staple-master-stock` Budget **R129** against a default of **R15** *(a starter batch genuinely
+costs more up front — this may be a mislabelled fork rather than a mispriced one)*.
+Also japan ×7, china ×6, southafrica ×2 *(cape-malay-frikkadels · indian-dhal-curry, both by R2–4)*.
+🔴 **3 are availability contradictions in Indonesia** — `urap-urap` · `ayam-betutu` · `ayam-taliwang`
+each assert an ingredient is unbuyable while the engine prices it.
+⚖️ **A3 was amended once already (50 → target, not gate). If "Budget" is allowed to mean
+"cheaper than the DEFAULT" rather than "cheapest on the record", say so and I will relax the check
+— right now it enforces the strict reading.**
+
+### 🆕 SCHEMA DIFFERENCE FOUND ON THE FIRST SA RUN
+🔴 **`wk_southafrica.js` carries `leftovers` as a STRING; the Asia files carry it as an ARRAY.**
+The tool crashed on it. ⛔ **A watcher that crashes on a real file is a watcher nobody runs on that
+file — which is exactly how SA stayed outside `pricecheck` for months.** Now tolerates both.
+
+### ⏸️ NOT WIRED INTO `/all` YET — DELIBERATE
+Standalone first, like `unitcheck`, until Tina has seen what it catches and ruled on the 18.
+**Wiring a watcher that reports 18 reds on already-closed countries would turn `/all` red on every
+run and train everyone to ignore it.** Law 62 stays at six standards until Tina says otherwise.
+
+---
+
+## 4i · ▶️ RECORD 33 — PREPPED 2 AUG, NOT WRITTEN. OPEN THE NEXT CHAT AT THE WRITING.
+
+⚖️ **DISH: OLIANG (โอเลี้ยง) — Thai iced black coffee. COURSE: `drink`.**
+✅ **WHY THIS ONE:** `drink` is at **1 of 32** and `staple` at **1**. Mains are 14/32 = 44%, which
+measures HEALTHY against the closed lanes *(China closed 64% · Indonesia 45% · Japan 22%)* — **so
+the crowded shelf is not the problem and the next record should not be a main.**
+⛔ Both rice slots are already taken: `Khao Suay` owns plain jasmine, `Khao Niao` owns sticky.
+
+### ✅ GREENFIELD RUN 2 AUG, AGAINST `sections/*.js` — CLEAR
+`oliang` · `o-liang` · `nam manao` — **zero name collisions.**
+`roasted corn` · `coffee substitute` · `adulterat*` · `barley coffee` — **zero hits.**
+⚠️ One `chicory` hit exists and was chased: it is a **Greek horta foraging card about wild
+bitter greens**, nothing to do with coffee. Not a collision.
+⚠️ `espresso` ×34 lives in `beveragesData.js` · `wk_europe.js` · `eventsData.js` — European coffee
+cards. **None of them argues the stretched-coffee case.** ⛔ Check before writing that no European
+card leads on cutting coffee with anything; the grep above says no, but that grep is not the moat.
+
+### ▶️ CANDIDATE LEAD (UNSPENT) — **the coffee is deliberately not all coffee**
+Traditional oliang powder is a blend, not pure coffee: the beans are cut with **roasted maize,
+soya beans and sesame**, sometimes cardamom, and it is roasted much darker than a Western roast.
+⚖️ **This started as thrift and stayed as the flavour** — the "adulteration" IS the recipe, and a
+pure-coffee oliang tastes wrong to anyone who grew up on it.
+⛔ **KEEP IT BLACK.** Oliang proper is served without milk; the milk version is a different drink.
+**That is also how it stays clear of Cha Yen, which owns the condensed-vs-evaporated argument
+outright and is two records away.** ⚠️ Cha Yen also already owns *brew-it-far-too-strong-because-ice*
+— so **the ice-dilution argument is SPENT and must not be re-run here.**
+
+### 🔴 PRICE LANDMINES, PROBED LIVE 2 AUG
+| write this | ⛔ NEVER write | resolves to |
+|---|---|---|
+| `ground coffee` **R496** | 🔴 `coffee` | **R1050 — more than double** |
+| `ground coffee` R496 | 🔴 `instant coffee` | → **`coffee` R1050**, silently wrong product |
+| `sesame seeds` R244 ✅ · `sugar` R35 ✅ · `brown sugar` R35 ✅ · `condensed milk` R119 ✅ | | |
+| — | 🔴 `soybeans` · `soya beans` · `maize` · `tamarind` · `ice` | **ALL ABSENT** |
+⚠️ `cardamom` **R3083/kg** — live, but the dearest key touched this session. Grams, not spoons.
+⚖️ **The oliang blend itself cannot be costed as written** — maize and soya are both absent. Either
+build the card around `ground coffee` + `sesame seeds` and say plainly that the traditional blend
+is not buyable as such in SA *(the §33 / Sup Nor Mai / tao jiew move, used twice already this
+session and it works)*, **or** get Tina to source maize and soya first. **Her call, not mine.**
+
+### ⚠️ OPEN THE NEXT SESSION LIKE THIS
+1. clone · read this file · **count with node** · baseline `/all` + `costcheck` + `pricecheck`
+2. **also run `node claimcheck.js thailand` — expect `🔴 0 · 🟠 11 · 🔵 13`.** Anything else is drift.
+3. §4i is the dish · §4h is the new watcher · §4z + items 12–14 are the open decisions
+4. ⛔ **greenfield the moat against `sections/*.js`, NOT `sections/wk_*.js`** — the §4f scar
+5. ⛔ **a version delta spends a lead as surely as a record does** — the §4g scar
+6. ⛔ **do not reason from a city to a shelf. ASK TINA.** — the §4g scar, hers to correct twice
+
+---
+
+## 4j · 🩸 THE PRICE FAILURE — DIAGNOSED AND FIXED, 2 AUG 2026
+
+⚖️ **TINA, 2 AUG:** *"ive given prices over and over again, it is counter productive… A few days ago
+I gave you lots of prices, next chat you forgot all about them… if we have to count the time in
+minutes Ive spent on finding prices which I did already, it must be hours."*
+**She was right, and this section is the root cause, not an apology.**
+
+### 🔴 THE TOOL THAT WAS BUILT TO PREVENT THIS WAS BROKEN
+`priceledger.js --ask` exists since **30 Jul** and its own file note reads
+**"RUN --ask BEFORE ASKING HER FOR ANY PRICE."** On 2 Aug:
+```
+node priceledger.js --ask lamb   →   "✅ GENUINELY ABSENT"
+```
+🔴 **While `prices.js` held FOURTEEN sourced lamb keys** — `lamb loin chops` 255 · `lamb rib chops`
+255 · `lamb braai chops` 195 · `lamb shoulder chops` 220 · `lamb riblets` 205 · `leg of lamb` 205 ·
+`butterflied leg of lamb` 205 · `lamb neck` 170 · `lamb mince` 215 · `lamb shank` 180 ·
+`lamb potjiekos` 150 · `lamb knuckles` 200 · `lamb rump` 310 · `mutton` 180 *(+ `lamb bones`,
+`lamb liver`)*.
+
+**CAUSE:** the matching rule was tightened 30 Jul to kill a false positive *(`peanut` wrongly
+matching `peanut sauce`)* and ends **"a single word never matches by containment."**
+⚖️ **THAT FIX TRADED A FALSE POSITIVE FOR A FALSE NEGATIVE — AND THE FALSE NEGATIVE IS THE ONE
+THAT COSTS HER HOURS.** A false positive wastes one question. A false negative sends her back to
+the shops for prices she has already given, which is exactly what she has been describing.
+
+✅ **FIXED:** new `relatedKeys()` scan. Containment still does **not** earn a 🛑 ALREADY-KEYED
+verdict — the 30 Jul discipline is intact and re-proved — but the tool may **never again print
+ABSENT while the asked word appears inside a key.** It now prints a 🔎 READ THESE BEFORE ASKING
+block with every key, value, line number, provenance comment and a pointer to the buy-names
+addendum. ✅ **`--selftest` 26/26**, including six new born-RED lamb proofs and both original
+peanut anti-proofs.
+
+### 🩸 AND MY OWN FAULT, WHICH IS THE SAME ONE ALL DAY
+⛔ **I probed invented key names instead of grepping the file.** I asked the engine for
+`lamb chops` · `lamb ribs` · `lamb shin` · `lamb knuckle` · `lamb shoulder`, got ABSENT on all
+five, and reported a gap. **Every one of them exists under its SHOP name** — `lamb shoulder chops`,
+`lamb riblets`, `lamb shank`, `lamb knuckles`. ⚖️ **RULE: `grep -i '"[^"]*WORD[^"]*"' prices.js`
+BEFORE any probe. A probe answers the question you thought to ask; a grep answers the file.**
+🔴 **AND `reference/TINZA_MEATCUT_ADDENDUM_buy_names.md` WAS IN THE REPO THE WHOLE TIME.** It
+states the law directly: *the Meat Cut Guide is a COOK's rule, pricing needs a SHOPPER's rule —
+the name is what you BUY.* I never opened it.
+
+### ⛔ THERE WAS NEVER A LAMB PRICE GAP. THERE IS A RECORD-WORDING GAP.
+`wk_southafrica.js` carries **17 distinct lamb lines and several name no cut at all** —
+`200g lamb` · `140g lamb pieces` · `120g lamb on the bone` · `150g lamb potjiekos (bone-in
+stewing pieces)`. **Those match no key because they name no product.** ✅ **This is an authoring
+job on the records, NOT a request to Tina. She has already done her half.**
+⚠️ Carried debt item 17 is hereby CORRECTED: it asked her for five cut prices. **Withdrawn.**
+
+### ✅ LEDGER RECONCILED
+`priceledger.js --check` found **4 unprovable attributions** — keys wearing Tina's name with no
+dated ledger entry. **Three were mine, keyed today and never ledgered:** `sago` 56 · `crab` 400 ·
+`crab meat` 660, plus `tapioca flour` 70. **All four now entered with dates and full evidence
+including the §31.1 reasoning and the R320 revisit trigger.** 116 entries.
+🔴 **ONE REMAINS AND IT IS NOT MINE: `peanut oil` R200 (prices.js:775)** claims Tina attribution
+with no ledger entry. **Tina's call — confirm it and it gets a dated entry, or strike the
+attribution.** ⛔ Not guessed either way.
+
+### ▶️ THE `/prices` STANDARD TINA ASKED FOR — IT ALREADY EXISTS, IT JUST WASN'T LAW
+```
+node priceledger.js --ask <word>     # BEFORE asking Tina anything about a price
+node priceledger.js --check          # every Tina-attributed key needs a dated entry
+grep -inE '"[^"]*<word>[^"]*"' sections/prices.js    # ALWAYS, before any probe
+```
+⚖️ **THIS RUNS AT EVERY SESSION START, ALONGSIDE `tinza-census` AND `tinza-doctor`, AND BEFORE ANY
+PRICE QUESTION REACHES HER. A price question to Tina is the LAST step, never the first.**
+⚠️ **AND WHEN SHE GIVES A PRICE: key it AND write the dated ledger entry IN THE SAME EDIT.** Every
+one of today's four failures was a price she gave that got keyed and never ledgered — which is
+precisely how it becomes invisible to the next session and she gets asked again.
+
+---
+
+## 4k · ⚖️ `/price` AND `/claim` WIRED INTO `/all` — LAW 62 IS NOW **EIGHT** STANDARDS
+
+⚖️ **TINA, 2 AUG:** *"what is /all gonna help if you dont use it… weve got 7 // now, and if used
+properly we should fly through recipes, but were not. This whole app could have been built in half
+the time."* **The criticism is correct and the answer is measurable, not a promise:**
+
+| lane | `claimcheck` 🔴 | when authored |
+|---|---|---|
+| china | 5 | before most watchers existed |
+| japan | 6 | before most watchers existed |
+| indonesia | 3 | mid-toolchain |
+| **thailand** | **0** | full toolchain |
+⚖️ **Neither record 31 nor 32 appears in a single red.** Where a watcher existed AND was wired, it
+worked. **China and Japan cost hours of fixes because they were authored BEFORE the watchers, and
+that debt is still sitting in those 11 reds.** ⛔ **Every failure of 1–2 Aug was in a place with NO
+watcher: prose claims, and asking Tina for a price. Both are now wired.**
+
+✅ **`/price` → `priceledger.js --check`, runs FIRST and ALWAYS, country or not** — an unledgered
+price is a repo-wide fault, not a country one. ✅ **`/claim` → `claimcheck.js <country> [batch]`.**
+**`tinza-all.js` now reports ALL 8 STANDARDS · 6 measured · 2 judgement (`/rule`, `/bug`).**
+
+### 🩸 AND THE VERY FIRST USE OF `--ask` CAUGHT A FALSE CLAIM I SHIPPED THE SAME DAY
+Tina gave a soybean price. Following the new rule, `--ask soybeans` ran BEFORE anything else:
+🔴 **`yellow soybean paste` R295 EXISTS AND IS TINA-SOURCED (30 Jul, R45–65/jar) — AND THAT IS
+TAO JIEW.** ⛔ **Record 31 (Rad Na, banked 1 Aug) asserted *"it is not sold here in any reliable
+form."* FALSE.** Written by me, from the same fault as everything else: I probed three invented
+names — `soybean paste` · `salted soybeans` · `yellow bean sauce`, all genuinely absent — and
+asserted unavailability from their absence. ✅ **Rad Na's method is REWRITTEN:** tao jiew is
+buyable as yellow soybean paste, 10g of it with the oyster sauce cut to 10ml is the fuller gravy,
+and the card now says it is a specialist item rather than an unbuyable one.
+
+### 🩸 THE GAP IN MY OWN NEW WATCHER, FOUND WITHIN AN HOUR OF BUILDING IT
+`claimcheck` only tested ingredients **the record itself uses**. ⚖️ **But the claim that needs
+checking is ALWAYS about something the record does NOT use** — tao jiew was absent from Rad Na's
+ingredient list precisely BECAUSE the card believed it unbuyable. ✅ **FIXED: it now sweeps the
+whole `PRICE_DB` by word overlap in a window around the claim** *(`yellow soybean paste` shares
+`yellow` + `soybean` with "salted yellow soybeans")*. 🟠 **Reported as CONFIRM, never RED — word
+overlap is fuzzy and a fuzzy RED is a watcher nobody trusts.** ⚠️ A second scar inside that fix:
+the first version read only the MATCHED FRAGMENT *("not sold here in any reliable form")*, which
+contains none of the product words. **The product is always named BEFORE the assertion.** Both are
+regression proofs. **`--selftest` 14/14.**
+
+### ✅ NEW KEY — `soya beans` R65, KEYED AND LEDGERED IN THE SAME EDIT
+src:Tina 2 Aug — R25–38/500g and R50–65/1kg → band R50–76/kg. **§31.1: took R65, the top of her own
+1kg figure, which is the pack a cook actually buys.** ⚖️ **THE DRIED BEAN.** ⛔ Three soy keys
+already existed and it is none of them: `yellow soybean paste` R295 · `soya mince` R95 ·
+`soy milk` R30. **Ledger 117 entries.** ⚠️ This unblocks the Oliang blend (§4i) on the soya side;
+`maize` is still absent.
+
+### ▶️ THE RULE THAT MATTERS MORE THAN ANY OF THE TOOLS
+⛔ **A PROBE ANSWERS THE QUESTION YOU THOUGHT TO ASK. A GREP ANSWERS THE FILE.**
+Three separate faults on 2 Aug — lamb, tao jiew, and the tapioca alias — were all the same move:
+guessing a key name, getting ABSENT, and reporting a gap. ✅ **ALWAYS:**
+`grep -inE '"[^"]*WORD[^"]*"' sections/prices.js` **and** `node priceledger.js --ask WORD`
+**BEFORE any probe, and long before any question to Tina.**
+
+---
+
+## 4l · ✅ RECORD 33 — **OLIANG** BANKED 2 AUG 2026 · THE LANE IS AT **33**
+
+⚖️ **COUNTED WITH NODE: 33 records.** `/all` clean across all eight standards — `DRIFT SCORE 0`,
+`costcheck ✅ 100/100 versions`, `pricecheck ✅ 104 EXACT · 🔴 0 wrong-product`,
+`claimcheck 🔴 0 · 🟠 11 · 🔵 17`. **The 🟠 count did not move — Oliang added no new unanchored claims.**
+
+### 🩸 THE SESSION OPENED ON TWO REDS THAT THE HANDOFF SAID WERE ZERO — AND IT WAS ONE MISTAKE MADE TWICE
+🔴 **The previous session wrote both updated reference files to the REPO ROOT instead of `reference/`.**
+```
+THAILAND_COLD_START.md   root 132kb (§4g–§4k)   vs   reference/ 101kb (ends at record 31)
+PRICE_LEDGER.json        root 117 entries       vs   reference/ 112 entries
+```
+**Every tool reads `reference/`.** So `/law` reported SPLIT-BRAIN and `/price` reported five keys wearing
+Tina's name with no entry — `soya beans` · `sago` · `crab` · `crab meat` · `peanut oil`. **All five had been
+ledgered correctly. The ledger was simply somewhere nothing could see it.**
+⚖️ **THIS IS §4j HAPPENING ONE LAYER UP.** §4j fixed a tool that could not FIND a price Tina had given.
+This was the same failure in the filesystem: the work was done, dated and correct, and still invisible to
+the next session. ⛔ **A reference file written to the wrong directory is indistinguishable from one never
+written at all.** ✅ **RULE: after any edit to a `reference/` file, `git status` and read the path, not the
+filename.** A rename shows as delete-plus-add and is easy to skim past in GitHub Desktop.
+
+### ✅ FIXED AND VERIFIED
+Root copies promoted into `reference/`, strays deleted, `DRIFT SCORE 3 → 0`.
+
+### ⚖️ RULINGS TINA TOOK THIS SESSION
+- ✅ **`peanut oil` R200/L CONFIRMED** (2 Aug). Dated ledger entry written with full evidence. **118 entries.**
+- ✅ **The maize slot is `samp`, not maize meal.** §4i offered two routes — build around `ground coffee` and
+  say the blend is unbuyable, **or** source maize and soya. **She took the second and the card is fully costed.**
+  ⛔ `samp` R28 was already keyed and grandfathered — it claims no attribution, so it needs no ledger entry.
+- ⚖️ **§37 — BUDGET IS A CLAIM, NOT A CATEGORY.** A fork may carry `Budget` only if its costPP is at or below
+  the parent's. A meat→tofu, meat→legume or meat→egg swap is a **diet** fork and is labelled by diet, never by
+  cost. Tina, 2 Aug: *"rather than budget call it vegetarian, tofu is sometimes more expensive than meat."*
+  ⚠️ §26 decides vegan vs vegetarian per fork — **the label follows what the fork actually contains**, so a
+  Japanese fork that also drops the dashi is Vegan and one that keeps egg or dairy is Vegetarian.
+  ▶️ **This is a `/claim` relabel sweep across Japan and the lane, NOT a re-author.**
+
+### 🔴 NEW LANDMINES CONFIRMED, RECORD 33
+| write this | ⛔ NEVER write | resolves to |
+|---|---|---|
+| `samp` **R28** | 🔴 `roasted maize kernels` | **`sweetcorn` R59 — ALIASED in core.js PRICE_ALIAS** |
+| `samp` R28 | 🔴 `maize meal` R19 | wrong product — milled, scorches, clogs the filter |
+| `ground coffee` **R496** | 🔴 `coffee` R1050 · `instant coffee` | **instant, more than double** |
+⚠️ `maize` bare stays permanently ABSENT and that is correct — do not alias it to anything.
+
+### 🩸 A MOAT COLLISION §4i's GREENFIELD MISSED — **MISUGARU**, IN `meals.js`
+⛔ §4i greenfielded the coffee NOUNS (`coffee substitute` · `barley coffee` · `adulterat*`) and cleared them.
+🔴 **It never greenfielded the ARGUMENT.** `meals.js` carries **Misugaru**, a Korean cold drink of roasted
+barley, brown rice, beans and sesame ground to a powder, whose card already argues *every grain is toasted
+before grinding, which is where the deep malty flavour comes from.* **That is the toast-is-the-flavour case,
+owned, and Oliang could not lead on it.**
+✅ **THE LEAD SURVIVED BY MOVING:** not *toasting makes flavour* but **substitution that outlived its reason** —
+the grains went in for thrift, the thrift ended, the grains stayed, and pure coffee now tastes wrong.
+⚖️ **RULE, AND IT IS THE §4f SCAR IN A NEW SHAPE: GREENFIELD THE ARGUMENT, NOT THE NOUN.** A card that never
+says your word can still own your point.
+
+### ⛔ CHA YEN ADJACENCY — HANDLED BY NAMING IT, NOT BY AVOIDING IT
+Cha Yen (record 20) owns **brew-it-too-strong-because-ice** · **pack the glass with ice** ·
+**condensed-vs-evaporated** · **the cloth sock on a hoop** · **pour-from-height to cool**.
+✅ Oliang's method cites that card and explicitly declines to repeat it, then runs the **mirror image**:
+cha yen's orange is an addition you can see and cannot taste; oliang's grains are invisible and are most of
+the flavour. **One drink is decorated, the other is constructed.**
+⛔ **NO MILK VERSION ON OLIANG, EVER.** Milk makes it a different order with a different name, and the
+argument belongs to Cha Yen outright.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **historical linguistics / pleonastic compounds**
+Oliang is Teochew (`o` black + `liang` cold), not Thai; Thai speakers say *oliang yen*, appending the Thai
+word for cold to a word that already contains it. Same shape as chai tea, naan bread, River Avon, Sahara
+Desert. ⚠️ The card corrects the over-reading — a Chinese NAME and Chinese-run stalls do not make the drink
+Chinese.
+
+### ▶️ RECORD 34 — NOT PREPPED. THE QUEUE IS TINA'S.
+⚖️ Course balance after 33: `drink` moves to **2**, `staple` still at **1**, mains 14/33 = 42%.
+⚠️ **`staple` at 1 is now the thinnest shelf in the lane.**
+
+---
+
+## 4m · ✅ RECORD 34 — **KHANOM JEEN** BANKED 2 AUG 2026 · THE LANE IS AT **34**
+
+⚖️ **COUNTED WITH NODE: 34 records.** `/all` clean on all eight — `DRIFT SCORE 0` ·
+`costcheck ✅ 103/103` · `pricecheck ✅ 105 EXACT · 🔴 0 wrong-product` ·
+`claimcheck 🔴 0 · 🟠 11 · 🔵 18`. **🟠 unmoved again — two records running, no new unanchored claims.**
+
+### ▶️ WHY THIS DISH — THE THINNEST SHELF, MEASURED
+`staple` was at **1 of 33** and held only `Khao Suay`. Khanom jeen is the genuine third Thai staple
+beside jasmine and sticky rice, and both rice slots were already spoken for.
+✅ **`staple` now 2 · mains 14/34 = 41%.**
+
+### 🩸 THE §4l RULE PAID FOR ITSELF ON ITS FIRST USE — THREE ARGUMENT COLLISIONS, ZERO NAME COLLISIONS
+⛔ `khanom jeen` · `khanom chin` · `fermented rice noodle` — **all CLEAR by name.** A noun greenfield
+would have waved this straight through. **The argument greenfield found three owners:**
+| the argument | owned by | where |
+|---|---|---|
+| lactic fermentation, the mechanism | 🔴 `thailand-sai-krok-isan` | **IN LANE** — LAB eat sugar and excrete acid, the salt %, the smell test |
+| over-fermentation as a STRUCTURAL failure | 🔴 `indonesia-bika-ambon` | starch breaks down, the bake collapses |
+| rice flour has no gluten | 🟠 `thailand-kluay-tod` | used for frying brittle, not for binding |
+✅ **THE LEAD THAT SURVIVED, AND IT IS BETTER: FERMENTATION AS A MILLING TECHNOLOGY.** Three days of
+bacteria soften the grain until a domestic blender can take it to a paste with no grit — the ferment is
+doing the work of a stone mill. ⚖️ **So the sourness is a by-product, and tasting it is the failure mode:**
+a good khanom jeen tastes faintly of rice and almost nothing else.
+⛔ Sai Krok Isan is CITED and the mechanism explicitly NOT re-run — the Cha Yen move from §4l, second use.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **economic geography of perishability**
+The trivia argues why khanom jeen never industrialised: **the strand cannot be dried.** Every other Thai
+noodle became a shelf-stable export and this one stayed a one-day market food. ⚠️ Which is also the honest
+answer to why it is not sold in South Africa — **nothing that perishable emigrates**, and absence abroad
+says nothing about importance at home.
+
+### 🔴 LANDMINES, RECORD 34
+| write this | ⛔ NEVER write | resolves to |
+|---|---|---|
+| `white rice` **R27** | 🔴 `jasmine rice` R63 · `glutinous rice` R63 | wrong product AND wrong price — aromatics are stripped by the ferment |
+| `rice flour` **R40** (Reo version only) | 🔴 `rice` | R27, and it is not the same product |
+⛔ **NEVER write `rice noodles` R45 on this card.** The whole record is making them.
+
+### ⚖️ TWO WATCHER CATCHES WORTH RECORDING
+🟡 **LECTURE fired at 269 words against a corpus bar of 268.** One word. ⚠️ The bar MOVES with the corpus —
+trimmed to clear it rather than argued with.
+🟠 **claimcheck caught a cost claim that was TRUE and unsupportable at displayed precision.** The Reo
+version's trivia said it costs more; the engine puts both at **R3**. ✅ Rewritten to name its target and say
+what is actually true — *the same cost as the three-day ferment rather than under it, a few cents that vanish
+once rounded.* ⚖️ **§37 in the other direction: a claim can be arithmetically right and still false on the card.**
+
+### ▶️ RECORD 35 — NOT PREPPED. QUEUE IS TINA'S.
+⚠️ Thinnest shelves now: `soup` 2 · `drink` 2 · `staple` 2.
+
+---
+
+## 4n · ⛔ KAENG JUED STRUCK · ✅ RECORD 35 — **MIANG KHAM** BANKED 2 AUG 2026 · LANE AT **35**
+
+⚖️ **COUNTED WITH NODE: 35.** `/all` clean on eight — `DRIFT SCORE 0` · `costcheck ✅ 106/106` ·
+`pricecheck ✅ 108 EXACT · 🔴 0` · `claimcheck 🔴 0 · 🟠 11 · 🔵 20`.
+**🟠 has not moved for three records running.**
+
+### ⛔ KAENG JUED (CLEAR SOUP) — STRUCK ON COLLISION BEFORE A WORD WAS WRITTEN
+`soup` was the thinnest shelf at 2 and the clear balancing soup was the obvious fill. **Two independent
+leads were tried and both were already owned, both IN LANE:**
+| lead attempted | owner | what it already says |
+|---|---|---|
+| the dish that exists to be plain | 🔴 `thailand-kai-palo` | *"the mild dish among sharper ones… gives everyone somewhere to retreat to"* |
+| clarity is turbulence, not ingredients | 🔴 `thailand-khao-tom` | *"in a clear broth it is visible, and in this dish clarity is most of the presentation"* |
+| — and the noodle | 🔴 `thailand-yam-woon-sen` | owns woon sen outright: *"a noodle made of bean rather than grain"* |
+⚖️ **Three owners, two leads, one dish. STRUCK** — same call as Tom Kha Gai (§4d) and Pad See Ew (§4e).
+⚠️ **`soup` is therefore a HARD shelf, not a thin one.** Tom Yum owns sour-hot, Khao Tom owns clear-and-mild
+between them, and a third Thai soup has to find something neither has. **Do not treat soup=2 as an easy fill.**
+
+### ▶️ WHY MIANG KHAM INSTEAD — AND THE VERSION SHAPE IS THE POINT
+✅ **TINA, 2 AUG, ON SAMENESS:** six of the lane's records ran the identical fork set — *Budget → chicken →
+third protein* — and five of those are in the 🟠 list. **She named `Khao Pad Sapparot` as the shape to copy:
+a fork that changes the DISH, not the animal.**
+✅ **Miang Kham's three versions vary the dish and the serving form, and not one of them is a protein swap:**
+`the Full Set` 🏆 · `Jay — No Shrimp (Vegan)` *(a diet fork, labelled by diet per §37)* · `Ruam — the Plate,
+Not the Parcel` *(same ingredients, different eating architecture, zero new keys)*.
+⚖️ `starter` moves 3 → 4.
+
+### ✅ GREENFIELD — NOUN **AND** ARGUMENT, PER §4l
+`miang` · `cha plu` · `eat the lime` · `lime peel` · `whole lime` · `assembled at the table` — **all CLEAR.**
+⚠️ One `betel` hit chased: it is Kluay Tod's limestone-water history, about slaked lime for chewing, **not a leaf**. Not a collision.
+▶️ **THE LEAD: you eat the lime whole, skin and pith in, and the bitterness is structural.** Miang kham
+carries sweet, salty, hot, sour AND bitter in one mouthful and the lime cube is the only source of the last.
+⛔ Cut it out and the parcel does not go milder, it goes sweet and unbalanced.
+
+### 🔴 NEW LANDMINE — AND IT IS §4z ITEM 4 FIRING FOR REAL
+| write this | ⛔ NEVER write | why |
+|---|---|---|
+| `2 chillies` R1 | 🔴 `2 small chillies` | **ABSENT.** `small chilli_each` is keyed **SINGULAR ONLY** — the plural has no key and no alias |
+⚖️ **THE SINGULAR/PLURAL SHAPE IS NO LONGER THEORETICAL.** `chilli_each`/`chillies_each` are both keyed;
+`small chilli_each` is not. ⛔ **Not fixed in `prices.js` here — that is Tina's ruling to make** (§4z item 4),
+and a unilateral alias would pre-empt it. ✅ The record was moved onto a keyed spelling and the *small hot
+ones* guidance kept in the method, where it costs nothing.
+⚠️ Also confirmed: the lane writes palm sugar as **`jaggery` R100** — seven existing uses. Do not key `palm sugar`.
+
+### ⛔ NEW REGISTER OPENED AND SPENT — **etymology of preservation** *(distinct from §4l's linguistics)*
+*Miang* means fermented tea leaves and *kham* a mouthful, so the name describes a chewing habit rather than a
+meal. Every component — dried shrimp, toasted coconut, roasted peanut, palm sugar, whole lime — is a thing that
+survives a hot climate without refrigeration. ⚠️ The card also separates the betel quid, miang's fermented tea
+and the areca nut, **which are routinely lumped together and only the last carries the health record.**
+
+### ⚠️ TWO 🔵 CLAIMS ON THIS CARD — BOTH FOR TINA
+1. **`bai cha plu` (wild pepper leaf) is not sold in South Africa** — substituted with `baby spinach` R216, honestly named as a substitution rather than passed off.
+2. claimcheck's ⚠️ overlap flag fires because `baby spinach` is keyed and sits near the unbuyable claim. **The claim is about cha plu, not spinach.** Known false positive, no action.
+
+### ▶️ RECORD 36 — NOT PREPPED.
+⚠️ Shelves: `drink` 2 · `staple` 2 · `soup` 2 **(HARD — see above)** · `salad` 3 · `starter` 4.
+
+---
+
+## 4o · 🇹🇭 **THAILAND CLOSED AT 38 · 2 AUG 2026**
+
+⚖️ **COUNTED WITH NODE: 38 records.** Final `/all` — `DRIFT SCORE 0` · `costcheck ✅ 115/115` ·
+`pricecheck ✅ 117 EXACT · 🔴 0 wrong-product` · `claimcheck 🔴 0 · 🟠 11 · 🔵 20`.
+✅ **Six records banked this session, 32 → 38, and 🟠 finished exactly where it started.**
+
+| # | record | the lead |
+|---|---|---|
+| 33 | **Oliang** | substitution that outlived its reason — the coffee is deliberately not all coffee |
+| 34 | **Khanom Jeen** | the three-day ferment is a milling technology, not a flavour step |
+| 35 | **Miang Kham** | you eat the lime whole, and the bitterness is structural |
+| 36 | **Kua Kling** | the paste is fried rather than simmered, so nothing dilutes the chilli |
+| 37 | **Tub Tim Grob** | cooking the outside of something while deliberately never cooking the inside |
+| 38 | **Moo Sarong** | the noodle stops being a starch and becomes a structure |
+
+### ⛔ STRUCK THIS SESSION, WITH REASONS — READ BEFORE RE-PROPOSING ANY OF THESE
+| dish | why |
+|---|---|
+| **Kaeng Jued** | Kai Palo owns *the mild dish among sharper ones* · Khao Tom owns *clarity in a broth* · Yam Woon Sen owns the noodle |
+| **Khao Kluk Kapi** | Khao Pad owns fried rice · Miang Kham owns *mix it yourself on the plate* |
+| **Guay Tiew Reua** | raw pig's blood is not a retail product in SA and it is the dish |
+| **Gaeng Tay Poe** | whole kaffir lime FRUIT and water spinach both absent · would be a fifth wet coconut curry |
+| **Khao Yum** | butterfly pea flowers and budu both absent |
+| **Mee Krob** | Khao Soi owns the puffed-fried noodle nest |
+| **Miang Pla Too** | collides with Miang Kham, record 35 |
+| **Yam Som-O** | Miang Kham's exact ingredient set · pomelo not reliably on a SA shelf |
+| **Saeng Wah** | catfish absent · Pla Goong and its Yam Talay version hold the prawn-salad ground |
+| **Khao Tang** | Moo Krob owns *dehydration rather than cooking* |
+| **Pad Pak Bung** | Pad Krapow owns *hot enough to sear* |
+⚠️ **`Sup Nor Mai` (record 27), `Yam Talay` (a version of Pla Goong) and `Sai Krok Isan` (record 19)
+were all re-proposed and all already exist.** Check the lane before sourcing a dish list.
+
+### 🩸 THE LANE IS GENUINELY NEAR EXHAUSTION AND THE EVIDENCE IS MECHANICAL
+⚖️ **On record 36 alone, three separate trivia registers were tested and all three were already spent:**
+capsaicin/TRPV1 *(Kaeng Keow Wan)* · fat-solubility of heat *(Chongqing)* · chillies-arrived-with-the-
+Portuguese *(Nam Prik Ong)*. ⛔ On record 38, `palace kitchen` came back as a hit **from record 37, written
+forty minutes earlier.** ✅ **THAT IS THE CLOSE SIGNAL** — not a word count, and not running out of dish
+names. Dish names were never the constraint; unowned arguments were.
+
+### ⚖️ RULINGS AND SCARS FROM THIS SESSION — ALL LANE-INDEPENDENT, CARRY THEM TO VIETNAM
+- **§37 — Budget is a CLAIM, not a category.** Fork ≤ parent, or it is a diet fork labelled by diet.
+- **§26 decides vegan vs vegetarian per fork** — the label follows what the fork contains.
+- **A claim can be arithmetically right and false on the card** (Khanom Jeen Reo: R3.09 vs R2.70, both display R3).
+- **VERSION SETS MUST VARY THE DISH, NOT THE ANIMAL.** Tina, 2 Aug: six records ran *Budget → chicken →
+  third protein* and five of those six are in the 🟠 list. ✅ All six new records obey it.
+- **GREENFIELD THE ARGUMENT, NOT THE NOUN.** Found Misugaru, Kai Palo, Khao Tom, Nam Prik Ong — none of
+  which shared a search term with the dish being checked.
+- **After any `reference/` edit, `git status` and read the PATH, not the filename.**
+- **`grep` the file before you probe a key.** Cost this session: `egg noodles` reported absent while
+  `thin egg noodles` R176 sat in the file. §4j, same day it was written.
+
+### 🔴 THE LANE'S LANDMINE LIST — FINAL
+| write this | ⛔ NEVER write | resolves to |
+|---|---|---|
+| `samp` R28 | `roasted maize kernels` | **ALIASED to `sweetcorn` R59 in core.js** |
+| `samp` R28 | `maize meal` R19 | milled, scorches, clogs the filter |
+| `ground coffee` R496 | `coffee` R1050 · `instant coffee` | instant, more than double |
+| `white rice` R27 | `jasmine rice` · `glutinous rice` R63 | wrong product and wrong price |
+| `2 chillies` R1 | `2 small chillies` | **ABSENT — `small chilli_each` is SINGULAR ONLY** |
+| `jaggery` R100 | `palm sugar` | absent; the lane has written jaggery seven times |
+| `thin egg noodles` R176 | `egg noodles` | absent |
+| `water chestnuts` R152 | — | keyed 2 Aug, both spellings |
+
+### 🟡 WHAT THAILAND LEAVES OPEN — NOT BLOCKING, NOT THAILAND'S
+1. **11 pre-existing 🟠 unanchored cost claims.** Five of six sit on the copy-paste fork sets. A `/claim`
+   pass with §37 in hand fixes most as LABEL changes, not re-authors.
+2. **§4z item 4 — the singular/plural key ruling.** `small chilli_each` proved it is real. **Tina's call.**
+3. **`wkCourseToTab` sends `soup` to the Mains tab** via `default:`. So the UI shows Mains 16 where
+   `course:"main"` is 14. Not a bug — but §27 struck the sixth tab, so **adding a Soups shelf is Tina's ruling.**
+4. **Tinned-goods drained weight.** `water chestnuts` R152 and `bamboo shoots` R136 both divide price by the
+   weight printed on the tin. If a tin prints a separate drained weight, **both are understated and both move
+   together in one pass.**
+5. **SA lamb — 17 lines that name no cut.** An authoring job. Her prices have been done since June.
+
+### ▶️ VIETNAM — WIRED EMPTY, 2 AUG 2026
+✅ `sections/wk_vietnam.js` created with zero records, and **all three wiring lines are live**:
+`index.html` script tag · `window.WK_VIETNAM || []` in `wkPool()` · `WK_COUNTRY_GEO["Vietnam"]` was already there.
+⚖️ Same move Thailand got at Indonesia close, for the same reason: the wiring ships in a push that is
+happening anyway, so record 1 lands and simply works.
+⚠️ `banh mi` appears once in `meals.js` as a `goesWith` string only — **not a record.** Vietnam is greenfield.
+⛔ **`goi cuon` · `bun cha` — both CLEAR.** But the Thailand lesson applies from record 1:
+**greenfield the ARGUMENT, and remember Thailand is now the neighbour whose arguments you can collide with.**
+
+---
+
 ## 4z · ▶️ HANDOFF — THREE DECISIONS WAITING FOR TINA (written 1 Aug 2026, at B8 close)
 
 ⚖️ **NONE OF THESE WERE ACTIONED, DELIBERATELY.** Each is a ruling or a live-surface change.
@@ -1339,3 +1945,36 @@ write batch  →  node --check
     `prices.js` holds the direct Tina-sourced key. The direct key wins, so nothing is broken today
     — but **a redundant alias pointing a SOURCED key at a different product is a trap** for whoever
     later deletes the direct line. Same family as `eggplant`/`brinjal` in item 11. **Needs a ruling.**
+15. 🆕 ⚖️ **A3 RULED BY TINA, 2 AUG: `(Budget)` MEANS CHEAPER THAN THE **DEFAULT**, NOT CHEAPEST
+    ON THE RECORD.** `claimcheck.js` was enforcing the strict reading and has been relaxed to match,
+    with an anti-proof locking it *(a budget fork under the default passes even when a third fork is
+    cheaper)*. **Sweep went 18 🔴 → 15 🔴.** Four of the dropped ones were the strict reading only:
+    `china-char-siu` · `china-roast-duck` · `japan-takoyaki` · `cape-malay-frikkadels`.
+    🔴 **THE 15 THAT SURVIVE, AND A PATTERN IN THEM:** japan ×6 · china ×5 · indonesia ×3 ·
+    southafrica ×1. ⚖️ **FIVE of the six Japan reds are `Budget · Vegan` / `Budget · Vegetarian`
+    forks that cost MORE than the meat default they replace** — `staple-dashi` R18/15 ·
+    `shoyu-ramen` R136/113 · `oyakodon` R63/48 · `chawanmushi` R31/28 · `chikuzenni` R60/47.
+    **This is the SAME fault Rad Na hit on 1 Aug: tofu R171/kg is above pork fillet R110/kg, and
+    plant protein in South Africa is not the thrift option the label assumes.** It is one systematic
+    mislabel repeated across a lane, not six unrelated slips. ⚠️ Worst outliers elsewhere:
+    `china-staple-master-stock` R129 vs R15 *(a starter batch genuinely costs more up front — likely
+    a mislabelled fork, not a mispriced one)* and `china-da-pan-ji` R280 vs R261.
+    ⛔ **NOTHING FIXED. All 15 are pre-existing and none are Thailand's.**
+16. 🆕 ✅ **`tapioca flour` R70 IS NOW KEYED — CLOSED 2 AUG.** ⚖️ **Tina had already sourced this
+    more than once and the earlier note asking for "one number per kg" was ME failing to look.**
+    The figure was banked as `tapioca starch` R70 on 30 Jul and re-confirmed 1–2 Aug at R39–73/500g;
+    R70/kg sits inside that band. ⛔ **Added as a DUPLICATE DIRECT KEY, not an alias, and the reason
+    is testable: `PRICE_ALIAS` is built at load, so a runtime alias entry is a no-op — I tried it and
+    `tapioca flour` still returned ABSENT.** ⚠️ **The two keys must now move together.** Regression
+    run: china · japan · indonesia · thailand costcheck identical before and after.
+17. 🆕 ⚖️ **LAMB — MY EARLIER "ONE NUMBER CLOSES EIGHT RECORDS" WAS WRONG, AND TINA CORRECTED IT:**
+    *"there is different cut of lamb, some are more expensive than others, certain chops are more
+    expensive than ribs."* ⛔ **A single generic `lamb` key would silently mis-price every record
+    that uses it** — the same silent-wrong-product shape as `water chestnuts` → `water`.
+    ✅ **AND THE FILE ALREADY FOLLOWS TINA'S PATTERN:** `lamb neck` **R170** and `leg of lamb`
+    **R205** are live and cut-specific. 🔴 **STILL ABSENT: `lamb chops` · `lamb ribs` · `lamb shin` ·
+    `lamb knuckle` · `lamb shoulder`** — five cut keys, not one.
+    ⚠️ **SEPARATE PROBLEM, NOT A PRICE JOB:** 17 distinct lamb lines exist in `wk_southafrica.js`
+    and several name no cut at all — `200g lamb` · `140g lamb pieces` · `120g lamb on the bone` ·
+    `150g lamb potjiekos (bone-in stewing pieces)`. **Those need REWRITING to name a cut before any
+    key can price them correctly.** ⛔ Do not paper over it with a generic `lamb` fallback.

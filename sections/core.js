@@ -1248,9 +1248,14 @@ var PRICE_ALIAS = {
   "broth":"stock",
   "stewing lamb":"lamb potjiekos",
   // MF28 R4: "lamb shoulder"→lamb neck DELETED (double-alias; mutton copy also removed). 1 line "Lamb shoulder (bone-in, chunked)" now fails loud → tick-list.
-  "lamb pieces":"lamb neck",
+  "lamb pieces":"lamb potjiekos",
   // MF28 12 Jul (SIGNED): reconcile — one product, one price. Aliases (not deletes) so nothing silently falls back.
   "lamb leg":"leg of lamb","lamb roast":"leg of lamb","lamb ribs":"lamb riblets",
+"lamb chunks": "lamb potjiekos",
+"lamb chops": "lamb shoulder chops",
+"lamb shin": "lamb shank",
+"lamb on the bone": "lamb potjiekos",
+"bone-in lamb pieces": "lamb potjiekos",
   "caster sugar":"castor sugar",   // spelling variant → the R84 fine-milled key (plain sugar is R35)
   "mince":"beef mince","beef or lamb mince":"beef mince",   // MF28: deleted lamb mince→beef mince (the 2.2x-under lie; real key R215)
   "fish":"hake","white fish":"hake","firm white fish":"hake","firm white fish hake":"hake",
@@ -1265,7 +1270,7 @@ var PRICE_ALIAS = {
   "coconut":"desiccated coconut","niter kibbeh":"ghee","amaranth leaves":"spinach","roasted flour":"cake flour","broad beans":"dried fava beans","fish stock":"stock","flour-based dough":"cake flour","pastry dough":"shortcrust pastry","maize kernels":"sweetcorn","merguez":"boerewors","grated cheese":"cheddar","dried mloukhia powder":"spinach","curry spices":"curry powder","ground crayfish":"prawns","dried shrimp":"prawns","kontomire":"spinach","ground cashews":"cashew nuts","cashew":"cashew nuts","ground peanuts":"peanuts","peanut":"peanuts","groundnut":"peanuts","peppermint essence":"vanilla essence","rose water":"vanilla essence","dried apricot":"dried apricots","stock powder":"stock","vegetable stock powder":"stock","beef stock powder":"stock","chicken stock powder":"stock","roasted maize kernels":"sweetcorn","sorghum grains":"sorghum meal","wors":"boerewors","white sauce":"milk","black peppercorns":"black pepper","short grain rice":"rice","rabbit":"chicken","rabbit meat":"chicken","bacalhau":"salted snoek","lamb cutlets":"leg of lamb","ground almonds":"almonds","roasted red peppers":"red pepper","padron peppers":"green pepper","lemon soda":"soda water","lager":"beer","lager beer":"beer","espresso":"coffee","short pasta":"macaroni","green peppers":"green pepper","chicken heart":"chicken hearts","beef liver":"chicken livers","low-sodium chicken broth":"chicken broth","flat pasta":"macaroni","orzo pasta":"macaroni","warqa pastry":"phyllo pastry","sheet warqa pastry":"phyllo pastry","meaty beef bones":"beef bones","pig s trotters":"pork bones","pork trotters":"pork bones","white fish bones and heads":"fish frames","white fish bones and heads gills removed":"fish frames","chicken carcasses necks and wings":"chicken frames","garlic-ginger paste":"ginger-garlic paste","ginger garlic paste":"ginger-garlic paste","ginger and garlic paste":"ginger-garlic paste",
   // World Kitchen gap aliases (15 Jun) — every target was verified present in
   // PRICE_DB, so these use a REAL substitute price, never an invented rand.
-  "lamb cubes":"lamb neck","bell pepper":"green pepper","red bell pepper":"green pepper",
+  "lamb cubes":"leg of lamb","bell pepper":"green pepper","red bell pepper":"green pepper",
   "scotch bonnet":"chilli","scotch bonnet pepper":"chilli","maize flour":"maize meal",
   "corn flour":"maize meal","gram flour":"cake flour","palm oil":"sunflower oil",
   "groundnut oil":"peanut oil","sweet wine":"white wine","port wine":"red wine",
