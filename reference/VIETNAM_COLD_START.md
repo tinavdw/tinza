@@ -2,11 +2,17 @@
 **Opened 3 Aug 2026, at Thailand close (38). Revised 4 Aug 2026, end of session.** Read this
 BEFORE anything else.
 
-## ⚖️ LANE STATE — 10 of 50
+## ⚖️ LANE STATE — 11 of 50
 
-**Verified at 4 Aug close: 10 records · 30 versions · ALL GATES GREEN.**
-`costcheck 30/30 · pricecheck exact 70 / wrong-product 0 / absent 0 · echo 0 red 0 amber ·
-lawcheck 0 red 0 drift · claimcheck 0 red 0 amber · /wow + /wk 0 warns`
+**Verified at 4 Aug close: 11 records · 33 versions · ALL GATES GREEN.**
+`costcheck 33/33 · pricecheck exact 75 / wrong-product 0 / absent 0 · echo 0 red 0 amber ·
+lawcheck 0 red 0 drift · claimcheck 0 red 0 amber · /wow + /wk 0 warns · doctor 10 (unchanged)`
+
+📒 `reference/ASIA_LEDGER.json` re-baselined to **vietnam 11 · hash `2b76c9f73f6482dd`**,
+derived from `sections/wk_vietnam.js` by `merge.js`'s own `fingerprint()`, never hand-typed.
+
+> **PREVIOUS ENTRY, KEPT PER §2.3 —** *10 of 50 · 10 records · 30 versions · costcheck 30/30 ·
+> pricecheck exact 70.* Record 11 is `vietnam-bo-kho` (Bò Kho), banked 4 Aug 2026.
 
 Courses: **main 4 · starter 2 · side 2 · dessert 2.** ✅ The course floor is met — the lane
 was main-heavy through B1 and B2 deliberately corrected toward sides and starters.
@@ -53,8 +59,8 @@ first two hours of the 2 Aug session.
 2. read THIS file, all of it
 3. read reference/THAILAND_COLD_START.md §4o — the close, and every carried ruling
 4. COUNT WITH NODE. Never by eye, never from a handoff, never from memory.
-5. node tinza-all.js vietnam    → expect 10 · 0 red · 0 drift · 6 🔵 · 0 warns
-                                   (was 4 at 3 Aug close; 6 banked 4 Aug)
+5. node tinza-all.js vietnam    → expect 11 · 0 red · 0 drift · 6 🔵 · 0 warns
+                                   (was 4 at 3 Aug close; 6 banked 4 Aug; +1 = bò kho)
 6. node tinza-all.js thailand   → expect 38 · 0 red · 0 drift
                                    claimcheck 🔴 0 · 🟠 11 · 🔵 20
 6. node priceledger.js --ask <term>   BEFORE asking Tina for ANY price
@@ -63,10 +69,16 @@ first two hours of the 2 Aug session.
 **✅ FULLY WIRED — all three lines verified:** `index.html:160` · `worldkitchen.js:58` concat ·
 `WK_COUNTRY_GEO["Vietnam"]`.
 
-**B1 BANKED (3 Aug) — Phở Bò R99·R85·R75 · Gỏi Cuốn R67·R57·R55 · Bún Chả R80·R85·R83 ·
+**B1 BANKED (3 Aug) — Phở Bò R99·R89·R75 · Gỏi Cuốn R67·R59·R55 · Bún Chả R80·R93·R83 ·
 Chè Chuối R21·R24·R22.**
-**B2 BANKED (4 Aug) — Cơm Tấm R65·R78·R77 · Bánh Mì R63·R71·R66 · Xôi Xéo R15·R19·R19 ·
-Bánh Xèo R82·R72·R77 · Cà Phê Sữa Đá R30·R27·R34 · Canh Chua R85·R111·R82.**
+**B2 BANKED (4 Aug) — Cơm Tấm R65·R78·R80 · Bánh Mì R63·R71·R82 · Xôi Xéo R15·R19·R19 ·
+Bánh Xèo R82·R72·R82 · Cà Phê Sữa Đá R30·R27·R34 · Canh Chua R85·R111·R84.**
+**B3 BANKED (4 Aug) — Bò Kho R75·R91·R77.**
+
+⚠️ **THE FIGURES ABOVE WERE RE-DERIVED 4 AUG** under §30.1 strict parity, after the mushroom
+keys moved to R140. Seven of the eleven records carry at least one changed number — every
+`Chay` (vegan) fork moved up. ⛔ **Do not compare these against an older handoff and conclude a
+record drifted.** `node costcheck.js vietnam` is the only source of truth for a costPP.
 ⚠️ B2 has NO archived batch source — the records live only in `sections/wk_vietnam.js` and in
 the files handed to Tina until it is pushed. See the container-revert scar at the foot of this
 file.
@@ -108,6 +120,11 @@ Asia grid. Spot-check the tile on Netlify after the push — Law 2, fingers on l
 - **§37 — BUDGET IS A CLAIM, NOT A CATEGORY.** A fork carries `Budget` only if its costPP
   is at or below the parent's. A meat→tofu, meat→legume or meat→egg swap is a **diet**
   fork, labelled by diet, never by cost. `claimcheck` asserts it.
+  - ⭐ **§37.1 — THE COMPARATOR IS THE `default: true` VERSION, NEVER THE CHEAPEST SIBLING**
+    *(ruled 4 Aug 2026)*. ⛔ **Do not hand-roll this test** — run `claimcheck.js` and read its
+    🔴 block. A screen built on "cheapest" on 4 Aug missed a live breach
+    (`thailand-nam-prik-ong`) and mis-sized the backlog. Both `thailand-khao-tom` and
+    `nam-prik-ong` had `Budget` struck that day; both are now labelled by diet alone.
 - **⭐ §38 — TINNED GOODS ARE PRICED ON WHAT SURVIVES THE COLANDER** *(new, 3 Aug)*. Four
   arms: liquid used → net weight · liquid poured away and drained weight printed → divide by
   drained, and **record the tin size** · not printed but available → A7 defer · not printed
@@ -468,3 +485,66 @@ moved `vietnam-banh-mi` v1 from R53 to R63. ⚖️ Never write "X or Y" in an in
 alternative in the method as a §35 route.
 
 ---
+
+---
+
+# ✅ CLOSED 4 AUG 2026 · THE STANDING 20-STALE-costPP DEBT IS CLEARED
+
+⚖️ **§30.1 strict parity applied. 47 `costPP` figures re-derived and overwritten** — more than
+the 20 the debt was booked at, because the mushroom re-price moved **three** keys, not one:
+
+| key | was | now |
+|---|---|---|
+| `mushrooms` | R90 `// ESTIMATE` | **R140** — ESTIMATE struck, now Tina-sourced |
+| `button mushrooms` | R148 *(a SLICED R37/250g pack — wrong product)* | **R140** |
+| `mushroom` | R165 | **R140** |
+
+⛔ **NO KEY WAS DELETED.** `mushroom` is a substring of both other keys; unkeying it would have
+opened a §3j substring fallthrough. All three agree **by agreement, not by deletion** — which
+closes the pair `prices.js` itself named as *"the live `mushroom` R165 / `mushrooms` R90 bug
+shape"*. `dried shiitake mushrooms` R1750 untouched.
+
+**Written: 47 across 7 files** — china 8 · japan 9 · indonesia 2 · thailand 14 · vietnam 8 ·
+europe 5 · southafrica 1. Every write asserted the prior value first; a mismatch aborted the file.
+
+⛔ **8 ⬜ UNSCOREABLE rows were left alone** (3 `china-chongqing-huo-guo`, 3 `japan-chawanmushi`,
+`china-zhajiangmian` v2, `greece-youvetsi` v2). ⚖️ An ABSENT key makes the engine figure
+untrustworthy — overwriting there would have stamped **R539 on a dish labelled Budget**.
+
+⚠️ **`greece-gyros` v3 has NO `costPP` FIELD AT ALL** (engine R56). Not written: that is a
+*missing* defect, not a *stale* one, and adding a field is a different decision. Still open.
+
+---
+
+# ⛔ PROCESS SCAR — 4 AUG 2026 · THE ROOT-vs-`reference/` ORPHAN HAS NOW BITTEN TWICE IN FIVE DAYS
+
+🩸 **BITE ONE — 30 Jul.** `PRICE_LEDGER.json` and `ASIA_LEDGER.json` were pushed to the repo
+**ROOT** instead of `reference/`. `merge.js` could not find its own record and announced
+*"first entry for indonesia — baselining"* — **which reads like a healthy startup line.** Every
+merge in that window ran with **no count-and-hash gate** and said so in green. The comment at
+`merge.js:361` is the scar from that day.
+
+🩸 **BITE TWO — 4 Aug.** The same thing, same two files, five days later. A repaired
+`PRICE_LEDGER.json` (130 entries) sat in the ROOT while `priceledger.js` read a stale
+`reference/` copy (128). A stale `ASIA_LEDGER.json` in `reference/` still said **vietnam 4**
+against a file holding **11** — which would have hard-failed the next merge on a count mismatch.
+
+⚖️ **BOTH BITES WERE SILENT IN THE SAME WAY: the tool read a file that existed, so nothing
+looked wrong.** A missing file announces itself. **A file at the wrong path does not** — the one
+at the right path is simply out of date, and out-of-date reads as green.
+
+## ✅ THE REAL FIX IS A STARTUP GUARD — AND IT IS AN MF, NOT NOW
+
+⛔ **Not "remember to put it in `reference/`".** That is what failed twice. ⚖️ **Law 3 — a
+document that is wrong is SILENT.** The same is true of a file in the wrong folder.
+
+**The guard, when it is built:** `tinza-doctor.js` gains a rung that fails RED when a filename
+the tools read from `reference/` is found in the repo **ROOT**. It is a directory listing and a
+name comparison — cheap, and it fires on the exact shape that has now cost two sessions.
+⚠️ **Prove it born-RED:** drop a copy in the root, watch the doctor go red, then delete it.
+A rung nobody has seen fire is a rung nobody should trust. ⚖️ **Law 42 — THE RATCHET.**
+
+📌 **Both orphans are now gone.** `PRICE_LEDGER.json` moved to `reference/` (130 entries,
+verified by re-read before the source was deleted); root `ASIA_LEDGER.json` deleted after
+`reference/` was re-baselined from `wk_vietnam.js`. ⛔ Its `lastBatch: r10.js` was a foreign
+naming scheme and **was not copied** — the entry was derived, not transcribed.

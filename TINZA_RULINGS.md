@@ -1911,8 +1911,13 @@ the average in good faith. **It is not a bug. It is the ruling.** Anyone changin
 word, not a tidy-up.
 
 📌 Sits alongside the other deliberate asymmetries already ruled: budget fork **leads** and must be
-cheapest (A3) · a **missing** price is honest and a **wrong** one is not (§29.5, MF137 ladder) ·
+~~cheapest~~ (A3) · a **missing** price is honest and a **wrong** one is not (§29.5, MF137 ladder) ·
 free tier gets the whole recipe and the gate sits on planning, not browsing.
+
+> ⚠️ **"CHEAPEST" IS STRUCK HERE — 4 Aug 2026. SEE §37.1.** The A3 comparator is the record's
+> **DEFAULT** version, never its cheapest sibling. This loose word was read literally on 4 Aug,
+> a screen was built on it, and it missed a live breach (`thailand-nam-prik-ong`) that
+> `claimcheck.js` caught. The rule did not change; the wording here was always the loose one.
 
 ---
 
@@ -2335,3 +2340,58 @@ problem** — the same shape as the potato bobotie.
 If it only offers a different word, it is a translation and it has failed.
 ⚠️ **The remaining glosses in the map are Tina's to correct** — she is the caterer and the domain
 expert, and every one of them is a claim about South African food made by a model. ⚖️ **Law 11.**
+
+---
+
+## ⚖️ 37 · **BUDGET IS A CLAIM, NOT A CATEGORY** — **§37.1 THE COMPARATOR** — **RULED 4 Aug 2026 (Tina)**
+
+**§37 stands as carried:** a fork may carry `Budget` only if its `costPP` is at or below the
+parent's. A meat→tofu, meat→legume or meat→egg swap is a **diet** fork, labelled by diet,
+never by cost.
+
+### §37.1 THE COMPARATOR IS THE **DEFAULT VERSION**. NEVER THE CHEAPEST SIBLING.
+
+> ⚖️ **A `Budget` fork is measured against the record's DEFAULT version — the one carrying
+> `default: true`. It is NEVER measured against whichever sibling happens to be cheapest.**
+
+`claimcheck.js` has always implemented it this way and says so in its own words:
+*"A3: the budget fork must come in under the default."* **This clause exists because the
+prose drifted away from the tool, not because the tool was wrong.**
+
+🩸 **THE DRIFT, NAMED.** §30.3 carries the line *"budget fork **leads** and must be cheapest
+(A3)"*. **"Cheapest" is the loose word and it is now STRUCK** — see the marker at that line.
+A three-version record where the default is the *middle* price has a cheapest sibling that is
+not the default, so the two readings disagree, and the wrong one passes a fork that A3 fails.
+
+### §37.2 🩸 WHAT IT COST — 4 AUG 2026, THE MUSHROOM RE-PRICE
+
+Three mushroom keys moved to R140 and 47 `costPP` figures were re-derived. A pre-write screen
+was written to catch any fork that stopped being cheaper than its siblings. **It used the
+cheapest sibling. It reported ONE breach.**
+
+| record | what the screen said | what `claimcheck` said |
+|---|---|---|
+| `thailand-khao-tom` | ⚠️ breach — R46 → R52 | ⚠️ breach |
+| `thailand-nam-prik-ong` | ✅ **clean** | 🔴 **R47 against a DEFAULT of R44** |
+
+⚖️ **`nam-prik-ong` was caught only because `claimcheck.js` was run AFTER the write.** Its
+default is not its first version and is not its cheapest — precisely the shape the wrong
+comparator cannot see. Both forks had `Budget` struck; both are now labelled by diet alone.
+
+**AND THE SAME ERROR MIS-SIZED THE BACKLOG.** The screen reported **13** pre-existing Budget
+failures across five lanes. `claimcheck` reports **12**, and they are *not the same twelve* —
+the engine-based screen missed `china-staple-master-stock` and `china-staple-suan-cai`, whose
+stale `costPP` fails A3 while their engine cost does not. **A list built on the wrong
+comparator is not a shorter list. It is a DIFFERENT list, and it looks just as authoritative.**
+
+### §37.3 THE STANDING INSTRUCTION
+
+⛔ **DO NOT hand-roll the A3 test.** ✅ **Run `node claimcheck.js <lane>` and read the
+🔴 CONTRADICTIONS block.** It is the only implementation of this rule, and any second one is a
+copy that will drift — the same design law that keeps `merge.js`, `costcheck.js`,
+`pricecheck.js` and `tinza-all.js` shelling out instead of reimplementing.
+
+⚠️ **`claimcheck.js` scores the AUTHORED `costPP`, not the live engine figure.** Where a
+`costPP` is stale the two disagree, and A3 is judged on what the CARD SAYS — which is what the
+reader sees. §30.1 parity is what keeps them the same number.
+⛔ **`wk_europe.js` is not covered by `claimcheck.js` at all** — see **MF153**.
