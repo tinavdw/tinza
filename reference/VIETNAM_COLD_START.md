@@ -548,3 +548,71 @@ A rung nobody has seen fire is a rung nobody should trust. ⚖️ **Law 42 — T
 verified by re-read before the source was deleted); root `ASIA_LEDGER.json` deleted after
 `reference/` was re-baselined from `wk_vietnam.js`. ⛔ Its `lastBatch: r10.js` was a foreign
 naming scheme and **was not copied** — the entry was derived, not transcribed.
+
+---
+
+# ⚖️ RULED 4 AUG 2026 · THE `AVG_WEIGHT_G` ADDITION TO `core.js` IS CORRECT AND STAYS
+
+**Tina ruled it in under Law 20 on 4 Aug 2026.** Recording WHY, because the next session will
+find a weight-table edit inside a *pricing* MF and reasonably ask what it was doing there.
+
+**THE INSTRUCTION COULD NOT EXECUTE WITHOUT IT.** The MF said: retire `small chilli_each` and
+`chillies_each`, and repoint those 6 count lines onto the per-kg key `birds eye chillies`.
+`costRecipe` bridges a COUNT line to a per-kg key through `AVG_WEIGHT_G` — and that table had
+**no bird's-eye entry at all**. Measured before writing: all 6 lines came back `missing = 1`,
+i.e. **UNPRICED**. Not cheaper. Gone.
+
+⚖️ **LAW 20 — A PRICE THAT VANISHES IS A HARM.** Shipping the repoint without the bridge would
+have turned 6 real ingredients into silent holes and 6 versions into ⬜ UNSCOREABLE.
+
+**THE THREE WEIGHTS ARE TINA'S OWN 4 AUG FIGURES** — the same numbers the §3m derivations use,
+not invented for the table:
+
+| entry | weight | source |
+|---|---|---|
+| `birds eye chillies` | **3g** | her "fresh bird's eye 2–3g", top of band |
+| `birds eye chilli` | **3g** | same |
+| `dried birds eye chillies` | **0.5g** | her "~0.5g × R330/kg = R0.17" |
+
+📌 **CONSEQUENCE, STATED PLAINLY:** "1 small chilli" now renders **R0** — R0.30 rounds down.
+The arithmetic is right and the display is wrong. **That is MF157, and it is a DISPLAY fix,
+never a price fix.**
+
+⚖️ **THE GENERAL RULE THIS LEAVES BEHIND:** repointing a COUNT line onto a per-kg key is only
+safe if `AVG_WEIGHT_G` carries that key. **Check the bridge before the repoint, not after.**
+
+---
+
+# ✅ CLOSED 4 AUG 2026 · THE TWO THAI `chillies` LINES — DO NOT RE-OPEN
+
+Both stay on **`birds eye chillies`**. **The cards' own text settles it** — this was decided on
+repo evidence, not on a model's opinion about Thai food:
+
+- **`thailand-miang-kham`** — method: *"Dice the 8g of shallots, the 5g of ginger and the
+  **2 chillies** as finely as you can manage — **small hot ones if you can get them**"*.
+- **`thailand-kua-kling`** — method: *"**3 chillies here will read hotter than 6 in a coconut
+  curry**"*. A southern dry curry built on heat.
+
+⛔ **Neither names a finger chilli**, so the `chilli_each` R2 exception does not apply.
+✅ **No change was made. The question is closed.**
+
+---
+
+# ⛔ PROCESS SCAR — 4 AUG 2026 · A PROBE THAT CANNOT RETURN A POSITIVE IS NOT EVIDENCE
+
+🩸 On 4 Aug it was reported to Tina that **"zero lines currently use `doubanjiang`"**, and that
+claim was written into a ledger row. **IT WAS FALSE.** Nine ingredient lines use it, and
+correcting the key moved **13 version costs**.
+
+**HOW THE WRONG ANSWER WAS PRODUCED:** the count was run against a saved *chilli-vocabulary*
+audit whose match pattern **never contained the word "doubanjiang"**. The probe could only ever
+return zero. It measured nothing, and it was reported as if it had measured something.
+
+⚖️ **THE RULE: BEFORE TRUSTING A ZERO, PROVE THE PROBE CAN RETURN A ONE.** Same law as the
+doctor's rungs — *simulate the bug and watch it go red before you believe the check.* A zero from
+an instrument that cannot register a hit is not a finding; it is a blank instrument.
+
+⚠️ **AND IT IS THE SECOND TIME IN ONE DAY A WRONG COMPARATOR PRODUCED A CONFIDENT WRONG NUMBER**
+— the other was the §37 Budget screen measuring against the cheapest sibling instead of the
+default (see §37.1). Both were caught by running the REAL watcher afterwards. **Run the real
+watcher.**

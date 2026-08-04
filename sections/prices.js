@@ -514,9 +514,19 @@ const PRICE_DB = {
                              //    lamb→mutton mistake again.
                              // 📌 THE SINGLE BIGGEST UNLOCK IN THE LANE: 75 versions were UNSCOREABLE
                              //    on this one key alone — more than every other gap combined.
-  "doubanjiang": 413,        // R269/kg. TINA-SOURCED 30 Jul 2026: R50-95 per 230-400g jar
-                             // → R125-413/kg, TOP OF THE BAND R413 per the most-expensive rule. Sichuan fermented broad-bean chilli
-                             // paste. ⛔ NOT `chilli` R80 and NOT `red bean paste` R120 (which is the
+  // ⚖️ CORRECTED 4 Aug 2026 (Tina): R413 → R238, to agree with `chilli bean paste`. SAME PRODUCT.
+  //    🩸 WHERE R413 CAME FROM: the 30 Jul working paired the DEAREST price with the SMALLEST jar
+  //    — R95 ÷ 230g = R413/kg — but R95 is the 400g jar. The real pairings are R50/230g = R217/kg
+  //    and R95/400g = R238/kg, so the band is R175-R238 and the top of it is R238.
+  //    ⚠️ The old comment read "R269/kg" beside a value of 413. A key whose comment contradicts
+  //    its own value is unusable as evidence, so NEITHER number survived on its own authority —
+  //    both keys now carry the one DERIVED figure.
+  //    ⛔ NEITHER KEY IS DELETED. Same shape and same remedy as the three mushroom keys (4 Aug).
+  //    The alias `doubanjiang` → `chilli bean paste` stays INERT by design; the pair is kept in
+  //    step BY HAND, and this comment is the reason it must be.
+  "doubanjiang": 238,        // Tina 4 Aug 2026 · R95/400g = R238/kg, top of the R175-R238 band
+                             // Sichuan fermented broad-bean chilli paste.
+                             // ⛔ NOT `chilli` R80 and NOT `red bean paste` R120 (which is the
                              //    SWEET azuki paste for desserts — opposite end of the meal).
   "five spice powder": 540,  // R510/kg. TINA-SOURCED 30 Jul 2026: R23.99-27.00 per 50g jar
                              // → R480-540/kg, TOP OF THE BAND R540 per the most-expensive rule. A tight band, mainstream supermarket
