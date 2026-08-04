@@ -705,8 +705,21 @@ const PRICE_DB = {
                              // wrong route was already rendering via `ginger` — the money was fine, the ROUTE was fragile and
                              // would have broken silently the day fresh ginger repriced. ⚠️ Covers gari AND beni shoga, which
                              // are not the same product; at 10-20g a card they cannot diverge enough to matter. Ruled, not missed.
-  "mushroom": 165,            // R37/225g → R165/kg
-  "button mushrooms": 148,    // R37/250g → R148/kg
+  // ── MUSHROOMS · ALL THREE KEYS CARRY ONE NUMBER (Tina 4 Aug 2026) ───────────
+  // ⚖️ TINA-SOURCED 4 Aug 2026: white button, WHOLE, 250g pack R26.99-R34.99 at Shoprite
+  //    and Checkers → R108-R140/kg. TOP OF THE BAND per the most-expensive rule (Tina
+  //    13 Jun). The band is 1.30x, so §3l's wide-band question is NOT triggered.
+  // ⛔ SLICED button and portabellini at R152-R156/kg are a DIFFERENT PRODUCT — the
+  //    labour premium is the entire difference — and they do NOT set these keys. If a
+  //    portabellini key is ever needed it is a SEPARATE key, never a substitution.
+  // ⛔ NO KEY IS DELETED. `mushroom` is a SUBSTRING of `mushrooms` and of `button
+  //    mushrooms`; unkeying it would open a §3j substring fallthrough. All three carry
+  //    the same number ON PURPOSE — that is the fix, not a duplicate. This is the pair
+  //    named at the top of this file as "the live `mushroom` R165 / `mushrooms` R90 bug
+  //    shape": it is now closed by agreement rather than by deletion.
+  // ⛔ `dried shiitake mushrooms` R1750 is UNTOUCHED — a dried product, not this one.
+  "mushroom": 140,            // Tina 4 Aug 2026 · white button whole · was 165 (R37/225g)
+  "button mushrooms": 140,    // Tina 4 Aug 2026 · was 148, keyed off a SLICED R37/250g pack — wrong product
   "avocado": 65,              // per kg (R13/each ÷ ~200g). avocado_each handles COUNT; this weight key is for gram lines ("ripe avocado"). Was 13 → implied R13/kg (a latent under-price on any weight use).
   "avocado_each": 13,         // each
   "cucumber": 21,             // each
@@ -1024,7 +1037,8 @@ const PRICE_DB = {
                               // depending on size, and DEARER per apple than a 1kg or 1.5kg bag.
                               // Mid of her range, §31 rounds up. The bag route is "apples" R27/kg
                               // (R40/1.5kg) below -- two real store routes, not a duplicate key.
-  "mushrooms": 90,            // ESTIMATE
+  // ⚖️ See the MUSHROOMS block above — one number across all three keys, Tina 4 Aug 2026.
+  "mushrooms": 140,           // Tina 4 Aug 2026 · white button whole · was 90 (ESTIMATE — struck)
   "rooibos": 8,               // ESTIMATE (brewed, per L)
   "koeksisters": 120,         // ESTIMATE
   "syrup": 50,                // ESTIMATE
