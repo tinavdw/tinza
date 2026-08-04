@@ -493,6 +493,25 @@ function wkCleanName(name){
 }
 function wkIsWater(name){ var n=wkCleanName(name); return /^(water|tap water|boiling water|warm water|cold water|ice water|warm water or milk)$/.test(n) || (/\bwater\b/.test(n) && /\b(stock|broth)\b/.test(n)); }
 var WK_ALIAS = {
+  // ── CHILLI, ROUND 2 (Tina 4 Aug 2026) ──────────────────────────────────────
+  "piri piri sauce": "peri peri sauce",   // hyphenated form; 2 lines resolved to NOTHING
+  "small chilli": "birds eye chillies",   // key retired; these 4 lines are small hot chillies
+  "chillies": "birds eye chillies",       // 2 Thai lines, neither a finger chilli
+  "chillis": "birds eye chillies",
+  // ⚠️ INERT BY DESIGN, RECORDED SO THE INTENT IS NOT LOST: the alias rung runs AFTER the
+  //    exact-key rung, so while both keys exist these never fire. They fire the day the
+  //    colliding key is retired, and until then the pair must be kept in step BY HAND.
+  "doubanjiang": "chilli bean paste",     // ⛔ INERT — `doubanjiang` R413 is still a live key
+  "chili flakes": "chilli flakes",        // ⛔ INERT — `chili flakes` R700 is still a live key
+  // ── CHILLI SPELLING + SINGULAR ALIASES (Tina 4 Aug 2026) ────────────────────
+  // ⚖️ FREE ALIASES: no price is authored here. Each points at a key that already
+  //    exists, replacing a §3j substring fallthrough or an outright miss.
+  //    ⚠️ Keys are the wkCleanName form — punctuation is stripped to spaces, so it is
+  //       `piri piri`, never `piri-piri`.
+  "dried chilli": "dried chillies",   // was falling through to `chilli` R80 FRESH; the plural already hit R200
+  "piri piri": "peri peri sauce",     // the DB is keyed `peri`, every card writes `piri` — 5 lines resolved to nothing
+  "cayenne": "cayenne pepper",        // bare `cayenne` missed the R556 key entirely
+  "chili": "chilli",                  // US spelling
   // ⚠️ 30 Jul 2026 — `glutinous rice flour` must NOT fall to the new `glutinous rice` R63 key.
   // That would price a FLOUR as a bag of GRAINS, which is the exact bug prices.js already fixed
   // once (see the `rice flour` R40 comment: "Was resolving to `rice` R27 — a bag of grains priced

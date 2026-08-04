@@ -99,6 +99,13 @@
       "pricesLine": 264
     },
     {
+      "key": "birds eye chilli_each",
+      "value": 0.3,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "⚖️ §3m (RULED 4 Aug 2026): a `_each` price is DERIVED as weight x per-kg, with BOTH figures recorded in the prices.js comment. It is never authored as a bare number. TINA-SOURCED 4 Aug 2026: fresh bird's eye chilli 2-3g. TOP OF THE BAND: 3g x `birds eye chillies` R100/kg = R0.30. ⛔ NEVER R1 like `chilli_each` — a bird's eye is roughly an EIGHTH the weight of a standard chilli, so sharing the count price would over-charge it eightfold. ⚠️ MEASURED RADIUS AT THE TIME OF KEYING: ZERO LINES. Every card in the corpus writes the PLURAL \"birds eye chillies\", which hits the existing weight key `birds eye chillies` R100 at the exact rung and never reaches this one. The key is correct and pre-emptive, not load-bearing. ⛔ DRIED bird's eye is a different product and is still not keyed."
+    },
+    {
       "key": "black cardamom",
       "value": 420,
       "date": "3 Aug 2026",
@@ -182,6 +189,34 @@
       "grandfathered": true,
       "evidence": "pet — R55/kg (Tina)",
       "pricesLine": 263
+    },
+    {
+      "key": "chilli bean paste",
+      "value": 238,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 4 Aug 2026. DERIVATION: PRB 230g R50 -> R217/kg; Fu Chi 400g R70-R95 -> R175-R238/kg. Band R175-R238, TOP OF THE BAND per the most-expensive rule (Tina 13 Jun). CORRECTS 3 lines (china-mapo-tofu, china-yu-xiang-qie-zi, netherlands-rijsttafel) that were resolving to `chilli` R80 through a §3j substring fallthrough — a fermented bean paste priced as fresh chilli, roughly 3x under. ⚠️ UNRESOLVED COLLISION, RECORDED NOT HIDDEN: `doubanjiang` R413 (Tina 30 Jul 2026) is the SAME PRODUCT and its own comment cites the SAME source range (R50-R95 per 230-400g jar) yet reads \"R269/kg\" beside a value of 413. The two keys are 1.74x apart. The alias `doubanjiang` -> `chilli bean paste` was added but is INERT while the R413 key exists, because the exact-key rung runs before the alias rung. Zero lines currently use `doubanjiang`, so nothing renders wrong today. Tina to rule which number stands."
+    },
+    {
+      "key": "chilli flakes",
+      "value": 700,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 4 Aug 2026. DERIVATION: PnP 33g R22.99 = R697/kg; Woolworths 35g = R1028/kg. Bulk 1kg R119 REJECTED as bulk-only — not a route a home cook takes. WAS R180 and marked ESTIMATE; that ESTIMATE marker is STRUCK. ⚖️ THE `chili flakes` R700 COLLISION IS RESOLVED IN FAVOUR OF R700. Both keys now carry the same number and NEITHER IS DELETED — the same shape, and the same remedy, as the mushroom trio on 4 Aug. ⚠️ The alias `chili flakes` -> `chilli flakes` is INERT while both keys exist, so the pair must be kept in step BY HAND until one is retired. Moves 17 lines; the largest single effect in the lane is china-staple-chilli-oil."
+    },
+    {
+      "key": "chilli powder",
+      "value": 150,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 4 Aug 2026. DERIVATION: 45g bottle = R733/kg; loose 1kg = R130-R150/kg. ⚖️ §3l WIDE BAND RULED, AND THE REASONING IS THE RULING: that spread is a PACKAGING PREMIUM, not a price range — the same powder sold two ways — so the BULK end is taken deliberately at R150. ⚠️ This is the one place the most-expensive rule is NOT applied; it is ruled, not missed. ⛔ Kashmiri chilli R195 is a SEPARATE chilli — mild and colour-led — and never sets this key. Moves 23 lines off `chilli` R80 (a FRESH price) plus 3 more via qualifier forms (`mild chilli powder`, `red chilli powder`, `chilli powder + cumin`)."
+    },
+    {
+      "key": "chilli_each",
+      "value": 2,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "⚖️ §3m (RULED 4 Aug 2026): a `_each` price is DERIVED as weight x per-kg, with BOTH figures recorded in the prices.js comment. It is never authored as a bare number. TINA-SOURCED 4 Aug 2026: fresh common chilli 15-25g. TOP OF THE BAND per the most-expensive rule (Tina 13 Jun): 25g x `chilli` R80/kg = R2.00. WAS R1, which was typed rather than derived and had no recorded weight behind it. ⛔ `chillies_each` and `chillis_each` were DELIBERATELY LEFT AT R1 in the same edit: the two lines that resolve through `chillies` (thailand-miang-kham \"2 chillies\", thailand-kua-kling \"3 chillies\") are Tina's to rule per line, and moving the key would have pre-empted her. ⚠️ THIS LEAVES A KNOWN SPLIT — \"1 chilli\" costs R2 while \"2 chillies\" costs R1 each, the same shape as the `mushroom` R165 / `mushrooms` R90 pair. It is recorded here so it is closed deliberately and not by drift."
     },
     {
       "key": "cinnamon",
@@ -297,6 +332,20 @@
       "grandfathered": true,
       "evidence": "R29 per 250g supermarket pack → R116/kg. TINA-SOURCED 30 Jul 2026.",
       "pricesLine": 408
+    },
+    {
+      "key": "dried birds eye chilli_each",
+      "value": 0.17,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "⚖️ §3m (ruled 4 Aug 2026): a `_each` price is DERIVED as weight x per-kg, with both figures in the comment. TINA-SOURCED 4 Aug 2026: dried bird's eye ~0.5g x `dried birds eye chillies` R330/kg = R0.17. ⛔ Never shares `chilli_each` R2 — a dried bird's eye is a fraction of a standard fresh chilli by weight. ⚠️ ZERO LINES at the time of keying, same as its weight key."
+    },
+    {
+      "key": "dried birds eye chillies",
+      "value": 330,
+      "date": "4 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 4 Aug 2026. DERIVATION: 50g R15.99 = R320/kg; 500g R110-R165 = R220-R330/kg. Band R220-R330, TOP OF THE BAND. ⛔ A DIFFERENT PRODUCT FROM FRESH `birds eye chillies` R100 — dried is concentrated and dearer, and the two must never share a key. ⚠️ MEASURED RADIUS AT THE TIME OF KEYING: ZERO LINES. No card currently writes \"dried birds eye chillies\". The key is pre-emptive, not load-bearing, and its presence must not be read as evidence that dried bird's-eye lines are handled."
     },
     {
       "key": "dried fruit",

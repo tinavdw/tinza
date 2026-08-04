@@ -2395,3 +2395,49 @@ copy that will drift — the same design law that keeps `merge.js`, `costcheck.j
 `costPP` is stale the two disagree, and A3 is judged on what the CARD SAYS — which is what the
 reader sees. §30.1 parity is what keeps them the same number.
 ⛔ **`wk_europe.js` is not covered by `claimcheck.js` at all** — see **MF153**.
+
+---
+
+## ⚖️ 3m · **A `_each` PRICE IS DERIVED, NEVER AUTHORED** — **RULED 4 Aug 2026 (Tina)**
+
+⚠️ **HOUSEKEEPING NOTE, WRITTEN BECAUSE IT WILL CONFUSE THE NEXT SESSION:** the PRICE-KEY §3
+family (`§3j` substring fallthrough, `§3l` wide-band, and now `§3m`) is cited across the repo
+but **has no home section in this file** — `## 3` here is TINZA CHEF. The clauses are real and
+carried; the numbering belongs to the price-key ladder, not to §3 Chef. Do not renumber either.
+
+### §3m THE RULE
+
+> **A `_each` price is DERIVED as `weight × per-kg`. BOTH figures are recorded in the
+> `prices.js` comment. It is never authored as a bare number.**
+
+⚖️ Same law as §30.1 for `costPP`: **a figure that is typed is a figure nobody can check.**
+A count price with no weight behind it cannot be re-derived when the per-kg key moves, so it
+silently goes stale — and a stale count price renders as a number and looks correct.
+
+### §3m.1 APPLIED 4 AUG 2026
+
+| key | derivation | was |
+|---|---|---|
+| `chilli_each` | fresh common chilli 15–25g → **25g × `chilli` R80/kg = R2.00** | R1, typed |
+| `birds eye chilli_each` *(new)* | fresh bird's eye 2–3g → **3g × `birds eye chillies` R100/kg = R0.30** | — |
+
+⛔ **A BIRD'S EYE MAY NOT SHARE `chilli_each`.** It is roughly an **eighth** the weight of a
+standard chilli, so one shared count price over-charges it eightfold. Weight is the discriminator,
+which is exactly what §3m forces into the comment.
+
+⚠️ **THE NEW KEY HAD A MEASURED RADIUS OF ZERO AND WAS KEYED ANYWAY.** Every card in the corpus
+writes the **plural** "birds eye chillies", which hits the weight key `birds eye chillies` R100
+at the exact rung and never reaches the new one. **That is recorded rather than hidden:** a key
+that fires on nothing today is pre-emptive, not load-bearing, and nobody should read its presence
+as evidence that bird's-eye count lines are handled.
+
+### §3m.2 🩸 THE SPLIT THIS LEFT OPEN — DELIBERATE, AND IT IS TINA'S TO CLOSE
+
+`chillies_each` and `chillis_each` **were left at R1** while `chilli_each` moved to R2. They are
+the same product. The reason is scope, not oversight: the two lines resolving through `chillies`
+(`thailand-miang-kham` "2 chillies", `thailand-kua-kling` "3 chillies") are hers to rule per line,
+and moving the key would have pre-empted that ruling.
+
+⚠️ **Until she rules, "1 chilli" costs R2 and "2 chillies" costs R1 each.** This is the same shape
+as the `mushroom` R165 / `mushrooms` R90 pair and the live `chilli flakes` R180 / `chili flakes`
+R700 pair. ⚖️ **It is written down so it is closed deliberately, not discovered by drift.**

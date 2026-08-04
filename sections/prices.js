@@ -68,8 +68,25 @@ const PRICE_DB = {
   "baking paper sheet_each": 2.20, "baking paper sheets_each": 2.20, "baking paper_each": 2.20,  // Tina 30 Jul 2026: 5m roll R34.99
   "foil sheet_each": 2.45, "foil sheets_each": 2.45, "foil_each": 2.45,  // Tina 30 Jul 2026: heavy duty 5m R39
   "bread slice_each": 1, "bread slices_each": 1,         // loaf ~R18 / 18 slices
-  "chilli_each": 1, "chillies_each": 1, "chillis_each": 1,
-  "green chilli_each": 1, "green chillies_each": 1, "small chilli_each": 1,
+  // ⚖️ §3m — A `_each` PRICE IS DERIVED: weight x per-kg, BOTH figures in the comment.
+  //    Never authored. TINA-SOURCED 4 Aug 2026: fresh common chilli 15-25g; top of the band
+  //    25g x `chilli` R80/kg = R2.00. Was R1, which was typed, not derived.
+  // ⛔ `chillies_each` and `chillis_each` DELIBERATELY LEFT AT R1 (4 Aug 2026). They are the
+  //    same product and this is a KNOWN SPLIT, not an oversight: the 2 lines resolving through
+  //    `chillies` are Tina's to rule per line, and repricing them here would pre-empt that.
+  //    ⚠️ Until she rules, "1 chilli" costs R2 and "2 chillies" costs R1 each. SAME SHAPE AS
+  //    the `mushroom` R165 / `mushrooms` R90 pair. Close it deliberately, not by drift.
+  //    ⚠️ SPLIT ONTO ITS OWN LINE ON PURPOSE: priceledger.js assigns a line comment to EVERY
+  //    key on that line, so keeping these together would make `chillies_each` claim a Tina
+  //    attribution she never gave for R1.
+  "chilli_each": 2,   // Tina 4 Aug 2026 · 25g x R80/kg
+  "green chilli_each": 1, "green chillies_each": 1,
+  // ⛔ `small chilli_each` RETIRED 4 Aug 2026 (Tina). It was R1 with AVG_WEIGHT_G 15 — identical
+  //    to a standard chilli, which is what its own comment admitted. The 4 lines that used it
+  //    are aliased to `birds eye chillies` in worldkitchen.js.
+  // ⛔ `chillies_each` / `chillis_each` RETIRED in the same edit so the 2 Thai lines resolve
+  //    through the alias. Neither dish names a finger chilli — miang kham says "small hot ones
+  //    if you can get them"; kua kling is a southern dry curry built on heat.
   // ── WK tail (1 Jul, Tina-sourced) — specialty spices/items, real prices not guesses ──
   "mitmita": 240,                 // Ethiopian chili R150–240/kg
   "berbere": 200, "berbere sauce base": 200,
@@ -126,6 +143,13 @@ const PRICE_DB = {
                                // Tina-sourced 29 Jul 2026. ⚠️ FIXES A LIVE WRONG PRICE, not a gap:
                                // without this key "chilli oil" fell through to `chilli` R80/kg — a
                                // FRESH CHILLI price, ~6x under, live in 24 wk_china.js mentions.
+  // ⚖️ TINA-SOURCED 4 Aug 2026. PRB 230g R50 -> R217/kg; Fu Chi 400g R70-R95 -> R175-R238/kg.
+  //    TOP OF THE BAND per the most-expensive rule. Corrects 3 lines that were resolving to
+  //    `chilli` R80 through a §3j substring fallthrough — a fermented bean paste priced as
+  //    fresh chilli, 3x under.
+  // ⚠️ COLLIDES WITH THE LIVE `doubanjiang` R413 (Tina 30 Jul) — SAME PRODUCT, SAME SOURCE
+  //    RANGE, 1.74x apart. NOT resolved here. See the note on that key.
+  "chilli bean paste": 238,    // Tina 4 Aug 2026 · top of R175-R238 band
 
   "pine nuts": 1175,
   "sweetcorn": 59,
@@ -922,6 +946,14 @@ const PRICE_DB = {
   "dried ginger": 440,
   "origanum": 688,            // R22/32g → R688/kg
   "cayenne pepper": 556,      // R25/45g → R556/kg
+  // ⚖️ TINA-SOURCED 4 Aug 2026. §3l WIDE BAND RULED, AND THE REASONING IS THE POINT:
+  //    a 45g bottle works out at R733/kg, loose 1kg runs R130-R150. That spread is a
+  //    PACKAGING PREMIUM, NOT A PRICE RANGE — the same powder, sold two ways. The BULK end
+  //    is chosen deliberately because it is what the product actually costs.
+  //    ⚠️ This is the one place the most-expensive rule is NOT applied, and it is ruled, not missed.
+  // ⛔ KASHMIRI CHILLI R195 IS A SEPARATE CHILLI — mild, colour-led, never this key.
+  // 23 lines move off `chilli` R80 (fresh) onto this.
+  "chilli powder": 150,       // Tina 4 Aug 2026 · loose 1kg R130-R150
   "cinnamon": 550, "ground cinnamon": 550,   // R22/40g → R550/kg (Tina 11 Jul)
   "ground cloves": 470,
   "cumin": 470,
@@ -1374,7 +1406,11 @@ const PRICE_DB = {
   "corn chips": 120,               // ESTIMATE — tortilla/corn chips (~R30/250g)
   "instant gravy": 90,             // ESTIMATE — gravy powder; pinch use
   "dried chillies": 200,           // ESTIMATE — dried/concentrated (was R0; "dried" stripped to "chillies" which matched nothing)
-  "chilli flakes": 180,            // ESTIMATE — dried flakes; was mis-resolving to FRESH chilli R80
+  // ⚖️ TINA-SOURCED 4 Aug 2026. PnP 33g R22.99 = R697/kg; Woolworths 35g = R1028/kg.
+  //    Bulk 1kg R119 REJECTED as bulk-only — not a route a home cook takes. Was R180 ESTIMATE.
+  //    ⚖️ THE `chili flakes` R700 COLLISION IS RESOLVED IN FAVOUR OF R700. Both keys carry the
+  //    same number and NEITHER IS DELETED — same shape as the mushroom trio (4 Aug).
+  "chilli flakes": 700,            // Tina 4 Aug 2026 · 33g R22.99 -> R697/kg
   "brandy": 200,                   // ESTIMATE — per litre (used in ml)
   "spice mix": 120,                // ESTIMATE — generic blend; vague name, consider naming the specific spice in-recipe
   // ── added 29 Jun (oven-bakes WOW batch) ──
@@ -1540,6 +1576,18 @@ const PRICE_DB = {
   // The four specialty chillies. Not one of them is a generic "chilli": hotter, dearer,
   // and much smaller. Tina: you can't get all four everywhere — R80–120/kg → honest average.
   "birds eye chillies": 100,
+  // ⚖️ TINA-SOURCED 4 Aug 2026: 50g R15.99 = R320/kg; 500g R110-R165 = R220-R330/kg.
+  //    TOP OF THE BAND. ⛔ A DIFFERENT PRODUCT FROM FRESH `birds eye chillies` R100 — dried is
+  //    concentrated and dearer, and the two must never share a key.
+  "dried birds eye chillies": 330,   // Tina 4 Aug 2026 · top of R220-R330 band
+  // ⚖️ §3m DERIVED: dried bird's eye ~0.5g x R330/kg = R0.17.
+  "dried birds eye chilli_each": 0.17,   // Tina 4 Aug 2026 · 0.5g x R330/kg
+  // ⚖️ §3m DERIVED, Tina 4 Aug 2026: fresh bird's eye 2-3g; top of the band
+  //    3g x `birds eye chillies` R100/kg = R0.30.
+  //    ⛔ NEVER R1 like `chilli_each` — a bird's eye is an EIGHTH the weight of a standard
+  //    chilli, so a shared count price would over-charge it eightfold.
+  //    ⛔ DRIED bird's eye is a different product and is NOT keyed here (still blocked).
+  "birds eye chilli_each": 0.30,   // Tina 4 Aug 2026 · 3g x R100/kg
   "habanero chillies": 100,
   "scotch bonnet chillies": 100,
   "red cayenne chillies": 100,

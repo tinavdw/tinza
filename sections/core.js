@@ -1450,7 +1450,10 @@ var AVG_WEIGHT_G = {
   // ── [A] synonyms of entries above ──
   eggs:58,                       // = egg 58
   "burger bun":65,               // = burger buns 65
-  chillis:15, "small chilli":15, // = chilli 15  ⚠️ "small" implies less; kept equal, conservative
+  chillis:15, "small chilli":15,
+  // ⚖️ Tina 4 Aug 2026 — fresh bird's eye 2-3g, top of band 3g; dried ~0.5g. Added because
+  //    6 count lines were repointed onto `birds eye chillies` and had no count->weight bridge.
+  "birds eye chillies":3, "birds eye chilli":3, "dried birds eye chillies":0.5, // = chilli 15  ⚠️ "small" implies less; kept equal, conservative
   tortillas:60, "tortilla wrap":60,   // = tortilla / large tortilla 60
   "smoked viennas":30,           // = vienna 30
   "hot dog sausages":30,         // = vienna 30 — same PRICE_DB _each (R3.54), same product
