@@ -24,6 +24,12 @@
       "hash": "f825fb7d0cf8c441",
       "updated": "2026-08-01",
       "lastBatch": "batch30.js"
+    },
+    "vietnam": {
+      "records": 4,
+      "hash": "01b871421d5b6478",
+      "updated": "2026-08-04",
+      "lastBatch": "batch_vietnam_b1.js"
     }
   }
 }

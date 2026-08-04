@@ -16,16 +16,43 @@ first two hours of the 2 Aug session.
 2. read THIS file, all of it
 3. read reference/THAILAND_COLD_START.md §4o — the close, and every carried ruling
 4. COUNT WITH NODE. Never by eye, never from a handoff, never from memory.
-5. node tinza-all.js thailand   → expect 38 · 8 standards · 0 red · 0 drift
+5. node tinza-all.js vietnam    → expect 4 · 0 red · 0 drift · 1 🔵 (thai basil)
+6. node tinza-all.js thailand   → expect 38 · 0 red · 0 drift
                                    claimcheck 🔴 0 · 🟠 11 · 🔵 20
 6. node priceledger.js --ask <term>   BEFORE asking Tina for ANY price
 ```
 
-⚖️ **The lane file `sections/wk_vietnam.js` exists and is WIRED, with 0 records.**
+⚖️ **LANE STATE: 4 of 50 records banked (B1 closed 3 Aug).** All three wiring lines live and
+verified: `index.html:160` · `worldkitchen.js:58` concat · `WK_COUNTRY_GEO["Vietnam"]`.
+
+**B1 BANKED — Phở Bò R99·R85·R75 · Gỏi Cuốn R67·R57·R55 · Bún Chả R80·R85·R83 ·
+Chè Chuối R21·R24·R22.** 12/12 costs green, 0 red across all six measured standards.
+Batch source archived at `Archive/Vietnam-recipes/vietnam-batch1.js`.
+
+⚖️ **THE RING IS CLOSED, SO B2 IS EASIER THAN B1 WAS.** B1 had to be written as four records in
+ONE merge because A6 needs 3 live country-scoped crossLinks and merge fails a self-link — with
+an empty lane there was nothing legal to point at. **That constraint is gone.** From B2 onward a
+single record can bank alone, pointing at any three of the four already there.
+
+⛔ **ARGUMENTS B1 HAS ALREADY SPENT — do not reuse these in Vietnam:**
+- **Deliberate charring / burning on purpose** — `vietnam-pho-bo` (pyrolysis vs Maillard on allium)
+- **Rehydration continuing after the water** — `vietnam-goi-cuon` (the one-second bánh tráng rule)
+- **A sauce that changes during the meal** — `vietnam-bun-cha` (fat, char, osmosis, starch)
+- **Ethylene and climacteric ripening** — `vietnam-che-chuoi`
+- **nước chấm** is owned by `vietnam-goi-cuon`. **Peanut dipping sauce belongs to Indonesia**
+  (`gado-gado`, `sate-ayam`, `sate-lilit`) — six records deep, do not take it.
+
+⚠️ **REGISTERS FOUND SPENT WHILE WRITING B1 — check before reaching for them again:**
+collagen→gelatin (~60 records) · clear-broth skimming (`china-lanzhou-niurou-mian`) ·
+raw meat cooked at the table (`china-guo-qiao-mi-xian` — Crossing-the-Bridge Noodles, the trap
+that no search for "pho" would ever find) · quick-pickle-vs-ferment (`japan-tsukemono`,
+`indonesia-acar-kuning`) · osmosis (12 records) · shaved-ice desserts (`indonesia-es-cendol`,
+`indonesia-es-teler`, `thailand-tub-tim-grob`).
+⚖️ **Six registers burned across four records. Budget for that rate, it is normal.**
 All three lines are live: the `index.html` script tag, `window.WK_VIETNAM || []` in
 `wkPool()`, and `WK_COUNTRY_GEO["Vietnam"]`. Record 1 lands and simply works.
-⚠️ `wkCountriesIn()` derives the country list from the RECORDS, so at 0 records Vietnam
-does not appear in the Asia grid at all. No empty tile. It starts existing at record 1.
+✅ `wkCountriesIn()` derives the country list from the RECORDS, so Vietnam now appears in the
+Asia grid. Spot-check the tile on Netlify after the push — Law 2, fingers on live.
 
 ⛔ **THE PROCESS SCAR: never run `git checkout` on a lane file that is ahead of HEAD.**
 
@@ -147,6 +174,114 @@ contaminate every Vietnamese record with a chilli in it. **Good first job of the
 ingredient into an arm. Expect a long Arm 1 list where nothing changes.
 🟡 **Still open:** the shelf check. One photo of the back of either tin clears both `est`
 markers and lifts the claim bar. Bamboo shoots is the weaker number — correct it first.
+
+### 3i · 🔴 20 STALE `costPP` VALUES — LOGGED 3 Aug, TO BE DONE ONCE VIETNAM CLOSES
+⚖️ **Tina's call, 3 Aug: log it, finish Vietnam, then clear it in one pass.**
+
+⛔ **THIS IS A FAULT CLASS THE WATCHERS CANNOT SEE, AND THAT IS THE POINT OF THIS ENTRY.**
+Four keys were corrected on 3 Aug (see the ledger). Twenty already-banked records use them in
+PRICED ingredient lines, so their engine cost moved — but every movement is R1–R3, which sits
+INSIDE `costcheck`'s ✅ tolerance. All four Asia lanes still report green. **`costcheck` green
+means "within band", not "current".** A price correction small enough to pass tolerance still
+leaves every derived number behind it stale, and nothing announces it.
+
+⚠️ **`thailand-massaman` is in this list** — a lane closed 2 Aug with every gate green.
+Closing a lane does not freeze its costs; it freezes its records.
+
+▶️ **THE FIX IS MECHANICAL — §30.1, no rulings and no prices needed from Tina.** Re-derive each
+stored `costPP` off the engine and set it. Before/after measured against `git show HEAD:sections/prices.js`.
+
+| record | lane | engine cost | Δ | key that moved |
+|---|---|---|---|---|
+| `tunisia-mloukhia` | Tunisia | R36 → **R33** | -3 | coriander seed |
+| `china-staple-master-stock` | China | R136 → **R138** | +2 | rock sugar |
+| `china-da-pan-ji` | China | R261 → **R262** | +1 | rock sugar |
+| `china-chongqing-huo-guo` | China | R523 → **R522** | -1 | black cardamom + rock sugar |
+| `indonesia-tempe-goreng` | Indonesia | R45 → **R43** | -2 | coriander seed |
+| `indonesia-sate-ayam` | Indonesia | R40 → **R37** | -3 | coriander seed |
+| `indonesia-gudeg` | Indonesia | R55 → **R53** | -2 | coriander seed |
+| `indonesia-ayam-goreng-kalasan` | Indonesia | R77 → **R75** | -2 | coriander seed |
+| `indonesia-sate-lilit` | Indonesia | R57 → **R56** | -1 | coriander seed |
+| `indonesia-ayam-betutu` | Indonesia | R55 → **R52** | -3 | coriander seed |
+| `indonesia-soto-betawi` | Indonesia | R78 → **R75** | -3 | coriander seed |
+| `indonesia-ayam-pop` | Indonesia | R56 → **R53** | -3 | coriander seed |
+| `indonesia-tempe-mendoan` | Indonesia | R77 → **R75** | -2 | coriander seed |
+| `indonesia-bebek-goreng` | Indonesia | R67 → **R64** | -3 | coriander seed |
+| `indonesia-sate-padang` | Indonesia | R44 → **R41** | -3 | coriander seed |
+| `indonesia-dendeng-balado` | Indonesia | R49 → **R46** | -3 | coriander seed |
+| `boerekos-boerewors-homemade` | Boerekos | R50 → **R47** | -3 | coriander seed |
+| `thailand-massaman` | Thailand | R83 → **R80** | -3 | coriander seed |
+| `india-chicken-chettinad` | India | R32 → **R29** | -3 | coriander seed |
+| `pakistan-chapli-kebab` | Pakistan | R30 → **R27** | -3 | coriander seed |
+
+⚖️ **THE RULING THIS SUGGESTS, NOT YET MADE:** `costcheck` should be able to answer
+"is this number CURRENT?" separately from "is this number IN BAND?". A cheap version is a
+recorded hash of `prices.js` per lane — if the hash moved since the lane was costed, every
+costPP in it is suspect regardless of tolerance. ⛔ Do not build this mid-lane. Note it, finish
+Vietnam, then decide.
+
+### 3j · 🟠 THE SUBSTRING-FALLTHROUGH PATTERN — LOGGED 3 Aug, NOT YET A WATCHER
+⚖️ **Tina's call 3 Aug: log the debt, clear it once Vietnam closes.**
+
+A compound ingredient name falls through to a SHORTER, CHEAPER key by substring and bills at
+its price. It is never ABSENT, so coverage never drops and no watcher fires. `prices.js` already
+carried five individually-noticed fixes of this shape before today: `rice noodles` (was `rice`
+R27) · `shirataki noodles` (was `noodles` R80) · `thin egg noodles` (was `egg` PER COUNT) ·
+`instant noodles` (was `noodles` R80) · `chilli oil` (was `chilli` R80, ~6x).
+
+**Nine more found on 3 Aug in one afternoon of Vietnam authoring:** `coriander seeds`→`coriander`
+(7x HIGH — the fresh-herb key) · `black cardamom`→`cardamom` (7x HIGH — green) · `rock sugar`→
+`sugar` · `thai basil`→`basil` · `rice paper`→`rice` (6.5x LOW) · `rice vermicelli`→`rice` ·
+`tapioca pearls`→ABSENT · `mung beans`→ABSENT · `rice vinegar`→`vinegar` R25 (~5x LOW).
+
+⚖️ **FOURTEEN INSTANCES IS A PATTERN, NOT BAD LUCK.** Every one was caught by a human reading a
+resolution table, so the ones nobody looked at are still live. The mechanical rung: for every
+ingredient string in the corpus, assert the resolved key IS the written name (after alias)
+rather than merely a substring of it, and print every case where a LONGER written name resolved
+to a SHORTER key. Expect a long list and expect most of it to be legitimate — the tool's job is
+to make the illegitimate ones visible, not to auto-fix.
+⛔ **DO NOT BUILD THIS MID-LANE.**
+
+### 3k · 🔴 `rice noodles` R45 IS AN UNSOURCED ESTIMATE, SUSPECTED ~4x LOW — NEEDS TINA
+Real SA shelf data for the dried-rice-noodle family, sourced by Tina 3 Aug, lands at
+**R165–R200/kg**. `rice noodles` sits at **R45**, has never been Tina-sourced, and carries no
+evidence — a stopgap that fixed an earlier `rice` R27 fallthrough and inherited nothing.
+
+⛔ **DELIBERATELY NOT CHANGED.** Extrapolating a VERMICELLI price onto FLAT noodles is precisely
+the assumption that put R27 rice paper in the file. **Needs one shelf price from Tina.**
+⚠️ Used in priced lines by `thailand-pad-thai` (80g) · `thailand-rad-na` (180g) ·
+`china-gon-chow-ngau-ho` · `china-duo-jiao-yu-tou` · `china-guo-qiao-mi-xian` ·
+`vietnam-pho-bo` (120g). Rad Na and Pad Thai would move enough to break the 40% band.
+
+### 3l · 🟡 DOES THE MOST-EXPENSIVE RULE TAKE A MID ON WIDE BANDS? — OPEN, NOT RULED
+Surfaced 3 Aug on `rice vinegar`. The band was Safari R120/L · Kong Yen R153–200/L · Woolworths
+200ml R82.99 → **R415/L**. The most-expensive rule (13 Jun, restated 30 Jul) gives R415. Applied
+literally for one merge, it moved 13 banked records — `japan-oshizushi` R22→R61 (+177%),
+`japan-sunomono` R6→R14, `japan-gari` R19→R38 — and put Japan from 3 red to **11 red**. A 200ml
+specialty bottle was setting the price of a staple used 50ml at a time in sushi rice.
+
+⚖️ **Tina then named the product — Safari R44.99/375ml → R120/L — which resolved THIS key but
+did NOT rule the general case.** The counter-precedent already exists: on 22 Jul `white wine
+vinegar` R165 was set as an HONEST MID of its R150–180 band, not the top.
+▶️ **The open question: should the rule take a mid when a band spans more than ~2x?**
+
+### 3m · 🟠 SEVEN JAPAN VERSIONS NOW 15–40% OUT — CAUSED BY THE `rice vinegar` FIX, 3 Aug
+⚖️ Correcting `rice vinegar` R25 → R120 is right, and these seven were previously costed against
+a price that was ~5x too low. **They are not new faults; they are pre-existing faults becoming
+visible.** Re-derive each costPP off the engine — §30.1, mechanical, no rulings needed.
+
+| record | version | authored | engine | out by |
+|---|---|---|---|---|
+| `japan-oshizushi` | Yasai Oshizushi | R17 | R27 | 37% |
+| `japan-oshizushi` | Battera — Shime Saba | R22 | R32 | 31% |
+| `japan-sunomono` | Kyuri no Sunomono | R3 | R5 | 40% |
+| `japan-sunomono` | Kyuri to Wakame | R6 | R8 | 25% |
+| `japan-gari` | Gari from Mature Ginger | R16 | R21 | 24% |
+| `japan-gari` | Gari — Sweet Pickled Ginger | R19 | R24 | 21% |
+| `japan-gari` | Beni Shoga | R19 | R23 | 17% |
+
+⚠️ Japan's 3 RED are PRE-EXISTING and were present before this session — measured against
+`git show HEAD:sections/prices.js`. Do not attribute them to the Vietnam work.
 
 ### 3e · 📁 MF-BRIEF FILING
 33 MF-briefs live in `reference/` and `/law` hygiene flags them. Several are visibly done. A

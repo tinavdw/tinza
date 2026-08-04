@@ -144,6 +144,40 @@ const PRICE_DB = {
   "tiger nuts": 400,          // Spain — horchata (Tina)
   "chickpea flour": 114,
   "coriander": 650,
+  // ── VIETNAM B1 KEYS — TINA-SOURCED 3 Aug 2026 ──────────────────────────────
+  // ⚠️ ALL FOUR EXISTED AS SILENT WRONG-PRODUCT RESOLUTIONS BEFORE THIS BLOCK.
+  // Written on a card they each matched a NEIGHBOURING key by substring and billed at its
+  // price — the `nigeria-suya` peanut-oil shape. None was ever ABSENT, so no coverage
+  // number ever dropped and nothing announced the fault. Missing < duplicate < WRONG.
+  "coriander seeds": 95,     // TINA-SOURCED 3 Aug 2026. R95/kg.
+                             // ⛔ NOT `coriander` R650 — that key is the FRESH HERB (it sits in the
+                             // R650 fresh band with dill/thyme/basil/mint). Whole seed is a dried
+                             // spice and is nearly 7x CHEAPER, not dearer. An estimate of R400 was
+                             // drafted for this slot and was wrong by more than 4x in the expensive
+                             // direction — the reason it was asked rather than written.
+  "coriander seed": 95,      // singular spelling, same product
+  "black cardamom": 420,     // TINA-SOURCED 3 Aug 2026. R18-45/25-50g pack → R150-420/kg,
+                             // TOP OF THE BAND R420 per the most-expensive rule (Tina, 13 Jun).
+                             // ⛔ NOT `cardamom` R3083 — that is GREEN cardamom. Black (thảo quả /
+                             // badi elaichi / black elachi) is a different pod, smoky rather than
+                             // floral, and roughly 7x cheaper. Substring-matched to green before this.
+  "badi elaichi": 420,       // Indian-grocer name, same product
+  "black elachi": 420,       // SA spelling seen on shelf
+  "rock sugar": 50,          // TINA-SOURCED 3 Aug 2026. R25/500g → R50/kg.
+                             // ⛔ NOT `sugar` R35 — mishri / rock candy is a distinct product and
+                             // dearer. Close enough that the substring match looked harmless.
+  "mishri": 50,              // same product, Indian-grocer name
+  "thai basil": 1500,        // est — TINA-SOURCED BAND 3 Aug 2026, WEIGHT ASSUMED.
+                             // R15-30 per punnet/bunch at specialty Asian grocers. TOP OF THE BAND
+                             // R30, assumed 20g punnet → R1500/kg. §38 Arm 4: scarce, weight not
+                             // printed, so estimate HIGH and mark est.
+                             // ⛔ THE R30 SEED-PACKET / STARTER-PLANT PRICE IS DELIBERATELY DISCARDED.
+                             // A seed price is not a food price — the `yard-long beans` ruling.
+                             // ⛔ NOT `basil` R650 — sweet basil is a different herb (aniseed vs
+                             // sweet). ⚖️ TINA'S SUBSTITUTE RULING 3 Aug: where unavailable, sweet
+                             // basil + fresh mint, optionally a tiny pinch of star anise. That is a
+                             // §39 in-method substitution, NOT an alias — the key stays its own.
+                             // 🟡 ONE PUNNET WEIGHT FROM TINA REPLACES THE ASSUMPTION AND CLEARS est.
   "dill": 650,
   "thyme": 650,
   "rosemary": 650,
@@ -599,6 +633,32 @@ const PRICE_DB = {
                              // yellow soybean paste key was found, and how Rad Na's false
                              // "tao jiew is not sold here" line was caught the same minute.
   "sago": 56,                // R28/500g. TINA-SOURCED, applied 1 Aug 2026.
+  "tapioca pearls": 210,     // TINA-SOURCED 3 Aug 2026. R42-R65/400-450g → R93-R162/kg; bulk
+                             // 1-2kg R210-R400 → R200-R210/kg. TOP OF THE BAND R210.
+                             // ⚠️ NOTE THE INVERSION: bulk is DEARER per kg than the small packs
+                             // here. That is Tina's sourced data, not a slip.
+                             // ⛔ NOT `sago` R56 — that ruling already stands in this file: sago is
+                             // palm-trunk starch, tapioca is cassava root. They substitute in a
+                             // steamer; they are NOT one key. ⛔ NOT `tapioca starch` R70.
+  "mung beans": 90,          // TINA-SOURCED 3 Aug 2026. R20-R45/500g → R40-R90/kg; bulk 1kg
+                             // R26-R90. TOP OF THE BAND R90. ⛔ NOT `sugar beans` R78.
+  "mung dhal": 90,           // Indian-grocer name, same product
+  "rice vinegar": 120,       // TINA-SOURCED 3 Aug 2026. Safari Rice Vinegar 375ml R44.99
+                             // → R119.97/L → R120/L.
+                             // ⚖️ TINA NAMED THE PRODUCT, 3 Aug: Safari, the supermarket staple.
+                             // Supersedes her own earlier R31.99-36.99 for the same bottle in the
+                             // same session — the later number from her wins.
+                             // ⚠️ NOT AN OVERTURN OF THE MOST-EXPENSIVE RULE. Taken literally across
+                             // the full band (Safari R120/L · Kong Yen R153-200/L · Woolworths 200ml
+                             // R82.99 → R415/L) the rule gives R415, which was applied for one merge
+                             // and moved 13 banked records — japan-oshizushi R22→R61 (+177%),
+                             // japan-sunomono R6→R14, japan-gari R19→R38 — putting Japan 3 red → 11.
+                             // A 200ml specialty bottle was setting the price of a staple used 50ml
+                             // at a time in sushi rice.
+                             // 🟡 STILL OPEN, NOT RULED: whether the most-expensive rule takes a MID
+                             // on genuinely wide bands, as `white wine vinegar` R165 did on 22 Jul.
+                             // Tina named a product; she did not rule the general case. See §3l.
+                             // ⛔ NOT `vinegar` R25 — substring fallthrough (§3j).                // R28/500g. TINA-SOURCED, applied 1 Aug 2026.
                              // ⚖️ WHY THIS WAS MISSING FOR SO LONG: `wk_southafrica.js` was not in
                              // pricecheck.js's COUNTRIES list, so 131 SA records sat outside every
                              // price watcher. `boerekos-sagopoeding` ships with `25g sago (soaked)`
@@ -1251,7 +1311,27 @@ const PRICE_DB = {
   "russian sausage": 95,           // ESTIMATE — SA Russian; "russian sausages" plural-resolves to this
   "ramen noodles": 50,             // ESTIMATE — instant/fresh ramen
   "soba noodles": 75,              // ESTIMATE — buckwheat, dearer than wheat
-  "rice noodles": 45,              // ESTIMATE — was mis-resolving to plain rice R27; exact key fixes
+  "rice noodles": 45,              // 🔴 ESTIMATE — UNSOURCED, SUSPECTED ~4x LOW. See `rice
+                                   // vermicelli` R200 below: real SA shelf data for the same dried-
+                                   // rice-noodle family lands at R165-R200/kg. Never Tina-sourced.
+                                   // ⚠️ 5 banked records use it. ⛔ NOT changed 3 Aug — extrapolating
+                                   // a VERMICELLI price onto FLAT noodles is the exact assumption
+                                   // this block exists to prevent. Logged as debt §3k.
+  "rice paper": 175,               // TINA-SOURCED 3 Aug 2026. R23-R34.99/200g (Checkers/Shoprite
+                                   // Thai-Choice) → R115-R175/kg; R65/400g → R162/kg.
+                                   // TOP OF THE BAND R175 per the most-expensive rule.
+                                   // ⛔ NOT `rice` R27 — was falling through by substring, pricing a
+                                   // steamed-and-sun-dried sheet as raw grain, ~6.5x under.
+                                   // ⛔ EDIBLE CAKE-DECORATING RICE PAPER EXCLUDED — different
+                                   // product, same call as the yard-long-bean seed packet.
+  "banh trang": 175,               // Vietnamese name, same product
+  "rice paper wrappers": 175,      // shelf name on the Thai-Choice pack
+  "rice vermicelli": 200,          // TINA-SOURCED 3 Aug 2026. Thai-Choice 200g R34.99 → R175/kg ·
+                                   // generic 200g R32.99 → R165/kg · PnP 340g R59.99 → R176/kg ·
+                                   // Exotic Food 250g R45-50 → R180-200/kg.
+                                   // TOP OF THE BAND R200 per the most-expensive rule.
+                                   // ⛔ NOT `rice` R27 and ⛔ NOT `rice noodles` R45 — see above.
+  "bun noodles": 200,              // Vietnamese name for the thin round cut              // ESTIMATE — was mis-resolving to plain rice R27; exact key fixes
   "noodles": 80,                   // Tina-sourced — egg noodles 454g @ R35–40 ≈ R80/kg (also the target for the renamed "egg noodles" soup)
   "mixed stir fry veg": 45,        // ESTIMATE — frozen stir-fry mix (cleaned key form, no hyphen)
   "spring roll wrappers": 60,      // ESTIMATE — pastry sheets; small per-recipe use
