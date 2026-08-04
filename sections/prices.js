@@ -746,6 +746,23 @@ const PRICE_DB = {
   "rice": 27,
   "basmati rice": 80,
   "jasmine rice": 63,
+  "broken rice": 120,              // TINA-SOURCED 4 Aug 2026. Broken jasmine rice R60-R120/kg at
+                                   // Asian supermarkets and specialist online grocers.
+                                   // TOP OF THE BAND R120 per the most-expensive rule. The band is
+                                   // exactly 2x, which sits INSIDE §3l's open wide-band question
+                                   // rather than triggering it, so the standing rule applies.
+                                   // ⚠️ NOTE THE INVERSION: broken jasmine is ~2x WHOLE jasmine
+                                   // (R63 above). It is a specialty import here, not a by-product
+                                   // discount, which is the opposite of its economics in Vietnam.
+                                   // ⛔ NOT `rice` R27 — that was the live substring fallthrough
+                                   // (§3j) billing a specialty grain as bulk staple, ~4.4x under.
+                                   // ⚖️ §35 ROUTE: where it cannot be found, ordinary jasmine
+                                   // pulsed briefly in a blender is the honest substitute and the
+                                   // card must SAY so rather than assume the shelf carries it.
+  "broken jasmine rice": 120,      // ⛔ MUST BE ITS OWN KEY — "broken jasmine rice" does NOT
+                                   // contain the substring "broken rice", so without this line it
+                                   // resolves to `jasmine rice` R63 and silently halves.
+  "com tam rice": 120,             // Vietnamese shelf name, same product
   // ⚖️ TINA-SOURCED 30 Jul 2026: "glutinous rice (also called sticky or sweet rice) typically
   // costs between R46.00 and R79.00 per 1kg pack." Mean of the range = R62.50; §31 rounds up
   // → R63/kg. ⚠️ The figure lands on the SAME number as jasmine rice above by coincidence, not
@@ -1311,12 +1328,16 @@ const PRICE_DB = {
   "russian sausage": 95,           // ESTIMATE — SA Russian; "russian sausages" plural-resolves to this
   "ramen noodles": 50,             // ESTIMATE — instant/fresh ramen
   "soba noodles": 75,              // ESTIMATE — buckwheat, dearer than wheat
-  "rice noodles": 45,              // 🔴 ESTIMATE — UNSOURCED, SUSPECTED ~4x LOW. See `rice
-                                   // vermicelli` R200 below: real SA shelf data for the same dried-
-                                   // rice-noodle family lands at R165-R200/kg. Never Tina-sourced.
-                                   // ⚠️ 5 banked records use it. ⛔ NOT changed 3 Aug — extrapolating
-                                   // a VERMICELLI price onto FLAT noodles is the exact assumption
-                                   // this block exists to prevent. Logged as debt §3k.
+  "rice noodles": 45,              // ✅ TINA-GIVEN. Confirmed by Tina 4 Aug 2026: she supplied this
+                                   // number and had to say so twice. The original evidence text was
+                                   // lost in the 3 Aug container reset, which is why an earlier
+                                   // comment here wrongly called it "unsourced" — that claim is
+                                   // STRUCK. ⛔ DO NOT ASK HER FOR THIS AGAIN.
+                                   // ⚠️ ONE OPEN QUESTION, AND IT IS A BAND QUESTION, NOT A
+                                   // PROVENANCE ONE: `rice vermicelli` R200 puts the round cut at
+                                   // R165-R200/kg. R45 for the FLAT cut is well below that family.
+                                   // Both can be true — different cut, different product — and R45
+                                   // stands until Tina says otherwise. §3k reworded accordingly.
   "rice paper": 175,               // TINA-SOURCED 3 Aug 2026. R23-R34.99/200g (Checkers/Shoprite
                                    // Thai-Choice) → R115-R175/kg; R65/400g → R162/kg.
                                    // TOP OF THE BAND R175 per the most-expensive rule.
