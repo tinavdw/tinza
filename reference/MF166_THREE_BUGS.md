@@ -65,10 +65,33 @@ the code is actually asking.**
 ⚖️ **`349aebf` flipped `celebrating` and nothing else.** `healthy` has never been in `MOOD_TAGGED`
 on any branch at any time.
 
-## 🩸 THE TRAP — READ THIS BEFORE ANYONE "FIXES" IT
+## 🔴 THE TRAP — **STRUCK 6 Aug 2026. THE PREMISE WAS FALSE.** ⚖️ ENTRY 11 measurement
 
-> ## **ZERO RECORDS CARRY A `healthy` TAG IN `moodTags.js` TODAY.**
-> ## **ADDING `healthy: true` TO `MOOD_TAGGED` WOULD EMPTY THE SHELF, NOT FIX IT.**
+> ## ⛔ **"ADDING `healthy: true` WOULD EMPTY THE SHELF" IS WRONG. THE SHELF NEVER BLANKS.**
+> **`core.js:2591`** — `getMoodPageRecipes()`:
+> ```js
+> const db = moodPool(moodId).length ? moodPool(moodId) : (MOOD_DB[moodId] || []);
+> ```
+> Its own comment at `core.js:2589-2590`: *"MOOD_DB is the fallback ONLY if the pool comes back
+> empty — degrade to the old cards, never to a blank shelf. **Law 3**."*
+> **`MOOD_DB` has a `healthy` key** (`core.js:2000`). **The guard was already built.**
+
+### ✅ RE-FILED: **BUG 1 IS TAGGING ONLY, AND IT IS SAFE ONE RECORD AT A TIME**
+The all-or-nothing framing is gone. **Tagging can start with a single record** — until the pool
+reaches its threshold the shelf simply serves `MOOD_DB.healthy`, exactly as designed.
+⛔ **Still Tina's judgement, still held on her.** ✅ **But no longer a cliff.**
+
+⚠️ **UNMEASURED, AND SAY SO:** whether `MOOD_DB.healthy`'s cards are the **RIGHT** cards. **This
+proves the shelf is not blank. It says nothing about whether it is good.**
+
+🩸 **HOW THE FALSE PREMISE SURVIVED:** the warning at `core.js:2540-2543` was read as describing
+today's code. **It describes the danger the fallback was built to prevent** — a comment about a
+risk, mistaken for a report of a live one. ⚖️ **RUNG 1 family, again: a document read as a
+measurement.**
+
+### The original claim, kept for the record — ⛔ do not act on it
+> ## ~~ZERO RECORDS CARRY A `healthy` TAG IN `moodTags.js` TODAY.~~ *(still true)*
+> ## ~~ADDING `healthy: true` TO `MOOD_TAGGED` WOULD EMPTY THE SHELF, NOT FIX IT.~~ **FALSE**
 
 That is the exact failure the code already warns about, in its own words at
 **`core.js:2517-2520`**:
@@ -1136,13 +1159,25 @@ read + rulings"**.
 **Tina, on live, 6 Aug:** *"There is a per-item ✕ on each plan dish, but no clear-all anywhere.
 Five dishes take five taps."*
 
-## ✅ VERDICT: **CONFIRMED. A MISSING AFFORDANCE, NOT A DEFECT.**
+## 🔴 VERDICT — **PARTLY STRUCK, 6 Aug 2026.** ⚖️ ENTRY 11 measurement
 
+> ## ⛔ **"NO ROOM HAS A CLEAR-PLAN CONTROL" IS WRONG. HEALTH HAS ONE.**
+> **`health.js:706`** — `set({healthPlan:[],checkedHealthItems:{},healthShowPlan:false})`
+> **It clears the plan AND the ticked shopping items AND closes the view, in one control.**
+
+🩸 **The original claim came from grepping three files — `core.js`, `meals.js`, `budget.js` — and
+reporting the absence as universal.** `health.js` was never searched. ⚖️ **RUNG 1 family: a search
+that names its scope narrowly and its conclusion broadly.**
+
+**What still stands:**
 - The per-item remove exists: `planDishRow({ …, removeJs })` — **`core.js:3924-3925`**, wired at
   **`core.js:4208`**.
-- **Measured: no clear-all / empty-plan control exists in `core.js`, `meals.js` or `budget.js`.**
-  Nothing renders one and nothing clears a plan array wholesale.
-- It affects **all three plan rooms**, since they share `planView()`.
+- **Measured: no clear-all exists in the three rooms that share `planView()`** — Just Feed Me,
+  Budget, Meals. **Health's control is its own, outside `planView()`.**
+
+✅ **AND IT IS A PATTERN TO COPY, NOT INVENT.** ⚖️ **Law 35 — LIFT IT.** Health already answers the
+"what does it clear" question: **the plan and the ticks together**, which is the right answer,
+since leaving the ticks behind would strand her mid-shop.
 
 ## ⛔ THE RED LINE ON ANY FUTURE FIX — ⚖️ **LAW 20**
 

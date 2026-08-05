@@ -251,6 +251,57 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 | `budgetPeople` · `moodServings` · `people` · `servings` | **How many people live in her house is a FACT, not a question. Her family did not shrink because she left the room.** |
 | `_fourCache` | **the business model.** ⚖️ Law 20. |
 
+#### 🆕 AMENDED 6 Aug 2026 — **FOURTEEN MORE, MEASURED** *(ENTRY 11 · `reference/ENTRY11_MEASUREMENT.md`)*
+
+⚠️ **Nothing above is removed. This is the same ruling, with the rest of its keys found.**
+
+🩸 **`budgetPlan` was ALREADY in the table above, ruled 13–14 Jul — and `core.js:55` never listed
+it. The ruling was right and the code disobeyed it for three weeks.** ⚖️ **The file is right and
+the code is a bug** *(CLAUDE.md §0)*. That is the shape to expect: **a ruling is not implemented by
+being written.**
+
+| ⛔ NEVER (added 6 Aug) | call site | why |
+|---|---|---|
+| `mealPlan` | `meals.js:16589` | **her Feeding My Family plan.** Missed by the 13 Jul list entirely. |
+| `babyPlan` | `tinyTummies.js:88` | her baby plan |
+| `spiceCart` | `spice.js:8091` | a cart she filled |
+| `wkBump` | `worldkitchen.js:1289` `wkSetBump()`, read `:1034` | **a portion she tuned by hand, dish by dish** |
+| `wkServings` · `wkGuests` | `worldkitchen.js:769` · `:297` | counts she set |
+| `barGuests` · `beverageGuests` · `cakeGuests` | `barplanner.js:255` · `events.js:1717` · `:1586` | counts she set |
+| `checkedBuffetItems` · `checkedHealthItems` · `checkedBeverageItems` · `checkedCakeItems` · `checkedFingerItems` | `buffet.js:278` · `health.js:594` · `events.js:1829` · `:1860` · `:1897` | **items she ticked off in a shop.** Re-ticking a list she already walked is the same theft as clearing a plan. |
+
+#### 🧪 THE TEST, AND WHY IT CAN NEVER BE A REGEX
+
+> **Does losing this key lose something Tina BUILT or CHOSE?**
+> **YES → WORK → it belongs in `NAV_DATA_KEYS`.**
+> **NO, it only records WHERE SHE IS → NAVIGATION → it must not.**
+
+🩸 **THE WORKED EXAMPLE, and it is the whole reason this is a judgement:**
+
+| key | side | evidence |
+|---|---|---|
+| `healthPlan` | **WORK** | `health.js:706` — the dish list she built |
+| `healthShowPlan` | **NAVIGATION** | `health.js:707` — a view flag, `true`/`false` |
+
+**One character apart. Opposite sides.** ⛔ **Any pattern that catches `healthPlan` catches
+`healthShowPlan` too.** A checker may count and it may ask — **it may never decide.**
+
+#### ⚠️ THIS LIST IS A **FLOOR**, NOT A TOTAL
+
+**Measured 6 Aug 2026 at `5255b02`:** 220 state keys in total · **36 matched a WORK-shaped
+pattern** · **15 survived classification** · **~184 were never individually classified.**
+
+⛔ **A key that is WORK but named unlike any pattern was missed and is still missing.**
+🩸 **The cold start said TWO because it read names. The measurement said FIFTEEN because it read
+patterns. Both are subsets wearing a total's confidence — and this amendment is the third.**
+⚖️ **Do not quote 15 as "the number." Quote it as "the number found so far."**
+
+#### ⛔ `_fourCache` IS DELIBERATELY **NOT** IN `NAV_DATA_KEYS` — DO NOT "FIX" IT
+It is a **module-scope `const`** (`meals.js:15624`), not a key on `S` at all. **A history pop
+cannot reach it**, so it is protected by a different mechanism entirely. It is named in the table
+above because the RULING covers it — **not because `NAV_DATA_KEYS` should.** ⚠️ **Adding it would
+be a no-op that looks like a fix.**
+
 ### 🆕 WHAT SPICE IS **NOT** IN — RULED 14 Jul 2026
 ⛔ **Spice does NOT appear in 💰 I've Got R100.** *(It is priced per bottle. A budget is per meal.)*
 ⛔ **Spice does NOT appear in 😴 Just Feed Me.** *(A mood asks for DINNER. A sambal is not dinner.)*
@@ -1400,6 +1451,33 @@ MF149-B named every `sectionHeader()` caller and Tina still found bare `← Back
 - 🩸 **Confirmed on live by Tina, 27 Jul:** Finger Foods (Meaty list → Back → **Events**) and Supper (Oven Bakes → Back → **out of the room**). Both correct.
 - ⚖️ **WHY IT IS RIGHT:** she did not GO anywhere when she tapped Meaty — she changed what one level was showing. Making Back retrace pills is what produced the original bug: every pill she ever tried standing between her and the way out.
 - 📌 **AND:** Finger Foods' top Back stays a **static `← Home`** even when the room was entered via Events. Ruled, not an oversight — Finger Foods sits at depth 1, and §24.9's depth-1 clamp says two-up from there IS Home. The one-level step back to the Events grid is the BOTTOM Back's job.
+
+### 😴 24.13 · A MOOD TILE IS A **LATERAL** — *(RULED by Tina 6 Aug 2026, from live)*
+
+**The twelve Just Feed Me tiles are pills, not places.** Tapping *"I need a pick-me-up"* does not
+walk her anywhere — **it changes what the one Just Feed Me level is showing.**
+
+- ⚖️ **THE RULING: `moodSelected` is a LATERAL KEY.** It joins the list §24.7 declared
+  *(that list is at `core.js:154-156`; §24.7's own candidates at line 1336 never included it)*.
+  **Picking a mood REPLACES its history entry. It does not push one.**
+- 🩸 **HER FIND, 6 Aug:** from the Just Feed Me main screen, Back took **two presses** to reach the
+  main menu — *"one press does nothing visible."* Measured: the mood picker and the mood shelf were
+  **two history entries whose renders were byte-identical, 7436 chars each.**
+- ✅ **§24.7's OWN WORDS DECIDE IT, and they were already written:** *"A LATERAL is a pill that
+  swaps what ONE level SHOWS… She did not go anywhere."* **A mood tile is that sentence.**
+- 📌 **THE CONSEQUENCE IS ALREADY RULED — see §24.12.** Once a mood is a lateral, **one Back press
+  leaves Just Feed Me**, because tapping a tile never created a step to walk back through.
+  ⛔ **That is INTENDED. Nobody may "fix" it back into two presses.**
+- ⚖️ **SAME CALL SHE ALREADY MADE FOR `eventTab`** *(`core.js:140-143` — deliberately excluded until
+  her fingers proved the symptom)*. **Hers to make, both times. Code does not get to decide a mood
+  is a pill.**
+
+🔓 **THIS UNBLOCKS `MF166` BUG 4**, which was held on exactly this ruling.
+⚠️ **BUG 4 IS THREE DEFECTS STACKED ON ONE SYMPTOM.** This ruling closes **one**:
+- **BUG 4** — level vs lateral · ✅ **ruled here**
+- **BUG 4 §1** — `navSignature()` stores `(S.moodSelected||[]).length`, the **LENGTH** of the id, so
+  four mood pairs collide *(`core.js:131`)*. ⛔ **Not touched by this ruling.**
+- **BUG 5** — the stale snapshot · ✅ **already fixed by MF167**
 
 ---
 
