@@ -106,6 +106,26 @@ function navRefreshEntry(){
     }
   } catch(_e){}
 }
+// ⚖️ MF168 (6 Aug 2026) — LEAVE A PLAN VIEW BY CONSUMING THE ENTRY THAT ENTERING PUSHED.
+// A plan view is a LEVEL: budgetPlanView / moodPlanView / mealPlanView are all in
+// navSignature(), so opening one PUSHES. All three then closed with a plain setQuiet, which
+// changes the signature back and PUSHES AGAIN — so every plan visit left TWO stray entries
+// behind and Back had to walk through both. Measured 6 Aug: +2 entries per round-trip, in
+// all three rooms.
+// 🩸 THIS IS MF151-B's DISEASE, AND MF151-B NAMED IT — "§24.6 ONE LEVEL DOWN, THE SAME
+//    DISEASE" (meals.js:16498). It cured the mood-SELECTION level and never asked where else
+//    the shape lived. It lived here, three times. ⚖️ A commit that names a disease must ask
+//    what else has it.
+// ⛔ NOT navRefreshEntry(). That REPLACES a snapshot; this CONSUMES a push. Opposite jobs —
+//    using the refresher here would leave the two stray entries exactly where they are.
+// 🛡️ FAIL-SAFE, same as closeMoodSelection(): at depth 0 there is no entry to consume, so
+//    setQuiet is the only close there is.
+function closePlanView(key){
+  if(typeof _appNavDepth!=='undefined' && _appNavDepth>0 && typeof history!=='undefined'){
+    try { history.back(); return; } catch(_e){}
+  }
+  var _p = {}; _p[key] = false; setQuiet(_p);
+}
 // ⚖️ THIS IS A CONTRACT, NOT A LIST. Every key a room NAVIGATES by must appear here.
 // draw() pushes a history entry only when this string changes, so a level the signature
 // cannot see is a level Back cannot walk — goBack() step (3) finds nothing and falls
