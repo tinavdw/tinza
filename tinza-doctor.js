@@ -561,6 +561,101 @@ p('       JUDGEMENT, and a judgement call must not be a push-gate. It asks; Tina
   }
 }
 
+// ── 15. IS EVERY WORK KEY PROTECTED?  (MF169 · RULINGS §5) ───────────────
+head('15 · IS EVERY *WORK* KEY IN NAV_DATA_KEYS?  (6 Aug — the plan that emptied)');
+p('  \x1b[2m    §5 has ruled since 13 Jul that a plan, a cart and a people-count are HER WORK and');
+p('       NEVER clear. `budgetPlan` was named in that ruling and core.js:55 never carried it —');
+p('       for three weeks. A history pop reverts any key not on that list, so Tina built a plan,');
+p('       pressed Back, and it was gone. ⚖️ Law 20 — emptying her WORK is theft.');
+p('       ⚖️ THE LIST IS READ FROM core.js IN THE SANDBOX, NEVER COPIED. A checker with its own');
+p('       copy of the contract is a SECOND contract that drifts. Same law as tinza-all.js.\x1b[0m');
+{
+  // ⚖️ WORK vs NAVIGATION IS A JUDGEMENT, NOT A PATTERN (§5). healthPlan is WORK
+  // (health.js:706); healthShowPlan is NAVIGATION (health.js:707). One character apart.
+  // ⛔ So this rung NEVER decides a side. It counts, and it ASKS.
+  const NAVIGATION_KNOWN = [
+    'screen','viewingRecipe','eventTab','buffetStep','eventStep','braiStep','braiCat','braaiView',
+    'braaiSidesFilter','activeCat','activeCat2','howItWorksOpen','portionHelpOpen','healthTab',
+    'healthGroup','healthGroupTab','healthShowPlan','healthPlanOpen','vitalCat','activeSmoothie',
+    'healthOpenSmoothie','healthOpenJuice','activeOats','activeMuffin','activeRaw','wkScreen',
+    'wkCountry','wkSelectedRegion','wkActiveCountry','wkTab','wkSACulture','wkRecipeDetail',
+    'wkSearch','wkHowOpen','wkPortionOpen','wkContinent','wkRegion','wkDataCountry','wkDataTab',
+    'wkCourseTab','furryPet','furryHowOpen','dogView','catView','activeDog','dogSize','dogAge',
+    'catAge','babyView','activeBaby','kiddiesView','kidsScreen','kidsTheme','moodSelected',
+    'moodRecipes','moodAIRecipes','moodLoading','moodAILoading','moodPage','moodPlanView',
+    'moodActiveRecipe','moodPool','find','fingerSection','fingerView','budgetPlanView','budgetStep',
+    'beverageCat','cakeCat','mealCat','mealPlanView','mealActiveRecipe','mealSearch','catSection',
+    'dogSection','barMode','searchQuery','searchResults','searchScope','searchScopeLabel',
+    'searchPrevScreen','searchServings','cookRecipe','cookStep','budgetHowOpen','budgetSearch'
+  ];
+  // ⚠️ NAV_DATA_KEYS is a `const`, so it is LEXICAL and never lands on the sandbox object —
+  // ctx.NAV_DATA_KEYS is undefined even though the file loaded fine. Evaluate INSIDE the
+  // context instead. Still the live contract, still never a copy.
+  let NAV = null;
+  try { NAV = vm.runInContext("typeof NAV_DATA_KEYS !== 'undefined' ? NAV_DATA_KEYS : null", ctx); }
+  catch (e) { NAV = null; }
+  if (NAV && !Array.isArray(NAV)) NAV = null;
+  if (!NAV) {
+    // ⚖️ Law 54b — a zero over an unread contract is a green tick above nothing.
+    fail('CANNOT READ NAV_DATA_KEYS FROM core.js — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mIt must come from the sandbox, never a copy. Refusing to report a pass.\x1b[0m');
+  } else {
+    // enumerate written keys the way the ENTRY 11 measurement did
+    const written = new Set();
+    const RE = [
+      /\bS\.([a-zA-Z_][a-zA-Z0-9_]*)\s*=[^=]/g,
+      /\bS\[['"]([a-zA-Z_][a-zA-Z0-9_]*)['"]\]\s*=[^=]/g
+    ];
+    for (const f of loadOrder) {
+      const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      for (const re of RE) { let m; re.lastIndex = 0; while ((m = re.exec(src)) !== null) written.add(m[1]); }
+      let m2; const reSet = /\bset(?:Quiet)?\(\{([^}]*)/g;
+      while ((m2 = reSet.exec(src)) !== null) {
+        for (const km of m2[1].matchAll(/([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g)) written.add(km[1]);
+      }
+    }
+    const navSet = new Set(NAV), navigSet = new Set(NAVIGATION_KNOWN);
+    const unclassified = [...written].filter(k => !navSet.has(k) && !navigSet.has(k)).sort();
+
+    // ⚠️ THE FLOOR IS PRINTED EVERY RUN. It is not debt to clear; it is the honest edge of
+    // what has been classified. ⚖️ A runner that shows greens while measuring nothing
+    // manufactures confidence.
+    p('  \x1b[2m    contract: ' + NAV.length + ' WORK keys in NAV_DATA_KEYS (read from core.js) · ' +
+      NAVIGATION_KNOWN.length + ' known NAVIGATION keys\x1b[0m');
+    p('  \x1b[2m    ⚠️ FLOOR, NOT A TOTAL: ' + written.size + ' keys are written app-wide; ' +
+      unclassified.length + ' are in NEITHER list and have never been judged.\x1b[0m');
+
+    if (unclassified.length) {
+      warn(unclassified.length + ' state key(s) classified as NEITHER work nor navigation — JUDGEMENT REQUIRED',
+        '\n      \x1b[2m⛔ This rung does NOT guess a side. §5\'s test is a judgement: does losing this' +
+        '\n      key lose something she BUILT or CHOSE? healthPlan is WORK, healthShowPlan is NAVIGATION,' +
+        '\n      one character apart. Someone must say. Until then this is AMBER, never RED.\x1b[0m',
+        unclassified);
+      // ⚠️ warn() prints the first 6. Say how many were NOT shown, accurately — a truncation
+      // that miscounts what it hid is the same lie as a silent one.
+      if (unclassified.length > 6) p('      \x1b[2m… and ' + (unclassified.length - 6) + ' more not shown. Full list: node tinza-doctor.js --keys\x1b[0m');
+    } else {
+      pass('Every written state key is classified', written.size + ' keys · ' + NAV.length + ' WORK · ' + NAVIGATION_KNOWN.length + ' navigation');
+    }
+    if (process.argv.indexOf('--keys') >= 0 && unclassified.length) {
+      p('\n  \x1b[2mUNCLASSIFIED, ALL ' + unclassified.length + ':\x1b[0m');
+      for (let i = 0; i < unclassified.length; i += 6) p('    \x1b[2m' + unclassified.slice(i, i + 6).join(' · ') + '\x1b[0m');
+    }
+
+    // THE ACTUAL GATE: a key §5 named as WORK that core.js:55 does not carry.
+    const RULED_WORK = ['moodPlan','budgetPlan','wkPlan','healthPlan','dogPlan','catPlan',
+                        'budgetPeople','moodServings','people','servings'];
+    const disobeyed = RULED_WORK.filter(k => !navSet.has(k));
+    if (disobeyed.length) {
+      fail(disobeyed.length + ' KEY(S) RULED "NEVER CLEAR" BY §5 ARE MISSING FROM NAV_DATA_KEYS',
+        '\n      \x1b[2mThe file is right and the code is a bug (CLAUDE.md §0). This is exactly how' +
+        '\n      budgetPlan went three weeks unimplemented after being ruled.\x1b[0m', disobeyed);
+    } else {
+      pass('Every key §5 names as NEVER-CLEAR is in NAV_DATA_KEYS', RULED_WORK.length + ' ruled keys checked against the live list');
+    }
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
