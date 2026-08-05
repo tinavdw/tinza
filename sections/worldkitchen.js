@@ -1196,8 +1196,18 @@ function wkClassifyMain(items){
     var it=items[i];
     if(it.qty==null || it.toTaste) continue;
     if(!firstWeighted) firstWeighted=it;
-    cat = wkMainCategory(it.name);
-    if(cat) return { item:it, cat:cat };
+    // ⚖️ MF161 (5 Aug 2026) — A FAT IS NOT A PORTION. Tina's eyes on live: Chongqing Hotpot
+    // rendered "1.3kg beef tallow · 180g per person · R702 pp". `beef tallow` carries the word
+    // `beef`, sits at line 1, and won the scan ahead of the beef sirloin at line 19. The same
+    // line crushes 2 litres of `beef stock` onto a 180g plate and renders soupe a l'oignon at
+    // 17% of its authored amounts. INFLATES one way, DEFLATES the other, one cause.
+    // ⛔ These lines are SKIPPED FOR CATEGORY ONLY. They remain eligible as firstWeighted, so
+    //    a card that is genuinely all stock still resolves instead of returning null.
+    // ⚠️ NOT a hand-maintained id list — same design law as WK_KEEP_AUTHORED.
+    if(!WK_NOT_A_MAIN.test(wkCleanName(it.name))) {
+      cat = wkMainCategory(it.name);
+      if(cat) return { item:it, cat:cat };
+    }
   }
   if(firstWeighted){
     var fwn = (typeof wkCleanName==='function') ? wkCleanName(firstWeighted.name) : String(firstWeighted.name||'').toLowerCase();
@@ -1219,6 +1229,15 @@ function wkMainBase(cat){
 // says what it is keeps its authored amounts. It is checked against `type`, which these
 // dishes already carry, rather than against a hand-maintained list of ids.
 var WK_KEEP_AUTHORED = /\b(condiment|sambal|sauce|dressing|pickle|relish|spice-blend|spice blend|paste|dip|garnish)\b/i;
+// ⚖️ MF161 · A fat, a stock, a sauce or a seasoning paste is a CARRIER, not a portion.
+// It may carry a protein word (beef tallow, chicken stock, fish sauce, shrimp paste) and
+// must never win the main-ingredient scan on that word alone.
+// ⛔ `fat` and `powder` are DELIBERATELY ABSENT — "pork mince, roughly 20% fat" and
+//    "pork shoulder, 70:30 lean to fat" are specs on real meat, and shiro/tarhana/milk
+//    powder ARE their dishes. Both were measured on 5 Aug and both must keep their anchor.
+// ⛔ `salo` is pork fat and IS the dish — it survives because `pork fat` is two words and
+//    `tallow|dripping|lard|suet` do not match it. VERIFY THIS IN THE PROOF.
+var WK_NOT_A_MAIN = /\b(tallow|dripping|lard|suet|stock|broth|bouillon|consomme|sauce|paste|essence|extract|vinegar|oil)\b/i;
 function wkEffectiveMult(r, count, ap){
   // scale the recipe's authored per-person amounts so the MAIN ingredient lands
   // on its CATEGORY plate (base x spread), floored by the curve.
