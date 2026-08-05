@@ -48,7 +48,7 @@ grep -n "moodRecipes" sections/core.js | head -3
   **Say which of the five sites call it and STOP.**
 - ⛔ `core.js:2737` is no longer `if(mood && (loading || recipes)){` — the render branch has moved
   and this brief's reasoning does not apply. **Re-measure before touching anything.**
-- ⛔ `moodRecipes` **has been added to `navSignature()`** (`core.js:108`). If so **STOP** — that is
+- ⛔ `moodRecipes` **has been added to `navSignature()`** (`core.js:131`). If so **STOP** — that is
   a different and much worse fix (see §2), and it must be reverted before this one lands.
 - ⛔ **`S.moodRecipes =` does not appear at exactly NINE lines** — expected **2616 · 2644 · 2652 ·
   2659 · 2666 · 2668 · 2678 · 2682 · 2684**. A tenth means the corpus moved; **re-run the §3b
@@ -67,10 +67,10 @@ node tinza-lawcheck.js    # expect 0 red · 0 drift
 
 ## 2 · 🚨 THE RED LINES
 
-⛔ **DO NOT add `moodRecipes` to `navSignature()`** (`core.js:108`). It is the obvious fix and it is
+⛔ **DO NOT add `moodRecipes` to `navSignature()`** (`core.js:131`). It is the obvious fix and it is
 **the worst thing on this page.** Every page of chef results would push its own history entry and
 Back would walk her through all of them — **that is the pill-tap disease §24.7 exists to kill**
-(`core.js:110-116`). ⚖️ **The signature is a contract about LEVELS, not about content.**
+(`core.js:133-138`). ⚖️ **The signature is a contract about LEVELS, not about content.**
 
 ⛔ **DO NOT touch `navSnapshot()`** (`core.js:82`). The deep clone is correct and complete.
 **The snapshot is not broken — it was taken at the wrong moment.**
@@ -79,10 +79,10 @@ Back would walk her through all of them — **that is the pill-tap disease §24.
 3→2.** ⚖️ *Never re-open a closed scar* — `2c61855` (MF149-A) and `b37944c` (MF151-B) are both
 intact and both were paid for.
 
-⛔ **DO NOT touch the push rule** (`core.js:808-836`). It behaved exactly as specified at every
+⛔ **DO NOT touch the push rule** (`core.js:831-859`). It behaved exactly as specified at every
 step of the measurement.
 
-⛔ **DO NOT touch `LATERAL_KEYS`** (`core.js:131-133`). That is BUG 4 and it **needs Tina's ruling
+⛔ **DO NOT touch `LATERAL_KEYS`** (`core.js:154-156`). That is BUG 4 and it **needs Tina's ruling
 first**.
 
 ⛔ **DO NOT touch any plan-view closer** (`core.js:2712` · `budget.js:59` · `meals.js:15376`).
@@ -167,7 +167,7 @@ RUNG 1d all over again.**
 3. **It pushes nothing.** `replaceState`, not `pushState`. **No depth changes, no press count
    moves, no other room is touched.** ⚖️ The press count is BUG 4 / BUG 6 / BUG 7's business.
 4. **It preserves `sig` and `rootDepth`** by spreading the existing `history.state` — the same
-   care `core.js:823-826` takes when a lateral replaces an entry.
+   care `core.js:844-847` takes when a lateral replaces an entry.
 5. **It is guarded** — `history.state.tinza` ensures it never touches a non-Tinza entry, and the
    `try/catch` matches every other history call in the file.
 
@@ -278,6 +278,44 @@ she asked for; ⛔ never when it writes a TRANSIENT — a placeholder or an erro
 
 ⚠️ **If a future session adds a sixth content-adding write, it needs `navRefreshEntry()` too.**
 That is what §5's ratchet rung is for.
+
+---
+
+## ✅ 4a · LIVE RESULTS — TINA, 6 AUG 2026 · **SHIPPED, AND PARTLY UNPROVEN**
+
+| test | result | what it proves |
+|---|---|---|
+| **TEST 1 · does she come back to her shelf** | ✅ **PASSED, TWICE** | *"I need a pick-me-up"* (Cottage Pie · Avocado Egg Bowl · Grilled Sardines) and *"Need it fast"* (Gnocchi di Zucca · Ful Medames · Greek Salad). Opened a recipe, pressed Back, **the same shelf was still there both times.** She did not re-pick the mood. **⚖️ Law 20 harm closed.** |
+| **TEST 2 · the MORE paths** | ⛔ **NOT RUNNABLE** | **There is no MORE button.** See below. |
+| **TEST 3 · the guard** | ⚠️ **PASSED — but see the caveat** | Left Just Feed Me mid-fetch for Braai, opened a recipe, waited 30 s, pressed Back → **returned to Braai.** No revert. |
+
+### 🩸 FOUR OF THE FIVE SITES ARE ON A PATH SHE CANNOT REACH
+
+**`getMoreMoodRecipes()` (`core.js:2656`) has had no caller since `d773702`** — the MORE button was
+deliberately removed by MF133 because the chef endpoint 503s, and it still does
+(`netlify/functions/claude.js:26`). **Full finding: `MF166` ENTRY 8 — it is a RULING, not a defect,
+and it must not be "restored" to make this test runnable.**
+
+| site | reachable by finger today? | status |
+|---|---|---|
+| **`core.js:2639`** — mood-tile tap | ✅ **YES** | ✅ **PROVEN — TEST 1** |
+| `core.js:2668` — MORE, library page | ⛔ no button | ⚠️ **UNPROVEN** |
+| `core.js:2677` — MORE, AI bank | ⛔ no button | ⚠️ **UNPROVEN** |
+| `core.js:2692` — the poll | ⛔ no button | ⚠️ **UNPROVEN** |
+| `core.js:2714` — the fetch `.then` | ⛔ no button | ⚠️ **UNPROVEN** |
+
+> ## ⚠️ **COMMIT 2 IS HALF-PROVEN. COMMIT 3 IS UNPROVEN.**
+> `a6bce9b` proved one of its three sites. `6103ff0` proved none of its two.
+> ⛔ **Neither is "passed". Both are UNPROVEN BY FINGER.** ⚖️ **MF166 RUNG 1e.**
+
+### ⚠️ AND TEST 3'S PASS DOES NOT DISCRIMINATE
+Test 3 exercises the guard at `core.js:2692`/`2714` — **which is inside `getMoreMoodRecipes()` and
+therefore never ran.** ⛔ **A pass and a never-ran look identical from the outside.** ✅ **What Test 3
+does prove is the absence of damage: nothing stamped a mood snapshot onto Braai's entry.** That is
+worth having and it is **not** proof the guard fires correctly when it finally does run.
+
+📌 **WHEN MF78 LANDS AND THE BUTTON RETURNS, TESTS 2 AND 3 MUST BE RE-RUN.** ⚖️ **They are owed, and
+this table is where the debt is recorded.**
 
 ---
 

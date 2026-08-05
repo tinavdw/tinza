@@ -249,8 +249,8 @@ byte-identical** to their commits. **Nothing was reverted.** The bug is not a mi
 |---|---|
 | **PUSH** — `history.pushState(…); _appNavDepth++` | **`core.js:831`** |
 | fires only when `_pushMove`, i.e. `navSignatureCore()` changed | **`core.js:819`** |
-| `moodSelected` is watched by the signature, as `(S.moodSelected\|\|[]).length` | **`core.js:108`** |
-| `moodSelected` is **NOT** in `LATERAL_KEYS` → it is treated as a **LEVEL**, so it pushes | **`core.js:131-133`** |
+| `moodSelected` is watched by the signature, as `(S.moodSelected\|\|[]).length` | **`core.js:131`** |
+| `moodSelected` is **NOT** in `LATERAL_KEYS` → it is treated as a **LEVEL**, so it pushes | **`core.js:154-156`** |
 | **POP** — `_appNavDepth = Math.max(0, _appNavDepth - 1)` in the popstate handler | **`core.js:162`** |
 | the entry's own root depth is restored with it | **`core.js:164`** |
 
@@ -262,7 +262,7 @@ entry is earned, and it is still a duplicate on screen.**
 
 ### 🔴 BUT THE SIGNATURE RECORDS THE **LENGTH** OF THE MOOD ID, NOT THE MOOD
 
-**`core.js:108`** stores `(S.moodSelected||[]).length`. Measured against the real `MOODS` list,
+**`core.js:131`** stores `(S.moodSelected||[]).length`. Measured against the real `MOODS` list,
 **four collision groups exist**:
 
 | id length | moods that collide |
@@ -275,7 +275,7 @@ entry is earned, and it is still a duplicate on screen.**
 ⛔ **Switching between two moods in the same row produces an IDENTICAL signature, so `draw()`
 pushes NOTHING and `_appNavDepth` does not increment** — while the screen really did change.
 ⚖️ That is precisely the "signature gap" the contract warns about **in its own words**
-(**`core.js:87-90`**): *"a level the signature cannot see is a level Back cannot walk — goBack()
+(**`core.js:110-113`**): *"a level the signature cannot see is a level Back cannot walk — goBack()
 step (3) finds nothing and falls through to step (4)… it produced the SAME symptom in five
 different rooms."* **This is the sixth room.** ⚠️ Not proven to be the reported two-press cause —
 recorded as a **separate, provable defect found while looking.**
@@ -289,7 +289,7 @@ branch for `moodSelected`** — it falls through:
 |---|---|---|
 | (2a) `moodActiveRecipe` → `closeMoodRecipe()` | `core.js:521` | not set — skipped |
 | (2b) `SIMPLE_RECIPE_KEYS` loop | `core.js:525-528` | `moodSelected` is **not a member** (`core.js:67`) — skipped |
-| **(3)** `if(_appNavDepth > _screenRootDepth) history.back()` | **`core.js:532`** | ✅ **this fires** |
+| **(3)** `if(_appNavDepth > _screenRootDepth) history.back()` | **`core.js:555`** | ✅ **this fires** |
 
 The pop restores a **full deep clone of `S`** — `navSnapshot()` is `JSON.parse(JSON.stringify(S))`
 (**`core.js:82-85`**) — so **`moodSelected` and `moodRecipes` both revert** to the values held by
@@ -315,10 +315,10 @@ The code is serving **one level per press**. The dispute is **how many levels ex
 
 | | says |
 |---|---|
-| **the code** | mood picker and mood list are **TWO levels** (`moodSelected` absent from `LATERAL_KEYS`, `core.js:131-133`) |
+| **the code** | mood picker and mood list are **TWO levels** (`moodSelected` absent from `LATERAL_KEYS`, `core.js:154-156`) |
 | **Tina's fingers** | they are **ONE place** — "the Just Feed Me main screen" — so Back should exit in **one** press |
 
-⚖️ **§24.7's own definition decides it, and it is written at `core.js:112-113`:**
+⚖️ **§24.7's own definition decides it, and it is written at `core.js:135-136`:**
 > *"A LEVEL is a place she walked INTO: Home → Supper → a recipe. **A LATERAL is a pill that swaps
 > what ONE level SHOWS**: Homestyle Plates → Oven Bakes. She did not go anywhere."*
 
@@ -326,11 +326,11 @@ The code is serving **one level per press**. The dispute is **how many levels ex
 ⛔ **But this is a RULING, not a code call, and it is Tina's** — the same call she already made for
 `eventTab`, which is deliberately excluded from `LATERAL_KEYS` — *"It may only join this list if
 her fingers ever prove the same symptom there, and they have not. DO NOT TOUCH A WORKING ROOM."*
-(**`core.js:117-120`**). **Code does not get to decide that a mood is a pill.**
+(**`core.js:140-143`**). **Code does not get to decide that a mood is a pill.**
 
 ## What a fix would have to reach
 One of two mutually exclusive answers, both one line, **neither to be written without the ruling**:
-- **LATERAL** — the mood joins `LATERAL_KEYS` (`core.js:131-133`); picking a mood replaces the
+- **LATERAL** — the mood joins `LATERAL_KEYS` (`core.js:154-156`); picking a mood replaces the
   entry instead of pushing, and Back leaves Just Feed Me in one press.
 - **LEVEL** — the two screens stay two levels and are made **visually distinct**, so the first
   press stops looking like nothing. That is a design change, not a nav change.
@@ -367,19 +367,19 @@ the measurement agrees.
 ## 1 · THE FULL SEQUENCE, MEASURED
 
 Driven through the app's **own** `navSignature()` / `navSignatureCore()` / `navSnapshot()` in a
-read-only sandbox. The push decision (`core.js:808-836`) lives inside `draw()` and cannot be called
+read-only sandbox. The push decision (`core.js:831-859`) lives inside `draw()` and cannot be called
 without a DOM, so **that 5-line rule is transcribed verbatim, not re-derived.**
 
 | step | `file:line` | history op | depth | root | entries |
 |---|---|---|---|---|---|
-| HOME | `core.js:151` | `replaceState` (navInit) | 0 | 0 | 1 |
+| HOME | `core.js:174` | `replaceState` (navInit) | 0 | 0 | 1 |
 | ENTER JFM | **`core.js:3172`** | **PUSH** | 1 | 1 | 2 |
 | PICK MOOD | **`core.js:2832`** | **PUSH** ← 🩸 | 2 | 1 | 3 |
 | CHEF RESULTS ARRIVE | **`core.js:2616-2617`** | **no signature change → NO history op** | 2 | 1 | 3 |
 | OPEN RECIPE | **`meals.js:16480`** | **PUSH** | 3 | 1 | 4 |
 | BACK out of recipe | **`meals.js:16492`** | POP → lands on the PICK MOOD entry | 2 | 1 | 3 |
-| **BACK #1 on JFM main** | **`core.js:532`** | POP → lands on the ENTER JFM entry | 1 | 1 | 2 |
-| BACK #2 | `core.js:541` (step 4) | → Home | 0 | 0 | 1 |
+| **BACK #1 on JFM main** | **`core.js:555`** | POP → lands on the ENTER JFM entry | 1 | 1 | 2 |
+| BACK #2 | `core.js:564` (step 4) | → Home | 0 | 0 | 1 |
 
 📌 **The counts are perfect. There is no unbalanced push.** ⚖️ *Tina's inference — "something
 pushes an entry that no state change earned" — is the one part of her reading the measurement
@@ -452,7 +452,7 @@ The shape requires **both**: (a) a key **in `navSignature()`** changes, so a pus
 Every other async room fails test (a) — its result keys are **not in the signature**, so nothing
 is pushed and no entry can go stale:
 
-| room | writes | in `navSignature()` (`core.js:108`)? |
+| room | writes | in `navSignature()` (`core.js:131`)? |
 |---|---|---|
 | 4-ingredients | `_fourLoading` · `_fourResults` — `meals.js:15567` | **no** |
 | anchor finder | `_anchorLoading` · `_anchorResults` — `meals.js:15691` | **no** |
@@ -515,14 +515,14 @@ most.**
 
 | step | `file:line` | history op | depth | root | chars |
 |---|---|---|---|---|---|
-| HOME | `core.js:151` | replaceState | 0 | 0 | — |
+| HOME | `core.js:174` | replaceState | 0 | 0 | — |
 | ENTER JFM | `core.js:3172` | **PUSH** | 1 | 1 | **7436** |
 | PICK MOOD `pickmeup` | `core.js:2832` | **PUSH** | 2 | 1 | **7436** |
 | chef results · shelf of 3 | `core.js:2616-2618` | **no signature change → no op** | 2 | 1 | 5101 |
 | open Cottage Pie | `meals.js:16480` | **PUSH** | 3 | 1 | 5379 |
 | **Back 1 — exit recipe** | `core.js:521` → `meals.js:16492` | **POP** | 2 | 1 | **7436 ← tiles** |
-| **Back 2 — bottom Back** | `core.js:532` step (3) | **POP** | 1 | 1 | **7436 ← tiles, identical** |
-| **Back 3 — bottom Back** | `core.js:541` step (4) | → **HOME** | 1 | 1 | — |
+| **Back 2 — bottom Back** | `core.js:555` step (3) | **POP** | 1 | 1 | **7436 ← tiles, identical** |
+| **Back 3 — bottom Back** | `core.js:564` step (4) | → **HOME** | 1 | 1 | — |
 
 ### 2 · Every entry in the stack, and which branch `core.js:2737` takes
 
@@ -554,7 +554,7 @@ latent trap, recorded, not this bug.**
 
 - `core.js:2832` pushes the entry, storing `moodRecipes: null`.
 - `core.js:2616-2618` writes the shelf **and calls `draw()` — which does NOT push**, because
-  `moodRecipes` is not in `navSignature()` (`core.js:108`). **The stored entry is never updated.**
+  `moodRecipes` is not in `navSignature()` (`core.js:131`). **The stored entry is never updated.**
 - `meals.js:16492` pops, and `navSnapshot()`'s deep clone (`core.js:82`) faithfully restores that
   entry.
 
@@ -588,7 +588,7 @@ including, this time, Claude's own reproduction failing to match Tina's device.*
 reading cannot find them; the sandbox already disagrees with the live count. **It needs
 `_appNavDepth` read on her device at each press** — or the exact interactions between the recipe
 exit and the presses, including whether the plan button (*"1 recipe · 2 people"* — `moodPlanView`
-**is** in `navSignature()`, `core.js:108`) was touched at any point. 📌 **Every `moodPlanView`
+**is** in `navSignature()`, `core.js:131`) was touched at any point. 📌 **Every `moodPlanView`
 toggle is a push.**
 
 ---
@@ -609,10 +609,10 @@ during the session she measured. ⛔ **Not accepted as the explanation. Driven i
 | **LEAVE PLAN** | **`core.js:2712`** | **PUSH** ← 🩸 | 4 | 5 | SHELF | 5101 |
 | OPEN RECIPE | `meals.js:16480` | PUSH | 5 | 6 | RECIPE | 5342 |
 | BACK 1 | `meals.js:16492` | POP | 4 | 5 | **SHELF** | 5101 |
-| BACK 2 | `core.js:532` | POP | 3 | 4 | **PLAN VIEW** | 1889 |
-| BACK 3 | `core.js:532` | POP | 2 | 3 | TILES | 7436 |
-| BACK 4 | `core.js:532` | POP | 1 | 2 | TILES | 7436 |
-| BACK 5 | `core.js:541` | → HOME | 1 | 2 | HOME | — |
+| BACK 2 | `core.js:555` | POP | 3 | 4 | **PLAN VIEW** | 1889 |
+| BACK 3 | `core.js:555` | POP | 2 | 3 | TILES | 7436 |
+| BACK 4 | `core.js:555` | POP | 1 | 2 | TILES | 7436 |
+| BACK 5 | `core.js:564` | → HOME | 1 | 2 | HOME | — |
 
 > ## ⛔ **THE GAP IS NOT CLOSED. IT OVERSHOOTS.**
 > **Sandbox with plan taps: 5 presses. Tina measured 4.** And the views disagree too — the walk
@@ -671,7 +671,7 @@ question was never asked.**
 
 ### Every plan view in the app has it
 
-| room | closer passed to `sectionPlanView()` | key in `navSignature()` (`core.js:108`) |
+| room | closer passed to `sectionPlanView()` | key in `navSignature()` (`core.js:131`) |
 |---|---|---|
 | **Budget** | `setQuiet({budgetPlanView:false})` — **`budget.js:59`** | ✅ `budgetPlanView` |
 | **Just Feed Me** | `setQuiet({moodPlanView:false})` — **`core.js:2712`** | ✅ `moodPlanView` |
@@ -680,9 +680,74 @@ question was never asked.**
 **All three push on the way in and push again on the way out. Every plan visit in Tinza leaves two
 stray entries behind.** ⚖️ **The shopping list is the most-used surface in the app.**
 
-## What a fix would have to reach
-`sectionPlanView()`'s closer argument, in three call sites — or one consuming closer the three
-share. ⚠️ It is the **same one-line shape** `closeMoodSelection()` already uses (`meals.js:16509-16511`).
+## 🔴 SHIPPED 6 AUG 2026 AS MF168 — **AND REVERTED THE SAME DAY. STILL OPEN.**
+
+| sha | commit | fate |
+|---|---|---|
+| `7eeeafc` | MF168 commit 1 — `closePlanView()`, inert | **reverted by `a5539db`** |
+| `52214a8` | MF168 commit 2 — all three rooms wired | **reverted by `6e7f562`** |
+
+⚖️ **REVERTED, NOT PATCHED FORWARD, under MF168's own red line:** *"Plans, carts and servings all
+survive. If any plan empties, stop and revert."* **A plan emptied. See ENTRY 11.**
+
+🩸 **THE NAVIGATION FIX WAS CORRECT AND IT STILL COST HER WORK.** All three rooms passed their
+navigation proof by finger — Budget twice, Meals twice, Just Feed Me twice — and the fix **still
+had to go**, because consuming the entry restores a snapshot, and two of the three plan keys are not
+protected across a restore. ⚖️ **Law 20 outranks a tidy back stack.**
+
+⛔ **DO NOT RE-APPLY MF168 UNTIL ENTRY 11 IS CLOSED.** The two commits are correct in isolation and
+harmful in place. **The order is: fix `NAV_DATA_KEYS` first, then re-land MF168.**
+
+**Measured, one plan round-trip:**
+| | depth walk | net |
+|---|---|---|
+| before | 2 → 3 → **4** | **+2 stray entries**, landing on a third copy |
+| after | 2 → 3 → **2** | **0** — landing back on her shelf |
+
+### ⛔ AND A CORRECTION CLAUDE MADE TO ITS OWN EARLIER NOTE
+`MF167`'s helper comment claimed *"BUG 6's plan views will want exactly this"* about
+`navRefreshEntry()`. **That was wrong.** `navRefreshEntry()` **replaces a snapshot**; Bug 6 needs a
+closer that **consumes a push**. ⚖️ **Opposite jobs — reusing the refresher here would have left
+both stray entries exactly where they were and shipped a no-op as a fix.** The instruction to reuse
+it was followed only as far as the *principle* (one shared helper, not three pasted blocks); the
+*mechanism* is `closePlanView()`.
+
+## ⚖️ LAW 42 — THE RUNG MF168 OWES
+
+**A doctor rung that fails when a key in `navSignature()` is cleared by a bare `setQuiet`/`set`
+closer instead of a consuming one.**
+
+⚠️ **ITS NAIVE FORM HAS A BASELINE OF 17, NOT 0 — MEASURED.** ⛔ **Do not ship it naive:**
+- **2 of the 17 are correct FAIL-SAFES** inside consuming closers (`meals.js:16494`
+  `closeMoodRecipe`, `meals.js:16544` `closeMealRecipe`) — at depth 0 there is no entry to consume,
+  so `setQuiet` is the only close there is. **A rung that flags those is one she scrolls past.**
+- **8 more are LATERAL keys** (`beverageCat` · `cakeCat` · `healthGroupTab`), which **replace and
+  never push**, so clearing them strands nothing.
+
+✅ **THE RUNG MUST EXCLUDE BOTH**, and its honest baseline is **7** — see below.
+⚠️ **Prove it born-RED:** re-introduce the exact line MF168 removed
+(`"setQuiet({moodPlanView:false})"`) and watch the count go 7 → 8. **Verified today: the probe does
+return a one.**
+
+## 🩸 RUNG 1d APPLIED — **SEVEN MORE CANDIDATES OF THIS SHAPE, IN FIVE MORE ROOMS**
+
+⛔ **NOT fixed. NOT folded into Bug 6. Filed, because the disease was named and the question was
+asked.**
+
+| site | key | room |
+|---|---|---|
+| `core.js:4964` | `viewingRecipe` | the universal recipe view |
+| `health.js:976` | `healthGroup` | Health |
+| `tinyTummies.js:453` | `activeDog` | Tiny Tummies |
+| `tinyTummies.js:685` | `activeCat` | Tiny Tummies |
+| `worldkitchen.js:261` | `wkRegion` | World Kitchen |
+| `worldkitchen.js:1304` | `wkScreen` | World Kitchen |
+| `worldkitchen.js:1366` | `wkScreen` | World Kitchen |
+
+⚠️ **CANDIDATES, NOT DEFECTS.** Each is a signature key cleared by a bare closer string with no
+consume in sight — **the shape of Bug 6** — but **none has been walked by a finger and none has had
+its entry accounting measured.** ⚖️ **RUNG 1e: unproven is not proven, in either direction.**
+📌 **`worldkitchen.js` carries three of the seven. That is the room to measure first.**
 
 ## ⛔ Must NOT be touched
 - **`sectionPlanView()` itself** — the renderer is fine; only the closer string passed to it is wrong.
@@ -699,10 +764,10 @@ and it is RESULT A above.** ⚖️ Law 20.
 - **`navSnapshot()`** (`core.js:82`) — the deep clone is correct and complete. **The snapshot is
   not broken; it was taken at the wrong moment.**
 - **`closeMoodRecipe()`** (`meals.js:16490`) — proven to pop correctly. ⚖️ Closed scar.
-- **The push rule** (`core.js:808-836`) — it behaved exactly as specified at every step.
+- **The push rule** (`core.js:831-859`) — it behaved exactly as specified at every step.
 - **`moodRecipes` must NOT simply be added to `navSignature()`** — every page of chef results would
   then push its own entry, and Back would walk her through all of them. That is the pill-tap
-  disease §24.7 was written to kill (`core.js:110-116`).
+  disease §24.7 was written to kill (`core.js:133-138`).
 
 ---
 
@@ -742,7 +807,7 @@ that closes a gap feels exactly like a finding that closes a gap, and only one o
 | **RUNG 1** | a MEASUREMENT remembered as a FIX (`MOOD_RECIPE_STAGING.md`, 20 Jul → carried two weeks as "we fixed the moods") |
 | **RUNG 1b** | a READING put in her mouth to explain what the measurement missed |
 | **RUNG 3** | a HYPOTHESIS recorded as a finding — seven struck in one day |
-| **BUG 4 §1** | **a signature that measures LENGTH is not a signature** — `(S.moodSelected\|\|[]).length`, `core.js:108` |
+| **BUG 4 §1** | **a signature that measures LENGTH is not a signature** — `(S.moodSelected\|\|[]).length`, `core.js:131` |
 
 ⛔ **THE RULE: WHEN THE MEASUREMENT STOPS, THE FILE STOPS.** Write "unexplained" and name what
 would explain it. ⚖️ **Never narrate across the gap.**
@@ -798,6 +863,75 @@ move"* — **seven weeks before Tina screenshotted it.**
 ⛔ **THE RULE: when a commit message contains "the same X", "this class of", or "the same shape",
 the commit is not done until it lists WHERE ELSE and either fixes or files each one.** ⚖️ **Naming
 a disease and treating one patient is how a cured bug stays live in three rooms.**
+
+## RUNG 1e · ⚖️ **A FIX FOR A PATH SHE CANNOT REACH IS UNPROVEN, NOT PROVEN.**
+
+🩸 **MF167 shipped five refreshes. FOUR of them are on a path with no button.** Sites
+`core.js:2668` · `2677` · `2692` · `2714` all live inside `getMoreMoodRecipes()`, and
+**`getMoreMoodRecipes()` has had no caller since `d773702`** (ENTRY 8). **Only `core.js:2639` — the
+mood-tile tap — is reachable by a finger today.**
+
+⚖️ **THE MEASUREMENT WAS RIGHT AND THE STATUS WAS WRONG.** The stale-render numbers for those four
+sites (5092→9280, 9280→13468, 968→~5092) are real; the code is correct; **it has simply never been
+executed by a user and cannot be until MF78 lands.**
+
+⛔ **THE RULE: a green sandbox plus an unreachable path is UNPROVEN. It is not "passed", it is not
+"low risk", and it must never be written in a proof column as a tick.** ✅ **Write UNREACHABLE, name
+what blocks it, and say which commit is therefore unverified.**
+
+📌 **And the sharper half:** ⚠️ **a test that cannot fail proves nothing.** MF167's Test 3 — leave
+mid-fetch, wait, press Back, land in Braai — **passed. But the code it was written to exercise
+never ran**, because the continuation lives behind the same missing button. **A pass and a
+never-ran are indistinguishable from the outside.** ⚖️ *Same family as §5b's true-negative arm:
+before trusting a green, prove the probe can go red.*
+
+**Filed beside:** RUNG 1 (a measurement remembered as a fix) · RUNG 1b (a reading put in her
+mouth) · RUNG 1c (a sim with no clock) · **RUNG 1e (a fix on a path with no button)**.
+
+## RUNG 1f · 📌 **A REFERENCE FILE THAT CITES LINE NUMBERS MUST BE RE-SWEPT AFTER ANY COMMIT THAT INSERTS LINES.**
+
+🩸 **TODAY'S EVIDENCE, IN ONE SESSION.** MF167 inserted `navRefreshEntry()` after `navSnapshot()`,
+shifting **every line in `core.js` from 86 onward by +20**. That silently staled **31 `file:line`
+citations across `MF166` and `MF167`** — files written *hours* earlier, by the same session, under
+a discipline that verifies every ref on the way in.
+
+**The worst of them:** ⛔ **nine citations of `navSignature()` at `core.js:108`. It is at
+`core.js:131`.** Also stale: `LATERAL_KEYS`, the popstate restore, `goBack` steps (3) and (4), the
+root-promotion line, and the §24.7 lateral definition — **every load-bearing anchor in the two
+navigation bugs.**
+
+⚖️ **THE ROT IS SILENT AND IT POINTS AT REAL CODE.** A stale ref does not throw. It resolves to a
+line that exists and says something else, so the next session reads a confident citation and lands
+in the wrong place. **That is exactly the failure `MF165` c0 was written to catch in
+`SEARCH_COLD_START.md`, arriving from the other direction: not a stale document, a stale *pointer*
+inside a correct one.**
+
+### 🩸 AND IT FIRED A SECOND TIME, ONE HOUR LATER, FROM THE OTHER DIRECTION
+**MF168 added 20 lines, then was REVERTED — and the revert staled 8 more refs**, this time the ones
+written *while MF168 was in the tree*: `core.js:4984 → 4964`, the two loose-branch citations
+`1874 → 1854` and `4048 → 4028`, and the buy-ladder ranges.
+
+> ## ⛔ **THE RUNG IS NOT "AFTER AN INSERTION". IT IS AFTER ANY COMMIT THAT CHANGES A LINE COUNT — AND A REVERT IS ONE OF THOSE.**
+> **Written today, staled today, twice, in both directions, inside the session that wrote the rung.**
+
+📌 **Filed beside:** *a signature that measures LENGTH is not a signature* (BUG 4 §1) and **RUNG
+1e** — all three are the same family: **a thing that looks like a measurement but has quietly
+stopped measuring what it names.**
+
+### ⚖️ MAKE IT MECHANICAL — THE PRICE, IN ONE PARAGRAPH
+
+**`fixrefs.js` was a throwaway** — a hand-authored map of one shift's anchors, correct for today
+and worthless tomorrow; ⛔ **do not keep it.** **`refsweep.js` is worth keeping and is roughly
+half-built:** it already walks every `file.js:NNN` in `reference/` (355 today) and bounds-checks
+each against the real file, which catches deletions and truncations but **not** the failure that
+actually happened — a ref that still lands *inside* the file, just on the wrong line. To close
+that it needs one thing from the documents rather than from the code: **citations must carry the
+symbol they mean** — `core.js:131 (navSignature)` instead of bare `core.js:131` — after which the
+probe asserts the named symbol appears on or within ~2 lines of the cited number and reports every
+drift, with an explicit printed exemption list for prose refs that name no symbol. **Estimated: an
+afternoon for the probe, plus a pass over the existing refs to add symbols** — and the honest
+caveat is that **the annotation pass is the expensive half and it is the half that makes the probe
+possible at all.** ⚖️ **Law 42 — the bugs do not stop; the walls get higher.**
 
 ## RUNG 2 · **THE ONE-LIST ASSUMPTION — FIFTH BITE.**
 
@@ -888,12 +1022,12 @@ available and wrong; the measurement that said "does not close the gap" was righ
 | index warm-up | **`index.js:846-848`** | nothing — one-shot `allRecipes.raw()` | ❌ |
 | How-it-works / portion-help closers | **`core.js:609-617`** · **`622-630`** | `howItWorksOpen` · `portionHelpOpen` | ✅ but **click-triggered, not timed** |
 
-**Complete listener inventory — only four in the whole app:** `popstate` (`core.js:152`),
+**Complete listener inventory — only four in the whole app:** `popstate` (`core.js:175`),
 `matchMedia change` (`core.js:604`), and two `document click` handlers (`core.js:617`, `630`).
 ⛔ **No `visibilitychange`, no `focus`, no `online`, no `message`, no service-worker registration
 in `index.html`.**
 
-### 2 · Which of them write a key in `navSignature()` (`core.js:108`)?
+### 2 · Which of them write a key in `navSignature()` (`core.js:131`)?
 
 > ## **NONE. NOT ONE.**
 > `moodRecipes` · `moodAIRecipes` · `moodAILoading` · `_timerRemaining` · `howItWorksOpen` ·
@@ -935,6 +1069,329 @@ both speeds. ⛔ **Nothing in a Node sandbox can answer this** — see the scope
 
 ---
 
+# ENTRY 8 · THE MISSING "MORE" BUTTON — ⚖️ **NOT A DEFECT. WORKING AS RULED.**
+
+**Tina, on live, 6 Aug:** *"There is supposed to be a MORE button and there isn't. Nothing appears
+under the third recipe on any mood shelf."*
+
+## ✅ VERDICT: **SHE IS RIGHT THAT IT IS GONE. IT WAS REMOVED ON PURPOSE, AND THE REASON STILL HOLDS.**
+
+⛔ **Filed as its own entry and NOT folded into any bug** — it is **not** the same mechanism as
+Bug 5, and calling it one would be the exact error this file keeps recording.
+
+### 1 · Where is it rendered? — **NOWHERE. It is not in the code.**
+The **handler survives**: `getMoreMoodRecipes(moodId)` at **`core.js:2656`**, fully intact.
+**It has no caller.** Measured: the only occurrences of the name in `sections/` are its own
+definition and two comments (`core.js:2649`, `core.js:2743`).
+
+### 2 · What condition gates it? — **NONE. There is no condition to evaluate.**
+⛔ **The markup is absent, not gated.** There is no key that could be truthy and no branch that
+could be taken. ⚖️ **This is the opposite of Bug 5** — see §4.
+
+### 3 · Which commit removed it? — **`d773702`**
+> **`d773702` — "MF133: close the dev door, gate the tier switcher, hide the dead chef"**
+
+Its diff removes exactly this:
+```
+-          <button onclick="getMoreMoodRecipes('${mood.id}')"
+-            ✨ Show me 3 more ideas
+```
+and adds the note that stands in its place today at **`core.js:2736-2744`**:
+> *"MF133 · THE '✨ Show me 3 more ideas' BUTTON IS REMOVED FROM THIS RENDER. The chef endpoint
+> returns 503… it failed POLITELY into a loop that cannot succeed… **a Free user was shown that
+> loop as a reason to pay R90.** A broken control is worse than a missing one. ⚖️ Law 7 — a button
+> that cannot do what it says is a lie. ⚖️ Law 3 — if you cannot do the thing, do not offer it.
+> ⛔ getMoreMoodRecipes() itself is DELIBERATELY LEFT INTACT — MF78 turns it back on.
+> 🔁 **RESTORE THIS BUTTON WHEN MF78 LANDS.**"*
+
+### ⚠️ AND THE REASON IS STILL TRUE TODAY — MEASURED, NOT ASSUMED
+**`netlify/functions/claude.js:24-33`** still returns **`statusCode: 503`**, unconditionally, from
+a handler that takes no arguments. Committed as **`8fd181d` "chef off: 503 endpoint, key never
+read + rulings"**.
+
+> ## ⛔ **RESTORING THE BUTTON TODAY WOULD RESTORE A BROKEN CONTROL.**
+> **The button is not the work. MF78 is — turning the chef back on. The button follows it.**
+
+### 4 · Is it the same non-render class as Bug 5? — 🔴 **NO.**
+
+| | **BUG 5** | **ENTRY 8** |
+|---|---|---|
+| the markup | **exists**, and the render chose the wrong branch | **does not exist** |
+| the cause | a state key was **falsy when the render asked** (`core.js:2737`) | a **deliberate deletion**, `d773702` |
+| documented? | ⛔ no — it was an accident nobody knew about | ✅ **yes, in place, with a restore condition** |
+| is it a defect? | ✅ yes | ⛔ **no — it is a RULING, and it is holding** |
+
+⚖️ **Two things being invisible on the same screen does not make them the same bug.**
+
+## ⛔ What must NOT happen
+- **Do not "restore" the button** to make Test 2 runnable. ⚖️ **That would re-ship the R90 lie
+  MF133 was written to kill**, and it would make a Free user pay to reach a 503.
+- **Do not delete `getMoreMoodRecipes()`** as dead code. `core.js:2743` says explicitly it is left
+  intact for MF78. ⚖️ **It is not dead; it is waiting.**
+
+---
+
+# ENTRY 9 · NO "CLEAR PLAN" CONTROL — **A GAP, LOW PRIORITY**
+
+**Tina, on live, 6 Aug:** *"There is a per-item ✕ on each plan dish, but no clear-all anywhere.
+Five dishes take five taps."*
+
+## ✅ VERDICT: **CONFIRMED. A MISSING AFFORDANCE, NOT A DEFECT.**
+
+- The per-item remove exists: `planDishRow({ …, removeJs })` — **`core.js:3924-3925`**, wired at
+  **`core.js:4208`**.
+- **Measured: no clear-all / empty-plan control exists in `core.js`, `meals.js` or `budget.js`.**
+  Nothing renders one and nothing clears a plan array wholesale.
+- It affects **all three plan rooms**, since they share `planView()`.
+
+## ⛔ THE RED LINE ON ANY FUTURE FIX — ⚖️ **LAW 20**
+
+> ## **DO NOT ADD ANYTHING THAT CAN EMPTY HER PLAN BY ACCIDENT.**
+
+⚖️ *Emptying her question is right. Emptying her WORK is theft.* A clear-all sits **one mis-tap away
+from destroying a plan she spent ten minutes building**, and the plan is Pro — it is the paid
+surface.
+
+📌 **If it is ever built, it needs a confirm step, and the confirm must name what is being lost**
+("Clear all 5 dishes?"). ⛔ **An undo would be better than a confirm, and no undo exists anywhere in
+Tinza today.** ⚠️ **That is the real reason this is LOW priority and not a quick win: the cheap
+version is the dangerous one.**
+
+---
+
+# 🔴 ENTRY 10 · THE SHOPPING LIST QUOTES AMOUNTS THAT CANNOT BE BOUGHT
+
+**Tina, on live, 6 Aug — plan of 5 dishes, 2 people:**
+
+| line | quoted | reality |
+|---|---|---|
+| lager beer | **176 ml** · R7 | **a can is 330 ml** |
+| salmon fillet | **396 g** · R269 | sold as a pack |
+| fish stock | **330 ml** · R3 | |
+| white fish | **330 g** · R53 | |
+| whole chicken | **660 g** · R46 | |
+| frozen peas | **154 g** · R10 | |
+
+## ✅ VERDICT: **CONFIRMED, MECHANISM FOUND, AND IT IS NOT SIX ITEMS — IT IS 88% OF THE PRICE LIST.**
+
+### The mechanism — the LOOSE fallback
+
+`buildPlanData()` computes a BUY amount per line through a five-branch ladder
+(**`core.js:4022-4048`**). The **last branch** fires when the item has **no `PACK_DB` entry**:
+
+```
+else { it.loose=true; it.buyAmt=Math.round(need*1.10); it.buyCost=Math.round((it.buyAmt/1000)*pr.price); }
+```
+**`core.js:4028`** — cook amount **+10%**, rounded. **No pack size, no rounding up to a buyable
+unit.** 176 ml of lager is 160 ml × 1.10.
+
+### 🩸 REPRODUCED IN THE SANDBOX — ALL SIX NUMBERS, EXACTLY
+
+| her line | resolved key | `PACK_DB` | computed |
+|---|---|---|---|
+| lager beer | `beer` | **NONE** | **176 ml** ✅ |
+| salmon fillet | `salmon` | **NONE** | **396 g** ✅ |
+| fish stock | `stock` | **NONE** | **330 ml** ✅ |
+| white fish | `hake` | **NONE** | **330 g** ✅ |
+| whole chicken | `whole chicken` | **NONE** | **660 g** ✅ |
+| frozen peas | `frozen peas` | **NONE** | **154 g** ✅ |
+
+**Every one is the loose branch. Six for six.**
+
+### ⛔ THE SIZE OF IT
+
+> ## **PACK_DB HAS 116 ENTRIES. PRICE_DB HAS 894 PRICED KEYS.**
+> ## **789 OF 894 — 88% — HAVE NO PACK ENTRY AND FALL TO THE LOOSE BRANCH.**
+
+⚖️ **The pack ladder is not broken. It is unbuilt.** The five good branches
+(`core.js:4044-4047`) work; **they are only reachable for 12% of the catalogue.**
+
+### ⚠️ AND THE MONEY IS UNDERSTATED, NOT JUST THE AMOUNT
+`it.buyCost` is computed from the **loose amount**, so the trolley figure is *"176 ml of beer"*
+priced, not *"one 330 ml can"*. ⚖️ **BUY is supposed to be what she actually spends.** For 789 keys
+it is currently **cook + 10%**, which is **not a trolley number** — and it is the **GOLD shop-spend
+figure**, the one that claims to be what she pays at the till.
+
+### 🩸 AND THERE ARE TWO COPIES OF THIS LADDER
+**`core.js:1822-1875`** (`buildShoppingList`) and **`core.js:4022-4048`** (`buildPlanData`) both
+implement the five branches. ⚖️ **Law 6.** ⚠️ **Any fix must land in both or the two shopping
+surfaces will disagree** — and MF124 already deleted a third copy of the costing arithmetic for
+exactly this reason. ⛔ **Do not fix one.**
+
+## What a fix would have to reach — ⛔ NOT WRITTEN HERE
+Either **PACK_DB grows** toward the 894 (content work, and it is Tina's — a pack size is a fact
+about a shelf in a shop), or **the loose branch stops pretending**. ⚖️ **Those are different
+decisions and the second is hers, not code's:** a 176 ml line is at least honest that nobody knows
+the pack size; rounding it to a guessed 330 ml would invent a fact.
+
+📌 **This is the same shape as BUG 1** — an engine with a correct mechanism and an unbuilt data
+table behind it, where the tempting one-line "fix" would ship a guess as a fact.
+
+---
+
+# 🔴 ENTRY 11 · TWO PLAN KEYS ARE NOT PROTECTED ACROSS A HISTORY RESTORE
+
+> ## **THIS IS THE ONE THAT EMPTIED HER PLAN. ⚖️ LAW 20.**
+
+**Tina, on live, 6 Aug:** Feeding My Family → Supper → Oven Bakes and Roasts → **added Cottage Pie**
+→ opened the plan, **Cottage Pie was there** → Back → Back. Later: FMF → Light Lunch → **the plan
+was EMPTY.**
+
+## ✅ VERDICT: **CONFIRMED. MF168 WAS THE TRIGGER; THE DEFECT IS OLDER AND IT IS STILL LIVE.**
+
+### The mechanism
+**`NAV_DATA_KEYS` — `core.js:55`** — is the list of keys that survive a popstate restore. The
+handler restores the entry's snapshot, then re-applies **only** these keys from live `S`
+(**`core.js:181`**): *"keep live data (plans/carts/sliders) — only navigation reverts."*
+
+| plan key | in `NAV_DATA_KEYS`? |
+|---|---|
+| `wkPlan` · `healthPlan` · `dogPlan` · `catPlan` · **`moodPlan`** | ✅ protected |
+| 🔴 **`mealPlan`** | **NOT PROTECTED** |
+| 🔴 **`budgetPlan`** | **NOT PROTECTED** |
+
+**So any Back that pops an entry reverts `mealPlan` / `budgetPlan` to whatever they were when that
+entry was pushed** — which is *before* she added the dish, because the plan keys are not in
+`navSignature()` and therefore never push or refresh an entry of their own.
+
+### 🩸 MEASURED, BOTH CLOSERS, THREE ROOMS
+
+| room | plan key | protected | before MF168 | after MF168 |
+|---|---|---|---|---|
+| Meals | `mealPlan` | 🔴 no | ✅ survived | **🔴 EMPTIED** |
+| Budget | `budgetPlan` | 🔴 no | ✅ survived | **🔴 EMPTIED** |
+| Just Feed Me | `moodPlan` | ✅ yes | ✅ survived | ✅ survived |
+
+⚠️ **BUDGET WAS EMPTYING TOO, AND NOBODY SAW IT.** MF168's Test 2 passed twice in Budget — but it
+checked that Back *landed* on the R140 results, **not whether Urban Mutton Curry was still in the
+plan.** ⚖️ **RUNG 1e's sharper half: a test that checks the wrong thing passes just as loudly.**
+
+### ⛔ THE REVERT DOES NOT CLOSE THIS
+MF168 was reverted (`6e7f562`, `a5539db`), which removes **this** trigger. **The gap remains:**
+
+> ## **ANY future code path that pops a history entry will empty `mealPlan` and `budgetPlan`.**
+> `goBack()` step (3) already pops (`core.js:555`). Every consuming closer pops. **The next
+> correct navigation fix walks into the same trap.**
+
+📌 **THAT IS WHY THIS IS ITS OWN ENTRY AND NOT A FOOTNOTE ON BUG 6.** ⛔ **Fix ENTRY 11 before
+re-landing MF168.**
+
+### Q2 · Is the FMF plan one plan, or one per sub-section? — **ONE.**
+`mealPlan` is a single key, shared by every FMF slot: `meals.js:15376` (the plan view),
+`meals.js:15452` (`isPlanItem`), `meals.js:15471` (the button). **Supper and Light Lunch are the
+same plan.** ⛔ **So an empty Light Lunch plan is NOT correct behaviour — this is a defect, not
+scoping.**
+
+### Q3 · Where is plan state persisted? — **NOWHERE.**
+- `set()` is `Object.assign(S, upd); draw();` — **no persistence.**
+- `tinzaStore` has a plan API — **`setPlan()` / `getPlan()` at `tinzaStore.js:180`** — and
+  **measured: nothing in `sections/` calls either.** ⚠️ **A door nobody opens.**
+- **So no plan survives an app exit at all**, in any room.
+
+### ⚠️ THE INVERSION SHE NAMED — and the honest reading
+*"The pasta-and-pizza CATEGORY survived a complete exit from the app; the PLAN did not. Law 20
+backwards."*
+
+**Most likely the same bug, not a persistence asymmetry:** since nothing persists, the category
+surviving points at a browser session/bfcache restore of live `S` — in which case the plan *would*
+have survived too **had it not already been emptied by the Back press before she exited.**
+⚠️ **REASONING, NOT MEASUREMENT.** ⛔ Not asserted as a finding — it needs her to re-check with a
+plan that has NOT been through a Back press.
+
+## What a fix would have to reach — ⛔ NOT WRITTEN HERE
+`NAV_DATA_KEYS` (`core.js:55`) is missing two entries. ⚠️ **But adding them blind is not obviously
+right:** the list is a *contract* about what counts as WORK versus NAVIGATION, and it deserves the
+same read the signature contract gets. **Every other plan key is already there, which is the
+argument that these two are simply omissions.**
+
+## ⛔ Must NOT be touched
+- **`moodPlan` · `wkPlan` · `healthPlan` · `dogPlan` · `catPlan`** — already correct.
+- **The popstate restore itself** (`core.js:175-193`) — it does exactly what it says.
+- ⛔ **Do not "fix" this by making the plan keys push history entries.** They are WORK, not
+  navigation; putting them in `navSignature()` would make every add-to-plan a Back step.
+
+---
+
+# ENTRY 12 · THE SKIPPED INTERMEDIATE SCREEN — **ONE SYMPTOM, TWO MECHANISMS**
+
+**Tina, on live, four reproductions, two rooms, plan untouched:**
+- **Budget** → enter R130 → see recipes → bottom Back → **lands on the MAIN MENU**, skipping the
+  budget-entry screen. Reproduced at R240.
+- **FMF** → Supper → Oven Bakes → bottom Back → **main menu**, skipping the
+  Breakfast / Light Lunch / Supper screen. Reproduced in Light Lunch.
+
+## ✅ VERDICT: **CONFIRMED. `goBack()` IS BEHAVING CORRECTLY IN BOTH — THERE IS NO LEVEL TO WALK.**
+
+⚖️ **This is the OPPOSITE failure to Bug 6.** Bug 6 left extra entries; this one has **too few**.
+
+⚠️ **FILED AS ONE ENTRY, WITH BOTH MECHANISMS NAMED SEPARATELY.** ⛔ They are **not** the same
+cause, and merging them is the error this file keeps recording.
+
+### MECHANISM A · BUDGET — **the results screen never pushes at all**
+
+| step | `file:line` | op | depth | root |
+|---|---|---|---|---|
+| enter the Budget room | `core.js:3214` | **PUSH** | 1 | 1 |
+| type R130 | `budget.js:141` | no history op | 1 | 1 |
+| tap Find Recipes | `budget.js:344` | **no history op** | 1 | 1 |
+
+**`_budgetResults` is not in `navSignature()`, and `budgetStep` — which IS in the signature
+(`core.js:131`) — is set once on entry (`core.js:3214`) and MEASURED: never written again anywhere
+in `budget.js`.** So the entry screen and the results screen are **the same history entry**.
+`goBack()`: depth 1 **==** root 1 → step (4) (`core.js:564`) → **Home.**
+
+### MECHANISM B · FMF — **it pushes, but the push promotes itself to a section root**
+
+| step | `file:line` | op | depth | root |
+|---|---|---|---|---|
+| enter Family Meals | `core.js:3184` | **PUSH** | 1 | 1 |
+| tap **Supper** | **`meals.js:15542`** — `set({screen:'${o.s}', mealSearch:''})` | **PUSH** | 2 | **2** |
+| tap Oven Bakes pill | `meals.js:15434` | LATERAL replaceState | 2 | 2 |
+
+**The slot tile changes `S.screen`,** and the push rule says *"entering a different top-level screen
+starts a new section → this new entry IS the section root"* (`core.js:853`). So Supper becomes its
+own root. `goBack()`: depth 2 **==** root 2 → step (4) → **Home.**
+
+## ⚖️ Q7 · THIS IS A RULING, NOT A CODE CALL — SAME SHAPE AS BUG 4
+
+**Both rooms are internally consistent. Neither has a level for Back to walk.** The question is
+whether one should exist:
+
+| | the question for Tina |
+|---|---|
+| **Budget** | Is *"the results for R130"* a **LEVEL** she walked into, or the **same screen** wearing an answer? |
+| **FMF** | Is **Supper** a sub-level of Family Meals, or **its own room** whose parent is Home? |
+
+⛔ **Code does not get to decide either.** ⚖️ **Identical in shape to BUG 4 (a mood tile: level or
+lateral) — and that one is still waiting on her too.**
+
+## Q8 · WHICH OTHER ROOMS HAVE AN INTERMEDIATE SCREEN?
+
+**The diagnostic is simple and mechanical:** a room that sub-navigates by **changing `S.screen`**
+gets a new section root and its intermediate screen is skipped. A room that sub-navigates by a
+**sub-key** keeps one root, and Back walks correctly.
+
+| room | sub-navigates by | Back walks the intermediate screen? |
+|---|---|---|
+| **Family Meals** | **`S.screen`** (`meals.js:15542`) | 🔴 **no — ENTRY 12 B** |
+| **Budget** | nothing in the signature | 🔴 **no — ENTRY 12 A** |
+| **World Kitchen** | `wkScreen` · `wkContinent` · `wkRegion` · `wkDataCountry` — **sub-keys** | ✅ **yes** |
+| Events | `eventTab` · `buffetStep` — sub-keys | ✅ yes |
+| Braai | `braiStep` · `braaiView` — sub-keys | ✅ yes |
+| Kiddies / Baby / Furry | `kidsScreen` · `babyView` · `furryPet` — sub-keys | ✅ yes |
+
+🩸 **WORLD KITCHEN IS THE PROOF THAT THE PATTERN IS THE CAUSE.** It has the deepest drill in the
+app — continent → region → country → course — and **its Back works**, because every step is a
+sub-key and the root never moves. ⚖️ **The rooms that break are the two that navigate by `screen`
+or by nothing.**
+
+## ⛔ Must NOT be touched
+- **`core.js:853`** (the root-promotion rule) — it is what stops Back walking out of one room into
+  an unrelated earlier one. ⚠️ **Changing it moves every room at once.**
+- **World Kitchen's drill** — it is the reference implementation. ⚖️ **Do not touch a working room.**
+
+---
+
 # 🏁 THE RANKING — WHAT TO DO FIRST, AND WHAT IT RISKS
 
 ⛔ **NO FIX IS WRITTEN ANYWHERE IN THIS FILE.** This is the order of the board, not the code.
@@ -947,7 +1404,7 @@ separate defects put them there.
 | # | change | entries removed | one line? |
 |---|---|---|---|
 | 1 | **BUG 6** — the plan closer consumes instead of pushing (`core.js:2712`) | **−2 per plan visit** | ✅ yes |
-| 2 | **BUG 4** — `moodSelected` joins `LATERAL_KEYS` (`core.js:131-133`) ⚠️ **RULING FIRST** | **−1** | ✅ yes |
+| 2 | **BUG 4** — `moodSelected` joins `LATERAL_KEYS` (`core.js:154-156`) ⚠️ **RULING FIRST** | **−1** | ✅ yes |
 | 3 | **BUG 5** — the snapshot is taken after the shelf exists, not before (`core.js:2832`) | **0** — but the presses stop being invisible **and the shelf survives** | ✅ likely |
 
 > ## **SMALLEST HONEST ANSWER: BUG 6 + BUG 4. TWO ONE-LINE CHANGES.**
@@ -983,7 +1440,7 @@ three defects wore one face for a day.
 | **5** | `core.js:2832` · `2616-2618` | ⚪ **mood only** | Just Feed Me. **Lowest blast radius of the six.** |
 | **1** | `core.js:2521` + `moodTags.js` | ⚪ **mood only** | Just Feed Me — but ⛔ **flipping before the tags land empties the shelf silently** (`core.js:2517-2520`) |
 | **6** | `core.js:2712` · `budget.js:59` · `meals.js:15376` | 🟠 **three rooms, one shape** | **Budget · Meals · Just Feed Me.** Three call sites, not one edit |
-| **4** | `core.js:131-133` `LATERAL_KEYS` | 🔴 **every room** | consulted on **every draw, app-wide**. One wrong key changes Back everywhere. ⚠️ `eventTab`'s exclusion is a standing warning (`core.js:117-120`) |
+| **4** | `core.js:154-156` `LATERAL_KEYS` | 🔴 **every room** | consulted on **every draw, app-wide**. One wrong key changes Back everywhere. ⚠️ `eventTab`'s exclusion is a standing warning (`core.js:140-143`) |
 | **2** | `core.js:468` `bottomBarGo()` | 🔴 **every room** | **the bottom nav of the entire app** |
 | **3** | `budget.js:90` local · `core.js:789` `draw()` app-wide | 🔴 **or** ⚪ | ⛔ **if fixed at `draw()`, EVERY screen in Tinza.** A local fix is budget-only |
 
@@ -1018,7 +1475,7 @@ records). **Neither is code's to unblock.**
 
 It survives on **two accidents**:
 1. `MOODS.find(m => m.id === [])` returns `undefined`, so the picker renders and nothing throws.
-2. `navSignature()` reads `(S.moodSelected||[]).length` (**`core.js:108`**), and `[].length === 0`
+2. `navSignature()` reads `(S.moodSelected||[]).length` (**`core.js:131`**), and `[].length === 0`
    — the same value `null` produces. **The signature cannot tell the boot default from "no mood".**
 
 ⚠️ **But `[]` IS TRUTHY.** Any reader that tests `if(S.moodSelected)` gets **true at boot with no
