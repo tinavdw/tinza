@@ -2692,6 +2692,12 @@ function getMoreMoodRecipes(moodId) {
         S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat((S.moodAIRecipes||[]).slice(aiOff, aiOff + 3));   // MF116-B · MORE adds, never deletes
         if (S.moodRecipes.length === 0) {
           S.moodRecipes = [{_error:true, _msg:'No more recipes found. Try a different mood.'}];
+        } else if (S.screen === 'mood' && S.moodSelected === moodId && !S.moodActiveRecipe) {
+          // ⚖️ MF167 — GUARDED. This poll is unguarded by design and fires 800ms at a time,
+          // long after she may have left Just Feed Me. An unguarded refresh here would stamp a
+          // mood snapshot onto whatever room she is standing in. ⛔ Content only, never the
+          // _error branch above — the entry holds the best thing she has seen.
+          navRefreshEntry();
         }
         draw();
       }
@@ -2708,6 +2714,10 @@ function getMoreMoodRecipes(moodId) {
       S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat((S.moodAIRecipes||[]).slice(aiOff, aiOff + 3));   // MF116-B · MORE adds, never deletes
       if (S.moodRecipes.length === 0) {
         S.moodRecipes = [{_error:true, _msg:'No more recipes right now. Try again shortly.'}];
+      } else if (S.screen === 'mood' && S.moodSelected === moodId && !S.moodActiveRecipe) {
+        // ⚖️ MF167 — GUARDED, same reason as the poll above: a resolved fetch can land after
+        // she has navigated away. ⛔ Content only, never the _error branch.
+        navRefreshEntry();
       }
       draw();
     });
