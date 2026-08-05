@@ -52,7 +52,21 @@ function liveSearch(inputEl, resultsId, spec){
 // screen INSIDE the app instead of leaving the site. Only Home → back
 // exits. Plans, carts and slider values never revert — only the screen
 // you are looking at goes back one step.
-const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople'];
+// ⚖️ MF169-B (6 Aug 2026) — 15 MEASURED WORK KEYS ADDED. ⚖️ RULINGS §5.
+// §5 has ruled since 13-14 Jul that a plan, a cart and a people-count are HER WORK and NEVER
+// clear. `budgetPlan` was named in that ruling and this list never carried it — the ruling was
+// right and the code disobeyed it for three weeks. `mealPlan` was missed by the ruling too.
+// A key here survives a history pop (see the re-apply loop below); a key absent from it is
+// reverted to whatever the popped entry held, which for a plan means EMPTY. ⚖️ Law 20 —
+// emptying her question is right, emptying her WORK is theft.
+// ⚠️ THE TEST, and it is a JUDGEMENT, never a regex: does losing this key lose something she
+// BUILT or CHOSE? healthPlan is WORK (health.js:706); healthShowPlan is NAVIGATION (a view
+// flag, health.js:707). One character apart, opposite sides.
+// ⚠️ THIS LIST IS A FLOOR, NOT A TOTAL — 36 keys matched a WORK-shaped pattern, 15 survived
+// classification, ~184 were never individually classified. Measured 6 Aug 2026 at 5255b02.
+// ⛔ `_fourCache` is NOT here on purpose: module scope (meals.js:15624), a pop cannot reach it.
+const NAV_DATA_KEYS = ['selectedMeats','selectedSides','wkPlan','healthPlan','dogPlan','catPlan','moodPlan','checkedShopItems','fingerShopCart','recipeAdjustments','recentlyViewed','people','eventGuests','appetite','servings','recipeServings','moodServings','budget','budgetAmount','budgetPeople',
+  'mealPlan','budgetPlan','babyPlan','spiceCart','wkBump','wkServings','wkGuests','barGuests','beverageGuests','cakeGuests','checkedBuffetItems','checkedHealthItems','checkedBeverageItems','checkedCakeItems','checkedFingerItems'];
 // MF99 · Every room opened its own private "recipe is open" key, and goBack() only ever knew
 // about ONE of them (budget). These three all close the SAME way — setQuiet({key:null}) — which
 // is exactly what each room's own top-Back button already does. ⚖️ Law 6 · Law 35.
