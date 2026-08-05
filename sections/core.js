@@ -2765,7 +2765,7 @@ function moodTogglePlan(i){
 function moodHTML(){
   if(S.moodPlanView){
     window._sectionPlanForShare = S.moodPlan||[];
-    return sectionPlanView('moodPlan','Just Feed Me Plan','😋','#8060c0','#0f0818','#2a1840',S.moodServings||1,"closePlanView('moodPlanView')",'← Just Feed Me');   // ⚖️ MF168 — consume the push, don't add one
+    return sectionPlanView('moodPlan','Just Feed Me Plan','😋','#8060c0','#0f0818','#2a1840',S.moodServings||1,"setQuiet({moodPlanView:false})",'← Just Feed Me');
   }
   const mood = MOODS.find(m=>m.id===S.moodSelected);
   const recipes = S.moodRecipes;

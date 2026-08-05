@@ -15373,7 +15373,7 @@ function mealSectionHTML(sectionKey){
   // Plan view
   if(S.mealPlanView){
     window._sectionPlanForShare = S.mealPlan||[];
-    return sectionPlanView('mealPlan', cfg.title+' Plan', cfg.emoji||'🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "closePlanView('mealPlanView')", '← '+cfg.title);   // ⚖️ MF168 — consume the push, don't add one
+    return sectionPlanView('mealPlan', cfg.title+' Plan', cfg.emoji||'🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "setQuiet({mealPlanView:false})", '← '+cfg.title);
   }
 
   // Recipe detail view

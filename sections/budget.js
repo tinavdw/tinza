@@ -56,7 +56,7 @@ function budgetPlannerHTML(){
   const color = '#c06020'; const bg = '#1a1208'; const border = '#3a2010';
   if(S.budgetPlanView){
     window._sectionPlanForShare = S.budgetPlan||[];
-    return sectionPlanView('budgetPlan',"I've Got R"+budget+' Plan','💰',color,bg,border,people,"closePlanView('budgetPlanView')","← I've Got R"+budget);   // ⚖️ MF168 — consume the push, don't add one
+    return sectionPlanView('budgetPlan',"I've Got R"+budget+' Plan','💰',color,bg,border,people,"setQuiet({budgetPlanView:false})","← I've Got R"+budget);
   }
   const results = S._budgetResults;
   const loading = S._budgetLoading;
