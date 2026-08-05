@@ -425,6 +425,131 @@ p('       30g condiment onto a 180g staple plate. ⚖️ Law 42: it cannot walk 
   }
 }
 
+// ── 14. A REAL PERSON IS NOT A RECIPE NOTE  (MF162/MF163) ────────────────
+head('14 · IS A LIVING, NAMED PERSON CREDITED WITH A TECHNIQUE?  (5 Aug — the Jan Braai line)');
+p('  \x1b[2m    Frittatensuppe — an Austrian soup — rendered "Jan Braai\'s trick: freeze the offcuts');
+p('       …for a braai-meat lasagne or potjie" on 145 cards. A real, living, named public figure');
+p('       had a technique put in his mouth, on Ethiopian kitfo and Greek youvetsi, with no');
+p('       permission, no checked quote, and no way for him to correct it.');
+p('       ⚖️ AMBER, NOT RED, ON PURPOSE. Telling a living person from a historical one is');
+p('       JUDGEMENT, and a judgement call must not be a push-gate. It asks; Tina answers.\x1b[0m');
+{
+  // ⚖️ HISTORICAL = SAFE, LIVING = ASK. §3 of MF162 keeps cultural and historical attribution
+  // ("Madurese traders carried this dish") and forbids endorsement by a living person.
+  // ⛔ THIS LIST IS EXPLICIT AND PRINTED EVERY RUN — never a silent filter. A suppression list
+  //    nobody can see is how a name hides for four weeks. Same reason pricecheck prints its
+  //    parked keys and tinza-all prints what it did NOT measure.
+  // ⚠️ PROVISIONAL — seeded 5 Aug from the MF162 sweep, pending MF163 §6's ruling. Each entry
+  //    is a person who died long enough ago that attribution is history, not endorsement.
+  const HISTORICAL_OK = [
+    'Auguste Escoffier',      // d. 1935 — codified the mother sauces
+    'Louis Diat',             // d. 1957 — vichyssoise, NY Ritz-Carlton
+    'Nikolaos Tselementes',   // d. 1958 — the béchamel top on moussaka
+    'Lucien Olivier',         // d. 1883 — the Olivier salad
+    'Maximilian Bircher-Brenner', // d. 1939 — bircher muesli
+    'Bircher-Brenner',
+    'Joao da Mata', 'João da Mata',       // 19th-c Portuguese court chef
+    'Joao Ribeiro', 'João Ribeiro',       // early-20th-c, bacalhau com natas
+    'Bob Cobb'                // d. 1970 — the Cobb salad
+  ];
+  const okRe = new RegExp('^(' + HISTORICAL_OK.map(n => n.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&')).join('|') + ')$', 'i');
+
+  // A capitalised TWO-token name is what separates a person from a place or a figure of
+  // speech. "Legend says", "Madrid says", "Tradition says", "Portugal insists", "Senegal's
+  // secret" are all single-token and must never fire — measured against the real corpus,
+  // they were the entire false-positive population of the 5 Aug sweep.
+  const T = '\\p{Lu}[\\p{L}\'’-]+';
+  // ⚠️ NOBILIARY PARTICLES ARE PART OF THE NAME. Without this, "chef João da Mata" captured
+  // only "João", which then missed its own allowlist entry and fired every run — a rung that
+  // cries wolf on a 19th-century court chef is one Tina learns to scroll past.
+  const P = '(?:\\s+(?:da|de|del|della|di|du|van|von|der|den|le|la|el|bin|ibn)\\s+' + T + ')';
+  const NAME = T + '(?:' + P + '|\\s+' + T + '){0,2}';
+  const PATTERNS = [
+    ['possessive', new RegExp('\\b(' + T + '(?:' + P + '|\\s+' + T + '){1,2})\'s\\s+(?:trick|method|tip|secret|technique|way|rule)\\b', 'gu')],
+    ['attributed', new RegExp('\\b(' + T + '(?:' + P + '|\\s+' + T + '){1,2})\\s+(?:says|recommends|swears\\s+by|insists|calls|credits|suggests)\\b', 'gu')],
+    ['chef named', new RegExp('\\bchefs?\\s+(' + NAME + ')\\b', 'gu')]
+  ];
+  // A capitalised pair led by an article is a PLACE, not a person — "La Mancha calls itself
+  // the garlic capital". Measured: this was the only surviving false positive after the
+  // two-token rule, so it is excluded by shape rather than by a growing list of place names.
+  const ARTICLE_LED = /^(La|Le|Les|El|Los|Las|The|A|An|Il|Lo|De|Du|Der|Das|Die)\s/i;
+  // ⛔ NOT PEOPLE — a place or a dish can be two capitalised words and can "insist" or have a
+  // "method". Measured 5 Aug: these were the only such cases in 12,357 fields. EXPLICIT AND
+  // PRINTED, like the allowlist — a silent exclusion is how the next one hides. ⚠️ If this
+  // list ever needs to grow faster than a line a month, the SHAPE is wrong, not the list.
+  const NOT_A_PERSON = ['New York', 'Khao Suay'];
+  const notPersonRe = new RegExp('^(' + NOT_A_PERSON.map(n => n.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&')).join('|') + ')$', 'i');
+  const FIELDS = ['trivia','chefNotes','tip','didYouKnow','story','howThisFeels','storage',
+                  'pairsWith','method','name','nameAlt','cardHook','note'];
+
+  // Every record array in ctx, not just /^WK_/ — wk_france.js also declares FR_SAUCES, and a
+  // one-array-per-file assumption already cost splitreport.js a wrong answer on 5 Aug.
+  const scanned = [];
+  Object.keys(ctx).forEach(k => {
+    if (!Array.isArray(ctx[k])) return;
+    ctx[k].forEach(r => {
+      if (!r || typeof r !== 'object' || !r.id) return;
+      FIELDS.forEach(f => { if (typeof r[f] === 'string' && r[f]) scanned.push({ where: r.id, text: r[f] }); });
+    });
+  });
+  // ⚠️ AND THE SHARED POOLS — this is where the Jan Braai line actually lived. A rung that
+  // only read records would have missed the very bug it was born from. ⚖️ Law 42 means the
+  // ORIGINAL bug must be catchable, not merely bugs shaped like it.
+  ['LEFTOVER_IDEAS','LEFTOVER_HERITAGE','SAFETY_CLASS'].forEach(poolName => {
+    const pool = ctx[poolName]; if (!pool) return;
+    const eat = (v, tag) => {
+      if (typeof v === 'string') scanned.push({ where: poolName + (tag ? '.' + tag : ''), text: v });
+      else if (Array.isArray(v)) v.forEach(x => eat(x, tag));
+      else if (v && typeof v === 'object') Object.keys(v).forEach(kk => eat(v[kk], tag ? tag + '.' + kk : kk));
+    };
+    eat(pool, '');
+  });
+
+  const hits = [];
+  for (const s of scanned) {
+    for (const [label, re] of PATTERNS) {
+      re.lastIndex = 0;
+      let m;
+      while ((m = re.exec(s.text)) !== null) {
+        // "Chef Mmabatho Molefe calls this…" — the title is not part of the name, and leaving
+        // it attached split one person into two rows, which is how a count lies.
+        const name = (m[1] || '').trim().replace(/^chefs?\s+/i, '');
+        if (!name || okRe.test(name) || ARTICLE_LED.test(name) || notPersonRe.test(name)) continue;
+        const key = s.where + '|' + name;
+        if (!hits.some(h => h.key === key)) {
+          hits.push({ key, where: s.where, name, label,
+                      ctx: s.text.slice(Math.max(0, m.index - 40), m.index + 90).replace(/\s+/g, ' ').trim() });
+        }
+      }
+    }
+  }
+
+  p('  \x1b[2m    historical allowlist (PROVISIONAL, pending MF163 §6): ' +
+    HISTORICAL_OK.filter(n => !/^(Bircher-Brenner|Joao)/.test(n)).join(' · ') + '\x1b[0m');
+  p('  \x1b[2m    not-a-person exclusions: ' + NOT_A_PERSON.join(' · ') + '\x1b[0m');
+
+  if (!scanned.length) {
+    // ⚖️ Law 54b — a zero over an empty set is a green tick above a check that never ran.
+    fail('NO CARD TEXT REACHED THE LIVING-PERSON CHECK', 'it found nothing to read — that is not a pass');
+  } else if (hits.length) {
+    const names = [...new Set(hits.map(h => h.name))];
+    warn(hits.length + ' attribution(s) naming ' + names.length + ' person(s) not on the historical allowlist',
+      '\n      \x1b[2mscanned ' + scanned.length + ' text fields. Each is either a living person (⛔ take the name out,' +
+      '\n      MF162 §3) or a historical one (add to the allowlist above, with a date).\x1b[0m', []);
+    // ⛔ EVERY HIT, NOT THE FIRST SIX. warn() truncates, which is right for a list of broken
+    // things you are about to go fix. This is a list of DECISIONS, and a decision nobody was
+    // shown is a decision nobody made — the exact shape of the four weeks Jan Braai survived.
+    names.forEach(n => {
+      const rows = hits.filter(h => h.name === n);
+      p('      \x1b[33m·\x1b[0m \x1b[1m' + n + '\x1b[0m  \x1b[2m(' + rows.length + ' place' + (rows.length > 1 ? 's' : '') + ')\x1b[0m');
+      rows.forEach(h => p('          \x1b[2m' + h.where + '  [' + h.label + ']  …' + h.ctx.slice(0, 78) + '…\x1b[0m'));
+    });
+  } else {
+    pass('No living named person is credited with a technique', scanned.length + ' text fields scanned · ' +
+         HISTORICAL_OK.length + ' historical names allowed through');
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
