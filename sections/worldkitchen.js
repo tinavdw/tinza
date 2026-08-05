@@ -662,6 +662,21 @@ function wkPriceLookup(name){
     if(re.test(n) && (!best || k.length > best.length)) best = k;
   }
   if(best) return (typeof l2Blocks==='function' && l2Blocks(name, best)) ? null : { key:best, price:PRICE_DB[best], per:'weight' };   // MF28-L2 collision guard
+
+  // ⚖️ MF159 (5 Aug 2026) — THE LAST RESORT: core.js's PRICE_ALIAS.
+  // Until today this function read WK_ALIAS and never PRICE_ALIAS, while the plan/shopping
+  // path (line ~1298) hands the raw name onward as `priceName` and core.js:1785 prices it
+  // through priceOf() — which DOES read PRICE_ALIAS. Result: 121 ingredient lines across
+  // 107 records billed R0 on the recipe card and a real price in the shopping list.
+  // The same lamb line was R0 and R170 at the same moment. Measured, not inferred:
+  // 371 aliases checked against both engines over 11,102 WK ingredient lines.
+  // ⛔ THIS RUNG IS DELIBERATELY LAST. Placed earlier it would also override the whole-word
+  // match above and move 24 further keys (bread flour→bread, dried plums→plums, sardines→
+  // pilchards) — that is §3j substring-fallthrough debt, parked on purpose, not this brief.
+  // ⛔ No l2Blocks guard here: an alias entry is a RULING, not an accidental collision.
+  if(typeof PRICE_ALIAS !== 'undefined' && PRICE_ALIAS[n] && PRICE_DB[PRICE_ALIAS[n]] != null){
+    return { key: PRICE_ALIAS[n], price: PRICE_DB[PRICE_ALIAS[n]], per:'weight' };
+  }
   return null;
 }
 
