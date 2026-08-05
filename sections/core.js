@@ -83,6 +83,29 @@ function navSnapshot(){
   try { return JSON.parse(JSON.stringify(S)); }
   catch(_e){ return Object.assign({}, S); }
 }
+// ⚖️ MF167 (6 Aug 2026) — REFRESH THE ENTRY SHE IS STANDING ON.
+// A push stores a snapshot of the moment it happened. When content arrives LATER without a
+// signature change, the stored snapshot goes stale under her feet and Back restores a screen
+// she never saw. Measured: Just Feed Me pushed its entry at core.js:2832 with moodRecipes:null,
+// the shelf landed afterwards at 2616, and backing out of a recipe redrew the TWELVE TILES —
+// her shelf gone, the mood to pick again. ⚖️ Law 20: emptying her question is right, emptying
+// her WORK is theft.
+// ⛔ THE OBVIOUS FIX IS THE WRONG ONE. `moodRecipes` must NOT join navSignature() — that would
+//    push an entry per page of results and Back would walk her through every one, which is
+//    §24.7's pill-tap disease (see the contract below). This REPLACES; it never pushes, so no
+//    depth, no rootDepth and no press count can move.
+// ⛔ NOT wired into draw(). Called only where content is added, never where a transient
+//    (a _waiting placeholder, an _error message) is written — the entry must hold the best
+//    thing she has seen, not the last thing that happened.
+// ⚠️ Callers that can run AFTER she has navigated away MUST guard on the screen still being
+//    theirs, or a late resolution stamps their snapshot onto another room's entry.
+function navRefreshEntry(){
+  try {
+    if (typeof history !== 'undefined' && history.state && history.state.tinza) {
+      history.replaceState(Object.assign({}, history.state, { snap: navSnapshot() }), '');
+    }
+  } catch(_e){}
+}
 // ⚖️ THIS IS A CONTRACT, NOT A LIST. Every key a room NAVIGATES by must appear here.
 // draw() pushes a history entry only when this string changes, so a level the signature
 // cannot see is a level Back cannot walk — goBack() step (3) finds nothing and falls
