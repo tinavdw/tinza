@@ -439,8 +439,12 @@ p('       JUDGEMENT, and a judgement call must not be a push-gate. It asks; Tina
   // ⛔ THIS LIST IS EXPLICIT AND PRINTED EVERY RUN — never a silent filter. A suppression list
   //    nobody can see is how a name hides for four weeks. Same reason pricecheck prints its
   //    parked keys and tinza-all prints what it did NOT measure.
-  // ⚠️ PROVISIONAL — seeded 5 Aug from the MF162 sweep, pending MF163 §6's ruling. Each entry
-  //    is a person who died long enough ago that attribution is history, not endorsement.
+  // ⚖️ RULED BY TINA, MF163 §0 + §4 (5 Aug 2026). ⛔ WHAT MAKES AN ENTRY HISTORICAL IS NOT A
+  //    DEATH DATE — IT IS A DOCUMENTED CREATION FACT. Code declined to add József Dobos on a
+  //    death date it had not verified; the right instinct, but the wrong test. **1885 is what
+  //    makes him allowlist material**, not the year he died. A named creator with a documented
+  //    year is food history, and food history is most of what the trivia fields are for.
+  //    So each entry below carries the FACT that clears it, not merely a name.
   const HISTORICAL_OK = [
     'Auguste Escoffier',      // d. 1935 — codified the mother sauces
     'Louis Diat',             // d. 1957 — vichyssoise, NY Ritz-Carlton
@@ -448,10 +452,16 @@ p('       JUDGEMENT, and a judgement call must not be a push-gate. It asks; Tina
     'Lucien Olivier',         // d. 1883 — the Olivier salad
     'Maximilian Bircher-Brenner', // d. 1939 — bircher muesli
     'Bircher-Brenner',
-    'Joao da Mata', 'João da Mata',       // 19th-c Portuguese court chef
+    'Joao da Mata', 'João da Mata',       // 19th-c Portuguese court chef — named in §0
     'Joao Ribeiro', 'João Ribeiro',       // early-20th-c, bacalhau com natas
-    'Bob Cobb'                // d. 1970 — the Cobb salad
+    'Bob Cobb',               // d. 1970 — the Cobb salad
+    'József Dobos'            // ⚖️ RULED 5 Aug (MF163 §4): created the torta in 1885. A dated
+                              //    creation fact — nobody alive is spoken for, nothing quoted.
   ];
+  // ⚠️ NOT ON THE LIST, AND DELIBERATELY SO: Beyti Güler. MF163 §4 says the line is PROBABLY
+  // fine — a dish NAMED AFTER a person is a naming fact, like Pavlova — but it is unresolved
+  // and Tina has not called it. ⛔ Adding him would silence a live question; the amber row IS
+  // the question. It stays visible until she answers it, then it moves here with its reason.
   const okRe = new RegExp('^(' + HISTORICAL_OK.map(n => n.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&')).join('|') + ')$', 'i');
 
   // A capitalised TWO-token name is what separates a person from a place or a figure of
@@ -524,8 +534,9 @@ p('       JUDGEMENT, and a judgement call must not be a push-gate. It asks; Tina
     }
   }
 
-  p('  \x1b[2m    historical allowlist (PROVISIONAL, pending MF163 §6): ' +
+  p('  \x1b[2m    historical allowlist (⚖️ ruled, MF163 §0/§4): ' +
     HISTORICAL_OK.filter(n => !/^(Bircher-Brenner|Joao)/.test(n)).join(' · ') + '\x1b[0m');
+  p('  \x1b[2m    ⚠️ awaiting Tina: Beyti Güler — a naming fact, probably fine, NOT ruled. It stays amber.\x1b[0m');
   p('  \x1b[2m    not-a-person exclusions: ' + NOT_A_PERSON.join(' · ') + '\x1b[0m');
 
   if (!scanned.length) {
