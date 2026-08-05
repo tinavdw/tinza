@@ -1,92 +1,85 @@
+%% TINZA_NOW — board as at 5 Aug 2026
+%% Session start: HEAD 326d6e6 · vietnam 11/50 · 33 versions · doctor 10 (baseline held) · lawcheck 0 red 0 drift
+
 flowchart TD
-    HEAD["5 COMMITS UNPUSHED<br/>f2fabed · 48e3df5 · 568b481 + 2<br/>needs GitHub Desktop"]
 
-    HEAD --> MF125
+  START["🩺 SESSION START · 5 Aug 2026<br/>HEAD 326d6e6 'vietnam' — SHE PUSHED<br/>vietnam 11 rec · 33 versions<br/>doctor 10 · lawcheck 0 red 0 drift<br/>no reference/ orphan in root ✅"]
 
-    subgraph MF125["MF125 — SLOT ADAPTERS · DONE"]
-        M1["slot authored in data<br/>adapters only transport"]
-        M2["braai 92/92 SUPPER →<br/>SUPPER 48 · SIDE 25 · CONDIMENT 14 · TREAT 5"]
-        M3["bakes 101/101 TREAT →<br/>TREAT 73 · SIDE 26 · unresolved 2"]
-        M4["celebrating → 128<br/>SUPPER 84 · SIDE 36 · TREAT 6 · STARTER 1"]
-        M5["census 18 — cross-path agreement<br/>+ flat distribution"]
-        M6["Exemption is the PAIR not the room<br/>spice:CONDIMENT exempt<br/>spice:SUPPER still flags"]
-    end
+  START --> LAMB
+  START --> SA
+  START --> V12
 
-    MF125 --> MF126
+  %% ───────────────────────── LAMB ─────────────────────────
+  subgraph LAMB["🐑 1 · THE LAMB JOB — REPORTED, NOTHING TOUCHED"]
+    L1["MEASURED with lambreport.js<br/>3/3 born-RED proofs pass<br/>uses priceOf + wkPriceLookup, never a private copy"]
+    L1 --> L2["FINDING: TWO ENGINES, TWO ALIAS MAPS<br/>priceOf reads PRICE_ALIAS<br/>wkPriceLookup reads WK_ALIAS ONLY"]
+    L2 --> L3["🔴 SPLIT BRAIN<br/>bare lamb = R0 on the recipe card cost<br/>bare lamb = R170 in the shopping list"]
+    L3 --> L4["21 lines, not 19<br/>meals.js 5 (NEVER COUNTED BEFORE)<br/>wk_africa 9 · wk_china 2 · wk_southafrica 2<br/>wk_europe 3 — already say 'lamb neck', alias never touched"]
+    L4 --> L5{"⏸️ TINA'S CALL<br/>nothing deleted or repointed"}
+    L5 --> L6["⛔ OPTION A — MEASURED AND REJECTED<br/>lamb is 11 of 121 split lines = 9%<br/>names 16, leaves 105 identical live"]
+    L5 --> L7["✅ OPTION B — RECOMMENDED 5 Aug<br/>371 aliases checked - 11,102 wk lines parsed<br/>121 split lines - 68 names - 107 records"]
+    L7 --> L7a["1 · give wkPriceLookup PRICE_ALIAS as a<br/>final step before null — one rung, one place"]
+    L7a --> L7b["2 · read the 121-line diff BEFORE believing it<br/>'cold chicken stock' → chicken R90<br/>'chicken or vegetable stock' = A-or-B line<br/>'Gruyère' misses on the accent"]
+    L7b --> L7c["3 · name the wrong ones — the 16 lamb lines<br/>plus the other 105, one job not two"]
+    L7c --> L7d["4 · ONLY THEN kill the alias<br/>⚖️ killing it now drops the LIST R170→R0<br/>Law 20 — a price that vanishes is a harm"]
+    L7e["🟠 SEPARATE CLASS — 24 aliases DISAGREE<br/>bread flour→bread R18 · dried plums→plums R40<br/>sardines→pilchards R65 · §3j, do not mix in"]
+    L8["🆕 ALSO FOUND — not in the 21<br/>lamb ribs · lamb fat · lamb leg or shoulder ABSENT<br/>'lamb leg or shoulder' is an A-or-B line = prices nothing"]
+    L9["🔴 wk_africa.js + wk_europe.js are NOT in<br/>pricecheck's country list — never checked, ever"]
+  end
 
-    subgraph MF126["MF126 — MOOD SHELF BUGS · DONE"]
-        N1["BUG 1 was NOT the shelf filter.<br/>buildMoodPool() was correct all along."]
-        N2["Third blanket default found: sides<br/>fromSection('sides') → TREAT<br/>Béchamel · Napoletana · Chips · Mash"]
-        N3["Pre-existing, proven via throwaway<br/>worktree at 349aebf — old bug,<br/>newly noticed, NOT a regression"]
-        N4["9 sides records authored<br/>TREAT5/SIDE4 → SIDE6/CONDIMENT3<br/>sweet shelf 313→308 · non-TREAT: 0"]
-        N5["NOTHING RIDES A SECTION<br/>DEFAULT NOW — this is the real<br/>completion of MF125"]
-        N6["BUG 2 — one missing div<br/>core.js:2266 flex:1 never closed<br/>every card nested one deeper"]
-        N7["census 19 — .map().join('')<br/>templates must be tag-balanced"]
-    end
+  %% ───────────────────────── SA / LOCALE ─────────────────────────
+  subgraph SA["🌍 2 · SA-ONLY FRAMING → LOCALE LAYER — TINA HAS RULED THE INTENT"]
+    S0["TINA, 5 Aug: 'Im not just aiming for SA.<br/>Someone from Sweden or Nigeria or Japan should<br/>browse our app and make sense of it.'"]
+    S0 --> S1["MEASURED across 12 wk_ files — 84 instances<br/>39 'in South Africa' framing<br/>14 SA-only availability claims<br/>14 rand figures in PROSE<br/>12 unqualified season words<br/>5 shop names"]
+    S1 --> S2["PROPOSED SPLIT — 3 buckets, not one sweep"]
+    S2 --> S3["KEEP · §33 SA words explained not translated<br/>bredie, braai, potjie, waterblommetjie<br/>a Swede LEARNS these — that is the app working"]
+    S2 --> S4["MOVE TO LOCALE · shop names + rand-in-prose<br/>+ 'not sold here' claims<br/>these are FACTS ABOUT ONE COUNTRY"]
+    S2 --> S5["REWRITE · unqualified seasons<br/>'in summer' means Dec in Pretoria, Jul in Stockholm<br/>→ name the month or name the hemisphere"]
+    S6["✅ RECOMMENDED 5 Aug · RULE + WATCHER, NOT A FIELD<br/>1 · a field breaks sameness until all 1200 carry it<br/>2 · the real SA-ness is PRICE_DB, not 33 sentences<br/>3 · one locale exists = a switch with one position<br/>home: tinza-echo.js, already corpus-relative"]
+    S6 --> S7["📜 THE RULE, ONE SENTENCE<br/>Anything true of only one country must NAME that country.<br/>Anything false elsewhere must be a COMPARISON, not a figure.<br/>⚖️ A comparison survives a border. A number does not."]
+    S7 --> S8["✅ MF158 WRITTEN — season sweep, 8 of 13 hits<br/>5 red-lined as correct as written<br/>⚠️ 'north-facing wall' inverts in Sweden — parked"]
+    S3 --> S6
+    S4 --> S6
+    S5 --> S6
+  end
 
-    MF126 --> LAW
+  %% ───────────────────────── VIETNAM ─────────────────────────
+  subgraph V12["🇻🇳 3 · VIETNAM — AFTER THE NAGGING THINGS"]
+    VA["11 of 50 · courses main 5 · starter 2 · side 2 · dessert 2<br/>floor MET"]
+    VA --> VB["record 12 — not started, by Tina's order"]
+    VB --> VC["⛔ struck: rau muong · ca tim nuong · ca kho to · rau cau<br/>⏸️ deferred: banh bot loc · nem ran"]
+  end
 
-    subgraph LAW["NEW LAW — RULED"]
-        L1["LAW 54: a check you have never<br/>watched fail is not a check,<br/>it is decoration"]
-        L2["LAW 54a: a check that cries wolf<br/>trains you to ignore it<br/>3 false alarms worse than no check"]
-        L3["Earned it: bug-2 ratchet printed GREEN<br/>while skipping the exact template it<br/>was written for. Head regex excluded<br/>the arrow form. 27 scanned, 35 real.<br/>Would have shipped."]
-    end
+  %% ───────────────────────── PARKED ─────────────────────────
+  subgraph PARK["🅿️ PARKED — CORRECTLY, DO NOT RE-OPEN"]
+    P1["MF153 · 154 · 155 · 156 · 157"]
+    P2["Thailand 7 anchors + 3 struck claims<br/>+ the 30-stale merge refusal"]
+    P3["root-path startup guard (doctor rung)"]
+    P4["§3j substring-fallthrough watcher — NOT mid-lane"]
+    P5["§2.5 merge unrun — 7 SA dishes held"]
+    P6["MF filing pass — 33 briefs in reference/"]
+    P7["Northern Ireland 12 pre-standard records — Tina's call before UK opens"]
+  end
 
-    MF126 --> VERIFY
+  %% ───────────────────────── OWED BY ME ─────────────────────────
+  subgraph OWED["📌 STILL OWED BY CLAUDE"]
+    O1["✅ SA framing → locale call — DELIVERED THIS SESSION"]
+    O2["⏳ gấc — is it buyable in SA? one open question on xoi-xeo"]
+    O3["⏳ §3l — does the most-expensive rule take a MID on bands wider than ~2x?"]
+    O4["⏳ the tin photo — bamboo shoots first, it is the weaker est"]
+  end
 
-    subgraph VERIFY["YOUR HANDS — not provable from node"]
-        V1["Hard reload, then:"]
-        V2["1. Sweet shelf — press 'Show me 3<br/>more ideas' x5, cards stay same width"]
-        V3["2. Sweet shelf — no Chips · Mash ·<br/>Béchamel · Napoletana in any batch"]
-        V4["3. Celebrating — 128, chakalaka on it"]
-        V5["4. Sides section still renders<br/>(sides removed from fromSection)"]
-        V1 --> V2 --> V3 --> V4 --> V5
-    end
+  %% ───────────────────────── BLOCKS ─────────────────────────
+  subgraph BLOCK["🚧 STANDING BLOCKS — UNCHANGED"]
+    B1["Purin — egg closed at 3"]
+    B2["Kakigori — no SA shaver, collides with Anmitsu"]
+    B3["Glutinous rice flour → Japan mochi + Thai Bua Loi blocked"]
+    B4["japan-nukazuke costPP §31.3c — exclude from all sweeps"]
+  end
 
-    VERIFY --> OPEN
-
-    subgraph OPEN["OPEN RULINGS OWED"]
-        O1["slot as 8th reserved field<br/>normalizeRecipe() has no slot handling<br/>authored slot bypasses the single door"]
-        O2["Vetkoek/amagwinya VERSIONS call<br/>mince=SUPPER · jam/syrup=TREAT<br/>2 unresolved until ruled"]
-        O3["'Same dish' key when ids differ<br/>zulu-chakalaka vs chakalaka<br/>bare-id checks blind by construction"]
-        O4["spice:chakalaka husk — 0 ing 0 method<br/>delete after inbound-ref check"]
-        O5["Events cross-path 5 disagreements<br/>Advocaat ruled DRINK · staged"]
-    end
-
-    OPEN --> MF124
-
-    subgraph MF124["NEXT JOB — MF124 WK COSTING"]
-        X1["21 WK recipes, impossible costPP"]
-        X2["Prices resolve → it is the calculation"]
-        X3["Start: switzerland-birchermuesli<br/>R510 vs health room R18"]
-        X1 --> X2 --> X3
-    end
-
-    MF124 --> QUEUE
-
-    subgraph QUEUE["QUEUED"]
-        Q1["Honeycomb — 10 min<br/>unlocks Dom Pedro + Amarula Affogato"]
-        Q2["Impress seed"]
-        Q3["Liqueur prices — Law 11"]
-        Q4["Locale brand map"]
-        Q5["9-line brand rename sweep"]
-        Q6["Portugal photo gap"]
-        Q7["Tidy day — root strays<br/>+ promote rulings 12-16"]
-    end
-
-    QUEUE --> OLD
-
-    subgraph OLD["STANDING BACKLOG"]
-        B1["R50 → R90 price sweep"]
-        B2["bakes '4 people' display<br/>biscuits search → pet food"]
-        B3["Toum → 'Toum (Garlic Cream)'<br/>wk_africa.js ~L132"]
-        B4["Sameness: Spice · Cakes · FMF"]
-        B5["Photos 906/2123 · 43%<br/>truth = photo-audit.js --missing"]
-        B6["CARD COMPLETENESS — found 20 Jul<br/>on celebrating shelf. Missing<br/>description and/or time. Looks<br/>braai-shaped: WK cards have full<br/>one-liner + minutes, braai cards<br/>have short tagline + no time.<br/>Likely braai never had the WOW pass.<br/>MEASURE FIRST — census rung for<br/>missing description + missing time,<br/>before sizing the job."]
-    end
-
-    style MF126 fill:#46530c,color:#fff
-    style MF125 fill:#46530c,color:#fff
-    style VERIFY fill:#b5462b,color:#fff
-    style LAW fill:#d98a2b,color:#2c211a
-    style OPEN fill:#fbf3e6,color:#2c211a
+  classDef stop fill:#f5c842,stroke:#876213,color:#2a2416
+  classDef red fill:#f0d0d0,stroke:#9c3a3a,color:#3a1a1a
+  classDef done fill:#c8e840,stroke:#46530c,color:#26300c
+  class L5,S6 stop
+  class L3,L9 red
+  class O1 done
