@@ -4778,7 +4778,7 @@ var LEFTOVER_IDEAS = {
   pap:     ['Next-morning breakfast: warm with milk, sugar & a little cinnamon','Slice cold stiff pap and fry into crispy "pap chips"','Crumble into a pap-and-sheba bake with grated cheese','Bind into pap fritters and pan-fry golden'],
   'roast-veg': ['Blitz into a smoky roasted-veg soup','Fold into a frittata or through fritter batter','Layer into wraps or a grain bowl with a punchy dressing','Cut braai mielies off the cob into a charred corn salsa','Pile onto toast with feta & herbs'],
   chicken: ['Shred into wraps with a zingy slaw','Fold into a creamy tetrazzini-style pasta bake','Drop into a fast noodle or tortilla soup','Pile into tacos or nachos with pickled onion'],
-  beef:    ['Jan Braai\'s trick: freeze the offcuts in a tub till you have enough for a braai-meat lasagne or potjie','Quick stroganoff \u2014 onions, mushrooms & chutney folded through pap or pasta','Dice into a breakfast hash with potato & a fried egg','Pile onto meaty nachos with melted cheese'],
+  beef:    ['Freeze the offcuts in a tub until you have enough for a lasagne or a potjie','Quick stroganoff \u2014 onions, mushrooms & chutney folded through pap or pasta','Dice into a breakfast hash with potato & a fried egg','Pile onto meaty nachos with melted cheese'],
   lamb:    ['Fold into a quick lamb curry','Warm into pita with tzatziki & tomato','Layer into a shepherd\'s pie','Toss cold through a grain & herb salad'],
   pork:    ['Pull into soft rolls with apple & slaw','Dice into egg fried rice or a breakfast hash','Shred for tacos with pickled onion','Toss through noodles with soy & ginger'],
   seafood: ['Flake into a seafood pasta or risotto','Bind into fishcakes with mash & herbs','Pile onto toast with lemon, chilli & olive oil','Stir through a cold noodle salad'],
@@ -4872,6 +4872,25 @@ function wkLeftoverKeys(r){
     [/\b(feta|halloumi|graviera|kefalotyri|parmesan|cheese)\b/,'cheese'],
     [/\b(bread|phyllo|filo|loaf|pita)\b/,'bread']
   ];
+  // ⚖️ MF162 (5 Aug 2026) — A TRACE INGREDIENT IS NOT A LEFTOVER. This function swept the WHOLE
+  // ingredients string and returned the FIRST map hit, with `beef` first in the list — so a stock
+  // cube made jollof rice a beef dish and a splash of fish sauce made a chickpea stew seafood.
+  // 146 of 951 fall-through cards were keyed off a trace line. Ask the MAIN INGREDIENT first.
+  // ⛔ The whole-string sweep REMAINS as the fallback: a card whose anchor maps to nothing must
+  //    still get ideas rather than none. This narrows the answer; it never removes one.
+  // ⚠️ DEPENDS ON MF161. wkClassifyMain only returns a trustworthy anchor with WK_NOT_A_MAIN in
+  //    place — without it the anchor is `beef tallow` and `chicken stock`, i.e. the very carriers
+  //    this change exists to escape. One guard, written for the portion engine, now fixes a
+  //    fourth engine for free — the argument for fixing the shared function, not each consumer.
+  if(typeof wkClassifyMain==='function' && typeof wkParseIngredients==='function'){
+    try{
+      var _m = wkClassifyMain(wkParseIngredients(r.ingredients||''));
+      if(_m && _m.item && _m.item.name){
+        var _an = String(_m.item.name).toLowerCase();
+        for(var _i=0;_i<map.length;_i++){ if(map[_i][0].test(_an)) return [map[_i][1]]; }
+      }
+    }catch(e){}
+  }
   for(var i=0;i<map.length;i++){ if(map[i][0].test(hay)) return [map[i][1]]; }
   if(/\b(aubergine|eggplant|courgette|zucchini|tomato|pepper|vegetable|spinach|greens|okra|mushroom)\b/.test(hay)) return ['roast-veg'];
   return null;

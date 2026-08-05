@@ -1,85 +1,73 @@
-%% TINZA_NOW — board as at 5 Aug 2026
-%% Session start: HEAD 326d6e6 · vietnam 11/50 · 33 versions · doctor 10 (baseline held) · lawcheck 0 red 0 drift
+%% TINZA_NOW — board as at 5 Aug 2026, end of session
+%% HEAD 319bf91 · vietnam 11/50 · doctor RED 10 · lawcheck 0 red 0 drift
 
 flowchart TD
 
-  START["🩺 SESSION START · 5 Aug 2026<br/>HEAD 326d6e6 'vietnam' — SHE PUSHED<br/>vietnam 11 rec · 33 versions<br/>doctor 10 · lawcheck 0 red 0 drift<br/>no reference/ orphan in root ✅"]
+  START["🩺 5 AUG 2026<br/>HEAD 319bf91 · vietnam 11/50 · 33 versions<br/>doctor RED 10 · lawcheck 0/0<br/>MF159 c1 SHIPPED · MF161 c1+c2 ready"]
 
-  START --> LAMB
-  START --> SA
-  START --> V12
+  START --> SHIPPED
+  START --> OPEN
+  START --> WRITTEN
+  START --> PARKED
 
-  %% ───────────────────────── LAMB ─────────────────────────
-  subgraph LAMB["🐑 1 · THE LAMB JOB — REPORTED, NOTHING TOUCHED"]
-    L1["MEASURED with lambreport.js<br/>3/3 born-RED proofs pass<br/>uses priceOf + wkPriceLookup, never a private copy"]
-    L1 --> L2["FINDING: TWO ENGINES, TWO ALIAS MAPS<br/>priceOf reads PRICE_ALIAS<br/>wkPriceLookup reads WK_ALIAS ONLY"]
-    L2 --> L3["🔴 SPLIT BRAIN<br/>bare lamb = R0 on the recipe card cost<br/>bare lamb = R170 in the shopping list"]
-    L3 --> L4["21 lines, not 19<br/>meals.js 5 (NEVER COUNTED BEFORE)<br/>wk_africa 9 · wk_china 2 · wk_southafrica 2<br/>wk_europe 3 — already say 'lamb neck', alias never touched"]
-    L4 --> L5{"⏸️ TINA'S CALL<br/>nothing deleted or repointed"}
-    L5 --> L6["⛔ OPTION A — MEASURED AND REJECTED<br/>lamb is 11 of 121 split lines = 9%<br/>names 16, leaves 105 identical live"]
-    L5 --> L7["✅ OPTION B — RECOMMENDED 5 Aug<br/>371 aliases checked - 11,102 wk lines parsed<br/>121 split lines - 68 names - 107 records"]
-    L7 --> L7a["1 · give wkPriceLookup PRICE_ALIAS as a<br/>final step before null — one rung, one place"]
-    L7a --> L7b["2 · read the 121-line diff BEFORE believing it<br/>'cold chicken stock' → chicken R90<br/>'chicken or vegetable stock' = A-or-B line<br/>'Gruyère' misses on the accent"]
-    L7b --> L7c["3 · name the wrong ones — the 16 lamb lines<br/>plus the other 105, one job not two"]
-    L7c --> L7d["4 · ONLY THEN kill the alias<br/>⚖️ killing it now drops the LIST R170→R0<br/>Law 20 — a price that vanishes is a harm"]
-    L7e["🟠 SEPARATE CLASS — 24 aliases DISAGREE<br/>bread flour→bread R18 · dried plums→plums R40<br/>sardines→pilchards R65 · §3j, do not mix in"]
-    L8["🆕 ALSO FOUND — not in the 21<br/>lamb ribs · lamb fat · lamb leg or shoulder ABSENT<br/>'lamb leg or shoulder' is an A-or-B line = prices nothing"]
-    L9["🔴 wk_africa.js + wk_europe.js are NOT in<br/>pricecheck's country list — never checked, ever"]
+  subgraph SHIPPED["✅ SHIPPED TODAY"]
+    S1["MF159 c1 · wkPriceLookup reads PRICE_ALIAS last<br/>MOVED=0 · absent 42→40 · exact 160→162<br/>bare lamb left the ABSENT list"]
+    S2["splitreport.js · 118 split lines · born-RED 24/24"]
+    S3["briefs filed to reference/ · lambreport.js to root"]
   end
 
-  %% ───────────────────────── SA / LOCALE ─────────────────────────
-  subgraph SA["🌍 2 · SA-ONLY FRAMING → LOCALE LAYER — TINA HAS RULED THE INTENT"]
-    S0["TINA, 5 Aug: 'Im not just aiming for SA.<br/>Someone from Sweden or Nigeria or Japan should<br/>browse our app and make sense of it.'"]
-    S0 --> S1["MEASURED across 12 wk_ files — 84 instances<br/>39 'in South Africa' framing<br/>14 SA-only availability claims<br/>14 rand figures in PROSE<br/>12 unqualified season words<br/>5 shop names"]
-    S1 --> S2["PROPOSED SPLIT — 3 buckets, not one sweep"]
-    S2 --> S3["KEEP · §33 SA words explained not translated<br/>bredie, braai, potjie, waterblommetjie<br/>a Swede LEARNS these — that is the app working"]
-    S2 --> S4["MOVE TO LOCALE · shop names + rand-in-prose<br/>+ 'not sold here' claims<br/>these are FACTS ABOUT ONE COUNTRY"]
-    S2 --> S5["REWRITE · unqualified seasons<br/>'in summer' means Dec in Pretoria, Jul in Stockholm<br/>→ name the month or name the hemisphere"]
-    S6["✅ RECOMMENDED 5 Aug · RULE + WATCHER, NOT A FIELD<br/>1 · a field breaks sameness until all 1200 carry it<br/>2 · the real SA-ness is PRICE_DB, not 33 sentences<br/>3 · one locale exists = a switch with one position<br/>home: tinza-echo.js, already corpus-relative"]
-    S6 --> S7["📜 THE RULE, ONE SENTENCE<br/>Anything true of only one country must NAME that country.<br/>Anything false elsewhere must be a COMPARISON, not a figure.<br/>⚖️ A comparison survives a border. A number does not."]
-    S7 --> S8["✅ MF158 WRITTEN — season sweep, 8 of 13 hits<br/>5 red-lined as correct as written<br/>⚠️ 'north-facing wall' inverts in Sweden — parked"]
-    S3 --> S6
-    S4 --> S6
-    S5 --> S6
+  subgraph WRITTEN["📋 WRITTEN, NOT YET RUN"]
+    W1["MF158 · season sweep · 8 fixes, 5 red-lined<br/>smallest, safest, good warm-up"]
+    W2["MF160 v2 · §39 THE BORDER RULE<br/>30 availability claims · 14 rand figures<br/>v1 STRUCK — do not read it"]
+    W3["MF161 · WK_NOT_A_MAIN · 15 records move<br/>⚠️ §0 deflation half STRUCK — soups are<br/>course:starter, never called wkClassifyMain<br/>⚠️ §5.1 proof STRUCK — Chongqing R521→R579, RISES"]
+    W4["MF162 · leftovers deriver + Jan Braai<br/>🔴 DEPENDS ON MF161 c1 BEING IN THE TREE"]
   end
 
-  %% ───────────────────────── VIETNAM ─────────────────────────
-  subgraph V12["🇻🇳 3 · VIETNAM — AFTER THE NAGGING THINGS"]
-    VA["11 of 50 · courses main 5 · starter 2 · side 2 · dessert 2<br/>floor MET"]
-    VA --> VB["record 12 — not started, by Tina's order"]
-    VB --> VC["⛔ struck: rau muong · ca tim nuong · ca kho to · rau cau<br/>⏸️ deferred: banh bot loc · nem ran"]
+  subgraph OPEN["🔴 OPEN — NO BRIEF YET"]
+    O1["STOCK-GUARD · 18 lines<br/>cold chicken stock bills R90 as a WHOLE CHICKEN<br/>in the trolley TODAY · card is right, LIST is wrong<br/>fix belongs in the plan/shopping path"]
+    O2["SINGULAR→PLURAL · 13 lines<br/>shallot orange clove pistachio<br/>priceOf tries it, wkPriceLookup does not"]
+    O3["§3j substring debt · 24 aliases DISAGREE<br/>bread flour→bread R18 · dried plums→plums R40"]
+    O4["pricecheck COUNTRIES covers 6 of 12 wk files<br/>+ FR_SAUCES array never read by ANY tool"]
+    O5["starter-pool numbers · hot&sour 8g pork / 60ml stock<br/>soupe a l'oignon 51.4ml stock pp<br/>NOT the anchor — wkPoolBase('starter')=60"]
+    O6["skopo + soupe a l'oignon read 'cost: not yet priced'<br/>on browse while showing full ingredients"]
+    O7["two copies of the array-discovery loader<br/>splitreport.js + anchorreport.js — merge to one"]
+    O8["ayam-tangkap 'north-facing wall'<br/>sunny in Pretoria, SHADED in Stockholm<br/>no grep will ever find it — judgement"]
   end
 
-  %% ───────────────────────── PARKED ─────────────────────────
-  subgraph PARK["🅿️ PARKED — CORRECTLY, DO NOT RE-OPEN"]
+  subgraph PARKED["🅿️ PARKED — CORRECTLY"]
     P1["MF153 · 154 · 155 · 156 · 157"]
-    P2["Thailand 7 anchors + 3 struck claims<br/>+ the 30-stale merge refusal"]
-    P3["root-path startup guard (doctor rung)"]
-    P4["§3j substring-fallthrough watcher — NOT mid-lane"]
-    P5["§2.5 merge unrun — 7 SA dishes held"]
-    P6["MF filing pass — 33 briefs in reference/"]
-    P7["Northern Ireland 12 pre-standard records — Tina's call before UK opens"]
+    P2["Thailand 7 anchors · 30-stale merge refusal"]
+    P3["root-path startup guard"]
+    P4["§2.5 merge unrun — 7 SA dishes held"]
+    P5["Vietnam record 12 — floor MET at 11"]
+    P6["Northern Ireland 12 pre-standard records"]
+    P7["pu-phad §37 defect — both forks, own pass"]
   end
 
-  %% ───────────────────────── OWED BY ME ─────────────────────────
-  subgraph OWED["📌 STILL OWED BY CLAUDE"]
-    O1["✅ SA framing → locale call — DELIVERED THIS SESSION"]
-    O2["⏳ gấc — is it buyable in SA? one open question on xoi-xeo"]
-    O3["⏳ §3l — does the most-expensive rule take a MID on bands wider than ~2x?"]
-    O4["⏳ the tin photo — bamboo shoots first, it is the weaker est"]
+  subgraph SCAR["🩸 THE PATTERN — ONE NOUN, FOUR ENGINES"]
+    C1["wkPriceLookup · stock → whole chicken R90"]
+    C2["wkClassifyMain · tallow → portion anchor"]
+    C3["shopping path · stock over-billed"]
+    C4["wkLeftoverKeys · broth → beef leftovers"]
+    C5["⚖️ EVERY ONE FOUND BY TINA LOOKING AT A CARD<br/>NEVER BY A WATCHER"]
+    C1-->C5
+    C2-->C5
+    C3-->C5
+    C4-->C5
   end
 
-  %% ───────────────────────── BLOCKS ─────────────────────────
-  subgraph BLOCK["🚧 STANDING BLOCKS — UNCHANGED"]
-    B1["Purin — egg closed at 3"]
-    B2["Kakigori — no SA shaver, collides with Anmitsu"]
-    B3["Glutinous rice flour → Japan mochi + Thai Bua Loi blocked"]
-    B4["japan-nukazuke costPP §31.3c — exclude from all sweeps"]
+  subgraph MYERRORS["⚠️ MY BAD MEASUREMENTS TODAY — 5 logged"]
+    E1["shop names: reported 5, actual 0<br/>Makro inside Makroudh · Spar inside Spare Ribs"]
+    E2["availability: reported 9, then 473, actual 30"]
+    E3["SPLIT_121: orange zest 4→3, vanilla 10→8<br/>real number 118"]
+    E4["MF161 deflation: invented the cause<br/>read one function, never followed the call path"]
+    E5["'wrong version' on Chongqing — lamb is in the BASE"]
+    E6["⚖️ RUNG: report a probe's DESIGN before its COUNT"]
   end
 
-  classDef stop fill:#f5c842,stroke:#876213,color:#2a2416
   classDef red fill:#f0d0d0,stroke:#9c3a3a,color:#3a1a1a
   classDef done fill:#c8e840,stroke:#46530c,color:#26300c
-  class L5,S6 stop
-  class L3,L9 red
-  class O1 done
+  classDef warn fill:#f5c842,stroke:#876213,color:#2a2416
+  class O1,C5 red
+  class S1,S2,S3 done
+  class E6 warn
