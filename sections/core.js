@@ -2638,6 +2638,7 @@ async function callMoodChef(mood) {
   const firstPage = getMoodPageRecipes(mood.id, 0);
   S.moodRecipes = firstPage || [];
   S.moodLoading = false;
+  navRefreshEntry();   // ⚖️ MF167 — the entry was pushed at 2832 with moodRecipes:null; give it the shelf
   draw();
 
   // 💰 MF117 · DO NOT PREFETCH THE PAID CHEF WHEN THE LIBRARY CAN CARRY THE SHELF.
@@ -2665,6 +2666,7 @@ function getMoreMoodRecipes(moodId) {
   const dbPage = getMoodPageRecipes(moodId, nextPage);
   if (dbPage) {
     S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat(dbPage);   // MF116-B · MORE adds, never deletes
+    navRefreshEntry();   // ⚖️ MF167 — MORE adds pages; the entry must hold them or Back snaps her to 3
     draw();
     return;
   }
@@ -2673,6 +2675,7 @@ function getMoreMoodRecipes(moodId) {
   const aiOffset = (nextPage - _dbPages) * 3;   // MF116-A · AI bank starts after the real DB pages
   if (S.moodAIRecipes && S.moodAIRecipes.length > aiOffset) {
     S.moodRecipes = (S.moodRecipes||[]).filter(x => !x._waiting && !x._error).concat(S.moodAIRecipes.slice(aiOffset, aiOffset + 3));   // MF116-B · MORE adds, never deletes
+    navRefreshEntry();   // ⚖️ MF167 — same as the DB page above, for the AI bank
     draw();
     return;
   }
