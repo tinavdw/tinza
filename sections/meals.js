@@ -15482,7 +15482,7 @@ function mealSectionHTML(sectionKey){
           sel: inPlan
         });
       }).join('')}
-      ${sectionPlanBtn('mealPlan', cfg.title, cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
+      ${sectionPlanBtn('mealPlan', '', cfg.emoji||'🍽️', cfg.color, cfg.bg, S.searchServings||4, "setQuiet({mealPlanView:true})")}
     </div>
   </div>`;
 }
@@ -16451,7 +16451,17 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
   window._sectionPlanEmoji    = emoji;
   var svKey = (planKey==='budgetPlan') ? 'budgetPeople' : (planKey==='moodPlan') ? 'moodServings' : 'searchServings';
   return planView({
-    header:{ title:emoji+' '+title, emoji:emoji,
+    // ⚖️ MF172 (6 Aug 2026) — THE EMOJI IS SUPPLIED ONCE, NOT TWICE.
+    // This read `title:emoji+' '+title` while ALSO passing `emoji:emoji`, and sectionHeader
+    // renders its <h1> as `${emoji} ${title}` — so every plan screen in the app printed the
+    // icon twice: "🍳 🍳 Breakfast Plan", "💰 💰 I've Got R100 Plan", "😋 😋 Just Feed Me Plan".
+    // Live in all three plan rooms since the shared shell landed; found by MF171-3's proof.
+    // ⛔ `emoji:emoji` STAYS. It also drives sectionHeader's no-photo fallback tile (the 52px
+    //    glyph shown when the header image is missing). Delete the concatenation, not the
+    //    parameter — dropping the parameter would strip that icon from every plan screen.
+    // 📌 window._sectionPlanTitle is set from the `title` PARAMETER below, not from this
+    //    string, so the WhatsApp share text is untouched.
+    header:{ title:title, emoji:emoji,
       tagline:'Menu \u00B7 shopping list \u00B7 cost for '+people+' '+(people===1?'person':'people'),
       backJs:backAction, backLabel:backLabel },
     guests:{ value:people, label:'People', note:'the whole plan scales to this',
@@ -16465,6 +16475,16 @@ function sectionPlanView(planKey, title, emoji, color, bg, border, people, backA
   });
 }
 
+// ⚖️ MF172 (6 Aug 2026) · §24.14.4 — `title` IS OPTIONAL, AND FMF PASSES NOTHING.
+// The label was "See my ${title} Plan & Shopping List", and FMF fed it cfg.title, so the
+// Breakfast shelf offered "See my Breakfast Plan" for an array shared by all five rooms —
+// the same claim §24.14 removed from the heading, one screen lower down.
+// ⛔ THE FIX IS A CONDITIONAL, NOT A DELETION. Dropping ${title} outright would have taken
+//    TRUE information away from the other two callers: budgetPlan really is the Budget room's
+//    plan and moodPlan really is Just Feed Me's, so "See my I've Got R100 Plan" is honest.
+//    They keep passing their titles and render BYTE-IDENTICALLY. Only the liar changes.
+// 📌 Both Free branches below already read "📋 My Plan — Tinza Pro" — room-free, and right
+//    all along. Only the Pro label ever named a room.
 function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
   const plan = S[planKey]||[];
   if(!plan.length) return '';
@@ -16474,13 +16494,13 @@ function sectionPlanBtn(planKey, title, emoji, color, bg, people, viewAction){
   if((typeof inWarm==='function') && inWarm()){
     if(!isPro) return `<div style="background:var(--card2);border:1px dashed var(--accent);border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.85;"><div style="font-size:13px;color:var(--accent);">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
     return `<button onclick="${viewAction}" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:1px solid var(--accent);background:var(--card2);color:var(--ink);font-size:14px;font-weight:bold;cursor:pointer;">
-    📋 See my ${title} Plan & Shopping List →
+    📋 See my ${title ? title+' ' : ''}Plan & Shopping List →
     <div style="font-size:13px;color:var(--accent);font-weight:normal;margin-top:3px;">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
   </button>`;
   }
   if(!isPro) return `<div style="background:${bg};border:1px dashed ${color};border-radius:10px;padding:12px;margin:10px 0 4px;text-align:center;opacity:0.6;"><div style="font-size:13px;color:${color};">📋 My Plan — <strong>Tinza Pro</strong></div></div>`;
   return `<button onclick="${viewAction}" style="width:100%;padding:14px;margin:10px 0 4px;border-radius:10px;border:2px solid ${color};background:${bg};color:#f5e8cc;font-size:14px;cursor:pointer;">
-    📋 See my ${title} Plan & Shopping List →
+    📋 See my ${title ? title+' ' : ''}Plan & Shopping List →
     <div style="font-size:13px;color:${color};margin-top:3px;">${plan.length} recipe${plan.length!==1?'s':''} · ${people} people</div>
   </button>`;
 }

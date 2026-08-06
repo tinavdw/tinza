@@ -865,6 +865,85 @@ p('       nothing can produce), or a caller quietly putting a room name back in 
   }
 }
 
+// ── 18. THE EMOJI IS SUPPLIED ONCE  (MF172 · ⚖️ Law 42) ─────────────────
+head('18 · DOES A SHARED HEADER GET ITS EMOJI TWICE?  (6 Aug — "🍳 🍳 Breakfast Plan")');
+p('  \x1b[2m    sectionHeader renders its <h1> as `${emoji} ${title}`. A caller that ALSO folds the');
+p('       emoji into `title` prints it twice. sectionPlanView did exactly that, so EVERY plan');
+p('       screen in the app carried a doubled icon — FMF, Budget and Just Feed Me — from the day');
+p('       the shared shell landed until MF172. Nobody saw it because each room only ever looks');
+p('       right next to itself. ⛔ The parameter is not the bug: `emoji:` also drives the');
+p('       no-photo fallback tile. Supplying it TWICE is the bug.\x1b[0m');
+{
+  // ⛔ loadOrder, NOT the sections/ directory. Three .bak_MF* files still carry the old
+  //    concatenation and are not loaded by index.html — gating on them would report a bug
+  //    in code that cannot run. (They are already rung 2's RED, which is where they belong.)
+  const blocks = [];
+  const scanObj = function(src, openIdx){
+    let depth = 0, q = null, cur = '', parts = [];
+    for (let i = openIdx; i < src.length; i++) {
+      const c = src[i];
+      if (q) { cur += c; if (c === q && src[i-1] !== '\\') q = null; continue; }
+      if (c === "'" || c === '"' || c === '`') { q = c; cur += c; continue; }
+      if (c === '{' || c === '(' || c === '[') { depth++; if (depth === 1) continue; cur += c; continue; }
+      if (c === '}' || c === ')' || c === ']') { depth--; if (depth === 0) { parts.push(cur); return parts; } cur += c; continue; }
+      if (c === ',' && depth === 1) { parts.push(cur); cur = ''; continue; }
+      cur += c;
+    }
+    return parts;
+  };
+  const keyOf = function(parts, key){
+    for (const pt of parts) {
+      const m = pt.match(new RegExp('^\\s*' + key + '\\s*:([\\s\\S]*)$'));
+      if (m) return m[1].trim();
+    }
+    return null;
+  };
+  for (const f of loadOrder) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    // both entry points: a direct sectionHeader({...}) call, and a header:{...} object
+    // (planView hands its `header` straight to sectionHeader).
+    for (const pat of [/sectionHeader\s*\(\s*\{/g, /\bheader\s*:\s*\{/g]) {
+      let m; pat.lastIndex = 0;
+      while ((m = pat.exec(src)) !== null) {
+        const open = src.indexOf('{', m.index + m[0].length - 1);
+        if (open < 0) continue;
+        const parts = scanObj(src, open);
+        const title = keyOf(parts, 'title'), emoji = keyOf(parts, 'emoji');
+        if (title == null || emoji == null) continue;          // needs BOTH to double anything
+        blocks.push({ file: f, line: src.slice(0, m.index).split('\n').length, title, emoji });
+      }
+    }
+  }
+  const strLit = s => { const m = s.match(/^'([^']*)'$|^"([^"]*)"$/); return m ? (m[1] !== undefined ? m[1] : m[2]) : null; };
+  const offenders = [];
+  for (const b of blocks) {
+    const tl = strLit(b.title), el = strLit(b.emoji);
+    if (tl != null && el != null) {
+      // both literal — the title must not already start with the emoji it is handed
+      if (el && tl.indexOf(el) === 0) offenders.push(b.file + ':' + b.line + '  title starts with its own emoji: ' + b.title);
+    } else if (/^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*)*$/.test(b.emoji)) {
+      // emoji is an identifier or dotted path — the title must not reference it
+      const ident = b.emoji.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (new RegExp('(^|[^\\w$.])' + ident + '($|[^\\w$])').test(b.title))
+        offenders.push(b.file + ':' + b.line + '  title is built from `' + b.emoji + '`: ' + b.title);
+    }
+  }
+  if (!blocks.length) {
+    // ⚖️ Law 54b — zero blocks means the scanner stopped matching, not that the app got clean.
+    fail('FOUND NO title+emoji HEADER BLOCKS AT ALL — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2msectionHeader({…}) / header:{…} no longer parse. Re-point before trusting.\x1b[0m');
+  } else if (offenders.length) {
+    fail(offenders.length + ' SHARED HEADER(S) RECEIVE THE EMOJI TWICE',
+      '\n      \x1b[2msectionHeader already renders `${emoji} ${title}`. Folding the emoji into the' +
+      '\n      title as well prints it twice — "🍳 🍳 Breakfast Plan". ⛔ DO NOT fix it by dropping' +
+      '\n      the `emoji:` parameter: that also feeds the no-photo fallback tile. Remove the emoji' +
+      '\n      from the TITLE. ⚖️ MF172.\x1b[0m', offenders);
+  } else {
+    pass('No shared header gets its emoji twice',
+         blocks.length + ' title+emoji header block(s) checked across ' + loadOrder.length + ' loaded files');
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
