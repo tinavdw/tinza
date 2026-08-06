@@ -656,6 +656,102 @@ p('       copy of the contract is a SECOND contract that drifts. Same law as tin
   }
 }
 
+// ── 16. THE STICKY VIEW FLAG GATE  (MF171 · §24.14 · ⚖️ Law 42) ─────────
+head('16 · DOES THE ROOM DOOR CLEAR THE STICKY VIEW FLAG?  (6 Aug — "Breakfast Plan")');
+p('  \x1b[2m    A STICKY VIEW FLAG is a boolean a renderer branches on BEFORE it draws the room:');
+p('       set it once and every later entry to that room lands on the alternate view, not the');
+p('       list. S.mealPlanView had NO default in data.js and NOTHING on the tile path cleared it,');
+p('       so after Tina opened one plan, every tap on all five FMF tiles opened a plan — wearing');
+p('       whatever room title she tapped. Cottage Pie appeared under "Breakfast Plan".');
+p('       ⚖️ THE RULE: a tile onclick that enters a screen whose renderer branches on a sticky');
+p('       view flag MUST clear that flag. It clears her QUESTION, never her WORK. ⚖️ Law 20.\x1b[0m');
+{
+  const mealsFile = loadOrder.find(f => /\/meals\.js$/.test(f));
+  if (!mealsFile) {
+    // ⚖️ Law 54b — a pass over a file that was never read is a green tick above nothing.
+    fail('CANNOT FIND sections/meals.js IN THE LOAD ORDER — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mRefusing to report a pass over a file index.html does not load.\x1b[0m');
+  } else {
+    const src = fs.readFileSync(path.join(ROOT, mealsFile), 'utf8');
+
+    // ── THE PREMISE, RE-MEASURED EVERY RUN ─────────────────────────────────
+    // ⛔ Never demand the clear without first proving the branch still exists. If someone
+    // deletes `if(S.mealPlanView)`, the right answer is "the premise is gone, re-measure",
+    // NOT "you forgot a clear". A gate that outlives the thing it guards is the §2 family:
+    // a check that has quietly stopped measuring what it names.
+    const branches = /\bif\s*\(\s*S\.mealPlanView\s*\)/.test(src);
+
+    // ── THE DOOR ───────────────────────────────────────────────────────────
+    // The five FMF tiles are GENERATED from one MEALS.map template, so the screen name is
+    // `${o.s}`, never a literal — a regex hunting set({screen:'supper' finds nothing. Read
+    // the template itself. This is also why ONE string covers all five rooms.
+    const fmf = src.match(/function\s+feedingFamilyHTML\s*\([^)]*\)\s*\{[\s\S]*?\n\}/);
+    const tile = fmf && fmf[0].match(/set\(\{\s*screen\s*:\s*'\$\{o\.s\}'([^)]*)\)/);
+
+    if (!branches) {
+      warn('S.mealPlanView IS NO LONGER BRANCHED ON IN meals.js — PREMISE GONE, RE-MEASURE',
+        '\n      \x1b[2mThe flag this rung guards is not used by any renderer any more. That may be' +
+        '\n      correct (§24.14 step 2/3 may have replaced it) — but this gate is now measuring' +
+        '\n      nothing. Re-point it or retire it. ⛔ AMBER, never a silent green.\x1b[0m');
+    } else if (!fmf || !tile) {
+      fail('CANNOT READ THE FMF ROOM-TILE onclick — THIS CHECK IS NOT PROTECTING ANYTHING',
+        '\n      \x1b[2mfeedingFamilyHTML or its MEALS.map template has moved. Re-point this rung' +
+        '\n      before trusting it. Refusing to report a pass. ⚖️ Law 54b.\x1b[0m');
+    } else if (!/mealPlanView\s*:\s*false/.test(tile[1])) {
+      fail('THE 5 FMF ROOM TILES ENTER A ROOM WITHOUT CLEARING S.mealPlanView',
+        '\n      \x1b[2mmealSectionHTML tests S.mealPlanView FIRST — ahead of the recipe branch and' +
+        '\n      the dish list. Entering a room without clearing it means one opened plan makes' +
+        '\n      EVERY later tile tap open a plan, under the wrong room\'s title. Walked by Tina' +
+        '\n      6 Aug 2026: Cottage Pie under "Breakfast Plan". ⚖️ §24.12 · §24.14 · Law 20.' +
+        '\n      THE FIX: add mealPlanView:false to the set({...}) in feedingFamilyHTML\'s' +
+        '\n      MEALS.map tile template. One string — it covers all five rooms.\x1b[0m',
+        ['feedingFamilyHTML → MEALS.map → onclick set({screen:\'${o.s}\' …}) — no mealPlanView:false']);
+    } else {
+      pass('The 5 FMF room tiles clear S.mealPlanView on entry',
+           'one MEALS.map template · covers breakfast · lightlunch · supper · bakes · sidesbasics');
+    }
+
+    // ── ⚠️ THE FLOOR — PRINTED EVERY RUN, NEVER HIDDEN ─────────────────────
+    // ⛔ THIS RUNG MEASURES FMF AND ONLY FMF. The gate above is hand-anchored to one flag and
+    // one tile template, because a room's tiles and its renderer are wired by hand in every
+    // room and there is no shared door to read. So the OTHER sticky flags are DISCOVERED and
+    // PRINTED — not silently skipped, and not guessed at either.
+    // A sticky view flag = written `true` by a set()/setQuiet() AND branched on as `if(S.key)`.
+    // ⚖️ Mechanical, both halves. No naming pattern, no guess about intent.
+    const setTrue = new Set(), branched = new Set();
+    for (const f of loadOrder) {
+      const s = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      let m; const reSet = /\bset(?:Quiet)?\(\{([^}]*)/g;
+      while ((m = reSet.exec(s)) !== null) {
+        for (const km of m[1].matchAll(/([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*true\b/g)) setTrue.add(km[1]);
+      }
+      for (const bm of s.matchAll(/\bif\s*\(\s*S\.([a-zA-Z_][a-zA-Z0-9_]*)\s*\)/g)) branched.add(bm[1]);
+    }
+    const COVERED = ['mealPlanView'];
+    const sticky = [...setTrue].filter(k => branched.has(k)).sort();
+    const uncovered = sticky.filter(k => COVERED.indexOf(k) < 0);
+
+    p('  \x1b[2m    ⚠️ FLOOR, NOT A TOTAL: ' + sticky.length + ' sticky view flag(s) found app-wide · ' +
+      COVERED.length + ' has a room-door gate · ' + uncovered.length + ' do NOT.\x1b[0m');
+
+    if (uncovered.length) {
+      warn(uncovered.length + ' sticky view flag(s) with NO room-door gate — JUDGEMENT REQUIRED',
+        '\n      \x1b[2m⛔ This rung does NOT guess. Each of these is branched on before a room draws' +
+        '\n      AND is set true somewhere — the mealPlanView shape. Whether that is a BUG depends on' +
+        '\n      whether the room has a tile door that should clear it, and someone must walk it.' +
+        '\n      Budget and Just Feed Me both carry a `reset:` on their HOME tile, so they may' +
+        '\n      already be safe by a different route. ⛔ Until walked: AMBER, never RED.' +
+        '\n      ⚠️ DISCOVERY IS MECHANICAL, so a plain loading/toggle boolean can land here too' +
+        '\n      (_fourAILoading is one). That is UNDER-guessing on purpose: a naming filter would' +
+        '\n      hide a real view flag the day someone names one badly. Read the list, don\'t trust it.\x1b[0m',
+        uncovered);
+      if (uncovered.length > 6) p('      \x1b[2m… and ' + (uncovered.length - 6) + ' more not shown.\x1b[0m');
+    } else {
+      pass('Every discovered sticky view flag has a room-door gate', sticky.length + ' flag(s) checked');
+    }
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
