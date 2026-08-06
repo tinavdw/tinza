@@ -1598,6 +1598,46 @@ const PRICE_DB = {
   //    chilli, so a shared count price would over-charge it eightfold.
   //    ⛔ DRIED bird's eye is a different product and is NOT keyed here (still blocked).
   "birds eye chilli_each": 0.30,   // Tina 4 Aug 2026 · 3g x R100/kg
+
+  // ══ TINA-SOURCED 6 Aug 2026 — the seven items confirmed ABSENT at Vietnam B4 close ══
+  // ⚖️ Every one of these was verified absent via `priceledger.js --ask` BEFORE she was asked,
+  //    and every one is keyed AND ledgered in this same write. Law 22 · the ledger rung.
+  // 🩸 `wood ear` WAS A LIVE §8f SUBSTRING FALLTHROUGH — three China records wrote
+  //    "wood ear mushrooms" and billed at `mushrooms` R140, ~6.7x LOW. Keying it fixes that
+  //    and MOVES China's costPP. See the note at the foot of this block.
+  // ⚖️ Bands below resolved by the most-expensive rule (13 Jun, restated 30 Jul) unless marked.
+  "pandan leaf powder": 2900,      // Tina 6 Aug 2026 · R290 per 100g
+  "pandan powder": 2900,
+  "pandan": 2900,                  // ⛔ only the POWDER is buyable here — fresh leaf is not keyed
+  // ⚖️ band R503/kg (1kg bulk) · R700/kg (50g @ R35) · R943/kg (70g @ R66). Spread 1.87x,
+  //    UNDER the §3l 2x threshold, so the most-expensive rule applies cleanly.
+  "wood ear mushrooms": 943,       // Tina 6 Aug 2026 · top of R503–R943 band
+  "dried wood ear mushrooms": 943,
+  "wood ear mushroom": 943,
+  "wood ear fungus": 943,
+  "dried wood ear fungus": 943,
+  "black wood ear fungus": 943,
+  "wood ear": 943,
+  // ⚖️ band R325/kg (40g @ R12.99) – R500/kg (40g @ R20). Spread 1.54x.
+  "watercress": 500,               // Tina 6 Aug 2026 · top of the band
+  // ⚠️ COLOURING, NOT SEED. Tina 6 Aug priced annatto FOOD COLOURING: 20ml ~R30 → R1500/L.
+  //    ⛔ `annatto seeds` (hạt điều màu) is a DIFFERENT PRODUCT and remains UNKEYED —
+  //    do not alias one to the other. `vietnam-bo-kho` already routes around this with paprika.
+  //    ⚠️ Her upper figure R129/bottle has no stated volume and cannot be derived. Not used.
+  "annatto food colouring": 1500,  // Tina 6 Aug 2026 · 20ml @ R30
+  "annatto colouring": 1500,
+  // ⚠️ §3l TERRITORY — band R170–R450/kg fresh/frozen, plus 2kg @ R499.99 → R250/kg.
+  //    Spread 2.65x, which is OVER the 2x threshold where the mid-vs-top question is UNRULED.
+  //    Standing rule applied (top) because it is the rule until Tina rules otherwise.
+  //    📌 If §3l is ever ruled toward a mid on wide bands, THIS KEY MOVES FIRST.
+  "kingklip": 450,                 // Tina 6 Aug 2026 · top of R170–R450 band
+  "kingklip fillet": 450,
+  "kingklip fillets": 450,
+  "kingklip portions": 450,
+  // ⛔ CATFISH IS NOT COMMERCIALLY SOLD IN SA — Tina, 6 Aug 2026: "only if you catch it
+  //    yourself, substitute with hake". This is a RULING, not a price. NOT KEYED, deliberately.
+  //    Any record wanting catfish writes `hake` R180 and says so on the card.
+
   "habanero chillies": 100,
   "scotch bonnet chillies": 100,
   "red cayenne chillies": 100,

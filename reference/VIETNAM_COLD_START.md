@@ -151,9 +151,34 @@ capsaicin/TRPV1 · fat-solubility of heat · Columbian exchange and Portuguese c
 ### 💣 LANDMINES — ALREADY PAID FOR
 tuna steak ≠ tuna · crab sticks ≠ crab · **pickled ginger** spelling · **neutral oil** absent and unaliased · **glutinous rice flour** → resolves to rice R27, ⛔ unresolved, Japan mochi and Thai Bua Loi still blocked · **chai poh** R118/kg deferred under A7 · **yard-long beans** NOT-IN-SA · **peanut oil** a §34 exception
 
-### 🆕 CONFIRMED ABSENT, 6 Aug — verified via `priceledger.js --ask`
-**wood ear mushroom** · **pandan** · **watercress** · **taro** · **annatto** · **catfish** · **kingklip**
-⚖️ All genuinely absent from `prices.js` AND the ledger, near-spellings included. **Safe to ask — and when she answers, key it AND ledger it in the same write.**
+### ✅ THE SEVEN ABSENT ITEMS — ASKED ONCE, ANSWERED ONCE, BANKED. 6 Aug 2026.
+⛔ **DO NOT ASK ANY OF THESE AGAIN.** `node priceledger.js --ask` now returns 🛑 on every one.
+
+| item | keyed | basis |
+|---|---|---|
+| `pandan leaf powder` (+ `pandan powder`, `pandan`) | **R2900/kg** | R290 per 100g. ⛔ Only the POWDER is buyable; fresh leaf not keyed |
+| `wood ear mushrooms` (+ 6 aliases) | **R943/kg** | band R503 (1kg bulk) – R943 (70g @ R66). Spread 1.87x, under the §3l threshold |
+| `watercress` | **R500/kg** | band R325–R500 (40g @ R12.99–R20) |
+| `annatto food colouring` | **R1500/L** | 20ml @ R30. ⚠️ COLOURING, not SEED — see below |
+| `kingklip` (+ 3 aliases) | **R450/kg** | band R170–R450. ⚠️ Spread 2.65x = §3l territory, see below |
+| `catfish` | ⛔ **NOT SOLD IN SA** | Tina: *"only if you catch it yourself, substitute with hake"*. A RULING, not a price |
+| `taro` | 🟡 still unkeyed | not asked — `vietnam-ca-ri-ga` already routes around it with potato |
+
+⚠️ **`annatto seeds` (hạt điều màu) IS A DIFFERENT PRODUCT and remains UNKEYED.** She priced the food colouring. ⛔ Do not alias one to the other. `vietnam-bo-kho` already routes around this with paprika. Her upper figure R129/bottle has no stated volume and could not be derived.
+
+⚠️ **`kingklip` R450 is the one number in this batch that may move.** Its band spans 2.65x, which is over the threshold where **§3l (mid-vs-top on wide bands) is UNRULED**. The standing most-expensive rule was applied because it is the rule until she rules otherwise. 📌 **If §3l is ever ruled toward a mid, this key moves first.**
+
+### 🩸 KEYING `wood ear` FIXED A LIVE §8f FALLTHROUGH — AND MOVED A CLOSED LANE
+Three China records wrote `wood ear mushrooms` and were billing at `mushrooms` **R140 — about 6.7x LOW**. Never ABSENT, so no watcher ever fired.
+
+✅ **Measured before and after with `git stash`, not reasoned about.** China went ✅76 🟠0 → ✅75 🟠1. Exactly one version moved: `china-hot-and-sour-soup` **Classic Beijing R71 → R84**, re-derived per §30.1 and written. China is back to ✅76 🟠0.
+⚠️ The other two records (`chongqing-huo-guo`, `luo-han-zhai`) sit in China's **74 ⬜ unmeasurable** block on ABSENT keys — pre-existing, not caused by this.
+⚖️ **This is §8e in miniature: closing a lane freezes its records, not its costs.**
+
+### 🩸 A HOLE IN THE LEDGER GUARD, FOUND AND FIXED 6 Aug
+`--ask "yard-long beans"` still answered **"GENUINELY ABSENT, safe to ask her"** — months after it was ruled NOT-IN-SA. **A ruling of absence was never stored anywhere the tool reads**, so the guard could not fire on it. ⚖️ *That is precisely how she ends up answering the same item twice.*
+✅ Both `catfish` and `yard-long beans` are now ledger entries with `value: null` and `ruling: "NOT-IN-SA"`. Both return 📒 IN THE LEDGER.
+📌 **Every future NOT-IN-SA ruling gets a null-valued ledger entry in the same write.** A ruling is an answer, and an answer gets filed.
 
 ⚖️ **A PRICE IS NOT RECEIVED UNTIL IT IS IN THE LEDGER.** Writing to `prices.js` alone means a container reset destroys the evidence and leaves the number, and the next session reads a bare number as an estimate and asks her again. Three re-asks on `rice vinegar` and two on `rice noodles` are the cost of learning this late.
 
