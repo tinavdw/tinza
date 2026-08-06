@@ -4178,6 +4178,38 @@ function shoppingView(o){
 // embeds shoppingView(). Built once so every section's plan page is identical.
 //   o = { header:{…sectionHeader…}, quickNavHTML, guests:{value,decJs,incJs,…},
 //         dishes:[…raw…], checked, toggleFn, shareJs, gmailJs, printJs, empty }
+// ── PLAN SOURCE → GROUP LABEL  (MF171-2 · §24.14 · 6 Aug 2026) ──────────
+// ⚖️ §24.14.2 — `source` IS A GENERIC ROOM KEY, NEVER AN FMF-SHAPED `mealSlot`.
+// Shape: '<room>.<sub>' — 'fmf.supper', and later 'wk.southafrica', 'health.smoothies'.
+// Name it FMF-shaped and World Kitchen builds the whole thing a second time.
+// ⚖️ §24.14.3 — THIS LIVES IN core.js. planView already groups by d.group (first-seen
+// order, '' = one ungrouped list) and buffet.js already feeds it, so there is NO second
+// grouping renderer to build. This is the missing half: source key → display label.
+//
+// ⛔ AN UNKNOWN SOURCE RETURNS '' — UNGROUPED, NEVER A GUESSED LABEL. That is what makes
+//    this safe to land with no migration (§24.14.1): every item already in Tina's live
+//    plan has no `source`, so it groups under '' and renders EXACTLY as it does today.
+//    Budget and Just Feed Me stamp no source either — both are untouched by this change.
+// 📌 Data-driven rooms (World Kitchen has a country per record; a static map cannot hold
+//    them) carry their own `sourceLabel` on the item and skip the registry entirely.
+var PLAN_SOURCE_LABELS = {
+  'fmf.breakfast':   'Breakfast',
+  'fmf.lightlunch':  'Light Lunch',
+  'fmf.supper':      'Supper',
+  'fmf.bakes':       'Bakes & Cakes',
+  'fmf.sidesbasics': 'Sides & Basics'
+};
+// ⚠️ These five labels are a SECOND place the FMF rooms are named — mealSectionHTML's
+// `configs` is the first. They are deliberately the SHORT plan-group labels, not the
+// screen titles, so they are not the same strings and cannot be de-duplicated by hand.
+// If a room is ever renamed, both must move. ⚖️ Law 3 — said out loud, not left to be found.
+function planGroupLabel(item){
+  if(!item) return '';
+  if(item.sourceLabel) return item.sourceLabel;          // data-driven room, carries its own
+  if(!item.source) return '';                            // no source = ungrouped, today's render
+  return PLAN_SOURCE_LABELS[item.source] || '';          // unknown key = ungrouped, never invented
+}
+
 function planView(o){
   o = o || {};
   var isPro = (typeof tierAllows==='function') ? tierAllows('pro') : true;

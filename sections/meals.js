@@ -16390,6 +16390,11 @@ function planDishesFromItems(plan, people, emoji, planKey){
     var idJs = String(r.id||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     return {
       id:r.id, name:r.name, emoji:(r.emoji||emoji||'\U0001F37D\uFE0F'), kcalPP:kcalPP, guests:people,
+      // \u2696\uFE0F MF171-2 \u00B7 \u00A724.14.3 \u2014 the ONLY new field. planView already groups by d.group and
+      // buildPlanData carries it through (Object.assign spreads d), so nothing else moves.
+      // \u26D4 Budget and Just Feed Me stamp no `source`, so this is '' for them \u2014 byte-identical
+      //    output for both rooms. Same for every item already in her plan. No migration.
+      group: (typeof planGroupLabel==='function') ? planGroupLabel(r) : '',
       removeJs: planKey ? ("setQuiet({"+planKey+":(S."+planKey+"||[]).filter(function(x){return x.id!=='"+idJs+"';})})") : '',
       lines:[ r.time?('\u23F1\uFE0F '+r.time+' min'):'' ].filter(Boolean),
       ingredients:ings
@@ -16599,7 +16604,16 @@ function toggleMealPlan(id){
   if(!r) return;
   const rv = (typeof applyRecipeVersion==='function') ? applyRecipeVersion(r) : r;   // ⭐ versions: plan the chosen version
   const vname = (rv.versions && rv._activeVersion) ? ' ('+rv._activeVersion+')' : '';
-  togglePlanItem('mealPlan', {id:rv.id, name:rv.name+vname, emoji:rv.emoji||'🍽️', time:rv.time||0, ingredients:rv.ingredients||[], costPP:rv.costPP||0, nutrition:rv.nutrition||null, serves:1, cat:rv.cat||'', bakeServes:rv.serves||null, bakeMakes:rv.makes||null});
+  // ⚖️ MF171-2 · §24.14.2 — STAMP THE ROOM SHE ADDED IT FROM.
+  // The plan is ONE flat array serving all five rooms (§24.14.1, and it stays that way), so
+  // without this the item cannot say where it came from and the plan cannot group. `cat` is
+  // the PILL inside a room ('ovenbakes'), never the room — it was never the missing field.
+  // ⛔ GENERIC KEY, NOT AN FMF SHAPE: 'fmf.supper', so 'wk.southafrica' uses the SAME field.
+  // ⛔ Only the five real rooms are stamped. `sec` is S.screen, and the ONE caller is the
+  //    shelf card, so it is always a room today — but an unknown screen must leave `source`
+  //    UNSET rather than invent 'fmf.' + whatever. Unset groups as '' and renders as today.
+  const _src = sectionRecipes.hasOwnProperty(sec) ? ('fmf.' + sec) : '';
+  togglePlanItem('mealPlan', {id:rv.id, name:rv.name+vname, emoji:rv.emoji||'🍽️', time:rv.time||0, ingredients:rv.ingredients||[], costPP:rv.costPP||0, nutrition:rv.nutrition||null, serves:1, cat:rv.cat||'', source:_src, bakeServes:rv.serves||null, bakeMakes:rv.makes||null});
 }
 function openWorldRecipe(id){
   // World Kitchen uses r.id to set _wkRecipe
