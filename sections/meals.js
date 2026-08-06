@@ -15373,7 +15373,21 @@ function mealSectionHTML(sectionKey){
   // Plan view
   if(S.mealPlanView){
     window._sectionPlanForShare = S.mealPlan||[];
-    return sectionPlanView('mealPlan', cfg.title+' Plan', cfg.emoji||'🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "setQuiet({mealPlanView:false})", '← '+cfg.title);
+    // ⚖️ MF171-3 · §24.14.4 — THE HEADING STOPS LYING.
+    // It was `cfg.title+' Plan'` and `cfg.emoji`, so ONE flat array (§24.14.1) wore whatever
+    // room she happened to open it from: Cottage Pie under "🍳 Breakfast Plan". The dishes now
+    // group by the room that owns them (§24.14.2/3), so the heading must stop making a room
+    // claim of its own — it names the WHOLE plan, and the whole plan is hers, not a room's.
+    // 📌 'My Plan' over 'This Week': it is already the app's word — the header chip renders
+    //    "🧺 My Plan (n)" (sectionHeader's default), buffet and braai pass it literally, and
+    //    "This Week" would claim a week the app does not model. ⛔ One word to switch if Tina
+    //    prefers it; nothing else here depends on the string.
+    // ⛔ THE EMOJI IS FIXED TOO. A per-room 🍳/🍲 is the same room claim in a smaller font.
+    //    Safe: it is only a FALLBACK for dishes with no emoji of their own, and every item
+    //    toggleMealPlan writes already carries one. It also stamps the WhatsApp share title.
+    // ⚖️ §24.14.5 — backLabel STAYS '← '+cfg.title. The Back still goes to the room she came
+    //    from, and must still say so. That was already correct. Not touched.
+    return sectionPlanView('mealPlan', 'My Plan', '🍽️', cfg.color, cfg.bg, cfg.border, S.searchServings||4, "setQuiet({mealPlanView:false})", '← '+cfg.title);
   }
 
   // Recipe detail view
