@@ -15519,6 +15519,19 @@ function sidesbasicsHTML(){ return mealSectionHTML('sidesbasics'); }
 
 // ── FEEDING MY FAMILY — front door to the 4 everyday-cooking sections (braai v33 template) ──
 function feedingFamilyHTML(){
+  // ⚖️ MF171-1 (6 Aug 2026) · §24.14 — THE ROOM DOOR CLEARS THE PLAN FLAG.
+  // S.mealPlanView is ONE sticky boolean shared by all five rooms, and mealSectionHTML tests it
+  // FIRST — ahead of the recipe branch and the dish list. It has NO default in data.js (both
+  // siblings do: moodPlanView:false, budgetPlanView:false) and NOTHING on this path cleared it:
+  // the tile onclick set screen + mealSearch only, and the header's "← Family Meals" backJs does
+  // the same. So once she opened a plan, EVERY later tap on ANY of the five tiles landed on the
+  // plan instead of the dish list — and the plan wears whatever room's title she opened it from,
+  // which is how Cottage Pie appeared under "Breakfast Plan". Measured MF170 Q2 · walked by Tina
+  // 6 Aug. ⚖️ §24.12 — the dish list belongs in the path. ⚖️ Law 20 — this clears her QUESTION
+  // (which screen), never her WORK: S.mealPlan is not touched here.
+  // ⛔ NOT copied as a per-tile `reset:` field like core.js's home tiles. Those reset DIFFERENT
+  //    keys per room, so the field earns itself there. All five of these reset the SAME key —
+  //    five identical strings would be five places to drift. ⚖️ Rule Zero.
   const MEALS = [
     {s:'breakfast',  e:'🍳', t:'Breakfast',             sub:'Eggs · Oats · Pancakes · Smoothies',    b:'#d0a020', bg:'#1a1500'},
     {s:'lightlunch', e:'🥗', t:'Light Lunch',           sub:'Salads · Wraps · Soups · Quick meals',  b:'#40a060', bg:'#0a1a10'},
@@ -15539,7 +15552,7 @@ function feedingFamilyHTML(){
       <div style="font-size:13px;letter-spacing:2px;color:var(--ink-soft);text-transform:uppercase;margin-bottom:10px;">Choose a meal</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
         ${MEALS.map(o=>`
-          <div onclick="set({screen:'${o.s}',mealSearch:''})"
+          <div onclick="set({screen:'${o.s}',mealSearch:'',mealPlanView:false})"
             style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;min-height:96px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div style="font-size:24px;margin-bottom:4px;">${o.e}</div>
             <div style="font-size:16px;color:var(--ink);font-weight:bold;margin-bottom:2px;line-height:1.2;">${o.t}</div>
