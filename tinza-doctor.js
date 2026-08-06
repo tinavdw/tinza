@@ -944,6 +944,115 @@ p('       no-photo fallback tile. Supplying it TWICE is the bug.\x1b[0m');
   }
 }
 
+// ── 19. NO RULED-WORK KEY IS CLEARED INSIDE draw()  (MF173 · ⚖️ Law 42) ──
+head('19 · DOES THE RENDER PATH CLEAR HER WORK?  (6 Aug — ENTRY 12, the World Kitchen plan)');
+p('  \x1b[2m    draw() had an exit hook that ran `S.wkPlan = []; S.wkBump = {};` when she left World');
+p('       Kitchen. §5 names wkPlan in THE RED LINE — "her plan. Clearing it is THEFT" — and BOTH');
+p('       keys were already in NAV_DATA_KEYS. 🩸 THE LIST DID NOT SAVE THEM: NAV_DATA_KEYS only');
+p('       guards the popstate re-apply loop, and has no authority over a direct assignment to S');
+p('       inside the render path. Being on the list is NECESSARY AND NOT SUFFICIENT. This rung');
+p('       is the wall for that second door. ⚖️ Law 20 — her question may be emptied, never her work.\x1b[0m');
+{
+  // ⚖️ THE LIST IS READ FROM THE SANDBOX, NEVER COPIED. Same law as rungs 15 and 17: a checker
+  // holding its own copy of the contract is a SECOND contract, and it drifts.
+  let NAV19 = null;
+  try { NAV19 = vm.runInContext("typeof NAV_DATA_KEYS !== 'undefined' ? NAV_DATA_KEYS : null", ctx); }
+  catch (e) { NAV19 = null; }
+  if (NAV19 && !Array.isArray(NAV19)) NAV19 = null;
+
+  // ⛔ THE SCAN MUST SEE CODE draw() RUNS — NOT CODE draw() PRINTS. Two ways to get this wrong,
+  //    and the first draft hit both:
+  //    · COMMENTS. The fix's own comment quotes the deleted line verbatim ("this hook used to
+  //      run `S.wkPlan = []`"), so a raw scan goes RED on the prose explaining why it is green.
+  //    · STRING LITERALS. draw() renders the dev tier-switcher, whose buttons carry
+  //      onclick="…S.selectedMeats=[];S.selectedSides=[];S.checkedShopItems={}…" — three ruled
+  //      WORK keys, in an HTML attribute, inside a template literal. That is MARKUP THE RENDER
+  //      PATH EMITS, fired only when a developer taps a tier button. It is not draw() clearing
+  //      anything, and reporting it would be a false RED that teaches everyone to ignore rung 19.
+  // ⚖️ So this is a real parse, not a regex: comments dropped, quoted strings dropped, template
+  //    TEXT dropped — but `${…}` expressions kept and scanned, because those DO execute here.
+  //    Recursive, so nested templates are handled. Apostrophes in prose inside a template are
+  //    template text and can no longer swallow the code that follows them.
+  const codeOnly = function(src){
+    let out = '', i = 0; const n = src.length;
+    while (i < n) {
+      const c = src[i], d = src[i+1];
+      if (c === '/' && d === '/') { while (i < n && src[i] !== '\n') i++; out += '\n'; continue; }
+      if (c === '/' && d === '*') { i += 2; while (i < n && !(src[i] === '*' && src[i+1] === '/')) i++; i += 2; continue; }
+      if (c === "'" || c === '"') { const q = c; i++; while (i < n && !(src[i] === q && src[i-1] !== '\\')) i++; i++; out += ' '; continue; }
+      if (c === '`') {
+        i++;
+        while (i < n) {
+          if (src[i] === '\\') { i += 2; continue; }
+          if (src[i] === '`') { i++; break; }
+          if (src[i] === '$' && src[i+1] === '{') {
+            i += 2; let depth = 1, sub = '';
+            while (i < n && depth > 0) {
+              if (src[i] === '{') depth++;
+              else if (src[i] === '}') { depth--; if (depth === 0) { i++; break; } }
+              sub += src[i]; i++;
+            }
+            out += ' ' + codeOnly(sub) + ' ';
+            continue;
+          }
+          i++;
+        }
+        continue;
+      }
+      out += c; i++;
+    }
+    return out;
+  };
+  const coreClean = codeOnly(fs.readFileSync(path.join(ROOT, 'sections/core.js'), 'utf8'));
+  const dStart = coreClean.indexOf('function draw(');
+  let body = null;
+  if (dStart >= 0) {
+    let depth = 0, started = false;
+    for (let i = dStart; i < coreClean.length; i++) {
+      if (coreClean[i] === '{') { depth++; started = true; }
+      else if (coreClean[i] === '}') { depth--; if (started && depth === 0) { body = coreClean.slice(dStart, i + 1); break; } }
+    }
+  }
+
+  if (!NAV19) {
+    // ⚖️ Law 54b — a green tick over an unread contract is a green tick above nothing.
+    fail('CANNOT READ NAV_DATA_KEYS FROM core.js — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mIt must come from the sandbox, never a copy. Refusing to report a pass.\x1b[0m');
+  } else if (!body) {
+    fail('CANNOT FIND draw() IN core.js — THIS CHECK IS NOT PROTECTING ANYTHING',
+      '\n      \x1b[2mThe render path has moved or been renamed. Re-point this rung before trusting it.\x1b[0m');
+  } else {
+    const navSet19 = new Set(NAV19), hits = [];
+    const push = function(k, frag){ if (navSet19.has(k)) hits.push('S.' + k + '   ' + frag.trim()); };
+    let m;
+    const reDot = /\bS\.([A-Za-z_$][\w$]*)\s*=[^=]/g;
+    while ((m = reDot.exec(body)) !== null) push(m[1], m[0]);
+    const reIdx = /\bS\[\s*['"]([^'"]+)['"]\s*\]\s*=[^=]/g;
+    while ((m = reIdx.exec(body)) !== null) push(m[1], m[0]);
+
+    if (hits.length) {
+      fail(hits.length + ' RULED-WORK KEY(S) ASSIGNED DIRECTLY INSIDE draw()',
+        '\n      \x1b[2mEvery key in NAV_DATA_KEYS is ruled WORK by §5 — a plan, a cart, a people-count.' +
+        '\n      draw() runs on EVERY render, so an assignment in here takes it without her asking and' +
+        '\n      without a history pop to blame. That is exactly how the World Kitchen plan vanished on' +
+        '\n      the way out to Tinza main (ENTRY 12). ⚖️ Law 20 · §5 · CLAUDE.md §0.' +
+        '\n      ⛔ If a room genuinely must reset something on exit, reset the KEYS THAT ARE HER' +
+        '\n      QUESTION (a drill, a step, a tab) — never one the list already calls her work.\x1b[0m', hits);
+    } else {
+      pass('No NAV_DATA_KEYS key is assigned inside draw()',
+           NAV19.length + ' ruled WORK key(s) checked against the live render path');
+    }
+
+    // ⚠️ THE FLOOR — PRINTED EVERY RUN, PASS OR FAIL. ⚖️ A watcher that implies full coverage
+    // while measuring a narrow gate manufactures confidence — the same family as rungs 4, 6, 8
+    // and the mealPlanView conditional. Say what is NOT measured, every time.
+    p('  \x1b[2m    ⚠️ FLOOR, NOT A TOTAL: this gates draw() in core.js AND NOTHING ELSE. A clear-on-exit' +
+      '\n       written into a section file, a timer, or any handler outside the render path would' +
+      '\n       PASS THIS RUNG. Gating every assignment app-wide would flag every legitimate set(),' +
+      '\n       so the narrow gate is deliberate — and it is not coverage.\x1b[0m');
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {

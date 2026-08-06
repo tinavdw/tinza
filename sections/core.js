@@ -689,9 +689,23 @@ function draw(){
   const screenChanged = (root._lastScreen||'') !== S.screen;   // section change → land at top
   if(screenChanged) S._searchOwner = null;   // MF59-B · a query belongs to the screen it was typed on; on any screen change it is no longer on-screen. Runs BEFORE section content renders this pass, so searchVal() reads the nulled owner in the same draw (Law 31/33).
   if(screenChanged) S.viewingRecipe = null;     // MF95 · the RECIPE belongs to the screen it was opened on
-  // Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit.
+  // ⚖️ MF173 · ENTRY 12 (6 Aug 2026) — LEAVING A ROOM RESETS HER QUESTION, NEVER HER WORK.
+  // 🩸 This hook used to also run `S.wkPlan = []; S.wkBump = {};`, above a comment that said
+  // "Leaving World Kitchen entirely resets its plan so the count starts at 0 next visit."
+  // Both are DELETED. §5 names `wkPlan` in THE RED LINE — *"her plan. Clearing it is THEFT"* —
+  // and both keys are in NAV_DATA_KEYS, i.e. already ruled WORK. The code contradicted the
+  // ruling in writing, for as long as the hook has existed. ⚖️ CLAUDE.md §0 — the file is
+  // right and the code is a bug. ⚖️ Law 20.
+  // Walked by Tina 6 Aug on the deployed build: add Bobotie → bottom-back to WK main (counter
+  // still 1, the guard correctly not firing) → out to Tinza main → back in → plan EMPTY.
+  // ⚠️ NAV_DATA_KEYS DID NOT SAVE IT, AND THAT IS THE LESSON. That list only guards the
+  // popstate re-apply loop; it has no authority over a direct assignment to S in here. Being
+  // on the list is necessary and NOT sufficient. Doctor rung 19 is the wall for this door.
+  // ⛔ THE DRILL RESET STAYS — it is the HALF OF THIS HOOK THAT WAS ALWAYS RIGHT. §24.5 ruled
+  //    that leaving WK must null the five drill keys so re-entry lands on the continent grid
+  //    instead of the last region. That is emptying her QUESTION. One `if`, two opposite acts;
+  //    only one of them was theft.
   if((root._lastScreen||'') === "worldkitchen" && S.screen !== "worldkitchen"){
-    S.wkPlan = []; S.wkBump = {};
     // ⚖️ §24.5 — the drill is FIVE keys and this named THREE. wkContinent/wkRegion survived
     // the exit, so re-entering from Home re-opened the last REGION (Southern Africa) instead
     // of the continent grid. ONE door now; nothing here hand-nulls the drill. ⚖️ Law 6.
