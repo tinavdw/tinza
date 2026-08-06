@@ -752,6 +752,119 @@ p('       view flag MUST clear that flag. It clears her QUESTION, never her WORK
   }
 }
 
+// ── 17. THE PLAN NEVER CLAIMS A ROOM  (MF171-2/3 · §24.14 · ⚖️ Law 42) ──
+head('17 · DOES THE PLAN CLAIM A ROOM IT DOES NOT OWN?  (6 Aug — the source/heading pair)');
+p('  \x1b[2m    §24.14 made ONE flat plan honest in two moves: each ITEM carries a generic `source`');
+p('       so the dishes group by the room that owns them, and the HEADING stopped naming a room,');
+p('       because the plan belongs to Tina, not to whichever door she came through.');
+p('       Two ways that rots: a label whose room no longer exists (dishes group under a name');
+p('       nothing can produce), or a caller quietly putting a room name back in the heading.\x1b[0m');
+{
+  // ⚖️ BOTH LISTS ARE READ FROM THE LIVE FILES, NEVER COPIED. A checker with its own copy of
+  // the room list is a SECOND room list that drifts. Same law as rung 15 and tinza-all.js.
+  const coreSrc  = fs.readFileSync(path.join(ROOT, 'sections/core.js'), 'utf8');
+  const mealsSrc = fs.readFileSync(path.join(ROOT, 'sections/meals.js'), 'utf8');
+
+  const labelBlock = coreSrc.match(/var\s+PLAN_SOURCE_LABELS\s*=\s*\{([\s\S]*?)\n\};/);
+  const mealsBlock = mealsSrc.match(/const\s+MEALS\s*=\s*\[([\s\S]*?)\n\s*\];/);
+
+  if (!labelBlock || !mealsBlock) {
+    // ⚖️ Law 54b — refuse to report a pass over a contract that could not be read.
+    fail('CANNOT READ PLAN_SOURCE_LABELS OR THE MEALS TILE LIST — THIS CHECK PROTECTS NOTHING',
+      '\n      \x1b[2mOne of them has moved or been renamed. Re-point this rung before trusting it.\x1b[0m');
+  } else {
+    const labels = {};
+    for (const m of labelBlock[1].matchAll(/'([^']+)'\s*:\s*'([^']*)'/g)) labels[m[1]] = m[2];
+    const rooms = [], roomTitles = [];
+    for (const m of mealsBlock[1].matchAll(/\{\s*s\s*:\s*'([^']+)'[^}]*?t\s*:\s*'([^']*)'/g)) {
+      rooms.push(m[1]); roomTitles.push(m[2]);
+    }
+
+    // ── HALF A · EVERY LABEL KEY MUST NAME A LIVE ROOM ────────────────────
+    // 'fmf.<room>' — the suffix must be a real tile in feedingFamilyHTML's MEALS. A key whose
+    // room was deleted or renamed is a group heading nothing can ever produce: the dishes fall
+    // back to '' and render ungrouped, silently, with the label sitting in core.js looking correct.
+    // ⛔ Only 'fmf.' keys are gated. 'wk.<country>' / 'health.<x>' belong to rooms this rung
+    //    cannot see, and guessing at them would be the invented-fact bug this project keeps paying for.
+    const fmfKeys   = Object.keys(labels).filter(k => k.indexOf('fmf.') === 0);
+    const foreign   = Object.keys(labels).filter(k => k.indexOf('fmf.') !== 0);
+    const orphaned  = fmfKeys.filter(k => rooms.indexOf(k.slice(4)) < 0);
+
+    if (orphaned.length) {
+      fail(orphaned.length + ' PLAN_SOURCE_LABELS KEY(S) NAME A ROOM THAT DOES NOT EXIST',
+        '\n      \x1b[2mThe suffix after "fmf." must match an s: value in feedingFamilyHTML\'s MEALS.' +
+        '\n      A label for a dead room never renders — the dishes group under \'\' instead, and the' +
+        '\n      wrong-looking-right entry sits in core.js. ⚖️ §24.14.2.' +
+        '\n      Live rooms: ' + rooms.join(' · ') + '\x1b[0m', orphaned);
+    } else {
+      pass('Every fmf.* plan label names a live room',
+           fmfKeys.length + ' label(s) checked against ' + rooms.length + ' MEALS tiles');
+    }
+
+    // ⚠️ THE REVERSE IS A FLOOR, NOT A GATE. A room with no label groups under '' — that is the
+    // designed fallback (§24.14, no migration), so it is never RED. But a room added and then
+    // forgotten here is silent, and silent is what this project pays for. Named, not guessed.
+    const unlabelled = rooms.filter(r => !labels['fmf.' + r]);
+    if (unlabelled.length) {
+      warn(unlabelled.length + ' FMF room(s) with NO plan label — dishes will group under \'\'',
+        '\n      \x1b[2mNot a bug by itself: \'\' is the designed ungrouped fallback. But if the room' +
+        '\n      is meant to show a heading in My Plan, it needs an entry in PLAN_SOURCE_LABELS.\x1b[0m',
+        unlabelled);
+    }
+    if (foreign.length) p('  \x1b[2m    ⚠️ FLOOR: ' + foreign.length +
+      ' non-fmf label key(s) NOT gated (their rooms are not readable from here): ' + foreign.join(' · ') + '\x1b[0m');
+
+    // ── HALF B · NO PLAN-VIEW CALLER MAY PUT A ROOM IN THE HEADING ────────
+    // ⛔ TWO LIMBS, AND THE SECOND ONE IS THE ONE THAT MATTERS. The original bug was
+    //    `cfg.title+' Plan'` — a DYNAMIC expression. A scan for literal room names would have
+    //    sailed straight past it, because the room name only appears at runtime. So a title
+    //    derived from the per-room config is RED on sight, whatever it evaluates to.
+    const splitArgs = function(src, openIdx){
+      let depth = 0, q = null, cur = '', out = [];
+      for (let i = openIdx; i < src.length; i++) {
+        const c = src[i];
+        if (q) { cur += c; if (c === q && src[i-1] !== '\\') q = null; continue; }
+        if (c === "'" || c === '"' || c === '`') { q = c; cur += c; continue; }
+        if (c === '(' || c === '[' || c === '{') { depth++; if (depth === 1) continue; cur += c; continue; }
+        if (c === ')' || c === ']' || c === '}') { depth--; if (depth === 0) { out.push(cur); return out; } cur += c; continue; }
+        if (c === ',' && depth === 1) { out.push(cur); cur = ''; continue; }
+        cur += c;
+      }
+      return out;
+    };
+    const ROOM_WORDS = [...new Set(Object.values(labels).concat(roomTitles))].filter(Boolean);
+    const offenders = [], seenCalls = [];
+    for (const f of loadOrder) {
+      const s = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      let at = -1;
+      while ((at = s.indexOf('sectionPlanView(', at + 1)) >= 0) {
+        if (/function\s+$/.test(s.slice(Math.max(0, at - 12), at))) continue;   // the definition
+        const args = splitArgs(s, at + 'sectionPlanView'.length);
+        if (args.length < 2) continue;
+        const title = args[1].trim();
+        seenCalls.push(f + '  ' + title);
+        const lit = ROOM_WORDS.find(w => title.indexOf(w) >= 0);
+        if (/\bcfg\s*\.\s*title\b/.test(title))
+          offenders.push(f + '  title is per-room: ' + title);
+        else if (lit)
+          offenders.push(f + '  title names "' + lit + '": ' + title);
+      }
+    }
+    if (offenders.length) {
+      fail(offenders.length + ' PLAN-VIEW CALLER(S) PUT A ROOM NAME IN THE HEADING',
+        '\n      \x1b[2mONE flat plan wears this heading, so a room name in it is a claim the plan' +
+        '\n      cannot keep — Cottage Pie added from Supper sat under "Breakfast Plan" for weeks.' +
+        '\n      The dishes carry their room in the GROUP now (§24.14.2/3); the heading names the' +
+        '\n      whole plan. ⚖️ §24.14.4. THE FIX: pass a static room-free title, e.g. \'My Plan\'.' +
+        '\n      ⛔ A title built from cfg.title is RED whatever it evaluates to — that WAS the bug.\x1b[0m',
+        offenders);
+    } else {
+      pass('No plan-view heading names a room',
+           seenCalls.length + ' caller(s) checked · ' + ROOM_WORDS.length + ' room name(s) read from the live files');
+    }
+  }
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
