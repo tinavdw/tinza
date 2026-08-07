@@ -1,27 +1,34 @@
 # 🇻🇳 VIETNAM — COLD START
-**Opened 3 Aug 2026 at Thailand close. Rewritten 6 Aug 2026 after B4.** Read this BEFORE anything else.
+**Opened 3 Aug 2026 at Thailand close. Rewritten 6 Aug 2026 after B5.** Read this BEFORE anything else.
 
 > ⚠️ **NO LINE NUMBERS. Every anchor is a SYMBOL.**
 > ⛔ **WRITE THIS FILE TO `reference/VIETNAM_COLD_START.md`.** Then run `git status` and READ THE PATH, not the filename. A reference file written to the repo root is indistinguishable from one never written at all — the tools read `reference/`. That scar cost two reds and two hours on 2 Aug.
 
 ---
 
-## ⚖️ LANE STATE — 17 of 50
+## ⚖️ LANE STATE — 25 of 50
 
-**Verified at 6 Aug close: 17 records · 51 versions · ALL GATES GREEN.**
+**Verified at 6 Aug B5 close: 25 records · 75 versions · ALL GATES GREEN.**
 
 ```
-doctor 10 (baseline, unchanged)   ·  lawcheck 0 red 0 drift
-/wow + /wk  every mechanical box ticked          ·  costcheck 51/51
-tinza-echo  0 red 0 amber 0 lecture 0 mascot 0 locale 0 gloss
-claimcheck  0 red 0 amber 6 🔵      ·  pricecheck exact 91 / wrong-product 0 / absent 0
+doctor 10 (baseline, unchanged)   ·  lawcheck 0 red 0 drift 4 hygiene
+/wow + /wk  every mechanical box ticked          ·  costcheck ✅75 🟠0 🔴0 ⬜0 of 75
+tinza-echo  0 red 0 amber 0 mascot 0 locale 0 gloss 0 opening-formula
+claimcheck  0 red 0 amber 14 🔵     ·  pricecheck exact 108 / wrong-product 0 / absent 0
+priceledger --check  ✅ every Tina-attributed key has a ledger entry
 ```
 
-📒 `reference/ASIA_LEDGER.json` baselined to **vietnam 17 · hash `ea49bcbf21134653`**, derived by `merge.js`'s own `fingerprint()`, never hand-typed.
+📒 `reference/ASIA_LEDGER.json` re-baselined by `merge.js`'s own `fingerprint()`, never hand-typed.
 
-**Courses: main 9 · starter 3 · dessert 3 · side 2.** ✅ Floor met on all four.
+**Courses: main 12 · starter 5 · dessert 4 · side 4.** ✅ Floor met on all four.
+⭐ **B5 CLOSED BOTH REMAINING GAPS** — the lane had NO salad course and NO vegetable side but `canh-chua`.
 
-> **PREVIOUS ENTRY, KEPT PER §2.3 —** *11 of 50 · 33 versions.* ⚠️ The 4 Aug version of this file said **main 4** and was wrong by one — `vietnam-bo-kho` was banked as a main and the course line was never updated with it. **Recount, never re-read.**
+> **PREVIOUS ENTRIES, KEPT PER §2.3 —** *17 of 50 · 51 versions* (B4 close) · *11 of 50 · 33 versions* (B3 close).
+> ⚠️ The 4 Aug version said **main 4** and was wrong by one. **Recount, never re-read.**
+> 🩸 **AND THE 6 AUG ENTRY SAID 17 WHILE GITHUB HELD 11** — B4 was committed as
+> `reference/vietnam-batch4-FULL.js` and the merged lane file was never staged. Recovered
+> 6 Aug with `node merge.js vietnam reference/vietnam-batch4-FULL.js`, all six ids and all
+> eighteen costPP matching. ⚖️ **A COUNT IN THIS FILE IS NOT EVIDENCE. `node tinza-all.js vietnam` IS.**
 
 ### 📦 THE 17
 
@@ -44,10 +51,18 @@ claimcheck  0 red 0 amber 6 🔵      ·  pricecheck exact 91 / wrong-product 0 
 | **15** | **`vietnam-ca-ri-ga`** | main | **58 · 64 · 98** |
 | **16** | **`vietnam-dau-hu-sot-ca`** | main | **59 · 73 · 84** |
 | **17** | **`vietnam-sinh-to-bo`** | dessert | **18 · 17 · 23** |
+| **18** | **`vietnam-bun-bo-hue`** | main | **103 · 103 · 100** |
+| **19** | **`vietnam-goi-ga-bap-cai`** | starter | **65 · 85 · 80** |
+| **20** | **`vietnam-mang-xao`** | side | **58 · 58 · 76** |
+| **21** | **`vietnam-che-ba-mau`** | dessert | **34 · 29 · 25** |
+| **22** | **`vietnam-bo-luc-lac`** | main | **97 · 101 · 93** |
+| **23** | **`vietnam-sup-mang-cua`** | starter | **92 · 92 · 65** |
+| **24** | **`vietnam-mi-quang`** | main | **93 · 74 · 89** |
+| **25** | **`vietnam-com-chay`** | side | **26 · 45 · 62** |
 
 ⚖️ **`node costcheck.js vietnam` is the only source of truth for a costPP.** ⛔ Do not compare these against an older handoff and conclude a record drifted.
 
-**Batch sources archived:** `Archive/vietnam-batch1.js` · `Archive/vietnam-batch2.js` (written after the fact) · `Archive/vietnam-batch3.js` · **`Archive/vietnam-batch4-FULL.js` (B4, all six, `/wow`-clean).**
+**Batch sources archived:** `Archive/vietnam-batch1.js` · `Archive/vietnam-batch2.js` (written after the fact) · `Archive/vietnam-batch3.js` · **`reference/vietnam-batch4-FULL.js`** · **`vietnam-batch5.js` (B5, all eight, every gate green before merge).**
 ✅ **B4 was banked one record at a time and handed over after each merge**, at Tina's instruction — *"maybe bank after each one, im scared we gonna bomb out."* That is now the lane's working method.
 
 ---
@@ -58,7 +73,7 @@ claimcheck  0 red 0 amber 6 🔵      ·  pricecheck exact 91 / wrong-product 0 
 1. clone
 2. read THIS file, all of it
 3. COUNT WITH NODE. Never by eye, never from a handoff, never from memory.
-4. node tinza-all.js vietnam    → expect 17 · 0 red · 0 drift · 6 🔵 · 0 warns
+4. node tinza-all.js vietnam    → expect 25 · 0 red · 0 drift · 14 🔵 · 0 warns
 5. node tinza-all.js thailand   → expect 38 · 0 red · 0 drift · 🟠 11 · 🔵 20
 6. node priceledger.js --ask <term>   BEFORE asking Tina for ANY price
 ```
@@ -103,6 +118,24 @@ claimcheck  0 red 0 amber 6 🔵      ·  pricecheck exact 91 / wrong-product 0 
 - **Void space in a protein, and vapour pressure drawing sauce in on cooling** — `vietnam-dau-hu-sot-ca`
 - **Sweet-vs-savoury classification assigned by what was already on the table** — `vietnam-sinh-to-bo`
 
+### 🆕 From B5 — EIGHT NEW REGISTERS BURNED, 6 Aug
+- **A fermented paste is a SUSPENSION — slake, settle, decant, bin the grit** — `vietnam-bun-bo-hue`
+  (⚖️ and the uncovered simmer: the volatile half leaves, the amino-acid half cannot follow)
+- **A dressing with NO OIL — dissolved sugar supplies the body oil would have given** — `vietnam-goi-ga-bap-cai`
+- **Which boil does what — the factory did the safety one, yours is about the tin** — `vietnam-mang-xao`
+- **Sugar STOPS a bean softening, and then LOCKS it where it is** — `vietnam-che-ba-mau`
+- **Shaking vs dragging — contact binary, never lateral** — `vietnam-bo-luc-lac`
+- **Viscosity decides a soup's POSITION IN THE MEAL — thick coats, thin clears** — `vietnam-sup-mang-cua`
+- **Puffing on water the food has held since it was made** — `vietnam-mi-quang`
+- **One pot, two cooking methods — only the bottom centimetre can brown** — `vietnam-com-chay`
+
+### 🩸 THREE B5 RECORDS HAD TO BE RE-LED — AND TWO COLLISIONS WERE WITH B5 ITSELF
+⚖️ **CHECK THE BATCH, NOT ONLY THE CORPUS.** The corpus greps came back clean and the collisions were still there:
+- `che-ba-mau` nearly led on *"three layers stay three layers"* — **`xoi-xeo` owns it.**
+- `mi-quang` nearly led on *"coated, not submerged"* — **`bun-bo-hue`'s own Khô version, written an hour earlier.**
+- `sup-mang-cua` nearly led on *"the tin is the authentic ingredient"* — **`mang-xao`, two records earlier.**
+⚖️ Also: `bun-bo-hue` was one paragraph from re-writing Indonesia's *"toast the terasi"*. **Inverted to slake-and-decant. Different paste, opposite move.**
+
 ### ⚠️ SPENT ACROSS THE WHOLE ASIA LANE — check before reaching
 capsaicin/TRPV1 · fat-solubility of heat · Columbian exchange and Portuguese chilli routes · lactic fermentation and food microbiology · rheology · historical linguistics · economic geography of perishability · palace/court kitchens · labour economics of fiddly food · religious demography · psychoacoustics · phylogenetics · nutritional epidemiology · collagen→gelatin (~60 records) · clear-broth skimming · raw meat cooked at the table · quick-pickle-vs-ferment · osmosis (12 records) · shaved-ice desserts · **ice-crystal size (13 hits)**
 
@@ -132,6 +165,9 @@ capsaicin/TRPV1 · fat-solubility of heat · Columbian exchange and Portuguese c
 - ⭐ **EVERY COUNTRY NEEDS starter · side · main · dessert.** Drinks may sit under dessert.
 - ⭐ **GREAT BRITAIN IS FOUR SEPARATE LANES** — England, Scotland, Wales, Northern Ireland.
 - ⭐ **ITALY IS A MERGE BEFORE A BUILD.** `meals.js` already carries 16 `pastapizza` cards. **Rule the merge before record 1 or you will ship two Cacio e Pepes.**
+- ⭐ **"CHICKEN IS CHICKEN" — A DESCRIPTIVE ADJECTIVE IS NOT A NEW PRODUCT** *(Tina, 6 Aug)*. free-range · organic · corn-fed · village resolve to the base bird via `PRICE_ALIAS`. Her reason: *"free range chicken is a personal choice."* ⛔ **PRICING ONLY** — six cards correctly argue that a bird that WALKED carries more connective tissue and needs a longer braise; those stay. ⛔ **Tinza takes no position on farming ethics ON A CARD.** She holds one; it lives in governance. ⚠️ Consequence named: the app under-bills whoever buys free-range — accepted, because a name that resolves slightly low beats an ABSENT one that renders R0 and fires no gate.
+- ⭐ **"LARD IS PORK FAT"** *(Tina, 6 Aug)* — a ruling, not a price. It already had a key.
+- ⭐ **PREP GOES IN THE METHOD — BUT IT MUST ACTUALLY GO THERE.** ⚠️ On 6 Aug prep was stripped out of two China ingredient names and never landed anywhere; `chongqing-huo-guo` ended up not mentioning cardamom at all. **Deleting is half the job.**
 - **`grep` THE FILE BEFORE YOU PROBE A KEY.** `egg noodles` reported ABSENT while `thin egg noodles` R176 sat in the file.
 
 ---
@@ -148,11 +184,28 @@ capsaicin/TRPV1 · fat-solubility of heat · Columbian exchange and Portuguese c
 
 ✅ **B4 asked for ZERO prices.** All 91 new ingredient lines resolved exact. The four-step order works; use it.
 
+### 💰 BANKED IN THE B5 SESSION — 6 Aug 2026. ⛔ DO NOT RE-ASK ANY OF THESE.
+| key | value | note |
+|---|---|---|
+| `pork hock` (+3 aliases) | **R99/kg** | band R49.99–R99, 1.98x. ⛔ closed a §8f fallthrough to `pork` R110; `pork shank` R80→R99, measured as used by ZERO records |
+| `black-eyed beans` (+4) | **R55/kg** | ⚠️ the 1kg pack costs MORE per kg than the 500g — **not a typo, do not "correct" it** |
+| `dried tangerine peel` (+4) | **R700/kg** | R35/50g. §33 — naartjie kept and explained |
+| `lotus root` (+1) | **R116/kg** | R58/500g |
+| `black cardamom` | **R420 → R720** | §29.5 — R420 implied ~R21/50g, BELOW the band she quoted three days later. **Moved records in two lanes; all re-derived same session** |
+| `beef stock` | **R50 → R8** | its own comment said *"mostly water + cube"* and billed 6× the generic `stock` key |
+| `presunto` | **R400/kg** | ⛔ NOT an alias to `prosciutto` R1190 — her figures bracket and confirm that key |
+| `poppy seeds` (+1) | **R400/kg** | band 2.01x |
+| `graviera` | **R1160/kg** | band 2.15x. ⛔ `kefalotyri` still unkeyed; `greece-saganaki`'s "or" was split |
+| `dried cannellini beans` (+1) | **R70/kg** | her dried white/sugar/speckled band |
+| `tinned cannellini beans` (+1) | **R80/kg** | R32/400g **on TIN weight**, matching the other beans — see §8d |
+
 ### 💣 LANDMINES — ALREADY PAID FOR
 tuna steak ≠ tuna · crab sticks ≠ crab · **pickled ginger** spelling · **neutral oil** absent and unaliased · **glutinous rice flour** → resolves to rice R27, ⛔ unresolved, Japan mochi and Thai Bua Loi still blocked · **chai poh** R118/kg deferred under A7 · **yard-long beans** NOT-IN-SA · **peanut oil** a §34 exception
 
 ### ✅ THE SEVEN ABSENT ITEMS — ASKED ONCE, ANSWERED ONCE, BANKED. 6 Aug 2026.
 ⛔ **DO NOT ASK ANY OF THESE AGAIN.** `node priceledger.js --ask` now returns 🛑 on every one.
+
+🩸 **CORRECTION 6 Aug — "BANKED" WAS HALF TRUE WHEN THIS WAS WRITTEN.** All five prices went into `prices.js`. **NONE went into `PRICE_LEDGER.json`.** Only the two NOT-IN-SA rulings got an entry. `--check` was reporting **🔴 5 UNPROVABLE ATTRIBUTIONS** and no session had run it. ⚖️ **The session that wrote "a price is not received until it is in the ledger" did not apply it to its own five prices.** ✅ All five filed 6 Aug. 📌 **`node priceledger.js --check` is now part of §13.**
 
 | item | keyed | basis |
 |---|---|---|
@@ -197,26 +250,30 @@ Three China records wrote `wood ear mushrooms` and were billing at `mushrooms` *
 | **Bánh bột lọc** | 🟡 DEFERRED | noun clear, but scalded dough owned six ways |
 | **Nem rán / chả giò** | 🟡 DEFERRED | both natural arguments collide WITHIN the lane — the sealed wrapper is `banh-xeo`'s, the sugar-browning is `com-tam`'s |
 | **Bánh cuốn** | 🟡 DEFERRED *(new, 6 Aug)* | `banh-xeo` owns the rice-starch film. Needs an argument that is not about the batter |
+| **Bánh Da Lợn** | ⛔ **STRUCK** *(B5, ruled by Tina 6 Aug)* | `indonesia-kue-lapis` owns **all four** arguments: tapioca-vs-rice proportion · layers staying separate · batter settling between pours · fridge retrogradation. **No angle survives. A STRIKE, not a defer.** ⚠️ Its only remaining difference — a mung bean layer — is a third mung bean record after `xoi-xeo` and `che-ba-mau` |
 
 ⚖️ **A within-lane repeat is worse than a cross-lane one.**
 
 ---
 
-## 6 · ▶️ B5 CANDIDATES — PROPOSED 6 Aug, NOT YET RULED
+## 6 · ▶️ B6 — THE LANE AFTER B5
 
-Tina ruled **1–6 in** and left three on the table. Still live, still need her word:
+**All eight B5 dishes were ruled in by Tina and all eight banked.** Bún Bò Huế · Gỏi Gà Bắp Cải · Măng Xào · Chè Ba Màu · Bò Lúc Lắc · Súp Măng Cua · Mì Quảng · Cơm Cháy.
 
-- **Bún Bò Huế** — the centre of the country, and the second-most-famous dish in it. `shrimp paste` R437 IS keyed, so it is buildable. ⚠️ Risk: a second beef noodle soup. Only works if it leads on the mắm ruốc bloom and never on the broth.
-- **Gỏi Gà Bắp Cải** — fills the missing salad course. ⚠️ Risk: the obvious angle is salt-and-wring and **osmosis is spent 12 records deep**. Needs a different lead or it should not be written.
-- **Chè Ba Màu** — ⚠️ `japan-anmitsu` owns agar and **pandan is genuinely absent**. Only viable built as bean layers with no jelly.
+✅ **THE TWO STANDING GAPS ARE CLOSED.** The lane had no salad course and no vegetable side beyond `canh-chua`. `goi-ga-bap-cai` and `mang-xao` closed both.
 
-⛔ **Still missing from the lane after B4:** a **salad / gỏi** (whole course type absent) and a **vegetable side** other than `canh-chua`.
+▶️ **B6 has no proposed slate yet and no dish is ruled in.** ⛔ Do not assume one. Propose, then get her word — §5's struck list now runs to ten dishes and §2's spent list to twenty-six registers, so the proposal itself is the work.
 
----
+⚠️ **Course balance to aim at:** main 12 · starter 5 · dessert 4 · side 4. Mains are the heavy end; starters, sides and desserts are where the lane is thin.
 
 ## 7 · 🔵 OPEN QUESTIONS FOR TINA
 
 - **Gấc — CLOSED 6 Aug.** `vietnam-xoi-xeo`, Xôi Gấc fork, asserts gấc is unbuyable in SA. Claimcheck flags it because `red bean paste` R120 overlaps the wording — ⚖️ **that flag is a FALSE POSITIVE, different fruit, ignore it forever.** ✅ **Tina's call 6 Aug: LEAVE IT AS WRITTEN.** ⛔ Do not re-open unless she raises it.
+- **🔵 THREE KNOWN FALSE POSITIVES — RULED, PERMANENT, DO NOT RE-LITIGATE.** `claimcheck` has **no suppression mechanism at all**, so these live only here, where a script cannot see them.
+  1. **gấc** on `vietnam-xoi-xeo` vs keyed `red bean paste` R120 — different fruit. *(ruled 6 Aug)*
+  2. **pandan LEAF** on `vietnam-che-ba-mau` vs keyed `pandan leaf powder` R2900 — leaf and powder are two products and `prices.js` says so at the key. *(✅ Tina agreed 6 Aug)*
+  3. **"it physically cannot brown"** on `vietnam-com-chay` vs keyed `brown rice` R35 — a verb, not a product. *(6 Aug)*
+  ⚖️ **THE RUNG, NOT BUILT:** a dated, reasoned suppression list keyed on `record + field`, printed as **KNOWN, RULED** rather than silently dropped. ⛔ A list that HIDES things is a worse tool than one that over-reports.
 - **§3l — does the most-expensive rule take a MID on wide bands?** Surfaced on `rice vinegar` (band spanned R120–R415/L). She named the product and resolved that key, but **did not rule the general case.** Counter-precedent: `white wine vinegar` R165 was set as an honest mid on 22 Jul. **STILL OPEN.**
 
 ---
@@ -246,53 +303,72 @@ Tina ruled **1–6 in** and left three on the table. Still live, still need her 
 ✅ `chilli` R80/kg and `green chilli` R80/kg are already keyed. **Good first job of any session.**
 ✅ Every B4 record used grams. The Vietnam lane is clean going forward.
 
-### 8d · 🥫 TINNED KEYS — RULED, PARTLY ACTIONED
-✅ §38 written. ✅ `water chestnuts` → R275 `est` · `bamboo shoots` → R220 `est`, both Arm 4.
-🟡 Corpus never swept for tinned keys. 🟡 One photo of the back of either tin clears both `est` markers. **Bamboo shoots is the weaker number — correct it first.**
+### 8d · 🥫 TINNED KEYS — ~~PARTLY ACTIONED~~ ⛔ STRUCK 6 Aug 2026. DONE.
+✅ §38 written. ✅ **BOTH KEYS ARE TINA-SOURCED AND §38-CORRECT. NO PHOTO IS NEEDED.**
+`bamboo shoots` **R136/kg** (R55.99/410g can, drained, applied 30 Jul) · `water chestnuts` **R152/kg** (R86/567g can, 2 Aug).
+⛔ The `est` markers and the R275 / R220 figures in the old text were **never live** — carried from a draft and already superseded when this file was written. Anyone reading it would have gone hunting for a tin to photograph for a job finished a week earlier. ⚖️ Kept visible and dated per §2.3.
+🟡 **STILL OPEN, and it is not these two:** the corpus was never swept for OTHER tinned keys against §38.
+🩸 **CORRECTION, 6 Aug — "TWO TIN BASES" WAS THE WRONG DIAGNOSIS.** There are not two competing
+policies. **There is ONE ruling and the file has never been swept against it.**
+`RULING_38_DRAINED_WEIGHT.md`: **Arm 1** liquid used in the dish → net stands · **Arm 2** poured
+away and drained weight printed → **divide by DRAINED** · **Arm 3** poured away, not printed,
+available → **A7 defer** · **Arm 4** poured away, not printed, scarce → estimate high, mark `est`.
 
-### 8e · 🔴 20 STALE `costPP` VALUES — AND THE GATE NOW HAS A PROBLEM
-⛔ **A FAULT CLASS THE WATCHERS CANNOT SEE.** Four keys were corrected 3 Aug. Twenty banked records use them in PRICED lines, so their engine cost moved — but every movement is R1–R3, **inside `costcheck`'s ✅ tolerance.** All four Asia lanes still report green. **`costcheck` green means "within band", not "current".**
+⚠️ **TWO COMMENTS ACTIVELY CONTRADICT THEIR OWN ARITHMETIC.** `bamboo shoots` says *"Priced on
+DRAINED weight"* and computes R55.99 ÷ **410g** (the net tin) = R136. `water chestnuts` says the
+same and computes R86 ÷ **567g** = R152. **Both are Arm 2 products priced as Arm 1.** A comment
+that misdescribes its own maths is worse than no comment — the next reader trusts it.
 
-⚠️ **`thailand-massaman` is in this list** — a lane closed 2 Aug with every gate green. Closing a lane freezes its records, not its costs.
+✅ **RULED 6 Aug — THE TEST IS NOW ONE QUESTION.** Tina: *"we should always use drained weight
+for things that are in brine, not for something like baked beans that are in a sauce"* — and on
+syrup: *"mostly used with syrup, but not always, best to use drained weight."*
+⚖️ **DOES THE LIQUID GO IN THE POT, OR DOWN THE SINK?** Down the sink — brine, water, oil, syrup,
+no exceptions — divide by DRAINED. In the pot — divide by NET. Full classification lives in
+`reference/RULING_38_DRAINED_WEIGHT.md`: **11 keys Arm 2, 11 keys Arm 1**, and three that turned
+out not to be tinned at all (`chickpeas` is a 500g DRIED pack; `pineapple` is priced *each*).
 
-▶️ **The fix is mechanical — §30.1, no rulings and no prices needed.** Re-derive each stored costPP off the engine.
+📏 **THE SIZE OF THE SWEEP: 22 keys in `prices.js` are derived from a tin.** Most sort themselves
+on one question — does the liquid go into the dish or down the sink?
+**Arm 1, nothing changes:** `creamed corn` · `caramel treat` · `chicken broth` · `fruit cocktail`.
+**Arm 2, real corrections:** `butter beans` R68 · `black beans` R50 · `chickpeas` R68 ·
+`kidney beans` R35 (already marked ESTIMATE) · `tinned cannellini beans` R80 · `artichoke hearts`
+R150 · `tinned asparagus` R197 · `tuna` R120 · plus `bamboo shoots` and `water chestnuts`.
 
-| record | lane | engine cost | Δ | key that moved |
-|---|---|---|---|---|
-| `tunisia-mloukhia` | Tunisia | R36 → **R33** | -3 | coriander seed |
-| `china-staple-master-stock` | China | R136 → **R138** | +2 | rock sugar |
-| `china-da-pan-ji` | China | R261 → **R262** | +1 | rock sugar |
-| `china-chongqing-huo-guo` | China | R523 → **R522** | -1 | black cardamom + rock sugar |
-| `indonesia-tempe-goreng` | Indonesia | R45 → **R43** | -2 | coriander seed |
-| `indonesia-sate-ayam` | Indonesia | R40 → **R37** | -3 | coriander seed |
-| `indonesia-gudeg` | Indonesia | R55 → **R53** | -2 | coriander seed |
-| `indonesia-ayam-goreng-kalasan` | Indonesia | R77 → **R75** | -2 | coriander seed |
-| `indonesia-sate-lilit` | Indonesia | R57 → **R56** | -1 | coriander seed |
-| `indonesia-ayam-betutu` | Indonesia | R55 → **R52** | -3 | coriander seed |
-| `indonesia-soto-betawi` | Indonesia | R78 → **R75** | -3 | coriander seed |
-| `indonesia-ayam-pop` | Indonesia | R56 → **R53** | -3 | coriander seed |
-| `indonesia-tempe-mendoan` | Indonesia | R77 → **R75** | -2 | coriander seed |
-| `indonesia-bebek-goreng` | Indonesia | R67 → **R64** | -3 | coriander seed |
-| `indonesia-sate-padang` | Indonesia | R44 → **R41** | -3 | coriander seed |
-| `indonesia-dendeng-balado` | Indonesia | R49 → **R46** | -3 | coriander seed |
-| `boerekos-boerewors-homemade` | Boerekos | R50 → **R47** | -3 | coriander seed |
-| `thailand-massaman` | Thailand | R83 → **R80** | -3 | coriander seed |
-| `india-chicken-chettinad` | India | R32 → **R29** | -3 | coriander seed |
-| `pakistan-chapli-kebab` | Pakistan | R30 → **R27** | -3 | coriander seed |
+⛔ **NOT MECHANICAL, AND §38 SAYS SO ITSELF:** *"the drained fraction is NOT constant across sizes
+on the same product line — the 227g tin runs ~62% drained."* Each key needs the tin size it was
+derived from recorded in the ledger. **Several of ours do not have it.** That is the real blocker,
+and it is a photo of a label per product, not a ruling.
 
-🆕 **⚠️ THE GATE NEEDS RE-EXAMINING, 6 Aug.** Tina's 3 Aug call was *"log it, finish Vietnam, then clear it in one pass."*
+### 8e · ✅ ~~20 STALE `costPP`~~ — CLEARED 6 Aug 2026. THE TABLE WAS WRONG THREE WAYS.
+**52 rows re-derived off the engine** — 39 in the §8e sweep, 13 more after `black cardamom` moved. ⚖️ §30.1 throughout.
 
-**This is NOT a time problem, and ⛔ DO NOT PUT A RATE OR A SESSION ESTIMATE HERE.** Three were written into this section on 6 Aug and all three were wrong.
+⚠️ **1 · FOUR OF THE TWENTY HAD NO `costPP` AT ALL.** `tunisia-mloukhia` · `boerekos-boerewors-homemade` · `india-chicken-chettinad` · `pakistan-chapli-kebab` are FLAT records — no versions, no cost field. The table's *"R36 → R33"* described a number that is not in the file.
 
-⚠️ **The calendar span is meaningless.** Vietnam banked 4 records on 3 Aug, 7 on 4 Aug and 6 on 6 Aug — but Tina was on for a few hours at a time, and roughly 36 of those hours went to the roof session (MF172 · MF173 · ENTRY 11 · PROOF 2 · ENTRY 12 · rungs 18 and 19) with no authoring in it whatsoever. **Elapsed days measure nothing about this lane.**
+⚠️ **2 · SIX ROWS WERE NEVER A COSTING PROBLEM.** They costed against ABSENT keys. Two were genuine missing prices (`dried tangerine peel` R700, `lotus root` R116 — both now keyed). **The other four were §7 INGREDIENT-STANDARD VIOLATIONS** — prep, counts, units and an "or" welded into product names: `black cardamom pods, cracked` · `2 litres beef or chicken stock` · `leafy greens` · `free-range chicken, about 1.6kg, chopped…` · `dried tangerine peel pieces` · `extra sichuan pepper`. ✅ All six rewritten, and the prep put back into the methods.
 
-⚖️ **Tina, 6 Aug, on the remaining 33: *"thats one day, if Im not looking for prices the whole day."*** That is the only estimate in this file worth anything, and it names the bottleneck exactly. **The authoring is not slow. Price-hunting is.** B4 moved six records and asked her for nothing, because the four-step lookup answered all 91 lines before they reached her. **§8f is the rung that makes that repeatable.**
+⚠️ **3 · THE DRIFT WAS NOT R1–R3.** That was true only of rows that already resolved. Once the names could resolve: `china-staple-master-stock` R15 → **R141**, `china-da-pan-ji` R62 → **R371** — both confirmed by SIBLING versions already scoring ✅ on whole-batch amounts.
 
-⛔ **It is an ORDERING problem.** The roadmap sends the next session to **Italy**, which is itself a merge-before-build. If Italy opens while Vietnam sits at 17, the gate stops meaning "33 more records" and starts meaning "whenever we come back" — which nobody has scheduled. **And these 20 are invisible while they wait:** every lane reports green because the drift is R1–R3, inside `costcheck`'s tolerance. Nothing will surface them.
+### 8j · ✅ `china-chongqing-huo-guo` — RULED AND WRITTEN, 6 Aug 2026
+⚖️ **Tina's call: "accept whole pot."** The record carries whole-pot quantities while declaring
+`servings: 1`, exactly as `china-staple-master-stock` and `china-da-pan-ji` already do — so the
+engine's numbers were written per §30.1 rather than the quantities being rewritten.
+**R32 → R616 · R62 → R830 · R88 → R1032.** All three resolved with **no ABSENT keys** before writing.
+✅ **China is now `costcheck` ✅82 · 🟠0 · 🔴0.** That was the last costPP red in the lane.
+⚠️ Its ⬜68 block is pre-existing and unrelated.
 
-▶️ **Needs Tina's word: clear it now, or move the gate to "before Italy".** ⛔ Do not decide this alone.
+📌 **THE CONVENTION THIS SETTLES, AND IT IS NOT WRITTEN DOWN ANYWHERE ELSE:** three China
+records use WHOLE-POT amounts under `servings: 1`. That is now accepted rather than a bug.
+⛔ **Do not "fix" them to per-serving in a later session without re-opening this ruling.**
 
-⚖️ **THE RULING THIS SUGGESTS, NOT YET MADE:** `costcheck` should answer *"is this number CURRENT?"* separately from *"is this number IN BAND?"* — e.g. a recorded hash of `prices.js` per lane. ⛔ Do not build mid-lane.
+### 8k · 🟠 `costcheck` SCORES VERSIONS ONLY — 293 FLAT RECORDS NEVER CHECKED
+MF153 widened the country map 6 Aug (now 12 lanes; selftest still 11/11). That surfaced the bigger hole: `wk_africa.js` (190) and `wk_world.js` (103) are **entirely flat**, `wk_southafrica.js` is 108 flat of 131. None have ever been cost-checked by anything.
+
+### 8l · 🟠 `wk_europe` — SPLIT IT BEFORE ANYONE PANICS
+**149** versions resolve fine and the stored number is just old → ⚙️ mechanical, **NO PRICES NEEDED**. **50** carry an ABSENT key. Of the 27 distinct absent strings: **17 are pure mechanics** (counts like `1 clove` where `cloves` R1022 is keyed; `orange`→`oranges`; `sprig rosemary`→`rosemary`; three `or`s), **8 are real substitution decisions** (morcela · alheira · doce de chila · pennyroyal · mountain cheese · pig's ear · turnip greens · whole suckling pig) and ~~**only 2 are money**~~ ✅ **ALL FOUR PRICED 6 Aug** — `goat`/`kid goat` R220 (her ruling: no SA difference) · `lobster` R570 whole + `lobster tail` R1790 · `chestnuts` R710. ⛔ Also fixed: `crayfish` was aliased to `prawns` R350 and is now `lobster`; zero cards write it, so nothing moved..
+🩸 **REPORTING SCAR:** this was first reported to Tina as *"148 🔴"* un-split, and she read it — reasonably — as prices going missing. ✅ **The reverse ledger check was run and is the proof: 149 of 149 priced ledger entries still in `prices.js` at her exact number, ZERO missing, ZERO changed.** 📌 **That reverse check should be a permanent mode** — `--check` only proves the forward direction.
+
+### 8m · 🔴 `stock cubes` R1.50 IS TAGGED `weight`, NOT PER-UNIT
+A card writing grams of stock cube bills R1.50 **per kilogram** — effectively free. A broken key, not a wrong number.
 
 ### 8f · 🟠 THE SUBSTRING-FALLTHROUGH PATTERN — NOT YET A WATCHER
 A compound name falls through to a SHORTER, CHEAPER key by substring and bills at its price. It is never ABSENT, so coverage never drops and no watcher fires.
@@ -306,6 +382,11 @@ Not new faults; pre-existing faults becoming visible. Re-derive off the engine.
 
 ### 8h · 📁 MF-BRIEF FILING — GROWING
 🆕 **49 MF-briefs now live in `reference/`**, up from 33 on 3 Aug. `/law` hygiene flags them every run and several are visibly done. ⚖️ *A standard is forever, a brief is for a day.* A filing pass into `Archive/` drops the hygiene count and stops a future session reading a spent brief as live work.
+
+### 8i-2 · 🔴 MF154 — FOUR BUDGET FORKS THAT FAIL A3 · QUEUED SINCE 4 Aug
+`china-cong-you-bing` R26 vs R26 · `china-da-pan-ji` R275 vs R256 · `china-staple-suan-cai` R32 vs R9 · `china-wuxi-pai-gu` R67 vs R64.
+⚖️ **§37 / A3 — a version labelled `Budget` must come in UNDER THE DEFAULT.** ⛔ **NONE were caused by the 6 Aug re-derivations** — measured with `git stash` before and after: China's claimcheck reds went **5 → 4**, so tonight FIXED one. ⚖️ A re-derivation cannot create a Budget breach; it reveals one that the stored number was hiding.
+▶️ The fix is §37: label the fork by DIET or by DISH, never by cost, unless it genuinely comes in under.
 
 ### 8i · 🟡 STILL OPEN ELSEWHERE
 **§2.5 merge unrun** — seven SA dishes held. · **SA Session 3** (post-reset only) — dessert icons and Umngqusho. · **Northern Ireland** — still Tina's call.
@@ -349,7 +430,8 @@ Author → `/all` on the batch file → fix → `merge.js` → `costcheck` for t
 6. 🚨 **HARD RELOAD after Netlify deploys.** ⚖️ Law 27.
 7. **Write the session-close. Move the old one to `Archive/`.**
 8. **Update the count in every document that carries one.** ⚖️ This is the step that got skipped and produced the 6 Aug meta-scar.
-9. 💰 **BANK EVERY PRICE SHE GAVE** — into `prices.js` AND `PRICE_LEDGER.json`, same write. Same for every NOT-IN-SA ruling and every A7 deferral.
+9. 🔑 **`node priceledger.js --check`** → must read *✅ every Tina-attributed key has a ledger entry.*
+10. 💰 **BANK EVERY PRICE SHE GAVE** — into `prices.js` AND `PRICE_LEDGER.json`, same write. Same for every NOT-IN-SA ruling and every A7 deferral.
 
 ---
 

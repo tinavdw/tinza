@@ -297,6 +297,18 @@ const PRICE_DB = {
   "lamb potjiekos": 150,      // src:Shoprite/PnP when:2026-07 conf:shelf range:130-170  (forequarter MIX, not neck)
   "lamb knuckles": 200,       // src:online when:2026-07 conf:online  (mid premium band R169-235)
   "lamb rump": 310,           // src:online when:2026-07 conf:online  (steak)
+  // ⚖️ TINA 6 AUG 2026 — goat (chevon). Retail cuts R150–R220/kg · stewing R180–R220 ·
+  //    short rib / neck R130–R150. Band R130–R220, spread 1.69x, under the §3l threshold.
+  //    Most expensive per §31.1 → R220.
+  //    ⚖️ HER RULING: "kid goat should be same as normal goat, here in SA no difference."
+  //       So `kid goat` is keyed to the SAME number rather than aliased away — the two
+  //       cards that use it (`portugal-chanfana` goat, `portugal-cabrito-assado` kid goat)
+  //       both resolve, and neither name is lost from the card. ⚠️ Elsewhere in the world
+  //       kid IS dearer; this key is South Africa only, which is what this file prices.
+  "goat": 220,
+  "kid goat": 220,
+  "goat meat": 220,
+  "chevon": 220,
   "mutton": 180,              // src:online when:2026-07 conf:online  (separate animal-age)
   // DELETED & reconciled: "lamb rib" R220 (ambiguous rack/riblets) · "lamb roast" R190 (a method, not a product). Both are now aliases → core.js.
 
@@ -368,6 +380,26 @@ const PRICE_DB = {
   "hake": 180,                // MF28 R3: reconciled 257→180 (frozen fillet, what SA cooks buy; R257 was v20, no provenance, +43% over-pricing inflated the green number). VALUE-reconciled not aliased so the ~8 "…→hake" aliases (cod/white fish/carp…) don't cascade to null. src:SeaHarvest/I&J when:2026-07 conf:shelf
 
   "prawn meat": 350,          // R140/400g → R350/kg
+  // ⚖️ TINA 6 AUG 2026 — lobster. ⛔ TWO PRODUCTS, TWO KEYS — the `tuna steak ≠ tuna` shape.
+  //    WHOLE, per kg: West Coast rock lobster / crayfish R380–R570/kg → most expensive §31.1 = R570.
+  //    TAIL, per kg: East Coast tails R159–R179 per 100–120g → R1325–R1790/kg → R1790.
+  //    ⚖️ A tail is roughly a third of the animal, so tail meat is ~3x whole per kg. Aliasing
+  //       one to the other would be wrong in whichever direction it was done.
+  //    ⚠️ Her South Coast tail (R249–R465) and whole Mozambican (R499–R865) figures are PER
+  //       PIECE with no stated weight and could NOT be derived. Not used. Not guessed at.
+  //    ✅ `portugal-arroz-de-marisco` writes "200g lobster (in the shell)" — WHOLE, so R570.
+  "lobster": 570,
+  "whole lobster": 570,
+  "rock lobster": 570,
+  "lobster tail": 1790,
+  "lobster tails": 1790,
+  // ⚖️ TINA 6 AUG 2026 — cooked/peeled chestnuts, R299 per 420g imported pack → R710/kg.
+  //    ⛔ NOT `water chestnuts` R152 — a completely different plant. Her own figures confirm
+  //       that key though: R69–R80 per 567g tin = R122–R141/kg against the keyed R152.
+  //    ⚠️ Her bulk raw figure ($1.20–$4.00/kg) is global wholesale, not an SA shelf. Not used.
+  "chestnuts": 710,
+  "chestnut": 710,
+  "peeled chestnuts": 710,
   "prawns": 350,
   "mussels": 250,             // R100/400g → R250/kg
   "seafood mix": 157,         // R110/700g → R157/kg
@@ -433,6 +465,12 @@ const PRICE_DB = {
   //    ⛔ `kefalotyri` IS STILL UNKEYED. The card writes "graviera or kefalotyri", and an
   //       "or" in an ingredient name can never resolve. See MF176.
   "graviera": 1160,
+  // TINA 6 AUG 2026 - local artisanal mountain cheese (Forest Hill, Klein River Gruberg
+  //   and similar). R140-R150 per 180-200g wedge -> R700-R833/kg. Spread 1.19x, well under
+  //   the 3l threshold. Most expensive per 31.1 -> R833.
+  //   HER SUBSTITUTES ARE NAMED BUT NOT ALIASED: mature Gouda, Huguenot, imported Gruyere.
+  //   NONE of the three is keyed, so aliasing to any of them would invent a number.
+  "mountain cheese": 833,
   "parmesan": 750,            // R30/40g → R750/kg
   "brie": 400,                // R50/125g → R400/kg
   "camembert": 456,           // R57/125g → R456/kg
@@ -746,9 +784,13 @@ const PRICE_DB = {
                              // ⚠️ NOT the same product as `tapioca starch` R70 — sago is palm-trunk
                              // starch, tapioca is cassava root. Kue Lapis's trivia argues this out.
                              // They substitute for each other in a steamer; they are not one key.
-  "bamboo shoots": 136,      // R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.
-                             // ⚠️ Priced on DRAINED weight, which is lower than the tin weight —
-                             // a card writing 60g means 60g drained, so this is the honest per-kg.
+  // ⚠️ CORRECTED WORDING 6 Aug 2026 — THIS COMMENT USED TO SAY "priced on DRAINED weight"
+  //    AND THEN DIVIDE BY THE NET TIN. It does not. R55.99 / 410g IS the net-tin figure.
+  //    ⚖️ TINA 6 Aug: "always use drained weight for things that are in brine." Bamboo shoots
+  //    are in brine, so this is an ARM 2 key priced on an ARM 1 basis and it reads LOW.
+  //    ⛔ THE NUMBER IS NOT CHANGED HERE — correcting it needs the drained weight off the tin,
+  //    and §38 warns the drained fraction is not constant across sizes. A7: defer, never guess.
+  "bamboo shoots": 136,      // R55.99 per 410g can (NET) → R136/kg. TINA-SOURCED 30 Jul 2026.
   "water chestnuts": 152,    // R86 per 567g can -> R152/kg. TINA-SOURCED 2 Aug 2026: her band was
                              // R69-R86 for a 567g tin (Sun Phoenix and similar). §31.1 says lean high
                              // and do not centre, so the TOP of her band is taken, then §31 rounds up.
@@ -1094,7 +1136,10 @@ const PRICE_DB = {
   // ── KIDDIES UNICORN (Jun 2026) ──
   "tortillas": 139,           // R50/8 wraps (~360g)
   "white chocolate": 313,     // R25/80g
-  "fruit cocktail": 98,       // R40/410g tin
+  // TINA 6 AUG 2026 - syrup ruled ARM 2: "mostly used with syrup, but not always, best to
+  //   use drained weight." The only syrup-packed tin key in this file.
+  //   NUMBER NOT CHANGED - it needs the drained weight off the label. A7: defer, never guess.
+  "fruit cocktail": 98,       // R40/410g tin (NET) - ARM 2, awaiting a drained weight
   "apple juice": 40,          // R40/1L
   "strawberry juice": 54,     // R27/500ml
   "popcorn kernels": 30,      // ESTIMATE - confirm price
@@ -1173,6 +1218,24 @@ const PRICE_DB = {
   "sugar": 35,                // alias of white sugar (per kg)
   "golden sugar": 35,         // = sugar + trace gold luster dust / yellow colouring
   "pink colouring": 15,       // = food colouring (R15/40ml bottle, tiny amounts)
+  // ⚖️ TINA 6 AUG 2026 — morcela, Portuguese blood sausage. R175–R250/kg at Portuguese-
+  //    heritage delis and butcheries in SA. Most expensive per §31.1 → R250.
+  //    ✅ BUYABLE HERE, so it gets a real key rather than a NOT-IN-SA ruling.
+  //    ⚖️ Her named substitutes, for a card that cannot find a deli: British or Irish black
+  //    HER SUBSTITUTE RULING, 6 Aug - AND IT SPLITS IN TWO, WHICH IS THE USEFUL PART:
+  //      FOR FLAVOUR: Spanish morcilla is closest (British/Irish black pudding also works).
+  //      FOR TEXTURE ONLY: local boerewors R120 or a spiced pork sausage will carry the dish
+  //      "if you are not set on the iron-rich blood flavour" - her words, and the CARD should
+  //      say exactly that rather than pretend it is the same thing.
+  //    NONE OF THE SUBSTITUTES IS ALIASED. `morcilla` and `black pudding` are not keyed at
+  //    all, and aliasing morcela to `boerewors` would silently swap a blood sausage for a
+  //    beef one. The substitution belongs on the CARD, where a cook can read it.
+  "morcela": 250,
+  // ⚖️ TINA 6 AUG 2026 — alheira, ~R250/kg at specialised delis. ✅ Buyable here.
+  //    ⚖️ Her note: the bread-and-garlic paste makes direct substitutes rare; smoked
+  //       chouriço or a heavily garlic-seasoned pork sausage is the closest.
+  "alheira": 250,
+  "alheira sausage": 250,
   "sausage": 130,             // sausage-roll filling / sausage meat (≈ boerewors)
   "cocktail sausage": 180,    // R135/750g → R180/kg (braai-able, NOT viennas)
   "tartare sauce": 300,       // 1 Jul · R47.99/160g → R300/kg (jarred) — own key, NOT cream of tartar
@@ -1233,6 +1296,26 @@ const PRICE_DB = {
   // "lamb leg" & "lamb ribs" keys DELETED 12 Jul (SIGNED) → now aliases in core.js (leg of lamb / lamb riblets). One product, one price.
   "lamb liver": 70,           // your figure (R60–70 high)
   "tripe": 130,               // Afval cleaned tripe high end
+  // TINA 6 AUG 2026 - "pig ear is offal, whole pork is R60 per kg."
+  //   Priced as offal off the whole-carcass figure -> R60/kg.
+  //   NOTE: this does NOT contradict `pork` R110. That key is RETAIL CUTS; R60 is the whole
+  //   animal. Two honest figures for two different things - do not "reconcile" them.
+  //   It DOES sit oddly against `trotters` R130, also offal and dearer. Trotters are
+  //   separately Tina-sourced and are a sought-after item here; left as found, flagged.
+  //   NO APOSTROPHE FORM IS KEYED, DELIBERATELY: wkPriceLookup does NOT resolve "pig's ear"
+  //   even with that exact key present - the apostrophe breaks the match. Such a key would
+  //   be DEAD and misleading, so the CARD was changed to `pigs ear` instead.
+  //   A dead alias is worse than no alias. Same class as the hyphen normalisation found on
+  //   `free-range bird` and `pork lard` on the same day.
+  // TINA 6 AUG 2026 - whole suckling pig, R60/kg. Same whole-carcass basis as `pigs ear`.
+  //   portugal-leitao writes "600g whole suckling pig (order ahead - a 6kg pig...)" - a
+  //   special order rather than a shelf item, but a real SA price, so a real key.
+  //   Again: does NOT contradict `pork` R110, which is retail cuts.
+  "whole suckling pig": 60,
+  "suckling pig": 60,
+  "pigs ear": 60,
+  "pigs ears": 60,
+  "pig ear": 60,
   "trotters": 130,            // pig/sheep trotters
   "caul fat": 160,            // netvet (Skilpadjies) high end
   // ── Session adds (Jun 2026, Tina-sourced) ──

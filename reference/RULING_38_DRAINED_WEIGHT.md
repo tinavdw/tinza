@@ -108,3 +108,79 @@ bamboo shoots are ordinary in parts of Asia and Australia and almost unobtainabl
 are **separate keys with no SA price**, deferring cleanly under A7 — never an alias pointing
 at the tinned product. Same shape as the lamb ruling: name the thing, do not alias it to a
 near-miss.
+
+---
+
+## ⚖️ CLARIFICATION — TINA, 6 AUG 2026: **BRINE vs SAUCE**
+
+> *"we should always use drained weight for things that are in brine, not for something like baked beans that are in a sauce"*
+
+⚖️ **THIS SHARPENS ARM 1 / ARM 2 AND SHOULD BE THE TEST THAT IS ACTUALLY USED.**
+The original wording asks *"is the liquid used in the dish"* — which is a judgement about the
+RECIPE and can differ card to card for the same tin. **Brine versus sauce is a property of the
+TIN.** It can be answered standing in the aisle, it gives the same answer every time, and it
+does not need the recipe in front of you.
+
+| the tin is packed in | arm | basis |
+|---|---|---|
+| **brine, water, oil or SYRUP — anything you pour away** | **Arm 2** | **DRAINED weight** |
+| **a sauce, or a liquid that IS the food** | **Arm 1** | net weight stands |
+
+⚖️ **SYRUP RULED IN, 6 Aug 2026.** Tina: *"its a difficult one, mostly used with syrup, but not
+always, best to use drained weight."* ✅ **That collapses the test to one question and makes it
+easier, not harder: DOES THE LIQUID GO IN THE POT, OR DOWN THE SINK?** Down the sink — brine,
+water, oil, syrup, no exceptions — and you divide by drained. In the pot, and net stands.
+⚖️ She chose the honest direction under §30.5 as well: drained is the DEARER per-kg, and a plan
+that comes in under is a good surprise.
+
+---
+
+## 📏 THE CORPUS CLASSIFIED AGAINST IT — 6 Aug 2026
+
+### 🚿 ARM 2 · POURED AWAY → NEEDS A DRAINED WEIGHT OFF THE LABEL (11 keys)
+`bamboo shoots` R136 *(410g can)* · `water chestnuts` R152 *(567g can)* · `artichoke hearts` R150
+*(400g tin)* · `tinned asparagus` R197 *(330g)* · `butter beans` R68 *(400g)* · `black beans` R50
+*(400g)* · `sugar beans` R78 *(410g)* · `tinned cannellini beans` R80 *(400g)* · `kidney beans` R35
+*(already marked ESTIMATE)* · `tuna` R120 *(already marked ESTIMATE)* · **`fruit cocktail` R98**
+*(410g tin, syrup — ruled in 6 Aug)*
+
+⚠️ **ALL TEN ARE CURRENTLY DIVIDED BY THE NET TIN WEIGHT.**
+
+🩸 **ONE comment misdescribed its own arithmetic:** `bamboo shoots` said *"priced on DRAINED
+weight"* and then divided R55.99 by the 410g **net** tin. ✅ **Wording corrected 6 Aug; the
+NUMBER was deliberately left alone**, because moving it needs a label. **A comment that
+misdescribes its own maths is worse than no comment — the next reader trusts it.**
+
+✅ **AND ONE GOT IT RIGHT AND SAW THIS COMING.** `water chestnuts`, written 2 Aug, already says:
+*"price divided by the weight printed on the tin… OPEN, NON-BLOCKING: if a tin prints a SEPARATE
+drained weight well under 567g, this key is understated and so is bamboo shoots. Both would move
+together, in one pass, never key by key. Worth an eyeball next shop."*
+⚖️ **Tina's brine/sauce ruling is the answer to the question that key asked four days earlier.**
+That is what a good comment does — it leaves the door open instead of pretending to be finished.
+
+### 🍲 ARM 1 · SAUCE / THE LIQUID IS THE FOOD → NOTHING CHANGES (8 keys)
+`baked beans` R41 · `tinned beans` R41 · `creamed corn` R59 · `caramel treat` R125 ·
+`chicken broth` R100 · `coconut milk` R63 · `coconut cream` R83 · `tomato puree` R68 ·
+`chopped tomatoes` R66 — ⚖️ the juice in a tomato tin **is** the product and goes in the pot.
+
+### ⛔ NOT §38 AT ALL — CHECKED, AND THREE OF THESE WERE NEARLY MISCLASSIFIED
+`chickpeas` R68 — **R34 per 500g is a DRIED pack, not a tin.** ·
+`pineapple` R25 — priced **"each"**, fresh. · `peaches` R35 · `lentils` R62 — dried.
+⚖️ **Read the comment before classifying a key. Three of these were guessed wrong first time.**
+
+### ✅ SYRUP — RULED 6 Aug 2026, NO LONGER OPEN
+`fruit cocktail` R98 *(410g tin)* is the **only** syrup-packed tin key in the file. Checked and
+ruled out as fresh, not tinned: `pears` R23 *(R35/1.5kg)* · `apricots` R36 *(comment says FRESH)* ·
+`peaches` R35 · `cherries` R180 · `pineapple` R25 *(priced "each")*.
+⚖️ `condensed milk` R119 and `evaporated milk` R100 are **Arm 1** — the liquid IS the product.
+
+---
+
+## ▶️ WHAT THIS MAKES THE JOB
+
+⛔ **NOT A RULING QUESTION ANY MORE — A LABEL QUESTION.** Eleven keys need the drained weight
+printed on the back of the tin. §38 already warns the drained fraction is **not constant across
+sizes on the same product line** *(the 227g tin runs ~62% drained)*, so each key needs the tin
+size it was derived from recorded in the ledger. **Several currently do not have it.**
+
+✅ **Eleven photos of eleven tin backs closes this permanently.**
