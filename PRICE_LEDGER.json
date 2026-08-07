@@ -23,7 +23,7 @@
       "value": 1500,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "20ml @ R30 -> R1500/L. TINA-SOURCED 6 Aug 2026. Her upper figure R129/bottle has NO STATED VOLUME and cannot be derived; not used. WARNING: this is COLOURING, not annatto SEED (hat dieu mau) - a different product, deliberately left unkeyed, do not alias.",
+      "evidence": "TINA-SOURCED 6 Aug 2026: 20ml @ R30 -> R1500/L. WARNING: this is the FOOD COLOURING, not the SEED. 'annatto seeds' (hat dieu mau) is a DIFFERENT PRODUCT and remains UNKEYED - do not alias one to the other. vietnam-bo-kho routes around it with paprika. Her upper figure R129/bottle had no stated volume and could not be derived.",
       "pricesLine": null
     },
     {
@@ -165,15 +165,6 @@
       "grandfathered": true,
       "evidence": "100g/R35 → R350/kg (Tina)",
       "pricesLine": 1014
-    },
-    {
-      "key": "catfish",
-      "value": null,
-      "date": "6 Aug 2026",
-      "grandfathered": false,
-      "ruling": "NOT-IN-SA",
-      "evidence": "⛔ NOT COMMERCIALLY SOLD IN SA — RULING, NOT A PRICE. Tina 6 Aug 2026: 'only if you catch it yourself, substitute with hake'. Deliberately NOT keyed in prices.js. Any record wanting catfish writes `hake` R180 and says so on the card. DO NOT ASK AGAIN.",
-      "pricesLine": null
     },
     {
       "key": "chicken broth",
@@ -521,7 +512,7 @@
       "value": 450,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "R450/kg top of band. TINA-SOURCED 6 Aug 2026. Band R170-R450/kg fresh/frozen, plus 2kg @ R499.99 -> R250/kg. Spread 2.65x = OVER the 2x threshold where 3l (mid-vs-top on wide bands) is UNRULED. Standing most-expensive rule applied because it is the rule until Tina rules otherwise. IF 3l EVER MOVES TO A MID, THIS KEY MOVES FIRST.",
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R170-R450. Most expensive per 31.1 -> R450/kg. WARNING: spread is 2.65x, which is OVER the threshold where 3l (mid-vs-top on wide bands) is UNRULED. The standing most-expensive rule was applied because it is the rule until she rules otherwise. IF 3l IS EVER RULED TOWARD A MID, THIS KEY MOVES FIRST. Counter-precedent: white wine vinegar R165 was set as an honest mid on 22 Jul.",
       "pricesLine": null
     },
     {
@@ -678,7 +669,7 @@
       "value": 2900,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "R290 per 100g -> R2900/kg. TINA-SOURCED 6 Aug 2026. Aliases: pandan powder, pandan. Only the POWDER is buyable in SA; fresh leaf is not keyed.",
+      "evidence": "TINA-SOURCED 6 Aug 2026: R290 per 100g -> R2900/kg. Aliases pandan powder / pandan keyed to the same number. ONLY THE POWDER IS BUYABLE IN SA - fresh pandan leaf is NOT keyed and must not be aliased in. Unblocks Che Ba Mau, which was previously held on pandan absence.",
       "pricesLine": null
     },
     {
@@ -736,6 +727,14 @@
       "grandfathered": true,
       "evidence": "(Tina)",
       "pricesLine": 265
+    },
+    {
+      "key": "pork hock",
+      "value": 99,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: pork hocks (shanks), SA supermarket band R49.99-R99.00/kg (Checkers/Shoprite/Pick n Pay R49.99-R79.99; butchery to R99). RULE APPLIED: most expensive per 31.1. Spread 1.98x, under the 3l wide-band threshold. Aliases pork hocks/pork shank/pork shanks keyed to the same number in the same write; pork shank moved 80->99, measured as used by ZERO records. Her named substitutes: beef shin, pork neck, pork trotters.",
+      "pricesLine": null
     },
     {
       "key": "quinoa",
@@ -1097,7 +1096,7 @@
       "value": 500,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "40g @ R20 -> R500/kg. TINA-SOURCED 6 Aug 2026. Band R325-R500/kg (40g @ R12.99-R20). Spread 1.54x, most-expensive rule.",
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R325-R500 (40g @ R12.99-R20). Most expensive per 31.1 -> R500/kg.",
       "pricesLine": null
     },
     {
@@ -1129,16 +1128,7 @@
       "value": 943,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "70g @ R66 -> R943/kg. TINA-SOURCED 6 Aug 2026. Band R503/kg (1kg bulk, HelloAsia) - R700/kg (50g @ R35, Lunar Mart) - R943/kg (70g @ R66). Spread 1.87x, under the 3l 2x threshold, so most-expensive rule applies cleanly. Aliases cover dried/fungus/black variants. LIVE 8f FALLTHROUGH FIXED: three China records billed at mushrooms R140, ~6.7x LOW.",
-      "pricesLine": null
-    },
-    {
-      "key": "yard-long beans",
-      "value": null,
-      "date": "6 Aug 2026",
-      "grandfathered": false,
-      "ruling": "NOT-IN-SA",
-      "evidence": "⛔ NOT-IN-SA — RULING, NOT A PRICE. Tina, Asia lane. Deliberately NOT keyed. Backfilled into the ledger 6 Aug 2026 because `--ask` was still reporting it as GENUINELY ABSENT / safe to ask, which is exactly how she ends up answering the same item twice.",
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R503 (1kg bulk) to R943 (70g @ R66). Spread 1.87x, UNDER the 3l wide-band threshold, so most-expensive per 31.1 applies clean -> R943. Six aliases keyed to the same number. KEYING THIS FIXED A LIVE 8f FALLTHROUGH: three China records wrote 'wood ear mushrooms' and were billing at 'mushrooms' R140, ~6.7x LOW, never ABSENT so no watcher fired. Measured with git stash: china-hot-and-sour-soup Classic Beijing R71 -> R84, re-derived per 30.1.",
       "pricesLine": null
     },
     {

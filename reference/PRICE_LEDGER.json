@@ -19,6 +19,14 @@
       "pricesLine": 1013
     },
     {
+      "key": "annatto food colouring",
+      "value": 1500,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: 20ml @ R30 -> R1500/L. WARNING: this is the FOOD COLOURING, not the SEED. 'annatto seeds' (hat dieu mau) is a DIFFERENT PRODUCT and remains UNKEYED - do not alias one to the other. vietnam-bo-kho routes around it with paprika. Her upper figure R129/bottle had no stated volume and could not be derived.",
+      "pricesLine": null
+    },
+    {
       "key": "aonori",
       "value": 28125,
       "date": "30 Jul 2026",
@@ -99,6 +107,14 @@
       "pricesLine": 264
     },
     {
+      "key": "beef stock",
+      "value": 8,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026, SUPERSEDING the previous R50. Her arithmetic: 500ml water + 1 stock cube @ R1.50 = R3.00/L (cube route). RULED: land it on R8 to match the generic `stock` key (carton route), which is the dearer and therefore correct direction under 30.5. The old R50 was SIX TIMES the generic key while its own comment read 'mostly water + cube' - same product, two prices. Only 11 versions across the whole app actually write 'beef stock'; 8 re-derived off the engine in the same session per 30.1, 3 held on china-chongqing-huo-guo. chicken/fish/vegetable stock are NOT keyed and fall through to `stock` R8 by substring - correct by accident, left as found.",
+      "pricesLine": null
+    },
+    {
       "key": "birds eye chilli_each",
       "value": 0.3,
       "date": "4 Aug 2026",
@@ -107,10 +123,18 @@
     },
     {
       "key": "black cardamom",
-      "value": 420,
-      "date": "3 Aug 2026",
+      "value": 720,
+      "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "TINA-SOURCED 3 Aug 2026: R18-R45 per 25-50g pack = R150-R420/kg. TOP OF THE BAND R420 per the most-expensive rule (Tina 13 Jun, restated 30 Jul). Vietnam B1 (pho spice sachet). NOT `cardamom` R3083 - that is GREEN cardamom, a different pod (floral vs smoky) and ~7x dearer; black was substring-matching to it silently. Shelf names 'badi elaichi' and 'black elachi' keyed to the same value."
+      "evidence": "TINA-SOURCED 6 Aug 2026, SUPERSEDING her 3 Aug figure. Badi elaichi, R18.00-R34.00 per 25g-50g pack. R18/25g = R720/kg; R34/50g = R680/kg. RULE APPLIED: most expensive per 31.1 -> R720. The 3 Aug key of R420 implied ~R21 per 50g, BELOW the bottom of the band she quoted three days later - it was wrong, not stale, so 29.5 applies. MOVES BANKED RECORDS IN wk_china.js AND wk_vietnam.js (vietnam-pho-bo carries 2g); all affected costPP re-derived off the engine in the same session per 30.1."
+    },
+    {
+      "key": "black-eyed beans",
+      "value": 55,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: DRY black-eyed beans. 500g pack R17.00-R20.00 (= R34-R40/kg); 1kg pack R45.00-R55.00/kg. Full band R34-R55/kg. RULE APPLIED: most expensive per 31.1 -> R55. Spread 1.62x, under the 3l wide-band threshold. NOTE THE INVERSION: the 1kg pack is MORE per kg than the 500g pack, which is backwards from most bulk lines in prices.js - do not read R55 as a typo and pull it to R40. Aliases black eyed beans / black-eyed peas / black eyed peas / dried black-eyed beans keyed to the same number in the same write. DISTINCT from 'black eyed pea flour' R170 (milled) and from 'black beans' R50 (tinned, different variety) - no aliasing in either direction. DRY weight, 38 does not apply.",
+      "pricesLine": null
     },
     {
       "key": "broken rice",
@@ -348,6 +372,14 @@
       "evidence": "TINA-SOURCED 4 Aug 2026. DERIVATION: 50g R15.99 = R320/kg; 500g R110-R165 = R220-R330/kg. Band R220-R330, TOP OF THE BAND. ⛔ A DIFFERENT PRODUCT FROM FRESH `birds eye chillies` R100 — dried is concentrated and dearer, and the two must never share a key. ⚠️ MEASURED RADIUS AT THE TIME OF KEYING: ZERO LINES. No card currently writes \"dried birds eye chillies\". The key is pre-emptive, not load-bearing, and its presence must not be read as evidence that dried bird's-eye lines are handled."
     },
     {
+      "key": "dried cannellini beans",
+      "value": 70,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026. SOURCING RULING as much as a price: true DRIED cannellini is uncommon in mainstream SA supermarkets, which mostly stock CANNED cannellini (R20-R32 per 400g tin) or dried white/sugar/speckled beans (R50-R70/kg). DRIED keyed at R70/kg = top of her dried-white-bean band, most expensive per 31.1 - this is the key the three wk_europe cards hit, since they write '70g dried cannellini beans'. TINNED keyed at R80/kg = R32 per 400g tin, top of band, ON TIN WEIGHT to match every other tinned bean in prices.js (butter beans R68, black beans R50, baked beans R41). FLAGGED, NOT RESOLVED: 38 keys such as bamboo shoots R136 and water chestnuts R152 use DRAINED weight instead - two bases live in the file.",
+      "pricesLine": null
+    },
+    {
       "key": "dried fruit",
       "value": 240,
       "date": null,
@@ -370,6 +402,14 @@
       "grandfathered": true,
       "evidence": "(Tina)",
       "pricesLine": 269
+    },
+    {
+      "key": "dried tangerine peel",
+      "value": 700,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: R35.00 per 50g pack -> R700/kg. Single data point, no band. Aliases tangerine peel / dried naartjie peel / naartjie peel / chenpi keyed to the same number in the same write. Closes a genuine UNSCOREABLE on china-staple-master-stock (Classic Lu Shui, Sichuan Red) where the key was ABSENT. 33: naartjie kept and explained as the SA word, never translated away.",
+      "pricesLine": null
     },
     {
       "key": "dried wakame",
@@ -426,6 +466,14 @@
       "grandfathered": true,
       "evidence": "Tina 30 Jul 2026: heavy duty 5m R39",
       "pricesLine": 49
+    },
+    {
+      "key": "graviera",
+      "value": 1160,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: Greek graviera. Naxos 250g R135 = R540/kg; Dodoni 200g R232 = R1160/kg; 1.2kg wheel R1180 = R983/kg. Band R540-R1160, spread 2.15x, under the 3l threshold. RULE APPLIED: most expensive per 31.1 -> R1160. NOTE: the 1.2kg wheel is CHEAPER per kg than the 200g block - bulk behaving normally, unlike the black-eyed beans entry. kefalotyri remains UNKEYED and the card writes 'graviera or kefalotyri' - an 'or' in an ingredient name can never resolve. See MF176.",
+      "pricesLine": null
     },
     {
       "key": "ground cinnamon",
@@ -500,6 +548,14 @@
       "pricesLine": 424
     },
     {
+      "key": "kingklip",
+      "value": 450,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R170-R450. Most expensive per 31.1 -> R450/kg. WARNING: spread is 2.65x, which is OVER the threshold where 3l (mid-vs-top on wide bands) is UNRULED. The standing most-expensive rule was applied because it is the rule until she rules otherwise. IF 3l IS EVER RULED TOWARD A MID, THIS KEY MOVES FIRST. Counter-precedent: white wine vinegar R165 was set as an honest mid on 22 Jul.",
+      "pricesLine": null
+    },
+    {
       "key": "konjac",
       "value": 140,
       "date": "30 Jul 2026",
@@ -546,6 +602,14 @@
       "grandfathered": true,
       "evidence": "calf's / chicken liver, R80–100 mid (Tina) — covers \"calf's liver\"",
       "pricesLine": 724
+    },
+    {
+      "key": "lotus root",
+      "value": 116,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: imported pre-sliced (e.g. Fuchunlong 500g), R55.00-R58.00 per 500g pack -> R110-R116/kg. RULE APPLIED: most expensive per 31.1 -> R116. Spread 1.05x, far under the 3l wide-band threshold. Alias sliced lotus root keyed the same. Closes a genuine UNSCOREABLE on china-chongqing-huo-guo (3 versions).",
+      "pricesLine": null
     },
     {
       "key": "maasbanker",
@@ -649,6 +713,14 @@
       "pricesLine": 439
     },
     {
+      "key": "pandan leaf powder",
+      "value": 2900,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: R290 per 100g -> R2900/kg. Aliases pandan powder / pandan keyed to the same number. ONLY THE POWDER IS BUYABLE IN SA - fresh pandan leaf is NOT keyed and must not be aliased in. Unblocks Che Ba Mau, which was previously held on pandan absence.",
+      "pricesLine": null
+    },
+    {
       "key": "peanut oil",
       "value": 200,
       "date": "2 Aug 2026",
@@ -697,12 +769,36 @@
       "pricesLine": 725
     },
     {
+      "key": "poppy seeds",
+      "value": 400,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: R19.90 per 100g = R199/kg; R99.99 per 250g = R400/kg. Band R199-R400, spread 2.01x, UNDER the 3l wide-band threshold (kingklip's 2.65x was 3l territory). RULE APPLIED: most expensive per 31.1 -> R400. Alias poppy seed keyed the same. Closes ABSENT lines in wk_europe.js.",
+      "pricesLine": null
+    },
+    {
       "key": "pork bones",
       "value": 45,
       "date": null,
       "grandfathered": true,
       "evidence": "(Tina)",
       "pricesLine": 265
+    },
+    {
+      "key": "pork hock",
+      "value": 99,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: pork hocks (shanks), SA supermarket band R49.99-R99.00/kg (Checkers/Shoprite/Pick n Pay R49.99-R79.99; butchery to R99). RULE APPLIED: most expensive per 31.1. Spread 1.98x, under the 3l wide-band threshold. Aliases pork hocks/pork shank/pork shanks keyed to the same number in the same write; pork shank moved 80->99, measured as used by ZERO records. Her named substitutes: beef shin, pork neck, pork trotters.",
+      "pricesLine": null
+    },
+    {
+      "key": "presunto",
+      "value": 400,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: Portuguese dry-cured ham. R39.00/100g = R390/kg; R78.20/200g = R391/kg; R400/kg whole boneless. Band R390-R400, spread 1.03x. RULE APPLIED: most expensive per 31.1 -> R400. NOT aliased to prosciutto R1190 - her own figures put imported prosciutto at R89.99 per 70-100g = R900-R1285/kg, which brackets and confirms the existing prosciutto key. Two hams, two prices.",
+      "pricesLine": null
     },
     {
       "key": "quinoa",
@@ -1012,6 +1108,14 @@
       "pricesLine": 944
     },
     {
+      "key": "tinned cannellini beans",
+      "value": 80,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026. SOURCING RULING as much as a price: true DRIED cannellini is uncommon in mainstream SA supermarkets, which mostly stock CANNED cannellini (R20-R32 per 400g tin) or dried white/sugar/speckled beans (R50-R70/kg). DRIED keyed at R70/kg = top of her dried-white-bean band, most expensive per 31.1 - this is the key the three wk_europe cards hit, since they write '70g dried cannellini beans'. TINNED keyed at R80/kg = R32 per 400g tin, top of band, ON TIN WEIGHT to match every other tinned bean in prices.js (butter beans R68, black beans R50, baked beans R41). FLAGGED, NOT RESOLVED: 38 keys such as bamboo shoots R136 and water chestnuts R152 use DRAINED weight instead - two bases live in the file.",
+      "pricesLine": null
+    },
+    {
       "key": "tinned mackerel",
       "value": 92,
       "date": "22 Jul 2026",
@@ -1060,6 +1164,14 @@
       "pricesLine": 617
     },
     {
+      "key": "watercress",
+      "value": 500,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R325-R500 (40g @ R12.99-R20). Most expensive per 31.1 -> R500/kg.",
+      "pricesLine": null
+    },
+    {
       "key": "watermelon",
       "value": 30,
       "date": null,
@@ -1082,6 +1194,14 @@
       "grandfathered": true,
       "evidence": "WHOLE ROUND, frozen R59.99/kg. Same whole-weight rule as maasbanker. (Tina 22 Jul 2026)",
       "pricesLine": 250
+    },
+    {
+      "key": "wood ear mushrooms",
+      "value": 943,
+      "date": "6 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 6 Aug 2026: band R503 (1kg bulk) to R943 (70g @ R66). Spread 1.87x, UNDER the 3l wide-band threshold, so most-expensive per 31.1 applies clean -> R943. Six aliases keyed to the same number. KEYING THIS FIXED A LIVE 8f FALLTHROUGH: three China records wrote 'wood ear mushrooms' and were billing at 'mushrooms' R140, ~6.7x LOW, never ABSENT so no watcher fired. Measured with git stash: china-hot-and-sour-soup Classic Beijing R71 -> R84, re-derived per 30.1.",
+      "pricesLine": null
     },
     {
       "key": "yellow soybean paste",

@@ -120,6 +120,11 @@ const PRICE_DB = {
   "paneer": 250,
   "cottage cheese": 172,
   "buttermilk": 46,
+  // ⚖️ TINA 6 AUG 2026 — R19.90/100g = R199/kg · R99.99/250g = R400/kg.
+  //    Band R199–R400, spread 2.01x — UNDER the §3l wide-band threshold (kingklip's 2.65x
+  //    was §3l territory). Most expensive per §31.1 → R400.
+  "poppy seeds": 400,
+  "poppy seed": 400,
   "sesame seeds": 244,
   "beer": 38,
   "herring": 308,
@@ -180,7 +185,15 @@ const PRICE_DB = {
                              // drafted for this slot and was wrong by more than 4x in the expensive
                              // direction — the reason it was asked rather than written.
   "coriander seed": 95,      // singular spelling, same product
-  "black cardamom": 420,     // TINA-SOURCED 3 Aug 2026. R18-45/25-50g pack → R150-420/kg,
+  // ⚖️ TINA 6 AUG 2026 — MOVED R420 → R720 under §29.5 (fix a wrong number when found).
+  //    Her 6 Aug figures: R18.00–R34.00 for 25g–50g packs (badi elaichi).
+  //      R18 / 25g = R720/kg   ·   R34 / 50g = R680/kg   → most expensive per §31.1 = R720.
+  //    ⚠️ The 3 Aug figure of R420 implied about R21 per 50g, which is BELOW the bottom of
+  //       the band she quoted three days later. It was too low, not merely stale.
+  //    ⛔ THIS MOVES BANKED RECORDS IN TWO LANES — wk_china.js and wk_vietnam.js
+  //       (vietnam-pho-bo carries 2g). Every affected costPP was re-derived off the
+  //       engine in the SAME session per §30.1. Never move this key without that pass.
+  "black cardamom": 720,
                              // TOP OF THE BAND R420 per the most-expensive rule (Tina, 13 Jun).
                              // ⛔ NOT `cardamom` R3083 — that is GREEN cardamom. Black (thảo quả /
                              // badi elaichi / black elachi) is a different pod, smoky rather than
@@ -297,7 +310,20 @@ const PRICE_DB = {
   "pork fillet": 110,
   "pork stirfry": 120,
   "pork roast": 80,
-  "pork shank": 80,
+  // ⚖️ TINA 6 AUG 2026 — "pork hocks (shanks)", supermarket band R49.99–R99.00/kg.
+  //    MOST-EXPENSIVE PER §31.1 → R99. Spread 1.98x, UNDER the §3l wide-band threshold
+  //    (kingklip's 2.65x was §3l territory; this is not), so the standing rule applies clean.
+  //    ⛔ `pork hock` was ABSENT and would have fallen through to `pork` R110 — a §8f
+  //       substring fallthrough that no watcher fires on. Keying it closes that hole.
+  //    ⚖️ `pork shank` moved R80 → R99 in the SAME write: hock and shank are one cut, and
+  //       two prices for one cut is exactly the MF137 drift. Measured first — NO record in
+  //       any lane writes `pork shank` in an ingredient line, so zero costPP moves.
+  //    ✅ Her named substitutes, all already keyed: beef shin R120 · pork whole neck R110
+  //       · trotters R130 (note: alias `pork trotters` → `pork bones` R45 is pre-existing).
+  "pork hock": 99,
+  "pork hocks": 99,
+  "pork shanks": 99,
+  "pork shank": 99,
   "pork potjiekos": 80,
   // MF137 · dead "pork belly": 120 deleted — the later R150 always won silently.
   // R150 ruled 22 Jul: SA shelf R129.99 (PnP) to R186.99 (Woolworths), honest middle.
@@ -314,6 +340,13 @@ const PRICE_DB = {
   "ham": 140,
   "hickory ham": 179,
   "salami": 370,
+  // ⚖️ TINA 6 AUG 2026 — presunto, Portuguese dry-cured ham. R39.00/100g = R390/kg ·
+  //    R78.20/200g = R391/kg · R400/kg whole boneless. Band R390–R400, spread 1.03x.
+  //    Most expensive per §31.1 → R400.
+  //    ⛔ NOT AN ALIAS TO `prosciutto` R1190, AND THAT IS THE POINT. Her own figures put
+  //       imported prosciutto at R89.99 per 70–100g = R900–R1285/kg, which brackets the
+  //       keyed R1190 and confirms it. Presunto is a THIRD of that. Two hams, two prices.
+  "presunto": 400,
   "prosciutto": 1190,         // R119/100g → approx
   "parma ham": 1643,          // R115/70g → approx
 
@@ -392,6 +425,14 @@ const PRICE_DB = {
   "feta cheese": 230,         // R46/200g → R230/kg
   "feta": 230,
   "cheddar": 187,             // R149.99/800g → R187/kg
+  // ⚖️ TINA 6 AUG 2026 — Greek graviera. Naxos 250g R135 = R540/kg · Dodoni 200g R232 =
+  //    R1160/kg · 1.2kg wheel R1180 = R983/kg. Band R540–R1160, spread 2.15x — under the
+  //    §3l threshold. Most expensive per §31.1 → R1160.
+  //    ⚠️ NOTE THE INVERSION: the 1.2kg wheel is CHEAPER per kg than the 200g block. Bulk
+  //       behaving normally here, unlike the black-eyed beans line — do not "correct" either.
+  //    ⛔ `kefalotyri` IS STILL UNKEYED. The card writes "graviera or kefalotyri", and an
+  //       "or" in an ingredient name can never resolve. See MF176.
+  "graviera": 1160,
   "parmesan": 750,            // R30/40g → R750/kg
   "brie": 400,                // R50/125g → R400/kg
   "camembert": 456,           // R57/125g → R456/kg
@@ -760,6 +801,22 @@ const PRICE_DB = {
   "lettuce": 22,              // each
   "rocket": 500,              // R20/40g → R500/kg
   "baby spinach": 216,        // R27/125g → R216/kg
+  // ⚖️ TINA 6 AUG 2026 — R35 per 50g pack → R700/kg. Single point, no band to lean on.
+  //    ⛔ CLOSES A GENUINE ⬜ ON `china-staple-master-stock` (2 versions) — the key was
+  //       absent, so the version costed against a half-resolved list and could not be scored.
+  //    ⚖️ §33 — naartjie is the South African word for the loose-skinned citrus this is
+  //       dried from; it is kept and explained, never translated away. Chenpi is the
+  //       Chinese name for the same product, aged.
+  "dried tangerine peel": 700,
+  "tangerine peel": 700,
+  "dried naartjie peel": 700,
+  "naartjie peel": 700,
+  "chenpi": 700,
+  // ⚖️ TINA 6 AUG 2026 — imported pre-sliced, R55–R58 per 500g pack → R110–R116/kg.
+  //    Most expensive per §31.1 → R116. Spread 1.05x, nowhere near §3l territory.
+  //    ⛔ CLOSES A GENUINE ⬜ ON `china-chongqing-huo-guo` (3 versions).
+  "lotus root": 116,
+  "sliced lotus root": 116,
   "spinach": 93,              // R37/400g → R93/kg  ⚠️ this is the CLEANED/CUT PREPACK route, not the bunch
   "bunched spinach": 60,      // TINA-SOURCED 30 Jul 2026: R15–R25 per 300–350g bunch → R45–R70/kg band. Median R57.50, §31 rounds up → R60. The BUNCH route: thick pale rib, broad leaf — what a cooked-greens recipe actually buys. ⛔ QUALIFIER MUST LEAD: "spinach bunch" falls through to spinach R93; write "bunched spinach".
   "cabbage": 25,              // whole
@@ -868,6 +925,23 @@ const PRICE_DB = {
   "condensed milk": 119,      // R46/385g → R119/kg (Tina 11 Jul)
   "baked beans": 41,          // R17/410g → R41/kg
   "sugar beans": 78,          // R32/410g → R78/kg
+  // ⚖️ TINA 6 AUG 2026 — CANNELLINI, AND THE ANSWER WAS A SOURCING RULING, NOT ONE PRICE.
+  //    Her words: true DRIED cannellini is uncommon in mainstream SA supermarkets, which
+  //    mostly stock CANNED cannellini (R20–R32 per 400g tin) or dried white / sugar /
+  //    speckled beans (R50–R70/kg).
+  //    ▶️ DRIED: R70/kg — top of her dried-white-bean band, most expensive per §31.1.
+  //       The three wk_europe cards write "70g dried cannellini beans", so this is the key
+  //       they hit, and it prices them as the dried white bean actually on the shelf here.
+  //    ▶️ TINNED: R80/kg — R32 per 400g tin, top of her band, ON TIN WEIGHT.
+  //    ⚠️ TIN WEIGHT, NOT DRAINED, AND THAT IS DELIBERATE CONSISTENCY: every tinned bean
+  //       in this file is already priced that way — butter beans R27/400g→R68, black beans
+  //       R20/400g→R50, baked beans R17/410g→R41. §38 keys (bamboo shoots R136, water
+  //       chestnuts R152) use DRAINED weight instead. ⛔ TWO BASES LIVE IN THIS FILE. That
+  //       is a real inconsistency and it is NOT resolved here — flagged, not silently picked.
+  "dried cannellini beans": 70,
+  "cannellini beans": 70,
+  "tinned cannellini beans": 80,
+  "canned cannellini beans": 80,
   "butter beans": 68,         // R27/400g → R68/kg
   "chakalaka": 63,            // R25/400g → R63/kg
   "tinned corn": 59,          // R24/410g → R59/kg
@@ -1144,7 +1218,14 @@ const PRICE_DB = {
   "pork belly": 150,          // high end
   "pork fat": 60,             // cheap trim
   "beef": 130,                // generic stewing beef
-  "beef stock": 50,           // mostly water + cube
+  // ⚖️ TINA 6 AUG 2026 — MOVED R50 → R8 to match the generic `stock` key.
+  //    Its own comment already said "mostly water + cube" and then billed SIX TIMES the
+  //    generic liquid-stock key sitting 900 lines above it. Same product, two prices.
+  //    Her arithmetic: 500ml water + 1 stock cube @ R1.50 = R3.00/L (the CUBE route).
+  //    R8/L is the CARTON route and is the honest dearer of the two — §30.5, lean high.
+  //    ⛔ `chicken stock` / `fish stock` / `vegetable stock` are NOT keyed and fall through
+  //       to `stock` R8 by substring. They land correctly BY ACCIDENT. Left as found.
+  "beef stock": 8,
   "stock powder": 50,         // tiny quantities
   "dried beef": 300,          // biltong-style, lean high
   "oxtail": 160,              // oxtail pieces, lean high
@@ -1661,6 +1742,21 @@ const PRICE_DB = {
   "maple syrup": 400,              // ~R100/250ml → R400/L. Was resolving to golden "syrup" R50 — wrong product AND understated. Fixed.
   "soy milk": 30,                  // R30/L. Was resolving to dairy "milk" R20 — non-vegan buy-name. Fixed for the vegan batch.
   "black beans": 50,               // tinned ~R20/400g → R50/kg. Was resolving to "sugar beans" R78 — different variety. Fixed.
+  // ⚖️ TINA 6 AUG 2026 — DRY black-eyed beans. Band R34–R55/kg, most-expensive per §31.1 → R55.
+  //    Her figures: 500g pack R17.00–R20.00 (= R34–R40/kg) · 1kg pack R45.00–R55.00/kg.
+  //    Spread 1.62x, UNDER the §3l wide-band threshold, so the standing rule applies clean.
+  //    ⚠️ NOTE THE INVERSION, AND DO NOT "FIX" IT: the 1kg pack costs MORE per kg than the
+  //       500g pack here. That is backwards from almost every other bulk line in this file,
+  //       so a future session may read R55 as a typo and pull it down to R40. It is not a
+  //       typo. It is what she was quoted, and the most-expensive rule lands on it anyway.
+  //    ⛔ `black eyed pea flour` R170 is a DIFFERENT PRODUCT — milled, not the whole bean.
+  //       Do not alias one to the other in either direction.
+  //    ✅ DRY weight, not tinned and not drained — §38 does not apply to this key.
+  "black-eyed beans": 55,
+  "black eyed beans": 55,
+  "black-eyed peas": 55,
+  "black eyed peas": 55,
+  "dried black-eyed beans": 55,
 
 };
 

@@ -1123,6 +1123,44 @@ function calcSideCost(side){
 // BUY number the moment PACK_DB is live. Never fake a price — an unresolved
 // name returns null and the caller HIDES the figure (same as World).
 var PRICE_ALIAS = {
+  // ⚖️ TINA 6 AUG 2026 — "LARD IS PORK FAT." A RULING, not a price: same product, and it
+  //    already had a key. `lard` was ABSENT and costing 6 europe versions nothing at all.
+  //    ⚠️ `pork lard` DELIBERATELY OMITTED — it resolves to `pork` R110 by substring
+  //       before this map is ever consulted, so an entry here would be dead and
+  //       misleading. No card writes it. A dead alias is worse than no alias.
+  "lard":"pork fat","rendered lard":"pork fat",
+
+  // ⚖️ TINA 6 AUG 2026 — "CHICKEN IS CHICKEN."
+  //    A descriptive adjective on a protein is NOT a different product and does not get
+  //    its own key. free-range / organic / corn-fed / village all resolve to the base bird.
+  //    ⚖️ HER REASON, 6 Aug: "free range chicken is a personal choice." A shopper's
+  //       choice is not a product line, and the price file exists to price products.
+  //    ⛔ THIS RULING IS ABOUT PRICING AND NOTHING ELSE. It does NOT say every bird
+  //       cooks the same — six cards correctly argue that an older, leaner, harder-worked
+  //       bird (ayam kampung, a hard-body, a road runner) carries more connective tissue
+  //       and needs a longer braise. Those are CULINARY claims and they stay.
+  //    ⛔ AND TINZA TAKES NO POSITION ON FARMING ETHICS ON A CARD, IN EITHER DIRECTION.
+  //       Tina holds a view here; it is recorded in TINZA_RULINGS.md and it does not go
+  //       into prose a shopper reads. Same instinct as the no-retailer-names law: the app
+  //       does not make a personal choice on somebody else's behalf.
+  //    ⛔ THIS WAS A REAL FAILURE, NOT A HYPOTHETICAL: `china-da-pan-ji` v3 wrote
+  //       "1 free-range chicken, about 1.6kg, chopped through the bone into 5cm pieces",
+  //       resolved to NOTHING, and sat at a stored R62 against a true R371 for weeks —
+  //       reported as ⬜ UNSCOREABLE, which no gate counts as a failure.
+  //    ⚠️ HONEST CONSEQUENCE, NAMED: free-range costs more on the shelf than the key it
+  //       now resolves to, so the app UNDER-bills anyone who actually buys free-range.
+  //       That is the wrong direction of error under §30.5. It is accepted because a
+  //       resolving name that is slightly low beats an ABSENT name that renders R0 and
+  //       is invisible. ⛔ The fix is a price from Tina, not a second guess.
+  //    ⚠️ THE LOOKUP NORMALISES HYPHENS TO SPACES — both forms are written out below so
+  //       every line in this block demonstrably resolves. A dead alias is worse than none.
+  "free-range chicken":"chicken","free range chicken":"chicken",
+  "organic chicken":"chicken","organic chicken":"chicken",
+  "corn-fed chicken":"chicken","corn fed chicken":"chicken",
+  "village chicken":"chicken",
+  "free-range whole chicken":"whole chicken","free range whole chicken":"whole chicken",
+  "free-range bird":"whole chicken","free range bird":"whole chicken",
+
   // ⚠️ 30 Jul 2026 — `glutinous rice flour` must NOT fall to the new `glutinous rice` R63 key.
   // That would price a FLOUR as a bag of GRAINS, which is the exact bug prices.js already fixed
   // once (see the `rice flour` R40 comment: "Was resolving to `rice` R27 — a bag of grains priced
