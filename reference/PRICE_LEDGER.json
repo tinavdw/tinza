@@ -76,10 +76,12 @@
     },
     {
       "key": "bamboo shoots",
-      "value": 136,
-      "date": "30 Jul 2026",
+      "value": 220,
+      "date": "10 Aug 2026",
       "grandfathered": true,
-      "evidence": "R55.99 per 410g can → ~R136/kg. TINA-SOURCED, applied 30 Jul 2026.",
+      "tinNetWeight": "410g",
+      "tinDrainedWeight": "~254g (62% ESTIMATE — not printed on the tin)",
+      "evidence": "§38 ARM 2 APPLIED 10 Aug 2026: was R136 (R55.99 / 410g NET). A card writing 60g bamboo shoots means 60g DRAINED — the brine goes down the sink — so the net-weight basis read LOW. R55.99 / 0.254kg = R220/kg. ⚠️ THE 62% DRAINED FRACTION IS AN ESTIMATE, not a printed figure: replace it with the label number next time a tin is in hand. Original sourcing: R55.99 per 410g can, TINA-SOURCED 30 Jul 2026. Moved in the same pass as `water chestnuts` and `water chestnut`, per the note that stood on both keys.",
       "pricesLine": 469
     },
     {
@@ -1189,10 +1191,12 @@
     },
     {
       "key": "water chestnuts",
-      "value": 152,
+      "value": 275,
       "date": "2 Aug 2026",
       "grandfathered": false,
-      "evidence": "R69-R86 per 567g can (Sun Phoenix and similar), TINA-SOURCED 2 Aug 2026. §31.1 lean high: top of band R86/567g -> R151.7 -> R152/kg. Arithmetic follows the `bamboo shoots` precedent (price / weight printed on tin). Open non-blocking question: a separately printed drained weight would understate this key AND bamboo shoots, and both move together in one pass.",
+      "tinNetWeight": "567g",
+      "tinDrainedWeight": "~312g (55% ESTIMATE — not printed on the tin)",
+      "evidence": "§38 ARM 2 APPLIED 10 Aug 2026: was R152 (R86 / 567g NET). The open question recorded on 2 Aug is now CLOSED in the direction it warned about — a card writing 60g water chestnuts means 60g DRAINED, so the net basis read LOW. R86 / 0.312kg = R275/kg. ⚠️ THE 55% DRAINED FRACTION IS AN ESTIMATE, not a printed figure. Original sourcing: R69-R86 per 567g can (Sun Phoenix and similar), TINA-SOURCED 2 Aug 2026, §31.1 top of band. Moved in one pass with `bamboo shoots` and the singular `water chestnut`, exactly as that note required.",
       "pricesLine": 617
     },
     {

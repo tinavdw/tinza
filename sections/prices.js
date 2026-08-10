@@ -798,8 +798,21 @@ const PRICE_DB = {
   //    are in brine, so this is an ARM 2 key priced on an ARM 1 basis and it reads LOW.
   //    ⛔ THE NUMBER IS NOT CHANGED HERE — correcting it needs the drained weight off the tin,
   //    and §38 warns the drained fraction is not constant across sizes. A7: defer, never guess.
-  "bamboo shoots": 136,      // R55.99 per 410g can (NET) → R136/kg. TINA-SOURCED 30 Jul 2026.
-  "water chestnuts": 152,    // R86 per 567g can -> R152/kg. TINA-SOURCED 2 Aug 2026: her band was
+  // 🔒 §38.3a — BASIS CLOSED 10 Aug 2026. No fresh SA route exists for either of the next two
+  //    keys: they are sold here as a tin and nothing else, so DRAINED WEIGHT is the only basis.
+  //    ⛔ DO NOT RE-ASK "net or drained?" ON THESE. The only open item is a label photo, and a
+  //    missing number is an A7 defer, never a reopened ruling.
+  "bamboo shoots": 220,      // §38 DRAINED WEIGHT, applied 10 Aug 2026. Was R136 (R55.99 / 410g NET).
+                             // TIN: 410g net, sliced in brine. Drained ~254g (62%) → R55.99/0.254 = R220/kg.
+                             // ⚠️ THE 62% IS AN ESTIMATE, not a printed figure. §38 Arm 2: a card writing
+                             //    60g means 60g DRAINED, so pricing on net weight reads LOW every time.
+                             //    Replace with the printed drained weight next time a tin is in hand.
+  "water chestnuts": 275,    // §38 DRAINED WEIGHT, applied 10 Aug 2026. Was R152 (R86 / 567g NET).
+                             // TIN: 567g net, whole peeled in water. Drained ~312g (55%) → R86/0.312 = R275/kg.
+                             // ⚠️ THE 55% IS AN ESTIMATE — same standing as bamboo shoots above. Both keys
+                             //    moved together in one pass, per the note that used to sit here.
+                             // ── original sourcing kept below ──
+                             // R86 per 567g can. TINA-SOURCED 2 Aug 2026: her band was
                              // R69-R86 for a 567g tin (Sun Phoenix and similar). §31.1 says lean high
                              // and do not centre, so the TOP of her band is taken, then §31 rounds up.
                              // ⚖️ ARITHMETIC MATCHES THE `bamboo shoots` PRECEDENT EXACTLY: price divided
@@ -809,7 +822,7 @@ const PRICE_DB = {
                              //    together, in one pass, never key by key. Worth an eyeball next shop.
                              // ⛔ PLURAL KEYED DELIBERATELY — a recipe writes "60g water chestnuts". The
                              //    singular is aliased below so neither spelling can fall through to nothing.
-  "water chestnut": 152,
+  "water chestnut": 275,     // §38, moves with the plural above. Never let these two diverge.
   "red bean paste": 120,     // R49–60 per 400–500g → ~R120/kg. TINA-SOURCED, applied 30 Jul 2026.
                              // ⛔ NEVER alias to dried azuki beans: one is a finished sweetened paste,
                              // the other the raw pulse, and the from-scratch route is cheaper BY DESIGN.

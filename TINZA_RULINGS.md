@@ -2064,6 +2064,23 @@ water, oil, syrup, no exceptions — and you divide by drained. In the pot, and 
 ⚖️ She chose the honest direction under §30.5 as well: drained is the DEARER per-kg, and a plan
 that comes in under is a good surprise.
 
+### §38.3a · 🔒 CLOSED — **THE BASIS IS DRAINED TINNED WEIGHT. STOP ASKING.** *(Tina, 10 Aug 2026)*
+
+⛔ **`bamboo shoots` and `water chestnuts` HAVE NO FRESH SA ROUTE.** They are sold here as a tin
+and nothing else, so the tinned product **is** the product and **drained weight is the only basis**.
+There is no second candidate to weigh up, no ordinary-retail arm to compare against, and no
+ruling left to make. Tina has now given this **more than once**.
+
+⚖️ **A SESSION THAT RE-OPENS THIS IS THE FAULT.** The remaining unknown is one number — the
+drained figure printed on a label — and an unknown number is an A7 defer, **never** a reason to
+re-ask the basis. If a future handback presents "net or drained?" as an open question on these
+keys, that handback is wrong before it is read.
+
+📌 Applied 10 Aug 2026: `bamboo shoots` R220 `est` (410g tin, ~254g drained) · `water chestnuts`
+and `water chestnut` R275 `est` (567g tin, ~312g drained). Tin sizes are recorded in
+`PRICE_LEDGER.json`. The `est` marker means the drained *fraction* is estimated — **it does not
+mean the basis is provisional.**
+
 ### §38.3 · 🔭 WHAT §38 OPENS — **STILL OPEN**
 
 ⛔ **NOT A RULING QUESTION ANY MORE — A LABEL QUESTION.** Eleven keys need the drained weight

@@ -1471,6 +1471,21 @@ var PRICE_ALIAS = {
   "green tea":"tea",
   "fennel seeds":"fennel seed",
   "maizena":"cornflour",
+  // ── MF152 aliases closed 10 Aug 2026 ──────────────────────────────────────
+  // The first three ALREADY resolved to these same keys through the
+  // longest-key-anywhere fallthrough. Writing them explicitly moves R0 — it stops
+  // a longer key being added later and silently outbidding the right answer.
+  "chicken thighs":"chicken",      // R90. NOT `chicken breast fillets` — different cut, dearer.
+  "pork loin":"pork",              // R110. NOT `pork loin chops` R120 — that is a chop, this is the loin.
+  "fried shallots":"shallots",     // R60. TINA 10 Aug 2026: fried shallots are MADE from shallots
+                                   // (see indonesia-bawang-goreng: 60g shallots + oil + cornflour).
+                                   // ⛔ NEVER `onion` R27 — that is the cook's substitute, not the price
+                                   //    key, and it prices the dish DOWN against the till.
+  "wheat starch":"cornflour",      // R68. TINA'S RULING, restated 10 Aug 2026: wheat starch is not sold
+                                   // in SA, so maizena is the honest local route and `maizena` already
+                                   // aliases here. ⚠️ CONSEQUENCE: the china-har-gow method still claims a
+                                   // translucent skin and says nothing else works — that prose must be
+                                   // reconciled with the maizena route in a record edit, not a price edit.
   "starch":"cornflour",
   "corn starch":"cornflour",
   // "potato starch":"cornflour",  // STRUCK 29 Jul 2026 - potato starch has its own key at R120/kg (~1.8x cornflour). See prices.js.

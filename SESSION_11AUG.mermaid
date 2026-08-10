@@ -1,0 +1,49 @@
+flowchart TB
+
+subgraph DONE["✅ DONE 11 AUG — THE SPLIT QUEUE IS CLOSED"]
+  A["MF180 §0 · stranded rulings merged<br/>§34 · §35 · §38 verbatim · headings 38 → 41"]
+  B["MF180 · receipts split<br/>TINZA_RULINGS_EVIDENCE.md · 35 304 b moved"]
+  C["ASIA_PROGRESS · REBUILD then split<br/>13 blocks recovered · 3 gaps marked<br/>44 000 t → 2 200 t"]
+  D["THAILAND_COLD_START split<br/>38 000 t → 5 200 t"]
+  E["FABLE_PROGRESS split<br/>111 [x] entries moved · 20 500 t → 4 700 t"]
+  F["§24 nav → TINZA_NAV_RULINGS.md<br/>25 910 → 3 547 b · 16 headlines kept"]
+  G["§11 arch → TINZA_ARCH_RULINGS.md<br/>28 396 → 5 747 b · locale kept in full"]
+  A --> B --> C --> D --> E --> F --> G
+end
+
+subgraph NUM["📊 THE NUMBER THAT MATTERS"]
+  N1["cold start per turn<br/>~140 000 t → ~80 000 t"]
+  N2["⚠️ usage is per TURN, not per message —<br/>the whole chat re-sends every time"]
+  N3["🩸 BIGGEST REMAINING COST IS A HABIT<br/>wk_vietnam.js = 83 000 t if pasted<br/>core.js = 99 000 t · meals.js = 474 000 t<br/>⛔ NEVER PASTE sections/*.js — Claude clones and greps"]
+  N1 --> N2 --> N3
+end
+
+subgraph RED["🔴 WRONG ON LIVE RIGHT NOW"]
+  R1["§38 ruled water chestnuts R275 est<br/>prices.js still says R152"]
+  R2["§38 ruled bamboo shoots R220 est<br/>prices.js still says R136"]
+  R3["→ every card using them costs ~45% LIGHT<br/>⚖️ §30.5 — the broken-promise direction"]
+  R1 --> R3
+  R2 --> R3
+end
+
+subgraph OPEN["📋 OPEN — carried"]
+  O1["Thailand ledger drift · file 38 · ledger 30<br/>next merge will REFUSE to write"]
+  O2["MF152 · 13 of 17 keys already taken<br/>still missing: chicken thighs · pork loin · fried shallots"]
+  O3["MF182 · bánh tét — blockers cleared"]
+  O4["MF183 · doctor rung 21 — written, not built"]
+  O5["Doctor ceiling ratchet — NOT added<br/>set at 200 000 b = GREEN today"]
+  O6["Vietnam B7 · 25/50"]
+  O7["MAKEABLE 3 call sites · 73 ghost cards<br/>Kiddies ×6 · SA Fable S3 · §2.5 six held dishes"]
+  O8["FABLE_PROGRESS gate says doctor ≤ 9 · it is 10<br/>LANE ORDER framing is stale — yours to rule"]
+end
+
+subgraph NEXT["🔜 NEXT SESSION — NEW CHAT"]
+  X1["1 · §38 price application<br/>costcheck all 5 countries BEFORE<br/>apply 2 keys + 4 aliases<br/>costcheck AFTER · account for every move"]
+  X2["2 · Thailand ledger rebaseline<br/>small · same shape as MF181"]
+  X3["3 · Vietnam B7 — the only one that adds food"]
+  X1 --> X2 --> X3
+end
+
+DONE --> NUM --> NEXT
+RED --> X1
+OPEN --> NEXT
