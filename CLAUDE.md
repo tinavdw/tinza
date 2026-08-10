@@ -97,6 +97,7 @@ That order. No paragraph of apology in front of it.
 |---|---|---|
 | 📕 **`TINZA_LAW.md`** *(root)* | **`/law`** | **HOW WE WORK.** 63 laws. Every one was paid for. |
 | 📗 **`TINZA_RULINGS.md`** *(root)* | **`/rule`** | **WHAT TINZA IS.** Every decision Tina made — with date and reason. |
+| 📦 `reference/TINZA_RULINGS_EVIDENCE.md` | ⛔ **none** | The receipts — what was measured, applied, struck, and which MF built it. **NOT read at session start.** If it and `TINZA_RULINGS.md` disagree, the rulings file is right. |
 
 ## ⛔ IF THOSE FILES AND THE CODE DISAGREE — **THE FILE IS RIGHT AND THE CODE IS A BUG.**
 

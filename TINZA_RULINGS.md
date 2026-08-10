@@ -154,10 +154,8 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 
 - ⛔ **THE CHEF IS OFF.** The endpoint returns `503` and **never reads the key, never calls Anthropic.** It comes back only via `reference/MF78_AI_CHEF_LOCK_AND_CAP.md`.
 - 🚪 **HIDING THE BUTTON IS NOT CLOSING THE DOOR.** The exposure was never the button in the app — it was the endpoint, which answered anyone who knocked whether or not Tinza called it. **A feature is switched off at the endpoint or it is not switched off.** ⚖️ **Law 6.**
-- ✅ **NOTHING BREAKS, AND THIS WAS MEASURED NOT ASSUMED.** All three call sites already wrap the call in `try/catch` and degrade silently — *"the app results stay. Nothing is lost."* Mood shelves keep serving from a library **160–784 deep per mood**; the library was always meant to carry them. ⚖️ **Law 20 — the cache is not a shortcut, it IS the business model.**
 - 🚨 **WHILE A FEATURE IS OFF IT SHOWS "COMING SOON" — NEVER A PRO LOCK.** Anchor Ingredient is now Pro *and* currently dark, and those two facts together would sell a padlock on an empty room. **Sell it when it works, not before.** ⚖️ **Law 7.**
 - 🔑 **THE KEY IS REVOKED, NOT JUST UNUSED.** Nothing reads `ANTHROPIC_KEY` any more, so it is retired at the console and removed from Netlify. **A revoked key cannot be billed however wrong the code is** — the only guard that does not depend on Claude, Code or Tina getting anything right.
-- 💰 **AND THE BILL WAS NOT WHAT ANYONE THOUGHT.** All three call sites asked for **Sonnet**; the function overwrote it with **Opus** on every request. Every comment said Sonnet, every invoice said Opus. **When he returns, the model is ruled once, out loud, in one place.** ⚖️ **Law 11.**
 
 ### 🆕 HOW MANY, AND WHEN — **RULED 14 Jul 2026**
 > 🩸 **TINA SAID THIS THREE TIMES BEFORE IT WAS WRITTEN. ⚖️ LAW 52 EXISTS BECAUSE OF THIS RULING.**
@@ -174,15 +172,12 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 *"Just Feed Me" stopped being 36 hand-typed cards and became a live query over `allRecipes()` — 1,667 eatable recipes, every one openable. Two consequences of that scale-up carried a cost the brief did not see.*
 
 - 💸 **THE PREFETCH INVERTED WHEN THE POOL GREW.** `callMoodChef` prefetched a paid Sonnet call (`/.netlify/functions/claude`, 4000 tokens) on every mood tap. Correct when a mood was 6 cards / 2 pages; pure waste at 160–784 cards / 53–261 pages — it buys AI for pages nobody reaches. Measured: 12 taps → 12 paid calls → gated on `pool.length < 10` → **0 paid calls.** `getMoreMoodRecipes` still fires the chef on demand at the real end of a thin library, so nothing is lost. ⚖️ **Law 20 — the stated PURPOSE (cut paid calls) beats the brief's LITERAL wording ("background AI stays").** An optimisation correct at one data scale becomes a leak at another; gate the paid call on the thing that changed — depth.
-- 🚪 **THE OPENER ALREADY EXISTED — THE BRIEF INVENTED ONE THAT WAS WRONG AND UNNECESSARY.** §6 said wire `openRecipe(r.id)`. But `openRecipe` takes `(section, id)` over `RECIPE_SOURCES`, which has no `floor` key — all 9 budget-floor cards would have been dead ends, the exact bug MF117 kills. The real door, `openMoodRecipe → recipeDetailFromResult(r, …)`, is the SAME renderer the budget finder and search already use on `allRecipes()` records. Feed live records in; the tap works with zero opener changes. ⚖️ **Law 35 — lift the existing door, do not invent one.**
 - ⏱️ **A LIVE RECORD IS NOT A HAND-TYPED CARD.** MOOD_DB cards always had `time` and a prose `why`; the live pool is 20% time-null and has no `why`. The hard-coded `⏱ ${r.time} min` printed "null min". The card now builds each line from present fields and falls `why` back to `feel`. Build the row from what exists, never from what is assumed. ⚖️ **Law 45.**
-- 📏 **A SHELF'S COVERAGE IS MEASURED OVER THE SHELF'S POOL, NOT THE WHOLE APP.** The brief's coverage %s were over all 2,083; over the 1,667 a mood actually draws from they are friendlier — time 80%, kcal 90%, costPP 89% (protein 6%, still unusable). Conclusions held either way, but the denominator is the eatable pool.
 - 🧾 **THE DISCIPLINE HELD.** All 12 measured yields reproduced to the recipe on this commit. The MEASUREMENTS were evidence; the INTEGRATION steps were hypothesis — and Code, on the real signatures, is where the hypothesis met the code. ⚖️ **Law 22.**
 
 **THE EATABLE POOL (`MOOD_EAT_SLOTS`):** `SUPPER · LUNCH · BREAKFAST · SIDE · STARTER · TREAT`. CONDIMENT / DRINK / PETFOOD / BABYFOOD are never on a "feed me" shelf. Census check 17 fails the build if any of the four leaks in, if a mood yields < 10, if a mood card lacks a real `id`, or if a time-gated mood (quick / exhausted / lazy) contains a null-time record.
 
 ### 🎭 MOOD IS A TAG ON THE RECIPE, NOT A KEYWORD GUESS — **RULED 15 Jul 2026**
-*Tablet-proven (MF117 first light): keyword/slot guessing put **Fish & Chips** under "Impress", **Burger Buns & Chips** under "I need something sweet" (TREAT slot sweeps in savoury bakes AND sides), and **blue-cheese swirl rolls** under "Fussy little ones" (the word "cheese" is not the concept "kid-friendly"). The dishes are not miscategorised — they carry NO mood. A guessed filter is a hypothesis; the screen disproved it. ⚖️ Law 22 — the render is the measurement.*
 
 - 🎭 **MOOD LIVES ON THE RECORD, LIKE `diet`.** The shelf is `allRecipes({mood:'sweet'})` — one field, queried, never a hand-built list and never a keyword sweep. ⚖️ Same rule as dietary §6.6 — shelves are QUERIES, not lists.
 - 🔢 **BUT MOOD IS AN ARRAY, AND A JUDGMENT — NOT ONE VALUE READ OFF INGREDIENTS.** A dish is one `diet` (anchovy → not vegetarian, deterministic). A dish suits MANY moods (roast chicken = impress + celebrating + cold-night). So `mood: []` holds a LIST, and it is a human call, not an ingredient fact. This is the one place mood differs from diet — build the field as an array.
@@ -201,8 +196,9 @@ Cost *(green food-cost / gold shop-spend)* · **My Plan** · **shopping list** �
 - 🎚️ **TUNE, DON'T MULTIPLY.** Tinza does NOT author a bespoke version of every dish for all 12 moods. A few good version chips per dish, plus tuning existing recipes into variations — a complicated risotto dialled down, a rich dish made gentle — plus a handful of purpose-built recipes (Tina researches later) for the gaps. Restraint over sprawl.
 - ❄️ **THE FREEZER IS THE ALLOWED SHORTCUT.** Make-ahead-and-freeze is how Tinza delivers speed honestly. Example: DIY pizza — make and freeze the BASES, then a fast fresh-topped pizza fits `fussy`, `lazy`, `exhausted`, even `celebrating`. The freezer, the prep bowl and the knife are the shortcuts; the shop shelf is not.
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🧑‍🍳 3
 
+---
 ## 💰 4 · COSTING
 
 - 🟩 **GREEN = food cost only.** Text colour **`#46530c`**.
@@ -250,25 +246,6 @@ Both are `costPP: null` today. **The app cannot tell them apart and drops BOTH s
 | `moodPlan` · `budgetPlan` · `wkPlan` · `healthPlan` · `dogPlan` · `catPlan` | **her plan. Clearing it is THEFT.** |
 | `budgetPeople` · `moodServings` · `people` · `servings` | **How many people live in her house is a FACT, not a question. Her family did not shrink because she left the room.** |
 | `_fourCache` | **the business model.** ⚖️ Law 20. |
-
-#### 🆕 AMENDED 6 Aug 2026 — **FOURTEEN MORE, MEASURED** *(ENTRY 11 · `reference/ENTRY11_MEASUREMENT.md`)*
-
-⚠️ **Nothing above is removed. This is the same ruling, with the rest of its keys found.**
-
-🩸 **`budgetPlan` was ALREADY in the table above, ruled 13–14 Jul — and `core.js:55` never listed
-it. The ruling was right and the code disobeyed it for three weeks.** ⚖️ **The file is right and
-the code is a bug** *(CLAUDE.md §0)*. That is the shape to expect: **a ruling is not implemented by
-being written.**
-
-| ⛔ NEVER (added 6 Aug) | call site | why |
-|---|---|---|
-| `mealPlan` | `meals.js:16589` | **her Feeding My Family plan.** Missed by the 13 Jul list entirely. |
-| `babyPlan` | `tinyTummies.js:88` | her baby plan |
-| `spiceCart` | `spice.js:8091` | a cart she filled |
-| `wkBump` | `worldkitchen.js:1289` `wkSetBump()`, read `:1034` | **a portion she tuned by hand, dish by dish** |
-| `wkServings` · `wkGuests` | `worldkitchen.js:769` · `:297` | counts she set |
-| `barGuests` · `beverageGuests` · `cakeGuests` | `barplanner.js:255` · `events.js:1717` · `:1586` | counts she set |
-| `checkedBuffetItems` · `checkedHealthItems` · `checkedBeverageItems` · `checkedCakeItems` · `checkedFingerItems` | `buffet.js:278` · `health.js:594` · `events.js:1829` · `:1860` · `:1897` | **items she ticked off in a shop.** Re-ticking a list she already walked is the same theft as clearing a plan. |
 
 #### 🧪 THE TEST, AND WHY IT CAN NEVER BE A REGEX
 
@@ -346,10 +323,9 @@ be a no-op that looks like a fix.**
 - 🧭 **THE GENERAL FORM, third time tonight:** *a sort key that is a pure number is blind to the person.* Cost-ascending answers **"what is cheapest"** when she asked **"what can I cook."** ⚠️ Same root as the LOCALE ranking clause (§11) and §15.5 — **three symptoms, one cause: the sort does not know who is asking.**
 - ⏱️ **ORDER:** §15.4 → §15.5 → this. The Budget Bobotie must be **reachable** before it can be **ranked first.**
 
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🔧 5
+
 ---
-
-
-
 ## 🥬 6 · DIETARY
 
 **RULED 12 Jul 2026 · extended 14 Jul.**
@@ -446,8 +422,6 @@ be a no-op that looks like a fix.**
 
 **Why this is the right shape:** bobotie "In a Pumpkin" already scales perfectly — because its vessel *is an ingredient* (200g pumpkin per portion). The holder that lives in a slot scales itself; the holder frozen in prose cannot. So every scaling vessel goes in a slot.
 
-- 🔧 **Engine** = MF142 — add the field + one shared renderer, wire into every recipe page. ⚖️ **Law 52.**
-- ✍️ **Authoring** = a Fable-scale pass to tag holders and reword any *"make N tins"* prose to per-unit. Worklist starts with the oven-dish family (census in `reference/`).
 
 #### 🆕 🍽️ SOFT-6 IS A **FAMILY-MEAL** DEFAULT — COUNT-SCALED ROOMS KEEP THEIR OWN COUNT — **RULED 24 Jul 2026** *(refines the SOFT rule above)*
 
@@ -455,7 +429,6 @@ The SOFT default (open at 6, *"scale up or freeze"*) is a **family-meal** idea �
 
 - 🍽️ **The rule in one line:** count-scaled surface → **keep its own count** as the dial seed. Family-meal surface → **soft-6.** Nothing count-scaled ever routes through `softDefaultN`.
 - 🔢 **The vessel COUNT line still shows there** — a buffet bake for 20 is `ceil(20/6) = 4` ovenproof dishes, exactly what a caterer needs. What drops on those surfaces is only the **family framing** (the *"serves 6, scale up or freeze"* assumption line), never the dish count.
-- ✅ **Proven — MF144 Phase A (Code, 24 Jul):** four **family-meal** openers — `bakesRecipeOpts` (core.js) · `recipeDetailFromResult` (meals.js) · `wkRecipeOpts` (worldkitchen.js) · `healthRecipeOpts` (health.js) — route through **one shared `softDefaultN` helper**, not a copy per renderer (the copy-per-renderer trap was MF138). Gate passed 3/3 — bakes · WK `cape-malay-bobotie` · FMF Bobotie all open at 6 (the WK path previously opened at **1** — the whole point). **Non-soft dishes stayed byte-identical** (no note, open at 1). `events` and `kiddies` were **deliberately left off** the helper — they keep their guest/kids seed. ⚖️ **Law 52.**
 
 #### 🅿️ IN-BETWEEN DISH COUNTS **ROUND UP** — THE "1 FULL + 1 SMALLER" NOTE IS **PARKED** — **RULED 24 Jul 2026**
 
@@ -480,10 +453,7 @@ An awkward serving count (8, 10, 15) is **not** an architecture problem. The exi
 - ⛔ **The watcher must not guess the basis.** `events` and `braai` ingredients cross the door through `nameOnlyIng()` with `pp:null` **by design** — the door carries names for *search*, not for *costing*. So the basis is genuinely unknowable downstream, and any regex on the name would be a silent wrong answer wearing a green tick. **The tool asks the record; the record answers.** ⚖️ Law 6 — the data states the rule, never the function.
 - 🔴 **It fails LOUD, not safe.** Drop the door line and `yieldBasis` arrives undefined, the exemption stops applying and every one of these goes back to **RED**. *Proven both ways 25 Jul:* strip one declaration → split 0 → 1; drop the door line → split 0 → 3 dishes / 4 copies. A missing exemption must **reappear as a bug**, never vanish into green. ⚖️ MF135.
 - 👁️ **An exemption nobody can see is indistinguishable from a check that quietly stopped running.** The audit prints **list C · EXEMPT** and a `per-head exempt=N` total. Silence is not a pass.
-- 🩸 **The four founding records** (all bare, all correct): `braai:periperibraai` · `events:periperi` · `events:tahini` · `world:indian-mango-atchar` — each a per-head copy standing beside a **Spice batch twin** (*500ml bottle* · *375ml jar* ×2). **Same name, different construction — the Apple Tart shape again.** Spice bottles it; Events scales it to the guest count.
 - 🩸 **`adaptBraai` forwards no `equipment` on purpose** (a grid is not a fixed holder) — but it **must** forward the basis, or a per-head braai sauce reads as a bare twin of its Spice copy forever.
-- 📁 **Path corrected:** the tool lives at the **repo root** beside `tinza-census.js` / `tinza-doctor.js`, not in `Tools/`. The doctor's `require` was pointing at `./Tools/` and would have red-flagged a module that was there all along.
-
 
 
 #### 🆕 🍽️ THE HOLDER IS A **RECOMMENDATION**, NEVER A REQUIREMENT — **RULED 25 Jul 2026** *(Tina)*
@@ -498,8 +468,9 @@ A chef owns every tin on the list. A woman cooking supper on a Tuesday owns **wh
 - ✍️ **The banner names its noun.** *"your total for all 3"* was a dangling number; it now reads *"your total for all 3 **dishes**"* — a modelled bake uses its own unit word (cake, tray), a soft oven dish borrows the honest word *dish*. *(Closes the cosmetic loose thread carried from 24 Jul.)*
 - 🍏 **Same name ≠ same tin — proven, not assumed.** Ruled by reading the ingredient bases: `bakes:bk-apple-tart` is **puff pastry** (flat tart) · `netherlands-appeltaart` is a **pastry dough with egg** (deep — 24cm springform) · `boerekos-appeltert` carries **baking powder**, so it is a **batter, not a crust** (a soft baked pudding-tart → ovenproof dish). Three constructions, three depths, three holders. ⚖️ The ingredient list settles a vessel question that the name cannot.
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🧱 10
 
+---
 ## 🚨 11 · LAUNCH BLOCKERS *(top of October)*
 
 - ⛔ **MF57 — THE PWA SERVICE-WORKER CACHE.** ⚖️ **Law 27 — published ≠ what her browser runs.**
@@ -527,16 +498,6 @@ Two mechanisms, kept separate:
 
 *Tina, 21 Jul, off the Budget results: **"it must be adaptable to where the person is finding himself."** The LOCALE ruling above has two mechanisms — TERMINOLOGY and PRODUCT — and **both only act once a recipe is already open.** Neither touches which recipes surface, or in what order. This is the third.*
 
-- 🩸 **THE MEASUREMENT, Budget pool at HEAD** *(mealRole:'main', no braai, priced — 670 meals)*:
-
-  | per person | meals | SA-reachable |
-  |---|---|---|
-  | **R0–R10** | 21 | **3 — 14%** |
-  | R10–R15 | 51 | 20 — 39% |
-  | R15–R25 | 130 | 46 — 35% |
-  | R25–R50 | 366 | 127 — 35% |
-
-  **THE POOREST BAND IS THE LEAST SOUTH AFRICAN.** At R8 a head she is served Waakye · Idiyappam · Farinata · Ful Medames · Bissara · Misal Pav. **Good food, every one — and the wrong answer to the question she asked.**
 - 🎯 **THE CAUSE IS NOT BAD DATA. IT IS AN UNWEIGHTED SORT.** Budget orders on `costPP` ascending, and **a number does not know who is asking.** Any shelf sorted on a pure number — cost, time — will surface whatever wins that number, and cheapness is not evenly distributed across the world's kitchens.
 - 📉 **THE NUDGE SCALES INVERSELY WITH THE MONEY.** At **R40pp browsing the world is a pleasure.** At **R8pp it is a wrong answer** — she needs supper tonight from what is in the Spar. **The tighter the budget, the stronger the local pull.** ⚖️ §5.1 — the audience is the ruling.
 - ⛔ **IT NUDGES ORDER. IT NEVER REMOVES.** World Kitchen is **1,021 recipes and a deliberate shelf** — Tinza is global on purpose. A locale rule that *hides* food is **a filter, not a nudge**, and a filter is a different feature needing its own ruling. ⚖️ **Law 3 — never zero results.**
@@ -612,7 +573,6 @@ Two mechanisms, kept separate:
 2. **A record's slot is its DEFAULT version's slot, when its versions carry one.** Vetkoek defaults to *Sweet (Jam & Syrup)* → **the record is `TREAT`**. Pick *Curried Mince (Maalvleis)* → **it reads `SUPPER`**.
 3. **A record whose versions carry no slot behaves EXACTLY as it does today.** Recipe-level `slot` still wins where it is authored; derivation still runs where it is not. Nothing existing changes behaviour.
 
-🩸 **THAT THIRD CLAUSE IS THE TEST FOR WHETHER THIS LANDED.** After MF131: **census 17 · doctor 9, unmoved — the ONLY change is `unresolved` 2 → 0.** *Any other number that moves means a record silently changed course, and that is a bug, not a bonus.* ⚖️ **Law 51.**
 
 **⚠️ OPEN — NOT YET RULED: does a shelf ask the DEFAULT, or does it ask ANY version?**
 Every consumer of `r.slot` today reads **one** value, so under this ruling they all read **the default version's**. That is right for some and wrong for others, and the difference is now visible:
@@ -649,15 +609,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - 🔓 **TIER-BLIND.** The store persists favourites/plans for **everyone.** The Favourites = Pro gate lives in the `core.js` gate layer — **NEVER baked into the store.**
 - 🚪 **ONE DOOR.** No direct `localStorage` outside `tinzaStore.js`. The 2 `tinzaTheme` sites route through `getPref`/`setPref`. ⚖️ **Law 6.**
 
-#### 🩸 THE THEME BUG THIS RULING NEARLY SHIPPED — **Law 20, in our own store**
-`migrate()` **silently dropped her saved theme.** `_read()` returned `{root, legacyTheme}` but the wrapper matched on the storage-shaped `{tinza, tinzaTheme}` — so it fell through, treated the whole wrapper as the root, and **threw the legacy value away.** Green on "migration ran"; her setting gone.
-✅ **Census check 13 now asserts the VALUE ARRIVES** (`'dark'` lands in `preferences.theme`), not merely that migration completed. ⚖️ **Law 20 — a metric that passes while the thing it measures is broken is worse than no metric.**
-*(⚠️ **Tinza has NO theme toggle yet** — so no user can have set `tinozaTheme` through the app. The migration is correct INSURANCE for the day the toggle ships. **Open thread: what are the 2 `tinzaTheme` sites reading, if nothing writes it?** Worth a look — not a blocker.)*
-
-**Census checks added (`tinza-census.js`):** 1 no `localStorage` outside `tinzaStore.js` · 2 root `tinza` + `schemaVersion===1` after `load()` · 3 `migrate(migrate(x))===migrate(x)` idempotent · 4 legacy `tinzaTheme` count `===0` post-migration · 5 favourites keyed by `source:section:id`, never a bare title · 6 `isFavourite()` on one of a genuine collision pair does NOT report the other.
-
----
-
 ### 🆕 🏷️ tinzaListLabel — THE ROOM GLOSS FOR MIXED-ROOM SHELVES — **RULED 15 Jul, corrected 16 Jul 2026**
 *Multiple distinct records share a display name — Potato Salad in Braai + Events; Koeksisters in Bakes + Events. A recurring CLASS → ONE function, never a hand-list. `source` is `'db'` for everyone, so it is NOT a disambiguator — the human-facing separator is the ROOM.*
 
@@ -667,7 +618,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 **THE TWELVE-SECTION MAP (`TINZA_ROOM_LABEL`, index.js):** `braai`→Braai · `world`→World Kitchen · `spice`→Spice · `health`→Health · `events`+`beverages`→Events · `meals`+`floor`+`bakes`+`sides`→Family · `tiny`→Tiny Tummies · `furry`→Furry Friends.
 
-- 🛡️ **THE RATCHET (census check 16, Law 42).** Build fails if any section loses its room word, a cross-room pair ever reads the same, a lone dish gets glossed, or `()` renders. The hole cannot come back silently.
 
 #### 🆕 THE "KNOWN LIMIT" IS MOSTLY DUPLICATES — AND WE ALREADY HAVE THE RULE
 *40 groups collide; 29 disambiguate cleanly cross-room. Of the remaining 11, almost all are the SAME dish twice — not a labelling gap.*
@@ -703,12 +653,9 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 *The corollary to the ruling above. That one says WHICH screens get a search box. This one says the box may only DO one thing — because "every room has a search" is worthless if the search means something different in each room.*
 
 - ⚖️ **THE SEARCH SLOT IS AN INLINE INPUT. FULL STOP.** You tap it, you type into it, results appear under it. It does not open a screen, it does not jump the finger somewhere else, it does not clear what you were looking at.
-- 🩸 **MEASURED AT HEAD — BRAAI IS AN OUTLIER OF ONE.** `sectionHeader()` accepts two shapes and five rooms pass one. Four (`events` · `meals` · `worldkitchen` · `core`) pass `oninput:"liveSearch(...)"`. **Only `braai.js:28` passes `onclick:` — which sets `S.screen='search_results'` and calls `draw()`.** Same pill, same place on the header, two different behaviours. That is the drift, and it is one line wide.
 - 🔴 **A SEARCH BOX THAT NAVIGATES AWAY IS WORSE THAN NO SEARCH BOX — IT LIES TO THE FINGER.** No box means you go look for a search. A box that jumps you to another screen means you tapped expecting to type and lost your place instead. The doctor is right to call this RED where "no search at all" is only a WARN.
 - 🔧 **THE FIX FAILS LOUD: DELETE THE `onclick` BRANCH FROM `sectionHeader()`.** Convert Braai to inline, then **remove the branch entirely.** After that the lie is not a discipline anybody has to remember — it is a shape the door cannot make. ⚖️ Same mechanism as MF145: *drop the line and it goes RED*, not *drop the line and nobody notices*. A rule enforced by care is a rule already broken.
-- 🩸 **THE DOCTOR IS DOUBLE-COUNTING — REDS #2 AND #7 ARE THE SAME ELEMENT.** Measured 25 Jul: all four "text inputs under 16px" that live in a room (`budget.js:84` · `furry.js:17` · `health.js:999` · `kiddies.js:109`) **are** the four "hand-rolled search inputs". One element, two reds. `sectionHeader()`'s slot is already `font-size:16px`, so migrating the four closes red #7 **and 4 of the 6 hits in red #2** — leaving only `utils.js:251` and `meals.js:15801`. ⚖️ **The sameness pass is worth FOUR of the ten reds, not three.** Count elements, not findings.
 - ⚠️ **A HAND-ROLLED BOX CARRIES A HAND-ROLLED PALETTE.** `budget.js` and `furry.js` hard-code `rgba(6,16,8,0.85)` · `#3a2010` · `#c06020` — the **pre-reskin dark palette**. Those two rooms never got Phase 1. Migrating their header is therefore a **visible look change, not just plumbing** — expected, correct, and worth seeing coming. ⚖️ The master template already says it: render via `core.js` using `var(--token)`, never hand-rolled hex. The hex was the tell all along.
-- 🧮 **THE REMAINING PILE IS SMALL AND COUNTED.** 6 rooms off the shared header · 20 header sites total (`spice` 4 · `health` 6 · `furry` 1 · `budget` 1 · `tinyTummies` 8 · `barplanner` 1 — *corrected 25 Jul: its header is hand-rolled inline at `:214`, not absent*) · 24 hard-coded `#f5e8cc` ink calls, **15 of them in `tinyTummies` alone**. Tiny Tummies is over half the job; do it last and alone.
 
 #### 🍸 A TOOL GETS A SUB-HEADER AND NO SEARCH — **RULED 25 Jul 2026** *(Tina)*
 *Raised because MF146 could not tell whether Bar Planner was a room. It is not. It is the first named member of a third category, and naming the category settles every planner that comes after it.*
@@ -717,14 +664,11 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - 🔎 **A TOOL GETS NO SEARCH BOX.** *Tina, 25 Jul: "No it doesn't get one."* ⚖️ The 25 Jul test — *a scrollable recipe list gets a search, a hub of tiles does not* — does not even apply here: there is **nothing to search**. Bar Planner holds no recipes. It holds guests, hours and a split. A search box on it would be a slot rendered because the template had one, which is the exact failure sameness exists to prevent. **Sameness means the same slot behaves the same way, not that every screen carries every slot.**
 - 🏷️ **A TOOL GETS A SUB-HEADER, NOT A ROOM HEADER.** *Tina, 25 Jul: "yes, i think it needs a sub header."* Bar Planner lives **under Beverages, under Events** — a 170px photo header would announce it as a sixth room and break the trail back. The sub-header is smaller, carries the title and the one-line what-this-does, and keeps the ← Beverages return visible.
 - 🔧 **THE WORK — `sectionHeader()` GAINS A `sub:true` MODE; NOBODY HAND-ROLLS A SECOND HEADER.** ⛔ The temptation here is to leave `barplanner.js`'s inline header alone *because it is "only a sub-tool"*. That is how it got a hard-coded dark palette in the first place. **A tool renders through the shared door too** — same function, smaller variant, `var(--token)` throughout. ⚖️ Never hand-roll hex; the hex was the tell all along.
-- 🩸 **MEASURED AT HEAD, 25 Jul — WHAT THE "MISSING HEADER" ACTUALLY WAS.** `barplanner.js:214` builds a 170px block inline with `🍸`, a Fraunces title and a subtitle, over `#1a1208`/`#0f0e0c`/`#e0d4b8` — **pre-reskin dark, hard-coded**. The doctor reported *no `<h1>`* and the brief read that as *no header*. It was never missing. It was **unmigrated**, and it rendered its own private palette on top of a warm-light app. ⚖️ **Law 19 — a grep miss is not a measurement.** *An absent `<h1>` means the tag is absent, not that the header is.*
-- ⛔ **AND IT LEAKED THE OLD PRICE.** The non-Pro upsell in `barPlannerHTML()` still pitched **"for R50/mo"** — live, to every non-Pro visitor, on the one screen whose whole job is to sell the feature. ⚖️ Same shape as the `tierBar` leak: silent, no error, found only by opening the file. **The R50→R90 sweep becomes a census assertion, not a memory item** — a stale price must go RED, not wait to be noticed.
 
 
 *Raised because sauces are scattered across Braai, Events, World and Spice with no motivation behind what went where. The scattering was never a taxonomy failure — it is “shelves are queries, not lists” not yet having reached the hand-authored rooms. A room that must FILE a dish files it wherever the author was working that night.*
 
 - ⚖️ **MERGE BY DEFAULT. SPLIT ONLY WHERE THE CONSTRUCTION GENUINELY DIFFERS — and a split DECLARES WHY.** Same dish, same construction, same basis → **one record, many tags.** Bobotie is still seen in World Kitchen, Events and Feed My Family; there is simply **one of it**.
-- 🩸 **THE BILL, ALREADY PAID.** Peri-Peri existed three times and the copies **DRIFTED** — three constructions, one with a vessel and two without, one costed per-head and one per-batch. That cost a full session to diagnose. Three copies means every ruling costs **3×**: the WOW pass, the R50→R90 sweep, allergen tokens and locale swaps must each find every copy or the rooms quietly disagree.
 - 🛠️ **THE MERGE PROCEDURE — MOST COMPREHENSIVE WINS, THEN ENRICH.** Take the most comprehensive/effective record as the base; then **walk the losers and add every feature the base LACKS** — a holder, a `didYouKnow`, a verified `goesWith`, a version, a storage line. ⛔ **A merge must never lose a feature.**
 - 🩸 **WHY THE ENRICH STEP EXISTS:** *sameness is not finished.* The copies are **unevenly complete** — the best record is not best at everything. “Keep the most comprehensive” on its own would silently drop whatever the runner-up did better. **Fold in, then delete.**
 - 💚 **FAVOURITES FIX THEMSELVES.** The store key is `source:section:id`. Three records = three keys, so hearting Bobotie in World Kitchen leaves it un-hearted in Events. **One record = one key = the heart follows the dish everywhere.** The merge repairs a bug rather than creating one.
@@ -734,11 +678,11 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - 🌍 **THE OUTSIDE WORLD AGREES.** Paprika assigns **multiple categories to one recipe**; NYT Cooking publishes **one canonical recipe** surfaced through 125+ curated collections. Neither has a duplication concept. **But neither has rooms that OWN recipes, a portion brain, or per-room plans — Tinza's rooms are STRONGER than their categories.** The answer is not “become Paprika”: **keep the rooms as strong front doors, stop letting them own the record.**
 
 
-
 > 🩸 **Sections are distinct navigable destinations rendered by shared machinery. The shared functions SERVE the rooms; they do not dissolve them.**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🚨 11
 
+---
 ## 📁 12 · WHERE FILES LIVE — **RULED 20 Jul 2026**
 *Raised because root drifted from 11 files back to ~18 in five days. New files default to wherever they land. A written map means a file has a home BEFORE it is created, not after root is untidy again.* ⚖️ **Law 52 — said twice, so it is written down.**
 
@@ -771,7 +715,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 - 🌍 **THE BRACKET IS NOT PART OF THE INGREDIENT NAME.** Storing `"Coconut Biscuits (Tennis)"` hardcodes South Africa into 2,083 records. A British reader gets a brand that is not on her shelf, and every locale means re-authoring every ingredient line. **Store the generic. Hold the brand in a per-locale map. Render the bracket.**
 - 🔁 **THIS IS THE `name` / `nameAlt` PATTERN, APPLIED TO INGREDIENTS.** Exactly as `tinzaDisplayName()` renders *Lula Grelhada (Grilled Calamari)* from two stored fields, the ingredient line renders *Coconut Biscuits (Tennis)* from a canonical name plus a locale brand. **Canonical is stored; the gloss is rendered.** ⚖️ **Law 6 — one door, and we already built it.**
-- 💰 **COSTING IS UNAFFECTED — MEASURED, NOT ASSUMED.** `priceClean()` (core.js:1169) already strips parentheses before lookup: `.replace(/\([^)]*\)/g,' ')`. So `Coconut Biscuits (Tennis)` resolves to `coconut biscuits` either way. **The engine already wants generic-first.**
 - 🌐 **ONE LINE SERVES EVERY COUNTRY.** SA renders `(Tennis)`, the UK renders `(Rich Tea)`, a locale with no equivalent renders nothing at all. A brand that reformulates or dies is a **one-line map edit**, never a library sweep.
 
 ### 🏆 THE FOUR TIERS
@@ -783,14 +726,7 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 ### 🩸 WHY THE BRAND STAYS VISIBLE AT ALL — **Tina's reason, 20 Jul**
 *Naming the actual product you are cooking with is legitimate and normal; no manufacturer objects to being named as the thing in the packet.* **Tennis and Marie biscuits are not home-bakeable to the same texture, and most readers simply want to buy them.** A from-scratch recipe may exist for the person who wants it, but the ingredient line must respect the shopper. ⚖️ **Law 16 — a cook's rule is not a shopper's rule.**
 
-### 📋 THE MEASURED WORK (9 real cases app-wide — small and fixable)
-- **Rename to canonical:** `tennis biscuits` ×5 → *coconut biscuits* · `Romany Creams` ×1 → *chocolate coconut sandwich biscuits* · `Bar One` ×1 → *chocolate caramel nougat bar* · `Aromat` ×1 → *savoury seasoning salt*.
-- ⚠️ **PRICE FLATTENING — A REAL CONSEQUENCE, NOT COSMETIC.** PRICE_DB holds `tennis biscuits: 115`, `coconut biscuits: 90`, `marie biscuits: 90`. Because the bracket is stripped, renaming moves those five recipes from **R115/kg to R90/kg**. *Accepted deliberately: the generic is the substitutable thing — buy the cheaper packet, pay the cheaper price.*
-- 💸 **THREE PRICES ARE MISSING ENTIRELY.** No `amarula`, `kahlua` or `cointreau` key exists, so every liqueur line currently costs **R0**. Needed before Dom Pedro, Amarula Affogato or Strawberries Romanoff can be costed. ⚖️ **Law 11 — Tina sources the prices.**
-- ❌ **FALSE POSITIVES — DO NOT TOUCH.** *Ouma se Soetpampoen* (Afrikaans for grandmother, not the rusk brand) · *Tex-Mex* (not the chocolate bar) · *Crunchies* in bakes (the oat traybake, a generic SA dish name).
-
----
-
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🏷️ 13
 ## 🧂 14 · NO FLAVOUR POWDERS — **BUILD FLAVOUR FROM INGREDIENTS** — **RULED 20 Jul 2026**
 *Raised over Aromat in the brand sweep. Tina: "it's not real cooking." The line is drawn at **pure MSG and flavour-enhancer powders only** — deliberately narrow, so it holds.*
 
@@ -799,19 +735,15 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 - ✅ **IN — these are ingredients with their own character and are NOT affected:** soy sauce · fish sauce · miso · anchovies · parmesan · tomato paste · dried mushrooms · Marmite. **⚠️ Do NOT write a rule against glutamate** — it occurs naturally in every item on that list, and banning it would gut the Asian and Italian sections by accident.
 - 🍲 **STOCK CUBES AND POWDER ARE ALLOWED — this is an SA reality call.** MSG-free stock is essentially unavailable in South Africa, and most cooks neither know nor mind. **Refusing stock would make the app unusable, not principled.**
 - 🥣 **BUT — EVERY RECIPE THAT CALLS FOR STOCK MUST OFFER THE HOMEMADE VERSION.** *(Tina, 20 Jul — the clause that makes this a standard rather than a ban.)* Cross-link, never force. **The better path is always available; the shortcut is never shamed.** ⚖️ **Law 16 — a cook's rule is not a shopper's rule.**
-- 📏 **MEASURED, 20 Jul (`92105af`) — the cross-link is buildable TODAY:**
-  - **9 homemade stocks already exist in the Spice Room:** Beef · Chicken · Vegetable · Fish Stock, plus Chicken · Beef · Fish · Lamb · Pork Bone Broth.
-  - **188 recipes call for stock** (world 93 · meals 49 · events 17 · health 15 · furry 7 · tiny 4 · braai 3).
-  - **The ruling connects two things that already exist** — and lifts the Spice stocks out of the `CONDIMENT` slot where nothing surfaces them.
-  - **MSG / Aromat appears in exactly ONE recipe** (`Umbhona`). That is the entire cleanup.
 - 🧹 **BLOCKER ON THE CROSS-LINK — the stock ingredient names must be tidied first.** Measured in use: `stock` ×26 (bare — *which* stock?) · `beef stock` · `Beef stock` (casing drift) · `Vegetable stock` · `vegetable or chicken broth` · `Low-sodium chicken stock` · **plus 18 mojibake variants** (`beef stock Â`, `stock Â`, `broth Â`). **A cross-link cannot match reliably against six spellings of one thing.** Fold into the mojibake/costing pass.
 
 > 🩸 **Tinza builds flavour from ingredients, never from flavour powders. Where a shortcut is unavoidable, the honest version is always one tap away.**
 
 *(Tina's personal preferences — homemade stock always, no Marmite — are noted as preferences, NOT law. The ruling binds only the flavour-powder line above.)*
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🧂 14
 
+---
 ## 🍽️ 15 · A VERSION IS A FULL RECIPE — AND THE PLAN HOLDS THE VERSION — **RULED 21 Jul 2026**
 *Raised off the Bobotie card, read end to end on live: six versions, each with its own ingredient list, method, tip, did-you-know, cost and nutrition. Tina: **"we must do all the variations like this one."** MF131 had already ruled that SLOT lives on the version — reading all six proved slot was only the FIRST field to move, and that a plan cannot hold a recipe which has not chosen one.*
 
@@ -819,9 +751,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 - 📖 **Every version carries its OWN ingredients, method, tip, `didYouKnow`, cost and nutrition.** Nothing stubbed, nothing inherited by proxy. **Bobotie is the reference implementation.**
 - ⛔ **A STUB VERSION IS WORSE THAN NO VERSION.** It presents as a choice and delivers nothing — and after MF131 it also carries a slot, a cost, an allergen set and a plan entry. **A chip that cannot do what it says is a lie.** ⚖️ **Law 3.**
-- 📏 **MEASURED 21 Jul on live, all six:** Classic 560 kcal · R266 / R38pp — Quick 510 · R238 / R34 — Budget 480 · R182 / R26 — Lentil 430 · R168 / R24 — Pumpkin 540 · R287 / R41 — 1600s lamb 540 · R329 / R47.
-- ✅ **THE COST ORDERING IS ITSELF A CORRECTNESS CHECK — AND IT PASSED.** Lentil cheapest · lamb dearest · Budget under Classic · Quick under Classic *(no raisins, no almonds, 10 g less mince)* · Pumpkin over Classic *(+200 g pp)*. **Every number moved the direction its own ingredient list dictates.** ⚖️ **Law 22 — the render is the measurement.**
-  🔢 **Doctor candidate (⚖️ Law 42):** a version's `costPP` must move with **its own** ingredient list, never with the record's.
 
 ### 🪜 15.2 · THE FAME LADDER — HOW MANY VERSIONS A DISH EARNS
 
@@ -842,17 +771,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 *Tina, 21 Jul: **"we must give preference to these variations, it's better meals."** The intent is right — a dish that earned five versions IS a better meal. **The proxy is not**, and the measurement says why.*
 
-- 🚨 **VERSION COUNT TODAY MEASURES AUTHORING PROGRESS, NOT FAME.** Measured 21 Jul: **only 88 of 733 budget-pool meals carry versions — 12%.** Library-wide **203 of 2,083 — 10%.** Rank on "has versions" and **the sort becomes a map of how far the authoring sweep got.**
-- 🩸 **§15.2's OWN RUNG-5 EXAMPLES DISPROVE IT:**
-
-  | rung-5 dish | records | with versions | **bare** |
-  |---|---|---|---|
-  | curry | 33 | 4 | **29** |
-  | bobotie | 2 | 1 | **1** |
-  | bolognese | 2 | 2 | 0 |
-
-  **Twenty-nine curries would sink below an authored rung-2 dish** that happened to get written first. **Exactly backwards.**
-- ❌ **FAME IS NOT STORED ANYWHERE.** Measured: no `fame`, `rung`, `tier` or `rank` field exists on any record. §15.2 defines the **test** and nothing carries the **answer.**
 - ✅ **THE RULING: STORE THE RUNG AS A FIELD. RANK ON THE RUNG.** Then an **unauthored rung-5 curry ranks correctly the day it is written**, before it has a single version — and authoring progress stops contaminating the sort.
 - 🎁 **THE SAME FIELD IS THE AUTHORING QUEUE, FOR FREE.** *Rung 5 with zero versions* is precisely the list of what to write next. **One field, two jobs.**
 - ⚖️ **THIS IS LAW 47 AGAIN, ON A NEW AXIS.** *A diet is a FACT, not a word in a sentence.* **Fame is a FACT, not a count of how much work we did.** Derive it once, store it, query it.
@@ -886,44 +804,10 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 *Tina, 21 Jul: **"it would be nice if someone can find a budget bobotie in here — that's why all prices must also be tagged, like Veg and V."** She is right, and §15.4 already did most of the work.*
 
-- 🩸 **THE EVIDENCE, MEASURED AT HEAD — BOBOTIE:**
-
-  | | costPP |
-  |---|---|
-  | **record** | **R34** ← *the only price Budget can see* |
-  | Classic | R38 |
-  | **Budget** | **R26** — *exists, priced, unreachable* |
-  | Quick | R34 |
-  | **Lentil** | **R24** — *cheaper still* |
-
-  Ask Budget for **R26 a head and Bobotie does not appear.** The Budget Bobotie was authored, priced, and **the query has never once looked at it.**
 - ✅ **THE DATA IS ALREADY THERE — THIS IS A QUERY FIX, NOT AN AUTHORING JOB.** **686 of 708 versions carry their own `costPP` (97%)**, and **`budget` is the single most common version name in the library — 49 of them**, 55 counting *budget stretch · thrifty · budget pot-roast*. **All 55 invisible to the room built for exactly that person.**
 - 🪞 **IT IS THE SAME SHAPE AS THE VETKOEK EVIDENCE IN §15.4.** *The query reads the RECORD; the record's face is Classic; so a budget meal misses the budget room.* **One bug, two surfaces.**
-- 🧮 **THE HONEST GAIN — IT IS IN THE MIDDLE, NOT AT THE BOTTOM:**
-
-  | per person | now | by version | gain |
-  |---|---|---|---|
-  | R8 | 7 | 7 | **+0** |
-  | R15 | 64 | 66 | +2 |
-  | R25 | 187 | **221** | **+34** |
-  | R30 | 284 | **329** | **+45** |
-  | R40 | 441 | 476 | +35 |
-
-  ⚠️ **THIS DOES NOT RESCUE THE R8pp SHOPPER.** Budget versions are *"a little more per person and meat comes back"* food, not floor food. **The locale nudge is what serves the bottom band; this serves R25–R40.** Do not let one be sold as the other.
 - 🏷️ **COST BECOMES A QUERYABLE FACET, EXACTLY LIKE DIET.** Diet works because it is a **FACT ON THE VERSION**, derived in Node, never read out of prose (⚖️ Law 47). **Cost must be the same.** Then *"find me a budget bobotie"* stops being a special case and becomes an ordinary query.
 - 🔁 **THE RECORD'S PRICE STAYS THE DEFAULT VERSION'S PRICE** (MF131, unchanged). This ruling adds a **reachable minimum**, it does not move the face.
-- 💸 **THE SCALE OF WHAT IS HIDDEN — measured 21 Jul, budget pool:** of **88 meals carrying priced versions, 85 are cheaper via a version.** **69 hide a discount of ≥25%.** **12 hide more than half.**
-
-  | hidden | record → version | dish |
-  |---|---|---|
-  | **71%** | R52 → R15 | Crispy Fish Cakes |
-  | **71%** | R48 → R14 | **Cape Town Gatsby** |
-  | **67%** | R48 → R16 | **Lamb Sosaties** |
-  | 58% | R38 → R16 | Crunchy Chicken Schnitzel |
-  | 55% | R40 → R18 | **Durban Bunny Chow** |
-  | 51% | R59 → R29 | **Spaghetti Bolognese** |
-
-  🚨 **SPAG BOL IS THE CLEAREST CASE:** record **R59**, Budget **R31**, Quick **R29**. A shopper with R31pp **cannot reach it at all**, while the R31 version sits inside the record she was refused.
 - 🌍 **THIS PARTLY FIXES THE LOCALE SKEW ON ITS OWN — CONFIRM WHEN BUILDING.** The biggest hidden discounts are **disproportionately SA comfort food** — Gatsby, sosaties, bunny chow, bobotie. §11 measured the R0–R10 band at only **14% SA-reachable**; part of that is **SA budget versions being invisible, not absent.** Measure the band again after this ships **before** sizing the locale nudge.
 - ✅ **RESOLVED → §2.5 (22 Jul): bobotie canonical = `meals`; the WK copy is now a live six-version DOUBLE, Code strips it.** *(original measurement note kept below — note the WK copy has since been versioned, so "with none" is out of date):* **SEEN WHILE MEASURING — A DUPLICATE:** **`Classic Bobotie` [meals] R34 with six versions** and **`Bobotie` [world] R26 with none.** The world record is bare and its single price equals the meals record's **Budget** version. Duplicate rule says *same dish + same name → keep the most comprehensive* — but these are **near-name, not same-name.** ⚖️ §2.3 — **ask Tina, do not infer.**
 - ⛓️ **THIS IS NOT NEW WORK — §15.4 UNBLOCKS IT.** §15.4 ruled *query · opener · plan* as three coupled changes and settled the plan half. **Budget-by-version is those same three changes on a second surface.** Ship §15.4 and this becomes small. Ship this first and the plan cannot hold what the shelf surfaced. ⏱️ **ORDER: §15.4 FIRST.**
@@ -937,28 +821,15 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 - 📍 **ONE LINE.** `sections/index.js:446` — the `section:'world'` adapter ends
   `photoName: r.name, versions:null`.
-- 🩸 **THE DATA IS REAL AND IT IS BINNED:** **92 raw WK records carry versions — 213 version records in total. ZERO survive `allRecipes()`.**
-  *Feijoada raw:* `[{name:"Classic",default:true},{name:"de Feijão Branco (White-Bean)"}]` → *via the index:* `[]`.
 - 🖥️ **WHY IT LOOKS FINE ON SCREEN:** World Kitchen renders from the **raw arrays** (`WK_EUROPE` etc.) via `worldkitchen.js:728 → versionStripHTML`. **The card is honest. The INDEX is not.** So the chips show, and **Budget, Mood, search and every shelf query see nothing.**
 - 🔁 **IT IS THE SAME BUG AS BRAAI, IN THE SAME FILE, 112 LINES APART.** `index.js:334` hard-codes `costPP:null` and bins Braai's cost (⚖️ Law 23). `index.js:446` hard-codes `versions:null` and bins World Kitchen's versions. **One adapter, two hard-coded nulls, two rooms amputated from every query.**
 - ⚠️ **THIS BLOCKS §15.5.** *"Budget must query versions"* returns **nothing** for 1,021 World Kitchen dishes while this line stands. **Fix the adapter FIRST or §15.5 ships half-working and looks correct.**
-- 📏 **WHERE FABLE ACTUALLY GOT TO** — measured from the raw arrays, the only honest source:
-
-  | country | versioned | of |
-  |---|---|---|
-  | **Greece** | **54** | **54** ✅ complete |
-  | **Portugal** | **33** | 52 ⏸ stopped 19 short |
-  | Austria | 4 | 27 |
-  | Cape Malay | 1 | 21 |
 
 - 💰 **ONLY 1 OF THE 92 CARRIES A BUDGET FORK.** Fable wrote **cultural** forks — white-bean, lobster, lamb, mushroom. Good food, and **no help to the R26 shopper.** Tina, 21 Jul: *"a lot of these variations can have budget."* **That gap is real and it is hers to close.**
-- 🧭 **THE LESSON ABOUT MEASURING:** three separate wrong answers were given about `worldkitchen.js` in one session — the country count, whether versions render, and whether versions exist — **every one of them from reading the ADAPTER'S OUTPUT and calling it the data.** ⚖️ **Law 36, sharpened: measure the SOURCE, and name which layer you measured.**
-- ✅ **CENSUS CHECK CANDIDATE:** *no adapter branch may hard-code a reserved field to `null`.* Assert against `versions` and `costPP` in `index.js`; prove it by restoring either null.
+
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🍽️ 15
 
 ---
-
-
-
 ## 🔗 16 · `goesWith` IS A PAIRING, NEVER A SIMILARITY — **RULED 21 Jul 2026**
 *Raised by Tina off the vetkoek card, in four words: **"goes well with other deep fried stuff?"***
 
@@ -995,17 +866,6 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 
 ## 🔐 17 · DEV MODE IS A STORED FLAG ON TINA'S DEVICE, NEVER A URL — **RULED 21 Jul 2026**
 *Raised as Week 1 item 2: close the `?dev` back door. Measured first (⚖️ **Law 36**), and the measurement moved the target — **`?dev` was never the money door. The tier switcher was, and it has no door at all.***
-
-### 🩸 17.1 · WHAT THE MEASUREMENT FOUND — read at HEAD, 21 Jul
-
-- 🔍 **`?dev` GATES TWO THINGS, BOTH DIAGNOSTIC. NEITHER IS WORTH MONEY.**
-  1. `core.js:579` — the render-error boundary prints the real message + first stack line on screen *(MF44 · ⚖️ Law 19 — the tablet has no console)*.
-  2. `index.js:454` — a `console.info` of World-Kitchen costPP-skipped coverage.
-  **A stranger who guesses `?dev` gets an error message he did not want. That is the whole exposure.**
-- 💀 **THE ACTUAL OPEN DOOR: `tierBar`.** Built `core.js:526`, rendered `core.js:621` as `root.innerHTML = tierBar + _body + bottomBarHTML()` — **unconditional, every screen, every visitor.** The 👑 Pro button sets `USER_TIER='pro'`, and `tierAllows('pro')` then opens cost · My Plan · shopping list · the whole nutrition grid · dietary filters · favourites.
-- 🩸 **THIS IS THE SAME SHAPE OF BUG AS `tierAllows(){ return true; }`** — the one already recorded at `core.js:693` as *"All features unlocked."* **We closed the function and left the switch next to it.** ⚖️ **Law 20 — the fix that fixes one half.**
-- 📊 **SCALE: the chef leaked $2.02 of lifetime spend. The tier bar leaks the entire R90 product.** The smaller hole was found first because it had a bill attached; **this one is silent, which is exactly why it survived.**
-- ✅ **CONFIRMED ON LIVE, 21 Jul 13:00 — `tinza.netlify.app` with NOTHING after it.** The strip renders. ⚖️ **Law 2 — Tina's eyes closed it.** *(The first eleven screenshots were all taken on `/?dev` and could not settle it either way; the clean-URL shot is the one that counts. Noted because "I looked and it was there" is not evidence until the URL is checked.)*
 
 ### 🔑 17.2 · THE RULING — ONE FLAG, STORED, GESTURE-ARMED
 
@@ -1048,8 +908,9 @@ Every consumer of `r.slot` today reads **one** value, so under this ruling they 
 3. **Any ruling with a number becomes a doctor check.** ⚖️ Law 42 — the ratchet.
 4. ⛔ **If this file and the code disagree — THE FILE IS RIGHT AND THE CODE IS A BUG.**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🔐 17
 
+---
 ## 🐟 18 · THE WHOLE FISH LAW — **PRICED WHOLE → WRITTEN WHOLE** — **RULED 21 Jul 2026**
 
 **The ruling.** Where an ingredient is **bought whole and cooked whole**, the ingredient line carries the **trolley weight** — what she puts on the scale in the shop — and the **method** states the edible yield. Never the other way round.
@@ -1094,12 +955,12 @@ pilchards **R65** · tinned mackerel **R92** · maasbanker **R141** · braai sno
 
 **Why this one.** An adapter that throws inside its own `forEach` **silently deletes a whole section**: no error, no console, `node --check` clean, and the census RED count does not move. It is invisible to every instrument on the bench. Only the count catches it.
 
-**Filed as CENSUS CHECK 25** — `allRecipes() === 2083` · every section count > 0. Prove it by re-introducing the fault: an adapter that throws must go **RED**.
 
 **⚖️ `node --check` proves the file parses. It proves nothing about the data.**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🔒 20
 
+---
 ## 🥒 16.1 CONFIRMED · PICKLES ×64 = ACCOMPANIMENT — **21 Jul 2026**
 The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct, keep them.** They are not part of the 560-placeholder debt. **Zero work.** Do not "fix" them.
 
@@ -1128,7 +989,6 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 
 ⚖️ **THE QUESTION WAS NEVER "IS CHIPS HEALTHY". IT IS "IS CHIPS A MEAL".** Nobody opens Just Feed Me wanting a bowl of chips — **or a bowl of steamed broccoli.** Both are sides. The mood asked to be **fed**.
 
-- 🩸 **MEASURED — THE GATE ALREADY EXISTS AND `healthy` IS THE ONE MOOD THAT SKIPS IT.** `core.js:2270` allows six slots *(`SUPPER · LUNCH · BREAKFAST · SIDE · STARTER · TREAT`)*, but `core.js:2291` defines `_MOOD_MEALSLOT = ['SUPPER','LUNCH','BREAKFAST']` and **five moods already use it** — `exhausted` · `quick` · `pickmeup` · `lazy` · `impress`. `healthy` *(core.js:2293)* checks diet and **nothing else**, so `SIDE` and `STARTER` walk through.
 - ⚖️ **THIS IS AN INCONSISTENCY, NOT A NEW DESIGN.** Five moods have the gate; one does not. ⚖️ **Law 6.**
 - ✅ **RULED: every mood that promises a MEAL gates on `_MOOD_MEALSLOT`.** `sweet` keeps `TREAT` — it promises a treat, and ⚖️ **Law 23, one room one question**, cuts both ways.
 - ⛔ **DO NOT FIX THIS BY RE-TAGGING CHIPS.** Every fried, sugary or refined vegetarian record passes the same test; re-tagging one dish moves the symptom onto the next. ⚖️ **The predicate is the bug, not the record.**
@@ -1153,8 +1013,9 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 - ✅ **A QUERY over `allRecipes()` is the DEEP SHELF behind them.** 🏆 **Budget already does this** — `_budgetPool()` + curated floor. **LIFT IT, don't invent it.** ⚖️ **Law 35 · Law 50.**
 - 💰 **The paid chef only wakes when the shelf is THIN.** *(A deep query means Tinza stops paying Anthropic to invent food Tina already wrote.)*
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 😴 21
 
+---
 ## 🔌 22 · LOAD-SHEDDING — **A FIRST-CLASS FILTER. NOT A MOOD.** 🏆 — **MERGED INTO ROOT 24 Jul 2026**
 *Ruled 14 Jul 2026. Was stranded in the Tools rulings copy. Carried into root 24 Jul.*
 
@@ -1240,30 +1101,17 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 > The 25 Jul cost note stands as the reason it fell: from Boerekos, Cape Malay — its own neighbour — meant re-drilling Africa → Southern Africa, **two extra taps on the likeliest next move**. One day on live was enough: Tina ruled **exactly two levels up** on 26 Jul. The sprint plan carried the new rule from day one; this file lagged it — caught 27 Jul, the §2.2 lag shape again.
 > **What SURVIVES from the old §24, unchanged:** the two-jobs split *(top ≠ bottom)* · a top Back must NAME where it goes · on the room's front door it reads `← Home` · Option B's law — **never two buttons doing one job on the same screen** *(§24.9 obeys it: bottom = one up, top = two up, never equal)*.
 
-### 🐛 WHAT WAS ACTUALLY BROKEN *(measured at HEAD, 25 Jul)*
-
-1. **`worldkitchen.js:308`** — the country header said `← World Kitchen` and cleared `wkScreen` + `wkDataCountry` but **not `wkContinent`/`wkRegion`**, so it re-rendered the *region list*. **The label was not lying on purpose. It was two keys short.**
-2. **`worldkitchen.js:190`** — **ONE header serves both the continent grid and the region list** *(the drill happens in the content area, so the header never learns she went deeper)*. It read `← Home` on both and **walked out of the room from both.** Now it asks its own depth.
-3. **`navSignature()` — the real one.** ⬇️
-
 ### 🚨 THE FINDING UNDER THE FINDING — **navSignature() IS A CONTRACT, NOT A LIST**
 
 `draw()` pushes a history entry **only when `navSignature()` changes.** A level the signature cannot see is **a level Back cannot walk** — `goBack()` step (3) finds nothing and falls through to step (4), which dumps her on Home.
 
 - 🩸 **THE SIGNATURE WATCHED `wkCountry` AND `wkSelectedRegion` — WHICH NO ROOM HAS EVER WRITTEN** *(they appear only in the signature itself and the tier-switcher clear-down, which therefore also never reset World Kitchen)* — **while the real drill `wkContinent → wkRegion → wkDataCountry` went completely unseen.**
-- 🕳️ **ELEVEN blind keys across FIVE rooms:** `wkContinent` `wkRegion` `wkDataCountry` `wkDataTab` `wkCourseTab` *(WK)* · `healthGroupTab` *(Health)* · `mealPlanView` *(FMF)* · `catSection` `dogSection` *(Tiny Tummies)* · `barMode` *(Bar Planner)*.
-- ✅ **TEN ADDED. THE SAME SYMPTOM IN FIVE ROOMS HAD ONE CAUSE.**
 - ⛔ **NEVER PATCH `goBack()` FOR THIS. ADD THE KEY.** ⚖️ **Law 6.** goBack() step (4) is **correct** — it is the deliberate 3 Jul fix that stops Back walking into an unrelated earlier screen. It only *looked* wrong because the rooms gave it nothing to walk.
 - ⏸️ **`S.cookStep` DELIBERATELY NOT ADDED** — Back in cooking mode should **exit the mode**, not walk twelve steps backwards. **Tina's call, still open.** `S.searchPrevScreen` is a **memo, not a level** — it stays out.
-- 📋 **FOUR DEAD KEYS LEFT IN ON PURPOSE** *(`wkCourseTab` `wkTab` `kiddiesView` `healthTab`)* — always empty, so they cost nothing, and **deleting keys on a tool's say-so is how a live key gets buried.** Reported, not removed.
 
 ### 🩺 CENSUS 8 RUNG ⑤ — **THE WATCHER**
 
 > **Every key a room navigates by must appear in `navSignature()`; every key it watches must be written by some room.**
-
-- ✔️ **Proven RED** by removing `wkContinent`/`wkRegion` — the original bug, reproduced on demand.
-- ⚖️ **THE TWO SIDES USE DELIBERATELY DIFFERENT EVIDENCE.** Blind spots test **strictly** (`S.key` only) or the delta verbs `addStep`/`swapStep` sweep in and it cries wolf. Dead keys test **leniently** (`S.key` **or** `key:`) or three live keys written only as `set({wkSACulture:…})` get **buried alive**. *Each side errs the safe way.*
-- 🩸 **THE INSTRUMENT LIED TWICE BEFORE IT TOLD THE TRUTH.** First it scanned `core.js` and **counted `navSignature()`'s own reflection** — clean bill, nine false deaths. Then, once comments were in, it read **the prose naming a key dead** and **re-animated it off my own sentence.** ⚖️ **Law 19 — a measurement that includes the measurer is not a measurement.** Comments are now stripped before scanning.
 
 
 ### 🍳 24.1 · COOKING MODE — **BACK EXITS THE MODE** *(ruled 25 Jul, Tina)*
@@ -1271,7 +1119,6 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 - ✅ **Cooking mode is not a PLACE. It is a MODE a recipe is put into** — full screen, one step at a time.
 - ⛔ **Back does NOT walk the steps backwards.** Twelve steps would cost **twelve presses to leave**, and the twelfth would land on the recipe she was already reading.
 - ⚖️ **THIS IS WHY `S.cookStep` STAYS OUT OF `navSignature()`** — no history entries, nothing to walk. `goBack()` step **(0c)** clears `cookRecipe` + `cookStep` and returns her to the recipe.
-- 🩸 **IT WAS ALSO BROKEN:** `S.cookRecipe` was in no signature either, so Back fell through to step (4) and **dumped her on Home from mid-cook.**
 
 ### 🎉 24.2 · A FRONT DOOR IS A PLACE YOU GO TO, NOT A THING YOU CARRY
 
@@ -1281,21 +1128,14 @@ The 64 `pickles` entries in `goesWith` are **non-dish accompaniments — correct
 - ✅ **THE HEADER NAMES THE TAB** *(title, emoji and tagline all switch)* and its Back reads **`← Events`**, returning to the tile grid. On the grid itself it reads **`← Home`**. ⚖️ **§24.**
 - ✅ **THE GUEST BAR STAYS VISIBLE INSIDE EVERY TAB** — it is the **ONE Events guest count** (§2.2) and it drives every portion on screen.
 - ⚖️ **THE COST, SAME AS WORLD KITCHEN AND ACCEPTED THE SAME WAY:** Finger Foods → Cakes is **Back to Events, then Cakes** — two taps. **A rule that bends per room is not a rule.**
-- 📋 **CENSUS 8 RUNG ⑥ — BORN RED ON PURPOSE:** **14 header Backs are labelled just `← Back`** *(events ×6, spice ×2, health ×2, kiddies ×2, meals, core)* and **name no destination.** The **bottom** Back may be anonymous — it always means one level. A **header** Back is a jump and must say where. ⚖️ **Law 22 — a RISK LIST, not a same-session fix.**
-- 🩸 **THE INSTRUMENT LIED A THIRD TIME.** The `goBack()` matcher used a **fixed 2400-character window**; the §24.1 comment pushed the function past it, the matcher stopped reading before the call it was looking for, and it reported the *already-fixed* search bug as unfixed. ⚖️ **Law 19 — an instrument with an arbitrary limit measures the limit, not the code.** Now matched to the closing brace.
 
 ### 🧭 24.3 · ONE SCREEN, ONE TOP BACK — **`eventsTopNav()` IS DELETED** *(ruled + built 25 Jul)*
 
 **EVENTS SAMENESS, STEP 1 OF 4.** `eventsTopNav()` hand-rolled a **`← Events / 🏠 Home` PAIR** and three screens rendered it **on top of a `sectionHeader()` that already carried a Back, on a spine that already carried Home.**
 
-- 🩸 **MEASURED ON KIDDIES: FOUR WAYS OUT OF ONE SCREEN** — the header's Back, the strip's `← Events`, the strip's `🏠 Home`, and the spine's Home. On kiddies the strip rendered **ABOVE the photo header**, so the first thing on the screen was a duplicate of the second thing.
 - ⚖️ **THIS IS THE §24 TEST, APPLIED:** two Backs are allowed **only when they do two different jobs** — bottom = one level, top = the room front door. `eventsTopNav()`'s `← Events` did **the same job as the header's Back**, and its `🏠 Home` did the same job as the spine. **A second answer to a question that already has one is not a shortcut, it is a contradiction.**
-- ✅ **DELETED, NOT DEPRECATED** — the definition (`events.js:53`) and all three call sites (`buffet.js:94`, `buffet.js:140`, `kiddies.js:46`) are gone.
 - ⚠️ **THE CATCH THAT MADE A BARE DELETION WRONG:** `buffet.js:136` was labelled **`← Home`**. Buffet **bypasses the Events tab wrapper** and renders its own header, so the *only* route from Buffet back to Events was the strip. Deleting the strip alone would have **stranded Buffet inside Events with no way back to it.** The header now carries the job: **`← Events`**, using `eventsTopNav()`'s own unchanged payload. ⚖️ **A helper is only safe to delete once its JOB has a new home.**
-- ✅ **KIDDIES NEEDED NOTHING** — all four `kidsHeader()` call sites already pass a Back that names its destination (`← Events`, `← 12 Themes`, `← <theme>`). Measured before cutting.
-- 📋 **CENSUS 8 RUNG ⑦ — `No screen hand-rolls its own room-nav pair`.** Proven by re-introducing the call in `kiddies.js` → **RED at 1**, then restoring → GREEN. ⚖️ **A rung that cannot fail is not a rung.** The rung **strips comments before matching** — the §24.3 comment block names `eventsTopNav()` three times, and *(Law 19, learned the same day)* **prose is not evidence.**
 - ⛔ **DO NOT REBUILD IT.** If a screen cannot reach its room, give that screen's `sectionHeader()` the right `backJs`/`backLabel`. **Never bolt a strip above the photo.** ⚖️ **Law 6.**
-- 🚦 **STEPS 2–4 ARE NOT THIS SESSION** *(one per session, her eyes between each)*: ② `sectionHeader() sub:true` · ③ collapse buffet's seven headers · ④ the 14 anonymous `← Back` labels.
 ### 🚪 24.4 · THE DOOR IS NOT THE ORIGIN — **RULED 25 Jul 2026** *(Tina, on live, in Boerekos)*
 
 **Her words:** *"I went into Boerekos Bobotie, and on that photo the top back said Cape Malay. If I clicked on the recipe to open it, and after it opened I clicked bottom back, I landed in Bobotie Cape Malay."*
@@ -1304,10 +1144,7 @@ A dish can sit on **more than one shelf**. Bobotie's country is **Cape Malay**; 
 
 - ✅ **THE DOOR SHE WALKED THROUGH OWNS THE BACK.** Enter Bobotie from Boerekos → the top Back reads **`← Boerekos`**. `S.wkDataCountry` **is** the door.
 - ✅ **THE ORIGIN CHIP DOES NOT MOVE. Bobotie stays CAPE MALAY.** ⚖️ **Tina, 25 Jul:** *"it's a truth Boerekos doesn't want to accept, but only a few people actually know this."* **The shelf can change; the dish's origin cannot.**
-- 🩸 **THE BUG, MEASURED:** `worldkitchen.js:140` built the open call from **`r.country`**, so tapping Bobotie on the Boerekos shelf ran `wkOpenRecipe('Cape Malay')` — and that setter's own comment reads *"so Back lands on this country's list."* **The door re-labelled itself behind her**, and both Backs were then honestly returning her to a shelf she had never walked through. `RECIPE_BUILDERS.world` repeated it, feeding `item.country` into the Back label.
-- ✅ **THE CODE WAS ALREADY SHAPED FOR THIS RULING** — `wkRecipeOpts` keeps `backLabel:'← '+country` *(the door)* and `meta:{origin:r.country}` *(the truth)* in two separate slots. Only the wrong value was being handed to the door slot. **Nothing was redesigned; one argument was corrected in three places.**
 - ⚠️ **THE TRAP IN THE FIX:** the shelf renders via `.map()`, which passes **(item, INDEX, array)**. A bare `.map(wkRecipeCard)` would hand the new second parameter **0, 1, 2…** instead of a country — silently, with no error. Callers must use `.map(function(x){ return wkRecipeCard(x, country); })`. **This is watched, not remembered.**
-- 📋 **CENSUS 8 RUNG ⑧ — four assertions**, proven by re-introducing **both** failure shapes *(the `r.country` open → RED · a bare `.map` → RED)*, then restoring → GREEN.
 - ⚠️ **`sharedWith` IS A STRING, NOT A LIST — 1021 records, ZERO arrays. QUEUED, NOT FIXED** *(reference/TINZA_FIX_QUEUE.md)*. The filter uses `.indexOf()`, which on a string means **substring**, so it works by accident. Already odd in the data: two records share with **themselves** (`peppermint-crisp-tart → "Cape Malay"`, `zulu-umngqusho → "Zulu"`) and one crams two countries into one string (`sweden-gravlax → "Norway · Denmark"`). ⚠️ **THE LANDMINE:** a country **"India"** and a culture **"Indian"** both exist — one record tagged `sharedWith:"Indian"` would surface on the **India** shelf, because "Indian" *contains* "India". ⚖️ **This is the INGREDIENT STANDARD applied to data: one item per line, never a "+" line.** A migration, not a patch — needs its own session.
 ### 🗝️ 24.5 · THE DRILL IS FIVE KEYS — **A RESET THAT NAMES FEWER IS SHORT** *(ruled + built 25 Jul)*
 
@@ -1323,13 +1160,8 @@ A dish can sit on **more than one shelf**. Bobotie's country is **Cape Malay**; 
 
 ⚖️ **A KEY LEFT BEHIND IS A SCREEN LEFT BEHIND.**
 
-- 🩸 **THE BUG:** `core.js`'s leave-World-Kitchen reset cleared **`wkScreen` · `wkDataCountry` · `wkDataRecipe`** — and stopped. **`wkContinent` and `wkRegion` survived the exit**, so walking out of Boerekos and back in from Home re-opened Southern Africa. Nothing threw; the room simply remembered.
-- 🩸 **THE SAME TWO KEYS AS THE §24 HEADER BUG, THE SAME EVENING** *(worldkitchen.js:308 — "the label wasn't lying, it was TWO KEYS SHORT")*. Twice in one night, in two unrelated functions. **`wkContinent` and `wkRegion` are the two keys everybody forgets** — which is exactly why the list stops being remembered and becomes a function.
-- 📊 **MEASURED BEFORE CUTTING — five hand-rolled resets, FOUR of them short:** `core.js:599` *(3/5, missing wkContinent + wkRegion)* · the three tier-switcher buttons `core.js:610–612` *(4/5, each missing wkDataRecipe)* · and `worldkitchen.js:321` *(5/5 — the only complete one, and it was written the session before as the §24 fix)*.
 - ✅ **ONE DOOR: `wkResetDrill()`** in `worldkitchen.js`, over `WK_DRILL_KEYS = ['wkScreen','wkContinent','wkRegion','wkDataCountry','wkDataRecipe']`. All four short sites now call it. ⚖️ **Law 6 — five places hand-rolled the same list and four got it wrong. That is not carelessness, that is the wrong shape.**
 - ⛔ **A LEVEL MOVE IS NOT A RESET.** `← continent` nulls **`wkRegion` alone** and must keep doing so. Stepping up one level is not leaving the room, and `wkResetDrill()` is not for it.
-- 📋 **CENSUS 8 RUNG ⑨ — two assertions, all three failure shapes proven RED then GREEN:** her exact bug *(drop wkContinent + wkRegion → **RED, naming both**)* · the door renamed → **RED at 0 definitions** · a second definition → **RED at 2**. It ignores any statement nulling fewer than 3 drill keys, so a step-up never cries wolf. ⚖️ **Law 22.**
-- 🩸 **THE INSTRUMENT ALMOST SHIPPED BLIND AGAIN.** The door-exists probe was first written `/function wkResetDrill/` — which **still matches `wkResetDrillX`**, so renaming the door passed GREEN. Worse, every caller is guarded by `typeof`, so a renamed door **fails silently and falls back**. Now matched to the whole name plus its paren, and counted. ⚖️ **Law 19 — a rung that cannot fail is not a rung, and I proved it by trying to break it.**
 
 ### 🔁 24.6 · ONE KEY, ONE CLOSE PATH — **A KEY MAY NOT BE IN BOTH LISTS** *(ruled 26 Jul, Tina)*
 
@@ -1358,14 +1190,6 @@ It **ping-pongs**, and when the depth arithmetic desyncs, step (4) dumps her on 
 - ✅ **THE CONTRAST THAT PROVES THE RULE:** `closeRecipe()` *(core.js:3914)* calls `history.back()` — it **CONSUMES the entry it pushed**. That is why `viewingRecipe` has never had this bug.
 - ⚖️ **THE RULING — MOVE THEM TO THE CONSUME PATH.** `moodActiveRecipe` and `mealActiveRecipe` come **OUT of `SIMPLE_RECIPE_KEYS`** and **STAY in `navSignature()`**. Closing goes through the consuming path, exactly like `closeRecipe`. ⚖️ **Law 6.**
 - ⛔ **THE OTHER DIRECTION WAS REJECTED, AND WHY.** Dropping them from `navSignature()` instead would mean opening a recipe pushes nothing — and then the **phone's back button** pops straight past the list to **Home**. Consume-path gives the in-app Back and the device Back **one mechanism**. *(The in-app Back alone would have worked either way. The device Back is what decides it.)*
-- 🔧 **TWO CALL SITES ONLY** — `meals.js:16480` and `core.js:2523` change from `setQuiet({key:null})` to the consuming close.
-- 📋 **RUNG OWED — `No key appears in both lists`. Born RED at 2.**
-- 🔴 **PROVEN ON LIVE — TINA, 26 Jul, phone + tablet** *(⚖️ Law 2 — her fingers closed it)*. **Sides & Basics: "it loops chips and the recipe, chips and the recipe"** — and the same with **Gnocchi**. **The bottom-left Back CAN get out; the phone Back cannot.** That split is the proof, and it sharpened the trace:
-  - open Chips → history gets a **recipe** entry
-  - bottom-left Back → nulls the key → redraw → pushes a **list** entry *(she is out — this is why the in-app Back works)*
-  - so every open-and-close cycle leaves the stack `list · recipe · list · recipe · list…`
-  - the phone Back walks **down that whole stack**, replaying the session alternately
-  ⚖️ **THE IN-APP BACK ESCAPES BY MAKING THE MESS THE PHONE BACK THEN WALKS THROUGH.**
 - ⚠️ **JUST FEED ME IS UNWALKED BUT NOT UNAFFECTED.** `moodActiveRecipe` is the other key in both lists. She reported *"it's only FMF"* because Mood was not on the walk — **expect the identical loop there**, and check it when the fix lands.
 
 **🧹 THE SWEEP — because a bug is never in one place *(Tina's standing law)*. Every open-detail key in the app, classified:**
@@ -1385,8 +1209,6 @@ It **ping-pongs**, and when the depth arithmetic desyncs, step (4) dumps her on 
 
 - ⚖️ **THE RULING: a move that does not change DEPTH does not create HISTORY.** A lateral uses **`replaceState`**; only a level uses `pushState`. **ONE ruling, every room** — WK course tabs, Events tabs, Health group tabs, `wkDataTab`, the FMF pills. ⚖️ **Law 6 — not one fix per room.**
 - 🔑 **MECHANISM — a declared `LATERAL_KEYS` list.** If the **only** signature keys that changed are lateral, replace instead of push. Candidates: `mealCat · eventTab · wkDataTab · wkCourseTab · healthGroupTab · beverageCat · cakeCat · catSection · dogSection · barMode · braiCat · fingerView · healthTab`.
-- ✅ **THE QUESTION I EXPECTED TO ASK HER, MEASURED INSTEAD.** *Is the FIRST pill tap a level or a lateral?* `meals.js:15395` reads `activeCat = cats.find(c=>c.id===S.mealCat) ? S.mealCat : cats[0].id` — **a pill is ALWAYS selected**, falling back to the first. There is no unfiltered state behind the pills, so **nothing is lost by replacing**. The first tap is a lateral like any other. ⚖️ **Law 19 — measured, not assumed.**
-- 🔴 **PROVEN ON LIVE — TINA, 26 Jul, THREE ROOMS** *(⚖️ Law 2)*. **Oven Bakes & Roasts → phone Back → Homestyle Plates.** **Deep-Fried → phone Back → Breads & Rolls.** **Waffles → Back → Eggs** *(tablet)*. ⚖️ **IT ALWAYS LANDS ON THE FIRST PILL** — because entering the room drew with the default pill *(`cats[0].id`)* and pushed an entry, then her tap pushed a second. **Back walks to the default, not out of the room.** Her words: *"it's been doing this for a while."*
 - ⚠️ **CONFIRM ON LIVE BEFORE `eventTab` GOES IN THE LIST.** It has a default *(`data.js:33`, `'mains'`)* so it passes the same test on paper — but Events is the room being reworked, and **Law 2 says her fingers close it.**
 
 ### 🪦 24.8 · READ AND CLEARED IS NOT ALIVE — **DEAD RENDER BRANCHES** *(measured + RULED 26 Jul, Tina)*
@@ -1401,7 +1223,6 @@ The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is th
 
 - 🩸 **THE ONE THAT MATTERS:** `health.js:963–966` renders **four recipe-detail branches** — smoothie, oats, muffin, raw — each with its own back-state, its own cooking-mode line *(:955)* and its own Home button *(:858)*. **Not one of them can ever be opened.** They are leftovers from Health's migration onto the universal opener. Live code, reachable by nothing.
 - ✅ **WHY DELETION IS SAFE HERE, AND THE LAW IT OBEYS:** ⚖️ *a helper is safe to delete only once its job has a new home* **(§24.3)**. These jobs moved to `openRecipe()`/`viewingRecipe` **at migration** — the new home already exists and has been live for weeks. That is the opposite of the `eventsTopNav` trap, where buffet's only route out would have been stranded.
-- 🩸 **MY INSTRUMENT CRIED WOLF FIRST, AND I CAUGHT IT BY HAND.** The first probe reported `barMode` dead. It is **live** — `barplanner.js:285` writes it through `chipRow(..., 'barMode')`, a helper that takes the key **as a string**, which no `key:` pattern can see. ⚖️ **Law 19 — every one of the 10 above was then re-checked repo-wide for string-name writes AND for computed writes (`S[k]`), and the only dynamic writers in the app are `goBack`'s clear and `closeRecipe`'s snapshot restore. Both clear; neither sets.**
 - ✅ **RULED — TINA SAID YES TO ALL THREE, 26 Jul:** **(a)** the four dead Health branches are DELETED · **(b)** the dead keys come OUT of `navSignature()` · **(c)** the rung is TIGHTENED to ask *"is it ever SET?"*.
 - ⛔ **THE PRICE OF (c), WRITTEN DOWN BEFORE IT IS PAID.** A stricter rung can one day bury a **live** key that is only ever written through a helper taking its name as a string — *the exact shape that made my own probe call `barMode` dead*. **The rung must therefore count string-name writes (`'key'`) as writes, not only `key:` literals**, and that requirement is part of the ruling, not an implementation detail. ⚖️ **Law 19.**
 
@@ -1418,7 +1239,6 @@ The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is th
 - 🔑 **MECHANISM — ROOMS DECLARE THEIR PARENT CHAIN.** *(Sprint plan: "rooms need to know their parent.")* One helper in `core.js` — `topBack(chain, depth)` — takes a room's declared level chain *(names + the state-writes that land on each level)* and returns the header's `{backJs, backLabel}` for two-up. ⚖️ **Law 6 — nine rooms hand-rolling "null the right keys" is the §24.5 five-resets-four-short shape waiting to happen again.** No screen hand-rolls a two-up jump.
 - 📛 **THE LABELS COME FREE:** the chain declares each level's NAME, so the 14 anonymous `← Back` headers *(census rung ⑥, born RED 25 Jul)* are named by the same build — a top Back's label **is** `'← ' + chain[depth−2].name`.
 - ⛔ **LATERALS ARE NOT LEVELS.** Pills and tabs *(`mealCat`, `healthGroupTab`, `wkDataTab`, …)* live INSIDE a level *(§24.7 — they replace, never push)*. A chain never lists a lateral.
-- 📋 **RUNG OWED:** no `sectionHeader()` ships a hand-rolled multi-key back-jump — every header `backJs` that clears ≥2 nav keys must route through `topBack()`. Born RED at the current hand-rolled count, proven by re-introducing one.
 
 ---
 
@@ -1432,7 +1252,6 @@ The census RED reads **`4 DEAD keys in navSignature()`**. That rung asks *"is th
   - **LATERAL** *(a pill or tab inside a level — `LATERAL_KEYS`: Meaty → Pastry, `mealCat`, `healthGroupTab`, …)* → **land on the block that pill selected**, its heading at the top of the viewport. ⚖️ **Not "stay put"** *(Tina, live: tapping Meaty Snacks left her where she was and made her scroll down to find it)* and **not the top either** *(a pill tap is not an arrival; re-showing the banner on every pill is the thing `jumpToContent` was built to avoid)*.
   - **RECIPE OPEN** → top *(already correct — `openedRecipe`)*. **BACK** → restore the scroll she left *(already correct)*. **COOKING STEP** → top *(already correct)*.
 - 🔧 `jumpToContent` is **deleted** as the default; its scroll-to-content behaviour survives only inside the lateral branch, and aimed at the SELECTED block rather than at `.content`'s top.
-- 📋 **RUNG OWED:** no push path may land at a non-zero scroll. Born RED against the current tree.
 
 ### 🏷️ 24.11 · A BACK SHELL WITHOUT A LABEL ARGUMENT WILL ALWAYS SAY "← Back" — *(MEASURED 27 Jul 2026, Tina's live catch)*
 
@@ -1448,7 +1267,6 @@ MF149-B named every `sectionHeader()` caller and Tina still found bare `← Back
 **This is INTENDED. It is not a missing step, and nobody may "fix" it back.**
 
 - §24.7 ruled that a lateral **replaces** its history entry rather than pushing one. The direct consequence: from a lateral-selected state, **one Back press leaves the room** — because tapping a pill never created a step to walk back through.
-- 🩸 **Confirmed on live by Tina, 27 Jul:** Finger Foods (Meaty list → Back → **Events**) and Supper (Oven Bakes → Back → **out of the room**). Both correct.
 - ⚖️ **WHY IT IS RIGHT:** she did not GO anywhere when she tapped Meaty — she changed what one level was showing. Making Back retrace pills is what produced the original bug: every pill she ever tried standing between her and the way out.
 - 📌 **AND:** Finger Foods' top Back stays a **static `← Home`** even when the room was entered via Events. Ruled, not an oversight — Finger Foods sits at depth 1, and §24.9's depth-1 clamp says two-up from there IS Home. The one-level step back to the Events grid is the BOTTOM Back's job.
 
@@ -1460,9 +1278,6 @@ walk her anywhere — **it changes what the one Just Feed Me level is showing.**
 - ⚖️ **THE RULING: `moodSelected` is a LATERAL KEY.** It joins the list §24.7 declared
   *(that list is at `core.js:154-156`; §24.7's own candidates at line 1336 never included it)*.
   **Picking a mood REPLACES its history entry. It does not push one.**
-- 🩸 **HER FIND, 6 Aug:** from the Just Feed Me main screen, Back took **two presses** to reach the
-  main menu — *"one press does nothing visible."* Measured: the mood picker and the mood shelf were
-  **two history entries whose renders were byte-identical, 7436 chars each.**
 - ✅ **§24.7's OWN WORDS DECIDE IT, and they were already written:** *"A LATERAL is a pill that
   swaps what ONE level SHOWS… She did not go anywhere."* **A mood tile is that sentence.**
 - 📌 **THE CONSEQUENCE IS ALREADY RULED — see §24.12.** Once a mood is a lateral, **one Back press
@@ -1479,8 +1294,9 @@ walk her anywhere — **it changes what the one Just Feed Me level is showing.**
   four mood pairs collide *(`core.js:131`)*. ⛔ **Not touched by this ruling.**
 - **BUG 5** — the stale snapshot · ✅ **already fixed by MF167**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🔙 24
 
+---
 ## 🎭 25 · WATCHING WHAT THE APP **DOES** — **RULED 26 Jul 2026 (Tina)**
 
 ### ⛔ 25.1 · CORRECTION — **"TINA DECLINED PLAYWRIGHT" WAS NEVER TRUE** *(struck 26 Jul 2026)*
@@ -1725,10 +1541,6 @@ Hon dashi contains bonito extract. `dashi` is already on the hidden-animal dicti
 `dashi` price key is an **omnivore** key, and any card claiming vegan or vegetarian while carrying a
 plain `dashi` line is mis-tagged.
 
-⚠️ **The original 29.3 recorded "MEASURED CLEAN — all 6 records with a plain dashi base line ... all
-7 forks swap explicitly." That measurement is superseded.** Re-run mechanically against
-`wk_japan.js` at **20 records** on 29 Jul, it does not hold. The word doing the damage was
-**"explicitly"**. Corrected finding:
 
 **9 records carry a plain `dashi` base line. 11 vegetarian/vegan forks hang off them, in 3 states:**
 
@@ -1810,8 +1622,9 @@ from-scratch route, which is far lower — and that gap is 29.2 working exactly 
   **STRUCK**. Same inversion as Events §2.2 and the potato-starch alias: **the file was right and the
   note was the bug.**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🏺 29
 
+---
 ## 💰 30 · **COSTPP IS DERIVED, AND PRICES MUST HAVE A REFRESH ROUTE** — **RULED 29 Jul 2026 (Tina)**
 
 ### ⚖️ 30.1 · `costPP` IS A DERIVED NUMBER, NOT AN AUTHORED ONE
@@ -2303,13 +2116,6 @@ The dish name **stays**. It is explained, not swapped, not anglicised, not "inte
 instead of *koeksister* has sold the only thing NYT Cooking can never copy.
 ⚖️ **GLOSSING and SWAPPING are two different operations. This ruling authorises only the first.**
 
-### §33.2 WHAT WAS ALREADY RIGHT — MEASURED 31 JUL, NOT ASSUMED
-
-`wk_southafrica.js` = **131 records · 131 carry an English `nameAlt` · 112 carry `aliases[]`.**
-Many names already gloss inline: `Melktert (Milk Tart)` · `Potjiekos (Three-Legged-Pot Stew)`.
-✅ **The card level was never the problem.** A foreign reader opening a card already gets
-*Golden Spiced Mince Bake* under **Bobotie**.
-
 ### §33.3 🩸 WHERE IT ACTUALLY LEAKS — AND IT WAS PREDICTED SIX WEEKS AGO
 
 **68 bare mentions across the corpus** — an SA term used in prose, on a card that is not that dish,
@@ -2326,18 +2132,6 @@ There is no recipe to open and no link to tap. The fallback route does not exist
 **Nothing was watching, so the marking stopped.** ⚖️ **Law 15 · and the same diagnosis as
 `pricecheck`, the `tierBar` and `wowcheck`: a silent hole needs a mechanical watcher, not sharper eyes.**
 
-### §33.4 ✅ THE WATCHER — `tinza-echo.js` RUNG 6 (built the same day)
-
-`node tinza-echo.js [country] [batch.js]`, and inside `/all`. Three states, no judgement:
-- ✅ **GLOSSED** — explanation follows the term · or the card **is** that dish (`name` / `nameAlt` / `aliases`)
-- 🟡 **LINK-ONLY** — a `crossLink` reaches it. Allowed, but flagged: it is a tap away, **not on the recipe she opened.** *(Currently 0.)*
-- 🔴 **BARE** — nothing resolves it. **The fault.**
-
-⛔ **`sambal` IS DELIBERATELY NOT ON THE SA LIST.** It reads Cape Malay and it is also Indonesian —
-and in this corpus it is Indonesian on **34 of 34** cards. Listing it as "an SA term" would put a
-**wrong reason beside a real finding**, which teaches a reader to distrust the whole rung.
-⚖️ Untranslated *non-SA* loanwords are a different list and need their own ruling.
-
 ### §33.5 HONEST LIMITS
 
 - It sees whether an explanation **exists**, never whether it is **correct or good**. *"pap (a type of
@@ -2348,36 +2142,6 @@ and in this corpus it is Indonesian on **34 of 34** cards. Listing it as "an SA 
   NOT built** — confirmed 31 Jul, no matching code in `core.js` or `index.js`. When it is built, the
   gloss can become locale-conditional (invisible to an SA reader, shown to everyone else) and this
   ruling does not change: **the explanation must still exist.**
-
-### §33.6 ✅ THE SWEEP — DONE 31 JUL 2026, BOTH HALVES
-
-**LOCALE: 149 records · 167 hits → 0.** 223 replacements over two passes.
-- **Pass 1 — spelling only** (`flavour` ·`colour` · `favourite` · `savoury` · `caramelise` · `litre` · `fibre`):
-  168 replacements. ✅ **Price resolution diffed before and after: ZERO movement.**
-- **Pass 2 — produce names** (`brinjal` · `baby marrow` · `spring onion` · `coriander`): 55 replacements.
-  ✅ **13 lines changed key NAME only, at identical price** — eggplant R43 → brinjal R43, zucchini →
-  baby marrow R50. **8,812 ingredient lines · 285 ABSENT, unchanged. 0 dead crossLinks.**
-- 🔑 **`aliases` WERE MASKED AND SURVIVED UNTOUCHED, DELIBERATELY.** `Scallion Oil Noodles` became
-  `Spring Onion Oil Noodles` but kept *"Shanghai Scallion Noodles"* in its aliases. ⚖️ **An alias
-  carrying the US word is not drift — it is how a reader in Ohio FINDS the card**, which is the whole
-  point of this ruling. **Never strip a US alias.**
-- ⛔ **`molasses` → `treacle` WAS PULLED FROM THE LIST BEFORE IT RAN.** Molasses is ordinary SA
-  English, and `greece-koulouri` says **grape molasses** — petimezi, a distinct Greek product.
-  Renaming it would have been a **potato bobotie** (⚖️ Law 43). **A locale list carries SPELLING and
-  PRODUCE names only. It never renames a different product.**
-
-**GLOSS: 68 → 4.** 59 glosses inserted across `wk_southafrica.js`, `wk_japan.js`, `wk_europe.js`.
-
-🩸 **TWO DEFECTS CAUGHT BY READING THE OUTPUT BEFORE APPLYING IT — neither was mechanical:**
-1. **NESTED GLOSSES.** The first pass produced `Steamed bread (ujeqe (steamed bread))` and
-   `Umngqusho (samp (cracked, hulled maize kernels) and beans)`, because **the gloss text itself
-   contained SA terms** and the glosser then glossed inside its own output.
-   ✅ **RULE: A GLOSS MUST BE PLAIN ENGLISH ONLY AND MAY NOT CONTAIN A GLOSSABLE TERM.** Asserted
-   mechanically before the sweep ran, and a nested-bracket scan over the whole corpus returns **0**.
-2. **THE REVERSE GLOSS WAS INVISIBLE TO THE RUNG.** `wild greens (imifino)` is perfectly resolvable,
-   and the watcher flagged it as bare. **The planner that wrote the sweep already understood the
-   pattern; the watcher did not.** ⚖️ **A watcher dumber than the tool doing the work teaches its
-   reader to ignore it.** Backported, born-RED proof added.
 
 ### §33.7 ⚠️ THE FALSE-POSITIVE FLOOR — 4 REMAIN AND THEY ARE CORRECT AS WRITTEN
 
@@ -2418,6 +2182,76 @@ problem** — the same shape as the potato bobotie.
 If it only offers a different word, it is a translation and it has failed.
 ⚠️ **The remaining glosses in the map are Tina's to correct** — she is the caterer and the domain
 expert, and every one of them is a claim about South African food made by a model. ⚖️ **Law 11.**
+
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → 🌍 33
+
+---
+## ⚖️ 34 · **AN OIL WITH A TASTE IS AN INGREDIENT, NOT A SOLVENT** — **RULED 31 Jul 2026 (Tina)**
+
+> **Tina, 31 Jul 2026:** *"peanut oil is more expensive, but has a distinct taste, maybe give
+> sunflower as alternative or use in budget if there is one."*
+
+### §34.1 · THE TEST
+**Does the oil carry flavour into the dish, or does it only carry heat?**
+- **Carries FLAVOUR** — groundnut/peanut, coconut, sesame, olive, mustard, ghee → it is a **named
+  ingredient**, keyed and priced as itself. ✅ **It is never silently aliased to a cheap neutral oil.**
+- **Carries only HEAT** — "oil", "vegetable oil", "frying oil", "oil for frying" → alias to
+  `sunflower oil` freely. Nothing is lost because nothing was there.
+
+### §34.2 · ⛔ THE ALIAS THAT HID IT IS STRUCK
+`"peanut oil" → "sunflower oil"` is **REMOVED from BOTH maps** (`core.js` and `worldkitchen.js` —
+the price gate is prices.js AND both maps, never one). It made `nigeria-suya` **name one product
+and charge for another**: the card said peanut oil, the cook buys it at ~R200/L, and the card
+costed it at R48/L. ⚖️ **§29.2 — a slot is priced as the product a cook actually BUYS.**
+
+
+### §34.3 · THE CHEAP OIL IS AN ALTERNATIVE, SAID OUT LOUD — NEVER A SWAP DONE QUIETLY
+Where a card **has versions**, the neutral oil belongs in the **budget fork**.
+Where a card **has none** — `nigeria-suya` has no versions — it is named **in-method or in
+chefNotes**, stating plainly *what the cook loses by swapping*. ✅ Done on suya.
+🩸 **This is the difference between a stand-in and a potato bobotie.** "Use sunflower instead" is
+honest. Printing "peanut oil" and charging sunflower is not.
+
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → ⚖️ 34
+## ⚖️ 35 · **HARD TO BUY, EASY TO MAKE → IT IS A SPICE CARD WITH A CLICKABLE LINK** — **RULED 31 Jul 2026 (Tina)**
+
+> **Tina, 31 Jul 2026:** *"preserved radish is difficult to get hold off, but very easy to make,
+> maybe a clickable link to Spice, to make yourself, as the same case with pickled ginger which
+> they use a lot there as well, especially with sushi."*
+
+### §35.1 · THE RULING
+An ingredient that is **hard to buy in South Africa but easy to make at home** gets:
+1. **a real card in `SPICE_DB`**, authored to `/wow`, and
+2. **a clickable link from every recipe that uses it**, so the cook is never dead-ended.
+
+⚖️ **THIS IS THE THIRD ANSWER TO §29, AND IT IS THE ONE §29 COULD NOT GIVE.** §29.1 offered only
+two outcomes: a bought product fills the slot *(key it)*, or nothing on a shelf does *(fail loud,
+no cost)*. **§35 adds: nothing convenient on a shelf, but a jar you can make.** Master Stock stays
+in §29's "no bought equivalent" bucket. Preserved radish moves here.
+
+### §35.2 · ✅ THE MACHINERY ALREADY EXISTS — THIS IS NOT A BUILD
+`core.js:3626` already dispatches ingredient names to Spice cards via
+`RECIPE_SOURCES.spice` / `openSpiceRecipe(...)`, with **19 links live** — `pesto`,
+`apricot chutney`, `banana sambal`, `crispy chilli oil`, `brown gravy` and more. **The salad →
+dressing link is the same mechanism.** Adding one is a line in that map plus a Spice card.
+✅ And `SPICE_DB` already carries **190 cards including `fermented-chilli-mash` and `lime-pickle`**,
+so pickles and ferments are an established shelf there, not a new category.
+
+### §35.3 · THE TWO CARDS THIS RULING CREATES — ⏳ NOT YET AUTHORED
+| ingredient | status today | what §35 says |
+|---|---|---|
+| **preserved radish** (chai poh / caipu) | falls to **fresh `radish` R108** · 0 records use it | Spice card **+** link. Tina's shelf price R58–60/500g ≈ R118/kg still logged in MF152 for the A7 batch, so **both routes exist**: buy it, or make it. |
+| **pickled ginger** (gari / beni shoga) | key **R280/kg** already live, used across the Japan sushi cards | Key stays *(§29.2, the store route)*. The Spice card is the **second** route, not a replacement. |
+
+⚠️ **A SPICE CARD DOES NOT DELETE A PRICE KEY.** They answer different questions — *what does it
+cost me to buy?* and *how do I make it?* Two numbers, two questions, both correct. **Same shape as
+§29.2**, where the staple card keeps its cheaper from-scratch cost while the ingredient slot is
+priced as the bought product.
+
+### §35.4 · 🩸 WHO AUTHORS THESE
+⚖️ **Law 11 — no model authors a ferment.** Both cards are salt-percentage, time and temperature
+work with a safety note *(`/wow` §4, the ferment clause)*, and that is **Tina's own field, not a
+thing to be inferred.** ⏳ **The cards are scoped, not written.**
 
 ---
 
@@ -2476,6 +2310,102 @@ reader sees. §30.1 parity is what keeps them the same number.
 
 ---
 
+## ⚖️ 38 · **TINNED GOODS ARE PRICED ON WHAT SURVIVES THE COLANDER** — **RULED 3 Aug 2026 (Tina) · CLARIFIED 6 Aug 2026**
+
+### §38 THE RULE
+
+A tinned ingredient is priced on the weight that reaches the pot, not the weight printed
+largest on the label. Which weight that is depends on **the method, not the tin**.
+
+#### Arm 1 — the liquid is used in the dish → NET WEIGHT STANDS
+Coconut milk, chopped tomatoes, fish in oil where the oil goes in, beans in a stew that
+keeps its liquor. The cook buys the liquid and eats the liquid. Net weight is the honest
+denominator and nothing changes.
+
+#### Arm 2 — the liquid is poured away, drained weight IS printed → DIVIDE BY DRAINED
+Water chestnuts, bamboo shoots, chickpeas rinsed before use, tinned sweetcorn, lychees.
+The cook pays for water that goes down the sink, so the price per kilogram of *food* is
+higher than the price per kilogram of *tin contents*.
+
+⛔ **The ledger must record the tin size the price was derived from.** The drained fraction
+is NOT constant across sizes on the same product line — the 227 g tin runs ~62 % drained
+while the 540 g tin runs ~52 %. A price without its tin size cannot be re-derived, checked,
+or corrected later.
+
+#### Arm 3 — poured away, no drained weight printed, ingredient is AVAILABLE → A7 DEFER
+Flag it for a shelf check. A7 defers missing prices, never wrong ones. Guessing a fraction
+when 52 % and 62 % are both real on the same product line manufactures a wrong price and
+calls it a correction.
+
+#### Arm 4 — poured away, no drained weight printed, ingredient is SCARCE → ESTIMATE HIGH, MARK `est`
+⭐ *Tina, 3 Aug.* A scarce ingredient's price has almost certainly drifted **up** since it
+was last seen, and deferring forever serves the cook worse than a conservative guess. So:
+
+- Estimate on the **expensive** side — of the price, and of the drained fraction.
+- Mark the key `est` in the ledger.
+- ⛔ **An `est` key may never underwrite a cost claim.** See the §37 interaction below.
+- The `est` marker clears only on a shelf check.
+
+⚖️ **Why the errors are not symmetrical.** A shopping-cost app that overstates leaves the
+cook with change in her pocket. One that understates leaves her short at the till. Round
+toward the till.
+
+### §38.1 · ⚠️ THE §37 INTERACTION — THIS IS THE PART THAT BITES
+
+§37 makes Budget a **claim**, and `claimcheck` asserts it arithmetically against the costPP
+the engine derives. An `est` key will pass that assertion **mechanically while being false
+in the world** — the watcher can only check that the arithmetic is consistent, not that the
+input was ever true.
+
+⛔ **Therefore: a record keying an `est` price carries that price for display and
+shopping-total purposes ONLY. It may not claim cheaper, dearer, budget, or any comparative
+cost language on any fork.**
+
+This is the same failure §37 exists to catch, arriving through the back door. Estimated
+prices belong in the shop-spend number, never in an argument on the card.
+
+### §38.2 · ⚖️ THE TEST THAT IS ACTUALLY USED — **BRINE vs SAUCE** *(Tina, 6 Aug 2026)*
+
+> *"we should always use drained weight for things that are in brine, not for something like baked beans that are in a sauce"*
+
+⚖️ **THIS SHARPENS ARM 1 / ARM 2 AND IS THE TEST TO REACH FOR FIRST.**
+The original wording asks *"is the liquid used in the dish"* — which is a judgement about the
+RECIPE and can differ card to card for the same tin. **Brine versus sauce is a property of the
+TIN.** It can be answered standing in the aisle, it gives the same answer every time, and it
+does not need the recipe in front of you.
+
+| the tin is packed in | arm | basis |
+|---|---|---|
+| **brine, water, oil or SYRUP — anything you pour away** | **Arm 2** | **DRAINED weight** |
+| **a sauce, or a liquid that IS the food** | **Arm 1** | net weight stands |
+
+⚖️ **SYRUP RULED IN, 6 Aug 2026.** Tina: *"its a difficult one, mostly used with syrup, but not
+always, best to use drained weight."* ✅ **That collapses the test to one question and makes it
+easier, not harder: DOES THE LIQUID GO IN THE POT, OR DOWN THE SINK?** Down the sink — brine,
+water, oil, syrup, no exceptions — and you divide by drained. In the pot, and net stands.
+⚖️ She chose the honest direction under §30.5 as well: drained is the DEARER per-kg, and a plan
+that comes in under is a good surprise.
+
+### §38.3 · 🔭 WHAT §38 OPENS — **STILL OPEN**
+
+⛔ **NOT A RULING QUESTION ANY MORE — A LABEL QUESTION.** Eleven keys need the drained weight
+printed on the back of the tin, and each needs the tin size it was derived from recorded in the
+ledger. **Several currently do not have it.**
+✅ **Eleven photos of eleven tin backs closes this permanently.**
+
+⚖️ **This also lands ahead of the app going multi-locale.** Fresh water chestnuts and fresh
+bamboo shoots are ordinary in parts of Asia and Australia and almost unobtainable here. They
+are **separate keys with no SA price**, deferring cleanly under A7 — never an alias pointing
+at the tinned product. Same shape as the lamb ruling: name the thing, do not alias it to a
+near-miss.
+
+> 📦 The two re-priced keys (`water chestnuts` R275 `est`, `bamboo shoots` R220 `est`, with their
+> full derivations) and the 6 Aug corpus classification — 11 Arm 2 keys, 9 Arm 1 keys, and the four
+> that are not §38 at all — live in `reference/RULING_38_DRAINED_WEIGHT.md`.
+> **⚠️ That file is EVIDENCE, not a second rulings file. This section is canonical.**
+
+---
+
 ## ⚖️ 3m · **A `_each` PRICE IS DERIVED, NEVER AUTHORED** — **RULED 4 Aug 2026 (Tina)**
 
 ⚠️ **HOUSEKEEPING NOTE, WRITTEN BECAUSE IT WILL CONFUSE THE NEXT SESSION:** the PRICE-KEY §3
@@ -2492,23 +2422,6 @@ carried; the numbering belongs to the price-key ladder, not to §3 Chef. Do not 
 A count price with no weight behind it cannot be re-derived when the per-kg key moves, so it
 silently goes stale — and a stale count price renders as a number and looks correct.
 
-### §3m.1 APPLIED 4 AUG 2026
-
-| key | derivation | was |
-|---|---|---|
-| `chilli_each` | fresh common chilli 15–25g → **25g × `chilli` R80/kg = R2.00** | R1, typed |
-| `birds eye chilli_each` *(new)* | fresh bird's eye 2–3g → **3g × `birds eye chillies` R100/kg = R0.30** | — |
-
-⛔ **A BIRD'S EYE MAY NOT SHARE `chilli_each`.** It is roughly an **eighth** the weight of a
-standard chilli, so one shared count price over-charges it eightfold. Weight is the discriminator,
-which is exactly what §3m forces into the comment.
-
-⚠️ **THE NEW KEY HAD A MEASURED RADIUS OF ZERO AND WAS KEYED ANYWAY.** Every card in the corpus
-writes the **plural** "birds eye chillies", which hits the weight key `birds eye chillies` R100
-at the exact rung and never reaches the new one. **That is recorded rather than hidden:** a key
-that fires on nothing today is pre-emptive, not load-bearing, and nobody should read its presence
-as evidence that bird's-eye count lines are handled.
-
 ### §3m.2 🩸 THE SPLIT THIS LEFT OPEN — DELIBERATE, AND IT IS TINA'S TO CLOSE
 
 `chillies_each` and `chillis_each` **were left at R1** while `chilli_each` moved to R2. They are
@@ -2520,8 +2433,9 @@ and moving the key would have pre-empted that ruling.
 as the `mushroom` R165 / `mushrooms` R90 pair and the live `chilli flakes` R180 / `chili flakes`
 R700 pair. ⚖️ **It is written down so it is closed deliberately, not discovered by drift.**
 
----
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → ⚖️ 3m
 
+---
 ## ⚖️ 3n · **RETAIL TIER BEATS BAND WIDTH** — **RULED 7 Aug 2026 (Tina)**
 
 > **Tina:** *"speciality stores will always be more expensive."*
@@ -2567,23 +2481,7 @@ records, and put Japan from 3 red to 11. **§3n first excludes the 200ml special
 §3l then tops the ordinary-retail tier at R120** — the number already in the file.
 ⚖️ **The key never needed to change. The REASONING was missing, and this ruling is it.**
 
-### §3n.3 APPLIED 7 Aug 2026
-
-| key | tier finding | result |
-|---|---|---|
-| `banana blossom` **R173** | Arm 2 — ordinary retail stocks none, Asian-grocer tin | specialty tier stands |
-| `papaya` **R46** (+ `green papaya`, `pawpaw`) | Arm 1 — ordinary retail stocks it | health-store tier excluded, then §3l → R46 |
-| `rice vinegar` **R120** | Arm 1 — retrospective, key unchanged | 200ml specialty excluded, then §3l → R120 |
-| `kingklip` **R450** | R170 and R450 are the SAME tier | §3n does not bite; §3l → R450 |
-
-⚠️ **`mung beans` WAS BRIEFED UNDER THIS RULING AT R55 AND WAS NOT WRITTEN.** The key stands at
-**R90**. Its recorded 3 Aug band is R40–R90/kg with **no specialty tier in it**, so there was
-nothing for §3n to exclude, and §3l over what is actually recorded gives **R90**. R55 could not
-be derived from anything in the repo. ⚖️ **A7 — defer a price, never author one that cannot be
-proved.** 🔵 Re-open only if Tina supplies the 7 Aug band behind R55.
-
----
-
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → ⚖️ 3n
 ## ⚖️ 3l · **TOP OF BAND** — **RULED 7 Aug 2026 (Tina)**
 
 > **Tina:** *"prices vary from day to day, I see it every day, it's safer to take the higher price."*
@@ -2617,9 +2515,4 @@ and §3n exists to stop it. If applying §3l makes a staple suddenly cost 3x, **
 almost always that §3n was skipped, not that §3l is wrong.**
 ⛔ It does not license an `est` price. ⚖️ *An `est` price may never underwrite a cost claim.*
 
-### §3l.3 KEYS CONFIRMED, NOT MOVED — 7 Aug 2026
-
-`kingklip` **R450** was flagged since 6 Aug as *"if §3l is ever ruled toward a mid, THIS KEY
-MOVES FIRST"*, its 2.65x spread being the widest in the file. ✅ **§3l went to the top. The key
-does not move. The flag is struck** — in `prices.js` and here — because a flag pointing at a
-closed question sends the next session hunting for work that no longer exists.
+> 📦 Evidence, measurements and build record: `TINZA_RULINGS_EVIDENCE.md` → ⚖️ 3l

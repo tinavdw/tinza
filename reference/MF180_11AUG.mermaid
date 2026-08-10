@@ -1,0 +1,57 @@
+flowchart TB
+
+subgraph DONE["✅ THIS SESSION — MF180"]
+  A0["§0 · stranded rulings merged<br/>§34 · §35 · §38 verbatim<br/>252 760 → 263 992 b<br/>headings 38 → 41"]
+  A1["THE SPLIT<br/>81 receipt blocks moved<br/>TINZA_RULINGS.md 263 992 → 228 688 b<br/>reference/TINZA_RULINGS_EVIDENCE.md 38 963 b"]
+  A2["CLAUDE.md<br/>evidence-file row added under /rule<br/>marked NOT read at session start"]
+  A0 --> A1 --> A2
+end
+
+subgraph PROOF["🧮 ARITHMETIC — ALL PASS BUT ONE"]
+  P1["2a bytes 267 651 ≥ 263 992 ✅<br/>excess 3 659 = header + 17 pointers + 17 headings"]
+  P2["2b headings 41 = 41 ✅"]
+  P3["2c anchors all non-zero ✅<br/>R90 · drained · §3n · §3l · level 0 · costPP · Halaal"]
+  P4["2d only the 3 intended files ✅"]
+  P5["4e census 2288 = 2288 ✅<br/>doctor 10 RED = 10 RED ✅<br/>lawcheck drift 7 = 7 ✅"]
+  P6["4c SIZE TARGET ❌<br/>228 688 b · target was ≤ 90 000"]
+end
+
+subgraph TINA["⚖️ YOURS TO RULE — I CHANGED NOTHING"]
+  T1["§36 — absent everywhere.<br/>Real ruling never written, or a skipped number?"]
+  T2["§16.1 sits between §20 and §21"]
+  T3["§3m · §3n · §3l are PRICE rulings<br/>filed as sub-rulings of §3 TINZA CHEF<br/>and out of alphabetical order"]
+  T4["THE RATCHET IS NOT ADDED.<br/>Brief says: rulings file over 120 000 b = RED.<br/>File is 228 688 b — the rung is born RED<br/>and grows the count 10 → 11, against Law 51.<br/>Your call: ceiling at 240k now, or leave it off."]
+  T5["THE TARGET NEEDS A SECOND CUT<br/>Only 35 304 b were receipts.<br/>Going below 90 000 means moving RULES.<br/>I did not."]
+end
+
+subgraph NEXT["🔜 QUEUE — unchanged"]
+  N1["2 · reference/ASIA_PROGRESS.md 175 035 b<br/>REBUILD from 6 unpasted blocks FIRST, then split"]
+  N2["3 · reference/THAILAND_COLD_START.md 151 973 b → ~9k"]
+  N3["4 · reference/FABLE_PROGRESS.md → ~5k"]
+  N1 --> N2 --> N3
+end
+
+subgraph OPEN["📋 STILL OPEN — carried"]
+  O1["MF182 · bánh tét — all blockers cleared"]
+  O2["MF183 · doctor rung 21 — written, not built"]
+  O3["Thailand 11 orange claims → rebaseline 30 → 38"]
+  O4["MF184 · mung bean paste ladder — yours"]
+  O5["MAKEABLE · 3 call sites"]
+  O6["73 ghost cards · Breakfast/Meals/Spice — rename or delete?"]
+  O7["Kiddies TODOs ×6 · SA Fable S3 · §2.5 six held dishes"]
+  O8["Vietnam B7 · 25/50"]
+end
+
+subgraph DROP["📥 DRAG INTO GITHUB DESKTOP"]
+  D1["TINZA_RULINGS.md → REPO ROOT"]
+  D2["TINZA_RULINGS_EVIDENCE.md → reference/"]
+  D3["CLAUDE.md → REPO ROOT"]
+  D4["one commit · one push"]
+  D1 --> D4
+  D2 --> D4
+  D3 --> D4
+end
+
+DONE --> PROOF --> TINA --> NEXT
+PROOF --> DROP
+TINA --> OPEN
