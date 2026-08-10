@@ -99,6 +99,7 @@ That order. No paragraph of apology in front of it.
 | 📗 **`TINZA_RULINGS.md`** *(root)* | **`/rule`** | **WHAT TINZA IS.** Every decision Tina made — with date and reason. |
 | 📦 `reference/TINZA_RULINGS_EVIDENCE.md` | ⛔ **none** | The receipts — what was measured, applied, struck, and which MF built it. **NOT read at session start.** If it and `TINZA_RULINGS.md` disagree, the rulings file is right. |
 | 🧭 `reference/TINZA_NAV_RULINGS.md` | ⛔ **none** | §24 THE TWO BACKS in full. `/rule` keeps the two-jobs law and all sixteen headlines as an index — **the headline IS the rule**. ⚠️ **Read this file before changing ANY navigation** — Backs, history, pills, tabs, landing scroll, `navSignature()`, `LATERAL_KEYS`, `topBack()`. |
+| 🏗️ `reference/TINZA_ARCH_RULINGS.md` | ⛔ **none** | §11's architecture contracts in full. `/rule` keeps the launch blockers, both LOCALE rulings and all fifteen headlines as an index. ⚠️ **Read this file before touching** `normalizeRecipe()`, the reserved slot defaults, version-level `slot`, `tinzaStore`, `tinzaListLabel()`, `sectionHeader()` or any search slot. |
 
 ## ⛔ IF THOSE FILES AND THE CODE DISAGREE — **THE FILE IS RIGHT AND THE CODE IS A BUG.**
 
