@@ -2519,3 +2519,107 @@ and moving the key would have pre-empted that ruling.
 ⚠️ **Until she rules, "1 chilli" costs R2 and "2 chillies" costs R1 each.** This is the same shape
 as the `mushroom` R165 / `mushrooms` R90 pair and the live `chilli flakes` R180 / `chili flakes`
 R700 pair. ⚖️ **It is written down so it is closed deliberately, not discovered by drift.**
+
+---
+
+## ⚖️ 3n · **RETAIL TIER BEATS BAND WIDTH** — **RULED 7 Aug 2026 (Tina)**
+
+> **Tina:** *"speciality stores will always be more expensive."*
+
+⚠️ **THIS RULE WAS BRIEFED AS `§3m` AND COULD NOT TAKE THAT NUMBER — `§3m` IS ALREADY THE
+`_each` DERIVATION RULING, RULED BY TINA ON 4 AUG AND LOAD-BEARING FOR TWO KEYS.** It is filed
+here as **§3n**, the next free letter in the price-key ladder. 📌 Anything citing "§3m retail
+tier" is citing a number that never existed — it means **§3n**.
+
+### §3n THE RULE
+
+> **If an ORDINARY RETAILER stocks the product, price it at ordinary retail. Specialty,
+> health-store and import prices are used ONLY when ordinary retail carries none.
+> FILTER THE TIER FIRST. THEN look at the band.**
+
+⚖️ A price band is not one population. A 200ml bottle in a health shop and a 750ml bottle in
+Shoprite are **two different products wearing one name**, and averaging or topping across both
+answers a question nobody asked. **Tier is a filter, not a data point.**
+
+### §3n.1 ⚖️ IT CUTS BOTH WAYS — AND THE SECOND ARM IS THE ONE THAT GETS FORGOTTEN
+
+- **Arm 1 — ordinary retail stocks it → EXCLUDE the specialty tier.** The rule pulls the key
+  **DOWN.** This is the arm everyone remembers.
+- **Arm 2 — ordinary retail genuinely stocks NONE → the specialty tier IS the tier, and its
+  price stands.** The rule pulls the key **UP**, or rather it declines to pull it down.
+  ⛔ **§3n is not a discount.** Applying Arm 1 to an Asian-grocer-only product would author a
+  price nobody in South Africa can actually pay. `banana blossom` R173 is Arm 2.
+
+### §3n.2 THE ORDER IS THE WHOLE RULING — §3n RUNS BEFORE §3l
+
+⚖️ **§3n pulls DOWN. §3l pushes UP. NEITHER IS A TIE-BREAKER FOR THE OTHER.**
+They are two passes in a fixed sequence, and running them in the wrong order gives the wrong key:
+
+```
+1. §3n   filter the band to the tier ordinary retail actually sells
+2. §3l   take the HIGHEST price in what survives
+```
+
+🩸 **THE WORKED EXAMPLE IS `rice vinegar`, AND IT IS WHY THIS ORDER IS NOT ACADEMIC.**
+Its band ran Safari R120/L · Kong Yen R153–200/L · Woolworths 200ml → **R415/L**.
+**§3l alone gives R415** — which was applied for exactly one merge on 3 Aug, moved 13 banked
+records, and put Japan from 3 red to 11. **§3n first excludes the 200ml specialty bottle, and
+§3l then tops the ordinary-retail tier at R120** — the number already in the file.
+⚖️ **The key never needed to change. The REASONING was missing, and this ruling is it.**
+
+### §3n.3 APPLIED 7 Aug 2026
+
+| key | tier finding | result |
+|---|---|---|
+| `banana blossom` **R173** | Arm 2 — ordinary retail stocks none, Asian-grocer tin | specialty tier stands |
+| `papaya` **R46** (+ `green papaya`, `pawpaw`) | Arm 1 — ordinary retail stocks it | health-store tier excluded, then §3l → R46 |
+| `rice vinegar` **R120** | Arm 1 — retrospective, key unchanged | 200ml specialty excluded, then §3l → R120 |
+| `kingklip` **R450** | R170 and R450 are the SAME tier | §3n does not bite; §3l → R450 |
+
+⚠️ **`mung beans` WAS BRIEFED UNDER THIS RULING AT R55 AND WAS NOT WRITTEN.** The key stands at
+**R90**. Its recorded 3 Aug band is R40–R90/kg with **no specialty tier in it**, so there was
+nothing for §3n to exclude, and §3l over what is actually recorded gives **R90**. R55 could not
+be derived from anything in the repo. ⚖️ **A7 — defer a price, never author one that cannot be
+proved.** 🔵 Re-open only if Tina supplies the 7 Aug band behind R55.
+
+---
+
+## ⚖️ 3l · **TOP OF BAND** — **RULED 7 Aug 2026 (Tina)**
+
+> **Tina:** *"prices vary from day to day, I see it every day, it's safer to take the higher price."*
+
+### §3l THE RULE
+
+> **Within a SINGLE TIER, take the HIGHEST price in the band. At every width.**
+
+⚖️ **THE OPEN QUESTION IS CLOSED, AND THE ANSWER WAS THE TOP.** §3l sat open since 3 Aug as
+*"does the most-expensive rule take a MID on genuinely wide bands?"* — surfaced on `rice vinegar`,
+with `white wine vinegar` R165 (an honest mid, 22 Jul) standing as counter-precedent.
+**It does not take a mid. There is no width at which it takes a mid.**
+
+⛔ **THE "WIDE-BAND THRESHOLD" IS RETIRED.** Comments on `poppy seeds` and `pork hock` reasoned
+about being *"UNDER the §3l threshold (kingklip's 2.65x was §3l territory)"*. **There is no
+threshold any more** — spread does not change the answer, so those comments were corrected in
+the same write rather than left to read as live doctrine.
+
+### §3l.1 WHY THE TOP AND NOT THE MID — HER REASON, NOT AN INVENTED ONE
+
+⚖️ **The band is not measurement error. It is the shelf on different days.** A mid assumes the
+spread is noise around a true price; Tina's reason says the spread is **time**, and she is the
+one standing in the shop. Costing at the top means the number on the card is the one she will
+not be short at the till. ⭐ **Erring high is a kindness to the cook. Erring low is a broken
+promise at the checkout.**
+
+### §3l.2 WHAT IT DOES **NOT** LICENSE
+
+⛔ **§3l MAY NEVER BE USED TO JUSTIFY A CROSS-TIER TOP.** That is the `rice vinegar` R415 error
+and §3n exists to stop it. If applying §3l makes a staple suddenly cost 3x, **the fault is
+almost always that §3n was skipped, not that §3l is wrong.**
+⛔ It does not license an `est` price. ⚖️ *An `est` price may never underwrite a cost claim.*
+
+### §3l.3 KEYS CONFIRMED, NOT MOVED — 7 Aug 2026
+
+`kingklip` **R450** was flagged since 6 Aug as *"if §3l is ever ruled toward a mid, THIS KEY
+MOVES FIRST"*, its 2.65x spread being the widest in the file. ✅ **§3l went to the top. The key
+does not move. The flag is struck** — in `prices.js` and here — because a flag pointing at a
+closed question sends the next session hunting for work that no longer exists.

@@ -83,6 +83,14 @@
       "pricesLine": 469
     },
     {
+      "key": "banana blossom",
+      "value": 173,
+      "date": "7 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 7 Aug 2026. R98 per 565g tin in brine -> R173/kg. NEW KEY — priceledger --ask confirmed GENUINELY ABSENT from prices.js and the ledger before keying. §3n Arm 2: ordinary retail in SA stocks NONE, it is an Asian-grocer tin, so the specialty tier IS the tier and its price stands — §3n is not a discount. ⚠️ §38 ARM 2 PENDING: R173 is computed on NET tin weight, but the brine goes down the sink so Arm 2 requires DRAINED weight. The drained figure is not printed on the tin available. At a typical ~50-55% drained fraction the honest key is nearer R340/kg. NEEDS A PHOTO OF A LABEL, NOT A RULING. Recorded openly to avoid repeating the bamboo shoots / water chestnuts fault where an Arm 2 product was priced as Arm 1 and the comment misdescribed its own arithmetic.",
+      "pricesLine": null
+    },
+    {
       "key": "barley",
       "value": 35,
       "date": null,
@@ -476,6 +484,14 @@
       "pricesLine": null
     },
     {
+      "key": "green papaya",
+      "value": 46,
+      "date": "7 Aug 2026",
+      "grandfathered": false,
+      "evidence": "Sibling of \"papaya\" R46, TINA-SOURCED 7 Aug 2026. Was R32. Green papaya is the UNRIPE fruit, not a different fruit — same principle as \"chicken is chicken\" (Tina, 6 Aug): a descriptive adjective is not a new product.",
+      "pricesLine": null
+    },
+    {
       "key": "ground cinnamon",
       "value": 550,
       "date": null,
@@ -552,7 +568,7 @@
       "value": 450,
       "date": "6 Aug 2026",
       "grandfathered": false,
-      "evidence": "TINA-SOURCED 6 Aug 2026: band R170-R450. Most expensive per 31.1 -> R450/kg. WARNING: spread is 2.65x, which is OVER the threshold where 3l (mid-vs-top on wide bands) is UNRULED. The standing most-expensive rule was applied because it is the rule until she rules otherwise. IF 3l IS EVER RULED TOWARD A MID, THIS KEY MOVES FIRST. Counter-precedent: white wine vinegar R165 was set as an honest mid on 22 Jul.",
+      "evidence": "UNCHANGED at R450, Tina 6 Aug 2026, top of the R170-R450 band. RE-CONFIRMED 7 Aug 2026 when §3l was ruled to the TOP OF BAND at every width. The standing \"if §3l is ever ruled toward a mid, THIS KEY MOVES FIRST\" flag is STRUCK in prices.js and in TINZA_RULINGS.md — the question is closed and the answer was the top. §3n does not bite: R170 and R450 are the same ordinary-retail tier.",
       "pricesLine": null
     },
     {
@@ -718,6 +734,22 @@
       "date": "6 Aug 2026",
       "grandfathered": false,
       "evidence": "TINA-SOURCED 6 Aug 2026: R290 per 100g -> R2900/kg. Aliases pandan powder / pandan keyed to the same number. ONLY THE POWDER IS BUYABLE IN SA - fresh pandan leaf is NOT keyed and must not be aliased in. Unblocks Che Ba Mau, which was previously held on pandan absence.",
+      "pricesLine": null
+    },
+    {
+      "key": "papaya",
+      "value": 46,
+      "date": "7 Aug 2026",
+      "grandfathered": false,
+      "evidence": "TINA-SOURCED 7 Aug 2026. R46/kg. §3n Arm 1 — ordinary retail stocks papaya, so the health-store tier (~R150/kg) is EXCLUDED; §3l then takes the top of what survives = R46. SUPERSEDES \"green papaya\" R32 and \"pawpaw\" R30 (an ESTIMATE), both keyed to R46 as siblings — one product, three SA shop names, same idiom as the four kingklip keys. ~30 corpus lines across Thailand, Indonesia, Vietnam and Africa were UNDER-billing; costPP re-derivation is §30.1 and was deliberately NOT bundled into the price commit.",
+      "pricesLine": null
+    },
+    {
+      "key": "pawpaw",
+      "value": 46,
+      "date": "7 Aug 2026",
+      "grandfathered": false,
+      "evidence": "Sibling of \"papaya\" R46, TINA-SOURCED 7 Aug 2026. Was R30 and marked ESTIMATE; that estimate is now retired in favour of a Tina-attributed number.",
       "pricesLine": null
     },
     {

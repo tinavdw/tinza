@@ -121,8 +121,9 @@ const PRICE_DB = {
   "cottage cheese": 172,
   "buttermilk": 46,
   // ⚖️ TINA 6 AUG 2026 — R19.90/100g = R199/kg · R99.99/250g = R400/kg.
-  //    Band R199–R400, spread 2.01x — UNDER the §3l wide-band threshold (kingklip's 2.65x
-  //    was §3l territory). Most expensive per §31.1 → R400.
+  //    Band R199–R400, spread 2.01x. Most expensive per §31.1 → R400.
+  //    ✅ §3l RULED 7 Aug 2026 — TOP OF BAND AT EVERY WIDTH. There is no longer a "wide-band
+  //    threshold" to sit under; spread does not change the answer. This key is unaffected.
   "poppy seeds": 400,
   "poppy seed": 400,
   "sesame seeds": 244,
@@ -323,8 +324,9 @@ const PRICE_DB = {
   "pork stirfry": 120,
   "pork roast": 80,
   // ⚖️ TINA 6 AUG 2026 — "pork hocks (shanks)", supermarket band R49.99–R99.00/kg.
-  //    MOST-EXPENSIVE PER §31.1 → R99. Spread 1.98x, UNDER the §3l wide-band threshold
-  //    (kingklip's 2.65x was §3l territory; this is not), so the standing rule applies clean.
+  //    MOST-EXPENSIVE PER §31.1 → R99. Spread 1.98x.
+  //    ✅ §3l RULED 7 Aug 2026 — TOP OF BAND AT EVERY WIDTH, so the old "wide-band threshold"
+  //    wording is retired. The standing rule applied clean here and still does.
   //    ⛔ `pork hock` was ABSENT and would have fallen through to `pork` R110 — a §8f
   //       substring fallthrough that no watcher fires on. Keying it closes that hole.
   //    ⚖️ `pork shank` moved R80 → R99 in the SAME write: hock and shank are one cut, and
@@ -768,9 +770,15 @@ const PRICE_DB = {
                              // japan-sunomono R6→R14, japan-gari R19→R38 — putting Japan 3 red → 11.
                              // A 200ml specialty bottle was setting the price of a staple used 50ml
                              // at a time in sushi rice.
-                             // 🟡 STILL OPEN, NOT RULED: whether the most-expensive rule takes a MID
-                             // on genuinely wide bands, as `white wine vinegar` R165 did on 22 Jul.
-                             // Tina named a product; she did not rule the general case. See §3l.
+                             // ✅ CLOSED 7 Aug 2026 — AND §3n IS WHAT CLOSED IT, NOT §3l.
+                             // §3l ruled TOP OF BAND at every width, which taken alone would send
+                             // this key back to R415 — the move that broke 13 records above.
+                             // §3n runs FIRST and prevents it: the Woolworths 200ml @ R415/L is a
+                             // small-format specialty line, Safari is what ordinary retail stocks,
+                             // so the R415 tier is excluded BEFORE §3l looks for a top. Top of the
+                             // ordinary-retail tier = R120. ⚖️ The number never needed to change;
+                             // it was the REASONING that was missing, and this is it.
+                             // 📌 This key is the worked example of why the order matters.
                              // ⛔ NOT `vinegar` R25 — substring fallthrough (§3j).                // R28/500g. TINA-SOURCED, applied 1 Aug 2026.
                              // ⚖️ WHY THIS WAS MISSING FOR SO LONG: `wk_southafrica.js` was not in
                              // pricecheck.js's COUNTRIES list, so 131 SA records sat outside every
@@ -1191,7 +1199,10 @@ const PRICE_DB = {
   "mixed berries": 120,       // ESTIMATE (frozen)
   "bananas": 25,              // ESTIMATE
   "mango": 40,                // ESTIMATE
-  "pawpaw": 30,               // ESTIMATE
+  "pawpaw": 46,               // → see "papaya" R46. TINA-SOURCED 7 Aug 2026, supersedes the old
+                              // R30 ESTIMATE. Pawpaw and papaya are ONE PRODUCT under two SA shop
+                              // names; keyed as siblings rather than aliased, same idiom as the
+                              // four `kingklip` keys. ⛔ Do not re-split them.
   "granadilla": 180,          // ESTIMATE (pulp) — updated 17 Jun
   "granadilla_each": 10,      // per fruit (count)
   "apple_each": 6,            // per fruit (count). Tina 30 Jul 2026: loose apples R5-R7 each
@@ -1389,7 +1400,20 @@ const PRICE_DB = {
   "wheat berries": 50,
   "yam": 227,
   "yam flour": 110,
-  "green papaya": 32,
+  // ── papaya · TINA-SOURCED 7 Aug 2026 ──────────────────────────────────
+  // ⚖️ §3n THEN §3l, IN THAT ORDER. The tier filter runs first and the band top second.
+  //    Ordinary retail stocks papaya, so the specialty/health-store tier is excluded (§3n)
+  //    and R46 is the TOP of what remains (§3l). ⛔ Not a mid — see §3l, ruled 7 Aug.
+  // ⚖️ ONE PRODUCT, THREE SHOP NAMES. papaya · green papaya · pawpaw all resolve to R46,
+  //    keyed as siblings the way `kingklip` is, not routed through PRICE_ALIAS in core.js.
+  //    Same principle as "chicken is chicken" (Tina, 6 Aug): a descriptive adjective is not
+  //    a new product. Green papaya is the unripe fruit, not a different fruit.
+  // ⚠️ SUPERSEDES "green papaya" R32 and "pawpaw" R30 (an ESTIMATE). Both were BELOW this
+  //    number, so every card writing them was under-billing. ~30 lines move across Thailand,
+  //    Indonesia, Vietnam and Africa — see the session report; costPP re-derivation is §30.1
+  //    and is NOT part of this commit.
+  "papaya": 46,
+  "green papaya": 46,
   "young jackfruit": 108,
   "bratwurst": 135,
   "saucisson vaudois": 650,
@@ -1790,17 +1814,38 @@ const PRICE_DB = {
   //    ⚠️ Her upper figure R129/bottle has no stated volume and cannot be derived. Not used.
   "annatto food colouring": 1500,  // Tina 6 Aug 2026 · 20ml @ R30
   "annatto colouring": 1500,
-  // ⚠️ §3l TERRITORY — band R170–R450/kg fresh/frozen, plus 2kg @ R499.99 → R250/kg.
-  //    Spread 2.65x, which is OVER the 2x threshold where the mid-vs-top question is UNRULED.
-  //    Standing rule applied (top) because it is the rule until Tina rules otherwise.
-  //    📌 If §3l is ever ruled toward a mid on wide bands, THIS KEY MOVES FIRST.
-  "kingklip": 450,                 // Tina 6 Aug 2026 · top of R170–R450 band
+  // ✅ §3l RULED 7 Aug 2026 — TOP OF BAND, and the 2.65x spread does NOT change that.
+  //    Band R170–R450/kg fresh/frozen, plus 2kg @ R499.99 → R250/kg. R450 STANDS UNCHANGED.
+  //    Tina: "prices vary from day to day, I see it every day, it's safer to take the higher
+  //    price." ⛔ The old "if §3l is ever ruled toward a mid, THIS KEY MOVES FIRST" flag is
+  //    struck — the question is closed and the answer was the top. Do not re-open it.
+  //    ⚖️ §3n does not touch this key either: R170 and R450 are the same ordinary-retail tier.
+  "kingklip": 450,                 // Tina 6 Aug 2026 · top of R170–R450 band · §3l-confirmed 7 Aug
   "kingklip fillet": 450,
   "kingklip fillets": 450,
   "kingklip portions": 450,
   // ⛔ CATFISH IS NOT COMMERCIALLY SOLD IN SA — Tina, 6 Aug 2026: "only if you catch it
   //    yourself, substitute with hake". This is a RULING, not a price. NOT KEYED, deliberately.
   //    Any record wanting catfish writes `hake` R180 and says so on the card.
+
+  // ── banana blossom · TINA-SOURCED 7 Aug 2026 ──────────────────────────
+  // R98 per 565g tin in brine → R173/kg. NEW KEY — `--ask` confirmed it was GENUINELY ABSENT
+  // from both prices.js and the ledger, so this is a first keying, not a correction.
+  // ⚖️ §3n SECOND ARM, and it is the arm that pushes UP, not down: ordinary retail genuinely
+  //    does NOT stock banana blossom in SA. It is an Asian-grocer tin. §3n excludes a specialty
+  //    price only when ordinary retail carries the product — here it carries none, so the
+  //    specialty tier IS the tier and its price stands.
+  // ⚠️ §38 ARM 2 IS PENDING AND THIS NUMBER MAY MOVE — SAY SO RATHER THAN HIDE IT.
+  //    R173 is computed on the 565g NET tin weight. Banana blossom is packed IN BRINE and the
+  //    brine goes down the sink, so §38 Arm 2 says divide by DRAINED, not net. The drained
+  //    figure is not printed on the tin we have. If drained runs ~50-55% (typical for a brined
+  //    shoot/flower), the honest key is nearer **R340/kg** — roughly double.
+  //    📌 THIS NEEDS A PHOTO OF A LABEL, NOT A RULING. Until then R173 stands and is marked
+  //    here as an Arm 2 product priced as Arm 1 — the exact fault §8d found in `bamboo shoots`
+  //    and `water chestnuts`. ⛔ Do not let this comment go quiet the way theirs did.
+  "banana blossom": 173,
+  "banana flower": 173,            // same product, SA/English shop name
+  "hoa chuoi": 173,                // same product, Vietnamese name · §33 gloss on the card
 
   "habanero chillies": 100,
   "scotch bonnet chillies": 100,
