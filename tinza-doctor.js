@@ -1118,6 +1118,74 @@ p('       ABSENCE LOOKED NORMAL.\x1b[0m');
     '\n       would PASS THIS RUNG.\x1b[0m');
 }
 
+// ⚠️ RUNG 21 IS RESERVED for MF183 (the photo studio flags itself). Left free deliberately
+//    so the two briefs cannot collide on a number. A gap is harmless; a collision is not.
+head('22 · IS ANYTHING PARKED IN sections/ THAT THE APP NEVER LOADS?  (10 Aug — the third time)');
+p('  \x1b[2m    THE SAME BUG SHAPE, THREE TIMES, AND RUNG 2 WAS BLIND TO ALL THREE:');
+p('       · two ledger .json files in the repo root — nothing read them (rung 20 now).');
+p('       · 28 \x1b[0m\x1b[2m.bak_*\x1b[0m\x1b[2m snapshots in sections/, 9.2 MB, SIXTEEN of them still carrying the');
+p('         STRUCK R50 price — nine copies of it in \x1b[0m\x1b[2mcore.js.bak_*\x1b[0m\x1b[2m alone.');
+p('       · \x1b[0m\x1b[2mTINZA_CONTRACT_SLOTS.md\x1b[0m\x1b[2m, a standard, sitting in the room the app is built from.');
+p('    🩸 WHY RUNG 2 COULD NOT SEE THEM — TWO SILENT FILTERS, STACKED:');
+p('       ① its file list is \x1b[0m\x1b[2m.filter(f => f.endsWith(".js"))\x1b[0m\x1b[2m, so a \x1b[0m\x1b[2m.bak_MF46\x1b[0m\x1b[2m or a \x1b[0m\x1b[2m.md\x1b[0m\x1b[2m is');
+p('         never even a candidate; ② it then drops anything matching an INLINE, UNPRINTED');
+p('         exemption. \x1b[0m\x1b[2mphoto-audit.FIXED.js\x1b[0m\x1b[2m hid behind that second one for weeks.');
+p('    ⚖️ THIS RUNG READS THE FOLDER RAW — no extension filter, no exemption list — and it');
+p('       PRINTS rung 2’s exemption so the hole is never silent again. ⚖️ Law 42.\x1b[0m');
+{
+  // ⚖️ AMBER, NOT RED, AND THE REASON IS RULED: a file can be legitimately unloaded.
+  //    makeable.js is unloaded on purpose — wiring it changes what every user downloads,
+  //    and that is Tina's call (MF179 §4), not a thing the doctor may nag into existence.
+  //    A rung that goes RED on a legitimate state teaches everyone to ignore the rung.
+  const SECT = path.join(ROOT, 'sections');
+  let entries = [];
+  try { entries = fs.readdirSync(SECT, { withFileTypes: true }); }
+  catch (e) { entries = []; }
+
+  // The loaded set is READ FROM index.html, never copied — same law as rungs 15, 17, 19, 20.
+  const loadedSet = new Set(loadOrder);
+  const parked = [];
+  for (const ent of entries) {
+    const rel = 'sections/' + ent.name;
+    if (ent.isDirectory()) { parked.push(rel + '/   ⚠️ a DIRECTORY in sections/'); continue; }
+    if (loadedSet.has(rel)) continue;
+
+    // Say WHAT it is, so the reader can act without opening it. A bare filename is a riddle.
+    let kind;
+    if (/\.bak(_|\.|$)/i.test(ent.name))        kind = 'edit-session backup — gitignored, never ships, and it can carry STRUCK rulings';
+    else if (/\.(FIXED|old|orig|copy)\./i.test(ent.name)) kind = 'a rescue/duplicate copy — which one is real?';
+    else if (!ent.name.endsWith('.js'))          kind = 'not a .js at all — a document parked in the code folder';
+    else                                          kind = 'a .js the app does not load — dead code, or waiting for a script tag';
+
+    let size = '';
+    try { size = '  ' + Math.round(fs.statSync(path.join(SECT, ent.name)).size / 1024) + ' KB'; } catch (e) {}
+    // Cross-reference rung 2 so a double-report never reads as two separate problems.
+    const alsoRed = /\.js$/.test(ent.name) && !/\.bak|photo-audit|doctor/.test(rel);
+    parked.push(rel + size + '  — ' + kind + (alsoRed ? '   ↳ already RED at rung 2' : ''));
+  }
+
+  if (parked.length) {
+    warn(parked.length + ' file(s) parked in sections/ that index.html never loads',
+      '\n      \x1b[2mEvery one is dead weight the next person will read as live code. A backup can hold a\n' +
+      '      ruling Tina struck months ago; a document in here is a standard nobody can find; a\n' +
+      '      .FIXED. copy is a fork with no owner. AMBER because being unloaded is not by itself a\n' +
+      '      bug — makeable.js is unloaded on purpose. Look at each one and decide.\x1b[0m', parked);
+  } else {
+    pass('Nothing parked in sections/',
+         entries.length + ' entr(y/ies) on disk, all ' + loadOrder.length + ' loaded by index.html');
+  }
+
+  // ⚠️ THE FLOOR — PRINTED EVERY RUN, PASS OR FAIL, and it names rung 2's exemption OUT LOUD.
+  //    An exemption you cannot see is the same class of bug as the thing being exempted.
+  p('  \x1b[2m    ⚠️ FLOOR, NOT A TOTAL: this reads \x1b[0m\x1b[2msections/\x1b[0m\x1b[2m AND NOTHING ELSE. A stray parked in' +
+    '\n       Tools/, standards/, reference/ or the repo root PASSES THIS RUNG — rung 20 covers the' +
+    '\n       root for ledgers only. It also cannot tell dead code from code awaiting a script tag;' +
+    '\n       it reports, it does not classify.' +
+    '\n       ⚖️ RUNG 2 STILL EXEMPTS, SILENTLY, EVERYTHING MATCHING  /\\.bak|photo-audit|doctor/' +
+    '\n       and only ever considers files ending .js. That exemption is now PRINTED here every' +
+    '\n       run rather than living unread inside a filter.\x1b[0m');
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
