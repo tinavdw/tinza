@@ -1,0 +1,50 @@
+%% TINZA — SESSION 10 AUG 2026 · MIGRATION PREP + REPO TIDY + RUNNING TO-DO
+%% Save to: reference/MIGRATION_10AUG.mermaid
+flowchart TD
+
+    START([10 AUG 2026 · Opus max runs out tonight<br/>Goal: be PORTABLE — same workflow, cheaper seat]):::hdr
+
+    START --> A[1 · MASTER CONTEXT FILE]:::done
+    START --> B[2 · REPO TIDY]:::todo
+    START --> C[3 · VIETNAM BATCH 6]:::active
+
+    %% ── 1 · MASTER FILE ─────────────────────────────
+    A --> A1["✅ CLAUDE.md rewritten as a PORTABLE master file<br/>persona · voice · repo map · every tool command ·<br/>ledgers · what-NOT-to-do · price landmines ·<br/>live counts read from HEAD"]:::done
+    A1 --> A2["DROP TO: repo ROOT — replaces the old CLAUDE.md"]:::path
+    A2 --> A3{"Works on ANY model?"}:::q
+    A3 -->|yes| A4["Section 9 = cold-start commands<br/>for a model with zero memory"]:::done
+
+    %% ── 2 · TIDY ────────────────────────────────────
+    B --> B1["🩸 SPLIT BRAIN FOUND<br/>ASIA_LEDGER.json + PRICE_LEDGER.json exist in<br/>ROOT **and** reference/ — and they DIFFER.<br/>Tools read reference/. Root copies are STALE DECOYS."]:::bug
+    B1 --> B2["DELETE from root:<br/>ASIA_LEDGER.json · PRICE_LEDGER.json"]:::todo
+    B --> B3["MOVE to Archive/:<br/>THAILAND_B10.mermaid<br/>TINZA_PLAN_26JUL.mermaid<br/>TINZA_SPRINT_PLAN.md"]:::todo
+    B2 --> B4["ROOT KEEP LIST:<br/>README · CLAUDE.md · TINZA_LAW.md ·<br/>TINZA_RULINGS.md · TINZA_NOW.mermaid ·<br/>index.html · netlify.toml · the 16 .js tools ·<br/>tidy-repo.sh · reconnect-photos.sh"]:::path
+    B3 --> B4
+    B4 --> B5["One commit: 'tidy: kill duplicate ledgers, archive dead boards'<br/>then ONE push"]:::todo
+
+    %% ── 3 · VIETNAM ─────────────────────────────────
+    C --> C1["Vietnam 25/50 · Batch 6"]:::active
+    C1 --> C2["✅ chả lụa — starter, RULED IN<br/>lead = baking-soda pH mechanism<br/>(myosin-extraction lead STRUCK)"]:::done
+    C1 --> C3["⏸️ bánh tét — side, RULED IN<br/>BLOCKED on §3n tier clarification"]:::block
+    C1 --> C4["❓ gỏi hoa chuối / gỏi đu đủ<br/>under consideration"]:::todo
+    C2 --> C5["node tinza-all.js vietnam batch6.js<br/>→ merge → pricecheck → rm batch → hand back<br/>ONE RECORD = ONE HANDBACK"]:::path
+
+    %% ── OPEN QUEUE ──────────────────────────────────
+    START --> D[📋 STILL OPEN — carried forward]:::hdr
+    D --> D1["Thailand 38 — reopen and close"]:::todo
+    D --> D2["Push Vietnam file + 2 wiring lines AT COUNTRY CLOSE"]:::todo
+    D --> D3["SA Fable S3 — PAUSED pending usage reset<br/>dessert icons · Umngqusho · S2 overflow tail"]:::block
+    D --> D4["§2.5 merge not run — 6 SA dishes held:<br/>cape malay curry · tamatie bredie · waterblommetjie ·<br/>shepherd's pie · bunny chow · braaibroodjies"]:::block
+    D --> D5["MF141 for Code: strike/repoint boerekos-sosaties"]:::todo
+    D --> D6["Kiddies TODOs (6): icing sweep · 400ml cooldrink/kid ·<br/>eventsRecipeView Braai-match · Treasure Chest sandwiches ·<br/>Malva Bites photo · method+ingredient audit"]:::todo
+    D --> D7["Sameness sequence: opener migrations → cross-links →<br/>shared plan-row + shopping renderer → cosmetic sweep LAST"]:::todo
+    D --> D8["Next lane after Asia: SOUTH AMERICA"]:::todo
+
+    classDef done  fill:#46530c,stroke:#c8e840,color:#fff
+    classDef todo  fill:#876213,stroke:#f5c842,color:#fff
+    classDef active fill:#8a3b12,stroke:#f5c842,color:#fff,stroke-width:3px
+    classDef block fill:#4a4a4a,stroke:#999,color:#fff
+    classDef bug   fill:#7a1f1f,stroke:#ff6b6b,color:#fff,stroke-width:3px
+    classDef path  fill:#2b2b2b,stroke:#c8e840,color:#fff
+    classDef q     fill:#1f3a4a,stroke:#7fc7e8,color:#fff
+    classDef hdr   fill:#000,stroke:#f5c842,color:#f5c842,stroke-width:2px
