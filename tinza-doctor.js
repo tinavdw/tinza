@@ -1053,6 +1053,71 @@ p('       is the wall for that second door. ⚖️ Law 20 — her question may b
   }
 }
 
+head('20 · IS A LEDGER SITTING IN THE REPO ROOT?  (10 Aug — MF179, the dead watcher)');
+p('  \x1b[2m    A ledger in the ROOT is not a harmless duplicate. `merge.js:348` and `priceledger.js:41`');
+p('       both resolve to \x1b[0m\x1b[2mreference/\x1b[0m\x1b[2m, so a root copy is READ BY NOTHING. It goes stale in silence and');
+p('       then reads like a healthy file to the next person who opens it. This already happened:');
+p('       for one deploy both ledgers were pushed to the root, merge.js could not find its own');
+p('       record, and it printed "first entry — baselining" in GREEN while every merge in that');
+p('       window ran with NO count-and-hash gate. ⚖️ Law 42 — the bugs do not stop, the walls');
+p('       get higher. Same family as the ungated tierBar: the hole was invisible because');
+p('       ABSENCE LOOKED NORMAL.\x1b[0m');
+{
+  // ⚖️ THE PATHS ARE READ FROM THE TOOLS, NEVER COPIED. Same law as rungs 15, 17 and 19: a
+  //    checker holding its own copy of the contract is a SECOND contract, and it drifts. If
+  //    someone re-points merge.js at a different folder, this rung follows it automatically.
+  const owners = [
+    { tool: 'merge.js',       re: /LEDGER_PATH\s*=\s*path\.join\(__dirname,\s*'([^']+)',\s*'([^']+)'\)/ },
+    { tool: 'priceledger.js', re: /LEDGER\s*=\s*path\.join\(REPO,\s*'([^']+)',\s*'([^']+)'\)/ }
+  ];
+  const expected = [];   // [{ file, dir, tool }]
+  const unreadable = [];
+  for (const o of owners) {
+    let src = null;
+    try { src = fs.readFileSync(path.join(ROOT, o.tool), 'utf8'); } catch (e) { unreadable.push(o.tool); continue; }
+    const m = o.re.exec(src);
+    if (m) expected.push({ file: m[2], dir: m[1], tool: o.tool });
+    else unreadable.push(o.tool + ' (path line not found)');
+  }
+
+  const strays = [];
+  for (const e of expected) {
+    if (fs.existsSync(path.join(ROOT, e.file))) {
+      let extra = '';
+      // If the live copy exists too, say WHICH is bigger — a stray that is AHEAD means an edit
+      // landed in the dead file and must be rescued, not deleted. Different bug, different fix.
+      const livePath = path.join(ROOT, e.dir, e.file);
+      try {
+        const rootB = fs.statSync(path.join(ROOT, e.file)).size;
+        const liveB = fs.statSync(livePath).size;
+        extra = '  (root ' + rootB + ' B vs ' + e.dir + '/ ' + liveB + ' B' +
+                (rootB > liveB ? ' — ⚠️ ROOT IS BIGGER, DIFF BEFORE YOU DELETE ANYTHING' : '') + ')';
+      } catch (err) { extra = '  (⚠️ and ' + e.dir + '/' + e.file + ' is MISSING — the root copy may be the only one)'; }
+      strays.push(e.file + '  → belongs in ' + e.dir + '/, read by ' + e.tool + extra);
+    }
+  }
+
+  if (strays.length) {
+    fail(strays.length + ' LEDGER FILE(S) IN THE REPO ROOT',
+      '\n      \x1b[2mNothing reads these. The tool that owns each one resolves to the folder named' +
+      '\n      beside it, so the root copy is a DECOY: it can go stale, or worse, receive an edit' +
+      '\n      that then never reaches the live file. Move it, or delete it — but DIFF IT FIRST.\x1b[0m', strays);
+  } else {
+    pass('No ledger .json in the repo root',
+         expected.length + ' ledger path(s) read live from ' + expected.map(e => e.tool).join(' + '));
+  }
+
+  // ⚠️ SAY WHAT IS NOT MEASURED, EVERY RUN. A rung that silently checks fewer files than it
+  //    implies is the confidence-manufacturing shape this whole rung exists to punish.
+  if (unreadable.length) {
+    warn('Could not read a ledger path from ' + unreadable.length + ' tool(s)',
+         'this rung is NOT gating them', unreadable);
+  }
+  p('  \x1b[2m    ⚠️ FLOOR, NOT A TOTAL: this checks the ROOT only, and only for the ledgers whose path' +
+    '\n       it could read out of a tool. A ledger copy dropped in Tools/, standards/ or Archive/' +
+    '\n       would PASS THIS RUNG.\x1b[0m');
+}
+
 // ── VERDICT ──────────────────────────────────────────────────────────────
 p('\n' + '═'.repeat(66));
 if (RED.length === 0) {
