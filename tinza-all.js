@@ -56,6 +56,13 @@ const STANDARDS = [
   // watcher existed since 30 Jul and was never wired here, so it was never run. `--ask lamb`
   // was ALSO returning a false negative against fourteen live lamb keys. Both fixed 2 Aug.
   { trig: '/price', file: 'reference/PRICE_LEDGER.json',     asks: 'Has she given this already?',tool: 'priceledger.js' },
+  // ── ADDED 10 Aug 2026, AFTER COUNTING THE RECORD ──
+  // ⚖️ /ask — the twelve-instance count. /price gates the FILE; nothing gated the
+  // SENTENCE. On 10 Aug both /price and its relatedKeys fix passed clean, `shallots`
+  // R60 was live, the maizena ruling was on the record, and the handback asked her
+  // for all three anyway. A question is a claim that the record does not answer it,
+  // so the question gets checked before it is sent. Takes a draft, not a country.
+  { trig: '/ask',   file: 'tinza-askcheck.js',               asks: 'Has she answered this already?', tool: 'tinza-askcheck.js' },
   // ⚖️ /claim — every other standard measures NUMBERS. Two fabricated SENTENCES shipped into
   // one record on 2 Aug and nothing in the repo could see either.
   { trig: '/claim', file: 'claimcheck.js',                   asks: 'Is this sentence TRUE?',     tool: 'claimcheck.js' }
