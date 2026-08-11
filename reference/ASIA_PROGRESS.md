@@ -13,7 +13,7 @@
 | Japan | 50 | **50** ✅ closed | `sections/wk_japan.js` | ✅ wired |
 | Indonesia | 50 | **42** ✅ closed *(A1: 50 is a target, not a gate)* | `sections/wk_indonesia.js` | ✅ wired |
 | Thailand | 50 | **38** ✅ closed | `sections/wk_thailand.js` | ✅ wired |
-| Vietnam | 50 | **25** ▶️ active | `sections/wk_vietnam.js` | ✅ wired |
+| Vietnam | 50 | **26** ▶️ active | `sections/wk_vietnam.js` | ✅ wired |
 | **TOTAL** | **250** | **205** | | |
 
 Next lane after Asia: **South America.**

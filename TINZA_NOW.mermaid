@@ -1,73 +1,59 @@
-%% TINZA_NOW — board as at 5 Aug 2026, end of session
-%% HEAD 319bf91 · vietnam 11/50 · doctor RED 10 · lawcheck 0 red 0 drift
+%% TINZA_NOW — board as at 11 Aug 2026
+%% Measured on a fresh clone. Base HEAD f348490 (10 Aug 17:43).
+%% wk_vietnam.js counted with node AFTER this merge: 26 records · 78 versions.
+%% Replaces the 5 Aug board, which read "vietnam 11/50" — stale by 15.
 
 flowchart TD
 
-  START["🩺 5 AUG 2026<br/>HEAD 319bf91 · vietnam 11/50 · 33 versions<br/>doctor RED 10 · lawcheck 0/0<br/>MF159 c1 SHIPPED · MF161 c1+c2 ready"]
+  START["🩺 11 AUG 2026 · base HEAD f348490<br/>Vietnam 26/50 · 78 versions (node-counted)<br/>doctor RED 10 · lawcheck DRIFT 6 · unchanged<br/>ledger baselined 26 · fef2c32bd212feff"]
 
-  START --> SHIPPED
+  START --> DONE
+  START --> RED
   START --> OPEN
-  START --> WRITTEN
   START --> PARKED
 
-  subgraph SHIPPED["✅ SHIPPED TODAY"]
-    S1["MF159 c1 · wkPriceLookup reads PRICE_ALIAS last<br/>MOVED=0 · absent 42→40 · exact 160→162<br/>bare lamb left the ABSENT list"]
-    S2["splitreport.js · 118 split lines · born-RED 24/24"]
-    S3["briefs filed to reference/ · lambreport.js to root"]
+  subgraph DONE["✅ THIS SESSION"]
+    D1["vietnam-cha-lua RE-AUTHORED and merged · 25 + 1 = 26<br/>3 versions · costPP R14 all three, engine-derived<br/>pricecheck 8 exact · 0 wrong · 0 absent"]
+    D2["lead = ISOELECTRIC POINT · greenfield, 0 corpus hits<br/>MF178 §2 myosin/emulsion lead STRUCK — 49 emulsion,<br/>10 myosin hits already in the corpus"]
+    D3["MF178 struck: pork shoulder ABSENT to pork whole neck R110 ·<br/>banana leaves ABSENT, method only · baking powder to<br/>bicarbonate of soda 0.5g · servings 8 to 1 · ice to 10ml water"]
+    D4["board rewritten · ASIA_PROGRESS Vietnam 25 to 26"]
+    D1 --> D2 --> D3
   end
 
-  subgraph WRITTEN["📋 WRITTEN, NOT YET RUN"]
-    W1["MF158 · season sweep · 8 fixes, 5 red-lined<br/>smallest, safest, good warm-up"]
-    W2["MF160 v2 · §39 THE BORDER RULE<br/>30 availability claims · 14 rand figures<br/>v1 STRUCK — do not read it"]
-    W3["MF161 · WK_NOT_A_MAIN · 15 records move<br/>⚠️ §0 deflation half STRUCK — soups are<br/>course:starter, never called wkClassifyMain<br/>⚠️ §5.1 proof STRUCK — Chongqing R521→R579, RISES"]
-    W4["MF162 · leftovers deriver + Jan Braai<br/>🔴 DEPENDS ON MF161 c1 BEING IN THE TREE"]
+  subgraph RED["🔴 WRONG ON LIVE RIGHT NOW"]
+    R1["§38 ruled water chestnuts R275 est · prices.js says R152"]
+    R2["§38 ruled bamboo shoots R220 est · prices.js says R136"]
+    R3["affected cards cost ~45% LIGHT · §30.5 broken-promise direction"]
+    R1 --> R3
+    R2 --> R3
   end
 
-  subgraph OPEN["🔴 OPEN — NO BRIEF YET"]
-    O1["STOCK-GUARD · 18 lines<br/>cold chicken stock bills R90 as a WHOLE CHICKEN<br/>in the trolley TODAY · card is right, LIST is wrong<br/>fix belongs in the plan/shopping path"]
-    O2["SINGULAR→PLURAL · 13 lines<br/>shallot orange clove pistachio<br/>priceOf tries it, wkPriceLookup does not"]
-    O3["§3j substring debt · 24 aliases DISAGREE<br/>bread flour→bread R18 · dried plums→plums R40"]
-    O4["pricecheck COUNTRIES covers 6 of 12 wk files<br/>+ FR_SAUCES array never read by ANY tool"]
-    O5["starter-pool numbers · hot&sour 8g pork / 60ml stock<br/>soupe a l'oignon 51.4ml stock pp<br/>NOT the anchor — wkPoolBase('starter')=60"]
-    O6["skopo + soupe a l'oignon read 'cost: not yet priced'<br/>on browse while showing full ingredients"]
-    O7["two copies of the array-discovery loader<br/>splitreport.js + anchorreport.js — merge to one"]
-    O8["ayam-tangkap 'north-facing wall'<br/>sunny in Pretoria, SHADED in Stockholm<br/>no grep will ever find it — judgement"]
+  subgraph OPEN["📋 OPEN — CARRIED"]
+    O1["Thailand ledger drift · file 38 · ledger 30<br/>next Thailand merge will REFUSE to write · MF181 shape"]
+    O2["Vietnam hash drift was ALREADY at base HEAD before any write.<br/>Count matched 25, content moved since MF181.<br/>Benign read: a prose edit committed without a merge.<br/>Re-baselined by this merge at 26."]
+    O3["MF182 · banh tet · brief written, blockers cleared · NEXT RECORD"]
+    O4["MF183 · doctor rung 21 · written, NOT built"]
+    O5["MF152 · still missing: chicken thighs · pork loin · fried shallots"]
+    O6["Law 64 cited in SPLIT_STANDARD.md, never defined in TINZA_LAW.md"]
+    O7["MAKEABLE 3 call sites · 73 ghost cards<br/>Kiddies x6 · SA Fable S3 · §2.5 six held dishes"]
+    O8["FABLE_PROGRESS gate says doctor <= 9 · it is 10 — yours to rule"]
+    O9["eggplant R43 and brinjal R43 both live, one product"]
   end
 
-  subgraph PARKED["🅿️ PARKED — CORRECTLY"]
-    P1["MF153 · 154 · 155 · 156 · 157"]
-    P2["Thailand 7 anchors · 30-stale merge refusal"]
-    P3["root-path startup guard"]
-    P4["§2.5 merge unrun — 7 SA dishes held"]
-    P5["Vietnam record 12 — floor MET at 11"]
-    P6["Northern Ireland 12 pre-standard records"]
-    P7["pu-phad §37 defect — both forks, own pass"]
+  subgraph PARKED["🅿️ PARKED"]
+    P1["Kiddies: 12 theme cakes icing naming · cooldrink 400ml/kid ·<br/>Treasure Chest sandwiches · Malva Pudding Bites photo"]
+    P2["MF141 · boerekos-sosaties duplicate"]
+    P3["South America lane — after Asia closes"]
   end
 
-  subgraph SCAR["🩸 THE PATTERN — ONE NOUN, FOUR ENGINES"]
-    C1["wkPriceLookup · stock → whole chicken R90"]
-    C2["wkClassifyMain · tallow → portion anchor"]
-    C3["shopping path · stock over-billed"]
-    C4["wkLeftoverKeys · broth → beef leftovers"]
-    C5["⚖️ EVERY ONE FOUND BY TINA LOOKING AT A CARD<br/>NEVER BY A WATCHER"]
-    C1-->C5
-    C2-->C5
-    C3-->C5
-    C4-->C5
+  subgraph NEXT["🔜 THE ORDER"]
+    X1["1 · PUSH THIS · Vietnam 26 is only on Tina's device until then"]
+    X2["2 · §38 price application · costcheck 5 countries before and after"]
+    X3["3 · Thailand ledger rebaseline"]
+    X4["4 · Vietnam B7 · banh tet (MF182) to 27, on toward 50"]
+    X1 --> X2 --> X3 --> X4
   end
 
-  subgraph MYERRORS["⚠️ MY BAD MEASUREMENTS TODAY — 5 logged"]
-    E1["shop names: reported 5, actual 0<br/>Makro inside Makroudh · Spar inside Spare Ribs"]
-    E2["availability: reported 9, then 473, actual 30"]
-    E3["SPLIT_121: orange zest 4→3, vanilla 10→8<br/>real number 118"]
-    E4["MF161 deflation: invented the cause<br/>read one function, never followed the call path"]
-    E5["'wrong version' on Chongqing — lamb is in the BASE"]
-    E6["⚖️ RUNG: report a probe's DESIGN before its COUNT"]
-  end
-
-  classDef red fill:#f0d0d0,stroke:#9c3a3a,color:#3a1a1a
-  classDef done fill:#c8e840,stroke:#46530c,color:#26300c
-  classDef warn fill:#f5c842,stroke:#876213,color:#2a2416
-  class O1,C5 red
-  class S1,S2,S3 done
-  class E6 warn
+  DONE --> X1
+  RED --> X2
+  OPEN --> X3
