@@ -90,7 +90,7 @@ not forgiving.
 | 8 g | salt | `salt` |
 | 5 g | baking powder | `baking powder` |
 | 3 g | white pepper | `white pepper` ⚠️ **not** `pepper` — §8f substring risk, verify it resolves |
-| 2 | banana leaves | `banana leaves` ⚠️ Tina says this was priced already — `--ask` confirms, do not re-ask her |
+| — | ⛔ **banana leaves — STRUCK 11 Aug 2026. NEVER AN INGREDIENT LINE.** GENUINELY ABSENT from prices.js and the ledger; mis-resolves to `banana` R32/kg — a LEAF priced as FRUIT, which pricecheck reports as **exact**. Ruled 30 Jul (prices.js:1693): not sold here, garden trees are common, so there is no store route and no cost. **Method only.** See MF182 §0a. |
 
 ⚠️ **PRICE RESOLUTION IS A PRE-MERGE STEP.** Run `pricecheck.js` on the batch file. Every line
 must come back **exact**, not merely present. §8f: a longer written name resolving to a shorter
