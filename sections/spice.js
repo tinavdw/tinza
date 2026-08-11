@@ -7807,6 +7807,31 @@ var SPICE_DB = [
     }
   ]
 }
+,
+  {
+    id: "mung-bean-paste", emoji: "🟡",
+    name: "Mung Bean Paste",
+    type: "paste",
+    shelf: "sauces",
+    region: "Vietnam",
+    flavourChips: ["Earthy", "Warm", "Aromatic"],
+    whenToUse: "mid",
+    makeYourOwn: {
+      yield: { mode: "batch", unit: "g", base: 300, step: 100, label: "filling for 2 logs" },
+      ingredients: [
+        { qty: 200, unit: "g",  name: "mung beans" },
+        { qty: 40,  unit: "g",  name: "shallots" },
+        { qty: 20,  unit: "ml", name: "sunflower oil" },
+        { qty: 3,   unit: "g",  name: "salt" },
+        { qty: 2,   unit: "g",  name: "black pepper" }
+      ],
+      method: "Soak the mung beans in plenty of cold water for at least 6 hours, or overnight. They roughly double, so give them room and enough water to stay covered. Drain them well. Steam or simmer the drained beans until a bean crushes to nothing between two fingers — about 25 minutes simmered, 35 steamed. Steaming gives a drier bean and a stiffer finished paste, which is what you want for a filling; simmering is quicker and needs a longer drying-off at the end. Drain hard and let the steam come off them for a few minutes. Slice the shallots thinly and fry them gently in the oil until soft, sweet and just beginning to colour at the edges — this is the difference between a paste that tastes of beans and one that tastes of something. Add the hot drained beans, the salt and the black pepper, and mash the lot together while it is still hot, because the starch cooperates warm and goes gluey and stubborn cold. Keep it on low heat and keep working it until the paste pulls away from the base of the pan in one mass and holds the shape of the spoon. That stiffness is the whole point of the exercise: a wet paste travels during a long boil and ends up off-centre in the slice, while a stiff one rolls into a rope that stays where you put it. Cool it completely before it goes anywhere near rice. For the sweet version — the one that fills mooncakes, buns and pastries rather than a savoury log — leave out the shallots, the pepper and the salt, and cook the mashed beans down with 60g sugar and an extra 20ml oil, added in two goes, stirring until it is glossy and pulls cleanly from the pan. It stiffens noticeably as it cools, so stop while it still looks a shade softer than you want it. ⚖️ Keeps 5 days in the fridge in a closed container, or 3 months frozen — freeze it rolled into a rope in baking paper and it thaws ready to use."
+    },
+    pairsWith: ["Bánh Tét", "Xôi Xéo", "steamed buns", "sticky rice"],
+    aliases: ["mung bean paste", "mung-bean-paste", "dau xanh", "sweet mung bean paste", "mung bean filling"],
+    story: "Ready-made mung bean paste is uncommon on ordinary supermarket shelves here, which is exactly why it is worth a card of its own — the raw beans are stocked everywhere and the paste is an afternoon of soaking and twenty minutes of work. It is not the same thing as red bean paste, which is sweet azuki for desserts; two products sharing three words, and swapping one for the other will not work in either direction.",
+    howThisFeels: "The moment it stops being wet beans and pulls away from the pan in one piece."
+  }
 ];
 
 if (typeof window !== "undefined") window.SPICE_DB = SPICE_DB;

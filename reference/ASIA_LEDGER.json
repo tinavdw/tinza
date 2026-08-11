@@ -26,10 +26,10 @@
       "lastBatch": "batch30.js"
     },
     "vietnam": {
-      "records": 27,
-      "hash": "ede0863fa91fe7ce",
+      "records": 28,
+      "hash": "2eeceef03cbd872f",
       "updated": "2026-08-11",
-      "lastBatch": "vietnam-batch7b.js"
+      "lastBatch": "vietnam-batch7c.js"
     }
   }
 }

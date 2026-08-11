@@ -3752,6 +3752,7 @@ function methodStep(i, text, timerLabel){
 var GOESWITH_LINKS = {
   // → Spice recipes (safe: universal dispatch via RECIPE_SOURCES.spice / openSpiceRecipe)
   'pesto':                      "openSpiceRecipe('basil-pesto')",
+  'mung bean paste':            "openSpiceRecipe('mung-bean-paste')",
   'sambal':                     "openSpiceRecipe('carrot-sambal')",
   'blatjang (apricot chutney)': "openSpiceRecipe('apricot-chutney')",
   'apricot chutney':            "openSpiceRecipe('apricot-chutney')",
