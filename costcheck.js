@@ -54,7 +54,8 @@ const COUNTRIES = {
   japan:     { varName: 'WK_JAPAN',     file: 'wk_japan.js' },
   indonesia: { varName: 'WK_INDONESIA', file: 'wk_indonesia.js' },
   thailand:  { varName: 'WK_THAILAND',  file: 'wk_thailand.js' },
-  vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' }
+  vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' },
+  philippines: { varName: 'WK_PHILIPPINES', file: 'wk_philippines.js' }
 };
 
 // ── THE SCORER — pure, so the selftest can feed it without touching a file ────

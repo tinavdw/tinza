@@ -42,7 +42,7 @@ const { spawnSync } = require('child_process');
 
 const ROOT = __dirname;
 
-/* THE EIGHT. Canonical source is CLAUDE.md §11 "THE STANDARDS".
+/* THE NINE. Canonical source is CLAUDE.md §11 "THE STANDARDS".
    `tool` null = no mechanical watcher exists, and we say so out loud. */
 const STANDARDS = [
   { trig: '/law',   file: 'TINZA_LAW.md',                    asks: 'How do we work?',            tool: 'tinza-lawcheck.js' },
@@ -65,7 +65,12 @@ const STANDARDS = [
   { trig: '/ask',   file: 'tinza-askcheck.js',               asks: 'Has she answered this already?', tool: 'tinza-askcheck.js' },
   // ⚖️ /claim — every other standard measures NUMBERS. Two fabricated SENTENCES shipped into
   // one record on 2 Aug and nothing in the repo could see either.
-  { trig: '/claim', file: 'claimcheck.js',                   asks: 'Is this sentence TRUE?',     tool: 'claimcheck.js' }
+  { trig: '/claim', file: 'claimcheck.js',                   asks: 'Is this sentence TRUE?',     tool: 'claimcheck.js' },
+  // ── ADDED 12 Aug 2026, ON TINA'S INSTRUCTION ──
+  // ⚖️ /global — one bar for EVERY country, SA to Sweden. Recipe quality (the Adventure Rule),
+  // variations, leftover suggestions, goesWell, YouTube links, timer markup, pricing verification,
+  // regional-dish accessibility, batch size. Pure judgement — no mechanical watcher.
+  { trig: '/global', file: 'standards/GLOBAL_STANDARDS.md',  asks: 'One bar for every country?', tool: null }
 ];
 
 const [country, batch] = process.argv.slice(2);
