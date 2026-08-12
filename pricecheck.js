@@ -37,6 +37,10 @@ const COUNTRIES = {
   indonesia: { varName: 'WK_INDONESIA', file: 'wk_indonesia.js' },
   thailand:  { varName: 'WK_THAILAND',  file: 'wk_thailand.js' },
   vietnam:   { varName: 'WK_VIETNAM',   file: 'wk_vietnam.js' },
+  // 🆕 ADDED 12 Aug 2026 — Philippines lane opens with batch 1 (4 records: adobo, sinigang,
+  //    lechon kawali, halo-halo). Wired here so pricecheck covers the file from record 1 —
+  //    the `sago` lesson: a file outside the list is a file outside every price watcher.
+  philippines: { varName: 'WK_PHILIPPINES', file: 'wk_philippines.js' },
   // 🆕 ADDED 1 Aug 2026. ⚖️ THIS FILE WAS NEVER IN THE LIST, AND THAT IS WHY `sago` WAS ABSENT
   // FROM prices.js WHILE A SHIPPED RECORD USED IT. 131 SA records sat outside every price
   // watcher — pricecheck, and therefore coverage — since the day this tool was written.

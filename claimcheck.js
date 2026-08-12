@@ -49,6 +49,7 @@ const COUNTRIES = {
   indonesia:   { varName: 'WK_INDONESIA',   file: 'wk_indonesia.js' },
   thailand:    { varName: 'WK_THAILAND',    file: 'wk_thailand.js' },
   vietnam:     { varName: 'WK_VIETNAM',     file: 'wk_vietnam.js' },
+  philippines: { varName: 'WK_PHILIPPINES', file: 'wk_philippines.js' },
   southafrica: { varName: 'WK_SOUTHAFRICA', file: 'wk_southafrica.js' }
 };
 

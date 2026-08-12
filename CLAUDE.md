@@ -117,6 +117,7 @@ every session, to do the wrong thing.* **It carries no rulings any more. It POIN
 | **`/wow`** | `standards/WOW_STANDARD.md` | Is this recipe good enough? | `wowcheck.js` |
 | **`/tinza`** | `standards/TINZA_STANDARD.md` | Does this sound like Tinza? | `tinza-echo.js` |
 | **`/wk`** | `standards/TINZA_WK_STANDARD.md` | World Kitchen content. | `wowcheck.js` |
+| 🌍 **`/global`** | `standards/GLOBAL_STANDARDS.md` | One bar for EVERY country — SA to Sweden. | — judgement |
 | ⭐ **`/all`** | **ALL SIX AT ONCE** ⚖️ Law 62 | Everything. Read them, then work. | `tinza-all.js` |
 
 **A World Kitchen card is NOT DONE until `/wow` AND `/wk` have both been RUN.**
@@ -146,7 +147,7 @@ Images/  netlify/
 | **`sections/`** | every `wk_*.js`, `prices.js`, `packs.js`, `core.js`, `worldkitchen.js`, every section `.js` |
 | **REPO ROOT** | `index.html`, `netlify.toml`, and **every tool**: `merge.js`, `merge-selftest.js`, `pricecheck.js`, `priceledger.js`, `costcheck.js`, `claimcheck.js`, `wowcheck.js`, `unitcheck.js`, `anchorreport.js`, `lambreport.js`, `splitreport.js`, `tinza-all.js`, `tinza-census.js`, `tinza-doctor.js`, `tinza-echo.js`, `tinza-lawcheck.js`, `tidy-repo.sh` |
 | **`reference/`** | `ASIA_LEDGER.json`, `PRICE_LEDGER.json`, `ASIA_PROGRESS.md`, `ASIA_SCHEMA_KEYS.json`, all `MF*` briefs, all cold-starts, all paste-in blocks |
-| **`standards/`** | `WOW_STANDARD.md`, `TINZA_WK_STANDARD.md`, `TINZA_STANDARD.md`, `BUG_STANDARD.md` (+ the other standards) |
+| **`standards/`** | `WOW_STANDARD.md`, `TINZA_WK_STANDARD.md`, `TINZA_STANDARD.md`, `BUG_STANDARD.md`, `GLOBAL_STANDARDS.md` (+ the other standards) |
 | **`Archive/`** | superseded docs. **Never read as current.** *(It is where R50 went to die.)* |
 
 🩸 **THE TOOLS LIVE IN THE ROOT** — they resolve paths off `__dirname`. Move one into a folder and

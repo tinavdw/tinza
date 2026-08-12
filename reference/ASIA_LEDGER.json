@@ -30,6 +30,12 @@
       "hash": "2eeceef03cbd872f",
       "updated": "2026-08-11",
       "lastBatch": "vietnam-batch7c.js"
+    },
+    "philippines": {
+      "records": 43,
+      "hash": "291c7ec128e65267",
+      "updated": "2026-08-12",
+      "lastBatch": "batch14.js"
     }
   }
 }
