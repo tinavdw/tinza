@@ -55,7 +55,7 @@ function worldKitchenHTML(){
 
 /* Combined recipe pool from the data modules. */
 function wkPool(){
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_KOREA || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
 }
 
 /* country -> [continent, region] using the UN geoscheme.
@@ -76,7 +76,7 @@ var WK_COUNTRY_GEO = {
   "Poland":["Europe","Eastern Europe"], "Ukraine":["Europe","Eastern Europe"], "Russia":["Europe","Eastern Europe"],
   "Hungary":["Europe","Eastern Europe"], "Turkey":["Europe","Eastern Europe"], "Georgia":["Europe","Eastern Europe"],
   "India":["Asia","Southern Asia"], "Pakistan":["Asia","Southern Asia"], "Sri Lanka":["Asia","Southern Asia"],
-  "China":["Asia","Eastern Asia"], "Japan":["Asia","Eastern Asia"],
+  "China":["Asia","Eastern Asia"], "Japan":["Asia","Eastern Asia"], "Korea":["Asia","Eastern Asia"],
   "Indonesia":["Asia","South-eastern Asia"], "Philippines":["Asia","South-eastern Asia"], "Thailand":["Asia","South-eastern Asia"], "Vietnam":["Asia","South-eastern Asia"],
   "Cape Malay":["Africa","Southern Africa"], "Indian":["Africa","Southern Africa"], "Zulu":["Africa","Southern Africa"],
   "Sotho":["Africa","Southern Africa"], "Xhosa":["Africa","Southern Africa"], "Boerekos":["Africa","Southern Africa"]

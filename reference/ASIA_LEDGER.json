@@ -32,10 +32,16 @@
       "lastBatch": "vietnam-batch7c.js"
     },
     "philippines": {
-      "records": 43,
-      "hash": "291c7ec128e65267",
-      "updated": "2026-08-12",
-      "lastBatch": "batch14.js"
+      "records": 50,
+      "hash": "b5aa198f134a2261",
+      "updated": "2026-08-13",
+      "lastBatch": "empty.js"
+    },
+    "malaysia": {
+      "records": 50,
+      "hash": "8f13ffc3de33dc88",
+      "updated": "2026-08-13",
+      "lastBatch": "empty10.js"
     }
   }
 }

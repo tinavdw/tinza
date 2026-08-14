@@ -13756,7 +13756,7 @@ var BAKES_RECIPES = [
 
   // ── 🇵🇹 PORTUGUESE ROLL (11 Jul — the prego roll finally has a recipe) ──
   {id:'bk-portuguese-roll', slot:'SIDE', cat:'breads', name:'Portuguese Roll (Papo Seco)', emoji:'🥖', cuisine:'Portuguese', time:165, costPP:3,
-    photoName:'Portuguese Roll', freezes:true, fridgeDays:1,
+    freezes:true, fridgeDays:1,
     feel:"A crust so thin and brittle it shatters under your thumb, a deep split down the back like a seam that burst in the oven, and inside — soft, white, faintly chewy, and completely empty of anything sweet. This is a roll built to carry something. It is waiting for the steak.",
     didYouKnow:"Papo seco means 'dry crop' — the pouch in a bird's throat, which is exactly what the split, puffed roll looks like. In Lisbon they call it a carcaça. It is a LEAN dough, and that is the whole point: no milk, no butter, no egg. Where a soft dinner roll is enriched into a pillow, the papo seco is flour, water, salt and yeast, baked hot in steam so the crust goes glassy and thin. The Portuguese who came to South Africa from Madeira and Mozambique brought it with them, and it became the roll that carries the prego — because a soft roll would collapse under the garlic butter and the steak juices, and this one drinks them and holds.",
     ingredients:[

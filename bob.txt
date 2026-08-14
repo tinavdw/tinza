@@ -1,0 +1,1 @@
+13215:  {id:'sp-bobotie', equipment:[{n:'23×33cm (9×13″) ovenproof dish',per:6,soft:true}], cat:'ovenbakes', goesWith:['Yellow rice','Apricot chutney','Banana sambal','Carrot sambal'], diet:'meat', protein:'beef', name:'Classic Bobotie', emoji:'🍛', cuisine:'South African', time:75, costPP:34,
