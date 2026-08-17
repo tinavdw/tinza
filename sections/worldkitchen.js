@@ -44,27 +44,19 @@ function worldKitchenHTML(){
 
 
 
-/* ============================================================
+/* ====
    World Kitchen navigation (Jun 2026)
    Continent -> Region -> Country -> Recipe, driven by the
    WK_AFRICA / WK_EUROPE data files.
    (Old dead path -- wkSAKitchensHTML / wkCountryHTML /
    wkRecipeDetailHTML / COUNTRY_RECIPES / initWKMap / the SVG
    map -- removed 11 Jun 2026 in the cleanup session.)
-   ============================================================ */
+   ==== */
 
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
->>>>>>> b576a38a234fe18033a5a2759a23e0d755658e70
-}
 /* Combined recipe pool from the data modules. */
 function wkPool(){
   return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_KOREA || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
 }
-=======
-  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
->>>>>>> b576a38a234fe18033a5a2759a23e0d755658e70
-}
-
 /* country -> [continent, region] using the UN geoscheme.
    Grouping is by COUNTRY, so the data's own cuisine tags don't
    need to match — new recipes file themselves by country name. */
@@ -375,12 +367,12 @@ function wkDataCountryHTML(){
 }
 
 
-/* ============================================================
+/* ====
    Tinza — World Kitchen · Stage 2 engine  (appended to worldkitchen.js)
    v33 recipe detail · per-person serving stepper · partial PRICE_DB
    costing · "to taste" handling · SA substitutions · My Plan + shopping.
    Self-contained. No core.js dependency except recipePhoto() & set()/S.
-   ============================================================ */
+   ==== */
 
 /* ── SA substitution notes (handoff: niter kibbeh → ghee, etc.) ──
    Keyed by a lowercase substring that may appear in an ingredient name.
