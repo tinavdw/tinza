@@ -53,9 +53,16 @@ function worldKitchenHTML(){
    map -- removed 11 Jun 2026 in the cleanup session.)
    ============================================================ */
 
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
+>>>>>>> b576a38a234fe18033a5a2759a23e0d755658e70
+}
 /* Combined recipe pool from the data modules. */
 function wkPool(){
   return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_KOREA || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
+}
+=======
+  return [].concat(window.WK_AFRICA || [], window.WK_EUROPE || [], window.WK_WORLD || [], window.WK_SOUTHAFRICA || [], window.WK_FRANCE || [], window.WK_EUROPE_GERMANY || [], window.WK_EUROPE_NIRELAND || [], window.WK_CHINA || [], window.WK_JAPAN || [], window.WK_INDONESIA || [], window.WK_THAILAND || [], window.WK_VIETNAM || [], window.WK_PHILIPPINES || []);
+>>>>>>> b576a38a234fe18033a5a2759a23e0d755658e70
 }
 
 /* country -> [continent, region] using the UN geoscheme.
