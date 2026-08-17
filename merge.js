@@ -28,7 +28,8 @@ const COUNTRIES = {
   // ── ADDED 12 Aug 2026 — Philippines lane opens with batch 1 (4 records: adobo, sinigang,
   //    lechon kawali, halo-halo). Same one-line-per-country rule: the gate should know the
   //    lane exists before the first record tries to merge.
-  philippines: { country: 'Philippines', cuisine: 'southeast-asia', varName: 'WK_PHILIPPINES', file: 'wk_philippines.js', idPrefix: 'philippines-' }
+  philippines: { country: 'Philippines', cuisine: 'southeast-asia', varName: 'WK_PHILIPPINES', file: 'wk_philippines.js', idPrefix: 'philippines-' },
+  malaysia: { country: 'Malaysia', cuisine: 'southeast-asia', varName: 'WK_MALAYSIA', file: 'wk_malaysia.js', idPrefix: 'malaysia-' }
 };
 
 const DIET_VOCAB = ['omnivore', 'vegetarian', 'vegan', 'unknown'];
