@@ -134,6 +134,14 @@ input[type=text], input[type=search] { -webkit-appearance: none; border-radius: 
   </div>
   <div id="cookModeSteps" style="padding-bottom:40px;"></div>
 </div>
+<!-- ── FIRST-VISIT HELLO ──────────────────────────────────────────────────
+     Shows once, ever, the very first time the app is opened — no tap, no
+     gate, no countdown. Fades itself out and never appears again after
+     that (utils.js sets the flag via tinzaStore — the one door, Law 6). -->
+<div id="tinzaHello" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;max-width:600px;margin:0 auto;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .4s ease;opacity:1;background:var(--bg);">
+  <div class="ttl" style="font-size:34px;color:var(--accent);margin-bottom:8px;">Tinza</div>
+  <div style="font-size:14px;color:var(--ink-soft);">Hello! Let's get cooking.</div>
+</div>
 <div id="root" role="main"></div>
 
 <!-- Load order matters: store → data → prices → core → utils → search → WK data → spice → sections -->
